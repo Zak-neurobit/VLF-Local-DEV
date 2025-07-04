@@ -21,15 +21,15 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
   const attorneys = [
     {
       id: 'william-vasquez',
-      name: 'William G. Vasquez',
+      name: 'William J. Vasquez',
       title: {
         en: 'Founding Partner',
         es: 'Socio Fundador',
       },
-      image: '/images/attorneys/william-vasquez.jpg',
+      image: '/images/attorneys/william-vasquez.HEIC',
       bio: {
-        en: 'William G. Vasquez is the founding partner of Vasquez Law Firm, PLLC. With over 20 years of experience, he has dedicated his career to fighting for the rights of immigrants, injured workers, and those facing criminal charges throughout North Carolina and Florida.',
-        es: 'William G. Vasquez es el socio fundador de Vasquez Law Firm, PLLC. Con más de 20 años de experiencia, ha dedicado su carrera a luchar por los derechos de inmigrantes, trabajadores lesionados y aquellos que enfrentan cargos criminales en Carolina del Norte y Florida.',
+        en: 'William J. Vasquez is the founding partner of Vasquez Law Firm, PLLC. Licensed since 2011, he has dedicated his career to fighting for the rights of immigrants, injured workers, and those facing criminal charges throughout North Carolina and Florida.',
+        es: 'William J. Vasquez es el socio fundador de Vasquez Law Firm, PLLC. Licenciado desde 2011, ha dedicado su carrera a luchar por los derechos de inmigrantes, trabajadores lesionados y aquellos que enfrentan cargos criminales en Carolina del Norte y Florida.',
       },
       specialties: {
         en: ['Immigration Law', 'Personal Injury', "Workers' Compensation", 'Criminal Defense'],
@@ -46,7 +46,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
         {
           degree: 'J.D.',
           school: 'North Carolina Central University School of Law',
-          year: '2003',
+          year: '2011',
         },
         {
           degree: 'B.A.',
@@ -60,17 +60,17 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
       id: 'adrianna-ingram',
       name: 'Adrianna Ingram',
       title: {
-        en: 'Immigration Attorney',
-        es: 'Abogada de Inmigración',
+        en: 'Family Law Attorney',
+        es: 'Abogada de Derecho Familiar',
       },
       image: '/images/attorneys/adriana-ingram.webp',
       bio: {
-        en: 'Adrianna Ingram focuses on immigration law with particular expertise in business immigration, helping employers and employees navigate the visa process.',
-        es: 'Adrianna Ingram se enfoca en derecho de inmigración con experiencia particular en inmigración empresarial, ayudando a empleadores y empleados a navegar el proceso de visa.',
+        en: 'Adrianna Ingram is an experienced family and criminal attorney who provides dedicated legal representation to protect your rights and family in every case.',
+        es: 'Adrianna Ingram es una abogada experimentada en derecho familiar y criminal que brinda representación legal dedicada para proteger sus derechos y familia en cada caso.',
       },
       specialties: {
-        en: ['Immigration Law', 'Business Immigration', 'H-1B Visas', 'Green Cards'],
-        es: ['Ley de Inmigración', 'Inmigración Empresarial', 'Visas H-1B', 'Tarjetas Verdes'],
+        en: ['Family Law', 'Criminal Defense', 'Divorce', 'Child Custody'],
+        es: ['Derecho Familiar', 'Defensa Criminal', 'Divorcio', 'Custodia de Menores'],
       },
       languages: ['English'],
       barAdmissions: ['North Carolina'],
@@ -91,17 +91,17 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
       id: 'christopher-afanador',
       name: 'Christopher Afanador',
       title: {
-        en: 'Criminal Defense Attorney',
-        es: 'Abogado de Defensa Criminal',
+        en: 'Immigration Attorney',
+        es: 'Abogado de Inmigración',
       },
       image: '/images/attorneys/christopher-afanador.jpg',
       bio: {
-        en: 'Christopher Afanador is a dedicated criminal defense attorney who fights tirelessly for clients facing criminal charges. He understands the serious immigration consequences of criminal convictions.',
-        es: 'Christopher Afanador es un dedicado abogado de defensa criminal que lucha incansablemente por clientes que enfrentan cargos criminales. Entiende las serias consecuencias migratorias de las condenas penales.',
+        en: 'Christopher Afanador is a dedicated immigration attorney who helps clients navigate the complex USCIS immigration process with expertise and compassion.',
+        es: 'Christopher Afanador es un dedicado abogado de inmigración que ayuda a los clientes a navegar el complejo proceso de inmigración de USCIS con experiencia y compasión.',
       },
       specialties: {
-        en: ['Criminal Defense', 'DWI Defense', 'Drug Charges', 'Immigration Consequences'],
-        es: ['Defensa Criminal', 'Defensa DWI', 'Cargos de Drogas', 'Consecuencias Migratorias'],
+        en: ['Immigration Law', 'USCIS Applications', 'Green Cards', 'Citizenship'],
+        es: ['Ley de Inmigración', 'Aplicaciones USCIS', 'Tarjetas Verdes', 'Ciudadanía'],
       },
       languages: ['English', 'Spanish'],
       barAdmissions: ['North Carolina'],
@@ -122,17 +122,17 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
       id: 'jillian-baucom',
       name: 'Jillian Baucom',
       title: {
-        en: 'Family Law Attorney',
-        es: 'Abogada de Derecho Familiar',
+        en: 'Immigration Attorney',
+        es: 'Abogada de Inmigración',
       },
       image: '/images/attorneys/jillian-baucom.jpg',
       bio: {
-        en: 'Jillian Baucom provides compassionate representation in family law matters, helping clients navigate divorce, custody, and support issues.',
-        es: 'Jillian Baucom brinda representación compasiva en asuntos de derecho familiar, ayudando a los clientes a navegar el divorcio, la custodia y los asuntos de manutención.',
+        en: 'Jillian Baucom is an experienced immigration attorney specializing in removal defense, dedicated to helping clients navigate the immigration process smoothly.',
+        es: 'Jillian Baucom es una abogada de inmigración experimentada especializada en defensa de deportación, dedicada a ayudar a los clientes a navegar el proceso de inmigración sin problemas.',
       },
       specialties: {
-        en: ['Family Law', 'Divorce', 'Child Custody', 'Alimony'],
-        es: ['Derecho Familiar', 'Divorcio', 'Custodia de Menores', 'Pensión Alimenticia'],
+        en: ['Immigration Law', 'Removal Defense', 'Deportation Defense', 'Immigration Court'],
+        es: ['Ley de Inmigración', 'Defensa de Deportación', 'Defensa de Remoción', 'Corte de Inmigración'],
       },
       languages: ['English', 'Spanish'],
       barAdmissions: ['North Carolina'],
@@ -153,35 +153,25 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
       id: 'roselyn-torrellas',
       name: 'Roselyn V. Torrellas',
       title: {
-        en: 'Immigration Paralegal',
-        es: 'Paralegal de Inmigración',
+        en: 'Immigration Attorney',
+        es: 'Abogada de Inmigración',
       },
       image: '/images/attorneys/roselyn-torrellas.jpg',
       bio: {
-        en: 'Roselyn V. Torrellas is an experienced immigration paralegal who assists attorneys in preparing immigration cases and supporting clients throughout their immigration journey.',
-        es: 'Roselyn V. Torrellas es una paralegal de inmigración con experiencia que ayuda a los abogados a preparar casos de inmigración y apoyar a los clientes durante su viaje de inmigración.',
+        en: 'Roselyn V. Torrellas is an experienced immigration attorney who provides dedicated legal representation at various locations in NC and other states.',
+        es: 'Roselyn V. Torrellas es una abogada de inmigración experimentada que brinda representación legal dedicada en varias ubicaciones en NC y otros estados.',
       },
       specialties: {
-        en: [
-          'Immigration Case Preparation',
-          'Client Support',
-          'Document Translation',
-          'Form Preparation',
-        ],
-        es: [
-          'Preparación de Casos de Inmigración',
-          'Apoyo al Cliente',
-          'Traducción de Documentos',
-          'Preparación de Formularios',
-        ],
+        en: ['Immigration Law', 'Family Immigration', 'Business Immigration', 'Deportation Defense'],
+        es: ['Ley de Inmigración', 'Inmigración Familiar', 'Inmigración Empresarial', 'Defensa de Deportación'],
       },
       languages: ['English', 'Spanish'],
-      barAdmissions: [],
+      barAdmissions: ['North Carolina'],
       education: [
         {
-          degree: 'Paralegal Certificate',
-          school: 'Central Piedmont Community College',
-          year: '2010',
+          degree: 'J.D.',
+          school: 'North Carolina Central University School of Law',
+          year: '2009',
         },
         {
           degree: 'B.A.',

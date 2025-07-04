@@ -1,332 +1,230 @@
 'use client';
 
 import { useState } from 'react';
-import { CreditCard, Lock, DollarSign, Building, AlertCircle } from 'lucide-react';
+import { CreditCard, Lock, DollarSign, ExternalLink, Building } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function PaymentPage() {
-  const [paymentMethod, setPaymentMethod] = useState<'authorize' | 'lawpay'>('lawpay');
-  const [accountType, setAccountType] = useState<'operating' | 'trust'>('operating');
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    clientName: '',
-    clientEmail: '',
-    amount: '',
-    description: '',
-    cardNumber: '',
-    expiryDate: '',
-    cvv: '',
-    zipCode: '',
-  });
+  const [language, setLanguage] = useState<'en' | 'es'>('en');
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const endpoint =
-        paymentMethod === 'lawpay' ? '/api/payment/lawpay' : '/api/payment/authorize-net';
-
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          amount: parseFloat(formData.amount),
-          trustAccount: accountType === 'trust',
-          paymentMethod: {
-            card_number: formData.cardNumber,
-            exp_month: formData.expiryDate.split('/')[0],
-            exp_year: formData.expiryDate.split('/')[1],
-            cvv: formData.cvv,
-            postal_code: formData.zipCode,
-          },
-        }),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        alert(`Payment successful! Transaction ID: ${result.transactionId || result.chargeId}`);
-        // Reset form
-        setFormData({
-          clientName: '',
-          clientEmail: '',
-          amount: '',
-          description: '',
-          cardNumber: '',
-          expiryDate: '',
-          cvv: '',
-          zipCode: '',
-        });
-      } else {
-        alert(`Payment failed: ${result.error}`);
-      }
-    } catch (error) {
-      alert('Payment error. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+  const content = {
+    en: {
+      title: 'Make a Payment',
+      subtitle: 'Secure payment processing for Vasquez Law Firm',
+      description: 'Make secure payments to Vasquez Law Firm through our trusted payment partner, LawPay.',
+      selectAccount: 'Select Account Type',
+      operating: {
+        title: 'Operating Account',
+        description: 'For earned legal fees and expenses',
+        buttonText: 'Pay to Operating Account',
+      },
+      trust: {
+        title: 'Trust Account',
+        description: 'For retainers and advance payments',
+        buttonText: 'Pay to Trust Account',
+      },
+      security: {
+        title: 'Secure Payment Processing',
+        description: 'Your payment information is encrypted and processed securely through LawPay, a trusted payment solution specifically designed for law firms.',
+      },
+      alternative: {
+        title: 'Alternative Payment Methods',
+        description: 'We also accept payments through:',
+        affirm: 'Affirm - Buy now, pay later options available',
+      },
+      contact: 'Questions about your payment? Call',
+      notice: 'You will be redirected to LawPay\'s secure payment portal',
+    },
+    es: {
+      title: 'Hacer un Pago',
+      subtitle: 'Procesamiento seguro de pagos para Vasquez Law Firm',
+      description: 'Realice pagos seguros a Vasquez Law Firm a través de nuestro socio de pago de confianza, LawPay.',
+      selectAccount: 'Seleccionar Tipo de Cuenta',
+      operating: {
+        title: 'Cuenta Operativa',
+        description: 'Para honorarios legales y gastos ganados',
+        buttonText: 'Pagar a Cuenta Operativa',
+      },
+      trust: {
+        title: 'Cuenta de Fideicomiso',
+        description: 'Para anticipos y pagos por adelantado',
+        buttonText: 'Pagar a Cuenta de Fideicomiso',
+      },
+      security: {
+        title: 'Procesamiento Seguro de Pagos',
+        description: 'Su información de pago está encriptada y procesada de forma segura a través de LawPay, una solución de pago confiable diseñada específicamente para bufetes de abogados.',
+      },
+      alternative: {
+        title: 'Métodos de Pago Alternativos',
+        description: 'También aceptamos pagos a través de:',
+        affirm: 'Affirm - Opciones de compre ahora, pague después disponibles',
+      },
+      contact: '¿Preguntas sobre su pago? Llame al',
+      notice: 'Será redirigido al portal de pago seguro de LawPay',
+    },
   };
+
+  const t = content[language];
+
+  // LawPay URLs from the old website
+  const lawpayOperatingUrl = 'https://secure.lawpay.com/pages/vasquezlawfirm/operating1';
+  const lawpayTrustUrl = 'https://secure.lawpay.com/pages/vasquezlawfirm/';
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-2xl mx-auto px-4">
+      <div className="max-w-4xl mx-auto px-4">
+        {/* Language Toggle */}
+        <div className="flex justify-end mb-4">
+          <div className="flex items-center gap-2 bg-white rounded-lg shadow-sm p-1">
+            <button
+              onClick={() => setLanguage('en')}
+              className={`px-3 py-1 text-sm rounded ${
+                language === 'en' 
+                  ? 'bg-[#6B1F2E] text-white' 
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLanguage('es')}
+              className={`px-3 py-1 text-sm rounded ${
+                language === 'es' 
+                  ? 'bg-[#6B1F2E] text-white' 
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              ES
+            </button>
+          </div>
+        </div>
+
         <div className="bg-white rounded-lg shadow-lg">
           {/* Header */}
           <div className="bg-[#6B1F2E] text-white p-6 rounded-t-lg">
-            <h1 className="text-2xl font-bold flex items-center">
-              <DollarSign className="w-6 h-6 mr-2" />
-              Make a Payment
+            <h1 className="text-3xl font-bold flex items-center">
+              <DollarSign className="w-8 h-8 mr-3" />
+              {t.title}
             </h1>
             <p className="text-sm mt-2 opacity-90">
-              Secure payment processing for Vasquez Law Firm
+              {t.subtitle}
             </p>
           </div>
 
-          {/* Payment Method Selection */}
-          <div className="p-6 border-b">
-            <label className="block text-sm font-medium text-gray-700 mb-3">
-              Select Payment Processor
-            </label>
-            <div className="grid grid-cols-2 gap-4">
-              <button
-                type="button"
-                onClick={() => setPaymentMethod('lawpay')}
-                className={`p-4 border-2 rounded-lg transition-all ${
-                  paymentMethod === 'lawpay'
-                    ? 'border-[#6B1F2E] bg-red-50'
-                    : 'border-gray-200 hover:border-gray-300'
-                }`}
-              >
-                <Building className="w-6 h-6 mx-auto mb-2 text-[#6B1F2E]" />
-                <span className="font-semibold">LawPay</span>
-                <p className="text-xs text-gray-500 mt-1">Trust & Operating Accounts</p>
-              </button>
+          {/* Main Content */}
+          <div className="p-8">
+            <p className="text-lg text-gray-600 mb-8">
+              {t.description}
+            </p>
 
-              <button
-                type="button"
-                onClick={() => setPaymentMethod('authorize')}
-                className={`p-4 border-2 rounded-lg transition-all ${
-                  paymentMethod === 'authorize'
-                    ? 'border-[#6B1F2E] bg-red-50'
-                    : 'border-gray-200 hover:border-gray-300'
-                }`}
-              >
-                <CreditCard className="w-6 h-6 mx-auto mb-2 text-[#6B1F2E]" />
-                <span className="font-semibold">Authorize.Net</span>
-                <p className="text-xs text-gray-500 mt-1">Standard Processing</p>
-              </button>
-            </div>
-
-            {/* Account Type for LawPay */}
-            {paymentMethod === 'lawpay' && (
-              <div className="mt-6">
-                <label className="block text-sm font-medium text-gray-700 mb-3">Account Type</label>
-                <div className="grid grid-cols-2 gap-4">
-                  <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
-                    <input
-                      type="radio"
-                      value="operating"
-                      checked={accountType === 'operating'}
-                      onChange={e => setAccountType(e.target.value as 'operating' | 'trust')}
-                      className="mr-3"
-                    />
-                    <div>
-                      <span className="font-medium">Operating Account</span>
-                      <p className="text-xs text-gray-500">For earned fees</p>
-                    </div>
-                  </label>
-
-                  <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
-                    <input
-                      type="radio"
-                      value="trust"
-                      checked={accountType === 'trust'}
-                      onChange={e => setAccountType(e.target.value as 'operating' | 'trust')}
-                      className="mr-3"
-                    />
-                    <div>
-                      <span className="font-medium">Trust Account</span>
-                      <p className="text-xs text-gray-500">For retainers</p>
-                    </div>
-                  </label>
-                </div>
-
-                {accountType === 'trust' && (
-                  <div className="mt-3 p-3 bg-blue-50 rounded-lg flex items-start">
-                    <AlertCircle className="w-5 h-5 text-blue-600 mr-2 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-blue-800">
-                      Trust account funds will be held in compliance with North Carolina State Bar
-                      rules and can only be withdrawn for earned fees or expenses.
-                    </p>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Payment Form */}
-          <form onSubmit={handleSubmit} className="p-6 space-y-4">
-            {/* Client Information */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Client Name</label>
-                <input
-                  type="text"
-                  required
-                  value={formData.clientName}
-                  onChange={e => setFormData({ ...formData, clientName: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
-                  placeholder="John Doe"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={formData.clientEmail}
-                  onChange={e => setFormData({ ...formData, clientEmail: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
-                  placeholder="john@example.com"
+            {/* LawPay Logo */}
+            <div className="flex justify-center mb-8">
+              <div className="bg-gray-50 p-6 rounded-lg">
+                <Image
+                  src="/images/lawpay-placeholder.svg"
+                  alt="LawPay"
+                  width={200}
+                  height={80}
+                  className="object-contain"
                 />
               </div>
             </div>
 
-            {/* Payment Details */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Payment Amount ($)
-                </label>
-                <input
-                  type="number"
-                  required
-                  min="1"
-                  step="0.01"
-                  value={formData.amount}
-                  onChange={e => setFormData({ ...formData, amount: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
-                  placeholder="0.00"
-                />
+            {/* Account Type Selection */}
+            <h2 className="text-xl font-semibold text-gray-800 mb-6">{t.selectAccount}</h2>
+            
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              {/* Operating Account */}
+              <div className="border-2 border-gray-200 rounded-lg p-6 hover:border-[#6B1F2E] transition-colors">
+                <Building className="w-8 h-8 text-[#6B1F2E] mb-4" />
+                <h3 className="text-lg font-semibold mb-2">{t.operating.title}</h3>
+                <p className="text-gray-600 mb-4">{t.operating.description}</p>
+                <a
+                  href={lawpayOperatingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center w-full bg-[#6B1F2E] text-white py-3 px-4 rounded-lg font-semibold hover:bg-[#8B2635] transition-colors"
+                >
+                  {t.operating.buttonText}
+                  <ExternalLink className="w-4 h-4 ml-2" />
+                </a>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                <input
-                  type="text"
-                  required
-                  value={formData.description}
-                  onChange={e => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
-                  placeholder="Legal services - Case #12345"
-                />
+              {/* Trust Account */}
+              <div className="border-2 border-gray-200 rounded-lg p-6 hover:border-[#6B1F2E] transition-colors">
+                <Lock className="w-8 h-8 text-[#6B1F2E] mb-4" />
+                <h3 className="text-lg font-semibold mb-2">{t.trust.title}</h3>
+                <p className="text-gray-600 mb-4">{t.trust.description}</p>
+                <a
+                  href={lawpayTrustUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center w-full bg-[#6B1F2E] text-white py-3 px-4 rounded-lg font-semibold hover:bg-[#8B2635] transition-colors"
+                >
+                  {t.trust.buttonText}
+                  <ExternalLink className="w-4 h-4 ml-2" />
+                </a>
               </div>
             </div>
 
-            {/* Card Information */}
-            <div className="border-t pt-4 mt-6">
-              <h3 className="font-medium text-gray-900 mb-4 flex items-center">
-                <CreditCard className="w-5 h-5 mr-2" />
-                Card Information
-              </h3>
-
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Card Number
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.cardNumber}
-                    onChange={e => setFormData({ ...formData, cardNumber: e.target.value })}
-                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
-                    placeholder="1234 5678 9012 3456"
-                    maxLength={19}
-                  />
-                </div>
-
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Expiry Date
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.expiryDate}
-                      onChange={e => setFormData({ ...formData, expiryDate: e.target.value })}
-                      className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
-                      placeholder="MM/YY"
-                      maxLength={5}
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">CVV</label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.cvv}
-                      onChange={e => setFormData({ ...formData, cvv: e.target.value })}
-                      className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
-                      placeholder="123"
-                      maxLength={4}
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">ZIP Code</label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.zipCode}
-                      onChange={e => setFormData({ ...formData, zipCode: e.target.value })}
-                      className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
-                      placeholder="12345"
-                      maxLength={5}
-                    />
-                  </div>
-                </div>
-              </div>
+            {/* Notice */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
+              <p className="text-sm text-blue-800 text-center">
+                <ExternalLink className="w-4 h-4 inline mr-2" />
+                {t.notice}
+              </p>
             </div>
 
             {/* Security Notice */}
-            <div className="bg-gray-50 rounded-lg p-4 flex items-start">
+            <div className="bg-gray-50 rounded-lg p-6 flex items-start mb-8">
               <Lock className="w-5 h-5 text-gray-600 mr-3 flex-shrink-0 mt-0.5" />
-              <div className="text-sm text-gray-600">
-                <p className="font-medium mb-1">Secure Payment Processing</p>
-                <p>
-                  Your payment information is encrypted and processed securely through{' '}
-                  {paymentMethod === 'lawpay' ? 'LawPay' : 'Authorize.Net'}. We never store your
-                  credit card information.
+              <div>
+                <p className="font-medium text-gray-900 mb-1">{t.security.title}</p>
+                <p className="text-sm text-gray-600">
+                  {t.security.description}
                 </p>
               </div>
             </div>
 
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-[#6B1F2E] text-white py-3 rounded-lg font-semibold hover:bg-[#8B2635] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              {loading ? 'Processing...' : `Pay $${formData.amount || '0.00'}`}
-            </button>
-          </form>
+            {/* Alternative Payment Methods */}
+            <div className="border-t pt-6">
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">{t.alternative.title}</h3>
+              <p className="text-gray-600 mb-4">{t.alternative.description}</p>
+              <div className="flex items-center gap-6">
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <Image
+                    src="/images/affirm-placeholder.svg"
+                    alt="Affirm"
+                    width={100}
+                    height={40}
+                    className="object-contain"
+                  />
+                </div>
+                <p className="text-sm text-gray-600">{t.alternative.affirm}</p>
+              </div>
+            </div>
+          </div>
 
           {/* Footer */}
           <div className="bg-gray-50 px-6 py-4 rounded-b-lg">
-            <p className="text-center text-sm text-gray-600">
-              Questions about your payment? Call{' '}
-              <a href="tel:1-844-967-3536" className="text-[#C9974D] font-semibold">
-                1-844-YO-PELEO
+            <p className="text-center text-gray-600">
+              {t.contact}{' '}
+              <a href="tel:1-844-967-3536" className="text-[#C9974D] font-bold">
+                1-844-YO-PELEO (967-3536)
               </a>
             </p>
           </div>
+        </div>
+
+        {/* Additional Information */}
+        <div className="mt-8 text-center">
+          <Link 
+            href={language === 'es' ? '/es/contacto' : '/contact'} 
+            className="text-[#6B1F2E] hover:text-[#8B2635] font-medium"
+          >
+            {language === 'es' ? '← Volver a Contacto' : '← Back to Contact'}
+          </Link>
         </div>
       </div>
     </div>
