@@ -59,7 +59,7 @@ export default function Page() {
                 <p style={{ color: COLORS.neutral[700] }}>
                   Christopher Afanador is an experienced criminal defense attorney who has
                   successfully defended clients against a wide range of charges. With his dedication
-                  to protecting clients' rights and his thorough understanding of criminal law,
+                  to protecting clients&apos; rights and his thorough understanding of criminal law,
                   he provides aggressive representation for those facing serious legal challenges.
                 </p>
               </div>

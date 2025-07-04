@@ -57,37 +57,6 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
       featured: true,
     },
     {
-      id: 'judith-parkes',
-      name: 'Judith Parkes',
-      title: {
-        en: 'Senior Immigration Attorney',
-        es: 'Abogada Senior de Inmigración',
-      },
-      image: '/images/attorneys/judith-parkes.jpg',
-      bio: {
-        en: 'Judith Parkes brings extensive experience in immigration law, helping families navigate the complex U.S. immigration system. She is passionate about reuniting families and protecting the rights of immigrants.',
-        es: 'Judith Parkes aporta una amplia experiencia en derecho de inmigración, ayudando a las familias a navegar el complejo sistema de inmigración de EE.UU. Le apasiona reunir familias y proteger los derechos de los inmigrantes.',
-      },
-      specialties: {
-        en: ['Immigration Law', 'Family-Based Immigration', 'Deportation Defense', 'Asylum'],
-        es: ['Ley de Inmigración', 'Inmigración Familiar', 'Defensa de Deportación', 'Asilo'],
-      },
-      languages: ['English', 'Spanish'],
-      barAdmissions: ['North Carolina'],
-      education: [
-        {
-          degree: 'J.D.',
-          school: 'Campbell University School of Law',
-          year: '2008',
-        },
-        {
-          degree: 'B.A.',
-          school: 'University of North Carolina at Greensboro',
-          year: '2005',
-        },
-      ],
-    },
-    {
       id: 'adrianna-ingram',
       name: 'Adrianna Ingram',
       title: {
@@ -146,42 +115,6 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
           degree: 'B.S.',
           school: 'University of Central Florida',
           year: '2010',
-        },
-      ],
-    },
-    {
-      id: 'mark-kelsey',
-      name: 'Mark Kelsey',
-      title: {
-        en: 'Personal Injury Attorney',
-        es: 'Abogado de Lesiones Personales',
-      },
-      image: '/images/attorneys/mark-kelsey.jpg',
-      bio: {
-        en: 'Mark Kelsey represents injured workers and accident victims, fighting to ensure they receive fair compensation for their injuries and losses.',
-        es: 'Mark Kelsey representa a trabajadores lesionados y víctimas de accidentes, luchando para asegurar que reciban una compensación justa por sus lesiones y pérdidas.',
-      },
-      specialties: {
-        en: ['Personal Injury', "Workers' Compensation", 'Car Accidents', 'Premises Liability'],
-        es: [
-          'Lesiones Personales',
-          'Compensación Laboral',
-          'Accidentes de Auto',
-          'Responsabilidad de Locales',
-        ],
-      },
-      languages: ['English'],
-      barAdmissions: ['North Carolina', 'South Carolina'],
-      education: [
-        {
-          degree: 'J.D.',
-          school: 'Wake Forest University School of Law',
-          year: '2011',
-        },
-        {
-          degree: 'B.A.',
-          school: 'Davidson College',
-          year: '2008',
         },
       ],
     },
