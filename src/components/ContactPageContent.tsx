@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Phone, Mail, MapPin, Clock, MessageCircle, Globe } from 'lucide-react';
 // Dynamic import for client-side only rendering
 const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
   ssr: false,
@@ -10,10 +11,13 @@ const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => m
 import AllOfficesMap from '@/components/AllOfficesMap';
 import { officeLocations } from '@/data/locations';
 import { ContactForm } from '@/components/forms/ContactForm';
-import { SEMANTIC_COLORS } from '@/design-system/constants';
 
-export default function ContactPage() {
-  const [language, setLanguage] = useState<'en' | 'es'>('en');
+interface ContactPageContentProps {
+  language: 'en' | 'es';
+}
+
+export default function ContactPageContent({ language }: ContactPageContentProps) {
+  const [showVirtualParalegal, setShowVirtualParalegal] = useState(false);
 
   const content = {
     en: {
@@ -64,8 +68,8 @@ export default function ContactPage() {
       benefit5: 'No obligation to hire us',
     },
     es: {
-      title: 'Contact Us',
-      subtitle: 'Obtenga Su Free Consultation Hoy',
+      title: 'Contáctanos',
+      subtitle: 'Obtenga Su Consulta Gratuita Hoy',
       description:
         'Disponible 24/7 a través de nuestro asistente de IA o programe una consulta con nuestros abogados experimentados',
       formTitle: 'Envíanos un Mensaje',
@@ -103,7 +107,7 @@ export default function ContactPage() {
       languages: 'Hablamos Tu Idioma',
       languagesText:
         'Nuestro equipo brinda servicios en inglés, español y portugués. Todos nuestros asistentes de IA son completamente bilingües.',
-      consultation: 'La Free Consultation Incluye:',
+      consultation: 'La Consulta Gratuita Incluye:',
       benefit1: 'Evaluación del caso por abogado experimentado',
       benefit2: 'Predicción del resultado del caso con IA',
       benefit3: 'Explicación clara de sus opciones legales',
@@ -116,54 +120,53 @@ export default function ContactPage() {
 
   const locations = [
     {
-      city: 'Raleigh, NC',
+      city: language === 'es' ? 'Raleigh, NC' : 'Raleigh, NC',
       address: '4426 Louisburg Road, Raleigh, NC 27616',
       phone: '(919) 246-8831',
-      hours: 'Mon-Fri: 9:00 AM - 6:00 PM, Sat: 10:00 AM - 2:00 PM',
+      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 6:00 PM, Sáb: 10:00 AM - 2:00 PM' : 'Mon-Fri: 9:00 AM - 6:00 PM, Sat: 10:00 AM - 2:00 PM',
       mapUrl: 'https://maps.google.com/maps?q=4426+Louisburg+Road,+Raleigh,+NC+27616',
     },
     {
-      city: 'Charlotte, NC',
+      city: language === 'es' ? 'Charlotte, NC' : 'Charlotte, NC',
       address: '5701 Executive Center Dr, Ste 103, Charlotte, NC 28212',
       phone: '(704) 266-2998',
-      hours: 'Mon-Fri: 9:00 AM - 6:00 PM',
+      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 6:00 PM' : 'Mon-Fri: 9:00 AM - 6:00 PM',
       mapUrl: 'https://maps.google.com/maps?q=5701+Executive+Center+Dr,+Charlotte,+NC+28212',
     },
     {
-      city: 'Durham, NC',
+      city: language === 'es' ? 'Durham, NC' : 'Durham, NC',
       address: '2530 Meridian Pkwy, Ste 200, Durham, NC 27713',
       phone: '(919) 246-8831',
-      hours: 'Mon-Fri: 9:00 AM - 6:00 PM',
+      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 6:00 PM' : 'Mon-Fri: 9:00 AM - 6:00 PM',
       mapUrl: 'https://maps.google.com/maps?q=2530+Meridian+Pkwy,+Durham,+NC+27713',
     },
     {
-      city: 'Winston-Salem, NC',
+      city: language === 'es' ? 'Winston-Salem, NC' : 'Winston-Salem, NC',
       address: '380 Knollwood St, Ste 310, Winston-Salem, NC 27103',
       phone: '(336) 777-8822',
-      hours: 'Mon-Fri: 9:00 AM - 6:00 PM',
+      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 6:00 PM' : 'Mon-Fri: 9:00 AM - 6:00 PM',
       mapUrl: 'https://maps.google.com/maps?q=380+Knollwood+St,+Winston-Salem,+NC+27103',
     },
     {
-      city: 'Smithfield, NC',
+      city: language === 'es' ? 'Smithfield, NC' : 'Smithfield, NC',
       address: '612 S Brightleaf Blvd, Smithfield, NC 27577',
       phone: '(919) 209-8788',
-      hours: 'Mon-Fri: 9:00 AM - 6:00 PM',
+      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 6:00 PM' : 'Mon-Fri: 9:00 AM - 6:00 PM',
       mapUrl: 'https://maps.google.com/maps?q=612+S+Brightleaf+Blvd,+Smithfield,+NC+27577',
     },
     {
-      city: 'Orlando, FL',
+      city: language === 'es' ? 'Orlando, FL' : 'Orlando, FL',
       address: '1111 E Amelia Street, Orlando, FL 32803',
       phone: '(407) 647-1900',
-      hours: 'Mon-Fri: 9:00 AM - 6:00 PM',
+      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 6:00 PM' : 'Mon-Fri: 9:00 AM - 6:00 PM',
       mapUrl: 'https://maps.google.com/maps?q=1111+E+Amelia+Street,+Orlando,+FL+32803',
     },
   ];
 
   return (
     <div className="min-h-screen bg-white">
-
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-gray-50 to-white pt-20 pb-16" style={{scrollMarginTop: '160px'}}>
+      <section className="bg-gradient-to-b from-[#6B1F2E] to-[#8B2635] text-white py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -171,9 +174,9 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{t.title}</h1>
-            <p className="text-xl text-primary font-semibold mb-6">{t.subtitle}</p>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.description}</p>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">{t.title}</h1>
+            <p className="text-xl text-[#C9974D] font-semibold mb-6">{t.subtitle}</p>
+            <p className="text-lg text-white/90 max-w-3xl mx-auto">{t.description}</p>
           </motion.div>
         </div>
       </section>
@@ -199,23 +202,35 @@ export default function ContactPage() {
               className="space-y-8"
             >
               {/* Quick Contact Options */}
-              <div className="bg-gradient-to-r from-primary to-primaryDark rounded-lg p-8 text-white">
-                <h3 className="text-2xl font-bold mb-6">{t.instantHelp}</h3>
-                <button className="w-full px-6 py-3 bg-white text-primary rounded-md font-semibold hover:shadow-lg transition-all mb-4">
+              <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] rounded-lg p-8 text-white">
+                <h3 className="text-2xl font-bold mb-6 flex items-center">
+                  <MessageCircle className="mr-2" />
+                  {t.instantHelp}
+                </h3>
+                <button 
+                  onClick={() => setShowVirtualParalegal(true)}
+                  className="w-full px-6 py-3 bg-white text-[#6B1F2E] rounded-md font-semibold hover:shadow-lg transition-all mb-4"
+                >
                   🤖 {t.chatNow}
                 </button>
                 <div className="text-center mb-4">
                   <p className="text-white/80">{t.or}</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-3xl font-bold mb-2">{t.mainNumber}</p>
+                  <div className="flex items-center justify-center mb-2">
+                    <Phone className="mr-2" />
+                    <p className="text-3xl font-bold">{t.mainNumber}</p>
+                  </div>
                   <p className="text-lg">{t.mainNumberDesc}</p>
                 </div>
               </div>
 
               {/* Office Hours */}
-              <div className="bg-white rounded-lg shadow-xl p-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{t.officeHours}</h3>
+              <div className="bg-white rounded-lg shadow-xl p-8 border border-gray-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                  <Clock className="mr-2 text-[#6B1F2E]" />
+                  {t.officeHours}
+                </h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-gray-600">{t.monday}</span>
@@ -227,32 +242,38 @@ export default function ContactPage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">{t.sunday}</span>
-                    <span className="font-medium text-primary">{t.hours3}</span>
+                    <span className="font-medium text-[#C9974D]">{t.hours3}</span>
                   </div>
                 </div>
               </div>
 
               {/* Emergency Help */}
-              <div className="bg-secondary/10 rounded-lg p-6">
-                <h3 className="text-xl font-bold text-secondary mb-3">{t.emergency}</h3>
+              <div className="bg-[#C9974D]/10 rounded-lg p-6 border border-[#C9974D]/20">
+                <h3 className="text-xl font-bold text-[#C9974D] mb-3">🚨 {t.emergency}</h3>
                 <p className="text-gray-700 mb-4">{t.emergencyText}</p>
-                <button className="px-6 py-2 bg-secondary text-white rounded-md font-medium hover:bg-secondaryDark transition-colors">
+                <button 
+                  onClick={() => setShowVirtualParalegal(true)}
+                  className="px-6 py-2 bg-[#C9974D] text-white rounded-md font-medium hover:bg-[#B88740] transition-colors"
+                >
                   {t.startChat}
                 </button>
               </div>
 
               {/* Languages */}
               <div className="bg-gray-50 rounded-lg p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{t.languages}</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
+                  <Globe className="mr-2 text-[#6B1F2E]" />
+                  {t.languages}
+                </h3>
                 <p className="text-gray-600 mb-4">{t.languagesText}</p>
                 <div className="flex gap-3">
-                  <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                  <span className="px-3 py-1 bg-[#6B1F2E]/10 text-[#6B1F2E] rounded-full text-sm font-medium">
                     English
                   </span>
-                  <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                  <span className="px-3 py-1 bg-[#6B1F2E]/10 text-[#6B1F2E] rounded-full text-sm font-medium">
                     Español
                   </span>
-                  <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                  <span className="px-3 py-1 bg-[#6B1F2E]/10 text-[#6B1F2E] rounded-full text-sm font-medium">
                     Português
                   </span>
                 </div>
@@ -265,7 +286,10 @@ export default function ContactPage() {
       {/* Office Locations */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">{t.locations}</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12 flex items-center justify-center">
+            <MapPin className="mr-2 text-[#6B1F2E]" />
+            {t.locations}
+          </h2>
 
           {/* Interactive Map */}
           <motion.div
@@ -288,13 +312,15 @@ export default function ContactPage() {
             />
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {locations.map((location, index) => {
               const officeImages: { [key: string]: string } = {
                 'Smithfield, NC': '/images/offices/smithfield-office.jpg',
                 'Raleigh, NC': '/images/offices/raleigh-office.jpg',
                 'Charlotte, NC': '/images/offices/charlotte-office.jpg',
                 'Orlando, FL': '/images/offices/orlando-office.jpg',
+                'Durham, NC': '/images/offices/durham-office.jpg',
+                'Winston-Salem, NC': '/images/offices/winston-salem-office.jpg',
               };
 
               return (
@@ -304,28 +330,45 @@ export default function ContactPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                  className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow border border-gray-200"
                 >
                   {/* Office Image */}
-                  <div className="h-48 w-full overflow-hidden">
-                    <img
-                      src={officeImages[location.city]}
-                      alt={`${location.city} office exterior`}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    />
+                  <div className="h-48 w-full overflow-hidden bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] flex items-center justify-center">
+                    {officeImages[location.city.split(',')[0] + ', ' + location.city.split(',')[1]] ? (
+                      <img
+                        src={officeImages[location.city.split(',')[0] + ', ' + location.city.split(',')[1]]}
+                        alt={`${location.city} office exterior`}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="text-white text-center">
+                        <Building className="w-16 h-16 mx-auto mb-2" />
+                        <p className="text-sm font-medium">{location.city}</p>
+                      </div>
+                    )}
                   </div>
 
                   <div className="p-6">
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">{location.city}</h3>
-                    <p className="text-sm text-gray-600 mb-2">{location.address}</p>
-                    <p className="text-sm text-primary font-medium mb-2">{location.phone}</p>
-                    <p className="text-xs text-gray-500 mb-4">{location.hours}</p>
+                    <p className="text-sm text-gray-600 mb-2 flex items-start">
+                      <MapPin className="w-4 h-4 mr-1 mt-0.5 text-[#6B1F2E]" />
+                      {location.address}
+                    </p>
+                    <p className="text-sm text-[#6B1F2E] font-medium mb-2 flex items-center">
+                      <Phone className="w-4 h-4 mr-1" />
+                      {location.phone}
+                    </p>
+                    <p className="text-xs text-gray-500 mb-4 flex items-center">
+                      <Clock className="w-4 h-4 mr-1" />
+                      {location.hours}
+                    </p>
                     <a
                       href={location.mapUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-secondary font-medium hover:underline"
+                      className="text-sm text-[#C9974D] font-medium hover:underline flex items-center"
                     >
+                      <MapPin className="w-4 h-4 mr-1" />
                       {t.getDirections} →
                     </a>
                   </div>
@@ -339,7 +382,7 @@ export default function ContactPage() {
       {/* Consultation Benefits */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-primary to-primaryDark rounded-2xl p-8 text-white">
+          <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] rounded-2xl p-8 text-white">
             <h2 className="text-3xl font-bold mb-8 text-center">{t.consultation}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[t.benefit1, t.benefit2, t.benefit3, t.benefit4, t.benefit5].map(
@@ -352,7 +395,7 @@ export default function ContactPage() {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="flex items-start"
                   >
-                    <span className="text-2xl mr-3">✓</span>
+                    <span className="text-2xl mr-3 text-[#C9974D]">✓</span>
                     <p className="text-lg">{benefit}</p>
                   </motion.div>
                 )

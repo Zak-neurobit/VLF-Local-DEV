@@ -45,11 +45,13 @@ const config: Config = {
           foreground: colors.neutral[0],
           ...colors.brand.gold,
         },
+        primaryDark: colors.brand.gold[600],
         secondary: {
           DEFAULT: colors.brand.burgundy[700],
           foreground: colors.neutral[0],
           ...colors.brand.burgundy,
         },
+        secondaryDark: colors.brand.burgundy[800],
 
         // Semantic colors
         success: colors.semantic.success,

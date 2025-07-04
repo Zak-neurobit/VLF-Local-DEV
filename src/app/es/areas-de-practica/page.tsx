@@ -1,54 +1,29 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
+import { MasterLayout } from '@/design-system/templates/MasterLayout';
+import PracticeAreasPageContent from '@/components/PracticeAreasPageContent';
 
 export const metadata: Metadata = {
-  title: '',
-  description: '',
+  title: 'Áreas de Práctica - Bufete de Abogados Vasquez - YO PELEO POR TI™',
+  description: 'Servicios legales integrales en inmigración, lesiones personales, compensación laboral, defensa criminal, derecho familiar y infracciones de tráfico. Mejorados con tecnología IA.',
+  keywords: 'áreas de práctica, inmigración, lesiones personales, compensación laboral, defensa criminal, derecho familiar, infracciones tráfico, abogado español',
   openGraph: {
-    title: '',
-    description: '',
+    title: 'Áreas de Práctica - Bufete de Abogados Vasquez',
+    description: 'Servicios legales integrales mejorados con tecnología IA. 60+ años de experiencia.',
+    images: [{ url: '/images/BANNER_TRANS.PNG' }],
+  },
+  alternates: {
+    canonical: 'https://www.vasquezlawnc.com/es/areas-de-practica',
+    languages: {
+      'en-US': 'https://www.vasquezlawnc.com/practice-areas',
+      'es-ES': 'https://www.vasquezlawnc.com/es/areas-de-practica',
+    },
   },
 };
 
 export default function EsAreasDePracticaPage() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#6B1F2E] to-[#8B2635] text-white py-20">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4"></h1>
-        </div>
-      </section>
-
-      {/* Main Content */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="prose prose-lg max-w-none">
-            <p>Contactoo us for more information about this practice area.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-[#C9974D]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            ¿Necesitas Ayuda Legal??
-          </h2>
-          <p className="text-xl text-white/90 mb-8">
-            Contactoo our experienced attorneys today for a consultation
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center px-8 py-3 bg-[#6B1F2E] text-white font-bold rounded-lg hover:bg-[#8B2635] transition-all"
-            >
-              Agendar Consulta
-            </Link>
-          </div>
-        </div>
-      </section>
-    </div>
+    <MasterLayout variant="default" showBreadcrumbs={true}>
+      <PracticeAreasPageContent language="es" />
+    </MasterLayout>
   );
 }
