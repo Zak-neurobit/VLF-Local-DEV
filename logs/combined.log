@@ -1864,3 +1864,24 @@
 {"level":"info","message":"Office 365 SMTP connection established","service":"vasquez-law-website","timestamp":"2025-07-04 10:20:30"}
 {"level":"warn","message":"Twilio credentials not configured - service will operate in mock mode","service":"vasquez-law-website","timestamp":"2025-07-04 10:20:31"}
 {"level":"warn","message":"Twilio credentials not configured - service will operate in mock mode","service":"vasquez-law-website","timestamp":"2025-07-04 10:20:32"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:46"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:46"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:46"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:46"}
+{"level":"warn","message":"Twilio credentials not configured - service will operate in mock mode","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:46"}
+{"level":"warn","message":"Twilio credentials not configured - service will operate in mock mode","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:46"}
+{"level":"info","message":"Enhanced CrewAI agents initialized with AILA Cookbook training","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:46"}
+{"level":"warn","message":"Twilio credentials not configured - service will operate in mock mode","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:46"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:46"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:46"}
+{"level":"info","message":"Office 365 SMTP connection established","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:46"}
+{"level":"info","message":"Office 365 SMTP connection established","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:46"}
+{"level":"info","message":"SEOOptimizationService.generateSitemap","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:47"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:47"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:47"}
+{"level":"info","message":"Office 365 SMTP connection established","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:48"}
+{"level":"warn","message":"Twilio credentials not configured - service will operate in mock mode","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:48"}
+{"level":"warn","message":"Twilio credentials not configured - service will operate in mock mode","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:48"}
+{"level":"info","message":"Enhanced CrewAI agents initialized with AILA Cookbook training","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:48"}
+{"level":"warn","message":"Twilio credentials not configured - service will operate in mock mode","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:48"}
+{"level":"warn","message":"Twilio credentials not configured - service will operate in mock mode","service":"vasquez-law-website","timestamp":"2025-07-04 10:31:49"}
