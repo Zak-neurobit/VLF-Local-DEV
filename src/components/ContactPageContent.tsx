@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, Clock, MessageCircle, Globe } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, MessageCircle, Globe, Building } from 'lucide-react';
 // Dynamic import for client-side only rendering
 const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
   ssr: false,
