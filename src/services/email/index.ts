@@ -73,8 +73,13 @@ class EmailService {
       process.env.EMAIL_FROM || process.env.OFFICE365_EMAIL || 'info@vasquezlawnc.com';
     this.fromName = 'Vasquez Law Firm';
 
-    // Verify connection
-    this.verifyConnection();
+    // Skip verification during build
+    if (process.env.NODE_ENV !== 'production' && !process.env.NEXT_PHASE) {
+      // Defer verification to avoid build-time connection attempts
+      setTimeout(() => {
+        this.verifyConnection();
+      }, 5000);
+    }
 
     // Load email templates
     this.loadTemplates();

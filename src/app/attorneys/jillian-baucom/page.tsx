@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Phone, ArrowRight } from 'lucide-react';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { COLORS } from '@/design-system/constants';
+import { InteractiveLink, InteractiveButton } from '@/components/ui/InteractiveLink';
 
 export const metadata: Metadata = {
   title: 'Jillian Baucom - Senior Attorney | Vasquez Law Firm, PLLC',
@@ -24,16 +25,15 @@ export default function Page() {
               Senior Attorney - YO PELEO POR TI™
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
+              <InteractiveLink
                 href="/contact"
                 className="inline-flex items-center px-8 py-4 font-bold rounded-full transition-colors"
                 style={{ backgroundColor: COLORS.gold[500], color: COLORS.burgundy[900] }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.gold[400]}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.gold[500]}
+                hoverStyle={{ backgroundColor: COLORS.gold[400], color: COLORS.burgundy[900] }}
               >
                 Free Consultation
                 <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
+              </InteractiveLink>
               <a
                 href="tel:1-844-967-3536"
                 className="inline-flex items-center px-8 py-4 bg-white font-bold rounded-full hover:bg-gray-100 transition-colors"
@@ -123,26 +123,24 @@ export default function Page() {
               Contact Jillian Baucom today for compassionate legal representation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
+              <InteractiveLink
                 href="/contact"
                 className="inline-flex items-center px-8 py-4 text-white font-bold rounded-full transition-colors"
                 style={{ backgroundColor: COLORS.burgundy[700] }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.burgundy[800]}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.burgundy[700]}
+                hoverStyle={{ backgroundColor: COLORS.burgundy[800] }}
               >
                 Schedule Consultation
                 <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <a
+              </InteractiveLink>
+              <InteractiveButton
                 href="tel:1-844-967-3536"
                 className="inline-flex items-center px-8 py-4 font-bold rounded-full transition-colors"
                 style={{ backgroundColor: COLORS.gold[500], color: COLORS.burgundy[900] }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = COLORS.gold[400]}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = COLORS.gold[500]}
+                hoverStyle={{ backgroundColor: COLORS.gold[400], color: COLORS.burgundy[900] }}
               >
                 <Phone className="mr-2 w-5 h-5" />
                 Call Now
-              </a>
+              </InteractiveButton>
             </div>
           </div>
         </div>

@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
@@ -5,6 +7,7 @@ import { Button } from '@/design-system/components/Button';
 import { Section, Card, Heading, Text } from './TemplateComponents';
 import { COLORS, SPACING, BRAND } from '@/design-system/constants';
 import { Phone, MapPin, Clock, DollarSign } from 'lucide-react';
+import { InteractiveLink } from '@/components/ui/InteractiveLink';
 
 interface LocationData {
   city: string;
@@ -299,24 +302,20 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data
           </Heading>
           <div className="flex flex-wrap justify-center gap-3">
             {nearbyLocations.map((location, idx) => (
-              <Link
+              <InteractiveLink
                 key={idx}
                 href={`/locations/nc/${location.slug}`}
                 className="px-4 py-2 bg-white border rounded-lg transition-all"
                 style={{
                   borderColor: COLORS.neutral[200],
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = COLORS.gold[500];
-                  e.currentTarget.style.boxShadow = `0 4px 6px -1px rgba(0, 0, 0, 0.1)`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = COLORS.neutral[200];
-                  e.currentTarget.style.boxShadow = 'none';
+                hoverStyle={{
+                  borderColor: COLORS.gold[500],
+                  boxShadow: `0 4px 6px -1px rgba(0, 0, 0, 0.1)`,
                 }}
               >
                 {location.name}
-              </Link>
+              </InteractiveLink>
             ))}
           </div>
         </div>

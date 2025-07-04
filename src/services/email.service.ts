@@ -1018,9 +1018,12 @@ class EmailService {
       logger.warn('Email service not configured. Emails will be logged but not sent.');
     }
 
-    // Verify transporter connection on startup
-    if (this.isConfigured && transporter) {
-      this.verifyConnection();
+    // Skip SMTP verification during build time
+    if (this.isConfigured && transporter && process.env.NODE_ENV !== 'production' && !process.env.NEXT_PHASE) {
+      // Defer verification to avoid build-time connection attempts
+      setTimeout(() => {
+        this.verifyConnection();
+      }, 5000);
     }
   }
 

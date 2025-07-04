@@ -364,3 +364,150 @@ If you need interactivity, consider converting part of this to a Client Componen
     at process.processTimers (node:internal/timers:523:7) {
   digest: '2771289562'
 }
+ ⚠ Sending SIGTERM signal to Next.js build worker due to timeout of 60 seconds. Subsequent errors may be a result of the worker exiting.
+ ⚠ Restarted static page generation for /attorneys/jillian-baucom because it took more than 60 seconds
+ ⚠ Restarted static page generation for /attorneys/christopher-afanador because it took more than 60 seconds
+ ⚠ Restarted static page generation for /attorneys/william-vasquez because it took more than 60 seconds
+Error: Event handlers cannot be passed to Client Component props.
+  {href: ..., className: ..., style: ..., onMouseEnter: function onMouseEnter, onMouseLeave: ..., children: ...}
+                                                        ^^^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at ek (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:140440)
+    at Object.toJSON (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:135629)
+    at stringify (<anonymous>)
+    at eP (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142093)
+    at eE (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142572)
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+    at Timeout._onTimeout (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:150373)
+    at listOnTimeout (node:internal/timers:588:17)
+    at process.processTimers (node:internal/timers:523:7) {
+  digest: '241589712'
+}
+Error: Event handlers cannot be passed to Client Component props.
+  {href: ..., className: ..., style: ..., onMouseEnter: function onMouseEnter, onMouseLeave: ..., children: ...}
+                                                        ^^^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at ek (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:140440)
+    at Object.toJSON (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:135629)
+    at stringify (<anonymous>)
+    at eP (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142093)
+    at eE (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142572)
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+    at Timeout._onTimeout (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:150373)
+    at listOnTimeout (node:internal/timers:588:17)
+    at process.processTimers (node:internal/timers:523:7) {
+  digest: '241589712'
+}
+Error: Event handlers cannot be passed to Client Component props.
+  {href: ..., className: ..., style: ..., onMouseEnter: function onMouseEnter, onMouseLeave: ..., children: ...}
+                                                        ^^^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at ek (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:140440)
+    at Object.toJSON (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:135629)
+    at stringify (<anonymous>)
+    at eP (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142093)
+    at eE (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142572)
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+    at Timeout._onTimeout (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:150373)
+    at listOnTimeout (node:internal/timers:588:17)
+    at process.processTimers (node:internal/timers:523:7) {
+  digest: '241589712'
+}
+Error: Event handlers cannot be passed to Client Component props.
+  {href: ..., className: ..., style: ..., onMouseEnter: function onMouseEnter, onMouseLeave: ..., children: ...}
+                                                        ^^^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at ek (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:140440)
+    at Object.toJSON (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:135629)
+    at stringify (<anonymous>)
+    at eP (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142093)
+    at eE (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142572)
+    at Timeout._onTimeout (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:135349)
+    at listOnTimeout (node:internal/timers:588:17)
+    at process.processTimers (node:internal/timers:523:7) {
+  digest: '2771289562'
+}
+Error: Event handlers cannot be passed to Client Component props.
+  {href: ..., className: ..., style: ..., onMouseEnter: function onMouseEnter, onMouseLeave: ..., children: ...}
+                                                        ^^^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at ek (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:140440)
+    at Object.toJSON (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:135629)
+    at stringify (<anonymous>)
+    at eP (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142093)
+    at eE (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142572)
+    at Timeout._onTimeout (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:135349)
+    at listOnTimeout (node:internal/timers:588:17)
+    at process.processTimers (node:internal/timers:523:7) {
+  digest: '2771289562'
+}
+Error: Event handlers cannot be passed to Client Component props.
+  {href: ..., className: ..., style: ..., onMouseEnter: function onMouseEnter, onMouseLeave: ..., children: ...}
+                                                        ^^^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at ek (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:140440)
+    at Object.toJSON (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:135629)
+    at stringify (<anonymous>)
+    at eP (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142093)
+    at eE (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142572)
+    at Timeout._onTimeout (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:135349)
+    at listOnTimeout (node:internal/timers:588:17)
+    at process.processTimers (node:internal/timers:523:7) {
+  digest: '2771289562'
+}
+Error: Event handlers cannot be passed to Client Component props.
+  {href: ..., className: ..., style: ..., onMouseEnter: function onMouseEnter, onMouseLeave: ..., children: ...}
+                                                        ^^^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at ek (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:140440)
+    at Object.toJSON (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:135629)
+    at stringify (<anonymous>)
+    at eP (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142093)
+    at eE (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142572)
+    at Timeout._onTimeout (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:135349)
+    at listOnTimeout (node:internal/timers:588:17)
+    at process.processTimers (node:internal/timers:523:7) {
+  digest: '2771289562'
+}
+Error: Event handlers cannot be passed to Client Component props.
+  {href: ..., className: ..., style: ..., onMouseEnter: function onMouseEnter, onMouseLeave: ..., children: ...}
+                                                        ^^^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at ek (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:140440)
+    at Object.toJSON (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:135629)
+    at stringify (<anonymous>)
+    at eP (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142093)
+    at eE (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142572)
+    at Timeout._onTimeout (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:135349)
+    at listOnTimeout (node:internal/timers:588:17)
+    at process.processTimers (node:internal/timers:523:7) {
+  digest: '2771289562'
+}
+Error: Event handlers cannot be passed to Client Component props.
+  {href: ..., className: ..., style: ..., onMouseEnter: function onMouseEnter, onMouseLeave: ..., children: ...}
+                                                        ^^^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at ek (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:140440)
+    at Object.toJSON (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:135629)
+    at stringify (<anonymous>)
+    at eP (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142093)
+    at eE (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:142572)
+    at Timeout._onTimeout (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:12:135349)
+    at listOnTimeout (node:internal/timers:588:17)
+    at process.processTimers (node:internal/timers:523:7) {
+  digest: '2771289562'
+}
+ ⚠ Sending SIGTERM signal to Next.js build worker due to timeout of 60 seconds. Subsequent errors may be a result of the worker exiting.
+
+> Build error occurred
+Error: Static page generation for /attorneys/jillian-baucom is still timing out after 3 attempts. See more info here https://nextjs.org/docs/messages/static-page-generation-timeout
+    at onRestart (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/build/index.js:292:27)
+    at /Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/lib/worker.js:104:40
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/export/index.js:450:20
+    at async Span.traceAsyncFn (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/trace/trace.js:154:20)
+    at async /Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/export/index.js:448:24
+    at async Promise.all (index 168)
+    at async exportAppImpl (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/export/index.js:440:21)
+    at async /Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/export/index.js:623:16
+    at async Span.traceAsyncFn (/Users/williamvasquez/Documents/VLF Website/node_modules/next/dist/trace/trace.js:154:20)
