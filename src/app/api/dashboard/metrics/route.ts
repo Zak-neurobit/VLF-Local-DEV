@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPrismaClient } from '@/lib/prisma';
 import { requestLogger } from '@/lib/logger';
-import { getChatSocketServer } from '@/lib/socket/server';
+import { getChatSocketServer } from '@/lib/socket';
 
 export async function GET(request: NextRequest) {
   const requestId = requestLogger.request(request.url, 'GET');
