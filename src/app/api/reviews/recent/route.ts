@@ -2,9 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { reviewAggregator } from '@/services/reviews/review-aggregator';
 import { logger } from '@/lib/logger';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = request.nextUrl;
 
     // Parse query parameters
     const days = Math.min(parseInt(searchParams.get('days') || '30'), 365); // Max 1 year
