@@ -1,0 +1,26 @@
+[
+  {
+    "name": "William Vasquez",
+    "title": "CEO & Managing Attorney",
+    "bio": "William Vasquez founded Vasquez Law Firm with a mission to provide exceptional legal representation to the Hispanic community and all North Carolinians.",
+    "image": "william-vasquez.jpg",
+    "education": ["Law Degree", "Bar Admissions: NC, FL"],
+    "languages": ["English", "Spanish"]
+  },
+  {
+    "name": "Jillian Baucom",
+    "title": "Senior Attorney",
+    "bio": "Jillian Baucom specializes in immigration law and has helped hundreds of families navigate the complex immigration system.",
+    "image": "jillian-baucom.jpg",
+    "education": ["Law Degree"],
+    "languages": ["English"]
+  },
+  {
+    "name": "Adrianna Ingram",
+    "title": "Attorney",
+    "bio": "Adrianna Ingram focuses on personal injury and workers compensation cases, fighting for fair compensation for injured clients.",
+    "image": "adrianna-ingram.jpg",
+    "education": ["Law Degree"],
+    "languages": ["English", "Spanish"]
+  }
+]

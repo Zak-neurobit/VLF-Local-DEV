@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vasquez Law Website Content Import Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50">
+    <div class="max-w-7xl mx-auto p-8">
+      <div class="bg-white rounded-lg shadow-xl p-8">
+        <h1 class="text-3xl font-bold text-[#6B1F2E] mb-8">
+          Vasquez Law Website Content Import Tool
+        </h1>
+
+        <div class="mb-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <p class="text-sm text-yellow-800">
+            <strong>Note:</strong> Due to CORS restrictions, this tool shows the structure and
+            content that needs to be imported. The actual import should be run server-side using the
+            Node.js scripts provided.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Pages to Import -->
+          <div>
+            <h2 class="text-xl font-semibold mb-4">Pages to Import</h2>
+            <div class="space-y-2" id="pagesList">
+              <!-- Will be populated by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Import Preview -->
+          <div>
+            <h2 class="text-xl font-semibold mb-4">Content Preview</h2>
+            <div class="bg-gray-100 rounded-lg p-4 h-96 overflow-y-auto" id="contentPreview">
+              <p class="text-gray-500">Select a page to preview content structure</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEO Optimization Strategy -->
+        <div class="mt-8 bg-gradient-to-r from-[#6B1F2E] to-[#C9974D] text-white rounded-lg p-6">
+          <h2 class="text-2xl font-bold mb-4">SEO Optimization Strategy for DA 80</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <h3 className="font-semibold mb-2">🏗️ Technical Foundation</h3>
+              <ul class="text-sm space-y-1">
+                <li>✓ Core Web Vitals: LCP < 2.5s</li>
+                <li>✓ Mobile-first responsive design</li>
+                <li>✓ Schema.org markup (Attorney, LocalBusiness)</li>
+                <li>✓ XML sitemap with priority hints</li>
+                <li>✓ Canonical URLs & hreflang tags</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-2">📝 Content Excellence</h3>
+              <ul class="text-sm space-y-1">
+                <li>✓ 100+ legal guides (2000+ words each)</li>
+                <li>✓ Location pages for all offices</li>
+                <li>✓ Bilingual content (EN/ES)</li>
+                <li>✓ FAQ schema on all practice areas</li>
+                <li>✓ Video transcripts for accessibility</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-2">🔗 Authority Building</h3>
+              <ul class="text-sm space-y-1">
+                <li>✓ Legal directory submissions</li>
+                <li>✓ Local news partnerships</li>
+                <li>✓ Guest posts on legal blogs</li>
+                <li>✓ Case study publications</li>
+                <li>✓ Community involvement pages</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Import Instructions -->
+        <div class="mt-8 bg-blue-50 rounded-lg p-6">
+          <h3 class="font-semibold text-blue-900 mb-2">How to Import Content:</h3>
+          <ol class="list-decimal list-inside space-y-2 text-sm text-blue-800">
+            <li>
+              Fix npm permissions:
+              <code class="bg-blue-100 px-2 py-1 rounded">sudo chown -R $(whoami) ~/.npm</code>
+            </li>
+            <li>
+              Install dependencies: <code class="bg-blue-100 px-2 py-1 rounded">npm install</code>
+            </li>
+            <li>
+              Run the import:
+              <code class="bg-blue-100 px-2 py-1 rounded">npm run import:vasquez</code>
+            </li>
+            <li>
+              Or use the API: <code class="bg-blue-100 px-2 py-1 rounded">node test-import.js</code>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Define the site structure
+      const siteStructure = {
+        pages: [
+          { url: '/', title: 'Homepage', priority: 1.0 },
+          { url: '/practice-areas', title: 'Practice Areas', priority: 0.9 },
+          { url: '/immigration-law', title: 'Immigration Law', priority: 0.9 },
+          { url: '/personal-injury', title: 'Personal Injury', priority: 0.9 },
+          { url: '/workers-compensation', title: 'Workers Compensation', priority: 0.9 },
+          { url: '/criminal-defense', title: 'Criminal Defense', priority: 0.9 },
+          { url: '/family-law', title: 'Family Law', priority: 0.9 },
+          { url: '/traffic-violations', title: 'Traffic Violations', priority: 0.8 },
+          { url: '/attorneys', title: 'Our Attorneys', priority: 0.8 },
+          { url: '/about-us', title: 'About Us', priority: 0.7 },
+          { url: '/contact', title: 'Contact Us', priority: 0.8 },
+          { url: '/blog', title: 'Blog', priority: 0.7 },
+        ],
+        content: {
+          '/': {
+            h1: 'North Carolina Immigration & Personal Injury Attorneys',
+            metaDescription:
+              'Vasquez Law Firm - Experienced immigration, personal injury, and criminal defense attorneys serving North Carolina. Free consultation. Se habla español.',
+            keywords: [
+              'immigration lawyer',
+              'personal injury attorney',
+              'abogado de inmigración',
+              'North Carolina lawyer',
+            ],
+            sections: [
+              'Hero Section with CTA',
+              'Practice Areas Grid',
+              'Attorney Profiles',
+              'Client Testimonials',
+              'Office Locations',
+              'Contact Form',
+            ],
+          },
+          '/immigration-law': {
+            h1: 'Immigration Law Services in North Carolina',
+            metaDescription:
+              'Expert immigration attorneys helping with green cards, visas, citizenship, and deportation defense. Serving Raleigh, Charlotte, and all of NC.',
+            keywords: [
+              'immigration lawyer NC',
+              'green card attorney',
+              'visa lawyer',
+              'deportation defense',
+            ],
+            sections: [
+              'Immigration Services Overview',
+              'Green Card Applications',
+              'Family-Based Immigration',
+              'Employment Visas',
+              'Citizenship & Naturalization',
+              'Deportation Defense',
+              'DACA & TPS',
+              'Immigration FAQs',
+            ],
+          },
+          '/personal-injury': {
+            h1: 'Personal Injury Lawyers - Car Accidents & More',
+            metaDescription:
+              'Injured in an accident? Our personal injury attorneys fight for maximum compensation. No fees unless we win. Free consultation.',
+            keywords: [
+              'personal injury lawyer',
+              'car accident attorney',
+              'slip and fall lawyer',
+              'NC injury attorney',
+            ],
+            sections: [
+              'Types of Injury Cases',
+              'Car Accidents',
+              'Truck Accidents',
+              'Motorcycle Accidents',
+              'Slip & Fall',
+              'Medical Malpractice',
+              'Wrongful Death',
+              'Case Results',
+            ],
+          },
+        },
+        images: [
+          'attorney-team.jpg',
+          'office-raleigh.jpg',
+          'office-charlotte.jpg',
+          'logo-vasquez.png',
+          'william-vasquez.jpg',
+          'jillian-baucom.jpg',
+          'adrianna-ingram.jpg',
+        ],
+        structuredData: {
+          organization: {
+            '@type': 'LegalService',
+            name: 'Vasquez Law Firm, PLLC',
+            url: 'https://www.vasquezlawnc.com',
+            logo: '/images/logo-vasquez.png',
+            telephone: '1-844-967-3536',
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: '819 N Market Dr',
+              addressLocality: 'Raleigh',
+              addressRegion: 'NC',
+              postalCode: '27609',
+            },
+          },
+        },
+      };
+
+      // Populate pages list
+      const pagesList = document.getElementById('pagesList');
+      siteStructure.pages.forEach(page => {
+        const pageItem = document.createElement('div');
+        pageItem.className =
+          'p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors';
+        pageItem.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span class="font-medium text-gray-700">${page.title}</span>
+                    <span class="text-xs text-gray-500">Priority: ${page.priority}</span>
+                </div>
+                <div class="text-xs text-gray-500 mt-1">${page.url}</div>
+            `;
+        pageItem.onclick = () => showContentPreview(page.url);
+        pagesList.appendChild(pageItem);
+      });
+
+      // Show content preview
+      function showContentPreview(url) {
+        const preview = document.getElementById('contentPreview');
+        const content = siteStructure.content[url];
+
+        if (content) {
+          preview.innerHTML = `
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="font-semibold text-gray-700">H1 Tag:</h3>
+                            <p class="text-sm text-gray-600">${content.h1}</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-700">Meta Description:</h3>
+                            <p class="text-sm text-gray-600">${content.metaDescription}</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-700">Target Keywords:</h3>
+                            <div class="flex flex-wrap gap-2 mt-1">
+                                ${content.keywords.map(kw => `<span class="bg-[#C9974D] text-white text-xs px-2 py-1 rounded">${kw}</span>`).join('')}
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-700">Page Sections:</h3>
+                            <ul class="list-disc list-inside text-sm text-gray-600 mt-1">
+                                ${content.sections.map(section => `<li>${section}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+        } else {
+          preview.innerHTML = `
+                    <p class="text-gray-500">Content structure for ${url} will be imported from the live site.</p>
+                `;
+        }
+      }
+
+      // Show homepage by default
+      showContentPreview('/');
+    </script>
+  </body>
+</html>

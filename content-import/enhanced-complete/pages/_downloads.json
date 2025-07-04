@@ -1,0 +1,100 @@
+{
+  "url": "/_downloads.html",
+  "metadata": {
+    "title": " Downloads ",
+    "metaDescription": "",
+    "metaKeywords": "",
+    "canonical": "",
+    "ogTitle": "",
+    "ogDescription": "",
+    "ogImage": "",
+    "structuredData": [
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "@id": "https://vasquezlawnc.com/#organization",
+        "name": "Vasquez Law Firm, PLLC",
+        "alternateName": "Vasquez Law",
+        "url": "https://vasquezlawnc.com",
+        "logo": "https://vasquezlawnc.com/images/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/vasquezlawfirm",
+          "https://twitter.com/vasquezlawfirm",
+          "https://www.linkedin.com/company/vasquez-law-firm"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-844-967-3536",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Spanish"]
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://vasquezlawnc.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "_downloads",
+            "item": "https://vasquezlawnc.com/_downloads"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "Vasquez Law Firm",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "127",
+          "bestRating": "5"
+        }
+      }
+    ]
+  },
+  "content": {
+    "h1": " Downloads ",
+    "heroSection": "",
+    "mainContent": "",
+    "sidebar": "",
+    "breadcrumbs": ""
+  },
+  "navigation": {
+    "mainMenu": [],
+    "footerMenu": []
+  },
+  "forms": [],
+  "images": [],
+  "extractedAt": "2025-06-27T12:49:46.339Z",
+  "contentSections": [],
+  "internalLinks": [],
+  "seoScore": {
+    "score": 33,
+    "checks": [
+      "⚠ Title tag length: 11 chars (optimal: 30-60)",
+      "✓ H1 tag present",
+      "✓ Schema markup present (3 types)",
+      "✗ Very thin or no content",
+      "✗ Limited internal links (0, need 3+)",
+      "✗ No canonical URL",
+      "✗ Missing Open Graph tags"
+    ],
+    "recommendations": [
+      "⚠ Title tag length: 11 chars (optimal: 30-60)",
+      "✗ Very thin or no content",
+      "✗ Limited internal links (0, need 3+)",
+      "✗ No canonical URL",
+      "✗ Missing Open Graph tags"
+    ]
+  },
+  "pageType": "general",
+  "enhancedAt": "2025-06-27T12:53:31.619Z"
+}

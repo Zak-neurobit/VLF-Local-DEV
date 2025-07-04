@@ -1,0 +1,2404 @@
+{
+  "totalFiles": 96,
+  "processedFiles": [
+    {
+      "filename": "about-us.json",
+      "url": "https://www.vasquezlawnc.com/about-us/",
+      "title": "Page not found - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "No Results Found",
+      "hasContent": true,
+      "contentLength": 7383,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["No Results Found"],
+        "h2": ["Recent Blog Posts"],
+        "h3": [],
+        "h4": []
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "attorneys-adrianna-ingram.json",
+      "url": "https://www.vasquezlawnc.com/attorneys/adrianna-ingram/",
+      "title": "",
+      "metaDescription": "",
+      "h1": "",
+      "hasContent": false,
+      "contentLength": 0,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": [],
+        "h2": [],
+        "h3": [],
+        "h4": []
+      },
+      "pageType": "attorney"
+    },
+    {
+      "filename": "attorneys-christopher-afanador.json",
+      "url": "https://www.vasquezlawnc.com/attorneys/christopher-afanador/",
+      "title": "Christopher Afanador - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Christopher Afanador",
+      "hasContent": true,
+      "contentLength": 9151,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Christopher Afanador"],
+        "h2": ["Recent Blog Posts"],
+        "h3": ["Education:", "Experience"],
+        "h4": ["Attorney, Immigration Department", "Practice Areas"]
+      },
+      "pageType": "attorney"
+    },
+    {
+      "filename": "attorneys-jillian-baucom.json",
+      "url": "https://www.vasquezlawnc.com/attorneys/jillian-baucom/",
+      "title": "Jillian Baucom - Vasquez Law Firm, PLLC",
+      "metaDescription": "Jillian Baucom, experienced immigration attorney in Raleigh, NC. Dedicated to helping clients navigate the immigration process smoothly. Contact us today!",
+      "h1": "Jillian Baucom",
+      "hasContent": true,
+      "contentLength": 10141,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Jillian Baucom"],
+        "h2": ["Recent Blog Posts"],
+        "h3": [
+          "Education:",
+          "Bar Admissions:",
+          "Legal Practice Areas:",
+          "Relevant Past Employment Positions:",
+          "Languages"
+        ],
+        "h4": ["Immigration Attorney", "Practice Areas"]
+      },
+      "pageType": "attorney"
+    },
+    {
+      "filename": "attorneys-judith-parkes.json",
+      "url": "https://www.vasquezlawnc.com/attorneys/judith-parkes/",
+      "title": "",
+      "metaDescription": "",
+      "h1": "",
+      "hasContent": false,
+      "contentLength": 0,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": [],
+        "h2": [],
+        "h3": [],
+        "h4": []
+      },
+      "pageType": "attorney"
+    },
+    {
+      "filename": "attorneys-malcom-rodriguez.json",
+      "url": "https://www.vasquezlawnc.com/attorneys/malcom-rodriguez/",
+      "title": "Malcom Rodriguez - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Malcom Rodriguez",
+      "hasContent": true,
+      "contentLength": 9621,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Malcom Rodriguez"],
+        "h2": ["Recent Blog Posts"],
+        "h3": [
+          "Education:",
+          "Bar Admissions:",
+          "Legal Practice Areas:",
+          "Relevant Past Employment Positions:",
+          "Languages"
+        ],
+        "h4": ["Criminal Defense Attorney", "Practice Areas"]
+      },
+      "pageType": "attorney"
+    },
+    {
+      "filename": "attorneys-mark-kelsey.json",
+      "url": "https://www.vasquezlawnc.com/attorneys/mark-kelsey/",
+      "title": "Mark Kelsey - Vasquez Law Firm, PLLC",
+      "metaDescription": "Mark Kelsey is a dedicated professional providing expert services with a focus on quality and client satisfaction. Learn more about his expertise today.",
+      "h1": "Mark Kelsey",
+      "hasContent": true,
+      "contentLength": 8322,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Mark Kelsey"],
+        "h2": ["Recent Blog Posts"],
+        "h3": [],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "attorney"
+    },
+    {
+      "filename": "attorneys-rania-arwani.json",
+      "url": "https://www.vasquezlawnc.com/attorneys/rania-arwani/",
+      "title": "Rania Arwani - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Rania Arwani",
+      "hasContent": true,
+      "contentLength": 10428,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Rania Arwani"],
+        "h2": ["Recent Blog Posts"],
+        "h3": [],
+        "h4": ["Of Counsel", "Practice Areas"]
+      },
+      "pageType": "attorney"
+    },
+    {
+      "filename": "attorneys-roselyn-v-torrellas.json",
+      "url": "https://www.vasquezlawnc.com/attorneys/roselyn-v-torrellas/",
+      "title": "Roselyn v. Torrellas - Vasquez Law Firm, PLLC",
+      "metaDescription": "Roselyn V. Torrellas is a dedicated attorney providing expert legal counsel in immigration and personal injury law. Trusted representation you can count on.",
+      "h1": "Roselyn V. Torrellas",
+      "hasContent": true,
+      "contentLength": 10108,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Roselyn V. Torrellas"],
+        "h2": ["Recent Blog Posts"],
+        "h3": [],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "attorney"
+    },
+    {
+      "filename": "attorneys-william-vasquez-attorney.json",
+      "url": "https://www.vasquezlawnc.com/attorneys/william-vasquez-attorney/",
+      "title": "William Vasquez - Vasquez Law Firm, PLLC",
+      "metaDescription": "William Vasquez, attorney & founder, is a U.S. Air Force veteran and immigration lawyer in NC, providing expert legal counsel in immigration and criminal defense.",
+      "h1": "William Vasquez",
+      "hasContent": true,
+      "contentLength": 9247,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["William Vasquez"],
+        "h2": ["Recent Blog Posts"],
+        "h3": ["Education:", "Bar Admissions:", "Professional Associations:", "Languages"],
+        "h4": ["Attorney and Founder", "Practice Areas"]
+      },
+      "pageType": "attorney"
+    },
+    {
+      "filename": "attorneys.json",
+      "url": "https://www.vasquezlawnc.com/attorneys/",
+      "title": "Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "Meet our experienced attorneys dedicated to providing expert legal representation in immigration, personal injury, and criminal defense. Contact us today.",
+      "h1": "Meet Our Attorneys",
+      "hasContent": true,
+      "contentLength": 8577,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Meet Our Attorneys"],
+        "h2": ["Recent Blog Posts"],
+        "h3": [],
+        "h4": [
+          "William Vasquez",
+          "Jillian Baucom",
+          "Adrianna Ingram",
+          "Mark Kelsey",
+          "Roselyn V. Torrellas",
+          "Christopher Afanador",
+          "Practice Areas"
+        ]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "charlotte-nc.json",
+      "url": "https://www.vasquezlawnc.com/charlotte-nc/",
+      "title": "Charlotte, NC - Vasquez Law Firm, PLLC",
+      "metaDescription": "Charlotte, NC, is a vibrant city known for its booming economy, rich history, and exciting attractions. Explore top dining, entertainment, and business opportunities!",
+      "h1": "Charlotte, NC",
+      "hasContent": true,
+      "contentLength": 8110,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Charlotte, NC"],
+        "h2": [],
+        "h3": [],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "contact.json",
+      "url": "https://www.vasquezlawnc.com/contact/",
+      "title": "Contact - Vasquez Law Firm, PLLC",
+      "metaDescription": "Contact Vasquez Law Firm, PLLC for expert legal representation in immigration, personal injury, and criminal defense. Get trusted legal help today.",
+      "h1": "Contact Our Firm",
+      "hasContent": true,
+      "contentLength": 9366,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Contact Our Firm"],
+        "h2": ["Tell Us About Your Case", "Recent Blog Posts"],
+        "h3": ["Vasquez Law Firm, PLLC"],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "criminal-defense-domestic-violence-abuse.json",
+      "url": "https://www.vasquezlawnc.com/criminal-defense/domestic-violence-abuse/",
+      "title": "Raleigh, NC Domestic Violence Defense Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Domestic Violence Defense Attorneys",
+      "hasContent": true,
+      "contentLength": 12761,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Domestic Violence Defense Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers in Wake County for Clients Charged with Domestic Abuse and Protective Order Violations",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Understanding North Carolina Domestic Violence Laws",
+          "Protecting Your Rights in Mecklenburg County",
+          "We Are Here to Help"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "criminal-defense"
+    },
+    {
+      "filename": "criminal-defense-drug-crime-cases.json",
+      "url": "https://www.vasquezlawnc.com/criminal-defense/drug-crime-cases/",
+      "title": "Wake County Drug Crimes Defense Lawyers - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Wake County Drug Crimes Defense Lawyers",
+      "hasContent": true,
+      "contentLength": 13343,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Wake County Drug Crimes Defense Lawyers", "Recent Blog Posts"],
+        "h2": [
+          "Attorneys for Clients Charged With Drug Possession and Other Offenses in Raleigh and Smithfield, NC",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Trusted North Carolina Criminal Defense Counsel",
+          "Charlotte Drug Crime Lawyers Protecting Your Constitutional Rights",
+          "Contact Our Office Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "criminal-defense"
+    },
+    {
+      "filename": "criminal-defense-dwi-drunk-driving.json",
+      "url": "https://www.vasquezlawnc.com/criminal-defense/dwi-drunk-driving/",
+      "title": "Raleigh, NC DWI Defense Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC DWI Defense Attorneys",
+      "hasContent": true,
+      "contentLength": 12760,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC DWI Defense Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers in Wake County for Clients Charged With Drunk Driving",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Alcohol Impairment in North Carolina",
+          "Understanding DWI Charges and Penalties",
+          "Work With a Qualified DWI Defense Lawyer"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "criminal-defense"
+    },
+    {
+      "filename": "criminal-defense-expungement-expunction.json",
+      "url": "https://www.vasquezlawnc.com/criminal-defense/expungement-expunction/",
+      "title": "Wake County Expungement Lawyers - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Wake County Expungement Lawyers",
+      "hasContent": true,
+      "contentLength": 12480,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Wake County Expungement Lawyers", "Recent Blog Posts"],
+        "h2": [
+          "Attorneys in Raleigh, NC Helping to Clear Your Criminal Record Through Expunction",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "What Is Expunction?",
+          "Offenses That Are Eligible for Expungement",
+          "A Smithfield Lawyer Can Help",
+          "Schedule a Free Consultation Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "criminal-defense"
+    },
+    {
+      "filename": "criminal-defense-traffic-offenses-tickets.json",
+      "url": "https://www.vasquezlawnc.com/criminal-defense/traffic-offenses-tickets/",
+      "title": "Wake County Traffic Offenses Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Wake County Traffic Offenses Attorneys",
+      "hasContent": true,
+      "contentLength": 12703,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Wake County Traffic Offenses Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers for Moving Violations in Raleigh and Smithfield, NC",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Johnston County Counsel for Traffic Citations",
+          "Types of Violations We Handle",
+          "Contact One of Our Skilled Attorneys Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "criminal-defense"
+    },
+    {
+      "filename": "criminal-defense.json",
+      "url": "https://www.vasquezlawnc.com/criminal-defense/",
+      "title": "Raleigh Criminal Defense Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "Experienced Raleigh criminal defense attorneys protecting your rights. Get skilled legal representation for DUI, drug charges, assault, and more. Call today.",
+      "h1": "Raleigh Criminal Defense Attorneys",
+      "hasContent": true,
+      "contentLength": 13249,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh Criminal Defense Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Law Firm Helping Those Charged With Crimes in Wake County, and Smithfield, NC",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Experienced Defense Counsel in Johnson County",
+          "Criminal Defense Cases We Handle",
+          "Schedule Your Free Consultation Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "disclaimer.json",
+      "url": "https://www.vasquezlawnc.com/disclaimer/",
+      "title": "Disclaimer - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "",
+      "hasContent": true,
+      "contentLength": 10319,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": [],
+        "h2": [],
+        "h3": [],
+        "h4": []
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "durham-nc.json",
+      "url": "https://www.vasquezlawnc.com/durham-nc/",
+      "title": "Durham, NC - Vasquez Law Firm, PLLC",
+      "metaDescription": "Durham is a vibrant North Carolina city with diverse culture, rich history, and a flourishing community. It’s also known as the “City of Medicine,” with healthcare being a major industry including more than 300 medical and health-related companies and medical practices. It is a wonderful place to live for families, couples, and individuals. If you’re someone who is considering immigrating to the United States to become a legal resident of Durham, or somewhere else, or if you have been injured in an accident that wasn’t your fault, or if you have been accused with a crime, Vasquez Law Firm can help you. We are your top choice for representation! We are dedicated to helping clients reach their ideal resolution, no matter what situation they are in. We have extensive experience in personal injury, worker’s compensation, criminal defense, and family law. You can trust us to stand up for your rights! Call now to schedule a free consultation and allow us to apply our 35+ years of experience to your unique situation.",
+      "h1": "Durham, NC",
+      "hasContent": true,
+      "contentLength": 8360,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Durham, NC"],
+        "h2": [],
+        "h3": [],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "es-abogados.json",
+      "url": "https://www.vasquezlawnc.com/es/abogados/",
+      "title": "Abogados - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Conoce Nuestros Abogados",
+      "hasContent": true,
+      "contentLength": 10447,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Conoce Nuestros Abogados"],
+        "h2": ["Recent Blog Posts"],
+        "h3": [],
+        "h4": [
+          "William Vasquez",
+          "Jillian Baucom",
+          "Adrianna Ingram",
+          "Mark Kelsey",
+          "Roselyn V. Torrellas",
+          "Christopher Afanador",
+          "Areas de práctica"
+        ]
+      },
+      "pageType": "spanish"
+    },
+    {
+      "filename": "es-areas-de-practica-compensacion-laboral.json",
+      "url": "https://www.vasquezlawnc.com/es/areas-de-practica/compensacion-laboral/",
+      "title": "Abogados de Indemnización Laboral en Raleigh, NC - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Abogados de Indemnización Laboral en Raleigh, NC",
+      "hasContent": true,
+      "contentLength": 14108,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Abogados de Indemnización Laboral en Raleigh, NC"],
+        "h2": [
+          "Abogados que Ayudan a los Empleados que Resultaron Lesionados en el Trabajo en el Condado de Wake, NC"
+        ],
+        "h3": [
+          "Protección de los Derechos de los Trabajadores Lesionados en Smithfield",
+          "¿Por qué Debería Contratar a un Abogado de Compensación Laboral?",
+          "Consulta Gratis con un Miembro de Nuestro Equipo"
+        ],
+        "h4": ["Areas de práctica"]
+      },
+      "pageType": "spanish"
+    },
+    {
+      "filename": "es-areas-de-practica-defensa-criminal.json",
+      "url": "https://www.vasquezlawnc.com/es/areas-de-practica/defensa-criminal/",
+      "title": "Abogados De Defensa Criminal En Raleigh - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Abogados De Defensa Criminal En Raleigh",
+      "hasContent": true,
+      "contentLength": 14048,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Abogados De Defensa Criminal En Raleigh"],
+        "h2": [
+          "Bufete De Abogados Que Ayuda a los Acusados De Delitos En El Condado De Wake y Smithfield, NC"
+        ],
+        "h3": [
+          "Abogado Defensor Experimentado En El Condado De Johnson",
+          "Casos de defensa criminal que manejamos",
+          "Programe su consulta gratuita hoy"
+        ],
+        "h4": ["Areas de práctica"]
+      },
+      "pageType": "spanish"
+    },
+    {
+      "filename": "es-areas-de-practica-derecho-familia.json",
+      "url": "https://www.vasquezlawnc.com/es/areas-de-practica/derecho-familia/",
+      "title": "Abogados de Derecho Familiar en Raleigh - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Abogados de Derecho Familiar en Raleigh",
+      "hasContent": true,
+      "contentLength": 14146,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": [
+          "Abogados de Derecho Familiar en Raleigh",
+          "Abogados de Derecho Familiar en Raleigh"
+        ],
+        "h2": ["Abogados de Divorcio y Procedimientos Relacionados en el Condado de Wake, NC"],
+        "h3": [
+          "Representación de divorcio responsable y rentable en Charlotte",
+          "Asesor de confianza en derecho familiar del condado de Johnston",
+          "Nuestro equipo esta aqui para ayudar"
+        ],
+        "h4": ["Areas de práctica"]
+      },
+      "pageType": "spanish"
+    },
+    {
+      "filename": "es-areas-de-practica-inmigracion.json",
+      "url": "https://www.vasquezlawnc.com/es/areas-de-practica/inmigracion/",
+      "title": "Raleigh, NC Abogados de Inmigración - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Abogados de Inmigración",
+      "hasContent": true,
+      "contentLength": 14343,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Abogados de Inmigración"],
+        "h2": [
+          "Abogados en el Condado de Wake para visas, inmigración familiar, ciudadanía y defensa de deportación"
+        ],
+        "h3": [
+          "Abogados de inmigración del condado de Johnston que ayudan a satisfacer sus necesidades",
+          "Abogado de confianza para la defensa de deportación en Carolina del Norte",
+          "Programe una consulta gratuita"
+        ],
+        "h4": ["Areas de práctica"]
+      },
+      "pageType": "spanish"
+    },
+    {
+      "filename": "es-areas-de-practica-lesiones-personales.json",
+      "url": "https://www.vasquezlawnc.com/es/areas-de-practica/lesiones-personales/",
+      "title": "Abogados de Lesiones Personales en Raleigh, NC - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Abogados de Lesiones Personales en Raleigh, NC",
+      "hasContent": true,
+      "contentLength": 13949,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Abogados de Lesiones Personales en Raleigh, NC"],
+        "h2": [
+          "Abogados Para Clientes Lesionados en Accidentes en el Condado de Wake y el Condado de Johnston"
+        ],
+        "h3": [
+          "Tipos de casos de lesiones personales en Carolina del Norte",
+          "Defensores de los heridos en Smithfield",
+          "Comuníquese hoy mismo con un abogado con experiencia en lesiones personales"
+        ],
+        "h4": ["Areas de práctica"]
+      },
+      "pageType": "spanish"
+    },
+    {
+      "filename": "es-areas-de-practica.json",
+      "url": "https://www.vasquezlawnc.com/es/areas-de-practica/",
+      "title": "Abogados que prestan servicios en Raleigh, Charlotte y Smithfield, NC - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Abogados que prestan servicios en Raleigh, Charlotte y Smithfield, NC",
+      "hasContent": true,
+      "contentLength": 14007,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Abogados que prestan servicios en Raleigh, Charlotte y Smithfield, NC"],
+        "h2": [
+          "Abogados en el condado de Wake para asuntos de inmigración, divorcio, lesiones personales y defensa penal"
+        ],
+        "h3": [
+          "Abogados de inmigración del condado de Johnston",
+          "Lesiones personales y compensación laboral",
+          "Abogados de defensa criminal en Charlotte",
+          "Programe una Consulta Gratuita"
+        ],
+        "h4": ["Areas de práctica"]
+      },
+      "pageType": "spanish"
+    },
+    {
+      "filename": "es-blog.json",
+      "url": "https://www.vasquezlawnc.com/es/blog/",
+      "title": "",
+      "metaDescription": "",
+      "h1": "",
+      "hasContent": false,
+      "contentLength": 0,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": [],
+        "h2": [],
+        "h3": [],
+        "h4": []
+      },
+      "pageType": "spanish"
+    },
+    {
+      "filename": "es-contacto.json",
+      "url": "https://www.vasquezlawnc.com/es/contacto/",
+      "title": "Contacto - Vasquez Law Firm, PLLC",
+      "metaDescription": "¿Necesita ayuda legal? Contáctenos hoy para una consulta con nuestros abogados expertos. Estamos aquí para ayudarle en cada paso del camino.",
+      "h1": "Contacta con nosotros",
+      "hasContent": true,
+      "contentLength": 9405,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Contacta con nosotros"],
+        "h2": ["Tell Us About Your Case", "Recent Blog Posts"],
+        "h3": ["Vasquez Law Firm, PLLC"],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "spanish"
+    },
+    {
+      "filename": "es-descargo-de-responsabilidad.json",
+      "url": "https://www.vasquezlawnc.com/es/descargo-de-responsabilidad/",
+      "title": "",
+      "metaDescription": "",
+      "h1": "",
+      "hasContent": false,
+      "contentLength": 0,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": [],
+        "h2": [],
+        "h3": [],
+        "h4": []
+      },
+      "pageType": "spanish"
+    },
+    {
+      "filename": "es-politica-de-privacidad.json",
+      "url": "https://www.vasquezlawnc.com/es/politica-de-privacidad/",
+      "title": "",
+      "metaDescription": "",
+      "h1": "",
+      "hasContent": false,
+      "contentLength": 0,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": [],
+        "h2": [],
+        "h3": [],
+        "h4": []
+      },
+      "pageType": "spanish"
+    },
+    {
+      "filename": "es-recursos.json",
+      "url": "https://www.vasquezlawnc.com/es/recursos/",
+      "title": "",
+      "metaDescription": "",
+      "h1": "",
+      "hasContent": false,
+      "contentLength": 0,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": [],
+        "h2": [],
+        "h3": [],
+        "h4": []
+      },
+      "pageType": "spanish"
+    },
+    {
+      "filename": "es.json",
+      "url": "https://www.vasquezlawnc.com/es/",
+      "title": "Español - Vasquez Law Firm, PLLC",
+      "metaDescription": "Obtén representación honesta y confiable a un precio accesible. Asesoría legal experta para proteger tus derechos. ¡Contáctanos hoy!",
+      "h1": "Representación honesta y confiable a un precio accesible.",
+      "hasContent": true,
+      "contentLength": 35976,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": [
+          "Representación honesta y confiable a un precio accesible.",
+          "Abogados de inmigración en Raleigh, NC",
+          "El Proceso de Visa",
+          "Defensa Criminal"
+        ],
+        "h2": [
+          "Areas de Practica",
+          "Inmigración",
+          "Defensa Criminal",
+          "Compensación Laboral",
+          "Defensa de Deportacion",
+          "Todas las Areas de Práctica",
+          "Inmigración",
+          "Defensa Criminal",
+          "Compensación Laboral",
+          "Defensa de Deportacion",
+          "Lesión Personal",
+          "Todas las Areas de Práctica",
+          "Inmigración",
+          "Tipos de Visas Familiares",
+          "Visa de Familiar Inmediato",
+          "Visa de Preferencia Familiar",
+          "Visa de Prometido K",
+          "Lesión Personal",
+          "Compensación Laboral",
+          "Casos de Drogas",
+          "DWI / Conducir Ebrio",
+          "Violencia Doméstica",
+          "Infracciones de Tráfico",
+          "Ley Familiar",
+          "Centro de Medios",
+          "Nuestro equipo de abogados",
+          "Conoce nuestro Blog",
+          "Nuestras Oficinas"
+        ],
+        "h3": [
+          "Yo Peleo",
+          "Expert Insights on the Shocking Truth About Illegal Immigrants",
+          "La Mejor Guía para Navegar en la Junta de Apelaciones de Inmigración",
+          "7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos Complejos",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de",
+          "Struggles of Undocumented Immigrants?",
+          "Expert Tips to Navigate a Delayed Immigration Court Case Status",
+          "Best Guide on Navigating the Board of Immigration Appeals",
+          "La Impactante Verdad sobre la Inmigración Ilegal",
+          "Expert Insights on the Shocking Truth About Illegal Immigrants",
+          "La Mejor Guía para Navegar en la Junta de Apelaciones de Inmigración",
+          "7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos Complejos",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h4": [
+          "William Vasquez",
+          "Jillian Baucom",
+          "Adrianna Ingram",
+          "Christopher Afanador",
+          "Roselyn V. Torrellas",
+          "Mark Kelsey",
+          "Judith Parkes",
+          "Smithfield, NC",
+          "Raleigh, NC",
+          "Charlotte, NC",
+          "Orlando, FL"
+        ]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "family-law-alimony-spousal-support.json",
+      "url": "https://www.vasquezlawnc.com/family-law/alimony-spousal-support/",
+      "title": "Raleigh, NC Alimony Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Alimony Attorneys",
+      "hasContent": true,
+      "contentLength": 13458,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Alimony Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers for Post-Divorce Spousal Support Proceedings in Wake County",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Trusted Charlotte Divorce Attorneys",
+          "Marital Misconduct and Illicit Sexual Behavior",
+          "Safeguarding Your Future",
+          "Schedule Your Initial Consultation"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "family-law"
+    },
+    {
+      "filename": "family-law-child-custody.json",
+      "url": "https://www.vasquezlawnc.com/family-law/child-custody/",
+      "title": "Page not found - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "No Results Found",
+      "hasContent": true,
+      "contentLength": 7383,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["No Results Found"],
+        "h2": ["Recent Blog Posts"],
+        "h3": [],
+        "h4": []
+      },
+      "pageType": "family-law"
+    },
+    {
+      "filename": "family-law-divorce.json",
+      "url": "https://www.vasquezlawnc.com/family-law/divorce/",
+      "title": "Raleigh, NC Divorce Lawyers - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Divorce Lawyers",
+      "hasContent": true,
+      "contentLength": 12993,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Divorce Lawyers", "Recent Blog Posts"],
+        "h2": [
+          "Family Law Attorneys in Wake County for Those Going Through a Divorce",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Trusted Divorce Counsel in North Carolina",
+          "Financial Questions in a Smithfield Divorce",
+          "Johnston County Attorneys for Parents Seeking a Divorce",
+          "We Are Here to Help You"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "family-law"
+    },
+    {
+      "filename": "family-law-equitable-distribution-property-debt-division.json",
+      "url": "https://www.vasquezlawnc.com/family-law/equitable-distribution-property-debt-division/",
+      "title": "Raleigh, NC Property Division Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Property Division Attorneys",
+      "hasContent": true,
+      "contentLength": 13077,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Property Division Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers for the Equitable Distribution of Marital Assets and Debts in North Carolina",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Identifying the Marital Estate",
+          "Wake County Attorneys for Evaluating Marital Assets",
+          "Equitable Distribution",
+          "Schedule an Appointment Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "family-law"
+    },
+    {
+      "filename": "family-law.json",
+      "url": "https://www.vasquezlawnc.com/family-law/",
+      "title": "Raleigh Family Law Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "Experienced Raleigh family law attorneys providing compassionate legal support for divorce, child custody, and more. Protect your family's future today.",
+      "h1": "Raleigh Family Law Attorneys",
+      "hasContent": true,
+      "contentLength": 13046,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh Family Law Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers for Divorce and Related Proceedings in Wake County, NC",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Responsible, Cost-Effective Divorce Representation in Charlotte",
+          "Trusted Johnston County Family Law Counsel",
+          "Our Team Is Here to Help"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "homepage.json",
+      "url": "https://www.vasquezlawnc.com/",
+      "title": "Home - Vasquez Law Firm, PLLC",
+      "metaDescription": "Find experienced Raleigh, NC immigration lawyers to help with visas, green cards, citizenship, and more. Get expert legal guidance for your immigration needs today.",
+      "h1": "Honest, Reliable Representation at an Affordable Price.",
+      "hasContent": true,
+      "contentLength": 36079,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": [
+          "Honest, Reliable Representation at an Affordable Price.",
+          "Raleigh, NC Immigration Lawyers",
+          "The Visa Process",
+          "Criminal Defense"
+        ],
+        "h2": [
+          "Practice Areas",
+          "Immigration",
+          "Criminal Defense",
+          "Workers' Compensation",
+          "Deportation Defense",
+          "All Practice Areas",
+          "Immigration",
+          "Criminal Defense",
+          "Worker's Compensation",
+          "Deportation Defense",
+          "Personal Injury",
+          "All Practice Areas",
+          "Immigration",
+          "Types of Family Visas",
+          "Immediate Relative Visas",
+          "Family Preferences Visas",
+          "Finance K Visa",
+          "Personal Injury",
+          "Workers’ Compensation",
+          "Drug Cases",
+          "DWI",
+          "Domestic Violence",
+          "Traffic Offenses",
+          "Family Law",
+          "Media Center",
+          "Our Team of Attorneys",
+          "From Our Blog",
+          "Vasquez Law Offices"
+        ],
+        "h3": [
+          "Yo Peleo",
+          "Types of Family Visas",
+          "Expert Insights on the Shocking Truth About Illegal Immigrants",
+          "La Mejor Guía para Navegar en la Junta de Apelaciones de Inmigración",
+          "7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos Complejos",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de",
+          "Struggles of Undocumented Immigrants?",
+          "Expert Tips to Navigate a Delayed Immigration Court Case Status",
+          "Best Guide on Navigating the Board of Immigration Appeals",
+          "La Impactante Verdad sobre la Inmigración Ilegal",
+          "Expert Insights on the Shocking Truth About Illegal Immigrants",
+          "La Mejor Guía para Navegar en la Junta de Apelaciones de Inmigración",
+          "7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos Complejos",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h4": [
+          "William Vasquez",
+          "Jillian Baucom",
+          "Adrianna Ingram",
+          "Christopher Afanador",
+          "Roselyn V. Torrellas",
+          "Mark Kelsey",
+          "Judith Parkes",
+          "Smithfield, NC",
+          "Raleigh, NC",
+          "Charlotte, NC",
+          "Orlando, FL"
+        ]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "immigration-adjustment-of-status.json",
+      "url": "https://www.vasquezlawnc.com/immigration/adjustment-of-status/",
+      "title": "North Carolina Immigration Attorneys for Adjustment of Status - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "North Carolina Immigration Attorneys for Adjustment of Status",
+      "hasContent": true,
+      "contentLength": 12887,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": [
+          "North Carolina Immigration Attorneys for Adjustment of Status",
+          "Recent Blog Posts"
+        ],
+        "h2": [
+          "Lawyers in Raleigh, NC for Immigration Status Adjustments and Consular Processing",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "North Carolina Immigration Lawyers for Adjustment of Status Eligibility",
+          "Johnston County Consular Processing Lawyers",
+          "We Are Here to Help"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-asylum-refugee-legal-help.json",
+      "url": "https://www.vasquezlawnc.com/immigration/asylum-refugee-legal-help/",
+      "title": "Charlotte, NC Asylum Immigration Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Charlotte, NC Asylum Immigration Attorneys",
+      "hasContent": true,
+      "contentLength": 13209,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Charlotte, NC Asylum Immigration Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers for Refugees and Asylees in Raleigh and Smithfield, NC",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "What Is Asylum?",
+          "The Difference Between Asylum Seekers and Refugees",
+          "Charlotte Lawyers Assisting Asylum Seekers",
+          "We Are Here to Help"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-citizenship-naturalization.json",
+      "url": "https://www.vasquezlawnc.com/immigration/citizenship-naturalization/",
+      "title": "Raleigh, NC Citizenship and Naturalization Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Citizenship and Naturalization Attorneys",
+      "hasContent": true,
+      "contentLength": 12848,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Citizenship and Naturalization Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers in Charlotte and Smithfield for Individuals Seeking to Become U.S. Citizens",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Why Does Citizenship Matter?",
+          "Requirements for Naturalization",
+          "Speak With a Member of Our Team Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-criminal-convictions-impact-on-immigration.json",
+      "url": "https://www.vasquezlawnc.com/immigration/criminal-convictions-impact-on-immigration/",
+      "title": "Raleigh, NC Criminal Conviction Immigration Lawyers - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Criminal Conviction Immigration Lawyers",
+      "hasContent": true,
+      "contentLength": 12902,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Criminal Conviction Immigration Lawyers", "Recent Blog Posts"],
+        "h2": [
+          "Attorneys in Charlotte and Smithfield for Immigrants Facing Criminal Charges",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "How Criminal Prosecution Could Affect Immigration Status",
+          "Johnston County Counsel for Non-Citizens in Criminal Matters",
+          "We Are Ready to Help You"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-daca-deferred-action-childhood-arrivals-2.json",
+      "url": "https://www.vasquezlawnc.com/immigration/daca-deferred-action-childhood-arrivals-2/",
+      "title": "Raleigh, NC DACA Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC DACA Attorneys",
+      "hasContent": true,
+      "contentLength": 12904,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC DACA Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers in Wake County for Those Seeking Deferred Action for Childhood Arrivals",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "What is DACA?",
+          "Eligibility Requirements for DACA",
+          "Protecting Your Best Interests in North Carolina",
+          "We Are Here to Help You"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-deportation-removal-defense.json",
+      "url": "https://www.vasquezlawnc.com/immigration/deportation-removal-defense/",
+      "title": "Raleigh, NC Deportation Defense Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Deportation Defense Attorneys",
+      "hasContent": true,
+      "contentLength": 13171,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Deportation Defense Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers Helping Charlotte Clients Facing Removal From the United States",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Common Reasons for Removal Proceedings",
+          "Defending Against Deportation in Johnston County",
+          "We Are Ready to Help You"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-detention-bond-hearings.json",
+      "url": "https://www.vasquezlawnc.com/immigration/detention-bond-hearings/",
+      "title": "Raleigh, NC Detention Bond Hearing Lawyers - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Detention Bond Hearing Lawyers",
+      "hasContent": true,
+      "contentLength": 13271,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Detention Bond Hearing Lawyers", "Recent Blog Posts"],
+        "h2": [
+          "Attorneys in Charlotte and Smithfield for Immigrants Facing Criminal Charges",
+          "How Criminal Prosecution Could Affect Immigration Status",
+          "Johnston County Counsel for Non-Citizens in Criminal Matters",
+          "We Are Ready to Help You",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-employment-based-immigration-e-visa.json",
+      "url": "https://www.vasquezlawnc.com/immigration/employment-based-immigration/e-visa/",
+      "title": "Raleigh E Visa Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh E Visa Attorneys",
+      "hasContent": true,
+      "contentLength": 12483,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh E Visa Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers in Wake County for Treaty Trader and Investor Visas",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Understanding the Types of E Visas",
+          "Maintaining an E Visa in North Carolina",
+          "Contact a Qualified Immigration Attorney"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-employment-based-immigration-h-2b-visa.json",
+      "url": "https://www.vasquezlawnc.com/immigration/employment-based-immigration/h-2b-visa/",
+      "title": "Raleigh H-2B Visa Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "Need help with an H-2B visa in Raleigh, NC? Our experienced attorneys guide you through the process smoothly. Contact us today for a consultation!",
+      "h1": "Raleigh H-2B Visa Attorneys",
+      "hasContent": true,
+      "contentLength": 12573,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh H-2B Visa Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "What is an H-2B Visa?",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Benefits of the H-2B Program",
+          "Employer Requirements",
+          "We Are Here to Help",
+          "Call 1-844-YO-PELEO Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-employment-based-immigration-perm-labor-certification.json",
+      "url": "https://www.vasquezlawnc.com/immigration/employment-based-immigration/perm-labor-certification/",
+      "title": "Raleigh PERM Labor Certification Lawyers - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh PERM Labor Certification Lawyers",
+      "hasContent": true,
+      "contentLength": 12748,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh PERM Labor Certification Lawyers", "Recent Blog Posts"],
+        "h2": [
+          "What is PERM Labor Certification?",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Understanding the PERM Labor Certification Process",
+          "Helping With the Details in Smithfield and Charlotte",
+          "Call 1-844-YO-PELEO to Learn More"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-employment-based-immigration-tn-visa.json",
+      "url": "https://www.vasquezlawnc.com/immigration/employment-based-immigration/tn-visa/",
+      "title": "Raleigh TN Visa Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh TN Visa Attorneys",
+      "hasContent": true,
+      "contentLength": 12975,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh TN Visa Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers in Wake County Helping Professionals Obtain Visas Under NAFTA",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "What is a TN Visa?",
+          "General TN Visa Eligibility",
+          "Requirements for Canadian Citizens",
+          "Requirements for Mexican Citizens",
+          "Family-Related Concerns for TN Visa Holders",
+          "Contact an Experienced Business Immigration Lawyer Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-employment-based-immigration.json",
+      "url": "https://www.vasquezlawnc.com/immigration/employment-based-immigration/",
+      "title": "Raleigh Employment-Based Immigration Attorney - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh Employment-Based Immigration Attorney",
+      "hasContent": true,
+      "contentLength": 13327,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh Employment-Based Immigration Attorney", "Recent Blog Posts"],
+        "h2": [
+          "Work-Related and Non-Immigrant Visa Lawyers in Wake County",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Temporary Work Visas",
+          "Immigrant Visas and Lawful Permanent Residency",
+          "Working Out the Details",
+          "Call 1-844-YO-PELEO Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-family-based-relative.json",
+      "url": "https://www.vasquezlawnc.com/immigration/family-based-relative/",
+      "title": "Raleigh, NC Family-Based Immigration Lawyers - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Family-Based Immigration Lawyers",
+      "hasContent": true,
+      "contentLength": 13634,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Family-Based Immigration Lawyers", "Recent Blog Posts"],
+        "h2": [
+          "Family Visa Attorneys in Wake County and Johnston County, North Carolina",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Immigration Counsel for Families in North Carolina",
+          "Johnson County Lawyers Who Understand the Preference System for Family-Based Immigration",
+          "Smithfield Lawyers for Fiancé Visas",
+          "Work with a Knowledgeable North Carolina Immigration Lawyer"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-family-preference-visas.json",
+      "url": "https://www.vasquezlawnc.com/immigration/family-preference-visas/",
+      "title": "Raleigh, NC Family Preference Visas Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Family Preference Visas Attorneys",
+      "hasContent": true,
+      "contentLength": 13010,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Family Preference Visas Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Immigration Lawyers in Charlotte, North Carolina Help Bring Families Together",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Types of Family Immigration Visas",
+          "Family Preference System Lawyers in Johnson County",
+          "A Smithfield Attorney Can Help",
+          "Schedule a No-Cost Initial Consultation"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-family-visa-types.json",
+      "url": "https://www.vasquezlawnc.com/immigration/family-visa-types/",
+      "title": "Raleigh, NC Attorneys For Family Visas - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Attorneys For Family Visas",
+      "hasContent": true,
+      "contentLength": 12852,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Attorneys For Family Visas", "Recent Blog Posts"],
+        "h2": [
+          "What Types of Visas are Available for Families Coming to the United States?",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Smithfield Counsel for Family Immigrant Visas",
+          "Types of Family Visas",
+          "Finding the Right Family Visa",
+          "Schedule a Free Consultation"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-faqs-questions-answers.json",
+      "url": "https://www.vasquezlawnc.com/immigration/faqs-questions-answers/",
+      "title": "Frequently Asked Questions About Immigration - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Frequently Asked Questions About Immigration",
+      "hasContent": true,
+      "contentLength": 12893,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Frequently Asked Questions About Immigration", "Recent Blog Posts"],
+        "h2": [
+          "North Carolina Immigration Attorneys",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Q. What is a visa?",
+          "Q. What type of visa do I need?",
+          "Q. How do I become a lawful permanent resident?",
+          "Q. I have a green card. Can I become a U.S. citizen?",
+          "Q. What if my visa application is denied?",
+          "Q. Am I in danger of being deported?",
+          "Contact a Qualified Immigration Attorney"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-fiance-k-visas.json",
+      "url": "https://www.vasquezlawnc.com/immigration/fiance-k-visas/",
+      "title": "Wake County, NC Fiancé Visa Lawyers - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Wake County, NC Fiancé Visa Lawyers",
+      "hasContent": true,
+      "contentLength": 13234,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Wake County, NC Fiancé Visa Lawyers", "Recent Blog Posts"],
+        "h2": [
+          "Immigration Attorneys in Raleigh for Marriage-Related Visas",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Johnson County Counsel for K-1 Visa Applications",
+          "Requirements for K-1 Visas",
+          "North Carolina Attorneys Helping You Build Your New Life",
+          "Let Us Help"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-green-cards.json",
+      "url": "https://www.vasquezlawnc.com/immigration/green-cards/",
+      "title": "Raleigh, NC Green Card Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Green Card Attorneys",
+      "hasContent": true,
+      "contentLength": 13410,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Green Card Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers in Wake County Helping Immigrants Obtain Lawful Permanent Resident Status",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "What Is a Green Card?",
+          "Consular Processing for LPR Status",
+          "Schedule a Free Consultation"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-immediate-relative-visas.json",
+      "url": "https://www.vasquezlawnc.com/immigration/immediate-relative-visas/",
+      "title": "Raleigh Immigration Attorneys for Immediate Relative Visas - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh Immigration Attorneys for Immediate Relative Visas",
+      "hasContent": true,
+      "contentLength": 13111,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh Immigration Attorneys for Immediate Relative Visas", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers Helping U.S. Citizens Reunite Their Families Through Immigration in Charlotte and Smithfield, NC",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "What Are Immediate Relatives?",
+          "Obtaining an Immediate Relative Visa",
+          "North Carolina Immigration Lawyers You Can Trust",
+          "We Are Here to Help"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-inadmissibility-waivers-ineligible-to-immigrate.json",
+      "url": "https://www.vasquezlawnc.com/immigration/inadmissibility-waivers-ineligible-to-immigrate/",
+      "title": "Raleigh, NC Waivers of Inadmissibility Lawyers - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Waivers of Inadmissibility Lawyers",
+      "hasContent": true,
+      "contentLength": 12931,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Waivers of Inadmissibility Lawyers", "Recent Blog Posts"],
+        "h2": [
+          "Attorneys in Smithfield and Charlotte Helping Ineligible and Inadmissible Immigrants",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Grounds for Ineligibility or Inadmissibility",
+          "Charlotte, North Carolina Attorneys Can Help You Get a Waiver",
+          "Get the Help You Need Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-vawa-u-visa-crime-victims.json",
+      "url": "https://www.vasquezlawnc.com/immigration/vawa-u-visa-crime-victims/",
+      "title": "Raleigh, NC Immigration Lawyers for Victims of Crimes and Domestic Violence - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Immigration Lawyers for Victims of Crimes and Domestic Violence",
+      "hasContent": true,
+      "contentLength": 13757,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": [
+          "Raleigh, NC Immigration Lawyers for Victims of Crimes and Domestic Violence",
+          "Recent Blog Posts"
+        ],
+        "h2": [
+          "Attorneys in Charlotte and Smithfield Helping Foreign Nationals Affected By Domestic Abuse and Other Crimes",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "What Is the VAWA?",
+          "Smithfield Counsel for Victims of Other Crimes",
+          "Get the Help You Need Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-visa-denial-help-appeals.json",
+      "url": "https://www.vasquezlawnc.com/immigration/visa-denial-help-appeals/",
+      "title": "Raleigh Immigration Visa Denial Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh Immigration Visa Denial Attorneys",
+      "hasContent": true,
+      "contentLength": 13181,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh Immigration Visa Denial Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers for Appealing the Denial of Immigrant Visas in Wake County, NC",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Johnston County Immigration Lawyers for Visa Reconsiderations",
+          "Common Reasons for Visa Denials",
+          "Trusted Immigration Lawyers in Charlotte",
+          "Contact Our Office Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration-visa-process.json",
+      "url": "https://www.vasquezlawnc.com/immigration/visa-process/",
+      "title": "Raleigh, NC Immigrant Visa Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "Need a visa? Raleigh, NC immigrant visa attorneys provide expert legal guidance for work, family, and investor visas. Get trusted representation today.",
+      "h1": "Raleigh, NC Immigrant Visa Attorneys",
+      "hasContent": true,
+      "contentLength": 12881,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Immigrant Visa Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers in Wake County Helping With Visa Petitions and Interviews",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Non-immigrant and Immigrant Visas",
+          "The Immigrant Visa Process",
+          "How Can an Attorney Help?",
+          "Our Team Is Here to Guide You"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "immigration.json",
+      "url": "https://www.vasquezlawnc.com/immigration/",
+      "title": "Raleigh, NC Family-Based Immigration Lawyers - Vasquez Law Firm, PLLC",
+      "metaDescription": "Need a trusted family-based immigration lawyer in Raleigh, NC? Our experienced attorneys help reunite families with reliable legal guidance. Contact us today!",
+      "h1": "Raleigh, NC Family-Based Immigration Lawyers",
+      "hasContent": true,
+      "contentLength": 13880,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Family-Based Immigration Lawyers", "Recent Blog Posts"],
+        "h2": [
+          "Family Visa Attorneys in Wake County and Johnston County, North Carolina",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Immigration Counsel for Families in North Carolina",
+          "Johnson County Lawyers Who Understand the Preference System for Family-Based Immigration",
+          "Smithfield Lawyers for Fiancé Visas",
+          "Work with a Knowledgeable North Carolina Immigration Lawyer"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "make-payment.json",
+      "url": "https://www.vasquezlawnc.com/make-payment/",
+      "title": "Make Payment - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Make Payment",
+      "hasContent": true,
+      "contentLength": 7309,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Make Payment"],
+        "h2": ["Recent Blog Posts"],
+        "h3": [],
+        "h4": []
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "media-info.json",
+      "url": "https://www.vasquezlawnc.com/media-info/",
+      "title": "Media - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Video Gallery",
+      "hasContent": true,
+      "contentLength": 8605,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Video Gallery"],
+        "h2": [],
+        "h3": [],
+        "h4": [
+          "Vasquez Law Firm 1-844-YO-PELEO Consulta Gratis",
+          "Despierta Raleigh Vasquez Law Firm Cancelacion de De",
+          "Despierta Raleigh Vasquez Law Firm Accidente Automovilistico",
+          "Despierta Raleigh Vasquez Law Firm Accidentes En El Trabajo",
+          "Despierta Raleigh Vasquez Law Firm Estatus Especial de Inmigrante Joven SIJS",
+          "Despierta Raleigh Vasquez Law Firm Como Protegerme de Inmigracion",
+          "Despierta Raleigh Nuevas Prioridades de Inmigración para Deportar",
+          "Despierta Raleigh Vasquez Law Firm Ordenes Ejecutivas",
+          "INMIGRACION AL DIA ABOGADO VASQUEZ DEFENSA DE DEPORTACION 01/11/2014",
+          "Abogado Vasquez Show # 49",
+          "Peticiones de Miembros de Familia con Inmigracion",
+          "Problema de Licencia En Norte Para el Documentado",
+          "Segmento De Preguntas y Respuestas Vasquez Law Firm, NC",
+          "Accion Diferida DACA – Vasquez Law Firm",
+          "La Visa U Inmigracion! Abogado Vásquez, Vasquez Law Firm, PLLC",
+          "La Famosa Ley de 10 Años de Inmigración, Abogado Vasquez",
+          "Naturalización Inmigracion, Abogado Vasquez, Vasquez Law Firm, PLLC",
+          "Practice Areas"
+        ]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "orlando-fl.json",
+      "url": "https://www.vasquezlawnc.com/orlando-fl/",
+      "title": "Orlando, FL Lawyer Vasquez Law Firm, PLLC",
+      "metaDescription": "Trusted lawyers in Orlando, FL. Vasquez Law Firm provides skilled legal assistance for personal injury and immigration.",
+      "h1": "Orlando, FL",
+      "hasContent": true,
+      "contentLength": 8294,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Orlando, FL"],
+        "h2": [],
+        "h3": [],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "our-team.json",
+      "url": "https://www.vasquezlawnc.com/our-team/",
+      "title": "Page not found - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "No Results Found",
+      "hasContent": true,
+      "contentLength": 7383,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["No Results Found"],
+        "h2": ["Recent Blog Posts"],
+        "h3": [],
+        "h4": []
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "personal-injury-bicycle-bike-accidents.json",
+      "url": "https://www.vasquezlawnc.com/personal-injury/bicycle-bike-accidents/",
+      "title": "Raleigh, NC Bicycle Accident Lawyers - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Bicycle Accident Lawyers",
+      "hasContent": true,
+      "contentLength": 12673,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Bicycle Accident Lawyers", "Recent Blog Posts"],
+        "h2": [
+          "Attorneys in Wake County Seek Compensation for Injured Cyclists",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Mecklenburg County Law Firm for Bike Accidents",
+          "Trusted Advocates for Bicycle Crash Victims in Smithfield",
+          "Schedule a Free Case Evaluation"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "personal-injury"
+    },
+    {
+      "filename": "personal-injury-boating-jet-ski-watercraft-accidents.json",
+      "url": "https://www.vasquezlawnc.com/personal-injury/boating-jet-ski-watercraft-accidents/",
+      "title": "Raleigh, NC Boat Accident Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Boat Accident Attorneys",
+      "hasContent": true,
+      "contentLength": 13044,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Boat Accident Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers Helping Victims Injured on the Water in Wake County and Johnston County",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Common Causes of North Carolina Boating Accidents",
+          "Charlotte Boat Accident Liability Lawyers",
+          "Let Us Help You"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "personal-injury"
+    },
+    {
+      "filename": "personal-injury-car-auto-accidents.json",
+      "url": "https://www.vasquezlawnc.com/personal-injury/car-auto-accidents/",
+      "title": "Raleigh, NC Car Accident Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "Injured in a crash? Raleigh, NC car accident attorneys fight for maximum compensation. Get expert legal help for your claim. Free consultation available.",
+      "h1": "Raleigh, NC Car Accident Attorneys",
+      "hasContent": true,
+      "contentLength": 13432,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Car Accident Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers for Motor Vehicle Crashes in Wake County and Johnston County",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Skilled North Carolina Car Crash Lawyers Who Care",
+          "What to Do After a Car Crash",
+          "Put Our Team on Your Side"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "personal-injury"
+    },
+    {
+      "filename": "personal-injury-drunk-driver-liability.json",
+      "url": "https://www.vasquezlawnc.com/personal-injury/drunk-driver-liability/",
+      "title": "Raleigh, NC Drunk Driver Liability Lawyers - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Drunk Driver Liability Lawyers",
+      "hasContent": true,
+      "contentLength": 12726,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Drunk Driver Liability Lawyers", "Recent Blog Posts"],
+        "h2": [
+          "Attorneys in Wake County for DWI-Related Auto Accidents",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "DWI Accidents and Negligence Per Se in North Carolina",
+          "Charlotte Attorneys Protecting Your Rights",
+          "Free Consultations Are Available"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "personal-injury"
+    },
+    {
+      "filename": "personal-injury-emergency-vehicle-accidents.json",
+      "url": "https://www.vasquezlawnc.com/personal-injury/emergency-vehicle-accidents/",
+      "title": "Wake County Emergency Vehicle Accident Injury Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Wake County Emergency Vehicle Accident Injury Attorneys",
+      "hasContent": true,
+      "contentLength": 12959,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Wake County Emergency Vehicle Accident Injury Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers in Raleigh, NC for Those Injured in Crashes Involving Police Cars, Ambulances, and Fire Trucks",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "What the Law Says",
+          "Building Your Case in Johnston County",
+          "Contact Our Firm Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "personal-injury"
+    },
+    {
+      "filename": "personal-injury-mass-transit-public-transportation-bus-train-accidents.json",
+      "url": "https://www.vasquezlawnc.com/personal-injury/mass-transit-public-transportation-bus-train-accidents/",
+      "title": "Wake County Mass Transit Accident Injury Lawyers - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Wake County Mass Transit Accident Injury Lawyers",
+      "hasContent": true,
+      "contentLength": 13204,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Wake County Mass Transit Accident Injury Lawyers", "Recent Blog Posts"],
+        "h2": [
+          "Attorneys for Clients Injured on Public Transportation in Raleigh and Charlotte",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Public Transportation in North Carolina",
+          "Charlotte Lawyers Protecting the Rights of Accident Victims",
+          "Contact Us Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "personal-injury"
+    },
+    {
+      "filename": "personal-injury-motorcycle-accidents.json",
+      "url": "https://www.vasquezlawnc.com/personal-injury/motorcycle-accidents/",
+      "title": "Raleigh, NC Motorcycle Accident Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Motorcycle Accident Attorneys",
+      "hasContent": true,
+      "contentLength": 12741,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Motorcycle Accident Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers in Wake County Helping Injured Riders Recover Compensation",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Dedicated Johnston County Personal Injury Attorneys",
+          "Protecting Victims’ Rights in Smithfield",
+          "Our Team Is Here to Help"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "personal-injury"
+    },
+    {
+      "filename": "personal-injury-pedestrian-hit-by-car.json",
+      "url": "https://www.vasquezlawnc.com/personal-injury/pedestrian-hit-by-car/",
+      "title": "Wake County Pedestrian Accident Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Wake County Pedestrian Accident Attorneys",
+      "hasContent": true,
+      "contentLength": 12862,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Wake County Pedestrian Accident Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers Representing Injured Walkers and Joggers in the Raleigh, NC Area",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Charlotte Legal Help  for Pedestrians Hit By a Car",
+          "Trusted Johnston County Personal Injury Attorneys",
+          "Get the Help You Need Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "personal-injury"
+    },
+    {
+      "filename": "personal-injury-premises-liability.json",
+      "url": "https://www.vasquezlawnc.com/personal-injury/premises-liability/",
+      "title": "Raleigh, NC Premises Liability Injury Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Premises Liability Injury Attorneys",
+      "hasContent": true,
+      "contentLength": 12631,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Premises Liability Injury Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers in Wake County for Slip, Trip, and Falls and Other Property Accidents",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Counsel for Premises Liability Cases in Johnston County, North Carolina",
+          "Client-Focused Representation in Smithfield",
+          "Protecting the Rights of Accident Victims",
+          "We Are Here to Help You"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "personal-injury"
+    },
+    {
+      "filename": "personal-injury-truck-accidents.json",
+      "url": "https://www.vasquezlawnc.com/personal-injury/truck-accidents/",
+      "title": "Wake County Semi Truck Accident Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Wake County Semi Truck Accident Attorneys",
+      "hasContent": true,
+      "contentLength": 12691,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Wake County Semi Truck Accident Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers for Those Injured in Commercial Truck Wrecks in Raleigh and Smithfield, NC",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Trusted Counsel for Transportation Accidents in Johnston County",
+          "Building Your Case for Compensation",
+          "Contact Our Dedicated Personal Injury Team Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "personal-injury"
+    },
+    {
+      "filename": "personal-injury-uninsured-underinsured-drivers-motorists-accidents.json",
+      "url": "https://www.vasquezlawnc.com/personal-injury/uninsured-underinsured-drivers-motorists-accidents/",
+      "title": "Raleigh Uninsured and Underinsured Motorist Accident Lawyers - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh Uninsured and Underinsured Motorist Accident Lawyers",
+      "hasContent": true,
+      "contentLength": 12909,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh Uninsured and Underinsured Motorist Accident Lawyers", "Recent Blog Posts"],
+        "h2": [
+          "Attorneys in Wake County for Crashes Caused by Drivers Without Proper Insurance",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Uninsured vs. Underinsured Drivers",
+          "Protecting the Rights of Clients in Smithfield and Charlotte",
+          "Let Us Help You"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "personal-injury"
+    },
+    {
+      "filename": "personal-injury.json",
+      "url": "https://www.vasquezlawnc.com/personal-injury/",
+      "title": "Raleigh, NC Personal Injury Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "Injured due to negligence? Raleigh, NC personal injury attorneys fight for your rights and maximum compensation. Get a free consultation today.",
+      "h1": "Raleigh, NC Personal Injury Attorneys",
+      "hasContent": true,
+      "contentLength": 12900,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Personal Injury Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers for Clients Injured in Accidents in Wake County and Johnston County",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Types of North Carolina Personal Injury Cases",
+          "Advocates for the Injured in Smithfield",
+          "Contact an Experienced Personal Injury Attorney Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "privacy-policy.json",
+      "url": "https://www.vasquezlawnc.com/privacy-policy/",
+      "title": "Privacy Policy - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Information We Collect",
+      "hasContent": true,
+      "contentLength": 10197,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Information We Collect"],
+        "h2": [],
+        "h3": [],
+        "h4": []
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "raleigh-nc.json",
+      "url": "https://www.vasquezlawnc.com/raleigh-nc/",
+      "title": "Raleigh, NC - Vasquez Law Firm, PLLC",
+      "metaDescription": "Need a trusted workers’ comp lawyer in Raleigh, NC? Get expert legal help to secure the benefits you deserve. Contact us today for a free consultation!",
+      "h1": "Raleigh, NC",
+      "hasContent": true,
+      "contentLength": 8289,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC"],
+        "h2": [],
+        "h3": [],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "scholarship.json",
+      "url": "https://www.vasquezlawnc.com/scholarship/",
+      "title": "Scholarship - Vasquez Law Firm, PLLC",
+      "metaDescription": "Vasquez Law Firm supports Dreamers with DACA legal services and the Dreamer Scholarship. Get trusted legal help and apply for funding today!",
+      "h1": "Vasquez Law Firm DACADreamer Scholarship",
+      "hasContent": true,
+      "contentLength": 14190,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Vasquez Law Firm DACADreamer Scholarship"],
+        "h2": [
+          "Spring 2025 Scholarship Opportunity Now Open for Applications",
+          "Student Eligibility Details",
+          "Applicant must be a DACA recipient pursuing a higher education",
+          "Applicant must have a 3.5 grade point average or higher",
+          "Applicant must be enrolled or planning to enroll in an accredited college/university for the Fall 2024 semester",
+          "Applicant must be at least 17 years of age",
+          "Application Instructions",
+          "The selected award recipient will have the option of their art being displayed at our law firms.",
+          "Evaluation Criteria Explained",
+          "Winning applicants must submit all requested documentation and information through our application form.",
+          "Winning applicants must comprehensively answer the provided prompt within their submission.",
+          "Winning applicants’ submissions must be original with clear ideas that depict their personality and experience.",
+          "DACA Dream Scholarship Winners",
+          "Application Form"
+        ],
+        "h3": ["Contact Information:"],
+        "h4": [
+          "Fall 2024 Winner: Jennifer Guzman Millan",
+          "Fall 2024 Winner: Citlali Jacqueline Flores Hernandez"
+        ]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "site-map.json",
+      "url": "https://www.vasquezlawnc.com/site-map/",
+      "title": "Page not found - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "No Results Found",
+      "hasContent": true,
+      "contentLength": 7383,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["No Results Found"],
+        "h2": ["Recent Blog Posts"],
+        "h3": [],
+        "h4": []
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "smithfield-nc.json",
+      "url": "https://www.vasquezlawnc.com/smithfield-nc/",
+      "title": "Smithfield, NC - Vasquez Law Firm, PLLC",
+      "metaDescription": "Discover Smithfield, NC – a charming town with rich history, great dining, and a welcoming community. Explore local attractions and small-town charm today!",
+      "h1": "Smithfield, NC",
+      "hasContent": true,
+      "contentLength": 8184,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Smithfield, NC"],
+        "h2": [],
+        "h3": [],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "t-visa-immigration-attorneys.json",
+      "url": "https://www.vasquezlawnc.com/t-visa-immigration-attorneys/",
+      "title": "T Visa Immigration Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "At Vasquez Law Firm, we understand how challenging it can be to face situations of labor exploitation or human trafficking. The T Visa is a vital resource for victims of these crimes, offering protection and the opportunity to rebuild their lives in the United States.",
+      "h1": "",
+      "hasContent": true,
+      "contentLength": 9643,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": [],
+        "h2": ["T Visa Immigration Attorneys in Charlotte, NC"],
+        "h3": [
+          "What is the T Visa?",
+          "Benefits of the T Visa",
+          "Key Requirements",
+          "How can we help?"
+        ],
+        "h4": []
+      },
+      "pageType": "immigration"
+    },
+    {
+      "filename": "testimonials.json",
+      "url": "https://www.vasquezlawnc.com/testimonials/",
+      "title": "Testimonials - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Testimonials",
+      "hasContent": true,
+      "contentLength": 12677,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Testimonials", "Testimonials"],
+        "h2": ["Recent Blog Posts", "Recent Blog Posts"],
+        "h3": ["Our Rating"],
+        "h4": [
+          "Use this form to send your comments or concerns directly to the manager.",
+          "Please rate us and let us know how we are performing.",
+          "Practice Areas"
+        ]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "venezuelan-deferred-enforced-deportation-by-trump.json",
+      "url": "https://www.vasquezlawnc.com/venezuelan-deferred-enforced-deportation-by-trump/",
+      "title": "Smithfield, NC Immigration Lawyers for Deferred Enforced Departure - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Smithfield, NC Immigration Lawyers for Deferred Enforced Departure",
+      "hasContent": true,
+      "contentLength": 12808,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": [
+          "Smithfield, NC Immigration Lawyers for Deferred Enforced Departure",
+          "Recent Blog Posts"
+        ],
+        "h2": [
+          "Raleigh Attorneys Helping Venezuelans Avoid Deportation and Obtain Work Permits",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "President Trump’s Memo Granting Deferred Enforced Departure",
+          "Contact Our Johnston County Immigration Attorneys"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "winston-salem.json",
+      "url": "https://www.vasquezlawnc.com/winston-salem/",
+      "title": "Winston-Salem, NC - Vasquez Law Firm, PLLC",
+      "metaDescription": "Explore Winston-Salem, NC – a vibrant city rich in history, arts, and culture. Discover local attractions, dining, and outdoor adventures today!",
+      "h1": "Winston-Salem, NC",
+      "hasContent": true,
+      "contentLength": 8339,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Winston-Salem, NC"],
+        "h2": [],
+        "h3": [],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "general"
+    },
+    {
+      "filename": "workers-compensation-job-injury-construction-site-injuries.json",
+      "url": "https://www.vasquezlawnc.com/workers-compensation-job-injury/construction-site-injuries/",
+      "title": "Wake County Construction Site Accident Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Wake County Construction Site Accident Attorneys",
+      "hasContent": true,
+      "contentLength": 13073,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Wake County Construction Site Accident Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers in Raleigh and Smithfield for Workers Injured on a Construction Worksite",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Protecting the Rights of North Carolina Construction Workers",
+          "Charlotte Injury Lawyer Who Gets Results",
+          "Schedule a Free Consultation Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "workers-compensation"
+    },
+    {
+      "filename": "workers-compensation-job-injury-depression-mental-health-anxiety.json",
+      "url": "https://www.vasquezlawnc.com/workers-compensation-job-injury/depression-mental-health-anxiety/",
+      "title": "Raleigh, NC Work-Related Mental Health Injury Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Work-Related Mental Health Injury Attorneys",
+      "hasContent": true,
+      "contentLength": 13249,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Work-Related Mental Health Injury Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Workers’ Compensation Lawyers in Wake County for Injured Employees With Depression and Anxiety",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Johnson County Counsel for Depression and Mental Health Problems",
+          "Mental Illness and Occupational Disease",
+          "Work With a Compassionate North Carolina Attorney"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "workers-compensation"
+    },
+    {
+      "filename": "workers-compensation-job-injury-equipment-accidents-failures.json",
+      "url": "https://www.vasquezlawnc.com/workers-compensation-job-injury/equipment-accidents-failures/",
+      "title": "Raleigh, NC Workplace Equipment Accident Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Workplace Equipment Accident Attorneys",
+      "hasContent": true,
+      "contentLength": 13223,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Workplace Equipment Accident Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Workers’ Compensation Lawyers in Wake County for Equipment Caused Injuries",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Helping Injured Industrial Workers in Charlotte and Smithfield",
+          "Client-Focused Lawyers in North Carolina Who Get Results",
+          "Contact Our Firm Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "workers-compensation"
+    },
+    {
+      "filename": "workers-compensation-job-injury-lifting-injuries-overexertion.json",
+      "url": "https://www.vasquezlawnc.com/workers-compensation-job-injury/lifting-injuries-overexertion/",
+      "title": "Raleigh, NC Workers' Comp Attorneys For Lifting Injuries - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Workers’ Comp Attorneys For Lifting Injuries",
+      "hasContent": true,
+      "contentLength": 13079,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Workers’ Comp Attorneys For Lifting Injuries", "Recent Blog Posts"],
+        "h2": [
+          "Workers’ Compensation Lawyers in Raleigh for Overexertion and Heavy Lifting Injuries",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "How Do Lifting Accidents Happen?",
+          "Counsel for Work-Related Lifting Injuries in North Carolina",
+          "Speak With an Experienced Work Comp Lawyer Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "workers-compensation"
+    },
+    {
+      "filename": "workers-compensation-job-injury-repetitive-stress-carpal-tunnel.json",
+      "url": "https://www.vasquezlawnc.com/workers-compensation-job-injury/repetitive-stress-carpal-tunnel/",
+      "title": "Raleigh, NC Repetitive Stress Injury Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Repetitive Stress Injury Attorneys",
+      "hasContent": true,
+      "contentLength": 13276,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Repetitive Stress Injury Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Workers’ Comp Lawyers in North Carolina for Work-Related Carpal Tunnel and Other Repeat Use Injuries",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Repetitive Motion Injury Lawyers in Smithfield",
+          "Workers’ Compensation Benefits for Repetitive Stress Injuries",
+          "Schedule a Free Consultation"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "workers-compensation"
+    },
+    {
+      "filename": "workers-compensation-job-injury-third-party-injury-claims.json",
+      "url": "https://www.vasquezlawnc.com/workers-compensation-job-injury/third-party-injury-claims/",
+      "title": "Raleigh, NC Third-Party Work Injury Claims Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Third-Party Work Injury Claims Attorneys",
+      "hasContent": true,
+      "contentLength": 12606,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Third-Party Work Injury Claims Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers in Wake County Helping With Personal Injury Lawsuits for Workplace Accidents",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Skilled Counsel for North Carolina Workplace Injury Cases",
+          "Holding the At-Fault Parties Accountable for Work-Related Accidents",
+          "Schedule a Free Consultation Today"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "workers-compensation"
+    },
+    {
+      "filename": "workers-compensation-job-injury.json",
+      "url": "https://www.vasquezlawnc.com/workers-compensation-job-injury/",
+      "title": "Raleigh, NC Workers' Compensation Attorneys - Vasquez Law Firm, PLLC",
+      "metaDescription": "",
+      "h1": "Raleigh, NC Workers’ Compensation Attorneys",
+      "hasContent": true,
+      "contentLength": 13114,
+      "hasStructuredContent": true,
+      "headings": {
+        "h1": ["Raleigh, NC Workers’ Compensation Attorneys", "Recent Blog Posts"],
+        "h2": [
+          "Lawyers Helping Employees Who Were Injured at Work in Wake County, NC",
+          "Best Workers Compensation Quote: Save More Today",
+          "Cómo Miles se Han Beneficiado al",
+          "¿Cómo Navegar las Complejidades de la Junta de"
+        ],
+        "h3": [
+          "Protecting the Rights of Injured Workers in Smithfield",
+          "Why Should I Hire a Workers’ Compensation Lawyer?",
+          "Speak With a Member of Our Team for Free"
+        ],
+        "h4": ["Practice Areas"]
+      },
+      "pageType": "workers-compensation"
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "attorneys": 9,
+    "practiceAreas": 51,
+    "locations": 0,
+    "spanish": 12,
+    "blogs": 0,
+    "other": 24
+  }
+}

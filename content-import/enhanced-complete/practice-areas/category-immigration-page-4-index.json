@@ -1,0 +1,375 @@
+{
+  "url": "/category/immigration/page/4/index.html",
+  "metadata": {
+    "title": "Immigration Archives - Page 4 of 5 - Vasquez Law Firm, PLLC",
+    "metaDescription": "Expert immigration attorneys handling immigration. 35+ years experience. Free consultation in English/Spanish. Call 1-844-YO-PELEO.",
+    "metaKeywords": "",
+    "canonical": "index.html",
+    "ogTitle": "Immigration Archives - Page 4 of 5 - Vasquez Law Firm, PLLC",
+    "ogDescription": "",
+    "ogImage": "",
+    "structuredData": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "CollectionPage",
+            "@id": "https://www.vasquezlawnc.com/category/immigration/",
+            "url": "https://www.vasquezlawnc.com/category/immigration/page/4/",
+            "name": "Immigration Archives - Page 4 of 5 - Vasquez Law Firm, PLLC",
+            "isPartOf": {
+              "@id": "https://www.vasquezlawnc.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://www.vasquezlawnc.com/category/immigration/page/4/#primaryimage"
+            },
+            "image": {
+              "@id": "https://www.vasquezlawnc.com/category/immigration/page/4/#primaryimage"
+            },
+            "thumbnailUrl": "https://www.vasquezlawnc.com/wp-content/uploads/2024/09/shutterstock-1487364161-1.jpg",
+            "breadcrumb": {
+              "@id": "https://www.vasquezlawnc.com/category/immigration/page/4/#breadcrumb"
+            },
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://www.vasquezlawnc.com/category/immigration/page/4/#primaryimage",
+            "url": "https://www.vasquezlawnc.com/wp-content/uploads/2024/09/shutterstock-1487364161-1.jpg",
+            "contentUrl": "https://www.vasquezlawnc.com/wp-content/uploads/2024/09/shutterstock-1487364161-1.jpg",
+            "width": 500,
+            "height": 334
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.vasquezlawnc.com/category/immigration/page/4/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.vasquezlawnc.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Immigration"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.vasquezlawnc.com/#website",
+            "url": "https://www.vasquezlawnc.com/",
+            "name": "Vasquez Law Firm, PLLC",
+            "description": "Raleigh, NC Immigration Attorney",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://www.vasquezlawnc.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much does a immigration lawyer cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Vasquez Law Firm offers free consultations and works on contingency for many cases. This means you don't pay attorney fees unless we win your case. For other matters, we offer competitive rates and payment plans."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does a immigration case take?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Case timelines vary depending on complexity and specific circumstances. During your free consultation, we'll provide a realistic timeline based on your unique situation and our extensive experience handling similar cases."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you speak Spanish?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Vasquez Law Firm provides full bilingual services in English and Spanish. Our attorneys and staff can assist you in the language you're most comfortable with."
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "@id": "https://vasquezlawnc.com/#organization",
+        "name": "Vasquez Law Firm, PLLC",
+        "alternateName": "Vasquez Law",
+        "url": "https://vasquezlawnc.com",
+        "logo": "https://vasquezlawnc.com/images/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/vasquezlawfirm",
+          "https://twitter.com/vasquezlawfirm",
+          "https://www.linkedin.com/company/vasquez-law-firm"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-844-967-3536",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Spanish"]
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "",
+        "description": "Expert immigration attorneys handling immigration. 35+ years experience. Free consultation in English/Spanish. Call 1-844-YO-PELEO.",
+        "provider": {
+          "@type": "LegalService",
+          "name": "Vasquez Law Firm, PLLC",
+          "url": "https://vasquezlawnc.com"
+        },
+        "areaServed": [
+          {
+            "@type": "State",
+            "name": "North Carolina"
+          },
+          {
+            "@type": "State",
+            "name": "Florida"
+          }
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Legal Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Green Card Applications"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Citizenship & Naturalization"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Deportation Defense"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Work Visas"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Family Petitions"
+              }
+            }
+          ]
+        },
+        "priceRange": "Free Consultation",
+        "availableLanguage": ["English", "Spanish"],
+        "url": "https://vasquezlawnc.com/category/immigration/page/4/index"
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://vasquezlawnc.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Category",
+            "item": "https://vasquezlawnc.com/category"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Immigration",
+            "item": "https://vasquezlawnc.com/category/immigration"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Page",
+            "item": "https://vasquezlawnc.com/category/immigration/page"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "4",
+            "item": "https://vasquezlawnc.com/category/immigration/page/4"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "Vasquez Law Firm",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "127",
+          "bestRating": "5"
+        }
+      }
+    ]
+  },
+  "content": {
+    "h1": "",
+    "heroSection": "",
+    "mainContent": "\n\t<div class=\"container\">\n\t\t<div id=\"content-area\" class=\"clearfix\">\n\t\t\t<div id=\"left-area\">\n\t\t\n\t\t\t\t\t<article id=\"post-2943\" class=\"et_pb_post post-2943 post type-post status-publish format-standard has-post-thumbnail hentry category-immigration\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../understanding-the-different-kinds-of-family-visas-in-north-carolina/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/09/shutterstock-1487364161-1.jpg\" alt=\"Understanding the Different Kinds of Family Visas in North Carolina\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2024/09/shutterstock-1487364161-1.jpg 1080w, ../../../../wp-content/uploads/2024/09/shutterstock-1487364161-1-480x321.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../understanding-the-different-kinds-of-family-visas-in-north-carolina/index.html\">Understanding the Different Kinds of Family Visas in North Carolina</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">May 21, 2024</span> | <a href=\"../../index.html\" rel=\"category tag\">Immigration</a></p>Family visas&nbsp;play a pivotal role in reuniting families and loved ones in North Carolina. Understanding the different types of family visas available is essential for those navigating the complex immigration system. For the critical legal assistance you need to...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2946\" class=\"et_pb_post post-2946 post type-post status-publish format-standard has-post-thumbnail hentry category-immigration\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../what-is-a-conditional-green-card/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/09/immigrant-marriage.jpg\" alt=\"What Is a Conditional Green Card?\" class=\"\" width=\"1080\" height=\"675\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../what-is-a-conditional-green-card/index.html\">What Is a Conditional Green Card?</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Feb 16, 2024</span> | <a href=\"../../index.html\" rel=\"category tag\">Immigration</a></p>When a person from another country immigrates to the United States, their goal will usually be to receive a&nbsp;Green Card, which will give them lawful permanent resident status. This will ensure that they can continue living in the country and earning an income, while...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-398\" class=\"et_pb_post post-398 post type-post status-publish format-standard has-post-thumbnail hentry category-immigration\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../when-is-consular-processing-required-for-immigrants-to-the-u-s/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/02/shutterstock-1812113506-1.jpg\" alt=\"When Is Consular Processing Required for Immigrants to the U.S.?\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2024/02/shutterstock-1812113506-1.jpg 1080w, ../../../../wp-content/uploads/2024/02/shutterstock-1812113506-1-480x192.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../when-is-consular-processing-required-for-immigrants-to-the-u-s/index.html\">When Is Consular Processing Required for Immigrants to the U.S.?</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Feb 16, 2024</span> | <a href=\"../../index.html\" rel=\"category tag\">Immigration</a></p>For people who wish to&nbsp;immigrate to the United States, there are several paths that can be taken. One common method is through a process known as consular processing. This refers to the process by which immigrants obtain their immigrant visas at a U.S. embassy or...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2950\" class=\"et_pb_post post-2950 post type-post status-publish format-standard has-post-thumbnail hentry category-immigration\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../when-is-consular-processing-required-for-immigrants-to-the-u-s-2/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/09/shutterstock-1812113506-1-2.jpg\" alt=\"When Is Consular Processing Required for Immigrants to the U.S.?\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2024/09/shutterstock-1812113506-1-2.jpg 1080w, ../../../../wp-content/uploads/2024/09/shutterstock-1812113506-1-2-480x192.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../when-is-consular-processing-required-for-immigrants-to-the-u-s-2/index.html\">When Is Consular Processing Required for Immigrants to the U.S.?</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Jan 26, 2024</span> | <a href=\"../../index.html\" rel=\"category tag\">Immigration</a></p>For people who wish to&nbsp;immigrate to the United States, there are several paths that can be taken. One common method is through a process known as consular processing. This refers to the process by which immigrants obtain their immigrant visas at a U.S. embassy or...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-410\" class=\"et_pb_post post-410 post type-post status-publish format-standard has-post-thumbnail hentry category-immigration\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../what-legal-options-are-available-for-immigrants-from-venezuela/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/02/Untitled-2023-11-16T140341.659.jpg\" alt=\"What Legal Options Are Available for Immigrants From Venezuela?\" class=\"\" width=\"1080\" height=\"675\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../what-legal-options-are-available-for-immigrants-from-venezuela/index.html\">What Legal Options Are Available for Immigrants From Venezuela?</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Nov 16, 2023</span> | <a href=\"../../index.html\" rel=\"category tag\">Immigration</a></p>Venezuela has been facing a severe political and economic crisis in recent years, leading many Venezuelans to seek refuge in other countries, including the United States. For immigrants from Venezuela who are currently in the U.S., it is important to understand the...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2953\" class=\"et_pb_post post-2953 post type-post status-publish format-standard has-post-thumbnail hentry category-immigration\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../does-the-violence-against-women-act-protect-against-deportation/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/09/Untitled-2023-10-17T105430.440.jpg\" alt=\"Does the Violence Against Women Act Protect Against Deportation?\" class=\"\" width=\"1080\" height=\"675\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../does-the-violence-against-women-act-protect-against-deportation/index.html\">Does the Violence Against Women Act Protect Against Deportation?</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Oct 17, 2023</span> | <a href=\"../../index.html\" rel=\"category tag\">Immigration</a></p>The&nbsp;Violence Against Women Act (VAWA)&nbsp;is a federal law that was enacted in 1994 to protect victims of domestic violence, sexual assault, and stalking. It provides various forms of support and assistance to survivors of domestic abuse, including access...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t<div class=\"pagination clearfix\">\n\t<div class=\"alignleft\"><a href=\"../5/index.html\">« Older Entries</a></div>\n\t<div class=\"alignright\"><a href=\"../3/index.html\">Next Entries »</a></div>\n</div>\t\t\t</div>\n\n\t\t\t\t<div id=\"sidebar\">\n\t\t<div id=\"block-3\" class=\"et_pb_widget widget_block\">\n<div class=\"wp-block-group is-layout-flow wp-block-group-is-layout-flow\">\n<h2 class=\"wp-block-heading\">Recent Blog Posts</h2>\n\n\n<ul class=\"wp-block-latest-posts__list wp-block-latest-posts\"><li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../best-workers-compensation-quote-save-more-today/index.html\">Best Workers Compensation Quote: Save More Today</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../como-miles-se-han-beneficiado-al/index.html\">Cómo Miles se Han Beneficiado al</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../como-navegar-las-complejidades-de-la-junta-de/index.html\">¿Cómo Navegar las Complejidades de la Junta de</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../struggles-of-undocumented-immigrants/index.html\">Struggles of Undocumented Immigrants?</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../expert-tips-to-navigate-a-delayed-immigration-court-case-status/index.html\">Expert Tips to Navigate a Delayed Immigration Court Case Status</a></li>\n</ul></div>\n</div>\t</div>\n\t\t</div>\n\t</div>\n",
+    "sidebar": "",
+    "breadcrumbs": ""
+  },
+  "navigation": {
+    "mainMenu": [],
+    "footerMenu": []
+  },
+  "forms": [],
+  "images": [
+    {
+      "src": "../../../../wp-content/uploads/2024/10/TRANSPARENT-WB-02-1.png",
+      "alt": "El Mejor Abogado de Inmigración en Orlando: Defendiendo tus Derechos con Experiencia y Pasión",
+      "title": "TRANSPARENT WB 02-1"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/gold.png",
+      "alt": "Vasquez Law Firm - immigration",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/09/shutterstock-1487364161-1.jpg",
+      "alt": "Understanding the Different Kinds of Family Visas in North Carolina",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/09/immigrant-marriage.jpg",
+      "alt": "What Is a Conditional Green Card?",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/02/shutterstock-1812113506-1.jpg",
+      "alt": "When Is Consular Processing Required for Immigrants to the U.S.?",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/09/shutterstock-1812113506-1-2.jpg",
+      "alt": "When Is Consular Processing Required for Immigrants to the U.S.?",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/02/Untitled-2023-11-16T140341.659.jpg",
+      "alt": "What Legal Options Are Available for Immigrants From Venezuela?",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/09/Untitled-2023-10-17T105430.440.jpg",
+      "alt": "Does the Violence Against Women Act Protect Against Deportation?",
+      "title": ""
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/lawpay.png",
+      "alt": "Vasquez Law Firm - immigration",
+      "title": "lawpay"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/affirm-1.png",
+      "alt": "Vasquez Law Firm - immigration",
+      "title": "affirm"
+    }
+  ],
+  "extractedAt": "2025-06-27T12:49:46.784Z",
+  "contentSections": [
+    {
+      "title": "How We Can Help",
+      "template": "Our experienced attorneys provide comprehensive legal services for [practice area] cases. With over 35 years of combined experience, we understand the complexities of [specific area] law and fight tirelessly for our clients' rights.",
+      "content": "Our experienced attorneys provide comprehensive legal services for immigration cases. With over 35 years of combined experience, we understand the complexities of immigration law and fight tirelessly for our clients' rights."
+    },
+    {
+      "title": "Why Choose Vasquez Law Firm",
+      "template": "When you choose Vasquez Law Firm for your [practice area] case, you get: • Bilingual attorneys who understand your needs • 24/7 availability for emergencies • No fee unless we win (for applicable cases) • Personalized attention to your case • Proven track record of success",
+      "content": "When you choose Vasquez Law Firm for your immigration case, you get: • Bilingual attorneys who understand your needs • 24/7 availability for emergencies • No fee unless we win (for applicable cases) • Personalized attention to your case • Proven track record of success"
+    },
+    {
+      "title": "Free Consultation",
+      "template": "Get a free evaluation of your [practice area] case. During your consultation, we'll: • Review your situation in detail • Explain your legal options • Answer all your questions • Provide honest assessment • Discuss our fee structure",
+      "content": "Get a free evaluation of your immigration case. During your consultation, we'll: • Review your situation in detail • Explain your legal options • Answer all your questions • Provide honest assessment • Discuss our fee structure"
+    },
+    {
+      "title": "Frequently Asked Questions",
+      "template": "Common questions about [practice area] cases in North Carolina and Florida. Our attorneys are here to provide clear answers and guide you through the legal process.",
+      "content": "Common questions about immigration cases in North Carolina and Florida. Our attorneys are here to provide clear answers and guide you through the legal process."
+    }
+  ],
+  "internalLinks": [
+    {
+      "text": "Meet Our Attorneys",
+      "href": "/attorneys"
+    },
+    {
+      "text": "Contact Us Today",
+      "href": "/contact"
+    },
+    {
+      "text": "Free Case Evaluation",
+      "href": "/contact#consultation"
+    },
+    {
+      "text": "View All Practice Areas",
+      "href": "/practice-areas"
+    },
+    {
+      "text": "Client Testimonials",
+      "href": "/testimonials"
+    }
+  ],
+  "seoScore": {
+    "score": 88,
+    "checks": [
+      "✓ Title tag length optimal (30-60 chars)",
+      "✓ Meta description length optimal (120-160 chars)",
+      "✗ Missing H1 tag",
+      "✓ Schema markup present (5 types)",
+      "✓ All images have descriptive alt text",
+      "✓ Substantial content (10271 chars)",
+      "✓ Good internal linking (5 links)",
+      "✓ Canonical URL set",
+      "⚠ Partial Open Graph tags"
+    ],
+    "recommendations": ["✗ Missing H1 tag", "⚠ Partial Open Graph tags"]
+  },
+  "pageType": "immigration",
+  "enhancedAt": "2025-06-27T12:53:31.523Z"
+}

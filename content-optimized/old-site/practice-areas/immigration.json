@@ -1,0 +1,172 @@
+{
+  "url": "/immigration.html",
+  "metadata": {
+    "title": "",
+    "metaDescription": "",
+    "metaKeywords": "",
+    "canonical": "",
+    "ogTitle": "",
+    "ogDescription": "",
+    "ogImage": "",
+    "structuredData": []
+  },
+  "content": {
+    "h1": "",
+    "heroSection": "",
+    "mainContent": "",
+    "sidebar": "",
+    "breadcrumbs": ""
+  },
+  "navigation": {
+    "mainMenu": [],
+    "footerMenu": []
+  },
+  "forms": [],
+  "images": [],
+  "extractedAt": "2025-06-27T12:48:13.218Z",
+  "seo": {
+    "title": "immigration lawyer Charlotte NC | Vasquez Law Firm",
+    "metaDescription": "immigration lawyer Charlotte NC. {\"h1\":\"\",\"heroSection\":\"\",\"mainContent\":\"\",\"sidebar\":\"\",\"breadcrumbs\":\"\"} Call 1-844-YO-PELEO for help.",
+    "keywords": "immigration lawyer Charlotte NC, immigration attorney near me, visa lawyer Charlotte, green card attorney, deportation defense lawyer, citizenship attorney Charlotte, DACA lawyer NC, asylum attorney, family immigration lawyer, work visa attorney Charlotte",
+    "canonical": "https://vasquezlawnc.com/old-site/practice-areas/immigration",
+    "robots": "index, follow",
+    "og": {
+      "title": "immigration lawyer Charlotte NC | Vasquez Law Firm",
+      "description": "immigration lawyer Charlotte NC. {\"h1\":\"\",\"heroSection\":\"\",\"mainContent\":\"\",\"sidebar\":\"\",\"breadcrumbs\":\"\"} Call 1-844-YO-PELEO for help.",
+      "type": "website",
+      "locale": "en_US"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "site": "@VasquezLawFirm"
+    }
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    "name": "Vasquez Law Firm",
+    "url": "https://vasquezlawnc.com",
+    "logo": "https://vasquezlawnc.com/logo.png",
+    "image": "https://vasquezlawnc.com/office.jpg",
+    "telephone": "+1-844-967-3536",
+    "email": "info@vasquezlawnc.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "4801 E Independence Blvd Suite 714",
+      "addressLocality": "Charlotte",
+      "addressRegion": "NC",
+      "postalCode": "28212",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "35.1962",
+      "longitude": "-80.7693"
+    },
+    "areaServed": [
+      {
+        "@type": "State",
+        "name": "North Carolina"
+      },
+      {
+        "@type": "State",
+        "name": "South Carolina"
+      }
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    ],
+    "priceRange": "$$",
+    "paymentAccepted": ["Cash", "Check", "Credit Card", "PayPal"],
+    "languages": ["English", "Spanish"],
+    "serviceType": ["Immigration Law", "Visa Services", "Deportation Defense"],
+    "mainEntity": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long does the immigration process take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Immigration timelines vary greatly depending on your case type. Green card applications can take 8-33 months, while citizenship typically takes 8-12 months. Contact Vasquez Law Firm for a personalized timeline assessment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an immigration lawyer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "While not required, an immigration lawyer significantly improves your chances of success. Immigration law is complex and constantly changing. Our attorneys at Vasquez Law Firm ensure your application is complete and accurate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does an immigration lawyer cost in Charlotte?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Immigration attorney fees vary by case complexity. Vasquez Law Firm offers competitive rates and payment plans. Call 1-844-YO-PELEO for a free consultation and fee quote."
+          }
+        }
+      ]
+    }
+  },
+  "optimizedContent": "[object Object]\n\n## Serving Charlotte and Surrounding Areas\nVasquez Law Firm proudly serves clients throughout Charlotte, Mecklenburg County, and the greater North Carolina area. With offices conveniently located in Charlotte, we're here to help with all your legal needs.\n\n\n## Why Choose Vasquez Law Firm?\n- **Experienced Attorneys**: Over 20 years of combined legal experience\n- **Bilingual Services**: We speak English and Spanish\n- **Free Consultation**: Call 1-844-YO-PELEO today\n- **Proven Results**: Hundreds of satisfied clients\n- **24/7 Availability**: We're here when you need us\n",
+  "internalLinks": [
+    {
+      "text": "Contact Us",
+      "url": "/contact",
+      "anchor": "Free Consultation"
+    },
+    {
+      "text": "Our Attorneys",
+      "url": "/attorneys",
+      "anchor": "Meet Our Team"
+    },
+    {
+      "text": "Practice Areas",
+      "url": "/practice-areas",
+      "anchor": "Legal Services"
+    },
+    {
+      "text": "Green Card Services",
+      "url": "/immigration/green-cards",
+      "anchor": "Green Card Help"
+    },
+    {
+      "text": "Citizenship",
+      "url": "/immigration/citizenship",
+      "anchor": "Become a Citizen"
+    },
+    {
+      "text": "Visa Services",
+      "url": "/immigration/visas",
+      "anchor": "Visa Assistance"
+    }
+  ],
+  "seoScore": 75,
+  "cta": {
+    "primary": "Get Immigration Help Today",
+    "secondary": "Schedule Your Free Consultation",
+    "urgency": "Don't wait - immigration laws are changing. Call now!",
+    "phone": "1-844-YO-PELEO"
+  },
+  "faqs": [
+    {
+      "question": "How long does the immigration process take?",
+      "answer": "Immigration timelines vary greatly depending on your case type. Green card applications can take 8-33 months, while citizenship typically takes 8-12 months. Contact Vasquez Law Firm for a personalized timeline assessment."
+    },
+    {
+      "question": "Do I need an immigration lawyer?",
+      "answer": "While not required, an immigration lawyer significantly improves your chances of success. Immigration law is complex and constantly changing. Our attorneys at Vasquez Law Firm ensure your application is complete and accurate."
+    },
+    {
+      "question": "How much does an immigration lawyer cost in Charlotte?",
+      "answer": "Immigration attorney fees vary by case complexity. Vasquez Law Firm offers competitive rates and payment plans. Call 1-844-YO-PELEO for a free consultation and fee quote."
+    }
+  ]
+}

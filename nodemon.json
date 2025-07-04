@@ -1,0 +1,9 @@
+{
+  "watch": ["server.ts", "src/lib/socket/**/*"],
+  "ext": "ts",
+  "ignore": ["src/**/*.test.ts"],
+  "exec": "ts-node --transpile-only server.ts",
+  "env": {
+    "NODE_ENV": "development"
+  }
+}

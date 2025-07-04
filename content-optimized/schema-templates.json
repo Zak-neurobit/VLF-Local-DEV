@@ -1,0 +1,68 @@
+{
+  "organization": {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Vasquez Law Firm",
+    "alternateName": "Vasquez Law Firm, PLLC",
+    "url": "https://vasquezlawnc.com",
+    "logo": "https://vasquezlawnc.com/logo.png",
+    "sameAs": [
+      "https://www.facebook.com/vasquezlawfirm",
+      "https://www.linkedin.com/company/vasquez-law-firm",
+      "https://www.youtube.com/@vasquezlawfirm"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-844-967-3536",
+      "contactType": "customer service",
+      "availableLanguage": ["English", "Spanish"]
+    }
+  },
+  "localBusiness": {
+    "@context": "https://schema.org",
+    "@type": "Attorney",
+    "name": "Vasquez Law Firm",
+    "image": "https://vasquezlawnc.com/office.jpg",
+    "@id": "https://vasquezlawnc.com",
+    "url": "https://vasquezlawnc.com",
+    "telephone": "+18449673536",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "4801 E Independence Blvd Suite 714",
+      "addressLocality": "Charlotte",
+      "addressRegion": "NC",
+      "postalCode": "28212",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 35.1962,
+      "longitude": -80.7693
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    }
+  },
+  "breadcrumbs": {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://vasquezlawnc.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Practice Areas",
+        "item": "https://vasquezlawnc.com/practice-areas"
+      }
+    ]
+  }
+}

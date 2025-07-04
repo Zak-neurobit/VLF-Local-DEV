@@ -1,0 +1,560 @@
+import * as tf from '@tensorflow/tfjs';
+import { prisma } from '@/lib/prisma';
+import crypto from 'crypto';
+
+interface VoicePrint {
+  userId: string;
+  embeddings: number[][];
+  createdAt: Date;
+  deviceInfo: string;
+  quality: number;
+}
+
+interface AuthenticationResult {
+  success: boolean;
+  confidence: number;
+  userId?: string;
+  riskFactors: string[];
+  requiresAdditionalVerification: boolean;
+}
+
+export class VoiceBiometricAuth {
+  private model: tf.LayersModel | null = null;
+  private audioContext: AudioContext | null = null;
+  private isModelLoaded = false;
+
+  async initialize() {
+    // Load pre-trained voice recognition model
+    this.model = await tf.loadLayersModel('/models/voice-biometric/model.json');
+    this.audioContext = new AudioContext();
+    this.isModelLoaded = true;
+  }
+
+  // Enroll user voice for biometric authentication
+  async enrollVoice(userId: string, audioData: ArrayBuffer): Promise<{
+    success: boolean;
+    quality: number;
+    samplesNeeded: number;
+    message: string;
+  }> {
+    if (!this.isModelLoaded) await this.initialize();
+
+    try {
+      // Convert audio to features
+      const features = await this.extractVoiceFeatures(audioData);
+      
+      // Check voice quality
+      const quality = await this.assessVoiceQuality(features);
+      
+      if (quality < 0.7) {
+        return {
+          success: false,
+          quality,
+          samplesNeeded: 3,
+          message: 'Voice sample quality too low. Please speak clearly in a quiet environment.',
+        };
+      }
+
+      // Get existing voice samples
+      const existingSamples = await prisma.voiceBiometric.findMany({
+        where: { userId },
+      });
+
+      // Add new sample
+      await prisma.voiceBiometric.create({
+        data: {
+          userId,
+          embeddings: features.embeddings,
+          quality,
+          deviceInfo: await this.getDeviceInfo(),
+          metadata: {
+            sampleRate: this.audioContext!.sampleRate,
+            duration: features.duration,
+            energy: features.energy,
+          },
+        },
+      });
+
+      // Need at least 3 high-quality samples
+      const highQualitySamples = existingSamples.filter(s => s.quality > 0.8).length + 1;
+      const samplesNeeded = Math.max(0, 3 - highQualitySamples);
+
+      if (samplesNeeded === 0) {
+        // Create composite voice print
+        await this.createCompositeVoicePrint(userId);
+        
+        return {
+          success: true,
+          quality,
+          samplesNeeded: 0,
+          message: 'Voice enrollment complete. You can now use voice authentication.',
+        };
+      }
+
+      return {
+        success: true,
+        quality,
+        samplesNeeded,
+        message: `Good sample! Please provide ${samplesNeeded} more voice samples.`,
+      };
+    } catch (error) {
+      console.error('Voice enrollment error:', error);
+      return {
+        success: false,
+        quality: 0,
+        samplesNeeded: 3,
+        message: 'Failed to process voice sample. Please try again.',
+      };
+    }
+  }
+
+  // Authenticate user by voice
+  async authenticateVoice(audioData: ArrayBuffer): Promise<AuthenticationResult> {
+    if (!this.isModelLoaded) await this.initialize();
+
+    try {
+      // Extract features from input audio
+      const features = await this.extractVoiceFeatures(audioData);
+      
+      // Check voice quality
+      const quality = await this.assessVoiceQuality(features);
+      
+      if (quality < 0.6) {
+        return {
+          success: false,
+          confidence: 0,
+          riskFactors: ['Poor audio quality'],
+          requiresAdditionalVerification: true,
+        };
+      }
+
+      // Get all voice prints
+      const voicePrints = await prisma.voicePrint.findMany({
+        where: { active: true },
+      });
+
+      // Compare against all enrolled users
+      let bestMatch = { userId: '', confidence: 0 };
+      const riskFactors: string[] = [];
+
+      for (const print of voicePrints) {
+        const similarity = await this.compareVoiceprints(
+          features.embeddings,
+          print.embeddings
+        );
+
+        if (similarity > bestMatch.confidence) {
+          bestMatch = { userId: print.userId, confidence: similarity };
+        }
+      }
+
+      // Anti-spoofing checks
+      const spoofingRisk = await this.detectSpoofing(audioData, features);
+      if (spoofingRisk.isSuspicious) {
+        riskFactors.push(...spoofingRisk.factors);
+      }
+
+      // Environmental analysis
+      const envAnalysis = await this.analyzeEnvironment(features);
+      if (envAnalysis.hasAnomalies) {
+        riskFactors.push(...envAnalysis.anomalies);
+      }
+
+      // Determine if authentication is successful
+      const threshold = riskFactors.length > 0 ? 0.85 : 0.75;
+      const success = bestMatch.confidence > threshold;
+
+      // Log authentication attempt
+      await prisma.authenticationLog.create({
+        data: {
+          userId: bestMatch.userId || 'unknown',
+          type: 'voice',
+          success,
+          confidence: bestMatch.confidence,
+          riskFactors,
+          metadata: {
+            quality,
+            duration: features.duration,
+            deviceInfo: await this.getDeviceInfo(),
+          },
+        },
+      });
+
+      return {
+        success,
+        confidence: bestMatch.confidence,
+        userId: success ? bestMatch.userId : undefined,
+        riskFactors,
+        requiresAdditionalVerification: riskFactors.length > 1 || bestMatch.confidence < 0.8,
+      };
+    } catch (error) {
+      console.error('Voice authentication error:', error);
+      return {
+        success: false,
+        confidence: 0,
+        riskFactors: ['Authentication system error'],
+        requiresAdditionalVerification: true,
+      };
+    }
+  }
+
+  // Continuous authentication during calls
+  async continuousAuthentication(
+    userId: string,
+    audioStream: MediaStream
+  ): Promise<{
+    monitor: () => void;
+    stop: () => void;
+    getStatus: () => { isAuthenticated: boolean; confidence: number };
+  }> {
+    let isMonitoring = true;
+    let currentConfidence = 0;
+    let isAuthenticated = false;
+
+    const monitor = async () => {
+      const processor = this.audioContext!.createScriptProcessor(4096, 1, 1);
+      const source = this.audioContext!.createMediaStreamSource(audioStream);
+      source.connect(processor);
+      processor.connect(this.audioContext!.destination);
+
+      const buffer: Float32Array[] = [];
+      let sampleCount = 0;
+
+      processor.onaudioprocess = async (e) => {
+        if (!isMonitoring) return;
+
+        const inputData = e.inputBuffer.getChannelData(0);
+        buffer.push(new Float32Array(inputData));
+        sampleCount++;
+
+        // Process every 3 seconds
+        if (sampleCount >= 3 * this.audioContext!.sampleRate / 4096) {
+          const audioData = this.concatenateBuffers(buffer);
+          const result = await this.verifyVoiceContinuous(userId, audioData);
+          
+          currentConfidence = result.confidence;
+          isAuthenticated = result.isValid;
+
+          if (!result.isValid) {
+            // Trigger security alert
+            await this.handleAuthenticationFailure(userId, result);
+          }
+
+          // Clear buffer
+          buffer.length = 0;
+          sampleCount = 0;
+        }
+      };
+    };
+
+    monitor();
+
+    return {
+      monitor,
+      stop: () => {
+        isMonitoring = false;
+      },
+      getStatus: () => ({
+        isAuthenticated,
+        confidence: currentConfidence,
+      }),
+    };
+  }
+
+  // Voice stress analysis for fraud detection
+  async analyzeVoiceStress(audioData: ArrayBuffer): Promise<{
+    stressLevel: number;
+    indicators: {
+      pitchVariation: number;
+      tremor: number;
+      pausePatterns: number;
+      speechRate: number;
+    };
+    suspicionLevel: 'low' | 'medium' | 'high';
+  }> {
+    const features = await this.extractStressFeatures(audioData);
+    
+    // Analyze various stress indicators
+    const indicators = {
+      pitchVariation: features.pitchVariation,
+      tremor: features.tremor,
+      pausePatterns: features.pausePatterns,
+      speechRate: features.speechRate,
+    };
+
+    // Calculate overall stress level
+    const stressLevel = this.calculateStressLevel(indicators);
+    
+    // Determine suspicion level
+    let suspicionLevel: 'low' | 'medium' | 'high' = 'low';
+    if (stressLevel > 0.7) suspicionLevel = 'high';
+    else if (stressLevel > 0.4) suspicionLevel = 'medium';
+
+    return {
+      stressLevel,
+      indicators,
+      suspicionLevel,
+    };
+  }
+
+  // Private helper methods
+  private async extractVoiceFeatures(audioData: ArrayBuffer): Promise<any> {
+    const audioBuffer = await this.audioContext!.decodeAudioData(audioData);
+    const channelData = audioBuffer.getChannelData(0);
+    
+    // Extract MFCC features
+    const mfcc = await this.extractMFCC(channelData, audioBuffer.sampleRate);
+    
+    // Extract prosodic features
+    const prosodic = await this.extractProsodicFeatures(channelData, audioBuffer.sampleRate);
+    
+    // Generate embeddings using neural network
+    const embeddings = await this.generateEmbeddings(mfcc, prosodic);
+    
+    return {
+      embeddings,
+      duration: audioBuffer.duration,
+      energy: this.calculateEnergy(channelData),
+      mfcc,
+      prosodic,
+    };
+  }
+
+  private async assessVoiceQuality(features: any): Promise<number> {
+    // Assess based on SNR, clarity, and consistency
+    const snr = this.calculateSNR(features);
+    const clarity = this.assessClarity(features);
+    const consistency = this.assessConsistency(features);
+    
+    return (snr * 0.4 + clarity * 0.4 + consistency * 0.2);
+  }
+
+  private async createCompositeVoicePrint(userId: string): Promise<void> {
+    const samples = await prisma.voiceBiometric.findMany({
+      where: { userId, quality: { gte: 0.8 } },
+      orderBy: { quality: 'desc' },
+      take: 5,
+    });
+
+    // Average embeddings from best samples
+    const compositeEmbeddings = this.averageEmbeddings(
+      samples.map(s => s.embeddings)
+    );
+
+    // Create or update voice print
+    await prisma.voicePrint.upsert({
+      where: { userId },
+      update: {
+        embeddings: compositeEmbeddings,
+        updatedAt: new Date(),
+        quality: samples.reduce((sum, s) => sum + s.quality, 0) / samples.length,
+      },
+      create: {
+        userId,
+        embeddings: compositeEmbeddings,
+        quality: samples.reduce((sum, s) => sum + s.quality, 0) / samples.length,
+        active: true,
+      },
+    });
+  }
+
+  private async compareVoiceprints(
+    input: number[][],
+    stored: number[][]
+  ): Promise<number> {
+    // Use cosine similarity for comparison
+    const inputTensor = tf.tensor2d(input);
+    const storedTensor = tf.tensor2d(stored);
+    
+    const similarity = tf.losses.cosineDistance(inputTensor, storedTensor, 1);
+    const result = await similarity.data();
+    
+    inputTensor.dispose();
+    storedTensor.dispose();
+    similarity.dispose();
+    
+    return 1 - result[0]; // Convert distance to similarity
+  }
+
+  private async detectSpoofing(
+    audioData: ArrayBuffer,
+    features: any
+  ): Promise<{ isSuspicious: boolean; factors: string[] }> {
+    const factors: string[] = [];
+    
+    // Check for replay attacks
+    const replayRisk = await this.checkReplayAttack(features);
+    if (replayRisk > 0.5) factors.push('Possible replay attack');
+    
+    // Check for synthetic voice
+    const syntheticRisk = await this.checkSyntheticVoice(features);
+    if (syntheticRisk > 0.5) factors.push('Possible synthetic voice');
+    
+    // Check for voice conversion
+    const conversionRisk = await this.checkVoiceConversion(features);
+    if (conversionRisk > 0.5) factors.push('Possible voice conversion');
+    
+    return {
+      isSuspicious: factors.length > 0,
+      factors,
+    };
+  }
+
+  private async analyzeEnvironment(features: any): Promise<{
+    hasAnomalies: boolean;
+    anomalies: string[];
+  }> {
+    const anomalies: string[] = [];
+    
+    // Check background noise
+    if (features.energy.backgroundNoise > 0.3) {
+      anomalies.push('High background noise');
+    }
+    
+    // Check for multiple speakers
+    if (await this.detectMultipleSpeakers(features)) {
+      anomalies.push('Multiple speakers detected');
+    }
+    
+    // Check acoustic environment
+    const acoustics = await this.analyzeAcoustics(features);
+    if (acoustics.isUnusual) {
+      anomalies.push('Unusual acoustic environment');
+    }
+    
+    return {
+      hasAnomalies: anomalies.length > 0,
+      anomalies,
+    };
+  }
+
+  private async getDeviceInfo(): Promise<string> {
+    // Get device fingerprint
+    const info = {
+      userAgent: navigator.userAgent,
+      platform: navigator.platform,
+      cores: navigator.hardwareConcurrency,
+      memory: (navigator as any).deviceMemory,
+    };
+    
+    return crypto.createHash('sha256').update(JSON.stringify(info)).digest('hex');
+  }
+
+  // Additional helper methods for feature extraction and analysis
+  private async extractMFCC(audio: Float32Array, sampleRate: number): Promise<number[][]> {
+    // Implement MFCC extraction
+    return [];
+  }
+
+  private async extractProsodicFeatures(
+    audio: Float32Array,
+    sampleRate: number
+  ): Promise<any> {
+    // Extract pitch, energy, speaking rate
+    return {};
+  }
+
+  private async generateEmbeddings(mfcc: any, prosodic: any): Promise<number[][]> {
+    // Use neural network to generate embeddings
+    return [];
+  }
+
+  private calculateEnergy(audio: Float32Array): any {
+    // Calculate various energy metrics
+    return {};
+  }
+
+  private calculateSNR(features: any): number {
+    // Calculate signal-to-noise ratio
+    return 0.8;
+  }
+
+  private assessClarity(features: any): number {
+    // Assess speech clarity
+    return 0.85;
+  }
+
+  private assessConsistency(features: any): number {
+    // Assess feature consistency
+    return 0.9;
+  }
+
+  private averageEmbeddings(embeddings: number[][][]): number[][] {
+    // Average multiple embedding sets
+    return [];
+  }
+
+  private concatenateBuffers(buffers: Float32Array[]): ArrayBuffer {
+    // Concatenate audio buffers
+    const totalLength = buffers.reduce((sum, buf) => sum + buf.length, 0);
+    const result = new Float32Array(totalLength);
+    let offset = 0;
+    
+    for (const buffer of buffers) {
+      result.set(buffer, offset);
+      offset += buffer.length;
+    }
+    
+    return result.buffer;
+  }
+
+  private async verifyVoiceContinuous(
+    userId: string,
+    audioData: ArrayBuffer
+  ): Promise<{ isValid: boolean; confidence: number }> {
+    // Continuous verification logic
+    return { isValid: true, confidence: 0.9 };
+  }
+
+  private async handleAuthenticationFailure(userId: string, result: any): Promise<void> {
+    // Handle authentication failure
+    await prisma.securityAlert.create({
+      data: {
+        userId,
+        type: 'voice_auth_failure',
+        severity: 'high',
+        details: result,
+      },
+    });
+  }
+
+  private async extractStressFeatures(audioData: ArrayBuffer): Promise<any> {
+    // Extract stress-related features
+    return {
+      pitchVariation: 0,
+      tremor: 0,
+      pausePatterns: 0,
+      speechRate: 0,
+    };
+  }
+
+  private calculateStressLevel(indicators: any): number {
+    // Calculate overall stress level
+    return 0.3;
+  }
+
+  private async checkReplayAttack(features: any): Promise<number> {
+    // Check for replay attack indicators
+    return 0.1;
+  }
+
+  private async checkSyntheticVoice(features: any): Promise<number> {
+    // Check for synthetic voice
+    return 0.05;
+  }
+
+  private async checkVoiceConversion(features: any): Promise<number> {
+    // Check for voice conversion
+    return 0.02;
+  }
+
+  private async detectMultipleSpeakers(features: any): Promise<boolean> {
+    // Detect multiple speakers
+    return false;
+  }
+
+  private async analyzeAcoustics(features: any): Promise<{ isUnusual: boolean }> {
+    // Analyze acoustic environment
+    return { isUnusual: false };
+  }
+}

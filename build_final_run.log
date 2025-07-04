@@ -1,0 +1,59 @@
+
+> vasquez-law-website@1.0.0 build
+> prisma generate && next build
+
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+
+✔ Generated Prisma Client (v5.22.0) to ./node_modules/@prisma/client in 1.72s
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Easily identify and fix slow SQL queries in your app. Optimize helps you enhance your visibility: https://pris.ly/--optimize
+
+  ▲ Next.js 14.2.30
+  - Environments: .env.production.local, .env.local, .env.production, .env
+
+   Creating an optimized production build ...
+ ⚠ Compiled with warnings
+
+./node_modules/handlebars/lib/index.js
+require.extensions is not supported by webpack. Use a loader instead.
+
+Import trace for requested module:
+./node_modules/handlebars/lib/index.js
+./src/services/email/index.ts
+./src/app/api/email/send/route.ts
+
+./node_modules/handlebars/lib/index.js
+require.extensions is not supported by webpack. Use a loader instead.
+
+Import trace for requested module:
+./node_modules/handlebars/lib/index.js
+./src/services/email/index.ts
+./src/app/api/email/send/route.ts
+
+./node_modules/handlebars/lib/index.js
+require.extensions is not supported by webpack. Use a loader instead.
+
+Import trace for requested module:
+./node_modules/handlebars/lib/index.js
+./src/services/email/index.ts
+./src/app/api/email/send/route.ts
+
+ ✓ Compiled successfully
+   Skipping linting
+   Checking validity of types ...
+Failed to compile.
+
+./src/services/seo-agent/index.ts:380:9
+Type error: 'blogData' is of type 'unknown'.
+
+[0m [90m 378 |[39m[0m
+[0m [90m 379 |[39m     [90m// Title optimization (20 points)[39m[0m
+[0m[31m[1m>[22m[39m[90m 380 |[39m     [36mif[39m (blogData[33m.[39mtitle[33m.[39mlength [33m>=[39m [35m30[39m [33m&&[39m blogData[33m.[39mtitle[33m.[39mlength [33m<=[39m [35m60[39m) score [33m+=[39m [35m10[39m[33m;[39m[0m
+[0m [90m     |[39m         [31m[1m^[22m[39m[0m
+[0m [90m 381 |[39m     [36mif[39m (blogData[33m.[39mkeywords[33m.[39msome((kw[33m:[39m string) [33m=>[39m blogData[33m.[39mtitle[33m.[39mtoLowerCase()[33m.[39mincludes(kw)))[0m
+[0m [90m 382 |[39m       score [33m+=[39m [35m10[39m[33m;[39m[0m
+[0m [90m 383 |[39m[0m
+Next.js build worker exited with code: 1 and signal: null

@@ -1,0 +1,361 @@
+{
+  "url": "/orlando-fl-immigration-lawyers/index.html",
+  "metadata": {
+    "title": "Orlando, FL Immigration Lawyers | Vasquez Law Firm, PLLC",
+    "metaDescription": "Experienced immigration lawyers in Orlando, FL. Providing legal assistance for visas, green cards, citizenship, deportation defense, and more.",
+    "metaKeywords": "",
+    "canonical": "index.html",
+    "ogTitle": "Orlando, FL Immigration Lawyers | Vasquez Law Firm, PLLC",
+    "ogDescription": "Experienced immigration lawyers in Orlando, FL. Providing legal assistance for visas, green cards, citizenship, deportation defense, and more.",
+    "ogImage": "",
+    "structuredData": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://www.vasquezlawnc.com/orlando-fl-immigration-lawyers/",
+            "url": "https://www.vasquezlawnc.com/orlando-fl-immigration-lawyers/",
+            "name": "Orlando, FL Immigration Lawyers | Vasquez Law Firm, PLLC",
+            "isPartOf": {
+              "@id": "https://www.vasquezlawnc.com/#website"
+            },
+            "datePublished": "2024-12-27T16:17:50+00:00",
+            "dateModified": "2024-12-27T16:17:56+00:00",
+            "description": "Experienced immigration lawyers in Orlando, FL. Providing legal assistance for visas, green cards, citizenship, deportation defense, and more.",
+            "breadcrumb": {
+              "@id": "https://www.vasquezlawnc.com/orlando-fl-immigration-lawyers/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": ["https://www.vasquezlawnc.com/orlando-fl-immigration-lawyers/"]
+              }
+            ]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.vasquezlawnc.com/orlando-fl-immigration-lawyers/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.vasquezlawnc.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Orlando, FL Immigration Lawyers"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.vasquezlawnc.com/#website",
+            "url": "https://www.vasquezlawnc.com/",
+            "name": "Vasquez Law Firm, PLLC",
+            "description": "Raleigh, NC Immigration Attorney",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://www.vasquezlawnc.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "@id": "https://vasquezlawnc.com/#organization",
+        "name": "Vasquez Law Firm, PLLC",
+        "alternateName": "Vasquez Law",
+        "url": "https://vasquezlawnc.com",
+        "logo": "https://vasquezlawnc.com/images/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/vasquezlawfirm",
+          "https://twitter.com/vasquezlawfirm",
+          "https://www.linkedin.com/company/vasquez-law-firm"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-844-967-3536",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Spanish"]
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Attorney",
+        "name": "Orlando, FL Immigration Lawyers",
+        "image": "",
+        "jobTitle": "Attorney",
+        "worksFor": {
+          "@type": "LegalService",
+          "name": "Vasquez Law Firm, PLLC",
+          "url": "https://vasquezlawnc.com"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "6801 Glenwood Ave",
+          "addressLocality": "Raleigh",
+          "addressRegion": "NC",
+          "postalCode": "27612"
+        },
+        "telephone": "+1-844-967-3536",
+        "email": "info@vasquezlawnc.com",
+        "url": "https://vasquezlawnc.com/orlando-fl-immigration-lawyers/index",
+        "sameAs": [],
+        "knowsLanguage": ["English", "Spanish"],
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "NY. He served in the U.S. Air Force from 2000-2007. He is a veteran of Operation Enduring Freedom and received the Joint Service Achievement Medal for his work as a Spanish linguist for the Defense Intelligence Agency in 2005. William graduated from Campbell University in 2007 with a degree in computer science. He earned his J.D. in 2011 from the North Carolina Central University School of Law. His practice areas include immigration law and criminal defense cases. He is licensed and in good standing with the State Bar of North Carolina and a member of the American Immigration Lawyer Association (AILA.) He is a proud member of the Charlotte community and provides compassionate counsel for all his clients.</p>\n<h3>Education:</h3>\n<p><strong>North Carolina Central University</strong></p>\n<p>J.D. | Juris Doctorate</p>\n<p>2007 – 2011</p>\n<p><strong>Campbell University</strong></p>\n<p>B.S.</p>\n<h5>2007</h5>\n<h3>Bar Admissions:</h3>\n<p>North Carolina — Admitted in 2011</p>\n<p>4th"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://vasquezlawnc.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Orlando fl immigration lawyers",
+            "item": "https://vasquezlawnc.com/orlando-fl-immigration-lawyers"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "Vasquez Law Firm",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "127",
+          "bestRating": "5"
+        }
+      }
+    ]
+  },
+  "content": {
+    "h1": "Orlando, FL Immigration Lawyers",
+    "heroSection": "\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_row et_pb_row_0\">\n\t\t\t\t<div class=\"et_pb_column et_pb_column_2_3 et_pb_column_0  et_pb_css_mix_blend_mode_passthrough\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module et_pb_text et_pb_text_0  et_pb_text_align_left et_pb_bg_layout_light\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_text_inner\"><h1>Orlando, FL Immigration Lawyers</h1></div>\n\t\t\t</div><div class=\"et_pb_module et_pb_image et_pb_image_0\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<span class=\"et_pb_image_wrap \"><img decoding=\"async\" width=\"1024\" height=\"683\" src=\"../wp-content/uploads/2024/12/orlando-immigration-1024x683.jpg\" alt=\"Orlando Immigration Lawyers\" title=\"Close-up,Of,A,Us,Passport,With,Immigration,,Visa,,Citizenship,,And\" srcset=\"../wp-content/uploads/2024/12/orlando-immigration-980x653.jpg 980w, ../wp-content/uploads/2024/12/orlando-immigration-480x320.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) 1024px, 100vw\" class=\"wp-image-4011\"></span>\n\t\t\t</div><div class=\"et_pb_module et_pb_text et_pb_text_1  et_pb_text_align_left et_pb_bg_layout_light\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_text_inner\"><p>If you are making the journey to the U.S., you are likely hoping for a better life, new experiences, fresh opportunities, and your shot at the American dream. The United States is a great place to live, and it affords many people from around the world the kind of happiness they wouldn’t have found otherwise. However, the process of coming to the U.S. can be fraught. The legal system is complicated, and there are many barriers to entry that can make your goals seem downright impossible. With the help of our <a href=\"../index.html\">Orlando immigration lawyers</a>, however, you have the opportunity to make all your dreams a reality.</p>\n<p>The lawyers of Vasquez Law Firm, PLLC, have spent over 40 years helping people make a better life in the U.S. We want to help you demystify the immigration process so you can find success and happiness here. Reach out to schedule a free initial consultation and learn more about how we can be your legal champions.&nbsp;</p>\n<p><strong>How Our Orlando Immigration Lawyers Can Help You</strong></p>\n<p>When it comes to immigration, there are no shortage of goals you might have in mind or challenges you might find yourself facing. Our Orlando immigration lawyers have experience helping clients in a variety of areas including:</p>\n<ul>\n<li><a href=\"https://travel.state.gov/content/travel/en/us-visas.html\"><strong>Visas</strong></a>: Whether you are looking to come to the U.S. permanently or temporarily, a visa needs to be the first step on your journey. There are many different kinds of visas, so if you experience confusion over which one is right for you, our firm can help you choose and put together a clean, effective application.&nbsp;</li>\n</ul>\n<ul>\n<li><a href=\"https://www.uscis.gov/green-card\"><strong>Green cards</strong></a>: When you want to become a citizen of the United States, getting a green card is the first step. A green card is an important step for people who want to live and work in the U.S. since it gives you permanent residency status, which means that you can legally work, obtain documentation such as a driver’s license, and sponsor your spouse and children for green cards of their own. Vasquez Law Firm can help you with your application as well as ensure that there are no issues with your sponsorship or eligibility.</li>\n</ul>\n<ul>\n<li><a href=\"../north-carolina-attorney/if-i-am-convicted-of-a-crime-will-i-get-deported.html\"><strong>Deportation appeals</strong></a>: Removal proceedings happen for many reasons, such as a visa expiring or as a consequence of criminal activity. If you are in removal proceedings, our firm can act fast to make sure you are given a fighting chance of staying in the U.S. If you have already been ordered to be deported, we can submit an appeal so that you can have another shot at staying here.</li>\n</ul>\n<ul>\n<li><a href=\"../north-carolina-attorney/what-are-the-requirements-for-adjustment-of-status-for-immigrants.html\"><strong>Adjustment of status</strong></a>: If you are facing deportation or ready to make the jump from visa to green card, we can help you adjust your status.</li>\n</ul>\n<ul>\n<li><a href=\"https://www.uscis.gov/DACA\"><strong>DACA</strong></a>: The Deferred Action For Childhood Arrivals (DACA) Act gives legal status to people who arrived in the U.S. in childhood. Through DACA, Dreamers are able to have access to key documentation, like a driver’s license and social security card, as well as the right to legally work and live in the U.S. without fear of deportation. If you want to apply for DACA, we can help you determine your eligibility and submit a clean application.</li>\n</ul>\n<ul>\n<li><strong>Criminal offenses</strong>: Criminal convictions can come with consequences for your immigration status, not the least of which is deportation! In addition to immigration issues, Vasquez Law Firm is also a practice for defending against criminal offenses. As “crimmigration” lawyers, we can help you defend yourself against criminal charges and fight to stay here in the U.S.&nbsp;</li>\n</ul>\n<ul>\n<li><strong>Naturalization</strong>: When you are ready to become a naturalized citizen, congratulations! We can help you throughout the process of forms, tests, interviews, and ceremonies in order to cross this important milestone!</li>\n</ul>\n<p><strong>Vasquez Law Firm, PLLC, Can Help You Achieve Your Immigration Goals</strong></p>\n<p>Immigration laws are constantly changing. With over 40 years of combined experience, Vasquez Law Firm, PLLC, can help you stand up for your rights and overcome your struggles so you can make a better life for yourself and your family. Reach out to us for a <a href=\"../contact/index.html\">free initial consultation</a> and learn more about how we can champion your American dream and change your story!</p>\n<p><strong>Frequently Asked Questions</strong></p>\n<p><strong>What are the eligibility requirements for DACA?</strong></p>\n<p>As of December 2024, to be eligible for DACA, you must have been under 31 years old on June 15, 2012. You must have arrived in the U.S. before turning 16 and have continuously resided in the U.S. since then. You must also have a clean criminal record and be currently enrolled in school or have procured your diploma or GED or been honorably discharged from the military. However, the DACA program is facing policy changes. For the most up to date information on eligibility and more, contact our attorneys.&nbsp;</p>\n<p><strong>Am I eligible for immigration benefits because I have served in the military?</strong></p>\n<p>Yes! If you have served for a year or longer, you are eligible for benefits such as a green card and expedited naturalization! Contact our lawyers to learn more about taking advantage of the benefits your service affords you.</p>\n<p><strong>How much does it cost to get a green card?</strong></p>\n<p>The cost of your green card will be determined by factors such as the type of green card you are pursuing and whether or not you are applying from within the U.S. On average, however, the average cost of obtaining a green card is roughly up to $3,000.</p></div>\n\t\t\t</div>\n\t\t\t</div><div class=\"et_pb_column et_pb_column_1_3 et_pb_column_1  et_pb_css_mix_blend_mode_passthrough et-last-child\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_with_border et_pb_module dsm_menu dsm_menu_0  et_pb_text_align_left et_pb_bg_layout_light\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module_inner\">\n\t\t\t\t\t<h4 class=\"dsm-menu-title et_pb_module_header\">Practice Areas</h4><nav class=\"dsm-menu-container\" role=\"navigation\" itemscope=\"\" itemtype=\"http://schema.org/SiteNavigationElement\"><ul id=\"menu-orlando-fl\" class=\"dsm-menu dsm-menu-style-type-none dsm-menu-layout-vertical dsm-menu-animation dsm-menu-animation-left-right\"><li id=\"menu-item-3730\" class=\"et_pb_menu_page_id-3708 menu-item menu-item-type-post_type menu-item-object-page menu-item-3730\"><a href=\"../orlando-fl-auto-accident-lawyers/index.html\" itemprop=\"url\"><span itemprop=\"name\">Orlando, FL Auto Accident Lawyers</span></a></li>\n<li id=\"menu-item-4034\" class=\"et_pb_menu_page_id-4009 menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-4009 current_page_item menu-item-4034\"><a href=\"index.html\" aria-current=\"page\" itemprop=\"url\"><span itemprop=\"name\">Orlando, FL Immigration Lawyers</span></a></li>\n<li id=\"menu-item-3729\" class=\"et_pb_menu_page_id-3720 menu-item menu-item-type-post_type menu-item-object-page menu-item-3729\"><a href=\"../orlando-fl-workers-comp-lawyers/index.html\" itemprop=\"url\"><span itemprop=\"name\">Orlando, FL Workers’ Comp Lawyers</span></a></li>\n</ul></nav>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t",
+    "mainContent": "\n\n\n\t\t\t\n\t\t\t\t<article id=\"post-4009\" class=\"post-4009 page type-page status-publish hentry\">\n\n\t\t\t\t\n\t\t\t\t\t<div class=\"entry-content\">\n\t\t\t\t\t<div class=\"et-l et-l--post\">\n\t\t\t<div class=\"et_builder_inner_content et_pb_gutters3\"><div class=\"et_pb_section et_pb_section_0 et_section_regular\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_row et_pb_row_0\">\n\t\t\t\t<div class=\"et_pb_column et_pb_column_2_3 et_pb_column_0  et_pb_css_mix_blend_mode_passthrough\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module et_pb_text et_pb_text_0  et_pb_text_align_left et_pb_bg_layout_light\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_text_inner\"><h1>Orlando, FL Immigration Lawyers</h1></div>\n\t\t\t</div><div class=\"et_pb_module et_pb_image et_pb_image_0\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<span class=\"et_pb_image_wrap \"><img decoding=\"async\" width=\"1024\" height=\"683\" src=\"../wp-content/uploads/2024/12/orlando-immigration-1024x683.jpg\" alt=\"Orlando Immigration Lawyers\" title=\"Close-up,Of,A,Us,Passport,With,Immigration,,Visa,,Citizenship,,And\" srcset=\"../wp-content/uploads/2024/12/orlando-immigration-980x653.jpg 980w, ../wp-content/uploads/2024/12/orlando-immigration-480x320.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) 1024px, 100vw\" class=\"wp-image-4011\"></span>\n\t\t\t</div><div class=\"et_pb_module et_pb_text et_pb_text_1  et_pb_text_align_left et_pb_bg_layout_light\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_text_inner\"><p>If you are making the journey to the U.S., you are likely hoping for a better life, new experiences, fresh opportunities, and your shot at the American dream. The United States is a great place to live, and it affords many people from around the world the kind of happiness they wouldn’t have found otherwise. However, the process of coming to the U.S. can be fraught. The legal system is complicated, and there are many barriers to entry that can make your goals seem downright impossible. With the help of our <a href=\"../index.html\">Orlando immigration lawyers</a>, however, you have the opportunity to make all your dreams a reality.</p>\n<p>The lawyers of Vasquez Law Firm, PLLC, have spent over 40 years helping people make a better life in the U.S. We want to help you demystify the immigration process so you can find success and happiness here. Reach out to schedule a free initial consultation and learn more about how we can be your legal champions.&nbsp;</p>\n<p><strong>How Our Orlando Immigration Lawyers Can Help You</strong></p>\n<p>When it comes to immigration, there are no shortage of goals you might have in mind or challenges you might find yourself facing. Our Orlando immigration lawyers have experience helping clients in a variety of areas including:</p>\n<ul>\n<li><a href=\"https://travel.state.gov/content/travel/en/us-visas.html\"><strong>Visas</strong></a>: Whether you are looking to come to the U.S. permanently or temporarily, a visa needs to be the first step on your journey. There are many different kinds of visas, so if you experience confusion over which one is right for you, our firm can help you choose and put together a clean, effective application.&nbsp;</li>\n</ul>\n<ul>\n<li><a href=\"https://www.uscis.gov/green-card\"><strong>Green cards</strong></a>: When you want to become a citizen of the United States, getting a green card is the first step. A green card is an important step for people who want to live and work in the U.S. since it gives you permanent residency status, which means that you can legally work, obtain documentation such as a driver’s license, and sponsor your spouse and children for green cards of their own. Vasquez Law Firm can help you with your application as well as ensure that there are no issues with your sponsorship or eligibility.</li>\n</ul>\n<ul>\n<li><a href=\"../north-carolina-attorney/if-i-am-convicted-of-a-crime-will-i-get-deported.html\"><strong>Deportation appeals</strong></a>: Removal proceedings happen for many reasons, such as a visa expiring or as a consequence of criminal activity. If you are in removal proceedings, our firm can act fast to make sure you are given a fighting chance of staying in the U.S. If you have already been ordered to be deported, we can submit an appeal so that you can have another shot at staying here.</li>\n</ul>\n<ul>\n<li><a href=\"../north-carolina-attorney/what-are-the-requirements-for-adjustment-of-status-for-immigrants.html\"><strong>Adjustment of status</strong></a>: If you are facing deportation or ready to make the jump from visa to green card, we can help you adjust your status.</li>\n</ul>\n<ul>\n<li><a href=\"https://www.uscis.gov/DACA\"><strong>DACA</strong></a>: The Deferred Action For Childhood Arrivals (DACA) Act gives legal status to people who arrived in the U.S. in childhood. Through DACA, Dreamers are able to have access to key documentation, like a driver’s license and social security card, as well as the right to legally work and live in the U.S. without fear of deportation. If you want to apply for DACA, we can help you determine your eligibility and submit a clean application.</li>\n</ul>\n<ul>\n<li><strong>Criminal offenses</strong>: Criminal convictions can come with consequences for your immigration status, not the least of which is deportation! In addition to immigration issues, Vasquez Law Firm is also a practice for defending against criminal offenses. As “crimmigration” lawyers, we can help you defend yourself against criminal charges and fight to stay here in the U.S.&nbsp;</li>\n</ul>\n<ul>\n<li><strong>Naturalization</strong>: When you are ready to become a naturalized citizen, congratulations! We can help you throughout the process of forms, tests, interviews, and ceremonies in order to cross this important milestone!</li>\n</ul>\n<p><strong>Vasquez Law Firm, PLLC, Can Help You Achieve Your Immigration Goals</strong></p>\n<p>Immigration laws are constantly changing. With over 40 years of combined experience, Vasquez Law Firm, PLLC, can help you stand up for your rights and overcome your struggles so you can make a better life for yourself and your family. Reach out to us for a <a href=\"../contact/index.html\">free initial consultation</a> and learn more about how we can champion your American dream and change your story!</p>\n<p><strong>Frequently Asked Questions</strong></p>\n<p><strong>What are the eligibility requirements for DACA?</strong></p>\n<p>As of December 2024, to be eligible for DACA, you must have been under 31 years old on June 15, 2012. You must have arrived in the U.S. before turning 16 and have continuously resided in the U.S. since then. You must also have a clean criminal record and be currently enrolled in school or have procured your diploma or GED or been honorably discharged from the military. However, the DACA program is facing policy changes. For the most up to date information on eligibility and more, contact our attorneys.&nbsp;</p>\n<p><strong>Am I eligible for immigration benefits because I have served in the military?</strong></p>\n<p>Yes! If you have served for a year or longer, you are eligible for benefits such as a green card and expedited naturalization! Contact our lawyers to learn more about taking advantage of the benefits your service affords you.</p>\n<p><strong>How much does it cost to get a green card?</strong></p>\n<p>The cost of your green card will be determined by factors such as the type of green card you are pursuing and whether or not you are applying from within the U.S. On average, however, the average cost of obtaining a green card is roughly up to $3,000.</p></div>\n\t\t\t</div>\n\t\t\t</div><div class=\"et_pb_column et_pb_column_1_3 et_pb_column_1  et_pb_css_mix_blend_mode_passthrough et-last-child\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_with_border et_pb_module dsm_menu dsm_menu_0  et_pb_text_align_left et_pb_bg_layout_light\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module_inner\">\n\t\t\t\t\t<h4 class=\"dsm-menu-title et_pb_module_header\">Practice Areas</h4><nav class=\"dsm-menu-container\" role=\"navigation\" itemscope=\"\" itemtype=\"http://schema.org/SiteNavigationElement\"><ul id=\"menu-orlando-fl\" class=\"dsm-menu dsm-menu-style-type-none dsm-menu-layout-vertical dsm-menu-animation dsm-menu-animation-left-right\"><li id=\"menu-item-3730\" class=\"et_pb_menu_page_id-3708 menu-item menu-item-type-post_type menu-item-object-page menu-item-3730\"><a href=\"../orlando-fl-auto-accident-lawyers/index.html\" itemprop=\"url\"><span itemprop=\"name\">Orlando, FL Auto Accident Lawyers</span></a></li>\n<li id=\"menu-item-4034\" class=\"et_pb_menu_page_id-4009 menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-4009 current_page_item menu-item-4034\"><a href=\"index.html\" aria-current=\"page\" itemprop=\"url\"><span itemprop=\"name\">Orlando, FL Immigration Lawyers</span></a></li>\n<li id=\"menu-item-3729\" class=\"et_pb_menu_page_id-3720 menu-item menu-item-type-post_type menu-item-object-page menu-item-3729\"><a href=\"../orlando-fl-workers-comp-lawyers/index.html\" itemprop=\"url\"><span itemprop=\"name\">Orlando, FL Workers’ Comp Lawyers</span></a></li>\n</ul></nav>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div>\t\t</div>\n\t</div>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\n\t\t\t\t</article>\n\n\t\t\t\n\n",
+    "sidebar": "",
+    "breadcrumbs": ""
+  },
+  "navigation": {
+    "mainMenu": [],
+    "footerMenu": []
+  },
+  "forms": [],
+  "images": [
+    {
+      "src": "../wp-content/uploads/2024/10/TRANSPARENT-WB-02-1.png",
+      "alt": "El Mejor Abogado de Inmigración en Orlando: Defendiendo tus Derechos con Experiencia y Pasión",
+      "title": "TRANSPARENT WB 02-1"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/gold.png",
+      "alt": "Orlando, FL Immigration Lawyers - attorney",
+      "title": ""
+    },
+    {
+      "src": "../wp-content/uploads/2024/12/orlando-immigration-1024x683.jpg",
+      "alt": "Orlando Immigration Lawyers",
+      "title": "Close-up,Of,A,Us,Passport,With,Immigration,,Visa,,Citizenship,,And"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/lawpay.png",
+      "alt": "Orlando, FL Immigration Lawyers - attorney",
+      "title": "lawpay"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/affirm-1.png",
+      "alt": "Orlando, FL Immigration Lawyers - attorney",
+      "title": "affirm"
+    }
+  ],
+  "extractedAt": "2025-06-27T12:49:48.466Z",
+  "contentSections": [
+    {
+      "title": "Experience & Background",
+      "template": "[Attorney name] brings extensive legal experience to every case. Licensed to practice in [jurisdictions], [he/she] has successfully represented hundreds of clients in [practice areas].",
+      "content": "Orlando, FL Immigration Lawyers brings extensive legal experience to every case. Licensed to practice in North Carolina and Florida, they has successfully represented hundreds of clients in immigration, personal injury, and criminal defense."
+    },
+    {
+      "title": "Practice Areas",
+      "template": "[Attorney name] focuses on [practice areas], providing dedicated representation to clients throughout North Carolina and Florida.",
+      "content": "Orlando, FL Immigration Lawyers focuses on immigration, personal injury, and criminal defense, providing dedicated representation to clients throughout North Carolina and Florida."
+    },
+    {
+      "title": "Professional Memberships",
+      "template": "Active member of [organizations], staying current with the latest legal developments to better serve our clients.",
+      "content": "Active member of American Immigration Lawyers Association (AILA), North Carolina Bar Association, staying current with the latest legal developments to better serve our clients."
+    }
+  ],
+  "internalLinks": [
+    {
+      "text": "Contact Us",
+      "url": "/contact",
+      "anchor": "Free Consultation"
+    },
+    {
+      "text": "Our Attorneys",
+      "url": "/attorneys",
+      "anchor": "Meet Our Team"
+    },
+    {
+      "text": "Practice Areas",
+      "url": "/practice-areas",
+      "anchor": "Legal Services"
+    },
+    {
+      "text": "Green Card Services",
+      "url": "/immigration/green-cards",
+      "anchor": "Green Card Help"
+    },
+    {
+      "text": "Citizenship",
+      "url": "/immigration/citizenship",
+      "anchor": "Become a Citizen"
+    },
+    {
+      "text": "Visa Services",
+      "url": "/immigration/visas",
+      "anchor": "Visa Assistance"
+    }
+  ],
+  "seoScore": 75,
+  "pageType": "attorney",
+  "enhancedAt": "2025-06-27T12:53:31.567Z",
+  "seo": {
+    "title": "immigration lawyer Charlotte NC | Vasquez Law Firm",
+    "metaDescription": "immigration lawyer Charlotte NC. {\"h1\":\"Orlando, FL Immigration Lawyers\",\"heroSection\":\"\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\...",
+    "keywords": "immigration lawyer Charlotte NC, immigration attorney near me, visa lawyer Charlotte, green card attorney, deportation defense lawyer, citizenship attorney Charlotte, DACA lawyer NC, asylum attorney, family immigration lawyer, work visa attorney Charlotte",
+    "canonical": "https://vasquezlawnc.com/enhanced-complete/practice-areas/orlando-fl-immigration-lawyers-",
+    "robots": "index, follow",
+    "og": {
+      "title": "immigration lawyer Charlotte NC | Vasquez Law Firm",
+      "description": "immigration lawyer Charlotte NC. {\"h1\":\"Orlando, FL Immigration Lawyers\",\"heroSection\":\"\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\...",
+      "type": "website",
+      "locale": "en_US"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "site": "@VasquezLawFirm"
+    }
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    "name": "Vasquez Law Firm",
+    "url": "https://vasquezlawnc.com",
+    "logo": "https://vasquezlawnc.com/logo.png",
+    "image": "https://vasquezlawnc.com/office.jpg",
+    "telephone": "+1-844-967-3536",
+    "email": "info@vasquezlawnc.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "4801 E Independence Blvd Suite 714",
+      "addressLocality": "Charlotte",
+      "addressRegion": "NC",
+      "postalCode": "28212",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "35.1962",
+      "longitude": "-80.7693"
+    },
+    "areaServed": [
+      {
+        "@type": "State",
+        "name": "North Carolina"
+      },
+      {
+        "@type": "State",
+        "name": "South Carolina"
+      }
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    ],
+    "priceRange": "$$",
+    "paymentAccepted": ["Cash", "Check", "Credit Card", "PayPal"],
+    "languages": ["English", "Spanish"],
+    "serviceType": ["Immigration Law", "Visa Services", "Deportation Defense"],
+    "mainEntity": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long does the immigration process take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Immigration timelines vary greatly depending on your case type. Green card applications can take 8-33 months, while citizenship typically takes 8-12 months. Contact Vasquez Law Firm for a personalized timeline assessment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an immigration lawyer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "While not required, an immigration lawyer significantly improves your chances of success. Immigration law is complex and constantly changing. Our attorneys at Vasquez Law Firm ensure your application is complete and accurate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does an immigration lawyer cost in Charlotte?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Immigration attorney fees vary by case complexity. Vasquez Law Firm offers competitive rates and payment plans. Call 1-844-YO-PELEO for a free consultation and fee quote."
+          }
+        }
+      ]
+    }
+  },
+  "optimizedContent": "[object Object]\n\n## Serving Charlotte and Surrounding Areas\nVasquez Law Firm proudly serves clients throughout Charlotte, Mecklenburg County, and the greater North Carolina area. With offices conveniently located in Charlotte, we're here to help with all your legal needs.\n\n\n## Why Choose Vasquez Law Firm?\n- **Experienced Attorneys**: Over 20 years of combined legal experience\n- **Bilingual Services**: We speak English and Spanish\n- **Free Consultation**: Call 1-844-YO-PELEO today\n- **Proven Results**: Hundreds of satisfied clients\n- **24/7 Availability**: We're here when you need us\n",
+  "cta": {
+    "primary": "Get Immigration Help Today",
+    "secondary": "Schedule Your Free Consultation",
+    "urgency": "Don't wait - immigration laws are changing. Call now!",
+    "phone": "1-844-YO-PELEO"
+  },
+  "faqs": [
+    {
+      "question": "How long does the immigration process take?",
+      "answer": "Immigration timelines vary greatly depending on your case type. Green card applications can take 8-33 months, while citizenship typically takes 8-12 months. Contact Vasquez Law Firm for a personalized timeline assessment."
+    },
+    {
+      "question": "Do I need an immigration lawyer?",
+      "answer": "While not required, an immigration lawyer significantly improves your chances of success. Immigration law is complex and constantly changing. Our attorneys at Vasquez Law Firm ensure your application is complete and accurate."
+    },
+    {
+      "question": "How much does an immigration lawyer cost in Charlotte?",
+      "answer": "Immigration attorney fees vary by case complexity. Vasquez Law Firm offers competitive rates and payment plans. Call 1-844-YO-PELEO for a free consultation and fee quote."
+    }
+  ]
+}

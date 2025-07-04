@@ -1,0 +1,91 @@
+{
+  "timestamp": "2025-06-27T22:41:42.117Z",
+  "built": [
+    {
+      "file": "attorneys-christopher-afanador.json",
+      "path": "src/app/attorneys/christopher-afanador/page.tsx",
+      "type": "attorney",
+      "name": "Christopher Afanador"
+    },
+    {
+      "file": "attorneys-jillian-baucom.json",
+      "path": "src/app/attorneys/jillian-baucom/page.tsx",
+      "type": "attorney",
+      "name": "Jillian Baucom"
+    },
+    {
+      "file": "attorneys-judith-parkes.json",
+      "path": "src/app/attorneys/judith-parkes/page.tsx",
+      "type": "attorney",
+      "name": "Judith Parkes"
+    },
+    {
+      "file": "attorneys-mark-kelsey.json",
+      "path": "src/app/attorneys/mark-kelsey/page.tsx",
+      "type": "attorney",
+      "name": "Mark Kelsey"
+    },
+    {
+      "file": "attorneys-roselyn-v-torrellas.json",
+      "path": "src/app/attorneys/roselyn-torrellas/page.tsx",
+      "type": "attorney",
+      "name": "Roselyn Torrellas"
+    },
+    {
+      "file": "charlotte-nc.json",
+      "path": "src/app/locations/charlotte/page.tsx",
+      "type": "location",
+      "name": "Charlotte"
+    },
+    {
+      "file": "orlando-fl.json",
+      "path": "src/app/locations/orlando/page.tsx",
+      "type": "location",
+      "name": "Orlando"
+    },
+    {
+      "file": "smithfield-nc.json",
+      "path": "src/app/locations/smithfield/page.tsx",
+      "type": "location",
+      "name": "Smithfield"
+    },
+    {
+      "file": "immigration.json",
+      "path": "src/app/practice-areas/immigration/page.tsx",
+      "type": "practice",
+      "name": "Immigration Law"
+    },
+    {
+      "file": "personal-injury.json",
+      "path": "src/app/practice-areas/personal-injury/page.tsx",
+      "type": "practice",
+      "name": "Personal Injury"
+    },
+    {
+      "file": "workers-compensation-job-injury.json",
+      "path": "src/app/practice-areas/workers-compensation/page.tsx",
+      "type": "practice",
+      "name": "Workers Compensation"
+    },
+    {
+      "file": "criminal-defense.json",
+      "path": "src/app/practice-areas/criminal-defense/page.tsx",
+      "type": "practice",
+      "name": "Criminal Defense"
+    },
+    {
+      "file": "family-law.json",
+      "path": "src/app/practice-areas/family-law/page.tsx",
+      "type": "practice",
+      "name": "Family Law"
+    }
+  ],
+  "skipped": [],
+  "errors": [],
+  "summary": {
+    "total": 13,
+    "built": 13,
+    "skipped": 0,
+    "errors": 0
+  }
+}

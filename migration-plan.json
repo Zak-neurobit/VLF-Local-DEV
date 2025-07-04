@@ -1,0 +1,140 @@
+{
+  "date": "2025-06-29T12:15:32.440Z",
+  "missingPages": [
+    {
+      "category": "Core Pages",
+      "path": "/testimonials",
+      "name": "Client Testimonials",
+      "status": "❌"
+    },
+    {
+      "category": "Core Pages",
+      "path": "/case-results",
+      "name": "Case Results",
+      "status": "❌"
+    },
+    {
+      "category": "Core Pages",
+      "path": "/faqs",
+      "name": "Frequently Asked Questions",
+      "status": "❌"
+    },
+    {
+      "category": "Core Pages",
+      "path": "/resources",
+      "name": "Legal Resources",
+      "status": "❌"
+    },
+    {
+      "category": "Core Pages",
+      "path": "/privacy-policy",
+      "name": "Privacy Policy",
+      "status": "❌"
+    },
+    {
+      "category": "Core Pages",
+      "path": "/terms-of-service",
+      "name": "Terms of Service",
+      "status": "❌"
+    },
+    {
+      "category": "Core Pages",
+      "path": "/disclaimer",
+      "name": "Legal Disclaimer",
+      "status": "❌"
+    },
+    {
+      "category": "Immigration Pages",
+      "path": "/immigration-resources",
+      "name": "Immigration Resources",
+      "status": "❌"
+    },
+    {
+      "category": "Immigration Pages",
+      "path": "/immigration-forms",
+      "name": "Immigration Forms & Checklists",
+      "status": "❌"
+    },
+    {
+      "category": "Immigration Pages",
+      "path": "/immigration-news",
+      "name": "Immigration News & Updates",
+      "status": "❌"
+    },
+    {
+      "category": "Immigration Pages",
+      "path": "/immigration-faqs",
+      "name": "Immigration FAQs",
+      "status": "❌"
+    },
+    {
+      "category": "Service Pages",
+      "path": "/free-consultation",
+      "name": "Free Consultation",
+      "status": "❌"
+    },
+    {
+      "category": "Service Pages",
+      "path": "/appointment",
+      "name": "Schedule Appointment",
+      "status": "❌"
+    },
+    {
+      "category": "Service Pages",
+      "path": "/client-portal",
+      "name": "Client Portal",
+      "status": "❌"
+    },
+    {
+      "category": "Service Pages",
+      "path": "/payment-options",
+      "name": "Payment Options",
+      "status": "❌"
+    },
+    {
+      "category": "Service Pages",
+      "path": "/legal-fees",
+      "name": "Legal Fees & Costs",
+      "status": "❌"
+    },
+    {
+      "category": "Marketing Pages",
+      "path": "/reviews",
+      "name": "Client Reviews",
+      "status": "❌"
+    },
+    {
+      "category": "Marketing Pages",
+      "path": "/why-choose-us",
+      "name": "Why Choose Vasquez Law",
+      "status": "❌"
+    },
+    {
+      "category": "Marketing Pages",
+      "path": "/community-involvement",
+      "name": "Community Involvement",
+      "status": "❌"
+    },
+    {
+      "category": "Marketing Pages",
+      "path": "/awards-recognition",
+      "name": "Awards & Recognition",
+      "status": "❌"
+    },
+    {
+      "category": "Marketing Pages",
+      "path": "/press-releases",
+      "name": "Press Releases",
+      "status": "❌"
+    }
+  ],
+  "totalMissing": 21,
+  "completionRate": 25,
+  "recommendations": [
+    "Start with legal compliance pages (Privacy Policy, Terms, Disclaimer)",
+    "Add client trust pages (Testimonials, Case Results, Reviews)",
+    "Create resource pages for better SEO and user value",
+    "Implement service-oriented pages for conversions",
+    "Add marketing pages to showcase firm strengths"
+  ]
+}

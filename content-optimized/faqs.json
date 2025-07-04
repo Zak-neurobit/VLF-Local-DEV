@@ -1,0 +1,60 @@
+{
+  "general": [
+    {
+      "q": "Do you offer free consultations?",
+      "a": "Yes, we offer free consultations for all practice areas. During your consultation, we'll review your case, explain your options, and discuss our fees."
+    },
+    {
+      "q": "Do you speak Spanish?",
+      "a": "Yes, we have bilingual attorneys and staff who speak fluent Spanish. All our services are available in both English and Spanish."
+    },
+    {
+      "q": "What areas of North Carolina do you serve?",
+      "a": "We serve all of North Carolina from our offices in Raleigh, Charlotte, and Smithfield. We also have an office in Orlando, Florida."
+    },
+    {
+      "q": "Do you offer payment plans?",
+      "a": "Yes, we offer flexible payment plans to make quality legal representation affordable for everyone."
+    },
+    {
+      "q": "How do I know if I have a case?",
+      "a": "The best way to know if you have a case is to schedule a free consultation. We'll review the facts and give you an honest assessment."
+    }
+  ],
+  "immigration": [
+    {
+      "q": "How long does it take to get a green card?",
+      "a": "Processing times vary depending on the type of application. Family-based green cards can take 8-33 months, while employment-based cases may take 1-3 years."
+    },
+    {
+      "q": "Can I work while my immigration case is pending?",
+      "a": "In many cases, yes. You may be eligible for work authorization (EAD) while your case is pending."
+    },
+    {
+      "q": "What if I entered the U.S. illegally?",
+      "a": "There may still be paths to legal status. Options include family-based petitions, asylum, or waivers."
+    },
+    {
+      "q": "How much do immigration lawyers charge?",
+      "a": "We offer transparent flat fees for most immigration cases. Fees vary by case type but we always provide upfront pricing."
+    }
+  ],
+  "personalInjury": [
+    {
+      "q": "How much is my case worth?",
+      "a": "Case values depend on factors like medical expenses, lost wages, pain and suffering, and permanent disabilities."
+    },
+    {
+      "q": "How long do I have to file a claim?",
+      "a": "North Carolina has a 3-year statute of limitations for most personal injury cases."
+    },
+    {
+      "q": "What if I was partially at fault?",
+      "a": "North Carolina follows contributory negligence rules. Even 1% fault can bar recovery, making legal representation crucial."
+    },
+    {
+      "q": "Do I have to go to court?",
+      "a": "Most personal injury cases settle out of court, but we're prepared to go to trial if necessary."
+    }
+  ]
+}

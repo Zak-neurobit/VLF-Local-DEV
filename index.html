@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vasquez Law Firm - AI-Powered Legal Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+      .float-animation {
+        animation: float 6s ease-in-out infinite;
+      }
+      .pulse-animation {
+        animation: pulse 2s ease-in-out infinite;
+      }
+      .gradient-text {
+        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .gradient-bg {
+        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-b from-slate-50 to-white">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <h1 class="text-2xl font-bold gradient-text">Vasquez Law Firm</h1>
+          <div class="hidden md:flex items-center space-x-8">
+            <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors">Attorneys</a>
+            <a href="#practice" class="text-gray-700 hover:text-blue-600 transition-colors"
+              >Practice Areas</a
+            >
+            <a href="#portal" class="text-gray-700 hover:text-blue-600 transition-colors"
+              >Client Portal</a
+            >
+            <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors"
+              >Contact</a
+            >
+            <button
+              class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Free Consultation
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-5xl font-bold text-gray-900 mb-6">
+              Legal Services Powered by
+              <span class="gradient-text">Artificial Intelligence</span>
+            </h2>
+            <p class="text-xl text-gray-600 mb-8">
+              Experience the future of legal services with 24/7 AI assistants, real-time case
+              tracking, and instant answers to your legal questions.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <button
+                onclick="showAIAssistant()"
+                class="px-8 py-4 gradient-bg text-white rounded-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all"
+              >
+                Talk to AI Assistant
+              </button>
+              <button
+                class="px-8 py-4 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
+              >
+                Schedule Human Attorney
+              </button>
+            </div>
+            <div class="mt-8 flex items-center gap-6">
+              <div class="flex items-center">
+                <div class="flex -space-x-2">
+                  <div
+                    class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-white"
+                  ></div>
+                  <div
+                    class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-white"
+                  ></div>
+                  <div
+                    class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 border-2 border-white"
+                  ></div>
+                  <div
+                    class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-400 to-indigo-600 border-2 border-white"
+                  ></div>
+                </div>
+                <p class="ml-3 text-sm text-gray-600">
+                  <span class="font-semibold">2,847</span> clients served
+                </p>
+              </div>
+              <div class="flex items-center">
+                <span class="text-yellow-400 text-xl">★★★★★</span>
+                <span class="ml-2 text-sm text-gray-600">4.9/5 rating</span>
+              </div>
+            </div>
+          </div>
+          <div class="relative">
+            <div
+              class="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-2xl gradient-bg flex items-center justify-center"
+            >
+              <div class="absolute inset-0 bg-black/20"></div>
+              <div class="relative text-center text-white z-10">
+                <div class="text-8xl mb-4 float-animation">🤖</div>
+                <h3 class="text-3xl font-bold mb-2">AI Legal Assistant</h3>
+                <p class="text-xl">Available 24/7</p>
+                <div class="mt-8 flex justify-center gap-4">
+                  <div class="bg-white/20 backdrop-blur-sm rounded-lg p-4">
+                    <p class="text-sm">Response Time</p>
+                    <p class="text-2xl font-bold">< 2 sec</p>
+                  </div>
+                  <div class="bg-white/20 backdrop-blur-sm rounded-lg p-4">
+                    <p class="text-sm">Languages</p>
+                    <p class="text-2xl font-bold">EN/ES</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Floating elements -->
+            <div
+              class="absolute -top-4 -right-4 w-24 h-24 bg-blue-500/20 rounded-full blur-xl pulse-animation"
+            ></div>
+            <div
+              class="absolute -bottom-4 -left-4 w-32 h-32 bg-purple-500/20 rounded-full blur-xl pulse-animation"
+              style="animation-delay: 1s"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Features Grid -->
+    <section class="py-20 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h3 class="text-4xl font-bold text-gray-900 mb-4">AI-Powered Legal Services</h3>
+          <p class="text-xl text-gray-600">Revolutionary technology meets legal expertise</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div
+            class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all hover:transform hover:-translate-y-1"
+          >
+            <div class="text-4xl mb-4">🤖</div>
+            <h4 class="text-xl font-semibold mb-2">24/7 AI Legal Assistant</h4>
+            <p class="text-gray-600 mb-4">
+              Get instant answers to legal questions in English or Spanish
+            </p>
+            <ul class="space-y-2">
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Voice & text support
+              </li>
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Document analysis
+              </li>
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Case evaluation
+              </li>
+            </ul>
+          </div>
+          <div
+            class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all hover:transform hover:-translate-y-1"
+          >
+            <div class="text-4xl mb-4">📊</div>
+            <h4 class="text-xl font-semibold mb-2">Predictive Case Analytics</h4>
+            <p class="text-gray-600 mb-4">AI analyzes thousands of cases to predict outcomes</p>
+            <ul class="space-y-2">
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                85% accuracy rate
+              </li>
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Timeline predictions
+              </li>
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Strategy optimization
+              </li>
+            </ul>
+          </div>
+          <div
+            class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all hover:transform hover:-translate-y-1"
+          >
+            <div class="text-4xl mb-4">🔍</div>
+            <h4 class="text-xl font-semibold mb-2">Smart Document Generation</h4>
+            <p class="text-gray-600 mb-4">AI creates personalized legal documents in minutes</p>
+            <ul class="space-y-2">
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Auto-filled forms
+              </li>
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Error checking
+              </li>
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Multi-language support
+              </li>
+            </ul>
+          </div>
+          <div
+            class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all hover:transform hover:-translate-y-1"
+          >
+            <div class="text-4xl mb-4">🎯</div>
+            <h4 class="text-xl font-semibold mb-2">Real-Time Case Tracking</h4>
+            <p class="text-gray-600 mb-4">Track USCIS, court dates, and deadlines automatically</p>
+            <ul class="space-y-2">
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                SMS/Email alerts
+              </li>
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Status predictions
+              </li>
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Document reminders
+              </li>
+            </ul>
+          </div>
+          <div
+            class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all hover:transform hover:-translate-y-1"
+          >
+            <div class="text-4xl mb-4">🔐</div>
+            <h4 class="text-xl font-semibold mb-2">Blockchain Evidence</h4>
+            <p class="text-gray-600 mb-4">Tamper-proof document storage and verification</p>
+            <ul class="space-y-2">
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Chain of custody
+              </li>
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Court-admissible
+              </li>
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Instant verification
+              </li>
+            </ul>
+          </div>
+          <div
+            class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all hover:transform hover:-translate-y-1"
+          >
+            <div class="text-4xl mb-4">🎤</div>
+            <h4 class="text-xl font-semibold mb-2">Voice Biometric Security</h4>
+            <p class="text-gray-600 mb-4">Bank-level security with voice authentication</p>
+            <ul class="space-y-2">
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Fraud prevention
+              </li>
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Secure calls
+              </li>
+              <li class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Identity verification
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Practice Areas -->
+    <section id="practice" class="py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h3 class="text-4xl font-bold text-gray-900 mb-4">Practice Areas</h3>
+          <p class="text-xl text-gray-600">Expert legal representation enhanced by AI</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+            class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 p-6 hover:shadow-xl transition-all cursor-pointer"
+          >
+            <div class="relative z-10">
+              <div class="text-4xl mb-4">🌍</div>
+              <h4 class="text-xl font-semibold text-gray-900 mb-2">Immigration Law</h4>
+              <p class="text-sm text-gray-600">Cases handled: 2,000+</p>
+            </div>
+            <div
+              class="absolute -bottom-4 -right-4 text-8xl opacity-10 transform rotate-12 group-hover:rotate-0 transition-transform"
+            >
+              🌍
+            </div>
+          </div>
+          <div
+            class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-red-50 to-red-100 p-6 hover:shadow-xl transition-all cursor-pointer"
+          >
+            <div class="relative z-10">
+              <div class="text-4xl mb-4">🏥</div>
+              <h4 class="text-xl font-semibold text-gray-900 mb-2">Personal Injury</h4>
+              <p class="text-sm text-gray-600">Cases handled: 1,500+</p>
+            </div>
+            <div
+              class="absolute -bottom-4 -right-4 text-8xl opacity-10 transform rotate-12 group-hover:rotate-0 transition-transform"
+            >
+              🏥
+            </div>
+          </div>
+          <div
+            class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-orange-50 to-orange-100 p-6 hover:shadow-xl transition-all cursor-pointer"
+          >
+            <div class="relative z-10">
+              <div class="text-4xl mb-4">👷</div>
+              <h4 class="text-xl font-semibold text-gray-900 mb-2">Workers' Compensation</h4>
+              <p class="text-sm text-gray-600">Cases handled: 800+</p>
+            </div>
+            <div
+              class="absolute -bottom-4 -right-4 text-8xl opacity-10 transform rotate-12 group-hover:rotate-0 transition-transform"
+            >
+              👷
+            </div>
+          </div>
+          <div
+            class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 p-6 hover:shadow-xl transition-all cursor-pointer"
+          >
+            <div class="relative z-10">
+              <div class="text-4xl mb-4">⚖️</div>
+              <h4 class="text-xl font-semibold text-gray-900 mb-2">Criminal Defense</h4>
+              <p class="text-sm text-gray-600">Cases handled: 600+</p>
+            </div>
+            <div
+              class="absolute -bottom-4 -right-4 text-8xl opacity-10 transform rotate-12 group-hover:rotate-0 transition-transform"
+            >
+              ⚖️
+            </div>
+          </div>
+          <div
+            class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-green-50 to-green-100 p-6 hover:shadow-xl transition-all cursor-pointer"
+          >
+            <div class="relative z-10">
+              <div class="text-4xl mb-4">👨‍👩‍👧‍👦</div>
+              <h4 class="text-xl font-semibold text-gray-900 mb-2">Family Law</h4>
+              <p class="text-sm text-gray-600">Cases handled: 400+</p>
+            </div>
+            <div
+              class="absolute -bottom-4 -right-4 text-8xl opacity-10 transform rotate-12 group-hover:rotate-0 transition-transform"
+            >
+              👨‍👩‍👧‍👦
+            </div>
+          </div>
+          <div
+            class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 hover:shadow-xl transition-all cursor-pointer"
+          >
+            <div class="relative z-10">
+              <div class="text-4xl mb-4">🚗</div>
+              <h4 class="text-xl font-semibold text-gray-900 mb-2">Traffic Violations</h4>
+              <p class="text-sm text-gray-600">Cases handled: 1,200+</p>
+            </div>
+            <div
+              class="absolute -bottom-4 -right-4 text-8xl opacity-10 transform rotate-12 group-hover:rotate-0 transition-transform"
+            >
+              🚗
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 gradient-bg">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h3 class="text-4xl font-bold text-white mb-6">
+          Ready to Experience the Future of Legal Services?
+        </h3>
+        <p class="text-xl text-blue-100 mb-8">
+          Get instant legal help from our AI or schedule a consultation with our attorneys
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button
+            onclick="showAIAssistant()"
+            class="px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold hover:shadow-xl transition-all"
+          >
+            Start Free Consultation
+          </button>
+          <button
+            class="px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-colors"
+          >
+            Call 1-844-YO-PELEO
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <h5 class="font-semibold mb-4">Vasquez Law Firm</h5>
+            <p class="text-gray-400 text-sm">AI-powered legal services with a human touch</p>
+          </div>
+          <div>
+            <h5 class="font-semibold mb-4">Locations</h5>
+            <ul class="space-y-2 text-sm text-gray-400">
+              <li>Raleigh, NC</li>
+              <li>Charlotte, NC</li>
+              <li>Smithfield, NC</li>
+              <li>Orlando, FL</li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-semibold mb-4">Practice Areas</h5>
+            <ul class="space-y-2 text-sm text-gray-400">
+              <li>Immigration Law</li>
+              <li>Personal Injury</li>
+              <li>Criminal Defense</li>
+              <li>Workers' Compensation</li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-semibold mb-4">Contact</h5>
+            <ul class="space-y-2 text-sm text-gray-400">
+              <li>1-844-YO-PELEO</li>
+              <li>info@vasquezlawnc.com</li>
+              <li>Available 24/7 via AI</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-400">
+          <p>© 2024 Vasquez Law Firm. All rights reserved. | Powered by AI</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <div id="chatWidget" class="fixed bottom-6 right-6 z-50">
+      <button
+        onclick="toggleChat()"
+        class="bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-700 transition-colors hover:scale-110 transform"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+          ></path>
+        </svg>
+      </button>
+      <div
+        class="absolute bottom-16 right-0 bg-white rounded-lg shadow-xl p-2 text-sm whitespace-nowrap hidden"
+        id="chatTooltip"
+      >
+        Click to chat with AI Assistant
+      </div>
+    </div>
+
+    <!-- Chat Window (hidden by default) -->
+    <div
+      id="chatWindow"
+      class="fixed bottom-24 right-6 w-96 h-[600px] bg-white rounded-lg shadow-2xl hidden z-50"
+    >
+      <div class="bg-blue-600 text-white p-4 rounded-t-lg flex justify-between items-center">
+        <div>
+          <h3 class="font-semibold">Vasquez Law AI Assistant</h3>
+          <p class="text-sm opacity-90">Online - Average response time: 2s</p>
+        </div>
+        <button onclick="toggleChat()" class="text-white hover:text-gray-200">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <div class="p-4 h-[calc(100%-140px)] overflow-y-auto">
+        <div class="flex justify-start mb-4">
+          <div class="bg-gray-100 rounded-lg p-3 max-w-[80%]">
+            <p class="text-sm">Hello! I'm your AI legal assistant. How can I help you today?</p>
+            <p class="text-xs text-gray-500 mt-1">2:34 PM</p>
+          </div>
+        </div>
+      </div>
+      <div class="p-4 border-t">
+        <div class="flex gap-2">
+          <input
+            type="text"
+            placeholder="Type your message..."
+            class="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Assistant Modal -->
+    <div id="aiModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+      <div class="bg-white rounded-2xl p-6 max-w-2xl w-full">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-2xl font-bold">AI Legal Assistant</h3>
+          <button onclick="hideAIAssistant()" class="text-gray-500 hover:text-gray-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-8 text-center">
+          <div class="text-8xl mb-4 float-animation">🤖</div>
+          <p class="text-lg text-gray-700 mb-4">
+            Hi! I'm your AI legal assistant. I can help with:
+          </p>
+          <div class="grid grid-cols-2 gap-4 text-left max-w-md mx-auto mb-6">
+            <div class="bg-white rounded-lg p-3">
+              <p class="text-sm font-semibold">✓ Immigration questions</p>
+            </div>
+            <div class="bg-white rounded-lg p-3">
+              <p class="text-sm font-semibold">✓ Case evaluation</p>
+            </div>
+            <div class="bg-white rounded-lg p-3">
+              <p class="text-sm font-semibold">✓ Document review</p>
+            </div>
+            <div class="bg-white rounded-lg p-3">
+              <p class="text-sm font-semibold">✓ Legal advice</p>
+            </div>
+          </div>
+          <button
+            class="bg-red-500 text-white rounded-full p-4 hover:bg-red-600 transition-colors pulse-animation"
+          >
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+              ></path>
+            </svg>
+          </button>
+          <p class="text-sm text-gray-600 mt-4">Click the microphone to start speaking</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Show tooltip on hover
+      const chatButton = document.querySelector('#chatWidget button');
+      const tooltip = document.getElementById('chatTooltip');
+
+      chatButton.addEventListener('mouseenter', () => {
+        tooltip.classList.remove('hidden');
+      });
+
+      chatButton.addEventListener('mouseleave', () => {
+        tooltip.classList.add('hidden');
+      });
+
+      function toggleChat() {
+        const chatWindow = document.getElementById('chatWindow');
+        if (chatWindow.classList.contains('hidden')) {
+          chatWindow.classList.remove('hidden');
+          tooltip.classList.add('hidden');
+        } else {
+          chatWindow.classList.add('hidden');
+        }
+      }
+
+      function showAIAssistant() {
+        document.getElementById('aiModal').classList.remove('hidden');
+        document.getElementById('aiModal').classList.add('flex');
+      }
+
+      function hideAIAssistant() {
+        document.getElementById('aiModal').classList.add('hidden');
+        document.getElementById('aiModal').classList.remove('flex');
+      }
+    </script>
+  </body>
+</html>

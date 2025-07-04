@@ -1,0 +1,301 @@
+{
+  "url": "/es/areas-de-practica/inmigracion/audiencias-de-fianza-detencion/index.html",
+  "metadata": {
+    "title": "Abogados de Audiencia de Fianza por Detención en Raleigh, NC - Vasquez Law Firm, PLLC",
+    "metaDescription": "",
+    "metaKeywords": "",
+    "canonical": "index.html",
+    "ogTitle": "Abogados de Audiencia de Fianza por Detención en Raleigh, NC - Vasquez Law Firm, PLLC",
+    "ogDescription": "Abogados para Inmigrantes Colocados en Retenciones de ICE en Carolina del Norte ¿Alguien que ama ha sido detenido por el Departamento de Seguridad Nacional o el Servicio de Inmigración y Control de Aduanas de los Estados Unidos (ICE)? Si es así, es probable que lo coloquen en un centro de detención que sea, para todos los efectos, una cárcel antes y durante los procedimientos para su deportación de los Estados Unidos. El proceso de deportación puede llevar muchos meses o incluso años, por lo que es importante que se comunique con un abogado especializado en fianzas de inmigración tan pronto como su ser querido haya sido detenido. En Vasquez Law Firm, PLLC, nuestros compasivos abogados de fianzas de inmigración saben por lo que está pasando cuando un miembro de su familia está bajo la custodia del gobierno por asuntos de inmigración. Entendemos que tal situación puede ser caótica y confusa, y haremos todo lo posible para sacar a su ser querido de la cárcel lo más rápido posible. Con más de 35 años de experiencia legal combinada, estamos equipados para ayudarlo a usted y a su familia durante un momento difícil. ¿Qué es una Fianza de Inmigración? Cuando un ciudadano […]",
+    "ogImage": "../../../../wp-content/uploads/2024/04/johnston-detention-bond-hearing-attorneys-1.jpg",
+    "structuredData": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://www.vasquezlawnc.com/es/areas-de-practica/inmigracion/audiencias-de-fianza-detencion/",
+            "url": "https://www.vasquezlawnc.com/es/areas-de-practica/inmigracion/audiencias-de-fianza-detencion/",
+            "name": "Abogados de Audiencia de Fianza por Detención en Raleigh, NC - Vasquez Law Firm, PLLC",
+            "isPartOf": {
+              "@id": "https://www.vasquezlawnc.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://www.vasquezlawnc.com/es/areas-de-practica/inmigracion/audiencias-de-fianza-detencion/#primaryimage"
+            },
+            "image": {
+              "@id": "https://www.vasquezlawnc.com/es/areas-de-practica/inmigracion/audiencias-de-fianza-detencion/#primaryimage"
+            },
+            "thumbnailUrl": "../../../../wp-content/uploads/2024/04/johnston-detention-bond-hearing-attorneys-1.jpg",
+            "datePublished": "2024-04-05T18:45:18+00:00",
+            "dateModified": "2024-04-05T18:45:29+00:00",
+            "breadcrumb": {
+              "@id": "https://www.vasquezlawnc.com/es/areas-de-practica/inmigracion/audiencias-de-fianza-detencion/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://www.vasquezlawnc.com/es/areas-de-practica/inmigracion/audiencias-de-fianza-detencion/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://www.vasquezlawnc.com/es/areas-de-practica/inmigracion/audiencias-de-fianza-detencion/#primaryimage",
+            "url": "../../../../wp-content/uploads/2024/04/johnston-detention-bond-hearing-attorneys-1.jpg",
+            "contentUrl": "../../../../wp-content/uploads/2024/04/johnston-detention-bond-hearing-attorneys-1.jpg",
+            "width": 1000,
+            "height": 400,
+            "caption": "Abogados de Audiencias de Fianza de Detención en Johnston"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.vasquezlawnc.com/es/areas-de-practica/inmigracion/audiencias-de-fianza-detencion/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.vasquezlawnc.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Español",
+                "item": "https://www.vasquezlawnc.com/es/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Abogados que prestan servicios en Raleigh, Charlotte y Smithfield, NC",
+                "item": "https://www.vasquezlawnc.com/es/areas-de-practica/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "Raleigh, NC Abogados de Inmigración",
+                "item": "https://www.vasquezlawnc.com/es/areas-de-practica/inmigracion/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 5,
+                "name": "Abogados de Audiencia de Fianza por Detención en Raleigh, NC"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.vasquezlawnc.com/#website",
+            "url": "https://www.vasquezlawnc.com/",
+            "name": "Vasquez Law Firm, PLLC",
+            "description": "Raleigh, NC Immigration Attorney",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://www.vasquezlawnc.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          }
+        ]
+      }
+    ]
+  },
+  "content": {
+    "h1": "Abogados de Audiencia de Fianza por Detención en Raleigh, NC",
+    "heroSection": "",
+    "mainContent": "\n    <div class=\"et-l et-l--body\">\n\t\t\t<div class=\"et_builder_inner_content et_pb_gutters3\"><div class=\"et_pb_section et_pb_section_0_tb_body et_section_regular\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_row et_pb_row_0_tb_body\">\n\t\t\t\t<div class=\"et_pb_column et_pb_column_3_4 et_pb_column_0_tb_body  et_pb_css_mix_blend_mode_passthrough\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module et_pb_post_title et_pb_post_title_0_tb_body et_pb_bg_layout_light  et_pb_text_align_left\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_title_container\">\n\t\t\t\t\t<h1 class=\"entry-title\">Abogados de Audiencia de Fianza por Detención en Raleigh, NC</h1>\n\t\t\t\t</div>\n\t\t\t\t\n\t\t\t</div><div class=\"et_pb_with_border et_pb_module et_pb_image et_pb_image_0_tb_body\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<span class=\"et_pb_image_wrap \"><img decoding=\"async\" width=\"1000\" height=\"400\" src=\"../../../../wp-content/uploads/2024/04/johnston-detention-bond-hearing-attorneys-1.jpg\" alt=\"Abogados de Audiencias de Fianza de Detención en Johnston\" title=\"johnston-detention-bond-hearing-attorneys (1)\" srcset=\"../../../../wp-content/uploads/2024/04/johnston-detention-bond-hearing-attorneys-1.jpg 1000w, ../../../../wp-content/uploads/2024/04/johnston-detention-bond-hearing-attorneys-1-980x392.jpg 980w, ../../../../wp-content/uploads/2024/04/johnston-detention-bond-hearing-attorneys-1-480x192.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) 1000px, 100vw\" class=\"wp-image-1838\"></span>\n\t\t\t</div><div class=\"et_pb_module et_pb_post_content et_pb_post_content_0_tb_body\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<h2>Abogados para Inmigrantes Colocados en Retenciones de ICE en Carolina del Norte</h2>\n<p>¿Alguien que ama ha sido detenido por el Departamento de Seguridad Nacional o el Servicio de Inmigración y Control de Aduanas de los Estados Unidos (ICE)? Si es así, es probable que lo coloquen en un centro de detención que sea, para todos los efectos, una cárcel antes y durante los procedimientos para su <a href=\"../deportacion-remocion-defensa.html\">deportación</a> de los Estados Unidos. El proceso de deportación puede llevar muchos meses o incluso años, por lo que es importante que se comunique con un abogado especializado en fianzas de inmigración tan pronto como su ser querido haya sido detenido.</p>\n<p>En <a href=\"../../../abogados.html\">Vasquez Law Firm, PLLC</a>, nuestros compasivos abogados de fianzas de inmigración saben por lo que está pasando cuando un miembro de su familia está bajo la custodia del gobierno por <a href=\"../../../../immigration.html\">asuntos de inmigración</a>. Entendemos que tal situación puede ser caótica y confusa, y haremos todo lo posible para sacar a su ser querido de la cárcel lo más rápido posible. Con más de 35 años de experiencia legal combinada, estamos equipados para ayudarlo a usted y a su familia durante un momento difícil.</p>\n<h3>¿Qué es una Fianza de Inmigración?</h3>\n<p>Cuando un ciudadano extranjero es detenido por funcionarios de inmigración de EE. UU., ICE o un juez de inmigración generalmente establecerá un monto de fianza que debe asegurarse para que el individuo detenido sea liberado. El monto de la fianza generalmente dependerá de la gravedad de los motivos de la detención de la persona, así como de la probabilidad de que aparezca como requerido para los procedimientos en curso. En algunos casos, la fianza se negará por completo y la persona permanecerá detenida hasta que se completen los procedimientos.</p>\n<p>Un ciudadano extranjero puede ser detenido por una variedad de razones, incluido el intento de ingresar ilegalmente a los EE. UU. La detención también es posible si el ciudadano extranjero <a href=\"../impacto-en-inmigracion-de-condenas-penales.html\">comete un delito</a> o se queda más tiempo que una <a href=\"../proceso-de-visa.html\">visa</a> de no inmigrante vencida. Una persona también podría ser detenida en el punto de entrada si no tiene visa ni base legal para solicitar la entrada a los Estados Unidos. En tal caso, es posible que el detenido deba demostrar que tiene un temor creíble de persecución si se le obliga a regresar a su hogar para tener derecho a una fianza de detención.</p>\n<h3>Proceso para Obtener una Fianza de Inmigración </h3>\n<p>Durante los primeros días después de la detención de una persona, ICE generalmente mantiene jurisdicción sobre el caso. Esto significa que la solicitud de una fianza en esta etapa irá al funcionario de ICE o la oficina a cargo. Una vez que el caso pasa a la corte de inmigración para el proceso de deportación, el juez de inmigración será responsable de emitir las fianzas. Cuando se solicita una fianza al juez, se requiere una audiencia para que el juez pueda escuchar los argumentos de ambos lados. Depende del detenido y de su abogado demostrar que no representa un riesgo de fuga ni un peligro para la comunidad. Otros factores que el juez considerará incluyen los lazos comunitarios y familiares del detenido en los EE. UU., el historial de empleo, los recursos financieros, el tiempo de residencia en los EE. UU., violaciones de inmigración pasadas y la gravedad de la violación por la cual está detenido.</p>\n<p>Cuando elija a Vasquez Law Firm, PLLC para ayudar con la fianza migratoria de su ser querido, nos pondremos manos a la obra para analizar la situación. Si el caso aún está en ICE, nos pondremos en contacto con los funcionarios de ICE para negociar los términos de una fianza razonable. En muchos casos, esta opción es más fácil que pasar por una audiencia de fianza completa. Sin embargo, también estamos preparados para ayudarlo a construir un caso convincente para presentarlo en la audiencia de fianza. Nuestro objetivo es sacar a su ser querido de la detención y regresar con su familia de la manera más rápida y eficiente posible.</p>\n<h3>Programe una consulta gratuita</h3>\n<p>Para obtener más información sobre las audiencias de fianza de inmigración y cómo nuestra firma puede ayudarlo a usted y a su familia, <a href=\"../../../contacto.html\">comuníquese con nuestra oficina</a>. Llame al <strong><strong class=\"makeCall\">1-844-YO-PELEO</strong></strong> o al <strong class=\"makeCall\">844-967-3536</strong> para una consulta confidencial gratuita en Vasquez Law Firm, PLLC hoy. Servimos a clientes en Raleigh, el condado de Wake, Charlotte, el condado de Mecklenburg, Smithfield, el condado de Johnston y en todas las áreas circundantes. </p>\n<p></p></div>\n\n\t\t\t</div>\n\t\t\t</div><div class=\"et_pb_column et_pb_column_1_4 et_pb_column_1_tb_body  et_pb_css_mix_blend_mode_passthrough et-last-child\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_with_border et_pb_module dsm_menu dsm_menu_0_tb_body  et_pb_text_align_left et_pb_bg_layout_light\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module_inner\">\n\t\t\t\t\t<h4 class=\"dsm-menu-title et_pb_module_header\">Areas de práctica</h4><nav class=\"dsm-menu-container\" role=\"navigation\" itemscope=\"\" itemtype=\"http://schema.org/SiteNavigationElement\"><ul id=\"menu-practice-areas-es\" class=\"dsm-menu dsm-menu-style-type-none dsm-menu-layout-vertical dsm-menu-animation dsm-menu-animation-left-right dsm-menu-submenu-collapse\"><li id=\"menu-item-2302\" class=\"et_pb_menu_page_id-2302 menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-2302\"><a href=\"../../inmigracion.html\" itemprop=\"url\"><span itemprop=\"name\">Inmigracion</span><span class=\"et-pb-icon\">3</span></a>\n<ul class=\"sub-menu\">\n\t<li id=\"menu-item-2303\" class=\"et_pb_menu_page_id-1795 menu-item menu-item-type-post_type menu-item-object-page menu-item-2303\"><a href=\"../pariente-familiar/index.html\" itemprop=\"url\"><span itemprop=\"name\">Inmigracion Basada en Familia</span></a></li>\n\t<li id=\"menu-item-2304\" class=\"et_pb_menu_page_id-1999 menu-item menu-item-type-post_type menu-item-object-page menu-item-2304\"><a href=\"../../derecho-familia/ejecucion-y-modificaciones-posteriores-al-divorcio/index.html\" itemprop=\"url\"><span itemprop=\"name\">Tipos de Visas de Familia</span></a></li>\n\t<li id=\"menu-item-2305\" class=\"et_pb_menu_page_id-2305 menu-item menu-item-type-custom menu-item-object-custom menu-item-2305\"><a href=\"../prometido-k-visas.html\" itemprop=\"url\"><span itemprop=\"name\">Visa K de Prometidos</span></a></li>\n\t<li id=\"menu-item-2306\" class=\"et_pb_menu_page_id-1804 menu-item menu-item-type-post_type menu-item-object-page menu-item-2306\"><a href=\"../visas-de-pariente-inmediato/index.html\" itemprop=\"url\"><span itemprop=\"name\">Visas de Pariente Inmediato</span></a></li>\n\t<li id=\"menu-item-2307\" class=\"et_pb_menu_page_id-1810 menu-item menu-item-type-post_type menu-item-object-page menu-item-2307\"><a href=\"../proceso-de-visa/index.html\" itemprop=\"url\"><span itemprop=\"name\">El Proceso de Visa</span></a></li>\n\t<li id=\"menu-item-2308\" class=\"et_pb_menu_page_id-1813 menu-item menu-item-type-post_type menu-item-object-page menu-item-2308\"><a href=\"../ayuda-apelaciones-denegacion-de-visa/index.html\" itemprop=\"url\"><span itemprop=\"name\">Asistencia y Apelaciones de Denegacion de Visa</span></a></li>\n\t<li id=\"menu-item-2309\" class=\"et_pb_menu_page_id-1816 menu-item menu-item-type-post_type menu-item-object-page menu-item-2309\"><a href=\"../inadmisibilidad-perdones-inelegible-para-inmigrar/index.html\" itemprop=\"url\"><span itemprop=\"name\">Perdon de Inadmisibilidad</span></a></li>\n\t<li id=\"menu-item-2310\" class=\"et_pb_menu_page_id-1819 menu-item menu-item-type-post_type menu-item-object-page menu-item-2310\"><a href=\"../ajuste-de-estatus/index.html\" itemprop=\"url\"><span itemprop=\"name\">Ajuste de Estatus</span></a></li>\n\t<li id=\"menu-item-2311\" class=\"et_pb_menu_page_id-1822 menu-item menu-item-type-post_type menu-item-object-page menu-item-2311\"><a href=\"../tarjetas-verdes/index.html\" itemprop=\"url\"><span itemprop=\"name\">Tarjeta Verde</span></a></li>\n\t<li id=\"menu-item-2312\" class=\"et_pb_menu_page_id-1825 menu-item menu-item-type-post_type menu-item-object-page menu-item-2312\"><a href=\"../asilo-refugiado-ayuda-legal/index.html\" itemprop=\"url\"><span itemprop=\"name\">Asilo y Refugiados</span></a></li>\n\t<li id=\"menu-item-2313\" class=\"et_pb_menu_page_id-1828 menu-item menu-item-type-post_type menu-item-object-page menu-item-2313\"><a href=\"../ciudadania-naturalizacion/index.html\" itemprop=\"url\"><span itemprop=\"name\">Ciudadania y Naturalizacion</span></a></li>\n\t<li id=\"menu-item-2314\" class=\"et_pb_menu_page_id-1834 menu-item menu-item-type-post_type menu-item-object-page menu-item-2314\"><a href=\"../vawa-u-visa-crimen-victimas/index.html\" itemprop=\"url\"><span itemprop=\"name\">VAWA y Visas U</span></a></li>\n\t<li id=\"menu-item-2315\" class=\"et_pb_menu_page_id-1831 menu-item menu-item-type-post_type menu-item-object-page menu-item-2315\"><a href=\"../deportacion-remocion-defensa/index.html\" itemprop=\"url\"><span itemprop=\"name\">Defensa de Deportacion</span></a></li>\n\t<li id=\"menu-item-2316\" class=\"et_pb_menu_page_id-1837 menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1837 current_page_item menu-item-2316\"><a href=\"index.html\" aria-current=\"page\" itemprop=\"url\"><span itemprop=\"name\">Audiencia de Fianza de Detencion de Inmigracion</span></a></li>\n\t<li id=\"menu-item-2317\" class=\"et_pb_menu_page_id-1840 menu-item menu-item-type-post_type menu-item-object-page menu-item-2317\"><a href=\"../impacto-en-inmigracion-de-condenas-penales/index.html\" itemprop=\"url\"><span itemprop=\"name\">Convicciones Criminales</span></a></li>\n\t<li id=\"menu-item-2318\" class=\"et_pb_menu_page_id-1843 menu-item menu-item-type-post_type menu-item-object-page menu-item-2318\"><a href=\"../daca-accion-diferida-llegadas-en-la-infancia/index.html\" itemprop=\"url\"><span itemprop=\"name\">DACA</span></a></li>\n\t<li id=\"menu-item-2319\" class=\"et_pb_menu_page_id-1846 menu-item menu-item-type-post_type menu-item-object-page menu-item-2319\"><a href=\"../memorando-sobre-salida-forzada-diferida-para-ciertos-venezolanos/index.html\" itemprop=\"url\"><span itemprop=\"name\">Memorandum on Deferred Enforced Departure for Certain Venezuelans – Memorando Sobre Salida Forzosa Diferida para Ciertos Venezolanos</span></a></li>\n\t<li id=\"menu-item-2320\" class=\"et_pb_menu_page_id-1849 menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-2320\"><a href=\"../inmigracion-basada-en-el-empleo/index.html\" itemprop=\"url\"><span itemprop=\"name\">Inmigración basada ​​en el empleo</span><span class=\"et-pb-icon\">3</span></a>\n\t<ul class=\"sub-menu\">\n\t\t<li id=\"menu-item-2321\" class=\"et_pb_menu_page_id-1852 menu-item menu-item-type-post_type menu-item-object-page menu-item-2321\"><a href=\"../inmigracion-basada-en-el-empleo/certificacion-laboral-perm/index.html\" itemprop=\"url\"><span itemprop=\"name\">Certificación Laboral PERM</span></a></li>\n\t</ul>\n</li>\n\t<li id=\"menu-item-2322\" class=\"et_pb_menu_page_id-1864 menu-item menu-item-type-post_type menu-item-object-page menu-item-2322\"><a href=\"../faqs-preguntas-respuestas/index.html\" itemprop=\"url\"><span itemprop=\"name\">Preguntas Frecuentes</span></a></li>\n</ul>\n</li>\n<li id=\"menu-item-2323\" class=\"et_pb_menu_page_id-2323 menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2323\"><a href=\"../../lesiones-personales.html\" itemprop=\"url\"><span itemprop=\"name\">Lesion Personal</span><span class=\"et-pb-icon\">3</span></a>\n<ul class=\"sub-menu\">\n\t<li id=\"menu-item-2324\" class=\"et_pb_menu_page_id-2324 menu-item menu-item-type-custom menu-item-object-custom menu-item-2324\"><a href=\"../../lesiones-personales/accidentes-automovilisticos.html\" itemprop=\"url\"><span itemprop=\"name\">Accidentes Automovilisticos</span></a></li>\n\t<li id=\"menu-item-2325\" class=\"et_pb_menu_page_id-2325 menu-item menu-item-type-custom menu-item-object-custom menu-item-2325\"><a href=\"../../lesiones-personales/accidentes-de-camiones.html\" itemprop=\"url\"><span itemprop=\"name\">Accidentes de Camiones</span></a></li>\n\t<li id=\"menu-item-2326\" class=\"et_pb_menu_page_id-1875 menu-item menu-item-type-post_type menu-item-object-page menu-item-2326\"><a href=\"../../lesiones-personales/accidentes-motocicleta/index.html\" itemprop=\"url\"><span itemprop=\"name\">Accidentes de Motocicleta</span></a></li>\n\t<li id=\"menu-item-2327\" class=\"et_pb_menu_page_id-2327 menu-item menu-item-type-custom menu-item-object-custom menu-item-2327\"><a href=\"../../lesiones-personales/peaton-atropellado-por-coche.html\" itemprop=\"url\"><span itemprop=\"name\">Accidentes de Peatones</span></a></li>\n\t<li id=\"menu-item-2328\" class=\"et_pb_menu_page_id-2328 menu-item menu-item-type-custom menu-item-object-custom menu-item-2328\"><a href=\"../../lesiones-personales/responsabilidad-del-conductor-ebrio.html\" itemprop=\"url\"><span itemprop=\"name\">Responsabilidad del Conductor Ebrio</span></a></li>\n\t<li id=\"menu-item-2329\" class=\"et_pb_menu_page_id-2329 menu-item menu-item-type-custom menu-item-object-custom menu-item-2329\"><a href=\"../../lesiones-personales/accidents-de-tren-de-autobus-de-transporte-publico-de-transito-masivo.html\" itemprop=\"url\"><span itemprop=\"name\">Accidentes de Transporte Masivo</span></a></li>\n\t<li id=\"menu-item-2330\" class=\"et_pb_menu_page_id-2330 menu-item menu-item-type-custom menu-item-object-custom menu-item-2330\"><a href=\"../../lesiones-personales/accidents-de-navegacion-jet-ski-motos-acuaticas.html\" itemprop=\"url\"><span itemprop=\"name\">Accidentes de Navegacion y Recreacion Acuatica</span></a></li>\n\t<li id=\"menu-item-2331\" class=\"et_pb_menu_page_id-2331 menu-item menu-item-type-custom menu-item-object-custom menu-item-2331\"><a href=\"../../lesiones-personales/accidentes-vehiculos-de-emergencia.html\" itemprop=\"url\"><span itemprop=\"name\">Accidentes de Vehiculos de Emergencia</span></a></li>\n\t<li id=\"menu-item-2332\" class=\"et_pb_menu_page_id-2332 menu-item menu-item-type-custom menu-item-object-custom menu-item-2332\"><a href=\"../../lesiones-personales/accidentes-de-bicicleta.html\" itemprop=\"url\"><span itemprop=\"name\">Accidentes de Bicicletas</span></a></li>\n\t<li id=\"menu-item-2333\" class=\"et_pb_menu_page_id-2333 menu-item menu-item-type-custom menu-item-object-custom menu-item-2333\"><a href=\"../../lesiones-personales/accidentes-conductores-automovilistas-sin-seguro-con-seguro-insuficiente.html\" itemprop=\"url\"><span itemprop=\"name\">Conductores Sin Seguro o Con Seguro Insuficiente</span></a></li>\n\t<li id=\"menu-item-2334\" class=\"et_pb_menu_page_id-2334 menu-item menu-item-type-custom menu-item-object-custom menu-item-2334\"><a href=\"../../lesiones-personales/responsabilidad-local.html\" itemprop=\"url\"><span itemprop=\"name\">Responsabilidad del Establecimiento</span></a></li>\n</ul>\n</li>\n<li id=\"menu-item-2335\" class=\"et_pb_menu_page_id-2335 menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2335\"><a href=\"../../compensacion-laboral.html\" itemprop=\"url\"><span itemprop=\"name\">Compensacion Laboral</span><span class=\"et-pb-icon\">3</span></a>\n<ul class=\"sub-menu\">\n\t<li id=\"menu-item-2336\" class=\"et_pb_menu_page_id-2336 menu-item menu-item-type-custom menu-item-object-custom menu-item-2336\"><a href=\"../../compensacion-laboral/depresion-salud-mental-ansiedad.html\" itemprop=\"url\"><span itemprop=\"name\">Depresion y Lesiones de Salud Mental</span></a></li>\n\t<li id=\"menu-item-2337\" class=\"et_pb_menu_page_id-2337 menu-item menu-item-type-custom menu-item-object-custom menu-item-2337\"><a href=\"../../compensacion-laboral/levantamiento-lesiones-sobreesfuerzo.html\" itemprop=\"url\"><span itemprop=\"name\">Lesiones por Levantamiento</span></a></li>\n\t<li id=\"menu-item-2338\" class=\"et_pb_menu_page_id-2338 menu-item menu-item-type-custom menu-item-object-custom menu-item-2338\"><a href=\"../../compensacion-laboral/tunel-carpiano-estres-repetitivo.html\" itemprop=\"url\"><span itemprop=\"name\">Lesiones por Estres Repetitivo</span></a></li>\n\t<li id=\"menu-item-2339\" class=\"et_pb_menu_page_id-2339 menu-item menu-item-type-custom menu-item-object-custom menu-item-2339\"><a href=\"../../compensacion-laboral/equipos-accidentes-fallas.html\" itemprop=\"url\"><span itemprop=\"name\">Accidentes y Fallas de Equipos</span></a></li>\n\t<li id=\"menu-item-2340\" class=\"et_pb_menu_page_id-2340 menu-item menu-item-type-custom menu-item-object-custom menu-item-2340\"><a href=\"../../compensacion-laboral/lesiones-en-sitios-de-construccion.html\" itemprop=\"url\"><span itemprop=\"name\">Accidentes de Construccion</span></a></li>\n\t<li id=\"menu-item-2341\" class=\"et_pb_menu_page_id-2341 menu-item menu-item-type-custom menu-item-object-custom menu-item-2341\"><a href=\"../../compensacion-laboral/reclamaciones-por-danos-a-terceros.html\" itemprop=\"url\"><span itemprop=\"name\">Reclamaciones de Terceros en Indemnizacion Laboral</span></a></li>\n</ul>\n</li>\n<li id=\"menu-item-2342\" class=\"et_pb_menu_page_id-2342 menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2342\"><a href=\"../../defensa-criminal.html\" itemprop=\"url\"><span itemprop=\"name\">Defensa Criminal</span><span class=\"et-pb-icon\">3</span></a>\n<ul class=\"sub-menu\">\n\t<li id=\"menu-item-2343\" class=\"et_pb_menu_page_id-2343 menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2343\"><a href=\"../../defensa-criminal/casos-de-delitos-de-drogas.html\" itemprop=\"url\"><span itemprop=\"name\">Casos de Drogas</span><span class=\"et-pb-icon\">3</span></a>\n\t<ul class=\"sub-menu\">\n\t\t<li id=\"menu-item-2344\" class=\"et_pb_menu_page_id-2344 menu-item menu-item-type-custom menu-item-object-custom menu-item-2344\"><a href=\"../../defensa-criminal/casos-de-delitos-de-drogas/posesion.html\" itemprop=\"url\"><span itemprop=\"name\">Posesión</span></a></li>\n\t\t<li id=\"menu-item-2345\" class=\"et_pb_menu_page_id-2345 menu-item menu-item-type-custom menu-item-object-custom menu-item-2345\"><a href=\"../../defensa-criminal/casos-de-delitos-de-drogas/trafico-distribucion.html\" itemprop=\"url\"><span itemprop=\"name\">Trafico y Distribucion</span></a></li>\n\t\t<li id=\"menu-item-2346\" class=\"et_pb_menu_page_id-2346 menu-item menu-item-type-custom menu-item-object-custom menu-item-2346\"><a href=\"../../defensa-criminal/casos-de-delitos-de-drogas/cargos-por-marihuana-cannabis.html\" itemprop=\"url\"><span itemprop=\"name\">Cargos por Marihuana</span></a></li>\n\t</ul>\n</li>\n\t<li id=\"menu-item-2347\" class=\"et_pb_menu_page_id-2347 menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2347\"><a href=\"../../defensa-criminal/conducer-en-estado-de-ebriedad.html\" itemprop=\"url\"><span itemprop=\"name\">DWI</span><span class=\"et-pb-icon\">3</span></a>\n\t<ul class=\"sub-menu\">\n\t\t<li id=\"menu-item-2348\" class=\"et_pb_menu_page_id-2348 menu-item menu-item-type-custom menu-item-object-custom menu-item-2348\"><a href=\"../../defensa-criminal/conducer-en-estado-de-ebriedad/como-recuperar-su-licencia.html\" itemprop=\"url\"><span itemprop=\"name\">Como Recuperar Su Licencia</span></a></li>\n\t\t<li id=\"menu-item-2349\" class=\"et_pb_menu_page_id-2349 menu-item menu-item-type-custom menu-item-object-custom menu-item-2349\"><a href=\"../../defensa-criminal/conducer-en-estado-de-ebriedad/multiples-dwi.html\" itemprop=\"url\"><span itemprop=\"name\">Multiples DWIs</span></a></li>\n\t\t<li id=\"menu-item-2350\" class=\"et_pb_menu_page_id-2350 menu-item menu-item-type-custom menu-item-object-custom menu-item-2350\"><a href=\"../../defensa-criminal/conducer-en-estado-de-ebriedad/preguntas-frecuentes-preguntas-legales-respuestas.html\" itemprop=\"url\"><span itemprop=\"name\">FAQs – Preguntas Frecuentes</span></a></li>\n\t</ul>\n</li>\n\t<li id=\"menu-item-2351\" class=\"et_pb_menu_page_id-2351 menu-item menu-item-type-custom menu-item-object-custom menu-item-2351\"><a href=\"../../defensa-criminal/abuso-violencia-domestica.html\" itemprop=\"url\"><span itemprop=\"name\">Violencia Domestica</span></a></li>\n\t<li id=\"menu-item-2352\" class=\"et_pb_menu_page_id-2352 menu-item menu-item-type-custom menu-item-object-custom menu-item-2352\"><a href=\"../../defensa-criminal/infracciones-de-transito-multas.html\" itemprop=\"url\"><span itemprop=\"name\">Infracciones de Trafico</span></a></li>\n\t<li id=\"menu-item-2353\" class=\"et_pb_menu_page_id-2353 menu-item menu-item-type-custom menu-item-object-custom menu-item-2353\"><a href=\"../../defensa-criminal/robo-hurto.html\" itemprop=\"url\"><span itemprop=\"name\">Robo</span></a></li>\n\t<li id=\"menu-item-2354\" class=\"et_pb_menu_page_id-2354 menu-item menu-item-type-custom menu-item-object-custom menu-item-2354\"><a href=\"../../defensa-criminal/eliminacion-de-antecedentes-penales.html\" itemprop=\"url\"><span itemprop=\"name\">Eliminacion de Antecedentes Penales</span></a></li>\n\t<li id=\"menu-item-2355\" class=\"et_pb_menu_page_id-2355 menu-item menu-item-type-custom menu-item-object-custom menu-item-2355\"><a href=\"../../defensa-criminal/violacion-de-libertad-condicional.html\" itemprop=\"url\"><span itemprop=\"name\">Violaciones de Libertad Condicional</span></a></li>\n\t<li id=\"menu-item-2356\" class=\"et_pb_menu_page_id-2356 menu-item menu-item-type-custom menu-item-object-custom menu-item-2356\"><a href=\"../../defensa-criminal/armas-de-fuego-cargos.html\" itemprop=\"url\"><span itemprop=\"name\">Delitos con Armas</span></a></li>\n\t<li id=\"menu-item-2357\" class=\"et_pb_menu_page_id-2357 menu-item menu-item-type-custom menu-item-object-custom menu-item-2357\"><a href=\"../../defensa-criminal/crimenes-violentos.html\" itemprop=\"url\"><span itemprop=\"name\">Crimenes Violentos</span></a></li>\n\t<li id=\"menu-item-2358\" class=\"et_pb_menu_page_id-2358 menu-item menu-item-type-custom menu-item-object-custom menu-item-2358\"><a href=\"../../defensa-criminal/crimenes-de-cuello-blanco.html\" itemprop=\"url\"><span itemprop=\"name\">Crimenes de Cuello Blanco</span></a></li>\n</ul>\n</li>\n<li id=\"menu-item-2359\" class=\"et_pb_menu_page_id-2359 menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2359\"><a href=\"../../derecho-familia.html\" itemprop=\"url\"><span itemprop=\"name\">Derecho de Familia</span><span class=\"et-pb-icon\">3</span></a>\n<ul class=\"sub-menu\">\n\t<li id=\"menu-item-2360\" class=\"et_pb_menu_page_id-2360 menu-item menu-item-type-custom menu-item-object-custom menu-item-2360\"><a href=\"../../derecho-familia/divorcio.html\" itemprop=\"url\"><span itemprop=\"name\">Divorcio</span></a></li>\n\t<li id=\"menu-item-2361\" class=\"et_pb_menu_page_id-2361 menu-item menu-item-type-custom menu-item-object-custom menu-item-2361\"><a href=\"../../derecho-familia/custodia.html\" itemprop=\"url\"><span itemprop=\"name\">Custodia del Niño</span></a></li>\n\t<li id=\"menu-item-2362\" class=\"et_pb_menu_page_id-2362 menu-item menu-item-type-custom menu-item-object-custom menu-item-2362\"><a href=\"../../derecho-familia/pension-alimenticia.html\" itemprop=\"url\"><span itemprop=\"name\">Pension Alimenticia</span></a></li>\n\t<li id=\"menu-item-2363\" class=\"et_pb_menu_page_id-2363 menu-item menu-item-type-custom menu-item-object-custom menu-item-2363\"><a href=\"../../derecho-familia/soporte-posterior-a-la-separacion.html\" itemprop=\"url\"><span itemprop=\"name\">Soporte Posterior a la Separacion</span></a></li>\n\t<li id=\"menu-item-2364\" class=\"et_pb_menu_page_id-2364 menu-item menu-item-type-custom menu-item-object-custom menu-item-2364\"><a href=\"../../derecho-familia/acuerdos-de-separacion.html\" itemprop=\"url\"><span itemprop=\"name\">Acuerdos de Separacion</span></a></li>\n\t<li id=\"menu-item-2365\" class=\"et_pb_menu_page_id-2365 menu-item menu-item-type-custom menu-item-object-custom menu-item-2365\"><a href=\"../../derecho-familia/distribucion-equitativa-de-propiedad-y-deuda.html\" itemprop=\"url\"><span itemprop=\"name\">Distribucion Equitativa de la Propiedad y la Deuda</span></a></li>\n\t<li id=\"menu-item-2366\" class=\"et_pb_menu_page_id-2366 menu-item menu-item-type-custom menu-item-object-custom menu-item-2366\"><a href=\"../../derecho-familia/ordenes-de-restriccion.html\" itemprop=\"url\"><span itemprop=\"name\">Orden de Proteccion Contra la Violencia Domestica</span></a></li>\n\t<li id=\"menu-item-2367\" class=\"et_pb_menu_page_id-2367 menu-item menu-item-type-custom menu-item-object-custom menu-item-2367\"><a href=\"../../derecho-familia/cambio-de-nombre.html\" itemprop=\"url\"><span itemprop=\"name\">Cambio de Nombre</span></a></li>\n\t<li id=\"menu-item-2368\" class=\"et_pb_menu_page_id-2368 menu-item menu-item-type-custom menu-item-object-custom menu-item-2368\"><a href=\"../../derecho-familia/ejecucion-y-modificaciones-posteriores-al-divorcio.html\" itemprop=\"url\"><span itemprop=\"name\">Modificaciones y Ejecucion Posteriores al Divorcio</span></a></li>\n</ul>\n</li>\n</ul></nav>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div><div class=\"et_pb_row et_pb_row_1_tb_body\">\n\t\t\t\t<div class=\"et_pb_column et_pb_column_2_3 et_pb_column_2_tb_body  et_pb_css_mix_blend_mode_passthrough et_pb_column_empty\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div><div class=\"et_pb_column et_pb_column_1_3 et_pb_column_3_tb_body  et_pb_css_mix_blend_mode_passthrough et-last-child et_pb_column_empty\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div>\t\t</div>\n\t",
+    "sidebar": "",
+    "breadcrumbs": ""
+  },
+  "navigation": {
+    "mainMenu": [],
+    "footerMenu": []
+  },
+  "forms": [],
+  "images": [
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/logo-1.png",
+      "alt": "",
+      "title": ""
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/gold.png",
+      "alt": "",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/04/johnston-detention-bond-hearing-attorneys-1.jpg",
+      "alt": "Abogados de Audiencias de Fianza de Detención en Johnston",
+      "title": "johnston-detention-bond-hearing-attorneys (1)"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/lawpay.png",
+      "alt": "",
+      "title": "lawpay"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/affirm-1.png",
+      "alt": "",
+      "title": "affirm"
+    }
+  ],
+  "extractedAt": "2025-06-27T12:49:47.298Z",
+  "seo": {
+    "title": "immigration lawyer Charlotte NC | Vasquez Law Firm",
+    "metaDescription": "immigration lawyer Charlotte NC. {\"h1\":\"Abogados de Audiencia de Fianza por Detención en Raleigh, NC\",\"heroSection\":\"\",\"mainContent\":\"\\n    \\n\\t\\t\\t\\n\\t\\t\\...",
+    "keywords": "immigration lawyer Charlotte NC, immigration attorney near me, visa lawyer Charlotte, green card attorney, deportation defense lawyer, citizenship attorney Charlotte, DACA lawyer NC, asylum attorney, family immigration lawyer, work visa attorney Charlotte",
+    "canonical": "https://vasquezlawnc.com/old-site-complete/practice-areas/es-areas-de-practica-inmigracion-audiencias-de-fianza-detencion-",
+    "robots": "index, follow",
+    "og": {
+      "title": "immigration lawyer Charlotte NC | Vasquez Law Firm",
+      "description": "immigration lawyer Charlotte NC. {\"h1\":\"Abogados de Audiencia de Fianza por Detención en Raleigh, NC\",\"heroSection\":\"\",\"mainContent\":\"\\n    \\n\\t\\t\\t\\n\\t\\t\\...",
+      "type": "website",
+      "locale": "en_US"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "site": "@VasquezLawFirm"
+    }
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    "name": "Vasquez Law Firm",
+    "url": "https://vasquezlawnc.com",
+    "logo": "https://vasquezlawnc.com/logo.png",
+    "image": "https://vasquezlawnc.com/office.jpg",
+    "telephone": "+1-844-967-3536",
+    "email": "info@vasquezlawnc.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "4801 E Independence Blvd Suite 714",
+      "addressLocality": "Charlotte",
+      "addressRegion": "NC",
+      "postalCode": "28212",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "35.1962",
+      "longitude": "-80.7693"
+    },
+    "areaServed": [
+      {
+        "@type": "State",
+        "name": "North Carolina"
+      },
+      {
+        "@type": "State",
+        "name": "South Carolina"
+      }
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    ],
+    "priceRange": "$$",
+    "paymentAccepted": ["Cash", "Check", "Credit Card", "PayPal"],
+    "languages": ["English", "Spanish"],
+    "serviceType": ["Immigration Law", "Visa Services", "Deportation Defense"],
+    "mainEntity": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long does the immigration process take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Immigration timelines vary greatly depending on your case type. Green card applications can take 8-33 months, while citizenship typically takes 8-12 months. Contact Vasquez Law Firm for a personalized timeline assessment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an immigration lawyer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "While not required, an immigration lawyer significantly improves your chances of success. Immigration law is complex and constantly changing. Our attorneys at Vasquez Law Firm ensure your application is complete and accurate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does an immigration lawyer cost in Charlotte?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Immigration attorney fees vary by case complexity. Vasquez Law Firm offers competitive rates and payment plans. Call 1-844-YO-PELEO for a free consultation and fee quote."
+          }
+        }
+      ]
+    }
+  },
+  "optimizedContent": "[object Object]\n\n## Serving Charlotte and Surrounding Areas\nVasquez Law Firm proudly serves clients throughout Charlotte, Mecklenburg County, and the greater North Carolina area. With offices conveniently located in Charlotte, we're here to help with all your legal needs.\n\n\n## Why Choose Vasquez Law Firm?\n- **Experienced Attorneys**: Over 20 years of combined legal experience\n- **Bilingual Services**: We speak English and Spanish\n- **Free Consultation**: Call 1-844-YO-PELEO today\n- **Proven Results**: Hundreds of satisfied clients\n- **24/7 Availability**: We're here when you need us\n",
+  "internalLinks": [
+    {
+      "text": "Contact Us",
+      "url": "/contact",
+      "anchor": "Free Consultation"
+    },
+    {
+      "text": "Our Attorneys",
+      "url": "/attorneys",
+      "anchor": "Meet Our Team"
+    },
+    {
+      "text": "Practice Areas",
+      "url": "/practice-areas",
+      "anchor": "Legal Services"
+    },
+    {
+      "text": "Green Card Services",
+      "url": "/immigration/green-cards",
+      "anchor": "Green Card Help"
+    },
+    {
+      "text": "Citizenship",
+      "url": "/immigration/citizenship",
+      "anchor": "Become a Citizen"
+    },
+    {
+      "text": "Visa Services",
+      "url": "/immigration/visas",
+      "anchor": "Visa Assistance"
+    }
+  ],
+  "seoScore": 75,
+  "cta": {
+    "primary": "Get Immigration Help Today",
+    "secondary": "Schedule Your Free Consultation",
+    "urgency": "Don't wait - immigration laws are changing. Call now!",
+    "phone": "1-844-YO-PELEO"
+  },
+  "faqs": [
+    {
+      "question": "How long does the immigration process take?",
+      "answer": "Immigration timelines vary greatly depending on your case type. Green card applications can take 8-33 months, while citizenship typically takes 8-12 months. Contact Vasquez Law Firm for a personalized timeline assessment."
+    },
+    {
+      "question": "Do I need an immigration lawyer?",
+      "answer": "While not required, an immigration lawyer significantly improves your chances of success. Immigration law is complex and constantly changing. Our attorneys at Vasquez Law Firm ensure your application is complete and accurate."
+    },
+    {
+      "question": "How much does an immigration lawyer cost in Charlotte?",
+      "answer": "Immigration attorney fees vary by case complexity. Vasquez Law Firm offers competitive rates and payment plans. Call 1-844-YO-PELEO for a free consultation and fee quote."
+    }
+  ]
+}

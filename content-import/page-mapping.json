@@ -1,0 +1,578 @@
+{
+  "https://www.vasquezlawnc.com/about-us/": {
+    "filename": "about-us.json",
+    "title": "Page not found - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/attorneys/adrianna-ingram/": {
+    "filename": "attorneys-adrianna-ingram.json",
+    "title": "",
+    "type": "attorney",
+    "hasContent": false
+  },
+  "https://www.vasquezlawnc.com/attorneys/christopher-afanador/": {
+    "filename": "attorneys-christopher-afanador.json",
+    "title": "Christopher Afanador - Vasquez Law Firm, PLLC",
+    "type": "attorney",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/attorneys/jillian-baucom/": {
+    "filename": "attorneys-jillian-baucom.json",
+    "title": "Jillian Baucom - Vasquez Law Firm, PLLC",
+    "type": "attorney",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/attorneys/judith-parkes/": {
+    "filename": "attorneys-judith-parkes.json",
+    "title": "",
+    "type": "attorney",
+    "hasContent": false
+  },
+  "https://www.vasquezlawnc.com/attorneys/malcom-rodriguez/": {
+    "filename": "attorneys-malcom-rodriguez.json",
+    "title": "Malcom Rodriguez - Vasquez Law Firm, PLLC",
+    "type": "attorney",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/attorneys/mark-kelsey/": {
+    "filename": "attorneys-mark-kelsey.json",
+    "title": "Mark Kelsey - Vasquez Law Firm, PLLC",
+    "type": "attorney",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/attorneys/rania-arwani/": {
+    "filename": "attorneys-rania-arwani.json",
+    "title": "Rania Arwani - Vasquez Law Firm, PLLC",
+    "type": "attorney",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/attorneys/roselyn-v-torrellas/": {
+    "filename": "attorneys-roselyn-v-torrellas.json",
+    "title": "Roselyn v. Torrellas - Vasquez Law Firm, PLLC",
+    "type": "attorney",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/attorneys/william-vasquez-attorney/": {
+    "filename": "attorneys-william-vasquez-attorney.json",
+    "title": "William Vasquez - Vasquez Law Firm, PLLC",
+    "type": "attorney",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/attorneys/": {
+    "filename": "attorneys.json",
+    "title": "Attorneys - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/charlotte-nc/": {
+    "filename": "charlotte-nc.json",
+    "title": "Charlotte, NC - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/contact/": {
+    "filename": "contact.json",
+    "title": "Contact - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/criminal-defense/domestic-violence-abuse/": {
+    "filename": "criminal-defense-domestic-violence-abuse.json",
+    "title": "Raleigh, NC Domestic Violence Defense Attorneys - Vasquez Law Firm, PLLC",
+    "type": "criminal-defense",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/criminal-defense/drug-crime-cases/": {
+    "filename": "criminal-defense-drug-crime-cases.json",
+    "title": "Wake County Drug Crimes Defense Lawyers - Vasquez Law Firm, PLLC",
+    "type": "criminal-defense",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/criminal-defense/dwi-drunk-driving/": {
+    "filename": "criminal-defense-dwi-drunk-driving.json",
+    "title": "Raleigh, NC DWI Defense Attorneys - Vasquez Law Firm, PLLC",
+    "type": "criminal-defense",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/criminal-defense/expungement-expunction/": {
+    "filename": "criminal-defense-expungement-expunction.json",
+    "title": "Wake County Expungement Lawyers - Vasquez Law Firm, PLLC",
+    "type": "criminal-defense",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/criminal-defense/traffic-offenses-tickets/": {
+    "filename": "criminal-defense-traffic-offenses-tickets.json",
+    "title": "Wake County Traffic Offenses Attorneys - Vasquez Law Firm, PLLC",
+    "type": "criminal-defense",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/criminal-defense/": {
+    "filename": "criminal-defense.json",
+    "title": "Raleigh Criminal Defense Attorneys - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/disclaimer/": {
+    "filename": "disclaimer.json",
+    "title": "Disclaimer - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/durham-nc/": {
+    "filename": "durham-nc.json",
+    "title": "Durham, NC - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/es/abogados/": {
+    "filename": "es-abogados.json",
+    "title": "Abogados - Vasquez Law Firm, PLLC",
+    "type": "spanish",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/es/areas-de-practica/compensacion-laboral/": {
+    "filename": "es-areas-de-practica-compensacion-laboral.json",
+    "title": "Abogados de Indemnización Laboral en Raleigh, NC - Vasquez Law Firm, PLLC",
+    "type": "spanish",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/es/areas-de-practica/defensa-criminal/": {
+    "filename": "es-areas-de-practica-defensa-criminal.json",
+    "title": "Abogados De Defensa Criminal En Raleigh - Vasquez Law Firm, PLLC",
+    "type": "spanish",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/es/areas-de-practica/derecho-familia/": {
+    "filename": "es-areas-de-practica-derecho-familia.json",
+    "title": "Abogados de Derecho Familiar en Raleigh - Vasquez Law Firm, PLLC",
+    "type": "spanish",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/es/areas-de-practica/inmigracion/": {
+    "filename": "es-areas-de-practica-inmigracion.json",
+    "title": "Raleigh, NC Abogados de Inmigración - Vasquez Law Firm, PLLC",
+    "type": "spanish",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/es/areas-de-practica/lesiones-personales/": {
+    "filename": "es-areas-de-practica-lesiones-personales.json",
+    "title": "Abogados de Lesiones Personales en Raleigh, NC - Vasquez Law Firm, PLLC",
+    "type": "spanish",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/es/areas-de-practica/": {
+    "filename": "es-areas-de-practica.json",
+    "title": "Abogados que prestan servicios en Raleigh, Charlotte y Smithfield, NC - Vasquez Law Firm, PLLC",
+    "type": "spanish",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/es/blog/": {
+    "filename": "es-blog.json",
+    "title": "",
+    "type": "spanish",
+    "hasContent": false
+  },
+  "https://www.vasquezlawnc.com/es/contacto/": {
+    "filename": "es-contacto.json",
+    "title": "Contacto - Vasquez Law Firm, PLLC",
+    "type": "spanish",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/es/descargo-de-responsabilidad/": {
+    "filename": "es-descargo-de-responsabilidad.json",
+    "title": "",
+    "type": "spanish",
+    "hasContent": false
+  },
+  "https://www.vasquezlawnc.com/es/politica-de-privacidad/": {
+    "filename": "es-politica-de-privacidad.json",
+    "title": "",
+    "type": "spanish",
+    "hasContent": false
+  },
+  "https://www.vasquezlawnc.com/es/recursos/": {
+    "filename": "es-recursos.json",
+    "title": "",
+    "type": "spanish",
+    "hasContent": false
+  },
+  "https://www.vasquezlawnc.com/es/": {
+    "filename": "es.json",
+    "title": "Español - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/family-law/alimony-spousal-support/": {
+    "filename": "family-law-alimony-spousal-support.json",
+    "title": "Raleigh, NC Alimony Attorneys - Vasquez Law Firm, PLLC",
+    "type": "family-law",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/family-law/child-custody/": {
+    "filename": "family-law-child-custody.json",
+    "title": "Page not found - Vasquez Law Firm, PLLC",
+    "type": "family-law",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/family-law/divorce/": {
+    "filename": "family-law-divorce.json",
+    "title": "Raleigh, NC Divorce Lawyers - Vasquez Law Firm, PLLC",
+    "type": "family-law",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/family-law/equitable-distribution-property-debt-division/": {
+    "filename": "family-law-equitable-distribution-property-debt-division.json",
+    "title": "Raleigh, NC Property Division Attorneys - Vasquez Law Firm, PLLC",
+    "type": "family-law",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/family-law/": {
+    "filename": "family-law.json",
+    "title": "Raleigh Family Law Attorneys - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/": {
+    "filename": "homepage.json",
+    "title": "Home - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/adjustment-of-status/": {
+    "filename": "immigration-adjustment-of-status.json",
+    "title": "North Carolina Immigration Attorneys for Adjustment of Status - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/asylum-refugee-legal-help/": {
+    "filename": "immigration-asylum-refugee-legal-help.json",
+    "title": "Charlotte, NC Asylum Immigration Attorneys - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/citizenship-naturalization/": {
+    "filename": "immigration-citizenship-naturalization.json",
+    "title": "Raleigh, NC Citizenship and Naturalization Attorneys - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/criminal-convictions-impact-on-immigration/": {
+    "filename": "immigration-criminal-convictions-impact-on-immigration.json",
+    "title": "Raleigh, NC Criminal Conviction Immigration Lawyers - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/daca-deferred-action-childhood-arrivals-2/": {
+    "filename": "immigration-daca-deferred-action-childhood-arrivals-2.json",
+    "title": "Raleigh, NC DACA Attorneys - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/deportation-removal-defense/": {
+    "filename": "immigration-deportation-removal-defense.json",
+    "title": "Raleigh, NC Deportation Defense Attorneys - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/detention-bond-hearings/": {
+    "filename": "immigration-detention-bond-hearings.json",
+    "title": "Raleigh, NC Detention Bond Hearing Lawyers - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/employment-based-immigration/e-visa/": {
+    "filename": "immigration-employment-based-immigration-e-visa.json",
+    "title": "Raleigh E Visa Attorneys - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/employment-based-immigration/h-2b-visa/": {
+    "filename": "immigration-employment-based-immigration-h-2b-visa.json",
+    "title": "Raleigh H-2B Visa Attorneys - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/employment-based-immigration/perm-labor-certification/": {
+    "filename": "immigration-employment-based-immigration-perm-labor-certification.json",
+    "title": "Raleigh PERM Labor Certification Lawyers - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/employment-based-immigration/tn-visa/": {
+    "filename": "immigration-employment-based-immigration-tn-visa.json",
+    "title": "Raleigh TN Visa Attorneys - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/employment-based-immigration/": {
+    "filename": "immigration-employment-based-immigration.json",
+    "title": "Raleigh Employment-Based Immigration Attorney - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/family-based-relative/": {
+    "filename": "immigration-family-based-relative.json",
+    "title": "Raleigh, NC Family-Based Immigration Lawyers - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/family-preference-visas/": {
+    "filename": "immigration-family-preference-visas.json",
+    "title": "Raleigh, NC Family Preference Visas Attorneys - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/family-visa-types/": {
+    "filename": "immigration-family-visa-types.json",
+    "title": "Raleigh, NC Attorneys For Family Visas - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/faqs-questions-answers/": {
+    "filename": "immigration-faqs-questions-answers.json",
+    "title": "Frequently Asked Questions About Immigration - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/fiance-k-visas/": {
+    "filename": "immigration-fiance-k-visas.json",
+    "title": "Wake County, NC Fiancé Visa Lawyers - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/green-cards/": {
+    "filename": "immigration-green-cards.json",
+    "title": "Raleigh, NC Green Card Attorneys - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/immediate-relative-visas/": {
+    "filename": "immigration-immediate-relative-visas.json",
+    "title": "Raleigh Immigration Attorneys for Immediate Relative Visas - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/inadmissibility-waivers-ineligible-to-immigrate/": {
+    "filename": "immigration-inadmissibility-waivers-ineligible-to-immigrate.json",
+    "title": "Raleigh, NC Waivers of Inadmissibility Lawyers - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/vawa-u-visa-crime-victims/": {
+    "filename": "immigration-vawa-u-visa-crime-victims.json",
+    "title": "Raleigh, NC Immigration Lawyers for Victims of Crimes and Domestic Violence - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/visa-denial-help-appeals/": {
+    "filename": "immigration-visa-denial-help-appeals.json",
+    "title": "Raleigh Immigration Visa Denial Attorneys - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/visa-process/": {
+    "filename": "immigration-visa-process.json",
+    "title": "Raleigh, NC Immigrant Visa Attorneys - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/immigration/": {
+    "filename": "immigration.json",
+    "title": "Raleigh, NC Family-Based Immigration Lawyers - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/make-payment/": {
+    "filename": "make-payment.json",
+    "title": "Make Payment - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/media-info/": {
+    "filename": "media-info.json",
+    "title": "Media - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/orlando-fl/": {
+    "filename": "orlando-fl.json",
+    "title": "Orlando, FL Lawyer Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/our-team/": {
+    "filename": "our-team.json",
+    "title": "Page not found - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/personal-injury/bicycle-bike-accidents/": {
+    "filename": "personal-injury-bicycle-bike-accidents.json",
+    "title": "Raleigh, NC Bicycle Accident Lawyers - Vasquez Law Firm, PLLC",
+    "type": "personal-injury",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/personal-injury/boating-jet-ski-watercraft-accidents/": {
+    "filename": "personal-injury-boating-jet-ski-watercraft-accidents.json",
+    "title": "Raleigh, NC Boat Accident Attorneys - Vasquez Law Firm, PLLC",
+    "type": "personal-injury",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/personal-injury/car-auto-accidents/": {
+    "filename": "personal-injury-car-auto-accidents.json",
+    "title": "Raleigh, NC Car Accident Attorneys - Vasquez Law Firm, PLLC",
+    "type": "personal-injury",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/personal-injury/drunk-driver-liability/": {
+    "filename": "personal-injury-drunk-driver-liability.json",
+    "title": "Raleigh, NC Drunk Driver Liability Lawyers - Vasquez Law Firm, PLLC",
+    "type": "personal-injury",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/personal-injury/emergency-vehicle-accidents/": {
+    "filename": "personal-injury-emergency-vehicle-accidents.json",
+    "title": "Wake County Emergency Vehicle Accident Injury Attorneys - Vasquez Law Firm, PLLC",
+    "type": "personal-injury",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/personal-injury/mass-transit-public-transportation-bus-train-accidents/": {
+    "filename": "personal-injury-mass-transit-public-transportation-bus-train-accidents.json",
+    "title": "Wake County Mass Transit Accident Injury Lawyers - Vasquez Law Firm, PLLC",
+    "type": "personal-injury",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/personal-injury/motorcycle-accidents/": {
+    "filename": "personal-injury-motorcycle-accidents.json",
+    "title": "Raleigh, NC Motorcycle Accident Attorneys - Vasquez Law Firm, PLLC",
+    "type": "personal-injury",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/personal-injury/pedestrian-hit-by-car/": {
+    "filename": "personal-injury-pedestrian-hit-by-car.json",
+    "title": "Wake County Pedestrian Accident Attorneys - Vasquez Law Firm, PLLC",
+    "type": "personal-injury",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/personal-injury/premises-liability/": {
+    "filename": "personal-injury-premises-liability.json",
+    "title": "Raleigh, NC Premises Liability Injury Attorneys - Vasquez Law Firm, PLLC",
+    "type": "personal-injury",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/personal-injury/truck-accidents/": {
+    "filename": "personal-injury-truck-accidents.json",
+    "title": "Wake County Semi Truck Accident Attorneys - Vasquez Law Firm, PLLC",
+    "type": "personal-injury",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/personal-injury/uninsured-underinsured-drivers-motorists-accidents/": {
+    "filename": "personal-injury-uninsured-underinsured-drivers-motorists-accidents.json",
+    "title": "Raleigh Uninsured and Underinsured Motorist Accident Lawyers - Vasquez Law Firm, PLLC",
+    "type": "personal-injury",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/personal-injury/": {
+    "filename": "personal-injury.json",
+    "title": "Raleigh, NC Personal Injury Attorneys - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/privacy-policy/": {
+    "filename": "privacy-policy.json",
+    "title": "Privacy Policy - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/raleigh-nc/": {
+    "filename": "raleigh-nc.json",
+    "title": "Raleigh, NC - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/scholarship/": {
+    "filename": "scholarship.json",
+    "title": "Scholarship - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/site-map/": {
+    "filename": "site-map.json",
+    "title": "Page not found - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/smithfield-nc/": {
+    "filename": "smithfield-nc.json",
+    "title": "Smithfield, NC - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/t-visa-immigration-attorneys/": {
+    "filename": "t-visa-immigration-attorneys.json",
+    "title": "T Visa Immigration Attorneys - Vasquez Law Firm, PLLC",
+    "type": "immigration",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/testimonials/": {
+    "filename": "testimonials.json",
+    "title": "Testimonials - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/venezuelan-deferred-enforced-deportation-by-trump/": {
+    "filename": "venezuelan-deferred-enforced-deportation-by-trump.json",
+    "title": "Smithfield, NC Immigration Lawyers for Deferred Enforced Departure - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/winston-salem/": {
+    "filename": "winston-salem.json",
+    "title": "Winston-Salem, NC - Vasquez Law Firm, PLLC",
+    "type": "general",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/workers-compensation-job-injury/construction-site-injuries/": {
+    "filename": "workers-compensation-job-injury-construction-site-injuries.json",
+    "title": "Wake County Construction Site Accident Attorneys - Vasquez Law Firm, PLLC",
+    "type": "workers-compensation",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/workers-compensation-job-injury/depression-mental-health-anxiety/": {
+    "filename": "workers-compensation-job-injury-depression-mental-health-anxiety.json",
+    "title": "Raleigh, NC Work-Related Mental Health Injury Attorneys - Vasquez Law Firm, PLLC",
+    "type": "workers-compensation",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/workers-compensation-job-injury/equipment-accidents-failures/": {
+    "filename": "workers-compensation-job-injury-equipment-accidents-failures.json",
+    "title": "Raleigh, NC Workplace Equipment Accident Attorneys - Vasquez Law Firm, PLLC",
+    "type": "workers-compensation",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/workers-compensation-job-injury/lifting-injuries-overexertion/": {
+    "filename": "workers-compensation-job-injury-lifting-injuries-overexertion.json",
+    "title": "Raleigh, NC Workers' Comp Attorneys For Lifting Injuries - Vasquez Law Firm, PLLC",
+    "type": "workers-compensation",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/workers-compensation-job-injury/repetitive-stress-carpal-tunnel/": {
+    "filename": "workers-compensation-job-injury-repetitive-stress-carpal-tunnel.json",
+    "title": "Raleigh, NC Repetitive Stress Injury Attorneys - Vasquez Law Firm, PLLC",
+    "type": "workers-compensation",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/workers-compensation-job-injury/third-party-injury-claims/": {
+    "filename": "workers-compensation-job-injury-third-party-injury-claims.json",
+    "title": "Raleigh, NC Third-Party Work Injury Claims Attorneys - Vasquez Law Firm, PLLC",
+    "type": "workers-compensation",
+    "hasContent": true
+  },
+  "https://www.vasquezlawnc.com/workers-compensation-job-injury/": {
+    "filename": "workers-compensation-job-injury.json",
+    "title": "Raleigh, NC Workers' Compensation Attorneys - Vasquez Law Firm, PLLC",
+    "type": "workers-compensation",
+    "hasContent": true
+  }
+}

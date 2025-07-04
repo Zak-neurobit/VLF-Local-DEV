@@ -1,0 +1,292 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
+import twilio from 'twilio';
+import { prisma } from '@/lib/prisma';
+
+const VoiceResponse = twilio.twiml.VoiceResponse;
+
+// Validate Twilio request
+const validateTwilioRequest = (request: NextRequest, params: Record<string, string>): boolean => {
+  const twilioSignature = request.headers.get('x-twilio-signature') || '';
+  const authToken = process.env.TWILIO_AUTH_TOKEN || '';
+  const url = request.url;
+
+  if (!authToken || !twilioSignature) {
+    return false;
+  }
+
+  return twilio.validateRequest(
+    authToken,
+    twilioSignature,
+    url,
+    params
+  );
+};
+
+export async function POST(request: NextRequest) {
+  try {
+    const formData = await request.formData();
+    const data: Record<string, string> = {};
+    
+    // Convert FormData to object
+    formData.forEach((value, key) => {
+      data[key] = value.toString();
+    });
+
+    // Validate in production
+    if (process.env.NODE_ENV === 'production') {
+      if (!validateTwilioRequest(request, data)) {
+        logger.warn('Invalid Twilio voice webhook signature');
+        return new NextResponse('Unauthorized', { status: 401 });
+      }
+    }
+
+    logger.info('Twilio voice webhook received', {
+      from: data.From,
+      to: data.To,
+      callSid: data.CallSid,
+      digits: data.Digits,
+    });
+
+    // Create TwiML response
+    const twiml = new VoiceResponse();
+
+    // Check if this is initial call or digit press
+    if (data.Digits) {
+      await handleMenuSelection(twiml, data.Digits, data);
+    } else {
+      // Initial greeting
+      await handleInitialCall(twiml, data);
+    }
+
+    return new NextResponse(twiml.toString(), {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/xml',
+      },
+    });
+  } catch (error) {
+    logger.error('Twilio voice webhook error:', error);
+    
+    const errorTwiml = new VoiceResponse();
+    errorTwiml.say(
+      'We apologize, but we are experiencing technical difficulties. Please call back later or visit our website at vasquez law n c dot com.'
+    );
+    errorTwiml.hangup();
+
+    return new NextResponse(errorTwiml.toString(), {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/xml',
+      },
+    });
+  }
+}
+
+async function handleInitialCall(twiml: any, data: Record<string, string>) {
+  // Log the call
+  try {
+    await prisma.call.create({
+      data: {
+        externalCallId: data.CallSid,
+        fromNumber: data.From,
+        toNumber: data.To,
+        direction: data.Direction as 'inbound' | 'outbound',
+        status: 'active',
+        startedAt: new Date(),
+        metadata: {
+          twilioData: data,
+        },
+      },
+    });
+  } catch (error) {
+    logger.error('Failed to log call:', error);
+  }
+
+  // Check business hours
+  const isBusinessHours = checkBusinessHours();
+  
+  if (isBusinessHours) {
+    twiml.gather({
+      numDigits: 1,
+      action: '/api/webhooks/twilio/voice',
+      method: 'POST',
+      timeout: 10,
+    }).say(
+      'Thank you for calling Vasquez Law Firm. Para español, oprima 2. ' +
+      'Press 1 for immigration services. ' +
+      'Press 3 for personal injury. ' +
+      'Press 4 for criminal defense. ' +
+      'Press 5 for family law. ' +
+      'Press 9 to speak with a representative. ' +
+      'Press 0 to hear our office locations.',
+      { voice: 'Polly.Joanna' }
+    );
+
+    // If no input, repeat menu
+    twiml.redirect('/api/webhooks/twilio/voice');
+  } else {
+    twiml.say(
+      'Thank you for calling Vasquez Law Firm. Our office hours are Monday through Friday, 9 AM to 5 PM Eastern Time. ' +
+      'For emergencies, please hang up and dial 911. ' +
+      'Please leave a message after the tone, and we will return your call on the next business day.',
+      { voice: 'Polly.Joanna' }
+    );
+    
+    twiml.record({
+      maxLength: 180,
+      transcribe: true,
+      transcribeCallback: '/api/webhooks/twilio/transcription',
+    });
+    
+    twiml.say('Thank you for your message. Goodbye.', { voice: 'Polly.Joanna' });
+    twiml.hangup();
+  }
+}
+
+async function handleMenuSelection(twiml: any, digit: string, data: Record<string, string>) {
+  switch (digit) {
+    case '1': // Immigration
+      twiml.say(
+        'You have selected immigration services. Our immigration attorneys can help with visas, green cards, citizenship, and deportation defense. ' +
+        'Please stay on the line to be connected with our immigration department.',
+        { voice: 'Polly.Joanna' }
+      );
+      await forwardToRetell(twiml, 'immigration', data);
+      break;
+      
+    case '2': // Spanish
+      twiml.gather({
+        numDigits: 1,
+        action: '/api/webhooks/twilio/voice?lang=es',
+        method: 'POST',
+        timeout: 10,
+      }).say(
+        'Gracias por llamar a Vasquez Law Firm. ' +
+        'Presione 1 para servicios de inmigración. ' +
+        'Presione 3 para lesiones personales. ' +
+        'Presione 4 para defensa criminal. ' +
+        'Presione 5 para derecho familiar. ' +
+        'Presione 9 para hablar con un representante.',
+        { voice: 'Polly.Lupe', language: 'es-ES' }
+      );
+      break;
+      
+    case '3': // Personal Injury
+      twiml.say(
+        'You have selected personal injury services. We handle car accidents, truck accidents, slip and falls, and workers compensation cases. ' +
+        'Please stay on the line to speak with our personal injury team.',
+        { voice: 'Polly.Joanna' }
+      );
+      await forwardToRetell(twiml, 'personal-injury', data);
+      break;
+      
+    case '4': // Criminal Defense
+      twiml.say(
+        'You have selected criminal defense. We provide aggressive defense for DUI, drug charges, assault, and other criminal matters. ' +
+        'Please hold while we connect you.',
+        { voice: 'Polly.Joanna' }
+      );
+      await forwardToRetell(twiml, 'criminal-defense', data);
+      break;
+      
+    case '5': // Family Law
+      twiml.say(
+        'You have selected family law services. We handle divorce, child custody, alimony, and adoption cases. ' +
+        'Please stay on the line.',
+        { voice: 'Polly.Joanna' }
+      );
+      await forwardToRetell(twiml, 'family-law', data);
+      break;
+      
+    case '9': // Representative
+      twiml.say(
+        'Please hold while we connect you to the next available representative.',
+        { voice: 'Polly.Joanna' }
+      );
+      await connectToAgent(twiml, data);
+      break;
+      
+    case '0': // Office locations
+      twiml.say(
+        'Our main office is located at 6 Carriage Circle, Durham, North Carolina. ' +
+        'We also have offices in Raleigh, Charlotte, Winston-Salem, and Orlando, Florida. ' +
+        'For detailed directions, please visit our website at vasquez law n c dot com. ' +
+        'Press any key to return to the main menu.',
+        { voice: 'Polly.Joanna' }
+      );
+      twiml.redirect('/api/webhooks/twilio/voice');
+      break;
+      
+    default:
+      twiml.say(
+        'Invalid selection. Please try again.',
+        { voice: 'Polly.Joanna' }
+      );
+      twiml.redirect('/api/webhooks/twilio/voice');
+  }
+}
+
+async function forwardToRetell(twiml: any, department: string, data: Record<string, string>) {
+  // Forward to Retell AI agent based on department
+  const retellNumbers: Record<string, string> = {
+    'immigration': process.env.RETELL_IMMIGRATION_NUMBER || '',
+    'personal-injury': process.env.RETELL_PERSONAL_INJURY_NUMBER || '',
+    'criminal-defense': process.env.RETELL_CRIMINAL_NUMBER || '',
+    'family-law': process.env.RETELL_FAMILY_NUMBER || '',
+  };
+
+  const retellNumber = retellNumbers[department];
+  
+  if (retellNumber) {
+    twiml.dial({
+      action: '/api/webhooks/twilio/call-status',
+      method: 'POST',
+      timeout: 30,
+    }).number(retellNumber);
+  } else {
+    // Fallback to human agent
+    await connectToAgent(twiml, data);
+  }
+}
+
+async function connectToAgent(twiml: any, data: Record<string, string>) {
+  // During business hours, forward to office
+  const officeNumber = process.env.OFFICE_PHONE_NUMBER;
+  
+  if (officeNumber) {
+    twiml.dial({
+      action: '/api/webhooks/twilio/call-status',
+      method: 'POST',
+      timeout: 30,
+      record: 'record-from-answer',
+      recordingStatusCallback: '/api/webhooks/twilio/recording-status',
+    }).number(officeNumber);
+  } else {
+    twiml.say(
+      'We apologize, but all of our representatives are currently unavailable. ' +
+      'Please leave a message after the tone.',
+      { voice: 'Polly.Joanna' }
+    );
+    
+    twiml.record({
+      maxLength: 180,
+      transcribe: true,
+      transcribeCallback: '/api/webhooks/twilio/transcription',
+    });
+    
+    twiml.say('Thank you for your message. Goodbye.', { voice: 'Polly.Joanna' });
+    twiml.hangup();
+  }
+}
+
+function checkBusinessHours(): boolean {
+  const now = new Date();
+  const easternTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  
+  const day = easternTime.getDay();
+  const hour = easternTime.getHours();
+  
+  // Monday-Friday (1-5), 9 AM - 5 PM
+  return day >= 1 && day <= 5 && hour >= 9 && hour < 17;
+}

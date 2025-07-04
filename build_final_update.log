@@ -1,0 +1,1436 @@
+
+> vasquez-law-website@1.0.0 build
+> prisma generate && next build
+
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+
+✔ Generated Prisma Client (v5.22.0) to ./node_modules/@prisma/client in 79ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Help us improve the Prisma ORM for everyone. Share your feedback in a short 2-min survey: https://pris.ly/orm/survey/release-5-22
+
+  ▲ Next.js 14.2.30
+  - Environments: .env.production.local, .env.local, .env.production, .env
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Skipping linting
+   Checking validity of types ...
+   Collecting page data ...
+[32minfo[39m: Twilio service initialized {"service":"vasquez-law-website","timestamp":"2025-06-29 04:03:33"}
+ ⚠ Using edge runtime on a page currently disables static generation for that page
+   Generating static pages (0/296) ...
+[32minfo[39m: Office 365 SMTP connection established {"service":"vasquez-law-website","timestamp":"2025-06-29 04:03:35"}
+[32minfo[39m: Office 365 SMTP connection established {"service":"vasquez-law-website","timestamp":"2025-06-29 04:03:35"}
+[32minfo[39m: Office 365 SMTP connection established {"service":"vasquez-law-website","timestamp":"2025-06-29 04:03:35"}
+[32minfo[39m: SEOOptimizationService.generateSitemap {"service":"vasquez-law-website","timestamp":"2025-06-29 04:03:35"}
+[DB Error] 
+Invalid `prisma.$queryRaw()` invocation:
+
+
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:7
+   | 
+ 6 |   provider = "postgresql"
+ 7 |   url      = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1: {
+  message: '\n' +
+    'Invalid `prisma.$queryRaw()` invocation:\n' +
+    '\n' +
+    '\n' +
+    'error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.\n' +
+    '  -->  schema.prisma:7\n' +
+    '   | \n' +
+    ' 6 |   provider = "postgresql"\n' +
+    ' 7 |   url      = env("DATABASE_URL")\n' +
+    '   | \n' +
+    '\n' +
+    'Validation Error Count: 1',
+  target: '$queryRaw',
+  timestamp: 2025-06-29T08:03:35.329Z
+}
+[DB Error] 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:7
+   | 
+ 6 |   provider = "postgresql"
+ 7 |   url      = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1: {
+  message: '\n' +
+    'Invalid `prisma.blogPost.findMany()` invocation:\n' +
+    '\n' +
+    '\n' +
+    'error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.\n' +
+    '  -->  schema.prisma:7\n' +
+    '   | \n' +
+    ' 6 |   provider = "postgresql"\n' +
+    ' 7 |   url      = env("DATABASE_URL")\n' +
+    '   | \n' +
+    '\n' +
+    'Validation Error Count: 1',
+  target: 'blogPost.findMany',
+  timestamp: 2025-06-29T08:03:35.330Z
+}
+Error generating sitemap: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+error: Error validating datasource `db`: the URL must start with the protocol `postgresql://` or `postgres://`.
+  -->  schema.prisma:7
+   | 
+ 6 |   provider = "postgresql"
+ 7 |   url      = env("DATABASE_URL")
+   | 
+
+Validation Error Count: 1
+    at $n.handleRequestError (/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/node_modules/@prisma/client/runtime/library.js:121:7615)
+    at $n.handleAndLogRequestError (/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/node_modules/@prisma/client/runtime/library.js:121:6623)
+    at $n.request (/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/node_modules/@prisma/client/runtime/library.js:121:6307)
+    at async l (/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/node_modules/@prisma/client/runtime/library.js:130:9633)
+    at async s.generateSitemap (/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/.next/server/chunks/6834.js:1:6057)
+    at async n (/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/.next/server/app/api/sitemap/route.js:1:998)
+    at async /Users/williamvasquez/Documents/VLF Website/vasquez-law-website/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:38411
+    at async e_.execute (/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:27880)
+    at async e_.handle (/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:39943)
+    at async exportAppRoute (/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/node_modules/next/dist/export/routes/app-route.js:77:26) {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /_not-found. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /_not-found. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /about. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /about. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /dashboard. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /payment. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /payment. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /modern-demo. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /modern-demo. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/citizenship-naturalization. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/citizenship-naturalization. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /admin/agents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /admin/agents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /blog. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /blog. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/family-based-relative. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/family-based-relative. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /admin/import. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /admin/import. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /test-deployment. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /test-deployment. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/traffic-violations. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/traffic-violations. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas-hub. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas-hub. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /contact. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /contact. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /6-reasons-why-you-should-hire-a-personal-injury-lawyer. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /6-reasons-why-you-should-hire-a-personal-injury-lawyer. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /locations. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /locations. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/jillian-baucom-es. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/jillian-baucom-es. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /abogados-de-inmigracion-de-t-visa. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /abogados-de-inmigracion-de-t-visa. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /7-causes-of-truck-driver-fatigue-that-can-lead-to-truck-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /7-causes-of-truck-driver-fatigue-that-can-lead-to-truck-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/adrianna-ingram. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/adrianna-ingram. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /cutting-edge. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /cutting-edge. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /cutting-edge-light. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /cutting-edge-light. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/judith-parkes. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/judith-parkes. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/christopher-afanador. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/christopher-afanador. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/christopher-afanador-abogado. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/christopher-afanador-abogado. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /category/car-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /category/car-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /best-guide-on-navigating-the-board-of-immigration-appeals. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /best-guide-on-navigating-the-board-of-immigration-appeals. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /author/wvasquezvasquezlawfirm-com. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /author/wvasquezvasquezlawfirm-com. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /can-i-sue-someone-if-their-dog-bites-me. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /can-i-sue-someone-if-their-dog-bites-me. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /best-workers-compensation-quote-save-more-today. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /best-workers-compensation-quote-save-more-today. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/william-vasquez. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/william-vasquez. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/roselyn-torrellas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/roselyn-torrellas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/mark-kelsey-es. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/mark-kelsey-es. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/roselyn-v-torrellas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/roselyn-v-torrellas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /calculators. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /calculators. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /category/criminal-defense. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /category/criminal-defense. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /category/personal-injuty. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /category/personal-injuty. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /can-a-lawyer-help-me-if-i-get-a-dwi. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /can-a-lawyer-help-me-if-i-get-a-dwi. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /category/uncategorized. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /category/uncategorized. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/mark-kelsey. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/mark-kelsey. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /category/immigration/illegal-immigrants. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /category/immigration/illegal-immigrants. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /category/workers-compensation. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /category/workers-compensation. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /category/immigration. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /category/immigration. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/jillian-baucom. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/jillian-baucom. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /contact/smithfield-office-location. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /contact/smithfield-office-location. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /charlotte-nc-workers-comp-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /charlotte-nc-workers-comp-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /charlotte-nc. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /charlotte-nc. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+   Generating static pages (74/296) 
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados/adrianna-ingram. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados/adrianna-ingram. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /common-legal-mistakes-to-avoid-after-a-car-accident. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /common-legal-mistakes-to-avoid-after-a-car-accident. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /como-miles-se-han-beneficiado-al. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /como-miles-se-han-beneficiado-al. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /contact/orlando-fl-office-location. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /contact/orlando-fl-office-location. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /durham-nc-immigration-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /durham-nc-immigration-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /contact/charlotte-nc-office-location. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /contact/charlotte-nc-office-location. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /criminal-defense. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /criminal-defense. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /documents-you-need-for-your-workers-comp-claim. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /documents-you-need-for-your-workers-comp-claim. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /como-navegar-las-complejidades-de-la-junta-de. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /como-navegar-las-complejidades-de-la-junta-de. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /does-the-violence-against-women-act-protect-against-deportation. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /does-the-violence-against-women-act-protect-against-deportation. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /does-workers-compensation-insurance-automatically-cover-every-workplace-injury. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /does-workers-compensation-insurance-automatically-cover-every-workplace-injury. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /contact/goldsboro-office-location. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /contact/goldsboro-office-location. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados/jillian-baucom. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados/jillian-baucom. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /contact/raleigh-nc-office-location. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /contact/raleigh-nc-office-location. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+[32minfo[39m: Office 365 SMTP connection established {"service":"vasquez-law-website","timestamp":"2025-06-29 04:03:36"}
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados/christopher-afanador. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados/christopher-afanador. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/compensacion-laboral. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/compensacion-laboral. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/ajuste-de-estatus. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/ajuste-de-estatus. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados/judith-parkes. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados/judith-parkes. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/defensa-criminal/violacion-de-libertad-condicional. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/defensa-criminal/violacion-de-libertad-condicional. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/defensa-criminal. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/defensa-criminal. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/derecho-familia. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/derecho-familia. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/adriana-ingram. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /attorneys/adriana-ingram. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados/roselyn-torrellas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados/roselyn-torrellas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/audiencias-de-fianza-detencion. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/audiencias-de-fianza-detencion. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /durham-nc. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /durham-nc. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+[32minfo[39m: Twilio service initialized {"service":"vasquez-law-website","timestamp":"2025-06-29 04:03:36"}
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/derecho-familia/divorcio. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/derecho-familia/divorcio. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/daca-accion-diferida-llegadas-en-la-infancia. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/daca-accion-diferida-llegadas-en-la-infancia. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados/william-vasquez. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados/william-vasquez. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/asilo. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/asilo. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/ciudadania. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/ciudadania. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/faqs-preguntas-respuestas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/faqs-preguntas-respuestas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/inmigracion-basada-en-el-empleo/certificacion-laboral-perm. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/inmigracion-basada-en-el-empleo/certificacion-laboral-perm. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/inmigracion-basada-en-el-empleo. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/inmigracion-basada-en-el-empleo. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/inadmisibilidad-perdones-inelegible-para-inmigrar. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/inadmisibilidad-perdones-inelegible-para-inmigrar. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/proceso-de-visa. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/proceso-de-visa. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/memorando-sobre-salida-forzada-diferida-para-ciertos-venezolanos. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/memorando-sobre-salida-forzada-diferida-para-ciertos-venezolanos. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/impacto-en-inmigracion-de-condenas-penales. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/impacto-en-inmigracion-de-condenas-penales. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/lesiones-personales. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/lesiones-personales. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/medios-de-comunicacion. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/medios-de-comunicacion. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/contacto. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/contacto. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/lesiones-personales/accidentes-motocicleta. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/lesiones-personales/accidentes-motocicleta. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/pariente-familiar. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/pariente-familiar. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/blog. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/blog. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/tarjetas-verdes. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/tarjetas-verdes. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/visas-de-pariente-inmediato. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/visas-de-pariente-inmediato. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/vawa-u-visa-crimen-victimas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/vawa-u-visa-crimen-victimas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/contacto/ubicacion-oficina-orlando-fl. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/contacto/ubicacion-oficina-orlando-fl. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/medios. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/medios. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/contacto/ubicacion-oficina-raleigh-nc. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/contacto/ubicacion-oficina-raleigh-nc. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/ayuda-apelaciones-denegacion-de-visa. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/ayuda-apelaciones-denegacion-de-visa. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/contacto/ubicacion-oficina-charlotte-nc. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/contacto/ubicacion-oficina-charlotte-nc. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /home. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /home. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /expert-tips-to-navigate-a-delayed-immigration-court-case-status. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /expert-tips-to-navigate-a-delayed-immigration-court-case-status. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/mapa-del-sitio. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/mapa-del-sitio. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /family-law. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /family-law. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /expert-insights-on-the-shocking-truth-about-illegal-immigrants. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /expert-insights-on-the-shocking-truth-about-illegal-immigrants. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /expert-guide-to-immigration-reform-for-student-visas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /expert-guide-to-immigration-reform-for-student-visas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /how-i-built-a-6-figure-business-in-12-months-as-a-first-generation-immigrant. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /how-i-built-a-6-figure-business-in-12-months-as-a-first-generation-immigrant. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /how-can-drug-charges-impact-immigration-status. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /how-can-drug-charges-impact-immigration-status. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+   Generating static pages (148/296) 
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /immigration-service. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /immigration-service. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /how-to-identify-the-signs-of-illegal-immigration-in-your-community. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /how-to-identify-the-signs-of-illegal-immigration-in-your-community. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /guide-to-permanent-residency-through-employment-what-you-need-to-know. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /guide-to-permanent-residency-through-employment-what-you-need-to-know. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /judith-parkes. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /judith-parkes. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /locations/raleigh. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /locations/raleigh. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /i-was-in-an-accident-with-an-emergency-vehicle-now-what. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /i-was-in-an-accident-with-an-emergency-vehicle-now-what. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /immigration. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /immigration. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /judith-parkes-es. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /judith-parkes-es. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /la-impactante-verdad-sobre-la-inmigracion-ilegal. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /la-impactante-verdad-sobre-la-inmigracion-ilegal. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /locations/charlotte. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /locations/charlotte. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /job-related-risks-for-agricultural-workers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /job-related-risks-for-agricultural-workers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/contacto/ubicacion-oficina-smithfield. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/contacto/ubicacion-oficina-smithfield. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /la-mejor-guia-para-navegar-en-la-junta-de-apelaciones-de-inmigracion. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /la-mejor-guia-para-navegar-en-la-junta-de-apelaciones-de-inmigracion. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /make-payment. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /make-payment. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /locations/orlando. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /locations/orlando. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /locations/smithfield. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /locations/smithfield. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /locations/durham. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /locations/durham. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /media-info. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /media-info. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /multas-de-transito. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /multas-de-transito. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /media-info/testimonials. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /media-info/testimonials. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /locations/winston-salem. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /locations/winston-salem. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /new-rules-for-asylum-and-parole-may-affect-immigrants-to-the-u-s. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /new-rules-for-asylum-and-parole-may-affect-immigrants-to-the-u-s. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /orlando-fl-workers-comp-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /orlando-fl-workers-comp-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /north-carolina-attorney/if-i-am-convicted-of-a-crime-will-i-get-deported. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /north-carolina-attorney/if-i-am-convicted-of-a-crime-will-i-get-deported. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/deportacion-remocion-defensa. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/inmigracion/deportacion-remocion-defensa. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /orlando-fl-immigration-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /orlando-fl-immigration-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /north-carolina-attorney/can-immigrants-still-qualify-for-the-daca-program-in-2021-and-beyond. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /north-carolina-attorney/can-immigrants-still-qualify-for-the-daca-program-in-2021-and-beyond. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /orlando-fl-auto-accident-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /orlando-fl-auto-accident-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/drug-crime-cases. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/drug-crime-cases. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /personal-injury. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /personal-injury. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /orlando-fl. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /orlando-fl. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/domestic-violence-abuse. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/domestic-violence-abuse. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/family-law/equitable-distribution-property-debt-division. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/family-law/equitable-distribution-property-debt-division. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/traffic-offenses-tickets. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/traffic-offenses-tickets. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/assault-battery. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/assault-battery. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados/mark-kelsey. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/abogados/mark-kelsey. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /north-carolina-attorney/when-can-criminal-cases-affect-a-person-s-immigration-status. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /north-carolina-attorney/when-can-criminal-cases-affect-a-person-s-immigration-status. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/drug-crimes. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/drug-crimes. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /north-carolina-attorney/how-can-i-get-compensation-for-a-construction-site-injury-in-north-carolina. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /north-carolina-attorney/how-can-i-get-compensation-for-a-construction-site-injury-in-north-carolina. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/family-law/alimony-spousal-support. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/family-law/alimony-spousal-support. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/expungement-expunction. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/expungement-expunction. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/domestic-violence. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/domestic-violence. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/dwi-drunk-driving. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/dwi-drunk-driving. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/dui-dwi. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/dui-dwi. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/theft-property-crimes. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/theft-property-crimes. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/asylum-refugee-legal-help. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/asylum-refugee-legal-help. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/immediate-relative-visas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/immediate-relative-visas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/deportation-removal-defense. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/deportation-removal-defense. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/fiance-k-visas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/fiance-k-visas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/adjustment-of-status. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/adjustment-of-status. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/expungement. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/expungement. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/family-law/child-custody. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/family-law/child-custody. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/detention-bond-hearings. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/detention-bond-hearings. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/family-law/divorce. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/family-law/divorce. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/family-law/alimony. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/family-law/alimony. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/employment-based-immigration. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/employment-based-immigration. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/traffic-offenses. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense/traffic-offenses. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/family-law/property-division. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/family-law/property-division. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/family-preference-visas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/family-preference-visas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/green-cards. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/green-cards. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/car-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/car-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/nursing-home-abuse. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/nursing-home-abuse. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/vawa-u-visa-crime-victims. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/vawa-u-visa-crime-victims. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/drunk-driver-liability. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/drunk-driver-liability. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/pedestrian-hit-by-car. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/pedestrian-hit-by-car. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/visa-process. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/visa-process. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/inadmissibility-waivers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/inadmissibility-waivers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/car-auto-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/car-auto-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/t-visa. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/t-visa. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/bicycle-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/bicycle-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/drunk-driver-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/drunk-driver-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/emergency-vehicle-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/emergency-vehicle-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/uninsured-motorist. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/uninsured-motorist. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/criminal-defense. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/family-law. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/family-law. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+   Generating static pages (222/296) 
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/boating-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/boating-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/derecho-familia/ejecucion-y-modificaciones-posteriores-al-divorcio. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /es/areas-de-practica/derecho-familia/ejecucion-y-modificaciones-posteriores-al-divorcio. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/medical-malpractice. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/medical-malpractice. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/workers-compensation/lifting-injuries. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/workers-compensation/lifting-injuries. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/pedestrian-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/pedestrian-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/daca-deferred-action-childhood-arrivals. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration/daca-deferred-action-childhood-arrivals. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/premises-liability. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/premises-liability. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/wrongful-death. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/wrongful-death. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/motorcycle-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/motorcycle-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/workers-compensation/equipment-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/workers-compensation/equipment-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/workers-compensation/third-party-injury-claims. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/workers-compensation/third-party-injury-claims. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/workers-compensation/construction-site-injuries. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/workers-compensation/construction-site-injuries. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/immigration. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /smithfield-nc. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /smithfield-nc. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/workers-compensation/repetitive-stress-carpal-tunnel. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/workers-compensation/repetitive-stress-carpal-tunnel. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /scholarship. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /scholarship. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /scholarship-fall-2024-winner-citlali-jacqueline-flores-hernandez. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /scholarship-fall-2024-winner-citlali-jacqueline-flores-hernandez. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /scholarship-fall-2024-winner-jennifer-guzman-millan. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /scholarship-fall-2024-winner-jennifer-guzman-millan. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /sitemap. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /sitemap. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /raleigh-nc. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /raleigh-nc. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /raleigh-nc-workers-comp-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /raleigh-nc-workers-comp-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /steps-to-take-if-your-workers-comp-claim-is-denied-in-north-carolina. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /steps-to-take-if-your-workers-comp-claim-is-denied-in-north-carolina. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/workers-compensation/mental-health-claims. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/workers-compensation/mental-health-claims. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /scholarship/past-winners. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /scholarship/past-winners. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /smithfield-nc-auto-accident-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /smithfield-nc-auto-accident-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /smithfield-nc-workers-comp-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /smithfield-nc-workers-comp-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /smithfield-nc-immigration-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /smithfield-nc-immigration-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /spring-2023-scholarship-winner-briseyda. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /spring-2023-scholarship-winner-briseyda. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /types-of-damages-in-a-motorcycle-accident-injury-claim. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /types-of-damages-in-a-motorcycle-accident-injury-claim. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /what-are-the-eligibility-requirements-for-fiance-visas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /what-are-the-eligibility-requirements-for-fiance-visas. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /what-issues-will-be-addressed-in-an-immigration-bond-hearing. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /what-issues-will-be-addressed-in-an-immigration-bond-hearing. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /traffic-tickets-nc. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /traffic-tickets-nc. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /understanding-common-causes-of-auto-accidents-tips-for-prevention. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /understanding-common-causes-of-auto-accidents-tips-for-prevention. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /struggles-of-undocumented-immigrants. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /struggles-of-undocumented-immigrants. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /t-visa-immigration-attorneys. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /t-visa-immigration-attorneys. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /what-are-the-requirements-for-adjustment-of-status-for-immigrants. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /what-are-the-requirements-for-adjustment-of-status-for-immigrants. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /what-factors-will-affect-my-workers-comp-settlement. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /what-factors-will-affect-my-workers-comp-settlement. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /types-of-evidence-in-your-auto-accident-injury-claim. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /types-of-evidence-in-your-auto-accident-injury-claim. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /understanding-the-different-kinds-of-family-visas-in-north-carolina. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /understanding-the-different-kinds-of-family-visas-in-north-carolina. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /the-role-of-asylum-in-immigration-law. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /the-role-of-asylum-in-immigration-law. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/truck-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury/truck-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/personal-injury. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /what-legal-options-are-available-for-immigrants-from-venezuela. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /what-legal-options-are-available-for-immigrants-from-venezuela. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /who-pays-if-workers-die-from-workplace-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /who-pays-if-workers-die-from-workplace-accidents. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /when-is-consular-processing-required-for-immigrants-to-the-u-s. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /when-is-consular-processing-required-for-immigrants-to-the-u-s. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /when-can-criminal-cases-affect-a-persons-immigration-status. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /when-can-criminal-cases-affect-a-persons-immigration-status. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /william-vasquez-abogado. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /william-vasquez-abogado. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /what-should-i-do-if-i-am-arrested-for-dwi-over-the-holidays. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /what-should-i-do-if-i-am-arrested-for-dwi-over-the-holidays. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /when-is-consular-processing-required-for-immigrants-to-the-u-s-2. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /when-is-consular-processing-required-for-immigrants-to-the-u-s-2. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /top-immigration-lawyer-explains-5-key-signs-your-status-is-at-risk. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /top-immigration-lawyer-explains-5-key-signs-your-status-is-at-risk. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /will-north-carolina-legalize-marijuana-for-medical-or-recreational-use. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /will-north-carolina-legalize-marijuana-for-medical-or-recreational-use. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /william-vasquez-attorney. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /william-vasquez-attorney. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /what-is-a-conditional-green-card. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /what-is-a-conditional-green-card. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /winston-salem. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /winston-salem. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /winston-salem/winston-salem-nc-workers-comp-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /winston-salem/winston-salem-nc-workers-comp-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /workers-compensation-job-injury/third-party-injury-claims. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /workers-compensation-job-injury/third-party-injury-claims. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /winston-salem/winston-salem-nc-auto-accident-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /winston-salem/winston-salem-nc-auto-accident-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /workers-compensation-service. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /workers-compensation-service. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /winston-salem/winston-salem-nc-immigration-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /winston-salem/winston-salem-nc-immigration-lawyers. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/workers-compensation. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ⚠ Unsupported metadata themeColor is configured in metadata export in /practice-areas/workers-compensation. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ ✓ Generating static pages (296/296)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                                                                               Size     First Load JS
+┌ ○ /                                                                                                     2.65 kB         147 kB
+├ ○ /_not-found                                                                                           148 B            88 kB
+├ ○ /6-reasons-why-you-should-hire-a-personal-injury-lawyer                                               462 B           168 kB
+├ ○ /7-causes-of-truck-driver-fatigue-that-can-lead-to-truck-accidents                                    514 B            97 kB
+├ ○ /7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos            514 B            97 kB
+├ ƒ /7-proven-strategies-that-immigration-lawyers-use-to-win-complex-cases                                462 B           168 kB
+├ ○ /abogados-de-inmigracion-de-t-visa                                                                    516 B            97 kB
+├ ○ /about                                                                                                4.35 kB         164 kB
+├ ○ /admin/agents                                                                                         2.25 kB        90.1 kB
+├ ○ /admin/import                                                                                         23.9 kB         150 kB
+├ ƒ /api/admin/cache                                                                                      0 B                0 B
+├ ƒ /api/ai/paralegal                                                                                     0 B                0 B
+├ ƒ /api/analytics/blog                                                                                   0 B                0 B
+├ ƒ /api/analytics/blog-reading                                                                           0 B                0 B
+├ ƒ /api/analytics/blog-share                                                                             0 B                0 B
+├ ƒ /api/auth/[...nextauth]                                                                               0 B                0 B
+├ ƒ /api/blog                                                                                             0 B                0 B
+├ ƒ /api/blog/[slug]                                                                                      0 B                0 B
+├ ƒ /api/blog/import                                                                                      0 B                0 B
+├ ƒ /api/blog/rss                                                                                         0 B                0 B
+├ ○ /api/blog/sitemap                                                                                     0 B                0 B
+├ ƒ /api/cases                                                                                            0 B                0 B
+├ ƒ /api/cases/[caseId]                                                                                   0 B                0 B
+├ ƒ /api/contact                                                                                          0 B                0 B
+├ ƒ /api/content-import                                                                                   0 B                0 B
+├ ƒ /api/crewai/appointment-scheduling                                                                    0 B                0 B
+├ ƒ /api/crewai/client-intake                                                                             0 B                0 B
+├ ƒ /api/crewai/competitive-analysis                                                                      0 B                0 B
+├ ƒ /api/crewai/document-analysis                                                                         0 B                0 B
+├ ƒ /api/crewai/legal-consultation                                                                        0 B                0 B
+├ ƒ /api/crewai/seo-blog-generation                                                                       0 B                0 B
+├ ƒ /api/crewai/social-media-monitoring                                                                   0 B                0 B
+├ ƒ /api/dashboard/metrics                                                                                0 B                0 B
+├ ○ /api/diagnostic                                                                                       0 B                0 B
+├ ƒ /api/email/send                                                                                       0 B                0 B
+├ ƒ /api/health                                                                                           0 B                0 B
+├ ƒ /api/hodos/[...path]                                                                                  0 B                0 B
+├ ƒ /api/leads/capture                                                                                    0 B                0 B
+├ ƒ /api/newsletter                                                                                       0 B                0 B
+├ ƒ /api/payment/authorize-net                                                                            0 B                0 B
+├ ƒ /api/payment/lawpay                                                                                   0 B                0 B
+├ ○ /api/robots                                                                                           0 B                0 B
+├ ƒ /api/sitemap                                                                                          0 B                0 B
+├ ƒ /api/webhooks/ghl                                                                                     0 B                0 B
+├ ƒ /api/webhooks/retell                                                                                  0 B                0 B
+├ ƒ /api/webhooks/socket                                                                                  0 B                0 B
+├ ƒ /api/webhooks/twilio/sms                                                                              0 B                0 B
+├ ƒ /api/webhooks/twilio/sms-status                                                                       0 B                0 B
+├ ○ /attorneys                                                                                            4 kB            166 kB
+├ ○ /attorneys/adriana-ingram                                                                             233 B           168 kB
+├ ○ /attorneys/adrianna-ingram                                                                            360 B          99.3 kB
+├ ○ /attorneys/christopher-afanador                                                                       360 B          99.3 kB
+├ ○ /attorneys/christopher-afanador-abogado                                                               233 B           168 kB
+├ ○ /attorneys/jillian-baucom                                                                             361 B          99.3 kB
+├ ○ /attorneys/jillian-baucom-es                                                                          232 B           168 kB
+├ ○ /attorneys/judith-parkes                                                                              360 B          99.3 kB
+├ ○ /attorneys/mark-kelsey                                                                                360 B          99.3 kB
+├ ○ /attorneys/mark-kelsey-es                                                                             233 B           168 kB
+├ ○ /attorneys/roselyn-torrellas                                                                          360 B          99.3 kB
+├ ○ /attorneys/roselyn-v-torrellas                                                                        233 B           168 kB
+├ ○ /attorneys/william-vasquez                                                                            361 B          99.3 kB
+├ ○ /author/wvasquezvasquezlawfirm-com                                                                    516 B            97 kB
+├ ○ /best-guide-on-navigating-the-board-of-immigration-appeals                                            514 B            97 kB
+├ ○ /best-workers-compensation-quote-save-more-today                                                      514 B            97 kB
+├ ○ /blog                                                                                                 204 B           170 kB
+├ ○ /calculators                                                                                          4.88 kB         131 kB
+├ ○ /can-a-lawyer-help-me-if-i-get-a-dwi                                                                  462 B           168 kB
+├ ○ /can-i-sue-someone-if-their-dog-bites-me                                                              517 B            97 kB
+├ ○ /category/car-accidents                                                                               517 B            97 kB
+├ ○ /category/criminal-defense                                                                            517 B            97 kB
+├ ○ /category/immigration                                                                                 514 B            97 kB
+├ ○ /category/immigration/illegal-immigrants                                                              514 B            97 kB
+├ ○ /category/personal-injuty                                                                             514 B            97 kB
+├ ○ /category/uncategorized                                                                               514 B            97 kB
+├ ○ /category/workers-compensation                                                                        514 B            97 kB
+├ ○ /charlotte-nc                                                                                         514 B            97 kB
+├ ○ /charlotte-nc-workers-comp-lawyers                                                                    462 B           168 kB
+├ ○ /common-legal-mistakes-to-avoid-after-a-car-accident                                                  514 B            97 kB
+├ ○ /como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion            517 B            97 kB
+├ ○ /como-miles-se-han-beneficiado-al                                                                     514 B            97 kB
+├ ○ /como-navegar-las-complejidades-de-la-junta-de                                                        515 B            97 kB
+├ ○ /contact                                                                                              4.29 kB         164 kB
+├ ○ /contact/charlotte-nc-office-location                                                                 514 B            97 kB
+├ ○ /contact/goldsboro-office-location                                                                    517 B            97 kB
+├ ○ /contact/orlando-fl-office-location                                                                   514 B            97 kB
+├ ○ /contact/raleigh-nc-office-location                                                                   514 B            97 kB
+├ ○ /contact/smithfield-office-location                                                                   514 B            97 kB
+├ ○ /criminal-defense                                                                                     515 B            97 kB
+├ ƒ /criminal-defense/indexet_blog                                                                        462 B           168 kB
+├ ○ /cutting-edge                                                                                         3.59 kB         164 kB
+├ ○ /cutting-edge-light                                                                                   3.98 kB         165 kB
+├ ○ /dashboard                                                                                            2.71 kB         130 kB
+├ ○ /documents-you-need-for-your-workers-comp-claim                                                       514 B            97 kB
+├ ○ /does-the-violence-against-women-act-protect-against-deportation                                      514 B            97 kB
+├ ○ /does-workers-compensation-insurance-automatically-cover-every-workplace-injury                       514 B            97 kB
+├ ○ /durham-nc                                                                                            514 B            97 kB
+├ ○ /durham-nc-immigration-lawyers                                                                        462 B           168 kB
+├ ○ /el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo             514 B            97 kB
+├ ○ /es                                                                                                   514 B            97 kB
+├ ○ /es/abogados                                                                                          514 B            97 kB
+├ ○ /es/abogados/adrianna-ingram                                                                          514 B            97 kB
+├ ○ /es/abogados/christopher-afanador                                                                     514 B            97 kB
+├ ○ /es/abogados/jillian-baucom                                                                           514 B            97 kB
+├ ○ /es/abogados/judith-parkes                                                                            515 B            97 kB
+├ ○ /es/abogados/mark-kelsey                                                                              517 B            97 kB
+├ ○ /es/abogados/roselyn-torrellas                                                                        515 B            97 kB
+├ ○ /es/abogados/william-vasquez                                                                          514 B            97 kB
+├ ○ /es/areas-de-practica                                                                                 514 B            97 kB
+├ ○ /es/areas-de-practica/compensacion-laboral                                                            514 B            97 kB
+├ ○ /es/areas-de-practica/defensa-criminal                                                                514 B            97 kB
+├ ○ /es/areas-de-practica/defensa-criminal/violacion-de-libertad-condicional                              517 B            97 kB
+├ ○ /es/areas-de-practica/derecho-familia                                                                 514 B            97 kB
+├ ○ /es/areas-de-practica/derecho-familia/divorcio                                                        514 B            97 kB
+├ ○ /es/areas-de-practica/derecho-familia/ejecucion-y-modificaciones-posteriores-al-divorcio              514 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion                                                                     515 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/ajuste-de-estatus                                                   514 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/asilo                                                               514 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/audiencias-de-fianza-detencion                                      514 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/ayuda-apelaciones-denegacion-de-visa                                514 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/ciudadania                                                          514 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/daca-accion-diferida-llegadas-en-la-infancia                        514 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/deportacion-remocion-defensa                                        514 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/faqs-preguntas-respuestas                                           516 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/impacto-en-inmigracion-de-condenas-penales                          514 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/inadmisibilidad-perdones-inelegible-para-inmigrar                   514 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/inmigracion-basada-en-el-empleo                                     514 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/inmigracion-basada-en-el-empleo/certificacion-laboral-perm          514 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/memorando-sobre-salida-forzada-diferida-para-ciertos-venezolanos    514 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/pariente-familiar                                                   517 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/proceso-de-visa                                                     517 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/tarjetas-verdes                                                     517 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/vawa-u-visa-crimen-victimas                                         514 B            97 kB
+├ ○ /es/areas-de-practica/inmigracion/visas-de-pariente-inmediato                                         514 B            97 kB
+├ ○ /es/areas-de-practica/lesiones-personales                                                             517 B            97 kB
+├ ○ /es/areas-de-practica/lesiones-personales/accidentes-motocicleta                                      514 B            97 kB
+├ ○ /es/blog                                                                                              204 B           170 kB
+├ ○ /es/contacto                                                                                          514 B            97 kB
+├ ○ /es/contacto/ubicacion-oficina-charlotte-nc                                                           514 B            97 kB
+├ ○ /es/contacto/ubicacion-oficina-orlando-fl                                                             514 B            97 kB
+├ ○ /es/contacto/ubicacion-oficina-raleigh-nc                                                             515 B            97 kB
+├ ○ /es/contacto/ubicacion-oficina-smithfield                                                             514 B            97 kB
+├ ○ /es/mapa-del-sitio                                                                                    517 B            97 kB
+├ ○ /es/medios                                                                                            514 B            97 kB
+├ ○ /es/medios-de-comunicacion                                                                            514 B            97 kB
+├ ○ /expert-guide-to-immigration-reform-for-student-visas                                                 514 B            97 kB
+├ ○ /expert-insights-on-the-shocking-truth-about-illegal-immigrants                                       514 B            97 kB
+├ ○ /expert-tips-to-navigate-a-delayed-immigration-court-case-status                                      514 B            97 kB
+├ ○ /family-law                                                                                           517 B            97 kB
+├ ƒ /family-law/indexet_blog                                                                              462 B           168 kB
+├ ○ /guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante                                    514 B            97 kB
+├ ○ /guide-to-permanent-residency-through-employment-what-you-need-to-know                                515 B            97 kB
+├ ○ /home                                                                                                 514 B            97 kB
+├ ○ /how-can-drug-charges-impact-immigration-status                                                       514 B            97 kB
+├ ○ /how-i-built-a-6-figure-business-in-12-months-as-a-first-generation-immigrant                         514 B            97 kB
+├ ○ /how-to-identify-the-signs-of-illegal-immigration-in-your-community                                   517 B            97 kB
+├ ○ /i-was-in-an-accident-with-an-emergency-vehicle-now-what                                              515 B            97 kB
+├ ○ /immigration                                                                                          514 B            97 kB
+├ ○ /immigration-service                                                                                  514 B            97 kB
+├ ƒ /immigration/indexet_blog                                                                             514 B            97 kB
+├ ƒ /immigration/visa-process/indexet_blog                                                                462 B           168 kB
+├ ○ /job-related-risks-for-agricultural-workers                                                           517 B            97 kB
+├ ○ /judith-parkes                                                                                        462 B           168 kB
+├ ○ /judith-parkes-es                                                                                     514 B            97 kB
+├ ○ /la-impactante-verdad-sobre-la-inmigracion-ilegal                                                     515 B            97 kB
+├ ○ /la-mejor-guia-para-navegar-en-la-junta-de-apelaciones-de-inmigracion                                 517 B            97 kB
+├ ○ /locations                                                                                            3.04 kB         138 kB
+├ ○ /locations/charlotte                                                                                  360 B          99.3 kB
+├ ○ /locations/durham                                                                                     360 B          99.3 kB
+├ ○ /locations/orlando                                                                                    360 B          99.3 kB
+├ ○ /locations/raleigh                                                                                    360 B          99.3 kB
+├ ○ /locations/smithfield                                                                                 360 B          99.3 kB
+├ ○ /locations/winston-salem                                                                              360 B          99.3 kB
+├ ○ /make-payment                                                                                         515 B            97 kB
+├ ○ /media-info                                                                                           514 B            97 kB
+├ ○ /media-info/testimonials                                                                              514 B            97 kB
+├ ○ /modern-demo                                                                                          12 kB           167 kB
+├ ○ /multas-de-transito                                                                                   514 B            97 kB
+├ ○ /new-rules-for-asylum-and-parole-may-affect-immigrants-to-the-u-s                                     514 B            97 kB
+├ ○ /north-carolina-attorney/can-immigrants-still-qualify-for-the-daca-program-in-2021-and-beyond         462 B           168 kB
+├ ○ /north-carolina-attorney/how-can-i-get-compensation-for-a-construction-site-injury-in-north-carolina  462 B           168 kB
+├ ○ /north-carolina-attorney/if-i-am-convicted-of-a-crime-will-i-get-deported                             462 B           168 kB
+├ ○ /north-carolina-attorney/when-can-criminal-cases-affect-a-person-s-immigration-status                 462 B           168 kB
+├ ○ /orlando-fl                                                                                           514 B            97 kB
+├ ○ /orlando-fl-auto-accident-lawyers                                                                     462 B           168 kB
+├ ○ /orlando-fl-immigration-lawyers                                                                       462 B           168 kB
+├ ○ /orlando-fl-workers-comp-lawyers                                                                      462 B           168 kB
+├ ○ /payment                                                                                              3.42 kB        91.2 kB
+├ ○ /personal-injury                                                                                      517 B            97 kB
+├ ƒ /personal-injury/car-auto-accidents/indexet_blog                                                      462 B           168 kB
+├ ƒ /personal-injury/indexet_blog                                                                         462 B           168 kB
+├ ○ /practice-areas                                                                                       4.42 kB         166 kB
+├ ○ /practice-areas-hub                                                                                   3.75 kB         147 kB
+├ ○ /practice-areas/criminal-defense                                                                      361 B          99.3 kB
+├ ○ /practice-areas/criminal-defense/assault-battery                                                      517 B            97 kB
+├ ○ /practice-areas/criminal-defense/domestic-violence                                                    360 B          99.3 kB
+├ ○ /practice-areas/criminal-defense/domestic-violence-abuse                                              360 B          99.3 kB
+├ ○ /practice-areas/criminal-defense/drug-crime-cases                                                     360 B          99.3 kB
+├ ○ /practice-areas/criminal-defense/drug-crimes                                                          361 B          99.3 kB
+├ ○ /practice-areas/criminal-defense/dui-dwi                                                              360 B          99.3 kB
+├ ○ /practice-areas/criminal-defense/dwi-drunk-driving                                                    377 B           171 kB
+├ ○ /practice-areas/criminal-defense/expungement                                                          360 B          99.3 kB
+├ ○ /practice-areas/criminal-defense/expungement-expunction                                               361 B          99.3 kB
+├ ○ /practice-areas/criminal-defense/theft-property-crimes                                                361 B          99.3 kB
+├ ○ /practice-areas/criminal-defense/traffic-offenses                                                     360 B          99.3 kB
+├ ○ /practice-areas/criminal-defense/traffic-offenses-tickets                                             361 B          99.3 kB
+├ ○ /practice-areas/family-law                                                                            361 B          99.3 kB
+├ ○ /practice-areas/family-law/alimony                                                                    360 B          99.3 kB
+├ ○ /practice-areas/family-law/alimony-spousal-support                                                    361 B          99.3 kB
+├ ○ /practice-areas/family-law/child-custody                                                              360 B          99.3 kB
+├ ○ /practice-areas/family-law/divorce                                                                    360 B          99.3 kB
+├ ○ /practice-areas/family-law/equitable-distribution-property-debt-division                              360 B          99.3 kB
+├ ○ /practice-areas/family-law/property-division                                                          360 B          99.3 kB
+├ ○ /practice-areas/immigration                                                                           360 B          99.3 kB
+├ ○ /practice-areas/immigration/adjustment-of-status                                                      360 B          99.3 kB
+├ ○ /practice-areas/immigration/asylum-refugee-legal-help                                                 360 B          99.3 kB
+├ ○ /practice-areas/immigration/citizenship-naturalization                                                5.08 kB         102 kB
+├ ○ /practice-areas/immigration/daca-deferred-action-childhood-arrivals                                   514 B            97 kB
+├ ○ /practice-areas/immigration/deportation-removal-defense                                               514 B            97 kB
+├ ○ /practice-areas/immigration/detention-bond-hearings                                                   361 B          99.3 kB
+├ ○ /practice-areas/immigration/employment-based-immigration                                              360 B          99.3 kB
+├ ○ /practice-areas/immigration/family-based-relative                                                     5.01 kB         102 kB
+├ ○ /practice-areas/immigration/family-preference-visas                                                   360 B          99.3 kB
+├ ○ /practice-areas/immigration/fiance-k-visas                                                            514 B            97 kB
+├ ○ /practice-areas/immigration/green-cards                                                               361 B          99.3 kB
+├ ○ /practice-areas/immigration/immediate-relative-visas                                                  361 B          99.3 kB
+├ ○ /practice-areas/immigration/inadmissibility-waivers                                                   362 B          99.3 kB
+├ ○ /practice-areas/immigration/t-visa                                                                    362 B          99.3 kB
+├ ○ /practice-areas/immigration/vawa-u-visa-crime-victims                                                 361 B          99.3 kB
+├ ○ /practice-areas/immigration/visa-process                                                              462 B           168 kB
+├ ○ /practice-areas/personal-injury                                                                       360 B          99.3 kB
+├ ○ /practice-areas/personal-injury/bicycle-accidents                                                     360 B          99.3 kB
+├ ○ /practice-areas/personal-injury/boating-accidents                                                     360 B          99.3 kB
+├ ○ /practice-areas/personal-injury/car-accidents                                                         462 B           168 kB
+├ ○ /practice-areas/personal-injury/car-auto-accidents                                                    360 B          99.3 kB
+├ ○ /practice-areas/personal-injury/drunk-driver-accidents                                                360 B          99.3 kB
+├ ○ /practice-areas/personal-injury/drunk-driver-liability                                                361 B          99.3 kB
+├ ○ /practice-areas/personal-injury/emergency-vehicle-accidents                                           360 B          99.3 kB
+├ ○ /practice-areas/personal-injury/medical-malpractice                                                   360 B          99.3 kB
+├ ○ /practice-areas/personal-injury/motorcycle-accidents                                                  360 B          99.3 kB
+├ ○ /practice-areas/personal-injury/nursing-home-abuse                                                    360 B          99.3 kB
+├ ○ /practice-areas/personal-injury/pedestrian-accidents                                                  360 B          99.3 kB
+├ ○ /practice-areas/personal-injury/pedestrian-hit-by-car                                                 360 B          99.3 kB
+├ ○ /practice-areas/personal-injury/premises-liability                                                    360 B          99.3 kB
+├ ○ /practice-areas/personal-injury/truck-accidents                                                       360 B          99.3 kB
+├ ○ /practice-areas/personal-injury/uninsured-motorist                                                    360 B          99.3 kB
+├ ○ /practice-areas/personal-injury/wrongful-death                                                        360 B          99.3 kB
+├ ○ /practice-areas/traffic-violations                                                                    2.63 kB         140 kB
+├ ○ /practice-areas/workers-compensation                                                                  360 B          99.3 kB
+├ ○ /practice-areas/workers-compensation/construction-site-injuries                                       360 B          99.3 kB
+├ ○ /practice-areas/workers-compensation/equipment-accidents                                              360 B          99.3 kB
+├ ○ /practice-areas/workers-compensation/lifting-injuries                                                 360 B          99.3 kB
+├ ○ /practice-areas/workers-compensation/mental-health-claims                                             361 B          99.3 kB
+├ ○ /practice-areas/workers-compensation/repetitive-stress-carpal-tunnel                                  361 B          99.3 kB
+├ ○ /practice-areas/workers-compensation/third-party-injury-claims                                        361 B          99.3 kB
+├ ○ /raleigh-nc                                                                                           514 B            97 kB
+├ ○ /raleigh-nc-workers-comp-lawyers                                                                      462 B           168 kB
+├ ○ /scholarship                                                                                          517 B            97 kB
+├ ○ /scholarship-fall-2024-winner-citlali-jacqueline-flores-hernandez                                     517 B            97 kB
+├ ○ /scholarship-fall-2024-winner-jennifer-guzman-millan                                                  514 B            97 kB
+├ ○ /scholarship/past-winners                                                                             514 B            97 kB
+├ ○ /sitemap                                                                                              517 B            97 kB
+├ ○ /sitemap.xml                                                                                          0 B                0 B
+├ ○ /smithfield-nc                                                                                        514 B            97 kB
+├ ○ /smithfield-nc-auto-accident-lawyers                                                                  462 B           168 kB
+├ ○ /smithfield-nc-immigration-lawyers                                                                    462 B           168 kB
+├ ○ /smithfield-nc-workers-comp-lawyers                                                                   462 B           168 kB
+├ ○ /spring-2023-scholarship-winner-briseyda                                                              517 B            97 kB
+├ ○ /steps-to-take-if-your-workers-comp-claim-is-denied-in-north-carolina                                 514 B            97 kB
+├ ○ /struggles-of-undocumented-immigrants                                                                 514 B            97 kB
+├ ○ /t-visa-immigration-attorneys                                                                         462 B           168 kB
+├ ○ /test-deployment                                                                                      148 B            88 kB
+├ ○ /the-role-of-asylum-in-immigration-law                                                                517 B            97 kB
+├ ○ /top-immigration-lawyer-explains-5-key-signs-your-status-is-at-risk                                   462 B           168 kB
+├ ○ /traffic-tickets-nc                                                                                   514 B            97 kB
+├ ○ /types-of-damages-in-a-motorcycle-accident-injury-claim                                               514 B            97 kB
+├ ○ /types-of-evidence-in-your-auto-accident-injury-claim                                                 514 B            97 kB
+├ ○ /understanding-common-causes-of-auto-accidents-tips-for-prevention                                    514 B            97 kB
+├ ○ /understanding-the-different-kinds-of-family-visas-in-north-carolina                                  514 B            97 kB
+├ ○ /what-are-the-eligibility-requirements-for-fiance-visas                                               514 B            97 kB
+├ ○ /what-are-the-requirements-for-adjustment-of-status-for-immigrants                                    514 B            97 kB
+├ ○ /what-factors-will-affect-my-workers-comp-settlement                                                  515 B            97 kB
+├ ○ /what-is-a-conditional-green-card                                                                     517 B            97 kB
+├ ○ /what-issues-will-be-addressed-in-an-immigration-bond-hearing                                         514 B            97 kB
+├ ○ /what-legal-options-are-available-for-immigrants-from-venezuela                                       514 B            97 kB
+├ ○ /what-should-i-do-if-i-am-arrested-for-dwi-over-the-holidays                                          514 B            97 kB
+├ ○ /when-can-criminal-cases-affect-a-persons-immigration-status                                          514 B            97 kB
+├ ○ /when-is-consular-processing-required-for-immigrants-to-the-u-s                                       514 B            97 kB
+├ ○ /when-is-consular-processing-required-for-immigrants-to-the-u-s-2                                     516 B            97 kB
+├ ○ /who-pays-if-workers-die-from-workplace-accidents                                                     514 B            97 kB
+├ ○ /will-north-carolina-legalize-marijuana-for-medical-or-recreational-use                               517 B            97 kB
+├ ○ /william-vasquez-abogado                                                                              517 B            97 kB
+├ ○ /william-vasquez-attorney                                                                             462 B           168 kB
+├ ○ /winston-salem                                                                                        514 B            97 kB
+├ ○ /winston-salem/winston-salem-nc-auto-accident-lawyers                                                 462 B           168 kB
+├ ○ /winston-salem/winston-salem-nc-immigration-lawyers                                                   462 B           168 kB
+├ ○ /winston-salem/winston-salem-nc-workers-comp-lawyers                                                  462 B           168 kB
+├ ƒ /workers-compensation-job-injury/indexet_blog                                                         462 B           168 kB
+├ ○ /workers-compensation-job-injury/third-party-injury-claims                                            462 B           168 kB
+├ ƒ /workers-compensation-job-injury/third-party-injury-claims/indexet_blog                               462 B           168 kB
+└ ○ /workers-compensation-service                                                                         514 B            97 kB
++ First Load JS shared by all                                                                             87.8 kB
+  ├ chunks/2117-98cc729262ccf3c9.js                                                                       31.8 kB
+  ├ chunks/fd9d1056-f9cfb582f0b34d00.js                                                                   53.6 kB
+  └ other shared chunks (total)                                                                           2.41 kB
+
+
+ƒ Middleware                                                                                              49.2 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

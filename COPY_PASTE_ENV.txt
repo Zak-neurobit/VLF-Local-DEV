@@ -1,0 +1,31 @@
+COPY AND PASTE THESE ONE BY ONE INTO VERCEL:
+
+1. DATABASE_URL
+postgresql://neondb_owner:npg_eCqcU6ELgvJ5@ep-old-mode-a4bj2csn-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require
+
+2. NEXTAUTH_SECRET
+QnJ386rd1BIjDuiik6ccHXD3OVtNxMBo/3F+IOJLu+M=
+
+3. NEXTAUTH_URL
+https://vasquez-law-website.vercel.app
+
+4. MOCK_REDIS
+true
+
+5. MOCK_EMAIL
+true
+
+6. MOCK_SMS
+true
+
+7. NODE_ENV
+production
+
+8. OPENAI_API_KEY
+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
+
+9. GHL_API_KEY
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6ImJkMDVZOVNsRjFFbXhKREI5aHZSIiwiY29tcGFueV9pZCI6InpFdkR3a0xBbzNCM1F4R3F3QUFkIiwidmVyc2lvbiI6MSwiaWF0IjoxNzExMDM1ODE0NDA3LCJzdWIiOiJ1c2VyX2lkIn0.hDnaMa6pU5dDUy9oq8DJfUJnWt54jd7rmUHAvbCUiGs
+
+10. GHL_LOCATION_ID
+bd05Y9SlF1EmxJDB9hvR

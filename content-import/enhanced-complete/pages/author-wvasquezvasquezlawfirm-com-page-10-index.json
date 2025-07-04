@@ -1,0 +1,251 @@
+{
+  "url": "/author/wvasquezvasquezlawfirm-com/page/10/index.html",
+  "metadata": {
+    "title": "wvasquez@vasquezlawfirm.com, Author at Vasquez Law Firm, PLLC - Page 10 of 10",
+    "metaDescription": "",
+    "metaKeywords": "",
+    "canonical": "index.html",
+    "ogTitle": "wvasquez@vasquezlawfirm.com, Author at Vasquez Law Firm, PLLC - Page 10 of 10",
+    "ogDescription": "",
+    "ogImage": "https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=500&d=mm&r=g",
+    "structuredData": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "ProfilePage",
+            "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/",
+            "url": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/10/",
+            "name": "wvasquez@vasquezlawfirm.com, Author at Vasquez Law Firm, PLLC - Page 10 of 10",
+            "isPartOf": {
+              "@id": "https://www.vasquezlawnc.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/10/#primaryimage"
+            },
+            "image": {
+              "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/10/#primaryimage"
+            },
+            "thumbnailUrl": "https://www.vasquezlawnc.com/wp-content/uploads/2024/09/shutterstock_1265981812-min.jpg",
+            "breadcrumb": {
+              "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/10/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": [
+                  "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/10/"
+                ]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/10/#primaryimage",
+            "url": "https://www.vasquezlawnc.com/wp-content/uploads/2024/09/shutterstock_1265981812-min.jpg",
+            "contentUrl": "https://www.vasquezlawnc.com/wp-content/uploads/2024/09/shutterstock_1265981812-min.jpg",
+            "width": 500,
+            "height": 334
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/10/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.vasquezlawnc.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Archives for wvasquez@vasquezlawfirm.com"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.vasquezlawnc.com/#website",
+            "url": "https://www.vasquezlawnc.com/",
+            "name": "Vasquez Law Firm, PLLC",
+            "description": "Raleigh, NC Immigration Attorney",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://www.vasquezlawnc.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://www.vasquezlawnc.com/#/schema/person/2fa7514bdc81d9bc9644faadb9c7084f",
+            "name": "wvasquez@vasquezlawfirm.com",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://www.vasquezlawnc.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=96&d=mm&r=g",
+              "caption": "wvasquez@vasquezlawfirm.com"
+            },
+            "mainEntityOfPage": {
+              "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/"
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "@id": "https://vasquezlawnc.com/#organization",
+        "name": "Vasquez Law Firm, PLLC",
+        "alternateName": "Vasquez Law",
+        "url": "https://vasquezlawnc.com",
+        "logo": "https://vasquezlawnc.com/images/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/vasquezlawfirm",
+          "https://twitter.com/vasquezlawfirm",
+          "https://www.linkedin.com/company/vasquez-law-firm"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-844-967-3536",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Spanish"]
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://vasquezlawnc.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Author",
+            "item": "https://vasquezlawnc.com/author"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Wvasquezvasquezlawfirm com",
+            "item": "https://vasquezlawnc.com/author/wvasquezvasquezlawfirm-com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Page",
+            "item": "https://vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "10",
+            "item": "https://vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/10"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "Vasquez Law Firm",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "127",
+          "bestRating": "5"
+        }
+      }
+    ]
+  },
+  "content": {
+    "h1": "",
+    "heroSection": "",
+    "mainContent": "\n\t<div class=\"container\">\n\t\t<div id=\"content-area\" class=\"clearfix\">\n\t\t\t<div id=\"left-area\">\n\t\t\n\t\t\t\t\t<article id=\"post-2982\" class=\"et_pb_post post-2982 post type-post status-publish format-standard has-post-thumbnail hentry category-personal-injuty\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../can-i-sue-someone-if-their-dog-bites-me/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/09/shutterstock_1265981812-min.jpg\" alt=\"Can I Sue Someone if Their Dog Bites Me?\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2024/09/shutterstock_1265981812-min.jpg 1080w, ../../../../wp-content/uploads/2024/09/shutterstock_1265981812-min-480x321.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../can-i-sue-someone-if-their-dog-bites-me/index.html\">Can I Sue Someone if Their Dog Bites Me?</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Feb 24, 2023</span> | <a href=\"../../../../category/personal-injuty/index.html\" rel=\"category tag\">Personal Injuty</a></p>Although most dogs are beloved family pets that never harm anyone, dog bites remain a serious problem in North Carolina. Dog attacks can happen in the blink of an eye, making it difficult to react and know what to do once the attack is over. If you or someone you love...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2985\" class=\"et_pb_post post-2985 post type-post status-publish format-standard has-post-thumbnail hentry category-workers-compensation\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../does-workers-compensation-insurance-automatically-cover-every-workplace-injury/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/09/shutterstock_1303104493-min.jpg\" alt=\"Does Workers’ Compensation Insurance Automatically Cover Every Workplace Injury?\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2024/09/shutterstock_1303104493-min.jpg 1080w, ../../../../wp-content/uploads/2024/09/shutterstock_1303104493-min-480x321.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../does-workers-compensation-insurance-automatically-cover-every-workplace-injury/index.html\">Does Workers’ Compensation Insurance Automatically Cover Every Workplace Injury?</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Feb 15, 2023</span> | <a href=\"../../../../category/workers-compensation/index.html\" rel=\"category tag\">Workers' Compensation</a></p>People usually spend at least eight hours a day, five days a week at work. With so much time on the clock, work injuries are bound to happen. While some of these injuries may be so minor that they do not justify taking any kind of legal action, others can be serious...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2988\" class=\"et_pb_post post-2988 post type-post status-publish format-standard has-post-thumbnail hentry category-criminal-defense\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../can-a-lawyer-help-me-if-i-get-a-dwi/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/09/shutterstock_538729846-min.jpg\" alt=\"Can a Lawyer Help Me if I Get a DWI?\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2024/09/shutterstock_538729846-min.jpg 1080w, ../../../../wp-content/uploads/2024/09/shutterstock_538729846-min-480x320.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../can-a-lawyer-help-me-if-i-get-a-dwi/index.html\">Can a Lawyer Help Me if I Get a DWI?</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Jan 27, 2023</span> | <a href=\"../../../../category/criminal-defense/index.html\" rel=\"category tag\">Criminal Defense</a></p>&nbsp;Driving while intoxicated&nbsp;by drugs or alcohol is something that few people would admit to doing. However, studies suggest as many as one in four people have driven under the influence of alcohol or other substances. Some DWI arrests are the result of a poor decision...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t<div class=\"pagination clearfix\">\n\t<div class=\"alignleft\"></div>\n\t<div class=\"alignright\"><a href=\"../9/index.html\">Next Entries »</a></div>\n</div>\t\t\t</div>\n\n\t\t\t\t<div id=\"sidebar\">\n\t\t<div id=\"block-3\" class=\"et_pb_widget widget_block\">\n<div class=\"wp-block-group is-layout-flow wp-block-group-is-layout-flow\">\n<h2 class=\"wp-block-heading\">Recent Blog Posts</h2>\n\n\n<ul class=\"wp-block-latest-posts__list wp-block-latest-posts\"><li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../best-workers-compensation-quote-save-more-today/index.html\">Best Workers Compensation Quote: Save More Today</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../como-miles-se-han-beneficiado-al/index.html\">Cómo Miles se Han Beneficiado al</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../como-navegar-las-complejidades-de-la-junta-de/index.html\">¿Cómo Navegar las Complejidades de la Junta de</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../struggles-of-undocumented-immigrants/index.html\">Struggles of Undocumented Immigrants?</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../expert-tips-to-navigate-a-delayed-immigration-court-case-status/index.html\">Expert Tips to Navigate a Delayed Immigration Court Case Status</a></li>\n</ul></div>\n</div>\t</div>\n\t\t</div>\n\t</div>\n",
+    "sidebar": "",
+    "breadcrumbs": ""
+  },
+  "navigation": {
+    "mainMenu": [],
+    "footerMenu": []
+  },
+  "forms": [],
+  "images": [
+    {
+      "src": "../../../../wp-content/uploads/2024/10/TRANSPARENT-WB-02-1.png",
+      "alt": "El Mejor Abogado de Inmigración en Orlando: Defendiendo tus Derechos con Experiencia y Pasión",
+      "title": "TRANSPARENT WB 02-1"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/gold.png",
+      "alt": "Vasquez Law Firm - general",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/09/shutterstock_1265981812-min.jpg",
+      "alt": "Can I Sue Someone if Their Dog Bites Me?",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/09/shutterstock_1303104493-min.jpg",
+      "alt": "Does Workers’ Compensation Insurance Automatically Cover Every Workplace Injury?",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/09/shutterstock_538729846-min.jpg",
+      "alt": "Can a Lawyer Help Me if I Get a DWI?",
+      "title": ""
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/lawpay.png",
+      "alt": "Vasquez Law Firm - general",
+      "title": "lawpay"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/affirm-1.png",
+      "alt": "Vasquez Law Firm - general",
+      "title": "affirm"
+    }
+  ],
+  "extractedAt": "2025-06-27T12:49:46.503Z",
+  "contentSections": [],
+  "internalLinks": [],
+  "seoScore": {
+    "score": 56,
+    "checks": [
+      "⚠ Title tag length: 77 chars (optimal: 30-60)",
+      "✗ Missing H1 tag",
+      "✓ Schema markup present (3 types)",
+      "✓ All images have descriptive alt text",
+      "✓ Substantial content (6179 chars)",
+      "✗ Limited internal links (0, need 3+)",
+      "✓ Canonical URL set",
+      "⚠ Partial Open Graph tags"
+    ],
+    "recommendations": [
+      "⚠ Title tag length: 77 chars (optimal: 30-60)",
+      "✗ Missing H1 tag",
+      "✗ Limited internal links (0, need 3+)",
+      "⚠ Partial Open Graph tags"
+    ]
+  },
+  "pageType": "general",
+  "enhancedAt": "2025-06-27T12:53:31.619Z"
+}

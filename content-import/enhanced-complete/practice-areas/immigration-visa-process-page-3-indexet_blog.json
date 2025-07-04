@@ -1,0 +1,300 @@
+{
+  "url": "/immigration/visa-process/page/3/index﹖et_blog.html",
+  "metadata": {
+    "title": "Raleigh, NC Immigrant Visa Attorneys - Vasquez Law Firm, PLLC",
+    "metaDescription": "Need a visa? Raleigh, NC immigrant visa attorneys provide expert legal guidance for work, family, and investor visas. Get trusted representation today.",
+    "metaKeywords": "",
+    "canonical": "../../index.html",
+    "ogTitle": "Raleigh, NC Immigrant Visa Attorneys - Vasquez Law Firm, PLLC",
+    "ogDescription": "Need a visa? Raleigh, NC immigrant visa attorneys provide expert legal guidance for work, family, and investor visas. Get trusted representation today.",
+    "ogImage": "https://www.vasquezlawnc.com/wp-content/uploads/2024/04/charlotte-immigrant-visa-application-attorneys.jpg",
+    "structuredData": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://www.vasquezlawnc.com/immigration/visa-process/",
+            "url": "https://www.vasquezlawnc.com/immigration/visa-process/",
+            "name": "Raleigh, NC Immigrant Visa Attorneys - Vasquez Law Firm, PLLC",
+            "isPartOf": {
+              "@id": "https://www.vasquezlawnc.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://www.vasquezlawnc.com/immigration/visa-process/#primaryimage"
+            },
+            "image": {
+              "@id": "https://www.vasquezlawnc.com/immigration/visa-process/#primaryimage"
+            },
+            "thumbnailUrl": "https://www.vasquezlawnc.com/wp-content/uploads/2024/04/charlotte-immigrant-visa-application-attorneys.jpg",
+            "datePublished": "2024-04-04T17:42:44+00:00",
+            "dateModified": "2025-02-19T12:29:24+00:00",
+            "description": "Need a visa? Raleigh, NC immigrant visa attorneys provide expert legal guidance for work, family, and investor visas. Get trusted representation today.",
+            "breadcrumb": {
+              "@id": "https://www.vasquezlawnc.com/immigration/visa-process/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": ["https://www.vasquezlawnc.com/immigration/visa-process/"]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://www.vasquezlawnc.com/immigration/visa-process/#primaryimage",
+            "url": "https://www.vasquezlawnc.com/wp-content/uploads/2024/04/charlotte-immigrant-visa-application-attorneys.jpg",
+            "contentUrl": "https://www.vasquezlawnc.com/wp-content/uploads/2024/04/charlotte-immigrant-visa-application-attorneys.jpg",
+            "width": 1000,
+            "height": 400,
+            "caption": "Charlotte Immigrant Visa Application Attorneys"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.vasquezlawnc.com/immigration/visa-process/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.vasquezlawnc.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Raleigh, NC Family-Based Immigration Lawyers"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.vasquezlawnc.com/#website",
+            "url": "https://www.vasquezlawnc.com/",
+            "name": "Vasquez Law Firm, PLLC",
+            "description": "Raleigh, NC Immigration Attorney",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://www.vasquezlawnc.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "@id": "https://vasquezlawnc.com/#organization",
+        "name": "Vasquez Law Firm, PLLC",
+        "alternateName": "Vasquez Law",
+        "url": "https://vasquezlawnc.com",
+        "logo": "https://vasquezlawnc.com/images/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/vasquezlawfirm",
+          "https://twitter.com/vasquezlawfirm",
+          "https://www.linkedin.com/company/vasquez-law-firm"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-844-967-3536",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Spanish"]
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Attorney",
+        "name": "Raleigh, NC Immigrant Visa Attorneys",
+        "image": "",
+        "jobTitle": "Attorney",
+        "worksFor": {
+          "@type": "LegalService",
+          "name": "Vasquez Law Firm, PLLC",
+          "url": "https://vasquezlawnc.com"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "6801 Glenwood Ave",
+          "addressLocality": "Raleigh",
+          "addressRegion": "NC",
+          "postalCode": "27612"
+        },
+        "telephone": "+1-844-967-3536",
+        "email": "info@vasquezlawnc.com",
+        "url": "https://vasquezlawnc.com/immigration/visa-process/page/3/index﹖et_blog",
+        "sameAs": [],
+        "knowsLanguage": ["English", "Spanish"],
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "NY. He served in the U.S. Air Force from 2000-2007. He is a veteran of Operation Enduring Freedom and received the Joint Service Achievement Medal for his work as a Spanish linguist for the Defense Intelligence Agency in 2005. William graduated from Campbell University in 2007 with a degree in computer science. He earned his J.D. in 2011 from the North Carolina Central University School of Law. His practice areas include immigration law and criminal defense cases. He is licensed and in good standing with the State Bar of North Carolina and a member of the American Immigration Lawyer Association (AILA.) He is a proud member of the Charlotte community and provides compassionate counsel for all his clients.</p>\n<h3>Education:</h3>\n<p><strong>North Carolina Central University</strong></p>\n<p>J.D. | Juris Doctorate</p>\n<p>2007 – 2011</p>\n<p><strong>Campbell University</strong></p>\n<p>B.S.</p>\n<h5>2007</h5>\n<h3>Bar Admissions:</h3>\n<p>North Carolina — Admitted in 2011</p>\n<p>4th"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://vasquezlawnc.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Immigration",
+            "item": "https://vasquezlawnc.com/immigration"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Visa process",
+            "item": "https://vasquezlawnc.com/immigration/visa-process"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Page",
+            "item": "https://vasquezlawnc.com/immigration/visa-process/page"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "3",
+            "item": "https://vasquezlawnc.com/immigration/visa-process/page/3"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "name": "Index﹖et_blog",
+            "item": "https://vasquezlawnc.com/immigration/visa-process/page/3/index﹖et_blog"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "Vasquez Law Firm",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "127",
+          "bestRating": "5"
+        }
+      }
+    ]
+  },
+  "content": {
+    "h1": "Raleigh, NC Immigrant Visa Attorneys",
+    "heroSection": "",
+    "mainContent": "\n    <div class=\"et-l et-l--body\">\n\t\t\t<div class=\"et_builder_inner_content et_pb_gutters3\"><div class=\"et_pb_section et_pb_section_0_tb_body et_section_regular\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_row et_pb_row_0_tb_body\">\n\t\t\t\t<div class=\"et_pb_column et_pb_column_2_3 et_pb_column_0_tb_body  et_pb_css_mix_blend_mode_passthrough\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module et_pb_post_title et_pb_post_title_0_tb_body et_pb_bg_layout_light  et_pb_text_align_left\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_title_container\">\n\t\t\t\t\t<h1 class=\"entry-title\">Raleigh, NC Immigrant Visa Attorneys</h1>\n\t\t\t\t</div>\n\t\t\t\t\n\t\t\t</div><div class=\"et_pb_with_border et_pb_module et_pb_image et_pb_image_0_tb_body\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<span class=\"et_pb_image_wrap \"><img decoding=\"async\" width=\"1000\" height=\"400\" src=\"../../../../wp-content/uploads/2024/04/charlotte-immigrant-visa-application-attorneys.jpg\" alt=\"Charlotte Immigrant Visa Application Attorneys\" title=\"charlotte-immigrant-visa-application-attorneys\" srcset=\"../../../../wp-content/uploads/2024/04/charlotte-immigrant-visa-application-attorneys.jpg 1000w, ../../../../wp-content/uploads/2024/04/charlotte-immigrant-visa-application-attorneys-980x392.jpg 980w, ../../../../wp-content/uploads/2024/04/charlotte-immigrant-visa-application-attorneys-480x192.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) 1000px, 100vw\" class=\"wp-image-1591\"></span>\n\t\t\t</div><div class=\"et_pb_module et_pb_post_content et_pb_post_content_0_tb_body\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<h2>Lawyers in Wake County Helping With Visa Petitions and Interviews</h2>\n<p>At the <a href=\"../../../../attorneys.html\">Vasquez Law Firm, PLLC</a>, our skilled immigration lawyers are adept at handling a wide range of matters related to obtaining <a href=\"../../../../immigration.html\">immigrant</a> visas for foreign nationals who wish to live in the United States permanently. We understand that the process of obtaining a visa can be difficult and time-consuming, and a single mistake along the way could be devastating to the applicant’s case. With this in mind, we provide trusted guidance and skilled representation to both applicants and sponsors throughout the visa process.</p>\n<h3>Non-immigrant and Immigrant Visas</h3>\n<p><span style=\"font-weight: 400;\">Foreign nationals who wish to come to the United States for an extended period of time must obtain a visa. Temporary, or non-immigrant visas, are available to those coming to the U.S. for reasons such as tourism, education, or work-related purposes. For those who want to remain in the United States permanently, an immigrant visa is required. </span><b>Immigration reform</b><span style=\"font-weight: 400;\"> are available for employment-based reasons, but the majority of immigrant visas are granted to </span><a href=\"../../../immediate-relative-visas.html\"><span style=\"font-weight: 400;\">immediate relatives</span></a><span style=\"font-weight: 400;\"> and other </span><a href=\"../../../family-based-relative.html\"><span style=\"font-weight: 400;\">family members</span></a><span style=\"font-weight: 400;\"> of U.S. citizens and current </span><a href=\"../../../green-cards.html\"><span style=\"font-weight: 400;\">lawful permanent residents</span></a><span style=\"font-weight: 400;\">.</span></p>\n<h3>The Immigrant Visa Process</h3>\n<p><span style=\"font-weight: 400;\">Most immigrant visa petitions are filed in the United States by U.S. citizens and lawful permanent residents (green card holders) who reside here. If you are looking to sponsor a family member’s petition for an </span><b>first generation immigrant</b><span style=\"font-weight: 400;\"> visa</span><span style=\"font-weight: 400;\">, you will need to follow these steps:</span></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Be sure that your family member qualifies for a visa.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Gather the information and documents required by Form I-130, Petition for Alien Relative.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Complete the I-130 package and submit it to the United States Citizenship and Immigration Services (USCIS).</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Upon receipt of the official notice that USCIS has approved the petition, the State Department’s National Visa Center (NVC) will open a case. If a visa of the requested type is available, an immigrant visa number will be assigned.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Complete NVC processing and pay all of the required fees. As part of the NVC processing, you must file an affidavit of support showing that your family member will not need government assistance upon arrival, or you can also get an </span><b>immigration lawyer free consultation</b><span style=\"font-weight: 400;\"> for the processing of your immigrant visa.&nbsp;</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Have your family member complete an immigrant visa interview at the U.S. embassy or consulate indicated by the NVC.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Following the interview, the application for an immigrant visa may be approved. The immigrant visa fee must then be paid.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">The visa holder may then travel to the United States and become a lawful permanent resident.</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">The process of obtaining a visa is likely to take between 8 and 16 months, assuming that there is a visa of the appropriate type available. </span><span style=\"font-weight: 400;\">The importance of understanding the differences between </span><b>emigrate vs immigrating</b><span style=\"font-weight: 400;\"> and knowing the proper process cannot be understated.</span></p>\n<h3>How Can an Attorney Help?</h3>\n<p><span style=\"font-weight: 400;\">At Vasquez Law Firm, PLLC, we understand the challenges that often arise when seeking an immigrant visa. We realize that the requirements set by the State Department, and the Department of Homeland Security, and USCIS are strict and, in most cases, non-negotiable. This is where the guidance of a qualified immigration Attorney becomes invaluable.</span></p>\n<p><span style=\"font-weight: 400;\">When you choose our firm to help with your loved one’s immigrant visa application, we will work closely with you at every stage. We will ensure that you are applying for the correct visa and that you have included all of the necessary information to avoid unnecessary delays. Our attorneys at the </span><b>Board of Immigration Appeals.</b><span style=\"font-weight: 400;\"> can also help you comply with any requests for evidence to facilitate the efficient processing of your visa request.</span></p>\n<h3>Our Team Is Here to Guide You</h3>\n<p><span style=\"font-weight: 400;\">If you have additional questions about the visa process or </span><b>immigration court case status,</b> <a href=\"../../../../contact.html\"><span style=\"font-weight: 400;\">contact us</span></a><span style=\"font-weight: 400;\"> to get the answers. Call 1-844-YO-PELEO or 919-989-3000 for your free consultation with an experienced immigration attorney today. Our firm serves clients in Raleigh, Smithfield, Charlotte, Mecklenburg County, Johnston County, Wake County, and the surrounding areas. Hablamos Espanol</span></p>\n\n\t\t\t</div>\n\t\t\t</div><div class=\"et_pb_column et_pb_column_1_3 et_pb_column_1_tb_body  et_pb_css_mix_blend_mode_passthrough et-last-child\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_with_border et_pb_module dsm_menu dsm_menu_0_tb_body right-bar  et_pb_text_align_left et_pb_bg_layout_light\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module_inner\">\n\t\t\t\t\t<h4 class=\"dsm-menu-title et_pb_module_header\">Practice Areas</h4><nav class=\"dsm-menu-container\" role=\"navigation\" itemscope=\"\" itemtype=\"http://schema.org/SiteNavigationElement\"><ul id=\"menu-practice-areas\" class=\"dsm-menu dsm-menu-style-type-none dsm-menu-layout-vertical dsm-menu-animation dsm-menu-animation-left-right\"><li id=\"menu-item-1007\" class=\"et_pb_menu_page_id-993 menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor menu-item-1007\"><a href=\"../../../index.html\" itemprop=\"url\"><span itemprop=\"name\">Immigration Attorneys</span></a></li>\n<li id=\"menu-item-1006\" class=\"et_pb_menu_page_id-995 menu-item menu-item-type-post_type menu-item-object-page menu-item-1006\"><a href=\"../../../../personal-injury/index.html\" itemprop=\"url\"><span itemprop=\"name\">Personal Injury Attorneys</span></a></li>\n<li id=\"menu-item-1005\" class=\"et_pb_menu_page_id-997 menu-item menu-item-type-post_type menu-item-object-page menu-item-1005\"><a href=\"../../../../workers-compensation-job-injury/index.html\" itemprop=\"url\"><span itemprop=\"name\">Workers’ Compensation Attorneys</span></a></li>\n<li id=\"menu-item-1004\" class=\"et_pb_menu_page_id-999 menu-item menu-item-type-post_type menu-item-object-page menu-item-1004\"><a href=\"../../../../criminal-defense/index.html\" itemprop=\"url\"><span itemprop=\"name\">Criminal Defense Attorneys</span></a></li>\n<li id=\"menu-item-1003\" class=\"et_pb_menu_page_id-1001 menu-item menu-item-type-post_type menu-item-object-page menu-item-1003\"><a href=\"../../../../family-law/index.html\" itemprop=\"url\"><span itemprop=\"name\">Family Law Attorneys</span></a></li>\n</ul></nav>\n\t\t\t\t</div>\n\t\t\t</div><div class=\"et_pb_module et_pb_heading et_pb_heading_0_tb_body et_pb_bg_layout_\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_heading_container\"><h1 class=\"et_pb_module_heading\">Recent Blog Posts</h1></div>\n\t\t\t</div><div class=\"et_pb_module et_pb_blog_0_tb_body et_pb_posts et_pb_bg_layout_light \">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_ajax_pagination_container\">\n\t\t\t\t\t\n\t\t\t<article id=\"post-4188\" class=\"et_pb_post clearfix et_pb_blog_item_0_0 post-4188 post type-post status-publish format-standard has-post-thumbnail hentry category-illegal-immigrants\">\n\n\t\t\t\t<a href=\"../../../../la-impactante-verdad-sobre-la-inmigracion-ilegal/index.html\" class=\"entry-featured-image-url\"><img decoding=\"async\" src=\"../../../../wp-content/uploads/2025/01/illegal-immigrants.jpg\" alt=\"La Impactante Verdad sobre la Inmigración Ilegal\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2025/01/illegal-immigrants.jpg 1080w, ../../../../wp-content/uploads/2025/01/illegal-immigrants-480x320.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\"></a>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a href=\"../../../../la-impactante-verdad-sobre-la-inmigracion-ilegal/index.html\">\n\t\t\t\t\t\t\t\tLa Impactante Verdad sobre la Inmigración Ilegal\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t\t\t\t\t</h2>\n\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\">by <span class=\"author vcard\"><a href=\"../../../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Jan 25, 2025</span> | <a href=\"../../../../category/immigration/illegal-immigrants/index.html\" rel=\"tag\">illegal immigrants</a></p><div class=\"post-content\"><div class=\"post-content-inner\"></div></div>\t\t\t\n\t\t\t</article>\n\t\t\t\t\n\t\t\t<article id=\"post-4184\" class=\"et_pb_post clearfix et_pb_blog_item_0_1 post-4184 post type-post status-publish format-standard has-post-thumbnail hentry category-immigration\">\n\n\t\t\t\t<a href=\"../../../../expert-insights-on-the-shocking-truth-about-illegal-immigrants/index.html\" class=\"entry-featured-image-url\"><img decoding=\"async\" src=\"../../../../wp-content/uploads/2025/01/The-Shocking-Truth-About-Illegal-Immigration-You-Cant-Afford-to-Miss.jpg\" alt=\"Expert Insights on the Shocking Truth About Illegal Immigrants\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2025/01/The-Shocking-Truth-About-Illegal-Immigration-You-Cant-Afford-to-Miss.jpg 1080w, ../../../../wp-content/uploads/2025/01/The-Shocking-Truth-About-Illegal-Immigration-You-Cant-Afford-to-Miss-480x320.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\"></a>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a href=\"../../../../expert-insights-on-the-shocking-truth-about-illegal-immigrants/index.html\">\n\t\t\t\t\t\t\t\tExpert Insights on the Shocking Truth About Illegal Immigrants\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t\t\t\t\t</h2>\n\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\">by <span class=\"author vcard\"><a href=\"../../../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Jan 25, 2025</span> | <a href=\"../../../../category/immigration/index.html\" rel=\"tag\">Immigration</a></p><div class=\"post-content\"><div class=\"post-content-inner\"></div></div>\t\t\t\n\t\t\t</article>\n\t\t\t\t\n\t\t\t<article id=\"post-4206\" class=\"et_pb_post clearfix et_pb_no_thumb et_pb_blog_item_0_2 post-4206 post type-post status-publish format-standard hentry category-immigration\">\n\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a href=\"../../../../la-mejor-guia-para-navegar-en-la-junta-de-apelaciones-de-inmigracion/index.html\">\n\t\t\t\t\t\t\t\tLa Mejor Guía para Navegar en la Junta de Apelaciones de Inmigración\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t\t\t\t\t</h2>\n\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\">by <span class=\"author vcard\"><a href=\"../../../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Jan 25, 2025</span> | <a href=\"../../../../category/immigration/index.html\" rel=\"tag\">Immigration</a></p><div class=\"post-content\"><div class=\"post-content-inner\"></div></div>\t\t\t\n\t\t\t</article>\n\t\t\t\t<div><div class=\"pagination clearfix\">\n\t<div class=\"alignleft\"><a href=\"../4/index%EF%B9%96et_blog.html\">« Older Entries</a></div>\n\t<div class=\"alignright\"><a href=\"../2/index%EF%B9%96et_blog.html\">Next Entries »</a></div>\n</div></div></div>\n\t\t\t\t</div>\n\t\t\t\t \n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div>\t\t</div>\n\t</div>\n\t    ",
+    "sidebar": "",
+    "breadcrumbs": ""
+  },
+  "navigation": {
+    "mainMenu": [],
+    "footerMenu": []
+  },
+  "forms": [],
+  "images": [
+    {
+      "src": "../../../../wp-content/uploads/2024/10/TRANSPARENT-WB-02-1.png",
+      "alt": "El Mejor Abogado de Inmigración en Orlando: Defendiendo tus Derechos con Experiencia y Pasión",
+      "title": "TRANSPARENT WB 02-1"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/gold.png",
+      "alt": "Raleigh, NC Immigrant Visa Attorneys - attorney",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/04/charlotte-immigrant-visa-application-attorneys.jpg",
+      "alt": "Charlotte Immigrant Visa Application Attorneys",
+      "title": "charlotte-immigrant-visa-application-attorneys"
+    },
+    {
+      "src": "../../../../wp-content/uploads/2025/01/illegal-immigrants.jpg",
+      "alt": "La Impactante Verdad sobre la Inmigración Ilegal",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2025/01/The-Shocking-Truth-About-Illegal-Immigration-You-Cant-Afford-to-Miss.jpg",
+      "alt": "Expert Insights on the Shocking Truth About Illegal Immigrants",
+      "title": ""
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/lawpay.png",
+      "alt": "Raleigh, NC Immigrant Visa Attorneys - attorney",
+      "title": "lawpay"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/affirm-1.png",
+      "alt": "Raleigh, NC Immigrant Visa Attorneys - attorney",
+      "title": "affirm"
+    }
+  ],
+  "extractedAt": "2025-06-27T12:49:48.224Z",
+  "contentSections": [
+    {
+      "title": "Experience & Background",
+      "template": "[Attorney name] brings extensive legal experience to every case. Licensed to practice in [jurisdictions], [he/she] has successfully represented hundreds of clients in [practice areas].",
+      "content": "Our attorney brings extensive legal experience to every case. Licensed to practice in North Carolina and Florida, they has successfully represented hundreds of clients in immigration, personal injury, and criminal defense."
+    },
+    {
+      "title": "Practice Areas",
+      "template": "[Attorney name] focuses on [practice areas], providing dedicated representation to clients throughout North Carolina and Florida.",
+      "content": "Our attorney focuses on immigration, personal injury, and criminal defense, providing dedicated representation to clients throughout North Carolina and Florida."
+    },
+    {
+      "title": "Professional Memberships",
+      "template": "Active member of [organizations], staying current with the latest legal developments to better serve our clients.",
+      "content": "Active member of American Immigration Lawyers Association (AILA), North Carolina Bar Association, staying current with the latest legal developments to better serve our clients."
+    }
+  ],
+  "internalLinks": [
+    {
+      "text": "View Practice Areas",
+      "href": "/practice-areas"
+    },
+    {
+      "text": "Office Locations",
+      "href": "/locations"
+    },
+    {
+      "text": "Schedule Consultation",
+      "href": "/contact"
+    },
+    {
+      "text": "Meet Our Team",
+      "href": "/attorneys"
+    }
+  ],
+  "seoScore": {
+    "score": 93,
+    "checks": [
+      "⚠ Title tag length: 61 chars (optimal: 30-60)",
+      "✓ Meta description length optimal (120-160 chars)",
+      "✓ H1 tag present",
+      "✓ Schema markup present (4 types)",
+      "✓ All images have descriptive alt text",
+      "✓ Substantial content (14337 chars)",
+      "✓ Good internal linking (4 links)",
+      "✓ Canonical URL set",
+      "✓ Open Graph tags present"
+    ],
+    "recommendations": ["⚠ Title tag length: 61 chars (optimal: 30-60)"]
+  },
+  "pageType": "attorney",
+  "enhancedAt": "2025-06-27T12:53:31.563Z"
+}

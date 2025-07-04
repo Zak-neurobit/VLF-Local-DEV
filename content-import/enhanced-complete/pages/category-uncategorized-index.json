@@ -1,0 +1,220 @@
+{
+  "url": "/category/uncategorized/index.html",
+  "metadata": {
+    "title": "Uncategorized Archives - Vasquez Law Firm, PLLC",
+    "metaDescription": "",
+    "metaKeywords": "",
+    "canonical": "index.html",
+    "ogTitle": "Uncategorized Archives - Vasquez Law Firm, PLLC",
+    "ogDescription": "",
+    "ogImage": "",
+    "structuredData": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "CollectionPage",
+            "@id": "https://www.vasquezlawnc.com/category/uncategorized/",
+            "url": "https://www.vasquezlawnc.com/category/uncategorized/",
+            "name": "Uncategorized Archives - Vasquez Law Firm, PLLC",
+            "isPartOf": {
+              "@id": "https://www.vasquezlawnc.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://www.vasquezlawnc.com/category/uncategorized/#primaryimage"
+            },
+            "image": {
+              "@id": "https://www.vasquezlawnc.com/category/uncategorized/#primaryimage"
+            },
+            "thumbnailUrl": "https://www.vasquezlawnc.com/wp-content/uploads/2025/02/12-1.jpg",
+            "breadcrumb": {
+              "@id": "https://www.vasquezlawnc.com/category/uncategorized/#breadcrumb"
+            },
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://www.vasquezlawnc.com/category/uncategorized/#primaryimage",
+            "url": "https://www.vasquezlawnc.com/wp-content/uploads/2025/02/12-1.jpg",
+            "contentUrl": "https://www.vasquezlawnc.com/wp-content/uploads/2025/02/12-1.jpg",
+            "width": 600,
+            "height": 400,
+            "caption": "Image of a person reflecting on the decision to emigrate versus immigrate, with emphasis on the benefits and challenges faced by many."
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.vasquezlawnc.com/category/uncategorized/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.vasquezlawnc.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Uncategorized"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.vasquezlawnc.com/#website",
+            "url": "https://www.vasquezlawnc.com/",
+            "name": "Vasquez Law Firm, PLLC",
+            "description": "Raleigh, NC Immigration Attorney",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://www.vasquezlawnc.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "@id": "https://vasquezlawnc.com/#organization",
+        "name": "Vasquez Law Firm, PLLC",
+        "alternateName": "Vasquez Law",
+        "url": "https://vasquezlawnc.com",
+        "logo": "https://vasquezlawnc.com/images/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/vasquezlawfirm",
+          "https://twitter.com/vasquezlawfirm",
+          "https://www.linkedin.com/company/vasquez-law-firm"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-844-967-3536",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Spanish"]
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://vasquezlawnc.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Category",
+            "item": "https://vasquezlawnc.com/category"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Uncategorized",
+            "item": "https://vasquezlawnc.com/category/uncategorized"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "Vasquez Law Firm",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "127",
+          "bestRating": "5"
+        }
+      }
+    ]
+  },
+  "content": {
+    "h1": "",
+    "heroSection": "",
+    "mainContent": "\n\t<div class=\"container\">\n\t\t<div id=\"content-area\" class=\"clearfix\">\n\t\t\t<div id=\"left-area\">\n\t\t\n\t\t\t\t\t<article id=\"post-4238\" class=\"et_pb_post post-4238 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../como-miles-se-han-beneficiado-al/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../wp-content/uploads/2025/02/12-1.jpg\" alt=\"Cómo Miles se Han Beneficiado al\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../wp-content/uploads/2025/02/12-1.jpg 1080w, ../../wp-content/uploads/2025/02/12-1-480x320.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../como-miles-se-han-beneficiado-al/index.html\">Cómo Miles se Han Beneficiado al</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Feb 7, 2025</span> | <a href=\"index.html\" rel=\"category tag\">Uncategorized</a></p>Decidir si emigrar o inmigrar es una de las decisiones más importantes que una persona puede tomar en su vida. Es una elección que cambia la vida, que afecta no solo al individuo, sino también a su familia, carrera y futuro en general. Entender las diferencias entre...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-4162\" class=\"et_pb_post post-4162 post type-post status-publish format-standard has-post-thumbnail hentry category-immigration category-uncategorized\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../wp-content/uploads/2025/01/10-1.jpg\" alt=\"Cómo Construí un Negocio de Seis Cifras en 12 Meses como Inmigrante de Primera Generación\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../wp-content/uploads/2025/01/10-1.jpg 1080w, ../../wp-content/uploads/2025/01/10-1-480x320.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion/index.html\">Cómo Construí un Negocio de Seis Cifras en 12 Meses como Inmigrante de Primera Generación</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Jan 22, 2025</span> | <a href=\"../immigration/index.html\" rel=\"category tag\">Immigration</a>, <a href=\"index.html\" rel=\"category tag\">Uncategorized</a></p>Comenzar un negocio desde cero es un desafío para cualquiera, pero como inmigrante de primera generación, viene con un conjunto único de dificultades. Enfrenté barreras lingüísticas, limitaciones financieras y la presión de navegar en una nueva cultura y entorno...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-4154\" class=\"et_pb_post post-4154 post type-post status-publish format-standard has-post-thumbnail hentry category-immigration category-uncategorized\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../how-i-built-a-6-figure-business-in-12-months-as-a-first-generation-immigrant/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../wp-content/uploads/2025/01/How-I-Built-a-6-Figure-Business-in-12-Months-as-a-First-Generation-Immigrant.jpg\" alt=\"Expert Tips for first-generation immigrants\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../wp-content/uploads/2025/01/How-I-Built-a-6-Figure-Business-in-12-Months-as-a-First-Generation-Immigrant.jpg 1080w, ../../wp-content/uploads/2025/01/How-I-Built-a-6-Figure-Business-in-12-Months-as-a-First-Generation-Immigrant-480x320.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../how-i-built-a-6-figure-business-in-12-months-as-a-first-generation-immigrant/index.html\">Expert Tips for first-generation immigrants</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Jan 22, 2025</span> | <a href=\"../immigration/index.html\" rel=\"category tag\">Immigration</a>, <a href=\"index.html\" rel=\"category tag\">Uncategorized</a></p>Starting a business from scratch is daunting for anyone, but as a first-generation immigrant, it comes with its own unique set of challenges. I faced language barriers, financial constraints, and the pressure of navigating a new culture and business environment. Yet,...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2550\" class=\"et_pb_post post-2550 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../understanding-common-causes-of-auto-accidents-tips-for-prevention/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../wp-content/uploads/2024/06/blog-car-accidents.webp\" alt=\"Understanding Common Causes Of Auto Accidents: Tips For Prevention\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../wp-content/uploads/2024/06/blog-car-accidents.webp 1080w, ../../wp-content/uploads/2024/06/blog-car-accidents-980x392.webp 980w, ../../wp-content/uploads/2024/06/blog-car-accidents-480x192.webp 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../understanding-common-causes-of-auto-accidents-tips-for-prevention/index.html\">Understanding Common Causes Of Auto Accidents: Tips For Prevention</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Jun 3, 2024</span> | <a href=\"index.html\" rel=\"category tag\">Uncategorized</a></p>Auto accidents are frequently responsible for the injury and death of many drivers and passengers around the world. It’s important to understand what commonly causes these accidents, as well as ways to prevent them from occurring altogether. This blog aims to shed...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t<div class=\"pagination clearfix\">\n\t<div class=\"alignleft\"></div>\n\t<div class=\"alignright\"></div>\n</div>\t\t\t</div>\n\n\t\t\t\t<div id=\"sidebar\">\n\t\t<div id=\"block-3\" class=\"et_pb_widget widget_block\">\n<div class=\"wp-block-group is-layout-flow wp-block-group-is-layout-flow\">\n<h2 class=\"wp-block-heading\">Recent Blog Posts</h2>\n\n\n<ul class=\"wp-block-latest-posts__list wp-block-latest-posts\"><li><a class=\"wp-block-latest-posts__post-title\" href=\"../../best-workers-compensation-quote-save-more-today/index.html\">Best Workers Compensation Quote: Save More Today</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../como-miles-se-han-beneficiado-al/index.html\">Cómo Miles se Han Beneficiado al</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../como-navegar-las-complejidades-de-la-junta-de/index.html\">¿Cómo Navegar las Complejidades de la Junta de</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../struggles-of-undocumented-immigrants/index.html\">Struggles of Undocumented Immigrants?</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../expert-tips-to-navigate-a-delayed-immigration-court-case-status/index.html\">Expert Tips to Navigate a Delayed Immigration Court Case Status</a></li>\n</ul></div>\n</div>\t</div>\n\t\t</div>\n\t</div>\n",
+    "sidebar": "",
+    "breadcrumbs": ""
+  },
+  "navigation": {
+    "mainMenu": [],
+    "footerMenu": []
+  },
+  "forms": [],
+  "images": [
+    {
+      "src": "../../wp-content/uploads/2024/10/TRANSPARENT-WB-02-1.png",
+      "alt": "El Mejor Abogado de Inmigración en Orlando: Defendiendo tus Derechos con Experiencia y Pasión",
+      "title": "TRANSPARENT WB 02-1"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/gold.png",
+      "alt": "Vasquez Law Firm - general",
+      "title": ""
+    },
+    {
+      "src": "../../wp-content/uploads/2025/02/12-1.jpg",
+      "alt": "Cómo Miles se Han Beneficiado al",
+      "title": ""
+    },
+    {
+      "src": "../../wp-content/uploads/2025/01/10-1.jpg",
+      "alt": "Cómo Construí un Negocio de Seis Cifras en 12 Meses como Inmigrante de Primera Generación",
+      "title": ""
+    },
+    {
+      "src": "../../wp-content/uploads/2025/01/How-I-Built-a-6-Figure-Business-in-12-Months-as-a-First-Generation-Immigrant.jpg",
+      "alt": "Expert Tips for first-generation immigrants",
+      "title": ""
+    },
+    {
+      "src": "../../wp-content/uploads/2024/06/blog-car-accidents.webp",
+      "alt": "Understanding Common Causes Of Auto Accidents: Tips For Prevention",
+      "title": ""
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/lawpay.png",
+      "alt": "Vasquez Law Firm - general",
+      "title": "lawpay"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/affirm-1.png",
+      "alt": "Vasquez Law Firm - general",
+      "title": "affirm"
+    }
+  ],
+  "extractedAt": "2025-06-27T12:49:46.811Z",
+  "contentSections": [],
+  "internalLinks": [],
+  "seoScore": {
+    "score": 63,
+    "checks": [
+      "✓ Title tag length optimal (30-60 chars)",
+      "✗ Missing H1 tag",
+      "✓ Schema markup present (3 types)",
+      "✓ All images have descriptive alt text",
+      "✓ Substantial content (7937 chars)",
+      "✗ Limited internal links (0, need 3+)",
+      "✓ Canonical URL set",
+      "⚠ Partial Open Graph tags"
+    ],
+    "recommendations": [
+      "✗ Missing H1 tag",
+      "✗ Limited internal links (0, need 3+)",
+      "⚠ Partial Open Graph tags"
+    ]
+  },
+  "pageType": "general",
+  "enhancedAt": "2025-06-27T12:53:31.624Z"
+}

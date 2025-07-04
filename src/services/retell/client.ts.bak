@@ -1,0 +1,173 @@
+import axios, { AxiosInstance } from 'axios';
+import { apiLogger } from '@/lib/logger';
+
+interface RetellConfig {
+  apiKey: string;
+  baseURL?: string;
+}
+
+interface RetellAgent {
+  agent_id: string;
+  agent_name: string;
+  voice_id: string;
+  language: string;
+  response_engine: {
+    type: string;
+    llm_id?: string;
+    system_prompt?: string;
+  };
+  webhook_url?: string;
+}
+
+interface RetellCall {
+  call_id: string;
+  agent_id: string;
+  call_status: 'ongoing' | 'ended' | 'error';
+  start_timestamp: number;
+  end_timestamp?: number;
+  transcript?: string;
+  recording_url?: string;
+  metadata?: Record<string, any>;
+}
+
+interface CreateCallParams {
+  agent_id: string;
+  from_number: string;
+  to_number: string;
+  metadata?: Record<string, any>;
+}
+
+export class RetellClient {
+  private client: AxiosInstance;
+  private apiKey: string;
+
+  constructor(config: RetellConfig) {
+    this.apiKey = config.apiKey;
+    this.client = axios.create({
+      baseURL: config.baseURL || 'https://api.retellai.com',
+      headers: {
+        'Authorization': `Bearer ${this.apiKey}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    // Add request/response interceptors for logging
+    this.client.interceptors.request.use(
+      (config) => {
+        const requestId = apiLogger.request(
+          config.url || '',
+          config.method || 'GET',
+          config.data,
+          config.headers
+        );
+        config.metadata = { requestId, startTime: Date.now() };
+        return config;
+      },
+      (error) => {
+        apiLogger.error('retell-request-error', error);
+        return Promise.reject(error);
+      }
+    );
+
+    this.client.interceptors.response.use(
+      (response) => {
+        if (response.config.metadata) {
+          const duration = Date.now() - response.config.metadata.startTime;
+          apiLogger.response(
+            response.config.metadata.requestId,
+            response.status,
+            duration,
+            response.data
+          );
+        }
+        return response;
+      },
+      (error) => {
+        if (error.config?.metadata) {
+          const duration = Date.now() - error.config.metadata.startTime;
+          apiLogger.error(error.config.metadata.requestId, error);
+        }
+        return Promise.reject(error);
+      }
+    );
+  }
+
+  // Agent Management
+  async createAgent(data: Partial<RetellAgent>): Promise<RetellAgent> {
+    const response = await this.client.post('/agents', data);
+    return response.data;
+  }
+
+  async getAgent(agentId: string): Promise<RetellAgent> {
+    const response = await this.client.get(`/agents/${agentId}`);
+    return response.data;
+  }
+
+  async updateAgent(agentId: string, data: Partial<RetellAgent>): Promise<RetellAgent> {
+    const response = await this.client.patch(`/agents/${agentId}`, data);
+    return response.data;
+  }
+
+  async listAgents(): Promise<RetellAgent[]> {
+    const response = await this.client.get('/agents');
+    return response.data.agents;
+  }
+
+  // Call Management
+  async createCall(params: CreateCallParams): Promise<RetellCall> {
+    const response = await this.client.post('/calls', params);
+    return response.data;
+  }
+
+  async getCall(callId: string): Promise<RetellCall> {
+    const response = await this.client.get(`/calls/${callId}`);
+    return response.data;
+  }
+
+  async endCall(callId: string): Promise<void> {
+    await this.client.post(`/calls/${callId}/end`);
+  }
+
+  async getCallRecording(callId: string): Promise<string> {
+    const call = await this.getCall(callId);
+    if (!call.recording_url) {
+      throw new Error('Call recording not available');
+    }
+    return call.recording_url;
+  }
+
+  async getCallTranscript(callId: string): Promise<string> {
+    const call = await this.getCall(callId);
+    if (!call.transcript) {
+      throw new Error('Call transcript not available');
+    }
+    return call.transcript;
+  }
+
+  // Webhook verification
+  verifyWebhook(signature: string, payload: string): boolean {
+    // Implement webhook signature verification
+    // This is a placeholder - actual implementation depends on Retell's webhook security
+    const crypto = require('crypto');
+    const expectedSignature = crypto
+      .createHmac('sha256', this.apiKey)
+      .update(payload)
+      .digest('hex');
+    
+    return signature === expectedSignature;
+  }
+}
+
+// Singleton instance
+let retellClient: RetellClient | null = null;
+
+export function getRetellClient(): RetellClient {
+  if (!retellClient) {
+    const apiKey = process.env.RETELL_API_KEY;
+    if (!apiKey) {
+      throw new Error('RETELL_API_KEY environment variable is not set');
+    }
+    retellClient = new RetellClient({ apiKey });
+  }
+  return retellClient;
+}

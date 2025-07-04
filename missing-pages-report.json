@@ -1,0 +1,394 @@
+{
+  "timestamp": "2025-07-04T12:44:18.483Z",
+  "totalImported": 96,
+  "existing": 26,
+  "missing": 70,
+  "missingPages": [
+    {
+      "file": "about-us",
+      "expectedPath": "about-us"
+    },
+    {
+      "file": "attorneys-malcom-rodriguez",
+      "expectedPath": "attorneys/malcom-rodriguez"
+    },
+    {
+      "file": "attorneys-rania-arwani",
+      "expectedPath": "attorneys/rania-arwani"
+    },
+    {
+      "file": "attorneys-william-vasquez-attorney",
+      "expectedPath": "attorneys/william-vasquez-attorney"
+    },
+    {
+      "file": "criminal-defense-domestic-violence-abuse",
+      "expectedPath": "practice-areas/criminal/defense/domestic/violence/abuse"
+    },
+    {
+      "file": "criminal-defense-drug-crime-cases",
+      "expectedPath": "practice-areas/criminal/defense/drug/crime/cases"
+    },
+    {
+      "file": "criminal-defense-dwi-drunk-driving",
+      "expectedPath": "practice-areas/criminal/defense/dwi/drunk/driving"
+    },
+    {
+      "file": "criminal-defense-expungement-expunction",
+      "expectedPath": "practice-areas/criminal/defense/expungement/expunction"
+    },
+    {
+      "file": "criminal-defense-traffic-offenses-tickets",
+      "expectedPath": "practice-areas/criminal/defense/traffic/offenses/tickets"
+    },
+    {
+      "file": "criminal-defense",
+      "expectedPath": "practice-areas/criminal/defense"
+    },
+    {
+      "file": "disclaimer",
+      "expectedPath": "disclaimer"
+    },
+    {
+      "file": "es-areas-de-practica-compensacion-laboral",
+      "expectedPath": "es/areas/de/practica/compensacion/laboral"
+    },
+    {
+      "file": "es-areas-de-practica-defensa-criminal",
+      "expectedPath": "es/areas/de/practica/defensa/criminal"
+    },
+    {
+      "file": "es-areas-de-practica-derecho-familia",
+      "expectedPath": "es/areas/de/practica/derecho/familia"
+    },
+    {
+      "file": "es-areas-de-practica-inmigracion",
+      "expectedPath": "es/areas/de/practica/inmigracion"
+    },
+    {
+      "file": "es-areas-de-practica-lesiones-personales",
+      "expectedPath": "es/areas/de/practica/lesiones/personales"
+    },
+    {
+      "file": "es-areas-de-practica",
+      "expectedPath": "es/areas/de/practica"
+    },
+    {
+      "file": "es-descargo-de-responsabilidad",
+      "expectedPath": "es/descargo/de/responsabilidad"
+    },
+    {
+      "file": "es-politica-de-privacidad",
+      "expectedPath": "es/politica/de/privacidad"
+    },
+    {
+      "file": "es-recursos",
+      "expectedPath": "es/recursos"
+    },
+    {
+      "file": "family-law-alimony-spousal-support",
+      "expectedPath": "practice-areas/family/law/alimony/spousal/support"
+    },
+    {
+      "file": "family-law-child-custody",
+      "expectedPath": "practice-areas/family/law/child/custody"
+    },
+    {
+      "file": "family-law-divorce",
+      "expectedPath": "practice-areas/family/law/divorce"
+    },
+    {
+      "file": "family-law-equitable-distribution-property-debt-division",
+      "expectedPath": "practice-areas/family/law/equitable/distribution/property/debt/division"
+    },
+    {
+      "file": "family-law",
+      "expectedPath": "practice-areas/family/law"
+    },
+    {
+      "file": "immigration-adjustment-of-status",
+      "expectedPath": "practice-areas/immigration/adjustment/of/status"
+    },
+    {
+      "file": "immigration-asylum-refugee-legal-help",
+      "expectedPath": "practice-areas/immigration/asylum/refugee/legal/help"
+    },
+    {
+      "file": "immigration-citizenship-naturalization",
+      "expectedPath": "practice-areas/immigration/citizenship/naturalization"
+    },
+    {
+      "file": "immigration-criminal-convictions-impact-on-immigration",
+      "expectedPath": "practice-areas/immigration/criminal/convictions/impact/on/immigration"
+    },
+    {
+      "file": "immigration-daca-deferred-action-childhood-arrivals-2",
+      "expectedPath": "practice-areas/immigration/daca/deferred/action/childhood/arrivals/2"
+    },
+    {
+      "file": "immigration-deportation-removal-defense",
+      "expectedPath": "practice-areas/immigration/deportation/removal/defense"
+    },
+    {
+      "file": "immigration-detention-bond-hearings",
+      "expectedPath": "practice-areas/immigration/detention/bond/hearings"
+    },
+    {
+      "file": "immigration-employment-based-immigration-e-visa",
+      "expectedPath": "practice-areas/immigration/employment/based/immigration/e/visa"
+    },
+    {
+      "file": "immigration-employment-based-immigration-h-2b-visa",
+      "expectedPath": "practice-areas/immigration/employment/based/immigration/h/2b/visa"
+    },
+    {
+      "file": "immigration-employment-based-immigration-perm-labor-certification",
+      "expectedPath": "practice-areas/immigration/employment/based/immigration/perm/labor/certification"
+    },
+    {
+      "file": "immigration-employment-based-immigration-tn-visa",
+      "expectedPath": "practice-areas/immigration/employment/based/immigration/tn/visa"
+    },
+    {
+      "file": "immigration-employment-based-immigration",
+      "expectedPath": "practice-areas/immigration/employment/based/immigration"
+    },
+    {
+      "file": "immigration-family-based-relative",
+      "expectedPath": "practice-areas/immigration/family/based/relative"
+    },
+    {
+      "file": "immigration-family-preference-visas",
+      "expectedPath": "practice-areas/immigration/family/preference/visas"
+    },
+    {
+      "file": "immigration-family-visa-types",
+      "expectedPath": "practice-areas/immigration/family/visa/types"
+    },
+    {
+      "file": "immigration-faqs-questions-answers",
+      "expectedPath": "practice-areas/immigration/faqs/questions/answers"
+    },
+    {
+      "file": "immigration-fiance-k-visas",
+      "expectedPath": "practice-areas/immigration/fiance/k/visas"
+    },
+    {
+      "file": "immigration-green-cards",
+      "expectedPath": "practice-areas/immigration/green/cards"
+    },
+    {
+      "file": "immigration-immediate-relative-visas",
+      "expectedPath": "practice-areas/immigration/immediate/relative/visas"
+    },
+    {
+      "file": "immigration-inadmissibility-waivers-ineligible-to-immigrate",
+      "expectedPath": "practice-areas/immigration/inadmissibility/waivers/ineligible/to/immigrate"
+    },
+    {
+      "file": "immigration-vawa-u-visa-crime-victims",
+      "expectedPath": "practice-areas/immigration/vawa/u/visa/crime/victims"
+    },
+    {
+      "file": "immigration-visa-denial-help-appeals",
+      "expectedPath": "practice-areas/immigration/visa/denial/help/appeals"
+    },
+    {
+      "file": "immigration-visa-process",
+      "expectedPath": "practice-areas/immigration/visa/process"
+    },
+    {
+      "file": "our-team",
+      "expectedPath": "our-team"
+    },
+    {
+      "file": "personal-injury-bicycle-bike-accidents",
+      "expectedPath": "practice-areas/personal/injury/bicycle/bike/accidents"
+    },
+    {
+      "file": "personal-injury-boating-jet-ski-watercraft-accidents",
+      "expectedPath": "practice-areas/personal/injury/boating/jet/ski/watercraft/accidents"
+    },
+    {
+      "file": "personal-injury-car-auto-accidents",
+      "expectedPath": "practice-areas/personal/injury/car/auto/accidents"
+    },
+    {
+      "file": "personal-injury-drunk-driver-liability",
+      "expectedPath": "practice-areas/personal/injury/drunk/driver/liability"
+    },
+    {
+      "file": "personal-injury-emergency-vehicle-accidents",
+      "expectedPath": "practice-areas/personal/injury/emergency/vehicle/accidents"
+    },
+    {
+      "file": "personal-injury-mass-transit-public-transportation-bus-train-accidents",
+      "expectedPath": "practice-areas/personal/injury/mass/transit/public/transportation/bus/train/accidents"
+    },
+    {
+      "file": "personal-injury-motorcycle-accidents",
+      "expectedPath": "practice-areas/personal/injury/motorcycle/accidents"
+    },
+    {
+      "file": "personal-injury-pedestrian-hit-by-car",
+      "expectedPath": "practice-areas/personal/injury/pedestrian/hit/by/car"
+    },
+    {
+      "file": "personal-injury-premises-liability",
+      "expectedPath": "practice-areas/personal/injury/premises/liability"
+    },
+    {
+      "file": "personal-injury-truck-accidents",
+      "expectedPath": "practice-areas/personal/injury/truck/accidents"
+    },
+    {
+      "file": "personal-injury-uninsured-underinsured-drivers-motorists-accidents",
+      "expectedPath": "practice-areas/personal/injury/uninsured/underinsured/drivers/motorists/accidents"
+    },
+    {
+      "file": "personal-injury",
+      "expectedPath": "practice-areas/personal/injury"
+    },
+    {
+      "file": "site-map",
+      "expectedPath": "site-map"
+    },
+    {
+      "file": "venezuelan-deferred-enforced-deportation-by-trump",
+      "expectedPath": "venezuelan-deferred-enforced-deportation-by-trump"
+    },
+    {
+      "file": "workers-compensation-job-injury-construction-site-injuries",
+      "expectedPath": "practice-areas/workers/compensation/job/injury/construction/site/injuries"
+    },
+    {
+      "file": "workers-compensation-job-injury-depression-mental-health-anxiety",
+      "expectedPath": "practice-areas/workers/compensation/job/injury/depression/mental/health/anxiety"
+    },
+    {
+      "file": "workers-compensation-job-injury-equipment-accidents-failures",
+      "expectedPath": "practice-areas/workers/compensation/job/injury/equipment/accidents/failures"
+    },
+    {
+      "file": "workers-compensation-job-injury-lifting-injuries-overexertion",
+      "expectedPath": "practice-areas/workers/compensation/job/injury/lifting/injuries/overexertion"
+    },
+    {
+      "file": "workers-compensation-job-injury-repetitive-stress-carpal-tunnel",
+      "expectedPath": "practice-areas/workers/compensation/job/injury/repetitive/stress/carpal/tunnel"
+    },
+    {
+      "file": "workers-compensation-job-injury-third-party-injury-claims",
+      "expectedPath": "practice-areas/workers/compensation/job/injury/third/party/injury/claims"
+    },
+    {
+      "file": "workers-compensation-job-injury",
+      "expectedPath": "practice-areas/workers/compensation/job/injury"
+    }
+  ],
+  "existingPages": [
+    {
+      "file": "attorneys-adrianna-ingram",
+      "pagePath": "attorneys/adrianna-ingram"
+    },
+    {
+      "file": "attorneys-christopher-afanador",
+      "pagePath": "attorneys/christopher-afanador"
+    },
+    {
+      "file": "attorneys-jillian-baucom",
+      "pagePath": "attorneys/jillian-baucom"
+    },
+    {
+      "file": "attorneys-judith-parkes",
+      "pagePath": "attorneys/judith-parkes"
+    },
+    {
+      "file": "attorneys-mark-kelsey",
+      "pagePath": "attorneys/mark-kelsey"
+    },
+    {
+      "file": "attorneys-roselyn-v-torrellas",
+      "pagePath": "attorneys/roselyn-v-torrellas"
+    },
+    {
+      "file": "attorneys",
+      "pagePath": "attorneys"
+    },
+    {
+      "file": "charlotte-nc",
+      "pagePath": "charlotte-nc"
+    },
+    {
+      "file": "contact",
+      "pagePath": "contact"
+    },
+    {
+      "file": "durham-nc",
+      "pagePath": "durham-nc"
+    },
+    {
+      "file": "es-abogados",
+      "pagePath": "es/abogados"
+    },
+    {
+      "file": "es-blog",
+      "pagePath": "es/blog"
+    },
+    {
+      "file": "es-contacto",
+      "pagePath": "es/contacto"
+    },
+    {
+      "file": "es",
+      "pagePath": "es"
+    },
+    {
+      "file": "homepage",
+      "pagePath": ""
+    },
+    {
+      "file": "immigration",
+      "pagePath": "immigration"
+    },
+    {
+      "file": "make-payment",
+      "pagePath": "make-payment"
+    },
+    {
+      "file": "media-info",
+      "pagePath": "media-info"
+    },
+    {
+      "file": "orlando-fl",
+      "pagePath": "orlando-fl"
+    },
+    {
+      "file": "privacy-policy",
+      "pagePath": "privacy-policy"
+    },
+    {
+      "file": "raleigh-nc",
+      "pagePath": "raleigh-nc"
+    },
+    {
+      "file": "scholarship",
+      "pagePath": "scholarship"
+    },
+    {
+      "file": "smithfield-nc",
+      "pagePath": "smithfield-nc"
+    },
+    {
+      "file": "t-visa-immigration-attorneys",
+      "pagePath": "t-visa-immigration-attorneys"
+    },
+    {
+      "file": "testimonials",
+      "pagePath": "testimonials"
+    },
+    {
+      "file": "winston-salem",
+      "pagePath": "winston-salem"
+    }
+  ]
+}

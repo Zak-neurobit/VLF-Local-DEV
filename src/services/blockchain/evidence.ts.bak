@@ -1,0 +1,254 @@
+import { ethers } from 'ethers';
+import crypto from 'crypto';
+import { prisma } from '@/lib/prisma';
+
+// Smart contract ABI for evidence management
+const EVIDENCE_CONTRACT_ABI = [
+  'function submitEvidence(bytes32 hash, string metadata) public returns (uint256)',
+  'function verifyEvidence(uint256 evidenceId) public view returns (bool, uint256, address)',
+  'function getEvidenceHistory(uint256 evidenceId) public view returns (tuple(uint256 timestamp, string action, address actor)[])',
+];
+
+export class BlockchainEvidenceManager {
+  private provider: ethers.Provider;
+  private contract: ethers.Contract;
+  private wallet: ethers.Wallet;
+
+  constructor() {
+    // Use a blockchain provider (e.g., Infura, Alchemy)
+    this.provider = new ethers.JsonRpcProvider(
+      process.env.BLOCKCHAIN_RPC_URL || 'http://localhost:8545'
+    );
+    
+    // Initialize wallet
+    this.wallet = new ethers.Wallet(
+      process.env.BLOCKCHAIN_PRIVATE_KEY || '',
+      this.provider
+    );
+    
+    // Initialize contract
+    this.contract = new ethers.Contract(
+      process.env.EVIDENCE_CONTRACT_ADDRESS || '',
+      EVIDENCE_CONTRACT_ABI,
+      this.wallet
+    );
+  }
+
+  // Submit evidence to blockchain
+  async submitEvidence(
+    fileBuffer: Buffer,
+    metadata: {
+      caseId: string;
+      documentType: string;
+      submittedBy: string;
+      description: string;
+    }
+  ): Promise<{
+    transactionHash: string;
+    evidenceId: string;
+    blockchainHash: string;
+    timestamp: Date;
+  }> {
+    // Generate hash of the file
+    const fileHash = this.generateHash(fileBuffer);
+    
+    // Create metadata JSON
+    const metadataJson = JSON.stringify({
+      ...metadata,
+      fileSize: fileBuffer.length,
+      submittedAt: new Date().toISOString(),
+    });
+    
+    // Submit to blockchain
+    const tx = await this.contract.submitEvidence(
+      ethers.id(fileHash),
+      metadataJson
+    );
+    
+    const receipt = await tx.wait();
+    const evidenceId = receipt.logs[0].args[0].toString();
+    
+    // Store in database
+    await prisma.blockchainEvidence.create({
+      data: {
+        evidenceId,
+        caseId: metadata.caseId,
+        fileHash,
+        transactionHash: receipt.hash,
+        blockNumber: receipt.blockNumber,
+        metadata: metadataJson,
+      },
+    });
+    
+    return {
+      transactionHash: receipt.hash,
+      evidenceId,
+      blockchainHash: fileHash,
+      timestamp: new Date(),
+    };
+  }
+
+  // Verify evidence authenticity
+  async verifyEvidence(
+    evidenceId: string,
+    fileBuffer: Buffer
+  ): Promise<{
+    isValid: boolean;
+    timestamp: Date;
+    submitter: string;
+    chainOfCustody: Array<{
+      timestamp: Date;
+      action: string;
+      actor: string;
+    }>;
+  }> {
+    // Get evidence from blockchain
+    const [isValid, timestamp, submitter] = await this.contract.verifyEvidence(
+      evidenceId
+    );
+    
+    // Verify file hash matches
+    const currentHash = this.generateHash(fileBuffer);
+    const storedEvidence = await prisma.blockchainEvidence.findUnique({
+      where: { evidenceId },
+    });
+    
+    const hashMatches = storedEvidence?.fileHash === currentHash;
+    
+    // Get chain of custody
+    const history = await this.contract.getEvidenceHistory(evidenceId);
+    const chainOfCustody = history.map((entry: any) => ({
+      timestamp: new Date(Number(entry.timestamp) * 1000),
+      action: entry.action,
+      actor: entry.actor,
+    }));
+    
+    return {
+      isValid: isValid && hashMatches,
+      timestamp: new Date(Number(timestamp) * 1000),
+      submitter,
+      chainOfCustody,
+    };
+  }
+
+  // Generate tamper-proof audit trail
+  async createAuditTrail(
+    caseId: string,
+    action: string,
+    actorId: string,
+    details: any
+  ): Promise<string> {
+    const auditEntry = {
+      caseId,
+      action,
+      actorId,
+      details,
+      timestamp: new Date().toISOString(),
+      previousHash: await this.getLastAuditHash(caseId),
+    };
+    
+    // Generate hash including previous hash (blockchain-like)
+    const entryHash = this.generateHash(
+      Buffer.from(JSON.stringify(auditEntry))
+    );
+    
+    // Store in database
+    await prisma.auditTrail.create({
+      data: {
+        ...auditEntry,
+        hash: entryHash,
+      },
+    });
+    
+    // Periodically anchor to blockchain
+    if (await this.shouldAnchor()) {
+      await this.anchorToBlockchain(entryHash);
+    }
+    
+    return entryHash;
+  }
+
+  // Create smart contract for case milestones
+  async createCaseMilestoneContract(
+    caseId: string,
+    milestones: Array<{
+      description: string;
+      dueDate: Date;
+      responsibleParty: string;
+    }>
+  ): Promise<string> {
+    // Deploy a new smart contract for this case
+    const factory = new ethers.ContractFactory(
+      CASE_MILESTONE_ABI,
+      CASE_MILESTONE_BYTECODE,
+      this.wallet
+    );
+    
+    const contract = await factory.deploy(
+      caseId,
+      milestones.map(m => ({
+        description: m.description,
+        dueDate: Math.floor(m.dueDate.getTime() / 1000),
+        responsibleParty: m.responsibleParty,
+        completed: false,
+      }))
+    );
+    
+    await contract.waitForDeployment();
+    
+    // Store contract address
+    await prisma.case.update({
+      where: { id: caseId },
+      data: {
+        smartContractAddress: await contract.getAddress(),
+      },
+    });
+    
+    return await contract.getAddress();
+  }
+
+  private generateHash(buffer: Buffer): string {
+    return crypto.createHash('sha256').update(buffer).digest('hex');
+  }
+
+  private async getLastAuditHash(caseId: string): Promise<string | null> {
+    const lastEntry = await prisma.auditTrail.findFirst({
+      where: { caseId },
+      orderBy: { createdAt: 'desc' },
+    });
+    
+    return lastEntry?.hash || null;
+  }
+
+  private async shouldAnchor(): Promise<boolean> {
+    // Anchor every 100 entries or every hour
+    const count = await prisma.auditTrail.count({
+      where: {
+        anchoredToBlockchain: false,
+      },
+    });
+    
+    return count >= 100;
+  }
+
+  private async anchorToBlockchain(hash: string): Promise<void> {
+    // Implement blockchain anchoring
+    const tx = await this.contract.anchorHash(hash);
+    await tx.wait();
+    
+    // Mark entries as anchored
+    await prisma.auditTrail.updateMany({
+      where: { anchoredToBlockchain: false },
+      data: { anchoredToBlockchain: true },
+    });
+  }
+}
+
+// Smart contract templates
+const CASE_MILESTONE_ABI = [
+  'constructor(string caseId, tuple(string description, uint256 dueDate, address responsibleParty, bool completed)[] milestones)',
+  'function completeMilestone(uint256 index) public',
+  'function getMilestoneStatus(uint256 index) public view returns (bool)',
+];
+
+const CASE_MILESTONE_BYTECODE = '0x...'; // Compiled smart contract bytecode

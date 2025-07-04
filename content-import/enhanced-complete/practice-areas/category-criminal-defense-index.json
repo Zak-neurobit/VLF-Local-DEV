@@ -1,0 +1,316 @@
+{
+  "url": "/category/criminal-defense/index.html",
+  "metadata": {
+    "title": "Criminal Defense Archives - Vasquez Law Firm, PLLC",
+    "metaDescription": "Facing [specific charge]? Experienced defense attorneys protecting your rights. 24/7 availability. Free consultation.",
+    "metaKeywords": "",
+    "canonical": "index.html",
+    "ogTitle": "Criminal Defense Archives - Vasquez Law Firm, PLLC",
+    "ogDescription": "",
+    "ogImage": "",
+    "structuredData": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "CollectionPage",
+            "@id": "https://www.vasquezlawnc.com/category/criminal-defense/",
+            "url": "https://www.vasquezlawnc.com/category/criminal-defense/",
+            "name": "Criminal Defense Archives - Vasquez Law Firm, PLLC",
+            "isPartOf": {
+              "@id": "https://www.vasquezlawnc.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://www.vasquezlawnc.com/category/criminal-defense/#primaryimage"
+            },
+            "image": {
+              "@id": "https://www.vasquezlawnc.com/category/criminal-defense/#primaryimage"
+            },
+            "thumbnailUrl": "https://www.vasquezlawnc.com/wp-content/uploads/2024/02/arrested-for-dwi-over-holidays.jpg",
+            "breadcrumb": {
+              "@id": "https://www.vasquezlawnc.com/category/criminal-defense/#breadcrumb"
+            },
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://www.vasquezlawnc.com/category/criminal-defense/#primaryimage",
+            "url": "https://www.vasquezlawnc.com/wp-content/uploads/2024/02/arrested-for-dwi-over-holidays.jpg",
+            "contentUrl": "https://www.vasquezlawnc.com/wp-content/uploads/2024/02/arrested-for-dwi-over-holidays.jpg",
+            "width": 500,
+            "height": 335
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.vasquezlawnc.com/category/criminal-defense/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.vasquezlawnc.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Criminal Defense"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.vasquezlawnc.com/#website",
+            "url": "https://www.vasquezlawnc.com/",
+            "name": "Vasquez Law Firm, PLLC",
+            "description": "Raleigh, NC Immigration Attorney",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://www.vasquezlawnc.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much does a criminalDefense lawyer cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Vasquez Law Firm offers free consultations and works on contingency for many cases. This means you don't pay attorney fees unless we win your case. For other matters, we offer competitive rates and payment plans."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does a criminalDefense case take?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Case timelines vary depending on complexity and specific circumstances. During your free consultation, we'll provide a realistic timeline based on your unique situation and our extensive experience handling similar cases."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you speak Spanish?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Vasquez Law Firm provides full bilingual services in English and Spanish. Our attorneys and staff can assist you in the language you're most comfortable with."
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "@id": "https://vasquezlawnc.com/#organization",
+        "name": "Vasquez Law Firm, PLLC",
+        "alternateName": "Vasquez Law",
+        "url": "https://vasquezlawnc.com",
+        "logo": "https://vasquezlawnc.com/images/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/vasquezlawfirm",
+          "https://twitter.com/vasquezlawfirm",
+          "https://www.linkedin.com/company/vasquez-law-firm"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-844-967-3536",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Spanish"]
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "",
+        "description": "Facing [specific charge]? Experienced defense attorneys protecting your rights. 24/7 availability. Free consultation.",
+        "provider": {
+          "@type": "LegalService",
+          "name": "Vasquez Law Firm, PLLC",
+          "url": "https://vasquezlawnc.com"
+        },
+        "areaServed": [
+          {
+            "@type": "State",
+            "name": "North Carolina"
+          },
+          {
+            "@type": "State",
+            "name": "Florida"
+          }
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Legal Services",
+          "itemListElement": []
+        },
+        "priceRange": "Free Consultation",
+        "availableLanguage": ["English", "Spanish"],
+        "url": "https://vasquezlawnc.com/category/criminal-defense/index"
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://vasquezlawnc.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Category",
+            "item": "https://vasquezlawnc.com/category"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Criminal defense",
+            "item": "https://vasquezlawnc.com/category/criminal-defense"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "Vasquez Law Firm",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "127",
+          "bestRating": "5"
+        }
+      }
+    ]
+  },
+  "content": {
+    "h1": "",
+    "heroSection": "",
+    "mainContent": "\n\t<div class=\"container\">\n\t\t<div id=\"content-area\" class=\"clearfix\">\n\t\t\t<div id=\"left-area\">\n\t\t\n\t\t\t\t\t<article id=\"post-406\" class=\"et_pb_post post-406 post type-post status-publish format-standard has-post-thumbnail hentry category-criminal-defense\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../what-should-i-do-if-i-am-arrested-for-dwi-over-the-holidays/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../wp-content/uploads/2024/02/arrested-for-dwi-over-holidays.jpg\" alt=\"What Should I Do if I Am Arrested for DWI Over the Holidays?\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../wp-content/uploads/2024/02/arrested-for-dwi-over-holidays.jpg 1080w, ../../wp-content/uploads/2024/02/arrested-for-dwi-over-holidays-480x322.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../what-should-i-do-if-i-am-arrested-for-dwi-over-the-holidays/index.html\">What Should I Do if I Am Arrested for DWI Over the Holidays?</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Dec 14, 2023</span> | <a href=\"index.html\" rel=\"category tag\">Criminal Defense</a></p>The holiday season is a time of joy and celebration, but it can also be a time when people make poor decisions. Drunk driving is one such decision that can have serious consequences. If you are arrested and charged with&nbsp;driving while impaired (DWI)&nbsp;during the...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2966\" class=\"et_pb_post post-2966 post type-post status-publish format-standard has-post-thumbnail hentry category-criminal-defense\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../will-north-carolina-legalize-marijuana-for-medical-or-recreational-use/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../wp-content/uploads/2024/09/shutterstock_1161207328-min.jpg\" alt=\"Will North Carolina Legalize Marijuana for Medical or Recreational Use\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../wp-content/uploads/2024/09/shutterstock_1161207328-min.jpg 1080w, ../../wp-content/uploads/2024/09/shutterstock_1161207328-min-480x321.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../will-north-carolina-legalize-marijuana-for-medical-or-recreational-use/index.html\">Will North Carolina Legalize Marijuana for Medical or Recreational Use</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Jun 9, 2023</span> | <a href=\"index.html\" rel=\"category tag\">Criminal Defense</a></p>Marijuana has been used for centuries by people around the world. Even though it has been found to be less harmful than legal substances such as alcohol and tobacco, and it also has a variety of medical benefits, it has been classified as an illegal&nbsp;controlled...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2988\" class=\"et_pb_post post-2988 post type-post status-publish format-standard has-post-thumbnail hentry category-criminal-defense\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../can-a-lawyer-help-me-if-i-get-a-dwi/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../wp-content/uploads/2024/09/shutterstock_538729846-min.jpg\" alt=\"Can a Lawyer Help Me if I Get a DWI?\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../wp-content/uploads/2024/09/shutterstock_538729846-min.jpg 1080w, ../../wp-content/uploads/2024/09/shutterstock_538729846-min-480x320.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../can-a-lawyer-help-me-if-i-get-a-dwi/index.html\">Can a Lawyer Help Me if I Get a DWI?</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../author/wvasquezvasquezlawfirm-com/index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Jan 27, 2023</span> | <a href=\"index.html\" rel=\"category tag\">Criminal Defense</a></p>&nbsp;Driving while intoxicated&nbsp;by drugs or alcohol is something that few people would admit to doing. However, studies suggest as many as one in four people have driven under the influence of alcohol or other substances. Some DWI arrests are the result of a poor decision...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t<div class=\"pagination clearfix\">\n\t<div class=\"alignleft\"></div>\n\t<div class=\"alignright\"></div>\n</div>\t\t\t</div>\n\n\t\t\t\t<div id=\"sidebar\">\n\t\t<div id=\"block-3\" class=\"et_pb_widget widget_block\">\n<div class=\"wp-block-group is-layout-flow wp-block-group-is-layout-flow\">\n<h2 class=\"wp-block-heading\">Recent Blog Posts</h2>\n\n\n<ul class=\"wp-block-latest-posts__list wp-block-latest-posts\"><li><a class=\"wp-block-latest-posts__post-title\" href=\"../../best-workers-compensation-quote-save-more-today/index.html\">Best Workers Compensation Quote: Save More Today</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../como-miles-se-han-beneficiado-al/index.html\">Cómo Miles se Han Beneficiado al</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../como-navegar-las-complejidades-de-la-junta-de/index.html\">¿Cómo Navegar las Complejidades de la Junta de</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../struggles-of-undocumented-immigrants/index.html\">Struggles of Undocumented Immigrants?</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../expert-tips-to-navigate-a-delayed-immigration-court-case-status/index.html\">Expert Tips to Navigate a Delayed Immigration Court Case Status</a></li>\n</ul></div>\n</div>\t</div>\n\t\t</div>\n\t</div>\n",
+    "sidebar": "",
+    "breadcrumbs": ""
+  },
+  "navigation": {
+    "mainMenu": [],
+    "footerMenu": []
+  },
+  "forms": [],
+  "images": [
+    {
+      "src": "../../wp-content/uploads/2024/10/TRANSPARENT-WB-02-1.png",
+      "alt": "El Mejor Abogado de Inmigración en Orlando: Defendiendo tus Derechos con Experiencia y Pasión",
+      "title": "TRANSPARENT WB 02-1"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/gold.png",
+      "alt": "Vasquez Law Firm - criminal Defense",
+      "title": ""
+    },
+    {
+      "src": "../../wp-content/uploads/2024/02/arrested-for-dwi-over-holidays.jpg",
+      "alt": "What Should I Do if I Am Arrested for DWI Over the Holidays?",
+      "title": ""
+    },
+    {
+      "src": "../../wp-content/uploads/2024/09/shutterstock_1161207328-min.jpg",
+      "alt": "Will North Carolina Legalize Marijuana for Medical or Recreational Use",
+      "title": ""
+    },
+    {
+      "src": "../../wp-content/uploads/2024/09/shutterstock_538729846-min.jpg",
+      "alt": "Can a Lawyer Help Me if I Get a DWI?",
+      "title": ""
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/lawpay.png",
+      "alt": "Vasquez Law Firm - criminal Defense",
+      "title": "lawpay"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/affirm-1.png",
+      "alt": "Vasquez Law Firm - criminal Defense",
+      "title": "affirm"
+    }
+  ],
+  "extractedAt": "2025-06-27T12:49:46.722Z",
+  "contentSections": [
+    {
+      "title": "How We Can Help",
+      "template": "Our experienced attorneys provide comprehensive legal services for [practice area] cases. With over 35 years of combined experience, we understand the complexities of [specific area] law and fight tirelessly for our clients' rights.",
+      "content": "Our experienced attorneys provide comprehensive legal services for criminalDefense cases. With over 35 years of combined experience, we understand the complexities of criminalDefense law and fight tirelessly for our clients' rights."
+    },
+    {
+      "title": "Why Choose Vasquez Law Firm",
+      "template": "When you choose Vasquez Law Firm for your [practice area] case, you get: • Bilingual attorneys who understand your needs • 24/7 availability for emergencies • No fee unless we win (for applicable cases) • Personalized attention to your case • Proven track record of success",
+      "content": "When you choose Vasquez Law Firm for your criminalDefense case, you get: • Bilingual attorneys who understand your needs • 24/7 availability for emergencies • No fee unless we win (for applicable cases) • Personalized attention to your case • Proven track record of success"
+    },
+    {
+      "title": "Free Consultation",
+      "template": "Get a free evaluation of your [practice area] case. During your consultation, we'll: • Review your situation in detail • Explain your legal options • Answer all your questions • Provide honest assessment • Discuss our fee structure",
+      "content": "Get a free evaluation of your criminalDefense case. During your consultation, we'll: • Review your situation in detail • Explain your legal options • Answer all your questions • Provide honest assessment • Discuss our fee structure"
+    },
+    {
+      "title": "Frequently Asked Questions",
+      "template": "Common questions about [practice area] cases in North Carolina and Florida. Our attorneys are here to provide clear answers and guide you through the legal process.",
+      "content": "Common questions about criminalDefense cases in North Carolina and Florida. Our attorneys are here to provide clear answers and guide you through the legal process."
+    }
+  ],
+  "internalLinks": [
+    {
+      "text": "Meet Our Attorneys",
+      "href": "/attorneys"
+    },
+    {
+      "text": "Contact Us Today",
+      "href": "/contact"
+    },
+    {
+      "text": "Free Case Evaluation",
+      "href": "/contact#consultation"
+    },
+    {
+      "text": "View All Practice Areas",
+      "href": "/practice-areas"
+    },
+    {
+      "text": "Client Testimonials",
+      "href": "/testimonials"
+    }
+  ],
+  "seoScore": {
+    "score": 81,
+    "checks": [
+      "✓ Title tag length optimal (30-60 chars)",
+      "⚠ Meta description length: 117 chars (optimal: 120-160)",
+      "✗ Missing H1 tag",
+      "✓ Schema markup present (5 types)",
+      "✓ All images have descriptive alt text",
+      "✓ Substantial content (6043 chars)",
+      "✓ Good internal linking (5 links)",
+      "✓ Canonical URL set",
+      "⚠ Partial Open Graph tags"
+    ],
+    "recommendations": [
+      "⚠ Meta description length: 117 chars (optimal: 120-160)",
+      "✗ Missing H1 tag",
+      "⚠ Partial Open Graph tags"
+    ]
+  },
+  "pageType": "criminalDefense",
+  "enhancedAt": "2025-06-27T12:53:31.521Z"
+}

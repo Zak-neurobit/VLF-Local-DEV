@@ -1,0 +1,280 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { getRetellClient } from '@/services/retell/client';
+import { requestLogger, dbLogger } from '@/lib/logger';
+import { prisma } from '@/lib/prisma';
+
+interface RetellWebhookEvent {
+  event_type: 'call.started' | 'call.ended' | 'call.analyzed' | 'call.failed';
+  call: {
+    call_id: string;
+    agent_id: string;
+    from_number: string;
+    to_number: string;
+    direction: 'inbound' | 'outbound';
+    call_status: string;
+    start_timestamp: number;
+    end_timestamp?: number;
+    duration?: number;
+    recording_url?: string;
+    transcript?: string;
+    metadata?: Record<string, any>;
+  };
+  analysis?: {
+    summary?: string;
+    sentiment?: string;
+    action_items?: string[];
+    extracted_info?: Record<string, any>;
+  };
+}
+
+export async function POST(request: NextRequest) {
+  const requestId = requestLogger.incoming(request);
+  
+  try {
+    // Get webhook signature
+    const signature = request.headers.get('x-retell-signature');
+    if (!signature) {
+      requestLogger.response(requestId, 401, 0);
+      return NextResponse.json({ error: 'Missing signature' }, { status: 401 });
+    }
+
+    // Parse request body
+    const body = await request.text();
+    const retellClient = getRetellClient();
+    
+    // Verify webhook signature
+    if (!retellClient.verifyWebhook(signature, body)) {
+      requestLogger.response(requestId, 401, 0);
+      return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
+    }
+
+    const event: RetellWebhookEvent = JSON.parse(body);
+    
+    // Log the event
+    requestLogger.middleware(requestId, 'retell-webhook', {
+      eventType: event.event_type,
+      callId: event.call.call_id,
+    });
+
+    // Process different event types
+    switch (event.event_type) {
+      case 'call.started':
+        await handleCallStarted(event);
+        break;
+      
+      case 'call.ended':
+        await handleCallEnded(event);
+        break;
+      
+      case 'call.analyzed':
+        await handleCallAnalyzed(event);
+        break;
+      
+      case 'call.failed':
+        await handleCallFailed(event);
+        break;
+      
+      default:
+        console.warn(`Unknown event type: ${event.event_type}`);
+    }
+
+    requestLogger.response(requestId, 200, Date.now());
+    return NextResponse.json({ success: true });
+    
+  } catch (error) {
+    requestLogger.middleware(requestId, 'retell-webhook-error', error);
+    requestLogger.response(requestId, 500, Date.now());
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+
+async function handleCallStarted(event: RetellWebhookEvent) {
+  try {
+    // Create or update call record in database
+    const call = await prisma.call.upsert({
+      where: { externalCallId: event.call.call_id },
+      update: {
+        status: 'active',
+        startedAt: new Date(event.call.start_timestamp),
+      },
+      create: {
+        externalCallId: event.call.call_id,
+        agentId: event.call.agent_id,
+        fromNumber: event.call.from_number,
+        toNumber: event.call.to_number,
+        direction: event.call.direction,
+        status: 'active',
+        startedAt: new Date(event.call.start_timestamp),
+        metadata: event.call.metadata || {},
+      },
+    });
+
+    dbLogger.query('INSERT/UPDATE call record', [event.call.call_id]);
+
+    // Trigger n8n workflow for call started
+    await triggerN8NWorkflow('call_started', {
+      callId: event.call.call_id,
+      fromNumber: event.call.from_number,
+      toNumber: event.call.to_number,
+    });
+
+  } catch (error) {
+    dbLogger.error('Failed to handle call started', error);
+    throw error;
+  }
+}
+
+async function handleCallEnded(event: RetellWebhookEvent) {
+  try {
+    // Update call record with end time and duration
+    const call = await prisma.call.update({
+      where: { externalCallId: event.call.call_id },
+      data: {
+        status: 'completed',
+        endedAt: new Date(event.call.end_timestamp!),
+        duration: event.call.duration,
+        recordingUrl: event.call.recording_url,
+        transcript: event.call.transcript,
+      },
+    });
+
+    dbLogger.query('UPDATE call record with end data', [event.call.call_id]);
+
+    // Trigger n8n workflow for call ended
+    await triggerN8NWorkflow('call_ended', {
+      callId: event.call.call_id,
+      duration: event.call.duration,
+      hasRecording: !!event.call.recording_url,
+      hasTranscript: !!event.call.transcript,
+    });
+
+  } catch (error) {
+    dbLogger.error('Failed to handle call ended', error);
+    throw error;
+  }
+}
+
+async function handleCallAnalyzed(event: RetellWebhookEvent) {
+  try {
+    if (!event.analysis) return;
+
+    // Store call analysis
+    const analysis = await prisma.callAnalysis.create({
+      data: {
+        callId: event.call.call_id,
+        summary: event.analysis.summary,
+        sentiment: event.analysis.sentiment,
+        actionItems: event.analysis.action_items || [],
+        extractedInfo: event.analysis.extracted_info || {},
+      },
+    });
+
+    dbLogger.query('INSERT call analysis', [event.call.call_id]);
+
+    // Trigger n8n workflow for analysis complete
+    await triggerN8NWorkflow('call_analyzed', {
+      callId: event.call.call_id,
+      summary: event.analysis.summary,
+      sentiment: event.analysis.sentiment,
+      actionItems: event.analysis.action_items,
+    });
+
+    // If action items exist, create tasks
+    if (event.analysis.action_items && event.analysis.action_items.length > 0) {
+      for (const item of event.analysis.action_items) {
+        await prisma.task.create({
+          data: {
+            title: item,
+            type: 'follow_up',
+            relatedCallId: event.call.call_id,
+            status: 'pending',
+            priority: determinePriority(item),
+          },
+        });
+      }
+    }
+
+  } catch (error) {
+    dbLogger.error('Failed to handle call analysis', error);
+    throw error;
+  }
+}
+
+async function handleCallFailed(event: RetellWebhookEvent) {
+  try {
+    // Update call record with failed status
+    await prisma.call.update({
+      where: { externalCallId: event.call.call_id },
+      data: {
+        status: 'failed',
+        endedAt: new Date(),
+        metadata: {
+          ...event.call.metadata,
+          failureReason: event.call.call_status,
+        },
+      },
+    });
+
+    dbLogger.query('UPDATE call record as failed', [event.call.call_id]);
+
+    // Notify relevant parties
+    await triggerN8NWorkflow('call_failed', {
+      callId: event.call.call_id,
+      reason: event.call.call_status,
+    });
+
+  } catch (error) {
+    dbLogger.error('Failed to handle call failure', error);
+    throw error;
+  }
+}
+
+async function triggerN8NWorkflow(workflowName: string, data: any) {
+  try {
+    const n8nWebhookUrl = process.env.N8N_WEBHOOK_BASE_URL;
+    if (!n8nWebhookUrl) {
+      console.warn('N8N_WEBHOOK_BASE_URL not configured');
+      return;
+    }
+
+    const response = await fetch(`${n8nWebhookUrl}/${workflowName}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        event: workflowName,
+        data,
+        timestamp: new Date().toISOString(),
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`n8n workflow trigger failed: ${response.statusText}`);
+    }
+
+  } catch (error) {
+    console.error('Failed to trigger n8n workflow:', error);
+    // Don't throw - we don't want n8n failures to break webhook processing
+  }
+}
+
+function determinePriority(actionItem: string): 'low' | 'medium' | 'high' {
+  const lowPriorityKeywords = ['follow up', 'check in', 'send information'];
+  const highPriorityKeywords = ['urgent', 'immediate', 'asap', 'court date', 'deadline'];
+  
+  const lowerItem = actionItem.toLowerCase();
+  
+  if (highPriorityKeywords.some(keyword => lowerItem.includes(keyword))) {
+    return 'high';
+  }
+  
+  if (lowPriorityKeywords.some(keyword => lowerItem.includes(keyword))) {
+    return 'low';
+  }
+  
+  return 'medium';
+}

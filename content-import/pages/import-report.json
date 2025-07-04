@@ -1,0 +1,28 @@
+{
+  "importDate": "2025-06-21T11:52:59.294Z",
+  "source": "https://www.vasquezlawnc.com",
+  "stats": {
+    "totalPages": 1,
+    "successfulImports": 1,
+    "failedImports": 0,
+    "pagesWithForms": 0,
+    "pagesWithImages": 1,
+    "pagesWithTestimonials": 0,
+    "pagesWithFAQs": 0,
+    "totalImages": 36,
+    "spanishPages": 0
+  },
+  "failedUrls": [],
+  "importedPages": [
+    {
+      "url": "https://www.vasquezlawnc.com/",
+      "title": "Home - Vasquez Law Firm, PLLC",
+      "mainSections": 0,
+      "images": 36,
+      "forms": 0,
+      "testimonials": 0,
+      "faqs": 0,
+      "isSpanish": false
+    }
+  ]
+}

@@ -1,0 +1,398 @@
+{
+  "url": "/contact/raleigh-nc-office-location/index.html",
+  "metadata": {
+    "title": "Raleigh, NC Office Location - Vasquez Law Firm, PLLC",
+    "metaDescription": "Find the best route to our Raleigh, NC office. Get accurate maps and directions to visit our workers’ comp lawyers. Contact us for assistance today!",
+    "metaKeywords": "",
+    "canonical": "index.html",
+    "ogTitle": "Raleigh, NC Office Location - Vasquez Law Firm, PLLC",
+    "ogDescription": "Find the best route to our Raleigh, NC office. Get accurate maps and directions to visit our workers’ comp lawyers. Contact us for assistance today!",
+    "ogImage": "",
+    "structuredData": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://www.vasquezlawnc.com/contact/raleigh-nc-office-location/",
+            "url": "https://www.vasquezlawnc.com/contact/raleigh-nc-office-location/",
+            "name": "Raleigh, NC Office Location - Vasquez Law Firm, PLLC",
+            "isPartOf": {
+              "@id": "https://www.vasquezlawnc.com/#website"
+            },
+            "datePublished": "2024-09-13T14:25:58+00:00",
+            "dateModified": "2025-02-20T10:58:27+00:00",
+            "description": "Find the best route to our Raleigh, NC office. Get accurate maps and directions to visit our workers’ comp lawyers. Contact us for assistance today!",
+            "breadcrumb": {
+              "@id": "https://www.vasquezlawnc.com/contact/raleigh-nc-office-location/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": ["https://www.vasquezlawnc.com/contact/raleigh-nc-office-location/"]
+              }
+            ]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.vasquezlawnc.com/contact/raleigh-nc-office-location/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.vasquezlawnc.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Contact",
+                "item": "https://www.vasquezlawnc.com/contact/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Raleigh, NC Office Location"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.vasquezlawnc.com/#website",
+            "url": "https://www.vasquezlawnc.com/",
+            "name": "Vasquez Law Firm, PLLC",
+            "description": "Raleigh, NC Immigration Attorney",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://www.vasquezlawnc.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "@id": "https://vasquezlawnc.com/#organization",
+        "name": "Vasquez Law Firm, PLLC",
+        "alternateName": "Vasquez Law",
+        "url": "https://vasquezlawnc.com",
+        "logo": "https://vasquezlawnc.com/images/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/vasquezlawfirm",
+          "https://twitter.com/vasquezlawfirm",
+          "https://www.linkedin.com/company/vasquez-law-firm"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-844-967-3536",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Spanish"]
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "Vasquez Law Firm - Raleigh",
+        "image": "",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "6801 Glenwood Ave",
+          "addressLocality": "Raleigh",
+          "addressRegion": "NC",
+          "postalCode": "27612"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "35.843768",
+          "longitude": "-78.720567"
+        },
+        "telephone": "+1-919-755-9425",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "17:00"
+          }
+        ],
+        "priceRange": "Free Consultation",
+        "availableLanguage": ["English", "Spanish"]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://vasquezlawnc.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Contact",
+            "item": "https://vasquezlawnc.com/contact"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Raleigh nc office location",
+            "item": "https://vasquezlawnc.com/contact/raleigh-nc-office-location"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "Vasquez Law Firm",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "127",
+          "bestRating": "5"
+        }
+      }
+    ]
+  },
+  "content": {
+    "h1": "Map & Directions – Raleigh\n",
+    "heroSection": "\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_row\">\n\t\t\t\t<div class=\"et_pb_column et_pb_column_3_4 et_pb_column_0   et_pb_specialty_column  et_pb_css_mix_blend_mode_passthrough\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_row_inner et_pb_row_inner_0\">\n\t\t\t\t<div class=\"et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_0 et-last-child\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module et_pb_text et_pb_text_0  et_pb_text_align_left et_pb_bg_layout_light\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_text_inner\"><h1>Map &amp; Directions – Raleigh<br>\n</h1></div>\n\t\t\t</div>\n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div><div class=\"et_pb_row_inner et_pb_row_inner_1\">\n\t\t\t\t<div class=\"et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_1 et-last-child\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module et_pb_text et_pb_text_1  et_pb_text_align_left et_pb_bg_layout_light\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_text_inner\"><h3>Vasquez Law Firm, PLLC</h3>\n<p>4426 Louisburg Road<br>Raleigh, NC 27616<br>Phone:<span>&nbsp;</span><strong class=\"makeCall\">1-844-YO-PELEO</strong></p></div>\n\t\t\t</div><div class=\"et_pb_module dsm_embed_google_map dsm_embed_google_map_0\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module_inner\">\n\t\t\t\t\t<iframe loading=\"lazy\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" referrerpolicy=\"no-referrer-when-downgrade\" src=\"https://maps.google.com/maps?q=4426%20Louisburg%20Road%20Raleigh%2C%20NC%2027616&amp;t=m&amp;z=10&amp;output=embed&amp;iwloc=near&amp;hl=en_US\" aria-label=\"4426 Louisburg Road Raleigh, NC 27616\"></iframe>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div>\n\t\t\t</div><div class=\"et_pb_column et_pb_column_1_4 et_pb_column_1    et_pb_css_mix_blend_mode_passthrough\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_with_border et_pb_module dsm_menu dsm_menu_0  et_pb_text_align_left et_pb_bg_layout_light\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module_inner\">\n\t\t\t\t\t<h4 class=\"dsm-menu-title et_pb_module_header\">Practice Areas</h4><nav class=\"dsm-menu-container\" role=\"navigation\" itemscope=\"\" itemtype=\"http://schema.org/SiteNavigationElement\"><ul id=\"menu-footer-menu\" class=\"dsm-menu dsm-menu-style-type-none dsm-menu-layout-vertical dsm-menu-animation dsm-menu-animation-left-right\"><li id=\"menu-item-738\" class=\"et_pb_menu_page_id-home menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-738\"><a href=\"../../index.html\" itemprop=\"url\"><span itemprop=\"name\">Home</span></a></li>\n<li id=\"menu-item-739\" class=\"et_pb_menu_page_id-413 menu-item menu-item-type-post_type menu-item-object-page menu-item-739\"><a href=\"../../attorneys/index.html\" itemprop=\"url\"><span itemprop=\"name\">Attorneys</span></a></li>\n<li id=\"menu-item-745\" class=\"et_pb_menu_page_id-415 menu-item menu-item-type-post_type menu-item-object-page menu-item-745\"><a href=\"../../practice-areas/index.html\" itemprop=\"url\"><span itemprop=\"name\">Practice Areas</span></a></li>\n<li id=\"menu-item-744\" class=\"et_pb_menu_page_id-417 menu-item menu-item-type-post_type menu-item-object-page menu-item-744\"><a href=\"../../media-info/index.html\" itemprop=\"url\"><span itemprop=\"name\">Media</span></a></li>\n<li id=\"menu-item-1085\" class=\"et_pb_menu_page_id-1059 menu-item menu-item-type-post_type menu-item-object-page menu-item-1085\"><a href=\"../../scholarship/index.html\" itemprop=\"url\"><span itemprop=\"name\">Scholarship</span></a></li>\n<li id=\"menu-item-740\" class=\"et_pb_menu_page_id-421 menu-item menu-item-type-post_type menu-item-object-page menu-item-740\"><a href=\"../../blog/index.html\" itemprop=\"url\"><span itemprop=\"name\">Blog</span></a></li>\n<li id=\"menu-item-742\" class=\"et_pb_menu_page_id-423 menu-item menu-item-type-post_type menu-item-object-page menu-item-742\"><a href=\"../../es/index.html\" itemprop=\"url\"><span itemprop=\"name\">Español</span></a></li>\n<li id=\"menu-item-741\" class=\"et_pb_menu_page_id-425 menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor menu-item-741\"><a href=\"../index.html\" itemprop=\"url\"><span itemprop=\"name\">Contact</span></a></li>\n<li id=\"menu-item-1194\" class=\"et_pb_menu_page_id-1194 menu-item menu-item-type-custom menu-item-object-custom menu-item-1194\"><a href=\"https://secure.lawpay.com/pages/vasquezlawfirm/operating1\" itemprop=\"url\"><span itemprop=\"name\">Make Payment</span></a></li>\n</ul></nav>\n\t\t\t\t</div>\n\t\t\t</div><div class=\"et_pb_module et_pb_sidebar_0 et_pb_widget_area clearfix et_pb_widget_area_left et_pb_bg_layout_light et_pb_sidebar_no_border\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div id=\"block-3\" class=\"et_pb_widget widget_block\">\n<div class=\"wp-block-group is-layout-flow wp-block-group-is-layout-flow\">\n<h2 class=\"wp-block-heading\">Recent Blog Posts</h2>\n\n\n<ul class=\"wp-block-latest-posts__list wp-block-latest-posts\"><li><a class=\"wp-block-latest-posts__post-title\" href=\"../../best-workers-compensation-quote-save-more-today/index.html\">Best Workers Compensation Quote: Save More Today</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../como-miles-se-han-beneficiado-al/index.html\">Cómo Miles se Han Beneficiado al</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../como-navegar-las-complejidades-de-la-junta-de/index.html\">¿Cómo Navegar las Complejidades de la Junta de</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../struggles-of-undocumented-immigrants/index.html\">Struggles of Undocumented Immigrants?</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../expert-tips-to-navigate-a-delayed-immigration-court-case-status/index.html\">Expert Tips to Navigate a Delayed Immigration Court Case Status</a></li>\n</ul></div>\n</div>\n\t\t\t</div>\n\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t\n\t\t\t",
+    "mainContent": "\n\n\n\t\t\t\n\t\t\t\t<article id=\"post-2778\" class=\"post-2778 page type-page status-publish hentry\">\n\n\t\t\t\t\n\t\t\t\t\t<div class=\"entry-content\">\n\t\t\t\t\t<div class=\"et-l et-l--post\">\n\t\t\t<div class=\"et_builder_inner_content et_pb_gutters3\">\n\t\t<div class=\"et_pb_section et_pb_section_0 et_section_specialty\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_row\">\n\t\t\t\t<div class=\"et_pb_column et_pb_column_3_4 et_pb_column_0   et_pb_specialty_column  et_pb_css_mix_blend_mode_passthrough\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_row_inner et_pb_row_inner_0\">\n\t\t\t\t<div class=\"et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_0 et-last-child\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module et_pb_text et_pb_text_0  et_pb_text_align_left et_pb_bg_layout_light\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_text_inner\"><h1>Map &amp; Directions – Raleigh<br>\n</h1></div>\n\t\t\t</div>\n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div><div class=\"et_pb_row_inner et_pb_row_inner_1\">\n\t\t\t\t<div class=\"et_pb_column et_pb_column_4_4 et_pb_column_inner et_pb_column_inner_1 et-last-child\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module et_pb_text et_pb_text_1  et_pb_text_align_left et_pb_bg_layout_light\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_text_inner\"><h3>Vasquez Law Firm, PLLC</h3>\n<p>4426 Louisburg Road<br>Raleigh, NC 27616<br>Phone:<span>&nbsp;</span><strong class=\"makeCall\">1-844-YO-PELEO</strong></p></div>\n\t\t\t</div><div class=\"et_pb_module dsm_embed_google_map dsm_embed_google_map_0\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module_inner\">\n\t\t\t\t\t<iframe loading=\"lazy\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" referrerpolicy=\"no-referrer-when-downgrade\" src=\"https://maps.google.com/maps?q=4426%20Louisburg%20Road%20Raleigh%2C%20NC%2027616&amp;t=m&amp;z=10&amp;output=embed&amp;iwloc=near&amp;hl=en_US\" aria-label=\"4426 Louisburg Road Raleigh, NC 27616\"></iframe>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div>\n\t\t\t</div><div class=\"et_pb_column et_pb_column_1_4 et_pb_column_1    et_pb_css_mix_blend_mode_passthrough\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_with_border et_pb_module dsm_menu dsm_menu_0  et_pb_text_align_left et_pb_bg_layout_light\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module_inner\">\n\t\t\t\t\t<h4 class=\"dsm-menu-title et_pb_module_header\">Practice Areas</h4><nav class=\"dsm-menu-container\" role=\"navigation\" itemscope=\"\" itemtype=\"http://schema.org/SiteNavigationElement\"><ul id=\"menu-footer-menu\" class=\"dsm-menu dsm-menu-style-type-none dsm-menu-layout-vertical dsm-menu-animation dsm-menu-animation-left-right\"><li id=\"menu-item-738\" class=\"et_pb_menu_page_id-home menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-738\"><a href=\"../../index.html\" itemprop=\"url\"><span itemprop=\"name\">Home</span></a></li>\n<li id=\"menu-item-739\" class=\"et_pb_menu_page_id-413 menu-item menu-item-type-post_type menu-item-object-page menu-item-739\"><a href=\"../../attorneys/index.html\" itemprop=\"url\"><span itemprop=\"name\">Attorneys</span></a></li>\n<li id=\"menu-item-745\" class=\"et_pb_menu_page_id-415 menu-item menu-item-type-post_type menu-item-object-page menu-item-745\"><a href=\"../../practice-areas/index.html\" itemprop=\"url\"><span itemprop=\"name\">Practice Areas</span></a></li>\n<li id=\"menu-item-744\" class=\"et_pb_menu_page_id-417 menu-item menu-item-type-post_type menu-item-object-page menu-item-744\"><a href=\"../../media-info/index.html\" itemprop=\"url\"><span itemprop=\"name\">Media</span></a></li>\n<li id=\"menu-item-1085\" class=\"et_pb_menu_page_id-1059 menu-item menu-item-type-post_type menu-item-object-page menu-item-1085\"><a href=\"../../scholarship/index.html\" itemprop=\"url\"><span itemprop=\"name\">Scholarship</span></a></li>\n<li id=\"menu-item-740\" class=\"et_pb_menu_page_id-421 menu-item menu-item-type-post_type menu-item-object-page menu-item-740\"><a href=\"../../blog/index.html\" itemprop=\"url\"><span itemprop=\"name\">Blog</span></a></li>\n<li id=\"menu-item-742\" class=\"et_pb_menu_page_id-423 menu-item menu-item-type-post_type menu-item-object-page menu-item-742\"><a href=\"../../es/index.html\" itemprop=\"url\"><span itemprop=\"name\">Español</span></a></li>\n<li id=\"menu-item-741\" class=\"et_pb_menu_page_id-425 menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor menu-item-741\"><a href=\"../index.html\" itemprop=\"url\"><span itemprop=\"name\">Contact</span></a></li>\n<li id=\"menu-item-1194\" class=\"et_pb_menu_page_id-1194 menu-item menu-item-type-custom menu-item-object-custom menu-item-1194\"><a href=\"https://secure.lawpay.com/pages/vasquezlawfirm/operating1\" itemprop=\"url\"><span itemprop=\"name\">Make Payment</span></a></li>\n</ul></nav>\n\t\t\t\t</div>\n\t\t\t</div><div class=\"et_pb_module et_pb_sidebar_0 et_pb_widget_area clearfix et_pb_widget_area_left et_pb_bg_layout_light et_pb_sidebar_no_border\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div id=\"block-3\" class=\"et_pb_widget widget_block\">\n<div class=\"wp-block-group is-layout-flow wp-block-group-is-layout-flow\">\n<h2 class=\"wp-block-heading\">Recent Blog Posts</h2>\n\n\n<ul class=\"wp-block-latest-posts__list wp-block-latest-posts\"><li><a class=\"wp-block-latest-posts__post-title\" href=\"../../best-workers-compensation-quote-save-more-today/index.html\">Best Workers Compensation Quote: Save More Today</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../como-miles-se-han-beneficiado-al/index.html\">Cómo Miles se Han Beneficiado al</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../como-navegar-las-complejidades-de-la-junta-de/index.html\">¿Cómo Navegar las Complejidades de la Junta de</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../struggles-of-undocumented-immigrants/index.html\">Struggles of Undocumented Immigrants?</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../expert-tips-to-navigate-a-delayed-immigration-court-case-status/index.html\">Expert Tips to Navigate a Delayed Immigration Court Case Status</a></li>\n</ul></div>\n</div>\n\t\t\t</div>\n\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t\n\t\t\t</div><div class=\"et_pb_section et_pb_section_1 et_section_regular\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_row et_pb_row_0\">\n\t\t\t\t<div class=\"et_pb_column et_pb_column_4_4 et_pb_column_2  et_pb_css_mix_blend_mode_passthrough et-last-child\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module dsm_image_carousel dsm_image_carousel_0 dsm_image_carousel_arrow_outside dsm_image_carousel_arrow_mobile_inside \">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module_inner\">\n\t\t\t\t\t<div class=\"swiper-container dsm_image_carousel_container  dsm_image_carousel_carousel\" dir=\"ltr\" data-effect=\"default\" data-slider-effect-shadows=\"false\" data-slider-effect-coverflow-rotate=\"30\" data-slider-effect-coverflow-depth=\"0\" data-loop=\"true\" data-slide-to-show=\"4\" data-slide-to-show-tablet=\"1\" data-slide-to-show-phone=\"1\" data-slide-to-scroll=\"1\" data-slide-to-scroll-tablet=\"1\" data-slide-to-scroll-phone=\"1\" data-space-between=\"15\" data-space-between-tablet=\"15\" data-space-between-phone=\"15\" data-slide-row=\"1\" data-centered-slides=\"false\" data-speed=\"300\" data-autoplay=\"true\" data-autoplay-speed=\"3000\" data-touch-move=\"true\" data-grab=\"true\" data-pause-on-hover=\"false\" data-show-lightbox=\"false\" data-lightbox-gallery=\"false\" data-lightbox-caption=\"false\" data-infinite-scrolling=\"false\" data-slide-row-tablet=\"1\" data-slide-row-phone=\"1\" data-autoplay-viewport=\"80%\" data-mousewheel=\"false\" data-lazyload=\"false\" data-type=\"carousel\" data-slideshow-effect=\"default\" data-slideshow-to-show=\"4\" data-slideshow-to-show-tablet=\"4\" data-slideshow-to-show-phone=\"\" data-slider-orientation=\"horizontal\" data-lightbox-title=\"false\"><div class=\"swiper-wrapper\"><div class=\"swiper-slide dsm_image_carousel_item\"><img loading=\"lazy\" decoding=\"async\" src=\"../../wp-content/uploads/2024/02/affirm.png\" alt=\"Image of a person giving a confident affirmation, symbolizing trust and support in a decision or statement.\" title=\"affirm\" width=\"229\" height=\"100\" data-dsm-image-description=\"\" class=\" skip-lazy\"></div><div class=\"swiper-slide dsm_image_carousel_item\"><img loading=\"lazy\" decoding=\"async\" src=\"../../wp-content/uploads/2024/02/bdg-des.png\" alt=\"Host of Despierta América engaging with the audience on a lively morning talk show, covering news and entertainment.\" title=\"bdg-des\" width=\"286\" height=\"211\" data-dsm-image-description=\"\" class=\" skip-lazy\"></div><div class=\"swiper-slide dsm_image_carousel_item\"><img loading=\"lazy\" decoding=\"async\" src=\"../../wp-content/uploads/2024/02/bdg-40.png\" alt=\"Map of North Carolina, highlighting its cities, landmarks, and geographic features.\" title=\"bdg-40\" width=\"236\" height=\"211\" data-dsm-image-description=\"\" class=\" skip-lazy\"></div><div class=\"swiper-slide dsm_image_carousel_item\"><img loading=\"lazy\" decoding=\"async\" src=\"../../wp-content/uploads/2024/02/bdg-aila1.png\" alt=\"Logo of AILA, representing a network of immigration lawyers advocating for fair immigration policies and legal support.\" title=\"bdg-aila1\" width=\"199\" height=\"211\" data-dsm-image-description=\"\" class=\" skip-lazy\"></div><div class=\"swiper-slide dsm_image_carousel_item\"><img loading=\"lazy\" decoding=\"async\" src=\"../../wp-content/uploads/2024/02/bdg-ncsb.png\" alt=\"Judge affirming a legal decision in court, symbolizing justice and finality in the appeals process.\" title=\"bdg-ncsb\" width=\"214\" height=\"211\" data-dsm-image-description=\"\" class=\" skip-lazy\"></div><div class=\"swiper-slide dsm_image_carousel_item\"><img loading=\"lazy\" decoding=\"async\" src=\"../../wp-content/uploads/2024/02/bdg-jus.png\" alt=\"Advocate holding a gavel symbolizing justice, representing legal support for fair outcomes and legal advocacy.\" title=\"bdg-jus\" width=\"186\" height=\"211\" data-dsm-image-description=\"\" class=\" skip-lazy\"></div><div class=\"swiper-slide dsm_image_carousel_item\"><img loading=\"lazy\" decoding=\"async\" src=\"../../wp-content/uploads/2024/02/bdg-char.png\" alt=\"City skyline of Charlotte, North Carolina, showcasing tall buildings and the bustling downtown area.\" title=\"bdg-char\" width=\"236\" height=\"211\" data-dsm-image-description=\"\" class=\" skip-lazy\"></div><div class=\"swiper-slide dsm_image_carousel_item\"><img loading=\"lazy\" decoding=\"async\" src=\"../../wp-content/uploads/2024/02/bdg-aila2.png\" alt=\"Logo of AILA (American Immigration Lawyers Association), representing a network of attorneys dedicated to immigration law advocacy.\" title=\"bdg-aila2\" width=\"167\" height=\"211\" data-dsm-image-description=\"\" class=\" skip-lazy\"></div></div></div><div class=\"swiper-button-prev swiper-arrow-button\" data-icon=\"4\"></div><div class=\"swiper-button-next swiper-arrow-button\" data-icon=\"5\"></div><div class=\"swiper-pagination\"></div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div><div class=\"et_pb_section et_pb_section_2 et_pb_fullwidth_section et_section_regular\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<div class=\"et_pb_module et_pb_fullwidth_image et_pb_fullwidth_image_0\">\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t<img loading=\"lazy\" decoding=\"async\" width=\"1921\" height=\"562\" src=\"https://vasquezlawnc.com/wp-content/uploads/2024/02/gmap.png\" alt=\"\" title=\"gmap-mob\" srcset=\"../../wp-content/uploads/2024/02/gmap.png 1921w, ../../wp-content/uploads/2024/02/gmap-1280x374.png 1280w, ../../wp-content/uploads/2024/02/gmap-980x287.png 980w, ../../wp-content/uploads/2024/02/gmap-480x140.png 480w\" sizes=\"auto, (min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) and (max-width: 1280px) 1280px, (min-width: 1281px) 1921px, 100vw\" class=\"wp-image-680\" data-et-multi-view=\"{&quot;schema&quot;:{&quot;attrs&quot;:{&quot;desktop&quot;:{&quot;src&quot;:&quot;http:\\/\\/vasquezlawnc.com\\/wp-content\\/uploads\\/2024\\/02\\/gmap.png&quot;,&quot;alt&quot;:&quot;&quot;,&quot;title&quot;:&quot;gmap-mob&quot;,&quot;class&quot;:&quot;wp-image-680&quot;,&quot;srcset&quot;:&quot;https:\\/\\/www.vasquezlawnc.com\\/wp-content\\/uploads\\/2024\\/02\\/gmap.png 1921w, https:\\/\\/www.vasquezlawnc.com\\/wp-content\\/uploads\\/2024\\/02\\/gmap-1280x374.png 1280w, https:\\/\\/www.vasquezlawnc.com\\/wp-content\\/uploads\\/2024\\/02\\/gmap-980x287.png 980w, https:\\/\\/www.vasquezlawnc.com\\/wp-content\\/uploads\\/2024\\/02\\/gmap-480x140.png 480w&quot;,&quot;sizes&quot;:&quot;(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) and (max-width: 1280px) 1280px, (min-width: 1281px) 1921px, 100vw&quot;},&quot;tablet&quot;:{&quot;src&quot;:&quot;http:\\/\\/vasquezlawnc.com\\/wp-content\\/uploads\\/2024\\/02\\/gmap-mob.png&quot;,&quot;srcset&quot;:&quot;https:\\/\\/www.vasquezlawnc.com\\/wp-content\\/uploads\\/2024\\/02\\/gmap-mob.png 820w, https:\\/\\/www.vasquezlawnc.com\\/wp-content\\/uploads\\/2024\\/02\\/gmap-mob-480x225.png 480w&quot;,&quot;sizes&quot;:&quot;(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 820px, 100vw&quot;}}},&quot;slug&quot;:&quot;et_pb_fullwidth_image&quot;}\">\n\t\t\t\n\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\n\t\t\t</div>\t\t</div>\n\t</div>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\n\t\t\t\t</article>\n\n\t\t\t\n\n",
+    "sidebar": "",
+    "breadcrumbs": ""
+  },
+  "navigation": {
+    "mainMenu": [],
+    "footerMenu": []
+  },
+  "forms": [],
+  "images": [
+    {
+      "src": "../../wp-content/uploads/2024/10/TRANSPARENT-WB-02-1.png",
+      "alt": "El Mejor Abogado de Inmigración en Orlando: Defendiendo tus Derechos con Experiencia y Pasión",
+      "title": "TRANSPARENT WB 02-1"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/gold.png",
+      "alt": "Map & Directions – Raleigh\n - location",
+      "title": ""
+    },
+    {
+      "src": "../../wp-content/uploads/2024/02/affirm.png",
+      "alt": "Image of a person giving a confident affirmation, symbolizing trust and support in a decision or statement.",
+      "title": "affirm"
+    },
+    {
+      "src": "../../wp-content/uploads/2024/02/bdg-des.png",
+      "alt": "Host of Despierta América engaging with the audience on a lively morning talk show, covering news and entertainment.",
+      "title": "bdg-des"
+    },
+    {
+      "src": "../../wp-content/uploads/2024/02/bdg-40.png",
+      "alt": "Map of North Carolina, highlighting its cities, landmarks, and geographic features.",
+      "title": "bdg-40"
+    },
+    {
+      "src": "../../wp-content/uploads/2024/02/bdg-aila1.png",
+      "alt": "Logo of AILA, representing a network of immigration lawyers advocating for fair immigration policies and legal support.",
+      "title": "bdg-aila1"
+    },
+    {
+      "src": "../../wp-content/uploads/2024/02/bdg-ncsb.png",
+      "alt": "Judge affirming a legal decision in court, symbolizing justice and finality in the appeals process.",
+      "title": "bdg-ncsb"
+    },
+    {
+      "src": "../../wp-content/uploads/2024/02/bdg-jus.png",
+      "alt": "Advocate holding a gavel symbolizing justice, representing legal support for fair outcomes and legal advocacy.",
+      "title": "bdg-jus"
+    },
+    {
+      "src": "../../wp-content/uploads/2024/02/bdg-char.png",
+      "alt": "City skyline of Charlotte, North Carolina, showcasing tall buildings and the bustling downtown area.",
+      "title": "bdg-char"
+    },
+    {
+      "src": "../../wp-content/uploads/2024/02/bdg-aila2.png",
+      "alt": "Logo of AILA (American Immigration Lawyers Association), representing a network of attorneys dedicated to immigration law advocacy.",
+      "title": "bdg-aila2"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/gmap.png",
+      "alt": "Map & Directions – Raleigh\n - location",
+      "title": "gmap-mob"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/lawpay.png",
+      "alt": "Map & Directions – Raleigh\n - location",
+      "title": "lawpay"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/affirm-1.png",
+      "alt": "Map & Directions – Raleigh\n - location",
+      "title": "affirm"
+    }
+  ],
+  "extractedAt": "2025-06-27T12:49:46.964Z",
+  "contentSections": [],
+  "internalLinks": [
+    {
+      "text": "Contact Us",
+      "url": "/contact",
+      "anchor": "Free Consultation"
+    },
+    {
+      "text": "Our Attorneys",
+      "url": "/attorneys",
+      "anchor": "Meet Our Team"
+    },
+    {
+      "text": "Practice Areas",
+      "url": "/practice-areas",
+      "anchor": "Legal Services"
+    },
+    {
+      "text": "Green Card Services",
+      "url": "/immigration/green-cards",
+      "anchor": "Green Card Help"
+    },
+    {
+      "text": "Citizenship",
+      "url": "/immigration/citizenship",
+      "anchor": "Become a Citizen"
+    },
+    {
+      "text": "Visa Services",
+      "url": "/immigration/visas",
+      "anchor": "Visa Assistance"
+    }
+  ],
+  "seoScore": 75,
+  "pageType": "location",
+  "enhancedAt": "2025-06-27T12:53:31.605Z",
+  "seo": {
+    "title": "immigration lawyer Charlotte NC | Vasquez Law Firm",
+    "metaDescription": "immigration lawyer Charlotte NC. {\"h1\":\"Map & Directions – Raleigh\\n\",\"heroSection\":\"\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t...",
+    "keywords": "immigration lawyer Charlotte NC, immigration attorney near me, visa lawyer Charlotte, green card attorney, deportation defense lawyer, citizenship attorney Charlotte, DACA lawyer NC, asylum attorney, family immigration lawyer, work visa attorney Charlotte",
+    "canonical": "https://vasquezlawnc.com/enhanced-complete/locations/contact-raleigh-nc-office-location-",
+    "robots": "index, follow",
+    "og": {
+      "title": "immigration lawyer Charlotte NC | Vasquez Law Firm",
+      "description": "immigration lawyer Charlotte NC. {\"h1\":\"Map & Directions – Raleigh\\n\",\"heroSection\":\"\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t\\n\\t\\t\\t\\t...",
+      "type": "website",
+      "locale": "en_US"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "site": "@VasquezLawFirm"
+    }
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    "name": "Vasquez Law Firm",
+    "url": "https://vasquezlawnc.com",
+    "logo": "https://vasquezlawnc.com/logo.png",
+    "image": "https://vasquezlawnc.com/office.jpg",
+    "telephone": "+1-844-967-3536",
+    "email": "info@vasquezlawnc.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "4801 E Independence Blvd Suite 714",
+      "addressLocality": "Charlotte",
+      "addressRegion": "NC",
+      "postalCode": "28212",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "35.1962",
+      "longitude": "-80.7693"
+    },
+    "areaServed": [
+      {
+        "@type": "State",
+        "name": "North Carolina"
+      },
+      {
+        "@type": "State",
+        "name": "South Carolina"
+      }
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    ],
+    "priceRange": "$$",
+    "paymentAccepted": ["Cash", "Check", "Credit Card", "PayPal"],
+    "languages": ["English", "Spanish"],
+    "serviceType": ["Immigration Law", "Visa Services", "Deportation Defense"],
+    "mainEntity": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long does the immigration process take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Immigration timelines vary greatly depending on your case type. Green card applications can take 8-33 months, while citizenship typically takes 8-12 months. Contact Vasquez Law Firm for a personalized timeline assessment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an immigration lawyer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "While not required, an immigration lawyer significantly improves your chances of success. Immigration law is complex and constantly changing. Our attorneys at Vasquez Law Firm ensure your application is complete and accurate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does an immigration lawyer cost in Charlotte?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Immigration attorney fees vary by case complexity. Vasquez Law Firm offers competitive rates and payment plans. Call 1-844-YO-PELEO for a free consultation and fee quote."
+          }
+        }
+      ]
+    }
+  },
+  "optimizedContent": "[object Object]\n\n## Serving Charlotte and Surrounding Areas\nVasquez Law Firm proudly serves clients throughout Charlotte, Mecklenburg County, and the greater North Carolina area. With offices conveniently located in Charlotte, we're here to help with all your legal needs.\n\n\n## Why Choose Vasquez Law Firm?\n- **Experienced Attorneys**: Over 20 years of combined legal experience\n- **Bilingual Services**: We speak English and Spanish\n- **Free Consultation**: Call 1-844-YO-PELEO today\n- **Proven Results**: Hundreds of satisfied clients\n- **24/7 Availability**: We're here when you need us\n",
+  "cta": {
+    "primary": "Get Immigration Help Today",
+    "secondary": "Schedule Your Free Consultation",
+    "urgency": "Don't wait - immigration laws are changing. Call now!",
+    "phone": "1-844-YO-PELEO"
+  },
+  "faqs": [
+    {
+      "question": "How long does the immigration process take?",
+      "answer": "Immigration timelines vary greatly depending on your case type. Green card applications can take 8-33 months, while citizenship typically takes 8-12 months. Contact Vasquez Law Firm for a personalized timeline assessment."
+    },
+    {
+      "question": "Do I need an immigration lawyer?",
+      "answer": "While not required, an immigration lawyer significantly improves your chances of success. Immigration law is complex and constantly changing. Our attorneys at Vasquez Law Firm ensure your application is complete and accurate."
+    },
+    {
+      "question": "How much does an immigration lawyer cost in Charlotte?",
+      "answer": "Immigration attorney fees vary by case complexity. Vasquez Law Firm offers competitive rates and payment plans. Call 1-844-YO-PELEO for a free consultation and fee quote."
+    }
+  ]
+}

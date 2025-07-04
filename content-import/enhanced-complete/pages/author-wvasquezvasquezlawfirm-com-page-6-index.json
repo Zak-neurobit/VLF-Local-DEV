@@ -1,0 +1,259 @@
+{
+  "url": "/author/wvasquezvasquezlawfirm-com/page/6/index.html",
+  "metadata": {
+    "title": "wvasquez@vasquezlawfirm.com, Author at Vasquez Law Firm, PLLC - Page 6 of 10",
+    "metaDescription": "",
+    "metaKeywords": "",
+    "canonical": "index.html",
+    "ogTitle": "wvasquez@vasquezlawfirm.com, Author at Vasquez Law Firm, PLLC - Page 6 of 10",
+    "ogDescription": "",
+    "ogImage": "https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=500&d=mm&r=g",
+    "structuredData": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "ProfilePage",
+            "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/",
+            "url": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/6/",
+            "name": "wvasquez@vasquezlawfirm.com, Author at Vasquez Law Firm, PLLC - Page 6 of 10",
+            "isPartOf": {
+              "@id": "https://www.vasquezlawnc.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/6/#primaryimage"
+            },
+            "image": {
+              "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/6/#primaryimage"
+            },
+            "thumbnailUrl": "https://www.vasquezlawnc.com/wp-content/uploads/2024/09/blog_20240726144700.jpg",
+            "breadcrumb": {
+              "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/6/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": ["https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/6/"]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/6/#primaryimage",
+            "url": "https://www.vasquezlawnc.com/wp-content/uploads/2024/09/blog_20240726144700.jpg",
+            "contentUrl": "https://www.vasquezlawnc.com/wp-content/uploads/2024/09/blog_20240726144700.jpg",
+            "width": 440,
+            "height": 330
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/6/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.vasquezlawnc.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Archives for wvasquez@vasquezlawfirm.com"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.vasquezlawnc.com/#website",
+            "url": "https://www.vasquezlawnc.com/",
+            "name": "Vasquez Law Firm, PLLC",
+            "description": "Raleigh, NC Immigration Attorney",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://www.vasquezlawnc.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://www.vasquezlawnc.com/#/schema/person/2fa7514bdc81d9bc9644faadb9c7084f",
+            "name": "wvasquez@vasquezlawfirm.com",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://www.vasquezlawnc.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=96&d=mm&r=g",
+              "caption": "wvasquez@vasquezlawfirm.com"
+            },
+            "mainEntityOfPage": {
+              "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/"
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "@id": "https://vasquezlawnc.com/#organization",
+        "name": "Vasquez Law Firm, PLLC",
+        "alternateName": "Vasquez Law",
+        "url": "https://vasquezlawnc.com",
+        "logo": "https://vasquezlawnc.com/images/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/vasquezlawfirm",
+          "https://twitter.com/vasquezlawfirm",
+          "https://www.linkedin.com/company/vasquez-law-firm"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-844-967-3536",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Spanish"]
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://vasquezlawnc.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Author",
+            "item": "https://vasquezlawnc.com/author"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Wvasquezvasquezlawfirm com",
+            "item": "https://vasquezlawnc.com/author/wvasquezvasquezlawfirm-com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Page",
+            "item": "https://vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "6",
+            "item": "https://vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/6"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "Vasquez Law Firm",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "127",
+          "bestRating": "5"
+        }
+      }
+    ]
+  },
+  "content": {
+    "h1": "",
+    "heroSection": "",
+    "mainContent": "\n\t<div class=\"container\">\n\t\t<div id=\"content-area\" class=\"clearfix\">\n\t\t\t<div id=\"left-area\">\n\t\t\n\t\t\t\t\t<article id=\"post-2933\" class=\"et_pb_post post-2933 post type-post status-publish format-standard has-post-thumbnail hentry category-immigration\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../how-can-drug-charges-impact-immigration-status/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/09/blog_20240726144700.jpg\" alt=\"How Can Drug Charges Impact Immigration Status?\" class=\"\" width=\"1080\" height=\"675\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../how-can-drug-charges-impact-immigration-status/index.html\">How Can Drug Charges Impact Immigration Status?</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Jul 26, 2024</span> | <a href=\"../../../../category/immigration/index.html\" rel=\"category tag\">Immigration</a></p>Every year, thousands of people are deported from the United States because of&nbsp;drug charges. This policy can be harmful to families because it often separates people from their nuclear family, leaving children without a parent in many cases. These consequences can...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2642\" class=\"et_pb_post post-2642 post type-post status-publish format-standard has-post-thumbnail hentry category-car-accidents\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../types-of-evidence-in-your-auto-accident-injury-claim/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/06/blog-vasquez-june2024.jpg.webp\" alt=\"Types Of Evidence In Your Auto Accident Injury Claim\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2024/06/blog-vasquez-june2024.jpg.webp 1080w, ../../../../wp-content/uploads/2024/06/blog-vasquez-june2024.jpg-980x627.webp 980w, ../../../../wp-content/uploads/2024/06/blog-vasquez-june2024.jpg-480x307.webp 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../types-of-evidence-in-your-auto-accident-injury-claim/index.html\">Types Of Evidence In Your Auto Accident Injury Claim</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Jun 28, 2024</span> | <a href=\"../../../../category/car-accidents/index.html\" rel=\"category tag\">Car Accidents</a></p>When you are injured in an auto accident, it can be difficult to keep a clear head and look to the future. Nonetheless, when you are trying to claim compensation for your injuries and damages to your property, there are certain efforts you want to make immediately...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2937\" class=\"et_pb_post post-2937 post type-post status-publish format-standard has-post-thumbnail hentry category-workers-compensation\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../job-related-risks-for-agricultural-workers/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/09/shutterstock-2259921419-min.jpg\" alt=\"Job-Related Risks for Agricultural Workers\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2024/09/shutterstock-2259921419-min.jpg 1080w, ../../../../wp-content/uploads/2024/09/shutterstock-2259921419-min-480x320.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../job-related-risks-for-agricultural-workers/index.html\">Job-Related Risks for Agricultural Workers</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Jun 21, 2024</span> | <a href=\"../../../../category/workers-compensation/index.html\" rel=\"category tag\">Workers' Compensation</a></p>North Carolina is home to a vast agriculture industry with over 100,000 agricultural employees employed in the state annually. While it is a big job creator, the agricultural industry is also among the&nbsp;most dangerous&nbsp;in terms of job-related injuries, given the...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2550\" class=\"et_pb_post post-2550 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../understanding-common-causes-of-auto-accidents-tips-for-prevention/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/06/blog-car-accidents.webp\" alt=\"Understanding Common Causes Of Auto Accidents: Tips For Prevention\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2024/06/blog-car-accidents.webp 1080w, ../../../../wp-content/uploads/2024/06/blog-car-accidents-980x392.webp 980w, ../../../../wp-content/uploads/2024/06/blog-car-accidents-480x192.webp 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) and (max-width: 980px) 980px, (min-width: 981px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../understanding-common-causes-of-auto-accidents-tips-for-prevention/index.html\">Understanding Common Causes Of Auto Accidents: Tips For Prevention</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Jun 3, 2024</span> | <a href=\"../../../../category/uncategorized/index.html\" rel=\"category tag\">Uncategorized</a></p>Auto accidents are frequently responsible for the injury and death of many drivers and passengers around the world. It’s important to understand what commonly causes these accidents, as well as ways to prevent them from occurring altogether. This blog aims to shed...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2943\" class=\"et_pb_post post-2943 post type-post status-publish format-standard has-post-thumbnail hentry category-immigration\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../understanding-the-different-kinds-of-family-visas-in-north-carolina/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/09/shutterstock-1487364161-1.jpg\" alt=\"Understanding the Different Kinds of Family Visas in North Carolina\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2024/09/shutterstock-1487364161-1.jpg 1080w, ../../../../wp-content/uploads/2024/09/shutterstock-1487364161-1-480x321.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../understanding-the-different-kinds-of-family-visas-in-north-carolina/index.html\">Understanding the Different Kinds of Family Visas in North Carolina</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">May 21, 2024</span> | <a href=\"../../../../category/immigration/index.html\" rel=\"category tag\">Immigration</a></p>Family visas&nbsp;play a pivotal role in reuniting families and loved ones in North Carolina. Understanding the different types of family visas available is essential for those navigating the complex immigration system. For the critical legal assistance you need to...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t<div class=\"pagination clearfix\">\n\t<div class=\"alignleft\"><a href=\"../7/index.html\">« Older Entries</a></div>\n\t<div class=\"alignright\"><a href=\"../5/index.html\">Next Entries »</a></div>\n</div>\t\t\t</div>\n\n\t\t\t\t<div id=\"sidebar\">\n\t\t<div id=\"block-3\" class=\"et_pb_widget widget_block\">\n<div class=\"wp-block-group is-layout-flow wp-block-group-is-layout-flow\">\n<h2 class=\"wp-block-heading\">Recent Blog Posts</h2>\n\n\n<ul class=\"wp-block-latest-posts__list wp-block-latest-posts\"><li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../best-workers-compensation-quote-save-more-today/index.html\">Best Workers Compensation Quote: Save More Today</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../como-miles-se-han-beneficiado-al/index.html\">Cómo Miles se Han Beneficiado al</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../como-navegar-las-complejidades-de-la-junta-de/index.html\">¿Cómo Navegar las Complejidades de la Junta de</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../struggles-of-undocumented-immigrants/index.html\">Struggles of Undocumented Immigrants?</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../expert-tips-to-navigate-a-delayed-immigration-court-case-status/index.html\">Expert Tips to Navigate a Delayed Immigration Court Case Status</a></li>\n</ul></div>\n</div>\t</div>\n\t\t</div>\n\t</div>\n",
+    "sidebar": "",
+    "breadcrumbs": ""
+  },
+  "navigation": {
+    "mainMenu": [],
+    "footerMenu": []
+  },
+  "forms": [],
+  "images": [
+    {
+      "src": "../../../../wp-content/uploads/2024/10/TRANSPARENT-WB-02-1.png",
+      "alt": "El Mejor Abogado de Inmigración en Orlando: Defendiendo tus Derechos con Experiencia y Pasión",
+      "title": "TRANSPARENT WB 02-1"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/gold.png",
+      "alt": "Vasquez Law Firm - general",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/09/blog_20240726144700.jpg",
+      "alt": "How Can Drug Charges Impact Immigration Status?",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/06/blog-vasquez-june2024.jpg.webp",
+      "alt": "Types Of Evidence In Your Auto Accident Injury Claim",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/09/shutterstock-2259921419-min.jpg",
+      "alt": "Job-Related Risks for Agricultural Workers",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/06/blog-car-accidents.webp",
+      "alt": "Understanding Common Causes Of Auto Accidents: Tips For Prevention",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/09/shutterstock-1487364161-1.jpg",
+      "alt": "Understanding the Different Kinds of Family Visas in North Carolina",
+      "title": ""
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/lawpay.png",
+      "alt": "Vasquez Law Firm - general",
+      "title": "lawpay"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/affirm-1.png",
+      "alt": "Vasquez Law Firm - general",
+      "title": "affirm"
+    }
+  ],
+  "extractedAt": "2025-06-27T12:49:46.554Z",
+  "contentSections": [],
+  "internalLinks": [],
+  "seoScore": {
+    "score": 56,
+    "checks": [
+      "⚠ Title tag length: 76 chars (optimal: 30-60)",
+      "✗ Missing H1 tag",
+      "✓ Schema markup present (3 types)",
+      "✓ All images have descriptive alt text",
+      "✓ Substantial content (9325 chars)",
+      "✗ Limited internal links (0, need 3+)",
+      "✓ Canonical URL set",
+      "⚠ Partial Open Graph tags"
+    ],
+    "recommendations": [
+      "⚠ Title tag length: 76 chars (optimal: 30-60)",
+      "✗ Missing H1 tag",
+      "✗ Limited internal links (0, need 3+)",
+      "⚠ Partial Open Graph tags"
+    ]
+  },
+  "pageType": "general",
+  "enhancedAt": "2025-06-27T12:53:31.621Z"
+}

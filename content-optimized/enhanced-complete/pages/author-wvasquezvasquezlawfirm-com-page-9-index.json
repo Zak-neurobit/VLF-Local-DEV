@@ -1,0 +1,384 @@
+{
+  "url": "/author/wvasquezvasquezlawfirm-com/page/9/index.html",
+  "metadata": {
+    "title": "wvasquez@vasquezlawfirm.com, Author at Vasquez Law Firm, PLLC - Page 9 of 10",
+    "metaDescription": "",
+    "metaKeywords": "",
+    "canonical": "index.html",
+    "ogTitle": "wvasquez@vasquezlawfirm.com, Author at Vasquez Law Firm, PLLC - Page 9 of 10",
+    "ogDescription": "",
+    "ogImage": "https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=500&d=mm&r=g",
+    "structuredData": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "ProfilePage",
+            "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/",
+            "url": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/9/",
+            "name": "wvasquez@vasquezlawfirm.com, Author at Vasquez Law Firm, PLLC - Page 9 of 10",
+            "isPartOf": {
+              "@id": "https://www.vasquezlawnc.com/#website"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/9/#primaryimage"
+            },
+            "image": {
+              "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/9/#primaryimage"
+            },
+            "thumbnailUrl": "https://www.vasquezlawnc.com/wp-content/uploads/2024/09/shutterstock_1161207328-min.jpg",
+            "breadcrumb": {
+              "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/9/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": ["https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/9/"]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/9/#primaryimage",
+            "url": "https://www.vasquezlawnc.com/wp-content/uploads/2024/09/shutterstock_1161207328-min.jpg",
+            "contentUrl": "https://www.vasquezlawnc.com/wp-content/uploads/2024/09/shutterstock_1161207328-min.jpg",
+            "width": 500,
+            "height": 334
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/9/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.vasquezlawnc.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Archives for wvasquez@vasquezlawfirm.com"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.vasquezlawnc.com/#website",
+            "url": "https://www.vasquezlawnc.com/",
+            "name": "Vasquez Law Firm, PLLC",
+            "description": "Raleigh, NC Immigration Attorney",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://www.vasquezlawnc.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://www.vasquezlawnc.com/#/schema/person/2fa7514bdc81d9bc9644faadb9c7084f",
+            "name": "wvasquez@vasquezlawfirm.com",
+            "image": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://www.vasquezlawnc.com/#/schema/person/image/",
+              "url": "https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=96&d=mm&r=g",
+              "contentUrl": "https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=96&d=mm&r=g",
+              "caption": "wvasquez@vasquezlawfirm.com"
+            },
+            "mainEntityOfPage": {
+              "@id": "https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/"
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "@id": "https://vasquezlawnc.com/#organization",
+        "name": "Vasquez Law Firm, PLLC",
+        "alternateName": "Vasquez Law",
+        "url": "https://vasquezlawnc.com",
+        "logo": "https://vasquezlawnc.com/images/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/vasquezlawfirm",
+          "https://twitter.com/vasquezlawfirm",
+          "https://www.linkedin.com/company/vasquez-law-firm"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-844-967-3536",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Spanish"]
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://vasquezlawnc.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Author",
+            "item": "https://vasquezlawnc.com/author"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Wvasquezvasquezlawfirm com",
+            "item": "https://vasquezlawnc.com/author/wvasquezvasquezlawfirm-com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Page",
+            "item": "https://vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "9",
+            "item": "https://vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/page/9"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "Vasquez Law Firm",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "127",
+          "bestRating": "5"
+        }
+      }
+    ]
+  },
+  "content": {
+    "h1": "",
+    "heroSection": "",
+    "mainContent": "\n\t<div class=\"container\">\n\t\t<div id=\"content-area\" class=\"clearfix\">\n\t\t\t<div id=\"left-area\">\n\t\t\n\t\t\t\t\t<article id=\"post-2966\" class=\"et_pb_post post-2966 post type-post status-publish format-standard has-post-thumbnail hentry category-criminal-defense\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../will-north-carolina-legalize-marijuana-for-medical-or-recreational-use/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/09/shutterstock_1161207328-min.jpg\" alt=\"Will North Carolina Legalize Marijuana for Medical or Recreational Use\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2024/09/shutterstock_1161207328-min.jpg 1080w, ../../../../wp-content/uploads/2024/09/shutterstock_1161207328-min-480x321.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../will-north-carolina-legalize-marijuana-for-medical-or-recreational-use/index.html\">Will North Carolina Legalize Marijuana for Medical or Recreational Use</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Jun 9, 2023</span> | <a href=\"../../../../category/criminal-defense/index.html\" rel=\"category tag\">Criminal Defense</a></p>Marijuana has been used for centuries by people around the world. Even though it has been found to be less harmful than legal substances such as alcohol and tobacco, and it also has a variety of medical benefits, it has been classified as an illegal&nbsp;controlled...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2969\" class=\"et_pb_post post-2969 post type-post status-publish format-standard has-post-thumbnail hentry category-immigration\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../new-rules-for-asylum-and-parole-may-affect-immigrants-to-the-u-s/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/09/shutterstock_611066249-min.jpg\" alt=\"New Rules for Asylum and Parole May Affect Immigrants to the U.S.\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2024/09/shutterstock_611066249-min.jpg 1080w, ../../../../wp-content/uploads/2024/09/shutterstock_611066249-min-480x336.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../new-rules-for-asylum-and-parole-may-affect-immigrants-to-the-u-s/index.html\">New Rules for Asylum and Parole May Affect Immigrants to the U.S.</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">May 15, 2023</span> | <a href=\"../../../../category/immigration/index.html\" rel=\"category tag\">Immigration</a></p>Over the past several years, the United States has had to deal with a large number of people attempting to enter the country. In many cases, migrants have left their homes in countries that have experienced political unrest, violence, or other dangerous conditions and...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2973\" class=\"et_pb_post post-2973 post type-post status-publish format-standard has-post-thumbnail hentry category-immigration\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../what-issues-will-be-addressed-in-an-immigration-bond-hearing/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/09/shutterstock_535572565-min.jpg\" alt=\"What Issues Will Be Addressed in an Immigration Bond Hearing?\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2024/09/shutterstock_535572565-min.jpg 1080w, ../../../../wp-content/uploads/2024/09/shutterstock_535572565-min-480x240.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../what-issues-will-be-addressed-in-an-immigration-bond-hearing/index.html\">What Issues Will Be Addressed in an Immigration Bond Hearing?</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Apr 18, 2023</span> | <a href=\"../../../../category/immigration/index.html\" rel=\"category tag\">Immigration</a></p>Resettling in another country can be difficult for anyone, and immigrants to the United States may face a number of challenges and legal complications. In some cases, immigrants may be detained by&nbsp;immigration&nbsp;officials during&nbsp;deportation&nbsp;proceedings. Being held in...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2976\" class=\"et_pb_post post-2976 post type-post status-publish format-standard has-post-thumbnail hentry category-personal-injuty\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../types-of-damages-in-a-motorcycle-accident-injury-claim/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/09/shutterstock_2074316275-min.jpg\" alt=\"Types of Damages in a Motorcycle Accident Injury Claim\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2024/09/shutterstock_2074316275-min.jpg 1080w, ../../../../wp-content/uploads/2024/09/shutterstock_2074316275-min-480x300.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../types-of-damages-in-a-motorcycle-accident-injury-claim/index.html\">Types of Damages in a Motorcycle Accident Injury Claim</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Mar 31, 2023</span> | <a href=\"../../../../category/personal-injuty/index.html\" rel=\"category tag\">Personal Injuty</a></p>Motorcycle accidents&nbsp;can have a devastating effect on someone’s life due to the severity of their injuries. The medical expenses, loss of income, and emotional trauma caused by an accident can quickly add up, leaving the victim with substantial financial...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t\n\t\t\t\t\t<article id=\"post-2979\" class=\"et_pb_post post-2979 post type-post status-publish format-standard has-post-thumbnail hentry category-immigration\">\n\n\t\t\t\t\t\t\t\t\t\t\t<a class=\"entry-featured-image-url\" href=\"../../../../what-are-the-eligibility-requirements-for-fiance-visas/index.html\">\n\t\t\t\t\t\t\t\t<img src=\"../../../../wp-content/uploads/2024/09/shutterstock_1577155054.jpg\" alt=\"What Are the Eligibility Requirements for Fiancé Visas?\" class=\"\" width=\"1080\" height=\"675\" srcset=\"../../../../wp-content/uploads/2024/09/shutterstock_1577155054.jpg 1080w, ../../../../wp-content/uploads/2024/09/shutterstock_1577155054-480x305.jpg 480w\" sizes=\"(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 1080px, 100vw\">\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<h2 class=\"entry-title\"><a href=\"../../../../what-are-the-eligibility-requirements-for-fiance-visas/index.html\">What Are the Eligibility Requirements for Fiancé Visas?</a></h2>\n\t\t\t\t\t\n\t\t\t\t\t<p class=\"post-meta\"> by <span class=\"author vcard\"><a href=\"../../index.html\" title=\"Posts by wvasquez@vasquezlawfirm.com\" rel=\"author\">wvasquez@vasquezlawfirm.com</a></span> | <span class=\"published\">Mar 13, 2023</span> | <a href=\"../../../../category/immigration/index.html\" rel=\"category tag\">Immigration</a></p>For many immigrants, the United States represents a place of opportunity and the ability to be together with their loved ones. The visa system in the U.S. provides a number of ways that people from other countries can receive authorization to enter the country and...\t\t\t\t\n\t\t\t\t\t</article>\n\t\t\t<div class=\"pagination clearfix\">\n\t<div class=\"alignleft\"><a href=\"../10/index.html\">« Older Entries</a></div>\n\t<div class=\"alignright\"><a href=\"../8/index.html\">Next Entries »</a></div>\n</div>\t\t\t</div>\n\n\t\t\t\t<div id=\"sidebar\">\n\t\t<div id=\"block-3\" class=\"et_pb_widget widget_block\">\n<div class=\"wp-block-group is-layout-flow wp-block-group-is-layout-flow\">\n<h2 class=\"wp-block-heading\">Recent Blog Posts</h2>\n\n\n<ul class=\"wp-block-latest-posts__list wp-block-latest-posts\"><li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../best-workers-compensation-quote-save-more-today/index.html\">Best Workers Compensation Quote: Save More Today</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../como-miles-se-han-beneficiado-al/index.html\">Cómo Miles se Han Beneficiado al</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../como-navegar-las-complejidades-de-la-junta-de/index.html\">¿Cómo Navegar las Complejidades de la Junta de</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../struggles-of-undocumented-immigrants/index.html\">Struggles of Undocumented Immigrants?</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../../expert-tips-to-navigate-a-delayed-immigration-court-case-status/index.html\">Expert Tips to Navigate a Delayed Immigration Court Case Status</a></li>\n</ul></div>\n</div>\t</div>\n\t\t</div>\n\t</div>\n",
+    "sidebar": "",
+    "breadcrumbs": ""
+  },
+  "navigation": {
+    "mainMenu": [],
+    "footerMenu": []
+  },
+  "forms": [],
+  "images": [
+    {
+      "src": "../../../../wp-content/uploads/2024/10/TRANSPARENT-WB-02-1.png",
+      "alt": "El Mejor Abogado de Inmigración en Orlando: Defendiendo tus Derechos con Experiencia y Pasión",
+      "title": "TRANSPARENT WB 02-1"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/gold.png",
+      "alt": "Vasquez Law Firm - general",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/09/shutterstock_1161207328-min.jpg",
+      "alt": "Will North Carolina Legalize Marijuana for Medical or Recreational Use",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/09/shutterstock_611066249-min.jpg",
+      "alt": "New Rules for Asylum and Parole May Affect Immigrants to the U.S.",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/09/shutterstock_535572565-min.jpg",
+      "alt": "What Issues Will Be Addressed in an Immigration Bond Hearing?",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/09/shutterstock_2074316275-min.jpg",
+      "alt": "Types of Damages in a Motorcycle Accident Injury Claim",
+      "title": ""
+    },
+    {
+      "src": "../../../../wp-content/uploads/2024/09/shutterstock_1577155054.jpg",
+      "alt": "What Are the Eligibility Requirements for Fiancé Visas?",
+      "title": ""
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/lawpay.png",
+      "alt": "Vasquez Law Firm - general",
+      "title": "lawpay"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/affirm-1.png",
+      "alt": "Vasquez Law Firm - general",
+      "title": "affirm"
+    }
+  ],
+  "extractedAt": "2025-06-27T12:49:46.594Z",
+  "contentSections": [],
+  "internalLinks": [
+    {
+      "text": "Contact Us",
+      "url": "/contact",
+      "anchor": "Free Consultation"
+    },
+    {
+      "text": "Our Attorneys",
+      "url": "/attorneys",
+      "anchor": "Meet Our Team"
+    },
+    {
+      "text": "Practice Areas",
+      "url": "/practice-areas",
+      "anchor": "Legal Services"
+    },
+    {
+      "text": "Green Card Services",
+      "url": "/immigration/green-cards",
+      "anchor": "Green Card Help"
+    },
+    {
+      "text": "Citizenship",
+      "url": "/immigration/citizenship",
+      "anchor": "Become a Citizen"
+    },
+    {
+      "text": "Visa Services",
+      "url": "/immigration/visas",
+      "anchor": "Visa Assistance"
+    }
+  ],
+  "seoScore": 75,
+  "pageType": "general",
+  "enhancedAt": "2025-06-27T12:53:31.622Z",
+  "seo": {
+    "title": "immigration lawyer Charlotte NC | Vasquez Law Firm",
+    "metaDescription": "immigration lawyer Charlotte NC. {\"h1\":\"\",\"heroSection\":\"\",\"mainContent\":\"\\n\\t\\n\\t\\t\\n\\t\\t\\t\\n\\t\\t\\n\\t\\t\\t\\t\\t\\n\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\...",
+    "keywords": "immigration lawyer Charlotte NC, immigration attorney near me, visa lawyer Charlotte, green card attorney, deportation defense lawyer, citizenship attorney Charlotte, DACA lawyer NC, asylum attorney, family immigration lawyer, work visa attorney Charlotte",
+    "canonical": "https://vasquezlawnc.com/enhanced-complete/pages/author-wvasquezvasquezlawfirm-com-page-9-",
+    "robots": "index, follow",
+    "og": {
+      "title": "immigration lawyer Charlotte NC | Vasquez Law Firm",
+      "description": "immigration lawyer Charlotte NC. {\"h1\":\"\",\"heroSection\":\"\",\"mainContent\":\"\\n\\t\\n\\t\\t\\n\\t\\t\\t\\n\\t\\t\\n\\t\\t\\t\\t\\t\\n\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\...",
+      "type": "website",
+      "locale": "en_US"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "site": "@VasquezLawFirm"
+    }
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    "name": "Vasquez Law Firm",
+    "url": "https://vasquezlawnc.com",
+    "logo": "https://vasquezlawnc.com/logo.png",
+    "image": "https://vasquezlawnc.com/office.jpg",
+    "telephone": "+1-844-967-3536",
+    "email": "info@vasquezlawnc.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "4801 E Independence Blvd Suite 714",
+      "addressLocality": "Charlotte",
+      "addressRegion": "NC",
+      "postalCode": "28212",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "35.1962",
+      "longitude": "-80.7693"
+    },
+    "areaServed": [
+      {
+        "@type": "State",
+        "name": "North Carolina"
+      },
+      {
+        "@type": "State",
+        "name": "South Carolina"
+      }
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    ],
+    "priceRange": "$$",
+    "paymentAccepted": ["Cash", "Check", "Credit Card", "PayPal"],
+    "languages": ["English", "Spanish"],
+    "serviceType": ["Immigration Law", "Visa Services", "Deportation Defense"],
+    "mainEntity": {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long does the immigration process take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Immigration timelines vary greatly depending on your case type. Green card applications can take 8-33 months, while citizenship typically takes 8-12 months. Contact Vasquez Law Firm for a personalized timeline assessment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an immigration lawyer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "While not required, an immigration lawyer significantly improves your chances of success. Immigration law is complex and constantly changing. Our attorneys at Vasquez Law Firm ensure your application is complete and accurate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does an immigration lawyer cost in Charlotte?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Immigration attorney fees vary by case complexity. Vasquez Law Firm offers competitive rates and payment plans. Call 1-844-YO-PELEO for a free consultation and fee quote."
+          }
+        }
+      ]
+    }
+  },
+  "optimizedContent": "[object Object]\n\n## Serving Charlotte and Surrounding Areas\nVasquez Law Firm proudly serves clients throughout Charlotte, Mecklenburg County, and the greater North Carolina area. With offices conveniently located in Charlotte, we're here to help with all your legal needs.\n\n\n## Why Choose Vasquez Law Firm?\n- **Experienced Attorneys**: Over 20 years of combined legal experience\n- **Bilingual Services**: We speak English and Spanish\n- **Free Consultation**: Call 1-844-YO-PELEO today\n- **Proven Results**: Hundreds of satisfied clients\n- **24/7 Availability**: We're here when you need us\n",
+  "cta": {
+    "primary": "Get Immigration Help Today",
+    "secondary": "Schedule Your Free Consultation",
+    "urgency": "Don't wait - immigration laws are changing. Call now!",
+    "phone": "1-844-YO-PELEO"
+  },
+  "faqs": [
+    {
+      "question": "How long does the immigration process take?",
+      "answer": "Immigration timelines vary greatly depending on your case type. Green card applications can take 8-33 months, while citizenship typically takes 8-12 months. Contact Vasquez Law Firm for a personalized timeline assessment."
+    },
+    {
+      "question": "Do I need an immigration lawyer?",
+      "answer": "While not required, an immigration lawyer significantly improves your chances of success. Immigration law is complex and constantly changing. Our attorneys at Vasquez Law Firm ensure your application is complete and accurate."
+    },
+    {
+      "question": "How much does an immigration lawyer cost in Charlotte?",
+      "answer": "Immigration attorney fees vary by case complexity. Vasquez Law Firm offers competitive rates and payment plans. Call 1-844-YO-PELEO for a free consultation and fee quote."
+    }
+  ]
+}

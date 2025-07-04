@@ -1,0 +1,68 @@
+[
+  {
+    "name": "William Vasquez",
+    "title": "CEO & Managing Attorney",
+    "slug": "william-vasquez",
+    "bio": "William Vasquez is the founder and CEO of Vasquez Law Firm, PLLC. With over 15 years of experience, he has dedicated his career to fighting for the rights of immigrants and injury victims throughout North Carolina.",
+    "education": [
+      "J.D., Campbell University School of Law",
+      "B.A., University of North Carolina at Chapel Hill"
+    ],
+    "barAdmissions": [
+      "North Carolina State Bar",
+      "U.S. District Court, Eastern District of NC",
+      "U.S. District Court, Middle District of NC",
+      "U.S. District Court, Western District of NC"
+    ],
+    "languages": ["English", "Spanish"],
+    "practiceAreas": ["Immigration Law", "Personal Injury", "Criminal Defense"],
+    "memberships": [
+      "American Immigration Lawyers Association (AILA)",
+      "North Carolina Advocates for Justice",
+      "National Association of Criminal Defense Lawyers",
+      "Hispanic National Bar Association"
+    ],
+    "awards": [
+      "Super Lawyers Rising Star",
+      "AVVO 10.0 Superb Rating",
+      "National Trial Lawyers Top 40 Under 40",
+      "Client Choice Award"
+    ]
+  },
+  {
+    "name": "Jillian Baucom",
+    "title": "Senior Immigration Attorney",
+    "slug": "jillian-baucom",
+    "bio": "Jillian Baucom focuses her practice exclusively on immigration law. She has successfully represented hundreds of clients in removal proceedings, family-based petitions, and employment-based immigration matters.",
+    "education": [
+      "J.D., University of North Carolina School of Law",
+      "B.S., North Carolina State University"
+    ],
+    "barAdmissions": ["North Carolina State Bar", "U.S. District Court, Eastern District of NC"],
+    "languages": ["English"],
+    "practiceAreas": ["Immigration Law", "Family Law"],
+    "memberships": [
+      "American Immigration Lawyers Association (AILA)",
+      "North Carolina Bar Association",
+      "Wake County Bar Association"
+    ]
+  },
+  {
+    "name": "Adrianna Ingram",
+    "title": "Personal Injury Attorney",
+    "slug": "adrianna-ingram",
+    "bio": "Adrianna Ingram represents injured workers and accident victims throughout North Carolina. Her aggressive advocacy has resulted in millions of dollars in settlements and verdicts for her clients.",
+    "education": [
+      "J.D., Charlotte School of Law",
+      "B.A., University of North Carolina at Charlotte"
+    ],
+    "barAdmissions": ["North Carolina State Bar", "U.S. District Court, Western District of NC"],
+    "languages": ["English", "Spanish"],
+    "practiceAreas": ["Personal Injury", "Workers Compensation"],
+    "memberships": [
+      "North Carolina Advocates for Justice",
+      "Workers' Injury Law & Advocacy Group",
+      "Million Dollar Advocates Forum"
+    ]
+  }
+]

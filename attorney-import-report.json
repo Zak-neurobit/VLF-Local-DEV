@@ -1,0 +1,40 @@
+{
+  "importDate": "2025-06-29T12:45:12.990Z",
+  "results": [
+    {
+      "attorney": "William G. Vasquez",
+      "status": "exists",
+      "path": "/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/src/app/attorneys/william-vasquez/page.tsx"
+    },
+    {
+      "attorney": "Judith Parkes",
+      "status": "exists",
+      "path": "/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/src/app/attorneys/judith-parkes/page.tsx"
+    },
+    {
+      "attorney": "Adrianna Ingram",
+      "status": "exists",
+      "path": "/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/src/app/attorneys/adrianna-ingram/page.tsx"
+    },
+    {
+      "attorney": "Christopher Afanador",
+      "status": "exists",
+      "path": "/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/src/app/attorneys/christopher-afanador/page.tsx"
+    },
+    {
+      "attorney": "Mark Kelsey",
+      "status": "exists",
+      "path": "/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/src/app/attorneys/mark-kelsey/page.tsx"
+    },
+    {
+      "attorney": "Jillian Baucom",
+      "status": "exists",
+      "path": "/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/src/app/attorneys/jillian-baucom/page.tsx"
+    },
+    {
+      "attorney": "Roselyn V. Torrellas",
+      "status": "exists",
+      "path": "/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/src/app/attorneys/roselyn-torrellas/page.tsx"
+    }
+  ]
+}

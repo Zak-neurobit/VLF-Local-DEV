@@ -1,0 +1,18 @@
+{
+  "importDate": "2025-06-21T11:03:43.965Z",
+  "source": "vasquezlawnc.com",
+  "stats": {
+    "pages": 3,
+    "attorneys": 3,
+    "practiceAreas": 6,
+    "testimonials": 3,
+    "offices": 4
+  },
+  "nextSteps": [
+    "Run npm run build to compile the site",
+    "Review imported content in content-import directory",
+    "Update content with actual text from live site",
+    "Add real images to public/images/imported",
+    "Implement SEO recommendations"
+  ]
+}

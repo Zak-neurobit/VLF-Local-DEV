@@ -1,0 +1,96 @@
+# Dependencies
+node_modules/
+
+# Testing
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# Environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+.git/
+.gitignore
+README.md
+docs/
+scripts/
+*.md
+
+# Old site content - NEVER upload to Vercel
+Old site Brand guidelines and Vision/
+"Old site Brand guidelines and Vision"/
+Old*site*Brand*guidelines*and*Vision/
+vlf old site/
+backup-untracked-files/
+content-import/
+content-optimized/
+
+# Development files
+docker-compose.yml
+docker-compose.*.yml
+Dockerfile
+prisma/dev.db
+prisma/migrations/
+
+# Build and deployment files
+*.sh
+build*.log
+deploy*.sh
+test*.js
+server.js
+server.ts
+demo-server.js
+simple-server.js
+start-*.sh
+fix-*.sh
+check-*.sh
+emergency-*.sh
+final-*.sh
+force-*.sh
+
+# Import and migration files
+import-*.js
+extract-*.js
+migration-*.json
+extraction-*.txt
+*-import-*.json
+
+# Test files
+jest.config.js
+jest.setup.js
+playwright.config.ts
+test-results/
+tests/
+
+# Temporary and cache files
+dist/
+.next/
+tmp/
+temp/
+cache/

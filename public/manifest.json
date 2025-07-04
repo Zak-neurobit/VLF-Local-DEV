@@ -1,0 +1,35 @@
+{
+  "name": "Vasquez Law Firm - YO PELEO POR TI",
+  "short_name": "Vasquez Law",
+  "description": "Experienced immigration, personal injury, and criminal defense attorneys. Available 24/7 with AI assistance.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#6B1F2E",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/images/LOGO_TRANS.PNG",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/LOGO_TRANS.PNG",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["legal", "business"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "orientation": "portrait"
+}

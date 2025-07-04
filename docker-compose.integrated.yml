@@ -1,0 +1,158 @@
+version: '3.8'
+
+services:
+  # VLF Website Services
+  vlf-website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vlf-website
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:password@vlf-postgres:5432/vlf_website
+      - REDIS_URL=redis://shared-redis:6379
+      - HODOS_API_URL=http://hodos-api:3001
+      - HODOS_API_KEY=${HODOS_API_KEY}
+      - HODOS_WEBSOCKET_URL=ws://hodos-api:3001
+    depends_on:
+      - vlf-postgres
+      - shared-redis
+    networks:
+      - vlf-hodos-network
+
+  vlf-postgres:
+    image: postgres:15-alpine
+    container_name: vlf-postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=vlf_website
+    volumes:
+      - vlf-postgres-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - vlf-hodos-network
+
+  # HODOS Services
+  hodos-api:
+    build:
+      context: ../HODOS/HODOS
+      dockerfile: docker/Dockerfile.api
+    container_name: hodos-api
+    ports:
+      - '3001:3001'
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://hodos-mongodb:27017/hodos
+      - REDIS_URL=redis://shared-redis:6379
+      - VLF_WEBSITE_URL=http://vlf-website:3000
+      - VLF_API_KEY=${VLF_API_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      - hodos-mongodb
+      - shared-redis
+    networks:
+      - vlf-hodos-network
+
+  hodos-mongodb:
+    image: mongo:7.0
+    container_name: hodos-mongodb
+    environment:
+      - MONGO_INITDB_DATABASE=hodos
+    volumes:
+      - hodos-mongo-data:/data/db
+    ports:
+      - '27017:27017'
+    networks:
+      - vlf-hodos-network
+
+  hodos-agents:
+    build:
+      context: ../HODOS/HODOS
+      dockerfile: docker/Dockerfile.agents
+    container_name: hodos-agents
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://hodos-mongodb:27017/hodos
+      - REDIS_URL=redis://shared-redis:6379
+    depends_on:
+      - hodos-mongodb
+      - shared-redis
+    networks:
+      - vlf-hodos-network
+
+  # Shared Services
+  shared-redis:
+    image: redis:7-alpine
+    container_name: shared-redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
+    networks:
+      - vlf-hodos-network
+
+  # Optional: Elasticsearch for HODOS
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: hodos-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+    ports:
+      - '9200:9200'
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - vlf-hodos-network
+
+  # Optional: API Gateway
+  nginx-gateway:
+    image: nginx:alpine
+    container_name: api-gateway
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx-integrated.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - vlf-website
+      - hodos-api
+    networks:
+      - vlf-hodos-network
+
+  # Development Tools
+  adminer:
+    image: adminer
+    container_name: db-admin
+    ports:
+      - '8080:8080'
+    networks:
+      - vlf-hodos-network
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-admin
+    ports:
+      - '8081:8081'
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=hodos-mongodb
+      - ME_CONFIG_MONGODB_PORT=27017
+    depends_on:
+      - hodos-mongodb
+    networks:
+      - vlf-hodos-network
+
+volumes:
+  vlf-postgres-data:
+  hodos-mongo-data:
+  redis-data:
+  elasticsearch-data:
+
+networks:
+  vlf-hodos-network:
+    driver: bridge

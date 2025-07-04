@@ -1,0 +1,268 @@
+{
+  "url": "/es/areas-de-practica/derecho-familia/divorcio.html",
+  "metadata": {
+    "title": "Page not found - Vasquez Law Firm, PLLC",
+    "metaDescription": "Compassionate [specific service] attorneys. Protecting your family's future. Bilingual services. Free consultation.",
+    "metaKeywords": "",
+    "canonical": "",
+    "ogTitle": "Page not found - Vasquez Law Firm, PLLC",
+    "ogDescription": "",
+    "ogImage": "",
+    "structuredData": [
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://www.vasquezlawnc.com/#website",
+            "url": "https://www.vasquezlawnc.com/",
+            "name": "Vasquez Law Firm, PLLC",
+            "description": "Raleigh, NC Immigration Attorney",
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://www.vasquezlawnc.com/?s={search_term_string}"
+                },
+                "query-input": {
+                  "@type": "PropertyValueSpecification",
+                  "valueRequired": true,
+                  "valueName": "search_term_string"
+                }
+              }
+            ],
+            "inLanguage": "en-US"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much does a No Results Found lawyer cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Vasquez Law Firm offers free consultations and works on contingency for many cases. This means you don't pay attorney fees unless we win your case. For other matters, we offer competitive rates and payment plans."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does a No Results Found case take?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Case timelines vary depending on complexity and specific circumstances. During your free consultation, we'll provide a realistic timeline based on your unique situation and our extensive experience handling similar cases."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you speak Spanish?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Vasquez Law Firm provides full bilingual services in English and Spanish. Our attorneys and staff can assist you in the language you're most comfortable with."
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "@id": "https://vasquezlawnc.com/#organization",
+        "name": "Vasquez Law Firm, PLLC",
+        "alternateName": "Vasquez Law",
+        "url": "https://vasquezlawnc.com",
+        "logo": "https://vasquezlawnc.com/images/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/vasquezlawfirm",
+          "https://twitter.com/vasquezlawfirm",
+          "https://www.linkedin.com/company/vasquez-law-firm"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+1-844-967-3536",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Spanish"]
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "No Results Found",
+        "description": "Compassionate [specific service] attorneys. Protecting your family's future. Bilingual services. Free consultation.",
+        "provider": {
+          "@type": "LegalService",
+          "name": "Vasquez Law Firm, PLLC",
+          "url": "https://vasquezlawnc.com"
+        },
+        "areaServed": [
+          {
+            "@type": "State",
+            "name": "North Carolina"
+          },
+          {
+            "@type": "State",
+            "name": "Florida"
+          }
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Legal Services",
+          "itemListElement": []
+        },
+        "priceRange": "Free Consultation",
+        "availableLanguage": ["English", "Spanish"],
+        "url": "https://vasquezlawnc.com/es/areas-de-practica/derecho-familia/divorcio"
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://vasquezlawnc.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Es",
+            "item": "https://vasquezlawnc.com/es"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Areas de practica",
+            "item": "https://vasquezlawnc.com/es/areas-de-practica"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Derecho familia",
+            "item": "https://vasquezlawnc.com/es/areas-de-practica/derecho-familia"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Divorcio",
+            "item": "https://vasquezlawnc.com/es/areas-de-practica/derecho-familia/divorcio"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "Vasquez Law Firm",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "127",
+          "bestRating": "5"
+        }
+      }
+    ]
+  },
+  "content": {
+    "h1": "No Results Found",
+    "heroSection": "",
+    "mainContent": "\n\t<div class=\"container\">\n\t\t<div id=\"content-area\" class=\"clearfix\">\n\t\t\t<div id=\"left-area\">\n\t\t\t\t<article id=\"post-0\" class=\"et_pb_post not_found post-4476 post type-post status-publish format-standard has-post-thumbnail hentry category-workers-compensation\">\n\t\t\t\t\t<div class=\"entry\">\n\t<h1 class=\"not-found-title\">No Results Found</h1>\n\t<p>The page you requested could not be found. Try refining your search, or use the navigation above to locate the post.</p>\n</div>\n\t\t\t\t</article>\n\t\t\t</div>\n\n\t\t\t\t<div id=\"sidebar\">\n\t\t<div id=\"block-3\" class=\"et_pb_widget widget_block\">\n<div class=\"wp-block-group is-layout-flow wp-block-group-is-layout-flow\">\n<h2 class=\"wp-block-heading\">Recent Blog Posts</h2>\n\n\n<ul class=\"wp-block-latest-posts__list wp-block-latest-posts\"><li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../best-workers-compensation-quote-save-more-today/index.html\">Best Workers Compensation Quote: Save More Today</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../como-miles-se-han-beneficiado-al/index.html\">Cómo Miles se Han Beneficiado al</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../como-navegar-las-complejidades-de-la-junta-de/index.html\">¿Cómo Navegar las Complejidades de la Junta de</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../struggles-of-undocumented-immigrants/index.html\">Struggles of Undocumented Immigrants?</a></li>\n<li><a class=\"wp-block-latest-posts__post-title\" href=\"../../../expert-tips-to-navigate-a-delayed-immigration-court-case-status/index.html\">Expert Tips to Navigate a Delayed Immigration Court Case Status</a></li>\n</ul></div>\n</div>\t</div>\n\t\t</div>\n\t</div>\n",
+    "sidebar": "",
+    "breadcrumbs": ""
+  },
+  "navigation": {
+    "mainMenu": [],
+    "footerMenu": []
+  },
+  "forms": [],
+  "images": [
+    {
+      "src": "../../../wp-content/uploads/2024/10/TRANSPARENT-WB-02-1.png",
+      "alt": "El Mejor Abogado de Inmigración en Orlando: Defendiendo tus Derechos con Experiencia y Pasión",
+      "title": "TRANSPARENT WB 02-1"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/gold.png",
+      "alt": "No Results Found - family Law",
+      "title": ""
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/lawpay.png",
+      "alt": "No Results Found - family Law",
+      "title": "lawpay"
+    },
+    {
+      "src": "https://vasquezlawnc.com/wp-content/uploads/2024/02/affirm-1.png",
+      "alt": "No Results Found - family Law",
+      "title": "affirm"
+    }
+  ],
+  "extractedAt": "2025-06-27T12:49:47.259Z",
+  "contentSections": [
+    {
+      "title": "How We Can Help",
+      "template": "Our experienced attorneys provide comprehensive legal services for [practice area] cases. With over 35 years of combined experience, we understand the complexities of [specific area] law and fight tirelessly for our clients' rights.",
+      "content": "Our experienced attorneys provide comprehensive legal services for No Results Found cases. With over 35 years of combined experience, we understand the complexities of No Results Found law and fight tirelessly for our clients' rights."
+    },
+    {
+      "title": "Why Choose Vasquez Law Firm",
+      "template": "When you choose Vasquez Law Firm for your [practice area] case, you get: • Bilingual attorneys who understand your needs • 24/7 availability for emergencies • No fee unless we win (for applicable cases) • Personalized attention to your case • Proven track record of success",
+      "content": "When you choose Vasquez Law Firm for your No Results Found case, you get: • Bilingual attorneys who understand your needs • 24/7 availability for emergencies • No fee unless we win (for applicable cases) • Personalized attention to your case • Proven track record of success"
+    },
+    {
+      "title": "Free Consultation",
+      "template": "Get a free evaluation of your [practice area] case. During your consultation, we'll: • Review your situation in detail • Explain your legal options • Answer all your questions • Provide honest assessment • Discuss our fee structure",
+      "content": "Get a free evaluation of your No Results Found case. During your consultation, we'll: • Review your situation in detail • Explain your legal options • Answer all your questions • Provide honest assessment • Discuss our fee structure"
+    },
+    {
+      "title": "Frequently Asked Questions",
+      "template": "Common questions about [practice area] cases in North Carolina and Florida. Our attorneys are here to provide clear answers and guide you through the legal process.",
+      "content": "Common questions about No Results Found cases in North Carolina and Florida. Our attorneys are here to provide clear answers and guide you through the legal process."
+    }
+  ],
+  "internalLinks": [
+    {
+      "text": "Meet Our Attorneys",
+      "href": "/attorneys"
+    },
+    {
+      "text": "Contact Us Today",
+      "href": "/contact"
+    },
+    {
+      "text": "Free Case Evaluation",
+      "href": "/contact#consultation"
+    },
+    {
+      "text": "View All Practice Areas",
+      "href": "/practice-areas"
+    },
+    {
+      "text": "Client Testimonials",
+      "href": "/testimonials"
+    }
+  ],
+  "seoScore": {
+    "score": 81,
+    "checks": [
+      "✓ Title tag length optimal (30-60 chars)",
+      "⚠ Meta description length: 115 chars (optimal: 120-160)",
+      "✓ H1 tag present",
+      "✓ Schema markup present (5 types)",
+      "✓ All images have descriptive alt text",
+      "⚠ Content length: 1689 chars (aim for 2000+)",
+      "✓ Good internal linking (5 links)",
+      "✗ No canonical URL",
+      "⚠ Partial Open Graph tags"
+    ],
+    "recommendations": [
+      "⚠ Meta description length: 115 chars (optimal: 120-160)",
+      "⚠ Content length: 1689 chars (aim for 2000+)",
+      "✗ No canonical URL",
+      "⚠ Partial Open Graph tags"
+    ]
+  },
+  "pageType": "familyLaw",
+  "enhancedAt": "2025-06-27T12:53:31.614Z"
+}

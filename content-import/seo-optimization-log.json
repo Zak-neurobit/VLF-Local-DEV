@@ -1,0 +1,411 @@
+{
+  "timestamp": "2025-06-27T22:52:28.895Z",
+  "optimized": [
+    {
+      "path": "src/app/about/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.909Z"
+    },
+    {
+      "path": "src/app/attorneys/adrianna-ingram/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.910Z"
+    },
+    {
+      "path": "src/app/attorneys/christopher-afanador/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.910Z"
+    },
+    {
+      "path": "src/app/attorneys/jillian-baucom/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.910Z"
+    },
+    {
+      "path": "src/app/attorneys/judith-parkes/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.910Z"
+    },
+    {
+      "path": "src/app/attorneys/mark-kelsey/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.910Z"
+    },
+    {
+      "path": "src/app/attorneys/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.911Z"
+    },
+    {
+      "path": "src/app/attorneys/roselyn-torrellas/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.911Z"
+    },
+    {
+      "path": "src/app/attorneys/william-vasquez/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.911Z"
+    },
+    {
+      "path": "src/app/blog/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.911Z"
+    },
+    {
+      "path": "src/app/calculators/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.912Z"
+    },
+    {
+      "path": "src/app/contact/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.912Z"
+    },
+    {
+      "path": "src/app/criminal-defense/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.913Z"
+    },
+    {
+      "path": "src/app/cutting-edge/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.913Z"
+    },
+    {
+      "path": "src/app/cutting-edge-light/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.913Z"
+    },
+    {
+      "path": "src/app/dashboard/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.913Z"
+    },
+    {
+      "path": "src/app/es/abogados/adrianna-ingram/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.914Z"
+    },
+    {
+      "path": "src/app/es/abogados/christopher-afanador/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.914Z"
+    },
+    {
+      "path": "src/app/es/abogados/jillian-baucom/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.914Z"
+    },
+    {
+      "path": "src/app/es/abogados/judith-parkes/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.914Z"
+    },
+    {
+      "path": "src/app/es/abogados/mark-kelsey/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.914Z"
+    },
+    {
+      "path": "src/app/es/abogados/roselyn-torrellas/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.914Z"
+    },
+    {
+      "path": "src/app/es/abogados/william-vasquez/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.914Z"
+    },
+    {
+      "path": "src/app/es/areas-de-practica/compensacion-laboral/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.914Z"
+    },
+    {
+      "path": "src/app/es/areas-de-practica/defensa-criminal/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.915Z"
+    },
+    {
+      "path": "src/app/es/areas-de-practica/derecho-familia/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.915Z"
+    },
+    {
+      "path": "src/app/es/areas-de-practica/inmigracion/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.915Z"
+    },
+    {
+      "path": "src/app/es/areas-de-practica/lesiones-personales/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.916Z"
+    },
+    {
+      "path": "src/app/es/areas-de-practica/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.916Z"
+    },
+    {
+      "path": "src/app/es/blog/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.916Z"
+    },
+    {
+      "path": "src/app/es/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.916Z"
+    },
+    {
+      "path": "src/app/family-law/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.917Z"
+    },
+    {
+      "path": "src/app/immigration/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.917Z"
+    },
+    {
+      "path": "src/app/locations/charlotte/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.917Z"
+    },
+    {
+      "path": "src/app/locations/durham/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.917Z"
+    },
+    {
+      "path": "src/app/locations/orlando/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.917Z"
+    },
+    {
+      "path": "src/app/locations/raleigh/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.918Z"
+    },
+    {
+      "path": "src/app/locations/smithfield/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.918Z"
+    },
+    {
+      "path": "src/app/locations/winston-salem/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.918Z"
+    },
+    {
+      "path": "src/app/make-payment/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.918Z"
+    },
+    {
+      "path": "src/app/modern-demo/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.918Z"
+    },
+    {
+      "path": "src/app/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.919Z"
+    },
+    {
+      "path": "src/app/payment/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.919Z"
+    },
+    {
+      "path": "src/app/personal-injury/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.919Z"
+    },
+    {
+      "path": "src/app/practice-areas/criminal-defense/assault-battery/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.920Z"
+    },
+    {
+      "path": "src/app/practice-areas/criminal-defense/domestic-violence/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.920Z"
+    },
+    {
+      "path": "src/app/practice-areas/criminal-defense/domestic-violence-abuse/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.920Z"
+    },
+    {
+      "path": "src/app/practice-areas/criminal-defense/drug-crime-cases/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.920Z"
+    },
+    {
+      "path": "src/app/practice-areas/criminal-defense/drug-crimes/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.920Z"
+    },
+    {
+      "path": "src/app/practice-areas/criminal-defense/dui-dwi/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.920Z"
+    },
+    {
+      "path": "src/app/practice-areas/criminal-defense/dwi-drunk-driving/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.921Z"
+    },
+    {
+      "path": "src/app/practice-areas/criminal-defense/expungement/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.921Z"
+    },
+    {
+      "path": "src/app/practice-areas/criminal-defense/expungement-expunction/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.921Z"
+    },
+    {
+      "path": "src/app/practice-areas/criminal-defense/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.921Z"
+    },
+    {
+      "path": "src/app/practice-areas/criminal-defense/theft-property-crimes/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.921Z"
+    },
+    {
+      "path": "src/app/practice-areas/criminal-defense/traffic-offenses/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.922Z"
+    },
+    {
+      "path": "src/app/practice-areas/criminal-defense/traffic-offenses-tickets/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.922Z"
+    },
+    {
+      "path": "src/app/practice-areas/family-law/alimony/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.922Z"
+    },
+    {
+      "path": "src/app/practice-areas/family-law/alimony-spousal-support/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.922Z"
+    },
+    {
+      "path": "src/app/practice-areas/family-law/child-custody/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.922Z"
+    },
+    {
+      "path": "src/app/practice-areas/family-law/divorce/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.922Z"
+    },
+    {
+      "path": "src/app/practice-areas/family-law/equitable-distribution-property-debt-division/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.923Z"
+    },
+    {
+      "path": "src/app/practice-areas/family-law/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.923Z"
+    },
+    {
+      "path": "src/app/practice-areas/family-law/property-division/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.923Z"
+    },
+    {
+      "path": "src/app/practice-areas/immigration/adjustment-of-status/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.924Z"
+    },
+    {
+      "path": "src/app/practice-areas/immigration/asylum-refugee-legal-help/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.924Z"
+    },
+    {
+      "path": "src/app/practice-areas/immigration/detention-bond-hearings/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.924Z"
+    },
+    {
+      "path": "src/app/practice-areas/immigration/employment-based-immigration/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.924Z"
+    },
+    {
+      "path": "src/app/practice-areas/immigration/family-preference-visas/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.925Z"
+    },
+    {
+      "path": "src/app/practice-areas/immigration/green-cards/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.925Z"
+    },
+    {
+      "path": "src/app/practice-areas/immigration/immediate-relative-visas/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.925Z"
+    },
+    {
+      "path": "src/app/practice-areas/immigration/inadmissibility-waivers/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.925Z"
+    },
+    {
+      "path": "src/app/practice-areas/immigration/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.926Z"
+    },
+    {
+      "path": "src/app/practice-areas/immigration/t-visa/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.926Z"
+    },
+    {
+      "path": "src/app/practice-areas/immigration/vawa-u-visa-crime-victims/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.926Z"
+    },
+    {
+      "path": "src/app/practice-areas/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.926Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/bicycle-accidents/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.927Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/boating-accidents/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.927Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/car-auto-accidents/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.927Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/drunk-driver-accidents/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.927Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/drunk-driver-liability/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.927Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/emergency-vehicle-accidents/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.928Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/medical-malpractice/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.928Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/motorcycle-accidents/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.928Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/nursing-home-abuse/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.928Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.929Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/pedestrian-accidents/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.929Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/pedestrian-hit-by-car/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.929Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/premises-liability/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.930Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/truck-accidents/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.930Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/uninsured-motorist/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.930Z"
+    },
+    {
+      "path": "src/app/practice-areas/personal-injury/wrongful-death/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.930Z"
+    },
+    {
+      "path": "src/app/practice-areas/traffic-violations/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.930Z"
+    },
+    {
+      "path": "src/app/practice-areas/workers-compensation/construction-site-injuries/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.931Z"
+    },
+    {
+      "path": "src/app/practice-areas/workers-compensation/equipment-accidents/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.931Z"
+    },
+    {
+      "path": "src/app/practice-areas/workers-compensation/lifting-injuries/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.931Z"
+    },
+    {
+      "path": "src/app/practice-areas/workers-compensation/mental-health-claims/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.931Z"
+    },
+    {
+      "path": "src/app/practice-areas/workers-compensation/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.932Z"
+    },
+    {
+      "path": "src/app/practice-areas/workers-compensation/repetitive-stress-carpal-tunnel/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.932Z"
+    },
+    {
+      "path": "src/app/practice-areas/workers-compensation/third-party-injury-claims/page.tsx",
+      "timestamp": "2025-06-27T22:52:28.932Z"
+    }
+  ],
+  "errors": [],
+  "summary": {
+    "total": 256,
+    "optimized": 100,
+    "errors": 0
+  }
+}
