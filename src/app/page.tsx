@@ -56,7 +56,18 @@ export default function Page() {
           '/william-vasquez-cutout.png',
           '/images/LOGO_TRANS.PNG',
         ]}
-        preconnectDomains={['https://fonts.gstatic.com']}
+        preconnectDomains={[
+          'https://fonts.gstatic.com',
+          'https://www.googletagmanager.com',
+          'https://www.google-analytics.com'
+        ]}
+        prefetchResources={[
+          '/contact',
+          '/practice-areas/immigration',
+          '/practice-areas/personal-injury',
+          '/attorneys/william-vasquez'
+        ]}
+        enableAutomaticOptimization={true}
       />
       <MasterLayout variant="hero" showBreadcrumbs={false}>
         <HomePage />

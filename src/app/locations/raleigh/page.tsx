@@ -1,151 +1,111 @@
 import { Metadata } from 'next';
 import Script from 'next/script';
-import Link from 'next/link';
-import { Phone, MapPin, Clock, ArrowRight } from 'lucide-react';
+import ModernLocationTemplate from '@/components/templates/ModernLocationTemplate';
+import { MasterLayout } from '@/design-system/templates/MasterLayout';
 
 export const metadata: Metadata = {
   title: 'Raleigh Immigration Lawyers | Personal Injury Attorneys - Vasquez Law Firm',
   description:
     'Raleigh NC immigration lawyers and personal injury attorneys. Main office serving Wake County with deportation defense, family visas, work permits & accident claims.',
+  openGraph: {
+    title: 'Raleigh Immigration Lawyers | Personal Injury Attorneys - Vasquez Law Firm',
+    description: 'Main office serving Wake County & Triangle Area. Immigration, personal injury, workers comp & criminal defense. Free consultation. Se habla español.',
+    images: [{ url: '/images/offices/raleigh-office.jpg' }],
+  },
 };
 
 export default function RaleighPage() {
+  const locationData = {
+    cityName: 'Raleigh',
+    officeName: 'Raleigh Office (Main Office)',
+    address: {
+      street: '4426 Louisburg Road',
+      city: 'Raleigh',
+      state: 'NC',
+      zip: '27616',
+    },
+    phone: '1-844-YO-PELEO',
+    email: 'info@vasquezlawfirm.com',
+    hours: {
+      weekdays: 'Mon-Fri: 9:00 AM - 6:00 PM',
+      saturday: 'By Appointment',
+      sunday: 'Emergency Services Available',
+    },
+    servingAreas: [
+      'Downtown Raleigh',
+      'North Raleigh',
+      'Cary',
+      'Apex',
+      'Garner',
+      'Clayton',
+      'Knightdale',
+      'Wake Forest',
+      'Rolesville',
+      'Youngsville',
+      'Wendell',
+      'Zebulon',
+      'Morrisville',
+      'Holly Springs',
+      'Fuquay-Varina',
+    ],
+    practiceAreas: {
+      immigration: [
+        'Green Cards & Permanent Residency',
+        'Deportation Defense',
+        'Work Visas (H-1B, L-1, E-2)',
+        'Family-Based Immigration',
+        'Citizenship & Naturalization',
+        'DACA Applications',
+        'Asylum & Refugee Protection',
+        'Immigration Appeals',
+        'Consular Processing',
+        'Waivers & Pardons',
+      ],
+      personalInjury: [
+        'Car Accidents on I-40, I-440, I-540',
+        'Truck & Commercial Vehicle Accidents',
+        'Motorcycle Accidents',
+        'Pedestrian & Bicycle Injuries',
+        'Slip and Fall Cases',
+        'Wrongful Death Claims',
+        'Medical Malpractice',
+        'Product Liability',
+        'Premises Liability',
+        'Dog Bite Cases',
+      ],
+      workersComp: [
+        'Workplace Injuries',
+        'Construction Accidents',
+        'Repetitive Stress Injuries',
+        'Denied Claims Appeals',
+        'Disability Benefits',
+        'Third-Party Claims',
+        'Occupational Diseases',
+        'Return to Work Issues',
+        'Medical Treatment Disputes',
+        'Permanent Disability Claims',
+      ],
+      criminalDefense: [
+        'DWI/DUI Defense',
+        'Drug Charges',
+        'Domestic Violence',
+        'Traffic Violations',
+        'Expungements',
+        'Federal Crimes',
+        'White Collar Crimes',
+        'Juvenile Cases',
+        'Assault Charges',
+        'Theft & Larceny',
+      ],
+    },
+    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3236.123456789!2d-78.6569!3d35.8324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDQ5JzU2LjYiTiA3OMKwMzknMjQuOSJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-burgundy-700 to-burgundy-900 text-white py-20">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Raleigh Immigration & Personal Injury Lawyers
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-gold-400 font-semibold">
-              Main Office Serving Wake County & The Triangle Area
-            </p>
-            <p className="text-lg mb-8 max-w-3xl mx-auto">
-              Experienced legal team fighting for immigrant rights and injury victims since 2003
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 bg-gold-500 text-burgundy-900 font-bold rounded-full hover:bg-gold-400 transition-colors"
-              >
-                Free Consultation
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <a
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 bg-white text-burgundy-900 font-bold rounded-full hover:bg-gray-100 transition-colors"
-              >
-                <Phone className="mr-2 w-5 h-5" />
-                1-844-YO-PELEO
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Content */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            {/* Office Photo */}
-            <div className="mb-12">
-              <div className="relative h-64 md:h-80 rounded-lg overflow-hidden shadow-lg">
-                <img
-                  src="/images/offices/raleigh-office.jpg"
-                  alt="Raleigh office exterior - Vasquez Law Firm, PLLC"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-
-            <div className="prose prose-lg max-w-none">
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-4">Raleigh Office</h2>
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <div className="flex items-start mb-4">
-                    <MapPin className="w-6 h-6 text-burgundy-700 mr-3 flex-shrink-0 mt-1" />
-                    <div>
-                      <p className="font-semibold">Address:</p>
-                      <p>
-                        4426 Louisburg Road
-                        <br />
-                        Raleigh, NC 27616
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start mb-4">
-                    <Phone className="w-6 h-6 text-burgundy-700 mr-3 flex-shrink-0 mt-1" />
-                    <div>
-                      <p className="font-semibold">Phone:</p>
-                      <p>
-                        <a href="tel:(919) 246-8831" className="text-burgundy-700 hover:underline">
-                          (919) 246-8831
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <Clock className="w-6 h-6 text-burgundy-700 mr-3 flex-shrink-0 mt-1" />
-                    <div>
-                      <p className="font-semibold">Office Hours:</p>
-                      <p>Mon-Fri: 9:00 AM - 5:00 PM</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  Services Available at This Location
-                </h3>
-                <ul className="list-disc pl-6 space-y-2">
-                  <li>Immigration Law</li>
-                  <li>Personal Injury</li>
-                  <li>Workers&apos; Compensation</li>
-                  <li>Criminal Defense</li>
-                  <li>Family Law</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-gray-100 py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-burgundy-900 mb-4">
-              Ready to Get Started?
-            </h2>
-            <p className="text-xl text-gray-700 mb-8">
-              Contact our experienced attorneys today for a free consultation.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 bg-burgundy-700 text-white font-bold rounded-full hover:bg-burgundy-800 transition-colors"
-              >
-                Schedule Consultation
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <a
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 bg-gold-500 text-burgundy-900 font-bold rounded-full hover:bg-gold-400 transition-colors"
-              >
-                <Phone className="mr-2 w-5 h-5" />
-                Call Now
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
+    <>
+      <MasterLayout variant="default" showBreadcrumbs={true}>
+        <ModernLocationTemplate data={locationData} />
+      </MasterLayout>
       {/* Structured Data for SEO */}
       <Script
         id="location-structured-data"
@@ -157,12 +117,14 @@ export default function RaleighPage() {
             name: 'Vasquez Law Firm - Raleigh',
             address: {
               '@type': 'PostalAddress',
+              streetAddress: '4426 Louisburg Road',
               addressLocality: 'Raleigh',
               addressRegion: 'NC',
+              postalCode: '27616',
               addressCountry: 'US',
             },
-            telephone: '+1-919-537-8722',
-            url: 'https://www.vasquezlawfirm.com/locations/raleigh/page',
+            telephone: '+1-844-967-3536',
+            url: 'https://www.vasquezlawfirm.com/locations/raleigh',
             priceRange: '$$',
             openingHoursSpecification: {
               '@type': 'OpeningHoursSpecification',
@@ -173,6 +135,6 @@ export default function RaleighPage() {
           }),
         }}
       />
-    </div>
+    </>
   );
 }

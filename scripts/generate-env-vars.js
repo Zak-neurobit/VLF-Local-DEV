@@ -47,9 +47,9 @@ SMTP_PASSWORD=
 
 # Optional Services
 OPENAI_API_KEY=
-TWILIO_ACCOUNT_SID=
-TWILIO_AUTH_TOKEN=
-TWILIO_PHONE_NUMBER=
+RETELL_API_KEY=
+GHL_API_KEY=
+GHL_LOCATION_ID=
 `;
 
 require('fs').writeFileSync('.env.local.example', envContent);

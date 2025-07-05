@@ -26,6 +26,13 @@ export class RetellAgentManager {
 
     try {
       const service = getRetellService();
+      
+      // Skip initialization if API key is not configured
+      if (!process.env.RETELL_API_KEY) {
+        logger.warn('Retell API key not configured, skipping agent initialization');
+        this.initialized = true;
+        return;
+      }
 
       // Define agent configurations
       const agentConfigs: AgentConfig[] = [
@@ -201,9 +208,14 @@ export class RetellAgentManager {
 
       // Create or update agents
       for (const config of agentConfigs) {
-        const agentId = await this.createOrUpdateAgent(config);
-        if (agentId) {
-          this.agents.set(config.practiceArea, agentId);
+        try {
+          const agentId = await this.createOrUpdateAgent(config);
+          if (agentId) {
+            this.agents.set(config.practiceArea, agentId);
+          }
+        } catch (error: any) {
+          logger.error(`Failed to create/update agent for ${config.practiceArea}:`, error);
+          // Continue with other agents even if one fails
         }
       }
 
@@ -229,7 +241,7 @@ export class RetellAgentManager {
 
       // Check if agent already exists
       const cacheKey = `retell:agent:${config.practiceArea}`;
-      const cachedId = await cache.get<string>(cacheKey);
+      const cachedId = await cache.get(cacheKey) as string | null;
 
       if (cachedId) {
         // Update existing agent
@@ -293,8 +305,20 @@ export class RetellAgentManager {
 
         return agentId;
       }
-    } catch (error) {
-      logger.error('Failed to create/update agent:', error);
+    } catch (error: any) {
+      // Log detailed error information
+      if (error.response?.status === 404) {
+        logger.error('Retell API endpoint not found. Please check API version and endpoints.', {
+          endpoint: error.config?.url,
+          method: error.config?.method,
+        });
+      } else {
+        logger.error('Failed to create/update agent:', {
+          error: error.message,
+          status: error.response?.status,
+          data: error.response?.data,
+        });
+      }
       return null;
     }
   }
@@ -356,3 +380,5 @@ if (process.env.RETELL_API_KEY) {
     logger.error('Failed to auto-initialize Retell agents:', err)
   );
 }
+
+// Export statement removed - class is already exported

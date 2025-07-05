@@ -6,13 +6,40 @@ interface MockCache {
   set: (key: string, value: any, ttl?: number) => Promise<void>;
   del: (key: string) => Promise<void>;
   clear: () => Promise<void>;
+  delete: (key: string) => Promise<void>;
+  deletePattern: (pattern: string) => Promise<void>;
+  flush: () => Promise<void>;
+  info: () => Promise<any>;
+  keys: (pattern: string) => Promise<string[]>;
+  dbsize: () => Promise<number>;
+  memory: (cmd: string, key: string) => Promise<number>;
+  remember: <T>(key: string, factory: () => Promise<T>, ttl?: number) => Promise<T>;
 }
 
 const mockCache: MockCache = {
   async get() { return null; },
   async set() { },
   async del() { },
-  async clear() { }
+  async clear() { },
+  async delete() { },
+  async deletePattern() { },
+  async flush() { },
+  async info() { 
+    return {
+      used_memory: '0',
+      used_memory_human: '0B',
+      connected_clients: '0',
+      total_connections_received: '0',
+      total_commands_processed: '0',
+    };
+  },
+  async keys() { return []; },
+  async dbsize() { return 0; },
+  async memory() { return 0; },
+  async remember<T>(key: string, factory: () => Promise<T>, ttl?: number): Promise<T> {
+    // Simple implementation: always call factory since this is a stub
+    return await factory();
+  }
 };
 
 export const cache = mockCache;
@@ -23,13 +50,17 @@ export const cacheKeys = {
   user: (id: string) => `user:${id}`,
   session: (id: string) => `session:${id}`,
   reviews: () => 'reviews:all',
-  agents: () => 'agents:status'
+  agents: () => 'agents:status',
+  paymentSession: (key: string) => `payment:session:${key}`,
+  call: (id: string) => `call:${id}`,
+  callTranscript: (id: string) => `call:transcript:${id}`
 };
 
 export const CacheTTL = {
   SHORT: 300,
   MEDIUM: 3600,
-  LONG: 86400
+  LONG: 86400,
+  EXTRA_LONG: 604800
 };
 
 export function Cacheable(ttl = 300) {

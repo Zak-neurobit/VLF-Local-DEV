@@ -301,7 +301,7 @@ Current Safety: ${params.currentSafety}`;
       },
     };
 
-    return mockData[type] || mockData.asylum;
+    return mockData[type as keyof typeof mockData] || mockData.asylum;
   }
 
   private extractListItems(text: string): string[] {

@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 import Script from 'next/script';
-
 export const metadata: Metadata = {
   title: 'Best Car Accident Lawyer in Charlotte, NC | 60+ Years Experience | Free Consultation',
   description: 'Top-rated car accident lawyer serving Charlotte and Mecklenburg County. 60+ years combined experience. Available 24/7. Free consultation. Se habla español. Call 1-844-YO-PELEO.',
@@ -25,13 +24,11 @@ export const metadata: Metadata = {
     }
   }
 };
-
 export default function CharlotteCarAccidentLawyerPage() {
   return (
     <>
       <LocationPageTemplate
         location="Charlotte"
-        practiceArea="Car Accident Lawyer"
         content={
           <div className="space-y-12">
             {/* Hero Section */}
@@ -45,7 +42,6 @@ export default function CharlotteCarAccidentLawyerPage() {
                 we're the law firm Charlotte residents trust most.
               </p>
             </section>
-
             {/* Local Expertise */}
             <section className="bg-gray-50 p-8 rounded-lg">
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
@@ -73,7 +69,6 @@ export default function CharlotteCarAccidentLawyerPage() {
                 </div>
               </div>
             </section>
-
             {/* Service Areas */}
             <section>
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
@@ -96,7 +91,6 @@ export default function CharlotteCarAccidentLawyerPage() {
                 </div>
               </div>
             </section>
-
             {/* Local Stats */}
             <section className="bg-[#C9974D]/10 p-8 rounded-lg">
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
@@ -117,9 +111,7 @@ export default function CharlotteCarAccidentLawyerPage() {
                 </div>
               </div>
             </section>
-
             {/* Court Information */}
-            
             <section>
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
                 Mecklenburg County Court Information
@@ -132,8 +124,6 @@ export default function CharlotteCarAccidentLawyerPage() {
                 </p>
               </div>
             </section>
-            
-
             {/* CTA Section */}
             <section className="bg-[#6B1F2E] text-white p-8 rounded-lg text-center">
               <h2 className="text-3xl font-bold mb-4">
@@ -154,7 +144,6 @@ export default function CharlotteCarAccidentLawyerPage() {
           </div>
         }
       />
-
       {/* Local Business Schema */}
       <Script
         id="charlotte-car-accident-lawyer-schema"
@@ -203,7 +192,6 @@ export default function CharlotteCarAccidentLawyerPage() {
           })
         }}
       />
-
       {/* FAQ Schema for Local SEO */}
       <Script
         id="charlotte-car-accident-lawyer-faq"

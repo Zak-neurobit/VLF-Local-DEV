@@ -5,9 +5,7 @@ import { logger } from '@/lib/logger';
 import { prisma } from '@/lib/prisma';
 import { AgentOrchestrator } from '@/lib/agents/agent-orchestrator';
 import { CrewCoordinator } from '@/lib/crewai/crew-coordinator';
-import { agentAnalytics } from '@/services/agents/agent-analytics';
-import { agentManager } from '@/services/agents/agent-manager';
-import { retellAgentManager } from '@/services/retell/agent-manager-v2';
+// Removed unused import - retellAgentManager
 
 // Force dynamic rendering for real-time monitoring
 export const dynamic = 'force-dynamic';
@@ -21,7 +19,7 @@ interface AgentMetrics {
   averageResponseTime: number;
   lastActive: Date | null;
   topIntents: Array<{ intent: string; count: number }>;
-  performance: {
+  performance?: {
     cpuUsage: number;
     memoryUsage: number;
     activeSessions: number;
@@ -110,6 +108,12 @@ export async function GET(req: NextRequest) {
             averageResponseTime: 0,
             lastActive: null,
             topIntents: [],
+            performance: {
+              cpuUsage: 0,
+              memoryUsage: 0,
+              activeSessions: 0,
+              queueDepth: 0,
+            },
           };
         }
 

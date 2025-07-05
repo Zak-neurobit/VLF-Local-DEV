@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 import Script from 'next/script';
-
 export const metadata: Metadata = {
   title: 'Best Lawyers in Vance County, NC | All Legal Services | Vasquez Law Firm',
   description: 'Top-rated attorneys serving Vance County, North Carolina. Immigration, personal injury, workers comp, criminal defense. 60+ years experience. Free consultation.',
@@ -12,14 +11,12 @@ export const metadata: Metadata = {
     url: `https://www.vasquezlawfirm.com/locations/nc/counties/vance`
   }
 };
-
 export default function VanceCountyPage() {
   // Find which region this county belongs to
   const regionData = {"Triangle":{"hub":"raleigh","counties":["Wake","Durham","Orange","Chatham","Johnston","Franklin","Granville","Vance","Warren"],"majorCities":["Raleigh","Durham","Chapel Hill","Cary","Apex","Clayton","Garner","Wake Forest","Morrisville"]},"Charlotte Metro":{"hub":"charlotte","counties":["Mecklenburg","Union","Cabarrus","Gaston","Lincoln","Iredell","Rowan","Cleveland","Catawba"],"majorCities":["Charlotte","Concord","Gastonia","Huntersville","Matthews","Monroe","Salisbury","Statesville"]},"Triad":{"hub":"greensboro","counties":["Guilford","Forsyth","Davidson","Randolph","Alamance","Rockingham","Stokes","Surry","Yadkin"],"majorCities":["Greensboro","Winston-Salem","High Point","Burlington","Lexington","Asheboro","Kernersville"]},"Eastern NC":{"hub":"wilmington","counties":["New Hanover","Brunswick","Pender","Onslow","Carteret","Craven","Pitt","Wayne","Lenoir"],"majorCities":["Wilmington","Jacksonville","Greenville","New Bern","Kinston","Goldsboro","Morehead City"]},"Western NC":{"hub":"asheville","counties":["Buncombe","Henderson","Haywood","Jackson","Transylvania","Madison","Yancey","Mitchell","Avery"],"majorCities":["Asheville","Hendersonville","Waynesville","Brevard","Black Mountain","Boone","Burnsville"]},"Piedmont":{"hub":"fayetteville","counties":["Cumberland","Harnett","Lee","Moore","Hoke","Robeson","Scotland","Richmond","Anson"],"majorCities":["Fayetteville","Sanford","Laurinburg","Lumberton","Southern Pines","Pinehurst","Rockingham"]}};
   const region = Object.entries(regionData).find(([_, data]) => 
     data.counties.includes('Vance')
   )?.[0] || 'North Carolina';
-
   return (
     <>
       <LocationPageTemplate
@@ -36,9 +33,7 @@ export default function VanceCountyPage() {
                 we're here to fight for your rights.
               </p>
             </section>
-
             <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              
               <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Immigration Lawyer</h3>
                 <p className="text-gray-600 mb-4">Expert immigration lawyer services for Vance County residents</p>
@@ -75,7 +70,6 @@ export default function VanceCountyPage() {
                 </a>
               </div>
             </section>
-
             <section className="bg-[#6B1F2E] text-white p-8 rounded-lg">
               <h2 className="text-3xl font-bold mb-4">Why Vance County Chooses Vasquez Law</h2>
               <div className="grid md:grid-cols-2 gap-6">
@@ -93,7 +87,6 @@ export default function VanceCountyPage() {
                 </ul>
               </div>
             </section>
-
             <section className="text-center bg-gray-50 p-8 rounded-lg">
               <h2 className="text-3xl font-bold mb-4 text-[#6B1F2E]">
                 Get Help Now - Serving All of Vance County
@@ -111,7 +104,6 @@ export default function VanceCountyPage() {
           </div>
         }
       />
-
       <Script
         id="vance-schema"
         type="application/ld+json"

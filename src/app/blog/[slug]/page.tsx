@@ -29,7 +29,7 @@ interface BlogPost {
   readTime: number;
   author: string;
   keywords: string[];
-  faqSection?: any;
+  faqSection?: Array<{ question: string; answer: string }>;
   viewCount: number;
   seoScore: number;
   translations: Array<{
@@ -57,6 +57,7 @@ export default function BlogPostPage() {
 
   useEffect(() => {
     fetchPost();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.slug]);
 
   const fetchPost = async () => {
@@ -311,7 +312,7 @@ export default function BlogPostPage() {
             <div className="bg-gray-50 rounded-lg p-8 mb-12">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">{t.faq}</h2>
               <div className="space-y-6">
-                {post.faqSection.map((faq: any, index: number) => (
+                {post.faqSection.map((faq, index) => (
                   <div key={index} className="border-b border-gray-200 pb-4 last:border-0">
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">{faq.question}</h3>
                     <p className="text-gray-600">{faq.answer}</p>

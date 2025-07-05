@@ -1,0 +1,148 @@
+{
+  "agents": {
+    "legal_consultation": {
+      "name": "Legal Consultation Agent",
+      "role": "Senior Legal Advisor",
+      "goal": "Provide accurate legal consultation for immigration, personal injury, and criminal defense cases",
+      "backstory": "You are a senior legal advisor at Vasquez Law Firm with extensive experience in multiple practice areas. You help clients understand their legal rights and options.",
+      "tools": ["web_search", "document_analysis", "legal_database"],
+      "endpoint": "/api/crewai/legal-consultation",
+      "model": "gpt-4",
+      "temperature": 0.7,
+      "max_iterations": 3
+    },
+    "document_analysis": {
+      "name": "Document Analysis Agent",
+      "role": "Legal Document Analyst",
+      "goal": "Analyze legal documents to extract key information, identify issues, and provide summaries",
+      "backstory": "You are an expert in legal document analysis with the ability to quickly identify important clauses, terms, and potential issues.",
+      "tools": ["document_parser", "legal_terminology", "summary_generator"],
+      "endpoint": "/api/crewai/document-analysis",
+      "model": "gpt-4",
+      "temperature": 0.3,
+      "max_iterations": 2
+    },
+    "case_intake": {
+      "name": "Case Intake Agent",
+      "role": "Client Intake Specialist",
+      "goal": "Efficiently gather client information and evaluate case viability",
+      "backstory": "You are a skilled intake specialist who helps potential clients through the initial consultation process.",
+      "tools": ["form_builder", "case_evaluator", "crm_integration"],
+      "endpoint": "/api/crewai/client-intake",
+      "model": "gpt-3.5-turbo",
+      "temperature": 0.5,
+      "max_iterations": 3
+    },
+    "seo_content": {
+      "name": "SEO Content Generation Agent",
+      "role": "Legal Content Strategist",
+      "goal": "Create SEO-optimized legal content that educates and attracts potential clients",
+      "backstory": "You are a content strategist specializing in legal topics with expertise in SEO best practices.",
+      "tools": ["keyword_research", "content_generator", "seo_optimizer"],
+      "endpoint": "/api/crewai/seo-blog-generation",
+      "model": "gpt-4",
+      "temperature": 0.8,
+      "max_iterations": 2
+    },
+    "appointment_scheduling": {
+      "name": "Appointment Scheduling Agent",
+      "role": "Scheduling Coordinator",
+      "goal": "Efficiently schedule consultations between clients and attorneys",
+      "backstory": "You are an experienced scheduling coordinator who manages attorney calendars and client appointments.",
+      "tools": ["calendar_access", "email_integration", "reminder_system"],
+      "endpoint": "/api/crewai/appointment-scheduling",
+      "model": "gpt-3.5-turbo",
+      "temperature": 0.3,
+      "max_iterations": 2
+    },
+    "lead_validation": {
+      "name": "Lead Validation Agent",
+      "role": "Lead Qualification Specialist",
+      "goal": "Validate and qualify potential client leads based on case criteria",
+      "backstory": "You are an expert at qualifying leads and determining case viability for the firm.",
+      "tools": ["lead_scorer", "case_criteria", "crm_integration"],
+      "endpoint": "/api/agents/lead-validation",
+      "model": "gpt-3.5-turbo",
+      "temperature": 0.4,
+      "max_iterations": 2
+    }
+  },
+  "workflows": {
+    "complete_client_onboarding": {
+      "name": "Complete Client Onboarding",
+      "description": "Full client onboarding from initial contact to scheduled consultation",
+      "agents": ["lead_validation", "case_intake", "appointment_scheduling"],
+      "steps": [
+        {
+          "agent": "lead_validation",
+          "action": "validate_lead",
+          "input": "client_info"
+        },
+        {
+          "agent": "case_intake",
+          "action": "gather_details",
+          "input": "validated_lead"
+        },
+        {
+          "agent": "appointment_scheduling",
+          "action": "schedule_consultation",
+          "input": "case_details"
+        }
+      ]
+    },
+    "document_review_workflow": {
+      "name": "Document Review & Consultation",
+      "description": "Analyze documents and provide legal consultation",
+      "agents": ["document_analysis", "legal_consultation"],
+      "steps": [
+        {
+          "agent": "document_analysis",
+          "action": "analyze_document",
+          "input": "uploaded_document"
+        },
+        {
+          "agent": "legal_consultation",
+          "action": "provide_advice",
+          "input": "document_analysis"
+        }
+      ]
+    }
+  },
+  "tools": {
+    "web_search": {
+      "name": "Web Search",
+      "description": "Search for legal information and precedents"
+    },
+    "document_analysis": {
+      "name": "Document Analysis",
+      "description": "Extract and analyze content from legal documents"
+    },
+    "legal_database": {
+      "name": "Legal Database",
+      "description": "Access legal precedents and case law"
+    },
+    "crm_integration": {
+      "name": "CRM Integration",
+      "description": "Integrate with law firm CRM system"
+    },
+    "calendar_access": {
+      "name": "Calendar Access",
+      "description": "Access and manage attorney calendars"
+    },
+    "email_integration": {
+      "name": "Email Integration",
+      "description": "Send and manage email communications"
+    }
+  },
+  "settings": {
+    "api_base_url": "http://localhost:3000",
+    "default_language": "en",
+    "supported_languages": ["en", "es"],
+    "firm_info": {
+      "name": "Vasquez Law Firm, PLLC",
+      "tagline": "YO PELEO POR TI™",
+      "phone": "1-844-YO-PELEO",
+      "website": "https://vasquezlawnc.com"
+    }
+  }
+}

@@ -32,17 +32,12 @@ const requiredVars = {
 };
 
 const optionalVars = {
-  // Twilio
-  TWILIO_ACCOUNT_SID: 'Required for SMS/Voice features',
-  TWILIO_AUTH_TOKEN: 'Required for SMS/Voice features',
-  TWILIO_PHONE_NUMBER: 'Your Twilio phone number',
+  // GoHighLevel (handles SMS)
+  GHL_API_KEY: 'Required for CRM integration and SMS',
+  GHL_LOCATION_ID: 'Required for CRM integration and SMS',
 
-  // GoHighLevel
-  GHL_API_KEY: 'Required for CRM integration',
-  GHL_LOCATION_ID: 'Required for CRM integration',
-
-  // Retell AI
-  RETELL_API_KEY: 'Required for voice agents',
+  // Retell AI (handles voice calls)
+  RETELL_API_KEY: 'Required for voice agents and calls',
 
   // Redis
   REDIS_URL: 'Recommended for caching',

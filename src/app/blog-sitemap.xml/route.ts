@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   const baseUrl = 'https://www.vasquezlawnc.com';
-  const currentDate = new Date().toISOString();
 
   // TODO: Replace with actual blog post data from your database
   // This is a placeholder structure

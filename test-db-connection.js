@@ -1,51 +1,27 @@
-const { Client } = require('pg');
+// Quick test script to verify database connection
+const { PrismaClient } = require('@prisma/client');
 
 async function testConnection() {
-  const connectionStrings = [
-    {
-      name: 'Neon Database',
-      url: 'postgresql://neondb_owner:npg_eCqcU6ELgvJ5@ep-old-mode-a4bj2csn-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require',
-    },
-  ];
-
-  for (const conn of connectionStrings) {
-    console.log(`\nTesting ${conn.name}...`);
-    const client = new Client({
-      connectionString: conn.url,
-    });
-
-    try {
-      await client.connect();
-      console.log(`✅ ${conn.name} - Connected successfully!`);
-      
-      // Check tables
-      const tablesQuery = `
-        SELECT table_name 
-        FROM information_schema.tables 
-        WHERE table_schema = 'public' 
-        ORDER BY table_name;
-      `;
-      
-      const result = await client.query(tablesQuery);
-      
-      if (result.rows.length > 0) {
-        console.log('\nExisting tables:');
-        result.rows.forEach(row => {
-          console.log(`  - ${row.table_name}`);
-        });
-      } else {
-        console.log('\n⚠️  No tables found. Need to run Prisma migrations.');
-      }
-      
-      await client.end();
-      
-      console.log('\n✅ Database URL for Vercel:');
-      console.log(conn.url);
-      
-    } catch (error) {
-      console.log(`❌ ${conn.name} - Failed: ${error.message}`);
-    }
+  const prisma = new PrismaClient();
+  
+  try {
+    // Test the connection
+    await prisma.$connect();
+    console.log('✅ Database connection successful!');
+    
+    // Try a simple query
+    const userCount = await prisma.user.count();
+    console.log(`✅ Found ${userCount} users in the database`);
+    
+    // Test raw query
+    const result = await prisma.$queryRaw`SELECT 1 as test`;
+    console.log('✅ Raw query successful:', result);
+    
+  } catch (error) {
+    console.error('❌ Database connection failed:', error.message);
+  } finally {
+    await prisma.$disconnect();
   }
 }
 
-testConnection().catch(console.error);
+testConnection();

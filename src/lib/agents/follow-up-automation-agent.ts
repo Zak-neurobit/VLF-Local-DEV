@@ -24,13 +24,12 @@ export class FollowUpAutomationAgent extends Agent {
 
   constructor() {
     super({
+      name: 'FollowUpAutomationAgent',
       role: 'Follow-Up Automation Specialist',
       goal: 'Create and manage intelligent follow-up sequences that convert leads into clients',
       backstory: `You are a master of follow-up automation with expertise in behavioral psychology and conversion optimization. 
                   You design personalized follow-up sequences that nurture leads at the perfect pace, never letting 
                   valuable prospects slip through the cracks while respecting their communication preferences.`,
-      verbose: true,
-      allowDelegation: false,
     });
     
     this.ghl = new GoHighLevelService();
@@ -153,10 +152,10 @@ export class FollowUpAutomationAgent extends Agent {
   }
 
   private async generatePersonalizations(data: any): Promise<Record<string, string>> {
-    const contact = await this.ghl.getContact(data.contactId);
+    const contact = await this.ghl.findContactByEmail(data.contactId); // TODO: Add findContactById method
     
     return {
-      firstName: contact.firstName || 'Friend',
+      firstName: contact?.firstName || 'Friend',
       practiceArea: this.formatPracticeArea(data.practiceAreas[0]),
       urgencyText: this.getUrgencyText(data.urgencyLevel, data.languagePreference),
       caseValueText: this.getCaseValueText(data.leadScore, data.languagePreference),
@@ -177,7 +176,7 @@ export class FollowUpAutomationAgent extends Agent {
       'visa-services': 'Visa Services',
     };
     
-    return formatted[area] || 'Immigration';
+    return formatted[area as keyof typeof formatted] || 'Immigration';
   }
 
   private getUrgencyText(level: string, lang: string): string {

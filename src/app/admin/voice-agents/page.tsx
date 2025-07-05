@@ -32,7 +32,7 @@ export default function VoiceAgentsPage() {
   const [loading, setLoading] = useState(false);
   const [agents, setAgents] = useState<RetellAgent[]>([]);
   const [localConfigs, setLocalConfigs] = useState<VoiceAgent[]>([]);
-  const [phoneNumbers, setPhoneNumbers] = useState<any[]>([]);
+  const [phoneNumbers, setPhoneNumbers] = useState<{ phone_number: string; agent_id?: string; in_use: boolean }[]>([]);
 
   useEffect(() => {
     if (status === 'unauthenticated' || (session && session.user.role !== 'ADMIN')) {

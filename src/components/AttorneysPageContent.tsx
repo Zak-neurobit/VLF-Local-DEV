@@ -3,13 +3,13 @@
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Script from 'next/script';
 // Dynamic import for client-side only rendering
 const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
   ssr: false,
 });
-import { Globe, Scale } from 'lucide-react';
+import { Globe, Scale, Phone, ArrowRight, Award, Users, Shield, Star, Briefcase } from 'lucide-react';
 import { generateAttorneySchema } from '@/components/SEO/schemas';
 import AttorneyPhoto from '@/components/AttorneyPhoto';
 
@@ -18,6 +18,8 @@ interface AttorneysPageContentProps {
 }
 
 export default function AttorneysPageContent({ language }: AttorneysPageContentProps) {
+  const [hoveredAttorney, setHoveredAttorney] = useState<string | null>(null);
+
   const attorneys = [
     {
       id: 'william-vasquez',
@@ -184,8 +186,8 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
 
   const content = {
     en: {
-      title: 'Our Attorneys',
-      subtitle: 'Experienced Legal Team Fighting for Your Rights',
+      title: 'Our Elite Legal Team',
+      subtitle: 'Experienced Attorneys Fighting for Your Rights',
       description:
         'Meet our dedicated team of attorneys who combine decades of legal expertise with compassionate client service to deliver exceptional results.',
       viewProfile: 'View Full Profile',
@@ -202,10 +204,16 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
       technology: 'Cutting-Edge Legal Strategies',
       bilingual: 'Multilingual Team',
       results: 'Thousands of Successful Cases',
+      cta: {
+        title: 'Ready to Fight for Your Rights?',
+        description: 'Contact our experienced attorneys today for a free consultation.',
+        button1: 'Free Case Evaluation',
+        button2: 'Call: 1-844-YO-PELEO',
+      },
     },
     es: {
-      title: 'Nuestros Abogados',
-      subtitle: 'Equipo Legal Experimentado Luchando por Sus Derechos',
+      title: 'Nuestro Equipo Legal Elite',
+      subtitle: 'Abogados Experimentados Luchando por Sus Derechos',
       description:
         'Conozca a nuestro dedicado equipo de abogados que combinan décadas de experiencia legal con servicio compasivo al cliente para ofrecer resultados excepcionales.',
       viewProfile: 'Ver Perfil Completo',
@@ -222,32 +230,77 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
       technology: 'Estrategias Legales de Vanguardia',
       bilingual: 'Equipo Multilingüe',
       results: 'Miles de Casos Exitosos',
+      cta: {
+        title: '¿Listo para Luchar por Sus Derechos?',
+        description: 'Contáctenos hoy para una consulta gratuita con nuestros abogados experimentados.',
+        button1: 'Evaluación Gratuita',
+        button2: 'Llame: 1-844-YO-PELEO',
+      },
     },
   };
 
   const t = content[language];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] text-white py-24">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="min-h-screen bg-black">
+      {/* Hero Section with Modern Design */}
+      <section className="relative overflow-hidden bg-black py-32">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-black to-secondary/10" />
+          <motion.div
+            className="absolute inset-0"
+            animate={{
+              background: [
+                'radial-gradient(circle at 20% 50%, rgba(201, 151, 77, 0.1) 0%, transparent 50%)',
+                'radial-gradient(circle at 80% 50%, rgba(107, 31, 46, 0.1) 0%, transparent 50%)',
+                'radial-gradient(circle at 20% 50%, rgba(201, 151, 77, 0.1) 0%, transparent 50%)',
+              ],
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+          />
+          {/* Floating particles */}
+          {[...Array(30)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute h-1 w-1 bg-primary/30 rounded-full"
+              initial={{
+                x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
+                y: Math.random() * 600,
+              }}
+              animate={{
+                y: [null, -200],
+                opacity: [0, 1, 0],
+              }}
+              transition={{
+                duration: Math.random() * 10 + 10,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{t.title}</h1>
-            <p className="text-xl text-[#C9974D] font-semibold mb-6">{t.subtitle}</p>
-            <p className="max-w-3xl mx-auto text-lg">{t.description}</p>
+            <h1 className="text-5xl md:text-7xl font-black mb-6">
+              <span className="bg-gradient-to-r from-primary to-primary-300 bg-clip-text text-transparent">
+                {t.title}
+              </span>
+            </h1>
+            <p className="text-xl md:text-2xl text-primary font-semibold mb-6">{t.subtitle}</p>
+            <p className="max-w-3xl mx-auto text-lg text-gray-300">{t.description}</p>
           </motion.div>
         </div>
       </section>
 
-      {/* Attorneys Grid */}
-      <section className="py-16">
+      {/* Attorneys Grid with Modern Cards */}
+      <section className="py-20 bg-gradient-to-b from-black to-neutral-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {attorneys.map((attorney, index) => (
@@ -256,54 +309,72 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow border border-gray-200"
+                onMouseEnter={() => setHoveredAttorney(attorney.id)}
+                onMouseLeave={() => setHoveredAttorney(null)}
+                className="group relative"
               >
-                <AttorneyPhoto
-                  name={attorney.name}
-                  title={attorney.title[language]}
-                  imagePath={attorney.image}
-                  className="h-80"
-                />
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-[#6B1F2E] mb-2">{attorney.name}</h3>
-                  <p className="text-[#C9974D] font-semibold mb-4">{attorney.title[language]}</p>
-                  <p className="text-gray-600 mb-4 line-clamp-3">{attorney.bio[language]}</p>
+                <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20">
+                  {/* Glow Effect */}
+                  <AnimatePresence>
+                    {hoveredAttorney === attorney.id && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent pointer-events-none"
+                      />
+                    )}
+                  </AnimatePresence>
 
-                  {/* Practice Areas */}
-                  <div className="mb-4">
-                    <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
-                      <Scale className="w-4 h-4 mr-2 text-[#C9974D]" />
-                      {t.specialties}
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {attorney.specialties[language].slice(0, 3).map(specialty => (
-                        <span
-                          key={specialty}
-                          className="px-3 py-1 bg-gray-100 text-sm text-gray-700 rounded-full"
-                        >
-                          {specialty}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                  <AttorneyPhoto
+                    name={attorney.name}
+                    title={attorney.title[language]}
+                    imagePath={attorney.image}
+                    className="h-80 relative overflow-hidden"
+                  />
+                  
+                  <div className="p-6 relative">
+                    <h3 className="text-2xl font-bold text-white mb-2">{attorney.name}</h3>
+                    <p className="text-primary font-semibold mb-4">{attorney.title[language]}</p>
+                    <p className="text-gray-400 mb-4 line-clamp-3">{attorney.bio[language]}</p>
 
-                  {/* Languages */}
-                  {attorney.languages.length > 0 && (
+                    {/* Practice Areas with Modern Pills */}
                     <div className="mb-4">
-                      <h4 className="font-semibold text-gray-900 mb-1 flex items-center">
-                        <Globe className="w-4 h-4 mr-2 text-[#C9974D]" />
-                        {t.languages}
+                      <h4 className="font-semibold text-white mb-2 flex items-center">
+                        <Scale className="w-4 h-4 mr-2 text-primary" />
+                        {t.specialties}
                       </h4>
-                      <p className="text-sm text-gray-600">{attorney.languages.join(', ')}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {attorney.specialties[language].slice(0, 3).map(specialty => (
+                          <span
+                            key={specialty}
+                            className="px-3 py-1 bg-primary/10 text-xs text-primary rounded-full border border-primary/20"
+                          >
+                            {specialty}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  )}
 
-                  <Link
-                    href={language === 'es' ? `/es/abogados/${attorney.id}` : `/attorneys/${attorney.id}`}
-                    className="inline-block mt-4 px-6 py-2 bg-[#6B1F2E] text-white rounded-md hover:bg-[#8B2635] transition-colors font-medium"
-                  >
-                    {t.viewProfile}
-                  </Link>
+                    {/* Languages */}
+                    {attorney.languages.length > 0 && (
+                      <div className="mb-6">
+                        <h4 className="font-semibold text-white mb-1 flex items-center">
+                          <Globe className="w-4 h-4 mr-2 text-primary" />
+                          {t.languages}
+                        </h4>
+                        <p className="text-sm text-gray-400">{attorney.languages.join(', ')}</p>
+                      </div>
+                    )}
+
+                    <Link
+                      href={language === 'es' ? `/es/abogados/${attorney.id}` : `/attorneys/${attorney.id}`}
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black rounded-full hover:bg-primary-300 transition-all font-bold group-hover:scale-105"
+                    >
+                      {t.viewProfile}
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -311,58 +382,150 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
         </div>
       </section>
 
-      {/* Team Approach Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#6B1F2E] mb-4">{t.teamApproach}</h2>
-            <p className="max-w-3xl mx-auto text-lg text-gray-600">{t.teamDescription}</p>
-          </div>
+      {/* Team Approach Section with Modern Stats */}
+      <section className="py-20 bg-black relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-black mb-4">
+              <span className="bg-gradient-to-r from-primary to-primary-300 bg-clip-text text-transparent">
+                {t.teamApproach}
+              </span>
+            </h2>
+            <p className="max-w-3xl mx-auto text-lg text-gray-300">{t.teamDescription}</p>
+          </motion.div>
 
           <div className="grid md:grid-cols-4 gap-8">
-            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
-              <div className="text-4xl mb-4">💼</div>
-              <h3 className="font-bold text-[#6B1F2E] mb-2">{t.experience}</h3>
-            </div>
-            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
-              <div className="text-4xl mb-4">⚖️</div>
-              <h3 className="font-bold text-[#6B1F2E] mb-2">{t.technology}</h3>
-            </div>
-            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
-              <div className="text-4xl mb-4">🌎</div>
-              <h3 className="font-bold text-[#6B1F2E] mb-2">{t.bilingual}</h3>
-            </div>
-            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
-              <div className="text-4xl mb-4">🏆</div>
-              <h3 className="font-bold text-[#6B1F2E] mb-2">{t.results}</h3>
-            </div>
+            {[
+              { icon: <Award className="w-8 h-8" />, text: t.experience, value: '100+', metric: 'Years' },
+              { icon: <Shield className="w-8 h-8" />, text: t.technology, value: 'Elite', metric: 'Status' },
+              { icon: <Globe className="w-8 h-8" />, text: t.bilingual, value: '5+', metric: 'Languages' },
+              { icon: <Users className="w-8 h-8" />, text: t.results, value: '30K+', metric: 'Cases Won' },
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="relative group"
+              >
+                <div className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 text-center">
+                  <div className="text-primary mb-4 flex justify-center">{item.icon}</div>
+                  <div className="text-4xl font-black text-primary mb-1">{item.value}</div>
+                  <div className="text-xs text-primary uppercase tracking-wider mb-2">{item.metric}</div>
+                  <h3 className="font-bold text-white">{item.text}</h3>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-[#6B1F2E] text-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">{t.whyChoose}</h2>
-          <p className="text-lg mb-8">
-            {language === 'en'
-              ? 'Contact us today to schedule your free consultation and learn how we can help with your legal needs.'
-              : 'Contáctenos hoy para programar su consulta gratuita y aprender cómo podemos ayudar con sus necesidades legales.'}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href={language === 'es' ? '/es/consulta-gratuita' : '/free-consultation'}
-              className="px-8 py-3 bg-[#C9974D] text-white rounded-md font-bold hover:bg-[#D4A574] transition-colors"
-            >
-              {t.schedule}
-            </Link>
-            <a
-              href="tel:18449673536"
-              className="px-8 py-3 bg-white text-[#6B1F2E] rounded-md font-bold hover:bg-gray-100 transition-colors"
-            >
-              📞 1-844-YO-PELEO
-            </a>
+      {/* Why Choose Section */}
+      <section className="py-20 bg-gradient-to-b from-neutral-950 to-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-black mb-4">
+              <span className="bg-gradient-to-r from-primary to-primary-300 bg-clip-text text-transparent">
+                {t.whyChoose}
+              </span>
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <Star className="w-12 h-12" />,
+                title: 'Elite Recognition',
+                description: 'Top-rated attorneys with prestigious awards and peer recognition',
+              },
+              {
+                icon: <Briefcase className="w-12 h-12" />,
+                title: 'Proven Track Record',
+                description: 'Thousands of successful cases with millions recovered for clients',
+              },
+              {
+                icon: <Users className="w-12 h-12" />,
+                title: 'Client-First Approach',
+                description: '24/7 availability with personalized attention to every case',
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center"
+              >
+                <div className="inline-flex items-center justify-center mb-6 text-primary">
+                  {item.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
+                <p className="text-gray-400">{item.description}</p>
+              </motion.div>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* CTA Section with Modern Design */}
+      <section className="py-20 bg-gradient-to-b from-black to-neutral-950 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <motion.div
+            animate={{
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{ duration: 4, repeat: Infinity }}
+            className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-secondary/10"
+          />
+        </div>
+
+        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-5xl font-black mb-4">
+              <span className="bg-gradient-to-r from-primary to-primary-300 bg-clip-text text-transparent">
+                {t.cta.title}
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 mb-8">{t.cta.description}</p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href={language === 'es' ? '/es/consulta-gratuita' : '/free-consultation'}
+                className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-black rounded-full font-bold hover:bg-primary-300 transition-all transform hover:scale-105"
+              >
+                {t.cta.button1}
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <a
+                href="tel:18449673536"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-transparent text-white rounded-full font-bold border-2 border-white hover:bg-white hover:text-black transition-all transform hover:scale-105"
+              >
+                <Phone className="w-5 h-5" />
+                {t.cta.button2}
+              </a>
+            </div>
+          </motion.div>
         </div>
       </section>
 

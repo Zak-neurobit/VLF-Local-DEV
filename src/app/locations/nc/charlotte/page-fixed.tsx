@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { LocationPageTemplateFixed } from '@/components/locations/LocationPageTemplateFixed';
-
 export const metadata: Metadata = {
   title: `Charlotte NC Immigration Lawyer & Criminal Defense Attorney | Vasquez Law Firm`,
   description: `Experienced Charlotte attorneys serving Mecklenburg County. Immigration law, criminal defense, personal injury, family law. Free consultation.`,
@@ -19,7 +18,6 @@ export const metadata: Metadata = {
     },
   },
 };
-
 export default function CharlotteNCPage() {
   return (
     <LocationPageTemplateFixed

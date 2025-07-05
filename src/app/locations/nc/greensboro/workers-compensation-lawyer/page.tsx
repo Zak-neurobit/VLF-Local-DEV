@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 import Script from 'next/script';
-
 export const metadata: Metadata = {
   title: 'Best Workers\' Compensation Lawyer in Greensboro, NC | 60+ Years Experience | Free Consultation',
   description: 'Top-rated workers\' compensation lawyer serving Greensboro and Guilford County. 60+ years combined experience. Available 24/7. Free consultation. Se habla español. Call 1-844-YO-PELEO.',
@@ -25,13 +24,11 @@ export const metadata: Metadata = {
     }
   }
 };
-
 export default function GreensboroWorkersCompensationLawyerPage() {
   return (
     <>
       <LocationPageTemplate
         location="Greensboro"
-        practiceArea="Workers\' Compensation Lawyer"
         content={
           <div className="space-y-12">
             {/* Hero Section */}
@@ -45,7 +42,6 @@ export default function GreensboroWorkersCompensationLawyerPage() {
                 we're the law firm Greensboro residents trust most.
               </p>
             </section>
-
             {/* Local Expertise */}
             <section className="bg-gray-50 p-8 rounded-lg">
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
@@ -72,7 +68,6 @@ export default function GreensboroWorkersCompensationLawyerPage() {
                 </div>
               </div>
             </section>
-
             {/* Service Areas */}
             <section>
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
@@ -95,7 +90,6 @@ export default function GreensboroWorkersCompensationLawyerPage() {
                 </div>
               </div>
             </section>
-
             {/* Local Stats */}
             <section className="bg-[#C9974D]/10 p-8 rounded-lg">
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
@@ -116,9 +110,7 @@ export default function GreensboroWorkersCompensationLawyerPage() {
                 </div>
               </div>
             </section>
-
             {/* Court Information */}
-            
             <section>
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
                 Guilford County Court Information
@@ -131,8 +123,6 @@ export default function GreensboroWorkersCompensationLawyerPage() {
                 </p>
               </div>
             </section>
-            
-
             {/* CTA Section */}
             <section className="bg-[#6B1F2E] text-white p-8 rounded-lg text-center">
               <h2 className="text-3xl font-bold mb-4">
@@ -153,7 +143,6 @@ export default function GreensboroWorkersCompensationLawyerPage() {
           </div>
         }
       />
-
       {/* Local Business Schema */}
       <Script
         id="greensboro-workers-compensation-lawyer-schema"
@@ -198,7 +187,6 @@ export default function GreensboroWorkersCompensationLawyerPage() {
           })
         }}
       />
-
       {/* FAQ Schema for Local SEO */}
       <Script
         id="greensboro-workers-compensation-lawyer-faq"

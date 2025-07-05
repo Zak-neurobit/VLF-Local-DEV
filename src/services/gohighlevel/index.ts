@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 import { APISafetyWrapper } from '@/lib/api-safety';
+import { envConfig, SERVICE_CONFIGS } from '@/lib/env-config';
 
 // GHL API schemas
 const ContactSchema = z.object({
@@ -43,6 +44,9 @@ export class GoHighLevelService {
       baseUrl: process.env.GHL_API_URL || 'https://rest.gohighlevel.com/v1',
     };
 
+    // Check configuration using the new system
+    const isConfigured = envConfig.checkService(SERVICE_CONFIGS.GOHIGHLEVEL);
+
     this.apiWrapper = new APISafetyWrapper({
       key: this.config.apiKey,
       serviceName: 'GoHighLevel',
@@ -53,10 +57,6 @@ export class GoHighLevelService {
       Authorization: `Bearer ${this.config.apiKey}`,
       'Content-Type': 'application/json',
     };
-
-    if (!this.apiWrapper.isAvailable()) {
-      logger.warn('GoHighLevel API key not configured');
-    }
   }
 
   // Create or update contact
@@ -114,7 +114,7 @@ export class GoHighLevelService {
   }
 
   // Update existing contact
-  private async updateContact(contactId: string, data: Record<string, unknown>) {
+  async updateContact(contactId: string, data: Record<string, unknown>) {
     try {
       const response = await fetch(`${this.config.baseUrl}/contacts/${contactId}`, {
         method: 'PUT',
@@ -528,7 +528,7 @@ export class GoHighLevelService {
   }
 
   // Get contact
-  private async getContact(contactId: string) {
+  async getContact(contactId: string) {
     try {
       const response = await fetch(`${this.config.baseUrl}/contacts/${contactId}`, {
         headers: this.headers,
@@ -1269,6 +1269,17 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
     return this.apiWrapper.isAvailable() && !!this.config.locationId && !!this.config.baseUrl;
   }
 
+  // Test connection to GoHighLevel API
+  async testConnection(): Promise<boolean> {
+    try {
+      const status = await this.getServiceStatus();
+      return status.status === 'connected';
+    } catch (error) {
+      logger.error('Failed to test GHL connection:', error);
+      return false;
+    }
+  }
+
   // Get service status
   async getServiceStatus() {
     try {
@@ -1362,6 +1373,327 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
       value: data.value || 0,
       status: 'open',
     };
+  }
+
+  // ===== NEW METHODS FOR RETELL INTEGRATION =====
+
+  // Trigger voice call via Retell
+  async triggerVoiceCall(options: {
+    contactId: string;
+    practiceArea?: string;
+    callType?: 'consultation' | 'follow-up' | 'appointment-reminder' | 'general';
+    preferredLanguage?: 'en' | 'es';
+    metadata?: Record<string, any>;
+  }) {
+    try {
+      // Get contact details - use direct API call to avoid circular dependency
+      const contactResponse = await fetch(`${this.config.baseUrl}/contacts/${options.contactId}`, {
+        headers: this.headers,
+      });
+
+      if (!contactResponse.ok) {
+        throw new Error('Contact not found');
+      }
+
+      const contact = await contactResponse.json();
+
+      // Trigger call via our API endpoint
+      const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ghl/trigger-call`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.config.apiKey}`,
+        },
+        body: JSON.stringify({
+          contactId: options.contactId,
+          contact: {
+            firstName: contact.firstName,
+            lastName: contact.lastName,
+            phone: contact.phone,
+            email: contact.email,
+            tags: contact.tags,
+            customFields: contact.customFields,
+          },
+          practiceArea: options.practiceArea || contact.customFields?.practiceArea,
+          callType: options.callType || 'general',
+          preferredLanguage: options.preferredLanguage || contact.customFields?.preferredLanguage || 'en',
+          metadata: options.metadata,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to trigger call: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+
+      logger.info('Voice call triggered', {
+        contactId: options.contactId,
+        callId: result.callId,
+      });
+
+      return result;
+    } catch (error) {
+      logger.error('Failed to trigger voice call:', error);
+      throw error;
+    }
+  }
+
+  // Send post-call SMS
+  async sendPostCallSMS(options: {
+    contactId: string;
+    callId: string;
+    message?: string;
+    templateId?: string;
+  }) {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ghl/send-sms`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.config.apiKey}`,
+        },
+        body: JSON.stringify({
+          contactId: options.contactId,
+          callId: options.callId,
+          message: options.message,
+          templateId: options.templateId,
+          triggerType: 'post-call',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to send SMS: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+
+      logger.info('Post-call SMS sent', {
+        contactId: options.contactId,
+        messageId: result.messageId,
+      });
+
+      return result;
+    } catch (error) {
+      logger.error('Failed to send post-call SMS:', error);
+      throw error;
+    }
+  }
+
+  // Update contact with call outcome
+  async updateContactCallOutcome(contactId: string, callData: {
+    callId: string;
+    duration: number;
+    outcome: 'connected' | 'voicemail' | 'no_answer' | 'busy' | 'failed';
+    summary?: string;
+    sentiment?: 'positive' | 'neutral' | 'negative';
+    nextSteps?: string;
+    appointmentScheduled?: boolean;
+  }) {
+    try {
+      const updateData: any = {
+        customFields: {
+          lastCallId: callData.callId,
+          lastCallDate: new Date().toISOString(),
+          lastCallDuration: callData.duration,
+          lastCallOutcome: callData.outcome,
+        },
+      };
+
+      if (callData.summary) {
+        updateData.customFields.lastCallSummary = callData.summary;
+      }
+
+      if (callData.sentiment) {
+        updateData.customFields.lastCallSentiment = callData.sentiment;
+      }
+
+      if (callData.appointmentScheduled) {
+        updateData.tags = ['appointment-scheduled', 'hot-lead'];
+      }
+
+      // Update contact
+      await this.updateContact(contactId, updateData);
+
+      // Add detailed note
+      let noteContent = `Call completed - Duration: ${Math.floor(callData.duration / 60)}m ${callData.duration % 60}s\n`;
+      noteContent += `Outcome: ${callData.outcome}\n`;
+      if (callData.sentiment) {
+        noteContent += `Sentiment: ${callData.sentiment}\n`;
+      }
+      if (callData.summary) {
+        noteContent += `Summary: ${callData.summary}\n`;
+      }
+      if (callData.nextSteps) {
+        noteContent += `Next Steps: ${callData.nextSteps}`;
+      }
+
+      await this.addNote(contactId, noteContent);
+
+      // Create follow-up task if needed
+      if (callData.nextSteps && !callData.appointmentScheduled) {
+        await this.createTask({
+          contactId,
+          title: 'Follow up on recent call',
+          body: callData.nextSteps,
+          dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+        });
+      }
+
+      // Trigger appropriate campaign based on outcome
+      if (callData.appointmentScheduled) {
+        const campaignId = process.env.GHL_APPOINTMENT_SCHEDULED_CAMPAIGN_ID;
+        if (campaignId) {
+          await this.triggerCampaign({ contactId, campaignId });
+        }
+      } else if (callData.outcome === 'voicemail') {
+        const campaignId = process.env.GHL_VOICEMAIL_FOLLOWUP_CAMPAIGN_ID;
+        if (campaignId) {
+          await this.triggerCampaign({ contactId, campaignId });
+        }
+      }
+
+      logger.info('Contact updated with call outcome', {
+        contactId,
+        callId: callData.callId,
+        outcome: callData.outcome,
+      });
+
+    } catch (error) {
+      logger.error('Failed to update contact with call outcome:', error);
+      throw error;
+    }
+  }
+
+  // Create voice call campaign
+  async createVoiceCallCampaign(contacts: string[], options: {
+    practiceArea?: string;
+    callType?: 'consultation' | 'follow-up' | 'appointment-reminder' | 'general';
+    scheduledTime?: Date;
+    campaignName: string;
+  }) {
+    const results = [];
+    const errors = [];
+
+    for (const contactId of contacts) {
+      try {
+        // If scheduled, create a task instead of immediate call
+        if (options.scheduledTime && options.scheduledTime > new Date()) {
+          await this.createTask({
+            contactId,
+            title: `Scheduled Call: ${options.campaignName}`,
+            body: `Make ${options.callType || 'general'} call for ${options.practiceArea || 'general'} case`,
+            dueDate: options.scheduledTime,
+            completed: false,
+          });
+          results.push({ contactId, status: 'scheduled' });
+        } else {
+          // Trigger immediate call
+          const result = await this.triggerVoiceCall({
+            contactId,
+            practiceArea: options.practiceArea,
+            callType: options.callType,
+            metadata: { campaignName: options.campaignName },
+          });
+          results.push({ contactId, status: 'initiated', callId: result.callId });
+        }
+      } catch (error) {
+        errors.push({ contactId, error });
+      }
+    }
+
+    logger.info('Voice call campaign created', {
+      campaignName: options.campaignName,
+      totalContacts: contacts.length,
+      successful: results.length,
+      failed: errors.length,
+    });
+
+    return { results, errors };
+  }
+
+  // Get call analytics for contact
+  async getContactCallAnalytics(contactId: string, dateRange?: { start: Date; end: Date }) {
+    try {
+      const contact = await this.getContact(contactId);
+      if (!contact) {
+        throw new Error('Contact not found');
+      }
+
+      // Get call history from custom fields
+      const callHistory = {
+        totalCalls: contact.customFields?.totalCalls || 0,
+        lastCallDate: contact.customFields?.lastCallDate,
+        lastCallDuration: contact.customFields?.lastCallDuration,
+        lastCallOutcome: contact.customFields?.lastCallOutcome,
+        lastCallSentiment: contact.customFields?.lastCallSentiment,
+        appointmentsScheduled: contact.customFields?.appointmentsScheduled || 0,
+      };
+
+      // Get activities for more detailed history
+      const activities = await this.getContactActivities(contactId);
+      
+      // Filter call-related activities
+      const callActivities = activities.filter((activity: any) => 
+        activity.type === 'call' || 
+        activity.type === 'note' && activity.body?.includes('Call')
+      );
+
+      return {
+        contact: {
+          id: contactId,
+          name: `${contact.firstName} ${contact.lastName}`,
+          phone: contact.phone,
+        },
+        callHistory,
+        recentCalls: callActivities.slice(0, 10),
+        metrics: {
+          avgCallDuration: callHistory.lastCallDuration || 0,
+          conversionRate: callHistory.appointmentsScheduled > 0 ? 100 : 0,
+          lastContactDays: callHistory.lastCallDate 
+            ? Math.floor((Date.now() - new Date(callHistory.lastCallDate).getTime()) / (1000 * 60 * 60 * 24))
+            : null,
+        },
+      };
+    } catch (error) {
+      logger.error('Failed to get contact call analytics:', error);
+      throw error;
+    }
+  }
+
+  // Sync call recording and transcript
+  async syncCallRecording(contactId: string, callId: string, recordingUrl: string, transcript?: string) {
+    try {
+      const updateData: any = {
+        customFields: {
+          [`call_${callId}_recording`]: recordingUrl,
+          lastCallRecording: recordingUrl,
+        },
+      };
+
+      if (transcript) {
+        updateData.customFields[`call_${callId}_transcript`] = transcript.substring(0, 2000); // Limit transcript length
+      }
+
+      await this.updateContact(contactId, updateData);
+
+      // Add note with recording link
+      let note = `Call recording available: ${recordingUrl}`;
+      if (transcript) {
+        note += `\n\nTranscript preview: ${transcript.substring(0, 500)}...`;
+      }
+
+      await this.addNote(contactId, note);
+
+      logger.info('Call recording synced to GHL', {
+        contactId,
+        callId,
+      });
+
+    } catch (error) {
+      logger.error('Failed to sync call recording:', error);
+      throw error;
+    }
   }
 }
 

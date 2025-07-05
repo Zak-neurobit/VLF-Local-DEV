@@ -275,7 +275,7 @@ Apply AILA training to provide:
       {
         category: 'Hardship Evidence',
         items: ['Medical documentation', 'Country conditions', 'Psychological evaluations'],
-        urgency: params.reliefOptions?.includes('Cancellation') ? 'High' : 'Medium',
+        urgency: 'Medium',
       },
     ];
 

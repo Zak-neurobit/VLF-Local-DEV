@@ -394,7 +394,7 @@ model Contact {
   email         String?   
   phone         String?   @unique
   name          String?
-  source        String?   // website, twilio, gohighlevel, etc.
+  source        String?   // website, gohighlevel, retell, etc.
   smsOptIn      Boolean   @default(false)
   smsOptInDate  DateTime?
   smsOptOut     Boolean   @default(false)
@@ -412,23 +412,38 @@ model Contact {
   @@index([smsOptIn, smsOptOut])
 }
 
-// SMS Logging
+// Enhanced SMS Logging for GHL and Twilio Integration
 model SmsLog {
-  id            String    @id @default(cuid())
-  contactId     String?
-  contact       Contact?  @relation(fields: [contactId], references: [id])
-  fromNumber    String
-  toNumber      String
-  direction     SmsDirection
-  message       String    @db.Text
-  status        SmsStatus
-  twilioSid     String?   @unique
-  errorMessage  String?
-  metadata      Json      @default("{}")
-  createdAt     DateTime  @default(now())
+  id              String    @id @default(cuid())
+  twilioSid       String?   @unique // For Twilio integration
+  ghlContactId    String?
+  ghlMessageId    String?   @unique
+  contactId       String?
+  contact         Contact?  @relation(fields: [contactId], references: [id])
+  to              String
+  from            String
+  toNumber        String?   // Alias for compatibility
+  fromNumber      String?   // Alias for compatibility
+  body            String?   @db.Text
+  message         String?   @db.Text // Alias for compatibility
+  status          SmsStatus
+  direction       SmsDirection
+  triggerType     String?   // post-call, appointment-reminder, follow-up, custom
+  relatedCallId   String?   // Link to VoiceCall if SMS was triggered by call
+  templateId      String?
+  errorMessage    String?
+  sentAt          DateTime?
+  deliveredAt     DateTime?
+  mediaUrl        String?   // For MMS attachments
+  metadata        Json      @default("{}")
+  createdAt       DateTime  @default(now())
   
-  @@index([contactId])
   @@index([twilioSid])
+  @@index([ghlContactId])
+  @@index([ghlMessageId])
+  @@index([contactId])
+  @@index([relatedCallId])
+  @@index([direction, status])
   @@index([createdAt])
 }
 
@@ -452,6 +467,7 @@ model PhoneNumber {
 // Call Logging
 model CallLog {
   id            String    @id @default(cuid())
+  twilioSid     String?   @unique // For Twilio integration
   contactId     String?
   contact       Contact?  @relation(fields: [contactId], references: [id])
   fromNumber    String
@@ -460,17 +476,50 @@ model CallLog {
   status        CallStatus
   duration      Int?      // in seconds
   recordingUrl  String?
-  twilioSid     String?   @unique
+  externalId    String?   @unique // External ID from voice provider (Retell)
   errorMessage  String?
   metadata      Json      @default("{}")
   startedAt     DateTime
   endedAt       DateTime?
   createdAt     DateTime  @default(now())
   
-  @@index([contactId])
   @@index([twilioSid])
+  @@index([contactId])
+  @@index([externalId])
   @@index([createdAt])
 }
+
+// Voice Call Integration (Retell + GHL)
+model VoiceCall {
+  id              String    @id @default(cuid())
+  retellCallId    String    @unique
+  ghlContactId    String?
+  ghlCampaignId   String?
+  phoneNumber     String
+  agentId         String
+  direction       CallDirection
+  status          VoiceCallStatus
+  practiceArea    String?
+  language        String    @default("en")
+  duration        Int?      // in seconds
+  recordingUrl    String?
+  transcript      String?   @db.Text
+  summary         String?   @db.Text
+  sentiment       String?   // positive, neutral, negative
+  outcome         String?   // connected, voicemail, no_answer, busy, failed
+  appointmentScheduled Boolean @default(false)
+  metadata        Json      @default("{}")
+  startedAt       DateTime  @default(now())
+  endedAt         DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@index([retellCallId])
+  @@index([ghlContactId])
+  @@index([status])
+  @@index([createdAt])
+}
+
 
 // Lead Management
 model Lead {
@@ -685,6 +734,17 @@ enum CallStatus {
   completed
   failed
   missed
+}
+
+enum VoiceCallStatus {
+  initiated
+  ringing
+  answered
+  completed
+  failed
+  no_answer
+  busy
+  voicemail
 }
 
 enum ConversationChannel {
@@ -1058,8 +1118,8 @@ enum TicketStatus {
 
 // Phone Number Enums
 enum PhoneProvider {
-  TWILIO
   RETELL
+  GOHIGHLEVEL
   NEXTIVA
 }
 

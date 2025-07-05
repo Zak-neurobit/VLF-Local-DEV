@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // OPTIONS endpoint for CORS preflight
-export async function OPTIONS(request: NextRequest) {
+export async function OPTIONS(_request: NextRequest) {
   return new NextResponse(null, { status: 200 });
 }
 
 // GET endpoint for health check
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   return NextResponse.json({
     status: 'ok',
     timestamp: new Date().toISOString(),

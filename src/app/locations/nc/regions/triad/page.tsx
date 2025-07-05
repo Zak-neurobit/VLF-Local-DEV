@@ -1,17 +1,14 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
-
 export const metadata: Metadata = {
   title: 'Best Lawyers in Triad North Carolina | Vasquez Law Firm',
   description: 'Leading law firm serving the Triad region of NC including Guilford, Forsyth, Davidson counties. 60+ years experience. All practice areas.',
   keywords: 'Triad NC lawyers, Triad attorneys, Greensboro lawyers, Winston-Salem lawyers, High Point lawyers, Burlington lawyers, Lexington lawyers'
 };
-
 export default function TriadRegionPage() {
   const counties = ["Guilford","Forsyth","Davidson","Randolph","Alamance","Rockingham","Stokes","Surry","Yadkin"];
   const cities = ["Greensboro","Winston-Salem","High Point","Burlington","Lexington","Asheboro","Kernersville"];
-
   return (
     <LocationPageTemplate
       location="Triad Region"
@@ -27,7 +24,6 @@ export default function TriadRegionPage() {
               we're the law firm the Triad trusts.
             </p>
           </section>
-
           <section>
             <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Counties We Serve in Triad</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -42,7 +38,6 @@ export default function TriadRegionPage() {
               ))}
             </div>
           </section>
-
           <section className="bg-gray-50 p-8 rounded-lg">
             <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Major Cities in Triad</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
@@ -54,11 +49,9 @@ export default function TriadRegionPage() {
               ))}
             </div>
           </section>
-
           <section>
             <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Our Triad Legal Services</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Immigration Lawyer</h3>
                 <p className="text-gray-600 mb-4">Serving all of Triad with expert immigration lawyer services</p>
@@ -96,7 +89,6 @@ export default function TriadRegionPage() {
               </div>
             </div>
           </section>
-
           <section className="bg-[#6B1F2E] text-white p-8 rounded-lg text-center">
             <h2 className="text-3xl font-bold mb-4">
               Triad Residents: Get Your Free Consultation Today

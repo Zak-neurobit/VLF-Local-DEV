@@ -32,14 +32,13 @@ export class LeadValidationAgent extends Agent {
 
   constructor() {
     super({
+      name: 'LeadValidationAgent',
       role: 'Lead Validation Specialist',
       goal: 'Validate and score incoming leads to ensure only high-quality prospects enter the consultation pipeline',
       backstory: `You are an expert lead validation specialist with deep knowledge of legal services qualification criteria. 
                   You analyze potential clients to determine their urgency, case value, readiness to engage, and overall fit 
                   for the firm's services. You prevent spam, low-quality leads, and time-wasters from entering the pipeline 
                   while ensuring legitimate clients receive appropriate priority and routing.`,
-      verbose: true,
-      allowDelegation: false,
     });
     
     this.ghl = new GoHighLevelService();

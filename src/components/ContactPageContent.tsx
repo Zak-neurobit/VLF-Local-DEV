@@ -3,21 +3,23 @@
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Phone, Mail, MapPin, Clock, MessageCircle, Globe, Building } from 'lucide-react';
-// Dynamic import for client-side only rendering
-const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
-  ssr: false,
-});
+import { ModernPageWrapper } from '@/components/ModernPageWrapper';
 import AllOfficesMap from '@/components/AllOfficesMap';
 import { officeLocations } from '@/data/locations';
 import { ContactForm } from '@/components/forms/ContactForm';
 
+// Dynamic import for client-side only rendering
+const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
+  ssr: false,
+});
+
 interface ContactPageContentProps {
-  language: 'en' | 'es';
+  language?: 'en' | 'es';
 }
 
-export default function ContactPageContent({ language }: ContactPageContentProps) {
-  const [showVirtualParalegal, setShowVirtualParalegal] = useState(false);
+export default function ContactPageContent({ language = 'en' }: ContactPageContentProps) {
 
   const content = {
     en: {
@@ -164,26 +166,12 @@ export default function ContactPageContent({ language }: ContactPageContentProps
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#6B1F2E] to-[#8B2635] text-white py-24">
+    <ModernPageWrapper title={t.title} subtitle={t.subtitle}>
+      {/* Main Content Section */}
+      <section className="py-16 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{t.title}</h1>
-            <p className="text-xl text-[#C9974D] font-semibold mb-6">{t.subtitle}</p>
-            <p className="text-lg text-white/90 max-w-3xl mx-auto">{t.description}</p>
-          </motion.div>
-        </div>
-      </section>
+          <p className="text-lg text-gray-300 text-center max-w-3xl mx-auto mb-12">{t.description}</p>
 
-      {/* Main Content */}
-      <section id="appointment" className="py-16" style={{scrollMarginTop: '120px'}}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <motion.div
@@ -191,7 +179,12 @@ export default function ContactPageContent({ language }: ContactPageContentProps
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <ContactForm language={language} />
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10">
+                <h2 className="text-2xl font-bold text-white mb-6">{t.formTitle}</h2>
+                <div className="filter invert brightness-90">
+                  <ContactForm language={language} />
+                </div>
+              </div>
             </motion.div>
 
             {/* Contact Information */}
@@ -199,81 +192,76 @@ export default function ContactPageContent({ language }: ContactPageContentProps
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-8"
+              className="space-y-6"
             >
               {/* Quick Contact Options */}
-              <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] rounded-lg p-8 text-white">
+              <div className="bg-gradient-to-r from-gold-500 to-gold-600 rounded-xl p-8 text-black">
                 <h3 className="text-2xl font-bold mb-6 flex items-center">
                   <MessageCircle className="mr-2" />
                   {t.instantHelp}
                 </h3>
-                <button 
-                  onClick={() => setShowVirtualParalegal(true)}
-                  className="w-full px-6 py-3 bg-white text-[#6B1F2E] rounded-md font-semibold hover:shadow-lg transition-all mb-4"
-                >
+                <button className="w-full px-6 py-3 bg-black text-gold-400 rounded-lg font-semibold hover:bg-neutral-900 transition-all mb-4">
                   🤖 {t.chatNow}
                 </button>
                 <div className="text-center mb-4">
-                  <p className="text-white/80">{t.or}</p>
+                  <p className="text-black/70">{t.or}</p>
                 </div>
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
                     <Phone className="mr-2" />
-                    <p className="text-3xl font-bold">{t.mainNumber}</p>
+                    <p className="text-3xl font-black">{t.mainNumber}</p>
                   </div>
                   <p className="text-lg">{t.mainNumberDesc}</p>
                 </div>
               </div>
 
               {/* Office Hours */}
-              <div className="bg-white rounded-lg shadow-xl p-8 border border-gray-200">
-                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                  <Clock className="mr-2 text-[#6B1F2E]" />
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10">
+                <h3 className="text-xl font-bold text-gold-400 mb-4 flex items-center">
+                  <Clock className="mr-2" />
                   {t.officeHours}
                 </h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">{t.monday}</span>
-                    <span className="font-medium">{t.hours1}</span>
+                    <span className="text-gray-400">{t.monday}</span>
+                    <span className="font-medium text-white">{t.hours1}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">{t.saturday}</span>
-                    <span className="font-medium">{t.hours2}</span>
+                    <span className="text-gray-400">{t.saturday}</span>
+                    <span className="font-medium text-white">{t.hours2}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">{t.sunday}</span>
-                    <span className="font-medium text-[#C9974D]">{t.hours3}</span>
+                    <span className="text-gray-400">{t.sunday}</span>
+                    <span className="font-medium text-gold-400">{t.hours3}</span>
                   </div>
                 </div>
               </div>
 
+
               {/* Emergency Help */}
-              <div className="bg-[#C9974D]/10 rounded-lg p-6 border border-[#C9974D]/20">
-                <h3 className="text-xl font-bold text-[#C9974D] mb-3">🚨 {t.emergency}</h3>
-                <p className="text-gray-700 mb-4">{t.emergencyText}</p>
-                <button 
-                  onClick={() => setShowVirtualParalegal(true)}
-                  className="px-6 py-2 bg-[#C9974D] text-white rounded-md font-medium hover:bg-[#B88740] transition-colors"
-                >
+              <div className="bg-burgundy-700/20 backdrop-blur-sm rounded-xl p-6 border border-burgundy-700/30">
+                <h3 className="text-xl font-bold text-burgundy-400 mb-3">{t.emergency}</h3>
+                <p className="text-gray-300 mb-4">{t.emergencyText}</p>
+                <button className="px-6 py-2 bg-burgundy-700 text-white rounded-lg font-medium hover:bg-burgundy-800 transition-colors">
                   {t.startChat}
                 </button>
               </div>
 
               {/* Languages */}
-              <div className="bg-gray-50 rounded-lg p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
-                  <Globe className="mr-2 text-[#6B1F2E]" />
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                <h3 className="text-xl font-bold text-gold-400 mb-3 flex items-center">
+                  <Globe className="mr-2" />
                   {t.languages}
                 </h3>
-                <p className="text-gray-600 mb-4">{t.languagesText}</p>
+                <p className="text-gray-300 mb-4">{t.languagesText}</p>
                 <div className="flex gap-3">
-                  <span className="px-3 py-1 bg-[#6B1F2E]/10 text-[#6B1F2E] rounded-full text-sm font-medium">
+                  <span className="px-3 py-1 bg-gold-500/20 text-gold-400 rounded-full text-sm font-medium">
                     English
                   </span>
-                  <span className="px-3 py-1 bg-[#6B1F2E]/10 text-[#6B1F2E] rounded-full text-sm font-medium">
+                  <span className="px-3 py-1 bg-gold-500/20 text-gold-400 rounded-full text-sm font-medium">
                     Español
                   </span>
-                  <span className="px-3 py-1 bg-[#6B1F2E]/10 text-[#6B1F2E] rounded-full text-sm font-medium">
+                  <span className="px-3 py-1 bg-gold-500/20 text-gold-400 rounded-full text-sm font-medium">
                     Português
                   </span>
                 </div>
@@ -284,10 +272,10 @@ export default function ContactPageContent({ language }: ContactPageContentProps
       </section>
 
       {/* Office Locations */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-neutral-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12 flex items-center justify-center">
-            <MapPin className="mr-2 text-[#6B1F2E]" />
+          <h2 className="text-3xl font-bold text-center text-gold-400 mb-12 flex items-center justify-center">
+            <MapPin className="mr-2" />
             {t.locations}
           </h2>
 
@@ -308,7 +296,7 @@ export default function ContactPageContent({ language }: ContactPageContentProps
                 hours: office.hours,
               }))}
               height="500px"
-              className="rounded-lg shadow-lg"
+              className="rounded-xl border border-gold-500/20"
             />
           </motion.div>
 
@@ -330,18 +318,20 @@ export default function ContactPageContent({ language }: ContactPageContentProps
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow border border-gray-200"
+                  className="bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-gold-500/50 transition-all hover:transform hover:-translate-y-1"
                 >
                   {/* Office Image */}
-                  <div className="h-48 w-full overflow-hidden bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] flex items-center justify-center">
+                  <div className="h-48 w-full overflow-hidden bg-gradient-to-r from-neutral-800 to-neutral-900 flex items-center justify-center">
                     {officeImages[location.city.split(',')[0] + ', ' + location.city.split(',')[1]] ? (
-                      <img
+                      <Image
                         src={officeImages[location.city.split(',')[0] + ', ' + location.city.split(',')[1]]}
                         alt={`${location.city} office exterior`}
+                        width={400}
+                        height={300}
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                       />
                     ) : (
-                      <div className="text-white text-center">
+                      <div className="text-gold-400 text-center">
                         <Building className="w-16 h-16 mx-auto mb-2" />
                         <p className="text-sm font-medium">{location.city}</p>
                       </div>
@@ -349,16 +339,16 @@ export default function ContactPageContent({ language }: ContactPageContentProps
                   </div>
 
                   <div className="p-6">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{location.city}</h3>
-                    <p className="text-sm text-gray-600 mb-2 flex items-start">
-                      <MapPin className="w-4 h-4 mr-1 mt-0.5 text-[#6B1F2E]" />
+                    <h3 className="text-xl font-semibold text-gold-400 mb-2">{location.city}</h3>
+                    <p className="text-sm text-gray-300 mb-2 flex items-start">
+                      <MapPin className="w-4 h-4 mr-1 mt-0.5 text-gold-500" />
                       {location.address}
                     </p>
-                    <p className="text-sm text-[#6B1F2E] font-medium mb-2 flex items-center">
+                    <p className="text-sm text-gold-500 font-medium mb-2 flex items-center">
                       <Phone className="w-4 h-4 mr-1" />
                       {location.phone}
                     </p>
-                    <p className="text-xs text-gray-500 mb-4 flex items-center">
+                    <p className="text-xs text-gray-400 mb-4 flex items-center">
                       <Clock className="w-4 h-4 mr-1" />
                       {location.hours}
                     </p>
@@ -366,7 +356,7 @@ export default function ContactPageContent({ language }: ContactPageContentProps
                       href={location.mapUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-[#C9974D] font-medium hover:underline flex items-center"
+                      className="text-sm text-gold-400 font-medium hover:text-gold-300 transition-colors flex items-center"
                     >
                       <MapPin className="w-4 h-4 mr-1" />
                       {t.getDirections} →
@@ -380,9 +370,9 @@ export default function ContactPageContent({ language }: ContactPageContentProps
       </section>
 
       {/* Consultation Benefits */}
-      <section className="py-16">
+      <section className="py-16 bg-black">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] rounded-2xl p-8 text-white">
+          <div className="bg-gradient-to-r from-gold-500 to-gold-600 rounded-2xl p-8 text-black">
             <h2 className="text-3xl font-bold mb-8 text-center">{t.consultation}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[t.benefit1, t.benefit2, t.benefit3, t.benefit4, t.benefit5].map(
@@ -395,7 +385,7 @@ export default function ContactPageContent({ language }: ContactPageContentProps
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="flex items-start"
                   >
-                    <span className="text-2xl mr-3 text-[#C9974D]">✓</span>
+                    <span className="text-2xl mr-3">✓</span>
                     <p className="text-lg">{benefit}</p>
                   </motion.div>
                 )
@@ -406,6 +396,6 @@ export default function ContactPageContent({ language }: ContactPageContentProps
       </section>
 
       <ChatWidget language={language} />
-    </div>
+    </ModernPageWrapper>
   );
 }

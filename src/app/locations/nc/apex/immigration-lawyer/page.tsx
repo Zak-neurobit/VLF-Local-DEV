@@ -1,18 +1,14 @@
 import { Metadata } from 'next';
 import { LocationPageTemplate } from '@/components/locations/LocationPageTemplate';
 import { ncCities, generateLocalMetadata, generateLocalBusinessSchema, generateReviewSchema } from '@/lib/seo/local-seo-generator';
-
 export async function generateMetadata(): Promise<Metadata> {
   return generateLocalMetadata('apex', 'Immigration Lawyer');
 }
-
 export default function ApexImmigrationLawyerPage() {
   const cityData = ncCities['apex'];
-  
   if (!cityData) {
     return <div>City data not found</div>;
   }
-
   const schemas = {
     localBusiness: generateLocalBusinessSchema('apex', 'Immigration Lawyer'),
     breadcrumbs: {
@@ -83,6 +79,5 @@ export default function ApexImmigrationLawyerPage() {
     },
     reviews: generateReviewSchema('apex')
   };
-
   return <LocationPageTemplate data={cityData} schemas={schemas} />;
 }

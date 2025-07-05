@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { PracticeAreaTemplate } from '@/components/templates/PracticeAreaTemplate';
+import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
@@ -40,84 +40,83 @@ export const metadata: Metadata = {
 export default function CriminalDefensePage() {
   return (
     <>
-      <PracticeAreaTemplate
+      <ModernPracticeAreaTemplate
         title="NC\'s Most Aggressive Criminal Defense Team - Your Freedom Matters"
         subtitle="Criminal Defense Attorneys Serving All of North Carolina"
         description="Facing criminal charges in North Carolina? Your future is on the line. With 60+ years of combined experience and former prosecutors on our team, we know how to protect your freedom."
         content={
           <div className="space-y-12">
             {/* Why Choose Section */}
-            <section className="bg-gray-50 rounded-lg p-8">
-              <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Why Choose Vasquez Law Firm for Criminal Defense?</h2>
-              <p className="text-lg text-gray-700 mb-6">Our edge: ✓ Former prosecutors & judges ✓ 24/7 emergency response ✓ Thousands of cases dismissed ✓ Trial-ready defense ✓ Immigration-safe strategies</p>
+            <section>
+              <h2 className="text-3xl font-bold mb-6 text-primary">Why Choose Vasquez Law Firm for Criminal Defense?</h2>
+              <p className="text-lg mb-6">Our edge: ✓ Former prosecutors & judges ✓ 24/7 emergency response ✓ Thousands of cases dismissed ✓ Trial-ready defense ✓ Immigration-safe strategies</p>
               
               {/* Services Grid */}
-              <div className="grid md:grid-cols-2 gap-4 mt-8">
-                
-                <div className="flex items-start">
-                  <span className="text-[#C9974D] mr-2">✓</span>
-                  <span className="text-gray-700">DWI/DUI Defense</span>
+              <div className="grid md:grid-cols-2 gap-6 mt-8">
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                  <h3 className="text-xl font-bold text-primary mb-3">DWI/DUI Defense</h3>
+                  <p className="text-gray-300">Aggressive defense against drunk driving charges with proven strategies to protect your license and freedom.</p>
                 </div>
-                <div className="flex items-start">
-                  <span className="text-[#C9974D] mr-2">✓</span>
-                  <span className="text-gray-700">Drug Crime Defense</span>
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                  <h3 className="text-xl font-bold text-primary mb-3">Drug Crime Defense</h3>
+                  <p className="text-gray-300">Expert defense for all drug charges from possession to trafficking with focus on dismissals and alternatives.</p>
                 </div>
-                <div className="flex items-start">
-                  <span className="text-[#C9974D] mr-2">✓</span>
-                  <span className="text-gray-700">Assault & Violent Crimes</span>
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                  <h3 className="text-xl font-bold text-primary mb-3">Assault & Violent Crimes</h3>
+                  <p className="text-gray-300">Strategic defense for assault, battery, and violent crime charges with emphasis on self-defense and mitigation.</p>
                 </div>
-                <div className="flex items-start">
-                  <span className="text-[#C9974D] mr-2">✓</span>
-                  <span className="text-gray-700">Domestic Violence</span>
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                  <h3 className="text-xl font-bold text-primary mb-3">Domestic Violence</h3>
+                  <p className="text-gray-300">Sensitive handling of domestic violence cases with focus on protecting your rights and reputation.</p>
                 </div>
-                <div className="flex items-start">
-                  <span className="text-[#C9974D] mr-2">✓</span>
-                  <span className="text-gray-700">Federal Crimes</span>
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                  <h3 className="text-xl font-bold text-primary mb-3">Federal Crimes</h3>
+                  <p className="text-gray-300">Experienced federal criminal defense for complex cases in federal court with former federal prosecutors.</p>
                 </div>
-                <div className="flex items-start">
-                  <span className="text-[#C9974D] mr-2">✓</span>
-                  <span className="text-gray-700">White Collar Crimes</span>
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                  <h3 className="text-xl font-bold text-primary mb-3">White Collar Crimes</h3>
+                  <p className="text-gray-300">Sophisticated defense for fraud, embezzlement, and financial crimes with focus on negotiation and mitigation.</p>
                 </div>
               </div>
             </section>
 
             {/* NC Coverage Section */}
             <section>
-              <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Serving All 100 North Carolina Counties</h2>
-              <p className="text-lg text-gray-700 mb-4">
+              <h2 className="text-3xl font-bold mb-6 text-primary">Serving All 100 North Carolina Counties</h2>
+              <p className="text-lg mb-8">
                 From the mountains to the coast, we provide expert criminal defense representation throughout North Carolina:
               </p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-gray-600">
-                <div>
-                  <h3 className="font-semibold text-[#C9974D]">Triangle Area</h3>
-                  <ul className="text-sm">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20">
+                  <h3 className="font-semibold text-primary mb-2">Triangle Area</h3>
+                  <ul className="text-sm space-y-1 text-gray-300">
                     <li>• Raleigh</li>
                     <li>• Durham</li>
                     <li>• Chapel Hill</li>
                     <li>• Cary</li>
                   </ul>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-[#C9974D]">Charlotte Metro</h3>
-                  <ul className="text-sm">
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20">
+                  <h3 className="font-semibold text-primary mb-2">Charlotte Metro</h3>
+                  <ul className="text-sm space-y-1 text-gray-300">
                     <li>• Charlotte</li>
                     <li>• Concord</li>
                     <li>• Gastonia</li>
                     <li>• Rock Hill</li>
                   </ul>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-[#C9974D]">Triad Area</h3>
-                  <ul className="text-sm">
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20">
+                  <h3 className="font-semibold text-primary mb-2">Triad Area</h3>
+                  <ul className="text-sm space-y-1 text-gray-300">
                     <li>• Greensboro</li>
                     <li>• Winston-Salem</li>
                     <li>• High Point</li>
                     <li>• Burlington</li>
                   </ul>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-[#C9974D]">Eastern NC</h3>
-                  <ul className="text-sm">
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20">
+                  <h3 className="font-semibold text-primary mb-2">Eastern NC</h3>
+                  <ul className="text-sm space-y-1 text-gray-300">
                     <li>• Wilmington</li>
                     <li>• Jacksonville</li>
                     <li>• Greenville</li>
@@ -128,13 +127,13 @@ export default function CriminalDefensePage() {
             </section>
 
             {/* CTA Section */}
-            <section className="bg-[#6B1F2E] text-white rounded-lg p-8 text-center">
-              <h2 className="text-3xl font-bold mb-4">Arrested? Time is critical. Call 1-844-YO-PELEO now for 24/7 emergency defense.</h2>
+            <section className="bg-gradient-to-r from-primary to-primary-300 rounded-lg p-8 text-center">
+              <h2 className="text-3xl font-bold mb-4 text-black">Arrested? Time is critical. Call 1-844-YO-PELEO now for 24/7 emergency defense.</h2>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
-                <a href="tel:18449673536" className="bg-[#C9974D] text-white px-8 py-3 rounded-md hover:bg-[#D4A574] transition-colors font-semibold text-lg">
+                <a href="tel:18449673536" className="bg-black text-primary px-8 py-3 rounded-md hover:bg-gray-900 transition-colors font-semibold text-lg">
                   Call Now: 1-844-YO-PELEO
                 </a>
-                <button className="bg-white text-[#6B1F2E] px-8 py-3 rounded-md hover:bg-gray-100 transition-colors font-semibold text-lg">
+                <button className="bg-white text-black px-8 py-3 rounded-md hover:bg-gray-100 transition-colors font-semibold text-lg">
                   Start Live Chat
                 </button>
               </div>
@@ -142,19 +141,19 @@ export default function CriminalDefensePage() {
 
             {/* FAQ Section for SEO */}
             <section>
-              <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Frequently Asked Questions</h2>
+              <h2 className="text-3xl font-bold mb-6 text-primary">Frequently Asked Questions</h2>
               <div className="space-y-4">
-                <div>
-                  <h3 className="font-semibold text-lg mb-2">How much does a criminal defense lawyer cost in North Carolina?</h3>
-                  <p className="text-gray-700">At Vasquez Law Firm, we offer free consultations and flexible payment options. We provide transparent, competitive pricing with payment plans available.</p>
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                  <h3 className="font-semibold text-xl mb-2 text-primary">How much does a criminal defense lawyer cost in North Carolina?</h3>
+                  <p className="text-gray-300">At Vasquez Law Firm, we offer free consultations and flexible payment options. We provide transparent, competitive pricing with payment plans available.</p>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-lg mb-2">Do you handle criminal defense cases throughout NC?</h3>
-                  <p className="text-gray-700">Yes! With offices in Raleigh, Charlotte, Durham, and Smithfield, plus virtual consultations, we serve all 100 North Carolina counties.</p>
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                  <h3 className="font-semibold text-xl mb-2 text-primary">Do you handle criminal defense cases throughout NC?</h3>
+                  <p className="text-gray-300">Yes! With offices in Raleigh, Charlotte, Durham, and Smithfield, plus virtual consultations, we serve all 100 North Carolina counties.</p>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-lg mb-2">How quickly can I speak with a criminal defense attorney?</h3>
-                  <p className="text-gray-700">We offer same-day consultations and 24/7 emergency availability. Call 1-844-YO-PELEO or use our AI chat for immediate assistance.</p>
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                  <h3 className="font-semibold text-xl mb-2 text-primary">How quickly can I speak with a criminal defense attorney?</h3>
+                  <p className="text-gray-300">We offer same-day consultations and 24/7 emergency availability. Call 1-844-YO-PELEO or use our AI chat for immediate assistance.</p>
                 </div>
               </div>
             </section>

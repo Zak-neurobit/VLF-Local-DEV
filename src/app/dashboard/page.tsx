@@ -39,6 +39,7 @@ export default function Dashboard() {
       clearInterval(interval);
       performanceMonitor.end('dashboard-load');
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeRange]);
 
   const fetchMetrics = async () => {

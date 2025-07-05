@@ -12,7 +12,15 @@ interface BlogPostPageProps {
 // This would normally fetch from a CMS or database
 async function getBlogPost(slug: string) {
   // Simulated blog post data
-  const posts = {
+  const posts: Record<string, {
+    title: string;
+    content: string;
+    excerpt: string;
+    category: string;
+    author: string;
+    date: string;
+    readTime: string;
+  }> = {
     'cambios-leyes-inmigracion-2025': {
       title: 'Cambios Recientes en las Leyes de Inmigración 2025',
       content: 'Contenido completo del artículo aquí...',

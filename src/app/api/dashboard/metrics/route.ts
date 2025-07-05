@@ -96,7 +96,7 @@ export async function GET(request: NextRequest) {
     // Extract top issues from call analyses
     const issueMap = new Map<string, number>();
     callAnalyses.forEach(analysis => {
-      const extractedInfo = analysis.extractedInfo as any;
+      const extractedInfo = analysis.extractedInfo as { issue?: string } | null;
       if (extractedInfo?.issue) {
         const count = issueMap.get(extractedInfo.issue) || 0;
         issueMap.set(extractedInfo.issue, count + 1);

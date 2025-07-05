@@ -7,14 +7,10 @@ import { Button } from '@/components/ui/button';
 import { 
   Activity, 
   AlertCircle, 
-  CheckCircle, 
-  Clock, 
   MessageSquare, 
   Phone, 
   FileText, 
   Brain,
-  TrendingUp,
-  TrendingDown,
   Users,
   Zap,
   RefreshCw,
@@ -71,7 +67,7 @@ const AgentIcon = ({ type }: { type: string }) => {
 };
 
 const StatusIndicator = ({ status }: { status: string }) => {
-  const colors = {
+  const colors: Record<string, string> = {
     online: 'bg-green-500',
     offline: 'bg-gray-500',
     busy: 'bg-yellow-500',
@@ -108,7 +104,7 @@ export default function AgentMonitoringDashboard() {
       const interval = setInterval(fetchMonitoringData, 5000); // Refresh every 5 seconds
       return () => clearInterval(interval);
     }
-  }, [session, status, autoRefresh]);
+  }, [session, status, autoRefresh, router]);
 
   const fetchMonitoringData = async () => {
     try {

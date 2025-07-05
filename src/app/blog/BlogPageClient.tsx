@@ -6,7 +6,8 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { BLOG_CATEGORIES, getCategoryById, getAllCategories } from '@/lib/blog/categories';
+import { getCategoryById, getAllCategories } from '@/lib/blog/categories';
+import { MasterLayout } from '@/design-system/templates/MasterLayout';
 
 // Dynamic import for client-side only rendering
 const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
@@ -97,11 +98,13 @@ export default function BlogPage() {
 
   useEffect(() => {
     fetchPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language, selectedCategory, page, searchQuery]);
 
   useEffect(() => {
     // Fetch recent posts separately
     fetchRecentPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language]);
 
   const fetchPosts = async () => {
@@ -174,6 +177,7 @@ export default function BlogPage() {
     if (page !== 1) {
       setPage(1);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, selectedCategory]);
 
   const trendingTopics =
@@ -182,70 +186,8 @@ export default function BlogPage() {
       : ['Immigration Reform 2024', 'Uber Accidents', 'Joint Custody', 'First DUI Offense', 'Workers Compensation'];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Top Bar */}
-      <div className="bg-[#6B1F2E] text-white py-2">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          <div className="flex items-center gap-4 text-sm">
-            <span>📞 1-844-YO-PELEO (967-3536)</span>
-            <span className="hidden sm:inline">📧 info@vasquezlawnc.com</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setLanguage('en')}
-              className={`px-2 py-1 text-xs rounded ${language === 'en' ? 'bg-white/20' : 'hover:bg-white/10'}`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLanguage('es')}
-              className={`px-2 py-1 text-xs rounded ${language === 'es' ? 'bg-white/20' : 'hover:bg-white/10'}`}
-            >
-              ES
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Navigation */}
-      <nav className="sticky top-0 z-40 bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            <Link href="/" className="flex items-center">
-              <div>
-                <h1 className="text-2xl font-bold text-[#6B1F2E]">Vasquez Law Firm, PLLC</h1>
-                <p className="text-xs text-[#C9974D] font-semibold">YO PELEO POR TI™</p>
-              </div>
-            </Link>
-            <div className="hidden md:flex items-center space-x-6">
-              <Link
-                href="/practice-areas"
-                className="text-gray-700 hover:text-[#C9974D] transition-colors font-medium"
-              >
-                {language === 'es' ? 'Áreas de Práctica' : 'Practice Areas'}
-              </Link>
-              <Link
-                href="/attorneys"
-                className="text-gray-700 hover:text-[#C9974D] transition-colors font-medium"
-              >
-                {language === 'es' ? 'Abogados' : 'Attorneys'}
-              </Link>
-              <Link href="/blog" className="text-[#C9974D] font-medium">
-                Blog
-              </Link>
-              <Link
-                href="/contact"
-                className="text-gray-700 hover:text-[#C9974D] transition-colors font-medium"
-              >
-                {language === 'es' ? 'Contacto' : 'Contact'}
-              </Link>
-              <button className="px-6 py-2 bg-[#6B1F2E] text-white rounded-md hover:bg-[#8B2635] transition-colors font-medium">
-                {language === 'es' ? 'Consulta Gratis' : 'Free Consultation'}
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <MasterLayout variant="default" showBreadcrumbs={true}>
+      <div className="min-h-screen bg-black">
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-gray-50 to-white py-16">
@@ -256,8 +198,8 @@ export default function BlogPage() {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{t.title}</h1>
-            <p className="text-xl text-[#C9974D] font-semibold mb-8">{t.subtitle}</p>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{t.title}</h1>
+            <p className="text-xl text-[primary] font-semibold mb-8">{t.subtitle}</p>
 
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto">
@@ -267,7 +209,7 @@ export default function BlogPage() {
                   placeholder={t.search}
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
-                  className="w-full px-6 py-4 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
+                  className="w-full px-6 py-4 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[primary] focus:border-transparent"
                 />
                 <svg
                   className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"
@@ -292,11 +234,11 @@ export default function BlogPage() {
       <section className="py-8 bg-gray-50 sticky top-20 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-700">{t.filterBy}</h2>
+            <h2 className="text-lg font-semibold text-gray-300">{t.filterBy}</h2>
             {selectedCategory !== 'all' && (
               <button
                 onClick={() => setSelectedCategory('all')}
-                className="text-sm text-[#C9974D] hover:underline"
+                className="text-sm text-[primary] hover:underline"
               >
                 {t.clearFilters}
               </button>
@@ -307,8 +249,8 @@ export default function BlogPage() {
               onClick={() => setSelectedCategory('all')}
               className={`px-6 py-2 rounded-full whitespace-nowrap transition-all ${
                 selectedCategory === 'all'
-                  ? 'bg-[#C9974D] text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
+                  ? 'bg-primary text-white'
+                  : 'bg-white/5 backdrop-blur-sm border border-primary/20 text-gray-300 hover:bg-white/10'
               }`}
             >
               {t.allCategories}
@@ -320,7 +262,7 @@ export default function BlogPage() {
                 className={`px-6 py-2 rounded-full whitespace-nowrap transition-all flex items-center gap-2 ${
                   selectedCategory === category.id
                     ? `${category.color} text-white`
-                    : 'bg-white text-gray-700 hover:bg-gray-100'
+                    : 'bg-white/5 backdrop-blur-sm border border-primary/20 text-gray-300 hover:bg-white/10'
                 }`}
               >
                 <span>{category.icon}</span>
@@ -339,10 +281,10 @@ export default function BlogPage() {
             <div className="lg:col-span-2">
               {loading && page === 1 ? (
                 <div className="flex justify-center py-12">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#C9974D]"></div>
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[primary]"></div>
                 </div>
               ) : posts.length === 0 ? (
-                <p className="text-center text-gray-600 py-12">{t.noResults}</p>
+                <p className="text-center text-gray-400 py-12">{t.noResults}</p>
               ) : (
                 <div className="space-y-8">
                   {posts.map((post, index) => {
@@ -353,10 +295,10 @@ export default function BlogPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: index * 0.1 }}
-                        className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                        className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
                       >
                         {post.featuredImage && (
-                          <div className="relative h-48 bg-gray-200">
+                          <div className="relative h-48 bg-gray-700">
                             <div className="absolute inset-0 flex items-center justify-center">
                               <span className="text-4xl">{category?.icon || '📰'}</span>
                             </div>
@@ -370,7 +312,7 @@ export default function BlogPage() {
                                 {category.name[language]}
                               </span>
                             )}
-                            <span className="text-sm text-gray-500">
+                            <span className="text-sm text-gray-400">
                               {post.readTime} {t.minRead}
                             </span>
                             {post.seoScore >= 90 && (
@@ -379,25 +321,25 @@ export default function BlogPage() {
                               </span>
                             )}
                           </div>
-                          <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                          <h2 className="text-2xl font-bold text-white mb-3">
                             <Link
                               href={`/blog/${post.slug}`}
-                              className="hover:text-[#C9974D] transition-colors"
+                              className="hover:text-[primary] transition-colors"
                             >
                               {post.title}
                             </Link>
                           </h2>
-                          <p className="text-gray-600 mb-4">{post.excerpt}</p>
+                          <p className="text-gray-400 mb-4">{post.excerpt}</p>
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
                               <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
                                 <span className="text-sm">👤</span>
                               </div>
                               <div>
-                                <p className="text-sm font-medium text-gray-900">
+                                <p className="text-sm font-medium text-white">
                                   {post.author.name}
                                 </p>
-                                <p className="text-xs text-gray-500">
+                                <p className="text-xs text-gray-400">
                                   {t.published}{' '}
                                   {format(post.publishedAt, 'PPP', {
                                     locale: language === 'es' ? es : undefined,
@@ -407,7 +349,7 @@ export default function BlogPage() {
                             </div>
                             <Link
                               href={`/blog/${post.slug}`}
-                              className="text-[#C9974D] font-medium hover:underline"
+                              className="text-[primary] font-medium hover:underline"
                             >
                               {t.readMore} →
                             </Link>
@@ -417,7 +359,7 @@ export default function BlogPage() {
                               {post.tags.slice(0, 5).map(tag => (
                                 <span
                                   key={tag}
-                                  className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs"
+                                  className="px-2 py-1 bg-gray-100 text-gray-400 rounded text-xs"
                                 >
                                   #{tag}
                                 </span>
@@ -436,7 +378,7 @@ export default function BlogPage() {
                 <div className="text-center mt-12">
                   <button
                     onClick={() => setPage(page + 1)}
-                    className="px-8 py-3 bg-[#C9974D] text-white rounded-md font-medium hover:bg-[#D4A574] transition-colors"
+                    className="px-8 py-3 bg-primary text-white rounded-md font-medium hover:bg-[#D4A574] transition-colors"
                   >
                     {t.loadMore}
                   </button>
@@ -447,10 +389,10 @@ export default function BlogPage() {
             {/* Sidebar */}
             <div className="space-y-8">
               {/* Recent Posts */}
-              <div className="bg-white rounded-lg shadow-lg p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{t.recent}</h3>
+              <div className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg p-6">
+                <h3 className="text-xl font-bold text-white mb-4">{t.recent}</h3>
                 <div className="space-y-4">
-                  {recentPosts.map((post, index) => {
+                  {recentPosts.map((post) => {
                     const category = getCategoryById(post.practiceArea);
                     return (
                       <div key={post.id} className="border-b last:border-0 pb-4 last:pb-0">
@@ -459,11 +401,11 @@ export default function BlogPage() {
                           <div className="flex-1">
                             <Link
                               href={`/blog/${post.slug}`}
-                              className="text-sm font-medium text-gray-900 hover:text-[#C9974D] line-clamp-2"
+                              className="text-sm font-medium text-white hover:text-[primary] line-clamp-2"
                             >
                               {post.title}
                             </Link>
-                            <p className="text-xs text-gray-500 mt-1">
+                            <p className="text-xs text-gray-400 mt-1">
                               {format(post.publishedAt, 'MMM d, yyyy', {
                                 locale: language === 'es' ? es : undefined,
                               })}
@@ -477,8 +419,8 @@ export default function BlogPage() {
               </div>
 
               {/* Category Links */}
-              <div className="bg-white rounded-lg shadow-lg p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{t.allCategories}</h3>
+              <div className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg p-6">
+                <h3 className="text-xl font-bold text-white mb-4">{t.allCategories}</h3>
                 <div className="space-y-3">
                   {getAllCategories().map((category) => (
                     <Link
@@ -488,12 +430,12 @@ export default function BlogPage() {
                     >
                       <div className="flex items-center gap-3">
                         <span className={`text-2xl`}>{category.icon}</span>
-                        <span className="font-medium text-gray-700 group-hover:text-[#C9974D]">
+                        <span className="font-medium text-gray-300 group-hover:text-[primary]">
                           {category.name[language]}
                         </span>
                       </div>
                       <svg
-                        className="w-5 h-5 text-gray-400 group-hover:text-[#C9974D]"
+                        className="w-5 h-5 text-gray-400 group-hover:text-[primary]"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -511,15 +453,15 @@ export default function BlogPage() {
               </div>
 
               {/* Trending Topics */}
-              <div className="bg-white rounded-lg shadow-lg p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{t.trending}</h3>
+              <div className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg p-6">
+                <h3 className="text-xl font-bold text-white mb-4">{t.trending}</h3>
                 <div className="space-y-3">
                   {trendingTopics.map((topic, index) => (
                     <div key={index} className="flex items-center gap-3">
-                      <span className="text-2xl text-[#C9974D]">🔥</span>
+                      <span className="text-2xl text-[primary]">🔥</span>
                       <button
                         onClick={() => setSearchQuery(topic)}
-                        className="text-gray-700 hover:text-[#C9974D] transition-colors text-left"
+                        className="text-gray-300 hover:text-[primary] transition-colors text-left"
                       >
                         {topic}
                       </button>
@@ -529,18 +471,18 @@ export default function BlogPage() {
               </div>
 
               {/* Newsletter Signup */}
-              <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] rounded-lg p-6 text-white">
+              <div className="bg-gradient-to-r from-[secondary] to-[secondary-dark] rounded-lg p-6 text-white">
                 <h3 className="text-xl font-bold mb-3">{t.newsletter}</h3>
                 <p className="text-sm mb-4">{t.newsletterDesc}</p>
                 <form className="space-y-3">
                   <input
                     type="email"
                     placeholder={t.email}
-                    className="w-full px-4 py-2 rounded-md text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-white"
+                    className="w-full px-4 py-2 rounded-md text-white placeholder-gray-500 focus:ring-2 focus:ring-white"
                   />
                   <button
                     type="submit"
-                    className="w-full px-4 py-2 bg-white text-[#6B1F2E] rounded-md font-medium hover:bg-gray-100 transition-colors"
+                    className="w-full px-4 py-2 bg-white/5 backdrop-blur-sm border border-primary/20 text-[secondary] rounded-md font-medium hover:bg-white/10 transition-colors"
                   >
                     {t.subscribe}
                   </button>
@@ -548,18 +490,18 @@ export default function BlogPage() {
               </div>
 
               {/* AI Assistant CTA */}
-              <div className="bg-[#6B1F2E]/10 rounded-lg p-6">
+              <div className="bg-[secondary]/10 rounded-lg p-6">
                 <div className="text-center">
                   <div className="text-5xl mb-3">🤖</div>
-                  <h3 className="text-lg font-bold text-[#6B1F2E] mb-2">
+                  <h3 className="text-lg font-bold text-[secondary] mb-2">
                     {language === 'es' ? '¿Necesita Ayuda Legal?' : 'Need Legal Help?'}
                   </h3>
-                  <p className="text-sm text-gray-700 mb-4">
+                  <p className="text-sm text-gray-300 mb-4">
                     {language === 'es'
                       ? 'Nuestro asistente de IA está disponible 24/7'
                       : 'Our AI assistant is available 24/7'}
                   </p>
-                  <button className="px-4 py-2 bg-[#6B1F2E] text-white rounded-md font-medium hover:bg-[#8B2635] transition-colors">
+                  <button className="px-4 py-2 bg-[secondary] text-white rounded-md font-medium hover:bg-[secondary-dark] transition-colors">
                     {language === 'es' ? 'Chatear Ahora' : 'Chat Now'}
                   </button>
                 </div>
@@ -570,6 +512,7 @@ export default function BlogPage() {
       </section>
 
       <ChatWidget language={language} />
-    </div>
+      </div>
+    </MasterLayout>
   );
 }

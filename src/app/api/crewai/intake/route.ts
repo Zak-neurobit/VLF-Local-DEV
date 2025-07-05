@@ -1,30 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { enhancedCrewCoordinator } from '@/lib/crewai/enhanced-crew-coordinator';
+import { getCrewCoordinator } from '@/lib/crewai/crew-coordinator';
 import { logger } from '@/lib/logger';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { clientInput, contactInfo, isEmergency, language = 'en', userId = 'anonymous' } = body;
+    const { clientInput, isEmergency, language = 'en', userId = 'anonymous' } = body;
 
     if (!clientInput) {
       return NextResponse.json({ error: 'Client input is required' }, { status: 400 });
     }
 
-    // Create intake task
-    const taskId = await enhancedCrewCoordinator.createIntakeTask(
+    // Create intake task using CrewCoordinator
+    const coordinator = getCrewCoordinator();
+    const taskId = await coordinator.createLegalConsultationTask(
       userId,
-      clientInput,
-      contactInfo,
-      isEmergency,
-      language as 'en' | 'es'
+      {
+        userId,
+        language: language as 'en' | 'es',
+        caseType: 'General Legal Consultation',
+        description: clientInput,
+        urgency: isEmergency ? 'high' : 'medium',
+        location: 'virtual',
+      },
+      isEmergency ? 'urgent' : 'medium'
     );
 
     // Wait a moment for initial processing
     await new Promise(resolve => setTimeout(resolve, 100));
 
     // Get task status
-    const taskStatus = enhancedCrewCoordinator.getTaskStatus(taskId);
+    const taskStatus = coordinator.getTaskStatus(taskId);
 
     return NextResponse.json({
       success: true,
@@ -48,7 +54,8 @@ export async function GET(request: NextRequest) {
 
     if (!taskId) {
       // Return queue status
-      const queueStatus = enhancedCrewCoordinator.getQueueStatus();
+      const coordinator = getCrewCoordinator();
+      const queueStatus = coordinator.getQueueStatus();
       return NextResponse.json({
         success: true,
         queueStatus,
@@ -56,7 +63,8 @@ export async function GET(request: NextRequest) {
     }
 
     // Get specific task status
-    const task = enhancedCrewCoordinator.getTaskStatus(taskId);
+    const coordinator = getCrewCoordinator();
+    const task = coordinator.getTaskStatus(taskId);
 
     if (!task) {
       return NextResponse.json({ error: 'Task not found' }, { status: 404 });

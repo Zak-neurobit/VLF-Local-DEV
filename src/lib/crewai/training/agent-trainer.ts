@@ -855,7 +855,7 @@ Corporate Relationship: \${params.relationship}\`;
   }`,
     };
 
-    return methodsMap[agentType] || methodsMap.affirmative;
+    return methodsMap[agentType as keyof typeof methodsMap] || methodsMap.affirmative;
   }
 
   private async updateCrewCoordinator() {

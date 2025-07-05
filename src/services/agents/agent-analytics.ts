@@ -58,10 +58,15 @@ export class AgentAnalyticsService {
   }): Promise<void> {
     try {
       // Store in database
+      if (!prisma) {
+        logger.error('Prisma client not available');
+        return;
+      }
       await prisma.agentInteraction.create({
         data: {
           agentId: data.agentId,
           agentName: data.agentName,
+          agentType: 'general',
           sessionId: data.sessionId,
           userId: data.userId,
           intent: data.intent,
@@ -191,15 +196,27 @@ export class AgentAnalyticsService {
     const activeAgents = this.metricsCache.size;
     
     // Calculate current performance
+    if (!prisma) {
+      return {
+        timestamp: now,
+        activeAgents: 0,
+        totalSessions: 0,
+        averageSessionDuration: 0,
+        peakConcurrentSessions: 0,
+        systemHealth: 'degraded',
+        alerts: [],
+      };
+    }
+    
     const recentInteractions = await prisma.agentInteraction.findMany({
       where: {
         createdAt: {
           gte: new Date(now.getTime() - 3600000), // Last hour
         },
       },
-    });
+    }) ?? [];
 
-    const sessionDurations = recentInteractions.map(i => i.responseTime);
+    const sessionDurations = recentInteractions.map(i => i.responseTime ?? 0);
     const averageSessionDuration = sessionDurations.length > 0
       ? sessionDurations.reduce((a, b) => a + b, 0) / sessionDurations.length
       : 0;
@@ -294,6 +311,10 @@ export class AgentAnalyticsService {
   }
 
   async exportAnalytics(startDate: Date, endDate: Date): Promise<Buffer> {
+    if (!prisma) {
+      return Buffer.from('[]');
+    }
+    
     const interactions = await prisma.agentInteraction.findMany({
       where: {
         createdAt: {

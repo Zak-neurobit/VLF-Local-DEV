@@ -3,9 +3,8 @@
 import React from 'react';
 import { ConsistentHeader } from '../components/ConsistentHeader';
 import { ConsistentFooter } from '../components/ConsistentFooter';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 interface MasterLayoutProps {
   children: React.ReactNode;
@@ -19,12 +18,11 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
   showBreadcrumbs = true 
 }) => {
   const pathname = usePathname();
-  const router = useRouter();
   
   // Determine current language from pathname
   const currentLanguage: 'en' | 'es' = pathname.startsWith('/es') ? 'es' : 'en';
 
-  const handleLanguageChange = (lang: 'en' | 'es') => {
+  const handleLanguageChange = (_lang: 'en' | 'es') => {
     // Language change is handled by LanguageSwitcher component
     // which uses router to navigate to the appropriate path
   };
@@ -35,7 +33,7 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
     const breadcrumbs = [{ name: currentLanguage === 'es' ? 'Inicio' : 'Home', href: '/' }];
     
     let currentPath = '';
-    paths.forEach((path, index) => {
+    paths.forEach((path, _index) => {
       currentPath += `/${path}`;
       const name = path
         .split('-')
@@ -48,7 +46,7 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-black">
       <ConsistentHeader 
         language={currentLanguage} 
         setLanguage={handleLanguageChange}
@@ -57,7 +55,7 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
       
       {/* Breadcrumbs */}
       {showBreadcrumbs && pathname !== '/' && variant !== 'hero' && (
-        <div className="bg-neutral-50 border-b border-neutral-200">
+        <div className="bg-black/50 border-b border-primary/20 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <nav className="flex" aria-label="Breadcrumb">
               <ol className="flex items-center space-x-2 text-sm">
@@ -65,7 +63,7 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
                   <li key={crumb.href} className="flex items-center">
                     {index > 0 && (
                       <svg
-                        className="flex-shrink-0 h-4 w-4 text-neutral-400 mx-2"
+                        className="flex-shrink-0 h-4 w-4 text-gray-400 mx-2"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -77,11 +75,11 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
                       </svg>
                     )}
                     {index === array.length - 1 ? (
-                      <span className="text-neutral-600 font-medium">{crumb.name}</span>
+                      <span className="text-gray-300 font-medium">{crumb.name}</span>
                     ) : (
                       <a
                         href={crumb.href}
-                        className="text-neutral-500 hover:text-primary transition-colors"
+                        className="text-gray-400 hover:text-primary transition-colors"
                       >
                         {crumb.name}
                       </a>
@@ -94,7 +92,7 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
         </div>
       )}
       
-      <main className="flex-grow">
+      <main className="flex-grow relative">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -105,6 +103,13 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
       </main>
       
       <ConsistentFooter language={currentLanguage} />
+      
+      {/* Background Effects */}
+      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
+      </div>
     </div>
   );
 };

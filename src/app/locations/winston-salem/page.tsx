@@ -1,136 +1,103 @@
 import { Metadata } from 'next';
 import Script from 'next/script';
-import Link from 'next/link';
-import { Phone, MapPin, Clock, ArrowRight } from 'lucide-react';
+import ModernLocationTemplate from '@/components/templates/ModernLocationTemplate';
+import { MasterLayout } from '@/design-system/templates/MasterLayout';
 
 export const metadata: Metadata = {
-  title: 'Winston-Salem Office - Vasquez Law Firm, PLLC - Vasquez Law Firm, PLLC',
-  description: '',
+  title: 'Winston-Salem Immigration Lawyers | Personal Injury Attorneys - Vasquez Law Firm',
+  description:
+    'Winston-Salem NC immigration lawyers and personal injury attorneys. Serving Forsyth County with deportation defense, green cards, work visas & accident claims. Free consultation.',
+  openGraph: {
+    title: 'Winston-Salem Immigration Lawyers | Personal Injury Attorneys - Vasquez Law Firm',
+    description: 'Expert legal representation in Winston-Salem NC. Immigration, personal injury, workers comp & criminal defense. Free consultation. Se habla español.',
+    images: [{ url: '/images/offices/winston-salem-office.jpg' }],
+  },
 };
 
 export default function WinstonSalemPage() {
+  const locationData = {
+    cityName: 'Winston-Salem',
+    officeName: 'Winston-Salem Office',
+    address: {
+      street: '301 N Main St Suite 1806',
+      city: 'Winston-Salem',
+      state: 'NC',
+      zip: '27101',
+    },
+    phone: '1-844-YO-PELEO',
+    email: 'info@vasquezlawfirm.com',
+    hours: {
+      weekdays: 'Mon-Fri: 9:00 AM - 6:00 PM',
+      saturday: 'By Appointment',
+      sunday: 'Emergency Services Available',
+    },
+    servingAreas: [
+      'Downtown Winston-Salem',
+      'Forsyth County',
+      'Kernersville',
+      'Clemmons',
+      'Lewisville',
+      'Tobaccoville',
+      'Rural Hall',
+      'Walkertown',
+      'Bethania',
+      'King',
+      'Stokes County',
+      'Davie County',
+      'Yadkin County',
+      'Surry County',
+      'Pilot Mountain',
+    ],
+    practiceAreas: {
+      immigration: [
+        'Green Cards & Permanent Residency',
+        'Deportation Defense',
+        'Work Visas (H-1B, L-1, E-2)',
+        'Family-Based Immigration',
+        'Citizenship & Naturalization',
+        'DACA Applications',
+        'Asylum & Refugee Protection',
+        'Immigration Court Representation',
+      ],
+      personalInjury: [
+        'Car Accidents on I-40, US-52, I-74',
+        'Truck & Commercial Vehicle Accidents',
+        'Motorcycle Accidents',
+        'Pedestrian & Bicycle Injuries',
+        'Slip and Fall Cases',
+        'Wrongful Death Claims',
+        'Medical Malpractice',
+        'Product Liability',
+      ],
+      workersComp: [
+        'Workplace Injuries',
+        'Manufacturing Accidents',
+        'Repetitive Stress Injuries',
+        'Denied Claims Appeals',
+        'Disability Benefits',
+        'Third-Party Claims',
+        'Occupational Diseases',
+        'Return to Work Issues',
+      ],
+      criminalDefense: [
+        'DWI/DUI Defense',
+        'Drug Charges',
+        'Domestic Violence',
+        'Traffic Violations',
+        'Expungements',
+        'Federal Crimes',
+        'White Collar Crimes',
+        'Juvenile Cases',
+      ],
+    },
+    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3287.654321098!2d-80.2569!3d36.0986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDU5JzE4LjkiTiA4MMKwMTUnMjQuOSJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-burgundy-700 to-burgundy-900 text-white py-20">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Winston-Salem Office - Vasquez Law Firm, PLLC
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-gold-400 font-semibold">
-              YO PELEO POR TI™ - I FIGHT FOR YOU
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 bg-gold-500 text-burgundy-900 font-bold rounded-full hover:bg-gold-400 transition-colors"
-              >
-                Free Consultation
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <a
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 bg-white text-burgundy-900 font-bold rounded-full hover:bg-gray-100 transition-colors"
-              >
-                <Phone className="mr-2 w-5 h-5" />
-                1-844-YO-PELEO
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Content */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="prose prose-lg max-w-none">
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-4">Winston-Salem Office</h2>
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <div className="flex items-start mb-4">
-                    <MapPin className="w-6 h-6 text-burgundy-700 mr-3 flex-shrink-0 mt-1" />
-                    <div>
-                      <p className="font-semibold">Address:</p>
-                      <p>
-                        301 N Main St Suite 1806
-                        <br />
-                        Winston-Salem, NC 27101
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start mb-4">
-                    <Phone className="w-6 h-6 text-burgundy-700 mr-3 flex-shrink-0 mt-1" />
-                    <div>
-                      <p className="font-semibold">Phone:</p>
-                      <p>
-                        <a href="tel:(336) 893-0000" className="text-burgundy-700 hover:underline">
-                          (336) 893-0000
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <Clock className="w-6 h-6 text-burgundy-700 mr-3 flex-shrink-0 mt-1" />
-                    <div>
-                      <p className="font-semibold">Office Hours:</p>
-                      <p>Mon-Fri: 9:00 AM - 5:00 PM</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  Services Available at This Location
-                </h3>
-                <ul className="list-disc pl-6 space-y-2">
-                  <li>Immigration Law</li>
-                  <li>Personal Injury</li>
-                  <li>Workers&apos; Compensation</li>
-                  <li>Criminal Defense</li>
-                  <li>Family Law</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-gray-100 py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-burgundy-900 mb-4">
-              Ready to Get Started?
-            </h2>
-            <p className="text-xl text-gray-700 mb-8">
-              Contact our experienced attorneys today for a free consultation.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 bg-burgundy-700 text-white font-bold rounded-full hover:bg-burgundy-800 transition-colors"
-              >
-                Schedule Consultation
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <a
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 bg-gold-500 text-burgundy-900 font-bold rounded-full hover:bg-gold-400 transition-colors"
-              >
-                <Phone className="mr-2 w-5 h-5" />
-                Call Now
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
+    <>
+      <MasterLayout variant="default" showBreadcrumbs={true}>
+        <ModernLocationTemplate data={locationData} />
+      </MasterLayout>
       {/* Structured Data for SEO */}
       <Script
         id="location-structured-data"
@@ -139,15 +106,17 @@ export default function WinstonSalemPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'LegalService',
-            name: 'Vasquez Law Firm - Winston Salem',
+            name: 'Vasquez Law Firm - Winston-Salem',
             address: {
               '@type': 'PostalAddress',
-              addressLocality: 'Winston Salem',
+              streetAddress: '301 N Main St Suite 1806',
+              addressLocality: 'Winston-Salem',
               addressRegion: 'NC',
+              postalCode: '27101',
               addressCountry: 'US',
             },
-            telephone: '+1-919-537-8722',
-            url: 'https://www.vasquezlawfirm.com/locations/winston-salem/page',
+            telephone: '+1-844-967-3536',
+            url: 'https://www.vasquezlawfirm.com/locations/winston-salem',
             priceRange: '$$',
             openingHoursSpecification: {
               '@type': 'OpeningHoursSpecification',
@@ -158,6 +127,6 @@ export default function WinstonSalemPage() {
           }),
         }}
       />
-    </div>
+    </>
   );
 }

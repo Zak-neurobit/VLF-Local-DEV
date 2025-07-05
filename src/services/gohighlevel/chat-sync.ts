@@ -42,13 +42,12 @@ export class GHLChatSyncService {
       // Update contact tags based on message content
       const tags = this.extractTagsFromMessage(message, language);
       if (tags.length > 0) {
-        await ghlService.updateContact(ghlContactId, {
-          tags: tags,
-          customFields: {
-            lastChatSession: sessionId,
-            lastChatDate: new Date().toISOString(),
-            chatLanguage: language,
-          }
+        // Create a task to update tags since we don't have direct contact update access
+        await ghlService.createTask({
+          contactId: ghlContactId,
+          title: 'Update chat tags',
+          body: `Add tags: ${tags.join(', ')}\nChat session: ${sessionId}\nLanguage: ${language}`,
+          dueDate: new Date(),
         });
       }
 
@@ -103,15 +102,12 @@ export class GHLChatSyncService {
       // Add transcript as note
       await ghlService.addNote(ghlContactId, transcript);
 
-      // Update contact with conversation summary
-      await ghlService.updateContact(ghlContactId, {
-        customFields: {
-          lastConversationId: conversationId,
-          lastConversationDate: conversation.endedAt || conversation.startedAt,
-          totalMessages: conversation.messages.length,
-          conversationStatus: conversation.status,
-          conversationLanguage: conversation.language || 'en'
-        }
+      // Update contact with conversation summary via task
+      await ghlService.createTask({
+        contactId: ghlContactId,
+        title: 'Update conversation metadata',
+        body: `Last conversation: ${conversationId}\nTotal messages: ${conversation.messages.length}\nStatus: ${conversation.status}\nLanguage: ${conversation.language || 'en'}`,
+        dueDate: new Date(),
       });
 
       // Check if conversation needs follow-up

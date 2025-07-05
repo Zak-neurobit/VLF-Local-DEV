@@ -244,7 +244,7 @@ async function main() {
           name: 'value',
           message: `   ${envVar.key}: ${envVar.description}`,
           default: envVar.example,
-          validate: (input) => {
+          validate: (input: string) => {
             if (api.required && !input) {
               return 'This field is required';
             }

@@ -1,17 +1,14 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
-
 export const metadata: Metadata = {
   title: 'Best Lawyers in Eastern NC North Carolina | Vasquez Law Firm',
   description: 'Leading law firm serving the Eastern NC region of NC including New Hanover, Brunswick, Pender counties. 60+ years experience. All practice areas.',
   keywords: 'Eastern NC NC lawyers, Eastern NC attorneys, Wilmington lawyers, Jacksonville lawyers, Greenville lawyers, New Bern lawyers, Kinston lawyers'
 };
-
 export default function EasternNCRegionPage() {
   const counties = ["New Hanover","Brunswick","Pender","Onslow","Carteret","Craven","Pitt","Wayne","Lenoir"];
   const cities = ["Wilmington","Jacksonville","Greenville","New Bern","Kinston","Goldsboro","Morehead City"];
-
   return (
     <LocationPageTemplate
       location="Eastern NC Region"
@@ -27,7 +24,6 @@ export default function EasternNCRegionPage() {
               we're the law firm the Eastern NC trusts.
             </p>
           </section>
-
           <section>
             <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Counties We Serve in Eastern NC</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -42,7 +38,6 @@ export default function EasternNCRegionPage() {
               ))}
             </div>
           </section>
-
           <section className="bg-gray-50 p-8 rounded-lg">
             <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Major Cities in Eastern NC</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
@@ -54,11 +49,9 @@ export default function EasternNCRegionPage() {
               ))}
             </div>
           </section>
-
           <section>
             <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Our Eastern NC Legal Services</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Immigration Lawyer</h3>
                 <p className="text-gray-600 mb-4">Serving all of Eastern NC with expert immigration lawyer services</p>
@@ -96,7 +89,6 @@ export default function EasternNCRegionPage() {
               </div>
             </div>
           </section>
-
           <section className="bg-[#6B1F2E] text-white p-8 rounded-lg text-center">
             <h2 className="text-3xl font-bold mb-4">
               Eastern NC Residents: Get Your Free Consultation Today

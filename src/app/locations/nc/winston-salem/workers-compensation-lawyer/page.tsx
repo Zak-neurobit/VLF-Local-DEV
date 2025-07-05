@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 import Script from 'next/script';
-
 export const metadata: Metadata = {
   title: 'Best Workers\' Compensation Lawyer in Winston-Salem, NC | 60+ Years Experience | Free Consultation',
   description: 'Top-rated workers\' compensation lawyer serving Winston-Salem and Forsyth County. 60+ years combined experience. Available 24/7. Free consultation. Se habla español. Call 1-844-YO-PELEO.',
@@ -25,13 +24,11 @@ export const metadata: Metadata = {
     }
   }
 };
-
 export default function WinstonSalemWorkersCompensationLawyerPage() {
   return (
     <>
       <LocationPageTemplate
         location="Winston-Salem"
-        practiceArea="Workers\' Compensation Lawyer"
         content={
           <div className="space-y-12">
             {/* Hero Section */}
@@ -45,7 +42,6 @@ export default function WinstonSalemWorkersCompensationLawyerPage() {
                 we're the law firm Winston-Salem residents trust most.
               </p>
             </section>
-
             {/* Local Expertise */}
             <section className="bg-gray-50 p-8 rounded-lg">
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
@@ -72,7 +68,6 @@ export default function WinstonSalemWorkersCompensationLawyerPage() {
                 </div>
               </div>
             </section>
-
             {/* Service Areas */}
             <section>
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
@@ -95,7 +90,6 @@ export default function WinstonSalemWorkersCompensationLawyerPage() {
                 </div>
               </div>
             </section>
-
             {/* Local Stats */}
             <section className="bg-[#C9974D]/10 p-8 rounded-lg">
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
@@ -116,9 +110,7 @@ export default function WinstonSalemWorkersCompensationLawyerPage() {
                 </div>
               </div>
             </section>
-
             {/* Court Information */}
-            
             <section>
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
                 Forsyth County Court Information
@@ -131,8 +123,6 @@ export default function WinstonSalemWorkersCompensationLawyerPage() {
                 </p>
               </div>
             </section>
-            
-
             {/* CTA Section */}
             <section className="bg-[#6B1F2E] text-white p-8 rounded-lg text-center">
               <h2 className="text-3xl font-bold mb-4">
@@ -153,7 +143,6 @@ export default function WinstonSalemWorkersCompensationLawyerPage() {
           </div>
         }
       />
-
       {/* Local Business Schema */}
       <Script
         id="winston-salem-workers-compensation-lawyer-schema"
@@ -198,7 +187,6 @@ export default function WinstonSalemWorkersCompensationLawyerPage() {
           })
         }}
       />
-
       {/* FAQ Schema for Local SEO */}
       <Script
         id="winston-salem-workers-compensation-lawyer-faq"

@@ -117,7 +117,7 @@ export class ReviewAggregatorService {
     // Try to get from cache first
     if (useCache) {
       try {
-        const cached = await cache.get<AggregatedReviews>(this.cacheKey);
+        const cached = await cache.get(this.cacheKey) as AggregatedReviews | null;
         if (cached) {
           logger.info('Returning cached external reviews');
           return cached;

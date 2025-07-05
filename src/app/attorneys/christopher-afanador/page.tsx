@@ -1,182 +1,332 @@
-import { Metadata } from 'next';
-import Script from 'next/script';
-import Link from 'next/link';
-import { Phone, ArrowRight } from 'lucide-react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
-import { COLORS } from '@/design-system/constants';
-import { InteractiveLink, InteractiveButton } from '@/components/ui/InteractiveLink';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Christopher Afanador - Attorney - Vasquez Law Firm, PLLC',
-  description: 'Christopher Afanador is an experienced criminal defense attorney at Vasquez Law Firm, successfully defending clients against a wide range of charges in NC.',
-};
+import Script from 'next/script';
+import Image from 'next/image';
+import { Phone, ArrowRight, Globe, Award, Scale, GraduationCap, MapPin } from 'lucide-react';
+import { MasterLayout } from '@/design-system/templates/MasterLayout';
+import { motion } from 'framer-motion';
+import { TRADEMARK } from '@/lib/constants/trademark';
 
 export default function Page() {
   return (
     <MasterLayout variant="hero" showBreadcrumbs={false}>
-      <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative py-24" style={{ background: `linear-gradient(to right, ${COLORS.burgundy[700]}, ${COLORS.burgundy[900]})` }}>
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">Christopher Afanador</h1>
-            <p className="text-xl md:text-2xl mb-8 font-semibold" style={{ color: COLORS.gold[400] }}>
-              Criminal Defense Attorney - YO PELEO POR TI™
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <InteractiveLink
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 font-bold rounded-full transition-colors"
-                style={{ backgroundColor: COLORS.gold[500], color: COLORS.burgundy[900] }}
-                hoverStyle={{ backgroundColor: COLORS.gold[400], color: COLORS.burgundy[900] }}
-              >
-                Free Consultation
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </InteractiveLink>
-              <a
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 bg-white font-bold rounded-full hover:bg-gray-100 transition-colors"
-                style={{ color: COLORS.burgundy[900] }}
-              >
-                <Phone className="mr-2 w-5 h-5" />
-                1-844-YO-PELEO
-              </a>
-            </div>
+      <div className="min-h-screen bg-black">
+        {/* Hero Section with Modern Design */}
+        <section className="relative overflow-hidden bg-black py-24">
+          {/* Animated Background */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-black to-secondary/10" />
+            <motion.div
+              className="absolute inset-0"
+              animate={{
+                background: [
+                  'radial-gradient(circle at 20% 50%, rgba(201, 151, 77, 0.15) 0%, transparent 50%)',
+                  'radial-gradient(circle at 80% 50%, rgba(107, 31, 46, 0.15) 0%, transparent 50%)',
+                  'radial-gradient(circle at 20% 50%, rgba(201, 151, 77, 0.15) 0%, transparent 50%)',
+                ],
+              }}
+              transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+            />
           </div>
-        </div>
-      </section>
 
-      {/* Main Content */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="prose prose-lg max-w-none">
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold mb-4" style={{ color: COLORS.burgundy[900] }}>
-                  Criminal Defense Attorney
-                </h2>
-                <p style={{ color: COLORS.neutral[700] }}>
-                  Christopher Afanador is an experienced criminal defense attorney who has
-                  successfully defended clients against a wide range of charges. With his dedication
-                  to protecting clients&apos; rights and his thorough understanding of criminal law,
-                  he provides aggressive representation for those facing serious legal challenges.
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-4xl mx-auto text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <h1 className="text-5xl md:text-7xl font-black mb-6 text-white">Christopher Afanador</h1>
+                <p className="text-xl md:text-2xl mb-8 font-semibold text-primary">
+                  Immigration Attorney - {TRADEMARK.YO_PELEO_POR_TI}
                 </p>
+                <p className="text-lg mb-8 max-w-3xl mx-auto text-gray-300">
+                  Dedicated to helping clients navigate the complex USCIS immigration process with expertise and compassion
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <motion.a
+                    href="/contact"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-flex items-center px-8 py-4 bg-primary text-black font-bold rounded-full transition-all hover:bg-primary-300"
+                  >
+                    Free Consultation
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </motion.a>
+                  <motion.a
+                    href="tel:1-844-967-3536"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-flex items-center px-8 py-4 bg-transparent text-white font-bold rounded-full border-2 border-white hover:bg-white hover:text-black transition-all"
+                  >
+                    <Phone className="mr-2 w-5 h-5" />
+                    1-844-YO-PELEO
+                  </motion.a>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Main Content */}
+        <section className="py-20 bg-gradient-to-b from-black to-neutral-950">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              {/* Attorney Photo and Bio */}
+              <div className="grid md:grid-cols-2 gap-12 mb-20">
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="relative"
+                >
+                  <div className="relative h-[500px] rounded-2xl overflow-hidden border border-primary/20">
+                    <Image
+                      src="/images/attorneys/christopher-afanador.jpg"
+                      alt="Christopher Afanador, Attorney at Vasquez Law Firm"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority
+                    />
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="flex flex-col justify-center"
+                >
+                  <h2 className="text-3xl md:text-4xl font-black mb-6 text-white">
+                    Immigration Law Expert
+                  </h2>
+                  <p className="text-lg mb-6 text-gray-300">
+                    Christopher Afanador is a dedicated immigration attorney who helps clients navigate 
+                    the complex USCIS immigration process with expertise and compassion. With years of 
+                    experience in immigration law, he has successfully helped numerous clients achieve 
+                    their American dream.
+                  </p>
+                  <p className="text-lg mb-8 text-gray-300">
+                    His practice focuses on family-based immigration, citizenship applications, green 
+                    cards, and deportation defense. Christopher understands the challenges immigrants 
+                    face and is committed to providing personalized legal solutions.
+                  </p>
+                  
+                  {/* Quick Info */}
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="bg-neutral-900/50 p-4 rounded-xl border border-primary/20">
+                      <Globe className="w-6 h-6 text-primary mb-2" />
+                      <h4 className="font-bold mb-1 text-white">Languages</h4>
+                      <p className="text-gray-400">English, Spanish</p>
+                    </div>
+                    <div className="bg-neutral-900/50 p-4 rounded-xl border border-primary/20">
+                      <Award className="w-6 h-6 text-primary mb-2" />
+                      <h4 className="font-bold mb-1 text-white">Focus</h4>
+                      <p className="text-gray-400">Immigration Law</p>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-8 mb-8">
-                <div>
-                  <h3 className="text-2xl font-bold mb-4" style={{ color: COLORS.burgundy[900] }}>Education</h3>
-                  <ul className="space-y-2">
-                    <li className="flex items-start">
-                      <span className="mr-2" style={{ color: COLORS.gold[500] }}>•</span>
-                      <span>J.D., University of North Carolina School of Law</span>
+              {/* Credentials Grid */}
+              <div className="grid md:grid-cols-3 gap-8 mb-20">
+                {/* Education */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="bg-gradient-to-b from-neutral-900 to-neutral-950 p-8 rounded-2xl border border-primary/20"
+                >
+                  <GraduationCap className="w-8 h-8 text-primary mb-4" />
+                  <h3 className="text-2xl font-bold mb-6 text-white">Education</h3>
+                  <ul className="space-y-4">
+                    <li className="border-l-2 border-primary pl-4">
+                      <p className="font-semibold text-white">J.D., Law</p>
+                      <p className="text-gray-400 text-sm">
+                        Charlotte School of Law, 2013
+                      </p>
+                    </li>
+                    <li className="border-l-2 border-primary pl-4">
+                      <p className="font-semibold text-white">B.S., Criminal Justice</p>
+                      <p className="text-gray-400 text-sm">
+                        University of Central Florida, 2010
+                      </p>
                     </li>
                   </ul>
-                </div>
+                </motion.div>
 
-                <div>
-                  <h3 className="text-2xl font-bold mb-4" style={{ color: COLORS.burgundy[900] }}>Bar Admissions</h3>
-                  <ul className="space-y-2">
-                    <li className="flex items-start">
-                      <span className="mr-2" style={{ color: COLORS.gold[500] }}>•</span>
-                      <span>North Carolina State Bar</span>
+                {/* Bar Admissions */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="bg-gradient-to-b from-neutral-900 to-neutral-950 p-8 rounded-2xl border border-primary/20"
+                >
+                  <MapPin className="w-8 h-8 text-primary mb-4" />
+                  <h3 className="text-2xl font-bold mb-6 text-white">Bar Admissions</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-center text-gray-300">
+                      <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                      North Carolina State Bar
                     </li>
-                    <li className="flex items-start">
-                      <span className="mr-2" style={{ color: COLORS.gold[500] }}>•</span>
-                      <span>Federal Courts</span>
+                    <li className="flex items-center text-gray-300">
+                      <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                      Federal Immigration Courts
+                    </li>
+                    <li className="flex items-center text-gray-300">
+                      <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
+                      USCIS Practice
                     </li>
                   </ul>
-                </div>
+                </motion.div>
+
+                {/* Practice Areas */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="bg-gradient-to-b from-neutral-900 to-neutral-950 p-8 rounded-2xl border border-primary/20"
+                >
+                  <Scale className="w-8 h-8 text-primary mb-4" />
+                  <h3 className="text-2xl font-bold mb-6 text-white">Practice Areas</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      'Immigration Law',
+                      'Green Cards',
+                      'Citizenship',
+                      'USCIS Applications',
+                      'Family Immigration',
+                      'Work Visas',
+                    ].map((area) => (
+                      <span
+                        key={area}
+                        className="px-3 py-1 bg-primary/10 text-xs text-primary rounded-full border border-primary/20"
+                      >
+                        {area}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
               </div>
 
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold mb-4" style={{ color: COLORS.burgundy[900] }}>Practice Areas</h3>
+              {/* Specialties Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-gradient-to-r from-primary/10 to-secondary/10 p-12 rounded-3xl border border-primary/20 mb-20"
+              >
+                <h3 className="text-3xl font-black mb-8 text-white text-center">Immigration Law Services</h3>
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-bold mb-3" style={{ color: COLORS.burgundy[700] }}>Criminal Defense</h4>
-                    <ul className="space-y-2" style={{ color: COLORS.neutral[700] }}>
-                      <li>• DUI/DWI Defense</li>
-                      <li>• Drug Crimes</li>
-                      <li>• Violent Crimes</li>
-                      <li>• White Collar Crimes</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-bold mb-3" style={{ color: COLORS.burgundy[700] }}>Additional Services</h4>
-                    <ul className="space-y-2" style={{ color: COLORS.neutral[700] }}>
-                      <li>• Traffic Violations</li>
-                      <li>• Expungements</li>
-                      <li>• Appeals</li>
-                      <li>• Juvenile Defense</li>
-                    </ul>
-                  </div>
+                  {[
+                    'Family-Based Immigration Petitions',
+                    'Employment-Based Immigration',
+                    'Naturalization and Citizenship',
+                    'Green Card Applications',
+                    'Visa Extensions and Changes',
+                    'Deportation Defense',
+                    'DACA Applications',
+                    'Immigration Appeals',
+                  ].map((service, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex items-start"
+                    >
+                      <span className="text-primary mr-3 mt-1">✓</span>
+                      <span className="text-gray-300">{service}</span>
+                    </motion.div>
+                  ))}
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-24" style={{ backgroundColor: COLORS.neutral[100] }}>
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: COLORS.burgundy[900] }}>
-              Need Criminal Defense?
-            </h2>
-            <p className="text-xl mb-8" style={{ color: COLORS.neutral[700] }}>
-              Contact Christopher Afanador today for aggressive criminal defense representation.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <InteractiveLink
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 text-white font-bold rounded-full transition-colors"
-                style={{ backgroundColor: COLORS.burgundy[700] }}
-                hoverStyle={{ backgroundColor: COLORS.burgundy[800] }}
+        {/* CTA Section */}
+        <section className="py-20 bg-black relative overflow-hidden">
+          <div className="absolute inset-0">
+            <motion.div
+              animate={{
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{ duration: 4, repeat: Infinity }}
+              className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-secondary/10"
+            />
+          </div>
+
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-4xl mx-auto text-center">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
               >
-                Schedule Consultation
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </InteractiveLink>
-              <InteractiveButton
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 font-bold rounded-full transition-colors"
-                style={{ backgroundColor: COLORS.gold[500], color: COLORS.burgundy[900] }}
-                hoverStyle={{ backgroundColor: COLORS.gold[400], color: COLORS.burgundy[900] }}
-              >
-                <Phone className="mr-2 w-5 h-5" />
-                Call Now
-              </InteractiveButton>
+                <h2 className="text-4xl md:text-5xl font-black mb-4 text-white">
+                  Need Immigration Help?
+                </h2>
+                <p className="text-xl mb-8 text-gray-300">
+                  Contact Christopher Afanador today for expert immigration legal assistance.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <motion.a
+                    href="/contact"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-flex items-center px-8 py-4 bg-primary text-black font-bold rounded-full transition-all hover:bg-primary-300"
+                  >
+                    Schedule Consultation
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </motion.a>
+                  <motion.a
+                    href="tel:1-844-967-3536"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-flex items-center px-8 py-4 bg-transparent text-white font-bold rounded-full border-2 border-white hover:bg-white hover:text-black transition-all"
+                  >
+                    <Phone className="mr-2 w-5 h-5" />
+                    Call Now
+                  </motion.a>
+                </div>
+              </motion.div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Structured Data for SEO */}
-      <Script
-        id="attorney-structured-data"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Person',
-            name: 'Christopher Afanador',
-            jobTitle: 'Attorney',
-            worksFor: {
-              '@type': 'LegalService',
-              name: 'Vasquez Law Firm, PLLC',
-              url: 'https://www.vasquezlawfirm.com',
-              telephone: '+1-919-537-8722',
-              priceRange: '$$',
-            },
-            url: 'https://www.vasquezlawfirm.com/attorneys/christopher-afanador/page',
-            sameAs: [
-              'https://www.linkedin.com/company/vasquez-law-firm',
-              'https://www.facebook.com/vasquezlawfirm',
-            ],
-          }),
-        }}
-      />
+        {/* Structured Data for SEO */}
+        <Script
+          id="attorney-structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: 'Christopher Afanador',
+              jobTitle: 'Immigration Attorney',
+              worksFor: {
+                '@type': 'LegalService',
+                name: 'Vasquez Law Firm, PLLC',
+                url: 'https://www.vasquezlawfirm.com',
+                telephone: '+1-919-537-8722',
+                priceRange: '$$',
+              },
+              url: 'https://www.vasquezlawfirm.com/attorneys/christopher-afanador',
+              sameAs: [
+                'https://www.linkedin.com/company/vasquez-law-firm',
+                'https://www.facebook.com/vasquezlawfirm',
+              ],
+            }),
+          }}
+        />
       </div>
     </MasterLayout>
   );

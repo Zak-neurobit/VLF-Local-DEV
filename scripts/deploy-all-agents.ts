@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 
 import { logger } from '../src/lib/logger';
-import { retellAgentManager } from '../src/services/retell/agent-manager-v2';
+import { RetellAgentManager } from '../src/services/retell/agent-manager-v2';
 import { prisma } from '../src/lib/prisma';
 import { CrewCoordinator } from '../src/lib/crewai/crew-coordinator';
 import dotenv from 'dotenv';
@@ -160,7 +160,11 @@ async function deployAllAgents() {
     logger.info('📊 Setting up Agent Monitoring...');
     try {
       // Initialize monitoring tables if needed
-      await prisma.agentInteraction.count(); // Verify database connection
+      if (prisma) {
+        await prisma.agentInteraction.count(); // Verify database connection
+      } else {
+        throw new Error('Database connection not available');
+      }
       
       results.push({
         agent: 'Agent Monitoring System',
@@ -183,7 +187,6 @@ async function deployAllAgents() {
     try {
       const webhookEndpoints = [
         '/api/webhooks/retell',
-        '/api/webhooks/twilio/voice',
         '/api/webhooks/ghl',
         '/api/webhooks/socket',
       ];
@@ -244,12 +247,16 @@ async function deployAllAgents() {
       },
     };
 
-    await prisma.$disconnect();
+    if (prisma) {
+      await prisma.$disconnect();
+    }
     
     return report;
   } catch (error) {
     logger.error('Critical error during deployment:', error);
-    await prisma.$disconnect();
+    if (prisma) {
+      await prisma.$disconnect();
+    }
     process.exit(1);
   }
 }

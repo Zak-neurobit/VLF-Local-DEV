@@ -6,7 +6,7 @@
     "dev": "npm run build:socket && node scripts/dev-server.js",
     "dev:next": "next dev",
     "dev:socket": "npm run build:socket && node scripts/dev-server.js",
-    "build:socket": "tsc src/lib/socket/server.ts --outDir dist --module commonjs --esModuleInterop --resolveJsonModule --skipLibCheck",
+    "build:socket": "tsc --project tsconfig.socket.json",
     "build": "prisma generate && next build",
     "start": "next start",
     "start:next": "next start",
@@ -89,7 +89,6 @@
     "@types/node-cron": "^3.0.11",
     "@types/nodemailer": "^6.4.17",
     "@types/three": "^0.177.0",
-    "@types/twilio": "^3.19.2",
     "ai": "^4.3.16",
     "autoprefixer": "^10.4.16",
     "axios": "^1.10.0",
@@ -142,7 +141,6 @@
     "tailwindcss": "^3.4.0",
     "three": "^0.170.0",
     "tsx": "^4.20.3",
-    "twilio": "^5.7.1",
     "web-vitals": "^5.0.3",
     "winston": "^3.11.0",
     "zod": "^3.25.67",
@@ -162,6 +160,7 @@
     "@typescript-eslint/eslint-plugin": "^6.16.0",
     "@typescript-eslint/parser": "^6.16.0",
     "axe-core": "^4.8.0",
+    "critters": "^0.0.23",
     "eslint": "^8.56.0",
     "eslint-config-next": "14.2.30",
     "eslint-config-prettier": "^10.1.5",
@@ -171,8 +170,10 @@
     "jest-junit": "^16.0.0",
     "prettier": "^3.1.0",
     "prisma": "^6.10.1",
+    "terser-webpack-plugin": "^5.3.10",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.0"
+    "typescript": "^5.3.0",
+    "webpack-bundle-analyzer": "^4.10.1"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"

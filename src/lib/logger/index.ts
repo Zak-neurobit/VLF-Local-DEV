@@ -241,6 +241,22 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
         timestamp: new Date().toISOString(),
       });
     },
+
+    info: (clientId: string, message: string) => {
+      logger.info('WebSocket info', {
+        clientId,
+        message,
+        timestamp: new Date().toISOString(),
+      });
+    },
+
+    warn: (clientId: string, message: string) => {
+      logger.warn('WebSocket warning', {
+        clientId,
+        message,
+        timestamp: new Date().toISOString(),
+      });
+    },
   };
 
   // Database Logger

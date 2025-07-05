@@ -1,13 +1,11 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
-
 export const metadata: Metadata = {
   title: 'Best Lawyers in Fayetteville, NC | All Practice Areas | Vasquez Law Firm',
   description: 'Top-rated law firm in Fayetteville, North Carolina. Immigration, personal injury, workers comp, criminal defense. 60+ years experience. Free consultation. Se habla español.',
   keywords: 'lawyers Fayetteville NC, attorneys Fayetteville, law firm Fayetteville North Carolina, abogados Fayetteville'
 };
-
 export default function FayettevilleHubPage() {
   const practiceAreas = [
     { name: 'Immigration Law', slug: 'immigration-lawyer', icon: '🌍' },
@@ -16,7 +14,6 @@ export default function FayettevilleHubPage() {
     { name: 'Criminal Defense', slug: 'criminal-defense-attorney', icon: '⚖️' },
     { name: 'Car Accidents', slug: 'car-accident-lawyer', icon: '🚗' }
   ];
-
   return (
     <LocationPageTemplate
       location="Fayetteville"
@@ -31,7 +28,6 @@ export default function FayettevilleHubPage() {
               Choose your practice area below or call 1-844-YO-PELEO for immediate assistance.
             </p>
           </section>
-
           <section>
             <h2 className="text-3xl font-bold mb-8 text-[#6B1F2E]">Our Fayetteville Legal Services</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -49,7 +45,6 @@ export default function FayettevilleHubPage() {
               ))}
             </div>
           </section>
-
           <section className="bg-gray-50 p-8 rounded-lg">
             <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Why Fayetteville Trusts Vasquez Law Firm</h2>
             <div className="grid md:grid-cols-2 gap-8">
@@ -73,7 +68,6 @@ export default function FayettevilleHubPage() {
               </div>
             </div>
           </section>
-
           <section className="bg-[#6B1F2E] text-white p-8 rounded-lg text-center">
             <h2 className="text-3xl font-bold mb-4">
               Fayetteville - Piedmont: Complete Legal Coverage

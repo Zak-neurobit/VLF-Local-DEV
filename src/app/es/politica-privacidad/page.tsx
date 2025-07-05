@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { Phone, MapPin, Clock } from 'lucide-react';
+import { Phone } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Política de Privacidad | Bufete de Abogados Vasquez - YO PELEO POR TI™',

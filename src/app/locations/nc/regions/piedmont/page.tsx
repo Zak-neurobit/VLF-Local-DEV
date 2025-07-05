@@ -1,17 +1,14 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
-
 export const metadata: Metadata = {
   title: 'Best Lawyers in Piedmont North Carolina | Vasquez Law Firm',
   description: 'Leading law firm serving the Piedmont region of NC including Cumberland, Harnett, Lee counties. 60+ years experience. All practice areas.',
   keywords: 'Piedmont NC lawyers, Piedmont attorneys, Fayetteville lawyers, Sanford lawyers, Laurinburg lawyers, Lumberton lawyers, Southern Pines lawyers'
 };
-
 export default function PiedmontRegionPage() {
   const counties = ["Cumberland","Harnett","Lee","Moore","Hoke","Robeson","Scotland","Richmond","Anson"];
   const cities = ["Fayetteville","Sanford","Laurinburg","Lumberton","Southern Pines","Pinehurst","Rockingham"];
-
   return (
     <LocationPageTemplate
       location="Piedmont Region"
@@ -27,7 +24,6 @@ export default function PiedmontRegionPage() {
               we're the law firm the Piedmont trusts.
             </p>
           </section>
-
           <section>
             <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Counties We Serve in Piedmont</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -42,7 +38,6 @@ export default function PiedmontRegionPage() {
               ))}
             </div>
           </section>
-
           <section className="bg-gray-50 p-8 rounded-lg">
             <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Major Cities in Piedmont</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
@@ -54,11 +49,9 @@ export default function PiedmontRegionPage() {
               ))}
             </div>
           </section>
-
           <section>
             <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Our Piedmont Legal Services</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Immigration Lawyer</h3>
                 <p className="text-gray-600 mb-4">Serving all of Piedmont with expert immigration lawyer services</p>
@@ -96,7 +89,6 @@ export default function PiedmontRegionPage() {
               </div>
             </div>
           </section>
-
           <section className="bg-[#6B1F2E] text-white p-8 rounded-lg text-center">
             <h2 className="text-3xl font-bold mb-4">
               Piedmont Residents: Get Your Free Consultation Today

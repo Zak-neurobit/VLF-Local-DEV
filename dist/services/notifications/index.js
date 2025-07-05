@@ -1,0 +1,144 @@
+"use strict";
+/**
+ * Notification Service
+ * Handles email, SMS, and in-app notifications
+ * Now using GoHighLevel for SMS instead of Twilio
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createNotification = exports.notificationService = exports.NotificationService = void 0;
+const logger_1 = require("@/lib/logger");
+const ghl_notifications_1 = require("./ghl-notifications");
+class NotificationService {
+    /**
+     * Send email notification
+     */
+    async sendEmail(to, subject, message) {
+        try {
+            logger_1.logger.info('Sending email notification', { to, subject });
+            // In production, this would use a real email service
+            // For now, we'll just log it
+            if (process.env.NODE_ENV === 'production') {
+                // TODO: Implement actual email sending
+                // await emailService.send({ to, subject, html: message });
+            }
+            logger_1.logger.info('Email notification sent successfully', { to });
+        }
+        catch (error) {
+            logger_1.logger.error('Failed to send email notification', { error, to });
+            throw error;
+        }
+    }
+    /**
+     * Send SMS notification via GoHighLevel
+     */
+    async sendSMS(to, message) {
+        try {
+            logger_1.logger.info('Sending SMS notification via GoHighLevel', { to });
+            await ghl_notifications_1.ghlNotificationService.sendSMS({
+                to,
+                body: message,
+                tags: ['notification-service'],
+            });
+            logger_1.logger.info('SMS notification sent successfully', { to });
+        }
+        catch (error) {
+            logger_1.logger.error('Failed to send SMS notification', { error, to });
+            throw error;
+        }
+    }
+    /**
+     * Send in-app notification
+     */
+    async sendInApp(userId, message, type = 'info') {
+        try {
+            logger_1.logger.info('Creating in-app notification', { userId, type });
+            // Store notification in database
+            // This would typically be saved to a notifications table
+            const notification = {
+                userId,
+                message,
+                type,
+                read: false,
+                createdAt: new Date(),
+            };
+            // TODO: Save to database
+            // await getPrismaClient().notification.create({ data: notification });
+            // Emit real-time event if socket.io is available
+            if (global.io) {
+                global.io.to(userId).emit('notification', notification);
+            }
+            logger_1.logger.info('In-app notification created', { userId });
+        }
+        catch (error) {
+            logger_1.logger.error('Failed to create in-app notification', { error, userId });
+            throw error;
+        }
+    }
+    /**
+     * Send notification to multiple channels
+     */
+    async sendMultiChannel(recipient, message, options = {}) {
+        const channels = options.channels || ['email', 'in-app'];
+        const promises = [];
+        if (channels.includes('email') && recipient.email) {
+            promises.push(this.sendEmail(recipient.email, options.subject || 'Notification', message));
+        }
+        if (channels.includes('sms') && recipient.phone) {
+            promises.push(this.sendSMS(recipient.phone, message));
+        }
+        if (channels.includes('in-app') && recipient.userId) {
+            promises.push(this.sendInApp(recipient.userId, message));
+        }
+        await Promise.allSettled(promises);
+    }
+    /**
+     * Notify about case update
+     */
+    async notifyCaseUpdate(caseId, clientEmail, updateType, details) {
+        const subject = `Case Update: ${updateType}`;
+        const message = `
+      <h2>Your case has been updated</h2>
+      <p><strong>Update Type:</strong> ${updateType}</p>
+      <p><strong>Details:</strong> ${details}</p>
+      <p>Log in to your client portal to view more details.</p>
+    `;
+        await this.sendEmail(clientEmail, subject, message);
+    }
+    /**
+     * Notify about appointment
+     */
+    async notifyAppointment(appointment, notificationType) {
+        let subject;
+        let message;
+        switch (notificationType) {
+            case 'confirmation':
+                subject = 'Appointment Confirmed';
+                message = `Your ${appointment.type} appointment has been confirmed for ${appointment.date.toLocaleString()}.`;
+                break;
+            case 'reminder':
+                subject = 'Appointment Reminder';
+                message = `This is a reminder about your ${appointment.type} appointment on ${appointment.date.toLocaleString()}.`;
+                break;
+            case 'cancellation':
+                subject = 'Appointment Cancelled';
+                message = `Your ${appointment.type} appointment scheduled for ${appointment.date.toLocaleString()} has been cancelled.`;
+                break;
+        }
+        // Send via multiple channels
+        await this.sendMultiChannel({
+            email: appointment.clientEmail,
+            phone: appointment.clientPhone,
+        }, message, {
+            subject,
+            channels: ['email', 'sms'],
+        });
+    }
+}
+exports.NotificationService = NotificationService;
+// Export singleton instance
+exports.notificationService = new NotificationService();
+// Export convenience function for backward compatibility
+const createNotification = async (options) => {
+    await exports.notificationService.sendInApp(options.userId, options.message);
+};
+exports.createNotification = createNotification;

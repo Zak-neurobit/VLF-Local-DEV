@@ -9,6 +9,8 @@ import { AILATrainedRemovalDefenseAgent } from '@/lib/crewai/agents/aila-trained
 import { LeadValidationAgent } from '@/lib/agents/lead-validation-agent';
 import { FollowUpAutomationAgent } from '@/lib/agents/follow-up-automation-agent';
 import { logger } from '@/lib/logger';
+import { EventEmitter } from 'events';
+import pLimit from 'p-limit';
 
 export interface AgentContext {
   userId?: string;
@@ -29,13 +31,53 @@ export interface AgentResponse {
   handoff?: string;
 }
 
-export class AgentOrchestrator {
+export interface AgentMemory {
+  shortTerm: Map<string, any>;
+  longTerm: Map<string, any>;
+  workingMemory: any[];
+  lastAccessed: Date;
+}
+
+export interface InterAgentMessage {
+  from: string;
+  to: string;
+  type: 'request' | 'response' | 'broadcast';
+  payload: any;
+  timestamp: Date;
+  correlationId?: string;
+}
+
+export interface AgentPerformanceMetrics {
+  requestCount: number;
+  successCount: number;
+  errorCount: number;
+  averageResponseTime: number;
+  lastResponseTime: number;
+  cpuUsage?: number;
+  memoryUsage?: number;
+}
+
+export class AgentOrchestrator extends EventEmitter {
   private agents: Map<string, any>;
+  private agentTypes: Map<string, string>;
+  private agentMemory: Map<string, AgentMemory>;
+  private messageQueue: InterAgentMessage[];
+  private performanceMetrics: Map<string, AgentPerformanceMetrics>;
+  private concurrencyLimit: pLimit.Limit;
   private static instance: AgentOrchestrator;
+  private parallelProcessingEnabled: boolean = false;
+  private maxConcurrentRequests: number = 10;
 
   private constructor() {
+    super();
     this.agents = new Map();
+    this.agentTypes = new Map();
+    this.agentMemory = new Map();
+    this.messageQueue = [];
+    this.performanceMetrics = new Map();
+    this.concurrencyLimit = pLimit(this.maxConcurrentRequests);
     this.initializeAgents();
+    this.startMessageProcessor();
   }
 
   static getInstance(): AgentOrchestrator {
@@ -47,31 +89,60 @@ export class AgentOrchestrator {
 
   private initializeAgents() {
     // Initialize all customer-facing agents
-    this.agents.set('consultation', new LegalConsultationAgent());
-    this.agents.set('appointment', new AppointmentSchedulingAgent());
-    this.agents.set('document', new DocumentAnalysisAgent());
-    this.agents.set('intake', new EnhancedIntakeAgent());
-    this.agents.set('removal', new RemovalDefenseAgent());
-    this.agents.set('business', new BusinessImmigrationAgent());
-    this.agents.set('criminal', new CriminalDefenseAgent());
-    this.agents.set('aila', new AILATrainedRemovalDefenseAgent());
+    this.registerAgentWithType('consultation', new LegalConsultationAgent(), 'crewai');
+    this.registerAgentWithType('appointment', new AppointmentSchedulingAgent(), 'crewai');
+    this.registerAgentWithType('document', new DocumentAnalysisAgent(), 'crewai');
+    this.registerAgentWithType('intake', new EnhancedIntakeAgent(), 'crewai');
+    this.registerAgentWithType('removal', new RemovalDefenseAgent(), 'crewai');
+    this.registerAgentWithType('business', new BusinessImmigrationAgent(), 'crewai');
+    this.registerAgentWithType('criminal', new CriminalDefenseAgent(), 'crewai');
+    this.registerAgentWithType('aila', new AILATrainedRemovalDefenseAgent(), 'crewai');
     
     // Initialize automation agents
-    this.agents.set('lead-validation', new LeadValidationAgent());
-    this.agents.set('follow-up', new FollowUpAutomationAgent());
+    this.registerAgentWithType('lead-validation', new LeadValidationAgent(), 'automation');
+    this.registerAgentWithType('follow-up', new FollowUpAutomationAgent(), 'automation');
 
     logger.info('Agent Orchestrator initialized with 10 agents including automation specialists');
+    this.emit('agents-initialized', { count: this.agents.size });
+  }
+
+  private registerAgentWithType(name: string, agent: any, type: string) {
+    this.agents.set(name, agent);
+    this.agentTypes.set(name, type);
+    this.initializeAgentMemory(name);
+    this.initializeAgentMetrics(name);
+  }
+
+  private initializeAgentMemory(agentName: string) {
+    this.agentMemory.set(agentName, {
+      shortTerm: new Map(),
+      longTerm: new Map(),
+      workingMemory: [],
+      lastAccessed: new Date(),
+    });
+  }
+
+  private initializeAgentMetrics(agentName: string) {
+    this.performanceMetrics.set(agentName, {
+      requestCount: 0,
+      successCount: 0,
+      errorCount: 0,
+      averageResponseTime: 0,
+      lastResponseTime: 0,
+    });
   }
 
   async routeMessage(message: string, context: AgentContext): Promise<AgentResponse> {
+    const startTime = Date.now();
+    
     try {
       // Analyze message intent
       const intent = await this.analyzeIntent(message, context);
 
       // Route to appropriate agent
-      const agent = this.selectAgent(intent, context);
+      const agentName = this.selectAgent(intent, context);
 
-      if (!agent) {
+      if (!agentName) {
         return {
           agent: 'orchestrator',
           response:
@@ -85,12 +156,40 @@ export class AgentOrchestrator {
         };
       }
 
-      // Execute agent action
-      const response = await this.executeAgent(agent, message, context);
+      // Execute with parallel processing if enabled
+      let response: AgentResponse;
+      
+      if (this.parallelProcessingEnabled) {
+        response = await this.concurrencyLimit(() => 
+          this.executeAgent(agentName, message, context)
+        );
+      } else {
+        response = await this.executeAgent(agentName, message, context);
+      }
+
+      // Update metrics
+      this.updateAgentMetrics(agentName, true, Date.now() - startTime);
+      
+      // Store in agent memory
+      this.updateAgentMemory(agentName, context.sessionId, {
+        message,
+        response: response.response,
+        timestamp: new Date(),
+      });
 
       return response;
     } catch (error) {
       logger.error('Agent orchestration error:', error);
+      
+      // Update error metrics
+      if (this.selectAgent(await this.analyzeIntent(message, context), context)) {
+        this.updateAgentMetrics(
+          this.selectAgent(await this.analyzeIntent(message, context), context)!,
+          false,
+          Date.now() - startTime
+        );
+      }
+      
       return {
         agent: 'orchestrator',
         response:
@@ -103,6 +202,134 @@ export class AgentOrchestrator {
         ],
       };
     }
+  }
+
+  // Enable parallel processing
+  enableParallelProcessing(maxConcurrent: number = 10) {
+    this.parallelProcessingEnabled = true;
+    this.maxConcurrentRequests = maxConcurrent;
+    this.concurrencyLimit = pLimit(maxConcurrent);
+    logger.info(`Parallel processing enabled with ${maxConcurrent} concurrent requests`);
+  }
+
+  // Inter-agent communication
+  async sendInterAgentMessage(message: InterAgentMessage) {
+    this.messageQueue.push(message);
+    this.emit('inter-agent-message', message);
+  }
+
+  private startMessageProcessor() {
+    setInterval(() => {
+      if (this.messageQueue.length > 0) {
+        const message = this.messageQueue.shift();
+        if (message) {
+          this.processInterAgentMessage(message).catch(error => {
+            logger.error('Error processing inter-agent message:', error);
+          });
+        }
+      }
+    }, 100); // Process messages every 100ms
+  }
+
+  private async processInterAgentMessage(message: InterAgentMessage) {
+    const targetAgent = this.agents.get(message.to);
+    
+    if (!targetAgent) {
+      logger.warn(`Target agent ${message.to} not found for message from ${message.from}`);
+      return;
+    }
+
+    // Process message based on type
+    if (message.type === 'broadcast') {
+      // Broadcast to all agents except sender
+      for (const [agentName, agent] of this.agents) {
+        if (agentName !== message.from) {
+          await this.deliverMessage(agentName, message);
+        }
+      }
+    } else {
+      await this.deliverMessage(message.to, message);
+    }
+  }
+
+  private async deliverMessage(agentName: string, message: InterAgentMessage) {
+    // Store message in agent's memory
+    const memory = this.agentMemory.get(agentName);
+    if (memory) {
+      memory.workingMemory.push(message);
+      memory.lastAccessed = new Date();
+      
+      // Limit working memory size
+      if (memory.workingMemory.length > 100) {
+        memory.workingMemory.shift();
+      }
+    }
+    
+    this.emit('message-delivered', { agent: agentName, message });
+  }
+
+  // Agent memory management
+  updateAgentMemory(agentName: string, key: string, value: any, persistent: boolean = false) {
+    const memory = this.agentMemory.get(agentName);
+    if (!memory) return;
+
+    if (persistent) {
+      memory.longTerm.set(key, value);
+    } else {
+      memory.shortTerm.set(key, value);
+      
+      // Clear old short-term memories (older than 1 hour)
+      const oneHourAgo = Date.now() - 3600000;
+      for (const [k, v] of memory.shortTerm) {
+        if (v.timestamp && v.timestamp < oneHourAgo) {
+          memory.shortTerm.delete(k);
+        }
+      }
+    }
+    
+    memory.lastAccessed = new Date();
+  }
+
+  getAgentMemory(agentName: string, key: string): any {
+    const memory = this.agentMemory.get(agentName);
+    if (!memory) return null;
+
+    memory.lastAccessed = new Date();
+    return memory.shortTerm.get(key) || memory.longTerm.get(key);
+  }
+
+  // Performance monitoring
+  private updateAgentMetrics(agentName: string, success: boolean, responseTime: number) {
+    const metrics = this.performanceMetrics.get(agentName);
+    if (!metrics) return;
+
+    metrics.requestCount++;
+    if (success) {
+      metrics.successCount++;
+    } else {
+      metrics.errorCount++;
+    }
+    
+    metrics.lastResponseTime = responseTime;
+    metrics.averageResponseTime = 
+      (metrics.averageResponseTime * (metrics.requestCount - 1) + responseTime) / 
+      metrics.requestCount;
+    
+    this.emit('metrics-updated', { agent: agentName, metrics });
+  }
+
+  getAgentMetrics(agentName: string): AgentPerformanceMetrics | null {
+    return this.performanceMetrics.get(agentName) || null;
+  }
+
+  getAllMetrics(): Record<string, AgentPerformanceMetrics> {
+    const allMetrics: Record<string, AgentPerformanceMetrics> = {};
+    
+    for (const [agentName, metrics] of this.performanceMetrics) {
+      allMetrics[agentName] = metrics;
+    }
+    
+    return allMetrics;
   }
 
   private async analyzeIntent(message: string, context: AgentContext): Promise<string> {
@@ -462,5 +689,52 @@ export class AgentOrchestrator {
     };
 
     return this.executeAgent(agentName, testMessage, testContext);
+  }
+
+  // New methods for deployment
+  async registerAgent(name: string, type: string): Promise<void> {
+    if (!this.agents.has(name)) {
+      logger.warn(`Agent ${name} not found in orchestrator`);
+    }
+    this.agentTypes.set(name, type);
+    this.emit('agent-registered', { name, type });
+  }
+
+  async unregisterAgent(name: string): Promise<void> {
+    this.agents.delete(name);
+    this.agentTypes.delete(name);
+    this.agentMemory.delete(name);
+    this.performanceMetrics.delete(name);
+    this.emit('agent-unregistered', { name });
+  }
+
+  async initializeChatAgent(name: string): Promise<void> {
+    // Initialize chat-specific configurations
+    logger.info(`Initializing chat agent: ${name}`);
+    this.emit('chat-agent-initialized', { name });
+  }
+
+  // Get agent communication stats
+  getInterAgentCommunicationStats() {
+    const stats = {
+      totalMessages: 0,
+      messagesByAgent: {} as Record<string, number>,
+      messageTypes: {
+        request: 0,
+        response: 0,
+        broadcast: 0,
+      },
+    };
+
+    // Analyze message queue and agent memories
+    for (const [agentName, memory] of this.agentMemory) {
+      const agentMessages = memory.workingMemory.filter(
+        (item: any) => item.from || item.to
+      ).length;
+      stats.messagesByAgent[agentName] = agentMessages;
+      stats.totalMessages += agentMessages;
+    }
+
+    return stats;
   }
 }

@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
     if (action === 'create-all') {
       const results = [];
 
-      for (const [key, _agentConfig] of Object.entries(VOICE_AGENTS)) {
+      for (const [key] of Object.entries(VOICE_AGENTS)) {
         try {
           const config = createRetellAgentConfig(key as keyof typeof VOICE_AGENTS);
           const agent = await retellApiRequest('/agents', {

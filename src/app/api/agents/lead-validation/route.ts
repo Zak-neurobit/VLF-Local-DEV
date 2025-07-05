@@ -19,7 +19,7 @@ const LeadValidationRequestSchema = z.object({
 
 export async function POST(request: NextRequest) {
   const startTime = Date.now();
-  let body: any = {};
+  let body: unknown = {};
   
   try {
     // Parse and validate request body
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
           { metadata: { path: ['phone'], equals: validatedData.phone } },
         ],
       },
-      orderBy: { updatedAt: 'desc' },
+      orderBy: { startedAt: 'desc' },
       take: 5,
     });
 
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
     // If lead is valid (not invalid tier), create follow-up sequence
     if (validationResult.tier !== 'invalid') {
       const followUpResult = await followUpAutomationAgent.createFollowUpSequence({
-        contactId: validationResult.ghlContactId || body.email, // Use email as fallback
+        contactId: validationResult.ghlContactId || validatedData.email, // Use email as fallback
         leadScore: validationResult.score,
         tier: validationResult.tier,
         practiceAreas: validationResult.practiceAreas,
@@ -135,7 +135,7 @@ export async function POST(request: NextRequest) {
 }
 
 // GET endpoint to check agent health
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const prisma = getPrismaClient();
     if (!prisma) {

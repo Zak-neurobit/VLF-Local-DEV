@@ -1,13 +1,10 @@
 'use client';
-
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Clock, Mail } from 'lucide-react';
-
 export default function LocationsPage() {
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
-
   const locations = [
     {
       id: 'raleigh',
@@ -54,7 +51,6 @@ export default function LocationsPage() {
       features: ['Free Parking', 'Wheelchair Accessible', 'Spanish Speaking Staff'],
     },
   ];
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
@@ -86,7 +82,6 @@ export default function LocationsPage() {
           </motion.p>
         </div>
       </section>
-
       {/* Locations Grid */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -107,10 +102,8 @@ export default function LocationsPage() {
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-
                 <div className="p-8">
                   <h2 className="text-2xl font-bold text-[#001845] mb-4">{location.name}</h2>
-
                   <div className="space-y-4">
                     <div className="flex items-start">
                       <MapPin className="w-5 h-5 text-[#FF6B6B] mt-1 mr-3 flex-shrink-0" />
@@ -126,7 +119,6 @@ export default function LocationsPage() {
                         </a>
                       </div>
                     </div>
-
                     <div className="flex items-center">
                       <Phone className="w-5 h-5 text-[#FF6B6B] mr-3" />
                       <a
@@ -136,12 +128,10 @@ export default function LocationsPage() {
                         {location.phone}
                       </a>
                     </div>
-
                     <div className="flex items-center">
                       <Clock className="w-5 h-5 text-[#FF6B6B] mr-3" />
                       <p className="text-gray-700">{location.hours}</p>
                     </div>
-
                     <div className="flex items-center">
                       <Mail className="w-5 h-5 text-[#FF6B6B] mr-3" />
                       <a
@@ -152,7 +142,6 @@ export default function LocationsPage() {
                       </a>
                     </div>
                   </div>
-
                   <div className="mt-6">
                     <h3 className="font-semibold text-gray-900 mb-2">Office Features:</h3>
                     <ul className="space-y-1">
@@ -164,7 +153,6 @@ export default function LocationsPage() {
                       ))}
                     </ul>
                   </div>
-
                   <div className="mt-6 flex space-x-4">
                     <Link
                       href={`/locations/${location.id}`}
@@ -185,7 +173,6 @@ export default function LocationsPage() {
           </div>
         </div>
       </section>
-
       {/* Call to Action */}
       <section className="py-16 bg-gradient-to-r from-[#001845] to-[#003875] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

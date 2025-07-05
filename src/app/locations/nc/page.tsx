@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { ncCities } from '@/lib/seo/local-seo-generator';
-
 export const metadata: Metadata = {
   title: 'North Carolina Locations | Vasquez Law Firm - Immigration & Personal Injury Attorneys',
   description:
@@ -9,7 +8,6 @@ export const metadata: Metadata = {
   keywords:
     'North Carolina lawyer, NC attorney, immigration lawyer North Carolina, personal injury attorney NC, abogado Carolina del Norte',
 };
-
 const regions = {
   Triangle: {
     description: 'Serving Raleigh, Durham, Chapel Hill and surrounding Wake County communities',
@@ -139,7 +137,6 @@ const regions = {
     ],
   },
 };
-
 export default function NCLocationsPage() {
   return (
     <div className="min-h-screen bg-white">
@@ -153,7 +150,6 @@ export default function NCLocationsPage() {
           </p>
         </div>
       </section>
-
       {/* Featured Cities with Practice Areas */}
       <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -199,14 +195,12 @@ export default function NCLocationsPage() {
           </div>
         </div>
       </section>
-
       {/* Cities by Region */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-[#6B1F2E] text-center mb-12">
             Find a Lawyer Near You in North Carolina
           </h2>
-
           {Object.entries(regions).map(([region, data]) => (
             <div key={region} className="mb-12">
               <h3 className="text-2xl font-bold text-[#6B1F2E] mb-3">{region}</h3>
@@ -226,7 +220,6 @@ export default function NCLocationsPage() {
           ))}
         </div>
       </section>
-
       {/* CTA */}
       <section className="py-16 bg-[#6B1F2E] text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">

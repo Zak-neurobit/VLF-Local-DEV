@@ -53,6 +53,7 @@ export default function ProbationViolationPage() {
       <PracticeAreaSchema
         name="Probation Violation Defense"
         description="Experienced legal representation for probation violation cases in North Carolina"
+        url="https://www.vasquezlawnc.com/practice-areas/criminal-defense/probation-violation"
         areaServed={["North Carolina", "Raleigh", "Charlotte", "Durham", "Winston-Salem"]}
       />
 

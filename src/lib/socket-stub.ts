@@ -8,7 +8,7 @@ export enum RoomType {
   BROADCAST = 'broadcast',
 }
 
-export class ChatSocketServer {
+class ChatSocketServerStub {
   getActiveSessionsCount() { return 0; }
   getRoomParticipantCount() { return 0; }
   broadcastToAll() { }
@@ -18,8 +18,8 @@ export class ChatSocketServer {
   async sendCaseUpdate() { }
 }
 
-export function getChatSocketServer(): ChatSocketServer {
-  return new ChatSocketServer();
+export function getChatSocketServer(): ChatSocketServerStub {
+  return new ChatSocketServerStub();
 }
 
-export type { ChatSocketServer };
+export { ChatSocketServerStub as ChatSocketServer };

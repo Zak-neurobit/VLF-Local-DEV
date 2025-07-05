@@ -1,240 +1,783 @@
+import { CrewTask } from './crew-coordinator';
+import {
+  LegalConsultationAgent,
+  LegalConsultationRequest,
+} from './agents/legal-consultation-agent';
+import {
+  AppointmentSchedulingAgent,
+  AppointmentRequest,
+} from './agents/appointment-scheduling-agent';
+import { DocumentAnalysisAgent, DocumentAnalysisRequest } from './agents/document-analysis-agent';
 import { logger } from '@/lib/logger';
-import { EnhancedAffirmativeImmigrationAgent } from './agents/enhanced-affirmative-immigration-agent';
-import { EnhancedHumanitarianAgent } from './agents/enhanced-humanitarian-agent';
-import { EnhancedBusinessImmigrationAgent } from './agents/enhanced-business-immigration-agent';
-import { RemovalDefenseAgent } from './agents/removal-defense-agent';
-import { CriminalDefenseAgent } from './agents/criminal-defense-agent';
-import { DocumentAnalysisAgent } from './agents/document-analysis-agent';
-import { AppointmentSchedulingAgent } from './agents/appointment-scheduling-agent';
+import { EventEmitter } from 'events';
+import pLimit from 'p-limit';
 
-export class EnhancedCrewCoordinator {
-  private affirmativeAgent: EnhancedAffirmativeImmigrationAgent;
-  private humanitarianAgent: EnhancedHumanitarianAgent;
-  private businessAgent: EnhancedBusinessImmigrationAgent;
-  private removalAgent: RemovalDefenseAgent;
-  private criminalAgent: CriminalDefenseAgent;
-  private documentAgent: DocumentAnalysisAgent;
-  private schedulingAgent: AppointmentSchedulingAgent;
+export interface ParallelProcessingConfig {
+  maxConcurrentTasks: number;
+  taskQueueSize: number;
+  workerThreads: number;
+  priorityQueues: boolean;
+}
 
-  constructor() {
-    // Initialize all enhanced agents
-    this.affirmativeAgent = new EnhancedAffirmativeImmigrationAgent();
-    this.humanitarianAgent = new EnhancedHumanitarianAgent();
-    this.businessAgent = new EnhancedBusinessImmigrationAgent();
-    this.removalAgent = new RemovalDefenseAgent();
-    this.criminalAgent = new CriminalDefenseAgent();
-    this.documentAgent = new DocumentAnalysisAgent();
-    this.schedulingAgent = new AppointmentSchedulingAgent();
+export interface CommunicationConfig {
+  messageQueue: 'redis' | 'rabbitmq' | 'kafka' | 'memory';
+  enableDirectMessaging: boolean;
+  messageRetention: number; // in seconds
+  maxMessageSize: number;
+}
 
-    logger.info('Enhanced CrewAI agents initialized with AILA Cookbook training');
+export interface MemoryConfig {
+  type: 'distributed' | 'local';
+  provider: 'redis' | 'memory';
+  maxMemoryPerAgent: string;
+  ttl: number; // in seconds
+  compressionEnabled: boolean;
+}
+
+export interface WorkflowStep {
+  id: string;
+  agentName: string;
+  action: string;
+  input: any;
+  dependencies: string[];
+  retryCount: number;
+  maxRetries: number;
+  status: 'pending' | 'running' | 'completed' | 'failed';
+  result?: any;
+  error?: string;
+  startTime?: Date;
+  endTime?: Date;
+}
+
+export interface Workflow {
+  id: string;
+  name: string;
+  steps: WorkflowStep[];
+  currentStep: number;
+  status: 'pending' | 'running' | 'completed' | 'failed';
+  context: Record<string, any>;
+  createdAt: Date;
+  completedAt?: Date;
+}
+
+export interface AgentCommunicationChannel {
+  agentName: string;
+  messageQueue: any[];
+  subscribers: Set<string>;
+  messageHandlers: Map<string, Function>;
+  lastActivity: Date;
+}
+
+export interface DistributedMemoryStore {
+  agent: string;
+  key: string;
+  value: any;
+  timestamp: Date;
+  ttl: number;
+  compressed: boolean;
+}
+
+export class CrewCoordinator {
+  private static enhancedInstance: CrewCoordinator;
+  private legalConsultationAgent: LegalConsultationAgent;
+  private appointmentSchedulingAgent: AppointmentSchedulingAgent;
+  private documentAnalysisAgent: DocumentAnalysisAgent;
+  private activeTasks: Map<string, CrewTask> = new Map();
+  private taskQueue: CrewTask[] = [];
+  private parallelProcessingConfig?: ParallelProcessingConfig;
+  private communicationConfig?: CommunicationConfig;
+  private memoryConfig?: MemoryConfig;
+  private concurrencyLimit?: pLimit.Limit;
+  private workflowManager: Map<string, Workflow> = new Map();
+  private communicationChannels: Map<string, AgentCommunicationChannel> = new Map();
+  private distributedMemory: Map<string, DistributedMemoryStore> = new Map();
+  private eventEmitter: EventEmitter;
+  private performanceMetrics: Map<string, any> = new Map();
+
+  private constructor() {
+    this.legalConsultationAgent = new LegalConsultationAgent();
+    this.appointmentSchedulingAgent = new AppointmentSchedulingAgent();
+    this.documentAnalysisAgent = new DocumentAnalysisAgent();
+    this.eventEmitter = new EventEmitter();
+    this.setupEventHandlers();
+    this.startTaskProcessor();
   }
 
-  async routeQuery(query: string, context?: any): Promise<any> {
-    // Analyze query to determine which agent(s) to use
-    const routing = await this.analyzeQuery(query);
-    
-    logger.info(`Routing to ${routing.primaryAgent} agent`, { 
-      query: query.substring(0, 100),
-      agents: routing.agents 
-    });
+  static getInstance(): CrewCoordinator {
+    if (!CrewCoordinator.enhancedInstance) {
+      CrewCoordinator.enhancedInstance = new CrewCoordinator();
+    }
+    return CrewCoordinator.enhancedInstance;
+  }
 
-    // Route to appropriate agent(s)
-    switch (routing.primaryAgent) {
-      case 'affirmative':
-        return this.handleAffirmativeQuery(query, context);
-      case 'humanitarian':
-        return this.handleHumanitarianQuery(query, context);
-      case 'business':
-        return this.handleBusinessQuery(query, context);
-      case 'removal':
-        return this.handleRemovalQuery(query, context);
-      case 'criminal':
-        return this.handleCriminalQuery(query, context);
-      default:
-        return this.handleGeneralQuery(query, context);
+  // Base CrewCoordinator methods
+  async executeTask(task: CrewTask): Promise<any> {
+    try {
+      logger.info(`Starting task ${task.id} of type ${task.type}`);
+
+      task.status = 'in-progress';
+      this.activeTasks.set(task.id, task);
+
+      let result;
+
+      switch (task.type) {
+        case 'legal-consultation':
+          result = await this.legalConsultationAgent.analyze(
+            task.data as unknown as LegalConsultationRequest
+          );
+          break;
+
+        case 'appointment-scheduling':
+          result = await this.appointmentSchedulingAgent.findAvailableSlots(
+            task.data as unknown as AppointmentRequest
+          );
+          break;
+
+        case 'document-analysis':
+          result = await this.documentAnalysisAgent.analyzeDocument(
+            task.data as unknown as DocumentAnalysisRequest
+          );
+          break;
+
+        default:
+          throw new Error(`Unknown task type: ${task.type}`);
+      }
+
+      task.status = 'completed';
+      task.result = result;
+      task.completedAt = new Date();
+
+      logger.info(`Completed task ${task.id}`);
+      return result;
+    } catch (error) {
+      task.status = 'failed';
+      task.error = error instanceof Error ? error.message : 'Unknown error';
+      logger.error(`Task ${task.id} failed:`, error);
+      throw error;
+    } finally {
+      this.activeTasks.delete(task.id);
     }
   }
 
-  private async analyzeQuery(query: string): Promise<{ primaryAgent: string; agents: string[] }> {
-    const queryLower = query.toLowerCase();
+  private queueTask(task: CrewTask) {
+    // Insert task based on priority
+    const priorityOrder = { urgent: 0, high: 1, medium: 2, low: 3 };
+    const insertIndex = this.taskQueue.findIndex(
+      queuedTask => priorityOrder[queuedTask.priority] > priorityOrder[task.priority]
+    );
+
+    if (insertIndex === -1) {
+      this.taskQueue.push(task);
+    } else {
+      this.taskQueue.splice(insertIndex, 0, task);
+    }
+
+    logger.info(`Queued task ${task.id} with priority ${task.priority}`);
+  }
+
+  private async startTaskProcessor() {
+    setInterval(async () => {
+      if (this.taskQueue.length > 0 && this.activeTasks.size < 5) {
+        // Max 5 concurrent tasks
+        const task = this.taskQueue.shift();
+        if (task) {
+          // Execute task in background
+          this.executeTask(task).catch(error => {
+            logger.error(`Background task execution failed:`, error);
+          });
+        }
+      }
+    }, 1000); // Check every second
+  }
+
+  private generateTaskId(): string {
+    return `task_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  }
+
+  private setupEventHandlers(): void {
+    this.eventEmitter.on('task-started', this.handleTaskStarted.bind(this));
+    this.eventEmitter.on('task-completed', this.handleTaskCompleted.bind(this));
+    this.eventEmitter.on('task-failed', this.handleTaskFailed.bind(this));
+    this.eventEmitter.on('workflow-step-completed', this.handleWorkflowStepCompleted.bind(this));
+    this.eventEmitter.on('agent-message', this.handleAgentMessage.bind(this));
+    this.eventEmitter.on('memory-access', this.handleMemoryAccess.bind(this));
+  }
+
+  // Enhanced parallel processing
+  async enableParallelProcessing(config: ParallelProcessingConfig): Promise<void> {
+    this.parallelProcessingConfig = config;
+    this.concurrencyLimit = pLimit(config.maxConcurrentTasks);
     
-    // Keywords for routing
-    const routingRules = {
-      affirmative: ['family', 'marriage', 'spouse', 'parent', 'child', 'sibling', 'k-1', 'fiancé', 
-                    'naturalization', 'citizenship', 'n-400', 'n-600', 'i-130', 'i-485', 'green card',
-                    'adjustment', 'consular', 'i-751', 'permanent resident'],
-      humanitarian: ['asylum', 'refugee', 'persecution', 'torture', 'u visa', 't visa', 'vawa',
-                     'violence', 'trafficking', 'crime victim', 'tps', 'temporary protected', 'daca',
-                     'humanitarian parole', 'withholding', 'cat protection'],
-      business: ['h-1b', 'h1b', 'l-1', 'l1', 'o-1', 'o1', 'e-2', 'e2', 'eb-1', 'eb1', 'eb-2', 'eb2',
-                 'perm', 'labor certification', 'employment', 'work visa', 'investor', 'extraordinary',
-                 'multinational', 'transfer', 'specialty occupation', 'niw', 'national interest'],
-      removal: ['deportation', 'removal', 'detained', 'ice', 'immigration court', 'bond', 'judge',
-                'cancellation', 'notice to appear', 'nta', 'master calendar', 'individual hearing'],
-      criminal: ['arrest', 'criminal', 'charge', 'conviction', 'dui', 'dwi', 'assault', 'theft',
-                 'drug', 'felony', 'misdemeanor', 'expunge', 'post-conviction'],
+    logger.info('Parallel processing enabled:', config);
+    this.eventEmitter.emit('parallel-processing-enabled', config);
+  }
+
+  async executeTasksInParallel(tasks: CrewTask[]): Promise<any[]> {
+    if (!this.parallelProcessingConfig || !this.concurrencyLimit) {
+      throw new Error('Parallel processing not enabled');
+    }
+
+    logger.info(`Executing ${tasks.length} tasks in parallel`);
+    
+    const startTime = Date.now();
+    
+    try {
+      const results = await Promise.allSettled(
+        tasks.map(task => 
+          this.concurrencyLimit!(() => this.executeTask(task))
+        )
+      );
+
+      const successful = results.filter(r => r.status === 'fulfilled').length;
+      const failed = results.filter(r => r.status === 'rejected').length;
+      
+      logger.info(`Parallel execution completed: ${successful} successful, ${failed} failed in ${Date.now() - startTime}ms`);
+      
+      return results.map(result => 
+        result.status === 'fulfilled' ? result.value : result.reason
+      );
+    } catch (error) {
+      logger.error('Parallel execution failed:', error);
+      throw error;
+    }
+  }
+
+  // Inter-agent communication
+  async setupCommunicationChannels(config: CommunicationConfig): Promise<void> {
+    this.communicationConfig = config;
+    
+    logger.info('Setting up communication channels:', config);
+    
+    // Initialize communication channels for each agent
+    const agentNames = [
+      'legal-consultation',
+      'appointment-scheduling',
+      'document-analysis',
+      'competitive-analysis',
+      'social-media-monitoring',
+      'seo-blog-generation',
+      'enhanced-intake',
+      'removal-defense',
+      'business-immigration',
+      'criminal-defense',
+      'aila-trained-removal',
+    ];
+
+    for (const agentName of agentNames) {
+      await this.setupAgentCommunication(agentName);
+    }
+    
+    this.eventEmitter.emit('communication-channels-setup', config);
+  }
+
+  async setupAgentCommunication(agentName: string): Promise<void> {
+    const channel: AgentCommunicationChannel = {
+      agentName,
+      messageQueue: [],
+      subscribers: new Set(),
+      messageHandlers: new Map(),
+      lastActivity: new Date(),
     };
 
-    const matches = { affirmative: 0, humanitarian: 0, business: 0, removal: 0, criminal: 0 };
+    this.communicationChannels.set(agentName, channel);
     
-    for (const [agent, keywords] of Object.entries(routingRules)) {
-      keywords.forEach(keyword => {
-        if (queryLower.includes(keyword)) {
-          matches[agent as keyof typeof matches]++;
+    // Setup default message handlers
+    this.setupDefaultMessageHandlers(agentName);
+    
+    logger.info(`Communication channel setup for ${agentName}`);
+  }
+
+  private setupDefaultMessageHandlers(agentName: string): void {
+    const channel = this.communicationChannels.get(agentName);
+    if (!channel) return;
+
+    // Handler for task delegation
+    channel.messageHandlers.set('delegate-task', async (message: any) => {
+      const { taskId, taskData } = message;
+      logger.info(`Agent ${agentName} received task delegation: ${taskId}`);
+      
+      // Create and execute delegated task
+      const task: CrewTask = {
+        id: taskId,
+        type: taskData.type,
+        priority: taskData.priority || 'medium',
+        userId: taskData.userId,
+        data: taskData.data,
+        status: 'pending',
+        createdAt: new Date(),
+      };
+      
+      return await this.executeTask(task);
+    });
+
+    // Handler for information sharing
+    channel.messageHandlers.set('share-information', async (message: any) => {
+      const { information, context } = message;
+      logger.info(`Agent ${agentName} received information sharing:`, information);
+      
+      // Store in distributed memory
+      await this.storeInDistributedMemory(agentName, `shared-${Date.now()}`, {
+        information,
+        context,
+        timestamp: new Date(),
+      });
+    });
+
+    // Handler for status updates
+    channel.messageHandlers.set('status-update', async (message: any) => {
+      const { status, details } = message;
+      logger.info(`Agent ${agentName} received status update:`, status);
+      
+      this.eventEmitter.emit('agent-status-update', {
+        agentName,
+        status,
+        details,
+        timestamp: new Date(),
+      });
+    });
+  }
+
+  async sendMessageToAgent(fromAgent: string, toAgent: string, messageType: string, payload: any): Promise<void> {
+    const channel = this.communicationChannels.get(toAgent);
+    if (!channel) {
+      logger.error(`Communication channel not found for agent: ${toAgent}`);
+      return;
+    }
+
+    const message = {
+      from: fromAgent,
+      to: toAgent,
+      type: messageType,
+      payload,
+      timestamp: new Date(),
+      id: `msg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    };
+
+    // Add to message queue
+    channel.messageQueue.push(message);
+    channel.lastActivity = new Date();
+    
+    // Process message if handler exists
+    const handler = channel.messageHandlers.get(messageType);
+    if (handler) {
+      try {
+        await handler(message);
+      } catch (error) {
+        logger.error(`Error processing message ${messageType} for agent ${toAgent}:`, error);
+      }
+    }
+
+    this.eventEmitter.emit('agent-message', message);
+  }
+
+  async broadcastMessage(fromAgent: string, messageType: string, payload: any): Promise<void> {
+    logger.info(`Broadcasting message from ${fromAgent}: ${messageType}`);
+    
+    const broadcastPromises = Array.from(this.communicationChannels.keys())
+      .filter(agentName => agentName !== fromAgent)
+      .map(agentName => this.sendMessageToAgent(fromAgent, agentName, messageType, payload));
+
+    await Promise.allSettled(broadcastPromises);
+  }
+
+  // Distributed memory system
+  async initializeMemorySystem(config: MemoryConfig): Promise<void> {
+    this.memoryConfig = config;
+    
+    logger.info('Initializing distributed memory system:', config);
+    
+    // Setup memory cleanup interval
+    setInterval(() => {
+      this.cleanupExpiredMemory();
+    }, 60000); // Clean up every minute
+    
+    this.eventEmitter.emit('memory-system-initialized', config);
+  }
+
+  async storeInDistributedMemory(agent: string, key: string, value: any, ttl?: number): Promise<void> {
+    const memoryKey = `${agent}:${key}`;
+    const actualTtl = ttl || this.memoryConfig?.ttl || 3600; // Default 1 hour
+    
+    const memoryStore: DistributedMemoryStore = {
+      agent,
+      key,
+      value: this.memoryConfig?.compressionEnabled ? this.compressData(value) : value,
+      timestamp: new Date(),
+      ttl: actualTtl,
+      compressed: this.memoryConfig?.compressionEnabled || false,
+    };
+
+    this.distributedMemory.set(memoryKey, memoryStore);
+    
+    this.eventEmitter.emit('memory-access', {
+      operation: 'store',
+      agent,
+      key,
+      size: JSON.stringify(value).length,
+    });
+  }
+
+  async getFromDistributedMemory(agent: string, key: string): Promise<any> {
+    const memoryKey = `${agent}:${key}`;
+    const memoryStore = this.distributedMemory.get(memoryKey);
+    
+    if (!memoryStore) {
+      return null;
+    }
+
+    // Check TTL
+    const now = Date.now();
+    const storeTime = memoryStore.timestamp.getTime();
+    const ttlMs = memoryStore.ttl * 1000;
+    
+    if (now - storeTime > ttlMs) {
+      this.distributedMemory.delete(memoryKey);
+      return null;
+    }
+
+    this.eventEmitter.emit('memory-access', {
+      operation: 'retrieve',
+      agent,
+      key,
+      hit: true,
+    });
+
+    return memoryStore.compressed ? this.decompressData(memoryStore.value) : memoryStore.value;
+  }
+
+  private cleanupExpiredMemory(): void {
+    const now = Date.now();
+    let cleanedCount = 0;
+
+    for (const [key, store] of this.distributedMemory) {
+      const storeTime = store.timestamp.getTime();
+      const ttlMs = store.ttl * 1000;
+      
+      if (now - storeTime > ttlMs) {
+        this.distributedMemory.delete(key);
+        cleanedCount++;
+      }
+    }
+
+    if (cleanedCount > 0) {
+      logger.info(`Cleaned up ${cleanedCount} expired memory entries`);
+    }
+  }
+
+  private compressData(data: any): string {
+    // Simple compression simulation (in production, use actual compression library)
+    return JSON.stringify(data);
+  }
+
+  private decompressData(data: string): any {
+    // Simple decompression simulation
+    return JSON.parse(data);
+  }
+
+  // Advanced workflow management
+  async createWorkflow(name: string, steps: Omit<WorkflowStep, 'id' | 'status' | 'retryCount'>[]): Promise<string> {
+    const workflowId = `workflow-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    
+    const workflow: Workflow = {
+      id: workflowId,
+      name,
+      steps: steps.map((step, index) => ({
+        ...step,
+        id: `step-${index}`,
+        status: 'pending',
+        retryCount: 0,
+      })),
+      currentStep: 0,
+      status: 'pending',
+      context: {},
+      createdAt: new Date(),
+    };
+
+    this.workflowManager.set(workflowId, workflow);
+    
+    logger.info(`Created workflow ${name} with ${steps.length} steps`);
+    return workflowId;
+  }
+
+  async executeWorkflow(workflowId: string): Promise<any> {
+    const workflow = this.workflowManager.get(workflowId);
+    if (!workflow) {
+      throw new Error(`Workflow ${workflowId} not found`);
+    }
+
+    workflow.status = 'running';
+    logger.info(`Executing workflow ${workflow.name}`);
+
+    try {
+      const results = [];
+      
+      for (let i = 0; i < workflow.steps.length; i++) {
+        const step = workflow.steps[i];
+        workflow.currentStep = i;
+
+        // Check dependencies
+        const dependencyResults = await this.checkStepDependencies(step, results);
+        if (!dependencyResults.canExecute) {
+          throw new Error(`Step ${step.id} dependencies not met: ${dependencyResults.missingDependencies.join(', ')}`);
         }
-      });
-    }
 
-    // Determine primary agent
-    const primaryAgent = Object.entries(matches)
-      .sort(([, a], [, b]) => b - a)[0][0];
+        // Execute step
+        const stepResult = await this.executeWorkflowStep(step, workflow.context);
+        results.push(stepResult);
 
-    // Get all matching agents
-    const agents = Object.entries(matches)
-      .filter(([, count]) => count > 0)
-      .map(([agent]) => agent);
+        // Update workflow context
+        workflow.context[step.id] = stepResult;
+        
+        this.eventEmitter.emit('workflow-step-completed', {
+          workflowId,
+          stepId: step.id,
+          result: stepResult,
+        });
+      }
 
-    return { primaryAgent, agents };
-  }
-
-  private async handleAffirmativeQuery(query: string, context?: any): Promise<any> {
-    // Extract relevant parameters from query
-    if (query.toLowerCase().includes('naturalization') || query.toLowerCase().includes('n-400')) {
-      return this.affirmativeAgent.prepareNaturalization({
-        clientName: context?.clientName || 'Client',
-        greenCardDate: context?.greenCardDate || 'Unknown',
-        physicalPresence: context?.physicalPresence || 'To be determined',
-        continuousResidence: context?.continuousResidence || 'To be determined',
-        criminalHistory: context?.criminalHistory,
-        englishAbility: context?.englishAbility || 'To be assessed',
-      });
-    } else if (query.toLowerCase().includes('family') || query.toLowerCase().includes('i-130')) {
-      return this.affirmativeAgent.analyzeFamilyPetition({
-        petitioner: context?.petitioner || 'Petitioner',
-        beneficiary: context?.beneficiary || 'Beneficiary',
-        relationship: context?.relationship || 'To be determined',
-        petitionerStatus: context?.petitionerStatus || 'USC',
-        beneficiaryLocation: context?.beneficiaryLocation || 'abroad',
-      });
-    } else {
-      return this.affirmativeAgent.analyzeConsularProcess({
-        caseType: context?.caseType || 'Family-based',
-        beneficiaryCountry: context?.beneficiaryCountry || 'Unknown',
-        documentReadiness: context?.documentReadiness || 'To be assessed',
-        previousDenials: context?.previousDenials,
-        unlawfulPresence: context?.unlawfulPresence,
-      });
+      workflow.status = 'completed';
+      workflow.completedAt = new Date();
+      
+      logger.info(`Workflow ${workflow.name} completed successfully`);
+      return results;
+    } catch (error) {
+      workflow.status = 'failed';
+      logger.error(`Workflow ${workflow.name} failed:`, error);
+      throw error;
     }
   }
 
-  private async handleHumanitarianQuery(query: string, context?: any): Promise<any> {
-    if (query.toLowerCase().includes('asylum')) {
-      return this.humanitarianAgent.analyzeAsylumClaim({
-        clientName: context?.clientName || 'Client',
-        countryOfOrigin: context?.countryOfOrigin || 'Unknown',
-        persecutionType: context?.persecutionType || 'To be determined',
-        protectedGround: context?.protectedGround || 'To be determined',
-        entryDate: context?.entryDate || 'Unknown',
-        previousApplications: context?.previousApplications,
-      });
-    } else if (query.toLowerCase().includes('u visa')) {
-      return this.humanitarianAgent.prepareUVisa({
-        clientName: context?.clientName || 'Client',
-        crimeType: context?.crimeType || 'To be determined',
-        harmSuffered: context?.harmSuffered || 'To be documented',
-        lawEnforcementCooperation: context?.lawEnforcementCooperation || 'To be assessed',
-        certificationStatus: context?.certificationStatus || 'Not yet obtained',
-      });
-    } else {
-      return this.humanitarianAgent.assessTPS({
-        clientName: context?.clientName || 'Client',
-        country: context?.country || 'Unknown',
-        entryDate: context?.entryDate || 'Unknown',
-        continuousPresence: context?.continuousPresence || 'To be documented',
-        criminalHistory: context?.criminalHistory,
-      });
+  private async checkStepDependencies(step: WorkflowStep, results: any[]): Promise<{
+    canExecute: boolean;
+    missingDependencies: string[];
+  }> {
+    const missingDependencies = [];
+    
+    for (const dependency of step.dependencies) {
+      const dependencyIndex = parseInt(dependency.replace('step-', ''));
+      if (dependencyIndex >= results.length || !results[dependencyIndex]) {
+        missingDependencies.push(dependency);
+      }
     }
-  }
 
-  private async handleBusinessQuery(query: string, context?: any): Promise<any> {
-    if (query.toLowerCase().includes('h-1b') || query.toLowerCase().includes('h1b')) {
-      return this.businessAgent.analyzeH1B({
-        position: context?.position || 'Position',
-        degree: context?.degree || 'Degree',
-        salary: context?.salary || 'TBD',
-        jobDuties: context?.jobDuties || 'To be detailed',
-        employerType: context?.employerType || 'Private company',
-        capSubject: context?.capSubject !== false,
-      });
-    } else if (query.toLowerCase().includes('perm') || query.toLowerCase().includes('labor certification')) {
-      return this.businessAgent.preparePERM({
-        position: context?.position || 'Position',
-        requirements: context?.requirements || 'To be determined',
-        salary: context?.salary || 'TBD',
-        location: context?.location || 'Location',
-        foreignNational: context?.foreignNational || 'Employee',
-        recruitmentReady: context?.recruitmentReady || false,
-      });
-    } else if (query.toLowerCase().includes('l-1') || query.toLowerCase().includes('l1')) {
-      return this.businessAgent.analyzeL1({
-        category: context?.category || 'L-1A',
-        foreignEntity: context?.foreignEntity || 'Foreign Company',
-        usEntity: context?.usEntity || 'US Company',
-        position: context?.position || 'Position',
-        timeAbroad: context?.timeAbroad || 'To be verified',
-        relationship: context?.relationship || 'To be documented',
-      });
-    } else {
-      return this.businessAgent.assessEB1({
-        category: context?.category || 'EB-1A',
-        achievements: context?.achievements || 'To be documented',
-        evidence: context?.evidence || 'To be gathered',
-        field: context?.field || 'Field of expertise',
-        currentPosition: context?.currentPosition,
-      });
-    }
-  }
-
-  private async handleRemovalQuery(query: string, context?: any): Promise<any> {
-    return this.removalAgent.analyzeCase({
-      clientName: context?.clientName || 'Client',
-      isDetained: context?.isDetained || false,
-      detentionCenter: context?.detentionCenter,
-      hasCourtDate: context?.hasCourtDate || false,
-      courtDate: context?.courtDate,
-      criminalHistory: context?.criminalHistory,
-      timeInUS: context?.timeInUS,
-      familyTies: context?.familyTies,
-      previousApplications: context?.previousApplications,
-    });
-  }
-
-  private async handleCriminalQuery(query: string, context?: any): Promise<any> {
-    return this.criminalAgent.analyzeCase({
-      charges: context?.charges || 'To be specified',
-      jurisdiction: 'North Carolina',
-      arrestDate: context?.arrestDate,
-      courtDate: context?.courtDate,
-      priorRecord: context?.priorRecord,
-      immigrationStatus: context?.immigrationStatus,
-    });
-  }
-
-  private async handleGeneralQuery(query: string, context?: any): Promise<any> {
-    // For general queries, provide routing information
     return {
-      message: 'Please specify your legal need for appropriate assistance',
-      availableServices: [
-        'Family Immigration & Citizenship (I-130, N-400, Consular Processing)',
-        'Humanitarian Protection (Asylum, U/T Visas, VAWA, TPS)',
-        'Business Immigration (H-1B, L-1, O-1, PERM, EB categories)',
-        'Removal Defense & Immigration Court',
-        'Criminal Defense & Immigration Consequences',
-      ],
-      recommendation: 'For immediate assistance, please provide more details about your situation.',
+      canExecute: missingDependencies.length === 0,
+      missingDependencies,
+    };
+  }
+
+  private async executeWorkflowStep(step: WorkflowStep, context: Record<string, any>): Promise<any> {
+    step.status = 'running';
+    step.startTime = new Date();
+
+    try {
+      // Execute the step based on agent name and action
+      let result;
+      
+      switch (step.agentName) {
+        case 'legal-consultation':
+          result = await this.legalConsultationAgent.analyze(step.input);
+          break;
+        case 'appointment-scheduling':
+          result = await this.appointmentSchedulingAgent.findAvailableSlots(step.input);
+          break;
+        case 'document-analysis':
+          result = await this.documentAnalysisAgent.analyzeDocument(step.input);
+          break;
+        // Add more agent handlers as needed
+        default:
+          throw new Error(`Unknown agent: ${step.agentName}`);
+      }
+
+      step.status = 'completed';
+      step.result = result;
+      step.endTime = new Date();
+
+      return result;
+    } catch (error) {
+      step.status = 'failed';
+      step.error = error instanceof Error ? error.message : 'Unknown error';
+      step.endTime = new Date();
+
+      // Retry logic
+      if (step.retryCount < step.maxRetries) {
+        step.retryCount++;
+        step.status = 'pending';
+        logger.info(`Retrying step ${step.id} (attempt ${step.retryCount}/${step.maxRetries})`);
+        return this.executeWorkflowStep(step, context);
+      }
+
+      throw error;
+    }
+  }
+
+  // Agent initialization and management
+  async initializeAgent(agentName: string): Promise<void> {
+    logger.info(`Initializing agent: ${agentName}`);
+    
+    // Setup communication channel
+    await this.setupAgentCommunication(agentName);
+    
+    // Initialize performance metrics
+    this.performanceMetrics.set(agentName, {
+      tasksExecuted: 0,
+      averageExecutionTime: 0,
+      successRate: 0,
+      lastActivity: new Date(),
+    });
+    
+    this.eventEmitter.emit('agent-initialized', { agentName });
+  }
+
+  async setupAutomationWorkflows(agentName: string): Promise<void> {
+    logger.info(`Setting up automation workflows for: ${agentName}`);
+    
+    // Setup common automation workflows
+    if (agentName === 'Lead Validation Agent') {
+      await this.createLeadValidationWorkflow();
+    } else if (agentName === 'Follow-Up Automation Agent') {
+      await this.createFollowUpWorkflow();
+    }
+    
+    this.eventEmitter.emit('automation-workflows-setup', { agentName });
+  }
+
+  private async createLeadValidationWorkflow(): Promise<void> {
+    await this.createWorkflow('Lead Validation Process', [
+      {
+        agentName: 'lead-validation',
+        action: 'validate-contact-info',
+        input: {},
+        dependencies: [],
+        maxRetries: 2,
+      },
+      {
+        agentName: 'lead-validation',
+        action: 'assess-lead-quality',
+        input: {},
+        dependencies: ['step-0'],
+        maxRetries: 1,
+      },
+      {
+        agentName: 'lead-validation',
+        action: 'categorize-lead',
+        input: {},
+        dependencies: ['step-1'],
+        maxRetries: 1,
+      },
+    ]);
+  }
+
+  private async createFollowUpWorkflow(): Promise<void> {
+    await this.createWorkflow('Follow-Up Automation Process', [
+      {
+        agentName: 'follow-up',
+        action: 'schedule-follow-up',
+        input: {},
+        dependencies: [],
+        maxRetries: 2,
+      },
+      {
+        agentName: 'follow-up',
+        action: 'send-follow-up-email',
+        input: {},
+        dependencies: ['step-0'],
+        maxRetries: 3,
+      },
+      {
+        agentName: 'follow-up',
+        action: 'track-response',
+        input: {},
+        dependencies: ['step-1'],
+        maxRetries: 1,
+      },
+    ]);
+  }
+
+  // Event handlers
+  private handleTaskStarted(event: any): void {
+    const { taskId, agentName } = event;
+    logger.info(`Task ${taskId} started by ${agentName}`);
+  }
+
+  private handleTaskCompleted(event: any): void {
+    const { taskId, agentName, result, executionTime } = event;
+    logger.info(`Task ${taskId} completed by ${agentName} in ${executionTime}ms`);
+    
+    // Update performance metrics
+    this.updateAgentPerformanceMetrics(agentName, true, executionTime);
+  }
+
+  private handleTaskFailed(event: any): void {
+    const { taskId, agentName, error, executionTime } = event;
+    logger.error(`Task ${taskId} failed by ${agentName}:`, error);
+    
+    // Update performance metrics
+    this.updateAgentPerformanceMetrics(agentName, false, executionTime);
+  }
+
+  private handleWorkflowStepCompleted(event: any): void {
+    const { workflowId, stepId, result } = event;
+    logger.info(`Workflow step ${stepId} completed in workflow ${workflowId}`);
+  }
+
+  private handleAgentMessage(event: any): void {
+    const { from, to, type, payload } = event;
+    logger.info(`Agent message: ${from} -> ${to} (${type})`);
+  }
+
+  private handleMemoryAccess(event: any): void {
+    const { operation, agent, key, size, hit } = event;
+    if (operation === 'store') {
+      logger.debug(`Memory stored: ${agent}:${key} (${size} bytes)`);
+    } else {
+      logger.debug(`Memory accessed: ${agent}:${key} (${hit ? 'hit' : 'miss'})`);
+    }
+  }
+
+  private updateAgentPerformanceMetrics(agentName: string, success: boolean, executionTime: number): void {
+    const metrics = this.performanceMetrics.get(agentName);
+    if (!metrics) return;
+
+    metrics.tasksExecuted++;
+    metrics.averageExecutionTime = 
+      (metrics.averageExecutionTime * (metrics.tasksExecuted - 1) + executionTime) / metrics.tasksExecuted;
+    
+    if (success) {
+      metrics.successRate = (metrics.successRate * (metrics.tasksExecuted - 1) + 1) / metrics.tasksExecuted;
+    } else {
+      metrics.successRate = (metrics.successRate * (metrics.tasksExecuted - 1)) / metrics.tasksExecuted;
+    }
+    
+    metrics.lastActivity = new Date();
+  }
+
+  // Public API methods
+  getWorkflowStatus(workflowId: string): Workflow | null {
+    return this.workflowManager.get(workflowId) || null;
+  }
+
+  getAgentPerformanceMetrics(agentName: string): any {
+    return this.performanceMetrics.get(agentName) || null;
+  }
+
+  getAllWorkflows(): Workflow[] {
+    return Array.from(this.workflowManager.values());
+  }
+
+  getSystemStatus(): {
+    parallelProcessing: boolean;
+    communicationChannels: number;
+    memoryEntries: number;
+    activeWorkflows: number;
+    totalAgents: number;
+  } {
+    return {
+      parallelProcessing: !!this.parallelProcessingConfig,
+      communicationChannels: this.communicationChannels.size,
+      memoryEntries: this.distributedMemory.size,
+      activeWorkflows: Array.from(this.workflowManager.values()).filter(w => w.status === 'running').length,
+      totalAgents: this.communicationChannels.size,
     };
   }
 }
-
-// Export singleton instance
-export const enhancedCrewCoordinator = new EnhancedCrewCoordinator();

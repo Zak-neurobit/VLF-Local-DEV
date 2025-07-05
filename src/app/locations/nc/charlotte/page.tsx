@@ -1,13 +1,11 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
-
 export const metadata: Metadata = {
   title: 'Best Lawyers in Charlotte, NC | All Practice Areas | Vasquez Law Firm',
   description: 'Top-rated law firm in Charlotte, North Carolina. Immigration, personal injury, workers comp, criminal defense. 60+ years experience. Free consultation. Se habla español.',
   keywords: 'lawyers Charlotte NC, attorneys Charlotte, law firm Charlotte North Carolina, abogados Charlotte'
 };
-
 export default function CharlotteHubPage() {
   const practiceAreas = [
     { name: 'Immigration Law', slug: 'immigration-lawyer', icon: '🌍' },
@@ -16,7 +14,6 @@ export default function CharlotteHubPage() {
     { name: 'Criminal Defense', slug: 'criminal-defense-attorney', icon: '⚖️' },
     { name: 'Car Accidents', slug: 'car-accident-lawyer', icon: '🚗' }
   ];
-
   return (
     <LocationPageTemplate
       location="Charlotte"
@@ -31,7 +28,6 @@ export default function CharlotteHubPage() {
               Choose your practice area below or call 1-844-YO-PELEO for immediate assistance.
             </p>
           </section>
-
           <section>
             <h2 className="text-3xl font-bold mb-8 text-[#6B1F2E]">Our Charlotte Legal Services</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -49,7 +45,6 @@ export default function CharlotteHubPage() {
               ))}
             </div>
           </section>
-
           <section className="bg-gray-50 p-8 rounded-lg">
             <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Why Charlotte Trusts Vasquez Law Firm</h2>
             <div className="grid md:grid-cols-2 gap-8">

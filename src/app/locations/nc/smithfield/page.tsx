@@ -1,18 +1,14 @@
 import { Metadata } from 'next';
 import { LocationPageTemplate } from '@/components/locations/LocationPageTemplate';
 import { ncCities, generateLocalMetadata, generateLocalBusinessSchema, generateReviewSchema } from '@/lib/seo/local-seo-generator';
-
 export async function generateMetadata(): Promise<Metadata> {
   return generateLocalMetadata('smithfield');
 }
-
 export default function SmithfieldPage() {
   const cityData = ncCities['smithfield'];
-  
   if (!cityData) {
     return <div>City data not found</div>;
   }
-
   const schemas = {
     localBusiness: generateLocalBusinessSchema('smithfield'),
     breadcrumbs: {
@@ -77,6 +73,5 @@ export default function SmithfieldPage() {
     },
     reviews: generateReviewSchema('smithfield')
   };
-
   return <LocationPageTemplate data={cityData} schemas={schemas} />;
 }

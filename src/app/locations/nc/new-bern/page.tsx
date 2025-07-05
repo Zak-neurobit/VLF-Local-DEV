@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { localBusinessSchema, breadcrumbSchema, faqSchema } from '@/lib/schema';
-
 export const metadata: Metadata = {
   title: `New Bern NC Immigration Lawyer & Criminal Defense Attorney | Vasquez Law Firm`,
   description: `Experienced New Bern attorneys serving Craven County. Immigration law, criminal defense, personal injury, family law. Hablamos español. Free consultation.`,
@@ -21,7 +20,6 @@ export const metadata: Metadata = {
     },
   },
 };
-
 const localSchema = localBusinessSchema({
   name: 'New Bern',
   address: 'Serving New Bern',
@@ -30,14 +28,12 @@ const localSchema = localBusinessSchema({
   zip: '28560',
   phone: '1-844-967-3536',
 });
-
 const breadcrumbs = breadcrumbSchema([
   { name: 'Home', url: 'https://www.vasquezlawnc.com' },
   { name: 'Locations', url: 'https://www.vasquezlawnc.com/locations' },
   { name: 'North Carolina', url: 'https://www.vasquezlawnc.com/locations/nc' },
   { name: 'New Bern', url: `https://www.vasquezlawnc.com/locations/nc/new-bern` },
 ]);
-
 const faqs = faqSchema([
   {
     question: 'Do you have a physical office in New Bern?',
@@ -60,7 +56,6 @@ const faqs = faqSchema([
       'Yes, we handle all types of criminal charges in Craven County, including DWI, drug charges, assault, and traffic violations. We offer 24/7 availability for emergencies.',
   },
 ]);
-
 export default function NewBernNCPage() {
   return (
     <>
@@ -76,7 +71,6 @@ export default function NewBernNCPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqs) }}
       />
-
       <div className="min-h-screen bg-white">
         {/* Hero Section with Local Focus */}
         <section className="bg-gradient-to-br from-[#6B1F2E] to-[#8B2635] text-white py-20">
@@ -109,7 +103,6 @@ export default function NewBernNCPage() {
             </div>
           </div>
         </section>
-
         {/* Local Statistics Bar */}
         <section className="bg-[#C9974D] text-white py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -133,14 +126,12 @@ export default function NewBernNCPage() {
             </div>
           </div>
         </section>
-
         {/* Practice Areas Grid */}
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold text-[#6B1F2E] text-center mb-12">
               Legal Services for New Bern Residents
             </h2>
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Immigration Law */}
               <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-[#6B1F2E]">
@@ -160,7 +151,6 @@ export default function NewBernNCPage() {
                   Learn More →
                 </Link>
               </div>
-
               {/* Criminal Defense */}
               <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-[#6B1F2E]">
                 <div className="text-4xl mb-4">⚖️</div>
@@ -179,7 +169,6 @@ export default function NewBernNCPage() {
                   Learn More →
                 </Link>
               </div>
-
               {/* Personal Injury */}
               <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-[#6B1F2E]">
                 <div className="text-4xl mb-4">🚗</div>
@@ -198,7 +187,6 @@ export default function NewBernNCPage() {
                   Learn More →
                 </Link>
               </div>
-
               {/* Workers Compensation */}
               <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-[#6B1F2E]">
                 <div className="text-4xl mb-4">👷</div>
@@ -217,7 +205,6 @@ export default function NewBernNCPage() {
                   Learn More →
                 </Link>
               </div>
-
               {/* Family Law */}
               <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-[#6B1F2E]">
                 <div className="text-4xl mb-4">👨‍👩‍👧‍👦</div>
@@ -236,7 +223,6 @@ export default function NewBernNCPage() {
                   Learn More →
                 </Link>
               </div>
-
               {/* Traffic Violations */}
               <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-[#6B1F2E]">
                 <div className="text-4xl mb-4">🚦</div>
@@ -258,7 +244,6 @@ export default function NewBernNCPage() {
             </div>
           </div>
         </section>
-
         {/* Local Content Section */}
         <section className="py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -307,7 +292,6 @@ export default function NewBernNCPage() {
                   </div>
                 </div>
               </div>
-
               <div>
                 <h3 className="text-2xl font-bold text-[#6B1F2E] mb-6">
                   Craven County Legal Information
@@ -322,7 +306,6 @@ export default function NewBernNCPage() {
                       <strong>Federal Court:</strong> Eastern District of NC
                     </li>
                   </ul>
-
                   <h4 className="font-bold text-[#6B1F2E] mb-3 mt-6">
                     Common Legal Issues in New Bern
                   </h4>
@@ -338,7 +321,6 @@ export default function NewBernNCPage() {
             </div>
           </div>
         </section>
-
         {/* Testimonials */}
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -374,7 +356,6 @@ export default function NewBernNCPage() {
             </div>
           </div>
         </section>
-
         {/* Nearby Cities */}
         <section className="py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -433,7 +414,6 @@ export default function NewBernNCPage() {
             </div>
           </div>
         </section>
-
         {/* CTA Section */}
         <section className="py-20 bg-[#6B1F2E] text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

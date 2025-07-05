@@ -2,6 +2,22 @@ import { NextRequest } from 'next/server';
 import NextAuth from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
+interface SignInMessage {
+  user: {
+    email?: string | null;
+    name?: string | null;
+    id: string;
+  };
+  account?: {
+    provider?: string;
+  } | null;
+  profile?: {
+    email?: string;
+  } | null;
+  isNewUser?: boolean;
+  __headers?: Record<string, string>;
+}
+
 // Create handler that passes request headers to auth options
 async function auth(req: NextRequest, context: { params: { nextauth: string[] } }) {
   // Extract headers for IP detection
@@ -20,8 +36,8 @@ async function auth(req: NextRequest, context: { params: { nextauth: string[] } 
         const originalSignIn = authOptions.events?.signIn;
         if (originalSignIn) {
           // Add headers to the context
-          (message as any).__headers = headers;
-          await originalSignIn(message as any);
+          message.__headers = headers;
+          await originalSignIn(message);
         }
       },
     },

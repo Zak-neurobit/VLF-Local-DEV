@@ -151,23 +151,22 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    if (action === 'configure-twilio-integration') {
-      // Configure Twilio integration for existing number
+    if (action === 'configure-retell-integration') {
+      // Configure Retell integration for existing number
       if (!phoneNumber) {
         return NextResponse.json({ error: 'Phone number required' }, { status: 400 });
       }
 
-      // This would integrate with Twilio to forward calls to Retell
-      // For now, we'll store the configuration
+      // Store the Retell configuration
+      // Note: Voice calls are handled directly by Retell, not Twilio
       if (prisma) {
         await prisma.phoneNumber.update({
           where: { number: phoneNumber },
           data: {
             metadata: {
-              twilioIntegration: {
+              retellIntegration: {
                 enabled: true,
-                forwardToRetell: true,
-                webhookUrl: `${process.env.NEXT_PUBLIC_APP_URL}/api/webhooks/twilio/voice`,
+                webhookUrl: `${process.env.NEXT_PUBLIC_APP_URL}/api/webhooks/retell`,
                 configuredAt: new Date().toISOString(),
               },
             },
@@ -177,8 +176,8 @@ export async function POST(req: NextRequest) {
 
       return NextResponse.json({
         success: true,
-        message: 'Twilio integration configured',
-        webhookUrl: `${process.env.NEXT_PUBLIC_APP_URL}/api/webhooks/twilio/voice`,
+        message: 'Retell integration configured',
+        webhookUrl: `${process.env.NEXT_PUBLIC_APP_URL}/api/webhooks/retell`,
       });
     }
 

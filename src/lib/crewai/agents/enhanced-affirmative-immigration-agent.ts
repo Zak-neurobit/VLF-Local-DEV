@@ -242,7 +242,7 @@ Unlawful Presence: ${params.unlawfulPresence || 'None'}`;
       },
     };
 
-    return mockData[type] || mockData.family;
+    return mockData[type as keyof typeof mockData] || mockData.family;
   }
 
   private extractListItems(text: string): string[] {

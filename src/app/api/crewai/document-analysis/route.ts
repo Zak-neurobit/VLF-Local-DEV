@@ -35,10 +35,10 @@ export async function POST(request: NextRequest) {
 
     const analysisRequest: DocumentAnalysisRequest = {
       documentPath: filepath,
-      documentType: documentType as any,
-      analysisType: (analysisType as any) || 'full-analysis',
+      documentType: documentType as 'contract' | 'court-filing' | 'immigration-form' | 'medical-record' | 'insurance-claim' | 'other',
+      analysisType: (analysisType as 'summary' | 'risk-assessment' | 'compliance-check' | 'key-extraction' | 'full-analysis') || 'full-analysis',
       language: language as 'en' | 'es',
-      urgency: urgency as any,
+      urgency: urgency as 'low' | 'medium' | 'high',
       clientId: userId,
     };
 

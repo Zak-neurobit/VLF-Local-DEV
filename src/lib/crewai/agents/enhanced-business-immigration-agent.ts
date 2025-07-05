@@ -315,7 +315,7 @@ Corporate Relationship: ${params.relationship}`;
       },
     };
 
-    return mockData[type] || mockData.h1b;
+    return mockData[type as keyof typeof mockData] || mockData.h1b;
   }
 
   private extractListItems(text: string): string[] {

@@ -1,18 +1,14 @@
 import { Metadata } from 'next';
 import { LocationPageTemplate } from '@/components/locations/LocationPageTemplate';
 import { ncCities, generateLocalMetadata, generateLocalBusinessSchema, generateReviewSchema } from '@/lib/seo/local-seo-generator';
-
 export async function generateMetadata(): Promise<Metadata> {
   return generateLocalMetadata('garner');
 }
-
 export default function GarnerPage() {
   const cityData = ncCities['garner'];
-  
   if (!cityData) {
     return <div>City data not found</div>;
   }
-
   const schemas = {
     localBusiness: generateLocalBusinessSchema('garner'),
     breadcrumbs: {
@@ -77,6 +73,5 @@ export default function GarnerPage() {
     },
     reviews: generateReviewSchema('garner')
   };
-
   return <LocationPageTemplate data={cityData} schemas={schemas} />;
 }

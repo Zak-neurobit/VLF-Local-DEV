@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
     // Capture lead
     const result = await leadCaptureService.captureWebLead({
       ...validated,
-      practiceArea: practiceAreaMap[validated.practiceArea] as any,
+      practiceArea: practiceAreaMap[validated.practiceArea] as 'immigration' | 'personal_injury' | 'workers_compensation' | 'criminal_defense' | 'family_law' | 'traffic',
       ipAddress: ip,
       userAgent: request.headers.get('user-agent') || undefined,
     });

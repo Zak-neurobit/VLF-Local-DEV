@@ -17,23 +17,20 @@ const apiGuides = {
     test: 'curl -H "Authorization: Bearer YOUR_API_KEY" https://api.openai.com/v1/models',
   },
 
-  twilio: {
-    name: 'Twilio (Voice & SMS)',
+  retell: {
+    name: 'Retell (Voice Calls)',
     required: true,
     steps: [
-      'Go to: https://console.twilio.com',
-      'Get Account SID from dashboard',
-      'Get Auth Token from dashboard',
-      'Buy a phone number',
+      'Go to: https://www.retellai.com',
+      'Sign up and get API key',
       'Add to .env.local:',
-      '  TWILIO_ACCOUNT_SID="AC..."',
-      '  TWILIO_AUTH_TOKEN="..."',
-      '  TWILIO_PHONE_NUMBER="+1234567890"',
+      '  RETELL_API_KEY="..."',
+      'Note: Voice calls handled by Retell',
     ],
   },
 
   gohighlevel: {
-    name: 'GoHighLevel (CRM)',
+    name: 'GoHighLevel (CRM & SMS)',
     required: true,
     steps: [
       'Log into your GoHighLevel account',
@@ -43,6 +40,7 @@ const apiGuides = {
       'Add to .env.local:',
       '  GHL_API_KEY="..."',
       '  GHL_LOCATION_ID="..."',
+      'Note: SMS messaging handled by GoHighLevel',
     ],
   },
 

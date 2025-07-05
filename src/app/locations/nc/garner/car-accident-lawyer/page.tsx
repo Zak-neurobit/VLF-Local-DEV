@@ -1,18 +1,14 @@
 import { Metadata } from 'next';
 import { LocationPageTemplate } from '@/components/locations/LocationPageTemplate';
 import { ncCities, generateLocalMetadata, generateLocalBusinessSchema, generateReviewSchema } from '@/lib/seo/local-seo-generator';
-
 export async function generateMetadata(): Promise<Metadata> {
   return generateLocalMetadata('garner', 'Car Accident Lawyer');
 }
-
 export default function GarnerCarAccidentLawyerPage() {
   const cityData = ncCities['garner'];
-  
   if (!cityData) {
     return <div>City data not found</div>;
   }
-
   const schemas = {
     localBusiness: generateLocalBusinessSchema('garner', 'Car Accident Lawyer'),
     breadcrumbs: {
@@ -83,6 +79,5 @@ export default function GarnerCarAccidentLawyerPage() {
     },
     reviews: generateReviewSchema('garner')
   };
-
   return <LocationPageTemplate data={cityData} schemas={schemas} />;
 }

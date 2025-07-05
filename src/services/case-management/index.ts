@@ -205,7 +205,7 @@ export class CaseManagementService {
     try {
       // Try cache first
       const cacheKey = `case:${caseId}:${includePrivate}`;
-      const cached = await cache.get<any>(cacheKey);
+      const cached = await cache.get(cacheKey);
       if (cached) return cached;
 
       const caseDetails = await getPrismaClient().case.findUnique({

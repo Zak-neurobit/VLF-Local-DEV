@@ -130,7 +130,7 @@ export class RetellService {
 
   // Agent Management
   async createAgent(data: Partial<RetellAgent>): Promise<RetellAgent> {
-    const response = await this.client.post('/v2/create-agent', data);
+    const response = await this.client.post('/v2/agent', data);
     return response.data.agent_id ? response.data : response.data.agent;
   }
 
@@ -141,8 +141,8 @@ export class RetellService {
       cacheKey,
       async () => {
         try {
-          const response = await this.client.get(`/v2/get-agent/${agentId}`);
-          return response.data.agent;
+          const response = await this.client.get(`/v2/agent/${agentId}`);
+          return response.data;
         } catch (error: any) {
           if (error.response?.status === 404) {
             return null;
@@ -155,7 +155,7 @@ export class RetellService {
   }
 
   async updateAgent(agentId: string, data: Partial<RetellAgent>): Promise<RetellAgent> {
-    const response = await this.client.patch(`/v2/update-agent/${agentId}`, data);
+    const response = await this.client.patch(`/v2/agent/${agentId}`, data);
 
     // Clear cache
     await cache.delete(`retell:agent:${agentId}`);
@@ -169,22 +169,22 @@ export class RetellService {
     return cache.remember(
       cacheKey,
       async () => {
-        const response = await this.client.get('/v2/list-agents');
-        return response.data.agents || [];
+        const response = await this.client.get('/v2/agent');
+        return response.data || [];
       },
       CacheTTL.MEDIUM
     );
   }
 
   async deleteAgent(agentId: string): Promise<void> {
-    await this.client.delete(`/v2/delete-agent/${agentId}`);
+    await this.client.delete(`/v2/agent/${agentId}`);
     await cache.delete(`retell:agent:${agentId}`);
     await cache.delete('retell:agents:list');
   }
 
   // Call Management
   async createPhoneCall(params: CreateCallParams): Promise<RetellCall> {
-    const response = await this.client.post('/v2/create-phone-call', params);
+    const response = await this.client.post('/v2/call', params);
     const call = response.data;
 
     // Queue for analysis
@@ -201,7 +201,7 @@ export class RetellService {
   }
 
   async createWebCall(params: WebCallParams): Promise<{ call_id: string; web_call_link: string }> {
-    const response = await this.client.post('/v2/create-web-call', params);
+    const response = await this.client.post('/v2/call/web', params);
     return response.data;
   }
 
@@ -212,8 +212,8 @@ export class RetellService {
       cacheKey,
       async () => {
         try {
-          const response = await this.client.get(`/v2/get-call/${callId}`);
-          return response.data.call;
+          const response = await this.client.get(`/v2/call/${callId}`);
+          return response.data;
         } catch (error: any) {
           if (error.response?.status === 404) {
             return null;
@@ -235,12 +235,12 @@ export class RetellService {
       call_status?: string[];
     };
   }): Promise<RetellCall[]> {
-    const response = await this.client.post('/v2/list-calls', filters || {});
-    return response.data.calls || [];
+    const response = await this.client.get('/v2/call', { params: filters });
+    return response.data || [];
   }
 
   async endCall(callId: string): Promise<void> {
-    await this.client.post(`/v2/end-call/${callId}`);
+    await this.client.post(`/v2/call/${callId}/end`);
 
     // Clear cache
     await cache.delete(cacheKeys.call(callId));
@@ -319,32 +319,109 @@ export class RetellService {
     );
   }
 
-  // Webhook handling
+  // Webhook handling (enhanced with security manager)
   verifyWebhook(signature: string, payload: string, secret: string): boolean {
-    const crypto = require('crypto');
-    const expectedSignature = crypto.createHmac('sha256', secret).update(payload).digest('hex');
-
-    return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature));
+    try {
+      // Use security manager for enhanced validation
+      const { securityManager } = require('./security-manager');
+      return securityManager.verifyWebhookSignature(payload, signature);
+    } catch (error) {
+      // Fallback to basic verification
+      const crypto = require('crypto');
+      const expectedSignature = crypto.createHmac('sha256', secret).update(payload).digest('hex');
+      return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature));
+    }
   }
 
   async handleWebhookEvent(event: any): Promise<void> {
     logger.info('Retell webhook event', { type: event.event, callId: event.call?.call_id });
 
-    switch (event.event) {
-      case 'call_started':
-        await this.handleCallStarted(event);
-        break;
-      case 'call_ended':
-        await this.handleCallEnded(event);
-        break;
-      case 'call_analyzed':
-        await this.handleCallAnalyzed(event);
-        break;
-      case 'transcript_ready':
-        await this.handleTranscriptReady(event);
-        break;
-      default:
-        logger.warn('Unknown Retell webhook event', { type: event.event });
+    try {
+      // Import enhanced managers
+      const { statusManager } = await import('./status-manager');
+      const { recordingManager } = await import('./recording-manager');
+      const { retellErrorHandler } = await import('./error-handler');
+
+      switch (event.event) {
+        case 'call_started':
+          await this.handleCallStarted(event);
+          await statusManager.updateCallStatus(event.call.call_id, 'connected', {
+            timestamp: new Date(),
+            agent_id: event.call.agent_id,
+          });
+          break;
+        case 'call_ended':
+          await this.handleCallEnded(event);
+          await statusManager.updateCallStatus(event.call.call_id, 'ended', {
+            timestamp: new Date(),
+            duration: event.call.duration_ms,
+            reason: event.call.disconnection_reason,
+          });
+          break;
+        case 'call_analyzed':
+          await this.handleCallAnalyzed(event);
+          break;
+        case 'transcript_ready':
+          await this.handleTranscriptReady(event);
+          break;
+        case 'recording_ready':
+          // Process recording with enhanced manager
+          setTimeout(async () => {
+            try {
+              await recordingManager.processRecording(event.call.call_id);
+            } catch (error) {
+              await retellErrorHandler.handleError(error, {
+                operation: 'process_recording',
+                callId: event.call.call_id,
+              });
+            }
+          }, 1000);
+          break;
+        case 'call_queued':
+          await statusManager.updateCallStatus(event.call.call_id, 'queued', {
+            timestamp: new Date(),
+            agent_id: event.call.agent_id,
+          });
+          break;
+        case 'call_ringing':
+          await statusManager.updateCallStatus(event.call.call_id, 'ringing', {
+            timestamp: new Date(),
+            to_number: event.call.to_number,
+          });
+          break;
+        case 'call_failed':
+          await statusManager.updateCallStatus(event.call.call_id, 'failed', {
+            timestamp: new Date(),
+            reason: event.call.disconnection_reason || 'Unknown error',
+          });
+          break;
+        case 'call_no_answer':
+          await statusManager.updateCallStatus(event.call.call_id, 'no_answer', {
+            timestamp: new Date(),
+          });
+          break;
+        case 'call_busy':
+          await statusManager.updateCallStatus(event.call.call_id, 'busy', {
+            timestamp: new Date(),
+          });
+          break;
+        case 'voicemail_detected':
+          await statusManager.updateCallStatus(event.call.call_id, 'voicemail', {
+            timestamp: new Date(),
+          });
+          break;
+        default:
+          logger.warn('Unknown Retell webhook event', { type: event.event });
+      }
+    } catch (error) {
+      // Enhanced error handling
+      const { retellErrorHandler } = await import('./error-handler');
+      await retellErrorHandler.handleError(error, {
+        operation: 'webhook_event_handling',
+        callId: event.call?.call_id,
+        metadata: { event: event.event },
+      });
+      throw error;
     }
   }
 

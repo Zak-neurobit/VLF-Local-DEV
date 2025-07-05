@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
+import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-config';
 
 interface Office {
   name: string;
@@ -29,10 +30,10 @@ export default function AllOfficesMap({
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+    const apiKey = getGoogleMapsApiKey();
 
-    if (!apiKey) {
-      setError('Google Maps API key is not configured');
+    if (!apiKey || !isGoogleMapsConfigured()) {
+      setError('Google Maps is not configured. Please set up your Google Maps API key.');
       setLoading(false);
       return;
     }

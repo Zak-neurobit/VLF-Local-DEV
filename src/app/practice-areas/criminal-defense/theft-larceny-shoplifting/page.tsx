@@ -53,6 +53,7 @@ export default function TheftLarcenyShopliftingPage() {
       <PracticeAreaSchema
         name="Theft, Larceny & Shoplifting Defense"
         description="Experienced legal representation for theft crime cases in North Carolina"
+        url="https://www.vasquezlawnc.com/practice-areas/criminal-defense/theft-larceny-shoplifting"
         areaServed={["North Carolina", "Raleigh", "Charlotte", "Durham", "Winston-Salem"]}
       />
 

@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
         priority: 'high',
         status: 'pending',
         createdById: user.id,
-        metadata: validatedData as any,
+        metadata: validatedData,
       },
     });
 
@@ -97,10 +97,10 @@ export async function POST(req: NextRequest) {
           : 'Thank you for contacting us. We will respond within 1 business hour.',
       userId: user.id,
     });
-  } catch (error: any) {
+  } catch (error) {
     apiLogger.error('contact-form', error as Error, {});
 
-    if (error.errors) {
+    if (error instanceof Error && 'errors' in error) {
       return NextResponse.json(
         {
           success: false,

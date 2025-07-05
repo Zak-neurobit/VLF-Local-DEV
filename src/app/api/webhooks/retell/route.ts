@@ -3,6 +3,9 @@ import { getRetellService } from '@/services/retell';
 import { logger } from '@/lib/logger';
 import { callAnalysisQueue } from '@/lib/queue/bull';
 import { getPrismaClient } from '@/lib/prisma';
+import { statusManager } from '@/services/retell/status-manager';
+import { recordingManager } from '@/services/retell/recording-manager';
+import { retellErrorHandler } from '@/services/retell/error-handler';
 import type { RetellCallAnalysis, RetellCallMetadata } from '@/types/api';
 
 export async function POST(request: NextRequest) {
@@ -33,12 +36,18 @@ export async function POST(request: NextRequest) {
       callId: event.call?.call_id,
     });
 
-    // Handle the event
+    // Handle the event with enhanced error handling
     await handleRetellEvent(event);
 
     // Respond quickly to acknowledge receipt
     return NextResponse.json({ received: true });
   } catch (error) {
+    // Use enhanced error handler
+    await retellErrorHandler.handleError(error, {
+      operation: 'webhook_processing',
+      metadata: { event: event?.event, callId: event?.call?.call_id },
+    });
+    
     logger.error('Retell webhook error:', error);
     return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 });
   }
@@ -58,10 +67,19 @@ async function handleRetellEvent(event: {
   switch (eventType) {
     case 'call_started':
       await handleCallStarted(call);
+      await statusManager.updateCallStatus(call.call_id as string, 'connected', {
+        timestamp: new Date(),
+        agent_id: call.agent_id,
+      });
       break;
 
     case 'call_ended':
       await handleCallEnded(call);
+      await statusManager.updateCallStatus(call.call_id as string, 'ended', {
+        timestamp: new Date(),
+        duration: call.duration_ms,
+        reason: call.disconnection_reason,
+      });
       break;
 
     case 'call_analyzed':
@@ -74,6 +92,54 @@ async function handleRetellEvent(event: {
 
     case 'recording_ready':
       await handleRecordingReady(event);
+      // Process recording with new manager
+      setTimeout(async () => {
+        try {
+          await recordingManager.processRecording(call.call_id as string);
+        } catch (error) {
+          logger.error('Failed to process recording:', error);
+        }
+      }, 1000); // 1 second delay
+      break;
+
+    // Additional Retell webhook events
+    case 'call_queued':
+      await statusManager.updateCallStatus(call.call_id as string, 'queued', {
+        timestamp: new Date(),
+        agent_id: call.agent_id,
+      });
+      break;
+
+    case 'call_ringing':
+      await statusManager.updateCallStatus(call.call_id as string, 'ringing', {
+        timestamp: new Date(),
+        to_number: call.to_number,
+      });
+      break;
+
+    case 'call_failed':
+      await statusManager.updateCallStatus(call.call_id as string, 'failed', {
+        timestamp: new Date(),
+        reason: call.disconnection_reason || 'Unknown error',
+      });
+      break;
+
+    case 'call_no_answer':
+      await statusManager.updateCallStatus(call.call_id as string, 'no_answer', {
+        timestamp: new Date(),
+      });
+      break;
+
+    case 'call_busy':
+      await statusManager.updateCallStatus(call.call_id as string, 'busy', {
+        timestamp: new Date(),
+      });
+      break;
+
+    case 'voicemail_detected':
+      await statusManager.updateCallStatus(call.call_id as string, 'voicemail', {
+        timestamp: new Date(),
+      });
       break;
 
     default:

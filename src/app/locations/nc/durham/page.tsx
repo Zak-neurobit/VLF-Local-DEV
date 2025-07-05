@@ -1,13 +1,11 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
-
 export const metadata: Metadata = {
   title: 'Best Lawyers in Durham, NC | All Practice Areas | Vasquez Law Firm',
   description: 'Top-rated law firm in Durham, North Carolina. Immigration, personal injury, workers comp, criminal defense. 60+ years experience. Free consultation. Se habla español.',
   keywords: 'lawyers Durham NC, attorneys Durham, law firm Durham North Carolina, abogados Durham'
 };
-
 export default function DurhamHubPage() {
   const practiceAreas = [
     { name: 'Immigration Law', slug: 'immigration-lawyer', icon: '🌍' },
@@ -16,7 +14,6 @@ export default function DurhamHubPage() {
     { name: 'Criminal Defense', slug: 'criminal-defense-attorney', icon: '⚖️' },
     { name: 'Car Accidents', slug: 'car-accident-lawyer', icon: '🚗' }
   ];
-
   return (
     <LocationPageTemplate
       location="Durham"
@@ -31,7 +28,6 @@ export default function DurhamHubPage() {
               Choose your practice area below or call 1-844-YO-PELEO for immediate assistance.
             </p>
           </section>
-
           <section>
             <h2 className="text-3xl font-bold mb-8 text-[#6B1F2E]">Our Durham Legal Services</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -49,7 +45,6 @@ export default function DurhamHubPage() {
               ))}
             </div>
           </section>
-
           <section className="bg-gray-50 p-8 rounded-lg">
             <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Why Durham Trusts Vasquez Law Firm</h2>
             <div className="grid md:grid-cols-2 gap-8">

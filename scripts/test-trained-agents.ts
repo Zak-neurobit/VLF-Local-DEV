@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-import { EnhancedCrewCoordinator } from '../src/lib/crewai/enhanced-crew-coordinator';
+import { CrewCoordinator } from '../src/lib/crewai/enhanced-crew-coordinator';
 import { logger } from '../src/lib/logger';
 
 async function testTrainedAgents() {
   logger.info('Testing trained CrewAI agents...');
   
   try {
-    const coordinator = new EnhancedCrewCoordinator();
+    const coordinator = CrewCoordinator.getInstance();
     
     // Test cases for each agent type
     const testCases = [
