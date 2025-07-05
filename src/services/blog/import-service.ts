@@ -268,7 +268,6 @@ export class BlogImportService {
       return searchTerms.every(term => searchableText.includes(term));
     });
   }
-}
 
   private generateSamplePosts(): ImportedBlogPost[] {
     const samplePosts: ImportedBlogPost[] = [
