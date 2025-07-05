@@ -37,35 +37,35 @@ export default function HertfordCountyPage() {
               <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Immigration Lawyer</h3>
                 <p className="text-gray-600 mb-4">Expert immigration lawyer services for Hertford County residents</p>
-                <a href="/practice-areas/immigration-lawyer" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
+                <a href="/practice-areas/immigration" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
                 </a>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Personal Injury Attorney</h3>
                 <p className="text-gray-600 mb-4">Expert personal injury attorney services for Hertford County residents</p>
-                <a href="/practice-areas/personal-injury-attorney" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
+                <a href="/practice-areas/personal-injury" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
                 </a>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Workers' Compensation Lawyer</h3>
                 <p className="text-gray-600 mb-4">Expert workers' compensation lawyer services for Hertford County residents</p>
-                <a href="/practice-areas/workers-compensation-lawyer" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
+                <a href="/practice-areas/workers-compensation" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
                 </a>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Criminal Defense Attorney</h3>
                 <p className="text-gray-600 mb-4">Expert criminal defense attorney services for Hertford County residents</p>
-                <a href="/practice-areas/criminal-defense-attorney" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
+                <a href="/practice-areas/criminal-defense" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
                 </a>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Car Accident Lawyer</h3>
                 <p className="text-gray-600 mb-4">Expert car accident lawyer services for Hertford County residents</p>
-                <a href="/practice-areas/car-accident-lawyer" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
+                <a href="/practice-areas/personal-injury/car-accidents" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
                 </a>
               </div>

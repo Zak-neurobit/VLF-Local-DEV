@@ -100,43 +100,6 @@ export default function HomePage() {
 
       {/* Page Sections */}
       <ModernHero language={language} />
-
-      {/* Trust Indicators */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="bg-gradient-to-b from-black to-neutral-950 py-12"
-      >
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {[
-              {
-                number: '60+',
-                label: language === 'en' ? 'Years Experience' : 'Años de Experiencia',
-              },
-              { number: '30K+', label: language === 'en' ? 'Clients Helped' : 'Clientes Ayudados' },
-              { number: '4', label: language === 'en' ? 'Office Locations' : 'Ubicaciones' },
-              { number: '24/7', label: language === 'en' ? 'Available' : 'Disponible' },
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="text-2xl sm:text-3xl md:text-4xl font-black text-primary">
-                  {stat.number}
-                </div>
-                <div className="mt-2 text-xs sm:text-sm text-gray-400">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
-
       <FirmHighlights language={language} />
       <OfficeLocations language={language} />
       <ResultsShowcase language={language} />

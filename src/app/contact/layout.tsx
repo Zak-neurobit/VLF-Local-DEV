@@ -1,9 +1,4 @@
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
-
 export default function ContactLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <MasterLayout variant="default" showBreadcrumbs={true}>
-      {children}
-    </MasterLayout>
-  );
+  // Layout components (Header/Footer) are handled by MasterLayout in individual pages
+  return <>{children}</>;
 }

@@ -72,10 +72,10 @@ export const ConsistentFooter: React.FC<ConsistentFooterProps> = ({ language }) 
   const t = content[language];
 
   const offices = [
-    { city: 'Raleigh', state: 'NC', phone: '(919) 246-8831' },
-    { city: 'Charlotte', state: 'NC', phone: '(704) 266-2998' },
-    { city: 'Smithfield', state: 'NC', phone: '(919) 209-8788' },
-    { city: 'Orlando', state: 'FL', phone: '(407) 647-1900' },
+    { city: 'Raleigh', state: 'NC', phone: '(919) 533-7000' },
+    { city: 'Charlotte', state: 'NC', phone: '(704) 533-7000' },
+    { city: 'Smithfield', state: 'NC', phone: '(919) 989-3000' },
+    { city: 'Orlando', state: 'FL', phone: '(407) 955-5000' },
   ];
 
   return (

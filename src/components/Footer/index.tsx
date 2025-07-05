@@ -67,25 +67,25 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
       city: 'Smithfield, NC',
       address: '612 S Brightleaf Blvd',
       cityState: 'Smithfield, NC 27577',
-      phone: '(919) 209-8788',
+      phone: '(919) 989-3000',
     },
     {
       city: 'Raleigh, NC',
       address: '4426 Louisburg Road',
       cityState: 'Raleigh, NC 27616',
-      phone: '(919) 246-8831',
+      phone: '(919) 533-7000',
     },
     {
       city: 'Charlotte, NC',
       address: '5701 Executive Center Dr, Ste 103',
       cityState: 'Charlotte, NC 28212',
-      phone: '(704) 266-2998',
+      phone: '(704) 533-7000',
     },
     {
       city: 'Orlando, FL',
       address: '1111 E Amelia Street',
       cityState: 'Orlando, FL 32803',
-      phone: '(407) 647-1900',
+      phone: '(407) 955-5000',
     },
   ];
 

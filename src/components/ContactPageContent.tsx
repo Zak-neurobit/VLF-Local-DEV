@@ -120,37 +120,6 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
 
   const t = content[language];
 
-  const locations = [
-    {
-      city: language === 'es' ? 'Charlotte, NC' : 'Charlotte, NC',
-      address: '5701 Executive Center Dr, Ste 103, Charlotte, NC 28212',
-      phone: '(704) 266-2998',
-      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 5:00 PM' : 'Mon-Fri: 9:00 AM - 5:00 PM',
-      mapUrl: 'https://maps.google.com/maps?q=5701+Executive+Center+Dr,+Charlotte,+NC+28212',
-    },
-    {
-      city: language === 'es' ? 'Raleigh, NC' : 'Raleigh, NC',
-      address: '4426 Louisburg Road, Raleigh, NC 27616',
-      phone: '(919) 755-9425',
-      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 5:00 PM' : 'Mon-Fri: 9:00 AM - 5:00 PM',
-      mapUrl: 'https://maps.google.com/maps?q=4426+Louisburg+Road,+Raleigh,+NC+27616',
-    },
-    {
-      city: language === 'es' ? 'Smithfield, NC' : 'Smithfield, NC',
-      address: '612 S Brightleaf Blvd, Smithfield, NC 27577',
-      phone: '(919) 209-8788',
-      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 5:00 PM' : 'Mon-Fri: 9:00 AM - 5:00 PM',
-      mapUrl: 'https://maps.google.com/maps?q=612+S+Brightleaf+Blvd,+Smithfield,+NC+27577',
-    },
-    {
-      city: language === 'es' ? 'Orlando, FL' : 'Orlando, FL',
-      address: '1111 E Amelia Street, Orlando, FL 32803',
-      phone: '(407) 647-1900',
-      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 5:00 PM' : 'Mon-Fri: 9:00 AM - 5:00 PM',
-      mapUrl: 'https://maps.google.com/maps?q=1111+E+Amelia+Street,+Orlando,+FL+32803',
-    },
-  ];
-
   return (
     <ModernPageWrapper title={t.title} subtitle={t.subtitle}>
       {/* Main Content Section */}
@@ -287,17 +256,17 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {locations.map((location, index) => {
+            {officeLocations.map((location, index) => {
               const officeImages: { [key: string]: string } = {
-                'Charlotte, NC': '/images/offices/charlotte-office.jpg',
-                'Raleigh, NC': '/images/offices/raleigh-office.jpg',
-                'Smithfield, NC': '/images/offices/smithfield-office.jpg',
-                'Orlando, FL': '/images/offices/orlando-office.jpg',
+                'Charlotte': '/images/offices/charlotte-office.jpg',
+                'Raleigh': '/images/offices/raleigh-office.jpg',
+                'Smithfield': '/images/offices/smithfield-office.jpg',
+                'Orlando': '/images/offices/orlando-office.jpg',
               };
 
               return (
                 <motion.div
-                  key={index}
+                  key={location.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -306,9 +275,9 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
                 >
                   {/* Office Image */}
                   <div className="h-48 w-full overflow-hidden bg-gradient-to-r from-neutral-800 to-neutral-900 flex items-center justify-center">
-                    {officeImages[location.city.split(',')[0] + ', ' + location.city.split(',')[1]] ? (
+                    {officeImages[location.city] ? (
                       <Image
-                        src={officeImages[location.city.split(',')[0] + ', ' + location.city.split(',')[1]]}
+                        src={officeImages[location.city]}
                         alt={`${location.city} office exterior`}
                         width={400}
                         height={300}
@@ -323,10 +292,10 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
                   </div>
 
                   <div className="p-6">
-                    <h3 className="text-xl font-semibold text-gold-400 mb-2">{location.city}</h3>
+                    <h3 className="text-xl font-semibold text-gold-400 mb-2">{location.city}, {location.state}</h3>
                     <p className="text-sm text-gray-300 mb-2 flex items-start">
                       <MapPin className="w-4 h-4 mr-1 mt-0.5 text-gold-500" />
-                      {location.address}
+                      {location.fullAddress}
                     </p>
                     <p className="text-sm text-gold-500 font-medium mb-2 flex items-center">
                       <Phone className="w-4 h-4 mr-1" />
@@ -334,7 +303,7 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
                     </p>
                     <p className="text-xs text-gray-400 mb-4 flex items-center">
                       <Clock className="w-4 h-4 mr-1" />
-                      {location.hours}
+                      {language === 'es' ? location.hours.replace('Mon-Fri', 'Lun-Vie') : location.hours}
                     </p>
                     <a
                       href={location.mapUrl}
