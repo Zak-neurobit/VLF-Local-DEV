@@ -5,8 +5,6 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   compress: true,
-  // Use standalone output to avoid static generation issues
-  output: 'standalone',
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.
