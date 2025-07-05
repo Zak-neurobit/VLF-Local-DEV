@@ -1,12 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Script from 'next/script';
 import { useSearchParams } from 'next/navigation';
 
-export default function PracticeAreasPage() {
+function PracticeAreasContent() {
   // Get language from URL params or default to 'en'
   const searchParams = useSearchParams();
   const language: 'en' | 'es' = (searchParams.get('lang') as 'en' | 'es') || 'en';
@@ -379,5 +379,13 @@ export default function PracticeAreasPage() {
         }}
       />
     </div>
+  );
+}
+
+export default function PracticeAreasPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-black" />}>
+      <PracticeAreasContent />
+    </Suspense>
   );
 }
