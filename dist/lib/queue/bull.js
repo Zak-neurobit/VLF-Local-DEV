@@ -175,14 +175,14 @@ exports.emailQueue.process(async (job) => {
     const emailData = job.data;
     try {
         // Import email service dynamically to avoid circular dependencies
-        const { emailService } = await Promise.resolve().then(() => __importStar(require('@/services/email')));
+        const { emailService } = await Promise.resolve().then(() => __importStar(require('@/services/email.service')));
         logger_1.logger.info(`Processing email job`, {
             to: emailData.to,
             subject: emailData.subject,
             template: emailData.template,
         });
         // Send email
-        const result = await emailService.send(emailData);
+        const result = await emailService.sendEmail(emailData);
         if (!result.success) {
             throw new Error(result.error || 'Email send failed');
         }

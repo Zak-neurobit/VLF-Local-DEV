@@ -190,7 +190,7 @@ export default function BlogPage() {
       <div className="min-h-screen bg-black">
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-gray-50 to-white py-16">
+      <section className="bg-black py-16 pt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -199,7 +199,7 @@ export default function BlogPage() {
             className="text-center"
           >
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{t.title}</h1>
-            <p className="text-xl text-[primary] font-semibold mb-8">{t.subtitle}</p>
+            <p className="text-xl text-primary font-semibold mb-8">{t.subtitle}</p>
 
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto">
@@ -209,7 +209,7 @@ export default function BlogPage() {
                   placeholder={t.search}
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
-                  className="w-full px-6 py-4 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[primary] focus:border-transparent"
+                  className="w-full px-6 py-4 pr-12 bg-white/5 backdrop-blur-sm border border-primary/20 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 />
                 <svg
                   className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"
@@ -231,14 +231,14 @@ export default function BlogPage() {
       </section>
 
       {/* Categories Filter */}
-      <section className="py-8 bg-gray-50 sticky top-20 z-30">
+      <section className="py-8 bg-black/50 backdrop-blur-sm sticky top-20 z-30 border-b border-primary/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-300">{t.filterBy}</h2>
             {selectedCategory !== 'all' && (
               <button
                 onClick={() => setSelectedCategory('all')}
-                className="text-sm text-[primary] hover:underline"
+                className="text-sm text-primary hover:underline"
               >
                 {t.clearFilters}
               </button>
@@ -249,7 +249,7 @@ export default function BlogPage() {
               onClick={() => setSelectedCategory('all')}
               className={`px-6 py-2 rounded-full whitespace-nowrap transition-all ${
                 selectedCategory === 'all'
-                  ? 'bg-primary text-white'
+                  ? 'bg-primary text-black font-semibold'
                   : 'bg-white/5 backdrop-blur-sm border border-primary/20 text-gray-300 hover:bg-white/10'
               }`}
             >
@@ -261,7 +261,7 @@ export default function BlogPage() {
                 onClick={() => setSelectedCategory(category.id)}
                 className={`px-6 py-2 rounded-full whitespace-nowrap transition-all flex items-center gap-2 ${
                   selectedCategory === category.id
-                    ? `${category.color} text-white`
+                    ? 'bg-primary text-black font-semibold'
                     : 'bg-white/5 backdrop-blur-sm border border-primary/20 text-gray-300 hover:bg-white/10'
                 }`}
               >
@@ -274,14 +274,14 @@ export default function BlogPage() {
       </section>
 
       {/* Main Content */}
-      <section className="py-16">
+      <section className="py-16 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Blog Posts */}
             <div className="lg:col-span-2">
               {loading && page === 1 ? (
                 <div className="flex justify-center py-12">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[primary]"></div>
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
                 </div>
               ) : posts.length === 0 ? (
                 <p className="text-center text-gray-400 py-12">{t.noResults}</p>
@@ -324,7 +324,7 @@ export default function BlogPage() {
                           <h2 className="text-2xl font-bold text-white mb-3">
                             <Link
                               href={`/blog/${post.slug}`}
-                              className="hover:text-[primary] transition-colors"
+                              className="hover:text-primary transition-colors"
                             >
                               {post.title}
                             </Link>
@@ -349,7 +349,7 @@ export default function BlogPage() {
                             </div>
                             <Link
                               href={`/blog/${post.slug}`}
-                              className="text-[primary] font-medium hover:underline"
+                              className="text-primary font-medium hover:underline"
                             >
                               {t.readMore} →
                             </Link>
@@ -359,7 +359,7 @@ export default function BlogPage() {
                               {post.tags.slice(0, 5).map(tag => (
                                 <span
                                   key={tag}
-                                  className="px-2 py-1 bg-gray-100 text-gray-400 rounded text-xs"
+                                  className="px-2 py-1 bg-white/5 text-gray-400 rounded text-xs border border-gray-700"
                                 >
                                   #{tag}
                                 </span>
@@ -378,7 +378,7 @@ export default function BlogPage() {
                 <div className="text-center mt-12">
                   <button
                     onClick={() => setPage(page + 1)}
-                    className="px-8 py-3 bg-primary text-white rounded-md font-medium hover:bg-[#D4A574] transition-colors"
+                    className="px-8 py-3 bg-primary text-black rounded-md font-semibold hover:bg-primary/90 transition-colors"
                   >
                     {t.loadMore}
                   </button>
@@ -401,7 +401,7 @@ export default function BlogPage() {
                           <div className="flex-1">
                             <Link
                               href={`/blog/${post.slug}`}
-                              className="text-sm font-medium text-white hover:text-[primary] line-clamp-2"
+                              className="text-sm font-medium text-white hover:text-primary line-clamp-2"
                             >
                               {post.title}
                             </Link>
@@ -426,16 +426,16 @@ export default function BlogPage() {
                     <Link
                       key={category.id}
                       href={`/blog/category/${category.id}`}
-                      className={`flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group`}
+                      className={`flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors group`}
                     >
                       <div className="flex items-center gap-3">
                         <span className={`text-2xl`}>{category.icon}</span>
-                        <span className="font-medium text-gray-300 group-hover:text-[primary]">
+                        <span className="font-medium text-gray-300 group-hover:text-primary">
                           {category.name[language]}
                         </span>
                       </div>
                       <svg
-                        className="w-5 h-5 text-gray-400 group-hover:text-[primary]"
+                        className="w-5 h-5 text-gray-400 group-hover:text-primary"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -458,10 +458,10 @@ export default function BlogPage() {
                 <div className="space-y-3">
                   {trendingTopics.map((topic, index) => (
                     <div key={index} className="flex items-center gap-3">
-                      <span className="text-2xl text-[primary]">🔥</span>
+                      <span className="text-2xl text-primary">🔥</span>
                       <button
                         onClick={() => setSearchQuery(topic)}
-                        className="text-gray-300 hover:text-[primary] transition-colors text-left"
+                        className="text-gray-300 hover:text-primary transition-colors text-left"
                       >
                         {topic}
                       </button>
@@ -471,18 +471,18 @@ export default function BlogPage() {
               </div>
 
               {/* Newsletter Signup */}
-              <div className="bg-gradient-to-r from-[secondary] to-[secondary-dark] rounded-lg p-6 text-white">
-                <h3 className="text-xl font-bold mb-3">{t.newsletter}</h3>
-                <p className="text-sm mb-4">{t.newsletterDesc}</p>
+              <div className="bg-gradient-to-r from-primary/20 to-primary/10 backdrop-blur-sm border border-primary/20 rounded-lg p-6">
+                <h3 className="text-xl font-bold mb-3 text-white">{t.newsletter}</h3>
+                <p className="text-sm mb-4 text-gray-300">{t.newsletterDesc}</p>
                 <form className="space-y-3">
                   <input
                     type="email"
                     placeholder={t.email}
-                    className="w-full px-4 py-2 rounded-md text-white placeholder-gray-500 focus:ring-2 focus:ring-white"
+                    className="w-full px-4 py-2 bg-white/5 border border-primary/20 rounded-md text-white placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent"
                   />
                   <button
                     type="submit"
-                    className="w-full px-4 py-2 bg-white/5 backdrop-blur-sm border border-primary/20 text-[secondary] rounded-md font-medium hover:bg-white/10 transition-colors"
+                    className="w-full px-4 py-2 bg-primary text-black rounded-md font-semibold hover:bg-primary/90 transition-colors"
                   >
                     {t.subscribe}
                   </button>
@@ -490,10 +490,10 @@ export default function BlogPage() {
               </div>
 
               {/* AI Assistant CTA */}
-              <div className="bg-[secondary]/10 rounded-lg p-6">
+              <div className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg p-6">
                 <div className="text-center">
                   <div className="text-5xl mb-3">🤖</div>
-                  <h3 className="text-lg font-bold text-[secondary] mb-2">
+                  <h3 className="text-lg font-bold text-primary mb-2">
                     {language === 'es' ? '¿Necesita Ayuda Legal?' : 'Need Legal Help?'}
                   </h3>
                   <p className="text-sm text-gray-300 mb-4">
@@ -501,7 +501,7 @@ export default function BlogPage() {
                       ? 'Nuestro asistente de IA está disponible 24/7'
                       : 'Our AI assistant is available 24/7'}
                   </p>
-                  <button className="px-4 py-2 bg-[secondary] text-white rounded-md font-medium hover:bg-[secondary-dark] transition-colors">
+                  <button className="px-4 py-2 bg-primary text-black rounded-md font-semibold hover:bg-primary/90 transition-colors">
                     {language === 'es' ? 'Chatear Ahora' : 'Chat Now'}
                   </button>
                 </div>

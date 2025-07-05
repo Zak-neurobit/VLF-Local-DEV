@@ -1,10 +1,12 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Script from 'next/script';
+import { MasterLayout } from '@/design-system/templates/MasterLayout';
+import { Button } from '@/design-system/components/Button';
+import { Heading, Text } from '@/design-system/components/Typography';
 // Dynamic import for client-side only rendering
 const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
   ssr: false,
@@ -13,6 +15,14 @@ import { generateAboutPageSchema, generateOrganizationSchema } from '@/component
 
 export default function AboutPage() {
   const [language, setLanguage] = useState<'en' | 'es'>('en');
+
+  useEffect(() => {
+    // Check user's browser language
+    const browserLang = navigator.language.toLowerCase();
+    if (browserLang.startsWith('es')) {
+      setLanguage('es');
+    }
+  }, []);
 
   const content = {
     en: {
@@ -150,304 +160,288 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Top Bar */}
-      <div className="bg-[#188bf6] text-white py-2">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          <div className="flex items-center gap-4 text-sm">
-            <span>📞 1-844-YO-PELEO (967-3536)</span>
-            <span className="hidden sm:inline">📧 info@vasquezlawnc.com</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setLanguage('en')}
-              className={`px-2 py-1 text-xs rounded ${language === 'en' ? 'bg-white/20' : 'hover:bg-white/10'}`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLanguage('es')}
-              className={`px-2 py-1 text-xs rounded ${language === 'es' ? 'bg-white/20' : 'hover:bg-white/10'}`}
-            >
-              ES
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Navigation */}
-      <nav className="sticky top-0 z-40 bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            <Link href="/" className="flex items-center">
-              <div>
-                <h1 className="text-2xl font-bold text-[#188bf6]">Vasquez Law Firm, PLLC</h1>
-                <p className="text-xs text-[#950e02] font-semibold">YO PELEO POR TI™</p>
-              </div>
-            </Link>
-            <div className="hidden md:flex items-center space-x-6">
-              <Link
-                href="/practice-areas"
-                className="text-gray-700 hover:text-[#188bf6] transition-colors font-medium"
-              >
-                {language === 'es' ? 'Practice Areas' : 'Practice Areas'}
-              </Link>
-              <Link
-                href="/attorneys"
-                className="text-gray-700 hover:text-[#188bf6] transition-colors font-medium"
-              >
-                {language === 'es' ? 'Attorneys' : 'Attorneys'}
-              </Link>
-              <Link href="/about" className="text-[#188bf6] font-medium">
-                {language === 'es' ? 'Sobre Nosotros' : 'About Us'}
-              </Link>
-              <Link
-                href="/contact"
-                className="text-gray-700 hover:text-[#188bf6] transition-colors font-medium"
-              >
-                {language === 'es' ? 'Contacto' : 'Contact'}
-              </Link>
-              <button className="px-6 py-2 bg-[#950e02] text-white rounded-md hover:bg-[#6b0a01] transition-colors font-medium">
-                {language === 'es' ? 'Consulta Gratis' : 'Free Consultation'}
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="bg-gradient-to-b from-gray-50 to-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
+    <MasterLayout>
+      <div className="min-h-screen bg-black">
+        {/* Language Toggle - Fixed Position */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed right-2 sm:right-4 top-16 sm:top-20 z-40 flex gap-1 sm:gap-2 rounded-full bg-black/50 p-1 backdrop-blur-sm"
+        >
+          <button
+            onClick={() => setLanguage('en')}
+            className={`rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all ${
+              language === 'en' ? 'bg-primary text-black' : 'text-white hover:text-primary'
+            }`}
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{t.title}</h1>
-            <p className="text-xl text-[#188bf6] font-semibold mb-8">{t.subtitle}</p>
+            EN
+          </button>
+          <button
+            onClick={() => setLanguage('es')}
+            className={`rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all ${
+              language === 'es' ? 'bg-primary text-black' : 'text-white hover:text-primary'
+            }`}
+          >
+            ES
+          </button>
+        </motion.div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              {stats.map((stat, index) => (
+        {/* Hero Section */}
+        <section className="relative py-20 overflow-hidden">
+          {/* Background Effect */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-gradient-to-b from-black via-neutral-950 to-black" />
+            <motion.div
+              className="absolute inset-0"
+              animate={{
+                background: [
+                  'radial-gradient(circle at 20% 50%, rgba(201, 151, 77, 0.1) 0%, transparent 50%)',
+                  'radial-gradient(circle at 80% 50%, rgba(107, 31, 46, 0.1) 0%, transparent 50%)',
+                  'radial-gradient(circle at 20% 50%, rgba(201, 151, 77, 0.1) 0%, transparent 50%)',
+                ],
+              }}
+              transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+            />
+          </div>
+
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center"
+            >
+              <Heading level={1} className="text-white mb-4">{t.title}</Heading>
+              <Text size="xl" className="text-primary font-semibold mb-12">{t.subtitle}</Text>
+
+              {/* Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                {stats.map((stat, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="bg-black/50 backdrop-blur-sm rounded-xl p-6 border border-primary/20"
+                  >
+                    <p className="text-4xl font-bold text-primary">{stat.number}</p>
+                    <p className="text-sm text-gray-400 mt-2">{stat.label}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Our Story Section */}
+        <section className="py-20 bg-gradient-to-b from-black to-neutral-950">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <Heading level={2} className="text-white mb-6">{t.story}</Heading>
+                <Text className="mb-4 leading-relaxed">{t.storyText1}</Text>
+                <Text className="mb-6 leading-relaxed">{t.storyText2}</Text>
+
+                <div className="bg-primary/10 backdrop-blur-sm rounded-xl p-6 border border-primary/20">
+                  <h3 className="text-2xl font-bold text-primary mb-3">{t.tagline}</h3>
+                  <Text>{t.taglineDesc}</Text>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative"
+              >
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm rounded-xl h-48 flex items-center justify-center border border-primary/20">
+                    <div className="text-center">
+                      <div className="text-4xl mb-2">🏛️</div>
+                      <p className="text-sm text-gray-300">Historic Office</p>
+                    </div>
+                  </div>
+                  <div className="bg-gradient-to-br from-secondary/20 to-secondary/10 backdrop-blur-sm rounded-xl h-48 flex items-center justify-center mt-8 border border-secondary/20">
+                    <div className="text-center">
+                      <div className="text-4xl mb-2">👥</div>
+                      <p className="text-sm text-gray-300">Our Team</p>
+                    </div>
+                  </div>
+                  <div className="bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm rounded-xl h-48 flex items-center justify-center border border-primary/20">
+                    <div className="text-center">
+                      <div className="text-4xl mb-2">🤝</div>
+                      <p className="text-sm text-gray-300">Client Meeting</p>
+                    </div>
+                  </div>
+                  <div className="bg-gradient-to-br from-secondary/20 to-secondary/10 backdrop-blur-sm rounded-xl h-48 flex items-center justify-center mt-8 border border-secondary/20">
+                    <div className="text-center">
+                      <div className="text-4xl mb-2">🎉</div>
+                      <p className="text-sm text-gray-300">Victory Celebration</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+          </div>
+        </div>
+      </section>
+
+        {/* Mission & Values */}
+        <section className="py-20 bg-neutral-950">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Mission */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
+            >
+              <Heading level={2} className="text-white mb-6">{t.mission}</Heading>
+              <Text size="lg" className="max-w-3xl mx-auto">{t.missionText}</Text>
+            </motion.div>
+
+            {/* Values */}
+            <div className="mb-16">
+              <Heading level={2} className="text-center text-white mb-12">{t.values}</Heading>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {[t.value1, t.value2, t.value3, t.value4].map((value, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="bg-black/50 backdrop-blur-sm rounded-xl p-6 text-center border border-primary/20 hover:border-primary/40 transition-all"
+                  >
+                    <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <div className="text-2xl">
+                        {index === 0 ? '⚖️' : index === 1 ? '💡' : index === 2 ? '🤝' : '🎯'}
+                      </div>
+                    </div>
+                    <h3 className="text-xl font-semibold text-white mb-2">{value.title}</h3>
+                    <Text size="sm">{value.desc}</Text>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Innovation Commitment */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-sm rounded-2xl p-8 border border-primary/30"
+            >
+              <Heading level={2} className="text-white mb-6">{t.commitment}</Heading>
+              <Text size="lg" className="leading-relaxed">{t.commitmentText}</Text>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Locations */}
+        <section className="py-20 bg-gradient-to-b from-neutral-950 to-black">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <Heading level={2} className="text-white mb-4">{t.locations}</Heading>
+              <Text size="lg">
+                {t.serving} <span className="font-semibold text-primary">50+</span> {t.communities}
+              </Text>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {locations.map((location, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="text-center"
+                  className="bg-black/50 backdrop-blur-sm rounded-xl p-6 border border-primary/20 hover:border-primary/40 transition-all"
                 >
-                  <p className="text-4xl font-bold text-[#188bf6]">{stat.number}</p>
-                  <p className="text-sm text-gray-600 mt-2">{stat.label}</p>
+                  <div className="text-3xl mb-3">📍</div>
+                  <h3 className="text-xl font-semibold text-white mb-1">
+                    {location.city}, {location.state}
+                  </h3>
+                  <Text size="sm" className="mb-2">{location.address}</Text>
+                  <p className="text-sm text-primary font-medium">{location.phone}</p>
                 </motion.div>
               ))}
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Our Story Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">{t.story}</h2>
-              <p className="text-gray-600 mb-4 leading-relaxed">{t.storyText1}</p>
-              <p className="text-gray-600 mb-6 leading-relaxed">{t.storyText2}</p>
-
-              <div className="bg-[#188bf6]/10 rounded-lg p-6">
-                <h3 className="text-2xl font-bold text-[#950e02] mb-3">{t.tagline}</h3>
-                <p className="text-gray-700">{t.taglineDesc}</p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-200 rounded-lg h-48 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-4xl mb-2">🏛️</div>
-                    <p className="text-sm text-gray-600">Historic Office</p>
-                  </div>
-                </div>
-                <div className="bg-gray-200 rounded-lg h-48 flex items-center justify-center mt-8">
-                  <div className="text-center">
-                    <div className="text-4xl mb-2">👥</div>
-                    <p className="text-sm text-gray-600">Our Team</p>
-                  </div>
-                </div>
-                <div className="bg-gray-200 rounded-lg h-48 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-4xl mb-2">🤝</div>
-                    <p className="text-sm text-gray-600">Client Meeting</p>
-                  </div>
-                </div>
-                <div className="bg-gray-200 rounded-lg h-48 flex items-center justify-center mt-8">
-                  <div className="text-center">
-                    <div className="text-4xl mb-2">🎉</div>
-                    <p className="text-sm text-gray-600">Victory Celebration</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Mission & Values */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Mission */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">{t.mission}</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.missionText}</p>
-          </motion.div>
-
-          {/* Values */}
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">{t.values}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[t.value1, t.value2, t.value3, t.value4].map((value, index) => (
+        {/* Awards & Recognition Section */}
+        <section className="py-20 bg-black">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Heading level={2} className="text-center text-white mb-12">{t.awards}</Heading>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+              {[
+                { title: t.award1, icon: '🏆', year: '2023' },
+                { title: t.award2, icon: '🚀', year: '2023' },
+                { title: t.award3, icon: '❤️', year: '2022-2023' },
+                { title: t.award4, icon: '⭐', year: '2019-2023' },
+              ].map((award, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-shadow"
+                  className="text-center bg-gradient-to-b from-primary/10 to-transparent backdrop-blur-sm rounded-xl p-6 border border-primary/20 hover:border-primary/40 transition-all"
                 >
-                  <div className="w-16 h-16 bg-[#188bf6]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <div className="text-2xl">
-                      {index === 0 ? '⚖️' : index === 1 ? '💡' : index === 2 ? '🤝' : '🎯'}
-                    </div>
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{value.title}</h3>
-                  <p className="text-sm text-gray-600">{value.desc}</p>
+                  <div className="text-5xl mb-4">{award.icon}</div>
+                  <p className="text-lg font-semibold text-white">{award.title}</p>
+                  <p className="text-sm text-primary mt-2">{award.year}</p>
                 </motion.div>
               ))}
             </div>
-          </div>
 
-          {/* Innovation Commitment */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-gradient-to-r from-[#188bf6] to-[#0e5ca8] rounded-2xl p-8 text-white"
-          >
-            <h2 className="text-3xl font-bold mb-6">{t.commitment}</h2>
-            <p className="text-lg leading-relaxed">{t.commitmentText}</p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Locations */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t.locations}</h2>
-            <p className="text-lg text-gray-600">
-              {t.serving} <span className="font-semibold text-[#188bf6]">50+</span> {t.communities}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {locations.map((location, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow"
-              >
-                <div className="text-3xl mb-3">📍</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-1">
-                  {location.city}, {location.state}
-                </h3>
-                <p className="text-sm text-gray-600 mb-2">{location.address}</p>
-                <p className="text-sm text-[#188bf6] font-medium">{location.phone}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Awards & Recognition Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">{t.awards}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            {[
-              { title: t.award1, icon: '🏆', year: '2023' },
-              { title: t.award2, icon: '🚀', year: '2023' },
-              { title: t.award3, icon: '❤️', year: '2022-2023' },
-              { title: t.award4, icon: '⭐', year: '2019-2023' },
-            ].map((award, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow"
-              >
-                <div className="text-5xl mb-4">{award.icon}</div>
-                <p className="text-lg font-semibold text-gray-900">{award.title}</p>
-                <p className="text-sm text-[#188bf6] mt-2">{award.year}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Professional Associations */}
-          <div>
-            <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">{t.associations}</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[t.association1, t.association2, t.association3, t.association4].map(
-                (association, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="bg-white rounded-lg shadow p-4 text-center hover:shadow-lg transition-shadow"
-                  >
-                    <p className="text-sm font-medium text-gray-700">{association}</p>
-                  </motion.div>
-                )
-              )}
+            {/* Professional Associations */}
+            <div>
+              <h3 className="text-2xl font-bold text-center text-white mb-8">{t.associations}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[t.association1, t.association2, t.association3, t.association4].map(
+                  (association, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      className="bg-black/50 backdrop-blur-sm rounded-xl p-4 text-center border border-primary/20 hover:border-primary/40 transition-all"
+                    >
+                      <Text size="sm" className="font-medium">{association}</Text>
+                    </motion.div>
+                  )
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-[#188bf6] to-[#0e5ca8]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">{t.getStarted}</h2>
-          <button className="px-8 py-4 bg-white text-[#188bf6] rounded-md font-semibold hover:shadow-xl transition-all transform hover:scale-105">
-            {t.consultation}
-          </button>
+        {/* CTA Section */}
+        <section className="py-20 bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-sm">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <Heading level={2} className="text-white mb-6">{t.getStarted}</Heading>
+            <Button href="/contact" size="lg" className="transform hover:scale-105 transition-all">
+              {t.consultation}
+            </Button>
+          </div>
+        </section>
+
+        {/* Background Effects */}
+        <div className="fixed inset-0 -z-10 overflow-hidden">
+          <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
+          <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
         </div>
-      </section>
+      </div>
 
       <ChatWidget language={language} />
 
@@ -466,6 +460,6 @@ export default function AboutPage() {
           __html: JSON.stringify(generateOrganizationSchema()),
         }}
       />
-    </div>
+    </MasterLayout>
   );
 }

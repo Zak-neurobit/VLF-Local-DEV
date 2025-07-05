@@ -150,7 +150,7 @@ emailQueue.process(async job => {
 
   try {
     // Import email service dynamically to avoid circular dependencies
-    const { emailService } = await import('@/services/email');
+    const { emailService } = await import('@/services/email.service');
 
     logger.info(`Processing email job`, {
       to: emailData.to,
@@ -159,7 +159,7 @@ emailQueue.process(async job => {
     });
 
     // Send email
-    const result = await emailService.send(emailData);
+    const result = await emailService.sendEmail(emailData);
 
     if (!result.success) {
       throw new Error(result.error || 'Email send failed');

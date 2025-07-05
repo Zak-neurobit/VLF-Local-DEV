@@ -200,9 +200,9 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
       teamDescription:
         "At Vasquez Law Firm, we believe in collaborative representation. Our attorneys work together, leveraging each other's strengths to provide comprehensive legal solutions for our clients throughout North Carolina and Florida.",
       whyChoose: 'Why Choose Our Attorneys?',
-      experience: '100+ Years Combined Experience',
+      experience: '60+ Years Combined Experience',
       technology: 'Cutting-Edge Legal Strategies',
-      bilingual: 'Multilingual Team',
+      bilingual: 'Bilingual Team (English & Spanish)',
       results: 'Thousands of Successful Cases',
       cta: {
         title: 'Ready to Fight for Your Rights?',
@@ -226,9 +226,9 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
       teamDescription:
         'En Vasquez Law Firm, creemos en la representación colaborativa. Nuestros abogados trabajan juntos, aprovechando las fortalezas de cada uno para brindar soluciones legales integrales a nuestros clientes en Carolina del Norte y Florida.',
       whyChoose: '¿Por Qué Elegir a Nuestros Abogados?',
-      experience: 'Más de 100 Años de Experiencia Combinada',
+      experience: 'Más de 60 Años de Experiencia Combinada',
       technology: 'Estrategias Legales de Vanguardia',
-      bilingual: 'Equipo Multilingüe',
+      bilingual: 'Equipo Bilingüe (Inglés y Español)',
       results: 'Miles de Casos Exitosos',
       cta: {
         title: '¿Listo para Luchar por Sus Derechos?',
@@ -406,9 +406,9 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
 
           <div className="grid md:grid-cols-4 gap-8">
             {[
-              { icon: <Award className="w-8 h-8" />, text: t.experience, value: '100+', metric: 'Years' },
+              { icon: <Award className="w-8 h-8" />, text: t.experience, value: '60+', metric: 'Years' },
               { icon: <Shield className="w-8 h-8" />, text: t.technology, value: 'Elite', metric: 'Status' },
-              { icon: <Globe className="w-8 h-8" />, text: t.bilingual, value: '5+', metric: 'Languages' },
+              { icon: <Globe className="w-8 h-8" />, text: t.bilingual, value: '2', metric: 'Languages' },
               { icon: <Users className="w-8 h-8" />, text: t.results, value: '30K+', metric: 'Cases Won' },
             ].map((item, index) => (
               <motion.div

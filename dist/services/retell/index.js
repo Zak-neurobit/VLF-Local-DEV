@@ -1,4 +1,37 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -65,15 +98,15 @@ class RetellService {
     }
     // Agent Management
     async createAgent(data) {
-        const response = await this.client.post('/v2/create-agent', data);
+        const response = await this.client.post('/v2/agent', data);
         return response.data.agent_id ? response.data : response.data.agent;
     }
     async getAgent(agentId) {
         const cacheKey = `retell:agent:${agentId}`;
         return cache_1.cache.remember(cacheKey, async () => {
             try {
-                const response = await this.client.get(`/v2/get-agent/${agentId}`);
-                return response.data.agent;
+                const response = await this.client.get(`/v2/agent/${agentId}`);
+                return response.data;
             }
             catch (error) {
                 if (error.response?.status === 404) {
@@ -84,7 +117,7 @@ class RetellService {
         }, cache_1.CacheTTL.LONG);
     }
     async updateAgent(agentId, data) {
-        const response = await this.client.patch(`/v2/update-agent/${agentId}`, data);
+        const response = await this.client.patch(`/v2/agent/${agentId}`, data);
         // Clear cache
         await cache_1.cache.delete(`retell:agent:${agentId}`);
         return response.data.agent;
@@ -92,18 +125,18 @@ class RetellService {
     async listAgents() {
         const cacheKey = 'retell:agents:list';
         return cache_1.cache.remember(cacheKey, async () => {
-            const response = await this.client.get('/v2/list-agents');
-            return response.data.agents || [];
+            const response = await this.client.get('/v2/agent');
+            return response.data || [];
         }, cache_1.CacheTTL.MEDIUM);
     }
     async deleteAgent(agentId) {
-        await this.client.delete(`/v2/delete-agent/${agentId}`);
+        await this.client.delete(`/v2/agent/${agentId}`);
         await cache_1.cache.delete(`retell:agent:${agentId}`);
         await cache_1.cache.delete('retell:agents:list');
     }
     // Call Management
     async createPhoneCall(params) {
-        const response = await this.client.post('/v2/create-phone-call', params);
+        const response = await this.client.post('/v2/call', params);
         const call = response.data;
         // Queue for analysis
         await bull_1.callAnalysisQueue.add('analyze-call', {
@@ -113,15 +146,15 @@ class RetellService {
         return call;
     }
     async createWebCall(params) {
-        const response = await this.client.post('/v2/create-web-call', params);
+        const response = await this.client.post('/v2/call/web', params);
         return response.data;
     }
     async getCall(callId) {
         const cacheKey = cache_1.cacheKeys.call(callId);
         return cache_1.cache.remember(cacheKey, async () => {
             try {
-                const response = await this.client.get(`/v2/get-call/${callId}`);
-                return response.data.call;
+                const response = await this.client.get(`/v2/call/${callId}`);
+                return response.data;
             }
             catch (error) {
                 if (error.response?.status === 404) {
@@ -132,11 +165,11 @@ class RetellService {
         }, cache_1.CacheTTL.MEDIUM);
     }
     async listCalls(filters) {
-        const response = await this.client.post('/v2/list-calls', filters || {});
-        return response.data.calls || [];
+        const response = await this.client.get('/v2/call', { params: filters });
+        return response.data || [];
     }
     async endCall(callId) {
-        await this.client.post(`/v2/end-call/${callId}`);
+        await this.client.post(`/v2/call/${callId}/end`);
         // Clear cache
         await cache_1.cache.delete(cache_1.cacheKeys.call(callId));
         // Queue for immediate analysis
@@ -190,29 +223,109 @@ class RetellService {
             return response.data.llms || [];
         }, cache_1.CacheTTL.EXTRA_LONG);
     }
-    // Webhook handling
+    // Webhook handling (enhanced with security manager)
     verifyWebhook(signature, payload, secret) {
-        const crypto = require('crypto');
-        const expectedSignature = crypto.createHmac('sha256', secret).update(payload).digest('hex');
-        return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature));
+        try {
+            // Use security manager for enhanced validation
+            const { securityManager } = require('./security-manager');
+            return securityManager.verifyWebhookSignature(payload, signature);
+        }
+        catch (error) {
+            // Fallback to basic verification
+            const crypto = require('crypto');
+            const expectedSignature = crypto.createHmac('sha256', secret).update(payload).digest('hex');
+            return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature));
+        }
     }
     async handleWebhookEvent(event) {
         logger_1.logger.info('Retell webhook event', { type: event.event, callId: event.call?.call_id });
-        switch (event.event) {
-            case 'call_started':
-                await this.handleCallStarted(event);
-                break;
-            case 'call_ended':
-                await this.handleCallEnded(event);
-                break;
-            case 'call_analyzed':
-                await this.handleCallAnalyzed(event);
-                break;
-            case 'transcript_ready':
-                await this.handleTranscriptReady(event);
-                break;
-            default:
-                logger_1.logger.warn('Unknown Retell webhook event', { type: event.event });
+        try {
+            // Import enhanced managers
+            const { statusManager } = await Promise.resolve().then(() => __importStar(require('./status-manager')));
+            const { recordingManager } = await Promise.resolve().then(() => __importStar(require('./recording-manager')));
+            const { retellErrorHandler } = await Promise.resolve().then(() => __importStar(require('./error-handler')));
+            switch (event.event) {
+                case 'call_started':
+                    await this.handleCallStarted(event);
+                    await statusManager.updateCallStatus(event.call.call_id, 'connected', {
+                        timestamp: new Date(),
+                        agent_id: event.call.agent_id,
+                    });
+                    break;
+                case 'call_ended':
+                    await this.handleCallEnded(event);
+                    await statusManager.updateCallStatus(event.call.call_id, 'ended', {
+                        timestamp: new Date(),
+                        duration: event.call.duration_ms,
+                        reason: event.call.disconnection_reason,
+                    });
+                    break;
+                case 'call_analyzed':
+                    await this.handleCallAnalyzed(event);
+                    break;
+                case 'transcript_ready':
+                    await this.handleTranscriptReady(event);
+                    break;
+                case 'recording_ready':
+                    // Process recording with enhanced manager
+                    setTimeout(async () => {
+                        try {
+                            await recordingManager.processRecording(event.call.call_id);
+                        }
+                        catch (error) {
+                            await retellErrorHandler.handleError(error, {
+                                operation: 'process_recording',
+                                callId: event.call.call_id,
+                            });
+                        }
+                    }, 1000);
+                    break;
+                case 'call_queued':
+                    await statusManager.updateCallStatus(event.call.call_id, 'queued', {
+                        timestamp: new Date(),
+                        agent_id: event.call.agent_id,
+                    });
+                    break;
+                case 'call_ringing':
+                    await statusManager.updateCallStatus(event.call.call_id, 'ringing', {
+                        timestamp: new Date(),
+                        to_number: event.call.to_number,
+                    });
+                    break;
+                case 'call_failed':
+                    await statusManager.updateCallStatus(event.call.call_id, 'failed', {
+                        timestamp: new Date(),
+                        reason: event.call.disconnection_reason || 'Unknown error',
+                    });
+                    break;
+                case 'call_no_answer':
+                    await statusManager.updateCallStatus(event.call.call_id, 'no_answer', {
+                        timestamp: new Date(),
+                    });
+                    break;
+                case 'call_busy':
+                    await statusManager.updateCallStatus(event.call.call_id, 'busy', {
+                        timestamp: new Date(),
+                    });
+                    break;
+                case 'voicemail_detected':
+                    await statusManager.updateCallStatus(event.call.call_id, 'voicemail', {
+                        timestamp: new Date(),
+                    });
+                    break;
+                default:
+                    logger_1.logger.warn('Unknown Retell webhook event', { type: event.event });
+            }
+        }
+        catch (error) {
+            // Enhanced error handling
+            const { retellErrorHandler } = await Promise.resolve().then(() => __importStar(require('./error-handler')));
+            await retellErrorHandler.handleError(error, {
+                operation: 'webhook_event_handling',
+                callId: event.call?.call_id,
+                metadata: { event: event.event },
+            });
+            throw error;
         }
     }
     async handleCallStarted(event) {

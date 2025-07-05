@@ -1133,11 +1133,14 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
     // Trigger voice call via Retell
     async triggerVoiceCall(options) {
         try {
-            // Get contact details
-            const contact = await this.getContact(options.contactId);
-            if (!contact) {
+            // Get contact details - use direct API call to avoid circular dependency
+            const contactResponse = await fetch(`${this.config.baseUrl}/contacts/${options.contactId}`, {
+                headers: this.headers,
+            });
+            if (!contactResponse.ok) {
                 throw new Error('Contact not found');
             }
+            const contact = await contactResponse.json();
             // Trigger call via our API endpoint
             const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ghl/trigger-call`, {
                 method: 'POST',

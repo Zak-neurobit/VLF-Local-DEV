@@ -50,7 +50,7 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
       monday: 'Monday - Friday',
       saturday: 'Saturday',
       sunday: 'Sunday',
-      hours1: '9:00 AM - 6:00 PM',
+      hours1: '9:00 AM - 5:00 PM',
       hours2: '10:00 AM - 2:00 PM',
       hours3: 'AI Available 24/7',
       locations: 'Our Offices',
@@ -97,7 +97,7 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
       monday: 'Lunes - Viernes',
       saturday: 'Sábado',
       sunday: 'Domingo',
-      hours1: '9:00 AM - 6:00 PM',
+      hours1: '9:00 AM - 5:00 PM',
       hours2: '10:00 AM - 2:00 PM',
       hours3: 'IA Disponible 24/7',
       locations: 'Nuestras Oficinas',
@@ -122,45 +122,31 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
 
   const locations = [
     {
-      city: language === 'es' ? 'Raleigh, NC' : 'Raleigh, NC',
-      address: '4426 Louisburg Road, Raleigh, NC 27616',
-      phone: '(919) 246-8831',
-      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 6:00 PM, Sáb: 10:00 AM - 2:00 PM' : 'Mon-Fri: 9:00 AM - 6:00 PM, Sat: 10:00 AM - 2:00 PM',
-      mapUrl: 'https://maps.google.com/maps?q=4426+Louisburg+Road,+Raleigh,+NC+27616',
-    },
-    {
       city: language === 'es' ? 'Charlotte, NC' : 'Charlotte, NC',
       address: '5701 Executive Center Dr, Ste 103, Charlotte, NC 28212',
       phone: '(704) 266-2998',
-      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 6:00 PM' : 'Mon-Fri: 9:00 AM - 6:00 PM',
+      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 5:00 PM' : 'Mon-Fri: 9:00 AM - 5:00 PM',
       mapUrl: 'https://maps.google.com/maps?q=5701+Executive+Center+Dr,+Charlotte,+NC+28212',
     },
     {
-      city: language === 'es' ? 'Durham, NC' : 'Durham, NC',
-      address: '2530 Meridian Pkwy, Ste 200, Durham, NC 27713',
-      phone: '(919) 246-8831',
-      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 6:00 PM' : 'Mon-Fri: 9:00 AM - 6:00 PM',
-      mapUrl: 'https://maps.google.com/maps?q=2530+Meridian+Pkwy,+Durham,+NC+27713',
-    },
-    {
-      city: language === 'es' ? 'Winston-Salem, NC' : 'Winston-Salem, NC',
-      address: '380 Knollwood St, Ste 310, Winston-Salem, NC 27103',
-      phone: '(336) 777-8822',
-      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 6:00 PM' : 'Mon-Fri: 9:00 AM - 6:00 PM',
-      mapUrl: 'https://maps.google.com/maps?q=380+Knollwood+St,+Winston-Salem,+NC+27103',
+      city: language === 'es' ? 'Raleigh, NC' : 'Raleigh, NC',
+      address: '4426 Louisburg Road, Raleigh, NC 27616',
+      phone: '(919) 755-9425',
+      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 5:00 PM' : 'Mon-Fri: 9:00 AM - 5:00 PM',
+      mapUrl: 'https://maps.google.com/maps?q=4426+Louisburg+Road,+Raleigh,+NC+27616',
     },
     {
       city: language === 'es' ? 'Smithfield, NC' : 'Smithfield, NC',
       address: '612 S Brightleaf Blvd, Smithfield, NC 27577',
       phone: '(919) 209-8788',
-      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 6:00 PM' : 'Mon-Fri: 9:00 AM - 6:00 PM',
+      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 5:00 PM' : 'Mon-Fri: 9:00 AM - 5:00 PM',
       mapUrl: 'https://maps.google.com/maps?q=612+S+Brightleaf+Blvd,+Smithfield,+NC+27577',
     },
     {
       city: language === 'es' ? 'Orlando, FL' : 'Orlando, FL',
       address: '1111 E Amelia Street, Orlando, FL 32803',
       phone: '(407) 647-1900',
-      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 6:00 PM' : 'Mon-Fri: 9:00 AM - 6:00 PM',
+      hours: language === 'es' ? 'Lun-Vie: 9:00 AM - 5:00 PM' : 'Mon-Fri: 9:00 AM - 5:00 PM',
       mapUrl: 'https://maps.google.com/maps?q=1111+E+Amelia+Street,+Orlando,+FL+32803',
     },
   ];
@@ -300,15 +286,13 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
             />
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {locations.map((location, index) => {
               const officeImages: { [key: string]: string } = {
-                'Smithfield, NC': '/images/offices/smithfield-office.jpg',
-                'Raleigh, NC': '/images/offices/raleigh-office.jpg',
                 'Charlotte, NC': '/images/offices/charlotte-office.jpg',
+                'Raleigh, NC': '/images/offices/raleigh-office.jpg',
+                'Smithfield, NC': '/images/offices/smithfield-office.jpg',
                 'Orlando, FL': '/images/offices/orlando-office.jpg',
-                'Durham, NC': '/images/offices/durham-office.jpg',
-                'Winston-Salem, NC': '/images/offices/winston-salem-office.jpg',
               };
 
               return (

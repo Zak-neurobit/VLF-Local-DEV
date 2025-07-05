@@ -1,10 +1,15 @@
 'use client';
 
-import React from 'react';
+import dynamic from 'next/dynamic';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Script from 'next/script';
 import { useSearchParams } from 'next/navigation';
+// Dynamic import for client-side only rendering
+const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
+  ssr: false,
+});
 
 export default function PracticeAreasPage() {
   // Get language from URL params or default to 'en'
@@ -76,7 +81,7 @@ export default function PracticeAreasPage() {
     },
     {
       id: 'workers-compensation',
-      title: { en: "Workers' Compensation", es: 'Compensación Laboral' },
+      title: { en: 'Workers&apos; Compensation', es: 'Compensación Laboral' },
       icon: '👷',
       description: {
         en: "Protecting injured workers' rights and securing the benefits you deserve.",
@@ -226,6 +231,7 @@ export default function PracticeAreasPage() {
 
   return (
     <div className="min-h-screen bg-white">
+
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-gray-50 to-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -353,6 +359,8 @@ export default function PracticeAreasPage() {
         </div>
       </section>
 
+      <ChatWidget language={language} />
+
       {/* Structured Data for SEO */}
       <Script
         id="practice-structured-data"
@@ -361,7 +369,7 @@ export default function PracticeAreasPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Service',
-            serviceType: 'Legal Services',
+            serviceType: ' Legal Services',
             provider: {
               '@type': 'LegalService',
               name: 'Vasquez Law Firm, PLLC',
@@ -374,7 +382,7 @@ export default function PracticeAreasPage() {
               name: 'North Carolina',
             },
             url: 'https://www.vasquezlawfirm.com/practice-areas',
-            description: 'Legal services in North Carolina. Free consultation. Se habla español.',
+            description: ' legal services in North Carolina. Free consultation. Se habla español.',
           }),
         }}
       />
