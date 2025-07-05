@@ -14,12 +14,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // Enable i18n for multi-language support
-  i18n: {
-    locales: ['en', 'es'],
-    defaultLocale: 'en',
-    localeDetection: false,
-  },
   images: {
     domains: ['vasquezlawnc.com', 'images.unsplash.com', 'via.placeholder.com'],
     formats: ['image/avif', 'image/webp'],

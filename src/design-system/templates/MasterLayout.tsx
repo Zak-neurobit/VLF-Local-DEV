@@ -5,6 +5,7 @@ import { ConsistentHeader } from '../components/ConsistentHeader';
 import { ConsistentFooter } from '../components/ConsistentFooter';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 interface MasterLayoutProps {
   children: React.ReactNode;
@@ -77,12 +78,12 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
                     {index === array.length - 1 ? (
                       <span className="text-gray-300 font-medium">{crumb.name}</span>
                     ) : (
-                      <a
+                      <Link
                         href={crumb.href}
                         className="text-gray-400 hover:text-primary transition-colors"
                       >
                         {crumb.name}
-                      </a>
+                      </Link>
                     )}
                   </li>
                 ))}

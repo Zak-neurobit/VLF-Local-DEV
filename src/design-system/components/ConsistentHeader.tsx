@@ -161,7 +161,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center">
+            <Link href={language === 'es' ? '/es' : '/'} className="flex items-center">
               <div className="flex flex-col">
                 <h1 className={`text-2xl font-bold transition-colors ${
                   isTransparent ? 'text-white' : 'text-secondary'
@@ -240,7 +240,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
 
               {/* CTA Button */}
               <Link
-                href="/contact"
+                href={language === 'es' ? '/es/contacto' : '/contact'}
                 className="ml-8 px-6 py-2.5 bg-gradient-to-r from-primary to-primary-600 text-secondary text-sm font-bold rounded-full hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
               >
                 {language === 'es' ? 'Consulta Gratis' : 'Free Consultation'}
@@ -320,7 +320,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                 ))}
                 <div className="pt-4 mt-4 border-t border-neutral-200">
                   <Link
-                    href="/contact"
+                    href={language === 'es' ? '/es/contacto' : '/contact'}
                     onClick={() => setMobileMenuOpen(false)}
                     className="block w-full px-4 py-3 bg-gradient-to-r from-primary to-primary-600 text-secondary text-center font-bold rounded-full hover:from-primary-600 hover:to-primary-700 transition-all shadow-md"
                   >

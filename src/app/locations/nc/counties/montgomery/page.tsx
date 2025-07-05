@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 import Script from 'next/script';
 export const metadata: Metadata = {
@@ -37,37 +38,37 @@ export default function MontgomeryCountyPage() {
               <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Immigration Lawyer</h3>
                 <p className="text-gray-600 mb-4">Expert immigration lawyer services for Montgomery County residents</p>
-                <a href="/practice-areas/immigration" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
+                <Link href="/practice-areas/immigration" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
-                </a>
+                </Link>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Personal Injury Attorney</h3>
                 <p className="text-gray-600 mb-4">Expert personal injury attorney services for Montgomery County residents</p>
-                <a href="/practice-areas/personal-injury" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
+                <Link href="/practice-areas/personal-injury" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
-                </a>
+                </Link>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Workers' Compensation Lawyer</h3>
                 <p className="text-gray-600 mb-4">Expert workers' compensation lawyer services for Montgomery County residents</p>
-                <a href="/practice-areas/workers-compensation" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
+                <Link href="/practice-areas/workers-compensation" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
-                </a>
+                </Link>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Criminal Defense Attorney</h3>
                 <p className="text-gray-600 mb-4">Expert criminal defense attorney services for Montgomery County residents</p>
-                <a href="/practice-areas/criminal-defense" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
+                <Link href="/practice-areas/criminal-defense" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
-                </a>
+                </Link>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Car Accident Lawyer</h3>
                 <p className="text-gray-600 mb-4">Expert car accident lawyer services for Montgomery County residents</p>
-                <a href="/practice-areas/personal-injury/car-accidents" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
+                <Link href="/practice-areas/personal-injury/car-accidents" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
-                </a>
+                </Link>
               </div>
             </section>
             <section className="bg-[#6B1F2E] text-white p-8 rounded-lg">
