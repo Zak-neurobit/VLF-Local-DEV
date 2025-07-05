@@ -26,7 +26,7 @@ export function generateEnhancedOrganizationSchema() {
           'https://www.vasquezlawnc.com/images/office-smithfield.jpg',
         ],
         telephone: '+1-844-967-3536',
-        email: 'info@vasquezlawnc.com',
+        email: 'leads@vasquezlawfirm.com',
         slogan: 'YO PELEO POR TI™ - I FIGHT FOR YOU',
         foundingDate: '1989',
         founder: {

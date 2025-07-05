@@ -178,7 +178,7 @@ export default function Error({
 
           {/* Contact Info */}
           <div className="mt-8 text-gray-600">
-            <p className="text-sm">📞 1-844-YO-PELEO (967-3536) | 📧 info@vasquezlawnc.com</p>
+            <p className="text-sm">📞 1-844-YO-PELEO (967-3536) | 📧 leads@vasquezlawfirm.com</p>
           </div>
         </motion.div>
       </div>

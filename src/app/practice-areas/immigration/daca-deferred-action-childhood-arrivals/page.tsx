@@ -306,8 +306,8 @@ export default function DacaPage() {
                 <Mail className="w-5 h-5 mr-3" />
                 <div>
                   <p className="font-semibold">Email Us</p>
-                  <a href="mailto:info@vasquezlawnc.com" className="text-[#C9974D] hover:underline">
-                    info@vasquezlawnc.com
+                  <a href="mailto:leads@vasquezlawfirm.com" className="text-[#C9974D] hover:underline">
+                    leads@vasquezlawfirm.com
                   </a>
                 </div>
               </div>

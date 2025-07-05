@@ -358,11 +358,11 @@ export default function FreeConsultationPage() {
                         <span className="font-semibold">(704) 358-0470</span>
                       </a>
                       <a
-                        href="mailto:info@vasquezlawnc.com"
+                        href="mailto:leads@vasquezlawfirm.com"
                         className="flex items-center text-brand-skyblue hover:text-brand-crimson transition-colors"
                       >
                         <Mail className="w-5 h-5 mr-2" />
-                        <span>info@vasquezlawnc.com</span>
+                        <span>leads@vasquezlawfirm.com</span>
                       </a>
                     </div>
                     <div className="mt-4 pt-4 border-t border-gray-200">

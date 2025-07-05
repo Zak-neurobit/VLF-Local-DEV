@@ -14,6 +14,12 @@ interface ConsistentHeaderProps {
   variant?: 'solid' | 'transparent';
 }
 
+interface NavigationItem {
+  name: string;
+  href: string;
+  submenu?: { name: string; href: string }[];
+}
+
 export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({ 
   language, 
   setLanguage,
@@ -21,6 +27,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -31,19 +38,85 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navigation = {
+  const navigation: { en: NavigationItem[]; es: NavigationItem[] } = {
     en: [
       { name: 'Home', href: '/' },
-      { name: 'Practice Areas', href: '/practice-areas' },
-      { name: 'Attorneys', href: '/attorneys' },
+      { 
+        name: 'Practice Areas', 
+        href: '/practice-areas',
+        submenu: [
+          { name: 'Immigration Law', href: '/practice-areas/immigration' },
+          { name: 'Personal Injury', href: '/practice-areas/personal-injury' },
+          { name: 'Workers\' Compensation', href: '/practice-areas/workers-compensation' },
+          { name: 'Criminal Defense', href: '/practice-areas/criminal-defense' },
+          { name: 'Family Law', href: '/practice-areas/family-law' },
+          { name: 'Traffic Violations', href: '/practice-areas/traffic-violations' },
+        ]
+      },
+      { 
+        name: 'Attorneys', 
+        href: '/attorneys',
+        submenu: [
+          { name: 'Our Team', href: '/attorneys' },
+          { name: 'William Vasquez', href: '/attorneys/william-vasquez' },
+          { name: 'Christopher Afanador', href: '/attorneys/christopher-afanador' },
+          { name: 'Jillian Baucom', href: '/attorneys/jillian-baucom' },
+        ]
+      },
+      { 
+        name: 'Locations', 
+        href: '/locations',
+        submenu: [
+          { name: 'All Locations', href: '/locations' },
+          { name: 'Charlotte', href: '/locations/charlotte' },
+          { name: 'Durham', href: '/locations/durham' },
+          { name: 'Raleigh', href: '/locations/raleigh' },
+          { name: 'Winston-Salem', href: '/locations/winston-salem' },
+          { name: 'Smithfield', href: '/locations/smithfield' },
+          { name: 'Orlando', href: '/locations/orlando' },
+        ]
+      },
       { name: 'About', href: '/about' },
       { name: 'Blog', href: '/blog' },
       { name: 'Contact', href: '/contact' },
     ],
     es: [
       { name: 'Inicio', href: '/es' },
-      { name: 'Áreas de Práctica', href: '/es/areas-de-practica' },
-      { name: 'Abogados', href: '/es/abogados' },
+      { 
+        name: 'Áreas de Práctica', 
+        href: '/es/areas-de-practica',
+        submenu: [
+          { name: 'Ley de Inmigración', href: '/es/areas-de-practica/inmigracion' },
+          { name: 'Lesiones Personales', href: '/es/areas-de-practica/lesiones-personales' },
+          { name: 'Compensación Laboral', href: '/es/areas-de-practica/compensacion-laboral' },
+          { name: 'Defensa Criminal', href: '/es/areas-de-practica/defensa-criminal' },
+          { name: 'Derecho Familiar', href: '/es/areas-de-practica/derecho-familia' },
+          { name: 'Infracciones de Tráfico', href: '/es/areas-de-practica/infracciones-transito' },
+        ]
+      },
+      { 
+        name: 'Abogados', 
+        href: '/es/abogados',
+        submenu: [
+          { name: 'Nuestro Equipo', href: '/es/abogados' },
+          { name: 'William Vasquez', href: '/es/abogados/william-vasquez' },
+          { name: 'Christopher Afanador', href: '/es/abogados/christopher-afanador' },
+          { name: 'Jillian Baucom', href: '/es/abogados/jillian-baucom' },
+        ]
+      },
+      { 
+        name: 'Ubicaciones', 
+        href: '/es/ubicaciones',
+        submenu: [
+          { name: 'Todas las Ubicaciones', href: '/es/ubicaciones' },
+          { name: 'Charlotte', href: '/es/ubicaciones/charlotte' },
+          { name: 'Durham', href: '/es/ubicaciones/durham' },
+          { name: 'Raleigh', href: '/es/ubicaciones/raleigh' },
+          { name: 'Winston-Salem', href: '/es/ubicaciones/winston-salem' },
+          { name: 'Smithfield', href: '/es/ubicaciones/smithfield' },
+          { name: 'Orlando', href: '/es/ubicaciones/orlando' },
+        ]
+      },
       { name: 'Sobre Nosotros', href: '/es/acerca-de' },
       { name: 'Blog', href: '/es/blog' },
       { name: 'Contacto', href: '/es/contacto' },
@@ -105,26 +178,63 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
             <div className="hidden lg:flex items-center">
               <div className="flex space-x-8">
                 {navigation[language].map(item => (
-                  <Link
+                  <div
                     key={item.name}
-                    href={item.href}
-                    className={`relative text-sm font-medium transition-colors duration-200 py-2 ${
-                      pathname === item.href
-                        ? isTransparent ? 'text-primary' : 'text-secondary'
-                        : isTransparent 
-                          ? 'text-white hover:text-primary' 
-                          : 'text-neutral-700 hover:text-primary'
-                    }`}
+                    className="relative"
+                    onMouseEnter={() => item.submenu && setActiveDropdown(item.name)}
+                    onMouseLeave={() => setActiveDropdown(null)}
                   >
-                    {item.name}
-                    {pathname === item.href && (
-                      <motion.div
-                        layoutId="navbar-indicator"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
-                        transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
-                      />
-                    )}
-                  </Link>
+                    <Link
+                      href={item.href}
+                      className={`relative text-sm font-medium transition-colors duration-200 py-2 flex items-center gap-1 ${
+                        pathname === item.href || (item.submenu && pathname.startsWith(item.href))
+                          ? isTransparent ? 'text-primary' : 'text-secondary'
+                          : isTransparent 
+                            ? 'text-white hover:text-primary' 
+                            : 'text-neutral-700 hover:text-primary'
+                      }`}
+                    >
+                      {item.name}
+                      {item.submenu && (
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      )}
+                      {(pathname === item.href || (item.submenu && pathname.startsWith(item.href))) && (
+                        <motion.div
+                          layoutId="navbar-indicator"
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
+                          transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
+                        />
+                      )}
+                    </Link>
+                    
+                    {/* Dropdown Menu */}
+                    <AnimatePresence>
+                      {item.submenu && activeDropdown === item.name && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute top-full left-0 mt-1 w-64 bg-white rounded-lg shadow-xl border border-neutral-200 overflow-hidden z-50"
+                        >
+                          <div className="py-2">
+                            {item.submenu.map((subItem) => (
+                              <Link
+                                key={subItem.name}
+                                href={subItem.href}
+                                className="block px-4 py-2.5 text-sm text-neutral-700 hover:bg-primary/10 hover:text-primary transition-colors"
+                                onClick={() => setActiveDropdown(null)}
+                              >
+                                {subItem.name}
+                              </Link>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 ))}
               </div>
 
@@ -180,18 +290,33 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
             >
               <div className="px-4 py-6 space-y-1">
                 {navigation[language].map(item => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors ${
-                      pathname === item.href
-                        ? 'bg-primary/10 text-secondary'
-                        : 'text-neutral-700 hover:bg-neutral-50 hover:text-primary'
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
+                  <div key={item.name}>
+                    <Link
+                      href={item.href}
+                      onClick={() => !item.submenu && setMobileMenuOpen(false)}
+                      className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors ${
+                        pathname === item.href || (item.submenu && pathname.startsWith(item.href))
+                          ? 'bg-primary/10 text-secondary'
+                          : 'text-neutral-700 hover:bg-neutral-50 hover:text-primary'
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                    {item.submenu && (
+                      <div className="ml-4 mt-1 space-y-1">
+                        {item.submenu.map((subItem) => (
+                          <Link
+                            key={subItem.name}
+                            href={subItem.href}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="block px-4 py-2 text-sm text-neutral-600 hover:text-primary transition-colors"
+                          >
+                            {subItem.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
                 <div className="pt-4 mt-4 border-t border-neutral-200">
                   <Link

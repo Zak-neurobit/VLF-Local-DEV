@@ -130,7 +130,7 @@ const API_CONFIGS: APIConfig[] = [
       {
         key: 'EMAIL_FROM',
         description: 'From email address',
-        example: 'info@vasquezlawnc.com'
+        example: 'leads@vasquezlawfirm.com'
       },
       {
         key: 'SMTP_HOST',

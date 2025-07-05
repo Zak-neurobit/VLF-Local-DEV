@@ -25,9 +25,9 @@ export default function CharlottePage() {
       zip: '28212',
     },
     phone: '1-844-YO-PELEO',
-    email: 'info@vasquezlawfirm.com',
+    email: 'leads@vasquezlawfirm.com',
     hours: {
-      weekdays: 'Mon-Fri: 9:00 AM - 6:00 PM',
+      weekdays: 'Mon-Fri: 8:00 AM - 5:00 PM',
       saturday: 'By Appointment',
       sunday: 'Emergency Services Available',
     },

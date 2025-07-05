@@ -257,7 +257,7 @@ export default function ContactoPage() {
                   <Mail className="h-6 w-6 text-[#6B1F2E] flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-semibold mb-1">Correo Electrónico</h3>
-                    <p className="text-gray-600">info@vasquezlawnc.com</p>
+                    <p className="text-gray-600">leads@vasquezlawfirm.com</p>
                   </div>
                 </div>
 

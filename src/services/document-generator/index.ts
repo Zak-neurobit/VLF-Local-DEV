@@ -186,7 +186,7 @@ export class LegalDocumentGenerator {
           name: 'Vasquez Law Firm, PLLC',
           address: '6 Carriage Cir, Durham, NC 27713',
           phone: '1-844-YO-PELEO (1-844-967-3536)',
-          email: 'info@vasquezlawnc.com',
+          email: 'leads@vasquezlawfirm.com',
           website: 'www.vasquezlawnc.com',
         },
       });

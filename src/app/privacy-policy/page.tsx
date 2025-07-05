@@ -187,7 +187,7 @@ export default function PrivacyPolicyPage() {
                     <p className="text-gray-700">3741 Superior Dr</p>
                     <p className="text-gray-700">Charlotte, NC 28211</p>
                     <p className="text-gray-700">Phone: (704) 358-0470</p>
-                    <p className="text-gray-700">Email: info@vasquezlawnc.com</p>
+                    <p className="text-gray-700">Email: leads@vasquezlawfirm.com</p>
                   </div>
                 </div>
               </CardContent>

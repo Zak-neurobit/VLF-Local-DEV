@@ -96,9 +96,9 @@ export default function {{componentName}}Page() {
                     <Phone className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" />
                     <span>1-844-YO-PELEO</span>
                   </a>
-                  <a href="mailto:info@vasquezlawnc.com" className="flex items-start text-gray-700 hover:text-burgundy-700">
+                  <a href="mailto:leads@vasquezlawfirm.com" className="flex items-start text-gray-700 hover:text-burgundy-700">
                     <Mail className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" />
-                    <span>info@vasquezlawnc.com</span>
+                    <span>leads@vasquezlawfirm.com</span>
                   </a>
                   <div className="flex items-start text-gray-700">
                     <MapPin className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" />
@@ -319,9 +319,9 @@ export default function {{componentName}}Page() {
                     <Phone className="w-5 h-5 mr-3 flex-shrink-0" />
                     <span>{{phone}}</span>
                   </a>
-                  <a href="mailto:info@vasquezlawnc.com" className="flex items-center text-gray-700 hover:text-burgundy-700">
+                  <a href="mailto:leads@vasquezlawfirm.com" className="flex items-center text-gray-700 hover:text-burgundy-700">
                     <Mail className="w-5 h-5 mr-3 flex-shrink-0" />
-                    <span>info@vasquezlawnc.com</span>
+                    <span>leads@vasquezlawfirm.com</span>
                   </a>
                 </div>
               </div>

@@ -7,7 +7,7 @@ export function generateOrganizationSchema() {
     url: 'https://vasquezlawnc.com',
     logo: 'https://vasquezlawnc.com/logo.png',
     telephone: '+1-844-967-3536',
-    email: 'info@vasquezlawnc.com',
+    email: 'leads@vasquezlawfirm.com',
     address: {
       '@type': 'PostalAddress',
       streetAddress: '4801 E Independence Blvd Suite 714',

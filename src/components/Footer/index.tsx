@@ -180,11 +180,11 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
                   1-844-YO-PELEO
                 </a>
                 <a
-                  href="mailto:info@vasquezlawnc.com"
+                  href="mailto:leads@vasquezlawfirm.com"
                   className="flex items-center text-neutral-400 hover:text-primary-400 transition-colors"
                 >
                   <span className="mr-2">✉️</span>
-                  info@vasquezlawnc.com
+                  leads@vasquezlawfirm.com
                 </a>
               </div>
 
@@ -241,13 +241,13 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
               </p>
               <div className="flex space-x-6 text-sm">
                 <Link
-                  href="/privacy"
+                  href="/privacy-policy"
                   className="text-neutral-400 hover:text-primary-400 transition-colors"
                 >
                   {t.privacy}
                 </Link>
                 <Link
-                  href="/terms"
+                  href="/terms-of-service"
                   className="text-neutral-400 hover:text-primary-400 transition-colors"
                 >
                   {t.terms}

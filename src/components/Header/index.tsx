@@ -47,11 +47,11 @@ export const Header: React.FC<HeaderProps> = ({ language, setLanguage }) => {
               </a>
               <span className="hidden sm:inline text-primary-400">•</span>
               <a
-                href="mailto:info@vasquezlawnc.com"
+                href="mailto:leads@vasquezlawfirm.com"
                 className="hidden sm:inline hover:text-primary-400 transition-colors"
               >
                 <span className="mr-1">✉️</span>
-                info@vasquezlawnc.com
+                leads@vasquezlawfirm.com
               </a>
             </div>
             <div className="flex items-center space-x-2">

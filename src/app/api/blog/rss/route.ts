@@ -30,8 +30,8 @@ export async function GET(request: Request) {
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${baseUrl}/api/blog/rss?language=${language}" rel="self" type="application/rss+xml"/>
     <generator>Vasquez Law Firm Blog System</generator>
-    <managingEditor>info@vasquezlawnc.com (Vasquez Law Firm)</managingEditor>
-    <webMaster>info@vasquezlawnc.com (Vasquez Law Firm)</webMaster>
+    <managingEditor>leads@vasquezlawfirm.com (Vasquez Law Firm)</managingEditor>
+    <webMaster>leads@vasquezlawfirm.com (Vasquez Law Firm)</webMaster>
     <category>${language === 'es' ? 'Legal' : 'Legal'}</category>
     <copyright>© ${new Date().getFullYear()} Vasquez Law Firm, PLLC. All rights reserved.</copyright>
     <image>
@@ -53,7 +53,7 @@ export async function GET(request: Request) {
       <link>${postUrl}</link>
       <guid isPermaLink="true">${postUrl}</guid>
       <pubDate>${new Date(post.publishDate).toUTCString()}</pubDate>
-      <author>info@vasquezlawnc.com (${post.author.includes('@') ? 'Vasquez Law Team' : post.author})</author>
+      <author>leads@vasquezlawfirm.com (${post.author.includes('@') ? 'Vasquez Law Team' : post.author})</author>
       ${post.categories.map(cat => `<category>${cat}</category>`).join('')}
       ${post.featuredImage ? `<enclosure url="${post.featuredImage}" type="image/jpeg"/>` : ''}
     </item>`;

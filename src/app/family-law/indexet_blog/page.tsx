@@ -146,11 +146,11 @@ export default function PagetsxPage() {
                     <span>1-844-YO-PELEO</span>
                   </a>
                   <a
-                    href="mailto:info@vasquezlawnc.com"
+                    href="mailto:leads@vasquezlawfirm.com"
                     className="flex items-start text-gray-700 hover:text-burgundy-700"
                   >
                     <Mail className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" />
-                    <span>info@vasquezlawnc.com</span>
+                    <span>leads@vasquezlawfirm.com</span>
                   </a>
                   <div className="flex items-start text-gray-700">
                     <MapPin className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" />
@@ -280,7 +280,7 @@ export default function PagetsxPage() {
                 postalCode: '27612',
               },
               telephone: '+1-844-967-3536',
-              email: 'info@vasquezlawnc.com',
+              email: 'leads@vasquezlawfirm.com',
               url: 'https://vasquezlawnc.com/family-law/page/9/index﹖et_blog',
               sameAs: [],
               knowsLanguage: ['English', 'Spanish'],

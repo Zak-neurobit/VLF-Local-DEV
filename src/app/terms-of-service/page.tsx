@@ -222,7 +222,7 @@ export default function TermsOfServicePage() {
                     <p className="text-gray-700">3741 Superior Dr</p>
                     <p className="text-gray-700">Charlotte, NC 28211</p>
                     <p className="text-gray-700">Phone: (704) 358-0470</p>
-                    <p className="text-gray-700">Email: info@vasquezlawnc.com</p>
+                    <p className="text-gray-700">Email: leads@vasquezlawfirm.com</p>
                   </div>
 
                   <div className="mt-8 p-6 bg-yellow-50 border border-yellow-200 rounded-lg">

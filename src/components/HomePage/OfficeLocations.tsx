@@ -36,7 +36,7 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
           zip: 'Charlotte, NC 28212',
           phone: '(704) 533-7000',
           fax: '(704) 800-6779',
-          hours: 'Mon-Fri: 9:00 AM - 5:00 PM',
+          hours: 'Mon-Fri: 8:00 AM - 5:00 PM',
           mapUrl: 'https://maps.google.com/?q=5701+Executive+Center+Drive+Charlotte+NC+28212',
         },
         {
@@ -46,7 +46,7 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
           zip: 'Raleigh, NC 27616',
           phone: '(919) 533-7000',
           fax: '(919) 261-1707',
-          hours: 'Mon-Fri: 9:00 AM - 5:00 PM',
+          hours: 'Mon-Fri: 8:30 AM - 5:30 PM',
           mapUrl: 'https://maps.google.com/?q=4426+Louisburg+Road+Raleigh+NC+27616',
         },
         {
@@ -56,7 +56,7 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
           zip: 'Smithfield, NC 27577',
           phone: '(919) 989-3000',
           fax: '(919) 261-1707',
-          hours: 'Mon-Fri: 9:00 AM - 5:00 PM',
+          hours: 'Mon-Fri: 8:30 AM - 5:30 PM',
           mapUrl: 'https://maps.google.com/?q=612+S+Bright+Leaf+Blvd+Smithfield+NC+27577',
         },
         {
@@ -65,7 +65,7 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
           address: '1111 E Amelia Street',
           zip: 'Orlando, FL 32803',
           phone: '(407) 955-5000',
-          hours: 'Mon-Fri: 9:00 AM - 5:00 PM',
+          hours: 'Mon-Fri: 8:30 AM - 5:30 PM',
           mapUrl: 'https://maps.google.com/?q=1111+E+Amelia+Street+Orlando+FL+32803',
         },
       ],

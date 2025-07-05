@@ -32,7 +32,7 @@ const schemaTemplates = {
       postalCode: '27612',
     },
     telephone: '+1-844-967-3536',
-    email: 'info@vasquezlawnc.com',
+    email: 'leads@vasquezlawfirm.com',
     url: '',
     sameAs: [],
     knowsLanguage: ['English', 'Spanish'],

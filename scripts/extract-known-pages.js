@@ -132,7 +132,7 @@ const siteContent = {
     address: '819 N Market Dr, Raleigh, NC 27609',
     phone: '(919) 825-1699',
     tollFree: '1-844-967-3536',
-    email: 'info@vasquezlawnc.com',
+    email: 'leads@vasquezlawfirm.com',
   },
 
   offices: [

@@ -48,7 +48,7 @@ export function GoogleBusinessProfile({ locationId }: { locationId: string }) {
       <div className="mb-4">
         <h4 className="font-semibold text-gray-700 mb-2">Business Hours</h4>
         <div className="text-sm text-gray-600">
-          <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
+          <p>Monday - Friday: 8:30 AM - 5:30 PM</p>
           <p>Saturday - Sunday: Closed</p>
         </div>
       </div>

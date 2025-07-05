@@ -559,7 +559,7 @@ export class SEOAgent {
       foundingDate: '1989',
       priceRange: '$$$',
       telephone: '+1-844-967-3536',
-      email: 'info@vasquezlawnc.com',
+      email: 'leads@vasquezlawfirm.com',
       address: [
         {
           '@type': 'PostalAddress',

@@ -17,7 +17,7 @@ export function generateHomepageSchema() {
         },
         image: 'https://www.vasquezlawnc.com/images/BANNER_TRANS.PNG',
         telephone: '+1-844-967-3536',
-        email: 'info@vasquezlawnc.com',
+        email: 'leads@vasquezlawfirm.com',
         priceRange: '$$',
         description:
           'Top-rated immigration lawyers and personal injury attorneys serving North Carolina and Florida with over 60 years of collective experience.',

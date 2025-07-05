@@ -7,7 +7,7 @@ export const organizationSchema = {
   logo: 'https://www.vasquezlawnc.com/images/logo-vasquez.png',
   image: 'https://www.vasquezlawnc.com/images/office-main.jpg',
   telephone: '+1-844-967-3536',
-  email: 'info@vasquezlawnc.com',
+  email: 'leads@vasquezlawfirm.com',
   address: [
     {
       '@type': 'PostalAddress',
@@ -44,8 +44,8 @@ export const organizationSchema = {
   openingHoursSpecification: {
     '@type': 'OpeningHoursSpecification',
     dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    opens: '09:00',
-    closes: '18:00',
+    opens: '08:30',
+    closes: '17:30',
   },
   priceRange: '$$',
   aggregateRating: {
@@ -194,8 +194,8 @@ export const localBusinessSchema = (location: {
   openingHoursSpecification: {
     '@type': 'OpeningHoursSpecification',
     dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    opens: '09:00',
-    closes: '18:00',
+    opens: '08:30',
+    closes: '17:30',
   },
   parentOrganization: {
     '@type': 'LegalService',

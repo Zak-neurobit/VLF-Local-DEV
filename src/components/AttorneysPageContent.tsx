@@ -544,7 +544,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                 jobTitle: attorney.title[language],
                 image: attorney.image,
                 telephone: '1-844-967-3536',
-                email: 'info@vasquezlawnc.com',
+                email: 'leads@vasquezlawfirm.com',
                 education: attorney.education.map(edu => ({
                   name: edu.school,
                   degree: edu.degree,

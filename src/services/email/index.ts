@@ -70,7 +70,7 @@ class EmailService {
     });
 
     this.fromEmail =
-      process.env.EMAIL_FROM || process.env.OFFICE365_EMAIL || 'info@vasquezlawnc.com';
+      process.env.EMAIL_FROM || process.env.OFFICE365_EMAIL || 'leads@vasquezlawfirm.com';
     this.fromName = 'Vasquez Law Firm';
 
     // Skip verification during build

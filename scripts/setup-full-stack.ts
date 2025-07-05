@@ -346,7 +346,7 @@ LAWPAY_SECRET_KEY=${this.config.services.lawpay?.secretKey || ''}
 # EMAIL SERVICE
 # ========================================
 RESEND_API_KEY=${this.config.services.resend || ''}
-EMAIL_FROM=info@vasquezlawnc.com
+EMAIL_FROM=leads@vasquezlawfirm.com
 
 # ========================================
 # ERROR TRACKING

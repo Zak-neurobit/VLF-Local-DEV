@@ -10,7 +10,7 @@ export const BRAND = {
   trademark: 'YO PELEO™',
   phone: '1-844-YO-PELEO',
   phoneNumeric: '1-844-967-3536',
-  email: 'info@vasquezlawnc.com',
+  email: 'leads@vasquezlawfirm.com',
   founded: 1989,
 } as const;
 

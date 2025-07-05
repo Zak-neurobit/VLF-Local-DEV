@@ -105,7 +105,7 @@ export function BlogSEO({ post, isListingPage = false }: BlogSEOProps) {
     logo: `${baseUrl}/images/logo.png`,
     image: `${baseUrl}/images/office-hero.jpg`,
     telephone: '+1-844-967-3536',
-    email: 'info@vasquezlawnc.com',
+    email: 'leads@vasquezlawfirm.com',
     address: [
       {
         '@type': 'PostalAddress',

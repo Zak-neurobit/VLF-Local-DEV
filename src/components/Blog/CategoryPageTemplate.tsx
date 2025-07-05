@@ -157,7 +157,7 @@ export default function CategoryPageTemplate({ categoryId, initialLanguage = 'en
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div className="flex items-center gap-4 text-sm">
             <span>📞 1-844-YO-PELEO (967-3536)</span>
-            <span className="hidden sm:inline">📧 info@vasquezlawnc.com</span>
+            <span className="hidden sm:inline">📧 leads@vasquezlawfirm.com</span>
           </div>
           <div className="flex items-center gap-2">
             <button

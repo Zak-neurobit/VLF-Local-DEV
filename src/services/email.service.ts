@@ -1338,7 +1338,7 @@ class EmailService {
   async sendContactFormNotification(data: any): Promise<EmailResult> {
     // Send to law firm
     const attorneyResult = await this.sendEmail({
-      to: process.env.CONTACT_EMAIL || 'info@vasquezlawnc.com',
+      to: process.env.CONTACT_EMAIL || 'leads@vasquezlawfirm.com',
       subject: `New Contact Form - ${data.caseType}`,
       template: 'contact-form',
       data,

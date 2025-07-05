@@ -511,7 +511,7 @@ async function generateOptimizedContent() {
       url: 'https://www.vasquezlawnc.com',
       logo: 'https://www.vasquezlawnc.com/images/logo.png',
       telephone: '+1-844-967-3536',
-      email: 'info@vasquezlawnc.com',
+      email: 'leads@vasquezlawfirm.com',
       address: vasquezContent.mainPages.locations.raleigh.address,
       areaServed: ['North Carolina', 'Florida'],
       priceRange: '$$',

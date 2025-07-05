@@ -11,7 +11,7 @@ const VLF_BRAND = {
   sloganEnglish: 'I FIGHT FOR YOU',
   phone: '1-844-YO-PELEO',
   phoneNumeric: '1-844-967-3536',
-  email: 'info@vasquezlawnc.com',
+  email: 'leads@vasquezlawfirm.com',
   website: 'https://www.vasquezlawnc.com',
   socialMedia: {
     facebook: 'https://www.facebook.com/vasquezlawfirm',
@@ -31,7 +31,7 @@ const OFFICES = [
     state: 'NC',
     zip: '27609',
     phone: '(919) 246-8831',
-    hours: 'Mon-Fri: 9:00 AM - 5:00 PM',
+    hours: 'Mon-Fri: 8:30 AM - 5:30 PM',
     isPrimary: true,
   },
   {
@@ -42,7 +42,7 @@ const OFFICES = [
     state: 'NC',
     zip: '28212',
     phone: '(704) 266-2998',
-    hours: 'Mon-Fri: 9:00 AM - 5:00 PM',
+    hours: 'Mon-Fri: 8:30 AM - 5:30 PM',
   },
   {
     id: 'smithfield',
@@ -52,7 +52,7 @@ const OFFICES = [
     state: 'NC',
     zip: '27577',
     phone: '(919) 209-8788',
-    hours: 'Mon-Fri: 9:00 AM - 5:00 PM',
+    hours: 'Mon-Fri: 8:30 AM - 5:30 PM',
   },
   {
     id: 'orlando',
@@ -62,7 +62,7 @@ const OFFICES = [
     state: 'FL',
     zip: '32751',
     phone: '(407) 647-1900',
-    hours: 'Mon-Fri: 9:00 AM - 5:00 PM',
+    hours: 'Mon-Fri: 8:30 AM - 5:30 PM',
   },
   {
     id: 'durham',
@@ -72,7 +72,7 @@ const OFFICES = [
     state: 'NC',
     zip: '27707',
     phone: '(919) 401-9977',
-    hours: 'Mon-Fri: 9:00 AM - 5:00 PM',
+    hours: 'Mon-Fri: 8:30 AM - 5:30 PM',
   },
   {
     id: 'winston-salem',
@@ -82,7 +82,7 @@ const OFFICES = [
     state: 'NC',
     zip: '27101',
     phone: '(336) 893-0000',
-    hours: 'Mon-Fri: 9:00 AM - 5:00 PM',
+    hours: 'Mon-Fri: 8:30 AM - 5:30 PM',
   },
 ];
 

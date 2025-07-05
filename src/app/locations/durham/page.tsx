@@ -25,9 +25,9 @@ export default function DurhamPage() {
       zip: '27707',
     },
     phone: '1-844-YO-PELEO',
-    email: 'info@vasquezlawfirm.com',
+    email: 'leads@vasquezlawfirm.com',
     hours: {
-      weekdays: 'Mon-Fri: 9:00 AM - 6:00 PM',
+      weekdays: 'Mon-Fri: 8:30 AM - 5:30 PM',
       saturday: 'By Appointment',
       sunday: 'Emergency Services Available',
     },
