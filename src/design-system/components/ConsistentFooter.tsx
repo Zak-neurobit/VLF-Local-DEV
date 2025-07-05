@@ -74,8 +74,6 @@ export const ConsistentFooter: React.FC<ConsistentFooterProps> = ({ language }) 
   const offices = [
     { city: 'Raleigh', state: 'NC', phone: '(919) 533-7000' },
     { city: 'Charlotte', state: 'NC', phone: '(704) 533-7000' },
-    { city: 'Durham', state: 'NC', phone: '(919) 286-1990' },
-    { city: 'Winston-Salem', state: 'NC', phone: '(336) 723-5055' },
     { city: 'Smithfield', state: 'NC', phone: '(919) 989-3000' },
     { city: 'Orlando', state: 'FL', phone: '(407) 955-5000' },
   ];
