@@ -158,7 +158,7 @@ export default function DeportationRemovalDefensePage() {
             </h2>
             <p className="text-lg text-gray-700 mb-6">
               Deportation proceedings are among the most serious legal matters you can face. The
-              stakes couldn\&apos;t be higher - your ability to remain in the United States with your
+              stakes couldn&apos;t be higher - your ability to remain in the United States with your
               family, your job, and your life. At Vasquez Law Firm, our experienced deportation
               defense attorneys fight aggressively to protect your rights and keep you in America.
             </p>

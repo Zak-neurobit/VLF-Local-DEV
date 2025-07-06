@@ -76,7 +76,7 @@ export default function ProbationViolationPage() {
                   to protect your rights and fight for your freedom.
                 </p>
                 <p className="text-lg text-gray-600">
-                  Whether you\&apos;re facing allegations of a technical violation or a new criminal charge while 
+                  Whether you&apos;re facing allegations of a technical violation or a new criminal charge while 
                   on probation, we have the knowledge and experience to help you navigate this challenging 
                   situation and achieve the best possible outcome.
                 </p>

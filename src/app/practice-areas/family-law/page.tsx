@@ -177,7 +177,7 @@ export default function FamilyLawPage() {
             <section>
               <h2 className="text-3xl font-bold mb-6 text-primary">Why Choose Vasquez Law Firm for Family Law?</h2>
               <p className="text-lg mb-6">
-                Family law matters are deeply personal and emotionally challenging. Our bilingual attorneys combine legal expertise with genuine compassion to guide you through these difficult times. We&apos;re not just your lawyers – we\&apos;re your advocates, counselors, and support system.
+                Family law matters are deeply personal and emotionally challenging. Our bilingual attorneys combine legal expertise with genuine compassion to guide you through these difficult times. We&apos;re not just your lawyers – we&apos;re your advocates, counselors, and support system.
               </p>
               
               <div className="grid md:grid-cols-2 gap-6 mt-8">

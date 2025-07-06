@@ -65,7 +65,7 @@ export default function NCDivorceTimelineBlog() {
               <CardContent className="p-8">
                 <div className="prose prose-lg max-w-none">
                   <p className="text-gray-700 leading-relaxed mb-6">
-                    If you\&apos;re considering divorce in North Carolina, one of your first questions is
+                    If you&apos;re considering divorce in North Carolina, one of your first questions is
                     likely &quot;How long will this take?&quot; The answer depends on several factors, but
                     North Carolina has specific requirements that make the timeline more predictable
                     than in many other states. This comprehensive guide will walk you through every

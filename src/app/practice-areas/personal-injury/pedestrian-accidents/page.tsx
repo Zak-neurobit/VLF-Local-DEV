@@ -123,7 +123,7 @@ export default function PedestrianAccidentsPage() {
             </h2>
             <p className="text-xl mb-6">
               North Carolina is one of only 4 states with pure contributory negligence. If
-              you\&apos;re found even 1% at fault, you could receive NOTHING.
+              you&apos;re found even 1% at fault, you could receive NOTHING.
             </p>
             <p className="text-lg mb-8">
               Insurance companies will claim you were jaywalking, distracted, or not visible. Even
@@ -381,7 +381,7 @@ export default function PedestrianAccidentsPage() {
               <h3 className="text-xl font-semibold mb-3 text-[#001845]">Time-Sensitive Evidence</h3>
               <p className="text-gray-700">
                 Surveillance footage, skid marks, and witness memories fade fast. We immediately
-                secure evidence before it\&apos;s lost, giving you the strongest possible case.
+                secure evidence before it&apos;s lost, giving you the strongest possible case.
               </p>
             </div>
           </div>
@@ -473,7 +473,7 @@ export default function PedestrianAccidentsPage() {
               </h3>
               <p className="text-gray-700">
                 Unfortunately, North Carolina&apos;s contributory negligence law bars recovery if
-                you\&apos;re even 1% at fault. However, insurance companies often exaggerate
+                you&apos;re even 1% at fault. However, insurance companies often exaggerate
                 pedestrian fault. We fight to prove the driver was 100% responsible.
               </p>
             </div>
@@ -499,7 +499,7 @@ export default function PedestrianAccidentsPage() {
               <h3 className="text-xl font-semibold mb-3">What evidence do I need for my case?</h3>
               <p className="text-gray-700">
                 Photos of the scene, witness information, surveillance footage, police reports, and
-                medical records are crucial. Don&apos;t worry if you couldn\&apos;t gather evidence due to
+                medical records are crucial. Don&apos;t worry if you couldn&apos;t gather evidence due to
                 injuries - we&apos;ll investigate and obtain everything needed.
               </p>
             </div>

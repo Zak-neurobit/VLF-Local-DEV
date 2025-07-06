@@ -57,7 +57,7 @@ export function FormField({
           />
         );
 
-      case &apos;select&apos;:
+      case 'select':
         return (
           <select
             {...register(name)}
@@ -74,7 +74,7 @@ export function FormField({
           </select>
         );
 
-      case &apos;radio&apos;:
+      case 'radio':
         return (
           <div className="space-y-2">
             {options.map(option => (
@@ -93,7 +93,7 @@ export function FormField({
           </div>
         );
 
-      case &apos;checkbox&apos;:
+      case 'checkbox':
         return (
           <label className="flex items-center cursor-pointer">
             <input

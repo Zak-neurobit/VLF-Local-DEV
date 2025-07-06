@@ -170,7 +170,7 @@ export default function BoatingAccidentsPage() {
             </h2>
             <p className="text-xl mb-6">
               North Carolina is one of only 4 states with pure contributory negligence. If
-              you\&apos;re found even 1% at fault, you could receive NOTHING.
+              you&apos;re found even 1% at fault, you could receive NOTHING.
             </p>
             <p className="text-lg mb-8">
               Insurance companies will claim you weren&apos;t wearing a life jacket, were standing
@@ -499,7 +499,7 @@ export default function BoatingAccidentsPage() {
                 Do I need boat insurance in North Carolina?
               </h3>
               <p className="text-gray-700">
-                NC doesn\&apos;t require boat insurance, but marinas may require it. Many boaters are
+                NC doesn&apos;t require boat insurance, but marinas may require it. Many boaters are
                 uninsured, making it crucial to have uninsured boater coverage. We&apos;ll explore all
                 available insurance.
               </p>
@@ -509,7 +509,7 @@ export default function BoatingAccidentsPage() {
                 What if I wasn&apos;t wearing a life jacket?
               </h3>
               <p className="text-gray-700">
-                While NC requires life jackets on board, adults aren\&apos;t required to wear them.
+                While NC requires life jackets on board, adults aren&apos;t required to wear them.
                 Not wearing a PFD doesn&apos;t bar your claim if the other operator&apos;s negligence
                 caused the accident.
               </p>

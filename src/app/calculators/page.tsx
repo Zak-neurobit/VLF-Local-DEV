@@ -228,7 +228,7 @@ function BACCalculator() {
           </div>
           <p className="mt-4 text-sm text-gray-600">
             <strong>Warning:</strong> This is an estimate only. Many factors affect BAC. Never drive
-            if you\&apos;ve been drinking. DWI arrests can happen at any BAC level.
+            if you&apos;ve been drinking. DWI arrests can happen at any BAC level.
           </p>
         </div>
       )}

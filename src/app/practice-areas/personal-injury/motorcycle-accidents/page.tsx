@@ -123,7 +123,7 @@ export default function MotorcycleAccidentsPage() {
             </h2>
             <p className="text-xl mb-6">
               North Carolina is one of only 4 states with pure contributory negligence. If
-              you\&apos;re found even 1% at fault, you could receive NOTHING.
+              you&apos;re found even 1% at fault, you could receive NOTHING.
             </p>
             <p className="text-lg mb-8">
               Insurance companies exploit this law to deny motorcycle accident claims. They&apos;ll argue
@@ -310,7 +310,7 @@ export default function MotorcycleAccidentsPage() {
               </h3>
               <p className="text-gray-700">
                 Insurance companies and juries often have unfair biases against bikers, assuming
-                they\&apos;re reckless or at fault. We combat these stereotypes with facts and
+                they&apos;re reckless or at fault. We combat these stereotypes with facts and
                 evidence.
               </p>
             </div>
@@ -421,7 +421,7 @@ export default function MotorcycleAccidentsPage() {
               <p className="text-gray-700">
                 Yes, North Carolina law requires all motorcyclists and passengers to wear
                 DOT-approved helmets. Not wearing a helmet can impact your injury claim, but
-                doesn\&apos;t bar recovery if the other driver was at fault for the accident itself.
+                doesn&apos;t bar recovery if the other driver was at fault for the accident itself.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
@@ -456,7 +456,7 @@ export default function MotorcycleAccidentsPage() {
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3">
-                What if the driver who hit me doesn\&apos;t have insurance?
+                What if the driver who hit me doesn&apos;t have insurance?
               </h3>
               <p className="text-gray-700">
                 Your uninsured/underinsured motorist (UM/UIM) coverage can help. NC law requires

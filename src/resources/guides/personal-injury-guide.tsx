@@ -148,7 +148,7 @@ const PersonalInjuryGuideDocument = () => (
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Introduction</Text>
         <Text style={styles.paragraph}>
-          If you\&apos;ve been injured due to someone else&apos;s negligence in North Carolina, you may be entitled to 
+          If you&apos;ve been injured due to someone else&apos;s negligence in North Carolina, you may be entitled to 
           compensation for your injuries, medical expenses, lost wages, and pain and suffering. This guide 
           provides essential information about the personal injury claim process in North Carolina, including 
           important deadlines, types of damages, and steps to protect your rights.

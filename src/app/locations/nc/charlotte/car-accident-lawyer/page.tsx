@@ -39,7 +39,7 @@ export default function CharlotteCarAccidentLawyerPage() {
               <p className="text-xl text-gray-700">
                 When you need the best car accident lawyer in Charlotte, Mecklenburg County, North Carolina, 
                 Vasquez Law Firm delivers results. With over 60 years of combined experience and thousands of successful cases, 
-                we\&apos;re the law firm Charlotte residents trust most.
+                we&apos;re the law firm Charlotte residents trust most.
               </p>
             </section>
             {/* Local Expertise */}

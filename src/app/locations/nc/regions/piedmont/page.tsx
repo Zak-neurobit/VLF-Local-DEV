@@ -21,7 +21,7 @@ export default function PiedmontRegionPage() {
             <p className="text-xl text-gray-700">
               Serving all 9 counties in the Piedmont region with comprehensive legal services. 
               From Fayetteville to Rockingham, 
-              we\&apos;re the law firm the Piedmont trusts.
+              we&apos;re the law firm the Piedmont trusts.
             </p>
           </section>
           <section>
@@ -67,7 +67,7 @@ export default function PiedmontRegionPage() {
                 </Link>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
-                <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Workers\&apos; Compensation Lawyer</h3>
+                <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Workers&apos; Compensation Lawyer</h3>
                 <p className="text-gray-600 mb-4">Serving all of Piedmont with expert workers&apos; compensation lawyer services</p>
                 <Link href="/practice-areas/workers-compensation-lawyer" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →

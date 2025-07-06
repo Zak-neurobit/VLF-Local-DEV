@@ -67,7 +67,7 @@ export default function ExpungementPage() {
               YO PELEO POR TI™
             </p>
             <p className="text-xl mb-8 text-gray-100">
-              Your past shouldn\&apos;t define your future. We help clear criminal records so you can
+              Your past shouldn&apos;t define your future. We help clear criminal records so you can
               pursue jobs, housing, and education without the burden of old mistakes.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -334,7 +334,7 @@ export default function ExpungementPage() {
               <p className="text-lg font-semibold mb-2">⏱️ Timeline: 6-12 Months</p>
               <p className="text-gray-700">
                 The expungement process typically takes 6-12 months from filing to final order.
-                Having an attorney ensures it\&apos;s done right the first time.
+                Having an attorney ensures it&apos;s done right the first time.
               </p>
             </div>
           </div>

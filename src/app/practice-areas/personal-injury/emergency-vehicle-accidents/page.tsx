@@ -66,7 +66,7 @@ export default function EmergencyVehicleAccidentsPage() {
             </p>
             <p className="text-xl mb-8 text-gray-100">
               Injured in an accident with an ambulance, fire truck, or police car? Emergency
-              vehicles aren\&apos;t above the law. We fight for your right to compensation when first
+              vehicles aren&apos;t above the law. We fight for your right to compensation when first
               responders cause accidents.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">

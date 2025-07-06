@@ -464,7 +464,7 @@ export default function PremisesLiabilityPage() {
                   <div className="bg-red-50 p-6 rounded-lg">
                     <h3 className="text-lg font-bold text-red-800 mb-2">Lack of Notice</h3>
                     <p className="text-red-700">
-                      They claim they didn\&apos;t know about the hazard. We prove they should have
+                      They claim they didn&apos;t know about the hazard. We prove they should have
                       known through reasonable inspection and maintenance procedures.
                     </p>
                   </div>
@@ -542,7 +542,7 @@ export default function PremisesLiabilityPage() {
 
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      What if the property owner claims they didn\&apos;t know about the hazard?
+                      What if the property owner claims they didn&apos;t know about the hazard?
                     </h3>
                     <p className="text-gray-700">
                       We investigate to show they should have known through reasonable inspection.

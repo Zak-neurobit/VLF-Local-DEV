@@ -842,3 +842,36 @@
 {"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:03:43"}
 {"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:03:43"}
 {"level":"info","message":"Skipping Retell agent initialization during build","service":"vasquez-law-website","timestamp":"2025-07-06 10:03:43"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:19"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:19"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:19"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:19"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:19"}
+{"level":"info","message":"Skipping Retell agent initialization during build","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:19"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:19"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:49"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:49"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:49"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:49"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:49"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:49"}
+{"level":"info","message":"Skipping Retell agent initialization during build","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:49"}
+{"level":"info","message":"SEOOptimizationService.generateSitemap","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:53"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:53"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:53"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:53"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:53"}
+{"level":"info","message":"Skipping Retell agent initialization during build","service":"vasquez-law-website","timestamp":"2025-07-06 10:44:53"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:45:48"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:45:48"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:45:48"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:45:48"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:45:48"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:45:48"}
+{"level":"info","message":"Skipping Retell agent initialization during build","service":"vasquez-law-website","timestamp":"2025-07-06 10:45:48"}
+{"level":"info","message":"SEOOptimizationService.generateSitemap","service":"vasquez-law-website","timestamp":"2025-07-06 10:45:51"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:45:51"}
+{"level":"warn","message":"Google Places API key not found. Google reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:45:51"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:45:51"}
+{"level":"warn","message":"Yelp API key not found. Yelp reviews will not be available.","service":"vasquez-law-website","timestamp":"2025-07-06 10:45:51"}
+{"level":"info","message":"Skipping Retell agent initialization during build","service":"vasquez-law-website","timestamp":"2025-07-06 10:45:51"}

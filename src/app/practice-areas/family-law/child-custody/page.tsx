@@ -96,7 +96,7 @@ export default function ChildCustodyPage() {
             NC&apos;s &quot;Best Interests of the Child&quot; Standard
           </h2>
           <p className="text-lg text-gray-700 text-center mb-8 max-w-3xl mx-auto">
-            North Carolina courts determine custody based on what\&apos;s best for the child, not parent
+            North Carolina courts determine custody based on what&apos;s best for the child, not parent
             preferences. Key factors include:
           </p>
           <div className="grid md:grid-cols-3 gap-6">
@@ -205,14 +205,14 @@ export default function ChildCustodyPage() {
               <div className="bg-white/10 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-3">Myth: Kids Choose at Age 12</h3>
                 <p>
-                  There\&apos;s no magic age. Courts may consider a child&apos;s preference but it&apos;s
+                  There&apos;s no magic age. Courts may consider a child&apos;s preference but it&apos;s
                   one factor among many, not determinative.
                 </p>
               </div>
               <div className="bg-white/10 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-3">Myth: 50/50 is Automatic</h3>
                 <p>
-                  Equal time isn\&apos;t presumed. Courts focus on stability and what works best for
+                  Equal time isn&apos;t presumed. Courts focus on stability and what works best for
                   the specific child and family.
                 </p>
               </div>
@@ -401,7 +401,7 @@ export default function ChildCustodyPage() {
           <div className="max-w-4xl mx-auto">
             <div className="bg-white p-8 rounded-lg shadow-lg">
               <p className="text-lg text-gray-700 mb-6">
-                Life changes, and custody orders can too. NC allows modifications when there\&apos;s a
+                Life changes, and custody orders can too. NC allows modifications when there&apos;s a
                 &quot;substantial change in circumstances&quot; affecting the child&apos;s welfare.
               </p>
               <div className="grid md:grid-cols-2 gap-6">
@@ -531,7 +531,7 @@ export default function ChildCustodyPage() {
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3">Do I need a custody order if we agree?</h3>
               <p className="text-gray-700">
-                Yes! Informal agreements aren\&apos;t enforceable. Even if you&apos;re getting along
+                Yes! Informal agreements aren&apos;t enforceable. Even if you&apos;re getting along
                 now, a court order protects both parents and provides stability for children. It
                 also establishes child support obligations.
               </p>
@@ -548,7 +548,7 @@ export default function ChildCustodyPage() {
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3">
-                What if my ex won\&apos;t follow the custody order?
+                What if my ex won&apos;t follow the custody order?
               </h3>
               <p className="text-gray-700">
                 Document all violations and contact your attorney immediately. Options include
@@ -571,7 +571,7 @@ export default function ChildCustodyPage() {
               <p className="text-gray-700">
                 They&apos;re separate issues. Custody determines where children live and who makes
                 decisions. Child support is financial obligation based on income and custody
-                arrangement. You can\&apos;t withhold visitation for unpaid support.
+                arrangement. You can&apos;t withhold visitation for unpaid support.
               </p>
             </div>
           </div>

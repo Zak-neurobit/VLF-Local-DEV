@@ -21,7 +21,7 @@ export default function CharlotteMetroRegionPage() {
             <p className="text-xl text-gray-700">
               Serving all 9 counties in the Charlotte Metro region with comprehensive legal services. 
               From Charlotte to Statesville, 
-              we\&apos;re the law firm the Charlotte Metro trusts.
+              we&apos;re the law firm the Charlotte Metro trusts.
             </p>
           </section>
           <section>
@@ -67,7 +67,7 @@ export default function CharlotteMetroRegionPage() {
                 </Link>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
-                <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Workers\&apos; Compensation Lawyer</h3>
+                <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Workers&apos; Compensation Lawyer</h3>
                 <p className="text-gray-600 mb-4">Serving all of Charlotte Metro with expert workers&apos; compensation lawyer services</p>
                 <Link href="/practice-areas/workers-compensation-lawyer" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →

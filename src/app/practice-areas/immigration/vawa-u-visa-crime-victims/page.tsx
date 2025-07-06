@@ -127,7 +127,7 @@ export default function VawaUVisaPage() {
             </p>
             <p className="text-gray-600">
               At Vasquez Law Firm, we provide sensitive, confidential representation for survivors
-              of violence and crime. Our experienced attorneys understand the trauma you\&apos;ve
+              of violence and crime. Our experienced attorneys understand the trauma you&apos;ve
               experienced and work to secure your safety and legal status in the United States.
             </p>
           </div>

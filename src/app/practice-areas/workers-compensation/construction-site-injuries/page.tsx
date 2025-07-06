@@ -373,7 +373,7 @@ export default function ConstructionSiteInjuriesPage() {
                 </h2>
                 <p className="text-gray-700 mb-6">
                   OSHA safety violations often contribute to construction accidents. While OSHA
-                  violations don\&apos;t create a private right to sue, they provide powerful evidence in
+                  violations don&apos;t create a private right to sue, they provide powerful evidence in
                   workers&apos; comp and third-party claims:
                 </p>
 
@@ -542,7 +542,7 @@ export default function ConstructionSiteInjuriesPage() {
 
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      What if I\&apos;m an undocumented construction worker?
+                      What if I&apos;m an undocumented construction worker?
                     </h3>
                     <p className="text-gray-700">
                       You have the same rights to workers&apos; compensation as any other injured worker.

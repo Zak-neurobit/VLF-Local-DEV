@@ -72,7 +72,7 @@ export default function AgentsDashboard() {
                 <h2 className="text-lg font-semibold text-gray-900">{agent.name}</h2>
                 {agent.status === 'active' ? (
                   <CheckCircle className="w-6 h-6 text-green-500" />
-                ) : agent.status === &apos;error&apos; ? (
+                ) : agent.status === 'error' ? (
                   <AlertCircle className="w-6 h-6 text-red-500" />
                 ) : (
                   <Clock className="w-6 h-6 text-gray-400" />

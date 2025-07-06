@@ -221,7 +221,7 @@ export default function TheftLarcenyShopliftingPage() {
                       </svg>
                       <div>
                         <h4 className="font-semibold">Lack of Intent</h4>
-                        <p className="text-gray-600">Proving you didn\&apos;t intend to permanently deprive the owner</p>
+                        <p className="text-gray-600">Proving you didn&apos;t intend to permanently deprive the owner</p>
                       </div>
                     </div>
                     

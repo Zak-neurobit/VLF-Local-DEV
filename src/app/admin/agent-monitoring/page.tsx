@@ -55,11 +55,11 @@ const AgentIcon = ({ type }: { type: string }) => {
   switch (type) {
     case 'chat':
       return <MessageSquare className="w-5 h-5" />;
-    case &apos;voice&apos;:
+    case 'voice':
       return <Phone className="w-5 h-5" />;
-    case &apos;document&apos;:
+    case 'document':
       return <FileText className="w-5 h-5" />;
-    case &apos;crewai&apos;:
+    case 'crewai':
       return <Brain className="w-5 h-5" />;
     default:
       return <Activity className="w-5 h-5" />;

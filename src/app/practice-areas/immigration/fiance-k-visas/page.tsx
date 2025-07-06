@@ -115,7 +115,7 @@ export default function FianceKVisaPage() {
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h2 className="text-3xl font-bold text-[#6B1F2E] mb-6">Expert Fiancé Visa Attorneys</h2>
             <p className="text-lg text-gray-700 mb-6">
-              Love knows no borders, but immigration law can be complex. If you\&apos;re a U.S.
+              Love knows no borders, but immigration law can be complex. If you&apos;re a U.S.
               citizen engaged to a foreign national, a K-1 fiancé visa allows your partner to enter
               the United States for marriage. At Vasquez Law Firm, we help couples navigate the
               fiancé visa process and start their lives together in America.

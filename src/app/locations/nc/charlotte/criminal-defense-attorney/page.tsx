@@ -39,7 +39,7 @@ export default function CharlotteCriminalDefenseAttorneyPage() {
               <p className="text-xl text-gray-700">
                 When you need the best criminal defense attorney in Charlotte, Mecklenburg County, North Carolina, 
                 Vasquez Law Firm delivers results. With over 60 years of combined experience and thousands of successful cases, 
-                we\&apos;re the law firm Charlotte residents trust most.
+                we&apos;re the law firm Charlotte residents trust most.
               </p>
             </section>
             {/* Local Expertise */}

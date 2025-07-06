@@ -71,7 +71,7 @@ export default function WrongfulDeathPage() {
               YO PELEO POR TI™ - I FIGHT FOR YOU
             </p>
             <p className="text-lg mb-8 max-w-3xl mx-auto">
-              When you\&apos;ve lost a loved one due to someone else&apos;s negligence, we provide
+              When you&apos;ve lost a loved one due to someone else&apos;s negligence, we provide
               compassionate legal representation to help your family seek justice and fair
               compensation during this difficult time.
             </p>

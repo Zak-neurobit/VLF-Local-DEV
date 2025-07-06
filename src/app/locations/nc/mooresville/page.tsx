@@ -189,7 +189,7 @@ export default function MooresvilleNCPage() {
               {/* Workers Compensation */}
               <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-[#6B1F2E]">
                 <div className="text-4xl mb-4">👷</div>
-                <h3 className="text-xl font-bold text-[#6B1F2E] mb-3">Workers\&apos; Compensation</h3>
+                <h3 className="text-xl font-bold text-[#6B1F2E] mb-3">Workers&apos; Compensation</h3>
                 <ul className="text-gray-700 space-y-2 mb-4">
                   <li>• Workplace Injuries</li>
                   <li>• Denied Claims</li>
@@ -276,7 +276,7 @@ export default function MooresvilleNCPage() {
                     <div>
                       <h4 className="font-bold text-[#6B1F2E]">24/7 Availability</h4>
                       <p className="text-gray-700">
-                        Emergency legal help when you need it most - arrests don\&apos;t wait for business
+                        Emergency legal help when you need it most - arrests don&apos;t wait for business
                         hours
                       </p>
                     </div>

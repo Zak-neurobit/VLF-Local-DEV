@@ -186,7 +186,7 @@ export default function PersonalInjuryPage() {
             <section>
               <h2 className="text-3xl font-bold mb-6 text-primary">Why Vasquez Law Firm for Personal Injury?</h2>
               <p className="text-lg mb-6">
-                When you\&apos;re hurt, you need more than just a lawyer - you need a fighter. Our record speaks for itself: $100+ million recovered, 98% success rate, and thousands of satisfied clients across North Carolina.
+                When you&apos;re hurt, you need more than just a lawyer - you need a fighter. Our record speaks for itself: $100+ million recovered, 98% success rate, and thousands of satisfied clients across North Carolina.
               </p>
               
               <div className="grid md:grid-cols-2 gap-6 mt-8">
@@ -238,7 +238,7 @@ export default function PersonalInjuryPage() {
                   <span className="text-primary text-2xl font-bold mr-4">4.</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Trial Ready</h3>
-                    <p className="text-gray-300">If insurers won\&apos;t pay fairly, we take them to court. Our trial experience gets results.</p>
+                    <p className="text-gray-300">If insurers won&apos;t pay fairly, we take them to court. Our trial experience gets results.</p>
                   </div>
                 </div>
               </div>

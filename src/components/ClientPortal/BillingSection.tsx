@@ -369,7 +369,7 @@ export default function BillingSection({ clientData }: { clientData: any }) {
             <div className="bg-white rounded-lg shadow-sm border p-12 text-center">
               <Receipt className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-900 mb-2">No Invoices</h3>
-              <p className="text-gray-600">You don\&apos;t have any invoices yet.</p>
+              <p className="text-gray-600">You don&apos;t have any invoices yet.</p>
             </div>
           )}
         </div>

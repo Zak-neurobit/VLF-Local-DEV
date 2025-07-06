@@ -196,7 +196,7 @@ export default function CriminalDefensePage() {
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">24/7 Emergency Response</h3>
-                  <p className="text-gray-300">Arrested at 2 AM? We answer. Time is critical in criminal cases, and we\&apos;re always available.</p>
+                  <p className="text-gray-300">Arrested at 2 AM? We answer. Time is critical in criminal cases, and we&apos;re always available.</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Trial-Ready Defense</h3>

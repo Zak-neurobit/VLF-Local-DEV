@@ -39,7 +39,7 @@ export default function GreensboroPersonalInjuryAttorneyPage() {
               <p className="text-xl text-gray-700">
                 When you need the best personal injury attorney in Greensboro, Guilford County, North Carolina, 
                 Vasquez Law Firm delivers results. With over 60 years of combined experience and thousands of successful cases, 
-                we\&apos;re the law firm Greensboro residents trust most.
+                we&apos;re the law firm Greensboro residents trust most.
               </p>
             </section>
             {/* Local Expertise */}

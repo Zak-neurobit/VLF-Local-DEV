@@ -123,7 +123,7 @@ export default function BicycleAccidentsPage() {
             </h2>
             <p className="text-xl mb-6">
               North Carolina is one of only 4 states with pure contributory negligence. If
-              you\&apos;re found even 1% at fault, you could receive NOTHING.
+              you&apos;re found even 1% at fault, you could receive NOTHING.
             </p>
             <p className="text-lg mb-8">
               Insurance companies will claim you weren&apos;t wearing a helmet, didn&apos;t signal,
@@ -350,7 +350,7 @@ export default function BicycleAccidentsPage() {
                 Driver Bias Against Cyclists
               </h3>
               <p className="text-gray-700">
-                Many drivers and insurance adjusters wrongly believe cyclists don\&apos;t belong on roads.
+                Many drivers and insurance adjusters wrongly believe cyclists don&apos;t belong on roads.
                 We educate juries about cyclists&apos; legal rights and combat these prejudices with
                 facts and law.
               </p>
@@ -380,7 +380,7 @@ export default function BicycleAccidentsPage() {
               </h3>
               <p className="text-gray-700">
                 Insurance companies exploit NC&apos;s harsh law by claiming helmet non-use, improper
-                lighting, or lane positioning. We prove these factors didn\&apos;t cause the accident
+                lighting, or lane positioning. We prove these factors didn&apos;t cause the accident
                 and the driver was 100% at fault.
               </p>
             </div>
@@ -463,7 +463,7 @@ export default function BicycleAccidentsPage() {
               </h3>
               <p className="text-gray-700">
                 NC law only requires helmets for riders under 16. However, not wearing a helmet as
-                an adult doesn\&apos;t bar your claim if the driver&apos;s negligence caused the
+                an adult doesn&apos;t bar your claim if the driver&apos;s negligence caused the
                 accident. We can still recover compensation for your injuries.
               </p>
             </div>
@@ -480,7 +480,7 @@ export default function BicycleAccidentsPage() {
                 What if I wasn&apos;t in a bike lane when hit?
               </h3>
               <p className="text-gray-700">
-                Cyclists aren\&apos;t required to use bike lanes in NC. You have the right to use the
+                Cyclists aren&apos;t required to use bike lanes in NC. You have the right to use the
                 full travel lane when necessary for safety. We&apos;ll prove you were riding legally and
                 the driver failed to share the road safely.
               </p>
@@ -500,7 +500,7 @@ export default function BicycleAccidentsPage() {
                 What if the driver claims they didn&apos;t see me?
               </h3>
               <p className="text-gray-700">
-                &quot;I didn\&apos;t see the cyclist&quot; isn&apos;t a valid defense. Drivers have a duty to
+                &quot;I didn&apos;t see the cyclist&quot; isn&apos;t a valid defense. Drivers have a duty to
                 watch for all road users, including cyclists. We prove the driver failed to maintain
                 proper lookout and violated their duty of care.
               </p>

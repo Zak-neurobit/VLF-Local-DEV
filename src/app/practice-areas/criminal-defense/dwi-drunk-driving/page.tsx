@@ -114,7 +114,7 @@ export default function DWIDefensePage() {
                 CRITICAL: 30-Day Deadline to Save Your License
               </h2>
               <p className="text-red-700 text-lg mb-4">
-                If you\&apos;ve been arrested for DWI in North Carolina, you have only 30 days from your
+                If you&apos;ve been arrested for DWI in North Carolina, you have only 30 days from your
                 arrest date to request a hearing with the DMV to contest your license suspension.
                 Missing this deadline means automatic license suspension.
               </p>
@@ -336,7 +336,7 @@ export default function DWIDefensePage() {
               </h3>
               <p className="text-gray-700">
                 North Carolina has &quot;implied consent&quot; laws - refusing can result in automatic license
-                suspension. However, this doesn\&apos;t mean you can&apos;t fight the charges. We can
+                suspension. However, this doesn&apos;t mean you can&apos;t fight the charges. We can
                 challenge both the refusal and any underlying DWI charges.
               </p>
             </div>

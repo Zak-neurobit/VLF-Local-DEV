@@ -122,7 +122,7 @@ export default function CarAccidentsPage() {
               Been in a Car Accident? We&apos;re Here to Help
             </h2>
             <p className="text-lg text-gray-700 mb-6">
-              Car accidents happen in an instant but can change your life forever. If you\&apos;ve been
+              Car accidents happen in an instant but can change your life forever. If you&apos;ve been
               injured in an auto accident in North Carolina, you need experienced legal
               representation to ensure you receive the compensation you deserve for your injuries,
               lost wages, and pain and suffering.

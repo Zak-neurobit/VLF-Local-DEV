@@ -266,7 +266,7 @@ export default function DrugCrimesPage() {
                   <h3 className="text-xl font-bold text-blue-800 mb-2">Marijuana Status</h3>
                   <p className="text-blue-700">
                     Despite changing state laws, marijuana remains a Schedule I federal controlled
-                    substance. State decriminalization doesn\&apos;t protect against federal charges
+                    substance. State decriminalization doesn&apos;t protect against federal charges
                     or immigration consequences.
                   </p>
                 </div>

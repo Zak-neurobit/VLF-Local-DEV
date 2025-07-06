@@ -129,7 +129,7 @@ export default function DrunkDriverAccidentsPage() {
             <p className="text-lg mb-8">
               NC law caps punitive damages at 3x compensatory damages or $250,000 (whichever is
               greater). We fight for every dollar you deserve, including these additional damages
-              that insurance companies don\&apos;t want to pay.
+              that insurance companies don&apos;t want to pay.
             </p>
             <Link
               href="/contact"
@@ -415,7 +415,7 @@ export default function DrunkDriverAccidentsPage() {
                 Insurance Companies Can&apos;t Defend DWI
               </h3>
               <p className="text-gray-700">
-                Insurance companies can\&apos;t argue their insured wasn&apos;t negligent when they
+                Insurance companies can&apos;t argue their insured wasn&apos;t negligent when they
                 were driving drunk. This eliminates many common defense tactics.
               </p>
             </div>
@@ -513,7 +513,7 @@ export default function DrunkDriverAccidentsPage() {
                 Can I sue if the drunk driver wasn&apos;t convicted of DWI?
               </h3>
               <p className="text-gray-700">
-                Yes. Criminal conviction helps but isn\&apos;t required for a civil lawsuit. The
+                Yes. Criminal conviction helps but isn&apos;t required for a civil lawsuit. The
                 burden of proof is lower in civil cases - we only need to prove negligence by a
                 preponderance of evidence, not beyond reasonable doubt.
               </p>

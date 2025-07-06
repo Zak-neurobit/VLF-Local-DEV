@@ -186,7 +186,7 @@ export default function AboutPage() {
                   <div className="bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-sm rounded-2xl p-8 border border-primary/20">
                     <h3 className="text-2xl font-bold text-primary mb-4">{TRADEMARK.YO_PELEO_POR_TI}</h3>
                     <p className="text-gray-300">
-                      Our motto &ldquo;I Fight For You&rdquo; isn\&apos;t just words - it&apos;s our promise to every client who walks 
+                      Our motto &ldquo;I Fight For You&rdquo; isn&apos;t just words - it&apos;s our promise to every client who walks 
                       through our doors. From the courtroom to the conference room, we fight tirelessly for justice.
                     </p>
                   </div>
@@ -307,7 +307,7 @@ export default function AboutPage() {
                   Our Commitment to <span className="text-primary">Innovation</span>
                 </h2>
                 <p className="text-lg text-gray-300 leading-relaxed text-center max-w-3xl mx-auto">
-                  As pioneers in AI-enhanced legal services, we\&apos;re committed to using technology responsibly 
+                  As pioneers in AI-enhanced legal services, we&apos;re committed to using technology responsibly 
                   to improve access to justice. Our AI assistants work alongside our attorneys to provide 
                   faster responses, more accurate case analysis, and better outcomes for our clients.
                 </p>

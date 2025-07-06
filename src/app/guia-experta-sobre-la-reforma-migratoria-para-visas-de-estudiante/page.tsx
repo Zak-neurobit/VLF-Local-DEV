@@ -73,7 +73,7 @@ export default function GuiaExpertaSobreLaReformaMigratoriaParaVisasDeEstudiante
                 </h2>
                 <div className="text-gray-700">
                   Get a free evaluation of your Todo lo que Necesitas Saber Sobre la Reforma
-                  Migratoria para Visas de Estudiante case. During your consultation, we\&apos;ll: •
+                  Migratoria para Visas de Estudiante case. During your consultation, we&apos;ll: •
                   Review your situation in detail • Explain your legal options • Answer all your
                   questions • Provide honest assessment • Discuss our fee structure
                 </div>

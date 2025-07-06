@@ -16,8 +16,8 @@ export default function CherokeeCountyPage() {
   // Find which region this county belongs to
   const regionData = {"Triangle":{"hub":"raleigh","counties":["Wake","Durham","Orange","Chatham","Johnston","Franklin","Granville","Vance","Warren"],"majorCities":["Raleigh","Durham","Chapel Hill","Cary","Apex","Clayton","Garner","Wake Forest","Morrisville"]},"Charlotte Metro":{"hub":"charlotte","counties":["Mecklenburg","Union","Cabarrus","Gaston","Lincoln","Iredell","Rowan","Cleveland","Catawba"],"majorCities":["Charlotte","Concord","Gastonia","Huntersville","Matthews","Monroe","Salisbury","Statesville"]},"Triad":{"hub":"greensboro","counties":["Guilford","Forsyth","Davidson","Randolph","Alamance","Rockingham","Stokes","Surry","Yadkin"],"majorCities":["Greensboro","Winston-Salem","High Point","Burlington","Lexington","Asheboro","Kernersville"]},"Eastern NC":{"hub":"wilmington","counties":["New Hanover","Brunswick","Pender","Onslow","Carteret","Craven","Pitt","Wayne","Lenoir"],"majorCities":["Wilmington","Jacksonville","Greenville","New Bern","Kinston","Goldsboro","Morehead City"]},"Western NC":{"hub":"asheville","counties":["Buncombe","Henderson","Haywood","Jackson","Transylvania","Madison","Yancey","Mitchell","Avery"],"majorCities":["Asheville","Hendersonville","Waynesville","Brevard","Black Mountain","Boone","Burnsville"]},"Piedmont":{"hub":"fayetteville","counties":["Cumberland","Harnett","Lee","Moore","Hoke","Robeson","Scotland","Richmond","Anson"],"majorCities":["Fayetteville","Sanford","Laurinburg","Lumberton","Southern Pines","Pinehurst","Rockingham"]}};
   const region = Object.entries(regionData).find(([_, data]) => 
-    data.counties.includes(&apos;Cherokee&apos;)
-  )?.[0] || &apos;North Carolina&apos;;
+    data.counties.includes('Cherokee')
+  )?.[0] || 'North Carolina';
   return (
     <>
       <LocationPageTemplate
@@ -50,7 +50,7 @@ export default function CherokeeCountyPage() {
                 </Link>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Workers\&apos; Compensation Lawyer</h3>
+                <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Workers&apos; Compensation Lawyer</h3>
                 <p className="text-gray-600 mb-4">Expert workers&apos; compensation lawyer services for Cherokee County residents</p>
                 <Link href="/practice-areas/workers-compensation" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →

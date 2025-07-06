@@ -511,7 +511,7 @@ export default function MedicalMalpracticePage() {
                     <p className="text-gray-700">
                       Medicine involves risks, and not every bad outcome is malpractice. We have a
                       valid case when a healthcare provider&apos;s negligence caused harm that
-                      wouldn\&apos;t have occurred with proper care. Our free consultation can help
+                      wouldn&apos;t have occurred with proper care. Our free consultation can help
                       determine if you have a case.
                     </p>
                   </div>
@@ -563,7 +563,7 @@ export default function MedicalMalpracticePage() {
               Get Justice for Medical Negligence
             </h2>
             <p className="text-xl text-gray-700 mb-8">
-              If you or a loved one has been harmed by medical malpractice, don\&apos;t wait. Time limits
+              If you or a loved one has been harmed by medical malpractice, don&apos;t wait. Time limits
               apply, and evidence can disappear. Contact our experienced medical malpractice
               attorneys today for a free, confidential case review.
             </p>

@@ -526,7 +526,7 @@ export default function NursingHomeAbusePage() {
 
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      What if my loved one has dementia and can\&apos;t testify?
+                      What if my loved one has dementia and can&apos;t testify?
                     </h3>
                     <p className="text-gray-700">
                       We build cases using medical records, witness testimony, expert opinions, and
@@ -561,7 +561,7 @@ export default function NursingHomeAbusePage() {
             </h2>
             <p className="text-xl text-gray-700 mb-8">
               Elder abuse thrives in silence. If you suspect your loved one is being abused or
-              neglected, don\&apos;t wait. Our compassionate attorneys will fight to protect them and hold
+              neglected, don&apos;t wait. Our compassionate attorneys will fight to protect them and hold
               abusers accountable.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

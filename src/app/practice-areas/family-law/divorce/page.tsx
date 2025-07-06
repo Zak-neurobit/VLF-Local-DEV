@@ -205,7 +205,7 @@ export default function DivorcePage() {
                   <h3 className="text-xl font-semibold mb-2">Separation Period</h3>
                   <p className="text-gray-700">
                     Live separate and apart for one full year. Document your separation date -
-                    it\&apos;s crucial for filing.
+                    it&apos;s crucial for filing.
                   </p>
                 </div>
               </li>
@@ -545,7 +545,7 @@ export default function DivorcePage() {
               </h3>
               <p className="text-gray-700">
                 No. North Carolina is a &quot;no-fault&quot; divorce state. You only need to live separate and
-                apart for one year with the intent to remain separate. You don\&apos;t need to prove
+                apart for one year with the intent to remain separate. You don&apos;t need to prove
                 adultery, abandonment, or other fault.
               </p>
             </div>
@@ -559,7 +559,7 @@ export default function DivorcePage() {
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3">
-                What if my spouse won\&apos;t sign the divorce papers?
+                What if my spouse won&apos;t sign the divorce papers?
               </h3>
               <p className="text-gray-700">
                 Your spouse cannot stop the divorce by refusing to sign. After proper service, they
@@ -594,7 +594,7 @@ export default function DivorcePage() {
             Navigate Your Divorce with Compassionate Legal Support
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Divorce is difficult, but you don\&apos;t have to face it alone. Our experienced attorneys
+            Divorce is difficult, but you don&apos;t have to face it alone. Our experienced attorneys
             guide you through every step while protecting your rights and future.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

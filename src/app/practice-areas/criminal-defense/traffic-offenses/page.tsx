@@ -295,7 +295,7 @@ export default function TrafficOffensesPage() {
               <h3 className="text-xl font-semibold mb-3 text-[#001845]">Negotiated Reductions</h3>
               <p className="text-gray-700">
                 Reducing moving violations to non-moving equipment violations, improper equipment,
-                or lesser speeds that don\&apos;t impact insurance.
+                or lesser speeds that don&apos;t impact insurance.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
@@ -475,7 +475,7 @@ export default function TrafficOffensesPage() {
                 What is a Prayer for Judgment Continued (PJC)?
               </h3>
               <p className="text-gray-700">
-                A PJC is when the judge doesn\&apos;t enter judgment, avoiding DMV points. You can
+                A PJC is when the judge doesn&apos;t enter judgment, avoiding DMV points. You can
                 use one PJC per household every 3 years for insurance purposes, and two PJCs every 5
                 years for DMV points. Use them wisely - we help strategize.
               </p>

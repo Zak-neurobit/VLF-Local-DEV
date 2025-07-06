@@ -507,7 +507,7 @@ export default function EmploymentBasedImmigrationPage() {
               Ready to Build Your U.S. Career?
             </h2>
             <p className="text-xl text-gray-700 mb-8">
-              Whether you\&apos;re an employer seeking top talent or a worker pursuing the American
+              Whether you&apos;re an employer seeking top talent or a worker pursuing the American
               dream, our employment immigration attorneys are here to guide you through every step.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

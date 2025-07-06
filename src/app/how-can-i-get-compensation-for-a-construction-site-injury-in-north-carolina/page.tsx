@@ -68,7 +68,7 @@ export default function ConstructionInjuryCompensationBlog() {
                   <p className="text-gray-700 leading-relaxed mb-6">
                     Construction sites are among the most dangerous workplaces in North Carolina.
                     With heavy machinery, heights, electrical hazards, and constantly changing
-                    conditions, construction workers face significant risks every day. If you\&apos;ve
+                    conditions, construction workers face significant risks every day. If you&apos;ve
                     been injured on a construction site, you have several potential paths to
                     compensation, and understanding your options is crucial for protecting your
                     rights and financial future.
@@ -98,7 +98,7 @@ export default function ConstructionInjuryCompensationBlog() {
                     </li>
                     <li className="mb-2">
                       <strong>Vocational Rehabilitation:</strong> Training for new work if you
-                      can\&apos;t return to construction
+                      can&apos;t return to construction
                     </li>
                     <li className="mb-2">
                       <strong>Death Benefits:</strong> Support for dependents in fatal accident
@@ -255,7 +255,7 @@ export default function ConstructionInjuryCompensationBlog() {
 
                   <p className="text-gray-700 leading-relaxed mb-6">
                     North Carolina follows the harsh contributory negligence rule for third-party
-                    claims. If you\&apos;re found even 1% at fault, you may be barred from recovery.
+                    claims. If you&apos;re found even 1% at fault, you may be barred from recovery.
                     However, this doesn&apos;t apply to workers&apos; compensation claims, and experienced
                     attorneys can often overcome this defense by proving:
                   </p>
@@ -314,7 +314,7 @@ export default function ConstructionInjuryCompensationBlog() {
                     <p className="text-gray-700 mb-6">
                       At Vasquez Law Firm, we understand the devastating impact of construction
                       injuries on workers and their families. We&apos;ll fight to ensure you receive
-                      every dollar of compensation you\&apos;re entitled to under the law.
+                      every dollar of compensation you&apos;re entitled to under the law.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
                       <a

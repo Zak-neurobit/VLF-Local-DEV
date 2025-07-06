@@ -97,7 +97,7 @@ export default function PropertyDivisionPage() {
           </h2>
           <p className="text-lg text-gray-700 text-center mb-8 max-w-3xl mx-auto">
             North Carolina follows &quot;equitable distribution&quot; - meaning fair, not necessarily equal.
-            Courts divide marital property based on what\&apos;s just, considering many factors.
+            Courts divide marital property based on what&apos;s just, considering many factors.
           </p>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-md text-center">

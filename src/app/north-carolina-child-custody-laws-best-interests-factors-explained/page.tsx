@@ -172,7 +172,7 @@ export default function NCChildCustodyBlog() {
                       </h3>
                       <p className="text-gray-700">
                         The adequacy of each parent&apos;s home, including safety, space, and proximity
-                        to school and activities. Financial disparities alone don\&apos;t determine
+                        to school and activities. Financial disparities alone don&apos;t determine
                         custody.
                       </p>
                     </div>
@@ -297,7 +297,7 @@ export default function NCChildCustodyBlog() {
                   </h2>
 
                   <p className="text-gray-700 leading-relaxed mb-6">
-                    Custody orders can be modified when there\&apos;s been a &quot;substantial change in
+                    Custody orders can be modified when there&apos;s been a &quot;substantial change in
                     circumstances&quot; affecting the child&apos;s welfare. Common reasons include:
                   </p>
 

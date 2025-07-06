@@ -185,7 +185,7 @@ export default function CaseResultsPage() {
               <h1 className="text-4xl font-bold text-brand-charcoal mb-4">Proven Case Results</h1>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 We&apos;re proud of our track record of success. Here are some recent victories
-                we\&apos;ve achieved for our clients across all practice areas.
+                we&apos;ve achieved for our clients across all practice areas.
               </p>
             </div>
 

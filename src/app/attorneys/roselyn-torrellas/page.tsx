@@ -109,7 +109,7 @@ export default function Page() {
                     her passionate advocacy for clients navigating the complex immigration system.
                   </p>
                   <p className="text-lg mb-6 text-gray-300">
-                    After graduating high school, she couldn\&apos;t immediately attend college due to her family&apos;s 
+                    After graduating high school, she couldn&apos;t immediately attend college due to her family&apos;s 
                     ongoing immigration process. This experience sparked her determination to become an immigration 
                     attorney and help others overcome similar obstacles.
                   </p>
@@ -263,7 +263,7 @@ export default function Page() {
                 <h3 className="text-2xl font-bold mb-4 text-white">Beyond the Law Office</h3>
                 <p className="text-lg text-gray-300 max-w-3xl mx-auto">
                   In her free time, Roselyn enjoys the outdoors - hiking, swimming, or spending relaxing days 
-                  at the park with her daughter. She\&apos;s an avid reader and makes it a priority to travel outside 
+                  at the park with her daughter. She&apos;s an avid reader and makes it a priority to travel outside 
                   the United States at least once a year, staying connected to her roots and exploring new cultures.
                 </p>
               </motion.div>

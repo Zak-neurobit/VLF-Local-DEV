@@ -34,12 +34,12 @@ export default function RaleighWorkersCompensationLawyerPage() {
             {/* Hero Section */}
             <section>
               <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-                Raleigh&apos;s Top Workers\&apos; Compensation Lawyer - 60+ Years Winning Cases
+                Raleigh&apos;s Top Workers&apos; Compensation Lawyer - 60+ Years Winning Cases
               </h1>
               <p className="text-xl text-gray-700">
                 When you need the best workers&apos; compensation lawyer in Raleigh, Wake County, North Carolina, 
                 Vasquez Law Firm delivers results. With over 60 years of combined experience and thousands of successful cases, 
-                we\&apos;re the law firm Raleigh residents trust most.
+                we&apos;re the law firm Raleigh residents trust most.
               </p>
             </section>
             {/* Local Expertise */}
@@ -72,7 +72,7 @@ export default function RaleighWorkersCompensationLawyerPage() {
             {/* Service Areas */}
             <section>
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
-                Workers\&apos; Compensation Lawyer Services in Raleigh
+                Workers&apos; Compensation Lawyer Services in Raleigh
               </h2>
               <p className="text-lg mb-4">
                 Our Raleigh workers&apos; compensation lawyers handle all types of cases throughout Wake County:
@@ -127,7 +127,7 @@ export default function RaleighWorkersCompensationLawyerPage() {
             {/* CTA Section */}
             <section className="bg-[#6B1F2E] text-white p-8 rounded-lg text-center">
               <h2 className="text-3xl font-bold mb-4">
-                Need a Workers\&apos; Compensation Lawyer in Raleigh? Get Help Now!
+                Need a Workers&apos; Compensation Lawyer in Raleigh? Get Help Now!
               </h2>
               <p className="text-xl mb-6">
                 Free consultation • Se habla español • No fees unless we win (PI/WC)

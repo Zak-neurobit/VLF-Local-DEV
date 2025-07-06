@@ -204,7 +204,7 @@ export default function TrafficViolationsPage() {
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Affordable Flat Fees</h3>
-                  <p className="text-gray-300">Clear, upfront pricing that\&apos;s often less than your insurance increase would be.</p>
+                  <p className="text-gray-300">Clear, upfront pricing that&apos;s often less than your insurance increase would be.</p>
                 </div>
               </div>
             </section>

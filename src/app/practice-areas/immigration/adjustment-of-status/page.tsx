@@ -288,7 +288,7 @@ export default function AdjustmentOfStatusPage() {
                 </div>
 
                 <p className="text-gray-700">
-                  These challenges don\&apos;t necessarily disqualify you from adjustment of status, but
+                  These challenges don&apos;t necessarily disqualify you from adjustment of status, but
                   they require experienced legal navigation. Our attorneys have successfully handled
                   complex cases involving waivers, appeals, and other remedies.
                 </p>

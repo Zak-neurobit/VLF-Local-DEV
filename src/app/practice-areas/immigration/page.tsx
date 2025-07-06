@@ -200,7 +200,7 @@ export default function ImmigrationLawPage() {
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">24/7 Support</h3>
-                  <p className="text-gray-300">Our AI-powered case tracking and 24/7 availability ensure you\&apos;re never alone in your immigration journey.</p>
+                  <p className="text-gray-300">Our AI-powered case tracking and 24/7 availability ensure you&apos;re never alone in your immigration journey.</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Bilingual Excellence</h3>

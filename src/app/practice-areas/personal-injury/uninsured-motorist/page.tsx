@@ -125,7 +125,7 @@ export default function UninsuredMotoristPage() {
               </h3>
               <p className="text-gray-700 mb-4">
                 Covers you when hit by a driver with no insurance at all. Also applies to
-                hit-and-run accidents where the at-fault driver can\&apos;t be identified.
+                hit-and-run accidents where the at-fault driver can&apos;t be identified.
               </p>
               <ul className="space-y-2 text-gray-700">
                 <li>• Driver has no insurance</li>
@@ -169,7 +169,7 @@ export default function UninsuredMotoristPage() {
             </h2>
             <p className="text-xl mb-8">
               In UM/UIM claims, you&apos;re fighting your own insurance company for benefits. They
-              use every trick to minimize payouts, even though you\&apos;ve paid premiums for years.
+              use every trick to minimize payouts, even though you&apos;ve paid premiums for years.
             </p>
             <div className="grid md:grid-cols-2 gap-6 text-left">
               <div className="bg-white/10 p-6 rounded-lg">

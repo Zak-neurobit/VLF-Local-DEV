@@ -147,7 +147,7 @@ export default function TruckAccidentsPage() {
                   Why Truck Accidents Are Different
                 </h2>
                 <p className="text-gray-700 mb-6">
-                  Truck accidents aren\&apos;t just &quot;bigger car accidents.&quot; The physics, regulations,
+                  Truck accidents aren&apos;t just &quot;bigger car accidents.&quot; The physics, regulations,
                   and legal complexities make these cases fundamentally different - and far more
                   serious.
                 </p>
@@ -630,7 +630,7 @@ export default function TruckAccidentsPage() {
                       What if the truck driver wasn&apos;t ticketed?
                     </h3>
                     <p className="text-gray-700">
-                      Police don\&apos;t always identify all violations at the scene. Our investigation
+                      Police don&apos;t always identify all violations at the scene. Our investigation
                       often reveals Hours of Service violations, maintenance issues, or other
                       negligence not apparent to responding officers.
                     </p>

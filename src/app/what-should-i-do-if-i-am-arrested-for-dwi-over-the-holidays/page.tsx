@@ -68,7 +68,7 @@ export default function WhatShouldIDoIfIAmArrestedForDwiOverTheHolidaysPage() {
                 </h2>
                 <div className="text-gray-700">
                   Get a free evaluation of your criminalDefense case. During your consultation,
-                  we\&apos;ll: • Review your situation in detail • Explain your legal options •
+                  we&apos;ll: • Review your situation in detail • Explain your legal options •
                   Answer all your questions • Provide honest assessment • Discuss our fee structure
                 </div>
               </div>

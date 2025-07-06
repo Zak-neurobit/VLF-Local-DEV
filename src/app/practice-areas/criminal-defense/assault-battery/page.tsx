@@ -71,7 +71,7 @@ export default function AssaultBatteryPage() {
             <p className="text-lg text-gray-700 mb-6">
               Our experienced criminal defense attorneys understand the complexities of assault and
               battery laws in North Carolina. We provide aggressive defense strategies tailored to
-              your specific case, whether you\&apos;re facing simple assault charges or more serious
+              your specific case, whether you&apos;re facing simple assault charges or more serious
               aggravated assault allegations.
             </p>
           </div>

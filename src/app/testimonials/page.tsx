@@ -68,7 +68,7 @@ export default function TestimonialsPage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Need Legal Help?</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Join the thousands of satisfied clients we\&apos;ve helped. 
+              Join the thousands of satisfied clients we&apos;ve helped. 
               Contact our experienced attorneys today for a free consultation.
             </p>
           </div>
