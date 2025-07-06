@@ -13,7 +13,11 @@ interface ModernPracticeAreaTemplateProps {
   subtitle?: string;
   description: string;
   content: React.ReactNode;
-  services?: string[];
+  services?: Array<{
+    title: string;
+    description: string;
+    features?: string[];
+  }>;
   faqs?: Array<{
     question: string;
     answer: string;
@@ -33,7 +37,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
   faqs = [],
 }) => {
   const [language, setLanguage] = useState<'en' | 'es'>('en');
-  const [activeService, setActiveService] = useState(0);
+  const [activeService, setActiveService] = useState(-1);
 
   useEffect(() => {
     const browserLang = navigator.language.toLowerCase();
@@ -179,23 +183,95 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
-                    onClick={() => setActiveService(index)}
+                    whileHover={{ scale: 1.03 }}
+                    onClick={() => setActiveService(activeService === index ? -1 : index)}
                     className={`cursor-pointer p-6 rounded-lg border transition-all ${
                       activeService === index
                         ? 'bg-primary/10 border-primary'
                         : 'bg-white/5 border-white/10 hover:border-primary/50'
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-semibold text-white">{service}</h3>
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-lg font-semibold text-white">{service.title}</h3>
                       <ChevronRight className={`w-5 h-5 transition-transform ${
                         activeService === index ? 'rotate-90 text-primary' : 'text-gray-400'
                       }`} />
                     </div>
+                    
+                    <AnimatePresence>
+                      {activeService === index && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="overflow-hidden"
+                        >
+                          <p className="text-gray-300 mb-3">{service.description}</p>
+                          {service.features && service.features.length > 0 && (
+                            <ul className="space-y-2">
+                              {service.features.map((feature, fIndex) => (
+                                <li key={fIndex} className="flex items-start">
+                                  <span className="text-primary mr-2">•</span>
+                                  <span className="text-sm text-gray-400">{feature}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </motion.div>
                 ))}
               </div>
+
+              {/* Service Details Panel - Alternative Display Option */}
+              <AnimatePresence>
+                {activeService >= 0 && activeService < services.length && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-8 border border-primary/20"
+                  >
+                    <h3 className="text-2xl font-bold text-primary mb-4">{services[activeService].title}</h3>
+                    <p className="text-lg text-gray-300 mb-6">{services[activeService].description}</p>
+                    {services[activeService].features && services[activeService].features.length > 0 && (
+                      <div>
+                        <h4 className="text-lg font-semibold text-white mb-3">
+                          {language === 'en' ? 'What We Handle:' : 'Lo Que Manejamos:'}
+                        </h4>
+                        <div className="grid md:grid-cols-2 gap-3">
+                          {services[activeService].features.map((feature, index) => (
+                            <div key={index} className="flex items-center">
+                              <Shield className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
+                              <span className="text-gray-300">{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    <div className="mt-6 flex gap-4">
+                      <Button
+                        href="/contact"
+                        size="md"
+                        className="bg-primary text-black hover:bg-primary-300"
+                      >
+                        {language === 'en' ? 'Get Help Now' : 'Obtener Ayuda Ahora'}
+                      </Button>
+                      <Button
+                        href="tel:1-844-967-3536"
+                        variant="outline"
+                        size="md"
+                        className="border-primary text-primary hover:bg-primary hover:text-black"
+                      >
+                        <Phone className="w-4 h-4 mr-2" />
+                        {language === 'en' ? 'Call Now' : 'Llame Ahora'}
+                      </Button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </section>
         )}

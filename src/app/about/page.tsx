@@ -27,10 +27,10 @@ export default function AboutPage() {
   const content = {
     en: {
       title: 'About Vasquez Law Firm',
-      subtitle: 'Fighting for You Since 1989',
+      subtitle: 'Fighting for You Since 2011',
       story: 'Our Story',
       storyText1:
-        'Founded over three decades ago, Vasquez Law Firm has grown from a small family practice to one of the most innovative law firms in North Carolina and Florida. Our commitment to providing honest, reliable representation at an affordable price has never wavered.',
+        'Founded in 2011, Vasquez Law Firm has grown from a small family practice to one of the most innovative law firms in North Carolina and Florida. Our commitment to providing honest, reliable representation at an affordable price has never wavered.',
       storyText2:
         'Today, we combine our traditional values with cutting-edge AI technology to offer our clients the best of both worlds: experienced human attorneys backed by 24/7 intelligent assistance.',
       mission: 'Our Mission',
@@ -38,12 +38,13 @@ export default function AboutPage() {
         'To provide accessible, high-quality legal representation to all members of our community, regardless of their background or circumstances. We leverage technology to break down barriers and ensure justice is available to everyone.',
       values: 'Our Values',
       value1: {
-        title: 'Integrity',
-        desc: 'We maintain the highest ethical standards in everything we do',
+        title: 'MY FAMILY, YOUR FAMILY',
+        desc: 'We value our team and clients as family, fostering relationships built on mutual investment and care',
       },
-      value2: { title: 'Innovation', desc: 'We embrace technology to better serve our clients' },
-      value3: { title: 'Inclusion', desc: 'We serve all communities with respect and dignity' },
-      value4: { title: 'Impact', desc: 'We measure success by the lives we change' },
+      value2: { title: 'HONESTY', desc: 'We are straightforward and honest from the very first consultation, ensuring trust and transparency' },
+      value3: { title: 'DEDICATION', desc: 'We are committed to the growth of everyone in our firm, helping employees move into their strengths' },
+      value4: { title: 'QUALITY EXPERIENCE', desc: 'We strive to create a fun and productive workspace that enhances quality of life' },
+      value5: { title: 'I FIGHT - YO PELEO', desc: 'We are dedicated to fighting for our clients and our team with passion and commitment' },
       commitment: 'Our Commitment to Innovation',
       commitmentText:
         "As pioneers in AI-enhanced legal services, we're committed to using technology responsibly to improve access to justice. Our AI assistants work alongside our attorneys to provide faster responses, more accurate predictions, and better outcomes for our clients.",
@@ -68,10 +69,10 @@ export default function AboutPage() {
     },
     es: {
       title: 'Acerca de Vasquez Law Firm',
-      subtitle: 'Luchando por Ti Desde 1989',
+      subtitle: 'Luchando por Ti Desde 2011',
       story: 'Nuestra Historia',
       storyText1:
-        'Fundada hace más de tres décadas, Vasquez Law Firm ha crecido de una pequeña práctica familiar a una de las firmas de abogados más innovadoras en Carolina del Norte y Florida. Nuestro compromiso de brindar representación honesta y confiable a un precio asequible nunca ha flaqueado.',
+        'Fundada en 2011, Vasquez Law Firm ha crecido de una pequeña práctica familiar a una de las firmas de abogados más innovadoras en Carolina del Norte y Florida. Nuestro compromiso de brindar representación honesta y confiable a un precio asequible nunca ha flaqueado.',
       storyText2:
         'Hoy, combinamos nuestros valores tradicionales con tecnología IA de vanguardia para ofrecer a nuestros clientes lo mejor de ambos mundos: abogados humanos experimentados respaldados por asistencia inteligente 24/7.',
       mission: 'Nuestra Misión',
@@ -79,18 +80,19 @@ export default function AboutPage() {
         'Proporcionar representación legal accesible y de alta calidad a todos los miembros de nuestra comunidad, independientemente de su origen o circunstancias. Aprovechamos la tecnología para derribar barreras y garantizar que la justicia esté disponible para todos.',
       values: 'Nuestros Valores',
       value1: {
-        title: 'Integridad',
-        desc: 'Mantenemos los más altos estándares éticos en todo lo que hacemos',
+        title: 'MI FAMILIA, TU FAMILIA',
+        desc: 'Valoramos a nuestro equipo y clientes como familia, fomentando relaciones basadas en inversión mutua y cuidado',
       },
       value2: {
-        title: 'Innovación',
-        desc: 'Adoptamos la tecnología para servir mejor a nuestros clientes',
+        title: 'HONESTIDAD',
+        desc: 'Somos directos y honestos desde la primera consulta, asegurando confianza y transparencia',
       },
       value3: {
-        title: 'Inclusión',
-        desc: 'Servimos a todas las comunidades con respeto y dignidad',
+        title: 'DEDICACIÓN',
+        desc: 'Estamos comprometidos con el crecimiento de todos en nuestra firma, ayudando a los empleados a desarrollar sus fortalezas',
       },
-      value4: { title: 'Impacto', desc: 'Medimos el éxito por las vidas que cambiamos' },
+      value4: { title: 'EXPERIENCIA DE CALIDAD', desc: 'Nos esforzamos por crear un espacio de trabajo divertido y productivo que mejore la calidad de vida' },
+      value5: { title: 'YO PELEO', desc: 'Estamos dedicados a luchar por nuestros clientes y nuestro equipo con pasión y compromiso' },
       commitment: 'Nuestro Compromiso con la Innovación',
       commitmentText:
         'Como pioneros en servicios legales mejorados con IA, estamos comprometidos a usar la tecnología de manera responsable para mejorar el acceso a la justicia. Nuestros asistentes de IA trabajan junto a nuestros abogados para brindar respuestas más rápidas, predicciones más precisas y mejores resultados para nuestros clientes.',
@@ -309,8 +311,8 @@ export default function AboutPage() {
             {/* Values */}
             <div className="mb-16">
               <Heading level={2} className="text-center text-white mb-12">{t.values}</Heading>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {[t.value1, t.value2, t.value3, t.value4].map((value, index) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+                {[t.value1, t.value2, t.value3, t.value4, t.value5].map((value, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
@@ -321,7 +323,7 @@ export default function AboutPage() {
                   >
                     <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
                       <div className="text-2xl">
-                        {index === 0 ? '⚖️' : index === 1 ? '💡' : index === 2 ? '🤝' : '🎯'}
+                        {index === 0 ? '👨‍👩‍👧‍👦' : index === 1 ? '🤝' : index === 2 ? '💪' : index === 3 ? '⭐' : '⚔️'}
                       </div>
                     </div>
                     <h3 className="text-xl font-semibold text-white mb-2">{value.title}</h3>

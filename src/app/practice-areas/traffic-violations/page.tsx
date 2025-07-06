@@ -39,71 +39,206 @@ export const metadata: Metadata = {
 
 export default function TrafficViolationsPage() {
   const services = [
-    'Speeding Ticket Defense',
-    'Reckless Driving',
-    'License Suspension/Restoration',
-    'CDL Violation Defense',
-    'DWI/DUI Related Tickets',
-    'Hit & Run Defense',
-    'Failure to Appear',
-    'Moving Violations',
-    'Insurance Point Prevention',
+    {
+      title: 'Speeding Ticket Defense',
+      description: 'Fight speeding tickets to avoid points, increased insurance rates, and license suspension. We know how to challenge radar evidence and procedural errors.',
+      features: [
+        'Radar/laser challenges',
+        'Speed trap defenses',
+        'Equipment calibration issues',
+        'Officer training verification',
+        'Reduction negotiations',
+        'Prayer for judgment continued'
+      ]
+    },
+    {
+      title: 'Reckless Driving Defense',
+      description: 'Reckless driving is a serious misdemeanor in NC. We work to reduce or dismiss charges that could result in jail time and permanent criminal records.',
+      features: [
+        'Speed-related reckless charges',
+        'Aggressive driving defense',
+        'Racing and competition charges',
+        'Endangerment allegations',
+        'Misdemeanor reduction',
+        'License preservation'
+      ]
+    },
+    {
+      title: 'License Suspension/Restoration',
+      description: 'Lost your license? We help restore driving privileges through hearings, limited driving privileges, and challenging the basis for suspension.',
+      features: [
+        'DMV hearing representation',
+        'Limited driving privileges',
+        'Point system navigation',
+        'Multiple offense strategies',
+        'Out-of-state license issues',
+        'Hardship license applications'
+      ]
+    },
+    {
+      title: 'CDL Violation Defense',
+      description: 'Commercial drivers can\'t afford tickets. We protect CDL holders from career-ending violations with specialized defense strategies.',
+      features: [
+        'DOT violation defense',
+        'Logbook violations',
+        'Weight limit issues',
+        'Equipment violations',
+        'CDL disqualification prevention',
+        'Interstate commerce violations'
+      ]
+    },
+    {
+      title: 'Moving Violations',
+      description: 'From running red lights to improper lane changes, we defend against all moving violations to protect your record and insurance rates.',
+      features: [
+        'Red light violations',
+        'Stop sign violations',
+        'Improper lane change',
+        'Following too closely',
+        'Failure to yield',
+        'Illegal passing'
+      ]
+    },
+    {
+      title: 'Insurance Point Prevention',
+      description: 'Even "minor" tickets can spike your insurance rates for years. We fight to keep points off your record and money in your pocket.',
+      features: [
+        'Point reduction strategies',
+        'Insurance rate protection',
+        'Safe driver status preservation',
+        'Multiple ticket defense',
+        'Out-of-state ticket handling',
+        'Driver improvement programs'
+      ]
+    },
+    {
+      title: 'Hit & Run Defense',
+      description: 'Leaving the scene charges carry severe penalties. We provide aggressive defense to protect your freedom and driving privileges.',
+      features: [
+        'Property damage cases',
+        'Personal injury incidents',
+        'Failure to report accidents',
+        'Witness identification issues',
+        'Evidence challenges',
+        'Felony charge reduction'
+      ]
+    },
+    {
+      title: 'DWI-Related Traffic Offenses',
+      description: 'Traffic violations connected to DWI charges require special attention. We coordinate defense strategies to minimize overall consequences.',
+      features: [
+        'Open container violations',
+        'Driving after consuming',
+        'License revocation issues',
+        'Ignition interlock violations',
+        'Limited privilege violations',
+        'Underage alcohol offenses'
+      ]
+    },
+    {
+      title: 'Equipment & Registration',
+      description: 'Fix-it tickets and registration issues can escalate quickly. We help resolve these matters efficiently to avoid larger problems.',
+      features: [
+        'Expired registration',
+        'No insurance charges',
+        'Equipment violations',
+        'Window tint citations',
+        'Exhaust system violations',
+        'Safety inspection issues'
+      ]
+    }
   ];
 
   const faqs = [
     {
-      question: 'How much does a traffic violations lawyer cost in North Carolina?',
-      answer: 'At Vasquez Law Firm, we offer free consultations and flexible payment options. We provide transparent, competitive pricing with payment plans available.',
+      question: 'Should I just pay my traffic ticket?',
+      answer: 'No! Paying a ticket is an admission of guilt that adds points to your license and increases insurance rates. Always consult an attorney first - we often get tickets reduced or dismissed.'
     },
     {
-      question: 'Do you handle traffic violations cases throughout NC?',
-      answer: 'Yes! With offices in Raleigh, Charlotte, Durham, and Smithfield, plus virtual consultations, we serve all 100 North Carolina counties.',
+      question: 'How much does a traffic lawyer cost?',
+      answer: 'Our traffic ticket defense starts at very affordable rates, often less than the increased insurance costs from the ticket. We offer flat fees with no hidden costs.'
     },
     {
-      question: 'How quickly can I speak with a traffic violations attorney?',
-      answer: 'We offer same-day consultations and 24/7 emergency availability. Call 1-844-YO-PELEO or use our AI chat for immediate assistance.',
+      question: 'Do I have to go to court?',
+      answer: 'In most cases, we can appear in court for you, saving you time and travel. You won\'t need to miss work or drive long distances.'
     },
     {
-      question: 'Should I just pay the ticket?',
-      answer: 'Don\'t just pay! Paying a ticket is admitting guilt and can add points to your license, increase insurance rates, and even suspend your license.',
+      question: 'Can you help with out-of-state licenses?',
+      answer: 'Yes! We regularly help out-of-state drivers with NC tickets. Most states share violation information, so NC tickets can affect your home state license.'
     },
     {
-      question: 'Can you help with CDL violations?',
-      answer: 'Absolutely! We specialize in CDL defense and understand the serious consequences commercial drivers face. We fight to protect your livelihood.',
-    },
+      question: 'What about CDL tickets?',
+      answer: 'CDL holders face stricter rules and harsher penalties. We specialize in protecting commercial driving privileges and understand DOT regulations.'
+    }
   ];
 
   return (
     <>
       <ModernPracticeAreaTemplate
-        title="North Carolina\'s Go-To Traffic Ticket Lawyers - Keep Your License"
-        subtitle="Traffic Violations Attorneys Serving All of North Carolina"
-        description="Got a traffic ticket in North Carolina? Don\'t just pay it - fight it! With 60+ years of experience, we\'ve helped thousands keep their licenses and avoid insurance hikes."
+        title="North Carolina's Top Traffic Ticket Defense Firm"
+        subtitle="Save Your License - Protect Your Insurance - Avoid Points"
+        description="Don't let traffic tickets derail your life. With 60+ years of experience and offices across NC, we make fighting tickets easy and affordable."
         services={services}
         faqs={faqs}
         content={
           <div className="space-y-12">
-            {/* Why Choose Section */}
+            {/* Why Fight Section */}
             <section>
-              <h2 className="text-3xl font-bold mb-6 text-primary">Why Choose Vasquez Law Firm for Traffic Violations?</h2>
-              <p className="text-lg mb-6">Your advantage: ✓ 90% ticket dismissal rate ✓ No court appearance needed ✓ CDL protection specialists ✓ Insurance point prevention ✓ Flat-fee pricing</p>
+              <h2 className="text-3xl font-bold mb-6 text-primary">Why Fight Your Traffic Ticket?</h2>
+              <p className="text-lg mb-6">
+                That "simple" speeding ticket can cost thousands in increased insurance rates, risk your license, and even affect employment. Don't just pay it - fight it with experienced attorneys who know how to win.
+              </p>
               
               <div className="grid md:grid-cols-2 gap-6 mt-8">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
-                  <h3 className="text-xl font-bold text-primary mb-3">90% Dismissal Rate</h3>
-                  <p className="text-gray-300">Our proven track record speaks for itself. We know how to challenge tickets and get charges dismissed.</p>
+                  <h3 className="text-xl font-bold text-primary mb-3">Save Your License</h3>
+                  <p className="text-gray-300">Multiple tickets can lead to suspension. We protect your driving privileges with proven defense strategies.</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
-                  <h3 className="text-xl font-bold text-primary mb-3">No Court Required</h3>
-                  <p className="text-gray-300">In most cases, you don\\'t need to appear in court. We handle everything so you can focus on your life.</p>
+                  <h3 className="text-xl font-bold text-primary mb-3">Lower Insurance Rates</h3>
+                  <p className="text-gray-300">Even one ticket can increase rates by 30%+. We fight to keep points off your record.</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
-                  <h3 className="text-xl font-bold text-primary mb-3">CDL Protection</h3>
-                  <p className="text-gray-300">Commercial drivers face serious consequences. We specialize in protecting CDL holders and their livelihoods.</p>
+                  <h3 className="text-xl font-bold text-primary mb-3">Convenient Representation</h3>
+                  <p className="text-gray-300">We appear in court for you. No missed work, no long drives, no hassle.</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
-                  <h3 className="text-xl font-bold text-primary mb-3">Insurance Savings</h3>
-                  <p className="text-gray-300">Avoid insurance rate increases and points on your license. We fight to keep your record clean.</p>
+                  <h3 className="text-xl font-bold text-primary mb-3">Affordable Flat Fees</h3>
+                  <p className="text-gray-300">Clear, upfront pricing that's often less than your insurance increase would be.</p>
+                </div>
+              </div>
+            </section>
+
+            {/* NC Points System */}
+            <section>
+              <h2 className="text-3xl font-bold mb-6 text-primary">Understanding NC's Point System</h2>
+              <p className="text-lg mb-6">
+                North Carolina uses both DMV points (affecting your license) and insurance points (affecting your rates). Here's what common violations cost:
+              </p>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                  <h3 className="text-xl font-bold text-primary mb-4">License Points</h3>
+                  <ul className="space-y-2 text-gray-300">
+                    <li>• Speeding 10 mph or less: 2 points</li>
+                    <li>• Speeding 11-15 mph over: 3 points</li>
+                    <li>• Speeding over 55 mph: 3 points</li>
+                    <li>• Reckless driving: 4 points</li>
+                    <li>• Following too closely: 4 points</li>
+                    <li>• Running red light: 3 points</li>
+                  </ul>
+                  <p className="mt-4 text-sm text-gray-400">12 points in 3 years = license suspension</p>
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                  <h3 className="text-xl font-bold text-primary mb-4">Insurance Points</h3>
+                  <ul className="space-y-2 text-gray-300">
+                    <li>• Speeding 10 mph or less: 1 point (30% increase)</li>
+                    <li>• Speeding 11-15 mph over: 2 points (45% increase)</li>
+                    <li>• Speeding over 55 mph: 2 points (45% increase)</li>
+                    <li>• Reckless driving: 4 points (80% increase)</li>
+                    <li>• At-fault accident: 3 points (60% increase)</li>
+                    <li>• DWI: 12 points (340% increase)</li>
+                  </ul>
+                  <p className="mt-4 text-sm text-gray-400">Points stay on insurance for 3 years</p>
                 </div>
               </div>
             </section>
@@ -116,74 +251,74 @@ export default function TrafficViolationsPage() {
                   <span className="text-primary text-2xl font-bold mr-4">1.</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Free Ticket Review</h3>
-                    <p className="text-gray-300">We analyze your ticket and explain your options for fighting the charges.</p>
+                    <p className="text-gray-300">Send us your ticket for a free evaluation. We'll explain your options and likely outcomes.</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <span className="text-primary text-2xl font-bold mr-4">2.</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Evidence Investigation</h3>
-                    <p className="text-gray-300">We examine radar calibration, officer training, and procedural compliance to build your defense.</p>
+                    <h3 className="text-xl font-semibold mb-2">Flat Fee Quote</h3>
+                    <p className="text-gray-300">Get transparent, affordable pricing with no hidden fees or surprises.</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <span className="text-primary text-2xl font-bold mr-4">3.</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Court Representation</h3>
-                    <p className="text-gray-300">We represent you in court, negotiate with prosecutors, and fight for dismissal or reduction.</p>
+                    <h3 className="text-xl font-semibold mb-2">We Handle Everything</h3>
+                    <p className="text-gray-300">We appear in court, negotiate with prosecutors, and fight for the best possible outcome.</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <span className="text-primary text-2xl font-bold mr-4">4.</span>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">License Protection</h3>
-                    <p className="text-gray-300">We ensure your driving record stays clean and your insurance rates remain low.</p>
+                    <h3 className="text-xl font-semibold mb-2">Results Notification</h3>
+                    <p className="text-gray-300">We notify you immediately of the outcome and handle any necessary follow-up.</p>
                   </div>
                 </div>
               </div>
             </section>
 
-            {/* NC Coverage Section */}
+            {/* Coverage Area */}
             <section>
-              <h2 className="text-3xl font-bold mb-6 text-primary">Serving All 100 North Carolina Counties</h2>
+              <h2 className="text-3xl font-bold mb-6 text-primary">We Handle Tickets in All NC Counties</h2>
               <p className="text-lg mb-8">
-                From the mountains to the coast, we provide expert traffic violations representation throughout North Carolina:
+                Got a ticket anywhere in North Carolina? We've got you covered. Our attorneys regularly appear in traffic courts across all 100 counties.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20">
-                  <h3 className="font-semibold text-primary mb-2">Triangle Area</h3>
+                  <h3 className="font-semibold text-primary mb-2">Major Cities</h3>
                   <ul className="text-sm space-y-1 text-gray-300">
                     <li>• Raleigh</li>
-                    <li>• Durham</li>
-                    <li>• Chapel Hill</li>
-                    <li>• Cary</li>
-                  </ul>
-                </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20">
-                  <h3 className="font-semibold text-primary mb-2">Charlotte Metro</h3>
-                  <ul className="text-sm space-y-1 text-gray-300">
                     <li>• Charlotte</li>
-                    <li>• Concord</li>
-                    <li>• Gastonia</li>
-                    <li>• Rock Hill</li>
-                  </ul>
-                </div>
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20">
-                  <h3 className="font-semibold text-primary mb-2">Triad Area</h3>
-                  <ul className="text-sm space-y-1 text-gray-300">
+                    <li>• Durham</li>
                     <li>• Greensboro</li>
-                    <li>• Winston-Salem</li>
-                    <li>• High Point</li>
-                    <li>• Burlington</li>
                   </ul>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20">
-                  <h3 className="font-semibold text-primary mb-2">Eastern NC</h3>
+                  <h3 className="font-semibold text-primary mb-2">Highway Tickets</h3>
                   <ul className="text-sm space-y-1 text-gray-300">
-                    <li>• Wilmington</li>
-                    <li>• Jacksonville</li>
-                    <li>• Greenville</li>
-                    <li>• New Bern</li>
+                    <li>• I-40</li>
+                    <li>• I-85</li>
+                    <li>• I-95</li>
+                    <li>• I-77</li>
+                  </ul>
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20">
+                  <h3 className="font-semibold text-primary mb-2">Rural Counties</h3>
+                  <ul className="text-sm space-y-1 text-gray-300">
+                    <li>• Small towns</li>
+                    <li>• Speed traps</li>
+                    <li>• County roads</li>
+                    <li>• School zones</li>
+                  </ul>
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20">
+                  <h3 className="font-semibold text-primary mb-2">Special Areas</h3>
+                  <ul className="text-sm space-y-1 text-gray-300">
+                    <li>• Military bases</li>
+                    <li>• College campuses</li>
+                    <li>• Work zones</li>
+                    <li>• Federal property</li>
                   </ul>
                 </div>
               </div>
@@ -201,7 +336,7 @@ export default function TrafficViolationsPage() {
             '@context': 'https://schema.org',
             '@type': 'LegalService',
             name: 'Traffic Violations Law Services - Vasquez Law Firm',
-            description: 'Expert traffic ticket defense in North Carolina including speeding tickets, reckless driving, license restoration, and CDL violations.',
+            description: 'Expert traffic ticket defense services in North Carolina including speeding tickets, reckless driving, license restoration, and CDL violations.',
             provider: {
               '@type': 'Attorney',
               name: 'Vasquez Law Firm, PLLC',
@@ -211,10 +346,10 @@ export default function TrafficViolationsPage() {
               '@type': 'State',
               name: 'North Carolina'
             },
-            serviceType: 'Traffic Violations Defense',
+            serviceType: 'Traffic Law',
             offers: {
               '@type': 'Offer',
-              name: 'Free Consultation',
+              name: 'Free Ticket Review',
               price: '0',
               priceCurrency: 'USD'
             }

@@ -39,15 +39,114 @@ export const metadata: Metadata = {
 
 export default function ImmigrationLawPage() {
   const services = [
-    'Family-Based Immigration & Petitions',
-    'Employment-Based Green Cards & Visas',
-    'Deportation & Removal Defense',
-    'Citizenship & Naturalization',
-    'DACA, TPS & Humanitarian Relief',
-    'Immigration Appeals & Waivers',
-    'Adjustment of Status',
-    'Asylum & Refugee Protection',
-    'Investment Visas (EB-5)',
+    {
+      title: 'Family-Based Immigration & Petitions',
+      description: 'Unite with your loved ones in the United States through our comprehensive family immigration services. We handle all types of family petitions with care and expertise.',
+      features: [
+        'Spouse and fiancé(e) visas (K-1, K-3)',
+        'Parent and child petitions',
+        'Sibling sponsorship',
+        'Family preference categories',
+        'Consular processing',
+        'Waiver applications'
+      ]
+    },
+    {
+      title: 'Employment-Based Green Cards & Visas',
+      description: 'Navigate the complex employment immigration system with confidence. We help professionals, skilled workers, and businesses secure work authorization and permanent residency.',
+      features: [
+        'H-1B specialty occupations',
+        'L-1 intracompany transfers',
+        'O-1 extraordinary ability',
+        'EB-1, EB-2, EB-3 green cards',
+        'PERM labor certification',
+        'National Interest Waivers'
+      ]
+    },
+    {
+      title: 'Deportation & Removal Defense',
+      description: 'Facing deportation is frightening, but you don\'t have to face it alone. Our experienced attorneys provide aggressive defense strategies to protect your right to remain in the United States.',
+      features: [
+        'Immigration court representation',
+        'Cancellation of removal',
+        'Asylum and withholding claims',
+        'Appeals to BIA and circuit courts',
+        'Bond hearings',
+        'Prosecutorial discretion'
+      ]
+    },
+    {
+      title: 'Citizenship & Naturalization',
+      description: 'Achieve your American dream by becoming a U.S. citizen. We guide you through every step of the naturalization process, from application to oath ceremony.',
+      features: [
+        'N-400 application preparation',
+        'Citizenship test preparation',
+        'English and civics tutoring referrals',
+        'Disability waivers',
+        'Expedited processing',
+        'Certificate replacements'
+      ]
+    },
+    {
+      title: 'DACA, TPS & Humanitarian Relief',
+      description: 'Access critical protections and work authorization through humanitarian programs. We help eligible individuals secure and maintain their legal status.',
+      features: [
+        'DACA initial applications and renewals',
+        'Temporary Protected Status (TPS)',
+        'Advance parole documents',
+        'U visas for crime victims',
+        'T visas for trafficking victims',
+        'VAWA self-petitions'
+      ]
+    },
+    {
+      title: 'Immigration Appeals & Waivers',
+      description: 'Don\'t give up after a denial. Our attorneys have extensive experience challenging negative decisions and securing waivers for various grounds of inadmissibility.',
+      features: [
+        'I-601 and I-601A waivers',
+        'Administrative appeals (AAO)',
+        'Board of Immigration Appeals',
+        'Federal court litigation',
+        'Motion to reopen/reconsider',
+        'Hardship waiver applications'
+      ]
+    },
+    {
+      title: 'Adjustment of Status',
+      description: 'Transition from temporary visa holder to permanent resident without leaving the United States. We ensure your adjustment application is properly prepared and supported.',
+      features: [
+        'I-485 application filing',
+        'Concurrent filing strategies',
+        'Work and travel permits',
+        'Medical examinations',
+        'Interview preparation',
+        'RFE responses'
+      ]
+    },
+    {
+      title: 'Asylum & Refugee Protection',
+      description: 'Seek safety and protection in the United States if you\'ve faced persecution. Our compassionate team helps you present the strongest possible case for asylum.',
+      features: [
+        'I-589 asylum applications',
+        'Credible fear interviews',
+        'Affirmative and defensive asylum',
+        'Country condition evidence',
+        'Expert witness coordination',
+        'Work authorization'
+      ]
+    },
+    {
+      title: 'Investment Visas (EB-5)',
+      description: 'Invest in your future and obtain permanent residency through the EB-5 investor program. We guide entrepreneurs and investors through this complex but rewarding pathway.',
+      features: [
+        'Regional center investments',
+        'Direct investment options',
+        'Source of funds documentation',
+        'Business plan development',
+        'I-526 and I-829 petitions',
+        'Conditional residency removal'
+      ]
+    },
   ];
 
   const faqs = [

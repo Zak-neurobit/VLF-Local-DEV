@@ -89,6 +89,52 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
             case: 'Federal Drug Case',
           },
         },
+        {
+          name: 'Workers\' Compensation',
+          icon: '🏗️',
+          results: [
+            { amount: '$1.2M', label: 'Largest Settlement', description: 'Construction injury case' },
+            { amount: '2,500+', label: 'Injured Workers Helped', description: 'Getting benefits they deserve' },
+            {
+              amount: '95%',
+              label: 'Approval Rate',
+              description: 'For workplace injury claims',
+            },
+            {
+              amount: '48 hours',
+              label: 'Initial Response',
+              description: 'Fast claim processing',
+            },
+          ],
+          testimonial: {
+            quote: 'After my workplace injury, they secured my medical care and lost wages. I could focus on healing.',
+            author: 'Roberto Martinez',
+            case: 'Construction Site Accident',
+          },
+        },
+        {
+          name: 'Family Law Success',
+          icon: '👨‍👩‍👧‍👦',
+          results: [
+            { amount: '1,000+', label: 'Families Helped', description: 'Through difficult times' },
+            { amount: '90%', label: 'Custody Success', description: 'Favorable custody arrangements' },
+            {
+              amount: '30 days',
+              label: 'Average Resolution',
+              description: 'For uncontested divorces',
+            },
+            {
+              amount: '24/7',
+              label: 'Emergency Support',
+              description: 'For domestic situations',
+            },
+          ],
+          testimonial: {
+            quote: 'They helped me protect my children and secure a fair settlement. Professional and compassionate.',
+            author: 'Sarah Johnson',
+            case: 'Divorce & Custody',
+          },
+        },
       ],
     },
     es: {
@@ -172,6 +218,52 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
             quote: 'Enfrentaba 10 años, pero desestimaron mi caso. Les debo mi libertad.',
             author: 'Michael Davis',
             case: 'Caso Federal de Drogas',
+          },
+        },
+        {
+          name: 'Compensación Laboral',
+          icon: '🏗️',
+          results: [
+            { amount: '$1.2M', label: 'Mayor Acuerdo', description: 'Caso de lesión en construcción' },
+            { amount: '2,500+', label: 'Trabajadores Ayudados', description: 'Obteniendo beneficios merecidos' },
+            {
+              amount: '95%',
+              label: 'Tasa de Aprobación',
+              description: 'Para reclamos de lesiones',
+            },
+            {
+              amount: '48 horas',
+              label: 'Respuesta Inicial',
+              description: 'Procesamiento rápido',
+            },
+          ],
+          testimonial: {
+            quote: 'Después de mi lesión laboral, aseguraron mi atención médica y salarios perdidos. Pude enfocarme en sanar.',
+            author: 'Roberto Martinez',
+            case: 'Accidente en Construcción',
+          },
+        },
+        {
+          name: 'Éxito en Derecho Familiar',
+          icon: '👨‍👩‍👧‍👦',
+          results: [
+            { amount: '1,000+', label: 'Familias Ayudadas', description: 'En tiempos difíciles' },
+            { amount: '90%', label: 'Éxito en Custodia', description: 'Arreglos favorables' },
+            {
+              amount: '30 días',
+              label: 'Resolución Promedio',
+              description: 'Para divorcios sin disputa',
+            },
+            {
+              amount: '24/7',
+              label: 'Apoyo de Emergencia',
+              description: 'Para situaciones domésticas',
+            },
+          ],
+          testimonial: {
+            quote: 'Me ayudaron a proteger a mis hijos y asegurar un acuerdo justo. Profesionales y compasivos.',
+            author: 'Sarah Johnson',
+            case: 'Divorcio y Custodia',
           },
         },
       ],

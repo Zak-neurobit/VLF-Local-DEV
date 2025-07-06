@@ -61,6 +61,8 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
           { name: 'William Vasquez', href: '/attorneys/william-vasquez' },
           { name: 'Christopher Afanador', href: '/attorneys/christopher-afanador' },
           { name: 'Jillian Baucom', href: '/attorneys/jillian-baucom' },
+          { name: 'Roselyn V. Torrellas', href: '/attorneys/roselyn-torrellas' },
+          { name: 'Adrianna Ingram', href: '/attorneys/adrianna-ingram' },
         ]
       },
       { 
@@ -69,9 +71,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
         submenu: [
           { name: 'All Locations', href: '/locations' },
           { name: 'Charlotte', href: '/locations/charlotte' },
-          { name: 'Durham', href: '/locations/durham' },
           { name: 'Raleigh', href: '/locations/raleigh' },
-          { name: 'Winston-Salem', href: '/locations/winston-salem' },
           { name: 'Smithfield', href: '/locations/smithfield' },
           { name: 'Orlando', href: '/locations/orlando' },
         ]
@@ -79,6 +79,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
       { name: 'About', href: '/about' },
       { name: 'Blog', href: '/blog' },
       { name: 'Contact', href: '/contact' },
+      { name: 'Payment', href: '/payment' },
     ],
     es: [
       { name: 'Inicio', href: '/es' },
@@ -102,6 +103,8 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
           { name: 'William Vasquez', href: '/es/abogados/william-vasquez' },
           { name: 'Christopher Afanador', href: '/es/abogados/christopher-afanador' },
           { name: 'Jillian Baucom', href: '/es/abogados/jillian-baucom' },
+          { name: 'Roselyn V. Torrellas', href: '/es/abogados/roselyn-torrellas' },
+          { name: 'Adrianna Ingram', href: '/es/abogados/adrianna-ingram' },
         ]
       },
       { 
@@ -110,9 +113,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
         submenu: [
           { name: 'Todas las Ubicaciones', href: '/es/ubicaciones' },
           { name: 'Charlotte', href: '/es/ubicaciones/charlotte' },
-          { name: 'Durham', href: '/es/ubicaciones/durham' },
           { name: 'Raleigh', href: '/es/ubicaciones/raleigh' },
-          { name: 'Winston-Salem', href: '/es/ubicaciones/winston-salem' },
           { name: 'Smithfield', href: '/es/ubicaciones/smithfield' },
           { name: 'Orlando', href: '/es/ubicaciones/orlando' },
         ]
@@ -120,6 +121,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
       { name: 'Sobre Nosotros', href: '/es/acerca-de' },
       { name: 'Blog', href: '/es/blog' },
       { name: 'Contacto', href: '/es/contacto' },
+      { name: 'Pago', href: '/es/pago' },
     ],
   };
 
