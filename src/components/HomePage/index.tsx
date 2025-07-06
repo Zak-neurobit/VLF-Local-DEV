@@ -22,6 +22,10 @@ const FirmHighlights = dynamic(() => import('./FirmHighlights'), {
   loading: () => <div className="h-96 bg-black" />,
 });
 
+const TestimonialsSection = dynamic(() => import('./TestimonialsSection').then(mod => ({ default: mod.TestimonialsSection })), {
+  loading: () => <div className="h-96 bg-black" />,
+});
+
 export default function HomePage() {
   const [language, setLanguage] = useState<'en' | 'es'>('en');
   const [showVirtualParalegal, setShowVirtualParalegal] = useState(false);
@@ -101,6 +105,7 @@ export default function HomePage() {
       {/* Page Sections */}
       <ModernHero language={language} />
       <FirmHighlights language={language} />
+      <TestimonialsSection />
       <OfficeLocations language={language} />
       <ResultsShowcase language={language} />
 

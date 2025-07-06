@@ -59,6 +59,8 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
         submenu: [
           { name: 'Our Team', href: '/attorneys' },
           { name: 'William Vasquez', href: '/attorneys/william-vasquez' },
+          { name: 'Kelly Vega', href: '/attorneys/kelly-vega' },
+          { name: 'Rebecca Sommer', href: '/attorneys/rebecca-sommer' },
           { name: 'Christopher Afanador', href: '/attorneys/christopher-afanador' },
           { name: 'Jillian Baucom', href: '/attorneys/jillian-baucom' },
           { name: 'Roselyn V. Torrellas', href: '/attorneys/roselyn-torrellas' },
@@ -76,8 +78,16 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
           { name: 'Orlando', href: '/locations/orlando' },
         ]
       },
-      { name: 'About', href: '/about' },
+      { 
+        name: 'About', 
+        href: '/about',
+        submenu: [
+          { name: 'About Us', href: '/about' },
+          { name: 'Our Team', href: '/our-team' },
+        ]
+      },
       { name: 'Blog', href: '/blog' },
+      { name: 'Scholarship', href: '/scholarship' },
       { name: 'Contact', href: '/contact' },
       { name: 'Payment', href: '/payment' },
     ],
@@ -101,6 +111,8 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
         submenu: [
           { name: 'Nuestro Equipo', href: '/es/abogados' },
           { name: 'William Vasquez', href: '/es/abogados/william-vasquez' },
+          { name: 'Kelly Vega', href: '/es/abogados/kelly-vega' },
+          { name: 'Rebecca Sommer', href: '/es/abogados/rebecca-sommer' },
           { name: 'Christopher Afanador', href: '/es/abogados/christopher-afanador' },
           { name: 'Jillian Baucom', href: '/es/abogados/jillian-baucom' },
           { name: 'Roselyn V. Torrellas', href: '/es/abogados/roselyn-torrellas' },
@@ -118,8 +130,16 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
           { name: 'Orlando', href: '/es/ubicaciones/orlando' },
         ]
       },
-      { name: 'Sobre Nosotros', href: '/es/acerca-de' },
+      { 
+        name: 'Sobre Nosotros', 
+        href: '/es/acerca-de',
+        submenu: [
+          { name: 'Acerca de Nosotros', href: '/es/acerca-de' },
+          { name: 'Nuestro Equipo', href: '/es/nuestro-equipo' },
+        ]
+      },
       { name: 'Blog', href: '/es/blog' },
+      { name: 'Beca', href: '/es/becas' },
       { name: 'Contacto', href: '/es/contacto' },
       { name: 'Pago', href: '/es/pago' },
     ],

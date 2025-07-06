@@ -36,12 +36,12 @@ export default function Page() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h1 className="text-5xl md:text-7xl font-black mb-6 text-white">Christopher Afanador</h1>
+                <h1 className="text-5xl md:text-7xl font-black mb-6 text-white">Rebecca Sommer</h1>
                 <p className="text-xl md:text-2xl mb-8 font-semibold text-primary">
-                  Attorney, Immigration Department - {TRADEMARK.YO_PELEO_POR_TI}
+                  Criminal Defense Attorney - {TRADEMARK.YO_PELEO_POR_TI}
                 </p>
                 <p className="text-lg mb-8 max-w-3xl mx-auto text-gray-300">
-                  Immigration attorney with a strong commitment to advocating for immigrant rights
+                  Dedicated criminal defense attorney providing aggressive representation and protecting your rights in the justice system
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.a
@@ -82,8 +82,8 @@ export default function Page() {
                 >
                   <div className="relative h-[500px] rounded-2xl overflow-hidden border border-primary/20">
                     <Image
-                      src="/images/attorneys/christopher-afanador.jpg"
-                      alt="Christopher Afanador, Attorney at Vasquez Law Firm"
+                      src="/images/attorneys/rebecca-sommer.png"
+                      alt="Rebecca Sommer, Criminal Defense Attorney at Vasquez Law Firm"
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 50vw"
@@ -101,18 +101,19 @@ export default function Page() {
                   className="flex flex-col justify-center"
                 >
                   <h2 className="text-3xl md:text-4xl font-black mb-6 text-white">
-                    Immigration Law Expert
+                    Protecting Your Rights, Fighting for Your Freedom
                   </h2>
                   <p className="text-lg mb-6 text-gray-300">
-                    Christopher Afanador is a dedicated immigration attorney who helps clients navigate 
-                    the complex USCIS immigration process with expertise and compassion. With years of 
-                    experience in immigration law, he has successfully helped numerous clients achieve 
-                    their American dream.
+                    Rebecca Sommer is a skilled criminal defense attorney at Vasquez Law Firm, 
+                    dedicated to providing aggressive and effective representation for clients 
+                    facing criminal charges. With extensive experience in North Carolina criminal law, 
+                    she fights tirelessly to protect her clients' rights and achieve the best possible outcomes.
                   </p>
                   <p className="text-lg mb-8 text-gray-300">
-                    His practice focuses on family-based immigration, citizenship applications, green 
-                    cards, and deportation defense. Christopher understands the challenges immigrants 
-                    face and is committed to providing personalized legal solutions.
+                    Her practice covers all aspects of criminal defense, including DUI/DWI charges, 
+                    drug offenses, assault and battery, theft crimes, traffic violations, and more. 
+                    Rebecca understands that facing criminal charges can be overwhelming, and she 
+                    provides compassionate support while mounting a strong defense.
                   </p>
                   
                   {/* Quick Info */}
@@ -120,12 +121,12 @@ export default function Page() {
                     <div className="bg-neutral-900/50 p-4 rounded-xl border border-primary/20">
                       <Globe className="w-6 h-6 text-primary mb-2" />
                       <h4 className="font-bold mb-1 text-white">Languages</h4>
-                      <p className="text-gray-400">English, Spanish</p>
+                      <p className="text-gray-400">Spanish, English</p>
                     </div>
                     <div className="bg-neutral-900/50 p-4 rounded-xl border border-primary/20">
                       <Award className="w-6 h-6 text-primary mb-2" />
                       <h4 className="font-bold mb-1 text-white">Focus</h4>
-                      <p className="text-gray-400">Immigration Law</p>
+                      <p className="text-gray-400">Criminal Defense</p>
                     </div>
                   </div>
                 </motion.div>
@@ -145,15 +146,15 @@ export default function Page() {
                   <h3 className="text-2xl font-bold mb-6 text-white">Education</h3>
                   <ul className="space-y-4">
                     <li className="border-l-2 border-primary pl-4">
-                      <p className="font-semibold text-white">J.D., Law</p>
+                      <p className="font-semibold text-white">Juris Doctorate</p>
                       <p className="text-gray-400 text-sm">
-                        Charlotte School of Law, 2013
+                        Law School
                       </p>
                     </li>
                     <li className="border-l-2 border-primary pl-4">
-                      <p className="font-semibold text-white">B.S., Criminal Justice</p>
+                      <p className="font-semibold text-white">Bachelor's Degree</p>
                       <p className="text-gray-400 text-sm">
-                        University of Central Florida, 2010
+                        University
                       </p>
                     </li>
                   </ul>
@@ -176,11 +177,11 @@ export default function Page() {
                     </li>
                     <li className="flex items-center text-gray-300">
                       <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                      Federal Immigration Courts
+                      Federal District Courts
                     </li>
                     <li className="flex items-center text-gray-300">
                       <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                      USCIS Practice
+                      State Criminal Courts
                     </li>
                   </ul>
                 </motion.div>
@@ -197,12 +198,12 @@ export default function Page() {
                   <h3 className="text-2xl font-bold mb-6 text-white">Practice Areas</h3>
                   <div className="flex flex-wrap gap-2">
                     {[
-                      'Immigration Law',
-                      'VAWA Applications',
-                      'U Visa Claims',
-                      'Family Immigration',
-                      'Deportation Defense',
-                      'Citizenship',
+                      'Criminal Defense',
+                      'DUI/DWI',
+                      'Drug Crimes',
+                      'Assault',
+                      'Theft Crimes',
+                      'Traffic Violations',
                     ].map((area) => (
                       <span
                         key={area}
@@ -222,17 +223,17 @@ export default function Page() {
                 viewport={{ once: true }}
                 className="bg-gradient-to-r from-primary/10 to-secondary/10 p-12 rounded-3xl border border-primary/20 mb-20"
               >
-                <h3 className="text-3xl font-black mb-8 text-white text-center">Immigration Law Services</h3>
+                <h3 className="text-3xl font-black mb-8 text-white text-center">Criminal Defense Services</h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   {[
-                    'VAWA (Violence Against Women Act) Applications',
-                    'U Visa Applications for Crime Victims',
-                    'Family-Based Immigration Petitions',
-                    'Naturalization and Citizenship',
-                    'Green Card Applications',
-                    'Deportation Defense',
-                    'Immigration Appeals',
-                    'Humanitarian Immigration Relief',
+                    'DUI/DWI Defense',
+                    'Drug Possession and Trafficking',
+                    'Assault and Battery Charges',
+                    'Theft and Property Crimes',
+                    'Domestic Violence Defense',
+                    'Traffic Violations and License Issues',
+                    'Expungement Services',
+                    'Probation Violations',
                   ].map((service, index) => (
                     <motion.div
                       key={index}
@@ -272,10 +273,10 @@ export default function Page() {
                 viewport={{ once: true }}
               >
                 <h2 className="text-4xl md:text-5xl font-black mb-4 text-white">
-                  Need Immigration Help?
+                  Facing Criminal Charges?
                 </h2>
                 <p className="text-xl mb-8 text-gray-300">
-                  Contact Christopher Afanador today for expert immigration legal assistance.
+                  Don't face the justice system alone. Contact Rebecca Sommer today for aggressive criminal defense representation.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.a
@@ -310,8 +311,8 @@ export default function Page() {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Person',
-              name: 'Christopher Afanador',
-              jobTitle: 'Immigration Attorney',
+              name: 'Rebecca Sommer',
+              jobTitle: 'Criminal Defense Attorney',
               worksFor: {
                 '@type': 'LegalService',
                 name: 'Vasquez Law Firm, PLLC',
@@ -319,7 +320,7 @@ export default function Page() {
                 telephone: '+1-919-537-8722',
                 priceRange: '$$',
               },
-              url: 'https://www.vasquezlawfirm.com/attorneys/christopher-afanador',
+              url: 'https://www.vasquezlawfirm.com/attorneys/rebecca-sommer',
               sameAs: [
                 'https://www.linkedin.com/company/vasquez-law-firm',
                 'https://www.facebook.com/vasquezlawfirm',

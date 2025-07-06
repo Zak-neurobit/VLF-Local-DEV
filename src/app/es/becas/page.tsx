@@ -49,19 +49,19 @@ export default function Page() {
               >
                 <div className="inline-flex items-center px-6 py-3 bg-primary/20 backdrop-blur-sm rounded-full mb-6">
                   <GraduationCap className="w-5 h-5 text-primary mr-2" />
-                  <span className="text-primary font-semibold">Supporting DACA Dreamers</span>
+                  <span className="text-primary font-semibold">Apoyando a los Soñadores con DACA</span>
                 </div>
 
                 <h1 className="text-5xl md:text-7xl font-black mb-6 text-white">
-                  Vasquez Law Firm <span className="text-primary">DACA Dreamer Scholarship</span>
+                  Beca <span className="text-primary">DACA Dreamer</span> de Vasquez Law Firm
                 </h1>
                 <p className="text-xl md:text-2xl mb-8 font-semibold text-primary">
-                  Empowering Dreams Through Education
+                  Empoderando Sueños a Través de la Educación
                 </p>
                 <p className="text-lg mb-8 max-w-3xl mx-auto text-gray-300">
-                  At Vasquez Law Firm, we believe in the power of education to transform lives. 
-                  Our DACA Dreamer Scholarship provides financial support to exceptional DACA recipients 
-                  pursuing higher education, helping them achieve their dreams and build brighter futures.
+                  En Vasquez Law Firm, creemos en el poder de la educación para transformar vidas. 
+                  Nuestra Beca DACA Dreamer proporciona apoyo financiero a receptores excepcionales de DACA 
+                  que buscan educación superior, ayudándoles a alcanzar sus sueños y construir futuros más brillantes.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -71,7 +71,7 @@ export default function Page() {
                     whileTap={{ scale: 0.95 }}
                     className="inline-flex items-center px-8 py-4 bg-primary text-black font-bold rounded-full transition-all hover:bg-primary-300"
                   >
-                    Apply Now
+                    Aplicar Ahora
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </motion.a>
                   <motion.a
@@ -80,7 +80,7 @@ export default function Page() {
                     whileTap={{ scale: 0.95 }}
                     className="inline-flex items-center px-8 py-4 bg-transparent text-white font-bold rounded-full border-2 border-white hover:bg-white hover:text-black transition-all"
                   >
-                    View Requirements
+                    Ver Requisitos
                   </motion.a>
                 </div>
               </motion.div>
@@ -98,10 +98,10 @@ export default function Page() {
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
-                Scholarship <span className="text-primary">Details</span>
+                Detalles de la <span className="text-primary">Beca</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Two scholarships awarded each semester to outstanding DACA recipients
+                Dos becas otorgadas cada semestre a receptores destacados de DACA
               </p>
             </motion.div>
 
@@ -109,21 +109,21 @@ export default function Page() {
               {[
                 {
                   icon: <Award className="w-12 h-12" />,
-                  title: 'Award Amount',
-                  description: '$1,000 per semester',
-                  details: 'Two scholarships awarded each semester to help cover educational expenses'
+                  title: 'Monto de la Beca',
+                  description: '$1,000 por semestre',
+                  details: 'Dos becas otorgadas cada semestre para ayudar a cubrir gastos educativos'
                 },
                 {
                   icon: <Calendar className="w-12 h-12" />,
-                  title: 'Application Deadline',
-                  description: 'November 27, 2024',
-                  details: 'Winners will be notified by January 8, 2025'
+                  title: 'Fecha Límite de Aplicación',
+                  description: '27 de noviembre de 2024',
+                  details: 'Los ganadores serán notificados antes del 8 de enero de 2025'
                 },
                 {
                   icon: <GraduationCap className="w-12 h-12" />,
-                  title: 'Eligibility',
-                  description: 'DACA Recipients',
-                  details: 'Must be enrolled or planning to enroll in an accredited university'
+                  title: 'Elegibilidad',
+                  description: 'Receptores de DACA',
+                  details: 'Debe estar inscrito o planeando inscribirse en una universidad acreditada'
                 }
               ].map((item, index) => (
                 <motion.div
@@ -154,20 +154,20 @@ export default function Page() {
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
-                Eligibility <span className="text-primary">Requirements</span>
+                Requisitos de <span className="text-primary">Elegibilidad</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                To qualify for the Vasquez Law Firm DACA Dreamer Scholarship, applicants must meet the following criteria
+                Para calificar para la Beca DACA Dreamer de Vasquez Law Firm, los solicitantes deben cumplir con los siguientes criterios
               </p>
             </motion.div>
 
             <div className="max-w-4xl mx-auto">
               <div className="grid md:grid-cols-2 gap-8">
                 {[
-                  'Must be a DACA recipient pursuing higher education',
-                  'GPA of 3.5 or higher',
-                  'Enrolled or planning to enroll in an accredited university for Fall 2024',
-                  'At least 17 years old',
+                  'Debe ser un receptor de DACA que busca educación superior',
+                  'GPA de 3.5 o superior',
+                  'Inscrito o planeando inscribirse en una universidad acreditada para otoño 2024',
+                  'Al menos 17 años de edad',
                 ].map((requirement, index) => (
                   <motion.div
                     key={index}
@@ -196,38 +196,38 @@ export default function Page() {
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
-                Application <span className="text-primary">Requirements</span>
+                Requisitos de <span className="text-primary">Aplicación</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Complete your application with the following documents and materials
+                Complete su aplicación con los siguientes documentos y materiales
               </p>
             </motion.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {[
                 {
-                  title: 'Online Application',
-                  description: 'Complete the comprehensive online application form with all required information'
+                  title: 'Aplicación en Línea',
+                  description: 'Complete el formulario de aplicación en línea completo con toda la información requerida'
                 },
                 {
-                  title: 'Academic Transcript',
-                  description: 'Submit unofficial academic transcript showing GPA of 3.5 or higher'
+                  title: 'Transcripción Académica',
+                  description: 'Envíe transcripción académica no oficial que muestre un GPA de 3.5 o superior'
                 },
                 {
-                  title: 'Proof of Enrollment',
-                  description: 'Documentation confirming enrollment or acceptance to an accredited university'
+                  title: 'Prueba de Inscripción',
+                  description: 'Documentación que confirme inscripción o aceptación en una universidad acreditada'
                 },
                 {
-                  title: 'DACA Status',
-                  description: 'Documentation proving current DACA recipient status'
+                  title: 'Estatus DACA',
+                  description: 'Documentación que pruebe el estatus actual de receptor de DACA'
                 },
                 {
-                  title: 'Original Artwork',
-                  description: 'Submit original artwork depicting your immigration experience (painting, sculpture, poetry, etc.)'
+                  title: 'Obra de Arte Original',
+                  description: 'Envíe una obra de arte original que represente su experiencia de inmigración (pintura, escultura, poesía, etc.)'
                 },
                 {
-                  title: 'Personal Statement',
-                  description: 'Share your story and how this scholarship will help achieve your educational goals'
+                  title: 'Declaración Personal',
+                  description: 'Comparta su historia y cómo esta beca ayudará a alcanzar sus metas educativas'
                 }
               ].map((item, index) => (
                 <motion.div
@@ -258,11 +258,11 @@ export default function Page() {
               <div className="bg-gradient-to-b from-neutral-900 to-neutral-950 rounded-3xl p-12 border border-primary/20">
                 <div className="text-center mb-8">
                   <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
-                    Application <span className="text-primary">Coming Soon</span>
+                    Aplicación <span className="text-primary">Próximamente</span>
                   </h2>
                   <p className="text-xl text-gray-300 mb-8">
-                    The scholarship application form is not yet open. Sign up below to receive 
-                    an email notification when applications become available.
+                    El formulario de aplicación para la beca aún no está abierto. Regístrese a continuación para 
+                    recibir una notificación por correo electrónico cuando las aplicaciones estén disponibles.
                   </p>
                 </div>
 
@@ -272,7 +272,7 @@ export default function Page() {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email"
+                      placeholder="Ingrese su correo electrónico"
                       required
                       className="flex-1 px-6 py-4 bg-black border border-primary/30 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-colors"
                     />
@@ -282,7 +282,7 @@ export default function Page() {
                       whileTap={{ scale: 0.95 }}
                       className="px-8 py-4 bg-primary text-black font-bold rounded-full hover:bg-primary-300 transition-all"
                     >
-                      Notify Me
+                      Notificarme
                     </motion.button>
                   </div>
                   {isSubscribed && (
@@ -291,13 +291,13 @@ export default function Page() {
                       animate={{ opacity: 1 }}
                       className="text-green-400 text-center mt-4"
                     >
-                      Thank you! We'll notify you when applications open.
+                      ¡Gracias! Le notificaremos cuando las aplicaciones estén abiertas.
                     </motion.p>
                   )}
                 </form>
 
                 <div className="text-center mt-8">
-                  <p className="text-gray-400 mb-2">Questions about the scholarship?</p>
+                  <p className="text-gray-400 mb-2">¿Preguntas sobre la beca?</p>
                   <a
                     href="mailto:scholarship@vasquezlawfirm.com"
                     className="inline-flex items-center text-primary hover:text-primary-300 transition-colors"
@@ -321,10 +321,10 @@ export default function Page() {
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
-                Evaluation <span className="text-primary">Criteria</span>
+                Criterios de <span className="text-primary">Evaluación</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Applications will be evaluated based on the following criteria
+                Las aplicaciones serán evaluadas basándose en los siguientes criterios
               </p>
             </motion.div>
 
@@ -332,16 +332,16 @@ export default function Page() {
               <div className="space-y-6">
                 {[
                   {
-                    title: 'Comprehensive Documentation',
-                    description: 'Complete and accurate submission of all required documents and materials'
+                    title: 'Documentación Completa',
+                    description: 'Envío completo y preciso de todos los documentos y materiales requeridos'
                   },
                   {
-                    title: 'Thorough Application Responses',
-                    description: 'Detailed and thoughtful answers to all application questions'
+                    title: 'Respuestas Detalladas en la Aplicación',
+                    description: 'Respuestas detalladas y reflexivas a todas las preguntas de la aplicación'
                   },
                   {
-                    title: 'Original Ideas & Personal Experience',
-                    description: 'Creative artwork that authentically reflects your immigration journey and experiences'
+                    title: 'Ideas Originales y Experiencia Personal',
+                    description: 'Obra de arte creativa que refleje auténticamente su viaje y experiencias de inmigración'
                   }
                 ].map((criteria, index) => (
                   <motion.div
@@ -371,10 +371,10 @@ export default function Page() {
               className="max-w-4xl mx-auto text-center"
             >
               <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
-                Ready to <span className="text-primary">Apply?</span>
+                ¿Listo para <span className="text-primary">Aplicar?</span>
               </h2>
               <p className="text-xl text-gray-300 mb-8">
-                Take the first step towards achieving your educational dreams
+                Da el primer paso hacia el logro de tus sueños educativos
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <motion.a
@@ -383,7 +383,7 @@ export default function Page() {
                   whileTap={{ scale: 0.95 }}
                   className="inline-flex items-center px-8 py-4 bg-primary text-black font-bold rounded-full transition-all hover:bg-primary-300"
                 >
-                  Get Notified When Applications Open
+                  Recibir Notificación Cuando Abran las Aplicaciones
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </motion.a>
               </div>
@@ -399,8 +399,8 @@ export default function Page() {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'ScholarshipProgram',
-              name: 'Vasquez Law Firm DACA Dreamer Scholarship',
-              description: 'Financial support for DACA recipients pursuing higher education',
+              name: 'Beca DACA Dreamer de Vasquez Law Firm',
+              description: 'Apoyo financiero para receptores de DACA que buscan educación superior',
               provider: {
                 '@type': 'LegalService',
                 name: 'Vasquez Law Firm, PLLC',
@@ -411,9 +411,9 @@ export default function Page() {
                 value: '1000',
                 currency: 'USD',
               },
-              educationalLevel: 'Higher Education',
+              educationalLevel: 'Educación Superior',
               applicationDeadline: '2024-11-27',
-              url: 'https://www.vasquezlawfirm.com/scholarship',
+              url: 'https://www.vasquezlawfirm.com/es/becas',
             }),
           }}
         />

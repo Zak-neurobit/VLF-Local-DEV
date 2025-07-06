@@ -36,12 +36,12 @@ export default function Page() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h1 className="text-5xl md:text-7xl font-black mb-6 text-white">Christopher Afanador</h1>
+                <h1 className="text-5xl md:text-7xl font-black mb-6 text-white">Kelly Vega</h1>
                 <p className="text-xl md:text-2xl mb-8 font-semibold text-primary">
-                  Attorney, Immigration Department - {TRADEMARK.YO_PELEO_POR_TI}
+                  Immigration Attorney - {TRADEMARK.YO_PELEO_POR_TI}
                 </p>
                 <p className="text-lg mb-8 max-w-3xl mx-auto text-gray-300">
-                  Immigration attorney with a strong commitment to advocating for immigrant rights
+                  Dedicated immigration attorney committed to helping clients navigate the complex immigration system with compassion and expertise
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.a
@@ -82,8 +82,8 @@ export default function Page() {
                 >
                   <div className="relative h-[500px] rounded-2xl overflow-hidden border border-primary/20">
                     <Image
-                      src="/images/attorneys/christopher-afanador.jpg"
-                      alt="Christopher Afanador, Attorney at Vasquez Law Firm"
+                      src="/images/attorneys/kelly-vega.png"
+                      alt="Kelly Vega, Immigration Attorney at Vasquez Law Firm"
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 50vw"
@@ -101,18 +101,19 @@ export default function Page() {
                   className="flex flex-col justify-center"
                 >
                   <h2 className="text-3xl md:text-4xl font-black mb-6 text-white">
-                    Immigration Law Expert
+                    Fighting for Your American Dream
                   </h2>
                   <p className="text-lg mb-6 text-gray-300">
-                    Christopher Afanador is a dedicated immigration attorney who helps clients navigate 
-                    the complex USCIS immigration process with expertise and compassion. With years of 
-                    experience in immigration law, he has successfully helped numerous clients achieve 
-                    their American dream.
+                    Kelly Vega is a passionate immigration attorney at Vasquez Law Firm, dedicated to 
+                    helping individuals and families navigate the complex U.S. immigration system. 
+                    With a deep understanding of immigration law and a commitment to client service, 
+                    she works tirelessly to achieve the best possible outcomes for her clients.
                   </p>
                   <p className="text-lg mb-8 text-gray-300">
-                    His practice focuses on family-based immigration, citizenship applications, green 
-                    cards, and deportation defense. Christopher understands the challenges immigrants 
-                    face and is committed to providing personalized legal solutions.
+                    Her practice encompasses all areas of immigration law, including family-based petitions, 
+                    employment-based immigration, citizenship and naturalization, deportation defense, 
+                    and humanitarian relief. Kelly brings both legal expertise and cultural sensitivity 
+                    to every case she handles.
                   </p>
                   
                   {/* Quick Info */}
@@ -120,7 +121,7 @@ export default function Page() {
                     <div className="bg-neutral-900/50 p-4 rounded-xl border border-primary/20">
                       <Globe className="w-6 h-6 text-primary mb-2" />
                       <h4 className="font-bold mb-1 text-white">Languages</h4>
-                      <p className="text-gray-400">English, Spanish</p>
+                      <p className="text-gray-400">Spanish, English</p>
                     </div>
                     <div className="bg-neutral-900/50 p-4 rounded-xl border border-primary/20">
                       <Award className="w-6 h-6 text-primary mb-2" />
@@ -145,15 +146,15 @@ export default function Page() {
                   <h3 className="text-2xl font-bold mb-6 text-white">Education</h3>
                   <ul className="space-y-4">
                     <li className="border-l-2 border-primary pl-4">
-                      <p className="font-semibold text-white">J.D., Law</p>
+                      <p className="font-semibold text-white">Juris Doctorate</p>
                       <p className="text-gray-400 text-sm">
-                        Charlotte School of Law, 2013
+                        Law School
                       </p>
                     </li>
                     <li className="border-l-2 border-primary pl-4">
-                      <p className="font-semibold text-white">B.S., Criminal Justice</p>
+                      <p className="font-semibold text-white">Bachelor's Degree</p>
                       <p className="text-gray-400 text-sm">
-                        University of Central Florida, 2010
+                        University
                       </p>
                     </li>
                   </ul>
@@ -198,11 +199,11 @@ export default function Page() {
                   <div className="flex flex-wrap gap-2">
                     {[
                       'Immigration Law',
-                      'VAWA Applications',
-                      'U Visa Claims',
-                      'Family Immigration',
-                      'Deportation Defense',
+                      'Family Petitions',
+                      'Work Visas',
+                      'Green Cards',
                       'Citizenship',
+                      'Deportation Defense',
                     ].map((area) => (
                       <span
                         key={area}
@@ -225,14 +226,14 @@ export default function Page() {
                 <h3 className="text-3xl font-black mb-8 text-white text-center">Immigration Law Services</h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   {[
-                    'VAWA (Violence Against Women Act) Applications',
-                    'U Visa Applications for Crime Victims',
                     'Family-Based Immigration Petitions',
+                    'Employment-Based Immigration',
                     'Naturalization and Citizenship',
                     'Green Card Applications',
+                    'Visa Extensions and Changes',
                     'Deportation Defense',
+                    'DACA Applications',
                     'Immigration Appeals',
-                    'Humanitarian Immigration Relief',
                   ].map((service, index) => (
                     <motion.div
                       key={index}
@@ -275,7 +276,7 @@ export default function Page() {
                   Need Immigration Help?
                 </h2>
                 <p className="text-xl mb-8 text-gray-300">
-                  Contact Christopher Afanador today for expert immigration legal assistance.
+                  Contact Kelly Vega today for expert immigration legal assistance.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.a
@@ -310,7 +311,7 @@ export default function Page() {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Person',
-              name: 'Christopher Afanador',
+              name: 'Kelly Vega',
               jobTitle: 'Immigration Attorney',
               worksFor: {
                 '@type': 'LegalService',
@@ -319,7 +320,7 @@ export default function Page() {
                 telephone: '+1-919-537-8722',
                 priceRange: '$$',
               },
-              url: 'https://www.vasquezlawfirm.com/attorneys/christopher-afanador',
+              url: 'https://www.vasquezlawfirm.com/attorneys/kelly-vega',
               sameAs: [
                 'https://www.linkedin.com/company/vasquez-law-firm',
                 'https://www.facebook.com/vasquezlawfirm',

@@ -1,233 +1,138 @@
 'use client';
 
-import dynamic from 'next/dynamic';
-import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Script from 'next/script';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
-import { Button } from '@/design-system/components/Button';
-import { Heading, Text } from '@/design-system/components/Typography';
-// Dynamic import for client-side only rendering
-const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
-  ssr: false,
-});
+import { Phone, ArrowRight, MapPin, Users, Award, Scale, Shield, Heart, Target, Briefcase } from 'lucide-react';
 import { generateAboutPageSchema, generateOrganizationSchema } from '@/components/SEO/schemas';
+import { TRADEMARK } from '@/lib/constants/trademark';
 
 export default function AboutPage() {
-  const [language, setLanguage] = useState<'en' | 'es'>('en');
 
-  useEffect(() => {
-    // Check user's browser language
-    const browserLang = navigator.language.toLowerCase();
-    if (browserLang.startsWith('es')) {
-      setLanguage('es');
-    }
-  }, []);
-
-  const content = {
-    en: {
-      title: 'About Vasquez Law Firm',
-      subtitle: 'Fighting for You Since 2011',
-      story: 'Our Story',
-      storyText1:
-        'Founded in 2011, Vasquez Law Firm has grown from a small family practice to one of the most innovative law firms in North Carolina and Florida. Our commitment to providing honest, reliable representation at an affordable price has never wavered.',
-      storyText2:
-        'Today, we combine our traditional values with cutting-edge AI technology to offer our clients the best of both worlds: experienced human attorneys backed by 24/7 intelligent assistance.',
-      mission: 'Our Mission',
-      missionText:
-        'To provide accessible, high-quality legal representation to all members of our community, regardless of their background or circumstances. We leverage technology to break down barriers and ensure justice is available to everyone.',
-      values: 'Our Values',
-      value1: {
-        title: 'MY FAMILY, YOUR FAMILY',
-        desc: 'We value our team and clients as family, fostering relationships built on mutual investment and care',
-      },
-      value2: { title: 'HONESTY', desc: 'We are straightforward and honest from the very first consultation, ensuring trust and transparency' },
-      value3: { title: 'DEDICATION', desc: 'We are committed to the growth of everyone in our firm, helping employees move into their strengths' },
-      value4: { title: 'QUALITY EXPERIENCE', desc: 'We strive to create a fun and productive workspace that enhances quality of life' },
-      value5: { title: 'I FIGHT - YO PELEO', desc: 'We are dedicated to fighting for our clients and our team with passion and commitment' },
-      commitment: 'Our Commitment to Innovation',
-      commitmentText:
-        "As pioneers in AI-enhanced legal services, we're committed to using technology responsibly to improve access to justice. Our AI assistants work alongside our attorneys to provide faster responses, more accurate predictions, and better outcomes for our clients.",
-      locations: 'Our Locations',
-      serving: 'Proudly Serving',
-      communities: 'communities across North Carolina and Florida',
-      awards: 'Recognition & Awards',
-      award1: 'Top Immigration Law Firm 2023',
-      award2: 'Innovation in Legal Technology Award',
-      award3: 'Community Service Excellence',
-      award4: 'Client Choice Award 5 Years Running',
-      associations: 'Professional Associations',
-      association1: 'American Immigration Lawyers Association (AILA)',
-      association2: 'North Carolina Bar Association',
-      association3: 'Florida Bar Association',
-      association4: 'National Association of Criminal Defense Lawyers',
-      tagline: 'YO PELEO POR TI™',
-      taglineDesc:
-        'Our motto "I Fight For You" isn\'t just words - it\'s our promise to every client who walks through our doors.',
-      getStarted: 'Ready to Get Started?',
-      consultation: 'Schedule Your Free Consultation',
-    },
-    es: {
-      title: 'Acerca de Vasquez Law Firm',
-      subtitle: 'Luchando por Ti Desde 2011',
-      story: 'Nuestra Historia',
-      storyText1:
-        'Fundada en 2011, Vasquez Law Firm ha crecido de una pequeña práctica familiar a una de las firmas de abogados más innovadoras en Carolina del Norte y Florida. Nuestro compromiso de brindar representación honesta y confiable a un precio asequible nunca ha flaqueado.',
-      storyText2:
-        'Hoy, combinamos nuestros valores tradicionales con tecnología IA de vanguardia para ofrecer a nuestros clientes lo mejor de ambos mundos: abogados humanos experimentados respaldados por asistencia inteligente 24/7.',
-      mission: 'Nuestra Misión',
-      missionText:
-        'Proporcionar representación legal accesible y de alta calidad a todos los miembros de nuestra comunidad, independientemente de su origen o circunstancias. Aprovechamos la tecnología para derribar barreras y garantizar que la justicia esté disponible para todos.',
-      values: 'Nuestros Valores',
-      value1: {
-        title: 'MI FAMILIA, TU FAMILIA',
-        desc: 'Valoramos a nuestro equipo y clientes como familia, fomentando relaciones basadas en inversión mutua y cuidado',
-      },
-      value2: {
-        title: 'HONESTIDAD',
-        desc: 'Somos directos y honestos desde la primera consulta, asegurando confianza y transparencia',
-      },
-      value3: {
-        title: 'DEDICACIÓN',
-        desc: 'Estamos comprometidos con el crecimiento de todos en nuestra firma, ayudando a los empleados a desarrollar sus fortalezas',
-      },
-      value4: { title: 'EXPERIENCIA DE CALIDAD', desc: 'Nos esforzamos por crear un espacio de trabajo divertido y productivo que mejore la calidad de vida' },
-      value5: { title: 'YO PELEO', desc: 'Estamos dedicados a luchar por nuestros clientes y nuestro equipo con pasión y compromiso' },
-      commitment: 'Nuestro Compromiso con la Innovación',
-      commitmentText:
-        'Como pioneros en servicios legales mejorados con IA, estamos comprometidos a usar la tecnología de manera responsable para mejorar el acceso a la justicia. Nuestros asistentes de IA trabajan junto a nuestros abogados para brindar respuestas más rápidas, predicciones más precisas y mejores resultados para nuestros clientes.',
-      locations: 'Nuestras Ubicaciones',
-      serving: 'Sirviendo con Orgullo a',
-      communities: 'comunidades en Carolina del Norte y Florida',
-      awards: 'Reconocimientos y Premios',
-      award1: 'Mejor Firma de Inmigración 2023',
-      award2: 'Premio a la Innovación en Tecnología Legal',
-      award3: 'Excelencia en Servicio Comunitario',
-      award4: 'Premio Elección del Cliente 5 Años Consecutivos',
-      associations: 'Asociaciones Profesionales',
-      association1: 'Asociación Americana de Abogados de Inmigración (AILA)',
-      association2: 'Colegio de Abogados de Carolina del Norte',
-      association3: 'Colegio de Abogados de Florida',
-      association4: 'Asociación Nacional de Abogados de Defensa Criminal',
-      tagline: 'YO PELEO POR TI™',
-      taglineDesc:
-        'Nuestro lema "Yo Peleo Por Ti" no son solo palabras - es nuestra promesa a cada cliente que cruza nuestras puertas.',
-      getStarted: '¿Listo para Comenzar?',
-      consultation: 'Programe Su Free Consultation',
-    },
-  };
-
-  const t = content[language];
-
-  const locations = [
+  const coreValues = [
     {
-      city: 'Raleigh',
-      state: 'NC',
-      address: '3737 Glenwood Ave, Suite 100',
-      phone: '(919) 537-8722',
-      lat: 35.8486,
-      lng: -78.6948,
+      title: 'MY FAMILY, YOUR FAMILY',
+      description: 'We value our team and clients as family, fostering relationships built on mutual investment and care',
+      icon: <Heart className="h-8 w-8" />,
     },
+    {
+      title: 'HONESTY',
+      description: 'We are straightforward and honest from the very first consultation, ensuring trust and transparency in every interaction',
+      icon: <Shield className="h-8 w-8" />,
+    },
+    {
+      title: 'DEDICATION',
+      description: 'We are committed to the growth of everyone in our firm, helping our employees move into their strengths',
+      icon: <Target className="h-8 w-8" />,
+    },
+    {
+      title: 'QUALITY EXPERIENCE',
+      description: 'We strive to create a fun and productive workspace that enhances the overall quality of life for our team',
+      icon: <Award className="h-8 w-8" />,
+    },
+    {
+      title: 'I FIGHT (YO PELEO)',
+      description: '"YO PELEO" – We are dedicated to fighting for our clients and our team with passion and commitment',
+      icon: <Scale className="h-8 w-8" />,
+    },
+  ];
+
+  const offices = [
     {
       city: 'Charlotte',
       state: 'NC',
-      address: '4801 E Independence Blvd, Suite 714',
-      phone: '(704) 246-0936',
-      lat: 35.1924,
-      lng: -80.7716,
+      address: '5701 Executive Center Dr, Ste 103',
+      phone: '(704) 533-7000',
+      isMainOffice: true,
+    },
+    {
+      city: 'Raleigh',
+      state: 'NC',
+      address: '4426 Louisburg Road',
+      phone: '(919) 533-7000',
     },
     {
       city: 'Smithfield',
       state: 'NC',
-      address: '127 S Third St',
-      phone: '(919) 800-0087',
-      lat: 35.5082,
-      lng: -78.3444,
+      address: '612 S Brightleaf Blvd',
+      phone: '(919) 989-3000',
     },
     {
       city: 'Orlando',
       state: 'FL',
-      address: '1540 International Pkwy, Suite 2000',
-      phone: '(689) 270-3636',
-      lat: 28.4305,
-      lng: -81.3089,
+      address: '1111 E Amelia Street',
+      phone: '(407) 955-5000',
     },
   ];
 
   const stats = [
-    { number: '60+', label: language === 'es' ? 'Años de Experiencia' : 'Years Experience' },
-    { number: '5,000+', label: language === 'es' ? 'Clientes Satisfechos' : 'Satisfied Clients' },
-    { number: '4', label: language === 'es' ? 'Ubicaciones' : 'Office Locations' },
-    { number: '24/7', label: language === 'es' ? 'Asistencia IA' : 'AI Assistance' },
+    { number: '60+', label: 'Years Combined Experience', icon: <Briefcase className="h-6 w-6" /> },
+    { number: '5,000+', label: 'Satisfied Clients', icon: <Users className="h-6 w-6" /> },
+    { number: '4', label: 'Office Locations', icon: <MapPin className="h-6 w-6" /> },
+    { number: '98%', label: 'Success Rate', icon: <Award className="h-6 w-6" /> },
+  ];
+
+  const milestones = [
+    { year: '2011', event: 'Vasquez Law Firm Founded', description: 'Started with a vision to provide accessible legal services' },
+    { year: '2015', event: 'Charlotte Office Opened', description: 'Expanded to serve the Queen City community' },
+    { year: '2018', event: 'Smithfield Location Added', description: 'Growing to better serve rural communities' },
+    { year: '2020', event: 'Orlando Office Launch', description: 'First expansion outside North Carolina' },
+    { year: '2023', event: 'AI Integration', description: 'Pioneering technology-enhanced legal services' },
   ];
 
   return (
-    <MasterLayout>
+    <MasterLayout variant="hero" showBreadcrumbs={false}>
       <div className="min-h-screen bg-black">
-        {/* Language Toggle - Fixed Position */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="fixed right-2 sm:right-4 top-16 sm:top-20 z-40 flex gap-1 sm:gap-2 rounded-full bg-black/50 p-1 backdrop-blur-sm"
-        >
-          <button
-            onClick={() => setLanguage('en')}
-            className={`rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all ${
-              language === 'en' ? 'bg-primary text-black' : 'text-white hover:text-primary'
-            }`}
-          >
-            EN
-          </button>
-          <button
-            onClick={() => setLanguage('es')}
-            className={`rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all ${
-              language === 'es' ? 'bg-primary text-black' : 'text-white hover:text-primary'
-            }`}
-          >
-            ES
-          </button>
-        </motion.div>
 
         {/* Hero Section */}
-        <section className="relative py-20 overflow-hidden">
-          {/* Background Effect */}
+        <section className="relative overflow-hidden bg-black py-24">
+          {/* Animated Background */}
           <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-gradient-to-b from-black via-neutral-950 to-black" />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-black to-secondary/10" />
             <motion.div
               className="absolute inset-0"
               animate={{
                 background: [
-                  'radial-gradient(circle at 20% 50%, rgba(201, 151, 77, 0.1) 0%, transparent 50%)',
-                  'radial-gradient(circle at 80% 50%, rgba(107, 31, 46, 0.1) 0%, transparent 50%)',
-                  'radial-gradient(circle at 20% 50%, rgba(201, 151, 77, 0.1) 0%, transparent 50%)',
+                  'radial-gradient(circle at 20% 50%, rgba(201, 151, 77, 0.15) 0%, transparent 50%)',
+                  'radial-gradient(circle at 80% 50%, rgba(107, 31, 46, 0.15) 0%, transparent 50%)',
+                  'radial-gradient(circle at 20% 50%, rgba(201, 151, 77, 0.15) 0%, transparent 50%)',
                 ],
               }}
               transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
             />
           </div>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="container mx-auto px-4 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-center"
+              className="text-center max-w-4xl mx-auto"
             >
-              <Heading level={1} className="text-white mb-4">{t.title}</Heading>
-              <Text size="xl" className="text-primary font-semibold mb-12">{t.subtitle}</Text>
+              <h1 className="text-5xl md:text-7xl font-black mb-6 text-white">About Vasquez Law Firm</h1>
+              <p className="text-xl md:text-2xl mb-4 font-semibold text-primary">
+                Fighting for You Since 2011
+              </p>
+              <p className="text-lg mb-12 text-gray-300 max-w-3xl mx-auto">
+                {TRADEMARK.YO_PELEO_POR_TI} - From humble beginnings to becoming North Carolina's trusted voice for justice,
+                we've built our reputation on dedication, integrity, and results.
+              </p>
 
               {/* Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
                 {stats.map((stat, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="bg-black/50 backdrop-blur-sm rounded-xl p-6 border border-primary/20"
+                    whileHover={{ scale: 1.05 }}
+                    className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-primary/30 transition-all"
                   >
-                    <p className="text-4xl font-bold text-primary">{stat.number}</p>
-                    <p className="text-sm text-gray-400 mt-2">{stat.label}</p>
+                    <div className="text-primary mb-3 flex justify-center">{stat.icon}</div>
+                    <p className="text-4xl font-bold text-white mb-2">{stat.number}</p>
+                    <p className="text-sm text-gray-400">{stat.label}</p>
                   </motion.div>
                 ))}
               </div>
@@ -236,223 +141,413 @@ export default function AboutPage() {
         </section>
 
         {/* Our Story Section */}
-        <section className="py-20 bg-gradient-to-b from-black to-neutral-950">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                <Heading level={2} className="text-white mb-6">{t.story}</Heading>
-                <Text className="mb-4 leading-relaxed">{t.storyText1}</Text>
-                <Text className="mb-6 leading-relaxed">{t.storyText2}</Text>
-
-                <div className="bg-primary/10 backdrop-blur-sm rounded-xl p-6 border border-primary/20">
-                  <h3 className="text-2xl font-bold text-primary mb-3">{t.tagline}</h3>
-                  <Text>{t.taglineDesc}</Text>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative"
-              >
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm rounded-xl h-48 flex items-center justify-center border border-primary/20">
-                    <div className="text-center">
-                      <div className="text-4xl mb-2">🏛️</div>
-                      <p className="text-sm text-gray-300">Historic Office</p>
-                    </div>
-                  </div>
-                  <div className="bg-gradient-to-br from-secondary/20 to-secondary/10 backdrop-blur-sm rounded-xl h-48 flex items-center justify-center mt-8 border border-secondary/20">
-                    <div className="text-center">
-                      <div className="text-4xl mb-2">👥</div>
-                      <p className="text-sm text-gray-300">Our Team</p>
-                    </div>
-                  </div>
-                  <div className="bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-sm rounded-xl h-48 flex items-center justify-center border border-primary/20">
-                    <div className="text-center">
-                      <div className="text-4xl mb-2">🤝</div>
-                      <p className="text-sm text-gray-300">Client Meeting</p>
-                    </div>
-                  </div>
-                  <div className="bg-gradient-to-br from-secondary/20 to-secondary/10 backdrop-blur-sm rounded-xl h-48 flex items-center justify-center mt-8 border border-secondary/20">
-                    <div className="text-center">
-                      <div className="text-4xl mb-2">🎉</div>
-                      <p className="text-sm text-gray-300">Victory Celebration</p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-          </div>
-        </div>
-      </section>
-
-        {/* Mission & Values */}
         <section className="py-20 bg-neutral-950">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Mission */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-16"
-            >
-              <Heading level={2} className="text-white mb-6">{t.mission}</Heading>
-              <Text size="lg" className="max-w-3xl mx-auto">{t.missionText}</Text>
-            </motion.div>
+          <div className="container mx-auto px-4">
+            <div className="max-w-7xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-16"
+              >
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                  Our <span className="text-primary">Story</span>
+                </h2>
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                  From a single attorney with a vision to a full-service law firm serving thousands across the Southeast
+                </p>
+              </motion.div>
 
-            {/* Values */}
-            <div className="mb-16">
-              <Heading level={2} className="text-center text-white mb-12">{t.values}</Heading>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-                {[t.value1, t.value2, t.value3, t.value4, t.value5].map((value, index) => (
+              <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <div className="prose prose-lg prose-invert max-w-none">
+                    <p className="text-gray-300 leading-relaxed mb-6">
+                      Founded in 2011 by William J. Vásquez, our firm began with a simple yet powerful mission: 
+                      to provide accessible, high-quality legal representation to all members of our community, 
+                      regardless of their background or circumstances.
+                    </p>
+                    <p className="text-gray-300 leading-relaxed mb-6">
+                      What started as a solo practice in Raleigh has grown into one of North Carolina's most 
+                      innovative law firms, with four offices across NC and Florida. Our growth has been driven 
+                      by our unwavering commitment to our clients and our core values.
+                    </p>
+                    <p className="text-gray-300 leading-relaxed mb-8">
+                      Today, we're proud to be pioneers in combining traditional legal expertise with cutting-edge 
+                      technology, including AI-powered assistants that help us provide faster, more efficient 
+                      service while maintaining the personal touch our clients deserve.
+                    </p>
+                  </div>
+
+                  <div className="bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-sm rounded-2xl p-8 border border-primary/20">
+                    <h3 className="text-2xl font-bold text-primary mb-4">{TRADEMARK.YO_PELEO_POR_TI}</h3>
+                    <p className="text-gray-300">
+                      Our motto "I Fight For You" isn't just words - it's our promise to every client who walks 
+                      through our doors. From the courtroom to the conference room, we fight tirelessly for justice.
+                    </p>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="relative"
+                >
+                  <Image
+                    src="/images/about/team-photo.jpg"
+                    alt="Vasquez Law Firm Team"
+                    width={600}
+                    height={400}
+                    className="rounded-2xl shadow-2xl w-full object-cover"
+                  />
+                  <div className="absolute -bottom-6 -right-6 bg-primary rounded-2xl p-6 shadow-xl">
+                    <p className="text-black font-bold text-xl">Since 2011</p>
+                    <p className="text-black/80">Serving Our Community</p>
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Timeline */}
+              <div className="relative">
+                <h3 className="text-3xl font-bold text-center mb-12 text-white">
+                  Our <span className="text-primary">Journey</span>
+                </h3>
+                <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/20"></div>
+                {milestones.map((milestone, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="bg-black/50 backdrop-blur-sm rounded-xl p-6 text-center border border-primary/20 hover:border-primary/40 transition-all"
+                    className={`relative flex items-center mb-12 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}
                   >
-                    <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <div className="text-2xl">
-                        {index === 0 ? '👨‍👩‍👧‍👦' : index === 1 ? '🤝' : index === 2 ? '💪' : index === 3 ? '⭐' : '⚔️'}
+                    <div className="flex-1" />
+                    <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary rounded-full border-4 border-black z-10" />
+                    <div className={`flex-1 ${index % 2 === 0 ? 'lg:pr-12 lg:text-right' : 'lg:pl-12'}`}>
+                      <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                        <p className="text-primary font-bold text-lg mb-2">{milestone.year}</p>
+                        <h4 className="text-white font-semibold text-xl mb-2">{milestone.event}</h4>
+                        <p className="text-gray-400">{milestone.description}</p>
                       </div>
                     </div>
-                    <h3 className="text-xl font-semibold text-white mb-2">{value.title}</h3>
-                    <Text size="sm">{value.desc}</Text>
                   </motion.div>
                 ))}
               </div>
             </div>
+          </div>
+        </section>
 
-            {/* Innovation Commitment */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-sm rounded-2xl p-8 border border-primary/30"
-            >
-              <Heading level={2} className="text-white mb-6">{t.commitment}</Heading>
-              <Text size="lg" className="leading-relaxed">{t.commitmentText}</Text>
-            </motion.div>
+        {/* Mission & Values */}
+        <section className="py-20 bg-black">
+          <div className="container mx-auto px-4">
+            <div className="max-w-7xl mx-auto">
+              {/* Mission */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-20"
+              >
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                  Our <span className="text-primary">Mission</span>
+                </h2>
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                  To provide accessible, high-quality legal representation to all members of our community, 
+                  regardless of their background or circumstances. We leverage technology to break down barriers 
+                  and ensure justice is available to everyone.
+                </p>
+              </motion.div>
+
+              {/* Core Values */}
+              <div className="mb-20">
+                <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">
+                  Our Core <span className="text-primary">Values</span>
+                </h2>
+                <p className="text-xl text-gray-300 text-center mb-12 max-w-3xl mx-auto">
+                  These five principles guide everything we do at Vasquez Law Firm
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {coreValues.map((value, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      whileHover={{ scale: 1.05 }}
+                      className={`bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-primary/30 transition-all ${
+                        index === 4 ? 'lg:col-span-3 lg:max-w-2xl lg:mx-auto' : ''
+                      }`}
+                    >
+                      <div className="text-primary mb-4">{value.icon}</div>
+                      <h3 className="text-2xl font-bold text-white mb-3">{value.title}</h3>
+                      <p className="text-gray-300 leading-relaxed">{value.description}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Commitment to Excellence */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm rounded-2xl p-12 border border-primary/20"
+              >
+                <h2 className="text-3xl font-bold text-white mb-6 text-center">
+                  Our Commitment to <span className="text-primary">Innovation</span>
+                </h2>
+                <p className="text-lg text-gray-300 leading-relaxed text-center max-w-3xl mx-auto">
+                  As pioneers in AI-enhanced legal services, we're committed to using technology responsibly 
+                  to improve access to justice. Our AI assistants work alongside our attorneys to provide 
+                  faster responses, more accurate case analysis, and better outcomes for our clients.
+                </p>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Team Section */}
+        <section className="py-20 bg-neutral-950">
+          <div className="container mx-auto px-4">
+            <div className="max-w-7xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-16"
+              >
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                  Meet Our <span className="text-primary">Team</span>
+                </h2>
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                  Experienced attorneys and dedicated staff committed to fighting for your rights
+                </p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                {[
+                  { name: 'William J. Vásquez', title: 'Founding Attorney', image: '/images/attorneys/william-vasquez.jpg' },
+                  { name: 'Jillian Baucom', title: 'Managing Attorney', image: '/images/attorneys/jillian-baucom.jpg' },
+                  { name: 'Christopher Afanador', title: 'Immigration Attorney', image: '/images/attorneys/christopher-afanador.jpg' },
+                  { name: 'Adrianna Ingram', title: 'Immigration Attorney', image: '/images/attorneys/adriana-ingram.webp' },
+                  { name: 'Roselyn V. Torrellas', title: 'Attorney', image: '/images/attorneys/roselyn-torrellas.jpg' },
+                  { name: 'Mark Kelsey', title: 'Attorney', image: '/images/attorneys/mark-kelsey.jpg' },
+                ].map((attorney, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-primary/30 transition-all group"
+                  >
+                    <div className="aspect-[4/5] relative overflow-hidden">
+                      <Image
+                        src={attorney.image}
+                        alt={attorney.name}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-white mb-1">{attorney.name}</h3>
+                      <p className="text-primary">{attorney.title}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
         {/* Locations */}
-        <section className="py-20 bg-gradient-to-b from-neutral-950 to-black">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <Heading level={2} className="text-white mb-4">{t.locations}</Heading>
-              <Text size="lg">
-                {t.serving} <span className="font-semibold text-primary">50+</span> {t.communities}
-              </Text>
-            </div>
+        <section className="py-20 bg-black">
+          <div className="container mx-auto px-4">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+                  Our <span className="text-primary">Locations</span>
+                </h2>
+                <p className="text-xl text-gray-300">
+                  Proudly serving <span className="font-semibold text-primary">50+</span> communities across North Carolina and Florida
+                </p>
+              </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {locations.map((location, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-black/50 backdrop-blur-sm rounded-xl p-6 border border-primary/20 hover:border-primary/40 transition-all"
-                >
-                  <div className="text-3xl mb-3">📍</div>
-                  <h3 className="text-xl font-semibold text-white mb-1">
-                    {location.city}, {location.state}
-                  </h3>
-                  <Text size="sm" className="mb-2">{location.address}</Text>
-                  <p className="text-sm text-primary font-medium">{location.phone}</p>
-                </motion.div>
-              ))}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {offices.map((office, index) => (
+                  <motion.a
+                    key={index}
+                    href={`/locations/${office.city.toLowerCase()}`}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    whileHover={{ scale: 1.05 }}
+                    className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-primary/30 transition-all cursor-pointer group"
+                  >
+                    {office.isMainOffice && (
+                      <div className="bg-primary text-black text-xs font-bold px-3 py-1 rounded-full inline-block mb-4">
+                        MAIN OFFICE
+                      </div>
+                    )}
+                    <MapPin className="h-8 w-8 text-primary mb-4 group-hover:scale-110 transition-transform" />
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      {office.city}, {office.state}
+                    </h3>
+                    <p className="text-gray-400 text-sm mb-3">{office.address}</p>
+                    <p className="text-primary font-semibold">{office.phone}</p>
+                  </motion.a>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
         {/* Awards & Recognition Section */}
-        <section className="py-20 bg-black">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Heading level={2} className="text-center text-white mb-12">{t.awards}</Heading>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-              {[
-                { title: t.award1, icon: '🏆', year: '2023' },
-                { title: t.award2, icon: '🚀', year: '2023' },
-                { title: t.award3, icon: '❤️', year: '2022-2023' },
-                { title: t.award4, icon: '⭐', year: '2019-2023' },
-              ].map((award, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="text-center bg-gradient-to-b from-primary/10 to-transparent backdrop-blur-sm rounded-xl p-6 border border-primary/20 hover:border-primary/40 transition-all"
-                >
-                  <div className="text-5xl mb-4">{award.icon}</div>
-                  <p className="text-lg font-semibold text-white">{award.title}</p>
-                  <p className="text-sm text-primary mt-2">{award.year}</p>
-                </motion.div>
-              ))}
-            </div>
+        <section className="py-20 bg-neutral-950">
+          <div className="container mx-auto px-4">
+            <div className="max-w-7xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-16"
+              >
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                  Recognition & <span className="text-primary">Awards</span>
+                </h2>
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                  Our dedication to excellence has been recognized by clients and peers alike
+                </p>
+              </motion.div>
 
-            {/* Professional Associations */}
-            <div>
-              <h3 className="text-2xl font-bold text-center text-white mb-8">{t.associations}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {[t.association1, t.association2, t.association3, t.association4].map(
-                  (association, index) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                {[
+                  { title: 'Top Immigration Law Firm', icon: '🏆', year: '2023' },
+                  { title: 'Innovation in Legal Tech', icon: '🚀', year: '2023' },
+                  { title: 'Community Service Excellence', icon: '❤️', year: '2022-2023' },
+                  { title: 'Client Choice Award', icon: '⭐', year: '5 Years Running' },
+                ].map((award, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    whileHover={{ scale: 1.05 }}
+                    className="text-center bg-gradient-to-b from-primary/10 to-transparent backdrop-blur-sm rounded-2xl p-8 border border-primary/20 hover:border-primary/40 transition-all"
+                  >
+                    <div className="text-5xl mb-4">{award.icon}</div>
+                    <p className="text-lg font-bold text-white mb-2">{award.title}</p>
+                    <p className="text-sm text-primary">{award.year}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Professional Associations */}
+              <div>
+                <h3 className="text-3xl font-bold text-center text-white mb-8">
+                  Professional <span className="text-primary">Associations</span>
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {[
+                    'American Immigration Lawyers Association (AILA)',
+                    'North Carolina State Bar',
+                    'Florida Bar',
+                    'National Association of Criminal Defense Lawyers',
+                  ].map((association, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, scale: 0.9 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className="bg-black/50 backdrop-blur-sm rounded-xl p-4 text-center border border-primary/20 hover:border-primary/40 transition-all"
+                      whileHover={{ scale: 1.05 }}
+                      className="bg-white/5 backdrop-blur-sm rounded-xl p-6 text-center border border-white/10 hover:border-primary/30 transition-all"
                     >
-                      <Text size="sm" className="font-medium">{association}</Text>
+                      <Shield className="h-8 w-8 text-primary mx-auto mb-4" />
+                      <p className="text-white font-medium">{association}</p>
                     </motion.div>
-                  )
-                )}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-sm">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <Heading level={2} className="text-white mb-6">{t.getStarted}</Heading>
-            <Button href="/contact" size="lg" className="transform hover:scale-105 transition-all">
-              {t.consultation}
-            </Button>
+        <section className="py-20 bg-gradient-to-r from-primary to-primary-300">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-4xl font-bold mb-6 text-black">
+                Ready to Join the Vasquez Family?
+              </h2>
+              <p className="text-xl mb-8 text-black/80">
+                Experience the difference of a law firm that truly fights for you
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <motion.a
+                  href="/contact"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 bg-black text-primary font-bold rounded-lg shadow-lg hover:bg-gray-900 transition-all inline-flex items-center justify-center"
+                >
+                  Schedule Your Free Consultation
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </motion.a>
+                <motion.a
+                  href="tel:1-844-967-3536"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 bg-white text-black font-bold rounded-lg shadow-lg hover:bg-gray-100 transition-all inline-flex items-center justify-center"
+                >
+                  <Phone className="mr-2 h-5 w-5" />
+                  Call Now: 1-844-YO-PELEO
+                </motion.a>
+              </div>
+            </div>
           </div>
         </section>
-
-        {/* Background Effects */}
-        <div className="fixed inset-0 -z-10 overflow-hidden">
-          <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
-          <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
-        </div>
       </div>
-
-      <ChatWidget language={language} />
 
       {/* Structured Data for SEO */}
       <Script
         id="about-page-structured-data"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generateAboutPageSchema()),
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            "mainEntity": {
+              "@type": "LegalService",
+              "name": "Vasquez Law Firm, PLLC",
+              "description": "Founded in 2011, Vasquez Law Firm provides accessible, high-quality legal representation across North Carolina and Florida.",
+              "foundingDate": "2011",
+              "founder": {
+                "@type": "Person",
+                "name": "William J. Vásquez"
+              },
+              "slogan": "YO PELEO POR TI - I Fight For You",
+              "numberOfEmployees": "10+",
+              "areaServed": ["North Carolina", "Florida"],
+              "award": [
+                "Top Immigration Law Firm 2023",
+                "Innovation in Legal Technology Award 2023",
+                "Community Service Excellence 2022-2023",
+                "Client Choice Award 2019-2023"
+              ]
+            }
+          }),
         }}
       />
       <Script

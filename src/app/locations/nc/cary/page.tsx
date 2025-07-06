@@ -86,6 +86,16 @@ export default function CaryPage() {
         'White Collar Crimes',
         'Juvenile Cases',
       ],
+      familyLaw: [
+        'Divorce & Separation',
+        'Child Custody & Support',
+        'Spousal Support/Alimony',
+        'Property Division',
+        'Prenuptial Agreements',
+        'Domestic Violence Protection',
+        'Adoption Services',
+        'Paternity Cases',
+      ],
     },
   };
 

@@ -21,6 +21,52 @@ export const metadata: Metadata = {
 }
 
 export default function ResourcesPage() {
+  // New downloadable resources section
+  const downloadableResources = {
+    immigration: {
+      title: 'Immigration Resources',
+      description: 'Comprehensive guides, checklists, and calculators for immigration processes',
+      link: '/resources/immigration',
+      icon: '📋',
+      featured: true,
+    },
+    personalInjury: {
+      title: 'Personal Injury Resources',
+      description: 'Accident guides, evidence checklists, and settlement calculators',
+      link: '/resources/personal-injury',
+      icon: '🏥',
+      featured: true,
+    },
+    criminalDefense: {
+      title: 'Criminal Defense Resources',
+      description: 'Know your rights guides, court process information, and legal checklists',
+      link: '/resources/criminal-defense',
+      icon: '⚖️',
+      featured: true,
+    },
+    workersComp: {
+      title: 'Workers\' Compensation Resources',
+      description: 'Benefits guides, claim checklists, and compensation calculators',
+      link: '/resources/workers-compensation',
+      icon: '👷',
+      featured: true,
+    },
+    familyLaw: {
+      title: 'Family Law Resources',
+      description: 'Divorce guides, child support calculators, and custody information',
+      link: '/resources/family-law',
+      icon: '👨‍👩‍👧‍👦',
+      featured: true,
+    },
+    trafficViolations: {
+      title: 'Traffic Violations Resources',
+      description: 'Traffic court guides, DUI calculators, and license point information',
+      link: '/resources/traffic-violations',
+      icon: '🚗',
+      featured: true,
+    },
+  };
+
   const resources = {
     immigration: {
       title: 'Immigration Resources',
@@ -218,17 +264,67 @@ export default function ResourcesPage() {
         backgroundImage="/images/resources-hero.jpg"
       />
 
-      {/* Resources Grid */}
+      {/* Downloadable Resources Section */}
+      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Free Downloadable Resources
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                Access our comprehensive library of guides, checklists, calculators, and templates 
+                designed to help you understand and navigate various legal processes.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+              {Object.entries(downloadableResources).map(([key, resource]) => (
+                <Link
+                  key={key}
+                  href={resource.link}
+                  className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                >
+                  <div className="p-8">
+                    <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                      {resource.icon}
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors">
+                      {resource.title}
+                    </h3>
+                    <p className="text-gray-600 mb-4">
+                      {resource.description}
+                    </p>
+                    <div className="flex items-center text-primary-600 font-semibold">
+                      <span>Browse Resources</span>
+                      <svg className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                  {resource.featured && (
+                    <div className="bg-gradient-to-r from-primary-600 to-primary-700 text-white text-center py-2 text-sm font-medium">
+                      New Resources Available
+                    </div>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* External Resources Grid */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Resources by Practice Area
+                External Resources & Links
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Find helpful resources, forms, and information organized by legal practice area. 
-                These resources are provided for informational purposes only and do not constitute legal advice.
+                Helpful external resources, government websites, and official forms organized by legal practice area. 
+                These links are provided for informational purposes only.
               </p>
             </div>
 
