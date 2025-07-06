@@ -5,13 +5,14 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import Script from 'next/script';
-// Dynamic import for client-side only rendering
+import Image from 'next/image';
 const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
   ssr: false,
 });
 import { Globe, Scale, Phone, ArrowRight, Award, Users, Shield, Star, Briefcase } from 'lucide-react';
 import { generateAttorneySchema } from '@/components/SEO/schemas';
-import AttorneyPhoto from '@/components/AttorneyPhoto';
+import { attorneys } from '@/data/attorneys';
+import { TRADEMARK } from '@/lib/constants/trademark';
 
 interface AttorneysPageContentProps {
   language: 'en' | 'es';
@@ -19,170 +20,6 @@ interface AttorneysPageContentProps {
 
 export default function AttorneysPageContent({ language }: AttorneysPageContentProps) {
   const [hoveredAttorney, setHoveredAttorney] = useState<string | null>(null);
-
-  const attorneys = [
-    {
-      id: 'william-vasquez',
-      name: 'William J. Vasquez',
-      title: {
-        en: 'Founding Partner',
-        es: 'Socio Fundador',
-      },
-      image: '/images/attorneys/william-vasquez.HEIC',
-      bio: {
-        en: 'William J. Vasquez is the founding partner of Vasquez Law Firm, PLLC. Licensed since 2011, he has dedicated his career to fighting for the rights of immigrants, injured workers, and those facing criminal charges throughout North Carolina and Florida.',
-        es: 'William J. Vasquez es el socio fundador de Vasquez Law Firm, PLLC. Licenciado desde 2011, ha dedicado su carrera a luchar por los derechos de inmigrantes, trabajadores lesionados y aquellos que enfrentan cargos criminales en Carolina del Norte y Florida.',
-      },
-      specialties: {
-        en: ['Immigration Law', 'Personal Injury', "Workers' Compensation", 'Criminal Defense'],
-        es: [
-          'Ley de Inmigración',
-          'Lesiones Personales',
-          'Compensación Laboral',
-          'Defensa Criminal',
-        ],
-      },
-      languages: ['English', 'Spanish'],
-      barAdmissions: ['North Carolina', 'Florida'],
-      education: [
-        {
-          degree: 'J.D.',
-          school: 'North Carolina Central University School of Law',
-          year: '2011',
-        },
-        {
-          degree: 'B.A.',
-          school: 'University of North Carolina at Chapel Hill',
-          year: '2000',
-        },
-      ],
-      featured: true,
-    },
-    {
-      id: 'adrianna-ingram',
-      name: 'Adrianna Ingram',
-      title: {
-        en: 'Family Law Attorney',
-        es: 'Abogada de Derecho Familiar',
-      },
-      image: '/images/attorneys/adriana-ingram.webp',
-      bio: {
-        en: 'Adrianna Ingram is an experienced family and criminal attorney who provides dedicated legal representation to protect your rights and family in every case.',
-        es: 'Adrianna Ingram es una abogada experimentada en derecho familiar y criminal que brinda representación legal dedicada para proteger sus derechos y familia en cada caso.',
-      },
-      specialties: {
-        en: ['Family Law', 'Criminal Defense', 'Divorce', 'Child Custody'],
-        es: ['Derecho Familiar', 'Defensa Criminal', 'Divorcio', 'Custodia de Menores'],
-      },
-      languages: ['English'],
-      barAdmissions: ['North Carolina'],
-      education: [
-        {
-          degree: 'J.D.',
-          school: 'Elon University School of Law',
-          year: '2015',
-        },
-        {
-          degree: 'B.A.',
-          school: 'North Carolina State University',
-          year: '2012',
-        },
-      ],
-    },
-    {
-      id: 'christopher-afanador',
-      name: 'Christopher Afanador',
-      title: {
-        en: 'Immigration Attorney',
-        es: 'Abogado de Inmigración',
-      },
-      image: '/images/attorneys/christopher-afanador.jpg',
-      bio: {
-        en: 'Christopher Afanador is a dedicated immigration attorney who helps clients navigate the complex USCIS immigration process with expertise and compassion.',
-        es: 'Christopher Afanador es un dedicado abogado de inmigración que ayuda a los clientes a navegar el complejo proceso de inmigración de USCIS con experiencia y compasión.',
-      },
-      specialties: {
-        en: ['Immigration Law', 'USCIS Applications', 'Green Cards', 'Citizenship'],
-        es: ['Ley de Inmigración', 'Aplicaciones USCIS', 'Tarjetas Verdes', 'Ciudadanía'],
-      },
-      languages: ['English', 'Spanish'],
-      barAdmissions: ['North Carolina'],
-      education: [
-        {
-          degree: 'J.D.',
-          school: 'Charlotte School of Law',
-          year: '2013',
-        },
-        {
-          degree: 'B.S.',
-          school: 'University of Central Florida',
-          year: '2010',
-        },
-      ],
-    },
-    {
-      id: 'jillian-baucom',
-      name: 'Jillian Baucom',
-      title: {
-        en: 'Immigration Attorney',
-        es: 'Abogada de Inmigración',
-      },
-      image: '/images/attorneys/jillian-baucom.jpg',
-      bio: {
-        en: 'Jillian Baucom is an experienced immigration attorney specializing in removal defense, dedicated to helping clients navigate the immigration process smoothly.',
-        es: 'Jillian Baucom es una abogada de inmigración experimentada especializada en defensa de deportación, dedicada a ayudar a los clientes a navegar el proceso de inmigración sin problemas.',
-      },
-      specialties: {
-        en: ['Immigration Law', 'Removal Defense', 'Deportation Defense', 'Immigration Court'],
-        es: ['Ley de Inmigración', 'Defensa de Deportación', 'Defensa de Remoción', 'Corte de Inmigración'],
-      },
-      languages: ['English', 'Spanish'],
-      barAdmissions: ['North Carolina'],
-      education: [
-        {
-          degree: 'J.D.',
-          school: 'University of North Carolina School of Law',
-          year: '2016',
-        },
-        {
-          degree: 'B.A.',
-          school: 'Duke University',
-          year: '2013',
-        },
-      ],
-    },
-    {
-      id: 'roselyn-torrellas',
-      name: 'Roselyn V. Torrellas',
-      title: {
-        en: 'Immigration Attorney',
-        es: 'Abogada de Inmigración',
-      },
-      image: '/images/attorneys/roselyn-torrellas.jpg',
-      bio: {
-        en: 'Roselyn V. Torrellas is an experienced immigration attorney who provides dedicated legal representation at various locations in NC and other states.',
-        es: 'Roselyn V. Torrellas es una abogada de inmigración experimentada que brinda representación legal dedicada en varias ubicaciones en NC y otros estados.',
-      },
-      specialties: {
-        en: ['Immigration Law', 'Family Immigration', 'Business Immigration', 'Deportation Defense'],
-        es: ['Ley de Inmigración', 'Inmigración Familiar', 'Inmigración Empresarial', 'Defensa de Deportación'],
-      },
-      languages: ['English', 'Spanish'],
-      barAdmissions: ['North Carolina'],
-      education: [
-        {
-          degree: 'J.D.',
-          school: 'North Carolina Central University School of Law',
-          year: '2009',
-        },
-        {
-          degree: 'B.A.',
-          school: 'Universidad Central de Venezuela',
-          year: '2005',
-        },
-      ],
-    },
-  ];
 
   const content = {
     en: {
@@ -200,13 +37,13 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
       teamDescription:
         "At Vasquez Law Firm, we believe in collaborative representation. Our attorneys work together, leveraging each other's strengths to provide comprehensive legal solutions for our clients throughout North Carolina and Florida.",
       whyChoose: 'Why Choose Our Attorneys?',
-      experience: '60+ Years Combined Experience',
+      experience: '35+ Years of Excellence',
       technology: 'Cutting-Edge Legal Strategies',
       bilingual: 'Bilingual Team (English & Spanish)',
       results: 'Thousands of Successful Cases',
       cta: {
         title: 'Ready to Fight for Your Rights?',
-        description: 'Contact our experienced attorneys today for a free consultation.',
+        description: `Contact our experienced attorneys today for a free consultation. ${TRADEMARK.YO_PELEO_POR_TI}™`,
         button1: 'Free Case Evaluation',
         button2: 'Call: 1-844-YO-PELEO',
       },
@@ -226,13 +63,13 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
       teamDescription:
         'En Vasquez Law Firm, creemos en la representación colaborativa. Nuestros abogados trabajan juntos, aprovechando las fortalezas de cada uno para brindar soluciones legales integrales a nuestros clientes en Carolina del Norte y Florida.',
       whyChoose: '¿Por Qué Elegir a Nuestros Abogados?',
-      experience: 'Más de 60 Años de Experiencia Combinada',
+      experience: 'Más de 35 Años de Excelencia',
       technology: 'Estrategias Legales de Vanguardia',
       bilingual: 'Equipo Bilingüe (Inglés y Español)',
       results: 'Miles de Casos Exitosos',
       cta: {
         title: '¿Listo para Luchar por Sus Derechos?',
-        description: 'Contáctenos hoy para una consulta gratuita con nuestros abogados experimentados.',
+        description: `Contáctenos hoy para una consulta gratuita con nuestros abogados experimentados. ${TRADEMARK.YO_PELEO_POR_TI}™`,
         button1: 'Evaluación Gratuita',
         button2: 'Llame: 1-844-YO-PELEO',
       },
@@ -240,6 +77,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
   };
 
   const t = content[language];
+  const isSpanish = language === 'es';
 
   return (
     <div className="min-h-screen bg-black">
@@ -326,17 +164,22 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                     )}
                   </AnimatePresence>
 
-                  <AttorneyPhoto
-                    name={attorney.name}
-                    title={attorney.title[language]}
-                    imagePath={attorney.image}
-                    className="h-80 relative overflow-hidden"
-                  />
+                  <div className="h-80 relative overflow-hidden">
+                    <Image
+                      src={attorney.image}
+                      alt={attorney.name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <h3 className="text-2xl font-bold text-white">{attorney.name}</h3>
+                      <p className="text-primary font-semibold">{isSpanish ? attorney.titleEs : attorney.title}</p>
+                    </div>
+                  </div>
                   
                   <div className="p-6 relative">
-                    <h3 className="text-2xl font-bold text-white mb-2">{attorney.name}</h3>
-                    <p className="text-primary font-semibold mb-4">{attorney.title[language]}</p>
-                    <p className="text-gray-400 mb-4 line-clamp-3">{attorney.bio[language]}</p>
+                    <p className="text-gray-400 mb-4 line-clamp-3">{isSpanish ? attorney.bioEs : attorney.bio}</p>
 
                     {/* Practice Areas with Modern Pills */}
                     <div className="mb-4">
@@ -345,7 +188,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                         {t.specialties}
                       </h4>
                       <div className="flex flex-wrap gap-2">
-                        {attorney.specialties[language].slice(0, 3).map(specialty => (
+                        {attorney.practiceAreas.slice(0, 3).map(specialty => (
                           <span
                             key={specialty}
                             className="px-3 py-1 bg-primary/10 text-xs text-primary rounded-full border border-primary/20"
@@ -368,7 +211,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                     )}
 
                     <Link
-                      href={language === 'es' ? `/es/abogados/${attorney.id}` : `/attorneys/${attorney.id}`}
+                      href={`/attorneys/${attorney.slug}`}
                       className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black rounded-full hover:bg-primary-300 transition-all font-bold group-hover:scale-105"
                     >
                       {t.viewProfile}
@@ -406,7 +249,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
 
           <div className="grid md:grid-cols-4 gap-8">
             {[
-              { icon: <Award className="w-8 h-8" />, text: t.experience, value: '60+', metric: 'Years' },
+              { icon: <Award className="w-8 h-8" />, text: t.experience, value: '35+', metric: 'Years' },
               { icon: <Shield className="w-8 h-8" />, text: t.technology, value: 'Elite', metric: 'Status' },
               { icon: <Globe className="w-8 h-8" />, text: t.bilingual, value: '2', metric: 'Languages' },
               { icon: <Users className="w-8 h-8" />, text: t.results, value: '30K+', metric: 'Cases Won' },
@@ -451,18 +294,24 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
             {[
               {
                 icon: <Star className="w-12 h-12" />,
-                title: 'Elite Recognition',
-                description: 'Top-rated attorneys with prestigious awards and peer recognition',
+                title: isSpanish ? 'Reconocimiento Elite' : 'Elite Recognition',
+                description: isSpanish 
+                  ? 'Abogados de primera categoría con premios prestigiosos y reconocimiento de pares'
+                  : 'Top-rated attorneys with prestigious awards and peer recognition',
               },
               {
                 icon: <Briefcase className="w-12 h-12" />,
-                title: 'Proven Track Record',
-                description: 'Thousands of successful cases with millions recovered for clients',
+                title: isSpanish ? 'Historial Comprobado' : 'Proven Track Record',
+                description: isSpanish
+                  ? 'Miles de casos exitosos con millones recuperados para clientes'
+                  : 'Thousands of successful cases with millions recovered for clients',
               },
               {
                 icon: <Users className="w-12 h-12" />,
-                title: 'Client-First Approach',
-                description: '24/7 availability with personalized attention to every case',
+                title: isSpanish ? 'Enfoque al Cliente' : 'Client-First Approach',
+                description: isSpanish
+                  ? 'Disponibilidad 24/7 con atención personalizada a cada caso'
+                  : '24/7 availability with personalized attention to every case',
               },
             ].map((item, index) => (
               <motion.div
@@ -511,7 +360,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href={language === 'es' ? '/es/consulta-gratuita' : '/free-consultation'}
+                href="/contact"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-black rounded-full font-bold hover:bg-primary-300 transition-all transform hover:scale-105"
               >
                 {t.cta.button1}
@@ -541,21 +390,17 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
             __html: JSON.stringify(
               generateAttorneySchema({
                 name: attorney.name,
-                jobTitle: attorney.title[language],
-                image: attorney.image,
+                jobTitle: attorney.title,
+                image: `https://www.vasquezlawfirm.com${attorney.image}`,
                 telephone: '1-844-967-3536',
-                email: 'leads@vasquezlawfirm.com',
+                email: attorney.email || 'leads@vasquezlawfirm.com',
                 education: attorney.education.map(edu => ({
-                  name: edu.school,
+                  name: edu.institution,
                   degree: edu.degree,
                 })),
-                knowsAbout: attorney.specialties[language],
-                memberOf: [
-                  'American Immigration Lawyers Association',
-                  'North Carolina Bar Association',
-                  'Florida Bar Association',
-                ],
-                award: ['Top Immigration Law Firm 2023', 'Client Choice Award'],
+                knowsAbout: attorney.practiceAreas,
+                memberOf: attorney.associations.map(assoc => assoc.name),
+                award: attorney.specialAchievements || [],
               })
             ),
           }}

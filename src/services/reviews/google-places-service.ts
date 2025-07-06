@@ -134,7 +134,7 @@ export class GooglePlacesService {
       },
       orlando: {
         query: 'Vasquez Law Firm Orlando FL',
-        placeId: null, // No place ID provided yet
+        placeId: 'ChIJTyAsWJ9_54gRFBO4KYHh1A0', // 1111 E Amelia St
       },
       smithfield: {
         query: 'Vasquez Law Firm Smithfield NC',
