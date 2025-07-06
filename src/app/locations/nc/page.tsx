@@ -225,7 +225,7 @@ export default function NCLocationsPage() {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6">Get Legal Help Anywhere in North Carolina</h2>
           <p className="text-xl mb-8">
-            No matter where you are in NC, we're here to help with your legal needs
+            No matter where you are in NC, we&apos;re here to help with your legal needs
           </p>
           <a
             href="tel:1-844-967-3536"

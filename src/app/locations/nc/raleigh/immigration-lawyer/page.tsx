@@ -34,12 +34,12 @@ export default function RaleighImmigrationLawyerPage() {
             {/* Hero Section */}
             <section>
               <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-                Raleigh's Top Immigration Lawyer - 60+ Years Winning Cases
+                Raleigh&apos;s Top Immigration Lawyer - 60+ Years Winning Cases
               </h1>
               <p className="text-xl text-gray-700">
                 When you need the best immigration lawyer in Raleigh, Wake County, North Carolina, 
                 Vasquez Law Firm delivers results. With over 60 years of combined experience and thousands of successful cases, 
-                we're the law firm Raleigh residents trust most.
+                we\&apos;re the law firm Raleigh residents trust most.
               </p>
             </section>
             {/* Local Expertise */}
@@ -214,7 +214,7 @@ export default function RaleighImmigrationLawyerPage() {
                 name: `What areas near Raleigh do you serve?`,
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: `We serve all of Wake County including Raleigh, Cary, Apex, Garner, Knightdale, Wake Forest, and surrounding areas. With 60+ years of experience, we're the trusted choice throughout the region.`
+                  text: `We serve all of Wake County including Raleigh, Cary, Apex, Garner, Knightdale, Wake Forest, and surrounding areas. With 60+ years of experience, we\'re the trusted choice throughout the region.`
                 }
               },
               {

@@ -470,7 +470,7 @@ export default function DetentionBondHearingsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Don't Wait - Your Family Member Needs Help NOW
+              Don&apos;t Wait - Your Family Member Needs Help NOW
             </h2>
             <p className="text-xl mb-8">
               Every hour in detention is an hour too long. Our immigration attorneys are standing by

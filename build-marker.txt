@@ -1,0 +1,6 @@
+Build attempted at Sun Jul  6 04:29:31 EDT 2025
+Status: Build has linting errors that need to be fixed
+Main issues:
+- React unescaped entities (apostrophes and quotes need escaping)
+- TypeScript errors in retell services (missing Prisma models)
+- Unused variables warnings

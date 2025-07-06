@@ -2,21 +2,6 @@ import { NextRequest } from 'next/server';
 import NextAuth from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
-interface SignInMessage {
-  user: {
-    email?: string | null;
-    name?: string | null;
-    id: string;
-  };
-  account?: {
-    provider?: string;
-  } | null;
-  profile?: {
-    email?: string;
-  } | null;
-  isNewUser?: boolean;
-  __headers?: Record<string, string>;
-}
 
 // Create handler that passes request headers to auth options
 async function auth(req: NextRequest, context: { params: { nextauth: string[] } }) {
@@ -31,7 +16,28 @@ async function auth(req: NextRequest, context: { params: { nextauth: string[] } 
     ...authOptions,
     events: {
       ...authOptions.events,
-      signIn: async (message: any) => {
+      signIn: async (message: {
+        user: {
+          id: string;
+          email?: string | null;
+          name?: string | null;
+          image?: string | null;
+        };
+        account?: {
+          provider: string;
+          type: string;
+          providerAccountId: string;
+          access_token?: string;
+          expires_at?: number;
+          refresh_token?: string;
+          token_type?: string;
+          scope?: string;
+          id_token?: string;
+        } | null;
+        profile?: Record<string, unknown>;
+        isNewUser?: boolean;
+        __headers?: Record<string, string>;
+      }) => {
         // Pass headers to the signIn event
         const originalSignIn = authOptions.events?.signIn;
         if (originalSignIn) {

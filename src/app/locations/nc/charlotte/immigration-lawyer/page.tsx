@@ -34,12 +34,12 @@ export default function CharlotteImmigrationLawyerPage() {
             {/* Hero Section */}
             <section>
               <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-                Charlotte's Top Immigration Lawyer - 60+ Years Winning Cases
+                Charlotte&apos;s Top Immigration Lawyer - 60+ Years Winning Cases
               </h1>
               <p className="text-xl text-gray-700">
                 When you need the best immigration lawyer in Charlotte, Mecklenburg County, North Carolina, 
                 Vasquez Law Firm delivers results. With over 60 years of combined experience and thousands of successful cases, 
-                we're the law firm Charlotte residents trust most.
+                we\&apos;re the law firm Charlotte residents trust most.
               </p>
             </section>
             {/* Local Expertise */}
@@ -214,7 +214,7 @@ export default function CharlotteImmigrationLawyerPage() {
                 name: `What areas near Charlotte do you serve?`,
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: `We serve all of Mecklenburg County including Charlotte, Concord, Gastonia, Rock Hill, Matthews, Huntersville, and surrounding areas. With 60+ years of experience, we're the trusted choice throughout the region.`
+                  text: `We serve all of Mecklenburg County including Charlotte, Concord, Gastonia, Rock Hill, Matthews, Huntersville, and surrounding areas. With 60+ years of experience, we\'re the trusted choice throughout the region.`
                 }
               },
               {

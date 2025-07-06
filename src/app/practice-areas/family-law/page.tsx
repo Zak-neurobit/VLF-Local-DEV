@@ -177,7 +177,7 @@ export default function FamilyLawPage() {
             <section>
               <h2 className="text-3xl font-bold mb-6 text-primary">Why Choose Vasquez Law Firm for Family Law?</h2>
               <p className="text-lg mb-6">
-                Family law matters are deeply personal and emotionally challenging. Our bilingual attorneys combine legal expertise with genuine compassion to guide you through these difficult times. We're not just your lawyers – we're your advocates, counselors, and support system.
+                Family law matters are deeply personal and emotionally challenging. Our bilingual attorneys combine legal expertise with genuine compassion to guide you through these difficult times. We&apos;re not just your lawyers – we\&apos;re your advocates, counselors, and support system.
               </p>
               
               <div className="grid md:grid-cols-2 gap-6 mt-8">
@@ -195,7 +195,7 @@ export default function FamilyLawPage() {
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">24/7 Emergency Support</h3>
-                  <p className="text-gray-300">Domestic violence and urgent custody matters don't wait for business hours. We're available when you need us most.</p>
+                  <p className="text-gray-300">Domestic violence and urgent custody matters don&apos;t wait for business hours. We&apos;re available when you need us most.</p>
                 </div>
               </div>
             </section>
@@ -241,11 +241,11 @@ export default function FamilyLawPage() {
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Full Custody Secured</h3>
-                  <p className="text-gray-300">Helped a mother gain full custody after proving father's substance abuse issues posed danger to children.</p>
+                  <p className="text-gray-300">Helped a mother gain full custody after proving father&apos;s substance abuse issues posed danger to children.</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Support Reduced 60%</h3>
-                  <p className="text-gray-300">Successfully modified client's alimony obligation after job loss, saving them $2,000/month.</p>
+                  <p className="text-gray-300">Successfully modified client&apos;s alimony obligation after job loss, saving them $2,000/month.</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Emergency Protection</h3>

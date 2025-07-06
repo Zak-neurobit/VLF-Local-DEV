@@ -65,21 +65,21 @@ export default function NCDivorceTimelineBlog() {
               <CardContent className="p-8">
                 <div className="prose prose-lg max-w-none">
                   <p className="text-gray-700 leading-relaxed mb-6">
-                    If you're considering divorce in North Carolina, one of your first questions is
-                    likely "How long will this take?" The answer depends on several factors, but
+                    If you\&apos;re considering divorce in North Carolina, one of your first questions is
+                    likely &quot;How long will this take?&quot; The answer depends on several factors, but
                     North Carolina has specific requirements that make the timeline more predictable
                     than in many other states. This comprehensive guide will walk you through every
                     step of the NC divorce timeline.
                   </p>
 
                   <h2 className="text-2xl font-bold text-brand-charcoal mt-8 mb-4">
-                    North Carolina's Mandatory Separation Period
+                    North Carolina&apos;s Mandatory Separation Period
                   </h2>
 
                   <p className="text-gray-700 leading-relaxed mb-6">
                     The most significant factor in North Carolina divorce timing is the mandatory
                     one-year separation period. Unlike many states, North Carolina requires couples
-                    to live "separate and apart" for one full year before filing for absolute
+                    to live &quot;separate and apart&quot; for one full year before filing for absolute
                     divorce.
                   </p>
 
@@ -108,7 +108,7 @@ export default function NCDivorceTimelineBlog() {
                       </h3>
                       <p className="text-gray-700">
                         One spouse moves out of the marital home. Document this date carefully –
-                        it's crucial for your timeline. Consider drafting a separation agreement to
+                        it&apos;s crucial for your timeline. Consider drafting a separation agreement to
                         address immediate concerns.
                       </p>
                     </div>
@@ -141,7 +141,7 @@ export default function NCDivorceTimelineBlog() {
                       </h3>
                       <p className="text-gray-700">
                         Your spouse must be served with divorce papers and has 30 days to respond
-                        (60 days if served out of state). If they don't respond, you can proceed
+                        (60 days if served out of state). If they don&apos;t respond, you can proceed
                         with a default judgment.
                       </p>
                     </div>
@@ -263,7 +263,7 @@ export default function NCDivorceTimelineBlog() {
                           While the one-year separation cannot be waived, victims of domestic
                           violence can obtain immediate protective orders and temporary
                           custody/support orders without waiting. Contact an attorney immediately if
-                          you're in danger.
+                          you&apos;re in danger.
                         </p>
                       </div>
                     </div>
@@ -274,7 +274,7 @@ export default function NCDivorceTimelineBlog() {
                   </h2>
 
                   <p className="text-gray-700 leading-relaxed mb-6">
-                    The separation year isn't just waiting time. Use it productively:
+                    The separation year isn&apos;t just waiting time. Use it productively:
                   </p>
 
                   <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
@@ -310,7 +310,7 @@ export default function NCDivorceTimelineBlog() {
                     </p>
                     <p className="text-gray-700 mb-6">
                       At Vasquez Law Firm, we help clients throughout North Carolina plan for and
-                      execute their divorce strategy, minimizing both time and stress. We'll help
+                      execute their divorce strategy, minimizing both time and stress. We&apos;ll help
                       you understand your specific timeline and work to resolve your case as quickly
                       as possible.
                     </p>
@@ -373,7 +373,7 @@ export default function NCDivorceTimelineBlog() {
                 <p className="text-gray-700">
                   Vasquez Law Firm has been guiding North Carolina families through divorce for over
                   20 years. Our experienced family law attorneys understand that divorce is more
-                  than a legal process – it's a life transition that requires compassionate guidance
+                  than a legal process – it&apos;s a life transition that requires compassionate guidance
                   and strategic planning. We serve clients throughout North Carolina with offices in
                   Charlotte, Raleigh, Durham, and Winston-Salem.
                 </p>

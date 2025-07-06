@@ -282,7 +282,7 @@ export function LocationPageTemplate({ data, schemas }: LocationPageProps) {
                         <li>• Immigration cases and ICE enforcement</li>
                         <li>• DWI/DUI arrests and traffic violations</li>
                         <li>• Personal injury from I-40/I-85 accidents</li>
-                        <li>• Workers' compensation claims</li>
+                        <li>• Workers&apos; compensation claims</li>
                         <li>• Family law and custody disputes</li>
                         <li>• Criminal charges and arrests</li>
                       </ul>

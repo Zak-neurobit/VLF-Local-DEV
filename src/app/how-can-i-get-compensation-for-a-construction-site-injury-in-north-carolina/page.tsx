@@ -49,7 +49,7 @@ export default function ConstructionInjuryCompensationBlog() {
 
                 <div className="flex items-center">
                   <Tag className="w-4 h-4 mr-2" />
-                  <span>Workers' Compensation</span>
+                  <span>Workers&apos; Compensation</span>
                 </div>
               </div>
             </header>
@@ -68,19 +68,19 @@ export default function ConstructionInjuryCompensationBlog() {
                   <p className="text-gray-700 leading-relaxed mb-6">
                     Construction sites are among the most dangerous workplaces in North Carolina.
                     With heavy machinery, heights, electrical hazards, and constantly changing
-                    conditions, construction workers face significant risks every day. If you've
+                    conditions, construction workers face significant risks every day. If you\&apos;ve
                     been injured on a construction site, you have several potential paths to
                     compensation, and understanding your options is crucial for protecting your
                     rights and financial future.
                   </p>
 
                   <h2 className="text-2xl font-bold text-brand-charcoal mt-8 mb-4">
-                    Workers' Compensation: Your First Line of Protection
+                    Workers&apos; Compensation: Your First Line of Protection
                   </h2>
 
                   <p className="text-gray-700 leading-relaxed mb-6">
                     In North Carolina, most construction employers with three or more employees must
-                    carry workers' compensation insurance. This no-fault system provides benefits
+                    carry workers&apos; compensation insurance. This no-fault system provides benefits
                     regardless of who caused the accident:
                   </p>
 
@@ -98,7 +98,7 @@ export default function ConstructionInjuryCompensationBlog() {
                     </li>
                     <li className="mb-2">
                       <strong>Vocational Rehabilitation:</strong> Training for new work if you
-                      can&apos;t return to construction
+                      can\&apos;t return to construction
                     </li>
                     <li className="mb-2">
                       <strong>Death Benefits:</strong> Support for dependents in fatal accident
@@ -121,11 +121,11 @@ export default function ConstructionInjuryCompensationBlog() {
                   </div>
 
                   <h2 className="text-2xl font-bold text-brand-charcoal mt-8 mb-4">
-                    Third-Party Claims: Beyond Workers' Compensation
+                    Third-Party Claims: Beyond Workers&apos; Compensation
                   </h2>
 
                   <p className="text-gray-700 leading-relaxed mb-6">
-                    While workers' compensation prohibits suing your employer, you may have claims
+                    While workers&apos; compensation prohibits suing your employer, you may have claims
                     against other parties:
                   </p>
 
@@ -242,27 +242,27 @@ export default function ConstructionInjuryCompensationBlog() {
                       <li>Report the injury immediately to your supervisor</li>
                       <li>Seek medical treatment and follow all recommendations</li>
                       <li>Document everything: take photos, get witness statements</li>
-                      <li>File your workers' compensation claim promptly</li>
-                      <li>Don't give recorded statements without legal advice</li>
+                      <li>File your workers&apos; compensation claim promptly</li>
+                      <li>Don&apos;t give recorded statements without legal advice</li>
                       <li>Keep all medical records and receipts</li>
                       <li>Consult an attorney to explore all compensation options</li>
                     </ol>
                   </div>
 
                   <h2 className="text-2xl font-bold text-brand-charcoal mt-8 mb-4">
-                    North Carolina's Contributory Negligence Challenge
+                    North Carolina&apos;s Contributory Negligence Challenge
                   </h2>
 
                   <p className="text-gray-700 leading-relaxed mb-6">
                     North Carolina follows the harsh contributory negligence rule for third-party
-                    claims. If you're found even 1% at fault, you may be barred from recovery.
-                    However, this doesn't apply to workers' compensation claims, and experienced
+                    claims. If you\&apos;re found even 1% at fault, you may be barred from recovery.
+                    However, this doesn&apos;t apply to workers&apos; compensation claims, and experienced
                     attorneys can often overcome this defense by proving:
                   </p>
 
                   <ul className="list-disc pl-6 mb-6 text-gray-700">
                     <li className="mb-2">
-                      The defendant had the "last clear chance" to avoid the accident
+                      The defendant had the &ldquo;last clear chance&rdquo; to avoid the accident
                     </li>
                     <li className="mb-2">Gross negligence by the defendant</li>
                     <li className="mb-2">Intentional conduct or willful safety violations</li>
@@ -303,7 +303,7 @@ export default function ConstructionInjuryCompensationBlog() {
                   {/* Call to Action */}
                   <div className="mt-12 p-8 bg-brand-crimson/10 rounded-lg">
                     <h2 className="text-2xl font-bold text-brand-charcoal mb-4">
-                      Don't Navigate This Alone
+                      Don&apos;t Navigate This Alone
                     </h2>
                     <p className="text-gray-700 mb-6">
                       Construction injury cases are complex, involving multiple parties, insurance
@@ -313,8 +313,8 @@ export default function ConstructionInjuryCompensationBlog() {
                     </p>
                     <p className="text-gray-700 mb-6">
                       At Vasquez Law Firm, we understand the devastating impact of construction
-                      injuries on workers and their families. We'll fight to ensure you receive
-                      every dollar of compensation you're entitled to under the law.
+                      injuries on workers and their families. We&apos;ll fight to ensure you receive
+                      every dollar of compensation you\&apos;re entitled to under the law.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
                       <a
@@ -340,7 +340,7 @@ export default function ConstructionInjuryCompensationBlog() {
                         href="/practice-areas/workers-compensation"
                         className="text-brand-skyblue hover:text-brand-crimson transition-colors"
                       >
-                        → Workers' Compensation Overview
+                        → Workers&apos; Compensation Overview
                       </a>
                       <a
                         href="/practice-areas/personal-injury"
@@ -352,13 +352,13 @@ export default function ConstructionInjuryCompensationBlog() {
                         href="/what-factors-will-affect-my-workers-comp-settlement"
                         className="text-brand-skyblue hover:text-brand-crimson transition-colors"
                       >
-                        → Factors That Affect Your Workers' Comp Settlement
+                        → Factors That Affect Your Workers&apos; Comp Settlement
                       </a>
                       <a
                         href="/steps-to-take-if-your-workers-comp-claim-is-denied-in-north-carolina"
                         className="text-brand-skyblue hover:text-brand-crimson transition-colors"
                       >
-                        → What to Do If Your Workers' Comp Claim Is Denied
+                        → What to Do If Your Workers&apos; Comp Claim Is Denied
                       </a>
                     </div>
                   </div>
@@ -374,10 +374,10 @@ export default function ConstructionInjuryCompensationBlog() {
                 </h3>
                 <p className="text-gray-700">
                   With offices throughout North Carolina, Vasquez Law Firm represents injured
-                  construction workers in workers' compensation and personal injury claims. Our
+                  construction workers in workers&apos; compensation and personal injury claims. Our
                   attorneys understand the unique challenges faced by construction workers and fight
                   aggressively to maximize compensation for workplace injuries. We work on a
-                  contingency fee basis – you don't pay unless we win your case.
+                  contingency fee basis – you don&apos;t pay unless we win your case.
                 </p>
               </CardContent>
             </Card>

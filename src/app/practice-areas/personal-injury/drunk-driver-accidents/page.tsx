@@ -129,7 +129,7 @@ export default function DrunkDriverAccidentsPage() {
             <p className="text-lg mb-8">
               NC law caps punitive damages at 3x compensatory damages or $250,000 (whichever is
               greater). We fight for every dollar you deserve, including these additional damages
-              that insurance companies don't want to pay.
+              that insurance companies don\&apos;t want to pay.
             </p>
             <Link
               href="/contact"
@@ -291,7 +291,7 @@ export default function DrunkDriverAccidentsPage() {
           <div className="mt-8 bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
             <p className="text-lg font-semibold mb-2">⚠️ Drunk Driving Crashes Are More Severe</p>
             <p className="text-gray-700">
-              Drunk drivers often don't brake or take evasive action before impact, resulting in
+              Drunk drivers often don&apos;t brake or take evasive action before impact, resulting in
               higher-speed collisions and more catastrophic injuries than typical accidents.
             </p>
           </div>
@@ -362,7 +362,7 @@ export default function DrunkDriverAccidentsPage() {
                 When Establishments Share Liability
               </h3>
               <p className="text-gray-700 mb-4">
-                North Carolina's Dram Shop Act allows victims to sue bars, restaurants, and other
+                North Carolina&apos;s Dram Shop Act allows victims to sue bars, restaurants, and other
                 establishments that over-serve drunk drivers. We can pursue claims against
                 establishments that:
               </p>
@@ -407,15 +407,15 @@ export default function DrunkDriverAccidentsPage() {
               </h3>
               <p className="text-gray-700">
                 Unlike typical accidents, juries have no sympathy for drunk drivers. This helps
-                overcome NC's contributory negligence law and increases damage awards.
+                overcome NC&apos;s contributory negligence law and increases damage awards.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3 text-[#001845]">
-                Insurance Companies Can't Defend DWI
+                Insurance Companies Can&apos;t Defend DWI
               </h3>
               <p className="text-gray-700">
-                Insurance companies can&apos;t argue their insured wasn&apos;t negligent when they
+                Insurance companies can\&apos;t argue their insured wasn&apos;t negligent when they
                 were driving drunk. This eliminates many common defense tactics.
               </p>
             </div>
@@ -492,7 +492,7 @@ export default function DrunkDriverAccidentsPage() {
                 <div>
                   <strong className="text-lg">Contact Us Before Insurance</strong>
                   <p className="text-gray-700">
-                    Don't give statements or accept offers. Let us handle all communications.
+                    Don&apos;t give statements or accept offers. Let us handle all communications.
                   </p>
                 </div>
               </li>
@@ -513,7 +513,7 @@ export default function DrunkDriverAccidentsPage() {
                 Can I sue if the drunk driver wasn&apos;t convicted of DWI?
               </h3>
               <p className="text-gray-700">
-                Yes. Criminal conviction helps but isn&apos;t required for a civil lawsuit. The
+                Yes. Criminal conviction helps but isn\&apos;t required for a civil lawsuit. The
                 burden of proof is lower in civil cases - we only need to prove negligence by a
                 preponderance of evidence, not beyond reasonable doubt.
               </p>
@@ -542,7 +542,7 @@ export default function DrunkDriverAccidentsPage() {
                 Can I sue a bar that served the drunk driver?
               </h3>
               <p className="text-gray-700">
-                Yes, under NC's Dram Shop law, if they served someone visibly intoxicated or a
+                Yes, under NC&apos;s Dram Shop law, if they served someone visibly intoxicated or a
                 minor. We investigate where the drunk driver was drinking and hold all responsible
                 parties accountable.
               </p>
@@ -568,7 +568,7 @@ export default function DrunkDriverAccidentsPage() {
             Hold Drunk Drivers Accountable - Get Justice Now
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Drunk drivers made a choice that changed your life. We'll make them pay for it. Get the
+            Drunk drivers made a choice that changed your life. We&apos;ll make them pay for it. Get the
             compensation you deserve, including punitive damages.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

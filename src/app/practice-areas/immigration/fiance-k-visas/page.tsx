@@ -115,7 +115,7 @@ export default function FianceKVisaPage() {
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h2 className="text-3xl font-bold text-[#6B1F2E] mb-6">Expert Fiancé Visa Attorneys</h2>
             <p className="text-lg text-gray-700 mb-6">
-              Love knows no borders, but immigration law can be complex. If you&apos;re a U.S.
+              Love knows no borders, but immigration law can be complex. If you\&apos;re a U.S.
               citizen engaged to a foreign national, a K-1 fiancé visa allows your partner to enter
               the United States for marriage. At Vasquez Law Firm, we help couples navigate the
               fiancé visa process and start their lives together in America.
@@ -212,7 +212,7 @@ export default function FianceKVisaPage() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-[#6B1F2E] text-center mb-12">
-            Love Stories We've Made Possible
+            Love Stories We&apos;ve Made Possible
           </h2>
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="bg-white border border-gray-200 p-6 rounded-lg">
@@ -237,7 +237,7 @@ export default function FianceKVisaPage() {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">Ready to Start Your Journey Together?</h2>
             <p className="text-xl mb-8">
-              Don't let distance keep you apart. Contact our fiancé visa attorneys to begin the
+              Don&apos;t let distance keep you apart. Contact our fiancé visa attorneys to begin the
               process of bringing your love to America.
             </p>
             <div className="flex flex-wrap justify-center gap-6 mb-8">

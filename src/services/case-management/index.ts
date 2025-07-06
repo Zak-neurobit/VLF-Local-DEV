@@ -6,6 +6,7 @@ import { generateCaseNumber } from '@/lib/utils/case-utils';
 import { createNotification } from '@/services/notifications';
 import { sendEmail } from '@/services/email';
 import { GoHighLevelService } from '@/services/gohighlevel';
+import type { CaseMetadata, CaseNote, CaseFinancials } from '@/types/services';
 import {
   PracticeArea,
   CaseStatus,
@@ -321,7 +322,8 @@ export class CaseManagementService {
         throw new Error('Case not found');
       }
 
-      const notes = (caseData.metadata as any).notes || [];
+      const metadata = caseData.metadata as CaseMetadata;
+      const notes = metadata.notes || [];
       notes.push({
         id: Date.now().toString(),
         content: validated.content,
@@ -334,7 +336,7 @@ export class CaseManagementService {
         where: { id: validated.caseId },
         data: {
           metadata: {
-            ...(caseData.metadata as any),
+            ...metadata,
             notes,
           },
         },
@@ -357,7 +359,14 @@ export class CaseManagementService {
     }
   ) {
     try {
-      const where: any = {
+      const where: {
+        OR: Array<Record<string, unknown>>;
+        clientId?: string;
+        status?: CaseStatus;
+        practiceArea?: string;
+        attorneyId?: string;
+        createdAt?: { gte?: Date; lte?: Date };
+      } = {
         OR: [
           { caseNumber: { contains: query, mode: 'insensitive' } },
           { client: { name: { contains: query, mode: 'insensitive' } } },
@@ -494,7 +503,17 @@ export class CaseManagementService {
     return tasksByArea[practiceArea] || [];
   }
 
-  private async notifyNewCase(caseData: any) {
+  private async notifyNewCase(caseData: {
+    id: string;
+    caseNumber: string;
+    clientId: string;
+    practiceArea: string;
+    client: {
+      email: string;
+      firstName?: string | null;
+      lastName?: string | null;
+    };
+  }) {
     // Notify attorney
     if (caseData.attorney) {
       await sendEmail({
@@ -530,7 +549,19 @@ export class CaseManagementService {
     });
   }
 
-  private async notifyStatusChange(caseData: any, previousStatus: CaseStatus) {
+  private async notifyStatusChange(
+    caseData: {
+      id: string;
+      caseNumber: string;
+      status: CaseStatus;
+      client: {
+        email: string;
+        firstName?: string | null;
+        lastName?: string | null;
+      };
+    },
+    previousStatus: CaseStatus
+  ) {
     const statusMessages = {
       [CaseStatus.open]: 'Your case has been opened and assigned',
       [CaseStatus.in_progress]: 'Your case is now actively being worked on',
@@ -731,9 +762,10 @@ export class CaseManagementService {
         select: { metadata: true },
       });
 
-      const notes = (caseWithNotes?.metadata as any)?.notes || [];
+      const metadata = caseWithNotes?.metadata as CaseMetadata;
+      const notes = metadata?.notes || [];
       communications.push(
-        ...notes.map((note: any) => ({
+        ...notes.map((note: CaseNote) => ({
           type: 'note',
           timestamp: new Date(note.createdAt),
           content: note.content,
@@ -761,7 +793,8 @@ export class CaseManagementService {
         select: { metadata: true },
       });
 
-      const financials = (caseData?.metadata as any)?.financials || {};
+      const metadata = caseData?.metadata as CaseMetadata;
+      const financials = metadata?.financials || {} as CaseFinancials;
 
       return {
         totalBilled: financials.totalBilled || 0,
@@ -1050,7 +1083,12 @@ export class CaseManagementService {
     attorneyId?: string;
   }) {
     try {
-      const where: any = {};
+      const where: {
+        practiceArea?: string;
+        status?: CaseStatus;
+        attorneyId?: string;
+        createdAt?: { gte?: Date; lte?: Date };
+      } = {};
 
       if (filters?.practiceArea) {
         where.practiceArea = filters.practiceArea;

@@ -119,15 +119,15 @@ export default function PedestrianAccidentsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">
-              ⚠️ Critical: North Carolina's Contributory Negligence Law
+              ⚠️ Critical: North Carolina&apos;s Contributory Negligence Law
             </h2>
             <p className="text-xl mb-6">
               North Carolina is one of only 4 states with pure contributory negligence. If
-              you&apos;re found even 1% at fault, you could receive NOTHING.
+              you\&apos;re found even 1% at fault, you could receive NOTHING.
             </p>
             <p className="text-lg mb-8">
               Insurance companies will claim you were jaywalking, distracted, or not visible. Even
-              if you were in a crosswalk, they'll argue you didn&apos;t look both ways. We know how
+              if you were in a crosswalk, they&apos;ll argue you didn&apos;t look both ways. We know how
               to prove the driver was 100% at fault and defeat these tactics.
             </p>
             <Link
@@ -150,7 +150,7 @@ export default function PedestrianAccidentsPage() {
             <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#FF6B6B]">
               <h3 className="text-xl font-semibold mb-3">Failure to Yield at Crosswalks</h3>
               <p className="text-gray-700">
-                Drivers ignoring pedestrians' right-of-way at marked crosswalks, especially when
+                Drivers ignoring pedestrians&apos; right-of-way at marked crosswalks, especially when
                 turning.
               </p>
             </div>
@@ -362,7 +362,7 @@ export default function PedestrianAccidentsPage() {
                 Complex Visibility Arguments
               </h3>
               <p className="text-gray-700">
-                Insurance companies claim pedestrians "came out of nowhere" or weren&apos;t visible.
+                Insurance companies claim pedestrians &quot;came out of nowhere&quot; or weren&apos;t visible.
                 We use accident reconstruction experts to prove drivers should have seen and avoided
                 pedestrians.
               </p>
@@ -381,7 +381,7 @@ export default function PedestrianAccidentsPage() {
               <h3 className="text-xl font-semibold mb-3 text-[#001845]">Time-Sensitive Evidence</h3>
               <p className="text-gray-700">
                 Surveillance footage, skid marks, and witness memories fade fast. We immediately
-                secure evidence before it&apos;s lost, giving you the strongest possible case.
+                secure evidence before it\&apos;s lost, giving you the strongest possible case.
               </p>
             </div>
           </div>
@@ -438,7 +438,7 @@ export default function PedestrianAccidentsPage() {
           </div>
           <div className="text-center">
             <p className="text-xl mb-6">
-              Don't let insurance companies blame you for being hit by a car.
+              Don&apos;t let insurance companies blame you for being hit by a car.
             </p>
             <Link
               href="/contact"
@@ -472,8 +472,8 @@ export default function PedestrianAccidentsPage() {
                 Can I get compensation if I was partially at fault?
               </h3>
               <p className="text-gray-700">
-                Unfortunately, North Carolina's contributory negligence law bars recovery if
-                you&apos;re even 1% at fault. However, insurance companies often exaggerate
+                Unfortunately, North Carolina&apos;s contributory negligence law bars recovery if
+                you\&apos;re even 1% at fault. However, insurance companies often exaggerate
                 pedestrian fault. We fight to prove the driver was 100% responsible.
               </p>
             </div>
@@ -481,7 +481,7 @@ export default function PedestrianAccidentsPage() {
               <h3 className="text-xl font-semibold mb-3">What if the driver fled the scene?</h3>
               <p className="text-gray-700">
                 Hit-and-run pedestrian accidents are unfortunately common. Your uninsured motorist
-                coverage may apply. We'll also work with police to identify the driver and explore
+                coverage may apply. We&apos;ll also work with police to identify the driver and explore
                 all available insurance coverage.
               </p>
             </div>
@@ -499,7 +499,7 @@ export default function PedestrianAccidentsPage() {
               <h3 className="text-xl font-semibold mb-3">What evidence do I need for my case?</h3>
               <p className="text-gray-700">
                 Photos of the scene, witness information, surveillance footage, police reports, and
-                medical records are crucial. Don't worry if you couldn&apos;t gather evidence due to
+                medical records are crucial. Don&apos;t worry if you couldn\&apos;t gather evidence due to
                 injuries - we&apos;ll investigate and obtain everything needed.
               </p>
             </div>
@@ -512,8 +512,8 @@ export default function PedestrianAccidentsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">Get Justice After Your Pedestrian Accident</h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Don't let insurance companies blame you for a driver&apos;s negligence. We know how to
-            overcome NC's contributory negligence law and get you the compensation you deserve.
+            Don&apos;t let insurance companies blame you for a driver&apos;s negligence. We know how to
+            overcome NC&apos;s contributory negligence law and get you the compensation you deserve.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link

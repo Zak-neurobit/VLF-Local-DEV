@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagetsxPage() {
+export default function CharlotteNcOfficeLocationPage() {
   const office = getOfficeBySlug('charlotte-nc-office-location');
 
   return (

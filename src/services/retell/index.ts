@@ -130,8 +130,24 @@ export class RetellService {
 
   // Agent Management
   async createAgent(data: Partial<RetellAgent>): Promise<RetellAgent> {
-    const response = await this.client.post('/v2/agent', data);
-    return response.data.agent_id ? response.data : response.data.agent;
+    const response = await this.client.post('/api/create-agent', data);
+    // Handle different response structures
+    if (response.data) {
+      // If response.data is the agent object itself
+      if (response.data.agent_id) {
+        return response.data;
+      }
+      // If response.data has an 'agent' property
+      if (response.data.agent && response.data.agent.agent_id) {
+        return response.data.agent;
+      }
+    }
+    // Log the actual response for debugging
+    logger.error('Unexpected Retell createAgent response structure:', { 
+      data: response.data,
+      status: response.status 
+    });
+    throw new Error('Invalid response from Retell API when creating agent');
   }
 
   async getAgent(agentId: string): Promise<RetellAgent | null> {
@@ -141,7 +157,7 @@ export class RetellService {
       cacheKey,
       async () => {
         try {
-          const response = await this.client.get(`/v2/agent/${agentId}`);
+          const response = await this.client.get(`/api/get-agent/${agentId}`);
           return response.data;
         } catch (error: any) {
           if (error.response?.status === 404) {
@@ -155,12 +171,21 @@ export class RetellService {
   }
 
   async updateAgent(agentId: string, data: Partial<RetellAgent>): Promise<RetellAgent> {
-    const response = await this.client.patch(`/v2/agent/${agentId}`, data);
+    const response = await this.client.patch(`/api/update-agent/${agentId}`, data);
 
     // Clear cache
     await cache.delete(`retell:agent:${agentId}`);
 
-    return response.data.agent;
+    // Handle different response structures
+    if (response.data) {
+      if (response.data.agent_id) {
+        return response.data;
+      }
+      if (response.data.agent && response.data.agent.agent_id) {
+        return response.data.agent;
+      }
+    }
+    throw new Error('Invalid response from Retell API when updating agent');
   }
 
   async listAgents(): Promise<RetellAgent[]> {
@@ -169,7 +194,7 @@ export class RetellService {
     return cache.remember(
       cacheKey,
       async () => {
-        const response = await this.client.get('/v2/agent');
+        const response = await this.client.get('/api/list-agents');
         return response.data || [];
       },
       CacheTTL.MEDIUM
@@ -177,14 +202,14 @@ export class RetellService {
   }
 
   async deleteAgent(agentId: string): Promise<void> {
-    await this.client.delete(`/v2/agent/${agentId}`);
+    await this.client.delete(`/api/delete-agent/${agentId}`);
     await cache.delete(`retell:agent:${agentId}`);
     await cache.delete('retell:agents:list');
   }
 
   // Call Management
   async createPhoneCall(params: CreateCallParams): Promise<RetellCall> {
-    const response = await this.client.post('/v2/call', params);
+    const response = await this.client.post('/api/create-phone-call', params);
     const call = response.data;
 
     // Queue for analysis
@@ -201,7 +226,7 @@ export class RetellService {
   }
 
   async createWebCall(params: WebCallParams): Promise<{ call_id: string; web_call_link: string }> {
-    const response = await this.client.post('/v2/call/web', params);
+    const response = await this.client.post('/api/create-web-call', params);
     return response.data;
   }
 
@@ -212,7 +237,7 @@ export class RetellService {
       cacheKey,
       async () => {
         try {
-          const response = await this.client.get(`/v2/call/${callId}`);
+          const response = await this.client.get(`/api/get-call/${callId}`);
           return response.data;
         } catch (error: any) {
           if (error.response?.status === 404) {
@@ -235,12 +260,12 @@ export class RetellService {
       call_status?: string[];
     };
   }): Promise<RetellCall[]> {
-    const response = await this.client.get('/v2/call', { params: filters });
+    const response = await this.client.get('/api/list-calls', { params: filters });
     return response.data || [];
   }
 
   async endCall(callId: string): Promise<void> {
-    await this.client.post(`/v2/call/${callId}/end`);
+    await this.client.post(`/api/end-call/${callId}`);
 
     // Clear cache
     await cache.delete(cacheKeys.call(callId));
@@ -253,7 +278,7 @@ export class RetellService {
   }
 
   async getCallRecording(callId: string): Promise<{ recording_url: string; expires_at: number }> {
-    const response = await this.client.get(`/v2/get-call-recording/${callId}`);
+    const response = await this.client.get(`/api/get-call-recording/${callId}`);
     return response.data;
   }
 
@@ -275,7 +300,7 @@ export class RetellService {
 
   // Analytics
   async getCallAnalytics(callId: string): Promise<any> {
-    const response = await this.client.get(`/v2/get-call-analysis/${callId}`);
+    const response = await this.client.get(`/get-call-analysis/${callId}`);
     return response.data;
   }
 
@@ -287,7 +312,7 @@ export class RetellService {
         }
       : {};
 
-    const response = await this.client.get(`/v2/get-agent-analytics/${agentId}`, { params });
+    const response = await this.client.get(`/get-agent-analytics/${agentId}`, { params });
     return response.data;
   }
 
@@ -298,7 +323,7 @@ export class RetellService {
     return cache.remember(
       cacheKey,
       async () => {
-        const response = await this.client.get('/v2/list-voices');
+        const response = await this.client.get('/api/list-voices');
         return response.data.voices || [];
       },
       CacheTTL.EXTRA_LONG
@@ -312,7 +337,7 @@ export class RetellService {
     return cache.remember(
       cacheKey,
       async () => {
-        const response = await this.client.get('/v2/list-llms');
+        const response = await this.client.get('/api/list-llms');
         return response.data.llms || [];
       },
       CacheTTL.EXTRA_LONG

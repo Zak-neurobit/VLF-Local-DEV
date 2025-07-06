@@ -71,7 +71,7 @@ export default function WrongfulDeathPage() {
               YO PELEO POR TI™ - I FIGHT FOR YOU
             </p>
             <p className="text-lg mb-8 max-w-3xl mx-auto">
-              When you've lost a loved one due to someone else's negligence, we provide
+              When you\&apos;ve lost a loved one due to someone else&apos;s negligence, we provide
               compassionate legal representation to help your family seek justice and fair
               compensation during this difficult time.
             </p>
@@ -105,8 +105,8 @@ export default function WrongfulDeathPage() {
                 <h2 className="text-2xl font-bold text-purple-800">We Understand Your Loss</h2>
               </div>
               <p className="text-purple-700 mb-4">
-                Losing a loved one is one of life's most difficult experiences. When that loss is
-                caused by someone else's negligence or wrongful actions, the pain is compounded by
+                Losing a loved one is one of life&apos;s most difficult experiences. When that loss is
+                caused by someone else&apos;s negligence or wrongful actions, the pain is compounded by
                 feelings of injustice. At Vasquez Law Firm, we handle your case with the utmost
                 compassion and respect while fighting aggressively for your family&apos;s rights.
               </p>
@@ -116,7 +116,7 @@ export default function WrongfulDeathPage() {
                     Our Compassionate Approach:
                   </h3>
                   <ul className="text-purple-700 space-y-1">
-                    <li>✓ Respectful handling of your loved one's memory</li>
+                    <li>✓ Respectful handling of your loved one&apos;s memory</li>
                     <li>✓ Minimal burden on grieving families</li>
                     <li>✓ Clear communication at every step</li>
                     <li>✓ Flexible meeting arrangements</li>
@@ -131,7 +131,7 @@ export default function WrongfulDeathPage() {
                     <li>• Maximum compensation for your loss</li>
                     <li>• Holding negligent parties accountable</li>
                     <li>• Preventing similar tragedies</li>
-                    <li>• Honoring your loved one's legacy</li>
+                    <li>• Honoring your loved one&apos;s legacy</li>
                     <li>• Securing your family&apos;s future</li>
                   </ul>
                 </div>
@@ -204,7 +204,7 @@ export default function WrongfulDeathPage() {
                   <div className="bg-blue-50 p-6 rounded-lg">
                     <h3 className="text-lg font-bold text-blue-800 mb-3">North Carolina Law</h3>
                     <p className="text-blue-700 mb-3">
-                      The personal representative of the deceased's estate must file the claim on
+                      The personal representative of the deceased&apos;s estate must file the claim on
                       behalf of:
                     </p>
                     <ul className="text-blue-700 space-y-1">
@@ -448,7 +448,7 @@ export default function WrongfulDeathPage() {
 
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      Can we file a claim if there's a criminal case?
+                      Can we file a claim if there&apos;s a criminal case?
                     </h3>
                     <p className="text-gray-700">
                       Yes. Criminal and civil cases are separate. You can pursue a wrongful death
@@ -463,7 +463,7 @@ export default function WrongfulDeathPage() {
                     </h3>
                     <p className="text-gray-700">
                       North Carolina and Florida have different laws regarding comparative fault.
-                      We'll evaluate your case and explain how these laws may affect your claim and
+                      We&apos;ll evaluate your case and explain how these laws may affect your claim and
                       potential recovery.
                     </p>
                   </div>

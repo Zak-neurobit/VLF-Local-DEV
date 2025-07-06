@@ -34,7 +34,7 @@ interface BlogPost {
 }
 
 export default function BlogPage() {
-  const [language, setLanguage] = useState<'en' | 'es'>('en');
+  const [language] = useState<'en' | 'es'>('en');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [posts, setPosts] = useState<BlogPost[]>([]);

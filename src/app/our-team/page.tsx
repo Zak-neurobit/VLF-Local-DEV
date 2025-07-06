@@ -175,7 +175,7 @@ export default function Page() {
                   <div className="p-8">
                     <h3 className="text-2xl font-bold text-white mb-2">{member.name}</h3>
                     <p className="text-primary font-semibold mb-4">{member.role}</p>
-                    <p className="text-gray-300 italic">"{member.quote}"</p>
+                    <p className="text-gray-300 italic">&quot;{member.quote}&quot;</p>
                   </div>
                 </motion.div>
               ))}
@@ -196,9 +196,9 @@ export default function Page() {
                 Join Our <span className="text-primary">Growing Team</span>
               </h2>
               <p className="text-xl text-gray-300 mb-8">
-                We're always looking for talented individuals who share our passion for helping others 
+                We&apos;re always looking for talented individuals who share our passion for helping others 
                 and our commitment to excellence. If you want to be part of a team that makes a real 
-                difference in people's lives, we'd love to hear from you.
+                difference in people&apos;s lives, we&apos;d love to hear from you.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <motion.a

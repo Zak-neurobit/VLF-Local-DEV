@@ -152,7 +152,7 @@ export default function Page() {
                       </p>
                     </li>
                     <li className="border-l-2 border-primary pl-4">
-                      <p className="font-semibold text-white">Bachelor's Degree</p>
+                      <p className="font-semibold text-white">Bachelor&apos;s Degree</p>
                       <p className="text-gray-400 text-sm">
                         University
                       </p>

@@ -81,7 +81,7 @@ export default function CitizenshipNaturalizationPage() {
     {
       question: 'What happens if I fail the English or civics test?',
       answer:
-        'You will have a second opportunity to take the portion of the test you didn&apos;t pass. We provide additional preparation to help ensure success on your retake.',
+        'You will have a second opportunity to take the portion of the test you didn\'t pass. We provide additional preparation to help ensure success on your retake.',
     },
     {
       question: 'Can I travel while my citizenship application is pending?',

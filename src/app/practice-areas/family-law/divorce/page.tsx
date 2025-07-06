@@ -68,7 +68,7 @@ export default function DivorcePage() {
             </p>
             <p className="text-xl mb-8 text-gray-100">
               Going through a divorce is never easy. Our compassionate attorneys guide you through
-              North Carolina's divorce process while protecting your rights, assets, and children's
+              North Carolina&apos;s divorce process while protecting your rights, assets, and children&apos;s
               best interests.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -159,10 +159,10 @@ export default function DivorcePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">
-              ⚖️ Understanding NC's One-Year Separation Rule
+              ⚖️ Understanding NC&apos;s One-Year Separation Rule
             </h2>
             <p className="text-xl mb-8">
-              North Carolina requires couples to live "separate and apart" for one full year before
+              North Carolina requires couples to live &quot;separate and apart&quot; for one full year before
               filing for absolute divorce. This is strictly enforced.
             </p>
             <div className="grid md:grid-cols-2 gap-6">
@@ -205,7 +205,7 @@ export default function DivorcePage() {
                   <h3 className="text-xl font-semibold mb-2">Separation Period</h3>
                   <p className="text-gray-700">
                     Live separate and apart for one full year. Document your separation date -
-                    it&apos;s crucial for filing.
+                    it\&apos;s crucial for filing.
                   </p>
                 </div>
               </li>
@@ -279,7 +279,7 @@ export default function DivorcePage() {
             <div className="bg-white p-6 rounded-lg shadow-md border-t-4 border-[#003875]">
               <h3 className="text-xl font-semibold mb-3">Child Custody</h3>
               <p className="text-gray-700">
-                Physical and legal custody arrangements based on children's best interests.
+                Physical and legal custody arrangements based on children&apos;s best interests.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md border-t-4 border-[#003875]">
@@ -368,7 +368,7 @@ export default function DivorcePage() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-3 text-[#001845]">Children's Issues</h4>
+                  <h4 className="font-semibold mb-3 text-[#001845]">Children&apos;s Issues</h4>
                   <ul className="space-y-2 text-gray-700">
                     <li>• Custody schedules</li>
                     <li>• Decision-making authority</li>
@@ -544,8 +544,8 @@ export default function DivorcePage() {
                 Do I need a reason to get divorced in NC?
               </h3>
               <p className="text-gray-700">
-                No. North Carolina is a "no-fault" divorce state. You only need to live separate and
-                apart for one year with the intent to remain separate. You don't need to prove
+                No. North Carolina is a &quot;no-fault&quot; divorce state. You only need to live separate and
+                apart for one year with the intent to remain separate. You don\&apos;t need to prove
                 adultery, abandonment, or other fault.
               </p>
             </div>
@@ -559,18 +559,18 @@ export default function DivorcePage() {
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3">
-                What if my spouse won&apos;t sign the divorce papers?
+                What if my spouse won\&apos;t sign the divorce papers?
               </h3>
               <p className="text-gray-700">
                 Your spouse cannot stop the divorce by refusing to sign. After proper service, they
-                have 30 days to respond. If they don't, you can proceed with a default divorce.
+                have 30 days to respond. If they don&apos;t, you can proceed with a default divorce.
                 Their cooperation isn&apos;t required.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3">How is property divided in NC?</h3>
               <p className="text-gray-700">
-                NC follows "equitable distribution" - marital property is divided fairly but not
+                NC follows &quot;equitable distribution&quot; - marital property is divided fairly but not
                 necessarily 50/50. Factors include length of marriage, each spouse&apos;s income,
                 contributions to the marriage, and misconduct affecting finances.
               </p>
@@ -578,7 +578,7 @@ export default function DivorcePage() {
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3">Will I have to pay alimony?</h3>
               <p className="text-gray-700">
-                Alimony depends on one spouse&apos;s need and the other's ability to pay. Factors
+                Alimony depends on one spouse&apos;s need and the other&apos;s ability to pay. Factors
                 include marriage length, standard of living, ages, earning capacities, and marital
                 misconduct. It&apos;s not automatic and varies case by case.
               </p>
@@ -594,7 +594,7 @@ export default function DivorcePage() {
             Navigate Your Divorce with Compassionate Legal Support
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Divorce is difficult, but you don't have to face it alone. Our experienced attorneys
+            Divorce is difficult, but you don\&apos;t have to face it alone. Our experienced attorneys
             guide you through every step while protecting your rights and future.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagetsxPage() {
+export default function SmithfieldNcWorkersCompLawyersPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -31,7 +31,7 @@ export default function PagetsxPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Smithfield, NC Workers’ Comp Lawyers
+              Smithfield, NC Workers&apos; Comp Lawyers
             </h1>
             <p className="text-xl mb-8">Experienced Attorney at Vasquez Law Firm</p>
             <div className="flex flex-wrap justify-center gap-4">
@@ -185,10 +185,10 @@ export default function PagetsxPage() {
                   '@type': 'WebPage',
                   '@id': 'https://www.vasquezlawnc.com/smithfield-nc-workers-comp-lawyers/',
                   url: 'https://www.vasquezlawnc.com/smithfield-nc-workers-comp-lawyers/',
-                  name: 'Smithfield, NC Workers&apos; Comp Lawyers | Vasquez Law Firm, PLLC',
+                  name: "Smithfield, NC Workers' Comp Lawyers | Vasquez Law Firm, PLLC",
                   isPartOf: { '@id': 'https://www.vasquezlawnc.com/#website' },
-                  datePublished: '2024-10-30T18:22:16+00:00',
-                  dateModified: '2024-10-30T18:22:59+00:00',
+                  datePublished: '2024-11-27T14:43:22+00:00',
+                  dateModified: '2025-02-28T15:27:22+00:00',
                   description:
                     "Trusted workers' comp lawyers in Smithfield, NC. Vasquez Law Firm, PLLC provides legal guidance for workers seeking compensation for workplace injuries.",
                   breadcrumb: {
@@ -205,8 +205,7 @@ export default function PagetsxPage() {
                 },
                 {
                   '@type': 'BreadcrumbList',
-                  '@id':
-                    'https://www.vasquezlawnc.com/smithfield-nc-workers-comp-lawyers/#breadcrumb',
+                  '@id': 'https://www.vasquezlawnc.com/smithfield-nc-workers-comp-lawyers/#breadcrumb',
                   itemListElement: [
                     {
                       '@type': 'ListItem',
@@ -217,7 +216,7 @@ export default function PagetsxPage() {
                     {
                       '@type': 'ListItem',
                       position: 2,
-                      name: 'Smithfield, NC Workers&#8217; Comp Lawyers',
+                      name: "Smithfield, NC Workers' Comp Lawyers",
                     },
                   ],
                 },
@@ -253,10 +252,10 @@ export default function PagetsxPage() {
               telephone: '(844) 967-3536',
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: '4426 Louisburg Road',
-                addressLocality: 'Raleigh',
+                streetAddress: '901 N. Equity Dr. Suite 900',
+                addressLocality: 'Smithfield',
                 addressRegion: 'NC',
-                postalCode: '27616',
+                postalCode: '27577',
                 addressCountry: 'US',
               },
             },
@@ -283,7 +282,7 @@ export default function PagetsxPage() {
             {
               '@context': 'https://schema.org',
               '@type': 'Attorney',
-              name: 'Smithfield, NC Workers&apos; Comp Lawyers',
+              name: "Smithfield, NC Workers' Comp Lawyers",
               image: '',
               jobTitle: 'Attorney',
               worksFor: {
@@ -305,7 +304,7 @@ export default function PagetsxPage() {
               knowsLanguage: ['English', 'Spanish'],
               alumniOf: {
                 '@type': 'CollegeOrUniversity',
-                name: 'NY. He served in the U.S. Air Force from 2000-2007. He is a veteran of Operation Enduring Freedom and received the Joint Service Achievement Medal for his work as a Spanish linguist for the Defense Intelligence Agency in 2005. William graduated from Campbell University in 2007 with a degree in computer science. He earned his J.D. in 2011 from the North Carolina Central University School of Law. His practice areas include immigration law and criminal defense cases. He is licensed and in good standing with the State Bar of North Carolina and a member of the American Immigration Lawyer Association (AILA.) He is a proud member of the Charlotte community and provides compassionate counsel for all his clients.</p>\n<h3>Education:</h3>\n<p><strong>North Carolina Central University</strong></p>\n<p>J.D. | Juris Doctorate</p>\n<p>2007 – 2011</p>\n<p><strong>Campbell University</strong></p>\n<p>B.S.</p>\n<h5>2007</h5>\n<h3>Bar Admissions:</h3>\n<p>North Carolina — Admitted in 2011</p>\n<p>4th',
+                name: 'North Carolina Central University School of Law',
               },
             },
             {

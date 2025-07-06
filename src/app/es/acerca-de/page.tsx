@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Script from 'next/script';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
@@ -141,7 +141,7 @@ export default function AcercaDePage() {
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <Heading level={1} className="text-white mb-4">{content.title}</Heading>
+              <Heading as="h1" className="text-white mb-4">{content.title}</Heading>
               <Text size="xl" className="text-primary font-semibold mb-12">{content.subtitle}</Text>
 
               {/* Stats */}
@@ -173,7 +173,7 @@ export default function AcercaDePage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <Heading level={2} className="text-white mb-6">{content.story}</Heading>
+                <Heading as="h2" className="text-white mb-6">{content.story}</Heading>
                 <Text className="mb-4 leading-relaxed">{content.storyText1}</Text>
                 <Text className="mb-6 leading-relaxed">{content.storyText2}</Text>
 
@@ -232,13 +232,13 @@ export default function AcercaDePage() {
               transition={{ duration: 0.6 }}
               className="text-center mb-16"
             >
-              <Heading level={2} className="text-white mb-6">{content.mission}</Heading>
+              <Heading as="h2" className="text-white mb-6">{content.mission}</Heading>
               <Text size="lg" className="max-w-3xl mx-auto">{content.missionText}</Text>
             </motion.div>
 
             {/* Values */}
             <div className="mb-16">
-              <Heading level={2} className="text-center text-white mb-12">{content.values}</Heading>
+              <Heading as="h2" className="text-center text-white mb-12">{content.values}</Heading>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
                 {[content.value1, content.value2, content.value3, content.value4, content.value5].map((value, index) => (
                   <motion.div
@@ -269,7 +269,7 @@ export default function AcercaDePage() {
               transition={{ duration: 0.6 }}
               className="bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-sm rounded-2xl p-8 border border-primary/30"
             >
-              <Heading level={2} className="text-white mb-6">{content.commitment}</Heading>
+              <Heading as="h2" className="text-white mb-6">{content.commitment}</Heading>
               <Text size="lg" className="leading-relaxed">{content.commitmentText}</Text>
             </motion.div>
           </div>
@@ -279,7 +279,7 @@ export default function AcercaDePage() {
         <section className="py-20 bg-gradient-to-b from-neutral-950 to-black">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <Heading level={2} className="text-white mb-4">{content.locations}</Heading>
+              <Heading as="h2" className="text-white mb-4">{content.locations}</Heading>
               <Text size="lg">
                 {content.serving} <span className="font-semibold text-primary">50+</span> {content.communities}
               </Text>
@@ -310,7 +310,7 @@ export default function AcercaDePage() {
         {/* Awards & Recognition Section */}
         <section className="py-20 bg-black">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Heading level={2} className="text-center text-white mb-12">{content.awards}</Heading>
+            <Heading as="h2" className="text-center text-white mb-12">{content.awards}</Heading>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
               {[
                 { title: content.award1, icon: '🏆', year: '2023' },
@@ -359,7 +359,7 @@ export default function AcercaDePage() {
         {/* CTA Section */}
         <section className="py-20 bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-sm">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <Heading level={2} className="text-white mb-6">{content.getStarted}</Heading>
+            <Heading as="h2" className="text-white mb-6">{content.getStarted}</Heading>
             <Button href="/es/consulta-gratuita" size="lg" className="transform hover:scale-105 transition-all">
               {content.consultation}
             </Button>

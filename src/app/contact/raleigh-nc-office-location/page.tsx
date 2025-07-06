@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagetsxPage() {
+export default function RaleighNcOfficeLocationPage() {
   const office = getOfficeBySlug('raleigh-nc-office-location');
 
   return (

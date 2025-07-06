@@ -68,7 +68,7 @@ export default function ChildCustodyPage() {
             </p>
             <p className="text-xl mb-8 text-gray-100">
               Your children deserve stability and love from both parents. We fight for custody
-              arrangements that protect your parental rights while prioritizing your children's best
+              arrangements that protect your parental rights while prioritizing your children&apos;s best
               interests.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -93,15 +93,15 @@ export default function ChildCustodyPage() {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            NC's "Best Interests of the Child" Standard
+            NC&apos;s &quot;Best Interests of the Child&quot; Standard
           </h2>
           <p className="text-lg text-gray-700 text-center mb-8 max-w-3xl mx-auto">
-            North Carolina courts determine custody based on what's best for the child, not parent
+            North Carolina courts determine custody based on what\&apos;s best for the child, not parent
             preferences. Key factors include:
           </p>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-3 text-[#001845]">Child's Needs</h3>
+              <h3 className="text-xl font-semibold mb-3 text-[#001845]">Child&apos;s Needs</h3>
               <ul className="space-y-2 text-gray-700">
                 <li>• Physical & emotional health</li>
                 <li>• Educational requirements</li>
@@ -121,7 +121,7 @@ export default function ChildCustodyPage() {
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3 text-[#001845]">Relationships</h3>
               <ul className="space-y-2 text-gray-700">
-                <li>• Child's preference (if appropriate age)</li>
+                <li>• Child&apos;s preference (if appropriate age)</li>
                 <li>• Sibling bonds</li>
                 <li>• Extended family ties</li>
                 <li>• Community connections</li>
@@ -205,21 +205,21 @@ export default function ChildCustodyPage() {
               <div className="bg-white/10 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-3">Myth: Kids Choose at Age 12</h3>
                 <p>
-                  There's no magic age. Courts may consider a child&apos;s preference but it&apos;s
+                  There\&apos;s no magic age. Courts may consider a child&apos;s preference but it&apos;s
                   one factor among many, not determinative.
                 </p>
               </div>
               <div className="bg-white/10 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-3">Myth: 50/50 is Automatic</h3>
                 <p>
-                  Equal time isn&apos;t presumed. Courts focus on stability and what works best for
+                  Equal time isn\&apos;t presumed. Courts focus on stability and what works best for
                   the specific child and family.
                 </p>
               </div>
               <div className="bg-white/10 p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-3">Myth: Custody is Permanent</h3>
                 <p>
-                  Custody can be modified when there's a substantial change in circumstances
+                  Custody can be modified when there&apos;s a substantial change in circumstances
                   affecting the child&apos;s welfare.
                 </p>
               </div>
@@ -263,7 +263,7 @@ export default function ChildCustodyPage() {
                 <li>✓ Communication guidelines</li>
               </ul>
               <p className="mt-4 text-sm text-gray-600">
-                <strong>Note:</strong> "Permanent" doesn&apos;t mean unchangeable - can be modified
+                <strong>Note:</strong> &quot;Permanent&quot; doesn&apos;t mean unchangeable - can be modified
                 if circumstances change substantially.
               </p>
             </div>
@@ -303,7 +303,7 @@ export default function ChildCustodyPage() {
           <div className="mt-8 bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400">
             <p className="text-lg font-semibold mb-2">📅 Holiday Schedules Matter Too!</p>
             <p className="text-gray-700">
-              Don't forget to address holidays, birthdays, Mother's/Father's Day, school breaks, and
+              Don&apos;t forget to address holidays, birthdays, Mother&apos;s/Father&apos;s Day, school breaks, and
               summer vacation. Alternating years for major holidays is common.
             </p>
           </div>
@@ -401,8 +401,8 @@ export default function ChildCustodyPage() {
           <div className="max-w-4xl mx-auto">
             <div className="bg-white p-8 rounded-lg shadow-lg">
               <p className="text-lg text-gray-700 mb-6">
-                Life changes, and custody orders can too. NC allows modifications when there's a
-                "substantial change in circumstances" affecting the child&apos;s welfare.
+                Life changes, and custody orders can too. NC allows modifications when there\&apos;s a
+                &quot;substantial change in circumstances&quot; affecting the child&apos;s welfare.
               </p>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
@@ -411,11 +411,11 @@ export default function ChildCustodyPage() {
                   </h4>
                   <ul className="space-y-2 text-gray-700">
                     <li>• Parent relocation</li>
-                    <li>• Child's changing needs</li>
-                    <li>• Parent's work schedule changes</li>
+                    <li>• Child&apos;s changing needs</li>
+                    <li>• Parent&apos;s work schedule changes</li>
                     <li>• Substance abuse issues</li>
                     <li>• Remarriage and blended families</li>
-                    <li>• Child's preference (older children)</li>
+                    <li>• Child&apos;s preference (older children)</li>
                   </ul>
                 </div>
                 <div>
@@ -426,7 +426,7 @@ export default function ChildCustodyPage() {
                     <li>• Minor disagreements</li>
                     <li>• One parent earning more money</li>
                     <li>• Wanting to punish other parent</li>
-                    <li>• Child's temporary preferences</li>
+                    <li>• Child&apos;s temporary preferences</li>
                     <li>• Normal childhood issues</li>
                   </ul>
                 </div>
@@ -514,7 +514,7 @@ export default function ChildCustodyPage() {
               <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
                 <p className="text-gray-700">
                   <strong>Important:</strong> Grandparents cannot seek visitation if the nuclear
-                  family is intact and both parents object. Parent's rights are constitutionally
+                  family is intact and both parents object. Parent&apos;s rights are constitutionally
                   protected.
                 </p>
               </div>
@@ -531,7 +531,7 @@ export default function ChildCustodyPage() {
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3">Do I need a custody order if we agree?</h3>
               <p className="text-gray-700">
-                Yes! Informal agreements aren&apos;t enforceable. Even if you&apos;re getting along
+                Yes! Informal agreements aren\&apos;t enforceable. Even if you&apos;re getting along
                 now, a court order protects both parents and provides stability for children. It
                 also establishes child support obligations.
               </p>
@@ -548,7 +548,7 @@ export default function ChildCustodyPage() {
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3">
-                What if my ex won&apos;t follow the custody order?
+                What if my ex won\&apos;t follow the custody order?
               </h3>
               <p className="text-gray-700">
                 Document all violations and contact your attorney immediately. Options include
@@ -559,9 +559,9 @@ export default function ChildCustodyPage() {
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3">Can I move out of state with my child?</h3>
               <p className="text-gray-700">
-                Not without court permission or the other parent's consent. Relocation that
+                Not without court permission or the other parent&apos;s consent. Relocation that
                 substantially affects the other parent&apos;s visitation rights requires court
-                approval, considering the move's impact on the child.
+                approval, considering the move&apos;s impact on the child.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
@@ -571,7 +571,7 @@ export default function ChildCustodyPage() {
               <p className="text-gray-700">
                 They&apos;re separate issues. Custody determines where children live and who makes
                 decisions. Child support is financial obligation based on income and custody
-                arrangement. You can&apos;t withhold visitation for unpaid support.
+                arrangement. You can\&apos;t withhold visitation for unpaid support.
               </p>
             </div>
           </div>
@@ -585,8 +585,8 @@ export default function ChildCustodyPage() {
             Fight for Your Children with Experienced Legal Support
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Your relationship with your children is precious. Don't navigate custody battles alone.
-            Our compassionate attorneys protect your parental rights while keeping your children's
+            Your relationship with your children is precious. Don&apos;t navigate custody battles alone.
+            Our compassionate attorneys protect your parental rights while keeping your children&apos;s
             best interests at heart.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

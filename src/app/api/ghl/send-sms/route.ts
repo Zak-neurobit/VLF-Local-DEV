@@ -30,10 +30,10 @@ const SMS_TEMPLATES = {
   },
 };
 
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     // Parse request body
-    const body = await request.json();
+    const body = await _request.json();
     
     logger.info('GHL send SMS webhook received', {
       contactId: body.contactId,
@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
     }
 
     // If this is a post-call SMS, get call information
-    let callData = null;
+    // let callData = null; // Unused variable - removed
     if (payload.callId) {
       const prisma = getPrismaClient();
       const voiceCall = await prisma.voiceCall.findUnique({
@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
       });
 
       if (voiceCall) {
-        callData = voiceCall;
+        // callData = voiceCall; // Unused variable - removed
         
         // Update call record with SMS sent status
         await prisma.voiceCall.update({
@@ -212,7 +212,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Handle webhook signature verification
-export async function OPTIONS(request: NextRequest) {
+export async function OPTIONS(_request: NextRequest) {
   return new NextResponse(null, {
     status: 200,
     headers: {

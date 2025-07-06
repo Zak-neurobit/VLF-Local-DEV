@@ -67,7 +67,7 @@ export default function ExpungementPage() {
               YO PELEO POR TI™
             </p>
             <p className="text-xl mb-8 text-gray-100">
-              Your past shouldn&apos;t define your future. We help clear criminal records so you can
+              Your past shouldn\&apos;t define your future. We help clear criminal records so you can
               pursue jobs, housing, and education without the burden of old mistakes.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -145,7 +145,7 @@ export default function ExpungementPage() {
               </div>
             </div>
             <p className="mt-6 text-lg">
-              Don't assume you&apos;re not eligible - the law may have changed since your
+              Don&apos;t assume you&apos;re not eligible - the law may have changed since your
               conviction!
             </p>
           </div>
@@ -334,7 +334,7 @@ export default function ExpungementPage() {
               <p className="text-lg font-semibold mb-2">⏱️ Timeline: 6-12 Months</p>
               <p className="text-gray-700">
                 The expungement process typically takes 6-12 months from filing to final order.
-                Having an attorney ensures it&apos;s done right the first time.
+                Having an attorney ensures it\&apos;s done right the first time.
               </p>
             </div>
           </div>
@@ -352,7 +352,7 @@ export default function ExpungementPage() {
               <h3 className="text-xl font-semibold mb-4 text-[#001845]">Employment</h3>
               <ul className="space-y-3 text-gray-700">
                 <li>✓ Pass background checks</li>
-                <li>✓ Legally say "no" to conviction questions</li>
+                <li>✓ Legally say &quot;no&quot; to conviction questions</li>
                 <li>✓ Qualify for professional licenses</li>
                 <li>✓ Access better job opportunities</li>
                 <li>✓ Earn higher wages</li>
@@ -522,7 +522,7 @@ export default function ExpungementPage() {
             Ready for a Fresh Start? Clear Your Record Today
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Don't let old mistakes hold you back. North Carolina's expanded expungement laws may
+            Don&apos;t let old mistakes hold you back. North Carolina&apos;s expanded expungement laws may
             give you the second chance you deserve. Find out if you qualify.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

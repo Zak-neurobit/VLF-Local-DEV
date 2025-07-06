@@ -48,7 +48,7 @@ export default function TestimoniosPage() {
                   </div>
                 </div>
                 
-                <p className="text-gray-700 mb-4 italic">"{testimonial.review}"</p>
+                <p className="text-gray-700 mb-4 italic">&ldquo;{testimonial.review}&rdquo;</p>
                 
                 <div className="border-t pt-4">
                   <p className="font-semibold text-[#6B1F2E]">{testimonial.name}</p>

@@ -8,7 +8,36 @@ import { recordingManager } from '@/services/retell/recording-manager';
 import { retellErrorHandler } from '@/services/retell/error-handler';
 import type { RetellCallAnalysis, RetellCallMetadata } from '@/types/api';
 
+interface RetellWebhookEvent {
+  event: string;
+  call?: {
+    call_id: string;
+    agent_id: string;
+    status: string;
+    from_number?: string;
+    to_number?: string;
+    call_type?: string;
+    start_timestamp?: string;
+    end_timestamp?: string;
+    duration_ms?: number;
+    transcript?: string;
+    metadata?: Record<string, unknown>;
+    disconnection_reason?: string;
+    call_analysis?: RetellCallAnalysis;
+  };
+  call_id?: string;
+  analysis?: {
+    summary?: string;
+    sentiment?: string;
+    action_items?: string[];
+    extracted_info?: Record<string, unknown>;
+  };
+  transcript?: string;
+  recording_url?: string;
+}
+
 export async function POST(request: NextRequest) {
+  let event: RetellWebhookEvent | undefined;
   try {
     // Get webhook signature for verification
     const signature = request.headers.get('x-retell-signature') || '';
@@ -29,7 +58,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Parse the webhook event
-    const event = JSON.parse(rawBody);
+    event = JSON.parse(rawBody);
 
     logger.info('Retell webhook received', {
       event: event.event,
@@ -53,15 +82,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function handleRetellEvent(event: {
-  event: string;
-  call: {
-    call_id: string;
-    agent_id: string;
-    status: string;
-    [key: string]: unknown;
-  };
-}) {
+async function handleRetellEvent(event: RetellWebhookEvent) {
   const { event: eventType, call } = event;
 
   switch (eventType) {

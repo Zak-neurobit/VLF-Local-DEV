@@ -1,11 +1,9 @@
 'use client';
 
 import Script from 'next/script';
-import Image from 'next/image';
 import { GraduationCap, Calendar, Award, Mail, CheckCircle, ArrowRight } from 'lucide-react';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { motion } from 'framer-motion';
-import { TRADEMARK } from '@/lib/constants/trademark';
 import { useState } from 'react';
 
 export default function Page() {
@@ -291,7 +289,7 @@ export default function Page() {
                       animate={{ opacity: 1 }}
                       className="text-green-400 text-center mt-4"
                     >
-                      Thank you! We'll notify you when applications open.
+                      Thank you! We&apos;ll notify you when applications open.
                     </motion.p>
                   )}
                 </form>

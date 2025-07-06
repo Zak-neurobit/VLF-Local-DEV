@@ -184,7 +184,7 @@ export default function WorkersCompensationPage() {
           <div className="space-y-12">
             {/* Why Choose Section */}
             <section>
-              <h2 className="text-3xl font-bold mb-6 text-primary">Why Choose Vasquez Law Firm for Workers' Comp?</h2>
+              <h2 className="text-3xl font-bold mb-6 text-primary">Why Choose Vasquez Law Firm for Workers&apos; Comp?</h2>
               <p className="text-lg mb-6">
                 Insurance companies have teams of lawyers protecting their profits. You need experienced fighters on your side. We level the playing field and get you the benefits you deserve.
               </p>
@@ -192,11 +192,11 @@ export default function WorkersCompensationPage() {
               <div className="grid md:grid-cols-2 gap-6 mt-8">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Denied Claims Reversed</h3>
-                  <p className="text-gray-300">We've overturned thousands of wrongful denials. Don't accept "no" as the final answer.</p>
+                  <p className="text-gray-300">We&apos;ve overturned thousands of wrongful denials. Don&apos;t accept &quot;no&quot; as the final answer.</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Maximum Benefits</h3>
-                  <p className="text-gray-300">We ensure accurate wage calculations and fight for every benefit you're entitled to receive.</p>
+                  <p className="text-gray-300">We ensure accurate wage calculations and fight for every benefit you\&apos;re entitled to receive.</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Medical Care Access</h3>
@@ -245,7 +245,7 @@ export default function WorkersCompensationPage() {
 
             {/* Process Section */}
             <section>
-              <h2 className="text-3xl font-bold mb-6 text-primary">Our Workers' Comp Process</h2>
+              <h2 className="text-3xl font-bold mb-6 text-primary">Our Workers&apos; Comp Process</h2>
               <div className="space-y-4">
                 <div className="flex items-start">
                   <span className="text-primary text-2xl font-bold mr-4">1.</span>

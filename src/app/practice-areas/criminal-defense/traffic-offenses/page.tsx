@@ -67,7 +67,7 @@ export default function TrafficOffensesPage() {
               YO PELEO POR TI™
             </p>
             <p className="text-xl mb-8 text-gray-100">
-              Don't just pay that ticket! Traffic violations can cost you thousands in insurance
+              Don&apos;t just pay that ticket! Traffic violations can cost you thousands in insurance
               increases, license points, and even jail time. We fight to dismiss or reduce charges.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -119,7 +119,7 @@ export default function TrafficOffensesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">
-              ⚠️ North Carolina's Dual Point System Can Trap You
+              ⚠️ North Carolina&apos;s Dual Point System Can Trap You
             </h2>
             <p className="text-xl mb-8">
               NC has TWO point systems - DMV points that suspend your license AND insurance points
@@ -172,7 +172,7 @@ export default function TrafficOffensesPage() {
             <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#003875]">
               <h3 className="text-xl font-semibold mb-3">License Issues</h3>
               <p className="text-gray-700">
-                Driving while license revoked (DWLR), no operator's license, expired license.
+                Driving while license revoked (DWLR), no operator&apos;s license, expired license.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#003875]">
@@ -268,7 +268,7 @@ export default function TrafficOffensesPage() {
             </div>
           </div>
           <div className="mt-8 bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
-            <p className="text-lg font-semibold mb-2">🚨 Don't Wait - Court Dates Approach Fast</p>
+            <p className="text-lg font-semibold mb-2">🚨 Don&apos;t Wait - Court Dates Approach Fast</p>
             <p className="text-gray-700">
               Missing your court date results in automatic guilt and license suspension. Contact us
               immediately to protect your rights and driving privileges.
@@ -295,7 +295,7 @@ export default function TrafficOffensesPage() {
               <h3 className="text-xl font-semibold mb-3 text-[#001845]">Negotiated Reductions</h3>
               <p className="text-gray-700">
                 Reducing moving violations to non-moving equipment violations, improper equipment,
-                or lesser speeds that don't impact insurance.
+                or lesser speeds that don\&apos;t impact insurance.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
@@ -303,7 +303,7 @@ export default function TrafficOffensesPage() {
                 Prayer for Judgment (PJC)
               </h3>
               <p className="text-gray-700">
-                Strategic use of NC's unique PJC to avoid points - but must be used carefully as you
+                Strategic use of NC&apos;s unique PJC to avoid points - but must be used carefully as you
                 only get limited PJCs.
               </p>
             </div>
@@ -334,7 +334,7 @@ export default function TrafficOffensesPage() {
           <div className="max-w-4xl mx-auto">
             <div className="bg-white p-8 rounded-lg shadow-lg">
               <h3 className="text-2xl font-semibold mb-4 text-[#001845]">
-                Commercial Driver's License at Risk?
+                Commercial Driver&apos;s License at Risk?
               </h3>
               <p className="text-gray-700 mb-4">
                 CDL holders face harsher consequences for any traffic violation - even in personal
@@ -355,7 +355,7 @@ export default function TrafficOffensesPage() {
                   <h4 className="font-semibold mb-2">We Protect CDLs By:</h4>
                   <ul className="space-y-2 text-gray-700">
                     <li>• Fighting for complete dismissals</li>
-                    <li>• Avoiding "serious" violation convictions</li>
+                    <li>• Avoiding &quot;serious&quot; violation convictions</li>
                     <li>• Negotiating non-CDL impacting resolutions</li>
                     <li>• Preventing point accumulation</li>
                     <li>• Protecting your DOT record</li>
@@ -365,7 +365,7 @@ export default function TrafficOffensesPage() {
             </div>
             <div className="mt-6 bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400">
               <p className="text-lg font-semibold mb-2">
-                ⚠️ CDL Holders Can't Use PJC or Take Defensive Driving
+                ⚠️ CDL Holders Can&apos;t Use PJC or Take Defensive Driving
               </p>
               <p className="text-gray-700">
                 Federal law prohibits CDL masking. You need an attorney who understands CDL-specific
@@ -388,7 +388,7 @@ export default function TrafficOffensesPage() {
                 Got a Ticket While Visiting NC?
               </h3>
               <p className="text-gray-700 mb-4">
-                Don't ignore it! NC will report convictions to your home state, affecting your
+                Don&apos;t ignore it! NC will report convictions to your home state, affecting your
                 license and insurance there. We handle your case without you returning to NC.
               </p>
               <div className="space-y-4">
@@ -465,7 +465,7 @@ export default function TrafficOffensesPage() {
                 Should I just pay my speeding ticket online?
               </h3>
               <p className="text-gray-700">
-                No! Paying online is an admission of guilt. You'll get DMV points, insurance points,
+                No! Paying online is an admission of guilt. You&apos;ll get DMV points, insurance points,
                 and the conviction stays on your record. Always consult an attorney first - we often
                 get better results than you expect.
               </p>
@@ -475,7 +475,7 @@ export default function TrafficOffensesPage() {
                 What is a Prayer for Judgment Continued (PJC)?
               </h3>
               <p className="text-gray-700">
-                A PJC is when the judge doesn&apos;t enter judgment, avoiding DMV points. You can
+                A PJC is when the judge doesn\&apos;t enter judgment, avoiding DMV points. You can
                 use one PJC per household every 3 years for insurance purposes, and two PJCs every 5
                 years for DMV points. Use them wisely - we help strategize.
               </p>
@@ -515,7 +515,7 @@ export default function TrafficOffensesPage() {
       {/* CTA Section with Office Locations */}
       <section className="py-16 bg-gradient-to-br from-[#001845] to-[#003875] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Don't Let a Traffic Ticket Ruin Your Record</h2>
+          <h2 className="text-4xl font-bold mb-6">Don&apos;t Let a Traffic Ticket Ruin Your Record</h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
             The cost of just paying a ticket far exceeds attorney fees. Protect your license,
             insurance rates, and driving record. Let us fight for the best possible outcome.

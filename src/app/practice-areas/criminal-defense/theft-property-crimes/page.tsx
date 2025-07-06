@@ -538,7 +538,7 @@ export default function TheftPropertyCrimesPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-burgundy-900 mb-4">
-              Don't Let Theft Charges Ruin Your Future
+              Don&apos;t Let Theft Charges Ruin Your Future
             </h2>
             <p className="text-xl text-gray-700 mb-8">
               A theft conviction can follow you for life, affecting employment, housing, and

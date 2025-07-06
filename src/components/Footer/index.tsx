@@ -127,7 +127,7 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
               <p className="text-gray-400 text-sm">
                 {language === 'es'
                   ? 'Más de 35 años de experiencia combinada luchando por los derechos de nuestros clientes.'
-                  : 'Over 35 years of combined experience fighting for our clients&apos; rights.'}
+                  : 'Over 35 years of combined experience fighting for our clients\' rights.'}
               </p>
             </div>
 

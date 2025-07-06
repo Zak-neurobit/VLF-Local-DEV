@@ -12,7 +12,7 @@ interface MiniMapProps {
 
 export default function MiniMap({ height = '200px', className = '' }: MiniMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<any>(null);
+  const [map, setMap] = useState<google.maps.Map | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -26,7 +26,7 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
     }
 
     // Check if Google Maps is already loaded
-    if ((window as any).google?.maps) {
+    if ((window as typeof window & { google?: { maps?: typeof google.maps } }).google?.maps) {
       initializeMap();
       return;
     }
@@ -60,7 +60,7 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
         return;
       }
 
-      if (!(window as any).google?.maps) {
+      if (!(window as typeof window & { google?: { maps?: typeof google.maps } }).google?.maps) {
         setError('Google Maps API not available');
         setLoading(false);
         return;
@@ -73,7 +73,7 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
         const centerLat = latSum / officeLocations.length;
         const centerLng = lngSum / officeLocations.length;
 
-        const mapInstance = new (window as any).google.maps.Map(mapRef.current, {
+        const mapInstance = new google.maps.Map(mapRef.current, {
           center: { lat: centerLat, lng: centerLng },
           zoom: 6,
           disableDefaultUI: true,
@@ -97,11 +97,11 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
           ],
         });
 
-        const bounds = new (window as any).google.maps.LatLngBounds();
+        const bounds = new google.maps.LatLngBounds();
 
         // Create simple markers for each office
         officeLocations.forEach(office => {
-          const marker = new (window as any).google.maps.Marker({
+          const marker = new google.maps.Marker({
             position: { lat: office.lat, lng: office.lng },
             map: mapInstance,
             title: office.name,
@@ -114,11 +114,11 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
                   <circle cx="10" cy="10" r="3" fill="#6B1F2E"/>
                 </svg>
               `),
-              scaledSize: new (window as any).google.maps.Size(20, 20),
+              scaledSize: new google.maps.Size(20, 20),
             },
           });
 
-          bounds.extend(new (window as any).google.maps.LatLng(office.lat, office.lng));
+          bounds.extend(new google.maps.LatLng(office.lat, office.lng));
 
           // Add click handler to open location page
           marker.addListener('click', () => {

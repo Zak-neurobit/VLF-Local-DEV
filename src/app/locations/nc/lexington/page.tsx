@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
 import { localBusinessSchema, breadcrumbSchema, faqSchema } from '@/lib/schema';
 export const metadata: Metadata = {
   title: `Lexington NC Immigration Lawyer & Criminal Defense Attorney | Vasquez Law Firm`,
@@ -190,7 +189,7 @@ export default function LexingtonNCPage() {
               {/* Workers Compensation */}
               <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-[#6B1F2E]">
                 <div className="text-4xl mb-4">👷</div>
-                <h3 className="text-xl font-bold text-[#6B1F2E] mb-3">Workers' Compensation</h3>
+                <h3 className="text-xl font-bold text-[#6B1F2E] mb-3">Workers\&apos; Compensation</h3>
                 <ul className="text-gray-700 space-y-2 mb-4">
                   <li>• Workplace Injuries</li>
                   <li>• Denied Claims</li>
@@ -267,7 +266,7 @@ export default function LexingtonNCPage() {
                     <div>
                       <h4 className="font-bold text-[#6B1F2E]">Bilingual Services</h4>
                       <p className="text-gray-700">
-                        Full legal services in English and Spanish for Lexington's diverse community
+                        Full legal services in English and Spanish for Lexington&apos;s diverse community
                       </p>
                     </div>
                   </div>
@@ -276,7 +275,7 @@ export default function LexingtonNCPage() {
                     <div>
                       <h4 className="font-bold text-[#6B1F2E]">24/7 Availability</h4>
                       <p className="text-gray-700">
-                        Emergency legal help when you need it most - arrests don't wait for business
+                        Emergency legal help when you need it most - arrests don\&apos;t wait for business
                         hours
                       </p>
                     </div>
@@ -313,7 +312,7 @@ export default function LexingtonNCPage() {
                     <li>• Immigration cases and ICE detentions</li>
                     <li>• DWI arrests and traffic violations</li>
                     <li>• Personal injury from I-40/I-85 accidents</li>
-                    <li>• Workers' comp claims from local industries</li>
+                    <li>• Workers&apos; comp claims from local industries</li>
                     <li>• Family law and custody disputes</li>
                   </ul>
                 </div>
@@ -331,25 +330,25 @@ export default function LexingtonNCPage() {
               <div className="bg-white rounded-lg shadow-lg p-6">
                 <div className="text-yellow-400 text-xl mb-3">★★★★★</div>
                 <p className="text-gray-700 mb-4">
-                  "Mr. Vasquez helped me get my green card after years of waiting. He explained
+                  &quot;Mr. Vasquez helped me get my green card after years of waiting. He explained
                   everything in Spanish and made the process so much easier. Highly recommend to
-                  anyone in Lexington!"
+                  anyone in Lexington!&quot;
                 </p>
                 <p className="font-semibold text-[#6B1F2E]">- Maria G., Lexington</p>
               </div>
               <div className="bg-white rounded-lg shadow-lg p-6">
                 <div className="text-yellow-400 text-xl mb-3">★★★★★</div>
                 <p className="text-gray-700 mb-4">
-                  "Got arrested for DWI in Davidson County. Vasquez Law Firm got my charges reduced
-                  and saved my license. Worth every penny!"
+                  &quot;Got arrested for DWI in Davidson County. Vasquez Law Firm got my charges reduced
+                  and saved my license. Worth every penny!&quot;
                 </p>
                 <p className="font-semibold text-[#6B1F2E]">- James T., Lexington</p>
               </div>
               <div className="bg-white rounded-lg shadow-lg p-6">
                 <div className="text-yellow-400 text-xl mb-3">★★★★★</div>
                 <p className="text-gray-700 mb-4">
-                  "After my car accident on I-85, they handled everything with the insurance
-                  company. Got me a great settlement!"
+                  &quot;After my car accident on I-85, they handled everything with the insurance
+                  company. Got me a great settlement!&quot;
                 </p>
                 <p className="font-semibold text-[#6B1F2E]">- Sarah L., Lexington</p>
               </div>
@@ -413,7 +412,7 @@ export default function LexingtonNCPage() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-4xl font-bold mb-6">Get Legal Help in Lexington Today</h2>
             <p className="text-xl mb-8">
-              Don't face your legal challenges alone. Our experienced attorneys are ready to fight
+              Don&apos;t face your legal challenges alone. Our experienced attorneys are ready to fight
               for you. Free consultation • Se habla español • Payment plans available
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

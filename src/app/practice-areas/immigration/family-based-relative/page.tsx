@@ -82,7 +82,7 @@ export default function FamilyBasedImmigrationPage() {
     {
       question: 'Can I work while my family petition is pending?',
       answer:
-        'If you&apos;re in the U.S. and eligible to adjust status, you can apply for employment authorization (EAD) after filing Form I-485. Work authorization is typically approved within 90 days.',
+        'If you\'re in the U.S. and eligible to adjust status, you can apply for employment authorization (EAD) after filing Form I-485. Work authorization is typically approved within 90 days.',
     },
     {
       question: 'What if my family member is undocumented?',
@@ -320,7 +320,7 @@ export default function FamilyBasedImmigrationPage() {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-red-700 mb-2">
-                  Don't Wait - File Your Family Petition Today
+                  Don&apos;t Wait - File Your Family Petition Today
                 </h3>
                 <p className="text-gray-700 mb-4">
                   Processing times continue to increase. The sooner you file your family petition,
@@ -368,7 +368,7 @@ export default function FamilyBasedImmigrationPage() {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">Ready to Reunite Your Family?</h2>
             <p className="text-xl mb-8">
-              Don't let distance keep your family apart. Contact our family immigration attorneys
+              Don&apos;t let distance keep your family apart. Contact our family immigration attorneys
               today to start the process.
             </p>
             <div className="flex flex-wrap justify-center gap-6 mb-8">

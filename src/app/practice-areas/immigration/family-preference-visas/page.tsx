@@ -252,7 +252,7 @@ export default function FamilyPreferenceVisasPage() {
                               Strategic Considerations:
                             </h4>
                             <ul className="text-purple-700 text-sm space-y-1">
-                              <li>• Monitor petitioner's naturalization eligibility</li>
+                              <li>• Monitor petitioner&apos;s naturalization eligibility</li>
                               <li>• Consider derivative benefits for children</li>
                               <li>• Plan for extended separation periods</li>
                               <li>• Maintain contact and documentation</li>
@@ -413,7 +413,7 @@ export default function FamilyPreferenceVisasPage() {
                   <ul className="text-blue-700 space-y-2">
                     <li>• File I-130 as early as possible to establish priority date</li>
                     <li>
-                      • Monitor petitioner's eligibility for naturalization (can upgrade category)
+                      • Monitor petitioner&apos;s eligibility for naturalization (can upgrade category)
                     </li>
                     <li>• Consider derivative beneficiary age-out protection</li>
                     <li>• Maintain contact and update address with USCIS/NVC</li>
@@ -551,10 +551,10 @@ export default function FamilyPreferenceVisasPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-burgundy-900 mb-4">
-              Start Your Family's Immigration Journey Today
+              Start Your Family&apos;s Immigration Journey Today
             </h2>
             <p className="text-xl text-gray-700 mb-8">
-              Don't let long wait times discourage you. The sooner you file, the sooner your family
+              Don&apos;t let long wait times discourage you. The sooner you file, the sooner your family
               can be together. Our experienced family immigration attorneys are here to guide you
               through every step.
             </p>

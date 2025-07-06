@@ -148,7 +148,7 @@ const PersonalInjuryGuideDocument = () => (
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Introduction</Text>
         <Text style={styles.paragraph}>
-          If you've been injured due to someone else's negligence in North Carolina, you may be entitled to 
+          If you\&apos;ve been injured due to someone else&apos;s negligence in North Carolina, you may be entitled to 
           compensation for your injuries, medical expenses, lost wages, and pain and suffering. This guide 
           provides essential information about the personal injury claim process in North Carolina, including 
           important deadlines, types of damages, and steps to protect your rights.
@@ -226,7 +226,7 @@ const PersonalInjuryGuideDocument = () => (
         <View style={styles.checklistBox}>
           <Text style={styles.subsectionTitle}>Medical Documentation</Text>
           <Text style={styles.checklistItem}>☐ Emergency room records</Text>
-          <Text style={styles.checklistItem}>☐ Doctor's notes and treatment plans</Text>
+          <Text style={styles.checklistItem}>☐ Doctor&apos;s notes and treatment plans</Text>
           <Text style={styles.checklistItem}>☐ Diagnostic test results (X-rays, MRIs, CT scans)</Text>
           <Text style={styles.checklistItem}>☐ Prescription receipts</Text>
           <Text style={styles.checklistItem}>☐ Physical therapy records</Text>
@@ -344,7 +344,7 @@ const PersonalInjuryGuideDocument = () => (
           <Text style={styles.listItem}>• The insurance company denies your claim</Text>
           <Text style={styles.listItem}>• Multiple parties may be liable</Text>
           <Text style={styles.listItem}>• The accident involved a commercial vehicle or government entity</Text>
-          <Text style={styles.listItem}>• You're being blamed for causing the accident</Text>
+          <Text style={styles.listItem}>• You&apos;re being blamed for causing the accident</Text>
           <Text style={styles.listItem}>• The insurance offer seems too low</Text>
         </View>
         

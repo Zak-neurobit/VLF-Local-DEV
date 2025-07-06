@@ -2,6 +2,7 @@ import { logger } from '@/lib/logger';
 import { cache, cacheKeys, CacheTTL } from '@/lib/cache';
 import { emailQueue } from '@/lib/queue/bull';
 import { getPrismaClient, withTransaction } from '@/lib/prisma';
+import type { PaymentMetadata } from '@/types/services';
 import {
   PaymentGateway,
   PaymentStatus,
@@ -22,7 +23,7 @@ export interface PaymentIntent {
   clientName: string;
   clientPhone?: string;
   caseId?: string;
-  metadata?: Record<string, any>;
+  metadata?: PaymentMetadata;
 }
 
 export interface PaymentMethod {
@@ -281,7 +282,7 @@ class PaymentService {
         };
       }
     } catch (error) {
-      const stripeError = error as any;
+      const stripeError = error as { type?: string; message?: string; code?: string };
       return {
         success: false,
         error: stripeError.message || 'Stripe payment failed',
@@ -721,7 +722,16 @@ class PaymentService {
   /**
    * Process Stripe refund
    */
-  private async processStripeRefund(payment: any, amount: number): Promise<PaymentResult> {
+  private async processStripeRefund(
+    payment: {
+      id: string;
+      transactionId: string;
+      gateway: PaymentGateway;
+      amount: number;
+      metadata?: Record<string, unknown>;
+    },
+    amount: number
+  ): Promise<PaymentResult> {
     if (!this.stripe) {
       throw new Error('Stripe not configured');
     }
@@ -740,7 +750,7 @@ class PaymentService {
         gateway: 'stripe',
       };
     } catch (error) {
-      const stripeError = error as any;
+      const stripeError = error as { type?: string; message?: string; code?: string };
       return {
         success: false,
         error: stripeError.message || 'Stripe refund failed',
@@ -752,7 +762,14 @@ class PaymentService {
   /**
    * Process LawPay refund
    */
-  private async processLawPayRefund(payment: any, amount: number): Promise<PaymentResult> {
+  private async processLawPayRefund(
+    payment: {
+      id: string;
+      transactionId: string;
+      metadata?: Record<string, unknown>;
+    },
+    amount: number
+  ): Promise<PaymentResult> {
     const secretKey = process.env.LAWPAY_SECRET_KEY;
 
     if (!secretKey) {
@@ -792,7 +809,14 @@ class PaymentService {
   /**
    * Process Authorize.Net refund
    */
-  private async processAuthorizeNetRefund(payment: any, amount: number): Promise<PaymentResult> {
+  private async processAuthorizeNetRefund(
+    payment: {
+      id: string;
+      transactionId: string;
+      metadata?: Record<string, unknown>;
+    },
+    amount: number
+  ): Promise<PaymentResult> {
     const apiLoginId = process.env.AUTHORIZENET_LOGIN_ID;
     const transactionKey = process.env.AUTHORIZENET_TRANSACTION_KEY;
 
@@ -849,7 +873,15 @@ class PaymentService {
   /**
    * Record trust account refund
    */
-  private async recordTrustRefund(payment: any, amount: number): Promise<void> {
+  private async recordTrustRefund(
+    payment: {
+      id: string;
+      clientId?: string | null;
+      clientEmail?: string | null;
+      amount: number;
+    },
+    amount: number
+  ): Promise<void> {
     const prisma = getPrismaClient();
 
     // Get current balance
@@ -883,7 +915,16 @@ class PaymentService {
   /**
    * Send refund notification
    */
-  private async sendRefundNotification(payment: any, amount: number): Promise<void> {
+  private async sendRefundNotification(
+    payment: {
+      id: string;
+      clientName?: string | null;
+      clientEmail?: string | null;
+      amount: number;
+      transactionId: string;
+    },
+    amount: number
+  ): Promise<void> {
     await emailQueue.add('send-refund-notification', {
       to: payment.clientEmail,
       subject: 'Refund Processed - Vasquez Law Firm',
@@ -908,7 +949,12 @@ class PaymentService {
     installments: number,
     startDate: Date,
     caseId?: string
-  ): Promise<any> {
+  ): Promise<{
+    id: string;
+    customerId: string;
+    paymentMethodId: string;
+    gateway: PaymentGateway;
+  }> {
     const prisma = getPrismaClient();
 
     try {

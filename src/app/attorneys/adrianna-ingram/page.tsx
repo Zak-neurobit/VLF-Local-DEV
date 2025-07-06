@@ -2,7 +2,7 @@
 
 import Script from 'next/script';
 import Image from 'next/image';
-import { Phone, ArrowRight, Globe, Award, Scale, GraduationCap, MapPin, Shield, Users, Briefcase } from 'lucide-react';
+import { Phone, ArrowRight, Globe, Scale, GraduationCap, MapPin, Briefcase } from 'lucide-react';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { motion } from 'framer-motion';
 import { TRADEMARK } from '@/lib/constants/trademark';
@@ -41,7 +41,7 @@ export default function Page() {
                   Immigration Attorney
                 </p>
                 <p className="text-lg mb-8 max-w-3xl mx-auto text-gray-300">
-                  "{TRADEMARK.YO_PELEO_POR_TI}" - Dedicated Advocate for Immigrant Rights
+                  &quot;{TRADEMARK.YO_PELEO_POR_TI}&quot; - Dedicated Advocate for Immigrant Rights
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.a
@@ -90,7 +90,7 @@ export default function Page() {
                         With extensive experience in family-based immigration, deportation defense, and asylum cases, Adrianna has successfully helped countless clients achieve their American dream. She is known for her thorough approach to each case and her ability to find creative solutions to complex immigration challenges.
                       </p>
                       <p className="text-gray-300 leading-relaxed">
-                        As a graduate of North Carolina Central University School of Law, Adrianna brings both legal expertise and cultural understanding to her practice. Her bilingual abilities allow her to better serve North Carolina's diverse immigrant communities, ensuring that language is never a barrier to quality legal representation.
+                        As a graduate of North Carolina Central University School of Law, Adrianna brings both legal expertise and cultural understanding to her practice. Her bilingual abilities allow her to better serve North Carolina&apos;s diverse immigrant communities, ensuring that language is never a barrier to quality legal representation.
                       </p>
                     </div>
                   </motion.div>

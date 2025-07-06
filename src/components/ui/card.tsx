@@ -161,13 +161,13 @@ export const TestimonialCard = forwardRef<
           ))}
         </div>
       )}
-      <blockquote className="text-lg text-neutral-700 italic mb-4">"{quote}"</blockquote>
+      <blockquote className="text-lg text-neutral-700 italic mb-4">&quot;{quote}&quot;</blockquote>
       <div>
         <div className="font-semibold text-neutral-900">{author}</div>
         {role && <div className="text-sm text-neutral-600">{role}</div>}
       </div>
     </CardContent>
-    <div className="absolute -top-2 -left-2 text-6xl text-primary-200 opacity-50">"</div>
+    <div className="absolute -top-2 -left-2 text-6xl text-primary-200 opacity-50">&quot;</div>
   </Card>
 ));
 

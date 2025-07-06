@@ -85,7 +85,7 @@ export default function PracticeAreasPageContent({ language }: PracticeAreasPage
       title: { en: 'Workers\' Compensation', es: 'Compensación Laboral' },
       icon: '👷',
       description: {
-        en: "Protecting injured workers' rights and securing the benefits you deserve.",
+        en: "Protecting injured workers\' rights and securing the benefits you deserve.",
         es: 'Protegiendo los derechos de trabajadores lesionados y asegurando los beneficios que merece.',
       },
       services: {

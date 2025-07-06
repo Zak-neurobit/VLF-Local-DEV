@@ -125,7 +125,7 @@ export default function PremisesLiabilityPage() {
                   <ul className="text-yellow-700 space-y-1">
                     <li>✓ Evidence can be destroyed or altered</li>
                     <li>✓ Security footage may be erased</li>
-                    <li>✓ Witnesses' memories fade</li>
+                    <li>✓ Witnesses&apos; memories fade</li>
                     <li>✓ Property conditions may change</li>
                     <li>✓ Statute of limitations deadlines</li>
                   </ul>
@@ -445,7 +445,7 @@ export default function PremisesLiabilityPage() {
                 <div className="space-y-6">
                   <div className="bg-red-50 p-6 rounded-lg">
                     <h3 className="text-lg font-bold text-red-800 mb-2">
-                      "Open and Obvious" Defense
+                      &quot;Open and Obvious&quot; Defense
                     </h3>
                     <p className="text-red-700">
                       They claim the hazard was so obvious you should have avoided it. We prove that
@@ -464,7 +464,7 @@ export default function PremisesLiabilityPage() {
                   <div className="bg-red-50 p-6 rounded-lg">
                     <h3 className="text-lg font-bold text-red-800 mb-2">Lack of Notice</h3>
                     <p className="text-red-700">
-                      They claim they didn&apos;t know about the hazard. We prove they should have
+                      They claim they didn\&apos;t know about the hazard. We prove they should have
                       known through reasonable inspection and maintenance procedures.
                     </p>
                   </div>
@@ -534,15 +534,15 @@ export default function PremisesLiabilityPage() {
                       Can I still recover if I was partially at fault?
                     </h3>
                     <p className="text-gray-700">
-                      North Carolina's contributory negligence law is strict, but Florida uses
-                      comparative fault. We'll evaluate your case and fight to minimize any fault
+                      North Carolina&apos;s contributory negligence law is strict, but Florida uses
+                      comparative fault. We&apos;ll evaluate your case and fight to minimize any fault
                       assigned to you.
                     </p>
                   </div>
 
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      What if the property owner claims they didn&apos;t know about the hazard?
+                      What if the property owner claims they didn\&apos;t know about the hazard?
                     </h3>
                     <p className="text-gray-700">
                       We investigate to show they should have known through reasonable inspection.
@@ -562,10 +562,10 @@ export default function PremisesLiabilityPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-burgundy-900 mb-4">
-              Injured on Someone Else's Property? We Can Help
+              Injured on Someone Else&apos;s Property? We Can Help
             </h2>
             <p className="text-xl text-gray-700 mb-8">
-              Don't let property owners and their insurance companies deny you the compensation you
+              Don&apos;t let property owners and their insurance companies deny you the compensation you
               deserve. Our experienced premises liability attorneys know how to prove negligence and
               maximize your recovery.
             </p>

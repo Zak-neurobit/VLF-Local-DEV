@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export const runtime = 'nodejs';
 
-export default function PagetsxPage() {
+export default function Indexet_blogPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -37,7 +37,7 @@ export default function PagetsxPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Raleigh, NC Workers’ Compensation Attorneys
+              Raleigh, NC Workers&apos; Compensation Attorneys
             </h1>
             <p className="text-xl mb-8">Experienced Attorney at Vasquez Law Firm</p>
             <div className="flex flex-wrap justify-center gap-4">
@@ -190,7 +190,7 @@ export default function PagetsxPage() {
                   '@type': 'WebPage',
                   '@id': 'https://www.vasquezlawnc.com/workers-compensation-job-injury/',
                   url: 'https://www.vasquezlawnc.com/workers-compensation-job-injury/',
-                  name: 'Raleigh, NC Workers&apos; Compensation Attorneys - Vasquez Law Firm, PLLC',
+                  name: "Raleigh, NC Workers' Compensation Attorneys - Vasquez Law Firm, PLLC",
                   isPartOf: { '@id': 'https://www.vasquezlawnc.com/#website' },
                   primaryImageOfPage: {
                     '@id':
@@ -222,7 +222,7 @@ export default function PagetsxPage() {
                     'https://www.vasquezlawnc.com/wp-content/uploads/2024/04/johnston-county-workers-comp-attorneys.jpg',
                   width: 1000,
                   height: 400,
-                  caption: 'Johnston County Workers&apos; Comp Attorneys',
+                  caption: "Johnston County Workers' Comp Attorneys",
                 },
                 {
                   '@type': 'WebSite',
@@ -271,7 +271,7 @@ export default function PagetsxPage() {
             {
               '@context': 'https://schema.org',
               '@type': 'Attorney',
-              name: 'Raleigh, NC Workers’ Compensation Attorneys',
+              name: "Raleigh, NC Workers' Compensation Attorneys",
               image: '',
               jobTitle: 'Attorney',
               worksFor: {
@@ -288,12 +288,12 @@ export default function PagetsxPage() {
               },
               telephone: '+1-844-967-3536',
               email: 'leads@vasquezlawfirm.com',
-              url: 'https://vasquezlawnc.com/workers-compensation-job-injury/page/9/index﹖et_blog',
+              url: 'https://vasquezlawnc.com/workers-compensation-job-injury/page/9/indexet_blog',
               sameAs: [],
               knowsLanguage: ['English', 'Spanish'],
               alumniOf: {
                 '@type': 'CollegeOrUniversity',
-                name: 'NY. He served in the U.S. Air Force from 2000-2007. He is a veteran of Operation Enduring Freedom and received the Joint Service Achievement Medal for his work as a Spanish linguist for the Defense Intelligence Agency in 2005. William graduated from Campbell University in 2007 with a degree in computer science. He earned his J.D. in 2011 from the North Carolina Central University School of Law. His practice areas include immigration law and criminal defense cases. He is licensed and in good standing with the State Bar of North Carolina and a member of the American Immigration Lawyer Association (AILA.) He is a proud member of the Charlotte community and provides compassionate counsel for all his clients.</p>\n<h3>Education:</h3>\n<p><strong>North Carolina Central University</strong></p>\n<p>J.D. | Juris Doctorate</p>\n<p>2007 – 2011</p>\n<p><strong>Campbell University</strong></p>\n<p>B.S.</p>\n<h5>2007</h5>\n<h3>Bar Admissions:</h3>\n<p>North Carolina — Admitted in 2011</p>\n<p>4th',
+                name: 'North Carolina Central University School of Law',
               },
             },
             {
@@ -327,8 +327,8 @@ export default function PagetsxPage() {
                 {
                   '@type': 'ListItem',
                   position: 5,
-                  name: 'Index﹖et_blog',
-                  item: 'https://vasquezlawnc.com/workers-compensation-job-injury/page/9/index﹖et_blog',
+                  name: 'Indexet_blog',
+                  item: 'https://vasquezlawnc.com/workers-compensation-job-injury/page/9/indexet_blog',
                 },
               ],
             },

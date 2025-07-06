@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'NC Property Division & Equitable Distribution Lawyer',
     description:
-      "Fair division of marital assets and debts. We protect what you've earned and fight for your financial security.",
+      "Fair division of marital assets and debts. We protect what you\'ve earned and fight for your financial security.",
     images: [
       {
         url: '/images/property-division-hero.jpg',
@@ -67,7 +67,7 @@ export default function PropertyDivisionPage() {
               YO PELEO POR TI™
             </p>
             <p className="text-xl mb-8 text-gray-100">
-              You've worked hard for what you have. In divorce, North Carolina's equitable
+              You&apos;ve worked hard for what you have. In divorce, North Carolina&apos;s equitable
               distribution laws determine who gets what. We fight to protect your assets and ensure
               a fair division.
             </p>
@@ -93,11 +93,11 @@ export default function PropertyDivisionPage() {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Understanding NC's Equitable Distribution Law
+            Understanding NC&apos;s Equitable Distribution Law
           </h2>
           <p className="text-lg text-gray-700 text-center mb-8 max-w-3xl mx-auto">
-            North Carolina follows "equitable distribution" - meaning fair, not necessarily equal.
-            Courts divide marital property based on what's just, considering many factors.
+            North Carolina follows &quot;equitable distribution&quot; - meaning fair, not necessarily equal.
+            Courts divide marital property based on what\&apos;s just, considering many factors.
           </p>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
@@ -173,7 +173,7 @@ export default function PropertyDivisionPage() {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">💰 Major Assets Often Overlooked in Divorce</h2>
             <p className="text-xl mb-8">
-              Don't leave money on the table. Many spouses forget about or undervalue these marital
+              Don&apos;t leave money on the table. Many spouses forget about or undervalue these marital
               assets:
             </p>
             <div className="grid md:grid-cols-2 gap-6 text-left">
@@ -262,7 +262,7 @@ export default function PropertyDivisionPage() {
               </div>
               <div className="mt-6 bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
                 <p className="text-gray-700">
-                  <strong>Warning:</strong> Don't accept your spouse&apos;s valuations without
+                  <strong>Warning:</strong> Don&apos;t accept your spouse&apos;s valuations without
                   verification. Hidden value is common in complex assets.
                 </p>
               </div>
@@ -281,7 +281,7 @@ export default function PropertyDivisionPage() {
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3 text-[#001845]">Income & Property</h3>
               <p className="text-gray-700">
-                Each party's income, property brought to marriage, and earning potential. Higher
+                Each party&apos;s income, property brought to marriage, and earning potential. Higher
                 earners may receive less to balance outcomes.
               </p>
             </div>
@@ -391,7 +391,7 @@ export default function PropertyDivisionPage() {
                   </div>
                   <h4 className="font-semibold mb-2">One Spouse Keeps</h4>
                   <p className="text-gray-700 text-sm">
-                    Buy out other's equity, refinance to remove from mortgage
+                    Buy out other&apos;s equity, refinance to remove from mortgage
                   </p>
                 </div>
                 <div className="text-center">
@@ -430,7 +430,7 @@ export default function PropertyDivisionPage() {
           <div className="max-w-4xl mx-auto">
             <div className="bg-red-50 border-2 border-red-200 rounded-lg p-8">
               <h3 className="text-2xl font-bold text-red-800 mb-4">
-                Critical: Creditors Don't Care About Your Divorce Decree
+                Critical: Creditors Don&apos;t Care About Your Divorce Decree
               </h3>
               <p className="text-gray-700 mb-4">
                 If your name is on a debt, creditors can come after you regardless of what the
@@ -580,7 +580,7 @@ export default function PropertyDivisionPage() {
               <div className="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
                 <p className="text-gray-700">
                   <strong>Common Hiding Places:</strong> Overpaying taxes (for refund later),
-                  "loans" to family, cryptocurrency, delayed bonuses, offshore accounts, cash
+                  &quot;loans&quot; to family, cryptocurrency, delayed bonuses, offshore accounts, cash
                   businesses.
                 </p>
               </div>
@@ -598,7 +598,7 @@ export default function PropertyDivisionPage() {
           <div className="max-w-4xl mx-auto">
             <div className="bg-white p-8 rounded-lg shadow-lg">
               <p className="text-lg text-gray-700 mb-6">
-                Valid agreements can override NC's equitable distribution laws, but they must meet
+                Valid agreements can override NC&apos;s equitable distribution laws, but they must meet
                 strict requirements:
               </p>
               <div className="grid md:grid-cols-2 gap-6">
@@ -671,8 +671,8 @@ export default function PropertyDivisionPage() {
               </h3>
               <p className="text-gray-700">
                 In NC, pets are property, not subject to custody laws. Courts consider who primarily
-                cared for the pet, who paid expenses, and children's attachment. Some couples create
-                "pet custody" agreements outside court.
+                cared for the pet, who paid expenses, and children&apos;s attachment. Some couples create
+                &quot;pet custody&quot; agreements outside court.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
@@ -692,10 +692,10 @@ export default function PropertyDivisionPage() {
       {/* CTA Section with Office Locations */}
       <section className="py-16 bg-gradient-to-br from-[#001845] to-[#003875] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Protect What You've Worked Hard to Build</h2>
+          <h2 className="text-4xl font-bold mb-6">Protect What You&apos;ve Worked Hard to Build</h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
             Property division can make the difference between financial security and starting over.
-            Don't leave your future to chance - get experienced legal representation to protect your
+            Don&apos;t leave your future to chance - get experienced legal representation to protect your
             assets.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

@@ -244,7 +244,7 @@ export function LocationPage({ city, state, customContent }: LocationPageProps) 
             <p>
               Our {city} attorneys are familiar with the specific challenges and opportunities in{' '}
               {state}
-              courts. Whether you're facing immigration issues, recovering from an accident, or
+              courts. Whether you&apos;re facing immigration issues, recovering from an accident, or
               dealing with criminal charges, we have the local knowledge and experience to fight for
               your rights.
             </p>
@@ -266,7 +266,7 @@ export function LocationPage({ city, state, customContent }: LocationPageProps) 
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Get Started?</h2>
             <p className="text-xl mb-8">
-              Contact our {city} office today for a free consultation. We're here to fight for you -
+              Contact our {city} office today for a free consultation. We&apos;re here to fight for you -
               YO PELEO POR TI™!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PageHero } from '@/components/sections/PageHero'
-import { ContactCTA } from '@/components/sections/ContactCTA'
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
 import { FAQSection } from '@/components/sections/FAQSection'
 import { PracticeAreaSchema } from '@/components/schemas/PracticeAreaSchema'
@@ -34,7 +33,7 @@ const theftFAQs = [
     answer: "Penalties depend on the value of items taken. Under $1,000 is typically a Class 1 misdemeanor (up to 120 days in jail). Over $1,000 is a Class H felony (4-25 months in prison). Repeat offenses and organized retail theft carry enhanced penalties."
   },
   {
-    question: "Can I be charged with shoplifting if I didn't leave the store?",
+    question: "Can I be charged with shoplifting if I didn\'t leave the store?",
     answer: "Yes. In North Carolina, you can be charged with shoplifting for concealing merchandise, altering price tags, or transferring items between containers, even if you haven't left the store. Intent to steal is the key element."
   },
   {
@@ -73,7 +72,7 @@ export default function TheftLarcenyShopliftingPage() {
                   Being charged with theft, larceny, or shoplifting can have serious consequences that extend 
                   far beyond potential jail time. These charges can damage your reputation, limit employment 
                   opportunities, and create lasting financial hardship. At Vasquez Law Firm, we understand 
-                  what's at stake and fight aggressively to protect your rights and future.
+                  what&apos;s at stake and fight aggressively to protect your rights and future.
                 </p>
                 <p className="text-lg text-gray-600">
                   Our experienced criminal defense attorneys have successfully defended clients against all 
@@ -222,7 +221,7 @@ export default function TheftLarcenyShopliftingPage() {
                       </svg>
                       <div>
                         <h4 className="font-semibold">Lack of Intent</h4>
-                        <p className="text-gray-600">Proving you didn't intend to permanently deprive the owner</p>
+                        <p className="text-gray-600">Proving you didn\&apos;t intend to permanently deprive the owner</p>
                       </div>
                     </div>
                     
@@ -297,7 +296,7 @@ export default function TheftLarcenyShopliftingPage() {
                   </div>
                   <div className="ml-3">
                     <p className="text-sm text-red-700">
-                      A theft conviction can impact your life for years. Don't face these charges without experienced legal help.
+                      A theft conviction can impact your life for years. Don&apos;t face these charges without experienced legal help.
                     </p>
                   </div>
                 </div>
@@ -362,7 +361,7 @@ export default function TheftLarcenyShopliftingPage() {
         <section className="py-16 bg-primary-600 text-white">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-4">Don't Let Theft Charges Ruin Your Future</h2>
+              <h2 className="text-3xl font-bold mb-4">Don&apos;t Let Theft Charges Ruin Your Future</h2>
               <p className="text-xl mb-8">
                 Get experienced legal representation now. We offer free consultations and payment plans.
               </p>

@@ -6,6 +6,7 @@ import { recordingManager } from '../recording-manager';
 import { retellErrorHandler } from '../error-handler';
 import { securityManager } from '../security-manager';
 import { ghlService } from '@/services/gohighlevel';
+import type { GHLContact } from '@/services/gohighlevel/types';
 
 // Mock external dependencies
 jest.mock('@/lib/logger', () => ({
@@ -68,6 +69,9 @@ jest.mock('@/services/gohighlevel', () => ({
   },
 }));
 
+// Type the mocked functions
+const mockedGhlService = ghlService as jest.Mocked<typeof ghlService>;
+
 // Mock environment variables
 const originalEnv = process.env;
 beforeEach(() => {
@@ -104,7 +108,7 @@ describe('Retell-GHL Integration Tests', () => {
   describe('Call Routing', () => {
     it('should route call with correct practice area', async () => {
       // Mock GHL contact lookup
-      (ghlService.findContactByPhone as jest.Mock).mockResolvedValue({
+      mockedGhlService.findContactByPhone.mockResolvedValue({
         id: 'contact-123',
         firstName: 'John',
         lastName: 'Doe',
@@ -113,7 +117,7 @@ describe('Retell-GHL Integration Tests', () => {
           practiceArea: 'immigration',
           preferredLanguage: 'es',
         },
-      });
+      } as GHLContact);
 
       const routingOptions = {
         phoneNumber: '+15551234567',
@@ -158,7 +162,7 @@ describe('Retell-GHL Integration Tests', () => {
     });
 
     it('should handle existing client with higher priority', async () => {
-      (ghlService.findContactByPhone as jest.Mock).mockResolvedValue({
+      mockedGhlService.findContactByPhone.mockResolvedValue({
         id: 'existing-client-123',
         firstName: 'Jane',
         lastName: 'Smith',
@@ -167,7 +171,7 @@ describe('Retell-GHL Integration Tests', () => {
           clientStatus: 'active',
           practiceArea: 'personal_injury',
         },
-      });
+      } as GHLContact);
 
       const routingOptions = {
         phoneNumber: '+15551234567',
@@ -218,7 +222,7 @@ describe('Retell-GHL Integration Tests', () => {
       });
 
       // Should trigger post-call processing
-      expect(ghlService.triggerCampaign).toHaveBeenCalled();
+      expect(mockedGhlService.triggerCampaign).toHaveBeenCalled();
     });
 
     it('should handle call failures appropriately', async () => {
@@ -228,7 +232,7 @@ describe('Retell-GHL Integration Tests', () => {
         reason: 'Network error',
       });
 
-      expect(ghlService.createTask).toHaveBeenCalledWith(
+      expect(mockedGhlService.createTask).toHaveBeenCalledWith(
         expect.objectContaining({
           title: expect.stringContaining('Call Failed'),
         })
@@ -264,8 +268,8 @@ describe('Retell-GHL Integration Tests', () => {
 
       expect(mockRetellService.getCallRecording).toHaveBeenCalledWith(callId);
       expect(mockRetellService.getCallTranscript).toHaveBeenCalledWith(callId);
-      expect(ghlService.syncCallRecording).toHaveBeenCalled();
-      expect(ghlService.updateContactCallOutcome).toHaveBeenCalled();
+      expect(mockedGhlService.syncCallRecording).toHaveBeenCalled();
+      expect(mockedGhlService.updateContactCallOutcome).toHaveBeenCalled();
     });
 
     it('should detect positive sentiment from transcript', async () => {
@@ -293,7 +297,7 @@ describe('Retell-GHL Integration Tests', () => {
       await recordingManager.processRecording(callId);
 
       // Verify positive sentiment was detected and appropriate tags were added
-      expect(ghlService.updateContact).toHaveBeenCalledWith(
+      expect(mockedGhlService.updateContact).toHaveBeenCalledWith(
         'contact-123',
         expect.objectContaining({
           tags: expect.arrayContaining(['call-positive']),
@@ -347,7 +351,7 @@ describe('Retell-GHL Integration Tests', () => {
         operation: 'create_call',
       });
 
-      expect(ghlService.createTask).toHaveBeenCalledWith(
+      expect(mockedGhlService.createTask).toHaveBeenCalledWith(
         expect.objectContaining({
           title: expect.stringContaining('Retell Account Balance'),
         })
@@ -444,7 +448,7 @@ describe('Retell-GHL Integration Tests', () => {
       const contactId = 'contact-123';
 
       // Mock GHL contact
-      (ghlService.findContactByPhone as jest.Mock).mockResolvedValue({
+      mockedGhlService.findContactByPhone.mockResolvedValue({
         id: contactId,
         firstName: 'John',
         lastName: 'Doe',
@@ -453,7 +457,7 @@ describe('Retell-GHL Integration Tests', () => {
           practiceArea: 'immigration',
           preferredLanguage: 'en',
         },
-      });
+      } as GHLContact);
 
       // Step 1: Route and create call
       const routingOptions = {
@@ -499,9 +503,9 @@ describe('Retell-GHL Integration Tests', () => {
       await recordingManager.processRecording(callId);
 
       // Verify workflow completion
-      expect(ghlService.updateContact).toHaveBeenCalled();
-      expect(ghlService.addNote).toHaveBeenCalled();
-      expect(ghlService.syncCallRecording).toHaveBeenCalled();
+      expect(mockedGhlService.updateContact).toHaveBeenCalled();
+      expect(mockedGhlService.addNote).toHaveBeenCalled();
+      expect(mockedGhlService.syncCallRecording).toHaveBeenCalled();
     });
 
     it('should handle call failure and trigger recovery', async () => {
@@ -509,10 +513,12 @@ describe('Retell-GHL Integration Tests', () => {
       const contactId = 'contact-123';
 
       // Mock GHL contact
-      (ghlService.findContactByPhone as jest.Mock).mockResolvedValue({
+      mockedGhlService.findContactByPhone.mockResolvedValue({
         id: contactId,
+        firstName: '',
+        lastName: '',
         phone: phoneNumber,
-      });
+      } as GHLContact);
 
       // Create call
       const { callId } = await callRouter.createRoutedCall({
@@ -533,7 +539,7 @@ describe('Retell-GHL Integration Tests', () => {
       });
 
       // Verify failure handling
-      expect(ghlService.createTask).toHaveBeenCalledWith(
+      expect(mockedGhlService.createTask).toHaveBeenCalledWith(
         expect.objectContaining({
           contactId,
           title: expect.stringContaining('Call Failed'),

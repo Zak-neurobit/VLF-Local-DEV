@@ -106,7 +106,7 @@ export default function Page() {
                   <p className="text-lg mb-6 text-gray-300">
                     Jillian Baucom is an experienced immigration attorney specializing in removal defense, 
                     dedicated to helping clients navigate the immigration process smoothly. She brings 
-                    compassion and expertise to every case, fighting tirelessly for her clients' rights.
+                    compassion and expertise to every case, fighting tirelessly for her clients&apos; rights.
                   </p>
                   <p className="text-lg mb-8 text-gray-300">
                     With extensive experience in immigration court proceedings and deportation defense, 

@@ -1,6 +1,4 @@
-/**
- * @jest-environment node
- */
+import { NextRequest } from 'next/server';
 import { GET } from './route';
 
 // Mock modules
@@ -38,7 +36,7 @@ describe('Health API Route', () => {
     process.env.REDIS_PORT = '6379';
     process.env.OPENAI_API_KEY = 'test-key';
 
-    const request = { url: 'http://localhost:3000/api/health' } as any;
+    const request = { url: 'http://localhost:3000/api/health' } as unknown as NextRequest;
     const response = await GET(request);
     const data = await response.json();
 
@@ -61,7 +59,7 @@ describe('Health API Route', () => {
     delete process.env.REDIS_HOST;
     delete process.env.OPENAI_API_KEY;
 
-    const request = { url: 'http://localhost:3000/api/health' } as any;
+    const request = { url: 'http://localhost:3000/api/health' } as unknown as NextRequest;
     const response = await GET(request);
     const data = await response.json();
 
@@ -73,7 +71,7 @@ describe('Health API Route', () => {
   });
 
   it('includes timestamp and version in response', async () => {
-    const request = { url: 'http://localhost:3000/api/health' } as any;
+    const request = { url: 'http://localhost:3000/api/health' } as unknown as NextRequest;
     const response = await GET(request);
     const data = await response.json();
 

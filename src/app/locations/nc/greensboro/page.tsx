@@ -21,7 +21,7 @@ export default function GreensboroHubPage() {
         <div className="space-y-12">
           <section>
             <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-              Greensboro's Premier Law Firm - Vasquez Law
+              Greensboro&apos;s Premier Law Firm - Vasquez Law
             </h1>
             <p className="text-xl text-gray-700">
               Serving Greensboro and all of Guilford County with 60+ years of legal excellence. 

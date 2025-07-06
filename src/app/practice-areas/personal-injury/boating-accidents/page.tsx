@@ -124,7 +124,7 @@ export default function BoatingAccidentsPage() {
             <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#003875]">
               <h3 className="text-xl font-semibold mb-3">Lake Norman</h3>
               <p className="text-gray-700">
-                NC's largest lake with heavy boat traffic, jet ski accidents, and collision risks.
+                NC&apos;s largest lake with heavy boat traffic, jet ski accidents, and collision risks.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#003875]">
@@ -166,11 +166,11 @@ export default function BoatingAccidentsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">
-              ⚠️ Critical: North Carolina's Contributory Negligence Law Applies to Boating
+              ⚠️ Critical: North Carolina&apos;s Contributory Negligence Law Applies to Boating
             </h2>
             <p className="text-xl mb-6">
               North Carolina is one of only 4 states with pure contributory negligence. If
-              you&apos;re found even 1% at fault, you could receive NOTHING.
+              you\&apos;re found even 1% at fault, you could receive NOTHING.
             </p>
             <p className="text-lg mb-8">
               Insurance companies will claim you weren&apos;t wearing a life jacket, were standing
@@ -197,7 +197,7 @@ export default function BoatingAccidentsPage() {
             <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#FF6B6B]">
               <h3 className="text-xl font-semibold mb-3">Operator Inexperience</h3>
               <p className="text-gray-700">
-                Untrained operators who don't understand navigation rules, right-of-way, or safe
+                Untrained operators who don&apos;t understand navigation rules, right-of-way, or safe
                 operation.
               </p>
             </div>
@@ -414,7 +414,7 @@ export default function BoatingAccidentsPage() {
               </h3>
               <p className="text-gray-700">
                 Boat insurance differs from auto insurance. Many boaters are underinsured or
-                uninsured. We explore all coverage sources including homeowner's policies.
+                uninsured. We explore all coverage sources including homeowner&apos;s policies.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
@@ -451,7 +451,7 @@ export default function BoatingAccidentsPage() {
               <li className="flex items-start">
                 <span className="text-red-600 mr-2">✗</span>
                 <div>
-                  <strong>"Assumption of Risk":</strong> Arguing you accepted danger by being on a
+                  <strong>&quot;Assumption of Risk&quot;:</strong> Arguing you accepted danger by being on a
                   boat
                 </div>
               </li>
@@ -464,7 +464,7 @@ export default function BoatingAccidentsPage() {
               <li className="flex items-start">
                 <span className="text-red-600 mr-2">✗</span>
                 <div>
-                  <strong>Operator Error:</strong> Blaming all passengers for operator's mistakes
+                  <strong>Operator Error:</strong> Blaming all passengers for operator&apos;s mistakes
                 </div>
               </li>
               <li className="flex items-start">
@@ -476,7 +476,7 @@ export default function BoatingAccidentsPage() {
             </ul>
           </div>
           <div className="text-center">
-            <p className="text-xl mb-6">Don't navigate complex maritime law alone.</p>
+            <p className="text-xl mb-6">Don&apos;t navigate complex maritime law alone.</p>
             <Link
               href="/contact"
               className="inline-block bg-[#FF6B6B] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#FF5252] transition-colors"
@@ -499,8 +499,8 @@ export default function BoatingAccidentsPage() {
                 Do I need boat insurance in North Carolina?
               </h3>
               <p className="text-gray-700">
-                NC doesn&apos;t require boat insurance, but marinas may require it. Many boaters are
-                uninsured, making it crucial to have uninsured boater coverage. We'll explore all
+                NC doesn\&apos;t require boat insurance, but marinas may require it. Many boaters are
+                uninsured, making it crucial to have uninsured boater coverage. We&apos;ll explore all
                 available insurance.
               </p>
             </div>
@@ -509,8 +509,8 @@ export default function BoatingAccidentsPage() {
                 What if I wasn&apos;t wearing a life jacket?
               </h3>
               <p className="text-gray-700">
-                While NC requires life jackets on board, adults aren&apos;t required to wear them.
-                Not wearing a PFD doesn&apos;t bar your claim if the other operator's negligence
+                While NC requires life jackets on board, adults aren\&apos;t required to wear them.
+                Not wearing a PFD doesn&apos;t bar your claim if the other operator&apos;s negligence
                 caused the accident.
               </p>
             </div>
@@ -546,7 +546,7 @@ export default function BoatingAccidentsPage() {
       {/* CTA Section with Office Locations */}
       <section className="py-16 bg-gradient-to-br from-[#001845] to-[#003875] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Don't Let Your Boating Accident Case Sink</h2>
+          <h2 className="text-4xl font-bold mb-6">Don&apos;t Let Your Boating Accident Case Sink</h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
             Maritime law is complex and insurance companies use it against victims. We have the
             experience to navigate these waters and fight for maximum compensation.

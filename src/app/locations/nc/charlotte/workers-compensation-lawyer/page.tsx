@@ -34,12 +34,12 @@ export default function CharlotteWorkersCompensationLawyerPage() {
             {/* Hero Section */}
             <section>
               <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-                Charlotte\'s Top Workers\' Compensation Lawyer - 60+ Years Winning Cases
+                Charlotte&apos;s Top Workers\&apos; Compensation Lawyer - 60+ Years Winning Cases
               </h1>
               <p className="text-xl text-gray-700">
-                When you need the best workers\' compensation lawyer in Charlotte, Mecklenburg County, North Carolina, 
+                When you need the best workers&apos; compensation lawyer in Charlotte, Mecklenburg County, North Carolina, 
                 Vasquez Law Firm delivers results. With over 60 years of combined experience and thousands of successful cases, 
-                we're the law firm Charlotte residents trust most.
+                we\&apos;re the law firm Charlotte residents trust most.
               </p>
             </section>
             {/* Local Expertise */}
@@ -72,10 +72,10 @@ export default function CharlotteWorkersCompensationLawyerPage() {
             {/* Service Areas */}
             <section>
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
-                Workers\' Compensation Lawyer Services in Charlotte
+                Workers\&apos; Compensation Lawyer Services in Charlotte
               </h2>
               <p className="text-lg mb-4">
-                Our Charlotte workers\' compensation lawyers handle all types of cases throughout Mecklenburg County:
+                Our Charlotte workers&apos; compensation lawyers handle all types of cases throughout Mecklenburg County:
               </p>
               <div className="bg-[#6B1F2E] text-white p-8 rounded-lg">
                 <p className="text-lg mb-4">Serving all Charlotte zip codes:</p>
@@ -120,14 +120,14 @@ export default function CharlotteWorkersCompensationLawyerPage() {
                 <p className="font-semibold mb-2">Main Courthouse:</p>
                 <p className="text-gray-700">832 E 4th St, Charlotte, NC 28202</p>
                 <p className="mt-4 text-gray-600">
-                  Our workers\' compensation lawyers regularly appear in Mecklenburg County courts and know the local procedures inside and out.
+                  Our workers&apos; compensation lawyers regularly appear in Mecklenburg County courts and know the local procedures inside and out.
                 </p>
               </div>
             </section>
             {/* CTA Section */}
             <section className="bg-[#6B1F2E] text-white p-8 rounded-lg text-center">
               <h2 className="text-3xl font-bold mb-4">
-                Need a Workers\' Compensation Lawyer in Charlotte? Get Help Now!
+                Need a Workers\&apos; Compensation Lawyer in Charlotte? Get Help Now!
               </h2>
               <p className="text-xl mb-6">
                 Free consultation • Se habla español • No fees unless we win (PI/WC)
@@ -153,7 +153,7 @@ export default function CharlotteWorkersCompensationLawyerPage() {
             '@context': 'https://schema.org',
             '@type': 'Attorney',
             name: `Vasquez Law Firm - Charlotte Workers\' Compensation Lawyer`,
-            description: `Leading workers\' compensation lawyer serving Charlotte and Mecklenburg County, North Carolina`,
+            description: `Leading workers' compensation lawyer serving Charlotte and Mecklenburg County, North Carolina`,
             url: `https://www.vasquezlawfirm.com/locations/nc/charlotte/workers-compensation-lawyer`,
             telephone: '+1-844-967-3536',
             address: {
@@ -203,7 +203,7 @@ export default function CharlotteWorkersCompensationLawyerPage() {
             mainEntity: [
               {
                 '@type': 'Question',
-                name: `How much does a workers\' compensation lawyer cost in Charlotte, NC?`,
+                name: `How much does a workers' compensation lawyer cost in Charlotte, NC?`,
                 acceptedAnswer: {
                   '@type': 'Answer',
                   text: `At Vasquez Law Firm, we offer free consultations for all Charlotte residents. We work on contingency - no fees unless we win your case.`
@@ -214,7 +214,7 @@ export default function CharlotteWorkersCompensationLawyerPage() {
                 name: `What areas near Charlotte do you serve?`,
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: `We serve all of Mecklenburg County including Charlotte, Concord, Gastonia, Rock Hill, Matthews, Huntersville, and surrounding areas. With 60+ years of experience, we're the trusted choice throughout the region.`
+                  text: `We serve all of Mecklenburg County including Charlotte, Concord, Gastonia, Rock Hill, Matthews, Huntersville, and surrounding areas. With 60+ years of experience, we\'re the trusted choice throughout the region.`
                 }
               },
               {

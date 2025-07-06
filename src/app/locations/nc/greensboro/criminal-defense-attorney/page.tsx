@@ -34,12 +34,12 @@ export default function GreensboroCriminalDefenseAttorneyPage() {
             {/* Hero Section */}
             <section>
               <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-                Greensboro's Top Criminal Defense Attorney - 60+ Years Winning Cases
+                Greensboro&apos;s Top Criminal Defense Attorney - 60+ Years Winning Cases
               </h1>
               <p className="text-xl text-gray-700">
                 When you need the best criminal defense attorney in Greensboro, Guilford County, North Carolina, 
                 Vasquez Law Firm delivers results. With over 60 years of combined experience and thousands of successful cases, 
-                we're the law firm Greensboro residents trust most.
+                we\&apos;re the law firm Greensboro residents trust most.
               </p>
             </section>
             {/* Local Expertise */}
@@ -209,7 +209,7 @@ export default function GreensboroCriminalDefenseAttorneyPage() {
                 name: `What areas near Greensboro do you serve?`,
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: `We serve all of Guilford County including Greensboro, High Point, Burlington, Jamestown, Summerfield, and surrounding areas. With 60+ years of experience, we're the trusted choice throughout the region.`
+                  text: `We serve all of Guilford County including Greensboro, High Point, Burlington, Jamestown, Summerfield, and surrounding areas. With 60+ years of experience, we\'re the trusted choice throughout the region.`
                 }
               },
               {

@@ -54,7 +54,7 @@ export class AgentAnalyticsService {
     success: boolean;
     satisfaction?: number;
     escalated?: boolean;
-    metadata?: Record<string, any>;
+    metadata?: Record<string, unknown>;
   }): Promise<void> {
     try {
       // Store in database
@@ -89,7 +89,16 @@ export class AgentAnalyticsService {
     }
   }
 
-  private updateMetrics(data: any): void {
+  private updateMetrics(data: {
+    agentId: string;
+    agentName: string;
+    success: boolean;
+    responseTime: number;
+    satisfaction?: number;
+    language: string;
+    intent: string;
+    escalated?: boolean;
+  }): void {
     const metrics = this.metricsCache.get(data.agentId) || this.initializeMetrics(data.agentId, data.agentName);
     
     metrics.totalInteractions++;
@@ -153,7 +162,12 @@ export class AgentAnalyticsService {
     };
   }
 
-  private async checkAlerts(data: any): Promise<void> {
+  private async checkAlerts(data: {
+    agentId: string;
+    responseTime: number;
+    success: boolean;
+    escalated?: boolean;
+  }): Promise<void> {
     const alerts: Array<{ level: 'info' | 'warning' | 'error'; message: string }> = [];
 
     // Check response time

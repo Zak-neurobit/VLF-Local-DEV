@@ -252,8 +252,8 @@ export default function ImmediateRelativeVisasPage() {
                             <h4 className="font-bold text-yellow-800 mb-2">Required Documents:</h4>
                             <ul className="text-yellow-700 text-sm space-y-1">
                               <li>• Birth certificate showing parent-child relationship</li>
-                              <li>• Parent's U.S. citizenship proof</li>
-                              <li>• Child's passport and photos</li>
+                              <li>• Parent&apos;s U.S. citizenship proof</li>
+                              <li>• Child&apos;s passport and photos</li>
                               <li>• Adoption/legitimation docs if applicable</li>
                             </ul>
                           </div>
@@ -279,8 +279,8 @@ export default function ImmediateRelativeVisasPage() {
                             <ul className="text-purple-700 text-sm space-y-1">
                               <li>• U.S. citizen child must be 21+</li>
                               <li>• Birth certificate showing relationship</li>
-                              <li>• Child's U.S. citizenship proof</li>
-                              <li>• Parent's passport and documents</li>
+                              <li>• Child&apos;s U.S. citizenship proof</li>
+                              <li>• Parent&apos;s passport and documents</li>
                             </ul>
                           </div>
                           <div>
@@ -307,7 +307,7 @@ export default function ImmediateRelativeVisasPage() {
                 </h2>
                 <p className="text-gray-700 mb-6">
                   The Child Status Protection Act (CSPA) provides important protections for children
-                  who may "age out" (turn 21) during the immigration process.
+                  who may &quot;age out&quot; (turn 21) during the immigration process.
                 </p>
 
                 <div className="bg-orange-50 border-l-4 border-orange-500 p-6 mb-8">
@@ -315,8 +315,8 @@ export default function ImmediateRelativeVisasPage() {
                     CSPA Protection for Immediate Relatives:
                   </h3>
                   <ul className="text-orange-700 space-y-2">
-                    <li>• Child's age is frozen on the date the I-130 petition is filed</li>
-                    <li>• Processing delays don't count against the child</li>
+                    <li>• Child&apos;s age is frozen on the date the I-130 petition is filed</li>
+                    <li>• Processing delays don&apos;t count against the child</li>
                     <li>• Child remains eligible even if they turn 21 during processing</li>
                     <li>• Marriage before visa issuance still disqualifies the child</li>
                   </ul>

@@ -119,14 +119,14 @@ export default function MotorcycleAccidentsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">
-              ⚠️ Critical: North Carolina's Contributory Negligence Law
+              ⚠️ Critical: North Carolina&apos;s Contributory Negligence Law
             </h2>
             <p className="text-xl mb-6">
               North Carolina is one of only 4 states with pure contributory negligence. If
-              you&apos;re found even 1% at fault, you could receive NOTHING.
+              you\&apos;re found even 1% at fault, you could receive NOTHING.
             </p>
             <p className="text-lg mb-8">
-              Insurance companies exploit this law to deny motorcycle accident claims. They'll argue
+              Insurance companies exploit this law to deny motorcycle accident claims. They&apos;ll argue
               you were speeding, lane splitting, or not wearing proper gear. We know how to fight
               these tactics and prove the other driver was 100% at fault.
             </p>
@@ -290,7 +290,7 @@ export default function MotorcycleAccidentsPage() {
             <p className="text-lg font-semibold mb-2">⏰ NC Statute of Limitations: 3 Years</p>
             <p className="text-gray-700">
               You have 3 years from the date of your motorcycle accident to file a personal injury
-              lawsuit in North Carolina. Don't wait - evidence disappears and witnesses forget.
+              lawsuit in North Carolina. Don&apos;t wait - evidence disappears and witnesses forget.
               Contact us immediately.
             </p>
           </div>
@@ -310,7 +310,7 @@ export default function MotorcycleAccidentsPage() {
               </h3>
               <p className="text-gray-700">
                 Insurance companies and juries often have unfair biases against bikers, assuming
-                they&apos;re reckless or at fault. We combat these stereotypes with facts and
+                they\&apos;re reckless or at fault. We combat these stereotypes with facts and
                 evidence.
               </p>
             </div>
@@ -335,7 +335,7 @@ export default function MotorcycleAccidentsPage() {
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3 text-[#001845]">
-                NC's Contributory Negligence Trap
+                NC&apos;s Contributory Negligence Trap
               </h3>
               <p className="text-gray-700">
                 Insurance companies will claim you were speeding, not wearing proper gear, or lane
@@ -361,7 +361,7 @@ export default function MotorcycleAccidentsPage() {
               <li className="flex items-start">
                 <span className="text-red-600 mr-2">✗</span>
                 <div>
-                  <strong>Blaming Your Speed:</strong> "The motorcyclist must have been speeding" -
+                  <strong>Blaming Your Speed:</strong> &quot;The motorcyclist must have been speeding&quot; -
                   even without evidence
                 </div>
               </li>
@@ -396,7 +396,7 @@ export default function MotorcycleAccidentsPage() {
             </ul>
           </div>
           <div className="text-center">
-            <p className="text-xl mb-6">Don't let insurance companies take advantage of you.</p>
+            <p className="text-xl mb-6">Don&apos;t let insurance companies take advantage of you.</p>
             <Link
               href="/contact"
               className="inline-block bg-[#FF6B6B] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#FF5252] transition-colors"
@@ -421,7 +421,7 @@ export default function MotorcycleAccidentsPage() {
               <p className="text-gray-700">
                 Yes, North Carolina law requires all motorcyclists and passengers to wear
                 DOT-approved helmets. Not wearing a helmet can impact your injury claim, but
-                doesn&apos;t bar recovery if the other driver was at fault for the accident itself.
+                doesn\&apos;t bar recovery if the other driver was at fault for the accident itself.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
@@ -439,7 +439,7 @@ export default function MotorcycleAccidentsPage() {
                 The police report says I was partially at fault. Is my case over?
               </h3>
               <p className="text-gray-700">
-                No! Police reports are not the final word. Officers often don't understand
+                No! Police reports are not the final word. Officers often don&apos;t understand
                 motorcycle dynamics. We can challenge the report with expert testimony and evidence
                 to prove the other driver was 100% at fault.
               </p>
@@ -451,16 +451,16 @@ export default function MotorcycleAccidentsPage() {
               <p className="text-gray-700">
                 Every case is different. Simple cases with clear fault may settle in 6-12 months.
                 Complex cases with severe injuries or disputed liability may take 18-24 months or
-                longer. We'll fight for as long as it takes to get you fair compensation.
+                longer. We&apos;ll fight for as long as it takes to get you fair compensation.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-semibold mb-3">
-                What if the driver who hit me doesn&apos;t have insurance?
+                What if the driver who hit me doesn\&apos;t have insurance?
               </h3>
               <p className="text-gray-700">
                 Your uninsured/underinsured motorist (UM/UIM) coverage can help. NC law requires
-                minimum UM/UIM coverage. We'll explore all available insurance policies to maximize
+                minimum UM/UIM coverage. We&apos;ll explore all available insurance policies to maximize
                 your recovery.
               </p>
             </div>
@@ -475,7 +475,7 @@ export default function MotorcycleAccidentsPage() {
             Get the Legal Fighter You Need After a Motorcycle Accident
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Don't let insurance companies blame you for your motorcycle accident. We know NC law and
+            Don&apos;t let insurance companies blame you for your motorcycle accident. We know NC law and
             how to overcome contributory negligence defenses.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

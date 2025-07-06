@@ -200,7 +200,7 @@ export default function NursingHomeAbusePage() {
                       Financial Exploitation
                     </h3>
                     <p className="text-gray-700 mb-2">
-                      Illegal or improper use of an elder's funds, property, or assets.
+                      Illegal or improper use of an elder&apos;s funds, property, or assets.
                     </p>
                     <ul className="text-gray-700 space-y-1">
                       <li>• Stealing money or belongings</li>
@@ -519,18 +519,18 @@ export default function NursingHomeAbusePage() {
                     </h3>
                     <p className="text-gray-700">
                       Many arbitration agreements are unenforceable, especially if signed under
-                      duress or without proper authority. We'll review the agreement and fight for
+                      duress or without proper authority. We&apos;ll review the agreement and fight for
                       your right to a jury trial.
                     </p>
                   </div>
 
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      What if my loved one has dementia and can&apos;t testify?
+                      What if my loved one has dementia and can\&apos;t testify?
                     </h3>
                     <p className="text-gray-700">
                       We build cases using medical records, witness testimony, expert opinions, and
-                      physical evidence. Your loved one's inability to testify doesn&apos;t prevent
+                      physical evidence. Your loved one&apos;s inability to testify doesn&apos;t prevent
                       us from seeking justice.
                     </p>
                   </div>
@@ -561,7 +561,7 @@ export default function NursingHomeAbusePage() {
             </h2>
             <p className="text-xl text-gray-700 mb-8">
               Elder abuse thrives in silence. If you suspect your loved one is being abused or
-              neglected, don't wait. Our compassionate attorneys will fight to protect them and hold
+              neglected, don\&apos;t wait. Our compassionate attorneys will fight to protect them and hold
               abusers accountable.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

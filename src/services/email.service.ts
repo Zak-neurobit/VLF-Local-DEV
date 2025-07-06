@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { emailQueue } from '@/lib/queue/bull';
 import pRetry from 'p-retry';
 import { performance } from 'perf_hooks';
+import type { EmailTemplateData } from '@/types/services';
 
 // Email template types
 export type EmailTemplate =
@@ -37,7 +38,7 @@ interface EmailOptions {
   to: string | string[];
   subject: string;
   template: EmailTemplate;
-  data: Record<string, any>;
+  data: EmailTemplateData;
   cc?: string | string[];
   bcc?: string | string[];
   attachments?: EmailAttachment[];
@@ -93,7 +94,7 @@ const emailConfig = {
 const transporter = process.env.SMTP_USER ? nodemailer.createTransport(emailConfig) : null;
 
 // Email templates with enhanced styling and responsive design
-const templates: Record<EmailTemplate, (data: any) => { html: string; text: string }> = {
+const templates: Record<EmailTemplate, (data: EmailTemplateData) => { html: string; text: string }> = {
   'contact-form': data => ({
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -1197,11 +1198,11 @@ class EmailService {
   async sendBulkEmails(
     recipients: string[],
     template: EmailTemplate,
-    baseData: Record<string, any>,
+    baseData: EmailTemplateData,
     options: {
       batchSize?: number;
       delayBetweenBatches?: number;
-      personalizeData?: (email: string) => Record<string, any>;
+      personalizeData?: (email: string) => Partial<EmailTemplateData>;
     } = {}
   ): Promise<{ sent: number; failed: number; errors: Array<{ email: string; error: string }> }> {
     const { batchSize = 50, delayBetweenBatches = 1000, personalizeData } = options;
@@ -1335,7 +1336,7 @@ class EmailService {
   }
 
   // Convenience methods for common email types
-  async sendContactFormNotification(data: any): Promise<EmailResult> {
+  async sendContactFormNotification(data: EmailTemplateData): Promise<EmailResult> {
     // Send to law firm
     const attorneyResult = await this.sendEmail({
       to: process.env.CONTACT_EMAIL || 'leads@vasquezlawfirm.com',
@@ -1356,7 +1357,7 @@ class EmailService {
     return attorneyResult;
   }
 
-  async sendCaseEvaluationNotification(data: any): Promise<EmailResult> {
+  async sendCaseEvaluationNotification(data: EmailTemplateData): Promise<EmailResult> {
     // Calculate priority based on urgency and court date
     const priority = data.urgency === 'Immediate' || data.courtDate ? 'high' : 'normal';
 
@@ -1383,7 +1384,7 @@ class EmailService {
     return attorneyResult;
   }
 
-  async sendAppointmentConfirmation(data: any): Promise<EmailResult> {
+  async sendAppointmentConfirmation(data: EmailTemplateData): Promise<EmailResult> {
     return this.sendEmail({
       to: data.email,
       subject: 'Appointment Confirmation - Vasquez Law Firm',
@@ -1392,7 +1393,7 @@ class EmailService {
     });
   }
 
-  async sendAppointmentReminder(data: any): Promise<EmailResult> {
+  async sendAppointmentReminder(data: EmailTemplateData): Promise<EmailResult> {
     return this.sendEmail({
       to: data.email,
       subject: 'Appointment Reminder - Vasquez Law Firm',
@@ -1402,7 +1403,7 @@ class EmailService {
     });
   }
 
-  async sendNewsletterWelcome(data: any): Promise<EmailResult> {
+  async sendNewsletterWelcome(data: EmailTemplateData): Promise<EmailResult> {
     // Generate unsubscribe token
     const unsubscribeToken = Buffer.from(`${data.email}:${Date.now()}`).toString('base64');
 
@@ -1417,7 +1418,7 @@ class EmailService {
     });
   }
 
-  async sendPasswordReset(data: any): Promise<EmailResult> {
+  async sendPasswordReset(data: EmailTemplateData): Promise<EmailResult> {
     return this.sendEmail({
       to: data.email,
       subject: 'Password Reset Request - Vasquez Law Firm',
@@ -1427,7 +1428,7 @@ class EmailService {
     });
   }
 
-  async sendCaseUpdate(data: any): Promise<EmailResult> {
+  async sendCaseUpdate(data: EmailTemplateData): Promise<EmailResult> {
     return this.sendEmail({
       to: data.clientEmail,
       subject: `Case Update: ${data.updateTitle}`,
@@ -1436,7 +1437,7 @@ class EmailService {
     });
   }
 
-  async sendDocumentReady(data: any): Promise<EmailResult> {
+  async sendDocumentReady(data: EmailTemplateData): Promise<EmailResult> {
     return this.sendEmail({
       to: data.clientEmail,
       subject: `Document Ready: ${data.documentName}`,
@@ -1446,7 +1447,7 @@ class EmailService {
     });
   }
 
-  async sendPaymentReceipt(data: any): Promise<EmailResult> {
+  async sendPaymentReceipt(data: EmailTemplateData): Promise<EmailResult> {
     return this.sendEmail({
       to: data.clientEmail,
       subject: `Payment Receipt - Vasquez Law Firm`,
@@ -1455,7 +1456,7 @@ class EmailService {
     });
   }
 
-  async sendConsultationFollowup(data: any): Promise<EmailResult> {
+  async sendConsultationFollowup(data: EmailTemplateData): Promise<EmailResult> {
     return this.sendEmail({
       to: data.clientEmail,
       subject: 'Thank You for Your Consultation - Vasquez Law Firm',
@@ -1464,7 +1465,7 @@ class EmailService {
     });
   }
 
-  async sendUrgentLeadNotification(data: any): Promise<EmailResult> {
+  async sendUrgentLeadNotification(data: EmailTemplateData): Promise<EmailResult> {
     // Send to multiple attorneys for urgent leads
     const attorneyEmails = process.env.URGENT_LEAD_EMAILS?.split(',') || [
       'attorneys@vasquezlawnc.com',

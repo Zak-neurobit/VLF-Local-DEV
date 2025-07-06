@@ -32,7 +32,7 @@ export default function LiftingInjuriesPage() {
             </p>
             <p className="text-xl mb-8 text-gray-100">
               Lifting injuries are among the most common workplace accidents. Insurance companies
-              often deny these claims as "pre-existing." We fight for the benefits you deserve.
+              often deny these claims as &quot;pre-existing.&quot; We fight for the benefits you deserve.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
@@ -88,7 +88,7 @@ export default function LiftingInjuriesPage() {
       <section className="py-16 bg-gradient-to-br from-[#001845] to-[#003875] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">
-            Don't Let Insurance Companies Deny Your Lifting Injury Claim
+            Don&apos;t Let Insurance Companies Deny Your Lifting Injury Claim
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
             Lifting injuries are serious and deserve full compensation. We fight insurance company

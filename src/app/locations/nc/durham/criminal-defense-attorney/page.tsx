@@ -34,12 +34,12 @@ export default function DurhamCriminalDefenseAttorneyPage() {
             {/* Hero Section */}
             <section>
               <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-                Durham's Top Criminal Defense Attorney - 60+ Years Winning Cases
+                Durham&apos;s Top Criminal Defense Attorney - 60+ Years Winning Cases
               </h1>
               <p className="text-xl text-gray-700">
                 When you need the best criminal defense attorney in Durham, Durham County, North Carolina, 
                 Vasquez Law Firm delivers results. With over 60 years of combined experience and thousands of successful cases, 
-                we're the law firm Durham residents trust most.
+                we\&apos;re the law firm Durham residents trust most.
               </p>
             </section>
             {/* Local Expertise */}
@@ -209,7 +209,7 @@ export default function DurhamCriminalDefenseAttorneyPage() {
                 name: `What areas near Durham do you serve?`,
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: `We serve all of Durham County including Durham, Chapel Hill, Morrisville, Research Triangle Park, Hillsborough, and surrounding areas. With 60+ years of experience, we're the trusted choice throughout the region.`
+                  text: `We serve all of Durham County including Durham, Chapel Hill, Morrisville, Research Triangle Park, Hillsborough, and surrounding areas. With 60+ years of experience, we\'re the trusted choice throughout the region.`
                 }
               },
               {

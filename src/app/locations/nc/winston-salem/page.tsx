@@ -21,7 +21,7 @@ export default function WinstonSalemHubPage() {
         <div className="space-y-12">
           <section>
             <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-              Winston-Salem's Premier Law Firm - Vasquez Law
+              Winston-Salem&apos;s Premier Law Firm - Vasquez Law
             </h1>
             <p className="text-xl text-gray-700">
               Serving Winston-Salem and all of Forsyth County with 60+ years of legal excellence. 

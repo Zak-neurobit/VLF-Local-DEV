@@ -28,7 +28,7 @@ export const HreflangMeta: React.FC<HreflangMetaProps> = ({ currentLanguage }) =
       return `${baseUrl}/es${cleanPath === '/' ? '' : cleanPath}`;
     }
     
-    // English URLs don't have prefix
+    // English URLs don\'t have prefix
     return `${baseUrl}${cleanPath}`;
   };
   

@@ -14,16 +14,16 @@ const VoiceAssistant = dynamic(() => import('@/components/VirtualAssistant/Virtu
 export const metadata: Metadata = {
   title: "Charlotte, NC Workers' Comp Lawyers - Vasquez Law Firm, PLLC",
   description:
-    'Durham is a vibrant North Carolina city with diverse culture, rich history, and a flourishing community. It’s also known as the “City of Medicine,” with healthcare being a major industry including more than 300 medical and health-related companies and medical practices. It is a wonderful place to live for families, couples, and individuals. If you’re someone who is considering immigrating to the United States to become a legal resident of Durham, or somewhere else, or if you have been injured in an accident that wasn’t your fault, or if you have been accused with a crime, Vasquez Law Firm can help you. We are your top choice for representation! We are dedicated to helping clients reach their ideal resolution, no matter what situation they are in. We have extensive experience in personal injury, worker’s compensation, criminal defense, and family law. You can trust us to stand up for your rights! Call now to schedule a free consultation and allow us to apply our 60+ years of experience to your unique situation.',
+    'Durham is a vibrant North Carolina city with diverse culture, rich history, and a flourishing community. It\'s also known as the "City of Medicine," with healthcare being a major industry including more than 300 medical and health-related companies and medical practices. It is a wonderful place to live for families, couples, and individuals. If you\'re someone who is considering immigrating to the United States to become a legal resident of Durham, or somewhere else, or if you have been injured in an accident that wasn\'t your fault, or if you have been accused with a crime, Vasquez Law Firm can help you. We are your top choice for representation! We are dedicated to helping clients reach their ideal resolution, no matter what situation they are in. We have extensive experience in personal injury, worker\'s compensation, criminal defense, and family law. You can trust us to stand up for your rights! Call now to schedule a free consultation and allow us to apply our 60+ years of experience to your unique situation.',
   openGraph: {
     title: "Charlotte, NC Workers' Comp Lawyers - Vasquez Law Firm, PLLC",
     description:
-      'Durham is a vibrant North Carolina city with diverse culture, rich history, and a flourishing community. It’s also known as the “City of Medicine,” with healthcare being a major industry including more than 300 medical and health-related companies and medical practices. It is a wonderful place to live for families, couples, and individuals. If you’re someone who is considering immigrating to the United States to become a legal resident of Durham, or somewhere else, or if you have been injured in an accident that wasn’t your fault, or if you have been accused with a crime, Vasquez Law Firm can help you. We are your top choice for representation! We are dedicated to helping clients reach their ideal resolution, no matter what situation they are in. We have extensive experience in personal injury, worker’s compensation, criminal defense, and family law. You can trust us to stand up for your rights! Call now to schedule a free consultation and allow us to apply our 60+ years of experience to your unique situation.',
+      'Durham is a vibrant North Carolina city with diverse culture, rich history, and a flourishing community. It\'s also known as the "City of Medicine," with healthcare being a major industry including more than 300 medical and health-related companies and medical practices. It is a wonderful place to live for families, couples, and individuals. If you\'re someone who is considering immigrating to the United States to become a legal resident of Durham, or somewhere else, or if you have been injured in an accident that wasn\'t your fault, or if you have been accused with a crime, Vasquez Law Firm can help you. We are your top choice for representation! We are dedicated to helping clients reach their ideal resolution, no matter what situation they are in. We have extensive experience in personal injury, worker\'s compensation, criminal defense, and family law. You can trust us to stand up for your rights! Call now to schedule a free consultation and allow us to apply our 60+ years of experience to your unique situation.',
     images: [{ url: '/images/og-default.jpg' }],
   },
 };
 
-export default function PagetsxPage() {
+export default function CharlotteWorkersCompLawyersPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -31,7 +31,7 @@ export default function PagetsxPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Charlotte, NC Workers’ Comp Lawyers
+              Charlotte, NC Workers&apos; Comp Lawyers
             </h1>
             <p className="text-xl mb-8">Experienced Attorney at Vasquez Law Firm</p>
             <div className="flex flex-wrap justify-center gap-4">
@@ -184,12 +184,12 @@ export default function PagetsxPage() {
                   '@type': 'WebPage',
                   '@id': 'https://www.vasquezlawnc.com/charlotte-nc-workers-comp-lawyers/',
                   url: 'https://www.vasquezlawnc.com/charlotte-nc-workers-comp-lawyers/',
-                  name: 'Charlotte, NC Workers&apos; Comp Lawyers - Vasquez Law Firm, PLLC',
+                  name: "Charlotte, NC Workers' Comp Lawyers - Vasquez Law Firm, PLLC",
                   isPartOf: { '@id': 'https://www.vasquezlawnc.com/#website' },
                   datePublished: '2024-06-28T18:58:24+00:00',
                   dateModified: '2024-09-09T19:35:29+00:00',
                   description:
-                    'Durham is a vibrant North Carolina city with diverse culture, rich history, and a flourishing community. It’s also known as the “City of Medicine,” with healthcare being a major industry including more than 300 medical and health-related companies and medical practices. It is a wonderful place to live for families, couples, and individuals. If you’re someone who is considering immigrating to the United States to become a legal resident of Durham, or somewhere else, or if you have been injured in an accident that wasn’t your fault, or if you have been accused with a crime, Vasquez Law Firm can help you. We are your top choice for representation! We are dedicated to helping clients reach their ideal resolution, no matter what situation they are in. We have extensive experience in personal injury, worker’s compensation, criminal defense, and family law. You can trust us to stand up for your rights! Call now to schedule a free consultation and allow us to apply our 60+ years of experience to your unique situation.',
+                    'Durham is a vibrant North Carolina city with diverse culture, rich history, and a flourishing community. It\'s also known as the "City of Medicine," with healthcare being a major industry including more than 300 medical and health-related companies and medical practices. It is a wonderful place to live for families, couples, and individuals. If you\'re someone who is considering immigrating to the United States to become a legal resident of Durham, or somewhere else, or if you have been injured in an accident that wasn\'t your fault, or if you have been accused with a crime, Vasquez Law Firm can help you. We are your top choice for representation! We are dedicated to helping clients reach their ideal resolution, no matter what situation they are in. We have extensive experience in personal injury, worker\'s compensation, criminal defense, and family law. You can trust us to stand up for your rights! Call now to schedule a free consultation and allow us to apply our 60+ years of experience to your unique situation.',
                   breadcrumb: {
                     '@id':
                       'https://www.vasquezlawnc.com/charlotte-nc-workers-comp-lawyers/#breadcrumb',
@@ -216,7 +216,7 @@ export default function PagetsxPage() {
                     {
                       '@type': 'ListItem',
                       position: 2,
-                      name: 'Charlotte, NC Workers&#8217; Comp Lawyers',
+                      name: "Charlotte, NC Workers' Comp Lawyers",
                     },
                   ],
                 },
@@ -267,7 +267,7 @@ export default function PagetsxPage() {
             {
               '@context': 'https://schema.org',
               '@type': 'Attorney',
-              name: 'Charlotte, NC Workers’ Comp Lawyers',
+              name: "Charlotte, NC Workers' Comp Lawyers",
               image: '',
               jobTitle: 'Attorney',
               worksFor: {
@@ -289,7 +289,7 @@ export default function PagetsxPage() {
               knowsLanguage: ['English', 'Spanish'],
               alumniOf: {
                 '@type': 'CollegeOrUniversity',
-                name: 'NY. He served in the U.S. Air Force from 2000-2007. He is a veteran of Operation Enduring Freedom and received the Joint Service Achievement Medal for his work as a Spanish linguist for the Defense Intelligence Agency in 2005. William graduated from Campbell University in 2007 with a degree in computer science. He earned his J.D. in 2011 from the North Carolina Central University School of Law. His practice areas include immigration law and criminal defense cases. He is licensed and in good standing with the State Bar of North Carolina and a member of the American Immigration Lawyer Association (AILA.) He is a proud member of the Charlotte community and provides compassionate counsel for all his clients.</p>\n<h3>Education:</h3>\n<p><strong>North Carolina Central University</strong></p>\n<p>J.D. | Juris Doctorate</p>\n<p>2007 – 2011</p>\n<p><strong>Campbell University</strong></p>\n<p>B.S.</p>\n<h5>2007</h5>\n<h3>Bar Admissions:</h3>\n<p>North Carolina — Admitted in 2011</p>\n<p>4th',
+                name: 'North Carolina Central University School of Law',
               },
             },
             {

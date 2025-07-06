@@ -359,7 +359,7 @@ export default function EmploymentBasedImmigrationPage() {
                           Standard EB-2 (with PERM):
                         </h4>
                         <ul className="text-green-600 text-sm space-y-1">
-                          <li>• Advanced degree (Master's+) or Bachelor's + 5 years experience</li>
+                          <li>• Advanced degree (Master&apos;s+) or Bachelor&apos;s + 5 years experience</li>
                           <li>• PERM labor certification required</li>
                           <li>• Job offer and employer sponsorship</li>
                           <li>• Prevailing wage determination</li>
@@ -387,7 +387,7 @@ export default function EmploymentBasedImmigrationPage() {
                       <div>
                         <h4 className="font-bold text-yellow-700 mb-2">Professionals</h4>
                         <ul className="text-yellow-600 text-sm space-y-1">
-                          <li>• Bachelor's degree required</li>
+                          <li>• Bachelor&apos;s degree required</li>
                           <li>• Job requires degree</li>
                           <li>• PERM certification</li>
                         </ul>
@@ -507,7 +507,7 @@ export default function EmploymentBasedImmigrationPage() {
               Ready to Build Your U.S. Career?
             </h2>
             <p className="text-xl text-gray-700 mb-8">
-              Whether you&apos;re an employer seeking top talent or a worker pursuing the American
+              Whether you\&apos;re an employer seeking top talent or a worker pursuing the American
               dream, our employment immigration attorneys are here to guide you through every step.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

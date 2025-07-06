@@ -105,7 +105,7 @@ export default function ChildSupportCalculator() {
     if (!results) return;
     
     // In a real implementation, this would generate a PDF
-    // For now, we'll create a downloadable text report
+    // For now, we\'ll create a downloadable text report
     const report = `
 NORTH CAROLINA CHILD SUPPORT CALCULATION REPORT
 Generated: ${new Date().toLocaleDateString()}
@@ -290,7 +290,7 @@ www.vasquezlawnc.com
                     step="50"
                   />
                 </div>
-                <p className="mt-1 text-xs text-gray-500">Children's portion only</p>
+                <p className="mt-1 text-xs text-gray-500">Children&apos;s portion only</p>
               </div>
               
               <div>

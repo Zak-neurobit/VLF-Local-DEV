@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagetsxPage() {
+export default function MediaInfoPage() {
   const videos = [
     {
       id: 'R9QzOQ72bJw',

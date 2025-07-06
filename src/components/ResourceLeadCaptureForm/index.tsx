@@ -184,8 +184,8 @@ export default function ResourceLeadCaptureForm({
       setSuccess(true);
 
       // Track conversion
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'generate_lead', {
+      if (typeof window !== 'undefined' && (window as typeof window & { gtag?: Function }).gtag) {
+        (window as typeof window & { gtag?: Function }).gtag('event', 'generate_lead', {
           currency: 'USD',
           value: 50, // Resource download value
           lead_source: 'resource_download',

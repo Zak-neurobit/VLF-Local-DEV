@@ -266,7 +266,7 @@ export default function DrugCrimesPage() {
                   <h3 className="text-xl font-bold text-blue-800 mb-2">Marijuana Status</h3>
                   <p className="text-blue-700">
                     Despite changing state laws, marijuana remains a Schedule I federal controlled
-                    substance. State decriminalization doesn&apos;t protect against federal charges
+                    substance. State decriminalization doesn\&apos;t protect against federal charges
                     or immigration consequences.
                   </p>
                 </div>
@@ -436,7 +436,7 @@ export default function DrugCrimesPage() {
                     <p className="text-gray-700">
                       In many jurisdictions, the odor of marijuana alone can provide probable cause
                       for a vehicle search. However, we can still challenge the validity of the stop
-                      and the officer's claimed observations.
+                      and the officer&apos;s claimed observations.
                     </p>
                   </div>
 
@@ -487,7 +487,7 @@ export default function DrugCrimesPage() {
               Fight Drug Charges with Experienced Defense
             </h2>
             <p className="text-xl text-gray-700 mb-8">
-              Drug convictions carry mandatory sentences and lifelong consequences. Don't face these
+              Drug convictions carry mandatory sentences and lifelong consequences. Don&apos;t face these
               charges alone. Our experienced drug crime attorneys know how to challenge evidence,
               negotiate alternatives, and protect your future. Contact us immediately.
             </p>

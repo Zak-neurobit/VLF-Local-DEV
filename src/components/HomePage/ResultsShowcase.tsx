@@ -41,7 +41,7 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
           ],
           testimonial: {
             quote:
-              "They made my American dream come true. After 10 years of waiting, I'm finally a citizen!",
+              "They made my American dream come true. After 10 years of waiting, I\'m finally a citizen!",
             author: 'Maria Rodriguez',
             case: 'Citizenship Application',
           },
@@ -354,7 +354,7 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
               transition={{ delay: 0.5 }}
               className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#6B1F2E]/20 to-transparent p-8 backdrop-blur-sm"
             >
-              <div className="absolute -top-4 -left-4 text-6xl text-[#C9974D]/20">"</div>
+              <div className="absolute -top-4 -left-4 text-6xl text-[#C9974D]/20">&quot;</div>
               <blockquote className="relative z-10">
                 <p className="mb-4 text-xl italic text-white">{activeResults.testimonial.quote}</p>
                 <footer className="flex items-center justify-between">

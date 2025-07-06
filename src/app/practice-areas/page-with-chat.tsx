@@ -81,7 +81,7 @@ export default function PracticeAreasPage() {
     },
     {
       id: 'workers-compensation',
-      title: { en: 'Workers&apos; Compensation', es: 'Compensación Laboral' },
+      title: { en: 'Workers' Compensation', es: 'Compensación Laboral' },
       icon: '👷',
       description: {
         en: "Protecting injured workers' rights and securing the benefits you deserve.",

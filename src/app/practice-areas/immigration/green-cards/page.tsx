@@ -99,7 +99,7 @@ export default function GreenCardsPage() {
     {
       question: 'Can I work while my green card application is pending?',
       answer:
-        'If you&apos;re adjusting status from within the U.S., you can apply for work authorization (EAD) which typically allows you to work while your case is pending.',
+        'If you\'re adjusting status from within the U.S., you can apply for work authorization (EAD) which typically allows you to work while your case is pending.',
     },
     {
       question: 'What happens if my green card application is denied?',
@@ -109,7 +109,7 @@ export default function GreenCardsPage() {
     {
       question: 'Do I need to take an English test for a green card?',
       answer:
-        "Generally no, but some categories may require basic English proficiency. Marriage-based applicants typically don't need to demonstrate English skills.",
+        "Generally no, but some categories may require basic English proficiency. Marriage-based applicants typically don\'t need to demonstrate English skills.",
     },
   ];
 
@@ -159,7 +159,7 @@ export default function GreenCardsPage() {
             </p>
             <p className="text-gray-600">
               Whether you&apos;re seeking a green card through family, employment, or humanitarian
-              protection, we have the knowledge and experience to help you succeed. We've helped
+              protection, we have the knowledge and experience to help you succeed. We&apos;ve helped
               thousands of clients obtain permanent residence and build new lives in America.
             </p>
           </div>
@@ -284,7 +284,7 @@ export default function GreenCardsPage() {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">Ready to Apply for Your Green Card?</h2>
             <p className="text-xl mb-8">
-              Don't let complex immigration laws stand between you and permanent residence. Contact
+              Don&apos;t let complex immigration laws stand between you and permanent residence. Contact
               our experienced green card attorneys today.
             </p>
             <div className="flex flex-wrap justify-center gap-6 mb-8">

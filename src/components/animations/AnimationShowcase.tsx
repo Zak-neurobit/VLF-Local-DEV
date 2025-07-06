@@ -227,7 +227,7 @@ export function AnimationShowcase() {
           <StaggeredList
             items={testimonials.map((text, index) => (
               <MagneticCard key={index} className="p-6">
-                <p className="italic text-gray-600">"{text}"</p>
+                <p className="italic text-gray-600">&quot;{text}&quot;</p>
                 <div className="mt-4 flex items-center">
                   <div className="h-10 w-10 rounded-full bg-gradient-to-br from-[#6B1F2E] to-[#C9974D]" />
                   <div className="ml-3">

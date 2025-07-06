@@ -227,7 +227,7 @@ export function SettlementCalculator() {
               <li>This is only an estimate based on general formulas</li>
               <li>Actual settlements vary based on many factors</li>
               <li>Insurance policy limits may cap recovery</li>
-              <li>North Carolina's contributory negligence laws apply</li>
+              <li>North Carolina&apos;s contributory negligence laws apply</li>
             </ul>
           </div>
 

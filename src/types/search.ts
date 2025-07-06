@@ -17,7 +17,15 @@ export interface SearchResult {
     location?: string;
     phone?: string;
     email?: string;
-    [key: string]: any;
+    practiceAreas?: string[];
+    languages?: string[];
+    availability?: string;
+    certifications?: string[];
+    rating?: number;
+    reviewCount?: number;
+    yearsOfExperience?: number;
+    barNumber?: string;
+    customFields?: Record<string, string | number | boolean>;
   };
 }
 

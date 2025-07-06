@@ -186,7 +186,7 @@ export default function PersonalInjuryPage() {
             <section>
               <h2 className="text-3xl font-bold mb-6 text-primary">Why Vasquez Law Firm for Personal Injury?</h2>
               <p className="text-lg mb-6">
-                When you're hurt, you need more than just a lawyer - you need a fighter. Our record speaks for itself: $100+ million recovered, 98% success rate, and thousands of satisfied clients across North Carolina.
+                When you\&apos;re hurt, you need more than just a lawyer - you need a fighter. Our record speaks for itself: $100+ million recovered, 98% success rate, and thousands of satisfied clients across North Carolina.
               </p>
               
               <div className="grid md:grid-cols-2 gap-6 mt-8">
@@ -196,11 +196,11 @@ export default function PersonalInjuryPage() {
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Maximum Compensation</h3>
-                  <p className="text-gray-300">We don't settle for less. Our aggressive approach ensures you get every dollar you deserve.</p>
+                  <p className="text-gray-300">We don&apos;t settle for less. Our aggressive approach ensures you get every dollar you deserve.</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">24/7 Availability</h3>
-                  <p className="text-gray-300">Accidents don't wait for business hours. Neither do we. Call anytime for immediate help.</p>
+                  <p className="text-gray-300">Accidents don&apos;t wait for business hours. Neither do we. Call anytime for immediate help.</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Bilingual Support</h3>
@@ -238,7 +238,7 @@ export default function PersonalInjuryPage() {
                   <span className="text-primary text-2xl font-bold mr-4">4.</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Trial Ready</h3>
-                    <p className="text-gray-300">If insurers won't pay fairly, we take them to court. Our trial experience gets results.</p>
+                    <p className="text-gray-300">If insurers won\&apos;t pay fairly, we take them to court. Our trial experience gets results.</p>
                   </div>
                 </div>
               </div>
@@ -271,7 +271,7 @@ export default function PersonalInjuryPage() {
             <section>
               <h2 className="text-3xl font-bold mb-6 text-primary">Serving All 100 North Carolina Counties</h2>
               <p className="text-lg mb-8">
-                No matter where your accident happened in North Carolina, we're here to help. With offices strategically located across the state and virtual consultations available, justice is always within reach.
+                No matter where your accident happened in North Carolina, we&apos;re here to help. With offices strategically located across the state and virtual consultations available, justice is always within reach.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20">

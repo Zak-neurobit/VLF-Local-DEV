@@ -25,7 +25,7 @@ export default function AllOfficesMap({
   className = '',
 }: AllOfficesMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<any>(null);
+  const [map, setMap] = useState<google.maps.Map | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -55,7 +55,7 @@ export default function AllOfficesMap({
         const centerLat = latSum / offices.length;
         const centerLng = lngSum / offices.length;
 
-        const mapInstance = new (window as any).google.maps.Map(mapRef.current, {
+        const mapInstance = new google.maps.Map(mapRef.current, {
           center: { lat: centerLat, lng: centerLng },
           zoom: 6, // Wider zoom to show all offices
           mapTypeControl: false,
@@ -71,16 +71,16 @@ export default function AllOfficesMap({
           ],
         });
 
-        const bounds = new (window as any).google.maps.LatLngBounds();
-        const infoWindows: any[] = [];
+        const bounds = new google.maps.LatLngBounds();
+        const infoWindows: google.maps.InfoWindow[] = [];
 
         // Create markers for each office
         offices.forEach((office, index) => {
-          const marker = new (window as any).google.maps.Marker({
+          const marker = new google.maps.Marker({
             position: { lat: office.lat, lng: office.lng },
             map: mapInstance,
             title: office.name,
-            animation: (window as any).google.maps.Animation.DROP,
+            animation: google.maps.Animation.DROP,
             label: {
               text: (index + 1).toString(),
               color: 'white',
@@ -88,7 +88,7 @@ export default function AllOfficesMap({
             },
           });
 
-          bounds.extend(new (window as any).google.maps.LatLng(office.lat, office.lng));
+          bounds.extend(new google.maps.LatLng(office.lat, office.lng));
 
           // Create info window for each marker
           const infoWindowContent = `
@@ -131,7 +131,7 @@ export default function AllOfficesMap({
             </div>
           `;
 
-          const infoWindow = new (window as any).google.maps.InfoWindow({
+          const infoWindow = new google.maps.InfoWindow({
             content: infoWindowContent,
           });
 

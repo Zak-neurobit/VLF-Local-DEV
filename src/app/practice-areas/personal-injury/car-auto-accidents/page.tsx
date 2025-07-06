@@ -72,7 +72,7 @@ export default function CarAccidentsPage() {
         'Case value depends on factors like injury severity, medical costs, lost wages, pain and suffering, and fault percentage. We offer free case evaluations to estimate your potential compensation based on similar cases in North Carolina.',
     },
     {
-      question: 'What if the other driver doesn&apos;t have insurance?',
+      question: 'What if the other driver doesn\'t have insurance?',
       answer:
         'North Carolina requires minimum insurance, but some drivers are uninsured. Your own uninsured motorist coverage may apply, or we can explore other options like suing the at-fault driver directly.',
     },
@@ -119,10 +119,10 @@ export default function CarAccidentsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h2 className="text-3xl font-bold text-[#6B1F2E] mb-6">
-              Been in a Car Accident? We're Here to Help
+              Been in a Car Accident? We&apos;re Here to Help
             </h2>
             <p className="text-lg text-gray-700 mb-6">
-              Car accidents happen in an instant but can change your life forever. If you've been
+              Car accidents happen in an instant but can change your life forever. If you\&apos;ve been
               injured in an auto accident in North Carolina, you need experienced legal
               representation to ensure you receive the compensation you deserve for your injuries,
               lost wages, and pain and suffering.
@@ -256,7 +256,7 @@ export default function CarAccidentsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">
-              Don't Let Insurance Companies Take Advantage
+              Don&apos;t Let Insurance Companies Take Advantage
             </h2>
             <p className="text-xl mb-8">
               Insurance companies have teams of lawyers working to minimize your claim. Level the

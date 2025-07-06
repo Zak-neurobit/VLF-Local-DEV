@@ -80,7 +80,7 @@ export default function CaseResults() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-brand-charcoal mb-4">Notable Case Results</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              While past results don't guarantee future outcomes, our track record demonstrates our
+              While past results don&apos;t guarantee future outcomes, our track record demonstrates our
               commitment to fighting for our clients
             </p>
           </div>

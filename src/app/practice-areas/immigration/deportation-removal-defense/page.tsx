@@ -128,7 +128,7 @@ export default function DeportationRemovalDefensePage() {
                 </h3>
                 <p className="text-gray-700 mb-4">
                   If you or a loved one has been detained by ICE or received a Notice to Appear in
-                  immigration court, every moment counts. Don't face this alone - experienced legal
+                  immigration court, every moment counts. Don&apos;t face this alone - experienced legal
                   representation can make the difference between staying in the U.S. and being
                   separated from your family.
                 </p>
@@ -158,7 +158,7 @@ export default function DeportationRemovalDefensePage() {
             </h2>
             <p className="text-lg text-gray-700 mb-6">
               Deportation proceedings are among the most serious legal matters you can face. The
-              stakes couldn&apos;t be higher - your ability to remain in the United States with your
+              stakes couldn\&apos;t be higher - your ability to remain in the United States with your
               family, your job, and your life. At Vasquez Law Firm, our experienced deportation
               defense attorneys fight aggressively to protect your rights and keep you in America.
             </p>
@@ -250,7 +250,7 @@ export default function DeportationRemovalDefensePage() {
       <section className="py-16 bg-[#6B1F2E] text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">Don't Face Deportation Alone</h2>
+            <h2 className="text-3xl font-bold mb-6">Don&apos;t Face Deportation Alone</h2>
             <p className="text-xl mb-8">
               Your freedom and family depend on having experienced legal representation. Contact us
               immediately for aggressive deportation defense.

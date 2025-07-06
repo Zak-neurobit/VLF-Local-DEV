@@ -158,8 +158,8 @@ export function ContactForm({ language = 'en', onSuccess }: ContactFormProps) {
       }, 5000);
 
       // Track form submission
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'form_submit', {
+      if (typeof window !== 'undefined' && (window as typeof window & { gtag?: Function }).gtag) {
+        (window as typeof window & { gtag?: Function }).gtag('event', 'form_submit', {
           form_type: 'contact',
           case_type: data.caseType,
         });

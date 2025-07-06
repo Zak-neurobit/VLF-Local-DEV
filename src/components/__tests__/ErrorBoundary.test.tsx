@@ -95,7 +95,7 @@ describe('ErrorBoundary', () => {
     // Verify the button exists and has the correct text
     expect(reloadButton).toBeInTheDocument();
 
-    // Since we can't mock location.reload in jsdom, we'll just verify
+    // Since we can\'t mock location.reload in jsdom, we'll just verify
     // the button has an onClick handler
     expect(reloadButton).toHaveProperty('onclick');
     expect(typeof reloadButton.onclick).toBe('function');

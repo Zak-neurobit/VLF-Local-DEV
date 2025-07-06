@@ -394,7 +394,7 @@ CONTENT GUIDELINES:
 ${request.includeCallToAction ? '8. End with a compelling call-to-action' : ''}
 
 Format the response as a complete article with proper headings (H1, H2, H3) and well-structured paragraphs.
-Ensure the content is valuable, accurate, and designed to rank well in search results while serving the target audience&apos;s needs.
+Ensure the content is valuable, accurate, and designed to rank well in search results while serving the target audience's needs.
 `;
   }
 
@@ -424,7 +424,7 @@ Ensure the content is valuable, accurate, and designed to rank well in search re
       const trimmed = line.trim();
 
       if (trimmed.startsWith('# ')) {
-        // H1 - skip, it&apos;s the title
+        // H1 - skip, it's the title
         continue;
       } else if (trimmed.startsWith('## ')) {
         // H2 - new main section

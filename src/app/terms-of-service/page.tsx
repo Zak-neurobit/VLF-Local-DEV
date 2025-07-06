@@ -30,8 +30,8 @@ export default function TermsOfServicePage() {
                     1. Acceptance of Terms
                   </h2>
                   <p className="mb-6 text-gray-700">
-                    By accessing and using the website of Vasquez Law Firm, PLLC ("we," "our," or
-                    "us"), you accept and agree to be bound by these Terms of Service. If you do not
+                    By accessing and using the website of Vasquez Law Firm, PLLC (&quot;we,&quot; &quot;our,&quot; or
+                    &quot;us&quot;), you accept and agree to be bound by these Terms of Service. If you do not
                     agree to these terms, please do not use our website.
                   </p>
 
@@ -131,7 +131,7 @@ export default function TermsOfServicePage() {
                     5.1 No Warranties
                   </h3>
                   <p className="mb-6 text-gray-700">
-                    This website is provided "as is" and "as available" without any warranties of
+                    This website is provided &quot;as is&quot; and &quot;as available&quot; without any warranties of
                     any kind, either express or implied. We do not warrant that the website will be
                     uninterrupted, error-free, or free of viruses or other harmful components.
                   </p>
@@ -180,7 +180,7 @@ export default function TermsOfServicePage() {
                   <p className="mb-6 text-gray-700">
                     You agree to indemnify, defend, and hold harmless Vasquez Law Firm, PLLC and its
                     attorneys, employees, and agents from any claims, losses, damages, liabilities,
-                    and expenses (including attorney's fees) arising out of your use of this website
+                    and expenses (including attorney&apos;s fees) arising out of your use of this website
                     or violation of these Terms.
                   </p>
 

@@ -2,10 +2,30 @@ import { Metadata } from 'next';
 import { getPrismaClient } from '@/lib/prisma';
 import { componentLogger } from '@/lib/logger';
 
+import type { SchemaOrgOrganization, SchemaOrgPerson, SchemaOrgFAQ } from '@/types/services';
+
 export interface SchemaOrgData {
   '@context': string;
   '@type': string | string[];
-  [key: string]: any;
+  name?: string;
+  description?: string;
+  url?: string;
+  image?: string | string[];
+  sameAs?: string[];
+  address?: {
+    '@type': 'PostalAddress';
+    streetAddress?: string;
+    addressLocality?: string;
+    addressRegion?: string;
+    postalCode?: string;
+    addressCountry?: string;
+  };
+  aggregateRating?: {
+    '@type': 'AggregateRating';
+    ratingValue: number;
+    reviewCount: number;
+  };
+  [key: string]: unknown;
 }
 
 export class SEOOptimizationService {
@@ -88,7 +108,7 @@ export class SEOOptimizationService {
   }
 
   // Generate Schema.org structured data
-  static generateSchema(type: string, data: Record<string, any>): SchemaOrgData {
+  static generateSchema(type: string, data: Record<string, unknown>): SchemaOrgData {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vasquezlawnc.com';
 
     switch (type) {
@@ -216,7 +236,7 @@ export class SEOOptimizationService {
             '@id': `${baseUrl}/#organization`,
           },
           description: data.bio,
-          alumniOf: data.education?.map((edu: any) => ({
+          alumniOf: (data.education as Array<{ name: string }>)?.map((edu) => ({
             '@type': 'EducationalOrganization',
             name: edu.school,
           })),
@@ -258,7 +278,7 @@ export class SEOOptimizationService {
           ...(data.faqSection && {
             hasPart: {
               '@type': 'FAQPage',
-              mainEntity: data.faqSection.map((faq: any) => ({
+              mainEntity: (data.faqSection as Array<{ question: string; answer: string }>).map((faq) => ({
                 '@type': 'Question',
                 name: faq.question,
                 acceptedAnswer: {
@@ -274,7 +294,7 @@ export class SEOOptimizationService {
         return {
           '@context': 'https://schema.org',
           '@type': 'FAQPage',
-          mainEntity: data.questions.map((item: any) => ({
+          mainEntity: (data.questions as Array<{ question: string; answer: string }>).map((item) => ({
             '@type': 'Question',
             name: item.question,
             acceptedAnswer: {
@@ -325,7 +345,7 @@ export class SEOOptimizationService {
         return {
           '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
-          itemListElement: data.items.map((item: any, index: number) => ({
+          itemListElement: (data.items as Array<{ name: string; url: string }>).map((item, index) => ({
             '@type': 'ListItem',
             position: index + 1,
             name: item.name,

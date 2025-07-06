@@ -77,7 +77,7 @@ export default function InadmissibilityWaiversPage() {
               YO PELEO POR TI™ - I FIGHT FOR YOU
             </p>
             <p className="text-lg mb-8 max-w-3xl mx-auto">
-              Don't let immigration bars prevent you from being with your family. Our experienced
+              Don&apos;t let immigration bars prevent you from being with your family. Our experienced
               waiver attorneys help overcome inadmissibility issues and reunite families through
               successful waiver applications.
             </p>
@@ -113,7 +113,7 @@ export default function InadmissibilityWaiversPage() {
                 <p className="text-gray-700 mb-6">
                   Inadmissibility waivers are legal tools that allow individuals who would otherwise
                   be barred from entering or remaining in the United States to overcome these
-                  immigration obstacles. When someone is deemed "inadmissible" under U.S.
+                  immigration obstacles. When someone is deemed &quot;inadmissible&quot; under U.S.
                   immigration law, a waiver may provide forgiveness for specific violations and
                   allow them to proceed with their immigration case.
                 </p>
@@ -261,7 +261,7 @@ export default function InadmissibilityWaiversPage() {
                   Understanding Extreme Hardship
                 </h2>
                 <p className="text-gray-700 mb-6">
-                  Most waivers require proof that denial would cause "extreme hardship" to a
+                  Most waivers require proof that denial would cause &quot;extreme hardship&quot; to a
                   qualifying U.S. citizen or permanent resident relative. This standard is higher
                   than typical hardship and requires careful documentation.
                 </p>
@@ -288,7 +288,7 @@ export default function InadmissibilityWaiversPage() {
                     <h3 className="text-lg font-bold text-gray-800 mb-3">Common Misconceptions</h3>
                     <ul className="text-gray-700 space-y-2">
                       <li>• Economic hardship alone is usually insufficient</li>
-                      <li>• Normal consequences of immigration don't qualify</li>
+                      <li>• Normal consequences of immigration don&apos;t qualify</li>
                       <li>• Family separation by itself isn&apos;t extreme hardship</li>
                       <li>• Hardship must be to the qualifying relative, not the applicant</li>
                       <li>
@@ -534,7 +534,7 @@ export default function InadmissibilityWaiversPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-burgundy-900 mb-4">
-              Don't Let Immigration Bars Separate Your Family
+              Don&apos;t Let Immigration Bars Separate Your Family
             </h2>
             <p className="text-xl text-gray-700 mb-8">
               Our experienced waiver attorneys have helped hundreds of families overcome

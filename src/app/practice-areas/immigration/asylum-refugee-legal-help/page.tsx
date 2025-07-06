@@ -81,7 +81,7 @@ export default function AsylumRefugeePage() {
                 <p className="text-gray-700 mb-4">
                   You must file for asylum within one year of your arrival in the United States
                   (with limited exceptions). Missing this deadline can bar you from asylum
-                  protection. Don't wait - contact us immediately.
+                  protection. Don&apos;t wait - contact us immediately.
                 </p>
                 <a
                   href="tel:+1-844-967-3536"

@@ -161,7 +161,7 @@ export default function GoogleMap({
     // Cleanup
     return () => {
       if (map) {
-        // Google Maps doesn't provide a destroy method, but we can clear the div
+        // Google Maps doesn\'t provide a destroy method, but we can clear the div
         if (mapRef.current) {
           mapRef.current.innerHTML = '';
         }

@@ -83,7 +83,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
       content:
         language === 'es'
           ? '¡Hola! Soy el asistente virtual de Vasquez Law Firm. Estoy aquí para ayudarte con información legal general y responder tus preguntas. ¿En qué puedo ayudarte hoy?'
-          : "Hello! I'm the Vasquez Law Firm virtual assistant. I'm here to help you with general legal information and answer your questions. How can I help you today?",
+          : "Hello! I\'m the Vasquez Law Firm virtual assistant. I'm here to help you with general legal information and answer your questions. How can I help you today?",
       timestamp: new Date(),
     };
     setMessages([welcomeMessage]);
@@ -199,7 +199,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
         content:
           language === 'es'
             ? 'Lo siento, tuve un problema al procesar tu mensaje. Por favor, intenta de nuevo o llámanos al 1-844-967-3536.'
-            : "I'm sorry, I had trouble processing your message. Please try again or call us at 1-844-967-3536.",
+            : "I\'m sorry, I had trouble processing your message. Please try again or call us at 1-844-967-3536.",
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, errorMessage]);

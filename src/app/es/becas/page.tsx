@@ -1,11 +1,9 @@
 'use client';
 
 import Script from 'next/script';
-import Image from 'next/image';
 import { GraduationCap, Calendar, Award, Mail, CheckCircle, ArrowRight } from 'lucide-react';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { motion } from 'framer-motion';
-import { TRADEMARK } from '@/lib/constants/trademark';
 import { useState } from 'react';
 
 export default function Page() {

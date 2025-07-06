@@ -41,7 +41,7 @@ export default function Page() {
                   Attorney and Founder
                 </p>
                 <p className="text-lg mb-8 max-w-3xl mx-auto text-gray-300">
-                  "{TRADEMARK.YO_PELEO_POR_TI}" - U.S. Air Force Veteran • Immigration Law Expert • Criminal Defense Attorney
+                  &quot;{TRADEMARK.YO_PELEO_POR_TI}&quot; - U.S. Air Force Veteran • Immigration Law Expert • Criminal Defense Attorney
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.a
@@ -93,7 +93,7 @@ export default function Page() {
                         With over a decade of legal experience, William specializes in immigration law and criminal defense cases. He is licensed and in good standing with the State Bar of North Carolina and is an active member of the American Immigration Lawyers Association (AILA).
                       </p>
                       <p className="text-gray-300 leading-relaxed">
-                        As a proud member of the Charlotte community, William provides compassionate counsel for all his clients, understanding the unique challenges faced by immigrants and those in the criminal justice system. His military background and bilingual abilities make him uniquely qualified to serve North Carolina's diverse communities.
+                        As a proud member of the Charlotte community, William provides compassionate counsel for all his clients, understanding the unique challenges faced by immigrants and those in the criminal justice system. His military background and bilingual abilities make him uniquely qualified to serve North Carolina&apos;s diverse communities.
                       </p>
                     </div>
                   </motion.div>

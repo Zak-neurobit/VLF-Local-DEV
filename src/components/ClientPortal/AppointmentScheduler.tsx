@@ -410,7 +410,7 @@ export default function AppointmentScheduler({ clientData }: { clientData: any }
           <div className="p-12 text-center">
             <Calendar className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">No Upcoming Appointments</h3>
-            <p className="text-gray-600 mb-4">You don't have any scheduled appointments.</p>
+            <p className="text-gray-600 mb-4">You don\&apos;t have any scheduled appointments.</p>
             <button
               onClick={() => setShowScheduleModal(true)}
               className="px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"

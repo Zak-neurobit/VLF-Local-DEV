@@ -66,7 +66,7 @@ export default function EmergencyVehicleAccidentsPage() {
             </p>
             <p className="text-xl mb-8 text-gray-100">
               Injured in an accident with an ambulance, fire truck, or police car? Emergency
-              vehicles aren&apos;t above the law. We fight for your right to compensation when first
+              vehicles aren\&apos;t above the law. We fight for your right to compensation when first
               responders cause accidents.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -240,7 +240,7 @@ export default function EmergencyVehicleAccidentsPage() {
             Emergency Vehicle Accidents Require Immediate Legal Action
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Government liability claims have strict deadlines and special procedures. Don't let
+            Government liability claims have strict deadlines and special procedures. Don&apos;t let
             important deadlines pass. Get experienced legal representation immediately.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

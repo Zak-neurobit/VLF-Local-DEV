@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagetsxPage() {
+export default function ElMejorAbogadoDeInmigracionExplica5SenalesClaveDeQueSuEstatusEstaEnRiesgoPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -71,7 +71,7 @@ export default function PagetsxPage() {
                 </h2>
                 <div className="text-gray-700">
                   Get a free evaluation of your immigration case. During your consultation,
-                  we&apos;ll: • Review your situation in detail • Explain your legal options •
+                  we\&apos;ll: • Review your situation in detail • Explain your legal options •
                   Answer all your questions • Provide honest assessment • Discuss our fee structure
                 </div>
               </div>
@@ -245,7 +245,7 @@ export default function PagetsxPage() {
                   name: 'How much does a immigration lawyer cost?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'Vasquez Law Firm offers free consultations and works on contingency for many cases. This means you don&apos;t pay attorney fees unless we win your case. For other matters, we offer competitive rates and payment plans.',
+                    text: 'Vasquez Law Firm offers free consultations and works on contingency for many cases. This means you don\'t pay attorney fees unless we win your case. For other matters, we offer competitive rates and payment plans.',
                   },
                 },
                 {
@@ -253,7 +253,7 @@ export default function PagetsxPage() {
                   name: 'How long does a immigration case take?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'Case timelines vary depending on complexity and specific circumstances. During your free consultation, we&apos;ll provide a realistic timeline based on your unique situation and our extensive experience handling similar cases.',
+                    text: 'Case timelines vary depending on complexity and specific circumstances. During your free consultation, we\'ll provide a realistic timeline based on your unique situation and our extensive experience handling similar cases.',
                   },
                 },
                 {
@@ -261,7 +261,7 @@ export default function PagetsxPage() {
                   name: 'Do you speak Spanish?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'Yes! Vasquez Law Firm provides full bilingual services in English and Spanish. Our attorneys and staff can assist you in the language you&apos;re most comfortable with.',
+                    text: 'Yes! Vasquez Law Firm provides full bilingual services in English and Spanish. Our attorneys and staff can assist you in the language you\'re most comfortable with.',
                   },
                 },
               ],

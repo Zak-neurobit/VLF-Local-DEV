@@ -5,7 +5,6 @@ import { ghlService } from '@/services/gohighlevel';
 import { callRouter } from '@/services/retell/call-router';
 import { statusManager } from '@/services/retell/status-manager';
 import { retellErrorHandler } from '@/services/retell/error-handler';
-import { getPrismaClient } from '@/lib/prisma';
 
 // Webhook payload schema from GoHighLevel
 const TriggerCallPayloadSchema = z.object({
@@ -25,10 +24,28 @@ const TriggerCallPayloadSchema = z.object({
   metadata: z.record(z.any()).optional(),
 });
 
-export async function POST(request: NextRequest) {
+interface TriggerCallPayload {
+  contactId: string;
+  contact: {
+    firstName: string;
+    lastName: string;
+    phone: string;
+    email?: string;
+    tags?: string[];
+    customFields?: Record<string, unknown>;
+  };
+  campaignId?: string;
+  practiceArea?: string;
+  preferredLanguage?: 'en' | 'es';
+  callType?: 'consultation' | 'follow-up' | 'appointment-reminder' | 'general';
+  metadata?: Record<string, unknown>;
+}
+
+export async function POST(_request: NextRequest) {
+  let body: TriggerCallPayload | undefined;
   try {
     // Parse request body
-    const body = await request.json();
+    body = await _request.json();
     
     logger.info('GHL trigger call webhook received', {
       contactId: body.contactId,
@@ -43,7 +60,7 @@ export async function POST(request: NextRequest) {
       phoneNumber: payload.contact.phone,
       practiceArea: payload.practiceArea,
       language: payload.preferredLanguage,
-      sourceType: 'ghl_campaign' as const,
+      sourceType: 'referral' as const, // Using referral for GHL campaigns
       metadata: {
         ghlContactId: payload.contactId,
         ghlCampaignId: payload.campaignId,
@@ -125,8 +142,8 @@ export async function POST(request: NextRequest) {
     // Use enhanced error handler
     await retellErrorHandler.handleError(error, {
       operation: 'trigger_call',
-      contactId: body.contactId,
-      metadata: { campaignId: body.campaignId, callType: body.callType },
+      contactId: body?.contactId,
+      metadata: { campaignId: body?.campaignId, callType: body?.callType },
     });
     
     logger.error('Failed to trigger Retell call from GHL:', error);
@@ -155,7 +172,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Handle webhook signature verification
-export async function OPTIONS(request: NextRequest) {
+export async function OPTIONS(_request: NextRequest) {
   return new NextResponse(null, {
     status: 200,
     headers: {

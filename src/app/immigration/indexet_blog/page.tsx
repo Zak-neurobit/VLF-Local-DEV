@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export const runtime = 'nodejs';
 
-export default function PagetsxPage() {
+export default function Indexet_blogPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}

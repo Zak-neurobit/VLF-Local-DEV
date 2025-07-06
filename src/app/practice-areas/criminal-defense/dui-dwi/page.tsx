@@ -448,7 +448,7 @@ export default function DuiDwiPage() {
                       Can I get a DUI if I wasn&apos;t driving?
                     </h3>
                     <p className="text-gray-700">
-                      Yes. Being in "actual physical control" of a vehicle while impaired can lead
+                      Yes. Being in &quot;actual physical control&quot; of a vehicle while impaired can lead
                       to DUI charges, even if the car wasn&apos;t moving. This includes sitting in
                       the driver&apos;s seat with keys accessible.
                     </p>
@@ -490,7 +490,7 @@ export default function DuiDwiPage() {
               Arrested for DUI? Time is Critical
             </h2>
             <p className="text-xl text-gray-700 mb-8">
-              You have only 10 days to protect your license. Don't face DUI charges alone - the
+              You have only 10 days to protect your license. Don&apos;t face DUI charges alone - the
               consequences are too severe. Our experienced DUI attorneys know how to challenge
               evidence and protect your rights. Call now for immediate help.
             </p>

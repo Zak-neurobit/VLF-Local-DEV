@@ -39,7 +39,7 @@ export default function FirmHighlights({ language }: FirmHighlightsProps) {
         {
           icon: Clock,
           title: '24/7 Availability',
-          description: "Round-the-clock support because legal emergencies don't wait",
+          description: "Round-the-clock support because legal emergencies don\'t wait",
         },
         {
           icon: Building,

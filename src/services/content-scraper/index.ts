@@ -43,8 +43,8 @@ export interface ScrapedContent {
 
 export class ContentScraper {
   private config: ScraperConfig;
-  private youtube: any;
-  private browser: any = null;
+  private youtube: typeof import('googleapis').google.youtube_v3.Youtube | null = null;
+  private browser: import('puppeteer').Browser | null = null;
 
   constructor(config: ScraperConfig) {
     this.config = config;
@@ -75,7 +75,7 @@ export class ContentScraper {
         publishedAfter: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // Last 7 days
       });
 
-      const videoIds = searchResponse.data.items.map((item: any) => item.id.videoId);
+      const videoIds = searchResponse.data.items.map((item) => item.id?.videoId).filter(Boolean);
 
       // Get video statistics
       const statsResponse = await this.youtube.videos.list({
@@ -341,7 +341,15 @@ export class ContentScraper {
     }
   }
 
-  async scrapeCompetitorWebsite(url: string): Promise<any> {
+  async scrapeCompetitorWebsite(url: string): Promise<{
+    title: string;
+    description: string;
+    keywords: string[];
+    headings: { h1: string[]; h2: string[]; h3: string[] };
+    images: Array<{ src: string; alt: string }>;
+    links: Array<{ href: string; text: string }>;
+    structuredData: Record<string, unknown>;
+  }> {
     componentLogger.info('ContentScraper.scrapeCompetitorWebsite', { url });
 
     if (!this.browser) {

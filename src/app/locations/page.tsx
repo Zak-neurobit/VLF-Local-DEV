@@ -226,7 +226,7 @@ export default function Page() {
                         <div className="flex flex-wrap gap-2">
                           {location.features.map((feature, idx) => {
                             const icon = feature.includes('Parking') ? <Car className="w-4 h-4" /> 
-                              : feature.includes('Wheelchair') ? <Accessibility className="w-4 h-4" />
+                              : feature.includes(&apos;Wheelchair&apos;) ? <Accessibility className="w-4 h-4" />
                               : <Building2 className="w-4 h-4" />;
                             
                             return (

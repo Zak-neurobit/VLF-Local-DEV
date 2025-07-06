@@ -88,7 +88,7 @@ export default function ExitIntentPopup({ onClose, onAction }: ExitIntentPopupPr
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <h2 className="text-4xl font-bold mb-4">Wait! Don't Leave Empty-Handed</h2>
+                  <h2 className="text-4xl font-bold mb-4">Wait! Don&apos;t Leave Empty-Handed</h2>
                   <p className="text-xl text-white/90">
                     Get FREE legal resources that could save you thousands
                   </p>
@@ -188,7 +188,7 @@ export default function ExitIntentPopup({ onClose, onAction }: ExitIntentPopupPr
                     onClick={handleClose}
                     className="w-full text-center text-gray-500 hover:text-gray-700 text-sm"
                   >
-                    No thanks, I'll figure it out myself
+                    No thanks, I&apos;ll figure it out myself
                   </button>
                 </motion.div>
               </div>

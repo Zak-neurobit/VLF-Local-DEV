@@ -186,7 +186,7 @@ export default function ImmigrationLawPage() {
             <section>
               <h2 className="text-3xl font-bold mb-6 text-primary">Why Choose Vasquez Law Firm for Immigration Law?</h2>
               <p className="text-lg mb-6">
-                We're NC's #1 choice for immigration law with a 98% success rate, 24/7 AI-powered case tracking, same-day consultations, fluent Spanish speakers, and former immigration officers on staff.
+                We&apos;re NC&apos;s #1 choice for immigration law with a 98% success rate, 24/7 AI-powered case tracking, same-day consultations, fluent Spanish speakers, and former immigration officers on staff.
               </p>
               
               <div className="grid md:grid-cols-2 gap-6 mt-8">
@@ -200,7 +200,7 @@ export default function ImmigrationLawPage() {
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">24/7 Support</h3>
-                  <p className="text-gray-300">Our AI-powered case tracking and 24/7 availability ensure you're never alone in your immigration journey.</p>
+                  <p className="text-gray-300">Our AI-powered case tracking and 24/7 availability ensure you\&apos;re never alone in your immigration journey.</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Bilingual Excellence</h3>

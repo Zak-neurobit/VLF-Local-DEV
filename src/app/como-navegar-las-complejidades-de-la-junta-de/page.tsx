@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagetsxPage() {
+export default function ComoNavegarLasComplejidadesDeLaJuntaDePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}

@@ -64,7 +64,7 @@ export default function UninsuredMotoristPage() {
               YO PELEO POR TI™
             </p>
             <p className="text-xl mb-8 text-gray-100">
-              Hit by an uninsured or underinsured driver? Don't let their lack of coverage leave you
+              Hit by an uninsured or underinsured driver? Don&apos;t let their lack of coverage leave you
               with unpaid medical bills. Your own insurance policy can provide compensation through
               UM/UIM coverage.
             </p>
@@ -125,13 +125,13 @@ export default function UninsuredMotoristPage() {
               </h3>
               <p className="text-gray-700 mb-4">
                 Covers you when hit by a driver with no insurance at all. Also applies to
-                hit-and-run accidents where the at-fault driver can&apos;t be identified.
+                hit-and-run accidents where the at-fault driver can\&apos;t be identified.
               </p>
               <ul className="space-y-2 text-gray-700">
                 <li>• Driver has no insurance</li>
                 <li>• Hit-and-run accidents</li>
                 <li>• Phantom vehicle accidents</li>
-                <li>• Driver's insurance company is insolvent</li>
+                <li>• Driver&apos;s insurance company is insolvent</li>
               </ul>
             </div>
             <div className="bg-white p-8 rounded-lg shadow-lg">
@@ -169,7 +169,7 @@ export default function UninsuredMotoristPage() {
             </h2>
             <p className="text-xl mb-8">
               In UM/UIM claims, you&apos;re fighting your own insurance company for benefits. They
-              use every trick to minimize payouts, even though you've paid premiums for years.
+              use every trick to minimize payouts, even though you\&apos;ve paid premiums for years.
             </p>
             <div className="grid md:grid-cols-2 gap-6 text-left">
               <div className="bg-white/10 p-6 rounded-lg">
@@ -259,7 +259,7 @@ export default function UninsuredMotoristPage() {
                 Policy Stacking in North Carolina
               </h3>
               <p className="text-gray-700 mb-6">
-                NC allows "stacking" of UM/UIM coverage in certain situations, potentially
+                NC allows &quot;stacking&quot; of UM/UIM coverage in certain situations, potentially
                 increasing your available benefits:
               </p>
               <div className="grid md:grid-cols-2 gap-6">
@@ -345,7 +345,7 @@ export default function UninsuredMotoristPage() {
       <section className="py-16 bg-gradient-to-br from-[#001845] to-[#003875] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">
-            Don't Let Uninsured Drivers Leave You With the Bills
+            Don&apos;t Let Uninsured Drivers Leave You With the Bills
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
             You pay for UM/UIM coverage - make sure you get the full benefits you deserve. We fight

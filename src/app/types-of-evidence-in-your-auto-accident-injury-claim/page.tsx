@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagetsxPage() {
+export default function TypesOfEvidenceInYourAutoAccidentInjuryClaimPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}

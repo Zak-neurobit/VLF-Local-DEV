@@ -192,7 +192,7 @@ async function cleanAndStructureContent(
     const $elem = $content(elem);
     // Keep only essential attributes
     const allowedAttrs = ['href', 'src', 'alt', 'title'];
-    const attrs = (elem as any).attribs || {};
+    const attrs = (elem as cheerio.Element).attribs || {};
     for (const attr in attrs) {
       if (!allowedAttrs.includes(attr)) {
         $elem.removeAttr(attr);
@@ -224,7 +224,8 @@ async function importBlogPost(data: {
   try {
     let { title, content, excerpt } = data;
     const practiceArea = data.practiceArea;
-    let metaDescription = data.metaDescription;
+    // metaDescription is not used in this function
+    // let metaDescription = data.metaDescription;
 
     // If only URL provided, fetch the content
     if (data.url && !content) {
@@ -236,7 +237,8 @@ async function importBlogPost(data: {
       const cleanedContent = await cleanAndStructureContent(articleContent || '', $);
       content = cleanedContent.content;
       excerpt = excerpt || cleanedContent.excerpt;
-      metaDescription = metaDescription || $('meta[name="description"]').attr('content') || excerpt;
+      // metaDescription is updated but not used further in this function
+      // metaDescription = metaDescription || $('meta[name="description"]').attr('content') || excerpt;
 
       // Extract date
       // const dateText = $('.date, .post-date, time').first().text();

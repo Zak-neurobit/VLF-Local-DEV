@@ -130,9 +130,7 @@ export function TestimonialCarousel() {
                   </div>
 
                   {/* Content */}
-                  <p className="text-lg md:text-xl text-gray-700 text-center mb-8 italic">
-                    "{testimonials[currentIndex].content}"
-                  </p>
+                  <p className="text-lg md:text-xl text-gray-700 text-center mb-8 italic">&quot;{testimonials[currentIndex].content}&quot;</p>
 
                   {/* Author */}
                   <div className="text-center">

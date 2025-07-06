@@ -92,8 +92,8 @@ export default function EquipmentAccidentsPage() {
             Equipment Accidents Require Specialized Legal Help
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Don't let insurance companies minimize your equipment accident claim. Get experienced
-            representation that understands industrial safety and workers' compensation law.
+            Don&apos;t let insurance companies minimize your equipment accident claim. Get experienced
+            representation that understands industrial safety and workers&apos; compensation law.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link

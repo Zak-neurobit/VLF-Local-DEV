@@ -9,174 +9,174 @@ datasource db {
 }
 
 model User {
-  id              String    @id @default(cuid())
-  email           String    @unique
-  name            String?
-  password        String?   // For credential auth
-  image           String?   // Profile image
-  role            UserRole  @default(CLIENT)
-  language        String    @default("en")
-  phone           String?
-  blocked         Boolean   @default(false)
-  emailVerified   DateTime?
-  lastActive      DateTime?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
-  cases           Case[]    @relation("ClientCases")
-  attorneyCases   Case[]    @relation("AttorneyCases")
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String? // For credential auth
+  image         String? // Profile image
+  role          UserRole  @default(CLIENT)
+  language      String    @default("en")
+  phone         String?
+  blocked       Boolean   @default(false)
+  emailVerified DateTime?
+  lastActive    DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  cases           Case[]                 @relation("ClientCases")
+  attorneyCases   Case[]                 @relation("AttorneyCases")
   conversations   Conversation[]
   appointments    Appointment[]
-  tasks           Task[]    @relation("AssignedTasks")
-  createdTasks    Task[]    @relation("CreatedTasks")
+  tasks           Task[]                 @relation("AssignedTasks")
+  createdTasks    Task[]                 @relation("CreatedTasks")
   accounts        Account[]
   sessions        Session[]
   activities      UserActivity[]
   leads           Lead[]
   notifications   Notification[]
   supportTickets  SupportTicket[]
-  assignedTickets SupportTicket[] @relation("AssignedTickets")
+  assignedTickets SupportTicket[]        @relation("AssignedTickets")
   ticketMessages  SupportTicketMessage[]
 }
 
 model Call {
-  id              String    @id @default(cuid())
-  externalCallId  String    @unique
-  agentId         String
-  fromNumber      String
-  toNumber        String
-  direction       CallDirection
-  status          CallStatus
-  startedAt       DateTime
-  answeredAt      DateTime?
-  endedAt         DateTime?
-  duration        Int?
-  recordingUrl    String?
-  transcript      String?   @db.Text
-  metadata        Json      @default("{}")
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
-  analysis        CallAnalysis?
-  tasks           Task[]
-  mapping         CallMapping?
+  id             String        @id @default(cuid())
+  externalCallId String        @unique
+  agentId        String
+  fromNumber     String
+  toNumber       String
+  direction      CallDirection
+  status         CallStatus
+  startedAt      DateTime
+  answeredAt     DateTime?
+  endedAt        DateTime?
+  duration       Int?
+  recordingUrl   String?
+  transcript     String?       @db.Text
+  metadata       Json          @default("{}")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  analysis CallAnalysis?
+  tasks    Task[]
+  mapping  CallMapping?
 }
 
 model CallAnalysis {
-  id              String    @id @default(cuid())
-  callId          String    @unique
-  call            Call      @relation(fields: [callId], references: [externalCallId])
-  summary         String?   @db.Text
-  sentiment       String?
-  actionItems     String[]
-  extractedInfo   Json      @default("{}")
-  createdAt       DateTime  @default(now())
+  id            String   @id @default(cuid())
+  callId        String   @unique
+  call          Call     @relation(fields: [callId], references: [externalCallId])
+  summary       String?  @db.Text
+  sentiment     String?
+  actionItems   String[]
+  extractedInfo Json     @default("{}")
+  createdAt     DateTime @default(now())
 }
 
 model CallMapping {
-  id              String    @id @default(cuid())
-  nextivaCallId   String    @unique
-  retellCallId    String    @unique
-  call            Call?     @relation(fields: [retellCallId], references: [externalCallId])
-  createdAt       DateTime  @default(now())
+  id            String   @id @default(cuid())
+  nextivaCallId String   @unique
+  retellCallId  String   @unique
+  call          Call?    @relation(fields: [retellCallId], references: [externalCallId])
+  createdAt     DateTime @default(now())
 }
 
 model Conversation {
-  id              String    @id @default(cuid())
-  userId          String
-  user            User      @relation(fields: [userId], references: [id])
-  channel         ConversationChannel
-  status          ConversationStatus
-  language        String    @default("en")
-  startedAt       DateTime  @default(now())
-  endedAt         DateTime?
-  metadata        Json      @default("{}")
-  
-  messages        Message[]
+  id        String              @id @default(cuid())
+  userId    String
+  user      User                @relation(fields: [userId], references: [id])
+  channel   ConversationChannel
+  status    ConversationStatus
+  language  String              @default("en")
+  startedAt DateTime            @default(now())
+  endedAt   DateTime?
+  metadata  Json                @default("{}")
+
+  messages Message[]
 }
 
 model Message {
-  id              String    @id @default(cuid())
-  conversationId  String
-  conversation    Conversation @relation(fields: [conversationId], references: [id])
-  role            MessageRole
-  content         String    @db.Text
-  metadata        Json      @default("{}")
-  createdAt       DateTime  @default(now())
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  role           MessageRole
+  content        String       @db.Text
+  metadata       Json         @default("{}")
+  createdAt      DateTime     @default(now())
 }
 
 model Case {
-  id              String    @id @default(cuid())
-  caseNumber      String    @unique
-  clientId        String
-  client          User      @relation("ClientCases", fields: [clientId], references: [id])
-  attorneyId      String?
-  attorney        User?     @relation("AttorneyCases", fields: [attorneyId], references: [id])
-  practiceArea    PracticeArea
-  status          CaseStatus
-  description     String?   @db.Text
-  metadata        Json      @default("{}")
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
-  documents       Document[]
-  appointments    Appointment[]
-  tasks           Task[]
-  payments        Payment[]
-  paymentPlans    PaymentPlan[]
-  trustLedger     TrustLedger[]
+  id           String       @id @default(cuid())
+  caseNumber   String       @unique
+  clientId     String
+  client       User         @relation("ClientCases", fields: [clientId], references: [id])
+  attorneyId   String?
+  attorney     User?        @relation("AttorneyCases", fields: [attorneyId], references: [id])
+  practiceArea PracticeArea
+  status       CaseStatus
+  description  String?      @db.Text
+  metadata     Json         @default("{}")
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  documents    Document[]
+  appointments Appointment[]
+  tasks        Task[]
+  payments     Payment[]
+  paymentPlans PaymentPlan[]
+  trustLedger  TrustLedger[]
 }
 
 model Document {
-  id              String    @id @default(cuid())
-  caseId          String
-  case            Case      @relation(fields: [caseId], references: [id])
-  name            String
-  type            String
-  url             String
-  size            Int
-  uploadedBy      String
-  metadata        Json      @default("{}")
-  createdAt       DateTime  @default(now())
+  id         String   @id @default(cuid())
+  caseId     String
+  case       Case     @relation(fields: [caseId], references: [id])
+  name       String
+  type       String
+  url        String
+  size       Int
+  uploadedBy String
+  metadata   Json     @default("{}")
+  createdAt  DateTime @default(now())
 }
 
 model Appointment {
-  id              String    @id @default(cuid())
-  userId          String
-  user            User      @relation(fields: [userId], references: [id])
-  caseId          String?
-  case            Case?     @relation(fields: [caseId], references: [id])
-  type            AppointmentType
-  status          AppointmentStatus
-  scheduledAt     DateTime
-  duration        Int       // in minutes
-  location        String?
-  meetingUrl      String?
-  notes           String?   @db.Text
-  metadata        Json      @default("{}")
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  id          String            @id @default(cuid())
+  userId      String
+  user        User              @relation(fields: [userId], references: [id])
+  caseId      String?
+  case        Case?             @relation(fields: [caseId], references: [id])
+  type        AppointmentType
+  status      AppointmentStatus
+  scheduledAt DateTime
+  duration    Int // in minutes
+  location    String?
+  meetingUrl  String?
+  notes       String?           @db.Text
+  metadata    Json              @default("{}")
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
 }
 
 model Task {
-  id              String    @id @default(cuid())
-  title           String
-  description     String?   @db.Text
-  type            TaskType
-  priority        TaskPriority
-  status          TaskStatus
-  dueDate         DateTime?
-  assignedToId    String?
-  assignedTo      User?     @relation("AssignedTasks", fields: [assignedToId], references: [id])
-  createdById     String
-  createdBy       User      @relation("CreatedTasks", fields: [createdById], references: [id])
-  caseId          String?
-  case            Case?     @relation(fields: [caseId], references: [id])
-  relatedCallId   String?
-  call            Call?     @relation(fields: [relatedCallId], references: [externalCallId])
-  metadata        Json      @default("{}")
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  id            String       @id @default(cuid())
+  title         String
+  description   String?      @db.Text
+  type          TaskType
+  priority      TaskPriority
+  status        TaskStatus
+  dueDate       DateTime?
+  assignedToId  String?
+  assignedTo    User?        @relation("AssignedTasks", fields: [assignedToId], references: [id])
+  createdById   String
+  createdBy     User         @relation("CreatedTasks", fields: [createdById], references: [id])
+  caseId        String?
+  case          Case?        @relation(fields: [caseId], references: [id])
+  relatedCallId String?
+  call          Call?        @relation(fields: [relatedCallId], references: [externalCallId])
+  metadata      Json         @default("{}")
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
 }
 
 // SEO and Content Models
@@ -200,79 +200,79 @@ model BlogPost {
   seoScore        Int       @default(0)
   viewCount       Int       @default(0)
   readTime        Int       @default(0) // in minutes
-  
+
   // Translation relationship
-  originalId      String?
-  original        BlogPost? @relation("BlogTranslation", fields: [originalId], references: [id])
-  translations    BlogPost[] @relation("BlogTranslation")
-  
+  originalId   String?
+  original     BlogPost?  @relation("BlogTranslation", fields: [originalId], references: [id])
+  translations BlogPost[] @relation("BlogTranslation")
+
   // SEO tracking
-  seoAnalysis     SeoAnalysis[]
-  
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
+  seoAnalysis SeoAnalysis[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([slug])
   @@index([practiceArea, language])
   @@index([status, publishedAt])
 }
 
 model ScrapedContent {
-  id              String    @id @default(cuid())
-  platform        String    // youtube, tiktok, instagram, facebook
-  url             String    @unique
-  title           String
-  description     String    @db.Text
-  engagement      Json      // { views, likes, comments, shares }
-  publishedAt     DateTime
-  author          String
-  hashtags        String[]
-  practiceArea    String?
-  relevanceScore  Float
-  
+  id             String   @id @default(cuid())
+  platform       String // youtube, tiktok, instagram, facebook
+  url            String   @unique
+  title          String
+  description    String   @db.Text
+  engagement     Json // { views, likes, comments, shares }
+  publishedAt    DateTime
+  author         String
+  hashtags       String[]
+  practiceArea   String?
+  relevanceScore Float
+
   // Content response tracking
-  responseCreated Boolean   @default(false)
+  responseCreated Boolean @default(false)
   responseId      String?
-  
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([platform, relevanceScore])
   @@index([practiceArea])
   @@index([publishedAt])
 }
 
 model CompetitorAnalysis {
-  id              String    @id @default(cuid())
-  url             String
-  domain          String
-  blogPosts       Json      // Array of scraped blog posts
-  seoData         Json      // Meta tags, schema, etc.
-  backlinks       Json?     // Backlink profile
-  keywords        Json?     // Ranking keywords
-  contentGaps     Json?     // Identified content opportunities
-  
-  analyzedAt      DateTime  @default(now())
-  createdAt       DateTime  @default(now())
-  
+  id          String @id @default(cuid())
+  url         String
+  domain      String
+  blogPosts   Json // Array of scraped blog posts
+  seoData     Json // Meta tags, schema, etc.
+  backlinks   Json? // Backlink profile
+  keywords    Json? // Ranking keywords
+  contentGaps Json? // Identified content opportunities
+
+  analyzedAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+
   @@index([domain])
   @@index([analyzedAt])
 }
 
 model KeywordResearch {
-  id              String    @id @default(cuid())
-  keyword         String
-  practiceArea    String
-  language        String
-  searchVolume    Int
-  difficulty      Int       // 0-100
-  cpc             Float?    // Cost per click
-  intent          String    // informational, transactional, navigational
-  serp            Json?     // SERP analysis data
-  
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
+  id           String @id @default(cuid())
+  keyword      String
+  practiceArea String
+  language     String
+  searchVolume Int
+  difficulty   Int // 0-100
+  cpc          Float? // Cost per click
+  intent       String // informational, transactional, navigational
+  serp         Json? // SERP analysis data
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([keyword, language])
   @@index([practiceArea, language])
   @@index([searchVolume])
@@ -280,62 +280,62 @@ model KeywordResearch {
 }
 
 model SeoAnalysis {
-  id              String    @id @default(cuid())
-  blogPostId      String
-  blogPost        BlogPost  @relation(fields: [blogPostId], references: [id])
-  
+  id         String   @id @default(cuid())
+  blogPostId String
+  blogPost   BlogPost @relation(fields: [blogPostId], references: [id])
+
   // Core Web Vitals
-  lcp             Float?    // Largest Contentful Paint
-  fid             Float?    // First Input Delay
-  cls             Float?    // Cumulative Layout Shift
-  
+  lcp Float? // Largest Contentful Paint
+  fid Float? // First Input Delay
+  cls Float? // Cumulative Layout Shift
+
   // SEO Metrics
-  organicTraffic  Int       @default(0)
-  avgPosition     Float?    // Average SERP position
-  impressions     Int       @default(0)
-  ctr             Float?    // Click-through rate
-  backlinks       Int       @default(0)
-  
+  organicTraffic Int    @default(0)
+  avgPosition    Float? // Average SERP position
+  impressions    Int    @default(0)
+  ctr            Float? // Click-through rate
+  backlinks      Int    @default(0)
+
   // Content metrics
-  bounceRate      Float?
-  avgTimeOnPage   Float?    // in seconds
-  
-  analyzedAt      DateTime  @default(now())
-  
+  bounceRate    Float?
+  avgTimeOnPage Float? // in seconds
+
+  analyzedAt DateTime @default(now())
+
   @@index([blogPostId])
   @@index([analyzedAt])
 }
 
 model NewsAlert {
-  id              String    @id @default(cuid())
-  source          String    // Google News, legal news sites, etc.
-  title           String
-  url             String
-  summary         String    @db.Text
-  practiceArea    String
-  relevanceScore  Float
-  
+  id             String @id @default(cuid())
+  source         String // Google News, legal news sites, etc.
+  title          String
+  url            String
+  summary        String @db.Text
+  practiceArea   String
+  relevanceScore Float
+
   // Response tracking
-  contentCreated  Boolean   @default(false)
-  blogPostId      String?
-  
-  publishedAt     DateTime
-  createdAt       DateTime  @default(now())
-  
+  contentCreated Boolean @default(false)
+  blogPostId     String?
+
+  publishedAt DateTime
+  createdAt   DateTime @default(now())
+
   @@index([practiceArea, relevanceScore])
   @@index([publishedAt])
 }
 
 model ContentSchedule {
-  id              String    @id @default(cuid())
-  blogPostId      String
-  platform        String    // website, facebook, twitter, etc.
-  scheduledFor    DateTime
-  status          String    @default("scheduled") // scheduled, published, failed
-  
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
+  id           String   @id @default(cuid())
+  blogPostId   String
+  platform     String // website, facebook, twitter, etc.
+  scheduledFor DateTime
+  status       String   @default("scheduled") // scheduled, published, failed
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([scheduledFor, status])
   @@index([platform])
 }
@@ -380,10 +380,10 @@ model UserActivity {
   id        String   @id @default(cuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id])
-  type      String   // SIGN_IN, SIGN_OUT, PAGE_VIEW, etc.
+  type      String // SIGN_IN, SIGN_OUT, PAGE_VIEW, etc.
   metadata  Json     @default("{}")
   createdAt DateTime @default(now())
-  
+
   @@index([userId, createdAt])
   @@index([type])
 }
@@ -391,10 +391,10 @@ model UserActivity {
 // Contact Management
 model Contact {
   id            String    @id @default(cuid())
-  email         String?   
+  email         String?
   phone         String?   @unique
   name          String?
-  source        String?   // website, gohighlevel, retell, etc.
+  source        String? // website, gohighlevel, retell, etc.
   smsOptIn      Boolean   @default(false)
   smsOptInDate  DateTime?
   smsOptOut     Boolean   @default(false)
@@ -402,11 +402,11 @@ model Contact {
   metadata      Json      @default("{}")
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  
-  smsLogs       SmsLog[]
-  callLogs      CallLog[]
-  leads         Lead[]
-  
+
+  smsLogs  SmsLog[]
+  callLogs CallLog[]
+  leads    Lead[]
+
   @@index([email])
   @@index([phone])
   @@index([smsOptIn, smsOptOut])
@@ -414,30 +414,30 @@ model Contact {
 
 // Enhanced SMS Logging for GHL and Twilio Integration
 model SmsLog {
-  id              String    @id @default(cuid())
-  twilioSid       String?   @unique // For Twilio integration
-  ghlContactId    String?
-  ghlMessageId    String?   @unique
-  contactId       String?
-  contact         Contact?  @relation(fields: [contactId], references: [id])
-  to              String
-  from            String
-  toNumber        String?   // Alias for compatibility
-  fromNumber      String?   // Alias for compatibility
-  body            String?   @db.Text
-  message         String?   @db.Text // Alias for compatibility
-  status          SmsStatus
-  direction       SmsDirection
-  triggerType     String?   // post-call, appointment-reminder, follow-up, custom
-  relatedCallId   String?   // Link to VoiceCall if SMS was triggered by call
-  templateId      String?
-  errorMessage    String?
-  sentAt          DateTime?
-  deliveredAt     DateTime?
-  mediaUrl        String?   // For MMS attachments
-  metadata        Json      @default("{}")
-  createdAt       DateTime  @default(now())
-  
+  id            String       @id @default(cuid())
+  twilioSid     String?      @unique // For Twilio integration
+  ghlContactId  String?
+  ghlMessageId  String?      @unique
+  contactId     String?
+  contact       Contact?     @relation(fields: [contactId], references: [id])
+  to            String
+  from          String
+  toNumber      String? // Alias for compatibility
+  fromNumber    String? // Alias for compatibility
+  body          String?      @db.Text
+  message       String?      @db.Text // Alias for compatibility
+  status        SmsStatus
+  direction     SmsDirection
+  triggerType   String? // post-call, appointment-reminder, follow-up, custom
+  relatedCallId String? // Link to VoiceCall if SMS was triggered by call
+  templateId    String?
+  errorMessage  String?
+  sentAt        DateTime?
+  deliveredAt   DateTime?
+  mediaUrl      String? // For MMS attachments
+  metadata      Json         @default("{}")
+  createdAt     DateTime     @default(now())
+
   @@index([twilioSid])
   @@index([ghlContactId])
   @@index([ghlMessageId])
@@ -449,40 +449,40 @@ model SmsLog {
 
 // Phone Number Management
 model PhoneNumber {
-  id            String    @id @default(cuid())
-  number        String    @unique
-  provider      PhoneProvider
-  type          PhoneType
-  capabilities  String[]  // e.g., ['voice', 'sms', 'mms']
-  active        Boolean   @default(true)
-  agentId       String?   // For voice agent assignment
-  metadata      Json      @default("{}")
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  
+  id           String        @id @default(cuid())
+  number       String        @unique
+  provider     PhoneProvider
+  type         PhoneType
+  capabilities String[] // e.g., ['voice', 'sms', 'mms']
+  active       Boolean       @default(true)
+  agentId      String? // For voice agent assignment
+  metadata     Json          @default("{}")
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
   @@index([provider, active])
   @@index([agentId])
 }
 
 // Call Logging
 model CallLog {
-  id            String    @id @default(cuid())
-  twilioSid     String?   @unique // For Twilio integration
-  contactId     String?
-  contact       Contact?  @relation(fields: [contactId], references: [id])
-  fromNumber    String
-  toNumber      String
-  direction     CallDirection
-  status        CallStatus
-  duration      Int?      // in seconds
-  recordingUrl  String?
-  externalId    String?   @unique // External ID from voice provider (Retell)
-  errorMessage  String?
-  metadata      Json      @default("{}")
-  startedAt     DateTime
-  endedAt       DateTime?
-  createdAt     DateTime  @default(now())
-  
+  id           String        @id @default(cuid())
+  twilioSid    String?       @unique // For Twilio integration
+  contactId    String?
+  contact      Contact?      @relation(fields: [contactId], references: [id])
+  fromNumber   String
+  toNumber     String
+  direction    CallDirection
+  status       CallStatus
+  duration     Int? // in seconds
+  recordingUrl String?
+  externalId   String?       @unique // External ID from voice provider (Retell)
+  errorMessage String?
+  metadata     Json          @default("{}")
+  startedAt    DateTime
+  endedAt      DateTime?
+  createdAt    DateTime      @default(now())
+
   @@index([twilioSid])
   @@index([contactId])
   @@index([externalId])
@@ -491,66 +491,69 @@ model CallLog {
 
 // Voice Call Integration (Retell + GHL)
 model VoiceCall {
-  id              String    @id @default(cuid())
-  retellCallId    String    @unique
-  ghlContactId    String?
-  ghlCampaignId   String?
-  phoneNumber     String
-  agentId         String
-  direction       CallDirection
-  status          VoiceCallStatus
-  practiceArea    String?
-  language        String    @default("en")
-  duration        Int?      // in seconds
-  recordingUrl    String?
-  transcript      String?   @db.Text
-  summary         String?   @db.Text
-  sentiment       String?   // positive, neutral, negative
-  outcome         String?   // connected, voicemail, no_answer, busy, failed
-  appointmentScheduled Boolean @default(false)
-  metadata        Json      @default("{}")
-  startedAt       DateTime  @default(now())
-  endedAt         DateTime?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
+  id                   String          @id @default(cuid())
+  retellCallId         String          @unique
+  ghlContactId         String?
+  ghlCampaignId        String?
+  phoneNumber          String
+  agentId              String
+  direction            CallDirection
+  status               VoiceCallStatus
+  practiceArea         String?
+  language             String          @default("en")
+  duration             Int? // in seconds
+  recordingUrl         String?
+  transcript           String?         @db.Text
+  summary              String?         @db.Text
+  sentiment            String? // positive, neutral, negative
+  outcome              String? // connected, voicemail, no_answer, busy, failed
+  appointmentScheduled Boolean         @default(false)
+  error                String? // Error message if call failed
+  metadata             Json            @default("{}")
+  startedAt            DateTime        @default(now())
+  endedAt              DateTime?
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+
+  // Relations
+  recording CallRecording?
+
   @@index([retellCallId])
   @@index([ghlContactId])
   @@index([status])
   @@index([createdAt])
 }
 
-
 // Lead Management
 model Lead {
-  id              String    @id @default(cuid())
-  contactId       String?
-  contact         Contact?  @relation(fields: [contactId], references: [id])
-  source          String    // website, referral, advertising, etc.
-  practiceArea    PracticeArea?
-  status          LeadStatus
-  score           Int       @default(0) // 0-100
-  urgency         LeadUrgency
-  
+  id           String        @id @default(cuid())
+  contactId    String?
+  contact      Contact?      @relation(fields: [contactId], references: [id])
+  source       String // website, referral, advertising, etc.
+  practiceArea PracticeArea?
+  status       LeadStatus
+  score        Int           @default(0) // 0-100
+  urgency      LeadUrgency
+
   // Lead details
-  description     String?   @db.Text
-  estimatedValue  Float?
-  
+  description    String? @db.Text
+  estimatedValue Float?
+
   // Assignment
-  assignedToId    String?
-  assignedTo      User?     @relation(fields: [assignedToId], references: [id])
-  assignedAt      DateTime?
-  
+  assignedToId String?
+  assignedTo   User?     @relation(fields: [assignedToId], references: [id])
+  assignedAt   DateTime?
+
   // Tracking
-  firstContactAt  DateTime?
-  lastContactAt   DateTime?
-  convertedAt     DateTime?
-  lostReason      String?
-  
-  metadata        Json      @default("{}")
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
+  firstContactAt DateTime?
+  lastContactAt  DateTime?
+  convertedAt    DateTime?
+  lostReason     String?
+
+  metadata  Json     @default("{}")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([contactId])
   @@index([status, score])
   @@index([assignedToId])
@@ -559,85 +562,85 @@ model Lead {
 
 // Analytics Snapshot
 model AnalyticsSnapshot {
-  id              String    @id @default(cuid())
-  date            DateTime  // Date of the snapshot
-  
+  id   String   @id @default(cuid())
+  date DateTime // Date of the snapshot
+
   // Lead metrics
-  totalLeads      Int       @default(0)
-  newLeads        Int       @default(0)
-  convertedLeads  Int       @default(0)
-  lostLeads       Int       @default(0)
-  avgLeadScore    Float     @default(0)
-  
+  totalLeads     Int   @default(0)
+  newLeads       Int   @default(0)
+  convertedLeads Int   @default(0)
+  lostLeads      Int   @default(0)
+  avgLeadScore   Float @default(0)
+
   // Communication metrics
-  totalCalls      Int       @default(0)
-  totalSms        Int       @default(0)
-  totalEmails     Int       @default(0)
-  
+  totalCalls  Int @default(0)
+  totalSms    Int @default(0)
+  totalEmails Int @default(0)
+
   // Appointment metrics
-  totalAppointments   Int   @default(0)
+  totalAppointments     Int @default(0)
   completedAppointments Int @default(0)
-  noShowAppointments  Int   @default(0)
-  
+  noShowAppointments    Int @default(0)
+
   // Performance metrics by practice area
-  practiceAreaMetrics Json  @default("{}")
-  
+  practiceAreaMetrics Json @default("{}")
+
   // Source analytics
-  sourceMetrics       Json  @default("{}")
-  
-  metadata        Json      @default("{}")
-  createdAt       DateTime  @default(now())
-  
+  sourceMetrics Json @default("{}")
+
+  metadata  Json     @default("{}")
+  createdAt DateTime @default(now())
+
   @@unique([date])
   @@index([date])
 }
 
 // Cron Job Logging
 model CronJobLog {
-  id              String    @id @default(cuid())
-  jobName         String
-  status          CronJobStatus
-  startedAt       DateTime
-  endedAt         DateTime?
-  duration        Int?      // in milliseconds
-  error           String?   @db.Text
-  result          Json?
-  metadata        Json      @default("{}")
-  createdAt       DateTime  @default(now())
-  
+  id        String        @id @default(cuid())
+  jobName   String
+  status    CronJobStatus
+  startedAt DateTime
+  endedAt   DateTime?
+  duration  Int? // in milliseconds
+  error     String?       @db.Text
+  result    Json?
+  metadata  Json          @default("{}")
+  createdAt DateTime      @default(now())
+
   @@index([jobName, status])
   @@index([createdAt])
 }
 
 // Notification Management
 model Notification {
-  id              String    @id @default(cuid())
-  
+  id String @id @default(cuid())
+
   // Recipient
-  userId          String
-  user            User      @relation(fields: [userId], references: [id])
-  
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
   // Notification details
-  type            NotificationType
-  title           String
-  message         String    @db.Text
-  priority        NotificationPriority @default(MEDIUM)
-  
+  type     NotificationType
+  title    String
+  message  String               @db.Text
+  priority NotificationPriority @default(MEDIUM)
+
   // Status tracking
-  read            Boolean   @default(false)
-  readAt          DateTime?
-  
+  read   Boolean   @default(false)
+  readAt DateTime?
+
   // Action data (e.g., link to resource)
-  actionUrl       String?
-  actionData      Json      @default("{}")
-  
+  actionUrl  String?
+  actionData Json    @default("{}")
+
   // Metadata
-  metadata        Json      @default("{}")
-  
+  metadata Json @default("{}")
+
   // Timestamps
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([userId, read])
   @@index([type])
   @@index([createdAt])
@@ -645,45 +648,45 @@ model Notification {
 
 // Support Ticket System
 model SupportTicket {
-  id              String    @id @default(cuid())
-  
+  id String @id @default(cuid())
+
   // Ticket details
-  ticketNumber    String    @unique @default(cuid())
-  subject         String
-  description     String    @db.Text
-  
+  ticketNumber String @unique @default(cuid())
+  subject      String
+  description  String @db.Text
+
   // User association
-  userId          String
-  user            User      @relation(fields: [userId], references: [id])
-  
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
   // Categorization
-  category        TicketCategory
-  priority        TicketPriority
-  status          TicketStatus @default(OPEN)
-  
+  category TicketCategory
+  priority TicketPriority
+  status   TicketStatus   @default(OPEN)
+
   // Assignment
-  assignedToId    String?
-  assignedTo      User?     @relation("AssignedTickets", fields: [assignedToId], references: [id])
-  
+  assignedToId String?
+  assignedTo   User?   @relation("AssignedTickets", fields: [assignedToId], references: [id])
+
   // Resolution tracking
-  resolvedAt      DateTime?
-  resolutionNotes String?   @db.Text
-  satisfactionRating Int?   // 1-5 rating
-  
+  resolvedAt         DateTime?
+  resolutionNotes    String?   @db.Text
+  satisfactionRating Int? // 1-5 rating
+
   // Related entities
-  caseId          String?
-  appointmentId   String?
-  
+  caseId        String?
+  appointmentId String?
+
   // Communication thread
-  messages        SupportTicketMessage[]
-  
+  messages SupportTicketMessage[]
+
   // Metadata
-  metadata        Json      @default("{}")
-  
+  metadata Json @default("{}")
+
   // Timestamps
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([userId])
   @@index([status, priority])
   @@index([assignedToId])
@@ -691,27 +694,27 @@ model SupportTicket {
 }
 
 model SupportTicketMessage {
-  id              String    @id @default(cuid())
-  
+  id String @id @default(cuid())
+
   // Message details
-  ticketId        String
-  ticket          SupportTicket @relation(fields: [ticketId], references: [id])
-  
+  ticketId String
+  ticket   SupportTicket @relation(fields: [ticketId], references: [id])
+
   // Sender
-  authorId        String
-  author          User      @relation(fields: [authorId], references: [id])
-  
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
+
   // Content
-  message         String    @db.Text
-  isInternal      Boolean   @default(false) // Internal notes not visible to client
-  
+  message    String  @db.Text
+  isInternal Boolean @default(false) // Internal notes not visible to client
+
   // Attachments
-  attachments     Json      @default("[]") // Array of {name, url, size, type}
-  
+  attachments Json @default("[]") // Array of {name, url, size, type}
+
   // Timestamps
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([ticketId])
   @@index([authorId])
 }
@@ -805,6 +808,9 @@ enum TaskType {
   court_filing
   client_communication
   voicemail
+  security_alert
+  system_error
+  billing_issue
   other
 }
 
@@ -863,52 +869,52 @@ enum CronJobStatus {
 
 // Payment Management
 model Payment {
-  id              String    @id @default(cuid())
-  
+  id String @id @default(cuid())
+
   // Transaction details
-  amount          Float
-  currency        String    @default("USD")
-  description     String
-  
+  amount      Float
+  currency    String @default("USD")
+  description String
+
   // Gateway information
-  gateway         PaymentGateway
+  gateway              PaymentGateway
   gatewayTransactionId String?
-  gatewayChargeId String?
-  gatewayReference String?
-  authCode        String?
-  
+  gatewayChargeId      String?
+  gatewayReference     String?
+  authCode             String?
+
   // Account information
-  accountType     AccountType @default(OPERATING)
-  
+  accountType AccountType @default(OPERATING)
+
   // Client information
-  clientEmail     String
-  clientName      String
-  clientPhone     String?
-  
+  clientEmail String
+  clientName  String
+  clientPhone String?
+
   // Case association
-  caseId          String?
-  case            Case?     @relation(fields: [caseId], references: [id])
-  
+  caseId String?
+  case   Case?   @relation(fields: [caseId], references: [id])
+
   // Status
-  status          PaymentStatus
-  failureReason   String?
-  
+  status        PaymentStatus
+  failureReason String?
+
   // Payment method details
-  paymentMethod   PaymentMethod
-  last4           String?   // Last 4 digits of card/account
-  
+  paymentMethod PaymentMethod
+  last4         String? // Last 4 digits of card/account
+
   // Timestamps
-  processedAt     DateTime?
-  refundedAt      DateTime?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
+  processedAt DateTime?
+  refundedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
   // Relations
-  refunds         PaymentRefund[]
-  
+  refunds PaymentRefund[]
+
   // Metadata
-  metadata        Json      @default("{}")
-  
+  metadata Json @default("{}")
+
   @@index([clientEmail])
   @@index([caseId])
   @@index([status])
@@ -917,58 +923,58 @@ model Payment {
 }
 
 model PaymentRefund {
-  id              String    @id @default(cuid())
-  paymentId       String
-  payment         Payment   @relation(fields: [paymentId], references: [id])
-  
-  amount          Float
-  reason          String
-  status          RefundStatus
-  
+  id        String  @id @default(cuid())
+  paymentId String
+  payment   Payment @relation(fields: [paymentId], references: [id])
+
+  amount Float
+  reason String
+  status RefundStatus
+
   gatewayRefundId String?
   processedAt     DateTime?
-  
-  createdBy       String
-  metadata        Json      @default("{}")
-  
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
+
+  createdBy String
+  metadata  Json   @default("{}")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([paymentId])
   @@index([status])
 }
 
 model PaymentPlan {
-  id              String    @id @default(cuid())
-  
+  id String @id @default(cuid())
+
   // Client information
-  clientEmail     String
-  clientName      String
-  
+  clientEmail String
+  clientName  String
+
   // Case association
-  caseId          String?
-  case            Case?     @relation(fields: [caseId], references: [id])
-  
+  caseId String?
+  case   Case?   @relation(fields: [caseId], references: [id])
+
   // Plan details
-  totalAmount     Float
-  installments    Int
-  monthlyAmount   Float
-  
+  totalAmount   Float
+  installments  Int
+  monthlyAmount Float
+
   // Schedule
   startDate       DateTime
   nextPaymentDate DateTime?
-  
+
   // Status
   status          PaymentPlanStatus
-  paidAmount      Float     @default(0)
+  paidAmount      Float             @default(0)
   remainingAmount Float
-  
+
   // Metadata
-  metadata        Json      @default("{}")
-  
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  
+  metadata Json @default("{}")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([clientEmail])
   @@index([status])
   @@index([nextPaymentDate])
@@ -976,35 +982,35 @@ model PaymentPlan {
 
 // Trust Account Ledger
 model TrustLedger {
-  id              String    @id @default(cuid())
-  
+  id String @id @default(cuid())
+
   // Transaction details
   transactionType TrustTransactionType
   amount          Float
-  balance         Float     // Running balance after this transaction
-  
+  balance         Float // Running balance after this transaction
+
   // Client/Case information
-  clientName      String
-  clientEmail     String
-  caseId          String?
-  case            Case?     @relation(fields: [caseId], references: [id])
-  
+  clientName  String
+  clientEmail String
+  caseId      String?
+  case        Case?   @relation(fields: [caseId], references: [id])
+
   // Reference information
-  paymentId       String?   // Reference to Payment if applicable
-  reference       String    // External reference number
-  description     String
-  
+  paymentId   String? // Reference to Payment if applicable
+  reference   String // External reference number
+  description String
+
   // Compliance
-  recordedBy      String
-  approvedBy      String?
-  reconciled      Boolean   @default(false)
-  reconciledAt    DateTime?
-  
+  recordedBy   String
+  approvedBy   String?
+  reconciled   Boolean   @default(false)
+  reconciledAt DateTime?
+
   // Metadata
-  metadata        Json      @default("{}")
-  
-  createdAt       DateTime  @default(now())
-  
+  metadata Json @default("{}")
+
+  createdAt DateTime @default(now())
+
   @@index([clientEmail])
   @@index([caseId])
   @@index([transactionType])
@@ -1129,55 +1135,205 @@ enum PhoneType {
   VOICE_AND_SMS
 }
 
+// Retry Queue Enums
+enum RetryStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
 // Agent Interaction Tracking
 model AgentInteraction {
-  id              String    @id @default(cuid())
-  
+  id String @id @default(cuid())
+
   // Agent identification
-  agentId         String
-  agentName       String
-  agentType       String    // chat, voice, crewai, document
-  
+  agentId   String
+  agentName String
+  agentType String // chat, voice, crewai, document
+
   // Session information
-  sessionId       String
-  userId          String?
-  
+  sessionId String
+  userId    String?
+
   // Interaction details
-  intent          String
-  language        String
-  responseTime    Int       // in milliseconds
-  success         Boolean
-  satisfaction    Float?    // 1-5 rating
-  escalated       Boolean   @default(false)
-  
+  intent       String
+  language     String
+  responseTime Int // in milliseconds
+  success      Boolean
+  satisfaction Float? // 1-5 rating
+  escalated    Boolean @default(false)
+
   // Additional data
-  metadata        Json      @default("{}")
-  
+  metadata Json @default("{}")
+
   // Timestamps
-  createdAt       DateTime  @default(now())
-  
+  createdAt DateTime @default(now())
+
   @@index([agentId])
   @@index([sessionId])
   @@index([userId])
   @@index([createdAt])
 }
+
+// Security Event Logging
+model SecurityEvent {
+  id String @id @default(cuid())
+
+  // Event details
+  service   String // retell, ghl, etc.
+  type      String // api_request_validation, rate_limit_exceeded, etc.
+  riskLevel String // low, medium, high
+  details   Json   @default("{}")
+
+  // Timestamps
+  timestamp DateTime @default(now())
+
+  @@index([service])
+  @@index([type])
+  @@index([riskLevel])
+  @@index([timestamp])
+}
+
+// Call Recording Management
+model CallRecording {
+  id     String @id @default(cuid())
+  callId String @unique
+
+  // Recording details
+  recordingUrl String
+  transcript   String @db.Text
+  duration     Int // in milliseconds
+
+  // Analysis results
+  sentiment            String // positive, neutral, negative
+  summary              String   @db.Text
+  keywords             String[]
+  actionItems          String[]
+  followUpRequired     Boolean  @default(false)
+  appointmentScheduled Boolean  @default(false)
+
+  // Relations
+  voiceCall VoiceCall? @relation(fields: [callId], references: [retellCallId])
+
+  // Metadata
+  metadata Json @default("{}")
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sentiment])
+  @@index([followUpRequired])
+  @@index([appointmentScheduled])
+  @@index([createdAt])
+}
+
+// Error Logging
+model ErrorLog {
+  id String @id @default(cuid())
+
+  // Error details
+  service   String // retell, ghl, twilio, etc.
+  errorType String
+  message   String
+  code      String?
+
+  // Context
+  callId      String?
+  contactId   String?
+  recoverable Boolean @default(false)
+  retryAfter  Int? // seconds
+
+  // Additional data
+  metadata Json @default("{}")
+
+  // Timestamps
+  createdAt DateTime @default(now())
+
+  @@index([service])
+  @@index([errorType])
+  @@index([callId])
+  @@index([contactId])
+  @@index([createdAt])
+}
+
+// Retry Queue Management
+model RetryQueue {
+  id String @id @default(cuid())
+
+  // Operation details
+  operation    String
+  delaySeconds Int
+  context      Json   @default("{}")
+
+  // Scheduling
+  scheduledFor DateTime
+  attempts     Int      @default(0)
+  maxAttempts  Int      @default(3)
+
+  // Status
+  status      RetryStatus @default(PENDING)
+  lastAttempt DateTime?
+  nextAttempt DateTime?
+  error       String?
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([scheduledFor])
+  @@index([operation])
+}
+
+// Call Routing Decisions
+model CallRouting {
+  id String @id @default(cuid())
+
+  // Call details
+  callId      String @unique
+  phoneNumber String
+
+  // Routing decision
+  agentId      String
+  practiceArea String
+  language     String
+  priority     Int
+  urgency      String // low, medium, high, emergency
+
+  // Routing metadata
+  routingReason String?
+  metadata      Json    @default("{}")
+
+  // Timestamps
+  createdAt DateTime @default(now())
+
+  @@index([callId])
+  @@index([agentId])
+  @@index([practiceArea])
+  @@index([urgency])
+  @@index([createdAt])
+}
+
 // Lead Validation Model
 model LeadValidation {
-  id                  String    @id @default(cuid())
-  email               String
-  score               Int
-  tier                String    // hot, warm, cold, invalid
-  priorityLevel       String    // urgent, high, medium, low
-  practiceAreas       String[]
-  languagePreference  String    // en, es, bilingual
-  estimatedCaseValue  Float?
-  factors             Json      // urgency, caseValue, readiness, contactQuality scores
-  recommendations     String[]
-  followUpStrategy    String
-  source              String
-  validatedAt         DateTime
-  createdAt           DateTime  @default(now())
-  updatedAt           DateTime  @updatedAt
+  id                 String   @id @default(cuid())
+  email              String
+  score              Int
+  tier               String // hot, warm, cold, invalid
+  priorityLevel      String // urgent, high, medium, low
+  practiceAreas      String[]
+  languagePreference String // en, es, bilingual
+  estimatedCaseValue Float?
+  factors            Json // urgency, caseValue, readiness, contactQuality scores
+  recommendations    String[]
+  followUpStrategy   String
+  source             String
+  validatedAt        DateTime
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
   @@index([email])
   @@index([tier])
@@ -1187,18 +1343,18 @@ model LeadValidation {
 
 // Follow Up Sequence Model
 model FollowUpSequence {
-  id                String    @id @default(cuid())
-  contactId         String
-  sequenceType      String    // hot_lead, warm_lead, cold_lead, etc
-  steps             Json      // Array of follow-up steps
-  personalizations  Json      // Dynamic content replacements
-  status            String    // active, paused, completed, cancelled
-  currentStep       Int       @default(0)
-  completedSteps    Int       @default(0)
-  lastExecutedAt    DateTime?
-  nextStepAt        DateTime?
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  id               String    @id @default(cuid())
+  contactId        String
+  sequenceType     String // hot_lead, warm_lead, cold_lead, etc
+  steps            Json // Array of follow-up steps
+  personalizations Json // Dynamic content replacements
+  status           String // active, paused, completed, cancelled
+  currentStep      Int       @default(0)
+  completedSteps   Int       @default(0)
+  lastExecutedAt   DateTime?
+  nextStepAt       DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 
   @@index([contactId])
   @@index([status])
@@ -1207,16 +1363,16 @@ model FollowUpSequence {
 
 // Agent Execution Log Model
 model AgentExecutionLog {
-  id              String    @id @default(cuid())
-  agentName       String
-  executionType   String
-  input           Json
-  output          Json
-  duration        Int       // milliseconds
-  success         Boolean
-  error           String?
-  metadata        Json?
-  createdAt       DateTime  @default(now())
+  id            String   @id @default(cuid())
+  agentName     String
+  executionType String
+  input         Json
+  output        Json
+  duration      Int // milliseconds
+  success       Boolean
+  error         String?
+  metadata      Json?
+  createdAt     DateTime @default(now())
 
   @@index([agentName])
   @@index([createdAt])

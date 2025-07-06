@@ -69,8 +69,8 @@ export default function GHLContactForm({
       if (!ghlResponse.ok) throw new Error('Failed to submit');
 
       // Track conversion
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'conversion', {
+      if (typeof window !== 'undefined' && (window as typeof window & { gtag?: Function }).gtag) {
+        (window as typeof window & { gtag?: Function }).gtag('event', 'conversion', {
           send_to: 'YOUR_CONVERSION_ID',
           value: formType === 'consultation' ? 150 : 0,
           currency: 'USD',
@@ -107,7 +107,7 @@ export default function GHLContactForm({
           </motion.div>
           <h3 className="text-2xl font-bold mb-2">Thank You!</h3>
           <p className="text-gray-600 mb-4">
-            Your information has been received. We'll contact you within 1 business hour.
+            Your information has been received. We&apos;ll contact you within 1 business hour.
           </p>
           <p className="text-sm text-gray-500">
             For immediate assistance, call:{' '}

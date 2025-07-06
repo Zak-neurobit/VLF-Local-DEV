@@ -2,6 +2,7 @@ import { AgentType, AgentConfig } from '@/config/agents/types';
 import { agentConfigs } from '@/config/agents/agent-configs';
 import { agentTrainingData } from '@/config/agents/training-data';
 import { logger } from '@/lib/logger';
+import type { AgentContext } from '@/types/services';
 
 export class AgentManager {
   private static instance: AgentManager;
@@ -209,7 +210,7 @@ export class AgentManager {
     return session;
   }
 
-  getAgentPrompt(agentType: AgentType, context?: any): string {
+  getAgentPrompt(agentType: AgentType, context?: AgentContext): string {
     const agent = this.agents.get(agentType);
     if (!agent) {
       throw new Error(`Agent type ${agentType} not found`);
@@ -274,7 +275,7 @@ interface AgentSession {
 interface ConversationContext {
   previousAgent: AgentType | null;
   transferHistory: TransferRecord[];
-  collectedInfo: Record<string, any>;
+  collectedInfo: Record<string, string | number | boolean>;
   language: 'en' | 'es';
 }
 

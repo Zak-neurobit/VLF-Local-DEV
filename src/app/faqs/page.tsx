@@ -20,7 +20,7 @@ const faqData: FAQItem[] = [
     category: 'General',
     question: 'Do you offer free consultations?',
     answer:
-      "Yes, we offer free initial consultations for most case types. During this consultation, we'll discuss your legal situation, explain your options, and help you understand the best path forward. Contact us to schedule your free consultation.",
+      "Yes, we offer free initial consultations for most case types. During this consultation, we\'ll discuss your legal situation, explain your options, and help you understand the best path forward. Contact us to schedule your free consultation.",
   },
   {
     id: 'general-2',
@@ -62,7 +62,7 @@ const faqData: FAQItem[] = [
   {
     id: 'immigration-3',
     category: 'Immigration',
-    question: "What happens if I'm detained by ICE?",
+    question: "What happens if I\'m detained by ICE?",
     answer:
       "If you or a loved one is detained by ICE, it's crucial to act quickly. You have the right to an attorney (at your own expense), the right to remain silent, and the right to a bond hearing in most cases. Contact us immediately - we provide emergency assistance for detention cases and can help request a bond hearing.",
   },
@@ -108,7 +108,7 @@ const faqData: FAQItem[] = [
   {
     id: 'criminal-1',
     category: 'Criminal Defense',
-    question: "What should I do if I'm arrested?",
+    question: "What should I do if I\'m arrested?",
     answer:
       "Exercise your right to remain silent and ask for an attorney immediately. Don't discuss your case with anyone except your lawyer. Be polite but firm in asserting your rights. Contact us as soon as possible - we provide emergency assistance for arrests.",
   },
@@ -124,14 +124,14 @@ const faqData: FAQItem[] = [
     category: 'Criminal Defense',
     question: 'Can my criminal record be expunged?',
     answer:
-      "North Carolina law allows expungement of certain criminal records. Eligibility depends on factors like the type of offense, your age at the time, and whether you've had other convictions. We can review your record and determine if you're eligible for expungement.",
+      "North Carolina law allows expungement of certain criminal records. Eligibility depends on factors like the type of offense, your age at the time, and whether you\'ve had other convictions. We can review your record and determine if you're eligible for expungement.",
   },
 
   // Workers' Compensation Questions
   {
     id: 'wc-1',
     category: "Workers' Compensation",
-    question: "What should I do if I'm injured at work?",
+    question: "What should I do if I\'m injured at work?",
     answer:
       "Report the injury to your supervisor immediately and in writing. Seek medical treatment and tell the doctor it's work-related. Document everything including the accident, injuries, and any witnesses. File a claim with the North Carolina Industrial Commission within 2 years, though it's best to act quickly.",
   },
@@ -140,7 +140,7 @@ const faqData: FAQItem[] = [
     category: "Workers' Compensation",
     question: 'Can I see my own doctor for a work injury?',
     answer:
-      "Initially, your employer has the right to direct your medical care. However, after 90 days or if they don't provide adequate care, you may have the right to change doctors. We can help you navigate the medical treatment process and ensure you get proper care.",
+      "Initially, your employer has the right to direct your medical care. However, after 90 days or if they don\'t provide adequate care, you may have the right to change doctors. We can help you navigate the medical treatment process and ensure you get proper care.",
   },
 ];
 
@@ -230,7 +230,7 @@ export default function FAQsPage() {
                   Still Have Questions?
                 </h2>
                 <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-                  Don't see your question answered here? Our experienced attorneys are ready to
+                  Don&apos;t see your question answered here? Our experienced attorneys are ready to
                   help. Contact us for a free consultation to discuss your specific situation.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">

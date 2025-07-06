@@ -125,7 +125,7 @@ export default function TVisa() {
                 <div>
                   <h3 className="text-lg font-bold text-purple-800 mb-2">We Understand:</h3>
                   <ul className="text-purple-700 space-y-1">
-                    <li>• The trauma you've experienced</li>
+                    <li>• The trauma you&apos;ve experienced</li>
                     <li>• Your fear and uncertainty</li>
                     <li>• The courage it takes to seek help</li>
                     <li>• Your need for protection</li>
@@ -417,7 +417,7 @@ export default function TVisa() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="bg-blue-50 p-6 rounded-lg">
                     <Users className="w-8 h-8 text-blue-600 mb-4" />
-                    <h3 className="text-lg font-bold text-blue-800 mb-3">If You're Under 21</h3>
+                    <h3 className="text-lg font-bold text-blue-800 mb-3">If You&apos;re Under 21</h3>
                     <ul className="text-blue-700 space-y-1">
                       <li>• Spouse</li>
                       <li>• Children</li>
@@ -428,7 +428,7 @@ export default function TVisa() {
 
                   <div className="bg-blue-50 p-6 rounded-lg">
                     <Users className="w-8 h-8 text-blue-600 mb-4" />
-                    <h3 className="text-lg font-bold text-blue-800 mb-3">If You're 21 or Older</h3>
+                    <h3 className="text-lg font-bold text-blue-800 mb-3">If You&apos;re 21 or Older</h3>
                     <ul className="text-blue-700 space-y-1">
                       <li>• Spouse</li>
                       <li>• Unmarried children under 21</li>

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagetsxPage() {
+export default function CanALawyerHelpMeIfIGetADwiPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagetsxPage() {
+export default function SitemapPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}

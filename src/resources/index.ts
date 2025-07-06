@@ -1,7 +1,7 @@
 // Resource exports for easy import throughout the application
 
 // Guides
-export { default as ImmigrationProcessGuide } from './guides/immigration-process-guide';
+export { ImmigrationProcessGuide } from './guides/immigration-process-guide';
 
 // Calculators
 export { default as ChildSupportCalculator } from './calculators/child-support-calculator';

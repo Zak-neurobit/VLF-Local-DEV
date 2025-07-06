@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import React from 'react';
 
 interface BundleAnalysis {
   totalSize: number;
@@ -241,7 +242,7 @@ export default BundleOptimizer;
 // Utility functions for optimization
 export const optimizationUtils = {
   // Dynamic import wrapper
-  lazyImport: <T>(importFn: () => Promise<T>) => {
+  lazyImport: <T extends React.ComponentType<any>>(importFn: () => Promise<{ default: T }>) => {
     return React.lazy(() => importFn());
   },
 

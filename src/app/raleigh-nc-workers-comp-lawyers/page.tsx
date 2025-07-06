@@ -14,16 +14,16 @@ const VoiceAssistant = dynamic(() => import('@/components/VirtualAssistant/Virtu
 export const metadata: Metadata = {
   title: "Raleigh, NC Workers' Comp Lawyers - Vasquez Law Firm, PLLC",
   description:
-    'Looking for experienced workers’ comp lawyers in Raleigh, NC? Get the benefits you deserve with trusted legal help. Contact us today for a free consultation!',
+    "Looking for experienced workers' comp lawyers in Raleigh, NC? Get the benefits you deserve with trusted legal help. Contact us today for a free consultation!",
   openGraph: {
     title: "Raleigh, NC Workers' Comp Lawyers - Vasquez Law Firm, PLLC",
     description:
-      'Looking for experienced workers’ comp lawyers in Raleigh, NC? Get the benefits you deserve with trusted legal help. Contact us today for a free consultation!',
+      "Looking for experienced workers' comp lawyers in Raleigh, NC? Get the benefits you deserve with trusted legal help. Contact us today for a free consultation!",
     images: [{ url: '/images/og-default.jpg' }],
   },
 };
 
-export default function PagetsxPage() {
+export default function RaleighNcWorkersCompLawyersPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -31,7 +31,7 @@ export default function PagetsxPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Raleigh, NC Workers’ Comp Lawyers
+              Raleigh, NC Workers&apos; Comp Lawyers
             </h1>
             <p className="text-xl mb-8">Experienced Attorney at Vasquez Law Firm</p>
             <div className="flex flex-wrap justify-center gap-4">
@@ -184,12 +184,12 @@ export default function PagetsxPage() {
                   '@type': 'WebPage',
                   '@id': 'https://www.vasquezlawnc.com/raleigh-nc-workers-comp-lawyers/',
                   url: 'https://www.vasquezlawnc.com/raleigh-nc-workers-comp-lawyers/',
-                  name: 'Raleigh, NC Workers&apos; Comp Lawyers - Vasquez Law Firm, PLLC',
+                  name: "Raleigh, NC Workers' Comp Lawyers - Vasquez Law Firm, PLLC",
                   isPartOf: { '@id': 'https://www.vasquezlawnc.com/#website' },
                   datePublished: '2024-06-03T19:28:39+00:00',
                   dateModified: '2025-02-20T10:53:46+00:00',
                   description:
-                    'Looking for experienced workers’ comp lawyers in Raleigh, NC? Get the benefits you deserve with trusted legal help. Contact us today for a free consultation!',
+                    "Looking for experienced workers' comp lawyers in Raleigh, NC? Get the benefits you deserve with trusted legal help. Contact us today for a free consultation!",
                   breadcrumb: {
                     '@id':
                       'https://www.vasquezlawnc.com/raleigh-nc-workers-comp-lawyers/#breadcrumb',
@@ -215,7 +215,7 @@ export default function PagetsxPage() {
                     {
                       '@type': 'ListItem',
                       position: 2,
-                      name: 'Raleigh, NC Workers&#8217; Comp Lawyers',
+                      name: "Raleigh, NC Workers' Comp Lawyers",
                     },
                   ],
                 },
@@ -266,7 +266,7 @@ export default function PagetsxPage() {
             {
               '@context': 'https://schema.org',
               '@type': 'Attorney',
-              name: 'Raleigh, NC Workers’ Comp Lawyers',
+              name: "Raleigh, NC Workers' Comp Lawyers",
               image: '',
               jobTitle: 'Attorney',
               worksFor: {
@@ -288,7 +288,7 @@ export default function PagetsxPage() {
               knowsLanguage: ['English', 'Spanish'],
               alumniOf: {
                 '@type': 'CollegeOrUniversity',
-                name: 'NY. He served in the U.S. Air Force from 2000-2007. He is a veteran of Operation Enduring Freedom and received the Joint Service Achievement Medal for his work as a Spanish linguist for the Defense Intelligence Agency in 2005. William graduated from Campbell University in 2007 with a degree in computer science. He earned his J.D. in 2011 from the North Carolina Central University School of Law. His practice areas include immigration law and criminal defense cases. He is licensed and in good standing with the State Bar of North Carolina and a member of the American Immigration Lawyer Association (AILA.) He is a proud member of the Charlotte community and provides compassionate counsel for all his clients.</p>\n<h3>Education:</h3>\n<p><strong>North Carolina Central University</strong></p>\n<p>J.D. | Juris Doctorate</p>\n<p>2007 – 2011</p>\n<p><strong>Campbell University</strong></p>\n<p>B.S.</p>\n<h5>2007</h5>\n<h3>Bar Admissions:</h3>\n<p>North Carolina — Admitted in 2011</p>\n<p>4th',
+                name: 'North Carolina Central University School of Law',
               },
             },
             {

@@ -143,7 +143,7 @@ export default function CaseEvaluator({ language }: CaseEvaluatorProps) {
             },
             {
               value: 'unsure',
-              label: "I'm Not Sure",
+              label: "I\'m Not Sure",
               icon: '❓',
               description: "Let's discuss options",
             },
@@ -417,7 +417,7 @@ export default function CaseEvaluator({ language }: CaseEvaluatorProps) {
               {currentStep.type === 'input' ? (
                 <div>
                   <input
-                    {...register('location' as any)}
+                    {...register('location' as keyof FormData)}
                     type="text"
                     placeholder={currentStep.placeholder}
                     className="w-full rounded-lg bg-white/10 px-4 py-3 text-white placeholder-gray-400 backdrop-blur-sm focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-[#C9974D]"
@@ -431,7 +431,7 @@ export default function CaseEvaluator({ language }: CaseEvaluatorProps) {
                   {currentStep.options?.map(option => (
                     <label key={option.value.toString()} className="group relative cursor-pointer">
                       <input
-                        {...register(currentStep.field as any)}
+                        {...register(currentStep.field as keyof FormData)}
                         type={currentStep.field === 'previousAttorney' ? 'checkbox' : 'radio'}
                         value={option.value.toString()}
                         className="sr-only"

@@ -16,12 +16,12 @@ export default function TriadRegionPage() {
         <div className="space-y-12">
           <section>
             <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-              Triad North Carolina's Premier Law Firm
+              Triad North Carolina&apos;s Premier Law Firm
             </h1>
             <p className="text-xl text-gray-700">
               Serving all 9 counties in the Triad region with comprehensive legal services. 
               From Greensboro to Kernersville, 
-              we're the law firm the Triad trusts.
+              we\&apos;re the law firm the Triad trusts.
             </p>
           </section>
           <section>
@@ -67,8 +67,8 @@ export default function TriadRegionPage() {
                 </Link>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
-                <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Workers' Compensation Lawyer</h3>
-                <p className="text-gray-600 mb-4">Serving all of Triad with expert workers' compensation lawyer services</p>
+                <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Workers\&apos; Compensation Lawyer</h3>
+                <p className="text-gray-600 mb-4">Serving all of Triad with expert workers&apos; compensation lawyer services</p>
                 <Link href="/practice-areas/workers-compensation-lawyer" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
                 </Link>

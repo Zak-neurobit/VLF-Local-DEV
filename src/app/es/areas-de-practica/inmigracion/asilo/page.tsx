@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagetsxPage() {
+export default function AsiloPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}

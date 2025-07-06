@@ -16,8 +16,8 @@ export default function NashCountyPage() {
   // Find which region this county belongs to
   const regionData = {"Triangle":{"hub":"raleigh","counties":["Wake","Durham","Orange","Chatham","Johnston","Franklin","Granville","Vance","Warren"],"majorCities":["Raleigh","Durham","Chapel Hill","Cary","Apex","Clayton","Garner","Wake Forest","Morrisville"]},"Charlotte Metro":{"hub":"charlotte","counties":["Mecklenburg","Union","Cabarrus","Gaston","Lincoln","Iredell","Rowan","Cleveland","Catawba"],"majorCities":["Charlotte","Concord","Gastonia","Huntersville","Matthews","Monroe","Salisbury","Statesville"]},"Triad":{"hub":"greensboro","counties":["Guilford","Forsyth","Davidson","Randolph","Alamance","Rockingham","Stokes","Surry","Yadkin"],"majorCities":["Greensboro","Winston-Salem","High Point","Burlington","Lexington","Asheboro","Kernersville"]},"Eastern NC":{"hub":"wilmington","counties":["New Hanover","Brunswick","Pender","Onslow","Carteret","Craven","Pitt","Wayne","Lenoir"],"majorCities":["Wilmington","Jacksonville","Greenville","New Bern","Kinston","Goldsboro","Morehead City"]},"Western NC":{"hub":"asheville","counties":["Buncombe","Henderson","Haywood","Jackson","Transylvania","Madison","Yancey","Mitchell","Avery"],"majorCities":["Asheville","Hendersonville","Waynesville","Brevard","Black Mountain","Boone","Burnsville"]},"Piedmont":{"hub":"fayetteville","counties":["Cumberland","Harnett","Lee","Moore","Hoke","Robeson","Scotland","Richmond","Anson"],"majorCities":["Fayetteville","Sanford","Laurinburg","Lumberton","Southern Pines","Pinehurst","Rockingham"]}};
   const region = Object.entries(regionData).find(([_, data]) => 
-    data.counties.includes('Nash')
-  )?.[0] || 'North Carolina';
+    data.counties.includes(&apos;Nash&apos;)
+  )?.[0] || &apos;North Carolina&apos;;
   return (
     <>
       <LocationPageTemplate
@@ -26,12 +26,12 @@ export default function NashCountyPage() {
           <div className="space-y-12">
             <section>
               <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-                Nash County's Trusted Law Firm - 60+ Years of Excellence
+                Nash County&apos;s Trusted Law Firm - 60+ Years of Excellence
               </h1>
               <p className="text-xl text-gray-700">
                 When legal issues arise in Nash County, North Carolina residents trust Vasquez Law Firm. 
                 With over 60 years of combined experience and a proven track record throughout the ${region} region, 
-                we're here to fight for your rights.
+                we\'re here to fight for your rights.
               </p>
             </section>
             <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -50,8 +50,8 @@ export default function NashCountyPage() {
                 </Link>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Workers' Compensation Lawyer</h3>
-                <p className="text-gray-600 mb-4">Expert workers' compensation lawyer services for Nash County residents</p>
+                <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Workers\&apos; Compensation Lawyer</h3>
+                <p className="text-gray-600 mb-4">Expert workers&apos; compensation lawyer services for Nash County residents</p>
                 <Link href="/practice-areas/workers-compensation" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
                 </Link>
@@ -92,7 +92,7 @@ export default function NashCountyPage() {
               <h2 className="text-3xl font-bold mb-4 text-[#6B1F2E]">
                 Get Help Now - Serving All of Nash County
               </h2>
-              <p className="text-xl mb-6">Don't wait - North Carolina law has strict deadlines</p>
+              <p className="text-xl mb-6">Don&apos;t wait - North Carolina law has strict deadlines</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="tel:18449673536" className="bg-[#C9974D] text-white px-8 py-3 rounded-md hover:bg-[#D4A574] transition-colors font-semibold text-lg">
                   Call 1-844-YO-PELEO

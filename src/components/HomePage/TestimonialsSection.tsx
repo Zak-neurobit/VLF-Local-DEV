@@ -93,7 +93,7 @@ export function TestimonialsSection() {
               </div>
 
               {/* Content */}
-              <p className="text-gray-300 mb-6 line-clamp-4">"{testimonial.content}"</p>
+              <p className="text-gray-300 mb-6 line-clamp-4">&quot;{testimonial.content}&quot;</p>
 
               {/* Author */}
               <div className="border-t border-white/10 pt-4">
@@ -134,7 +134,7 @@ export function TestimonialsSection() {
                     </div>
 
                     {/* Content */}
-                    <p className="text-gray-300 mb-6">"{currentTestimonial.content}"</p>
+                    <p className="text-gray-300 mb-6">&quot;{currentTestimonial.content}&quot;</p>
                   </div>
 
                   {/* Author */}
@@ -205,7 +205,7 @@ export function TestimonialsSection() {
                       <Star key={i} className="w-4 h-4 text-primary fill-current" />
                     ))}
                   </div>
-                  <p className="text-gray-300 mb-4 text-sm italic">"{testimonial.content}"</p>
+                  <p className="text-gray-300 mb-4 text-sm italic">&quot;{testimonial.content}&quot;</p>
                   <div>
                     <p className="font-semibold text-white text-sm">{testimonial.name}</p>
                     <p className="text-xs text-gray-400">{testimonial.caseType} • {testimonial.location}</p>

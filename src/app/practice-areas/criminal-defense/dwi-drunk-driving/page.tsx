@@ -114,13 +114,13 @@ export default function DWIDefensePage() {
                 CRITICAL: 30-Day Deadline to Save Your License
               </h2>
               <p className="text-red-700 text-lg mb-4">
-                If you've been arrested for DWI in North Carolina, you have only 30 days from your
+                If you\&apos;ve been arrested for DWI in North Carolina, you have only 30 days from your
                 arrest date to request a hearing with the DMV to contest your license suspension.
                 Missing this deadline means automatic license suspension.
               </p>
               <div className="bg-red-100 p-4 rounded-lg">
                 <p className="text-red-800 font-semibold">
-                  Don't wait - call us immediately at 1-844-YO-PELEO to protect your driving
+                  Don&apos;t wait - call us immediately at 1-844-YO-PELEO to protect your driving
                   privileges!
                 </p>
               </div>
@@ -145,7 +145,7 @@ export default function DWIDefensePage() {
                 </p>
 
                 <p className="mb-6">
-                  At Vasquez Law Firm, we understand that good people make mistakes, and we're here
+                  At Vasquez Law Firm, we understand that good people make mistakes, and we&apos;re here
                   to fight for you when the stakes are highest. Our experienced DWI defense
                   attorneys have successfully defended hundreds of clients against drunk driving
                   charges throughout North Carolina.
@@ -224,7 +224,7 @@ export default function DWIDefensePage() {
                 <div className="text-center mb-4">
                   <Clock className="w-8 h-8 text-[#C9974D] mx-auto mb-2" />
                   <p className="text-lg font-semibold">30-Day Deadline!</p>
-                  <p className="text-sm">Don't lose your license</p>
+                  <p className="text-sm">Don&apos;t lose your license</p>
                 </div>
 
                 <div className="space-y-4 mb-6">
@@ -335,8 +335,8 @@ export default function DWIDefensePage() {
                 Should I have refused the breathalyzer?
               </h3>
               <p className="text-gray-700">
-                North Carolina has "implied consent" laws - refusing can result in automatic license
-                suspension. However, this doesn&apos;t mean you can&apos;t fight the charges. We can
+                North Carolina has &quot;implied consent&quot; laws - refusing can result in automatic license
+                suspension. However, this doesn\&apos;t mean you can&apos;t fight the charges. We can
                 challenge both the refusal and any underlying DWI charges.
               </p>
             </div>
@@ -378,7 +378,7 @@ export default function DWIDefensePage() {
       {/* CTA Section */}
       <section className="py-16 bg-[#6B1F2E] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-4">Don't Let a DWI Destroy Your Life</h2>
+          <h2 className="text-4xl font-bold mb-4">Don&apos;t Let a DWI Destroy Your Life</h2>
           <p className="text-xl mb-6">
             Every day you wait makes your case harder to defend. The 30-day deadline to save your
             license is approaching fast.

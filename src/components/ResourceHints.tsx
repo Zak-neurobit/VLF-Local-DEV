@@ -33,7 +33,7 @@ export default function ResourceHints({
       
       images.forEach(img => {
         try {
-          const url = new URL(img.src);
+          const url = new URL((img as HTMLImageElement).src);
           if (url.hostname !== window.location.hostname) {
             imageDomains.add(url.origin);
           }
@@ -85,7 +85,7 @@ export default function ResourceHints({
         });
       }, observerOptions);
 
-      // Observe images that aren't already critical
+      // Observe images that aren\'t already critical
       const nonCriticalImages = document.querySelectorAll('img:not([data-critical])');
       nonCriticalImages.forEach(img => imageObserver.observe(img));
 
@@ -188,7 +188,16 @@ export default function ResourceHints({
       ))}
       
       {/* Critical CSS optimization hint */}
-      <link rel="preload" href="/_next/static/css/app.css" as="style" onLoad="this.onload=null;this.rel='stylesheet'" />
+      <link 
+        rel="preload" 
+        href="/_next/static/css/app.css" 
+        as="style" 
+        onLoad={(e) => {
+          const link = e.currentTarget as HTMLLinkElement;
+          link.onload = null;
+          link.rel = 'stylesheet';
+        }} 
+      />
     </Head>
   );
 }

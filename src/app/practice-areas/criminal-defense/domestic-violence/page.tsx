@@ -277,7 +277,7 @@ export default function DomesticViolencePage() {
                   <p className="text-orange-700">
                     Any violation of a protective order, even responding to a text or email from the
                     protected party, results in mandatory arrest and new criminal charges. The
-                    protected party cannot "drop" the order without court approval.
+                    protected party cannot &quot;drop&quot; the order without court approval.
                   </p>
                 </div>
               </div>
@@ -380,7 +380,7 @@ export default function DomesticViolencePage() {
                   </div>
 
                   <div className="bg-red-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-red-800 mb-3">DON'T:</h3>
+                    <h3 className="text-lg font-bold text-red-800 mb-3">DON&apos;T:</h3>
                     <ul className="text-red-700 space-y-2">
                       <li>✗ Try to explain to police</li>
                       <li>✗ Contact the accuser</li>
@@ -484,11 +484,11 @@ export default function DomesticViolencePage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-burgundy-900 mb-4">
-              Don't Let False Accusations Destroy Your Life
+              Don&apos;t Let False Accusations Destroy Your Life
             </h2>
             <p className="text-xl text-gray-700 mb-8">
               Domestic violence accusations require immediate action. Your freedom, family, and
-              future are at stake. Our experienced attorneys understand the system's bias and fight
+              future are at stake. Our experienced attorneys understand the system&apos;s bias and fight
               aggressively to protect innocent people. Contact us now.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

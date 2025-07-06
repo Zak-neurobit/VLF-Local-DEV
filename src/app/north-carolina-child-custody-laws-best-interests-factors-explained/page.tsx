@@ -69,7 +69,7 @@ export default function NCChildCustodyBlog() {
                     becomes one of the most emotionally charged and legally complex issues they
                     face. Understanding how North Carolina courts make custody decisions can help
                     you better prepare for your case and work toward an arrangement that serves your
-                    child's best interests.
+                    child&apos;s best interests.
                   </p>
 
                   <h2 className="text-2xl font-bold text-brand-charcoal mt-8 mb-4">
@@ -77,8 +77,8 @@ export default function NCChildCustodyBlog() {
                   </h2>
 
                   <p className="text-gray-700 leading-relaxed mb-6">
-                    North Carolina law requires judges to base all custody decisions on the "best
-                    interests of the child." This standard is intentionally broad, allowing judges
+                    North Carolina law requires judges to base all custody decisions on the &quot;best
+                    interests of the child.&quot; This standard is intentionally broad, allowing judges
                     to consider the unique circumstances of each family. While this flexibility can
                     be beneficial, it also means outcomes can be less predictable than in states
                     with more rigid guidelines.
@@ -94,8 +94,8 @@ export default function NCChildCustodyBlog() {
                         <p className="text-gray-700">
                           North Carolina does not presume that either parent is better suited for
                           custody based on gender. Both mothers and fathers have equal rights to
-                          seek custody, and courts must evaluate each parent's ability to serve the
-                          child's best interests.
+                          seek custody, and courts must evaluate each parent&apos;s ability to serve the
+                          child&apos;s best interests.
                         </p>
                       </div>
                     </div>
@@ -113,10 +113,10 @@ export default function NCChildCustodyBlog() {
                   <div className="space-y-4 mb-8">
                     <div className="border-l-4 border-brand-skyblue pl-6">
                       <h3 className="font-semibold text-brand-charcoal mb-2">
-                        1. Child's Safety and Welfare
+                        1. Child&apos;s Safety and Welfare
                       </h3>
                       <p className="text-gray-700">
-                        The paramount concern is always the child's physical safety and emotional
+                        The paramount concern is always the child&apos;s physical safety and emotional
                         well-being. Any history of abuse, neglect, or domestic violence weighs
                         heavily in custody decisions.
                       </p>
@@ -138,7 +138,7 @@ export default function NCChildCustodyBlog() {
                         3. Stability and Continuity
                       </h3>
                       <p className="text-gray-700">
-                        Judges favor arrangements that minimize disruption to the child's life,
+                        Judges favor arrangements that minimize disruption to the child&apos;s life,
                         including maintaining school enrollment, community ties, and relationships
                         with extended family.
                       </p>
@@ -149,9 +149,9 @@ export default function NCChildCustodyBlog() {
                         4. Parent-Child Relationships
                       </h3>
                       <p className="text-gray-700">
-                        The quality of each parent's relationship with the child, including
-                        emotional bonds, communication, and the parent's understanding of the
-                        child's needs.
+                        The quality of each parent&apos;s relationship with the child, including
+                        emotional bonds, communication, and the parent&apos;s understanding of the
+                        child&apos;s needs.
                       </p>
                     </div>
 
@@ -160,9 +160,9 @@ export default function NCChildCustodyBlog() {
                         5. Co-Parenting Ability
                       </h3>
                       <p className="text-gray-700">
-                        Courts favor parents who demonstrate willingness to facilitate the child's
+                        Courts favor parents who demonstrate willingness to facilitate the child&apos;s
                         relationship with the other parent and communicate effectively about the
-                        child's needs.
+                        child&apos;s needs.
                       </p>
                     </div>
 
@@ -171,8 +171,8 @@ export default function NCChildCustodyBlog() {
                         6. Living Situations
                       </h3>
                       <p className="text-gray-700">
-                        The adequacy of each parent's home, including safety, space, and proximity
-                        to school and activities. Financial disparities alone don't determine
+                        The adequacy of each parent&apos;s home, including safety, space, and proximity
+                        to school and activities. Financial disparities alone don\&apos;t determine
                         custody.
                       </p>
                     </div>
@@ -213,7 +213,7 @@ export default function NCChildCustodyBlog() {
                           Legal Custody
                         </h4>
                         <p className="text-gray-700 text-sm mb-3">
-                          Authority to make major decisions about the child's upbringing.
+                          Authority to make major decisions about the child&apos;s upbringing.
                         </p>
                         <ul className="text-gray-700 text-sm space-y-1">
                           <li>
@@ -231,12 +231,12 @@ export default function NCChildCustodyBlog() {
                   </div>
 
                   <h2 className="text-2xl font-bold text-brand-charcoal mt-8 mb-4">
-                    Child's Preference in Custody Decisions
+                    Child&apos;s Preference in Custody Decisions
                   </h2>
 
                   <p className="text-gray-700 leading-relaxed mb-6">
                     North Carolina has no set age when a child can choose which parent to live with.
-                    However, judges may consider a child's preference if the child has sufficient
+                    However, judges may consider a child&apos;s preference if the child has sufficient
                     age and maturity to express a reasoned opinion. Typically:
                   </p>
 
@@ -297,17 +297,17 @@ export default function NCChildCustodyBlog() {
                   </h2>
 
                   <p className="text-gray-700 leading-relaxed mb-6">
-                    Custody orders can be modified when there's been a "substantial change in
-                    circumstances" affecting the child's welfare. Common reasons include:
+                    Custody orders can be modified when there\&apos;s been a &quot;substantial change in
+                    circumstances&quot; affecting the child&apos;s welfare. Common reasons include:
                   </p>
 
                   <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
                     <li>Parent relocation affecting visitation</li>
                     <li>Changes in work schedules impacting care</li>
-                    <li>Child's developmental needs changing with age</li>
+                    <li>Child&apos;s developmental needs changing with age</li>
                     <li>Emergence of safety concerns</li>
-                    <li>Parent's remarriage or cohabitation</li>
-                    <li>Significant changes in either parent's stability</li>
+                    <li>Parent&apos;s remarriage or cohabitation</li>
+                    <li>Significant changes in either parent&apos;s stability</li>
                   </ul>
 
                   <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 mb-8">
@@ -315,12 +315,12 @@ export default function NCChildCustodyBlog() {
                       <Heart className="w-6 h-6 text-yellow-600 mr-3 flex-shrink-0 mt-1" />
                       <div>
                         <p className="font-semibold text-gray-800 mb-2">
-                          Protecting Your Child's Well-Being
+                          Protecting Your Child&apos;s Well-Being
                         </p>
                         <p className="text-gray-700">
                           Remember that custody litigation can be stressful for children. Consider
                           mediation or collaborative approaches when possible. Courts favor parents
-                          who prioritize the child's emotional needs over winning.
+                          who prioritize the child&apos;s emotional needs over winning.
                         </p>
                       </div>
                     </div>
@@ -357,24 +357,24 @@ export default function NCChildCustodyBlog() {
                       <li>✓ Witnesses to your parenting (teachers, coaches, doctors)</li>
                       <li>✓ Communication logs showing co-parenting efforts</li>
                       <li>✓ Financial records demonstrating ability to provide</li>
-                      <li>✓ Any evidence of the other parent's unfitness (if applicable)</li>
+                      <li>✓ Any evidence of the other parent&apos;s unfitness (if applicable)</li>
                     </ul>
                   </div>
 
                   {/* Call to Action */}
                   <div className="mt-12 p-8 bg-blue-50 rounded-lg">
                     <h2 className="text-2xl font-bold text-brand-charcoal mb-4">
-                      Fighting for Your Children's Best Interests
+                      Fighting for Your Children&apos;s Best Interests
                     </h2>
                     <p className="text-gray-700 mb-6">
                       Child custody cases require careful preparation and skilled advocacy. The
                       decisions made now will affect your relationship with your children for years
-                      to come. Don't navigate this critical process alone.
+                      to come. Don&apos;t navigate this critical process alone.
                     </p>
                     <p className="text-gray-700 mb-6">
                       At Vasquez Law Firm, we understand that your children are your world. Our
                       experienced family law attorneys will help you build the strongest possible
-                      case while keeping your children's well-being at the forefront of every
+                      case while keeping your children&apos;s well-being at the forefront of every
                       decision.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
@@ -431,7 +431,7 @@ export default function NCChildCustodyBlog() {
                   For over two decades, Vasquez Law Firm has helped North Carolina parents protect
                   their relationships with their children. Our family law team combines
                   compassionate guidance with aggressive advocacy to achieve custody arrangements
-                  that serve our clients' children's best interests. We handle custody cases
+                  that serve our clients&apos; children&apos;s best interests. We handle custody cases
                   throughout North Carolina from our offices in Charlotte, Raleigh, Durham, and
                   Winston-Salem.
                 </p>

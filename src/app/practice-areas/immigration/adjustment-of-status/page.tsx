@@ -288,7 +288,7 @@ export default function AdjustmentOfStatusPage() {
                 </div>
 
                 <p className="text-gray-700">
-                  These challenges don't necessarily disqualify you from adjustment of status, but
+                  These challenges don\&apos;t necessarily disqualify you from adjustment of status, but
                   they require experienced legal navigation. Our attorneys have successfully handled
                   complex cases involving waivers, appeals, and other remedies.
                 </p>
@@ -376,7 +376,7 @@ export default function AdjustmentOfStatusPage() {
               Ready to Start Your Adjustment of Status Case?
             </h2>
             <p className="text-xl text-gray-700 mb-8">
-              Don't navigate the complex adjustment process alone. Our experienced immigration
+              Don&apos;t navigate the complex adjustment process alone. Our experienced immigration
               attorneys are here to guide you every step of the way.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

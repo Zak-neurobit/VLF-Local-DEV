@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagetsxPage() {
+export default function RoselynVTorrellasPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -305,7 +305,7 @@ export default function PagetsxPage() {
               knowsLanguage: ['English', 'Spanish'],
               alumniOf: {
                 '@type': 'CollegeOrUniversity',
-                name: 'Her personal experience allows her to empathize with her clients while guiding them through the complex and intricate aspects of immigration law.</p>\n<p>Roselyn attended the University of North Carolina at Greensboro',
+                name: 'University of North Carolina at Greensboro',
               },
             },
             {

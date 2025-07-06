@@ -6,6 +6,7 @@ import * as cheerio from 'cheerio';
 import { CronJob } from 'cron';
 import axios from 'axios';
 import { URL } from 'url';
+import type { SchemaOrgData } from '@/types/services';
 
 export interface SEOAgentConfig {
   openAIKey: string;
@@ -34,19 +35,21 @@ interface ContentGap {
   topic: string;
   practiceArea: string;
   keywords: string[];
-  insights: any;
+  insights: {
+    searchVolume?: number;
+    competitionLevel?: string;
+    contentType?: string;
+    targetAudience?: string;
+    expectedTraffic?: number;
+  };
 }
 
-interface SchemaMarkup {
-  '@context': string;
-  '@type': string | string[];
-  [key: string]: any;
-}
+type SchemaMarkup = SchemaOrgData;
 
 export class SEOAgent {
   private openai: OpenAI;
-  private contentQueue: any;
-  private analysisQueue: any;
+  private contentQueue: Queue.Queue;
+  private analysisQueue: Queue.Queue;
   private config: SEOAgentConfig;
   private cronJobs: CronJob[] = [];
   private baseUrl: string;
@@ -77,7 +80,7 @@ export class SEOAgent {
 
   private initializeQueues() {
     // Content generation processor
-    this.contentQueue.process(async (job: any) => {
+    this.contentQueue.process(async (job: Queue.Job) => {
       const { type, data } = job.data;
 
       switch (type) {
@@ -93,7 +96,7 @@ export class SEOAgent {
     });
 
     // Analysis processor
-    this.analysisQueue.process(async (job: any) => {
+    this.analysisQueue.process(async (job: Queue.Job) => {
       const { type, data } = job.data;
 
       switch (type) {
@@ -141,7 +144,12 @@ export class SEOAgent {
     practiceArea: string;
     language: 'en' | 'es';
     keywords: string[];
-    competitorInsights?: any;
+    competitorInsights?: {
+      topKeywords?: string[];
+      contentStrategies?: string[];
+      backlinkSources?: string[];
+      socialMediaPresence?: Record<string, number>;
+    };
     isTranslation?: boolean;
     originalId?: string;
   }) {
@@ -264,7 +272,16 @@ export class SEOAgent {
     }
   }
 
-  private async translateBlogPost(original: any, targetLanguage: 'en' | 'es') {
+  private async translateBlogPost(
+    original: {
+      title: string;
+      content: string;
+      metaDescription?: string;
+      keywords?: string[];
+      practiceArea?: string;
+    },
+    targetLanguage: 'en' | 'es'
+  ) {
     const translatePrompt = `Translate this blog post to ${targetLanguage === 'es' ? 'Spanish' : 'English'}.
       Maintain SEO optimization, keyword relevance, and local SEO elements.
       Adapt cultural references appropriately.
@@ -515,7 +532,7 @@ export class SEOAgent {
 
   // ========== SCHEMA MARKUP GENERATION ==========
 
-  async generateSchemaMarkup(type: string, data: any): Promise<SchemaMarkup> {
+  async generateSchemaMarkup(type: string, data: Record<string, unknown>): Promise<SchemaMarkup> {
     const schemas = {
       LawFirm: () => this.generateLawFirmSchema(data),
       Attorney: () => this.generateAttorneySchema(data),
@@ -538,7 +555,7 @@ export class SEOAgent {
     };
   }
 
-  private generateLawFirmSchema(data: any): SchemaMarkup {
+  private generateLawFirmSchema(data: Record<string, unknown>): SchemaMarkup {
     return {
       '@context': 'https://schema.org',
       '@type': 'LegalService',
@@ -619,7 +636,7 @@ export class SEOAgent {
     };
   }
 
-  private generateAttorneySchema(data: any): SchemaMarkup {
+  private generateAttorneySchema(data: Record<string, unknown>): SchemaMarkup {
     return {
       '@context': 'https://schema.org',
       '@type': 'Attorney',
@@ -631,7 +648,7 @@ export class SEOAgent {
         '@id': `${this.baseUrl}/#organization`,
       },
       description: data.bio,
-      alumniOf: data.education?.map((edu: any) => ({
+      alumniOf: (data.education as Array<{ name: string }>)?.map((edu) => ({
         '@type': 'EducationalOrganization',
         name: edu.school,
       })),
@@ -641,14 +658,14 @@ export class SEOAgent {
         name: 'Attorney',
         occupationalCategory: '23-1011.00',
       },
-      memberOf: data.associations?.map((assoc: any) => ({
+      memberOf: (data.associations as Array<{ name: string }>)?.map((assoc) => ({
         '@type': 'Organization',
         name: assoc,
       })),
     };
   }
 
-  private generateBlogSchema(data: any): SchemaMarkup {
+  private generateBlogSchema(data: Record<string, unknown>): SchemaMarkup {
     return {
       '@context': 'https://schema.org',
       '@type': 'BlogPosting',
@@ -679,7 +696,7 @@ export class SEOAgent {
       ...(data.faqSection && {
         hasPart: {
           '@type': 'FAQPage',
-          mainEntity: data.faqSection.map((faq: any) => ({
+          mainEntity: (data.faqSection as Array<{ question: string; answer: string }>).map((faq) => ({
             '@type': 'Question',
             name: faq.question,
             acceptedAnswer: {
@@ -692,12 +709,12 @@ export class SEOAgent {
     };
   }
 
-  private generateFAQSchema(data: any): SchemaMarkup {
+  private generateFAQSchema(data: Record<string, unknown>): SchemaMarkup {
     return {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity:
-        data.questions?.map((item: any) => ({
+        (data.questions as Array<{ question: string; answer: string }>)?.map((item) => ({
           '@type': 'Question',
           name: item.question,
           acceptedAnswer: {
@@ -711,7 +728,7 @@ export class SEOAgent {
     };
   }
 
-  private generateLocalBusinessSchema(data: any): SchemaMarkup {
+  private generateLocalBusinessSchema(data: Record<string, unknown>): SchemaMarkup {
     return {
       '@context': 'https://schema.org',
       '@type': 'LocalBusiness',
@@ -751,7 +768,7 @@ export class SEOAgent {
     };
   }
 
-  private generateReviewSchema(data: any): SchemaMarkup {
+  private generateReviewSchema(data: Record<string, unknown>): SchemaMarkup {
     return {
       '@context': 'https://schema.org',
       '@type': 'Review',
@@ -773,7 +790,7 @@ export class SEOAgent {
     };
   }
 
-  private generateServiceSchema(data: any): SchemaMarkup {
+  private generateServiceSchema(data: Record<string, unknown>): SchemaMarkup {
     return {
       '@context': 'https://schema.org',
       '@type': 'Service',
@@ -790,7 +807,7 @@ export class SEOAgent {
         '@type': 'OfferCatalog',
         name: `${data.name} Services`,
         itemListElement:
-          data.services?.map((service: any) => ({
+          (data.services as Array<{ name: string; description: string; price?: string }>)?.map((service) => ({
             '@type': 'Offer',
             itemOffered: {
               '@type': 'Service',
@@ -802,7 +819,7 @@ export class SEOAgent {
     };
   }
 
-  private generateHowToSchema(data: any): SchemaMarkup {
+  private generateHowToSchema(data: Record<string, unknown>): SchemaMarkup {
     return {
       '@context': 'https://schema.org',
       '@type': 'HowTo',
@@ -816,17 +833,17 @@ export class SEOAgent {
         value: data.cost,
       },
       supply:
-        data.supplies?.map((supply: any) => ({
+        (data.supplies as Array<{ name: string }>)?.map((supply) => ({
           '@type': 'HowToSupply',
           name: supply,
         })) || [],
       tool:
-        data.tools?.map((tool: any) => ({
+        (data.tools as Array<{ name: string }>)?.map((tool) => ({
           '@type': 'HowToTool',
           name: tool,
         })) || [],
       step:
-        data.steps?.map((step: any, index: number) => ({
+        (data.steps as Array<{ name: string; text?: string; url?: string; image?: string }>)?.map((step, index) => ({
           '@type': 'HowToStep',
           name: step.name,
           text: step.text,
@@ -1150,7 +1167,19 @@ export class SEOAgent {
     return topPages;
   }
 
-  private async extractContentStrategy(topPages: any[]): Promise<any> {
+  private async extractContentStrategy(topPages: Array<{
+    url: string;
+    title: string;
+    description?: string;
+    keywords?: string[];
+    traffic?: number;
+  }>): Promise<{
+    topKeywords: string[];
+    contentTypes: string[];
+    publishingFrequency: string;
+    averageLength: number;
+    topTopics: string[];
+  }> {
     const prompt = `Analyze these competitor pages and extract their content strategy:
       ${JSON.stringify(topPages, null, 2)}
       
@@ -1227,7 +1256,23 @@ export class SEOAgent {
     }
   }
 
-  private async identifyOpportunities(contentStrategy: any, backlinks: any): Promise<any> {
+  private async identifyOpportunities(
+    contentStrategy: {
+      topKeywords: string[];
+      contentTypes: string[];
+      topTopics: string[];
+    },
+    backlinks: {
+      totalBacklinks: number;
+      referringDomains: number;
+      topSources: string[];
+    }
+  ): Promise<{
+    contentGaps: string[];
+    linkOpportunities: string[];
+    technicalImprovements: string[];
+    priorityActions: string[];
+  }> {
     const prompt = `Based on this competitor analysis, identify SEO opportunities:
       
       Content Strategy: ${JSON.stringify(contentStrategy)}
@@ -1251,7 +1296,11 @@ export class SEOAgent {
     return JSON.parse(response.choices[0].message.content || '{}');
   }
 
-  private async findContentGaps(analysis: any): Promise<ContentGap[]> {
+  private async findContentGaps(analysis: {
+    competitors: Array<{ url: string; keywords: string[] }>;
+    currentKeywords: string[];
+    practiceAreas: string[];
+  }): Promise<ContentGap[]> {
     const gaps: ContentGap[] = [];
 
     // Analyze missing topics
@@ -1370,7 +1419,15 @@ export class SEOAgent {
     return mockNews;
   }
 
-  private async analyzeNewsRelevance(article: any, practiceArea: string): Promise<boolean> {
+  private async analyzeNewsRelevance(
+    article: {
+      title: string;
+      description?: string;
+      content?: string;
+      keywords?: string[];
+    },
+    practiceArea: string
+  ): Promise<boolean> {
     const prompt = `Analyze if this news article is relevant for a law firm's ${practiceArea} practice area blog:
       Title: ${article.title}
       Summary: ${article.summary}
@@ -1399,7 +1456,10 @@ export class SEOAgent {
     return [];
   }
 
-  private isViralContent(post: any): boolean {
+  private isViralContent(post: {
+    engagement?: { likes?: number; shares?: number; comments?: number };
+    views?: number;
+  }): boolean {
     const engagementRate = (post.likes + post.comments + post.shares) / post.views;
     return engagementRate > 0.05 || post.views > 10000;
   }

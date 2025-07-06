@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Script from 'next/script';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Phone, ArrowRight, MapPin, Users, Award, Scale, Shield, Heart, Target, Briefcase } from 'lucide-react';
-import { generateAboutPageSchema, generateOrganizationSchema } from '@/components/SEO/schemas';
+import { generateOrganizationSchema } from '@/components/SEO/schemas';
 import { TRADEMARK } from '@/lib/constants/trademark';
 
 export default function AboutPage() {
@@ -33,7 +33,7 @@ export default function AboutPage() {
     },
     {
       title: 'I FIGHT (YO PELEO)',
-      description: '"YO PELEO" – We are dedicated to fighting for our clients and our team with passion and commitment',
+      description: '&ldquo;YO PELEO&rdquo; – We are dedicated to fighting for our clients and our team with passion and commitment',
       icon: <Scale className="h-8 w-8" />,
     },
   ];
@@ -115,8 +115,8 @@ export default function AboutPage() {
                 Fighting for You Since 2011
               </p>
               <p className="text-lg mb-12 text-gray-300 max-w-3xl mx-auto">
-                {TRADEMARK.YO_PELEO_POR_TI} - From humble beginnings to becoming North Carolina's trusted voice for justice,
-                we've built our reputation on dedication, integrity, and results.
+                {TRADEMARK.YO_PELEO_POR_TI} - From humble beginnings to becoming North Carolina&apos;s trusted voice for justice,
+                we&apos;ve built our reputation on dedication, integrity, and results.
               </p>
 
               {/* Stats */}
@@ -172,12 +172,12 @@ export default function AboutPage() {
                       regardless of their background or circumstances.
                     </p>
                     <p className="text-gray-300 leading-relaxed mb-6">
-                      What started as a solo practice in Raleigh has grown into one of North Carolina's most 
+                      What started as a solo practice in Raleigh has grown into one of North Carolina&apos;s most 
                       innovative law firms, with four offices across NC and Florida. Our growth has been driven 
                       by our unwavering commitment to our clients and our core values.
                     </p>
                     <p className="text-gray-300 leading-relaxed mb-8">
-                      Today, we're proud to be pioneers in combining traditional legal expertise with cutting-edge 
+                      Today, we&apos;re proud to be pioneers in combining traditional legal expertise with cutting-edge 
                       technology, including AI-powered assistants that help us provide faster, more efficient 
                       service while maintaining the personal touch our clients deserve.
                     </p>
@@ -186,7 +186,7 @@ export default function AboutPage() {
                   <div className="bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-sm rounded-2xl p-8 border border-primary/20">
                     <h3 className="text-2xl font-bold text-primary mb-4">{TRADEMARK.YO_PELEO_POR_TI}</h3>
                     <p className="text-gray-300">
-                      Our motto "I Fight For You" isn't just words - it's our promise to every client who walks 
+                      Our motto &ldquo;I Fight For You&rdquo; isn\&apos;t just words - it&apos;s our promise to every client who walks 
                       through our doors. From the courtroom to the conference room, we fight tirelessly for justice.
                     </p>
                   </div>
@@ -307,7 +307,7 @@ export default function AboutPage() {
                   Our Commitment to <span className="text-primary">Innovation</span>
                 </h2>
                 <p className="text-lg text-gray-300 leading-relaxed text-center max-w-3xl mx-auto">
-                  As pioneers in AI-enhanced legal services, we're committed to using technology responsibly 
+                  As pioneers in AI-enhanced legal services, we\&apos;re committed to using technology responsibly 
                   to improve access to justice. Our AI assistants work alongside our attorneys to provide 
                   faster responses, more accurate case analysis, and better outcomes for our clients.
                 </p>

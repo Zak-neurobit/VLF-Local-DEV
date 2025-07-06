@@ -34,12 +34,12 @@ export default function DurhamWorkersCompensationLawyerPage() {
             {/* Hero Section */}
             <section>
               <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-                Durham\'s Top Workers\' Compensation Lawyer - 60+ Years Winning Cases
+                Durham&apos;s Top Workers\&apos; Compensation Lawyer - 60+ Years Winning Cases
               </h1>
               <p className="text-xl text-gray-700">
-                When you need the best workers\' compensation lawyer in Durham, Durham County, North Carolina, 
+                When you need the best workers&apos; compensation lawyer in Durham, Durham County, North Carolina, 
                 Vasquez Law Firm delivers results. With over 60 years of combined experience and thousands of successful cases, 
-                we're the law firm Durham residents trust most.
+                we\&apos;re the law firm Durham residents trust most.
               </p>
             </section>
             {/* Local Expertise */}
@@ -71,10 +71,10 @@ export default function DurhamWorkersCompensationLawyerPage() {
             {/* Service Areas */}
             <section>
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
-                Workers\' Compensation Lawyer Services in Durham
+                Workers\&apos; Compensation Lawyer Services in Durham
               </h2>
               <p className="text-lg mb-4">
-                Our Durham workers\' compensation lawyers handle all types of cases throughout Durham County:
+                Our Durham workers&apos; compensation lawyers handle all types of cases throughout Durham County:
               </p>
               <div className="bg-[#6B1F2E] text-white p-8 rounded-lg">
                 <p className="text-lg mb-4">Serving all Durham zip codes:</p>
@@ -119,14 +119,14 @@ export default function DurhamWorkersCompensationLawyerPage() {
                 <p className="font-semibold mb-2">Main Courthouse:</p>
                 <p className="text-gray-700">510 S Dillard St, Durham, NC 27701</p>
                 <p className="mt-4 text-gray-600">
-                  Our workers\' compensation lawyers regularly appear in Durham County courts and know the local procedures inside and out.
+                  Our workers&apos; compensation lawyers regularly appear in Durham County courts and know the local procedures inside and out.
                 </p>
               </div>
             </section>
             {/* CTA Section */}
             <section className="bg-[#6B1F2E] text-white p-8 rounded-lg text-center">
               <h2 className="text-3xl font-bold mb-4">
-                Need a Workers\' Compensation Lawyer in Durham? Get Help Now!
+                Need a Workers\&apos; Compensation Lawyer in Durham? Get Help Now!
               </h2>
               <p className="text-xl mb-6">
                 Free consultation • Se habla español • No fees unless we win (PI/WC)
@@ -209,7 +209,7 @@ export default function DurhamWorkersCompensationLawyerPage() {
                 name: `What areas near Durham do you serve?`,
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: `We serve all of Durham County including Durham, Chapel Hill, Morrisville, Research Triangle Park, Hillsborough, and surrounding areas. With 60+ years of experience, we're the trusted choice throughout the region.`
+                  text: `We serve all of Durham County including Durham, Chapel Hill, Morrisville, Research Triangle Park, Hillsborough, and surrounding areas. With 60+ years of experience, we\'re the trusted choice throughout the region.`
                 }
               },
               {

@@ -26,7 +26,13 @@ export interface ConversationHistoryResponse {
       role: string;
       content: string;
       createdAt: Date;
-      metadata: any;
+      metadata: {
+        quickResponse?: boolean;
+        intent?: string;
+        sentiment?: 'positive' | 'negative' | 'neutral';
+        extractedInfo?: Record<string, string | number | boolean>;
+        timestamp?: string;
+      } | null;
     }>;
     user: {
       id: string;

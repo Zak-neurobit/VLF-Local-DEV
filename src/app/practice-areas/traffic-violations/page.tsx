@@ -186,7 +186,7 @@ export default function TrafficViolationsPage() {
             <section>
               <h2 className="text-3xl font-bold mb-6 text-primary">Why Fight Your Traffic Ticket?</h2>
               <p className="text-lg mb-6">
-                That "simple" speeding ticket can cost thousands in increased insurance rates, risk your license, and even affect employment. Don't just pay it - fight it with experienced attorneys who know how to win.
+                That &quot;simple&quot; speeding ticket can cost thousands in increased insurance rates, risk your license, and even affect employment. Don&apos;t just pay it - fight it with experienced attorneys who know how to win.
               </p>
               
               <div className="grid md:grid-cols-2 gap-6 mt-8">
@@ -204,16 +204,16 @@ export default function TrafficViolationsPage() {
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Affordable Flat Fees</h3>
-                  <p className="text-gray-300">Clear, upfront pricing that's often less than your insurance increase would be.</p>
+                  <p className="text-gray-300">Clear, upfront pricing that\&apos;s often less than your insurance increase would be.</p>
                 </div>
               </div>
             </section>
 
             {/* NC Points System */}
             <section>
-              <h2 className="text-3xl font-bold mb-6 text-primary">Understanding NC's Point System</h2>
+              <h2 className="text-3xl font-bold mb-6 text-primary">Understanding NC&apos;s Point System</h2>
               <p className="text-lg mb-6">
-                North Carolina uses both DMV points (affecting your license) and insurance points (affecting your rates). Here's what common violations cost:
+                North Carolina uses both DMV points (affecting your license) and insurance points (affecting your rates). Here&apos;s what common violations cost:
               </p>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
@@ -251,7 +251,7 @@ export default function TrafficViolationsPage() {
                   <span className="text-primary text-2xl font-bold mr-4">1.</span>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Free Ticket Review</h3>
-                    <p className="text-gray-300">Send us your ticket for a free evaluation. We'll explain your options and likely outcomes.</p>
+                    <p className="text-gray-300">Send us your ticket for a free evaluation. We&apos;ll explain your options and likely outcomes.</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -282,7 +282,7 @@ export default function TrafficViolationsPage() {
             <section>
               <h2 className="text-3xl font-bold mb-6 text-primary">We Handle Tickets in All NC Counties</h2>
               <p className="text-lg mb-8">
-                Got a ticket anywhere in North Carolina? We've got you covered. Our attorneys regularly appear in traffic courts across all 100 counties.
+                Got a ticket anywhere in North Carolina? We&apos;ve got you covered. Our attorneys regularly appear in traffic courts across all 100 counties.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20">

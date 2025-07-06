@@ -96,7 +96,7 @@ export default function MentalHealthClaimsPage() {
             Your Mental Health Is Just as Important as Physical Health
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Don't suffer in silence. Workplace trauma causing mental health conditions deserves the
+            Don&apos;t suffer in silence. Workplace trauma causing mental health conditions deserves the
             same recognition and compensation as physical injuries. We fight the stigma and get you
             help.
           </p>

@@ -331,7 +331,7 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data
             Get Legal Help in {city} Today
           </Heading>
           <Text size="xl" color="white" className="mb-8 opacity-90">
-            Don't face your legal challenges alone. Our experienced attorneys are ready to fight
+            Don&apos;t face your legal challenges alone. Our experienced attorneys are ready to fight
             for you. Free consultation • Se habla español • Payment plans available
           </Text>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

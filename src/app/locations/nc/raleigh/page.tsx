@@ -21,7 +21,7 @@ export default function RaleighHubPage() {
         <div className="space-y-12">
           <section>
             <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-              Raleigh's Premier Law Firm - Vasquez Law
+              Raleigh&apos;s Premier Law Firm - Vasquez Law
             </h1>
             <p className="text-xl text-gray-700">
               Serving Raleigh and all of Wake County with 60+ years of legal excellence. 

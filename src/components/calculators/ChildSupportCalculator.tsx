@@ -60,7 +60,7 @@ export function ChildSupportCalculator() {
     const totalAdditional =
       inputs.healthInsurance + inputs.childcare + inputs.extraordinaryExpenses;
 
-    // Non-custodial parent&apos;s share
+    // Non-custodial parent's share
     const nonCustodialBasic = basicObligation * nonCustodialShare;
     const nonCustodialAdditional = totalAdditional * nonCustodialShare;
 

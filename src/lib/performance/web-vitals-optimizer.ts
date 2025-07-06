@@ -379,8 +379,9 @@ ${recommendations.length > 0 ? recommendations.map(rec => `- ${rec}`).join('\n')
       try {
         const rules = Array.from(sheet.cssRules || []);
         rules.forEach(rule => {
-          if (rule instanceof CSSFontFaceRule && !rule.style.fontDisplay) {
-            rule.style.fontDisplay = 'swap';
+          if (rule instanceof CSSFontFaceRule) {
+            // Set font-display using setProperty
+            (rule.style as any).setProperty('font-display', 'swap');
           }
         });
       } catch (e) {
@@ -395,10 +396,10 @@ ${recommendations.length > 0 ? recommendations.map(rec => `- ${rec}`).join('\n')
     images.forEach(img => {
       img.addEventListener('load', () => {
         if (!img.hasAttribute('width')) {
-          img.setAttribute('width', img.naturalWidth.toString());
+          img.setAttribute('width', (img as HTMLImageElement).naturalWidth.toString());
         }
         if (!img.hasAttribute('height')) {
-          img.setAttribute('height', img.naturalHeight.toString());
+          img.setAttribute('height', (img as HTMLImageElement).naturalHeight.toString());
         }
       });
     });

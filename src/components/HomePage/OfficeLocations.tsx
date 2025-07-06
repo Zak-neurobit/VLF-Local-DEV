@@ -249,8 +249,8 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
         >
           <div className="mb-8">
             <p className="text-lg text-gray-300 italic mb-2">
-              "Open your mouth for the mute, for the rights of all who are destitute. Open your
-              mouth, judge righteously, defend the rights of the poor and needy."
+              &quot;Open your mouth for the mute, for the rights of all who are destitute. Open your
+              mouth, judge righteously, defend the rights of the poor and needy.&quot;
             </p>
             <p className="text-[#C9974D] font-semibold">— Proverbs 31:8-9</p>
           </div>

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagetsxPage() {
+export default function SmithfieldOfficeLocationPage() {
   const office = getOfficeBySlug('smithfield-office-location');
 
   return (

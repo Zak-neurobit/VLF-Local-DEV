@@ -21,7 +21,7 @@ export default function DurhamHubPage() {
         <div className="space-y-12">
           <section>
             <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-              Durham's Premier Law Firm - Vasquez Law
+              Durham&apos;s Premier Law Firm - Vasquez Law
             </h1>
             <p className="text-xl text-gray-700">
               Serving Durham and all of Durham County with 60+ years of legal excellence. 

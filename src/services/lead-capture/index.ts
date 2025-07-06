@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { notificationService } from '@/services/notifications';
 import { emailService } from '@/services/email.service';
 import { Lead, LeadStatus, LeadUrgency, PracticeArea, Contact, Prisma } from '@prisma/client';
+import type { GHLContactData } from '@/types/services';
 
 // Lead capture schemas - map to Prisma enums
 const LeadCaptureSchema = z.object({
@@ -345,7 +346,7 @@ export class LeadCaptureService {
         lastName: data.lastName || contactInfo.lastName || 'Visitor',
         email: data.email || contactInfo.email || `chat-${Date.now()}@chat.com`,
         phone: data.phone || contactInfo.phone || `000${Date.now()}`.slice(-10),
-        practiceArea: mappedPracticeArea as any,
+        practiceArea: mappedPracticeArea,
         source: 'website-chat',
         language: contactInfo.language || 'en',
         message: data.messages.map(m => `${m.role}: ${m.content}`).join('\n'),
@@ -370,7 +371,16 @@ export class LeadCaptureService {
 
   // Extract contact info from chat messages
   private extractContactInfoFromChat(messages: Array<{ role: string; content: string }>) {
-    const info: any = {
+    const info: {
+      firstName: string;
+      lastName: string;
+      language: string;
+      urgency: string;
+      phone?: string;
+      email?: string;
+      practiceArea?: string;
+      caseDetails?: string;
+    } = {
       firstName: 'Chat',
       lastName: 'Visitor',
       language: 'en',
@@ -618,7 +628,7 @@ export class LeadCaptureService {
           lastName: contact.name?.split(' ')[1] || 'Lead',
           email: contact.email || `phone-${contact.id}@lead.com`,
           phone: data.fromNumber,
-          practiceArea: (practiceArea as any) || 'immigration',
+          practiceArea: practiceArea || 'immigration',
           source: 'phone',
           language: 'en',
           urgency: (data.urgency as 'immediate' | 'soon' | 'planning') || 'planning',

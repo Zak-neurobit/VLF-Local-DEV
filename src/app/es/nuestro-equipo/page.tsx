@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { Phone, ArrowRight, Users, Award, Heart, Star } from 'lucide-react';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { motion } from 'framer-motion';
-import { TRADEMARK } from '@/lib/constants/trademark';
 
 const staffMembers = [
   {
@@ -175,7 +174,7 @@ export default function Page() {
                   <div className="p-8">
                     <h3 className="text-2xl font-bold text-white mb-2">{member.name}</h3>
                     <p className="text-primary font-semibold mb-4">{member.role}</p>
-                    <p className="text-gray-300 italic">"{member.quote}"</p>
+                    <p className="text-gray-300 italic">&ldquo;{member.quote}&rdquo;</p>
                   </div>
                 </motion.div>
               ))}

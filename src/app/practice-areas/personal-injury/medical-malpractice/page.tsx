@@ -154,7 +154,7 @@ export default function MedicalMalpracticePage() {
                   Understanding Medical Malpractice
                 </h2>
                 <p className="text-gray-700 mb-6">
-                  Medical malpractice occurs when a healthcare provider's negligence causes injury
+                  Medical malpractice occurs when a healthcare provider&apos;s negligence causes injury
                   to a patient. This includes errors in diagnosis, treatment, aftercare, or health
                   management. To have a valid claim, we must prove the provider violated the
                   accepted standard of care.
@@ -225,7 +225,7 @@ export default function MedicalMalpracticePage() {
                         <h4 className="text-lg font-bold text-burgundy-900 mb-3">Birth Injuries</h4>
                         <ul className="text-gray-700 space-y-1">
                           <li>• Cerebral palsy</li>
-                          <li>• Erb's palsy</li>
+                          <li>• Erb&apos;s palsy</li>
                           <li>• Brain damage</li>
                           <li>• Failure to perform C-section</li>
                           <li>• Improper use of forceps</li>
@@ -281,7 +281,7 @@ export default function MedicalMalpracticePage() {
                       <h3 className="text-xl font-bold text-burgundy-900 mb-2">Causation</h3>
                       <p className="text-gray-700">
                         The breach of the standard of care directly caused or substantially
-                        contributed to the patient's injury or death.
+                        contributed to the patient&apos;s injury or death.
                       </p>
                     </div>
                   </div>
@@ -510,8 +510,8 @@ export default function MedicalMalpracticePage() {
                     </h3>
                     <p className="text-gray-700">
                       Medicine involves risks, and not every bad outcome is malpractice. We have a
-                      valid case when a healthcare provider's negligence caused harm that
-                      wouldn&apos;t have occurred with proper care. Our free consultation can help
+                      valid case when a healthcare provider&apos;s negligence caused harm that
+                      wouldn\&apos;t have occurred with proper care. Our free consultation can help
                       determine if you have a case.
                     </p>
                   </div>
@@ -544,8 +544,8 @@ export default function MedicalMalpracticePage() {
                     </h3>
                     <p className="text-gray-700">
                       North Carolina caps non-economic damages at $500,000 (adjusted for inflation).
-                      Florida's caps were ruled unconstitutional. Economic damages are not capped in
-                      either state. We'll explain how caps may affect your case.
+                      Florida&apos;s caps were ruled unconstitutional. Economic damages are not capped in
+                      either state. We&apos;ll explain how caps may affect your case.
                     </p>
                   </div>
                 </div>
@@ -563,7 +563,7 @@ export default function MedicalMalpracticePage() {
               Get Justice for Medical Negligence
             </h2>
             <p className="text-xl text-gray-700 mb-8">
-              If you or a loved one has been harmed by medical malpractice, don't wait. Time limits
+              If you or a loved one has been harmed by medical malpractice, don\&apos;t wait. Time limits
               apply, and evidence can disappear. Contact our experienced medical malpractice
               attorneys today for a free, confidential case review.
             </p>

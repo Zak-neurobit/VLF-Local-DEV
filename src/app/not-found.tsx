@@ -10,9 +10,9 @@ export default function NotFound() {
   const content = {
     en: {
       title: '404 - Page Not Found',
-      subtitle: 'Oops! The page you&apos;re looking for doesn&apos;t exist.',
+      subtitle: 'Oops! The page you\'re looking for doesn\'t exist.',
       description:
-        "It seems you've taken a wrong turn. Don't worry, our AI assistant can help you find what you need.",
+        "It seems you\'ve taken a wrong turn. Don\'t worry, our AI assistant can help you find what you need.",
       homeButton: 'Go Home',
       contactButton: 'Contact Us',
       searchPlaceholder: 'Search for legal services...',

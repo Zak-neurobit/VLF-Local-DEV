@@ -14,7 +14,16 @@ jest.mock('framer-motion', () => ({
       whileTap,
       transition,
       ...props
-    }: any) => <div {...props}>{children}</div>,
+    }: {
+      children?: React.ReactNode;
+      initial?: Record<string, unknown>;
+      animate?: Record<string, unknown>;
+      exit?: Record<string, unknown>;
+      whileHover?: Record<string, unknown>;
+      whileTap?: Record<string, unknown>;
+      transition?: Record<string, unknown>;
+      [key: string]: unknown;
+    }) => <div {...props}>{children}</div>,
     button: ({
       children,
       initial,
@@ -24,9 +33,18 @@ jest.mock('framer-motion', () => ({
       whileTap,
       transition,
       ...props
-    }: any) => <button {...props}>{children}</button>,
+    }: {
+      children?: React.ReactNode;
+      initial?: Record<string, unknown>;
+      animate?: Record<string, unknown>;
+      exit?: Record<string, unknown>;
+      whileHover?: Record<string, unknown>;
+      whileTap?: Record<string, unknown>;
+      transition?: Record<string, unknown>;
+      [key: string]: unknown;
+    }) => <button {...props}>{children}</button>,
   },
-  AnimatePresence: ({ children }: any) => <>{children}</>,
+  AnimatePresence: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
 }));
 
 // Mock ChatInterface
@@ -127,7 +145,7 @@ describe('ChatWidget', () => {
     const originalURLSearchParams = window.URLSearchParams;
     window.URLSearchParams = jest.fn().mockImplementation(() => ({
       get: jest.fn(key => (key === 'lang' ? 'es' : null)),
-    })) as any;
+    })) as unknown as typeof URLSearchParams;
 
     render(<ChatWidget />);
 

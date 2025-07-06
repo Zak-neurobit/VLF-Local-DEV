@@ -196,7 +196,7 @@ export default function CriminalDefensePage() {
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">24/7 Emergency Response</h3>
-                  <p className="text-gray-300">Arrested at 2 AM? We answer. Time is critical in criminal cases, and we're always available.</p>
+                  <p className="text-gray-300">Arrested at 2 AM? We answer. Time is critical in criminal cases, and we\&apos;re always available.</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Trial-Ready Defense</h3>
@@ -248,7 +248,7 @@ export default function CriminalDefensePage() {
             <section>
               <h2 className="text-3xl font-bold mb-6 text-primary">Defending Clients Across All 100 NC Counties</h2>
               <p className="text-lg mb-8">
-                From the mountains to the coast, we provide expert criminal defense representation throughout North Carolina. No matter where you're charged, we're there.
+                From the mountains to the coast, we provide expert criminal defense representation throughout North Carolina. No matter where you&apos;re charged, we&apos;re there.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20">

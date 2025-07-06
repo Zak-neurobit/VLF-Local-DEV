@@ -48,7 +48,7 @@ export default function TestimonialsPage() {
                   </div>
                 </div>
                 
-                <p className="text-gray-700 mb-4 italic">"{testimonial.review}"</p>
+                <p className="text-gray-700 mb-4 italic">&quot;{testimonial.review}&quot;</p>
                 
                 <div className="border-t pt-4">
                   <p className="font-semibold text-[#1B3B5A]">{testimonial.name}</p>
@@ -68,7 +68,7 @@ export default function TestimonialsPage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Need Legal Help?</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Join the thousands of satisfied clients we've helped. 
+              Join the thousands of satisfied clients we\&apos;ve helped. 
               Contact our experienced attorneys today for a free consultation.
             </p>
           </div>
@@ -90,7 +90,7 @@ export default function TestimonialsPage() {
                 </svg>
               </div>
               <h3 className="font-semibold text-lg mb-2">Available 24/7</h3>
-              <p className="text-gray-600">We're always here when you need us, day or night</p>
+              <p className="text-gray-600">We&apos;re always here when you need us, day or night</p>
             </div>
             <div className="text-center">
               <div className="bg-[#1B3B5A] text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">

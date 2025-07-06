@@ -11,7 +11,13 @@ interface Message {
   role: 'user' | 'assistant' | 'system';
   content: string;
   timestamp: string;
-  metadata?: any;
+  metadata?: {
+    quickResponse?: boolean;
+    intent?: string;
+    sentiment?: 'positive' | 'negative' | 'neutral';
+    extractedInfo?: Record<string, string | number | boolean>;
+    timestamp?: string;
+  } | null;
 }
 
 interface ChatWidgetProps {

@@ -30,7 +30,6 @@ import GHLContactForm from '@/components/forms/GHLContactForm';
 
 export default function ModernDemoPage() {
   const [activeVersion, setActiveVersion] = useState(1);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showCaseEvaluator, setShowCaseEvaluator] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
 

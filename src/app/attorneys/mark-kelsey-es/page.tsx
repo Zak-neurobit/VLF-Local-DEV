@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagetsxPage() {
+export default function MarkKelseyEsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -287,7 +287,7 @@ export default function PagetsxPage() {
               knowsLanguage: ['English', 'Spanish'],
               alumniOf: {
                 '@type': 'CollegeOrUniversity',
-                name: 'North Carolina).</p>\n<p>Jillian was given a full-ride scholarship to the University of North Carolina at Chapel Hill where she graduated in 2010. She then went on to graduate from Campbell Law School and passed the North Carolina State Bar in August of 2013. A few months later Jillian started her law career at Butler &amp; Quinn',
+                name: 'University of North Carolina',
               },
             },
             {

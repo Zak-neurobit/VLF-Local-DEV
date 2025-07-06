@@ -34,12 +34,12 @@ export default function GreensboroWorkersCompensationLawyerPage() {
             {/* Hero Section */}
             <section>
               <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-                Greensboro\'s Top Workers\' Compensation Lawyer - 60+ Years Winning Cases
+                Greensboro&apos;s Top Workers\&apos; Compensation Lawyer - 60+ Years Winning Cases
               </h1>
               <p className="text-xl text-gray-700">
-                When you need the best workers\' compensation lawyer in Greensboro, Guilford County, North Carolina, 
+                When you need the best workers&apos; compensation lawyer in Greensboro, Guilford County, North Carolina, 
                 Vasquez Law Firm delivers results. With over 60 years of combined experience and thousands of successful cases, 
-                we're the law firm Greensboro residents trust most.
+                we\&apos;re the law firm Greensboro residents trust most.
               </p>
             </section>
             {/* Local Expertise */}
@@ -71,10 +71,10 @@ export default function GreensboroWorkersCompensationLawyerPage() {
             {/* Service Areas */}
             <section>
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
-                Workers\' Compensation Lawyer Services in Greensboro
+                Workers\&apos; Compensation Lawyer Services in Greensboro
               </h2>
               <p className="text-lg mb-4">
-                Our Greensboro workers\' compensation lawyers handle all types of cases throughout Guilford County:
+                Our Greensboro workers&apos; compensation lawyers handle all types of cases throughout Guilford County:
               </p>
               <div className="bg-[#6B1F2E] text-white p-8 rounded-lg">
                 <p className="text-lg mb-4">Serving all Greensboro zip codes:</p>
@@ -119,14 +119,14 @@ export default function GreensboroWorkersCompensationLawyerPage() {
                 <p className="font-semibold mb-2">Main Courthouse:</p>
                 <p className="text-gray-700">201 S Eugene St, Greensboro, NC 27401</p>
                 <p className="mt-4 text-gray-600">
-                  Our workers\' compensation lawyers regularly appear in Guilford County courts and know the local procedures inside and out.
+                  Our workers&apos; compensation lawyers regularly appear in Guilford County courts and know the local procedures inside and out.
                 </p>
               </div>
             </section>
             {/* CTA Section */}
             <section className="bg-[#6B1F2E] text-white p-8 rounded-lg text-center">
               <h2 className="text-3xl font-bold mb-4">
-                Need a Workers\' Compensation Lawyer in Greensboro? Get Help Now!
+                Need a Workers\&apos; Compensation Lawyer in Greensboro? Get Help Now!
               </h2>
               <p className="text-xl mb-6">
                 Free consultation • Se habla español • No fees unless we win (PI/WC)
@@ -152,7 +152,7 @@ export default function GreensboroWorkersCompensationLawyerPage() {
             '@context': 'https://schema.org',
             '@type': 'Attorney',
             name: `Vasquez Law Firm - Greensboro Workers\' Compensation Lawyer`,
-            description: `Leading workers\' compensation lawyer serving Greensboro and Guilford County, North Carolina`,
+            description: `Leading workers' compensation lawyer serving Greensboro and Guilford County, North Carolina`,
             url: `https://www.vasquezlawfirm.com/locations/nc/greensboro/workers-compensation-lawyer`,
             telephone: '+1-844-967-3536',
             address: {
@@ -198,7 +198,7 @@ export default function GreensboroWorkersCompensationLawyerPage() {
             mainEntity: [
               {
                 '@type': 'Question',
-                name: `How much does a workers\' compensation lawyer cost in Greensboro, NC?`,
+                name: `How much does a workers' compensation lawyer cost in Greensboro, NC?`,
                 acceptedAnswer: {
                   '@type': 'Answer',
                   text: `At Vasquez Law Firm, we offer free consultations for all Greensboro residents. We work on contingency - no fees unless we win your case.`
@@ -209,7 +209,7 @@ export default function GreensboroWorkersCompensationLawyerPage() {
                 name: `What areas near Greensboro do you serve?`,
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: `We serve all of Guilford County including Greensboro, High Point, Burlington, Jamestown, Summerfield, and surrounding areas. With 60+ years of experience, we're the trusted choice throughout the region.`
+                  text: `We serve all of Guilford County including Greensboro, High Point, Burlington, Jamestown, Summerfield, and surrounding areas. With 60+ years of experience, we\'re the trusted choice throughout the region.`
                 }
               },
               {

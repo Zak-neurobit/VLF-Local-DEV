@@ -192,7 +192,7 @@ export default function FreeConsultationPage() {
                           <option value="immigration">Immigration</option>
                           <option value="personal-injury">Personal Injury</option>
                           <option value="criminal-defense">Criminal Defense</option>
-                          <option value="workers-comp">Workers' Compensation</option>
+                          <option value="workers-comp">Workers&apos; Compensation</option>
                           <option value="family-law">Family Law</option>
                           <option value="other">Other</option>
                         </select>

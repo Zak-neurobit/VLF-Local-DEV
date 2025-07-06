@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagetsxPage() {
+export default function WilliamVasquezAttorneyPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}

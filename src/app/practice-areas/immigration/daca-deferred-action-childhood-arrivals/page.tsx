@@ -77,7 +77,7 @@ export default function DacaPage() {
     {
       question: 'How long does DACA protection last?',
       answer:
-        'DACA protection is granted for 2 years and can be renewed. It&apos;s important to apply for renewal 120-150 days before expiration.',
+        "DACA protection is granted for 2 years and can be renewed. It's important to apply for renewal 120-150 days before expiration.",
     },
     {
       question: 'Can I travel outside the U.S. with DACA?',
@@ -87,12 +87,12 @@ export default function DacaPage() {
     {
       question: 'What happens if my DACA expires?',
       answer:
-        'You lose work authorization and protection from deportation. It&apos;s crucial to renew on time. We can help with late renewals in certain circumstances.',
+        "You lose work authorization and protection from deportation. It's crucial to renew on time. We can help with late renewals in certain circumstances.",
     },
     {
       question: 'Can DACA recipients apply for green cards?',
       answer:
-        'DACA doesn&apos;t directly lead to a green card, but recipients may qualify through other means like family sponsorship or certain employment categories.',
+        "DACA doesn't directly lead to a green card, but recipients may qualify through other means like family sponsorship or certain employment categories.",
     },
   ];
 
@@ -140,7 +140,7 @@ export default function DacaPage() {
                   DACA Renewal Deadline Approaching?
                 </h3>
                 <p className="text-gray-700 mb-4">
-                  Don't wait until the last minute. DACA renewals should be filed 120-150 days
+                  Don&apos;t wait until the last minute. DACA renewals should be filed 120-150 days
                   before expiration. Missing the deadline means losing work authorization and
                   protection from deportation.
                 </p>
@@ -177,7 +177,7 @@ export default function DacaPage() {
             <p className="text-gray-600">
               Our DACA attorneys understand the unique challenges faced by young immigrants and work
               tirelessly to ensure your applications are complete, accurate, and submitted on time.
-              We've helped thousands of Dreamers obtain and maintain their DACA status.
+              We&apos;ve helped thousands of Dreamers obtain and maintain their DACA status.
             </p>
           </div>
         </div>
@@ -289,7 +289,7 @@ export default function DacaPage() {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">Protect Your Dreams with DACA</h2>
             <p className="text-xl mb-8">
-              Don't risk your future. Contact our experienced DACA attorneys for professional legal
+              Don&apos;t risk your future. Contact our experienced DACA attorneys for professional legal
               assistance.
             </p>
             <div className="flex flex-wrap justify-center gap-6 mb-8">

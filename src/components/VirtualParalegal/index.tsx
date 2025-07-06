@@ -90,7 +90,7 @@ export default function VirtualParalegal({ language, onClose }: VirtualParalegal
 
   const content = {
     en: {
-      greeting: "Hello! I'm your AI paralegal assistant. How can I help you today?",
+      greeting: "Hello! I\'m your AI paralegal assistant. How can I help you today?",
       listening: "I'm listening...",
       thinking: 'Let me think about that...',
       askName: 'May I have your name?',
@@ -288,7 +288,7 @@ export default function VirtualParalegal({ language, onClose }: VirtualParalegal
                             onClick={() =>
                               handleInputChange({
                                 target: { value: `I need help with ${area}` },
-                              } as any)
+                              } as React.ChangeEvent<HTMLInputElement>)
                             }
                             className="rounded-lg bg-white/10 px-4 py-3 text-white backdrop-blur-sm transition-all hover:bg-white/20"
                           >

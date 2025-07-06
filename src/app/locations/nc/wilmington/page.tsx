@@ -21,7 +21,7 @@ export default function WilmingtonHubPage() {
         <div className="space-y-12">
           <section>
             <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-              Wilmington's Premier Law Firm - Vasquez Law
+              Wilmington&apos;s Premier Law Firm - Vasquez Law
             </h1>
             <p className="text-xl text-gray-700">
               Serving Wilmington and all of New Hanover County with 60+ years of legal excellence. 
@@ -73,7 +73,7 @@ export default function WilmingtonHubPage() {
               Wilmington - Eastern NC: Complete Legal Coverage
             </h2>
             <p className="text-xl mb-6">
-              From the mountains to the coast, we're here for you
+              From the mountains to the coast, we&apos;re here for you
             </p>
             <a href="tel:18449673536" className="inline-block bg-[#C9974D] text-white px-8 py-3 rounded-md hover:bg-[#D4A574] transition-colors font-semibold text-lg">
               Call 1-844-YO-PELEO Now

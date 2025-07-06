@@ -34,12 +34,12 @@ export default function RaleighWorkersCompensationLawyerPage() {
             {/* Hero Section */}
             <section>
               <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-                Raleigh\'s Top Workers\' Compensation Lawyer - 60+ Years Winning Cases
+                Raleigh&apos;s Top Workers\&apos; Compensation Lawyer - 60+ Years Winning Cases
               </h1>
               <p className="text-xl text-gray-700">
-                When you need the best workers\' compensation lawyer in Raleigh, Wake County, North Carolina, 
+                When you need the best workers&apos; compensation lawyer in Raleigh, Wake County, North Carolina, 
                 Vasquez Law Firm delivers results. With over 60 years of combined experience and thousands of successful cases, 
-                we're the law firm Raleigh residents trust most.
+                we\&apos;re the law firm Raleigh residents trust most.
               </p>
             </section>
             {/* Local Expertise */}
@@ -72,10 +72,10 @@ export default function RaleighWorkersCompensationLawyerPage() {
             {/* Service Areas */}
             <section>
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
-                Workers\' Compensation Lawyer Services in Raleigh
+                Workers\&apos; Compensation Lawyer Services in Raleigh
               </h2>
               <p className="text-lg mb-4">
-                Our Raleigh workers\' compensation lawyers handle all types of cases throughout Wake County:
+                Our Raleigh workers&apos; compensation lawyers handle all types of cases throughout Wake County:
               </p>
               <div className="bg-[#6B1F2E] text-white p-8 rounded-lg">
                 <p className="text-lg mb-4">Serving all Raleigh zip codes:</p>
@@ -120,14 +120,14 @@ export default function RaleighWorkersCompensationLawyerPage() {
                 <p className="font-semibold mb-2">Main Courthouse:</p>
                 <p className="text-gray-700">316 Fayetteville St, Raleigh, NC 27601</p>
                 <p className="mt-4 text-gray-600">
-                  Our workers\' compensation lawyers regularly appear in Wake County courts and know the local procedures inside and out.
+                  Our workers&apos; compensation lawyers regularly appear in Wake County courts and know the local procedures inside and out.
                 </p>
               </div>
             </section>
             {/* CTA Section */}
             <section className="bg-[#6B1F2E] text-white p-8 rounded-lg text-center">
               <h2 className="text-3xl font-bold mb-4">
-                Need a Workers\' Compensation Lawyer in Raleigh? Get Help Now!
+                Need a Workers\&apos; Compensation Lawyer in Raleigh? Get Help Now!
               </h2>
               <p className="text-xl mb-6">
                 Free consultation • Se habla español • No fees unless we win (PI/WC)
@@ -153,7 +153,7 @@ export default function RaleighWorkersCompensationLawyerPage() {
             '@context': 'https://schema.org',
             '@type': 'Attorney',
             name: `Vasquez Law Firm - Raleigh Workers\' Compensation Lawyer`,
-            description: `Leading workers\' compensation lawyer serving Raleigh and Wake County, North Carolina`,
+            description: `Leading workers' compensation lawyer serving Raleigh and Wake County, North Carolina`,
             url: `https://www.vasquezlawfirm.com/locations/nc/raleigh/workers-compensation-lawyer`,
             telephone: '+1-844-967-3536',
             address: {
@@ -203,7 +203,7 @@ export default function RaleighWorkersCompensationLawyerPage() {
             mainEntity: [
               {
                 '@type': 'Question',
-                name: `How much does a workers\' compensation lawyer cost in Raleigh, NC?`,
+                name: `How much does a workers' compensation lawyer cost in Raleigh, NC?`,
                 acceptedAnswer: {
                   '@type': 'Answer',
                   text: `At Vasquez Law Firm, we offer free consultations for all Raleigh residents. We work on contingency - no fees unless we win your case.`
@@ -214,7 +214,7 @@ export default function RaleighWorkersCompensationLawyerPage() {
                 name: `What areas near Raleigh do you serve?`,
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: `We serve all of Wake County including Raleigh, Cary, Apex, Garner, Knightdale, Wake Forest, and surrounding areas. With 60+ years of experience, we're the trusted choice throughout the region.`
+                  text: `We serve all of Wake County including Raleigh, Cary, Apex, Garner, Knightdale, Wake Forest, and surrounding areas. With 60+ years of experience, we\'re the trusted choice throughout the region.`
                 }
               },
               {

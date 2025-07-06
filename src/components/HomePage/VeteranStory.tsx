@@ -182,8 +182,8 @@ export default function VeteranStory({ language }: VeteranStoryProps) {
           viewport={{ once: true }}
           className="relative mb-20 overflow-hidden rounded-2xl bg-gradient-to-br from-[#6B1F2E]/20 to-transparent p-12 text-center backdrop-blur-sm"
         >
-          <div className="absolute -top-6 -left-6 text-8xl text-[#C9974D]/20">"</div>
-          <div className="absolute -bottom-6 -right-6 rotate-180 text-8xl text-[#C9974D]/20">"</div>
+          <div className="absolute -top-6 -left-6 text-8xl text-[#C9974D]/20">&quot;</div>
+          <div className="absolute -bottom-6 -right-6 rotate-180 text-8xl text-[#C9974D]/20">&quot;</div>
 
           <blockquote className="relative z-10">
             <p className="mb-4 text-2xl font-medium italic text-white md:text-3xl">

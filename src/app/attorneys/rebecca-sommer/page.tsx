@@ -107,7 +107,7 @@ export default function Page() {
                     Rebecca Sommer is a skilled criminal defense attorney at Vasquez Law Firm, 
                     dedicated to providing aggressive and effective representation for clients 
                     facing criminal charges. With extensive experience in North Carolina criminal law, 
-                    she fights tirelessly to protect her clients' rights and achieve the best possible outcomes.
+                    she fights tirelessly to protect her clients&apos; rights and achieve the best possible outcomes.
                   </p>
                   <p className="text-lg mb-8 text-gray-300">
                     Her practice covers all aspects of criminal defense, including DUI/DWI charges, 
@@ -152,7 +152,7 @@ export default function Page() {
                       </p>
                     </li>
                     <li className="border-l-2 border-primary pl-4">
-                      <p className="font-semibold text-white">Bachelor's Degree</p>
+                      <p className="font-semibold text-white">Bachelor&apos;s Degree</p>
                       <p className="text-gray-400 text-sm">
                         University
                       </p>
@@ -276,7 +276,7 @@ export default function Page() {
                   Facing Criminal Charges?
                 </h2>
                 <p className="text-xl mb-8 text-gray-300">
-                  Don't face the justice system alone. Contact Rebecca Sommer today for aggressive criminal defense representation.
+                  Don&apos;t face the justice system alone. Contact Rebecca Sommer today for aggressive criminal defense representation.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.a

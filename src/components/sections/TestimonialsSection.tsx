@@ -118,7 +118,7 @@ export function TestimonialsSection({
                 </div>
 
                 {/* Content */}
-                <p className="text-gray-700 mb-6 italic">"{testimonial.content}"</p>
+                <p className="text-gray-700 mb-6 italic">&quot;{testimonial.content}&quot;</p>
 
                 {/* Author Info */}
                 <div className="border-t pt-4">

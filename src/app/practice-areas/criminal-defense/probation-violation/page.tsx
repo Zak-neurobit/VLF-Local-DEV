@@ -38,7 +38,7 @@ const probationViolationFAQs = [
     answer: "Yes, you can be sentenced to jail for violating probation. The judge can activate your suspended sentence, meaning you could serve the original jail time that was suspended when you were placed on probation."
   },
   {
-    question: "What should I do if I'm accused of violating probation?",
+    question: "What should I do if I\'m accused of violating probation?",
     answer: "Contact an attorney immediately. Do not discuss the alleged violation with your probation officer or anyone else without legal representation. An experienced attorney can help you understand your options and develop a defense strategy."
   },
   {
@@ -72,11 +72,11 @@ export default function ProbationViolationPage() {
                 <p className="text-xl text-gray-700 leading-relaxed mb-6">
                   Being accused of violating probation is a serious matter that can result in jail time, 
                   extended probation, and other severe consequences. At Vasquez Law Firm, our experienced 
-                  criminal defense attorneys understand the stress and uncertainty you're facing. We're here 
+                  criminal defense attorneys understand the stress and uncertainty you&apos;re facing. We&apos;re here 
                   to protect your rights and fight for your freedom.
                 </p>
                 <p className="text-lg text-gray-600">
-                  Whether you're facing allegations of a technical violation or a new criminal charge while 
+                  Whether you\&apos;re facing allegations of a technical violation or a new criminal charge while 
                   on probation, we have the knowledge and experience to help you navigate this challenging 
                   situation and achieve the best possible outcome.
                 </p>
@@ -190,7 +190,7 @@ export default function ProbationViolationPage() {
                   <div className="ml-3">
                     <p className="text-sm text-yellow-700">
                       The consequences for violating probation can be severe and life-changing. 
-                      Don't face these charges alone.
+                      Don&apos;t face these charges alone.
                     </p>
                   </div>
                 </div>
@@ -294,7 +294,7 @@ export default function ProbationViolationPage() {
                   </svg>
                   <div className="text-left">
                     <h3 className="font-semibold mb-1">24/7 Availability</h3>
-                    <p className="text-white/80">We're here when you need us most, day or night</p>
+                    <p className="text-white/80">We&apos;re here when you need us most, day or night</p>
                   </div>
                 </div>
                 

@@ -84,7 +84,7 @@ export default function ConstructionSiteInjuriesPage() {
             </p>
             <p className="text-lg mb-8 max-w-3xl mx-auto">
               Construction workers face dangerous conditions daily. When safety failures lead to
-              serious injuries, our experienced attorneys fight for your workers' compensation
+              serious injuries, our experienced attorneys fight for your workers&apos; compensation
               benefits and explore third-party claims for maximum compensation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -126,16 +126,16 @@ export default function ConstructionSiteInjuriesPage() {
                     <li>✓ Get emergency medical treatment</li>
                     <li>✓ Document the accident scene</li>
                     <li>✓ Get witness contact information</li>
-                    <li>✓ File workers' comp claim within 30 days</li>
+                    <li>✓ File workers&apos; comp claim within 30 days</li>
                   </ul>
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-yellow-800 mb-2">Protect Your Rights:</h3>
                   <ul className="text-yellow-700 space-y-1">
-                    <li>• Don't sign insurance papers</li>
-                    <li>• Don't give recorded statements</li>
+                    <li>• Don&apos;t sign insurance papers</li>
+                    <li>• Don&apos;t give recorded statements</li>
                     <li>• Keep all medical records</li>
-                    <li>• Don't return to work too soon</li>
+                    <li>• Don&apos;t return to work too soon</li>
                     <li>• Contact an attorney immediately</li>
                   </ul>
                 </div>
@@ -299,7 +299,7 @@ export default function ConstructionSiteInjuriesPage() {
                   Third-Party Liability in Construction Accidents
                 </h2>
                 <p className="text-gray-700 mb-6">
-                  While workers' compensation provides benefits regardless of fault, it limits
+                  While workers&apos; compensation provides benefits regardless of fault, it limits
                   recovery. Third-party claims allow full compensation for all damages when others
                   contributed to your injury:
                 </p>
@@ -330,7 +330,7 @@ export default function ConstructionSiteInjuriesPage() {
                       </h3>
                       <p className="text-gray-700">
                         When another company&apos;s workers create hazardous conditions that cause
-                        your injury, they can be held responsible outside workers' comp.
+                        your injury, they can be held responsible outside workers&apos; comp.
                       </p>
                     </div>
                   </div>
@@ -373,8 +373,8 @@ export default function ConstructionSiteInjuriesPage() {
                 </h2>
                 <p className="text-gray-700 mb-6">
                   OSHA safety violations often contribute to construction accidents. While OSHA
-                  violations don't create a private right to sue, they provide powerful evidence in
-                  workers' comp and third-party claims:
+                  violations don\&apos;t create a private right to sue, they provide powerful evidence in
+                  workers&apos; comp and third-party claims:
                 </p>
 
                 <div className="grid md:grid-cols-2 gap-6">
@@ -458,7 +458,7 @@ export default function ConstructionSiteInjuriesPage() {
                       </li>
                       <li className="flex items-start">
                         <CheckCircle className="w-5 h-5 text-green-600 mr-2 mt-1" />
-                        <span>Spouse's loss of consortium</span>
+                        <span>Spouse&apos;s loss of consortium</span>
                       </li>
                       <li className="flex items-start">
                         <CheckCircle className="w-5 h-5 text-green-600 mr-2 mt-1" />
@@ -512,7 +512,7 @@ export default function ConstructionSiteInjuriesPage() {
                       Can I sue my employer for a construction accident?
                     </h3>
                     <p className="text-gray-700">
-                      Generally no - workers' comp is your exclusive remedy against your employer.
+                      Generally no - workers&apos; comp is your exclusive remedy against your employer.
                       However, you may have claims against equipment manufacturers, subcontractors,
                       property owners, or others who contributed to your injury.
                     </p>
@@ -523,8 +523,8 @@ export default function ConstructionSiteInjuriesPage() {
                       What if I was partially at fault for my construction accident?
                     </h3>
                     <p className="text-gray-700">
-                      Workers' compensation covers you regardless of fault. For third-party claims,
-                      North Carolina's contributory negligence law is strict, but many construction
+                      Workers&apos; compensation covers you regardless of fault. For third-party claims,
+                      North Carolina&apos;s contributory negligence law is strict, but many construction
                       accidents involve clear violations by others that overcome this defense.
                     </p>
                   </div>
@@ -534,7 +534,7 @@ export default function ConstructionSiteInjuriesPage() {
                       How long do I have to file a construction injury claim?
                     </h3>
                     <p className="text-gray-700">
-                      Report to your employer within 30 days and file workers' comp within 2 years.
+                      Report to your employer within 30 days and file workers&apos; comp within 2 years.
                       Third-party personal injury claims have a 3-year statute of limitations.
                       Acting quickly preserves evidence and protects your rights.
                     </p>
@@ -542,10 +542,10 @@ export default function ConstructionSiteInjuriesPage() {
 
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      What if I&apos;m an undocumented construction worker?
+                      What if I\&apos;m an undocumented construction worker?
                     </h3>
                     <p className="text-gray-700">
-                      You have the same rights to workers' compensation as any other injured worker.
+                      You have the same rights to workers&apos; compensation as any other injured worker.
                       Immigration status does not affect your right to benefits for workplace
                       injuries. We protect all workers.
                     </p>
@@ -562,12 +562,12 @@ export default function ConstructionSiteInjuriesPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-burgundy-900 mb-4">
-              Injured on a Construction Site? We're Here to Help
+              Injured on a Construction Site? We&apos;re Here to Help
             </h2>
             <p className="text-xl text-gray-700 mb-8">
-              Construction accidents can be catastrophic. Don't let insurance companies minimize
+              Construction accidents can be catastrophic. Don&apos;t let insurance companies minimize
               your injuries or deny your claim. Our experienced attorneys know how to maximize both
-              workers' comp benefits and third-party recovery. Call now for a free consultation.
+              workers&apos; comp benefits and third-party recovery. Call now for a free consultation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

@@ -67,7 +67,7 @@ export default function BicycleAccidentsPage() {
               YO PELEO POR TI™
             </p>
             <p className="text-xl mb-8 text-gray-100">
-              Hit while cycling? We fight for cyclists' rights on NC roads and overcome the
+              Hit while cycling? We fight for cyclists&apos; rights on NC roads and overcome the
               state&apos;s harsh contributory negligence law to secure your compensation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -119,11 +119,11 @@ export default function BicycleAccidentsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">
-              ⚠️ Critical: North Carolina's Contributory Negligence Law
+              ⚠️ Critical: North Carolina&apos;s Contributory Negligence Law
             </h2>
             <p className="text-xl mb-6">
               North Carolina is one of only 4 states with pure contributory negligence. If
-              you&apos;re found even 1% at fault, you could receive NOTHING.
+              you\&apos;re found even 1% at fault, you could receive NOTHING.
             </p>
             <p className="text-lg mb-8">
               Insurance companies will claim you weren&apos;t wearing a helmet, didn&apos;t signal,
@@ -148,7 +148,7 @@ export default function BicycleAccidentsPage() {
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-white p-8 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-[#001845]">Cyclists' Rights</h3>
+              <h3 className="text-2xl font-semibold mb-4 text-[#001845]">Cyclists&apos; Rights</h3>
               <ul className="space-y-3 text-gray-700">
                 <li>✓ Same rights and duties as motor vehicles</li>
                 <li>✓ May use full lane when necessary for safety</li>
@@ -201,7 +201,7 @@ export default function BicycleAccidentsPage() {
             <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#FF6B6B]">
               <h3 className="text-xl font-semibold mb-3">Unsafe Passing</h3>
               <p className="text-gray-700">
-                Drivers passing too closely, violating NC's 4-foot minimum passing distance law.
+                Drivers passing too closely, violating NC&apos;s 4-foot minimum passing distance law.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#FF6B6B]">
@@ -350,8 +350,8 @@ export default function BicycleAccidentsPage() {
                 Driver Bias Against Cyclists
               </h3>
               <p className="text-gray-700">
-                Many drivers and insurance adjusters wrongly believe cyclists don't belong on roads.
-                We educate juries about cyclists' legal rights and combat these prejudices with
+                Many drivers and insurance adjusters wrongly believe cyclists don\&apos;t belong on roads.
+                We educate juries about cyclists&apos; legal rights and combat these prejudices with
                 facts and law.
               </p>
             </div>
@@ -379,8 +379,8 @@ export default function BicycleAccidentsPage() {
                 Contributory Negligence Challenges
               </h3>
               <p className="text-gray-700">
-                Insurance companies exploit NC's harsh law by claiming helmet non-use, improper
-                lighting, or lane positioning. We prove these factors didn&apos;t cause the accident
+                Insurance companies exploit NC&apos;s harsh law by claiming helmet non-use, improper
+                lighting, or lane positioning. We prove these factors didn\&apos;t cause the accident
                 and the driver was 100% at fault.
               </p>
             </div>
@@ -438,7 +438,7 @@ export default function BicycleAccidentsPage() {
           </div>
           <div className="text-center">
             <p className="text-xl mb-6">
-              Don't let insurance companies deny your rights as a cyclist.
+              Don&apos;t let insurance companies deny your rights as a cyclist.
             </p>
             <Link
               href="/contact"
@@ -463,7 +463,7 @@ export default function BicycleAccidentsPage() {
               </h3>
               <p className="text-gray-700">
                 NC law only requires helmets for riders under 16. However, not wearing a helmet as
-                an adult doesn&apos;t bar your claim if the driver&apos;s negligence caused the
+                an adult doesn\&apos;t bar your claim if the driver&apos;s negligence caused the
                 accident. We can still recover compensation for your injuries.
               </p>
             </div>
@@ -480,8 +480,8 @@ export default function BicycleAccidentsPage() {
                 What if I wasn&apos;t in a bike lane when hit?
               </h3>
               <p className="text-gray-700">
-                Cyclists aren&apos;t required to use bike lanes in NC. You have the right to use the
-                full travel lane when necessary for safety. We'll prove you were riding legally and
+                Cyclists aren\&apos;t required to use bike lanes in NC. You have the right to use the
+                full travel lane when necessary for safety. We&apos;ll prove you were riding legally and
                 the driver failed to share the road safely.
               </p>
             </div>
@@ -500,7 +500,7 @@ export default function BicycleAccidentsPage() {
                 What if the driver claims they didn&apos;t see me?
               </h3>
               <p className="text-gray-700">
-                "I didn&apos;t see the cyclist" isn&apos;t a valid defense. Drivers have a duty to
+                &quot;I didn\&apos;t see the cyclist&quot; isn&apos;t a valid defense. Drivers have a duty to
                 watch for all road users, including cyclists. We prove the driver failed to maintain
                 proper lookout and violated their duty of care.
               </p>
@@ -514,8 +514,8 @@ export default function BicycleAccidentsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">Get Justice After Your Bicycle Accident</h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Cyclists have rights on NC roads. Don't let insurance companies blame you for a
-            driver&apos;s negligence. We'll fight to overcome contributory negligence and get you
+            Cyclists have rights on NC roads. Don&apos;t let insurance companies blame you for a
+            driver&apos;s negligence. We&apos;ll fight to overcome contributory negligence and get you
             maximum compensation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

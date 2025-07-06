@@ -124,8 +124,8 @@ export default function TruckAccidentsPage() {
                 <div>
                   <h3 className="text-lg font-bold text-red-800 mb-2">Protect Your Rights NOW:</h3>
                   <ul className="text-red-700 space-y-1">
-                    <li>• Don't give ANY statements</li>
-                    <li>• Don't sign ANYTHING</li>
+                    <li>• Don&apos;t give ANY statements</li>
+                    <li>• Don&apos;t sign ANYTHING</li>
                     <li>• Document everything possible</li>
                     <li>• Get immediate medical care</li>
                     <li>• Call us before talking to anyone</li>
@@ -147,7 +147,7 @@ export default function TruckAccidentsPage() {
                   Why Truck Accidents Are Different
                 </h2>
                 <p className="text-gray-700 mb-6">
-                  Truck accidents aren&apos;t just "bigger car accidents." The physics, regulations,
+                  Truck accidents aren\&apos;t just &quot;bigger car accidents.&quot; The physics, regulations,
                   and legal complexities make these cases fundamentally different - and far more
                   serious.
                 </p>
@@ -553,7 +553,7 @@ export default function TruckAccidentsPage() {
 
                 <div className="bg-green-50 border-l-4 border-green-500 p-6 mt-6">
                   <h3 className="text-xl font-bold text-green-800 mb-2">
-                    North Carolina's Contributory Negligence Rule
+                    North Carolina&apos;s Contributory Negligence Rule
                   </h3>
                   <p className="text-green-700">
                     NC follows pure contributory negligence - if you&apos;re even 1% at fault, you
@@ -630,7 +630,7 @@ export default function TruckAccidentsPage() {
                       What if the truck driver wasn&apos;t ticketed?
                     </h3>
                     <p className="text-gray-700">
-                      Police don't always identify all violations at the scene. Our investigation
+                      Police don\&apos;t always identify all violations at the scene. Our investigation
                       often reveals Hours of Service violations, maintenance issues, or other
                       negligence not apparent to responding officers.
                     </p>
@@ -658,10 +658,10 @@ export default function TruckAccidentsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-burgundy-900 mb-4">
-              Don't Let Trucking Companies Bully You
+              Don&apos;t Let Trucking Companies Bully You
             </h2>
             <p className="text-xl text-gray-700 mb-8">
-              You're up against billion-dollar trucking companies with teams of lawyers. Level the
+              You&apos;re up against billion-dollar trucking companies with teams of lawyers. Level the
               playing field with experienced truck accident attorneys who know how to fight back and
               win. Call now for a free consultation.
             </p>

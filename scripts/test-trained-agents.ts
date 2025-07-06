@@ -75,7 +75,20 @@ async function testTrainedAgents() {
       logger.info(`\n🧪 Testing: ${testCase.name}`);
       logger.info(`Query: ${testCase.query}`);
       
-      const result = await coordinator.routeQuery(testCase.query, testCase.context);
+      // Use executeTask instead of routeQuery
+      const task = {
+        type: 'legal_consultation' as const,
+        data: {
+          query: testCase.query,
+          context: testCase.context
+        },
+        priority: 'high' as const,
+        metadata: {
+          source: 'test',
+          testName: testCase.name
+        }
+      };
+      const result = await coordinator.executeTask(task);
       
       logger.info('Response received:', {
         summary: result.summary?.substring(0, 100) + '...',

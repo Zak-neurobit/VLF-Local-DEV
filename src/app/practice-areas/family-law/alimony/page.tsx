@@ -67,7 +67,7 @@ export default function AlimonyPage() {
               YO PELEO POR TI™
             </p>
             <p className="text-xl mb-8 text-gray-100">
-              Alimony can make or break your financial future after divorce. Whether you&apos;re
+              Alimony can make or break your financial future after divorce. Whether you\&apos;re
               seeking support or defending against excessive demands, we fight for fair outcomes
               based on NC law.
             </p>
@@ -152,8 +152,8 @@ export default function AlimonyPage() {
             <div className="bg-white p-8 rounded-lg shadow-lg">
               <h3 className="text-2xl font-semibold mb-4 text-[#001845]">Permanent Alimony</h3>
               <p className="text-gray-700 mb-4">
-                Long-term support after divorce is final. Despite the name, it&apos;s rarely truly
-                "permanent" - usually has an end date or conditions.
+                Long-term support after divorce is final. Despite the name, it\&apos;s rarely truly
+                &quot;permanent&quot; - usually has an end date or conditions.
               </p>
               <ul className="space-y-2 text-gray-700">
                 <li>✓ Decided at trial or settlement</li>
@@ -221,7 +221,7 @@ export default function AlimonyPage() {
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
             Whether seeking fair support or defending against excessive demands, alimony decisions
-            impact your finances for years. Don't navigate this alone - get experienced legal
+            impact your finances for years. Don&apos;t navigate this alone - get experienced legal
             guidance.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

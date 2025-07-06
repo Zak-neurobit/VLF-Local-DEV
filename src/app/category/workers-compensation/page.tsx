@@ -1,18 +1,18 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 export const metadata: Metadata = {
-  title: "Workers' Compensation Archives - Page 2 of 2 - Vasquez Law Firm, PLLC",
+  title: 'Workers\' Compensation Archives - Page 2 of 2 - Vasquez Law Firm, PLLC',
   description:
     'Injured? Our [specific injury] lawyers fight for maximum compensation. No fee unless we win. Free case evaluation. Call 1-844-YO-PELEO.',
   openGraph: {
-    title: "Workers' Compensation Archives - Page 2 of 2 - Vasquez Law Firm, PLLC",
+    title: 'Workers\' Compensation Archives - Page 2 of 2 - Vasquez Law Firm, PLLC',
     description:
       'Injured? Our [specific injury] lawyers fight for maximum compensation. No fee unless we win. Free case evaluation. Call 1-844-YO-PELEO.',
     images: [{ url: '/images/og-default.jpg' }],
   },
 };
 
-export default function PagetsxPage() {
+export default function WorkersCompensationPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -64,7 +64,7 @@ export default function PagetsxPage() {
         </div>
       </section>
 
-      {/* Schema Markup */}
+      {/* Schema Markup 
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -76,7 +76,7 @@ export default function PagetsxPage() {
                   '@type': 'CollectionPage',
                   '@id': 'https://www.vasquezlawnc.com/category/workers-compensation/',
                   url: 'https://www.vasquezlawnc.com/category/workers-compensation/page/2/',
-                  name: 'Workers&apos; Compensation Archives - Page 2 of 2 - Vasquez Law Firm, PLLC',
+                  name: 'Workers\\' Compensation Archives - Page 2 of 2 - Vasquez Law Firm, PLLC',
                   isPartOf: { '@id': 'https://www.vasquezlawnc.com/#website' },
                   primaryImageOfPage: {
                     '@id':
@@ -116,7 +116,7 @@ export default function PagetsxPage() {
                       name: 'Home',
                       item: 'https://www.vasquezlawnc.com/',
                     },
-                    { '@type': 'ListItem', position: 2, name: 'Workers&apos; Compensation' },
+                    { '@type': 'ListItem', position: 2, name: 'Workers\\' Compensation' },
                   ],
                 },
                 {
@@ -212,7 +212,7 @@ export default function PagetsxPage() {
             },
           ]),
         }}
-      />
+      /> */}
     </div>
   );
 }

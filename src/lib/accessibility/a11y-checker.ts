@@ -562,11 +562,11 @@ export const a11yUtils = {
       }
     };
     
-    element.addEventListener('keydown', handleTabKey);
+    element.addEventListener('keydown', handleTabKey as EventListener);
     firstElement.focus();
     
     return () => {
-      element.removeEventListener('keydown', handleTabKey);
+      element.removeEventListener('keydown', handleTabKey as EventListener);
     };
   },
 };

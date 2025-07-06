@@ -40,9 +40,9 @@ function shouldMarkAsDefaulted(attemptCount: number, hasNextAttempt: boolean): b
 // Helper function to update payment plan metadata safely
 /*
 async function updatePaymentPlanMetadata(
-  prisma: any,
+  prisma: ReturnType<typeof getPrismaClient>,
   planId: string,
-  updates: Record<string, any>
+  updates: Partial<PaymentPlanMetadata>
 ): Promise<void> {
   const plan = await prisma.paymentPlan.findUnique({
     where: { id: planId },

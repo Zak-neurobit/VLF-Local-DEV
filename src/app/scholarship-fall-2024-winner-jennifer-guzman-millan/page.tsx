@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PagetsxPage() {
+export default function ScholarshipFall2024WinnerJenniferGuzmanMillanPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}

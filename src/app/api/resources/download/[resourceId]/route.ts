@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { headers } from 'next/headers';
 import { resourceCatalog } from '@/resources';
 import { ImmigrationProcessGuide } from '@/resources/guides/immigration-process-guide';
-import { renderToStream } from '@react-pdf/renderer';
+// import { renderToStream } from '@react-pdf/renderer'; // TODO: Install package
 import React from 'react';
 
 // Map resource IDs to their PDF components
@@ -12,7 +11,7 @@ const resourceComponents: Record<string, React.ComponentType> = {
 };
 
 export async function GET(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: { resourceId: string } }
 ) {
   try {
@@ -43,6 +42,10 @@ export async function GET(
     }
     
     // Generate the PDF
+    // TODO: Implement when @react-pdf/renderer is installed
+    throw new Error('PDF generation not yet implemented - @react-pdf/renderer needs to be installed');
+    
+    /* TODO: Uncomment when @react-pdf/renderer is installed
     const stream = await renderToStream(React.createElement(PDFComponent));
     
     // Convert stream to buffer
@@ -60,7 +63,7 @@ export async function GET(
     // Set appropriate headers for PDF download
     const responseHeaders = new Headers();
     responseHeaders.set('Content-Type', 'application/pdf');
-    responseHeaders.set('Content-Disposition', `attachment; filename="${resource.title.replace(/[^a-z0-9]/gi, '-').toLowerCase()}.pdf"`);
+    responseHeaders.set('Content-Disposition', `attachment; filename="${resource!.title.replace(/[^a-z0-9]/gi, '-').toLowerCase()}.pdf"`);
     responseHeaders.set('Content-Length', buffer.length.toString());
     
     // Log download for analytics (in production, this would go to a database)
@@ -70,6 +73,7 @@ export async function GET(
       status: 200,
       headers: responseHeaders,
     });
+    */
     
   } catch (error) {
     console.error('Error generating resource PDF:', error);
@@ -85,7 +89,7 @@ export async function GET(
 }
 
 // Handle preflight requests
-export async function OPTIONS(request: NextRequest) {
+export async function OPTIONS(_request: NextRequest) {
   return new NextResponse(null, {
     status: 200,
     headers: {
