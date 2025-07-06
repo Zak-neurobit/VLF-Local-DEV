@@ -349,7 +349,7 @@ class EmailService {
             .replace(/&amp;/g, '&')
             .replace(/&lt;/g, '<')
             .replace(/&gt;/g, '>')
-            .replace(/&quot;/g, '"')
+            .replace(/"/g, '"')
             .replace(/&#39;/g, "'")
             .replace(/\s+/g, ' ')
             .trim();

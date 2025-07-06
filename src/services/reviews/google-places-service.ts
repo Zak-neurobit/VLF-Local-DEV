@@ -122,11 +122,24 @@ export class GooglePlacesService {
     orlando: GoogleReview[];
     smithfield: GoogleReview[];
   }> {
-    const offices = {
-      charlotte: 'Vasquez Law Firm Charlotte NC',
-      raleigh: 'Vasquez Law Firm Raleigh NC',
-      orlando: 'Vasquez Law Firm Orlando FL',
-      smithfield: 'Vasquez Law Firm Smithfield NC',
+    // Direct place IDs from Google Places
+    const officesWithPlaceIds = {
+      charlotte: {
+        query: 'Vasquez Law Firm Charlotte NC',
+        placeId: 'ChIJLSZFB-ghVIgRYmWpO-tIjrk', // 5701 Executive Center Dr # 103
+      },
+      raleigh: {
+        query: 'Vasquez Law Firm Raleigh NC', 
+        placeId: 'ChIJ3R1JE6pZrIkR7We57Xn2rk8', // 4426 Louisburg Rd
+      },
+      orlando: {
+        query: 'Vasquez Law Firm Orlando FL',
+        placeId: null, // No place ID provided yet
+      },
+      smithfield: {
+        query: 'Vasquez Law Firm Smithfield NC',
+        placeId: 'ChIJeb6qIGJyrIkRxn9w3R8iiOI', // 612 S Brightleaf Blvd
+      },
     };
 
     const results = {
@@ -136,17 +149,22 @@ export class GooglePlacesService {
       smithfield: [] as GoogleReview[],
     };
 
-    for (const [office, query] of Object.entries(offices)) {
+    for (const [office, config] of Object.entries(officesWithPlaceIds)) {
       try {
-        // First find the place
-        const place = await this.findPlace(query);
-        if (!place) {
-          logger.warn(`Could not find Google place for ${office}`);
-          continue;
+        let placeId = config.placeId;
+        
+        // If we don't have a place ID, try to find it
+        if (!placeId) {
+          const place = await this.findPlace(config.query);
+          if (!place) {
+            logger.warn(`Could not find Google place for ${office}`);
+            continue;
+          }
+          placeId = place.place_id;
         }
 
-        // Then get the details with reviews
-        const details = await this.getPlaceDetails(place.place_id);
+        // Get the details with reviews using the place ID
+        const details = await this.getPlaceDetails(placeId);
         if (details && details.reviews) {
           results[office as keyof typeof results] = details.reviews;
           logger.info(`Fetched ${details.reviews.length} Google reviews for ${office}`);

@@ -11,6 +11,12 @@ class RetellAgentManager {
         if (this.initialized)
             return;
         try {
+            // Skip initialization during build process
+            if (process.env.NODE_ENV === 'production' && !process.env.RETELL_AGENTS_ENABLED) {
+                logger_1.logger.info('Skipping Retell agent initialization during build');
+                this.initialized = true;
+                return;
+            }
             const service = (0, index_1.getRetellService)();
             // Skip initialization if API key is not configured
             if (!process.env.RETELL_API_KEY) {

@@ -98,14 +98,30 @@ class RetellService {
     }
     // Agent Management
     async createAgent(data) {
-        const response = await this.client.post('/v2/agent', data);
-        return response.data.agent_id ? response.data : response.data.agent;
+        const response = await this.client.post('/api/create-agent', data);
+        // Handle different response structures
+        if (response.data) {
+            // If response.data is the agent object itself
+            if (response.data.agent_id) {
+                return response.data;
+            }
+            // If response.data has an 'agent' property
+            if (response.data.agent && response.data.agent.agent_id) {
+                return response.data.agent;
+            }
+        }
+        // Log the actual response for debugging
+        logger_1.logger.error('Unexpected Retell createAgent response structure:', {
+            data: response.data,
+            status: response.status
+        });
+        throw new Error('Invalid response from Retell API when creating agent');
     }
     async getAgent(agentId) {
         const cacheKey = `retell:agent:${agentId}`;
         return cache_1.cache.remember(cacheKey, async () => {
             try {
-                const response = await this.client.get(`/v2/agent/${agentId}`);
+                const response = await this.client.get(`/api/get-agent/${agentId}`);
                 return response.data;
             }
             catch (error) {
@@ -117,26 +133,35 @@ class RetellService {
         }, cache_1.CacheTTL.LONG);
     }
     async updateAgent(agentId, data) {
-        const response = await this.client.patch(`/v2/agent/${agentId}`, data);
+        const response = await this.client.patch(`/api/update-agent/${agentId}`, data);
         // Clear cache
         await cache_1.cache.delete(`retell:agent:${agentId}`);
-        return response.data.agent;
+        // Handle different response structures
+        if (response.data) {
+            if (response.data.agent_id) {
+                return response.data;
+            }
+            if (response.data.agent && response.data.agent.agent_id) {
+                return response.data.agent;
+            }
+        }
+        throw new Error('Invalid response from Retell API when updating agent');
     }
     async listAgents() {
         const cacheKey = 'retell:agents:list';
         return cache_1.cache.remember(cacheKey, async () => {
-            const response = await this.client.get('/v2/agent');
+            const response = await this.client.get('/api/list-agents');
             return response.data || [];
         }, cache_1.CacheTTL.MEDIUM);
     }
     async deleteAgent(agentId) {
-        await this.client.delete(`/v2/agent/${agentId}`);
+        await this.client.delete(`/api/delete-agent/${agentId}`);
         await cache_1.cache.delete(`retell:agent:${agentId}`);
         await cache_1.cache.delete('retell:agents:list');
     }
     // Call Management
     async createPhoneCall(params) {
-        const response = await this.client.post('/v2/call', params);
+        const response = await this.client.post('/api/create-phone-call', params);
         const call = response.data;
         // Queue for analysis
         await bull_1.callAnalysisQueue.add('analyze-call', {
@@ -146,14 +171,14 @@ class RetellService {
         return call;
     }
     async createWebCall(params) {
-        const response = await this.client.post('/v2/call/web', params);
+        const response = await this.client.post('/api/create-web-call', params);
         return response.data;
     }
     async getCall(callId) {
         const cacheKey = cache_1.cacheKeys.call(callId);
         return cache_1.cache.remember(cacheKey, async () => {
             try {
-                const response = await this.client.get(`/v2/call/${callId}`);
+                const response = await this.client.get(`/api/get-call/${callId}`);
                 return response.data;
             }
             catch (error) {
@@ -165,11 +190,11 @@ class RetellService {
         }, cache_1.CacheTTL.MEDIUM);
     }
     async listCalls(filters) {
-        const response = await this.client.get('/v2/call', { params: filters });
+        const response = await this.client.get('/api/list-calls', { params: filters });
         return response.data || [];
     }
     async endCall(callId) {
-        await this.client.post(`/v2/call/${callId}/end`);
+        await this.client.post(`/api/end-call/${callId}`);
         // Clear cache
         await cache_1.cache.delete(cache_1.cacheKeys.call(callId));
         // Queue for immediate analysis
@@ -179,7 +204,7 @@ class RetellService {
         });
     }
     async getCallRecording(callId) {
-        const response = await this.client.get(`/v2/get-call-recording/${callId}`);
+        const response = await this.client.get(`/api/get-call-recording/${callId}`);
         return response.data;
     }
     async getCallTranscript(callId) {
@@ -194,7 +219,7 @@ class RetellService {
     }
     // Analytics
     async getCallAnalytics(callId) {
-        const response = await this.client.get(`/v2/get-call-analysis/${callId}`);
+        const response = await this.client.get(`/get-call-analysis/${callId}`);
         return response.data;
     }
     async getAgentAnalytics(agentId, timeRange) {
@@ -204,14 +229,14 @@ class RetellService {
                 end_timestamp: timeRange.end.getTime(),
             }
             : {};
-        const response = await this.client.get(`/v2/get-agent-analytics/${agentId}`, { params });
+        const response = await this.client.get(`/get-agent-analytics/${agentId}`, { params });
         return response.data;
     }
     // Voice Management
     async listVoices() {
         const cacheKey = 'retell:voices:list';
         return cache_1.cache.remember(cacheKey, async () => {
-            const response = await this.client.get('/v2/list-voices');
+            const response = await this.client.get('/api/list-voices');
             return response.data.voices || [];
         }, cache_1.CacheTTL.EXTRA_LONG);
     }
@@ -219,7 +244,7 @@ class RetellService {
     async listLLMs() {
         const cacheKey = 'retell:llms:list';
         return cache_1.cache.remember(cacheKey, async () => {
-            const response = await this.client.get('/v2/list-llms');
+            const response = await this.client.get('/api/list-llms');
             return response.data.llms || [];
         }, cache_1.CacheTTL.EXTRA_LONG);
     }
