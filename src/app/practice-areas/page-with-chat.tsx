@@ -81,7 +81,7 @@ export default function PracticeAreasPage() {
     },
     {
       id: 'workers-compensation',
-      title: { en: 'Workers' Compensation', es: 'Compensación Laboral' },
+      title: { en: "Workers' Compensation", es: 'Compensación Laboral' },
       icon: '👷',
       description: {
         en: "Protecting injured workers' rights and securing the benefits you deserve.",
@@ -369,7 +369,7 @@ export default function PracticeAreasPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Service',
-            serviceType: ' Legal Services',
+            serviceType: 'Legal Services',
             provider: {
               '@type': 'LegalService',
               name: 'Vasquez Law Firm, PLLC',
@@ -382,7 +382,7 @@ export default function PracticeAreasPage() {
               name: 'North Carolina',
             },
             url: 'https://www.vasquezlawfirm.com/practice-areas',
-            description: ' legal services in North Carolina. Free consultation. Se habla español.',
+            description: 'Comprehensive legal services in North Carolina. Free consultation. Se habla español.',
           }),
         }}
       />
