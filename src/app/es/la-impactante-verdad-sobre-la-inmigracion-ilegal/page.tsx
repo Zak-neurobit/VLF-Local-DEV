@@ -1,24 +1,20 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 export const metadata: Metadata = {
-  title:
-    'Guía Experta sobre la Reforma Migratoria para Visas de Estudiante - Vasquez Law Firm, PLLC',
+  title: 'La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC',
   description:
-    'Conoce las últimas reformas migratorias para visas de estudiante y cómo pueden afectar tu futuro en los EE. UU. Obtén información experta y consejos para navegar los cambios.',
+    'Descubre la impactante verdad sobre los inmigrantes ilegales, su impacto y lo que necesita cambiar. Obtén perspectivas expertas y entiende las complejidades de este tema.',
   openGraph: {
-    title:
-      'Guía Experta sobre la Reforma Migratoria para Visas de Estudiante - Vasquez Law Firm, PLLC',
+    title: 'La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC',
     description:
-      'Conoce las últimas reformas migratorias para visas de estudiante y cómo pueden afectar tu futuro en los EE. UU. Obtén información experta y consejos para navegar los cambios.',
+      'Descubre la impactante verdad sobre los inmigrantes ilegales, su impacto y lo que necesita cambiar. Obtén perspectivas expertas y entiende las complejidades de este tema.',
     images: [
-      {
-        url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/Guia-Experta-sobre-la-Reforma-Migratoria-para-Visas-de-Estudiante-2.jpg',
-      },
+      { url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/illegal-immigrants.jpg' },
     ],
   },
 };
 
-export default function GuiaExpertaSobreLaReformaMigratoriaParaVisasDeEstudiantePage() {
+export default function LaImpactanteVerdadSobreLaInmigracionIlegalPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -26,7 +22,7 @@ export default function GuiaExpertaSobreLaReformaMigratoriaParaVisasDeEstudiante
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Todo lo que Necesitas Saber Sobre la Reforma Migratoria para Visas de Estudiante
+              La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC
             </h1>
             <p className="text-xl"></p>
           </div>
@@ -40,54 +36,46 @@ export default function GuiaExpertaSobreLaReformaMigratoriaParaVisasDeEstudiante
             <div className="prose prose-lg max-w-none">
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  Guía Experta sobre la Reforma Migratoria para Visas de Estudiante - Vasquez Law
-                  Firm, PLLC
+                  La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
-                  Our experienced attorneys provide comprehensive legal services for Todo lo que
-                  Necesitas Saber Sobre la Reforma Migratoria para Visas de Estudiante cases. With
-                  over 35 years of combined experience, we understand the complexities of Todo lo
-                  que Necesitas Saber Sobre la Reforma Migratoria para Visas de Estudiante law and
-                  fight tirelessly for our clients&apos; rights.
+                  Our experienced attorneys provide comprehensive legal services for immigration
+                  cases. With over 35 years of combined experience, we understand the complexities
+                  of immigration law and fight tirelessly for our clients&apos; rights.
                 </div>
               </div>
 
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  Guía Experta sobre la Reforma Migratoria para Visas de Estudiante - Vasquez Law
-                  Firm, PLLC
+                  La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
-                  When you choose Vasquez Law Firm for your Todo lo que Necesitas Saber Sobre la
-                  Reforma Migratoria para Visas de Estudiante case, you get: • Bilingual attorneys
-                  who understand your needs • 24/7 availability for emergencies • No fee unless we
-                  win (for applicable cases) • Personalized attention to your case • Proven track
-                  record of success
+                  When you choose Vasquez Law Firm for your immigration case, you get: • Bilingual
+                  attorneys who understand your needs • 24/7 availability for emergencies • No fee
+                  unless we win (for applicable cases) • Personalized attention to your case •
+                  Proven track record of success
                 </div>
               </div>
 
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  Guía Experta sobre la Reforma Migratoria para Visas de Estudiante - Vasquez Law
-                  Firm, PLLC
+                  La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
-                  Get a free evaluation of your Todo lo que Necesitas Saber Sobre la Reforma
-                  Migratoria para Visas de Estudiante case. During your consultation, we&apos;ll: •
-                  Review your situation in detail • Explain your legal options • Answer all your
-                  questions • Provide honest assessment • Discuss our fee structure
+                  Get a free evaluation of your immigration case. During your consultation,
+                  we&apos;ll: • Review your situation in detail • Explain your legal options •
+                  Answer all your questions • Provide honest assessment • Discuss our fee structure
                 </div>
               </div>
 
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  Guía Experta sobre la Reforma Migratoria para Visas de Estudiante - Vasquez Law
-                  Firm, PLLC
+                  La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
-                  Common questions about Todo lo que Necesitas Saber Sobre la Reforma Migratoria
-                  para Visas de Estudiante cases in North Carolina and Florida. Our attorneys are
-                  here to provide clear answers and guide you through the legal process.
+                  Common questions about immigration cases in North Carolina and Florida. Our
+                  attorneys are here to provide clear answers and guide you through the legal
+                  process.
                 </div>
               </div>
             </div>
@@ -107,7 +95,7 @@ export default function GuiaExpertaSobreLaReformaMigratoriaParaVisasDeEstudiante
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link
-                href="/contact"
+                href="/es/contacto"
                 className="bg-burgundy-700 text-white px-8 py-3 rounded-md hover:bg-burgundy-800 transition-colors"
               >
                 Schedule Consultation
@@ -134,38 +122,37 @@ export default function GuiaExpertaSobreLaReformaMigratoriaParaVisasDeEstudiante
                 {
                   '@type': 'WebPage',
                   '@id':
-                    'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/',
-                  url: 'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/',
-                  name: 'Guía Experta sobre la Reforma Migratoria para Visas de Estudiante - Vasquez Law Firm, PLLC',
+                    'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/',
+                  url: 'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/',
+                  name: 'La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC',
                   isPartOf: { '@id': 'https://www.vasquezlawnc.com/#website' },
                   primaryImageOfPage: {
                     '@id':
-                      'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/#primaryimage',
+                      'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/#primaryimage',
                   },
                   image: {
                     '@id':
-                      'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/#primaryimage',
+                      'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/#primaryimage',
                   },
                   thumbnailUrl:
-                    'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/Guia-Experta-sobre-la-Reforma-Migratoria-para-Visas-de-Estudiante-2.jpg',
-                  datePublished: '2025-01-12T10:49:43+00:00',
-                  dateModified: '2025-01-23T06:43:45+00:00',
+                    'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/illegal-immigrants.jpg',
+                  datePublished: '2025-01-25T15:17:49+00:00',
                   author: {
                     '@id':
                       'https://www.vasquezlawnc.com/#/schema/person/2fa7514bdc81d9bc9644faadb9c7084f',
                   },
                   description:
-                    'Conoce las últimas reformas migratorias para visas de estudiante y cómo pueden afectar tu futuro en los EE. UU. Obtén información experta y consejos para navegar los cambios.',
+                    'Descubre la impactante verdad sobre los inmigrantes ilegales, su impacto y lo que necesita cambiar. Obtén perspectivas expertas y entiende las complejidades de este tema.',
                   breadcrumb: {
                     '@id':
-                      'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/#breadcrumb',
+                      'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/#breadcrumb',
                   },
                   inLanguage: 'en-US',
                   potentialAction: [
                     {
                       '@type': 'ReadAction',
                       target: [
-                        'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/',
+                        'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/',
                       ],
                     },
                   ],
@@ -174,17 +161,19 @@ export default function GuiaExpertaSobreLaReformaMigratoriaParaVisasDeEstudiante
                   '@type': 'ImageObject',
                   inLanguage: 'en-US',
                   '@id':
-                    'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/#primaryimage',
-                  url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/Guia-Experta-sobre-la-Reforma-Migratoria-para-Visas-de-Estudiante-2.jpg',
+                    'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/#primaryimage',
+                  url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/illegal-immigrants.jpg',
                   contentUrl:
-                    'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/Guia-Experta-sobre-la-Reforma-Migratoria-para-Visas-de-Estudiante-2.jpg',
-                  width: 1000,
+                    'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/illegal-immigrants.jpg',
+                  width: 600,
                   height: 400,
+                  caption:
+                    'Image of a thought-provoking article on illegal immigration, emphasizing key facts and statistics that challenge common perceptions.',
                 },
                 {
                   '@type': 'BreadcrumbList',
                   '@id':
-                    'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/#breadcrumb',
+                    'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/#breadcrumb',
                   itemListElement: [
                     {
                       '@type': 'ListItem',
@@ -195,7 +184,7 @@ export default function GuiaExpertaSobreLaReformaMigratoriaParaVisasDeEstudiante
                     {
                       '@type': 'ListItem',
                       position: 2,
-                      name: 'Guía Experta sobre la Reforma Migratoria para Visas de Estudiante',
+                      name: 'La Impactante Verdad sobre la Inmigración Ilegal',
                     },
                   ],
                 },
@@ -245,7 +234,7 @@ export default function GuiaExpertaSobreLaReformaMigratoriaParaVisasDeEstudiante
               mainEntity: [
                 {
                   '@type': 'Question',
-                  name: 'How much does a Todo lo que Necesitas Saber Sobre la Reforma Migratoria para Visas de Estudiante lawyer cost?',
+                  name: 'How much does a immigration lawyer cost?',
                   acceptedAnswer: {
                     '@type': 'Answer',
                     text: 'Vasquez Law Firm offers free consultations and works on contingency for many cases. This means you don\'t pay attorney fees unless we win your case. For other matters, we offer competitive rates and payment plans.',
@@ -253,7 +242,7 @@ export default function GuiaExpertaSobreLaReformaMigratoriaParaVisasDeEstudiante
                 },
                 {
                   '@type': 'Question',
-                  name: 'How long does a Todo lo que Necesitas Saber Sobre la Reforma Migratoria para Visas de Estudiante case take?',
+                  name: 'How long does a immigration case take?',
                   acceptedAnswer: {
                     '@type': 'Answer',
                     text: 'Case timelines vary depending on complexity and specific circumstances. During your free consultation, we\'ll provide a realistic timeline based on your unique situation and our extensive experience handling similar cases.',
@@ -292,9 +281,9 @@ export default function GuiaExpertaSobreLaReformaMigratoriaParaVisasDeEstudiante
             {
               '@context': 'https://schema.org',
               '@type': 'LegalService',
-              name: 'Todo lo que Necesitas Saber Sobre la Reforma Migratoria para Visas de Estudiante',
+              name: '',
               description:
-                'Conoce las últimas reformas migratorias para visas de estudiante y cómo pueden afectar tu futuro en los EE. UU. Obtén información experta y consejos para navegar los cambios.',
+                'Descubre la impactante verdad sobre los inmigrantes ilegales, su impacto y lo que necesita cambiar. Obtén perspectivas expertas y entiende las complejidades de este tema.',
               provider: {
                 '@type': 'LegalService',
                 name: 'Vasquez Law Firm, PLLC',
@@ -329,7 +318,7 @@ export default function GuiaExpertaSobreLaReformaMigratoriaParaVisasDeEstudiante
               },
               priceRange: 'Free Consultation',
               availableLanguage: ['English', 'Spanish'],
-              url: 'https://vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/index',
+              url: 'https://vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/index',
             },
             {
               '@context': 'https://schema.org',
@@ -344,8 +333,8 @@ export default function GuiaExpertaSobreLaReformaMigratoriaParaVisasDeEstudiante
                 {
                   '@type': 'ListItem',
                   position: 2,
-                  name: 'Guia experta sobre la reforma migratoria para visas de estudiante',
-                  item: 'https://vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante',
+                  name: 'La impactante verdad sobre la inmigracion ilegal',
+                  item: 'https://vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal',
                 },
               ],
             },

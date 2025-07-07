@@ -45,7 +45,7 @@ export default function Page() {
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none">
               <div className="mb-8">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-4">Family Law Attorney</h2>
+                <h2 className="text-3xl font-bold text-burgundy-900 mb-4">Abogada de Derecho Familiar</h2>
                 <p className="text-gray-700">
                   Roselyn Torrellas se especializa en asuntos de derecho familiar incluyendo
                   divorcio, custodia de menores y asuntos de manutención.
@@ -55,7 +55,7 @@ export default function Page() {
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-burgundy-900 mb-4">Educación</h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>J.D., University of Miami School of Law</li>
+                  <li>Doctorado en Derecho, University of Miami School of Law</li>
                 </ul>
               </div>
 
@@ -64,7 +64,7 @@ export default function Page() {
                   Admisiones al Colegio de Abogados
                 </h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>North Carolina</li>
+                  <li>Carolina del Norte</li>
                   <li>Florida</li>
                 </ul>
               </div>
@@ -72,9 +72,9 @@ export default function Page() {
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-burgundy-900 mb-4">Áreas de Práctica</h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>Family Law</li>
-                  <li>Divorce</li>
-                  <li>Child Custody</li>
+                  <li>Derecho Familiar</li>
+                  <li>Divorcio</li>
+                  <li>Custodia de Menores</li>
                 </ul>
               </div>
             </div>

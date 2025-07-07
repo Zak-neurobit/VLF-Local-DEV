@@ -1,20 +1,24 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 export const metadata: Metadata = {
-  title: 'La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC',
+  title:
+    'El Mejor Abogado de Inmigración Explica 5 Señales Clave de Que Su Estatus Está en Riesgo - Vasquez Law Firm, PLLC',
   description:
-    'Descubre la impactante verdad sobre los inmigrantes ilegales, su impacto y lo que necesita cambiar. Obtén perspectivas expertas y entiende las complejidades de este tema.',
+    'Descubra 5 señales críticas que pueden amenazar su estatus migratorio. Consulte hoy con un abogado de inmigración asequible para asegurar su futuro legal.',
   openGraph: {
-    title: 'La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC',
+    title:
+      'El Mejor Abogado de Inmigración Explica 5 Señales Clave de Que Su Estatus Está en Riesgo - Vasquez Law Firm, PLLC',
     description:
-      'Descubre la impactante verdad sobre los inmigrantes ilegales, su impacto y lo que necesita cambiar. Obtén perspectivas expertas y entiende las complejidades de este tema.',
+      'Descubra 5 señales críticas que pueden amenazar su estatus migratorio. Consulte hoy con un abogado de inmigración asequible para asegurar su futuro legal.',
     images: [
-      { url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/illegal-immigrants.jpg' },
+      {
+        url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/El-Mejor-Abogado-de-Inmigracion-2.jpg',
+      },
     ],
   },
 };
 
-export default function LaImpactanteVerdadSobreLaInmigracionIlegalPage() {
+export default function ElMejorAbogadoDeInmigracionExplica5SenalesClaveDeQueSuEstatusEstaEnRiesgoPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -22,7 +26,8 @@ export default function LaImpactanteVerdadSobreLaInmigracionIlegalPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC
+              El Mejor Abogado de Inmigración Explica 5 Señales Clave de Que Su Estatus Está en
+              Riesgo - Vasquez Law Firm, PLLC
             </h1>
             <p className="text-xl"></p>
           </div>
@@ -36,7 +41,8 @@ export default function LaImpactanteVerdadSobreLaInmigracionIlegalPage() {
             <div className="prose prose-lg max-w-none">
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC
+                  El Mejor Abogado de Inmigración Explica 5 Señales Clave de Que Su Estatus Está en
+                  Riesgo - Vasquez Law Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
                   Our experienced attorneys provide comprehensive legal services for immigration
@@ -47,7 +53,8 @@ export default function LaImpactanteVerdadSobreLaInmigracionIlegalPage() {
 
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC
+                  El Mejor Abogado de Inmigración Explica 5 Señales Clave de Que Su Estatus Está en
+                  Riesgo - Vasquez Law Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
                   When you choose Vasquez Law Firm for your immigration case, you get: • Bilingual
@@ -59,7 +66,8 @@ export default function LaImpactanteVerdadSobreLaInmigracionIlegalPage() {
 
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC
+                  El Mejor Abogado de Inmigración Explica 5 Señales Clave de Que Su Estatus Está en
+                  Riesgo - Vasquez Law Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
                   Get a free evaluation of your immigration case. During your consultation,
@@ -70,7 +78,8 @@ export default function LaImpactanteVerdadSobreLaInmigracionIlegalPage() {
 
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC
+                  El Mejor Abogado de Inmigración Explica 5 Señales Clave de Que Su Estatus Está en
+                  Riesgo - Vasquez Law Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
                   Common questions about immigration cases in North Carolina and Florida. Our
@@ -95,7 +104,7 @@ export default function LaImpactanteVerdadSobreLaInmigracionIlegalPage() {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link
-                href="/contact"
+                href="/es/contacto"
                 className="bg-burgundy-700 text-white px-8 py-3 rounded-md hover:bg-burgundy-800 transition-colors"
               >
                 Schedule Consultation
@@ -122,37 +131,38 @@ export default function LaImpactanteVerdadSobreLaInmigracionIlegalPage() {
                 {
                   '@type': 'WebPage',
                   '@id':
-                    'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/',
-                  url: 'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/',
-                  name: 'La Impactante Verdad sobre la Inmigración Ilegal - Vasquez Law Firm, PLLC',
+                    'https://www.vasquezlawnc.com/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo/',
+                  url: 'https://www.vasquezlawnc.com/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo/',
+                  name: 'El Mejor Abogado de Inmigración Explica 5 Señales Clave de Que Su Estatus Está en Riesgo - Vasquez Law Firm, PLLC',
                   isPartOf: { '@id': 'https://www.vasquezlawnc.com/#website' },
                   primaryImageOfPage: {
                     '@id':
-                      'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/#primaryimage',
+                      'https://www.vasquezlawnc.com/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo/#primaryimage',
                   },
                   image: {
                     '@id':
-                      'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/#primaryimage',
+                      'https://www.vasquezlawnc.com/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo/#primaryimage',
                   },
                   thumbnailUrl:
-                    'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/illegal-immigrants.jpg',
-                  datePublished: '2025-01-25T15:17:49+00:00',
+                    'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/El-Mejor-Abogado-de-Inmigracion-2.jpg',
+                  datePublished: '2025-01-10T10:43:49+00:00',
+                  dateModified: '2025-01-23T06:45:59+00:00',
                   author: {
                     '@id':
                       'https://www.vasquezlawnc.com/#/schema/person/2fa7514bdc81d9bc9644faadb9c7084f',
                   },
                   description:
-                    'Descubre la impactante verdad sobre los inmigrantes ilegales, su impacto y lo que necesita cambiar. Obtén perspectivas expertas y entiende las complejidades de este tema.',
+                    'Descubra 5 señales críticas que pueden amenazar su estatus migratorio. Consulte hoy con un abogado de inmigración asequible para asegurar su futuro legal.',
                   breadcrumb: {
                     '@id':
-                      'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/#breadcrumb',
+                      'https://www.vasquezlawnc.com/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo/#breadcrumb',
                   },
                   inLanguage: 'en-US',
                   potentialAction: [
                     {
                       '@type': 'ReadAction',
                       target: [
-                        'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/',
+                        'https://www.vasquezlawnc.com/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo/',
                       ],
                     },
                   ],
@@ -161,19 +171,17 @@ export default function LaImpactanteVerdadSobreLaInmigracionIlegalPage() {
                   '@type': 'ImageObject',
                   inLanguage: 'en-US',
                   '@id':
-                    'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/#primaryimage',
-                  url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/illegal-immigrants.jpg',
+                    'https://www.vasquezlawnc.com/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo/#primaryimage',
+                  url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/El-Mejor-Abogado-de-Inmigracion-2.jpg',
                   contentUrl:
-                    'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/illegal-immigrants.jpg',
-                  width: 600,
+                    'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/El-Mejor-Abogado-de-Inmigracion-2.jpg',
+                  width: 1000,
                   height: 400,
-                  caption:
-                    'Image of a thought-provoking article on illegal immigration, emphasizing key facts and statistics that challenge common perceptions.',
                 },
                 {
                   '@type': 'BreadcrumbList',
                   '@id':
-                    'https://www.vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/#breadcrumb',
+                    'https://www.vasquezlawnc.com/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo/#breadcrumb',
                   itemListElement: [
                     {
                       '@type': 'ListItem',
@@ -184,7 +192,7 @@ export default function LaImpactanteVerdadSobreLaInmigracionIlegalPage() {
                     {
                       '@type': 'ListItem',
                       position: 2,
-                      name: 'La Impactante Verdad sobre la Inmigración Ilegal',
+                      name: 'El Mejor Abogado de Inmigración Explica 5 Señales Clave de Que Su Estatus Está en Riesgo',
                     },
                   ],
                 },
@@ -283,7 +291,7 @@ export default function LaImpactanteVerdadSobreLaInmigracionIlegalPage() {
               '@type': 'LegalService',
               name: '',
               description:
-                'Descubre la impactante verdad sobre los inmigrantes ilegales, su impacto y lo que necesita cambiar. Obtén perspectivas expertas y entiende las complejidades de este tema.',
+                'Descubra 5 señales críticas que pueden amenazar su estatus migratorio. Consulte hoy con un abogado de inmigración asequible para asegurar su futuro legal.',
               provider: {
                 '@type': 'LegalService',
                 name: 'Vasquez Law Firm, PLLC',
@@ -318,7 +326,7 @@ export default function LaImpactanteVerdadSobreLaInmigracionIlegalPage() {
               },
               priceRange: 'Free Consultation',
               availableLanguage: ['English', 'Spanish'],
-              url: 'https://vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal/index',
+              url: 'https://vasquezlawnc.com/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo/index',
             },
             {
               '@context': 'https://schema.org',
@@ -333,8 +341,8 @@ export default function LaImpactanteVerdadSobreLaInmigracionIlegalPage() {
                 {
                   '@type': 'ListItem',
                   position: 2,
-                  name: 'La impactante verdad sobre la inmigracion ilegal',
-                  item: 'https://vasquezlawnc.com/la-impactante-verdad-sobre-la-inmigracion-ilegal',
+                  name: 'El mejor abogado de inmigracion explica 5 senales clave de que su estatus esta en riesgo',
+                  item: 'https://vasquezlawnc.com/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo',
                 },
               ],
             },

@@ -31,7 +31,7 @@ export default function CaldwellCountyPage() {
               <p className="text-xl text-gray-700">
                 When legal issues arise in Caldwell County, North Carolina residents trust Vasquez Law Firm. 
                 With over 60 years of combined experience and a proven track record throughout the ${region} region, 
-                we\'re here to fight for your rights.
+                we&apos;re here to fight for your rights.
               </p>
             </section>
             <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

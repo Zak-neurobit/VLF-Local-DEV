@@ -45,7 +45,7 @@ export default function Page() {
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none">
               <div className="mb-8">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-4">Of Counsel</h2>
+                <h2 className="text-3xl font-bold text-burgundy-900 mb-4">Abogada Consultora</h2>
                 <p className="text-gray-700">
                   Judith Parkes aporta décadas de experiencia en litigios complejos y apelaciones a
                   la firma.
@@ -55,7 +55,7 @@ export default function Page() {
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-burgundy-900 mb-4">Educación</h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>J.D., Duke University School of Law</li>
+                  <li>Doctorado en Derecho, Duke University School of Law</li>
                 </ul>
               </div>
 
@@ -64,16 +64,16 @@ export default function Page() {
                   Admisiones al Colegio de Abogados
                 </h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>North Carolina</li>
-                  <li>Federal Courts</li>
+                  <li>Carolina del Norte</li>
+                  <li>Cortes Federales</li>
                 </ul>
               </div>
 
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-burgundy-900 mb-4">Áreas de Práctica</h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>Appeals</li>
-                  <li>Complex Litigation</li>
+                  <li>Apelaciones</li>
+                  <li>Litigios Complejos</li>
                 </ul>
               </div>
             </div>

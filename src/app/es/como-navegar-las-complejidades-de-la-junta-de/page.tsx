@@ -52,7 +52,7 @@ export default function ComoNavegarLasComplejidadesDeLaJuntaDePage() {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link
-                href="/contact"
+                href="/es/contacto"
                 className="bg-burgundy-700 text-white px-8 py-3 rounded-md hover:bg-burgundy-800 transition-colors"
               >
                 Schedule Consultation

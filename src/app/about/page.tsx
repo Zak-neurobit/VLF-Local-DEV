@@ -537,7 +537,7 @@ export default function AboutPage() {
                 "@type": "Person",
                 "name": "William J. Vásquez"
               },
-              "slogan": "YO PELEO POR TI - I Fight For You",
+              "slogan": "YO PELEO POR TI™ - I Fight For You",
               "numberOfEmployees": "10+",
               "areaServed": ["North Carolina", "Florida"],
               "award": [

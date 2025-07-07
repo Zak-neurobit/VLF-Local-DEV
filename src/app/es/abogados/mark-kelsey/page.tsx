@@ -46,7 +46,7 @@ export default function Page() {
             <div className="prose prose-lg max-w-none">
               <div className="mb-8">
                 <h2 className="text-3xl font-bold text-burgundy-900 mb-4">
-                  Personal Injury Attorney
+                  Abogado de Lesiones Personales
                 </h2>
                 <p className="text-gray-700">
                   Mark Kelsey se enfoca en casos de lesiones personales y compensación laboral,
@@ -57,7 +57,7 @@ export default function Page() {
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-burgundy-900 mb-4">Educación</h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>J.D., Wake Forest University School of Law</li>
+                  <li>Doctorado en Derecho, Wake Forest University School of Law</li>
                 </ul>
               </div>
 
@@ -66,15 +66,15 @@ export default function Page() {
                   Admisiones al Colegio de Abogados
                 </h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>North Carolina</li>
+                  <li>Carolina del Norte</li>
                 </ul>
               </div>
 
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-burgundy-900 mb-4">Áreas de Práctica</h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>Personal Injury</li>
-                  <li>Workers&apos; Compensation</li>
+                  <li>Lesiones Personales</li>
+                  <li>Compensación Laboral</li>
                 </ul>
               </div>
             </div>

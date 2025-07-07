@@ -1,18 +1,24 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 export const metadata: Metadata = {
-  title: 'Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC',
+  title:
+    'Guía Experta sobre la Reforma Migratoria para Visas de Estudiante - Vasquez Law Firm, PLLC',
   description:
-    'Expert immigration attorneys handling immigration. 60+ years experience. Free consultation in English/Spanish. Call 1-844-YO-PELEO.',
+    'Conoce las últimas reformas migratorias para visas de estudiante y cómo pueden afectar tu futuro en los EE. UU. Obtén información experta y consejos para navegar los cambios.',
   openGraph: {
-    title: 'Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC',
+    title:
+      'Guía Experta sobre la Reforma Migratoria para Visas de Estudiante - Vasquez Law Firm, PLLC',
     description:
-      'Expert immigration attorneys handling immigration. 60+ years experience. Free consultation in English/Spanish. Call 1-844-YO-PELEO.',
-    images: [{ url: '/images/og-default.jpg' }],
+      'Conoce las últimas reformas migratorias para visas de estudiante y cómo pueden afectar tu futuro en los EE. UU. Obtén información experta y consejos para navegar los cambios.',
+    images: [
+      {
+        url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/Guia-Experta-sobre-la-Reforma-Migratoria-para-Visas-de-Estudiante-2.jpg',
+      },
+    ],
   },
 };
 
-export default function AbogadosDeInmigracionDeTVisaPage() {
+export default function GuiaExpertaSobreLaReformaMigratoriaParaVisasDeEstudiantePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -20,7 +26,7 @@ export default function AbogadosDeInmigracionDeTVisaPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC
+              Todo lo que Necesitas Saber Sobre la Reforma Migratoria para Visas de Estudiante
             </h1>
             <p className="text-xl"></p>
           </div>
@@ -34,46 +40,54 @@ export default function AbogadosDeInmigracionDeTVisaPage() {
             <div className="prose prose-lg max-w-none">
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC
+                  Guía Experta sobre la Reforma Migratoria para Visas de Estudiante - Vasquez Law
+                  Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
-                  Our experienced attorneys provide comprehensive legal services for immigration
-                  cases. With over 35 years of combined experience, we understand the complexities
-                  of immigration law and fight tirelessly for our clients&apos; rights.
+                  Our experienced attorneys provide comprehensive legal services for Todo lo que
+                  Necesitas Saber Sobre la Reforma Migratoria para Visas de Estudiante cases. With
+                  over 35 years of combined experience, we understand the complexities of Todo lo
+                  que Necesitas Saber Sobre la Reforma Migratoria para Visas de Estudiante law and
+                  fight tirelessly for our clients&apos; rights.
                 </div>
               </div>
 
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC
+                  Guía Experta sobre la Reforma Migratoria para Visas de Estudiante - Vasquez Law
+                  Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
-                  When you choose Vasquez Law Firm for your immigration case, you get: • Bilingual
-                  attorneys who understand your needs • 24/7 availability for emergencies • No fee
-                  unless we win (for applicable cases) • Personalized attention to your case •
-                  Proven track record of success
+                  When you choose Vasquez Law Firm for your Todo lo que Necesitas Saber Sobre la
+                  Reforma Migratoria para Visas de Estudiante case, you get: • Bilingual attorneys
+                  who understand your needs • 24/7 availability for emergencies • No fee unless we
+                  win (for applicable cases) • Personalized attention to your case • Proven track
+                  record of success
                 </div>
               </div>
 
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC
+                  Guía Experta sobre la Reforma Migratoria para Visas de Estudiante - Vasquez Law
+                  Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
-                  Get a free evaluation of your immigration case. During your consultation,
-                  we&apos;ll: • Review your situation in detail • Explain your legal options •
-                  Answer all your questions • Provide honest assessment • Discuss our fee structure
+                  Get a free evaluation of your Todo lo que Necesitas Saber Sobre la Reforma
+                  Migratoria para Visas de Estudiante case. During your consultation, we&apos;ll: •
+                  Review your situation in detail • Explain your legal options • Answer all your
+                  questions • Provide honest assessment • Discuss our fee structure
                 </div>
               </div>
 
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC
+                  Guía Experta sobre la Reforma Migratoria para Visas de Estudiante - Vasquez Law
+                  Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
-                  Common questions about immigration cases in North Carolina and Florida. Our
-                  attorneys are here to provide clear answers and guide you through the legal
-                  process.
+                  Common questions about Todo lo que Necesitas Saber Sobre la Reforma Migratoria
+                  para Visas de Estudiante cases in North Carolina and Florida. Our attorneys are
+                  here to provide clear answers and guide you through the legal process.
                 </div>
               </div>
             </div>
@@ -93,7 +107,7 @@ export default function AbogadosDeInmigracionDeTVisaPage() {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link
-                href="/contact"
+                href="/es/contacto"
                 className="bg-burgundy-700 text-white px-8 py-3 rounded-md hover:bg-burgundy-800 transition-colors"
               >
                 Schedule Consultation
@@ -119,28 +133,58 @@ export default function AbogadosDeInmigracionDeTVisaPage() {
               '@graph': [
                 {
                   '@type': 'WebPage',
-                  '@id': 'https://www.vasquezlawnc.com/abogados-de-inmigracion-de-t-visa/',
-                  url: 'https://www.vasquezlawnc.com/abogados-de-inmigracion-de-t-visa/',
-                  name: 'Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC',
+                  '@id':
+                    'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/',
+                  url: 'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/',
+                  name: 'Guía Experta sobre la Reforma Migratoria para Visas de Estudiante - Vasquez Law Firm, PLLC',
                   isPartOf: { '@id': 'https://www.vasquezlawnc.com/#website' },
-                  datePublished: '2025-02-15T07:28:43+00:00',
-                  dateModified: '2025-02-19T17:44:25+00:00',
+                  primaryImageOfPage: {
+                    '@id':
+                      'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/#primaryimage',
+                  },
+                  image: {
+                    '@id':
+                      'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/#primaryimage',
+                  },
+                  thumbnailUrl:
+                    'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/Guia-Experta-sobre-la-Reforma-Migratoria-para-Visas-de-Estudiante-2.jpg',
+                  datePublished: '2025-01-12T10:49:43+00:00',
+                  dateModified: '2025-01-23T06:43:45+00:00',
+                  author: {
+                    '@id':
+                      'https://www.vasquezlawnc.com/#/schema/person/2fa7514bdc81d9bc9644faadb9c7084f',
+                  },
+                  description:
+                    'Conoce las últimas reformas migratorias para visas de estudiante y cómo pueden afectar tu futuro en los EE. UU. Obtén información experta y consejos para navegar los cambios.',
                   breadcrumb: {
                     '@id':
-                      'https://www.vasquezlawnc.com/abogados-de-inmigracion-de-t-visa/#breadcrumb',
+                      'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/#breadcrumb',
                   },
                   inLanguage: 'en-US',
                   potentialAction: [
                     {
                       '@type': 'ReadAction',
-                      target: ['https://www.vasquezlawnc.com/abogados-de-inmigracion-de-t-visa/'],
+                      target: [
+                        'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/',
+                      ],
                     },
                   ],
                 },
                 {
+                  '@type': 'ImageObject',
+                  inLanguage: 'en-US',
+                  '@id':
+                    'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/#primaryimage',
+                  url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/Guia-Experta-sobre-la-Reforma-Migratoria-para-Visas-de-Estudiante-2.jpg',
+                  contentUrl:
+                    'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/Guia-Experta-sobre-la-Reforma-Migratoria-para-Visas-de-Estudiante-2.jpg',
+                  width: 1000,
+                  height: 400,
+                },
+                {
                   '@type': 'BreadcrumbList',
                   '@id':
-                    'https://www.vasquezlawnc.com/abogados-de-inmigracion-de-t-visa/#breadcrumb',
+                    'https://www.vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/#breadcrumb',
                   itemListElement: [
                     {
                       '@type': 'ListItem',
@@ -148,7 +192,11 @@ export default function AbogadosDeInmigracionDeTVisaPage() {
                       name: 'Home',
                       item: 'https://www.vasquezlawnc.com/',
                     },
-                    { '@type': 'ListItem', position: 2, name: 'Abogados de Inmigración de T Visa' },
+                    {
+                      '@type': 'ListItem',
+                      position: 2,
+                      name: 'Guía Experta sobre la Reforma Migratoria para Visas de Estudiante',
+                    },
                   ],
                 },
                 {
@@ -173,6 +221,22 @@ export default function AbogadosDeInmigracionDeTVisaPage() {
                   ],
                   inLanguage: 'en-US',
                 },
+                {
+                  '@type': 'Person',
+                  '@id':
+                    'https://www.vasquezlawnc.com/#/schema/person/2fa7514bdc81d9bc9644faadb9c7084f',
+                  name: 'wvasquez@vasquezlawfirm.com',
+                  image: {
+                    '@type': 'ImageObject',
+                    inLanguage: 'en-US',
+                    '@id': 'https://www.vasquezlawnc.com/#/schema/person/image/',
+                    url: 'https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=96&d=mm&r=g',
+                    contentUrl:
+                      'https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=96&d=mm&r=g',
+                    caption: 'wvasquez@vasquezlawfirm.com',
+                  },
+                  url: 'https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/',
+                },
               ],
             },
             {
@@ -181,7 +245,7 @@ export default function AbogadosDeInmigracionDeTVisaPage() {
               mainEntity: [
                 {
                   '@type': 'Question',
-                  name: 'How much does a immigration lawyer cost?',
+                  name: 'How much does a Todo lo que Necesitas Saber Sobre la Reforma Migratoria para Visas de Estudiante lawyer cost?',
                   acceptedAnswer: {
                     '@type': 'Answer',
                     text: 'Vasquez Law Firm offers free consultations and works on contingency for many cases. This means you don\'t pay attorney fees unless we win your case. For other matters, we offer competitive rates and payment plans.',
@@ -189,7 +253,7 @@ export default function AbogadosDeInmigracionDeTVisaPage() {
                 },
                 {
                   '@type': 'Question',
-                  name: 'How long does a immigration case take?',
+                  name: 'How long does a Todo lo que Necesitas Saber Sobre la Reforma Migratoria para Visas de Estudiante case take?',
                   acceptedAnswer: {
                     '@type': 'Answer',
                     text: 'Case timelines vary depending on complexity and specific circumstances. During your free consultation, we\'ll provide a realistic timeline based on your unique situation and our extensive experience handling similar cases.',
@@ -228,9 +292,9 @@ export default function AbogadosDeInmigracionDeTVisaPage() {
             {
               '@context': 'https://schema.org',
               '@type': 'LegalService',
-              name: '',
+              name: 'Todo lo que Necesitas Saber Sobre la Reforma Migratoria para Visas de Estudiante',
               description:
-                'Expert immigration attorneys handling immigration. 60+ years experience. Free consultation in English/Spanish. Call 1-844-YO-PELEO.',
+                'Conoce las últimas reformas migratorias para visas de estudiante y cómo pueden afectar tu futuro en los EE. UU. Obtén información experta y consejos para navegar los cambios.',
               provider: {
                 '@type': 'LegalService',
                 name: 'Vasquez Law Firm, PLLC',
@@ -265,7 +329,7 @@ export default function AbogadosDeInmigracionDeTVisaPage() {
               },
               priceRange: 'Free Consultation',
               availableLanguage: ['English', 'Spanish'],
-              url: 'https://vasquezlawnc.com/abogados-de-inmigracion-de-t-visa/index',
+              url: 'https://vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante/index',
             },
             {
               '@context': 'https://schema.org',
@@ -280,8 +344,8 @@ export default function AbogadosDeInmigracionDeTVisaPage() {
                 {
                   '@type': 'ListItem',
                   position: 2,
-                  name: 'Abogados de inmigracion de t visa',
-                  item: 'https://vasquezlawnc.com/abogados-de-inmigracion-de-t-visa',
+                  name: 'Guia experta sobre la reforma migratoria para visas de estudiante',
+                  item: 'https://vasquezlawnc.com/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante',
                 },
               ],
             },

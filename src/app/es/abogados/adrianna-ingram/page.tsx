@@ -45,7 +45,7 @@ export default function Page() {
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none">
               <div className="mb-8">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-4">Immigration Attorney</h2>
+                <h2 className="text-3xl font-bold text-burgundy-900 mb-4">Abogada de Inmigración</h2>
                 <p className="text-gray-700">
                   Adrianna Ingram se especializa en todos los aspectos del derecho de inmigración,
                   incluyendo peticiones familiares, visas de empleo y defensa contra la deportación.
@@ -55,7 +55,7 @@ export default function Page() {
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-burgundy-900 mb-4">Educación</h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>J.D., North Carolina Central University School of Law</li>
+                  <li>Doctorado en Derecho, North Carolina Central University School of Law</li>
                 </ul>
               </div>
 
@@ -64,14 +64,14 @@ export default function Page() {
                   Admisiones al Colegio de Abogados
                 </h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>North Carolina</li>
+                  <li>Carolina del Norte</li>
                 </ul>
               </div>
 
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-burgundy-900 mb-4">Áreas de Práctica</h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>Immigration Law</li>
+                  <li>Ley de Inmigración</li>
                 </ul>
               </div>
             </div>

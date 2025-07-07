@@ -242,6 +242,53 @@ const nextConfig = {
         destination: '/',
         permanent: true,
       },
+      // Spanish blog post redirects - moved to /es directory
+      {
+        source: '/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos',
+        destination: '/es/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos',
+        permanent: true,
+      },
+      {
+        source: '/como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion',
+        destination: '/es/como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion',
+        permanent: true,
+      },
+      {
+        source: '/como-navegar-las-complejidades-de-la-junta-de',
+        destination: '/es/como-navegar-las-complejidades-de-la-junta-de',
+        permanent: true,
+      },
+      {
+        source: '/la-mejor-guia-para-navegar-en-la-junta-de-apelaciones-de-inmigracion',
+        destination: '/es/la-mejor-guia-para-navegar-en-la-junta-de-apelaciones-de-inmigracion',
+        permanent: true,
+      },
+      {
+        source: '/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo',
+        destination: '/es/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo',
+        permanent: true,
+      },
+      {
+        source: '/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante',
+        destination: '/es/guia-experta-sobre-la-reforma-migratoria-para-visas-de-estudiante',
+        permanent: true,
+      },
+      {
+        source: '/la-impactante-verdad-sobre-la-inmigracion-ilegal',
+        destination: '/es/la-impactante-verdad-sobre-la-inmigracion-ilegal',
+        permanent: true,
+      },
+      // Spanish service page redirects
+      {
+        source: '/abogados-de-inmigracion-de-t-visa',
+        destination: '/es/areas-de-practica/inmigracion/abogados-de-inmigracion-de-t-visa',
+        permanent: true,
+      },
+      {
+        source: '/multas-de-transito',
+        destination: '/es/areas-de-practica/multas-de-transito',
+        permanent: true,
+      },
       // Spanish blog category redirects
       {
         source: '/es/blog/category/immigration',

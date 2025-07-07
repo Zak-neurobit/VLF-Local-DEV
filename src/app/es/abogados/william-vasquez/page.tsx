@@ -46,7 +46,7 @@ export default function Page() {
             <div className="prose prose-lg max-w-none">
               <div className="mb-8">
                 <h2 className="text-3xl font-bold text-burgundy-900 mb-4">
-                  CEO & Managing Attorney
+                  CEO y Abogado Principal
                 </h2>
                 <p className="text-gray-700">
                   William Vasquez es el abogado fundador de Vasquez Law Firm, PLLC. Con más de 35
@@ -60,8 +60,8 @@ export default function Page() {
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-burgundy-900 mb-4">Educación</h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>J.D., North Carolina Central University School of Law</li>
-                  <li>B.A., University of North Carolina at Chapel Hill</li>
+                  <li>Doctorado en Derecho, North Carolina Central University School of Law</li>
+                  <li>Licenciatura en Artes, University of North Carolina at Chapel Hill</li>
                 </ul>
               </div>
 
@@ -70,17 +70,17 @@ export default function Page() {
                   Admisiones al Colegio de Abogados
                 </h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>North Carolina</li>
-                  <li>Federal Courts</li>
+                  <li>Carolina del Norte</li>
+                  <li>Cortes Federales</li>
                 </ul>
               </div>
 
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-burgundy-900 mb-4">Áreas de Práctica</h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>Immigration Law</li>
-                  <li>Criminal Defense</li>
-                  <li>Personal Injury</li>
+                  <li>Ley de Inmigración</li>
+                  <li>Defensa Criminal</li>
+                  <li>Lesiones Personales</li>
                 </ul>
               </div>
             </div>

@@ -1,18 +1,20 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 export const metadata: Metadata = {
-  title: 'Multas de Tránsito - Vasquez Law Firm, PLLC',
+  title:
+    'Cómo Construí un Negocio de Seis Cifras en 12 Meses como Inmigrante de Primera Generación - Vasquez Law Firm, PLLC',
   description:
-    'En Vasquez Law Firm, sabemos que recibir una multa de tránsito puede generar preocupación y dudas sobre sus derechos y opciones legales. Muchas personas piensan que la única solución es pagar la multa y seguir adelante, pero hacerlo sin conocer las consecuencias puede afectar su licencia, historial de manejo y hasta sus finanzas a largo plazo.',
+    'Descubre cómo construí un negocio de seis cifras en 12 meses como inmigrante de primera generación. Consejos y estrategias de expertos para lograr el éxito empresarial en un nuevo país.',
   openGraph: {
-    title: 'Multas de Tránsito - Vasquez Law Firm, PLLC',
+    title:
+      'Cómo Construí un Negocio de Seis Cifras en 12 Meses como Inmigrante de Primera Generación - Vasquez Law Firm, PLLC',
     description:
-      'En Vasquez Law Firm, sabemos que recibir una multa de tránsito puede generar preocupación y dudas sobre sus derechos y opciones legales. Muchas personas piensan que la única solución es pagar la multa y seguir adelante, pero hacerlo sin conocer las consecuencias puede afectar su licencia, historial de manejo y hasta sus finanzas a largo plazo.',
-    images: [{ url: '/images/og-default.jpg' }],
+      'Descubre cómo construí un negocio de seis cifras en 12 meses como inmigrante de primera generación. Consejos y estrategias de expertos para lograr el éxito empresarial en un nuevo país.',
+    images: [{ url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/10-1.jpg' }],
   },
 };
 
-export default function MultasDeTransitoPage() {
+export default function ComoConstruiUnNegocioDeSeisCifrasEn12MesesComoInmigranteDePrimeraGeneracionPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -20,7 +22,8 @@ export default function MultasDeTransitoPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Multas de Tránsito - Vasquez Law Firm, PLLC
+              Cómo Construí un Negocio de Seis Cifras en 12 Meses como Inmigrante de Primera
+              Generación - Vasquez Law Firm, PLLC
             </h1>
             <p className="text-xl"></p>
           </div>
@@ -48,7 +51,7 @@ export default function MultasDeTransitoPage() {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link
-                href="/contact"
+                href="/es/contacto"
                 className="bg-burgundy-700 text-white px-8 py-3 rounded-md hover:bg-burgundy-800 transition-colors"
               >
                 Schedule Consultation
@@ -74,28 +77,56 @@ export default function MultasDeTransitoPage() {
               '@graph': [
                 {
                   '@type': 'WebPage',
-                  '@id': 'https://www.vasquezlawnc.com/multas-de-transito/',
-                  url: 'https://www.vasquezlawnc.com/multas-de-transito/',
-                  name: 'Multas de Tránsito - Vasquez Law Firm, PLLC',
+                  '@id':
+                    'https://www.vasquezlawnc.com/como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion/',
+                  url: 'https://www.vasquezlawnc.com/como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion/',
+                  name: 'Cómo Construí un Negocio de Seis Cifras en 12 Meses como Inmigrante de Primera Generación - Vasquez Law Firm, PLLC',
                   isPartOf: { '@id': 'https://www.vasquezlawnc.com/#website' },
-                  datePublished: '2025-02-15T06:38:33+00:00',
-                  dateModified: '2025-02-18T08:18:36+00:00',
+                  primaryImageOfPage: {
+                    '@id':
+                      'https://www.vasquezlawnc.com/como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion/#primaryimage',
+                  },
+                  image: {
+                    '@id':
+                      'https://www.vasquezlawnc.com/como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion/#primaryimage',
+                  },
+                  thumbnailUrl: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/10-1.jpg',
+                  datePublished: '2025-01-22T14:45:48+00:00',
+                  dateModified: '2025-01-22T14:46:50+00:00',
+                  author: {
+                    '@id':
+                      'https://www.vasquezlawnc.com/#/schema/person/2fa7514bdc81d9bc9644faadb9c7084f',
+                  },
                   description:
-                    'En Vasquez Law Firm, sabemos que recibir una multa de tránsito puede generar preocupación y dudas sobre sus derechos y opciones legales. Muchas personas piensan que la única solución es pagar la multa y seguir adelante, pero hacerlo sin conocer las consecuencias puede afectar su licencia, historial de manejo y hasta sus finanzas a largo plazo.',
+                    'Descubre cómo construí un negocio de seis cifras en 12 meses como inmigrante de primera generación. Consejos y estrategias de expertos para lograr el éxito empresarial en un nuevo país.',
                   breadcrumb: {
-                    '@id': 'https://www.vasquezlawnc.com/multas-de-transito/#breadcrumb',
+                    '@id':
+                      'https://www.vasquezlawnc.com/como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion/#breadcrumb',
                   },
                   inLanguage: 'en-US',
                   potentialAction: [
                     {
                       '@type': 'ReadAction',
-                      target: ['https://www.vasquezlawnc.com/multas-de-transito/'],
+                      target: [
+                        'https://www.vasquezlawnc.com/como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion/',
+                      ],
                     },
                   ],
                 },
                 {
+                  '@type': 'ImageObject',
+                  inLanguage: 'en-US',
+                  '@id':
+                    'https://www.vasquezlawnc.com/como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion/#primaryimage',
+                  url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/10-1.jpg',
+                  contentUrl: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/10-1.jpg',
+                  width: 600,
+                  height: 400,
+                },
+                {
                   '@type': 'BreadcrumbList',
-                  '@id': 'https://www.vasquezlawnc.com/multas-de-transito/#breadcrumb',
+                  '@id':
+                    'https://www.vasquezlawnc.com/como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion/#breadcrumb',
                   itemListElement: [
                     {
                       '@type': 'ListItem',
@@ -103,7 +134,11 @@ export default function MultasDeTransitoPage() {
                       name: 'Home',
                       item: 'https://www.vasquezlawnc.com/',
                     },
-                    { '@type': 'ListItem', position: 2, name: 'Multas de Tránsito' },
+                    {
+                      '@type': 'ListItem',
+                      position: 2,
+                      name: 'Cómo Construí un Negocio de Seis Cifras en 12 Meses como Inmigrante de Primera Generación',
+                    },
                   ],
                 },
                 {
@@ -127,6 +162,22 @@ export default function MultasDeTransitoPage() {
                     },
                   ],
                   inLanguage: 'en-US',
+                },
+                {
+                  '@type': 'Person',
+                  '@id':
+                    'https://www.vasquezlawnc.com/#/schema/person/2fa7514bdc81d9bc9644faadb9c7084f',
+                  name: 'wvasquez@vasquezlawfirm.com',
+                  image: {
+                    '@type': 'ImageObject',
+                    inLanguage: 'en-US',
+                    '@id': 'https://www.vasquezlawnc.com/#/schema/person/image/',
+                    url: 'https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=96&d=mm&r=g',
+                    contentUrl:
+                      'https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=96&d=mm&r=g',
+                    caption: 'wvasquez@vasquezlawfirm.com',
+                  },
+                  url: 'https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/',
                 },
               ],
             },
@@ -163,8 +214,8 @@ export default function MultasDeTransitoPage() {
                 {
                   '@type': 'ListItem',
                   position: 2,
-                  name: 'Multas de transito',
-                  item: 'https://vasquezlawnc.com/multas-de-transito',
+                  name: 'Como construi un negocio de seis cifras en 12 meses como inmigrante de primera generacion',
+                  item: 'https://vasquezlawnc.com/como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion',
                 },
               ],
             },

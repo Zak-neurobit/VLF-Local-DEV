@@ -66,7 +66,7 @@ export default function AcercaDePage() {
     association4: 'Asociación Nacional de Abogados de Defensa Criminal',
     tagline: 'YO PELEO POR TI™',
     taglineDesc:
-      'Nuestro lema "Yo Peleo Por Ti" no son solo palabras - es nuestra promesa a cada cliente que cruza nuestras puertas.',
+      'Nuestro lema "Yo Peleo Por Ti™" no son solo palabras - es nuestra promesa a cada cliente que cruza nuestras puertas.',
     getStarted: '¿Listo para Comenzar?',
     consultation: 'Programe Su Consulta Gratuita',
   };

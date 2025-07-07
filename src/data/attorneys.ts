@@ -43,7 +43,7 @@ export const attorneys: Attorney[] = [
     slug: 'william-vasquez',
     title: 'Attorney and Founder',
     titleEs: 'Director Ejecutivo y Abogado Principal',
-    image: '/images/attorneys/william-vasquez.jpg',
+    image: '/william-vasquez-cutout.png',
     practiceAreas: ['Immigration Law', 'Criminal Defense', 'Federal Criminal Defense', 'Traffic Violations'],
     languages: ['English', 'Spanish'],
     education: [
@@ -87,8 +87,8 @@ export const attorneys: Attorney[] = [
       role: 'Spanish Linguist, Defense Intelligence Agency',
       awards: ['Joint Service Achievement Medal (2005)', 'Operation Enduring Freedom Veteran']
     },
-    bio: `William Vásquez is a native of Queens, NY and a decorated U.S. Air Force veteran. After serving as a Spanish linguist for the Defense Intelligence Agency during Operation Enduring Freedom, he pursued his legal education, earning his J.D. from North Carolina Central University School of Law. With over a decade of legal experience, William specializes in immigration law and criminal defense, bringing military discipline and bilingual expertise to every case. His motto "YO PELEO POR TI" reflects his commitment to fighting for his clients' rights with the same dedication he showed serving his country.`,
-    bioEs: `William Vásquez es nativo de Queens, NY y un veterano condecorado de la Fuerza Aérea de EE.UU. Después de servir como lingüista de español para la Agencia de Inteligencia de Defensa durante la Operación Libertad Duradera, prosiguió su educación legal, obteniendo su J.D. de la Facultad de Derecho de la Universidad Central de Carolina del Norte. Con más de una década de experiencia legal, William se especializa en ley de inmigración y defensa criminal, aportando disciplina militar y experiencia bilingüe a cada caso. Su lema "YO PELEO POR TI" refleja su compromiso de luchar por los derechos de sus clientes con la misma dedicación que mostró sirviendo a su país.`,
+    bio: `William Vásquez is a native of Queens, NY and a decorated U.S. Air Force veteran. After serving as a Spanish linguist for the Defense Intelligence Agency during Operation Enduring Freedom, he pursued his legal education, earning his J.D. from North Carolina Central University School of Law. With over a decade of legal experience, William specializes in immigration law and criminal defense, bringing military discipline and bilingual expertise to every case. His motto "YO PELEO POR TI™" reflects his commitment to fighting for his clients' rights with the same dedication he showed serving his country.`,
+    bioEs: `William Vásquez es nativo de Queens, NY y un veterano condecorado de la Fuerza Aérea de EE.UU. Después de servir como lingüista de español para la Agencia de Inteligencia de Defensa durante la Operación Libertad Duradera, prosiguió su educación legal, obteniendo su J.D. de la Facultad de Derecho de la Universidad Central de Carolina del Norte. Con más de una década de experiencia legal, William se especializa en ley de inmigración y defensa criminal, aportando disciplina militar y experiencia bilingüe a cada caso. Su lema "YO PELEO POR TI™" refleja su compromiso de luchar por los derechos de sus clientes con la misma dedicación que mostró sirviendo a su país.`,
     specialAchievements: [
       'Joint Service Achievement Medal recipient',
       'Operation Enduring Freedom veteran',

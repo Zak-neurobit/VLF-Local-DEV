@@ -46,7 +46,7 @@ export default function Page() {
             <div className="prose prose-lg max-w-none">
               <div className="mb-8">
                 <h2 className="text-3xl font-bold text-burgundy-900 mb-4">
-                  Criminal Defense Attorney
+                  Abogado de Defensa Criminal
                 </h2>
                 <p className="text-gray-700">
                   Christopher Afanador es un abogado experimentado en defensa criminal que ha
@@ -57,7 +57,7 @@ export default function Page() {
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-burgundy-900 mb-4">Educación</h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>J.D., University of North Carolina School of Law</li>
+                  <li>Doctorado en Derecho, University of North Carolina School of Law</li>
                 </ul>
               </div>
 
@@ -66,17 +66,17 @@ export default function Page() {
                   Admisiones al Colegio de Abogados
                 </h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>North Carolina</li>
-                  <li>Federal Courts</li>
+                  <li>Carolina del Norte</li>
+                  <li>Cortes Federales</li>
                 </ul>
               </div>
 
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-burgundy-900 mb-4">Áreas de Práctica</h3>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>Criminal Defense</li>
-                  <li>DUI/DWI</li>
-                  <li>Drug Crimes</li>
+                  <li>Defensa Criminal</li>
+                  <li>DUI/DWI (Conducción bajo la influencia)</li>
+                  <li>Delitos de Drogas</li>
                 </ul>
               </div>
             </div>

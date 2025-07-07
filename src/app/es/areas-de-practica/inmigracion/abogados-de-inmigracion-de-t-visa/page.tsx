@@ -1,20 +1,18 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 export const metadata: Metadata = {
-  title:
-    '7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos Complejos - Vasquez Law Firm, PLLC',
+  title: 'Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC',
   description:
-    'Descubre cómo los abogados de inmigración expertos pueden simplificar tu proceso, evitar errores costosos y ayudarte a reunirte con tus seres queridos. ¡Obtén apoyo profesional hoy!',
+    'Expert immigration attorneys handling immigration. 60+ years experience. Free consultation in English/Spanish. Call 1-844-YO-PELEO.',
   openGraph: {
-    title:
-      '7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos Complejos - Vasquez Law Firm, PLLC',
+    title: 'Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC',
     description:
-      'Descubre cómo los abogados de inmigración expertos pueden simplificar tu proceso, evitar errores costosos y ayudarte a reunirte con tus seres queridos. ¡Obtén apoyo profesional hoy!',
-    images: [{ url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/9.jpg' }],
+      'Expert immigration attorneys handling immigration. 60+ years experience. Free consultation in English/Spanish. Call 1-844-YO-PELEO.',
+    images: [{ url: '/images/og-default.jpg' }],
   },
 };
 
-export default function SieteEstrategiasComprobadasQueLosAbogadosDeInmigracionUsanParaGanarCasosComplejosPage() {
+export default function AbogadosDeInmigracionDeTVisaPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -22,8 +20,7 @@ export default function SieteEstrategiasComprobadasQueLosAbogadosDeInmigracionUs
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos
-              Complejos - Vasquez Law Firm, PLLC
+              Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC
             </h1>
             <p className="text-xl"></p>
           </div>
@@ -37,8 +34,7 @@ export default function SieteEstrategiasComprobadasQueLosAbogadosDeInmigracionUs
             <div className="prose prose-lg max-w-none">
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos
-                  Complejos - Vasquez Law Firm, PLLC
+                  Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
                   Our experienced attorneys provide comprehensive legal services for immigration
@@ -49,8 +45,7 @@ export default function SieteEstrategiasComprobadasQueLosAbogadosDeInmigracionUs
 
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos
-                  Complejos - Vasquez Law Firm, PLLC
+                  Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
                   When you choose Vasquez Law Firm for your immigration case, you get: • Bilingual
@@ -62,8 +57,7 @@ export default function SieteEstrategiasComprobadasQueLosAbogadosDeInmigracionUs
 
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos
-                  Complejos - Vasquez Law Firm, PLLC
+                  Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
                   Get a free evaluation of your immigration case. During your consultation,
@@ -74,8 +68,7 @@ export default function SieteEstrategiasComprobadasQueLosAbogadosDeInmigracionUs
 
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos
-                  Complejos - Vasquez Law Firm, PLLC
+                  Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC
                 </h2>
                 <div className="text-gray-700">
                   Common questions about immigration cases in North Carolina and Florida. Our
@@ -100,7 +93,7 @@ export default function SieteEstrategiasComprobadasQueLosAbogadosDeInmigracionUs
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link
-                href="/contact"
+                href="/es/contacto"
                 className="bg-burgundy-700 text-white px-8 py-3 rounded-md hover:bg-burgundy-800 transition-colors"
               >
                 Schedule Consultation
@@ -126,57 +119,28 @@ export default function SieteEstrategiasComprobadasQueLosAbogadosDeInmigracionUs
               '@graph': [
                 {
                   '@type': 'WebPage',
-                  '@id':
-                    'https://www.vasquezlawnc.com/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos/',
-                  url: 'https://www.vasquezlawnc.com/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos/',
-                  name: '7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos Complejos - Vasquez Law Firm, PLLC',
+                  '@id': 'https://www.vasquezlawnc.com/abogados-de-inmigracion-de-t-visa/',
+                  url: 'https://www.vasquezlawnc.com/abogados-de-inmigracion-de-t-visa/',
+                  name: 'Abogados de Inmigración de T Visa - Vasquez Law Firm, PLLC',
                   isPartOf: { '@id': 'https://www.vasquezlawnc.com/#website' },
-                  primaryImageOfPage: {
-                    '@id':
-                      'https://www.vasquezlawnc.com/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos/#primaryimage',
-                  },
-                  image: {
-                    '@id':
-                      'https://www.vasquezlawnc.com/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos/#primaryimage',
-                  },
-                  thumbnailUrl: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/9.jpg',
-                  datePublished: '2025-01-24T14:54:03+00:00',
-                  author: {
-                    '@id':
-                      'https://www.vasquezlawnc.com/#/schema/person/2fa7514bdc81d9bc9644faadb9c7084f',
-                  },
-                  description:
-                    'Descubre cómo los abogados de inmigración expertos pueden simplificar tu proceso, evitar errores costosos y ayudarte a reunirte con tus seres queridos. ¡Obtén apoyo profesional hoy!',
+                  datePublished: '2025-02-15T07:28:43+00:00',
+                  dateModified: '2025-02-19T17:44:25+00:00',
                   breadcrumb: {
                     '@id':
-                      'https://www.vasquezlawnc.com/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos/#breadcrumb',
+                      'https://www.vasquezlawnc.com/abogados-de-inmigracion-de-t-visa/#breadcrumb',
                   },
                   inLanguage: 'en-US',
                   potentialAction: [
                     {
                       '@type': 'ReadAction',
-                      target: [
-                        'https://www.vasquezlawnc.com/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos/',
-                      ],
+                      target: ['https://www.vasquezlawnc.com/abogados-de-inmigracion-de-t-visa/'],
                     },
                   ],
                 },
                 {
-                  '@type': 'ImageObject',
-                  inLanguage: 'en-US',
-                  '@id':
-                    'https://www.vasquezlawnc.com/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos/#primaryimage',
-                  url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/9.jpg',
-                  contentUrl: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/9.jpg',
-                  width: 600,
-                  height: 400,
-                  caption:
-                    'Abogado de inmigración utilizando estrategias comprobadas para ganar casos, con enfoque en soluciones legales efectivas.',
-                },
-                {
                   '@type': 'BreadcrumbList',
                   '@id':
-                    'https://www.vasquezlawnc.com/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos/#breadcrumb',
+                    'https://www.vasquezlawnc.com/abogados-de-inmigracion-de-t-visa/#breadcrumb',
                   itemListElement: [
                     {
                       '@type': 'ListItem',
@@ -184,11 +148,7 @@ export default function SieteEstrategiasComprobadasQueLosAbogadosDeInmigracionUs
                       name: 'Home',
                       item: 'https://www.vasquezlawnc.com/',
                     },
-                    {
-                      '@type': 'ListItem',
-                      position: 2,
-                      name: '7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos Complejos',
-                    },
+                    { '@type': 'ListItem', position: 2, name: 'Abogados de Inmigración de T Visa' },
                   ],
                 },
                 {
@@ -212,22 +172,6 @@ export default function SieteEstrategiasComprobadasQueLosAbogadosDeInmigracionUs
                     },
                   ],
                   inLanguage: 'en-US',
-                },
-                {
-                  '@type': 'Person',
-                  '@id':
-                    'https://www.vasquezlawnc.com/#/schema/person/2fa7514bdc81d9bc9644faadb9c7084f',
-                  name: 'wvasquez@vasquezlawfirm.com',
-                  image: {
-                    '@type': 'ImageObject',
-                    inLanguage: 'en-US',
-                    '@id': 'https://www.vasquezlawnc.com/#/schema/person/image/',
-                    url: 'https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=96&d=mm&r=g',
-                    contentUrl:
-                      'https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=96&d=mm&r=g',
-                    caption: 'wvasquez@vasquezlawfirm.com',
-                  },
-                  url: 'https://www.vasquezlawnc.com/author/wvasquezvasquezlawfirm-com/',
                 },
               ],
             },
@@ -286,7 +230,7 @@ export default function SieteEstrategiasComprobadasQueLosAbogadosDeInmigracionUs
               '@type': 'LegalService',
               name: '',
               description:
-                'Descubre cómo los abogados de inmigración expertos pueden simplificar tu proceso, evitar errores costosos y ayudarte a reunirte con tus seres queridos. ¡Obtén apoyo profesional hoy!',
+                'Expert immigration attorneys handling immigration. 60+ years experience. Free consultation in English/Spanish. Call 1-844-YO-PELEO.',
               provider: {
                 '@type': 'LegalService',
                 name: 'Vasquez Law Firm, PLLC',
@@ -321,7 +265,7 @@ export default function SieteEstrategiasComprobadasQueLosAbogadosDeInmigracionUs
               },
               priceRange: 'Free Consultation',
               availableLanguage: ['English', 'Spanish'],
-              url: 'https://vasquezlawnc.com/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos/index',
+              url: 'https://vasquezlawnc.com/abogados-de-inmigracion-de-t-visa/index',
             },
             {
               '@context': 'https://schema.org',
@@ -336,8 +280,8 @@ export default function SieteEstrategiasComprobadasQueLosAbogadosDeInmigracionUs
                 {
                   '@type': 'ListItem',
                   position: 2,
-                  name: '7 estrategias comprobadas que los abogados de inmigracion usan para ganar casos complejos',
-                  item: 'https://vasquezlawnc.com/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos',
+                  name: 'Abogados de inmigracion de t visa',
+                  item: 'https://vasquezlawnc.com/abogados-de-inmigracion-de-t-visa',
                 },
               ],
             },
