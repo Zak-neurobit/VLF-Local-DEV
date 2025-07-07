@@ -22,7 +22,7 @@ async function directImport() {
         h1: 'North Carolina Immigration & Personal Injury Attorneys',
         content: `
           <section class="hero">
-            <h2>YO PELEO POR TI® - Fighting for Your Rights</h2>
+            <h2>YO PELEO POR TI™ - Fighting for Your Rights</h2>
             <p>With offices in Raleigh, Charlotte, Smithfield, and Orlando, Vasquez Law Firm provides comprehensive legal services in immigration, personal injury, workers' compensation, criminal defense, and family law.</p>
           </section>
         `,

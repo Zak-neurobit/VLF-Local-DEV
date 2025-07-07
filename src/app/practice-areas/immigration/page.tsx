@@ -4,11 +4,11 @@ import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Best Immigration Lawyer in North Carolina | 60+ Years Experience | Vasquez Law Firm',
-  description: 'Top-rated immigration attorneys in NC with 60+ years combined experience. Free consultation. Green cards, visas, deportation defense, citizenship. Se habla español. Available 24/7.',
+  description: 'Top-rated immigration attorneys in NC with 60+ years combined experience. Free consultation. Green cards, visas, deportation defense, citizenship. Available 24/7.',
   keywords: 'immigration lawyer NC, immigration attorney North Carolina, green card lawyer, deportation defense attorney, citizenship lawyer NC, Raleigh immigration lawyer, Charlotte immigration attorney, Durham immigration law firm, Greensboro visa lawyer, Winston Salem deportation defense',
   openGraph: {
     title: 'Best Immigration Lawyer in North Carolina | 60+ Years Experience | Vasquez Law Firm',
-    description: 'Top-rated immigration attorneys in NC with 60+ years combined experience. Free consultation. Green cards, visas, deportation defense, citizenship. Se habla español. Available 24/7.',
+    description: 'Top-rated immigration attorneys in NC with 60+ years combined experience. Free consultation. Green cards, visas, deportation defense, citizenship. Available 24/7.',
     url: `https://www.vasquezlawfirm.com/practice-areas/immigration`,
     siteName: 'Vasquez Law Firm, PLLC',
     images: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Best Immigration Lawyer in North Carolina | 60+ Years Experience | Vasquez Law Firm',
-    description: 'Top-rated immigration attorneys in NC with 60+ years combined experience. Free consultation. Green cards, visas, deportation defense, citizenship. Se habla español. Available 24/7.',
+    description: 'Top-rated immigration attorneys in NC with 60+ years combined experience. Free consultation. Green cards, visas, deportation defense, citizenship. Available 24/7.',
     images: ['/images/practice-areas/immigration-hero.jpg'],
   },
   alternates: {

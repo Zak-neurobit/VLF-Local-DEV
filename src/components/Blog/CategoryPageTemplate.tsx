@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { ArrowRight, Calendar, Clock, Tag } from 'lucide-react';
-import { BLOG_CATEGORIES, getCategoryById, getRelatedCategories, BlogCategoryId } from '@/lib/blog/categories';
+import { BLOG_CATEGORIES, getCategoryById, getRelatedCategories, getCategoryUrl, BlogCategoryId } from '@/lib/blog/categories';
 import { BlogCategoryStructuredData } from '@/components/Blog/BlogStructuredData';
 import dynamic from 'next/dynamic';
 
@@ -194,13 +194,13 @@ export default function CategoryPageTemplate({ categoryId, initialLanguage = 'en
                 {language === 'es' ? 'Áreas de Práctica' : 'Practice Areas'}
               </Link>
               <Link
-                href="/blog"
+                href={language === 'es' ? '/es/blog' : '/blog'}
                 className="text-gray-700 hover:text-[#C9974D] transition-colors font-medium"
               >
                 Blog
               </Link>
               <Link
-                href="/contact"
+                href={language === 'es' ? '/es/contacto' : '/contact'}
                 className="text-gray-700 hover:text-[#C9974D] transition-colors font-medium"
               >
                 {language === 'es' ? 'Contacto' : 'Contact'}
@@ -267,11 +267,11 @@ export default function CategoryPageTemplate({ categoryId, initialLanguage = 'en
       <div className="bg-gray-50 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 text-sm">
-            <Link href="/" className="text-gray-600 hover:text-[#C9974D]">
+            <Link href={language === 'es' ? '/es' : '/'} className="text-gray-600 hover:text-[#C9974D]">
               {language === 'es' ? 'Inicio' : 'Home'}
             </Link>
             <span className="text-gray-400">/</span>
-            <Link href="/blog" className="text-gray-600 hover:text-[#C9974D]">
+            <Link href={language === 'es' ? '/es/blog' : '/blog'} className="text-gray-600 hover:text-[#C9974D]">
               Blog
             </Link>
             <span className="text-gray-400">/</span>
@@ -335,7 +335,7 @@ export default function CategoryPageTemplate({ categoryId, initialLanguage = 'en
 
                           <h3 className="text-2xl font-bold text-gray-900 mb-3">
                             <Link
-                              href={`/blog/${post.slug}`}
+                              href={`${language === 'es' ? '/es' : ''}/blog/${post.slug}`}
                               className="hover:text-[#C9974D] transition-colors"
                             >
                               {post.title}
@@ -362,7 +362,7 @@ export default function CategoryPageTemplate({ categoryId, initialLanguage = 'en
                               </div>
                             </div>
                             <Link
-                              href={`/blog/${post.slug}`}
+                              href={`${language === 'es' ? '/es' : ''}/blog/${post.slug}`}
                               className="inline-flex items-center gap-2 text-[#C9974D] font-medium hover:underline"
                             >
                               {t.readMore}
@@ -414,7 +414,7 @@ export default function CategoryPageTemplate({ categoryId, initialLanguage = 'en
                     : 'Our experienced attorneys are ready to help with your case.'}
                 </p>
                 <Link
-                  href="/contact"
+                  href={language === 'es' ? '/es/contacto' : '/contact'}
                   className="block w-full text-center px-4 py-2 bg-white text-gray-900 rounded-md font-medium hover:bg-gray-100 transition-colors"
                 >
                   {t.freeConsultation}
@@ -432,7 +432,7 @@ export default function CategoryPageTemplate({ categoryId, initialLanguage = 'en
                     return (
                       <Link
                         key={relatedId}
-                        href={`/blog/category/${relatedId}`}
+                        href={getCategoryUrl(relatedId, language)}
                         className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group"
                       >
                         <div className="flex items-center gap-3">
@@ -446,7 +446,7 @@ export default function CategoryPageTemplate({ categoryId, initialLanguage = 'en
                     );
                   })}
                   <Link
-                    href="/blog"
+                    href={language === 'es' ? '/es/blog' : '/blog'}
                     className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group border-t pt-6"
                   >
                     <div className="flex items-center gap-3">

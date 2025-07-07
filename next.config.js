@@ -242,6 +242,37 @@ const nextConfig = {
         destination: '/',
         permanent: true,
       },
+      // Spanish blog category redirects
+      {
+        source: '/es/blog/category/immigration',
+        destination: '/es/blog/categoria/inmigracion',
+        permanent: true,
+      },
+      {
+        source: '/es/blog/category/traffic-violations',
+        destination: '/es/blog/categoria/infracciones-transito',
+        permanent: true,
+      },
+      {
+        source: '/es/blog/category/personal-injury',
+        destination: '/es/blog/categoria/lesiones-personales',
+        permanent: true,
+      },
+      {
+        source: '/es/blog/category/workers-compensation',
+        destination: '/es/blog/categoria/compensacion-laboral',
+        permanent: true,
+      },
+      {
+        source: '/es/blog/category/criminal-defense',
+        destination: '/es/blog/categoria/defensa-criminal',
+        permanent: true,
+      },
+      {
+        source: '/es/blog/category/family-law',
+        destination: '/es/blog/categoria/derecho-familiar',
+        permanent: true,
+      },
     ];
   },
 };

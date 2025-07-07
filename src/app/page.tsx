@@ -4,17 +4,17 @@ import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import ResourceHints from '@/components/ResourceHints';
 
 export const metadata: Metadata = {
-  title: 'Immigration Lawyer & Personal Injury Attorney | Vasquez Law Firm - YO PELEO POR TI™',
+  title: 'Immigration Lawyer & Personal Injury Attorney | Vasquez Law Firm',
   description:
-    'Top-rated immigration lawyers and personal injury attorneys serving NC & FL. 60+ years experience, 30,000+ cases won. Free consultation. Se habla español. Call 1-844-YO-PELEO.',
+    'Top-rated immigration lawyers and personal injury attorneys serving NC & FL. 60+ years experience, 30,000+ cases won. Free consultation. Call 1-844-YO-PELEO.',
   keywords:
-    'immigration lawyer, personal injury attorney, immigration attorney near me, car accident lawyer, workers compensation attorney, criminal defense lawyer, North Carolina immigration lawyer, Florida personal injury attorney, Charlotte immigration attorney, Raleigh personal injury lawyer, Orlando immigration lawyer, abogado de inmigracion, abogado de lesiones personales, YO PELEO POR TI™',
+    'immigration lawyer, personal injury attorney, immigration attorney near me, car accident lawyer, workers compensation attorney, criminal defense lawyer, North Carolina immigration lawyer, Florida personal injury attorney, Charlotte immigration attorney, Raleigh personal injury lawyer, Orlando immigration lawyer',
   openGraph: {
     type: 'website',
     locale: 'en_US',
     alternateLocale: 'es_ES',
     siteName: 'Vasquez Law Firm',
-    title: 'Immigration Lawyer & Personal Injury Attorney | Vasquez Law Firm - YO PELEO POR TI™',
+    title: 'Immigration Lawyer & Personal Injury Attorney | Vasquez Law Firm',
     description:
       'Experienced immigration lawyers and personal injury attorneys. U.S. Air Force veteran-owned. 30,000+ clients helped. Free consultation in English & Spanish.',
     images: [

@@ -5,6 +5,10 @@ export const BLOG_CATEGORIES = {
       en: 'Immigration Law',
       es: 'Ley de Inmigración',
     },
+    slug: {
+      en: 'immigration',
+      es: 'inmigracion',
+    },
     description: {
       en: 'Expert insights on visas, green cards, citizenship, deportation defense, and immigration policy changes',
       es: 'Perspectivas expertas sobre visas, tarjetas verdes, ciudadanía, defensa de deportación y cambios en políticas migratorias',
@@ -20,6 +24,10 @@ export const BLOG_CATEGORIES = {
     name: {
       en: 'Personal Injury',
       es: 'Lesiones Personales',
+    },
+    slug: {
+      en: 'personal-injury',
+      es: 'lesiones-personales',
     },
     description: {
       en: 'Legal guidance on car accidents, slip and falls, medical malpractice, and injury compensation',
@@ -37,6 +45,10 @@ export const BLOG_CATEGORIES = {
       en: 'Criminal Defense',
       es: 'Defensa Criminal',
     },
+    slug: {
+      en: 'criminal-defense',
+      es: 'defensa-criminal',
+    },
     description: {
       en: 'Understanding your rights in DWI/DUI cases, drug charges, assault, and other criminal matters',
       es: 'Comprenda sus derechos en casos de DWI/DUI, cargos de drogas, asalto y otros asuntos criminales',
@@ -52,6 +64,10 @@ export const BLOG_CATEGORIES = {
     name: {
       en: 'Workers\' Compensation',
       es: 'Compensación Laboral',
+    },
+    slug: {
+      en: 'workers-compensation',
+      es: 'compensacion-laboral',
     },
     description: {
       en: 'Workplace injury claims, denied benefits, disability compensation, and third-party claims',
@@ -69,6 +85,10 @@ export const BLOG_CATEGORIES = {
       en: 'Family Law',
       es: 'Derecho Familiar',
     },
+    slug: {
+      en: 'family-law',
+      es: 'derecho-familiar',
+    },
     description: {
       en: 'Divorce, child custody, alimony, property division, and domestic violence protection',
       es: 'Divorcio, custodia de menores, pensión alimenticia, división de propiedades y protección contra violencia doméstica',
@@ -84,6 +104,10 @@ export const BLOG_CATEGORIES = {
     name: {
       en: 'Traffic Violations',
       es: 'Infracciones de Tráfico',
+    },
+    slug: {
+      en: 'traffic-violations',
+      es: 'infracciones-transito',
     },
     description: {
       en: 'Speeding tickets, license restoration, reckless driving, and traffic court representation',
@@ -123,20 +147,32 @@ export const getCategorySEOData = (categoryId: string, language: 'en' | 'es' = '
   if (!category) return null;
 
   const baseUrl = 'https://www.vasquezlawnc.com';
-  const langPrefix = language === 'es' ? '/es' : '';
+  const categoryUrl = getCategoryUrl(categoryId, language);
 
   return {
     title: `${category.name[language]} Blog | Vasquez Law Firm, PLLC`,
     description: category.description[language],
     keywords: category.keywords.join(', '),
-    canonical: `${baseUrl}${langPrefix}/blog/category/${categoryId}`,
+    canonical: `${baseUrl}${categoryUrl}`,
     openGraph: {
       title: `${category.name[language]} Legal Articles`,
       description: category.description[language],
       type: 'website',
-      url: `${baseUrl}${langPrefix}/blog/category/${categoryId}`,
+      url: `${baseUrl}${categoryUrl}`,
     },
   };
+};
+
+// Helper to get category URL
+export const getCategoryUrl = (categoryId: string, language: 'en' | 'es' = 'en'): string => {
+  const category = getCategoryById(categoryId);
+  if (!category) return '/blog';
+  
+  const langPrefix = language === 'es' ? '/es' : '';
+  const categoryPath = language === 'es' ? 'categoria' : 'category';
+  const slug = category.slug[language];
+  
+  return `${langPrefix}/blog/${categoryPath}/${slug}`;
 };
 
 // Helper to get related categories
