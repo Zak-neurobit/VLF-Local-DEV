@@ -89,7 +89,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
       { name: 'Blog', href: '/blog' },
       { name: 'Scholarship', href: '/scholarship' },
       { name: 'Contact', href: '/contact' },
-      { name: 'Payment', href: '/payment' },
+      { name: 'Payment', href: '/make-payment' },
     ],
     es: [
       { name: 'Inicio', href: '/es' },

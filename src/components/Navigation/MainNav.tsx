@@ -87,7 +87,7 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
               },
               {
                 title: 'Repetitive Stress',
-                href: '/practice-areas/workers-compensation/repetitive-stress-injuries',
+                href: '/practice-areas/workers-compensation/repetitive-stress-carpal-tunnel',
               },
               {
                 title: 'Third Party Claims',
@@ -151,20 +151,20 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
               },
               {
                 title: 'Peticiones Familiares',
-                href: '/es/areas-de-practica/inmigracion/peticiones-familiares',
+                href: '/es/areas-de-practica/inmigracion/pariente-familiar',
               },
               {
                 title: 'Visas de Trabajo',
-                href: '/es/areas-de-practica/inmigracion/visas-trabajo',
+                href: '/es/areas-de-practica/inmigracion/inmigracion-basada-en-el-empleo',
               },
               { title: 'Ciudadanía', href: '/es/areas-de-practica/inmigracion/ciudadania' },
-              { title: 'DACA', href: '/es/areas-de-practica/inmigracion/daca' },
+              { title: 'DACA', href: '/es/areas-de-practica/inmigracion/daca-accion-diferida-llegadas-en-la-infancia' },
               {
                 title: 'Defensa contra Deportación',
-                href: '/es/areas-de-practica/inmigracion/defensa-deportacion',
+                href: '/es/areas-de-practica/inmigracion/deportacion-remocion-defensa',
               },
               { title: 'Asilo', href: '/es/areas-de-practica/inmigracion/asilo' },
-              { title: 'Visa-U/VAWA', href: '/es/areas-de-practica/inmigracion/visa-u-vawa' },
+              { title: 'Visa-U/VAWA', href: '/es/areas-de-practica/inmigracion/vawa-u-visa-crimen-victimas' },
             ],
           },
           {
@@ -181,19 +181,19 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
               },
               {
                 title: 'Accidentes de Motocicleta',
-                href: '/es/areas-de-practica/lesiones-personales/accidentes-de-motocicleta',
+                href: '/es/areas-de-practica/lesiones-personales/accidentes-motocicleta',
               },
               {
-                title: 'Accidentes de Peatones',
-                href: '/es/areas-de-practica/lesiones-personales/accidentes-de-peatones',
+                title: 'Accidentes de Construcción',
+                href: '/es/areas-de-practica/lesiones-personales/accidentes-de-construccion',
               },
               {
                 title: 'Responsabilidad de Locales',
                 href: '/es/areas-de-practica/lesiones-personales/responsabilidad-de-locales',
               },
               {
-                title: 'Conductor Ebrio',
-                href: '/es/areas-de-practica/lesiones-personales/conductor-ebrio',
+                title: 'Muerte Injusta',
+                href: '/es/areas-de-practica/lesiones-personales/muerte-injusta',
               },
             ],
           },
@@ -202,16 +202,16 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
             href: '/es/areas-de-practica/compensacion-laboral',
             subitems: [
               {
-                title: 'Lesiones de Construcción',
-                href: '/es/areas-de-practica/compensacion-laboral/lesiones-de-construccion',
+                title: 'Lesiones en el Trabajo',
+                href: '/es/areas-de-practica/compensacion-laboral/lesiones-en-el-lugar-de-trabajo',
               },
               {
-                title: 'Estrés Repetitivo',
-                href: '/es/areas-de-practica/compensacion-laboral/estres-repetitivo',
+                title: 'Negación de Beneficios',
+                href: '/es/areas-de-practica/compensacion-laboral/negacion-de-beneficios',
               },
               {
-                title: 'Reclamos de Terceros',
-                href: '/es/areas-de-practica/compensacion-laboral/reclamos-de-terceros',
+                title: 'Lesiones de Espalda',
+                href: '/es/areas-de-practica/compensacion-laboral/lesiones-de-espalda',
               },
             ],
           },
@@ -219,22 +219,10 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
             title: 'Defensa Criminal',
             href: '/es/areas-de-practica/defensa-criminal',
             subitems: [
-              { title: 'DUI/DWI', href: '/es/areas-de-practica/defensa-criminal/dui-dwi' },
+              { title: 'Violación de Libertad Condicional', href: '/es/areas-de-practica/defensa-criminal/violacion-de-libertad-condicional' },
               {
-                title: 'Delitos de Drogas',
-                href: '/es/areas-de-practica/defensa-criminal/delitos-de-drogas',
-              },
-              {
-                title: 'Violencia Doméstica',
-                href: '/es/areas-de-practica/defensa-criminal/violencia-domestica',
-              },
-              {
-                title: 'Infracciones de Tráfico',
-                href: '/es/areas-de-practica/defensa-criminal/infracciones-de-trafico',
-              },
-              {
-                title: 'Eliminación de Antecedentes',
-                href: '/es/areas-de-practica/defensa-criminal/eliminacion-de-antecedentes',
+                title: 'Infracciones de Tránsito',
+                href: '/es/areas-de-practica/infracciones-transito',
               },
             ],
           },
@@ -244,16 +232,8 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
             subitems: [
               { title: 'Divorcio', href: '/es/areas-de-practica/derecho-familia/divorcio' },
               {
-                title: 'Custodia de Menores',
-                href: '/es/areas-de-practica/derecho-familia/custodia-de-menores',
-              },
-              {
-                title: 'Pensión Alimenticia',
-                href: '/es/areas-de-practica/derecho-familia/pension-alimenticia',
-              },
-              {
-                title: 'División de Propiedad',
-                href: '/es/areas-de-practica/derecho-familia/division-de-propiedad',
+                title: 'Modificaciones Post-Divorcio',
+                href: '/es/areas-de-practica/derecho-familia/ejecucion-y-modificaciones-posteriores-al-divorcio',
               },
             ],
           },
