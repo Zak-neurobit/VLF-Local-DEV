@@ -3,6 +3,8 @@ import { getPrismaClient } from '@/lib/prisma';
 import { CrewCoordinator } from '@/lib/crewai/enhanced-crew-coordinator';
 import { logger } from '@/lib/logger';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
     const { searchParams } = new URL(request.url);

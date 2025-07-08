@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { HreflangGenerator } from '@/components/SEO/HreflangGenerator';
+import { HreflangUtils } from './hreflang-utils';
 
 interface PageMetadataOptions {
   title: string;
@@ -33,9 +33,9 @@ export function generateHreflangMetadata(options: PageMetadataOptions): Metadata
   } = options;
 
   // Generate hreflang and canonical URLs
-  const canonical = HreflangGenerator.generateCanonicalUrl(pathname, customPath);
-  const alternates = HreflangGenerator.generateAlternateLinks(pathname, customPath);
-  const ogLocales = HreflangGenerator.generateOpenGraphLocales(pathname);
+  const canonical = HreflangUtils.generateCanonicalUrl(pathname, customPath);
+  const alternates = HreflangUtils.generateAlternateLinks(pathname, customPath);
+  const ogLocales = HreflangUtils.generateOpenGraphLocales(pathname);
   
   // Determine current locale from pathname
   const currentLocale = pathname.startsWith('/es') ? 'es' : 'en';
@@ -286,14 +286,14 @@ export function generateBlogMetadata(options: {
  * Utility function to get hreflang links for manual insertion
  */
 export function getHreflangLinks(pathname: string, customPath?: string) {
-  return HreflangGenerator.generateHreflangEntries(pathname, customPath);
+  return HreflangUtils.generateHreflangEntries(pathname, customPath);
 }
 
 /**
  * Check if the current page has bilingual support
  */
 export function hasBilingualSupport(pathname: string): boolean {
-  const entries = HreflangGenerator.generateHreflangEntries(pathname);
+  const entries = HreflangUtils.generateHreflangEntries(pathname);
   return entries.some(entry => entry.hreflang.startsWith('es')) && 
          entries.some(entry => entry.hreflang.startsWith('en'));
 }

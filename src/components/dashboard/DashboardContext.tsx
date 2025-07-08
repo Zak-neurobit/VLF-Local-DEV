@@ -1,7 +1,6 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useSocket } from '@/hooks/useSocket';
 
 interface AgentActivity {
   id: string;
@@ -63,7 +62,8 @@ export const useDashboard = () => {
 };
 
 export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { socket, connected: isConnected } = useSocket();
+  const [socket, setSocket] = useState<any>(null);
+  const [isConnected, setIsConnected] = useState(false);
   const [data, setData] = useState<DashboardData>({
     agents: [],
     metrics: {
@@ -85,45 +85,75 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
   });
 
+  // Initialize socket connection only on client side
   useEffect(() => {
-    if (!socket) return;
+    if (typeof window === 'undefined') return;
 
-    // Listen for real-time updates
-    socket.on('dashboard:update', (newData: Partial<DashboardData>) => {
-      setData(prev => ({ ...prev, ...newData }));
-    });
+    const initSocket = async () => {
+      try {
+        const { io } = await import('socket.io-client');
+        const newSocket = io(process.env.NEXT_PUBLIC_WEBSOCKET_URL || '', {
+          transports: ['websocket'],
+          autoConnect: true,
+          reconnection: true,
+          reconnectionAttempts: 5,
+          reconnectionDelay: 1000,
+        });
 
-    socket.on('agent:activity', (activity: AgentActivity) => {
-      setData(prev => ({
-        ...prev,
-        agents: prev.agents.map(agent => 
-          agent.id === activity.id ? activity : agent
-        )
-      }));
-    });
+        newSocket.on('connect', () => {
+          setIsConnected(true);
+          // Request initial data
+          newSocket.emit('dashboard:subscribe');
+        });
 
-    socket.on('metrics:update', (metrics: LiveMetrics) => {
-      setData(prev => ({ ...prev, metrics }));
-    });
+        newSocket.on('disconnect', () => {
+          setIsConnected(false);
+        });
 
-    socket.on('activity:new', (activity: DashboardData['recentActivity'][0]) => {
-      setData(prev => ({
-        ...prev,
-        recentActivity: [activity, ...prev.recentActivity.slice(0, 49)]
-      }));
-    });
+        // Listen for real-time updates
+        newSocket.on('dashboard:update', (newData: Partial<DashboardData>) => {
+          setData(prev => ({ ...prev, ...newData }));
+        });
 
-    // Request initial data
-    socket.emit('dashboard:subscribe');
+        newSocket.on('agent:activity', (activity: AgentActivity) => {
+          setData(prev => ({
+            ...prev,
+            agents: prev.agents.map(agent => 
+              agent.id === activity.id ? activity : agent
+            )
+          }));
+        });
+
+        newSocket.on('metrics:update', (metrics: LiveMetrics) => {
+          setData(prev => ({ ...prev, metrics }));
+        });
+
+        newSocket.on('activity:new', (activity: DashboardData['recentActivity'][0]) => {
+          setData(prev => ({
+            ...prev,
+            recentActivity: [activity, ...prev.recentActivity.slice(0, 49)]
+          }));
+        });
+
+        setSocket(newSocket);
+      } catch (error) {
+        console.error('Failed to initialize dashboard socket:', error);
+      }
+    };
+
+    initSocket();
 
     return () => {
-      socket.off('dashboard:update');
-      socket.off('agent:activity');
-      socket.off('metrics:update');
-      socket.off('activity:new');
-      socket.emit('dashboard:unsubscribe');
+      if (socket) {
+        socket.off('dashboard:update');
+        socket.off('agent:activity');
+        socket.off('metrics:update');
+        socket.off('activity:new');
+        socket.emit('dashboard:unsubscribe');
+        socket.disconnect();
+      }
     };
-  }, [socket]);
+  }, []);
 
   const refreshData = () => {
     if (socket) {

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { HreflangGenerator } from '@/components/SEO/HreflangGenerator';
+import { HreflangUtils } from '@/lib/seo/hreflang-utils';
 
 interface HreflangSitemapUrl {
   loc: string;
@@ -118,7 +118,7 @@ export async function GET() {
   const sitemapUrls: HreflangSitemapUrl[] = [];
 
   for (const page of bilingualPages) {
-    const hreflangEntries = HreflangGenerator.generateHreflangEntries(page);
+    const hreflangEntries = HreflangUtils.generateHreflangEntries(page);
     
     // Add entry for each language version
     const englishEntry = hreflangEntries.find(entry => entry.hreflang === 'en');

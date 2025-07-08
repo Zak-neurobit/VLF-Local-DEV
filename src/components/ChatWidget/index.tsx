@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { io, Socket } from 'socket.io-client';
+import type { Socket } from 'socket.io-client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { componentLogger, userFlowLogger } from '@/lib/logger';
 import { useErrorHandler } from '@/components/ErrorBoundary';
@@ -47,8 +47,11 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
   useEffect(() => {
     componentLogger.mount('ChatWidget', { userId, language });
 
-    const initSocket = () => {
+    const initSocket = async () => {
       try {
+        // Dynamically import socket.io-client to prevent SSR issues
+        const { io } = await import('socket.io-client');
+        
         // Use the same origin for WebSocket connection
         const socketUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
         const socket = io(socketUrl, {

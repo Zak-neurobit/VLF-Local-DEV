@@ -7,7 +7,7 @@ import { useVoiceRecognition } from '@/hooks/useVoiceRecognition';
 import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis';
 import { toast } from 'react-hot-toast';
 import { ChatInterface } from './ChatInterface';
-import { io, Socket } from 'socket.io-client';
+import type { Socket } from 'socket.io-client';
 import { isBrowser } from '@/lib/utils/browser';
 
 // Import all the new components
@@ -86,21 +86,27 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
 
   // Initialize WebSocket connection
   useEffect(() => {
-    if (isOpen && !socket) {
-      const socketUrl =
-        process.env.NEXT_PUBLIC_WEBSOCKET_URL ||
-        (isBrowser
-          ? `${window.location.protocol}//${window.location.host}`
-          : 'http://localhost:3000');
+    const initSocket = async () => {
+      if (!isOpen || socket) return;
+      
+      try {
+        // Dynamically import socket.io-client to prevent SSR issues
+        const { io } = await import('socket.io-client');
+        
+        const socketUrl =
+          process.env.NEXT_PUBLIC_WEBSOCKET_URL ||
+          (isBrowser
+            ? `${window.location.protocol}//${window.location.host}`
+            : 'http://localhost:3000');
 
-      const newSocket = io(socketUrl, {
-        transports: ['websocket', 'polling'],
-        auth: {
-          sessionId: `session_${Date.now()}`,
-          language,
-          userId,
-        },
-      });
+        const newSocket = io(socketUrl, {
+          transports: ['websocket', 'polling'],
+          auth: {
+            sessionId: `session_${Date.now()}`,
+            language,
+            userId,
+          },
+        });
 
       newSocket.on('connect', () => {
         // Virtual Assistant connected
@@ -123,8 +129,14 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
         toast.error(language === 'es' ? 'Error de conexión' : 'Connection error');
       });
 
-      setSocket(newSocket);
-    }
+        setSocket(newSocket);
+      } catch (error) {
+        console.error('Failed to initialize socket:', error);
+        setIsConnected(false);
+      }
+    };
+    
+    initSocket();
 
     return () => {
       if (socket) {

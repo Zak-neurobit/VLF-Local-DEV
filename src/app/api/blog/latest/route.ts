@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 const mockLatestBlogPosts = [
   {
     title: 'Understanding Your Rights After a Car Accident in North Carolina',

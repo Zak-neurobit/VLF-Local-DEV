@@ -2,11 +2,28 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { DashboardProvider } from '@/components/dashboard/DashboardContext';
-import ActivityMonitor from '@/components/dashboard/ActivityMonitor';
-import LivingMetrics from '@/components/dashboard/LivingMetrics';
-import AgentStatusPanel from '@/components/dashboard/AgentStatusPanel';
-import DynamicHomepage from '@/components/dashboard/DynamicHomepage';
+import dynamic from 'next/dynamic';
+
+const DashboardProvider = dynamic(
+  () => import('@/components/dashboard/DashboardContext').then(mod => mod.DashboardProvider),
+  { ssr: false }
+);
+
+const ActivityMonitor = dynamic(() => import('@/components/dashboard/ActivityMonitor'), {
+  ssr: false,
+});
+
+const LivingMetrics = dynamic(() => import('@/components/dashboard/LivingMetrics'), {
+  ssr: false,
+});
+
+const AgentStatusPanel = dynamic(() => import('@/components/dashboard/AgentStatusPanel'), {
+  ssr: false,
+});
+
+const DynamicHomepage = dynamic(() => import('@/components/dashboard/DynamicHomepage'), {
+  ssr: false,
+});
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');

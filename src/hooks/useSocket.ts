@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import io, { Socket } from 'socket.io-client';
+import type { Socket } from 'socket.io-client';
 
 interface UseSocketReturn {
   socket: Socket | null;
@@ -15,9 +15,15 @@ export function useSocket(): UseSocketReturn {
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') return;
+
     // Initialize socket connection
     const initSocket = async () => {
       try {
+        // Dynamically import socket.io-client to prevent SSR issues
+        const { io } = await import('socket.io-client');
+        
         // Connect to the WebSocket server
         const socket = io(process.env.NEXT_PUBLIC_WEBSOCKET_URL || '', {
           transports: ['websocket'],
