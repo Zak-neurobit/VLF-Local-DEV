@@ -7,7 +7,7 @@ import { promisify } from 'util';
 
 const execAsync = promisify(exec);
 
-export async function GET(request: NextRequest): Promise<NextResponse> {
+export async function GET(_request: NextRequest): Promise<NextResponse> {
   try {
     const healthChecks = await Promise.allSettled([
       checkDatabaseHealth(),
@@ -33,7 +33,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       return {
         name: checkNames[index],
         status: result.status === 'fulfilled' ? 'healthy' : 'unhealthy',
-        details: result.status === 'fulfilled' ? result.value : result.reason?.message || 'Check failed',
+        details: result.status === 'fulfilled' ? result.value : (result as PromiseRejectedResult).reason?.message || 'Check failed',
         timestamp: new Date().toISOString()
       };
     });
@@ -61,7 +61,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         pid: process.pid,
         memory: process.memoryUsage(),
         cpuUsage: process.cpuUsage(),
-        loadAverage: process.loadavg?.() || [0, 0, 0]
+        loadAverage: (process as any).loadavg ? (process as any).loadavg() : [0, 0, 0]
       },
       recommendations: generateHealthRecommendations(results)
     };
@@ -74,7 +74,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         status: 'critical',
         score: 0,
         error: 'Health check system failure',
-        details: error.message,
+        details: error instanceof Error ? error.message : 'Unknown error',
         timestamp: new Date().toISOString()
       },
       { status: 500 }
@@ -82,7 +82,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   }
 }
 
-async function checkDatabaseHealth(): Promise<any> {
+async function checkDatabaseHealth(): Promise<Record<string, any>> {
   const prisma = getPrismaClient();
   
   try {
@@ -108,11 +108,11 @@ async function checkDatabaseHealth(): Promise<any> {
       status: 'healthy'
     };
   } catch (error) {
-    throw new Error(`Database health check failed: ${error.message}`);
+    throw new Error(`Database health check failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
 
-async function checkSystemResources(): Promise<any> {
+async function checkSystemResources(): Promise<Record<string, any>> {
   const memoryUsage = process.memoryUsage();
   const cpuUsage = process.cpuUsage();
   
@@ -141,12 +141,12 @@ async function checkSystemResources(): Promise<any> {
       healthy: cpuHealthy
     },
     uptime: Math.round(process.uptime()),
-    loadAverage: process.loadavg?.() || [0, 0, 0],
+    loadAverage: (process as any).loadavg ? (process as any).loadavg() : [0, 0, 0],
     status: 'healthy'
   };
 }
 
-async function checkAgentHealth(): Promise<any> {
+async function checkAgentHealth(): Promise<Record<string, any>> {
   const crewCoordinator = CrewCoordinator.getInstance();
   const systemStatus = crewCoordinator.getSystemStatus();
   
@@ -195,7 +195,7 @@ async function checkAgentHealth(): Promise<any> {
   };
 }
 
-async function checkAPIConnections(): Promise<any> {
+async function checkAPIConnections(): Promise<Record<string, any>> {
   const connections = [];
   
   // Check OpenAI API
@@ -210,7 +210,7 @@ async function checkAPIConnections(): Promise<any> {
     connections.push({
       name: 'OpenAI API',
       status: 'unhealthy',
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
   
@@ -226,7 +226,7 @@ async function checkAPIConnections(): Promise<any> {
     connections.push({
       name: 'Google Places API',
       status: 'unhealthy',
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
   
@@ -245,7 +245,7 @@ async function checkAPIConnections(): Promise<any> {
   };
 }
 
-async function checkCronJobs(): Promise<any> {
+async function checkCronJobs(): Promise<Record<string, any>> {
   // In a real implementation, you'd check if cron jobs are running
   // For now, we'll simulate the check
   
@@ -273,7 +273,7 @@ async function checkCronJobs(): Promise<any> {
   };
 }
 
-async function checkMemoryUsage(): Promise<any> {
+async function checkMemoryUsage(): Promise<Record<string, any>> {
   const memoryUsage = process.memoryUsage();
   
   const metrics = {
@@ -302,7 +302,7 @@ async function checkMemoryUsage(): Promise<any> {
   };
 }
 
-async function checkDiskSpace(): Promise<any> {
+async function checkDiskSpace(): Promise<Record<string, any>> {
   try {
     const { stdout } = await execAsync('df -h /');
     const lines = stdout.trim().split('\n');
@@ -324,11 +324,11 @@ async function checkDiskSpace(): Promise<any> {
       status: 'healthy'
     };
   } catch (error) {
-    throw new Error(`Disk space check failed: ${error.message}`);
+    throw new Error(`Disk space check failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
 
-function generateHealthRecommendations(checks: any[]): string[] {
+function generateHealthRecommendations(checks: Array<{name: string, status: string, details?: any}>): string[] {
   const recommendations: string[] = [];
   
   // Check for unhealthy components
@@ -352,7 +352,7 @@ function generateHealthRecommendations(checks: any[]): string[] {
   
   // Check agent health
   const agentCheck = checks.find(c => c.name === 'agent_health');
-  if (agentCheck?.details?.unhealthyAgents > 0) {
+  if (agentCheck && agentCheck.details?.unhealthyAgents > 0) {
     recommendations.push(`Restart ${agentCheck.details.unhealthyAgents} unhealthy agents`);
   }
   

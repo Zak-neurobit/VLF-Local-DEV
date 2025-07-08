@@ -170,7 +170,7 @@ export default function NegligenciaMedicaPage() {
                 <Scale className="w-12 h-12 text-burgundy-700 mb-4" />
                 <p className="text-gray-700 mb-4">
                   Los casos de negligencia médica requieren probar que el profesional médico 
-                  violó el "estándar de cuidado" - lo que un médico razonablemente competente 
+                  violó el &ldquo;estándar de cuidado&rdquo; - lo que un médico razonablemente competente 
                   habría hecho en la misma situación.
                 </p>
                 <div className="space-y-3">

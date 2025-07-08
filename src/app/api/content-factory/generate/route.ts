@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { logger } from '@/lib/logger';
 
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
@@ -30,9 +30,9 @@ export async function POST(request: NextRequest) {
     logger.info('Content generation completed', result);
 
     return NextResponse.json({
-      success: true,
       message: 'Content generation completed successfully',
       ...result,
+      success: true,
     });
 
   } catch (error) {

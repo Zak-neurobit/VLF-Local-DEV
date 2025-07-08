@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
@@ -26,16 +26,7 @@ export default function ContentPerformanceDashboard() {
   const [loading, setLoading] = useState(true);
   const [dateRange, setDateRange] = useState('7days');
 
-  useEffect(() => {
-    if (status === 'loading') return;
-    if (!session || !['ADMIN', 'ATTORNEY'].includes(session.user.role)) {
-      router.push('/');
-    } else {
-      fetchPerformanceData();
-    }
-  }, [session, status, router, dateRange]);
-
-  const fetchPerformanceData = async () => {
+  const fetchPerformanceData = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch(`/api/content-factory/performance?range=${dateRange}`);
@@ -49,7 +40,16 @@ export default function ContentPerformanceDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [dateRange]);
+
+  useEffect(() => {
+    if (status === 'loading') return;
+    if (!session || !['ADMIN', 'ATTORNEY'].includes(session.user.role)) {
+      router.push('/');
+    } else {
+      fetchPerformanceData();
+    }
+  }, [session, status, router, fetchPerformanceData]);
 
   if (status === 'loading') {
     return <div className="flex justify-center items-center min-h-screen">Loading...</div>;

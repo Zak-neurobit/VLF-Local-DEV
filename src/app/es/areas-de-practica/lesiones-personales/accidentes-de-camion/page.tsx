@@ -179,7 +179,7 @@ export default function AccidentesDeCamionPage() {
                     <div>
                       <h4 className="font-bold text-burgundy-900">Actuamos Rápido para Preservar Evidencia</h4>
                       <p className="text-gray-700">
-                        Logs del conductor, datos GPS, cámaras - obtenemos todo antes de que "desaparezca".
+                        Logs del conductor, datos GPS, cámaras - obtenemos todo antes de que &ldquo;desaparezca&rdquo;.
                       </p>
                     </div>
                   </div>
@@ -269,10 +269,10 @@ export default function AccidentesDeCamionPage() {
           <div className="max-w-3xl mx-auto">
             <div className="bg-white p-8 rounded-lg shadow-xl">
               <p className="text-xl text-gray-700 italic mb-6">
-                "El camión destrozó mi vida. No podía trabajar, las facturas médicas no paraban de llegar. 
+                &ldquo;El camión destrozó mi vida. No podía trabajar, las facturas médicas no paraban de llegar. 
                 Vasquez Law Firm peleó contra la empresa de transporte y sus abogados. 
                 Conseguimos suficiente para cubrir todos mis gastos médicos y asegurar el futuro de mi familia. 
-                Son verdaderos guerreros."
+                Son verdaderos guerreros.&rdquo;
               </p>
               <div className="flex items-center">
                 <div>

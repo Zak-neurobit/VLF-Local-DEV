@@ -247,7 +247,7 @@ export default function CompensaciónLaboralPage() {
               <div className="grid md:grid-cols-2 gap-6 mt-8">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Reclamos Denegados Revertidos</h3>
-                  <p className="text-gray-300">Hemos revertido miles de denegaciones injustas. No acepte "no" como respuesta final.</p>
+                  <p className="text-gray-300">Hemos revertido miles de denegaciones injustas. No acepte &ldquo;no&rdquo; como respuesta final.</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Beneficios Máximos</h3>

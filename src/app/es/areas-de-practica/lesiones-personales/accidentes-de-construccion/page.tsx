@@ -77,7 +77,7 @@ export default function AccidentesDeConstruccionPage() {
           <div className="flex items-center justify-center space-x-3">
             <AlertTriangle className="w-8 h-8" />
             <p className="text-lg font-bold text-center">
-              IMPORTANTE: Tiene derecho a más que Workers' Compensation. 
+              IMPORTANTE: Tiene derecho a más que Workers&apos; Compensation. 
               Podemos buscar compensación adicional de terceros responsables.
             </p>
             <AlertTriangle className="w-8 h-8" />
@@ -104,7 +104,7 @@ export default function AccidentesDeConstruccionPage() {
               <div className="bg-orange-50 border-l-4 border-orange-600 p-6 mb-8">
                 <Construction className="w-10 h-10 text-orange-600 mb-3" />
                 <p className="text-lg font-semibold text-gray-900">
-                  "Los Fatal Four" - Las 4 causas principales de muerte en construcción:
+                  &ldquo;Los Fatal Four&rdquo; - Las 4 causas principales de muerte en construcción:
                 </p>
                 <div className="grid md:grid-cols-2 gap-4 mt-4">
                   <div className="text-center">
@@ -178,13 +178,13 @@ export default function AccidentesDeConstruccionPage() {
               </div>
 
               <h3 className="text-2xl font-bold text-burgundy-900 mb-4">
-                Sus Derechos Van Más Allá de Workers' Compensation
+                Sus Derechos Van Más Allá de Workers&apos; Compensation
               </h3>
 
               <div className="bg-burgundy-50 p-8 rounded-lg mb-8">
                 <Scale className="w-12 h-12 text-burgundy-700 mb-4" />
                 <p className="text-gray-700 mb-4">
-                  Workers' Compensation solo cubre una fracción de sus pérdidas. 
+                  Workers&apos; Compensation solo cubre una fracción de sus pérdidas. 
                   Podemos buscar compensación adicional de:
                 </p>
                 
@@ -440,8 +440,8 @@ export default function AccidentesDeConstruccionPage() {
             
             <div className="mt-8">
               <p className="text-lg">
-                "Sabemos lo duro que trabajan. Cuando se lastiman, 
-                peleamos igual de duro por ustedes."
+                &ldquo;Sabemos lo duro que trabajan. Cuando se lastiman, 
+                peleamos igual de duro por ustedes.&rdquo;
               </p>
               <p className="mt-2">- William Vasquez, Abogado Principal</p>
             </div>

@@ -76,8 +76,8 @@ export default function MuerteInjustaPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-gray-700 italic">
-              "Entendemos que ninguna cantidad de dinero puede reemplazar a su ser querido. 
-              Nuestro objetivo es obtener justicia y asegurar que su familia esté protegida financieramente."
+              &ldquo;Entendemos que ninguna cantidad de dinero puede reemplazar a su ser querido. 
+              Nuestro objetivo es obtener justicia y asegurar que su familia esté protegida financieramente.&rdquo;
             </p>
             <p className="mt-3 font-semibold text-burgundy-900">- William Vasquez, Abogado Principal</p>
           </div>
@@ -398,8 +398,8 @@ export default function MuerteInjustaPage() {
             
             <div className="mt-8">
               <p className="text-lg">
-                "No está solo en esto. Estamos aquí para ayudar a su familia 
-                a encontrar justicia y paz."
+                &ldquo;No está solo en esto. Estamos aquí para ayudar a su familia 
+                a encontrar justicia y paz.&rdquo;
               </p>
             </div>
           </div>

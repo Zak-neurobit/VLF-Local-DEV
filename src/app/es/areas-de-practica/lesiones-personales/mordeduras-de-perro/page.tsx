@@ -95,7 +95,7 @@ export default function MordedurasDePeroPage() {
               
               <p className="text-gray-700 mb-6">
                 En Carolina del Norte, los dueños de perros son estrictamente responsables cuando 
-                su mascota ataca a alguien. No importa si el perro "nunca había mordido antes" - 
+                su mascota ataca a alguien. No importa si el perro &ldquo;nunca había mordido antes&rdquo; - 
                 el dueño debe pagar por todas las lesiones y daños causados.
               </p>
 

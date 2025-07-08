@@ -100,8 +100,8 @@ export default function AccidentesDeAutoPage() {
 
               <div className="bg-gold-50 border-l-4 border-gold-500 p-6 my-8">
                 <p className="text-lg font-semibold text-burgundy-900">
-                  "No permita que las compañías de seguros le paguen menos de lo que merece. 
-                  Nosotros conocemos sus tácticas y sabemos cómo combatirlas."
+                  &ldquo;No permita que las compañías de seguros le paguen menos de lo que merece. 
+                  Nosotros conocemos sus tácticas y sabemos cómo combatirlas.&rdquo;
                 </p>
                 <p className="text-sm mt-2 text-gray-600">- William Vasquez, Abogado Principal</p>
               </div>
@@ -236,8 +236,8 @@ export default function AccidentesDeAutoPage() {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <p className="text-gray-700 mb-4">
-                  "Después de mi accidente, no sabía qué hacer. El equipo de Vasquez Law Firm 
-                  me guió en cada paso y conseguí 5 veces más de lo que el seguro me ofrecía inicialmente."
+                  &ldquo;Después de mi accidente, no sabía qué hacer. El equipo de Vasquez Law Firm 
+                  me guió en cada paso y conseguí 5 veces más de lo que el seguro me ofrecía inicialmente.&rdquo;
                 </p>
                 <p className="font-semibold text-burgundy-900">- María G., Charlotte NC</p>
                 <div className="text-gold-500">★★★★★</div>
@@ -245,8 +245,8 @@ export default function AccidentesDeAutoPage() {
               
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <p className="text-gray-700 mb-4">
-                  "Excelente servicio en español. Me trataron como familia y pelearon 
-                  por mí hasta conseguir justicia. ¡100% recomendado!"
+                  &ldquo;Excelente servicio en español. Me trataron como familia y pelearon 
+                  por mí hasta conseguir justicia. ¡100% recomendado!&rdquo;
                 </p>
                 <p className="font-semibold text-burgundy-900">- Roberto P., Raleigh NC</p>
                 <div className="text-gold-500">★★★★★</div>

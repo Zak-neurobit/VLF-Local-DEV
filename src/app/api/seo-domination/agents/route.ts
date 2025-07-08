@@ -62,17 +62,17 @@ async function getAgentMetrics(prisma: any, agentName: string, since: Date) {
   });
 
   const totalActions = logs.length;
-  const successfulActions = logs.filter(log => log.success).length;
+  const successfulActions = logs.filter((log: { success: boolean }) => log.success).length;
   const successRate = totalActions > 0 ? successfulActions / totalActions : 0;
   const averageDuration = totalActions > 0 
-    ? logs.reduce((sum, log) => sum + log.duration, 0) / totalActions 
+    ? logs.reduce((sum: number, log: { duration: number }) => sum + log.duration, 0) / totalActions 
     : 0;
 
   // Get recent highlights
   const recentHighlights = logs
-    .filter(log => log.success && log.output)
+    .filter((log: { success: boolean; output: string | null }) => log.success && log.output)
     .slice(0, 5)
-    .map(log => ({
+    .map((log: { executionType: string; createdAt: Date; impactScore?: number | null }) => ({
       type: log.executionType,
       timestamp: log.createdAt,
       impact: log.impactScore || 0

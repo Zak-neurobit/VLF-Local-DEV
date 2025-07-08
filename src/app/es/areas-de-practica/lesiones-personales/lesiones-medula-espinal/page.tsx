@@ -472,11 +472,11 @@ export default function LesionesMedulaEspinalPage() {
             <div className="bg-white p-8 rounded-lg shadow-xl">
               <Activity className="w-12 h-12 text-blue-600 mb-4" />
               <p className="text-xl text-gray-700 italic mb-6">
-                "Después de mi accidente, pensé que mi vida había terminado. No podía mover 
+                &ldquo;Después de mi accidente, pensé que mi vida había terminado. No podía mover 
                 nada debajo del pecho. Vasquez Law Firm no solo consiguió compensación para 
                 mi cuidado médico - me ayudaron a encontrar esperanza. Ahora tengo la mejor 
                 tecnología adaptativa, puedo trabajar desde casa, y mi familia está segura 
-                financieramente. Son más que abogados - son ángeles."
+                financieramente. Son más que abogados - son ángeles.&rdquo;
               </p>
               <div className="border-t pt-4">
                 <p className="font-bold text-burgundy-900">- Miguel T.</p>

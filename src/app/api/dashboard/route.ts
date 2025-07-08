@@ -129,7 +129,7 @@ const mockDashboardData = {
   }
 };
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     // Add some randomization to make it feel more live
     const data = {
@@ -156,9 +156,9 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
-    const body = await request.json();
+    const body = await _request.json();
     const { type, action } = body;
 
     if (type === 'refresh') {

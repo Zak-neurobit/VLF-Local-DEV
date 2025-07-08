@@ -1359,6 +1359,7 @@ model AgentExecutionLog {
   success       Boolean
   error         String?
   metadata      Json?
+  impactScore   Int?     // Optional impact score for tracking
   createdAt     DateTime @default(now())
 
   @@index([agentName])

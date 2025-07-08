@@ -225,7 +225,7 @@ export default function ResponsabilidadDeLocalesPage() {
               </div>
 
               <h3 className="text-2xl font-bold text-burgundy-900 mb-4">
-                Casos Especiales: Niños y "Attractive Nuisance"
+                Casos Especiales: Niños y &ldquo;Attractive Nuisance&rdquo;
               </h3>
 
               <div className="bg-yellow-50 p-6 rounded-lg mb-8">
@@ -447,17 +447,17 @@ export default function ResponsabilidadDeLocalesPage() {
               <div className="space-y-4">
                 <div className="bg-white p-4 rounded">
                   <h4 className="font-bold text-burgundy-900 mb-2">
-                    "El peligro era obvio"
+                    &ldquo;El peligro era obvio&rdquo;
                   </h4>
                   <p className="text-gray-700">
-                    <strong>Nuestra respuesta:</strong> Incluso peligros "obvios" requieren advertencias 
+                    <strong>Nuestra respuesta:</strong> Incluso peligros &ldquo;obvios&rdquo; requieren advertencias 
                     o barreras, especialmente en condiciones de poca luz o distracción.
                   </p>
                 </div>
                 
                 <div className="bg-white p-4 rounded">
                   <h4 className="font-bold text-burgundy-900 mb-2">
-                    "No sabíamos del problema"
+                    &ldquo;No sabíamos del problema&rdquo;
                   </h4>
                   <p className="text-gray-700">
                     <strong>Nuestra respuesta:</strong> Los propietarios deben inspeccionar regularmente. 
@@ -467,7 +467,7 @@ export default function ResponsabilidadDeLocalesPage() {
                 
                 <div className="bg-white p-4 rounded">
                   <h4 className="font-bold text-burgundy-900 mb-2">
-                    "La víctima tuvo la culpa"
+                    &ldquo;La víctima tuvo la culpa&rdquo;
                   </h4>
                   <p className="text-gray-700">
                     <strong>Nuestra respuesta:</strong> Investigamos completamente para mostrar 

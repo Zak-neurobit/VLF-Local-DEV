@@ -260,7 +260,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   } catch (error) {
     logger.error('Failed to get crew metrics:', error);
     return NextResponse.json(
-      { error: 'Failed to get crew metrics', details: error.message },
+      { error: 'Failed to get crew metrics', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

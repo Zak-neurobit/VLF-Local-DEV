@@ -81,7 +81,7 @@ export async function GET(request: NextRequest) {
     // Combine data
     const metrics = performanceData.map(perf => {
       const blogPost = blogPosts.find(bp => bp.id === perf.contentId);
-      const schema = schemaPerformance.find(sp => sp.schemaMarkup?.contentId === perf.contentId);
+      const schema = schemaPerformance.find(sp => sp.schemaMarkupId === perf.contentId);
       
       return {
         contentId: perf.contentId,

@@ -3,7 +3,7 @@ import { NeighborhoodPageTemplate } from '@/components/templates/NeighborhoodPag
 import { generateNeighborhoodMetadata, generateNeighborhoodPageContent } from '@/lib/seo/neighborhood-page-generator';
 
 const neighborhoodData = {
-  name: 'Uptown',
+  neighborhood: 'Uptown',
   slug: 'uptown',
   city: 'Charlotte',
   citySlug: 'charlotte',
@@ -17,7 +17,13 @@ export default function UptownCharlottePage() {
   
   return (
     <NeighborhoodPageTemplate
-      neighborhood={neighborhoodData}
+      neighborhood={{
+        name: neighborhoodData.neighborhood,
+        slug: neighborhoodData.slug,
+        city: neighborhoodData.city,
+        citySlug: neighborhoodData.citySlug,
+        zipCodes: neighborhoodData.zipCodes
+      }}
       content={content}
     />
   );

@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { CrewCoordinator } from '@/lib/crewai/enhanced-crew-coordinator';
-import { SEODominationOrchestrator } from '@/lib/crewai/seo-domination/seo-domination-orchestrator';
 import { logger } from '@/lib/logger';
 
-export async function GET(request: NextRequest): Promise<NextResponse> {
+export async function GET(_request: NextRequest): Promise<NextResponse> {
   try {
     const crewCoordinator = CrewCoordinator.getInstance();
-    const seoOrchestrator = new SEODominationOrchestrator();
-    
     // Get system status
     const systemStatus = crewCoordinator.getSystemStatus();
     
@@ -99,7 +96,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         tasksCompleted: agentStatuses.reduce((sum, a) => sum + (a.metrics?.tasksExecuted || 0), 0),
         averageSuccessRate: agentStatuses.reduce((sum, a) => sum + (a.metrics?.successRate || 0), 0) / agentStatuses.length,
         averageExecutionTime: agentStatuses.reduce((sum, a) => sum + (a.metrics?.averageExecutionTime || 0), 0) / agentStatuses.length,
-        systemLoad: process.loadavg?.[0] || 0
+        systemLoad: (process as any).loadavg ? (process as any).loadavg()[0] : 0
       }
     };
     
@@ -107,15 +104,15 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   } catch (error) {
     logger.error('Failed to get crew status:', error);
     return NextResponse.json(
-      { error: 'Failed to get crew status', details: error.message },
+      { error: 'Failed to get crew status', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }
 }
 
-export async function POST(request: NextRequest): Promise<NextResponse> {
+export async function POST(_request: NextRequest): Promise<NextResponse> {
   try {
-    const body = await request.json();
+    const body = await _request.json();
     const { action, agentName } = body;
     
     const crewCoordinator = CrewCoordinator.getInstance();
@@ -164,7 +161,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   } catch (error) {
     logger.error('Failed to process crew action:', error);
     return NextResponse.json(
-      { error: 'Failed to process crew action', details: error.message },
+      { error: 'Failed to process crew action', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

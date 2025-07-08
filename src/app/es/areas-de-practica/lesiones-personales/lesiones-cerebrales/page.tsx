@@ -96,7 +96,7 @@ export default function LesionesCerebralesPage() {
               
               <p className="text-gray-700 mb-6">
                 Cada año, millones de estadounidenses sufren lesiones cerebrales traumáticas (TBI). 
-                Desde conmociones "leves" hasta daño cerebral severo, estas lesiones pueden tener 
+                Desde conmociones &ldquo;leves&rdquo; hasta daño cerebral severo, estas lesiones pueden tener 
                 consecuencias devastadoras y permanentes para las víctimas y sus familias.
               </p>
 
@@ -119,7 +119,7 @@ export default function LesionesCerebralesPage() {
                 <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-purple-600">
                   <h4 className="font-bold text-burgundy-900 mb-2">Conmoción Cerebral</h4>
                   <p className="text-gray-700 mb-2">
-                    A menudo minimizada como "leve", pero puede causar:
+                    A menudo minimizada como &ldquo;leve&rdquo;, pero puede causar:
                   </p>
                   <ul className="text-gray-700 space-y-1 text-sm">
                     <li>• Dolores de cabeza crónicos</li>
@@ -297,8 +297,8 @@ export default function LesionesCerebralesPage() {
             
             <div className="mt-8 bg-gold-100 p-6 rounded-lg text-center">
               <p className="text-lg font-semibold text-burgundy-900">
-                "Mi esposo ya no es la misma persona desde el accidente. 
-                Vasquez Law Firm nos ayudó a obtener los recursos para darle el cuidado que necesita."
+                &ldquo;Mi esposo ya no es la misma persona desde el accidente. 
+                Vasquez Law Firm nos ayudó a obtener los recursos para darle el cuidado que necesita.&rdquo;
               </p>
               <p className="mt-3 text-gray-600">- Carmen R., Charlotte NC</p>
             </div>
@@ -382,7 +382,7 @@ export default function LesionesCerebralesPage() {
               <div className="bg-white/10 p-6 rounded-lg">
                 <p className="text-4xl font-bold text-gold-400 mb-3">$3.8M</p>
                 <h3 className="text-xl font-bold mb-2">Choque de Auto</h3>
-                <p>Madre de 3 hijos con conmoción "leve" desarrolló síndrome post-conmoción 
+                <p>Madre de 3 hijos con conmoción &ldquo;leve&rdquo; desarrolló síndrome post-conmoción 
                    crónico. No puede trabajar ni cuidar a sus hijos sin ayuda.</p>
               </div>
               

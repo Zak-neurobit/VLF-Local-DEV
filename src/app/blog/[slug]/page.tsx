@@ -58,11 +58,11 @@ export default function BlogPostPage() {
   useEffect(() => {
     fetchPost();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.slug]);
+  }, [params?.slug]);
 
   const fetchPost = async () => {
     try {
-      const response = await fetch(`/api/blog/${params.slug}`);
+      const response = await fetch(`/api/blog/${params?.slug}`);
       const data = await response.json();
 
       if (response.ok) {

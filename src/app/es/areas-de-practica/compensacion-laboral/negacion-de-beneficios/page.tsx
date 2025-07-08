@@ -201,7 +201,7 @@ export default function NegacionDeBeneficiosPage() {
                       <li>• Bonos para ajustadores que niegan más</li>
                       <li>• Presión de ganancias corporativas</li>
                       <li>• Software automático de denegaciones</li>
-                      <li>• Métricas de "ahorros" por denegaciones</li>
+                      <li>• Métricas de &ldquo;ahorros&rdquo; por denegaciones</li>
                     </ul>
                   </div>
                   <div>
@@ -223,16 +223,16 @@ export default function NegacionDeBeneficiosPage() {
               <h2 className="text-3xl font-bold mb-6 text-primary">Excusas Comunes de Denegación y Cómo las Vencemos</h2>
               <div className="space-y-6">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-red-500/30">
-                  <h3 className="text-xl font-bold text-red-400 mb-4">🔴 "No Está Relacionado con el Trabajo" (67% de denegaciones)</h3>
+                  <h3 className="text-xl font-bold text-red-400 mb-4">🔴 &ldquo;No Está Relacionado con el Trabajo&rdquo; (67% de denegaciones)</h3>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-gray-200 mb-3">Lo Que Dicen:</h4>
                       <ul className="space-y-1 text-gray-300 text-sm">
-                        <li>• "Condición preexistente"</li>
-                        <li>• "No hay testigos del accidente"</li>
-                        <li>• "Causado por edad/desgaste"</li>
-                        <li>• "Síntomas demasiado vagos"</li>
-                        <li>• "Incidente menor"</li>
+                        <li>• &ldquo;Condición preexistente&rdquo;</li>
+                        <li>• &ldquo;No hay testigos del accidente&rdquo;</li>
+                        <li>• &ldquo;Causado por edad/desgaste&rdquo;</li>
+                        <li>• &ldquo;Síntomas demasiado vagos&rdquo;</li>
+                        <li>• &ldquo;Incidente menor&rdquo;</li>
                       </ul>
                     </div>
                     <div>
@@ -249,7 +249,7 @@ export default function NegacionDeBeneficiosPage() {
                 </div>
                 
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-orange-500/30">
-                  <h3 className="text-xl font-bold text-orange-400 mb-4">🟠 "Tratamiento No Necesario" (23% de denegaciones)</h3>
+                  <h3 className="text-xl font-bold text-orange-400 mb-4">🟠 &ldquo;Tratamiento No Necesario&rdquo; (23% de denegaciones)</h3>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-gray-200 mb-3">Tratamientos Comúnmente Negados:</h4>
@@ -275,7 +275,7 @@ export default function NegacionDeBeneficiosPage() {
                 </div>
                 
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-yellow-500/30">
-                  <h3 className="text-xl font-bold text-yellow-400 mb-4">🟡 "Capaz de Trabajar" (18% de denegaciones)</h3>
+                  <h3 className="text-xl font-bold text-yellow-400 mb-4">🟡 &ldquo;Capaz de Trabajar&rdquo; (18% de denegaciones)</h3>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-gray-200 mb-3">Tácticas de Vigilancia:</h4>
@@ -284,7 +284,7 @@ export default function NegacionDeBeneficiosPage() {
                         <li>• Videos de actividades diarias</li>
                         <li>• Redes sociales monitoreadas</li>
                         <li>• Evaluaciones sesgadas</li>
-                        <li>• Trabajos "disponibles" ficticios</li>
+                        <li>• Trabajos &ldquo;disponibles&rdquo; ficticios</li>
                       </ul>
                     </div>
                     <div>

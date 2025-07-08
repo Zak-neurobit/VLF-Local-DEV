@@ -87,7 +87,7 @@ export default function ResbalonesYCaidasPage() {
             <div className="text-center">
               <Home className="w-12 h-12 mx-auto mb-3 text-burgundy-700" />
               <h3 className="font-bold mb-2">Restaurantes</h3>
-              <p className="text-sm text-gray-600">McDonald's, Bojangles, restaurantes locales</p>
+              <p className="text-sm text-gray-600">McDonald&apos;s, Bojangles, restaurantes locales</p>
             </div>
             <div className="text-center">
               <Building2 className="w-12 h-12 mx-auto mb-3 text-burgundy-700" />
