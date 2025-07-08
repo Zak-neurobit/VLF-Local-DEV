@@ -30,8 +30,7 @@ export function SpeedOptimizer() {
       ResourceHints.addDnsPrefetch(origin);
     });
 
-    // Preload critical resources
-    ResourceHints.preloadResource('/fonts/inter-var.woff2', 'font', 'font/woff2');
+    // Critical resources are loaded via Next.js font optimization
     
     // Prefetch likely next pages
     const likelyPages = [
@@ -148,7 +147,7 @@ export function SpeedOptimizer() {
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
+              gtag('js', new Date(document.querySelector('meta[name="render-time"]')?.getAttribute('content') || new Date().toISOString()));
               gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
                 page_path: window.location.pathname,
                 transport_type: 'beacon',

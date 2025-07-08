@@ -5,22 +5,33 @@ export const isBrowser = typeof window !== 'undefined';
 
 /**
  * Safe window access utilities
+ * Use getter functions to avoid hydration mismatches
  */
 export const safeWindow = {
-  innerWidth: isBrowser ? window.innerWidth : 1024,
-  innerHeight: isBrowser ? window.innerHeight : 768,
-  location: isBrowser ? window.location : { href: '', pathname: '', search: '', hash: '' },
-  localStorage: isBrowser ? window.localStorage : {
-    getItem: () => null,
-    setItem: () => {},
-    removeItem: () => {},
-    clear: () => {},
+  get innerWidth() {
+    return isBrowser ? window.innerWidth : 1024;
   },
-  sessionStorage: isBrowser ? window.sessionStorage : {
-    getItem: () => null,
-    setItem: () => {},
-    removeItem: () => {},
-    clear: () => {},
+  get innerHeight() {
+    return isBrowser ? window.innerHeight : 768;
+  },
+  get location() {
+    return isBrowser ? window.location : { href: '', pathname: '', search: '', hash: '' };
+  },
+  get localStorage() {
+    return isBrowser ? window.localStorage : {
+      getItem: () => null,
+      setItem: () => {},
+      removeItem: () => {},
+      clear: () => {},
+    };
+  },
+  get sessionStorage() {
+    return isBrowser ? window.sessionStorage : {
+      getItem: () => null,
+      setItem: () => {},
+      removeItem: () => {},
+      clear: () => {},
+    };
   },
 };
 

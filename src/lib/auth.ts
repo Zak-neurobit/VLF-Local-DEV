@@ -5,6 +5,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import { getPrismaClient } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { emailService } from '@/services/email.service';
+import { env } from '@/lib/env';
 
 // Use a simple console logger in edge runtime
 const logger = {
@@ -39,7 +40,8 @@ function getClientIp(headers?: Record<string, string | string[] | undefined>): s
 }
 
 export const authOptions: NextAuthOptions = {
-  adapter: process.env.DATABASE_URL ? PrismaAdapter(getPrismaClient()) : undefined as any,
+  secret: env.NEXTAUTH_SECRET,
+  adapter: env.DATABASE_URL ? PrismaAdapter(getPrismaClient()) : undefined as any,
   providers: [
     // Email/Password authentication
     CredentialsProvider({
@@ -53,8 +55,18 @@ export const authOptions: NextAuthOptions = {
           throw new Error('Invalid credentials');
         }
 
-        if (!process.env.DATABASE_URL) {
+        if (!env.DATABASE_URL) {
           logger.warn('Database not available for authentication');
+          // Return a mock user in development without database
+          if (env.NODE_ENV === 'development') {
+            return {
+              id: 'dev-user',
+              email: credentials.email,
+              name: 'Development User',
+              role: 'ADMIN',
+              language: 'en',
+            };
+          }
           return null;
         }
 
@@ -89,10 +101,10 @@ export const authOptions: NextAuthOptions = {
       },
     }),
 
-    // Google OAuth
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    // Google OAuth (only if configured)
+    ...(env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET ? [GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
       profile(profile) {
         return {
           id: profile.sub,
@@ -103,7 +115,7 @@ export const authOptions: NextAuthOptions = {
           language: 'en',
         };
       },
-    }),
+    })] : []),
   ],
 
   session: {
@@ -132,7 +144,7 @@ export const authOptions: NextAuthOptions = {
       }
 
       // Handle OAuth account linking
-      if (account && account.provider !== 'credentials' && process.env.DATABASE_URL) {
+      if (account && account.provider !== 'credentials' && env.DATABASE_URL) {
         try {
           const existingUser = await getPrismaClient().user.findUnique({
             where: { email: token.email! },
@@ -180,7 +192,7 @@ export const authOptions: NextAuthOptions = {
       logger.info(`Sign-in attempt: ${user.email} via ${account?.provider}`);
 
       // Check if user is blocked
-      if (user.email && process.env.DATABASE_URL) {
+      if (user.email && env.DATABASE_URL) {
         try {
           const dbUser = await getPrismaClient().user.findUnique({
             where: { email: user.email },
@@ -205,7 +217,7 @@ export const authOptions: NextAuthOptions = {
       logger.info(`User signed in: ${user.email} via ${account?.provider}`);
 
       // Track sign-in for analytics
-      if (user.id && process.env.DATABASE_URL) {
+      if (user.id && env.DATABASE_URL) {
         try {
           // Get IP address from the request headers passed from the route handler
           const headers = (message as any).__headers;
@@ -258,7 +270,7 @@ export const authOptions: NextAuthOptions = {
 
     async session({ session, token }) {
       // Update last active timestamp
-      if (token.id && process.env.DATABASE_URL) {
+      if (token.id && env.DATABASE_URL) {
         await getPrismaClient()
           .user.update({
             where: { id: token.id as string },
@@ -269,7 +281,21 @@ export const authOptions: NextAuthOptions = {
     },
   },
 
-  debug: process.env.NODE_ENV === 'development',
+  debug: env.NODE_ENV === 'development',
+  // Add proper error handling for production
+  logger: {
+    error: (code, metadata) => {
+      logger.error('NextAuth error:', { code, metadata });
+    },
+    warn: (code) => {
+      logger.warn('NextAuth warning:', code);
+    },
+    debug: (code, metadata) => {
+      if (env.NODE_ENV === 'development') {
+        logger.info('NextAuth debug:', { code, metadata });
+      }
+    },
+  },
 };
 
 // Type extensions for TypeScript

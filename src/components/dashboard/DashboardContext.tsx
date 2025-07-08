@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
 
 interface AgentActivity {
   id: string;
@@ -64,6 +64,7 @@ export const useDashboard = () => {
 export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [socket, setSocket] = useState<any>(null);
   const [isConnected, setIsConnected] = useState(false);
+  const isMountedRef = useRef(false);
   const [data, setData] = useState<DashboardData>({
     agents: [],
     metrics: {
@@ -81,13 +82,24 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       uptime: 0,
       performance: 0,
       errors: 0,
-      lastUpdate: new Date()
+      lastUpdate: null as Date | null
     }
   });
 
   // Initialize socket connection only on client side
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    // Ensure we only run on client after mount
+    if (!isMountedRef.current) {
+      isMountedRef.current = true;
+      // Set initial lastUpdate after mount
+      setData(prev => ({
+        ...prev,
+        systemHealth: {
+          ...prev.systemHealth,
+          lastUpdate: new Date()
+        }
+      }));
+    }
 
     const initSocket = async () => {
       try {

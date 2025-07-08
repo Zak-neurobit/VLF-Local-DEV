@@ -186,18 +186,6 @@ export default function ResourceHints({
       {prefetchResources.map((resource) => (
         <link key={resource} rel="prefetch" href={resource} />
       ))}
-      
-      {/* Critical CSS optimization hint */}
-      <link 
-        rel="preload" 
-        href="/_next/static/css/app.css" 
-        as="style" 
-        onLoad={(e) => {
-          const link = e.currentTarget as HTMLLinkElement;
-          link.onload = null;
-          link.rel = 'stylesheet';
-        }} 
-      />
     </Head>
   );
 }

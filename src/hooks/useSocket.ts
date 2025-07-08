@@ -25,7 +25,8 @@ export function useSocket(): UseSocketReturn {
         const { io } = await import('socket.io-client');
         
         // Connect to the WebSocket server
-        const socket = io(process.env.NEXT_PUBLIC_WEBSOCKET_URL || '', {
+        const socketUrl = process.env.NEXT_PUBLIC_WEBSOCKET_URL || window.location.origin;
+        const socket = io(socketUrl, {
           transports: ['websocket'],
           autoConnect: true,
           reconnection: true,

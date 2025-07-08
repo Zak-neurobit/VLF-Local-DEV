@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { Star, MapPin, ExternalLink, RefreshCw, AlertCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
+import { formatDate, formatDateTime } from '@/lib/utils/date-utils';
+import { useHydrationSafe } from '@/hooks/useHydrationSafe';
 
 export interface ExternalReview {
   id: string;
@@ -88,6 +90,7 @@ export default function ExternalReviews({
   const [error, setError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+  const isHydrated = useHydrationSafe();
 
   const fetchReviews = async (forceRefresh = false) => {
     try {
@@ -114,7 +117,7 @@ export default function ExternalReviews({
 
       setReviews(data.reviews || []);
       setSummary(data.summary || null);
-      setLastUpdated(data.requestedAt || new Date().toISOString());
+      setLastUpdated(data.requestedAt || (isHydrated ? new Date().toISOString() : null));
     } catch (err) {
       console.error('Failed to fetch external reviews:', err);
       setError(err instanceof Error ? err.message : 'Failed to load reviews');
@@ -263,9 +266,9 @@ export default function ExternalReviews({
               </div>
             </div>
 
-            {lastUpdated && (
+            {lastUpdated && isHydrated && (
               <p className="text-xs text-gray-500 mt-4 text-center">
-                Last updated: {new Date(lastUpdated).toLocaleString()}
+                Last updated: {formatDateTime(lastUpdated)}
               </p>
             )}
           </CardContent>
@@ -313,7 +316,7 @@ export default function ExternalReviews({
                     <div className="flex items-center space-x-2 mt-1">
                       <StarRating rating={review.rating} />
                       <span className="text-sm text-gray-500">
-                        {new Date(review.date).toLocaleDateString()}
+                        {isHydrated ? formatDate(review.date) : ''}
                       </span>
                     </div>
                   </div>

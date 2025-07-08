@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Download, Phone, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLocalStorage } from '@/hooks/useHydrationSafe';
 
 interface ExitIntentPopupProps {
   onClose?: () => void;
@@ -13,6 +14,7 @@ interface ExitIntentPopupProps {
 export default function ExitIntentPopup({ onClose, onAction }: ExitIntentPopupProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [hasShown, setHasShown] = useState(false);
+  const [lastShown, setLastShown] = useLocalStorage<string | null>('exitIntentLastShown', null);
 
   useEffect(() => {
     const handleMouseLeave = (e: MouseEvent) => {
@@ -24,7 +26,6 @@ export default function ExitIntentPopup({ onClose, onAction }: ExitIntentPopupPr
     };
 
     // Check if user has seen popup in last 7 days
-    const lastShown = localStorage.getItem('exitIntentLastShown');
     if (lastShown) {
       const daysSinceShown = (Date.now() - parseInt(lastShown)) / (1000 * 60 * 60 * 24);
       if (daysSinceShown < 7) {
@@ -38,11 +39,11 @@ export default function ExitIntentPopup({ onClose, onAction }: ExitIntentPopupPr
     return () => {
       document.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [hasShown]);
+  }, [hasShown, lastShown]);
 
   const handleClose = () => {
     setIsVisible(false);
-    localStorage.setItem('exitIntentLastShown', Date.now().toString());
+    setLastShown(Date.now().toString());
     onClose?.();
   };
 

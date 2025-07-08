@@ -5,6 +5,8 @@ import type { Socket } from 'socket.io-client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { componentLogger, userFlowLogger } from '@/lib/logger';
 import { useErrorHandler } from '@/components/ErrorBoundary';
+import { formatTime, generateId } from '@/lib/utils/date-utils';
+import { useHydrationSafe } from '@/hooks/useHydrationSafe';
 
 interface Message {
   id: string;
@@ -40,8 +42,16 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
 
   const socketRef = useRef<Socket | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const sessionId = useRef(`session_${Date.now()}`);
+  const sessionId = useRef<string | null>(null);
   const handleError = useErrorHandler();
+  const isHydrated = useHydrationSafe();
+
+  // Initialize session ID after hydration
+  useEffect(() => {
+    if (!sessionId.current && isHydrated) {
+      sessionId.current = generateId('session');
+    }
+  }, [isHydrated]);
 
   // Initialize socket connection
   useEffect(() => {
@@ -53,7 +63,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
         const { io } = await import('socket.io-client');
         
         // Use the same origin for WebSocket connection
-        const socketUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+        const socketUrl = window.location.origin;
         const socket = io(socketUrl, {
           auth: {
             sessionId: sessionId.current,
@@ -74,7 +84,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
         socket.on('message', (message: Omit<Message, 'id'>) => {
           const newMessage: Message = {
             ...message,
-            id: `msg_${Date.now()}_${Math.random()}`,
+            id: generateId('msg'),
           };
           setMessages(prev => [...prev, newMessage]);
           componentLogger.stateChange(
@@ -95,7 +105,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
           }
 
           const escalationMessage: Message = {
-            id: `msg_${Date.now()}`,
+            id: generateId('msg'),
             role: 'system',
             content: data.message,
             timestamp: new Date().toISOString(),
@@ -139,7 +149,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
     if (!inputValue.trim() || !socketRef.current || !isConnected) return;
 
     const userMessage: Message = {
-      id: `msg_${Date.now()}`,
+      id: generateId('msg'),
       role: 'user',
       content: inputValue,
       timestamp: new Date().toISOString(),
@@ -259,7 +269,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
                   >
                     <p className="whitespace-pre-wrap">{message.content}</p>
                     <p className="text-xs opacity-70 mt-1">
-                      {new Date(message.timestamp).toLocaleTimeString()}
+                      {isHydrated ? formatTime(message.timestamp) : ''}
                     </p>
                   </div>
                 </div>
