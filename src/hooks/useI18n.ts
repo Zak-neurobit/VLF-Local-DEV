@@ -21,7 +21,9 @@ export function useI18n() {
     if (newLanguage === currentLanguage) return;
 
     // Set cookie for language preference
-    document.cookie = `preferred-language=${newLanguage};path=/;max-age=31536000;samesite=lax`;
+    if (typeof document !== 'undefined') {
+      document.cookie = `preferred-language=${newLanguage};path=/;max-age=31536000;samesite=lax`;
+    }
 
     // Calculate new path
     let newPath = pathname;

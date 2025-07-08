@@ -20,7 +20,9 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   const handleLanguageChange = (lang: 'en' | 'es') => {
     try {
       // Set cookie
-      document.cookie = `preferred-language=${lang};path=/;max-age=31536000;samesite=lax`;
+      if (typeof document !== 'undefined') {
+        document.cookie = `preferred-language=${lang};path=/;max-age=31536000;samesite=lax`;
+      }
 
       // Handle null pathname
       const safePathname = pathname || '/';

@@ -247,7 +247,10 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                                 key={subItem.name}
                                 href={subItem.href}
                                 className="block px-4 py-2.5 text-sm text-neutral-700 hover:bg-primary/10 hover:text-primary transition-colors"
-                                onClick={() => setActiveDropdown(null)}
+                                onClick={(e) => {
+                                  // Allow navigation to start before closing dropdown
+                                  setTimeout(() => setActiveDropdown(null), 100);
+                                }}
                               >
                                 {subItem.name}
                               </Link>
@@ -271,7 +274,10 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
 
             {/* Mobile Menu Button */}
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setMobileMenuOpen(!mobileMenuOpen);
+              }}
               className={`lg:hidden p-2 rounded-md transition-colors ${
                 isTransparent 
                   ? 'text-white hover:bg-white/20' 
@@ -315,7 +321,12 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                   <div key={item.name}>
                     <Link
                       href={item.href}
-                      onClick={() => !item.submenu && setMobileMenuOpen(false)}
+                      onClick={(e) => {
+                        // Only close menu if no submenu and allow navigation to start
+                        if (!item.submenu) {
+                          setTimeout(() => setMobileMenuOpen(false), 100);
+                        }
+                      }}
                       className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors ${
                         pathname === item.href || (item.submenu && pathname.startsWith(item.href))
                           ? 'bg-primary/10 text-secondary'
@@ -330,7 +341,10 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                           <Link
                             key={subItem.name}
                             href={subItem.href}
-                            onClick={() => setMobileMenuOpen(false)}
+                            onClick={(e) => {
+                              // Allow navigation to start before closing menu
+                              setTimeout(() => setMobileMenuOpen(false), 100);
+                            }}
                             className="block px-4 py-2 text-sm text-neutral-600 hover:text-primary transition-colors"
                           >
                             {subItem.name}
@@ -343,7 +357,10 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                 <div className="pt-4 mt-4 border-t border-neutral-200">
                   <Link
                     href={language === 'es' ? '/es/contacto' : '/contact'}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      // Allow navigation to start before closing menu
+                      setTimeout(() => setMobileMenuOpen(false), 100);
+                    }}
                     className="block w-full px-4 py-3 bg-gradient-to-r from-primary to-primary-600 text-secondary text-center font-bold rounded-full hover:from-primary-600 hover:to-primary-700 transition-all shadow-md"
                   >
                     {language === 'es' ? 'Consulta Gratis' : 'Free Consultation'}

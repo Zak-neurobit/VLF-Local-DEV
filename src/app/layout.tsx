@@ -109,12 +109,6 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // Initialize performance monitoring
-  if (typeof window !== 'undefined') {
-    performanceMonitor.observeWebVitals();
-    performanceMonitor.monitorMemory();
-  }
-
   return (
     <html lang="en" className={`${inter.className} ${playfairDisplay.variable}`}>
       <head>
