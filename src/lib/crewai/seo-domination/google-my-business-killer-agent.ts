@@ -119,12 +119,12 @@ export class GoogleMyBusinessKillerAgent {
   // Review Response Templates
   private readonly REVIEW_RESPONSES = {
     positive: {
-      5_star: [
+      fiveStar: [
         'Thank you so much for your kind words! It was our pleasure to help you navigate [CASE_TYPE]. We\'re always here when you need us. 🌟',
         'We\'re thrilled we could help! Your success is our success. Thank you for trusting Vasquez Law Firm with your [CASE_TYPE] case. 💼',
         'Your review made our day! We\'re honored to have been part of your journey. Wishing you all the best! 🎯'
       ],
-      4_star: [
+      fourStar: [
         'Thank you for the great feedback! We\'re glad we could help with your [CASE_TYPE] matter. If there\'s anything else we can do to earn that 5th star, please let us know! 📞',
         'We appreciate your honest review! We\'re always working to improve our services. Thank you for choosing Vasquez Law Firm. 🙏'
       ]

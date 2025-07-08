@@ -326,19 +326,6 @@ model NewsAlert {
   @@index([publishedAt])
 }
 
-model ContentSchedule {
-  id           String   @id @default(cuid())
-  blogPostId   String
-  platform     String // website, facebook, twitter, etc.
-  scheduledFor DateTime
-  status       String   @default("scheduled") // scheduled, published, failed
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([scheduledFor, status])
-  @@index([platform])
-}
 
 // NextAuth models
 model Account {

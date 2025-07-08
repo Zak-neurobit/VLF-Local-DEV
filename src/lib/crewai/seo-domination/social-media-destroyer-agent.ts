@@ -730,7 +730,7 @@ Format as JSON with:
       instagram: new Date(Date.now() + 3 * 60 * 60 * 1000), // 3 hours later
     };
 
-    for (const [platform, post of Object.entries(posts)) {
+    for (const [platform, post] of Object.entries(posts)) {
       post.campaignId = campaignId;
       post.scheduledTime = schedule[platform as keyof typeof schedule];
 

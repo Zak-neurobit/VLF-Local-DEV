@@ -158,12 +158,12 @@ The Vasquez Law Firm Team`
   // Review Response Templates by Sentiment
   private readonly RESPONSE_TEMPLATES = {
     positive: {
-      5_star: [
+      fiveStar: [
         'Thank you so much, {reviewerName}! Your kind words mean everything to us. We\'re honored to have been part of your journey. 🌟',
         '{reviewerName}, we\'re touched by your review! It\'s clients like you who make our work so rewarding. Thank you for trusting us! 💙',
         'Wow, thank you {reviewerName}! Your success is our success. We\'re always here if you need us. 🙏'
       ],
-      4_star: [
+      fourStar: [
         'Thank you for the wonderful feedback, {reviewerName}! We\'re glad we could help. Always striving to provide 5-star service! 📞',
         'We appreciate your review, {reviewerName}! Your feedback helps us improve. Thank you for choosing Vasquez Law Firm! 🏆'
       ]

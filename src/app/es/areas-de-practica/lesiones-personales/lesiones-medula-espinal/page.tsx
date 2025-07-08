@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { Zap, AlertTriangle, Heart, Shield, Wheelchair, DollarSign, Phone, Clock, Activity, Home } from 'lucide-react';
+import { Zap, AlertTriangle, Heart, Shield, DollarSign, Phone, Clock, Activity, Home } from 'lucide-react';
 
 const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
   ssr: false,
@@ -128,7 +128,7 @@ export default function LesionesMedulaEspinalPage() {
 
               <div className="grid md:grid-cols-2 gap-6 mb-8">
                 <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-red-600">
-                  <Wheelchair className="w-10 h-10 text-red-600 mb-3" />
+                  <Activity className="w-10 h-10 text-red-600 mb-3" />
                   <h4 className="font-bold text-burgundy-900 mb-2">Tetraplejia (Cuadriplejia)</h4>
                   <p className="text-gray-700 mb-2">
                     Parálisis de brazos, manos, tronco, piernas y órganos pélvicos.
@@ -141,7 +141,7 @@ export default function LesionesMedulaEspinalPage() {
                   </ul>
                 </div>
                 <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-orange-600">
-                  <Wheelchair className="w-10 h-10 text-orange-600 mb-3" />
+                  <Activity className="w-10 h-10 text-orange-600 mb-3" />
                   <h4 className="font-bold text-burgundy-900 mb-2">Paraplejia</h4>
                   <p className="text-gray-700 mb-2">
                     Parálisis del tronco, piernas y órganos pélvicos.
@@ -470,7 +470,7 @@ export default function LesionesMedulaEspinalPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="bg-white p-8 rounded-lg shadow-xl">
-              <Wheelchair className="w-12 h-12 text-blue-600 mb-4" />
+              <Activity className="w-12 h-12 text-blue-600 mb-4" />
               <p className="text-xl text-gray-700 italic mb-6">
                 "Después de mi accidente, pensé que mi vida había terminado. No podía mover 
                 nada debajo del pecho. Vasquez Law Firm no solo consiguió compensación para 
