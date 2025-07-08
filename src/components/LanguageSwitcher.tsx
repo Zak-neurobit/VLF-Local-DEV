@@ -18,26 +18,35 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   const router = useRouter();
 
   const handleLanguageChange = (lang: 'en' | 'es') => {
-    // Set cookie
-    document.cookie = `preferred-language=${lang};path=/;max-age=31536000;samesite=lax`;
+    try {
+      // Set cookie
+      document.cookie = `preferred-language=${lang};path=/;max-age=31536000;samesite=lax`;
 
-    // Determine new path
-    let newPath = pathname;
+      // Handle null pathname
+      const safePathname = pathname || '/';
+      
+      // Determine new path
+      let newPath = safePathname;
 
-    // Remove existing language prefix if present
-    if (pathname.startsWith('/es/')) {
-      newPath = pathname.slice(3) || '/';
-    } else if (pathname.startsWith('/en/')) {
-      newPath = pathname.slice(3) || '/';
+      // Remove existing language prefix if present
+      if (safePathname.startsWith('/es/')) {
+        newPath = safePathname.slice(3) || '/';
+      } else if (safePathname.startsWith('/en/')) {
+        newPath = safePathname.slice(3) || '/';
+      }
+
+      // Add new language prefix for Spanish only (keep English URLs clean)
+      if (lang === 'es') {
+        newPath = `/es${newPath === '/' ? '' : newPath}`;
+      }
+
+      // Navigate to new path
+      router.push(newPath);
+    } catch (error) {
+      console.error('Error changing language:', error);
+      // Fallback to home page
+      router.push(lang === 'es' ? '/es' : '/');
     }
-
-    // Add new language prefix for Spanish only (keep English URLs clean)
-    if (lang === 'es') {
-      newPath = `/es${newPath === '/' ? '' : newPath}`;
-    }
-
-    // Navigate to new path
-    router.push(newPath);
   };
 
   if (variant === 'floating') {

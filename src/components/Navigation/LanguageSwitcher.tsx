@@ -45,12 +45,15 @@ export function LanguageSwitcher({
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
+  // Handle null pathname
+  const safePathname = pathname || '/';
+
   // Determine current language
-  const currentLang: 'en' | 'es' = pathname.startsWith('/es') ? 'es' : 'en';
+  const currentLang: 'en' | 'es' = safePathname.startsWith('/es') ? 'es' : 'en';
   const currentLanguage = languages.find(lang => lang.code === currentLang) || languages[0];
 
   // Check if current page has translations
-  const pageHasSpanishVersion = hasSpanishVersion(pathname);
+  const pageHasSpanishVersion = hasSpanishVersion(safePathname);
 
   // Get available languages for current page
   const availableLanguages = languages.filter(lang => {
@@ -69,23 +72,31 @@ export function LanguageSwitcher({
     let targetUrl: string | null = null;
 
     if (targetLang === 'es') {
-      targetUrl = getSpanishUrl(pathname);
+      targetUrl = getSpanishUrl(safePathname);
     } else {
-      targetUrl = getEnglishUrl(pathname);
+      targetUrl = getEnglishUrl(safePathname);
     }
 
-    if (targetUrl) {
-      // Use the full URL from hreflang generator
-      window.location.href = targetUrl;
-    } else {
-      // Fallback: manual URL construction
-      if (targetLang === 'es') {
-        const cleanPath = pathname.replace(/^\/es/, '') || '/';
-        router.push(`/es${cleanPath}`);
+    try {
+      if (targetUrl) {
+        // Use the full URL from hreflang generator
+        if (typeof window !== 'undefined') {
+          window.location.href = targetUrl;
+        }
       } else {
-        const cleanPath = pathname.replace(/^\/es/, '') || '/';
-        router.push(cleanPath);
+        // Fallback: manual URL construction
+        if (targetLang === 'es') {
+          const cleanPath = safePathname.replace(/^\/es/, '') || '/';
+          router.push(`/es${cleanPath}`);
+        } else {
+          const cleanPath = safePathname.replace(/^\/es/, '') || '/';
+          router.push(cleanPath);
+        }
       }
+    } catch (error) {
+      console.error('Error switching language:', error);
+      // Fallback to home page if there's an error
+      router.push(targetLang === 'es' ? '/es' : '/');
     }
 
     setIsOpen(false);
@@ -203,8 +214,9 @@ export function LanguageSwitcher({
  */
 export function LanguageLinks({ className = '' }: { className?: string }) {
   const pathname = usePathname();
-  const currentLang: 'en' | 'es' = pathname.startsWith('/es') ? 'es' : 'en';
-  const hreflangEntries = HreflangGenerator.generateHreflangEntries(pathname);
+  const safePathname = pathname || '/';
+  const currentLang: 'en' | 'es' = safePathname.startsWith('/es') ? 'es' : 'en';
+  const hreflangEntries = HreflangGenerator.generateHreflangEntries(safePathname);
 
   // Filter out x-default and get unique language entries
   const languageUrls = hreflangEntries

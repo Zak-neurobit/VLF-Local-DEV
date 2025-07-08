@@ -162,7 +162,7 @@ export default function AccidentesConMaquinariaPage() {
                     <li>• Empleador puede reparar/modificar máquina</li>
                     <li>• Sangre y evidencia física se limpia</li>
                     <li>• Testigos son presionados al silencio</li>
-                    <li>• Registros de mantenimiento "desaparecen"</li>
+                    <li>• Registros de mantenimiento &ldquo;desaparecen&rdquo;</li>
                     <li>• Videos de seguridad se sobrescriben</li>
                   </ul>
                 </div>

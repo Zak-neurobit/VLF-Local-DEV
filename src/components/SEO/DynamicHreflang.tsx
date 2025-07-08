@@ -17,18 +17,21 @@ export function DynamicHreflang({ customPath, pageType = 'general' }: DynamicHre
   const pathname = usePathname();
 
   useEffect(() => {
+    // Handle null pathname
+    const safePathname = pathname || '/';
+    
     // Remove any existing hreflang tags added by this component
     const existingTags = document.querySelectorAll('link[rel="alternate"][data-dynamic-hreflang="true"]');
     existingTags.forEach(tag => tag.remove());
 
     // Generate new hreflang entries
-    const entries = HreflangGenerator.generateHreflangEntries(pathname, customPath);
+    const entries = HreflangGenerator.generateHreflangEntries(safePathname, customPath);
     
     // Add new hreflang tags to the document head
     entries.forEach(entry => {
       const link = document.createElement('link');
       link.rel = 'alternate';
-      link.hrefLang = entry.hreflang;
+      link.hreflang = entry.hreflang;
       link.href = entry.href;
       link.setAttribute('data-dynamic-hreflang', 'true');
       document.head.appendChild(link);
@@ -41,10 +44,10 @@ export function DynamicHreflang({ customPath, pageType = 'general' }: DynamicHre
       canonicalTag.rel = 'canonical';
       document.head.appendChild(canonicalTag);
     }
-    canonicalTag.href = HreflangGenerator.generateCanonicalUrl(pathname, customPath);
+    canonicalTag.href = HreflangGenerator.generateCanonicalUrl(safePathname, customPath);
 
     // Update OpenGraph locale meta tags
-    const ogLocales = HreflangGenerator.generateOpenGraphLocales(pathname);
+    const ogLocales = HreflangGenerator.generateOpenGraphLocales(safePathname);
     
     // Update or create og:locale
     let ogLocaleTag = document.querySelector('meta[property="og:locale"]') as HTMLMetaElement;

@@ -42,9 +42,12 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
   const [activeService, setActiveService] = useState(-1);
 
   useEffect(() => {
-    const browserLang = navigator.language.toLowerCase();
-    if (browserLang.startsWith('es')) {
-      setLanguage('es');
+    // Only access navigator in browser environment
+    if (typeof window !== 'undefined' && navigator?.language) {
+      const browserLang = navigator.language.toLowerCase();
+      if (browserLang.startsWith('es')) {
+        setLanguage('es');
+      }
     }
   }, []);
 

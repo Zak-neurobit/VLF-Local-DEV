@@ -19,9 +19,10 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
   showBreadcrumbs = true 
 }) => {
   const pathname = usePathname();
+  const safePathname = pathname || '/';
   
   // Determine current language from pathname
-  const currentLanguage: 'en' | 'es' = pathname.startsWith('/es') ? 'es' : 'en';
+  const currentLanguage: 'en' | 'es' = safePathname.startsWith('/es') ? 'es' : 'en';
 
   const handleLanguageChange = (_lang: 'en' | 'es') => {
     // Language change is handled by LanguageSwitcher component
@@ -30,7 +31,7 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
 
   // Generate breadcrumbs
   const getBreadcrumbs = () => {
-    const paths = pathname.split('/').filter(Boolean);
+    const paths = safePathname.split('/').filter(Boolean);
     const breadcrumbs = [{ name: currentLanguage === 'es' ? 'Inicio' : 'Home', href: '/' }];
     
     let currentPath = '';
@@ -55,7 +56,7 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
       />
       
       {/* Breadcrumbs */}
-      {showBreadcrumbs && pathname !== '/' && variant !== 'hero' && (
+      {showBreadcrumbs && safePathname !== '/' && variant !== 'hero' && (
         <div className="bg-black/50 border-b border-primary/20 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <nav className="flex" aria-label="Breadcrumb">
