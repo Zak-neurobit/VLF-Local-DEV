@@ -449,7 +449,7 @@ export default function AccidentesDeConstruccionPage() {
         </div>
       </section>
 
-      {/* Locations */>
+      {/* Locations */}
       <section className="py-12 bg-gray-100">
         <div className="container mx-auto px-4">
           <div className="text-center">

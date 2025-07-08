@@ -8,8 +8,8 @@ import LivingMetrics from '@/components/dashboard/LivingMetrics';
 import AgentStatusPanel from '@/components/dashboard/AgentStatusPanel';
 import DynamicHomepage from '@/components/dashboard/DynamicHomepage';
 
-const Dashboard: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'overview' | 'metrics' | 'agents' | 'activity' | 'homepage'>('overview');
+const Dashboard = () => {
+  const [activeTab, setActiveTab] = useState('overview');
 
   const tabs = [
     { id: 'overview', label: 'Overview', icon: '📊' },
@@ -50,7 +50,7 @@ const Dashboard: React.FC = () => {
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
+                  onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
                     activeTab === tab.id
                       ? 'border-blue-500 text-blue-600'
@@ -107,11 +107,11 @@ const Dashboard: React.FC = () => {
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-gray-600">Response Time</span>
-                      <span className="text-blue-600 font-semibold">< 100ms</span>
+                      <span className="text-blue-600 font-semibold">&lt; 100ms</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-gray-600">Error Rate</span>
-                      <span className="text-red-600 font-semibold">< 0.1%</span>
+                      <span className="text-red-600 font-semibold">&lt; 0.1%</span>
                     </div>
                   </div>
                 </div>
@@ -131,4 +131,3 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
-

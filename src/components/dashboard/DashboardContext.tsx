@@ -63,7 +63,7 @@ export const useDashboard = () => {
 };
 
 export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { socket, isConnected } = useSocket();
+  const { socket, connected: isConnected } = useSocket();
   const [data, setData] = useState<DashboardData>({
     agents: [],
     metrics: {
