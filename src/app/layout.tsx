@@ -1,3 +1,4 @@
+import '@/lib/stream-polyfill';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { generateEnhancedOrganizationSchema } from '@/components/SEO/enhanced-schemas';
 import type { Metadata } from 'next';
@@ -16,6 +17,7 @@ import { DynamicHreflang } from '@/components/SEO/DynamicHreflang';
 import { GlobalReviewSchema } from '@/components/SEO/GlobalReviewSchema';
 import { DynamicBreadcrumbSchema } from '@/components/SEO/DynamicBreadcrumbSchema';
 import { SpeedOptimizer } from '@/components/SpeedOptimizer';
+import { DOMSafeWrapper } from '@/components/DOMSafeWrapper';
 // Removed SiteLayout import - will handle navigation directly
 
 // Dynamically import Chat Widget to avoid SSR issues
@@ -150,20 +152,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <DynamicBreadcrumbSchema />
         <SessionProvider>
           <ErrorBoundary>
-            <Toaster
-              position="top-right"
-              toastOptions={{
-                duration: 4000,
-                style: {
-                  background: '#333',
-                  color: '#fff',
-                },
-              }}
-            />
-            <DynamicHreflang />
-            {children}
-            <ChatWidget />
-            <PerformanceMonitor />
+            <DOMSafeWrapper>
+              <Toaster
+                position="top-right"
+                toastOptions={{
+                  duration: 4000,
+                  style: {
+                    background: '#333',
+                    color: '#fff',
+                  },
+                }}
+              />
+              <DynamicHreflang />
+              {children}
+              <ChatWidget />
+              <PerformanceMonitor />
+            </DOMSafeWrapper>
           </ErrorBoundary>
         </SessionProvider>
         <GoogleAnalytics />
