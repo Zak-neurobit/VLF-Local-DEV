@@ -1377,3 +1377,181 @@ model AgentExecutionLog {
   @@index([agentName])
   @@index([createdAt])
 }
+
+// Content Factory Models
+
+// Dynamic Landing Pages
+model LandingPage {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  content         String   @db.Text
+  metaDescription String
+  metaKeywords    String[]
+  city            String
+  state           String
+  practiceArea    String
+  language        String
+  heroImage       String?
+  sections        Json // Array of page sections
+  localSchema     Json? // Local business schema
+  status          String   @default("draft") // draft, published, archived
+  publishedAt     DateTime?
+  viewCount       Int      @default(0)
+  conversionRate  Float    @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([slug])
+  @@index([city, practiceArea, language])
+  @@index([status, publishedAt])
+}
+
+// Landing Page A/B Test Variations
+model LandingPageVariation {
+  id                 String   @id @default(cuid())
+  name               String
+  slug               String   @unique
+  practiceArea       String
+  variationType      String // emotional, statistical, testimonial, faq-focused
+  content            String   @db.Text
+  conversionElements Json // CTAs and conversion tracking elements
+  language           String
+  status             String   @default("testing") // testing, winner, archived
+  trafficPercentage  Int      @default(50)
+  views              Int      @default(0)
+  conversions        Int      @default(0)
+  conversionRate     Float    @default(0)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([practiceArea, variationType])
+  @@index([status])
+}
+
+// Content Schedule Management
+model ContentSchedule {
+  id           String    @id @default(cuid())
+  contentId    String
+  contentType  String // BlogPost, LandingPage, etc.
+  scheduledFor DateTime
+  platforms    String[] // website, facebook, twitter, linkedin, medium
+  status       String    @default("scheduled") // scheduled, published, failed
+  publishedAt  DateTime?
+  error        String?
+  metadata     Json      @default("{}")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([contentId, contentType])
+  @@index([scheduledFor, status])
+  @@index([platforms])
+}
+
+// Content Syndication Tracking
+model ContentSyndication {
+  id           String   @id @default(cuid())
+  contentId    String
+  platform     String // medium, linkedin, legal-directories, etc.
+  status       String // success, failed
+  url          String? // External URL where content was syndicated
+  externalId   String? // External platform ID
+  metrics      Json    @default("{}") // Platform-specific metrics
+  syndicatedAt DateTime
+  createdAt    DateTime @default(now())
+
+  @@index([contentId])
+  @@index([platform, status])
+  @@index([syndicatedAt])
+}
+
+// Schema Markup Storage
+model SchemaMarkup {
+  id          String   @id @default(cuid())
+  contentId   String
+  contentType String // BlogPost, LandingPage, Attorney, etc.
+  schemaType  String // BlogPosting, LegalService, FAQPage, etc.
+  schema      Json // The actual schema markup
+  performance SchemaPerformance?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([contentId, schemaType])
+  @@index([contentType])
+  @@index([schemaType])
+}
+
+// Schema Performance Tracking
+model SchemaPerformance {
+  id                  String       @id @default(cuid())
+  schemaMarkupId      String       @unique
+  schemaMarkup        SchemaMarkup @relation(fields: [schemaMarkupId], references: [id])
+  hasRichSnippet      Boolean      @default(false)
+  snippetType         String? // featured, FAQ, HowTo, etc.
+  firstSeenInSnippet  DateTime?
+  averagePosition     Float?
+  clickThroughRate    Float?
+  impressions         Int          @default(0)
+  clicks              Int          @default(0)
+  lastChecked         DateTime
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+
+  @@index([hasRichSnippet])
+  @@index([snippetType])
+}
+
+// Content Performance Analytics
+model ContentPerformance {
+  id               String   @id @default(cuid())
+  contentId        String
+  contentType      String
+  publishedAt      DateTime
+  platform         String   @default("website")
+  viewsFirstHour   Int      @default(0)
+  viewsFirstDay    Int      @default(0)
+  viewsFirstWeek   Int      @default(0)
+  totalViews       Int      @default(0)
+  engagementRate   Float    @default(0)
+  bounceRate       Float?
+  avgTimeOnPage    Float? // seconds
+  conversionCount  Int      @default(0)
+  conversionRate   Float    @default(0)
+  socialShares     Int      @default(0)
+  backlinks        Int      @default(0)
+  organicTraffic   Int      @default(0)
+  searchPosition   Float? // Average SERP position
+  metadata         Json     @default("{}")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@unique([contentId, contentType, platform])
+  @@index([publishedAt])
+  @@index([platform])
+}
+
+// Content Insights Storage
+model ContentInsights {
+  id                 String   @id @default(cuid())
+  date               DateTime
+  insights           Json // Top topics, keywords, optimal times, etc.
+  performanceMetrics Json // Aggregate performance data
+  createdAt          DateTime @default(now())
+
+  @@index([date])
+}
+
+// Content Publication Log
+model ContentPublicationLog {
+  id           String   @id @default(cuid())
+  contentId    String
+  contentType  String
+  platforms    String[]
+  scheduledFor DateTime
+  publishedAt  DateTime
+  metadata     Json     @default("{}")
+  createdAt    DateTime @default(now())
+
+  @@index([contentId, contentType])
+  @@index([publishedAt])
+}

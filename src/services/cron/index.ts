@@ -3,6 +3,7 @@ import { logger } from '@/lib/logger';
 import { appointmentReminderService } from '@/services/appointment-reminders';
 import { campaignAutomationService } from '@/services/campaign-automation';
 import { leadCaptureService } from '@/services/lead-capture';
+import { contentFactory } from '@/services/content-factory';
 import { getPrismaClient } from '@/lib/prisma';
 import { Prisma, Lead, LeadStatus, PracticeArea, LeadUrgency } from '@prisma/client';
 
@@ -60,6 +61,28 @@ export class CronJobService {
       this.scheduleJob('document-expiry-check', '0 6 * * 0', async () => {
         logger.info('Checking for expired documents');
         await this.checkDocumentExpiry();
+      });
+
+      // Content Factory - Daily at 5 AM EST
+      this.scheduleJob('content-generation', '0 5 * * *', async () => {
+        logger.info('Running daily content generation');
+        await contentFactory.runDailyContentGeneration();
+      });
+
+      // Process scheduled content - Every 30 minutes
+      this.scheduleJob('content-publishing', '*/30 * * * *', async () => {
+        logger.info('Processing scheduled content publications');
+        const scheduler = await import('@/services/content-factory/content-scheduler')
+          .then(m => new m.ContentScheduler());
+        await scheduler.processScheduledPublications();
+      });
+
+      // Monitor rich snippets - Daily at 11 PM EST
+      this.scheduleJob('rich-snippet-monitoring', '0 23 * * *', async () => {
+        logger.info('Monitoring rich snippet performance');
+        const schemaAutomation = await import('@/services/content-factory/schema-automation')
+          .then(m => new m.SchemaMarkupAutomation());
+        await schemaAutomation.monitorRichSnippets();
       });
 
       logger.info('All cron jobs initialized successfully');

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   ParallaxSection, 
@@ -18,10 +18,61 @@ import {
 } from '@/components/animations';
 import { useScrollReveal, useCascadeReveal } from '@/hooks/useScrollReveal';
 import { useAnimationPerformance } from '@/hooks/useAnimationPerformance';
-import { Users, Trophy, Clock, Star, Shield, Scale, Heart, Brain } from 'lucide-react';
+import { Users, Trophy, Clock, Star, Shield, Scale, Heart, Brain, Activity } from 'lucide-react';
+
+interface LiveMetrics {
+  visitorCount: number;
+  conversationsActive: number;
+  reviewsToday: number;
+  contentCreated: number;
+}
 
 export function EpicHomePage() {
   const { shouldAnimate, getAnimationProps } = useAnimationPerformance();
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [liveMetrics, setLiveMetrics] = useState<LiveMetrics>({
+    visitorCount: 0,
+    conversationsActive: 0,
+    reviewsToday: 0,
+    contentCreated: 0
+  });
+  const [recentActivity, setRecentActivity] = useState<string>('');
+
+  useEffect(() => {
+    // Update time every minute
+    const timeTimer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000);
+
+    // Fetch live metrics
+    const fetchMetrics = async () => {
+      try {
+        const response = await fetch('/api/dashboard');
+        const data = await response.json();
+        setLiveMetrics(data.metrics);
+        if (data.recentActivity.length > 0) {
+          setRecentActivity(data.recentActivity[0].message);
+        }
+      } catch (error) {
+        console.error('Error fetching live metrics:', error);
+      }
+    };
+
+    fetchMetrics();
+    const metricsTimer = setInterval(fetchMetrics, 30000); // Update every 30 seconds
+
+    return () => {
+      clearInterval(timeTimer);
+      clearInterval(metricsTimer);
+    };
+  }, []);
+
+  const getTimeBasedGreeting = () => {
+    const hour = currentTime.getHours();
+    if (hour < 12) return 'Good Morning';
+    if (hour < 18) return 'Good Afternoon';
+    return 'Good Evening';
+  };
 
   const stats = [
     { icon: Users, value: 50000, label: "Clients Served", color: "from-[#6B1F2E] to-[#8B2635]" },
@@ -50,6 +101,33 @@ export function EpicHomePage() {
       <FloatingParticles density={15} />
       <ScrollProgressBar />
 
+      {/* Live Status Indicator */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="fixed top-4 right-4 z-50 bg-black/80 backdrop-blur-sm rounded-lg px-4 py-2 text-white"
+      >
+        <div className="flex items-center space-x-2">
+          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+          <span className="text-sm font-medium">LIVE</span>
+          <span className="text-xs text-gray-300">{currentTime.toLocaleTimeString()}</span>
+        </div>
+      </motion.div>
+
+      {/* Real-time Activity Banner */}
+      {recentActivity && (
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed top-16 left-1/2 transform -translate-x-1/2 z-40 bg-gradient-to-r from-green-600 to-blue-600 text-white px-6 py-2 rounded-full text-sm"
+        >
+          <div className="flex items-center space-x-2">
+            <Activity className="w-4 h-4 animate-pulse" />
+            <span>{recentActivity}</span>
+          </div>
+        </motion.div>
+      )}
+
       {/* Epic Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center">
         <BlobAnimation />
@@ -61,6 +139,16 @@ export function EpicHomePage() {
             transition={{ duration: 1 }}
             className="text-center"
           >
+            {/* Dynamic Greeting */}
+            <motion.p
+              key={getTimeBasedGreeting()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-xl text-[#C9974D] mb-4"
+            >
+              {getTimeBasedGreeting()}, we&apos;re actively working on your legal needs
+            </motion.p>
+
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
               <SplitText text="Fighting For " />
               <div className="text-6xl md:text-8xl mt-4">
@@ -74,6 +162,26 @@ export function EpicHomePage() {
             <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
               <GradientText text="North Carolina's Premier Law Firm - Where Experience Meets Innovation" />
             </p>
+
+            {/* Live Metrics Display */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 max-w-2xl mx-auto">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
+                <div className="text-2xl font-bold text-[#C9974D]">{liveMetrics.visitorCount}</div>
+                <div className="text-sm text-gray-600">Active Visitors</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
+                <div className="text-2xl font-bold text-green-600">{liveMetrics.conversationsActive}</div>
+                <div className="text-sm text-gray-600">Live Chats</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
+                <div className="text-2xl font-bold text-yellow-600">{liveMetrics.reviewsToday}</div>
+                <div className="text-sm text-gray-600">Reviews Today</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
+                <div className="text-2xl font-bold text-purple-600">{liveMetrics.contentCreated}</div>
+                <div className="text-sm text-gray-600">Content Created</div>
+              </div>
+            </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <MagneticButton className="text-lg">

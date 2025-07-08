@@ -1,315 +1,134 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { performanceMonitor } from '@/lib/monitoring/performance';
+import { DashboardProvider } from '@/components/dashboard/DashboardContext';
+import ActivityMonitor from '@/components/dashboard/ActivityMonitor';
+import LivingMetrics from '@/components/dashboard/LivingMetrics';
+import AgentStatusPanel from '@/components/dashboard/AgentStatusPanel';
+import DynamicHomepage from '@/components/dashboard/DynamicHomepage';
 
-interface DashboardMetrics {
-  activeChats: number;
-  activeCalls: number;
-  todaysCalls: number;
-  avgCallDuration: number;
-  sentimentBreakdown: {
-    positive: number;
-    neutral: number;
-    negative: number;
-  };
-  topIssues: Array<{ issue: string; count: number }>;
-  agentPerformance: Array<{
-    agentId: string;
-    callsHandled: number;
-    avgDuration: number;
-    satisfaction: number;
-  }>;
-}
+const Dashboard: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'overview' | 'metrics' | 'agents' | 'activity' | 'homepage'>('overview');
 
-export default function Dashboard() {
-  const [metrics, setMetrics] = useState<DashboardMetrics | null>(null);
-  const [timeRange, setTimeRange] = useState<'today' | 'week' | 'month'>('today');
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    performanceMonitor.start('dashboard-load');
-    fetchMetrics();
-
-    // Set up real-time updates
-    const interval = setInterval(fetchMetrics, 30000); // Update every 30 seconds
-
-    return () => {
-      clearInterval(interval);
-      performanceMonitor.end('dashboard-load');
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeRange]);
-
-  const fetchMetrics = async () => {
-    try {
-      const response = await fetch(`/api/dashboard/metrics?range=${timeRange}`);
-      const data = await response.json();
-      setMetrics(data);
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Failed to fetch metrics:', error);
-      setIsLoading(false);
-    }
-  };
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Agent Dashboard</h1>
-          <p className="text-gray-600 mt-2">Real-time monitoring and analytics</p>
-        </div>
-
-        {/* Time Range Selector */}
-        <div className="mb-6 flex gap-2">
-          {(['today', 'week', 'month'] as const).map(range => (
-            <button
-              key={range}
-              onClick={() => setTimeRange(range)}
-              className={`px-4 py-2 rounded-lg capitalize ${
-                timeRange === range
-                  ? 'bg-primary text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              {range}
-            </button>
-          ))}
-        </div>
-
-        {/* Key Metrics Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <MetricCard
-            title="Active Chats"
-            value={metrics?.activeChats || 0}
-            icon="💬"
-            color="blue"
-            trend={+12}
-          />
-          <MetricCard
-            title="Active Calls"
-            value={metrics?.activeCalls || 0}
-            icon="📞"
-            color="green"
-            trend={+5}
-          />
-          <MetricCard
-            title="Today's Calls"
-            value={metrics?.todaysCalls || 0}
-            icon="📊"
-            color="purple"
-            trend={+8}
-          />
-          <MetricCard
-            title="Avg Call Duration"
-            value={Math.round(metrics?.avgCallDuration || 0)}
-            icon="⏱️"
-            color="orange"
-            trend={-2}
-          />
-        </div>
-
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Sentiment Analysis */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-lg font-semibold mb-4">Call Sentiment</h3>
-            <SentimentChart data={metrics?.sentimentBreakdown} />
-          </div>
-
-          {/* Top Issues */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-lg font-semibold mb-4">Top Issues</h3>
-            <div className="space-y-3">
-              {metrics?.topIssues.map((issue, index) => (
-                <div key={index} className="flex justify-between items-center">
-                  <span className="text-gray-700">{issue.issue}</span>
-                  <span className="font-semibold">{issue.count}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Agent Performance */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-lg font-semibold mb-4">Agent Performance</h3>
-            <div className="space-y-3">
-              {metrics?.agentPerformance.map((agent, index) => (
-                <div key={index} className="border-b pb-3 last:border-0">
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium">Agent {agent.agentId.slice(-4)}</span>
-                    <span className="text-sm text-gray-600">{agent.callsHandled} calls</span>
-                  </div>
-                  <div className="flex justify-between items-center mt-1">
-                    <span className="text-sm text-gray-500">Avg: {agent.avgDuration}m</span>
-                    <span className="text-sm font-medium text-green-600">
-                      {agent.satisfaction}% satisfaction
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Active Conversations */}
-        <div className="mt-8 bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold mb-4">Active Conversations</h3>
-          <ActiveConversations />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Component implementations...
-function MetricCard({
-  title,
-  value,
-  icon,
-  color: _color,
-  trend,
-}: {
-  title: string;
-  value: number;
-  icon: string;
-  color: string;
-  trend: number;
-}) {
-  // const colorClasses = {
-  //   blue: 'bg-blue-100 text-blue-800',
-  //   green: 'bg-green-100 text-green-800',
-  //   purple: 'bg-purple-100 text-purple-800',
-  //   orange: 'bg-orange-100 text-orange-800',
-  // };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-lg shadow p-6"
-    >
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-2xl">{icon}</span>
-        {trend && (
-          <span className={`text-sm ${trend > 0 ? 'text-green-600' : 'text-red-600'}`}>
-            {trend > 0 ? '+' : ''}
-            {trend}%
-          </span>
-        )}
-      </div>
-      <h3 className="text-gray-600 text-sm">{title}</h3>
-      <p className="text-2xl font-bold mt-1">{value}</p>
-    </motion.div>
-  );
-}
-
-function SentimentChart({
-  data,
-}: {
-  data?: { positive: number; neutral: number; negative: number };
-}) {
-  if (!data) return null;
-
-  const total = data.positive + data.neutral + data.negative;
-
-  return (
-    <div className="space-y-3">
-      <div>
-        <div className="flex justify-between text-sm mb-1">
-          <span>Positive</span>
-          <span>{Math.round((data.positive / total) * 100)}%</span>
-        </div>
-        <div className="w-full bg-gray-200 rounded-full h-3">
-          <div
-            className="bg-green-500 h-3 rounded-full"
-            style={{ width: `${(data.positive / total) * 100}%` }}
-          />
-        </div>
-      </div>
-      <div>
-        <div className="flex justify-between text-sm mb-1">
-          <span>Neutral</span>
-          <span>{Math.round((data.neutral / total) * 100)}%</span>
-        </div>
-        <div className="w-full bg-gray-200 rounded-full h-3">
-          <div
-            className="bg-yellow-500 h-3 rounded-full"
-            style={{ width: `${(data.neutral / total) * 100}%` }}
-          />
-        </div>
-      </div>
-      <div>
-        <div className="flex justify-between text-sm mb-1">
-          <span>Negative</span>
-          <span>{Math.round((data.negative / total) * 100)}%</span>
-        </div>
-        <div className="w-full bg-gray-200 rounded-full h-3">
-          <div
-            className="bg-red-500 h-3 rounded-full"
-            style={{ width: `${(data.negative / total) * 100}%` }}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ActiveConversations() {
-  // This would fetch real data
-  const conversations = [
-    { id: 1, type: 'chat', user: 'Anonymous', topic: 'Immigration question', duration: '5m' },
-    { id: 2, type: 'voice', user: '+1234567890', topic: 'Personal injury', duration: '12m' },
-    { id: 3, type: 'chat', user: 'John D.', topic: 'Case update', duration: '3m' },
+  const tabs = [
+    { id: 'overview', label: 'Overview', icon: '📊' },
+    { id: 'metrics', label: 'Live Metrics', icon: '📈' },
+    { id: 'agents', label: 'Agent Status', icon: '🤖' },
+    { id: 'activity', label: 'Activity Feed', icon: '🔥' },
+    { id: 'homepage', label: 'Dynamic Homepage', icon: '🏠' }
   ];
 
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full">
-        <thead>
-          <tr className="border-b">
-            <th className="text-left py-2">Type</th>
-            <th className="text-left py-2">User</th>
-            <th className="text-left py-2">Topic</th>
-            <th className="text-left py-2">Duration</th>
-            <th className="text-left py-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {conversations.map(conv => (
-            <tr key={conv.id} className="border-b hover:bg-gray-50">
-              <td className="py-3">
-                <span
-                  className={`inline-flex items-center px-2 py-1 rounded-full text-xs ${
-                    conv.type === 'chat'
-                      ? 'bg-blue-100 text-blue-800'
-                      : 'bg-green-100 text-green-800'
+    <DashboardProvider>
+      <div className="min-h-screen bg-gray-100">
+        {/* Header */}
+        <div className="bg-white shadow-sm border-b">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16">
+              <div className="flex items-center space-x-4">
+                <h1 className="text-2xl font-bold text-gray-900">VLF Live Dashboard</h1>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  <span className="text-sm text-gray-600">System Active</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-4">
+                <div className="text-sm text-gray-600">
+                  {new Date().toLocaleString()}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="bg-white shadow-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="flex space-x-8 overflow-x-auto">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
+                    activeTab === tab.id
+                      ? 'border-blue-500 text-blue-600'
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
                 >
-                  {conv.type === 'chat' ? '💬' : '📞'} {conv.type}
-                </span>
-              </td>
-              <td className="py-3">{conv.user}</td>
-              <td className="py-3">{conv.topic}</td>
-              <td className="py-3">{conv.duration}</td>
-              <td className="py-3">
-                <button className="text-primary hover:underline text-sm">View</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+                  <span className="text-lg">{tab.icon}</span>
+                  <span>{tab.label}</span>
+                </button>
+              ))}
+            </nav>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {activeTab === 'overview' && (
+              <div className="space-y-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  <div className="lg:col-span-2">
+                    <LivingMetrics />
+                  </div>
+                  <div>
+                    <ActivityMonitor />
+                  </div>
+                </div>
+                <AgentStatusPanel />
+              </div>
+            )}
+
+            {activeTab === 'metrics' && (
+              <LivingMetrics />
+            )}
+
+            {activeTab === 'agents' && (
+              <AgentStatusPanel />
+            )}
+
+            {activeTab === 'activity' && (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <ActivityMonitor />
+                <div className="bg-white rounded-lg shadow-lg p-6">
+                  <h2 className="text-xl font-bold text-gray-900 mb-4">System Performance</h2>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-600">Uptime</span>
+                      <span className="text-green-600 font-semibold">99.9%</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-600">Response Time</span>
+                      <span className="text-blue-600 font-semibold">< 100ms</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-600">Error Rate</span>
+                      <span className="text-red-600 font-semibold">< 0.1%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'homepage' && (
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <DynamicHomepage language="en" />
+              </div>
+            )}
+          </motion.div>
+        </div>
+      </div>
+    </DashboardProvider>
   );
-}
+};
+
+export default Dashboard;
+

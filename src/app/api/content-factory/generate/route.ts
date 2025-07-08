@@ -1,0 +1,49 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { contentFactory } from '@/services/content-factory';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { logger } from '@/lib/logger';
+
+export async function POST(request: NextRequest) {
+  try {
+    // Check authentication
+    const session = await getServerSession(authOptions);
+    
+    if (!session || session.user.role !== 'ADMIN') {
+      return NextResponse.json(
+        { error: 'Unauthorized. Admin access required.' },
+        { status: 401 }
+      );
+    }
+
+    logger.info('Manual content generation triggered', { 
+      userId: session.user.id,
+      userEmail: session.user.email,
+    });
+
+    // Initialize content factory
+    await contentFactory.initialize();
+
+    // Run content generation
+    const result = await contentFactory.runDailyContentGeneration();
+
+    logger.info('Content generation completed', result);
+
+    return NextResponse.json({
+      success: true,
+      message: 'Content generation completed successfully',
+      ...result,
+    });
+
+  } catch (error) {
+    logger.error('Content generation failed', { error });
+    
+    return NextResponse.json(
+      { 
+        error: 'Content generation failed', 
+        details: error instanceof Error ? error.message : 'Unknown error',
+      },
+      { status: 500 }
+    );
+  }
+}
