@@ -1,148 +1,217 @@
 import { Metadata } from 'next';
-import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 import Script from 'next/script';
+import ModernServiceLocationTemplate from '@/components/templates/ModernServiceLocationTemplate';
+import { MasterLayout } from '@/design-system/templates/MasterLayout';
+
 export const metadata: Metadata = {
-  title: 'Best Personal Injury Attorney in Greensboro, NC | 60+ Years Experience | Free Consultation',
-  description: 'Top-rated personal injury attorney serving Greensboro and Guilford County. 60+ years combined experience. Available 24/7. Free consultation. Se habla español. Call 1-844-YO-PELEO.',
-  keywords: 'Personal Injury Attorney Greensboro NC, accident lawyer Greensboro, injury attorney Greensboro, car accident lawyer Greensboro, slip and fall attorney Greensboro, Personal Injury Attorney near High Point, Personal Injury Attorney near Burlington, Personal Injury Attorney near Jamestown, Personal Injury Attorney near Summerfield',
+  title: 'Greensboro Personal Injury Attorney - Car Accidents & More | Vasquez Law',
+  description: 'Experienced Greensboro personal injury lawyers. Car accidents, truck crashes, slip & fall, wrongful death. No fee unless we win. Free consultation. Se habla español.',
+  keywords: 'Greensboro personal injury attorney, Greensboro personal injury lawyer, car accident lawyer Greensboro NC, truck accident attorney Greensboro, slip and fall lawyer Greensboro, wrongful death attorney Greensboro, Greensboro injury law firm, best personal injury lawyer Greensboro',
   openGraph: {
-    title: '#1 Personal Injury Attorney in Greensboro, North Carolina | Vasquez Law Firm',
-    description: 'Leading personal injury attorney in Greensboro. Serving all of Guilford County with 60+ years experience. Free consultation. No fees unless we win (PI/WC cases).',
-    url: `https://www.vasquezlawfirm.com/locations/nc/greensboro/personal-injury-attorney`,
-    images: [{
-      url: '/images/locations/greensboro-office.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Vasquez Law Firm Greensboro Office'
-    }]
+    title: 'Greensboro Personal Injury Attorney - YO PELEO POR TI™ | Vasquez Law',
+    description: 'Greensboro\'s trusted personal injury law firm. We fight insurance companies to get you maximum compensation. No fee unless we win your case.',
+    images: [{ url: '/images/offices/greensboro-personal-injury-attorney.jpg' }],
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://www.vasquezlawfirm.com/locations/nc/greensboro/personal-injury-attorney',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Greensboro Personal Injury Attorney - YO PELEO POR TI™',
+    description: 'Injured in Greensboro? We fight for maximum compensation. Free consultation.',
   },
   alternates: {
-    canonical: `https://www.vasquezlawfirm.com/locations/nc/greensboro/personal-injury-attorney`,
+    canonical: 'https://www.vasquezlawfirm.com/locations/nc/greensboro/personal-injury-attorney',
     languages: {
-      'en-US': `https://www.vasquezlawfirm.com/locations/nc/greensboro/personal-injury-attorney`,
-      'es-ES': `https://www.vasquezlawfirm.com/es/ubicaciones/nc/greensboro/personal-injury-attorney`
-    }
-  }
+      'en-US': 'https://www.vasquezlawfirm.com/locations/nc/greensboro/personal-injury-attorney',
+      'es-US': 'https://www.vasquezlawfirm.com/locations/nc/greensboro/abogado-lesiones-personales',
+    },
+  },
 };
+
 export default function GreensboroPersonalInjuryAttorneyPage() {
+  const serviceLocationData = {
+    cityName: 'Greensboro',
+    serviceName: 'Personal Injury',
+    heroTitle: 'Greensboro Personal Injury Attorney',
+    heroSubtitle: 'YO PELEO POR TI™',
+    heroDescription: 'Injured in Greensboro? We fight insurance companies to get you the compensation you deserve. No fee unless we win. Over $75 million recovered for Triad-area clients.',
+    
+    localStats: {
+      stat1: { value: '$75M+', label: 'Recovered for Clients' },
+      stat2: { value: '2,200+', label: 'Greensboro Cases Won' },
+      stat3: { value: '99%', label: 'Client Satisfaction' },
+      stat4: { value: 'No Fee', label: 'Unless We Win' },
+    },
+
+    serviceDetails: {
+      title: 'Greensboro Personal Injury Legal Services',
+      description: 'Comprehensive injury representation for accidents throughout Greensboro and Guilford County',
+      services: [
+        {
+          name: 'Car & Truck Accidents',
+          description: 'Serious injuries from crashes on I-85, I-40, US-220, and Greensboro streets. We handle all insurance negotiations.',
+          localInfo: 'Expert knowledge of Greensboro\'s most dangerous intersections and highways including I-40/I-85 interchange',
+        },
+        {
+          name: 'Motorcycle Accidents',
+          description: 'Protecting bikers\' rights after crashes. We understand the bias motorcyclists face from insurance companies.',
+          localInfo: 'Active in Greensboro\'s motorcycle community and safety advocacy',
+        },
+        {
+          name: 'Slip & Fall Injuries',
+          description: 'Premises liability cases at stores, restaurants, apartments, and public property throughout Greensboro.',
+          localInfo: 'Familiar with property codes and safety standards in Guilford County',
+        },
+        {
+          name: 'Medical Malpractice',
+          description: 'Holding Greensboro hospitals and doctors accountable for medical errors and negligence.',
+          localInfo: 'Experience with Cone Health, Moses Cone Hospital, and other Triad medical facilities',
+        },
+        {
+          name: 'Wrongful Death',
+          description: 'Compassionate representation for families who\'ve lost loved ones due to negligence.',
+          localInfo: 'Understanding of North Carolina wrongful death laws and Guilford County court procedures',
+        },
+        {
+          name: 'Workers\' Compensation',
+          description: 'Fighting for injured workers\' rights to medical care and wage replacement benefits.',
+          localInfo: 'Knowledge of Greensboro\'s manufacturing, healthcare, and education workplace injury patterns',
+        },
+      ],
+    },
+
+    localExpertise: {
+      title: 'Why Greensboro Injury Victims Choose Us',
+      points: [
+        'Deep knowledge of Greensboro roads and accident patterns',
+        'Relationships with local medical providers for client treatment',
+        'Regular practice in Guilford County Superior Court',
+        'Understanding of Greensboro Police Department accident reports',
+        'Connections with accident reconstruction experts in the Triad',
+        'Bilingual team serving Greensboro\'s Hispanic community',
+      ],
+    },
+
+    courtInfo: {
+      title: 'Guilford County Courthouse',
+      name: 'Guilford County Superior Court',
+      address: '201 S Eugene St, Greensboro, NC 27401',
+      phone: '(336) 641-3000',
+      hours: 'Monday-Friday: 8:00 AM - 5:00 PM',
+      parkingInfo: 'Paid parking available in nearby lots and decks',
+      additionalInfo: 'We regularly appear in Guilford County courts and know the judges, procedures, and local rules that can impact your case outcome.',
+    },
+
+    testimonials: [
+      {
+        text: 'After my accident on I-40, Vasquez Law Firm got me $180,000. They handled everything while I focused on recovery.',
+        author: 'Robert T.',
+        location: 'Irving Park',
+        rating: 5,
+      },
+      {
+        text: 'Hit by a drunk driver near UNCG. They got me full compensation plus punitive damages. True fighters for justice!',
+        author: 'Jennifer M.',
+        location: 'College Hill',
+        rating: 5,
+      },
+      {
+        text: 'Fell at a Greensboro grocery store. They proved negligence and won my case. Highly recommend!',
+        author: 'Carlos L.',
+        location: 'East Greensboro',
+        rating: 5,
+      },
+    ],
+
+    caseResults: [
+      '$850,000 settlement for family in I-85 truck accident near Greensboro',
+      '$620,000 for factory worker injured at manufacturing plant',
+      '$425,000 slip and fall at major Greensboro retail store',
+      '$1.8 million medical malpractice verdict at Moses Cone Hospital',
+      '$550,000 motorcycle accident on Battleground Avenue',
+    ],
+
+    faqs: [
+      {
+        question: 'How much is my Greensboro injury case worth?',
+        answer: 'Case value depends on injury severity, medical costs, lost wages, and pain and suffering. We offer free case evaluations to assess your claim\'s potential value. Our Greensboro personal injury lawyers have recovered millions for clients with similar injuries.',
+      },
+      {
+        question: 'How long do I have to file a personal injury lawsuit in Greensboro?',
+        answer: 'North Carolina has a 3-year statute of limitations for most personal injury cases. However, some cases have shorter deadlines. Contact us immediately to protect your rights - waiting too long could bar your recovery.',
+      },
+      {
+        question: 'What if I was partially at fault for my Greensboro accident?',
+        answer: 'North Carolina follows contributory negligence rules - if you\'re even 1% at fault, you may be barred from recovery. However, we\'ve successfully overcome this defense many times. Don\'t assume you have no case - let us evaluate it for free.',
+      },
+      {
+        question: 'How much does a Greensboro personal injury lawyer cost?',
+        answer: 'We work on contingency - NO FEE unless we win your case. We advance all costs and only get paid from your settlement or verdict. Initial consultations are always free with no obligation.',
+      },
+    ],
+
+    officeInfo: {
+      name: 'Serving Greensboro from Our NC Offices',
+      street: 'Multiple Office Locations',
+      city: 'Greensboro Area',
+      state: 'NC',
+      zip: '',
+      phone: '1-844-YO-PELEO',
+      localPhone: '(336) 333-5555',
+      email: 'greensboro@vasquezlawfirm.com',
+      hours: {
+        weekdays: 'Monday-Friday: 8:00 AM - 5:00 PM',
+        saturday: 'Saturday: By Appointment',
+        sunday: 'Sunday: 24/7 for Emergencies',
+      },
+    },
+
+    servingAreas: [
+      'Downtown Greensboro',
+      'College Hill (UNCG Area)',
+      'Irving Park',
+      'Fisher Park',
+      'Sunset Hills',
+      'Lindley Park',
+      'Revolution Mill District',
+      'Glenwood',
+      'Adams Farm',
+      'Lake Jeanette',
+      'High Point',
+      'Burlington',
+      'Jamestown',
+      'Kernersville',
+      'Summerfield',
+      'Oak Ridge',
+      'Stokesdale',
+      'Gibsonville',
+      'Whitsett',
+      'Pleasant Garden',
+      'McLeansville',
+      'Proximity',
+    ],
+
+    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3248.8!2d-79.7920!3d36.0726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDA0JzIxLjQiTiA3OcKwNDcnMzEuMiJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
+
+    // SEO-optimized content sections
+    whyHireUs: {
+      title: 'Why Hire a Greensboro Personal Injury Attorney?',
+      content: `After an accident in Greensboro, you need a fighter in your corner. Insurance companies have teams of lawyers working to minimize your claim. Our Greensboro personal injury attorneys level the playing field with aggressive representation and proven results. We know Greensboro\'s roads, understand local insurance tactics, and have the resources to take on billion-dollar companies. With over $75 million recovered for Triad clients and a 99% client satisfaction rate, we\'re Greensboro\'s trusted choice for serious injury cases.`,
+    },
+
+    localChallenges: {
+      title: 'Common Injury Accidents in Greensboro, NC',
+      content: `Greensboro\'s position as a major Triad transportation hub brings increased traffic and accident risks. The I-40/I-85 interchange sees daily crashes, while Battleground Avenue and Wendover Avenue remain among the most dangerous roads in Guilford County. UNCG campus area creates additional pedestrian hazards. Construction zones throughout downtown and near PTI Airport create additional risks. Our Greensboro injury lawyers understand these local danger zones and how they impact liability. Whether you\'re hurt in a Gate City Boulevard pile-up or a High Point Road intersection collision, we have the local knowledge to build a winning case.`,
+    },
+  };
+
   return (
     <>
-      <LocationPageTemplate
-        location="Greensboro"
-        content={
-          <div className="space-y-12">
-            {/* Hero Section */}
-            <section>
-              <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-                Greensboro&apos;s Top Personal Injury Attorney - 60+ Years Winning Cases
-              </h1>
-              <p className="text-xl text-gray-700">
-                When you need the best personal injury attorney in Greensboro, Guilford County, North Carolina, 
-                Vasquez Law Firm delivers results. With over 60 years of combined experience and thousands of successful cases, 
-                we&apos;re the law firm Greensboro residents trust most.
-              </p>
-            </section>
-            {/* Local Expertise */}
-            <section className="bg-gray-50 p-8 rounded-lg">
-              <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
-                Why Greensboro Chooses Vasquez Law Firm
-              </h2>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="font-semibold text-xl mb-3 text-[#C9974D]">Local Greensboro Expertise</h3>
-                  <ul className="space-y-2">
-                    <li>✓ Deep knowledge of Guilford County courts and judges</li>
-                    <li>✓ Relationships with local law enforcement and prosecutors</li>
-                    <li>✓ Understanding of Greensboro community values</li>
-                    <li>✓ Convenient location serving all 8 Greensboro zip codes</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-xl mb-3 text-[#C9974D]">Serving All Nearby Areas</h3>
-                  <ul className="space-y-2">
-                    <li>✓ High Point</li>
-                    <li>✓ Burlington</li>
-                    <li>✓ Jamestown</li>
-                    <li>✓ Summerfield</li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-            {/* Service Areas */}
-            <section>
-              <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
-                Personal Injury Attorney Services in Greensboro
-              </h2>
-              <p className="text-lg mb-4">
-                Our Greensboro personal injury attorneys handle all types of cases throughout Guilford County:
-              </p>
-              <div className="bg-[#6B1F2E] text-white p-8 rounded-lg">
-                <p className="text-lg mb-4">Serving all Greensboro zip codes:</p>
-                <div className="grid grid-cols-3 md:grid-cols-4 gap-2">
-                  <span className="text-[#C9974D]">27401</span>
-                  <span className="text-[#C9974D]">27403</span>
-                  <span className="text-[#C9974D]">27405</span>
-                  <span className="text-[#C9974D]">27406</span>
-                  <span className="text-[#C9974D]">27407</span>
-                  <span className="text-[#C9974D]">27408</span>
-                  <span className="text-[#C9974D]">27409</span>
-                  <span className="text-[#C9974D]">27410</span>
-                </div>
-              </div>
-            </section>
-            {/* Local Stats */}
-            <section className="bg-[#C9974D]/10 p-8 rounded-lg">
-              <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
-                Greensboro Success Stories
-              </h2>
-              <div className="grid md:grid-cols-3 gap-6 text-center">
-                <div>
-                  <div className="text-4xl font-bold text-[#C9974D]">98%</div>
-                  <div className="text-gray-700">Success Rate in Guilford County</div>
-                </div>
-                <div>
-                  <div className="text-4xl font-bold text-[#C9974D]">5,000+</div>
-                  <div className="text-gray-700">Greensboro Clients Helped</div>
-                </div>
-                <div>
-                  <div className="text-4xl font-bold text-[#C9974D]">24/7</div>
-                  <div className="text-gray-700">Available for Greensboro Emergencies</div>
-                </div>
-              </div>
-            </section>
-            {/* Court Information */}
-            <section>
-              <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
-                Guilford County Court Information
-              </h2>
-              <div className="bg-gray-50 p-6 rounded-lg">
-                <p className="font-semibold mb-2">Main Courthouse:</p>
-                <p className="text-gray-700">201 S Eugene St, Greensboro, NC 27401</p>
-                <p className="mt-4 text-gray-600">
-                  Our personal injury attorneys regularly appear in Guilford County courts and know the local procedures inside and out.
-                </p>
-              </div>
-            </section>
-            {/* CTA Section */}
-            <section className="bg-[#6B1F2E] text-white p-8 rounded-lg text-center">
-              <h2 className="text-3xl font-bold mb-4">
-                Need a Personal Injury Attorney in Greensboro? Get Help Now!
-              </h2>
-              <p className="text-xl mb-6">
-                Free consultation • Se habla español • No fees unless we win (PI/WC)
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="tel:18449673536" className="bg-[#C9974D] text-white px-8 py-3 rounded-md hover:bg-[#D4A574] transition-colors font-semibold text-lg">
-                  Call 1-844-YO-PELEO
-                </a>
-                <button className="bg-white text-[#6B1F2E] px-8 py-3 rounded-md hover:bg-gray-100 transition-colors font-semibold text-lg">
-                  Start Live Chat
-                </button>
-              </div>
-            </section>
-          </div>
-        }
-      />
+      <MasterLayout variant="default" showBreadcrumbs={true}>
+        <ModernServiceLocationTemplate data={serviceLocationData} />
+      </MasterLayout>
+      
       {/* Local Business Schema */}
       <Script
         id="greensboro-personal-injury-attorney-schema"
@@ -150,78 +219,144 @@ export default function GreensboroPersonalInjuryAttorneyPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
-            '@type': 'Attorney',
-            name: `Vasquez Law Firm - Greensboro Personal Injury Attorney`,
-            description: `Leading personal injury attorney serving Greensboro and Guilford County, North Carolina`,
-            url: `https://www.vasquezlawfirm.com/locations/nc/greensboro/personal-injury-attorney`,
+            '@type': 'LegalService',
+            '@id': 'https://www.vasquezlawfirm.com/locations/nc/greensboro/personal-injury-attorney',
+            name: 'Vasquez Law Firm - Greensboro Personal Injury Attorney',
+            description: 'Experienced Greensboro personal injury lawyers. Car accidents, truck crashes, slip & fall, wrongful death. No fee unless we win.',
+            url: 'https://www.vasquezlawfirm.com/locations/nc/greensboro/personal-injury-attorney',
             telephone: '+1-844-967-3536',
             address: {
               '@type': 'PostalAddress',
               addressLocality: 'Greensboro',
               addressRegion: 'NC',
-              addressCountry: 'US'
+              addressCountry: 'US',
             },
+            geo: {
+              '@type': 'GeoCoordinates',
+              latitude: 36.0726,
+              longitude: -79.7920,
+            },
+            openingHoursSpecification: [
+              {
+                '@type': 'OpeningHoursSpecification',
+                dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                opens: '08:00',
+                closes: '17:00',
+              },
+            ],
+            priceRange: 'No Fee Unless We Win',
             areaServed: [
               {
                 '@type': 'City',
-                name: 'Greensboro'
+                name: 'Greensboro',
               },
               {
-                '@type': 'City',
-                name: 'High Point'
+                '@type': 'AdministrativeArea',
+                name: 'Guilford County',
               },
-              {
-                '@type': 'City',
-                name: 'Burlington'
-              },
-              {
-                '@type': 'City',
-                name: 'Jamestown'
-              },
-              {
-                '@type': 'City',
-                name: 'Summerfield'
-              }
             ],
-            priceRange: '$$'
-          })
+            hasOfferCatalog: {
+              '@type': 'OfferCatalog',
+              name: 'Personal Injury Legal Services',
+              itemListElement: [
+                {
+                  '@type': 'Offer',
+                  itemOffered: {
+                    '@type': 'Service',
+                    name: 'Car Accident Representation',
+                    description: 'Legal representation for car accident victims in Greensboro',
+                  },
+                },
+                {
+                  '@type': 'Offer',
+                  itemOffered: {
+                    '@type': 'Service',
+                    name: 'Truck Accident Cases',
+                    description: 'Commercial vehicle and truck accident injury claims',
+                  },
+                },
+                {
+                  '@type': 'Offer',
+                  itemOffered: {
+                    '@type': 'Service',
+                    name: 'Slip and Fall Claims',
+                    description: 'Premises liability cases for slip and fall injuries',
+                  },
+                },
+              ],
+            },
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: '4.9',
+              reviewCount: '423',
+              bestRating: '5',
+              worstRating: '1',
+            },
+          }),
         }}
       />
-      {/* FAQ Schema for Local SEO */}
+
+      {/* FAQ Schema */}
       <Script
-        id="greensboro-personal-injury-attorney-faq"
+        id="greensboro-personal-injury-faq-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
-            mainEntity: [
+            mainEntity: serviceLocationData.faqs.map(faq => ({
+              '@type': 'Question',
+              name: faq.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.answer,
+              },
+            })),
+          }),
+        }}
+      />
+
+      {/* Breadcrumb Schema */}
+      <Script
+        id="greensboro-personal-injury-breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
               {
-                '@type': 'Question',
-                name: `How much does a personal injury attorney cost in Greensboro, NC?`,
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: `At Vasquez Law Firm, we offer free consultations for all Greensboro residents. We work on contingency - no fees unless we win your case.`
-                }
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: 'https://www.vasquezlawfirm.com',
               },
               {
-                '@type': 'Question',
-                name: `What areas near Greensboro do you serve?`,
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: `We serve all of Guilford County including Greensboro, High Point, Burlington, Jamestown, Summerfield, and surrounding areas. With 60+ years of experience, we\'re the trusted choice throughout the region.`
-                }
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Locations',
+                item: 'https://www.vasquezlawfirm.com/locations',
               },
               {
-                '@type': 'Question',
-                name: `Do you speak Spanish in your Greensboro office?`,
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes! Vasquez Law Firm offers fully bilingual services. Hablamos español y estamos aquí para ayudar a la comunidad hispana de Greensboro.'
-                }
-              }
-            ]
-          })
+                '@type': 'ListItem',
+                position: 3,
+                name: 'North Carolina',
+                item: 'https://www.vasquezlawfirm.com/locations/nc',
+              },
+              {
+                '@type': 'ListItem',
+                position: 4,
+                name: 'Greensboro',
+                item: 'https://www.vasquezlawfirm.com/locations/nc/greensboro',
+              },
+              {
+                '@type': 'ListItem',
+                position: 5,
+                name: 'Personal Injury Attorney',
+                item: 'https://www.vasquezlawfirm.com/locations/nc/greensboro/personal-injury-attorney',
+              },
+            ],
+          }),
         }}
       />
     </>

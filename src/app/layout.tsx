@@ -10,6 +10,7 @@ import { organizationSchema } from '@/lib/schema';
 import SessionProvider from '@/components/providers/SessionProvider';
 import dynamic from 'next/dynamic';
 import { Toaster } from 'react-hot-toast';
+import { DynamicHreflang } from '@/components/SEO/DynamicHreflang';
 // Removed SiteLayout import - will handle navigation directly
 
 // Dynamically import Chat Widget to avoid SSR issues
@@ -124,9 +125,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           title="Vasquez Law Firm Blog RSS"
           href="/blog/rss.xml"
         />
+        {/* Basic hreflang tags - enhanced dynamically by DynamicHreflang component */}
         <link rel="alternate" hrefLang="en" href="https://www.vasquezlawnc.com" />
+        <link rel="alternate" hrefLang="en-US" href="https://www.vasquezlawnc.com" />
         <link rel="alternate" hrefLang="es" href="https://www.vasquezlawnc.com/es" />
+        <link rel="alternate" hrefLang="es-US" href="https://www.vasquezlawnc.com/es" />
+        <link rel="alternate" hrefLang="es-MX" href="https://www.vasquezlawnc.com/es" />
         <link rel="alternate" hrefLang="x-default" href="https://www.vasquezlawnc.com" />
+        
+        {/* Add hreflang sitemap for search engines */}
+        <link rel="sitemap" type="application/xml" title="Hreflang Sitemap" href="/hreflang-sitemap.xml" />
         <meta name="geo.region" content="US-NC" />
         <meta name="geo.placename" content="Smithfield, Charlotte, Raleigh, Orlando" />
         <meta name="geo.position" content="35.5085;-78.3394" />
@@ -150,6 +158,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 },
               }}
             />
+            <DynamicHreflang />
             {children}
             <ChatWidget />
             <PerformanceMonitor />

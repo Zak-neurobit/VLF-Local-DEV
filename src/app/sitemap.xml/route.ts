@@ -5,6 +5,7 @@ interface SitemapUrl {
   lastmod?: string;
   changefreq?: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
   priority?: number;
+  hreflang?: Array<{ lang: string; href: string }>;
 }
 
 export async function GET(request: NextRequest) {
@@ -18,18 +19,30 @@ export async function GET(request: NextRequest) {
       lastmod: currentDate,
       changefreq: 'weekly',
       priority: 1.0,
+      hreflang: [
+        { lang: 'en', href: `${baseUrl}/` },
+        { lang: 'es', href: `${baseUrl}/es` }
+      ]
     },
     {
       loc: `${baseUrl}/contact`,
       lastmod: currentDate,
       changefreq: 'monthly',
       priority: 0.9,
+      hreflang: [
+        { lang: 'en', href: `${baseUrl}/contact` },
+        { lang: 'es', href: `${baseUrl}/es/contacto` }
+      ]
     },
     {
       loc: `${baseUrl}/attorneys`,
       lastmod: currentDate,
       changefreq: 'monthly',
       priority: 0.8,
+      hreflang: [
+        { lang: 'en', href: `${baseUrl}/attorneys` },
+        { lang: 'es', href: `${baseUrl}/es/abogados` }
+      ]
     },
     {
       loc: `${baseUrl}/attorneys/william-vasquez`,
@@ -283,17 +296,28 @@ export async function GET(request: NextRequest) {
 }
 
 function generateSitemapXML(urls: SitemapUrl[]): string {
-  const urlElements = urls.map(url => `
+  const urlElements = urls.map(url => {
+    let hreflangElements = '';
+    if (url.hreflang) {
+      hreflangElements = url.hreflang.map(link => 
+        `<xhtml:link rel="alternate" hreflang="${link.lang}" href="${escapeXml(link.href)}" />`
+      ).join('\n    ');
+    }
+
+    return `
   <url>
     <loc>${escapeXml(url.loc)}</loc>
     ${url.lastmod ? `<lastmod>${url.lastmod}</lastmod>` : ''}
     ${url.changefreq ? `<changefreq>${url.changefreq}</changefreq>` : ''}
     ${url.priority !== undefined ? `<priority>${url.priority}</priority>` : ''}
-  </url>`).join('');
+    ${hreflangElements ? `${hreflangElements}` : ''}
+  </url>`;
+  }).join('');
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 ${urlElements}

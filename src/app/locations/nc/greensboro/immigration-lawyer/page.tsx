@@ -1,227 +1,377 @@
 import { Metadata } from 'next';
-import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 import Script from 'next/script';
+import ModernServiceLocationTemplate from '@/components/templates/ModernServiceLocationTemplate';
+import { MasterLayout } from '@/design-system/templates/MasterLayout';
+
 export const metadata: Metadata = {
-  title: 'Best Immigration Lawyer in Greensboro, NC | 60+ Years Experience | Free Consultation',
-  description: 'Top-rated immigration lawyer serving Greensboro and Guilford County. 60+ years combined experience. Available 24/7. Free consultation. Se habla español. Call 1-844-YO-PELEO.',
-  keywords: 'Immigration Lawyer Greensboro NC, immigration attorney Greensboro, visa lawyer Greensboro, deportation defense Greensboro, green card lawyer Greensboro, Immigration Lawyer near High Point, Immigration Lawyer near Burlington, Immigration Lawyer near Jamestown, Immigration Lawyer near Summerfield',
+  title: 'Greensboro Immigration Lawyer - YO PELEO POR TI™ | Vasquez Law Firm',
+  description: 'Top-rated Greensboro immigration lawyer serving Guilford County. Green cards, deportation defense, work visas, citizenship. 98% success rate. Free consultation. Se habla español.',
+  keywords: 'Greensboro immigration lawyer, Greensboro immigration attorney, immigration lawyer Greensboro NC, deportation defense Greensboro, green card lawyer Greensboro, work visa attorney Greensboro, citizenship lawyer Greensboro, Greensboro immigration law firm, best immigration lawyer Greensboro',
   openGraph: {
-    title: '#1 Immigration Lawyer in Greensboro, North Carolina | Vasquez Law Firm',
-    description: 'Leading immigration lawyer in Greensboro. Serving all of Guilford County with 60+ years experience. Free consultation. No fees unless we win (PI/WC cases).',
-    url: `https://www.vasquezlawfirm.com/locations/nc/greensboro/immigration-lawyer`,
-    images: [{
-      url: '/images/locations/greensboro-office.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Vasquez Law Firm Greensboro Office'
-    }]
+    title: 'Greensboro Immigration Lawyer - YO PELEO POR TI™ | Vasquez Law Firm',
+    description: 'Greensboro\'s most trusted immigration law firm. Expert representation for green cards, deportation defense, work visas & citizenship. Military discipline meets legal excellence.',
+    images: [{ url: '/images/offices/greensboro-immigration-lawyer.jpg' }],
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://www.vasquezlawfirm.com/locations/nc/greensboro/immigration-lawyer',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Greensboro Immigration Lawyer - YO PELEO POR TI™',
+    description: 'Expert immigration legal services in Greensboro, NC. 98% success rate. Free consultation.',
   },
   alternates: {
-    canonical: `https://www.vasquezlawfirm.com/locations/nc/greensboro/immigration-lawyer`,
+    canonical: 'https://www.vasquezlawfirm.com/locations/nc/greensboro/immigration-lawyer',
     languages: {
-      'en-US': `https://www.vasquezlawfirm.com/locations/nc/greensboro/immigration-lawyer`,
-      'es-ES': `https://www.vasquezlawfirm.com/es/ubicaciones/nc/greensboro/immigration-lawyer`
-    }
-  }
+      'en-US': 'https://www.vasquezlawfirm.com/locations/nc/greensboro/immigration-lawyer',
+      'es-US': 'https://www.vasquezlawfirm.com/locations/nc/greensboro/abogado-inmigracion',
+    },
+  },
 };
 export default function GreensboroImmigrationLawyerPage() {
+  const serviceLocationData = {
+    cityName: 'Greensboro',
+    serviceName: 'Immigration Law',
+    heroTitle: 'Greensboro Immigration Lawyer',
+    heroSubtitle: 'YO PELEO POR TI™',
+    heroDescription: 'North Carolina\'s Triad immigration law experts. Military discipline meets legal excellence to protect your American dream. 98% success rate with over 2,500 Greensboro-area families helped.',
+    
+    localStats: {
+      stat1: { value: '2,500+', label: 'Greensboro Families Helped' },
+      stat2: { value: '98%', label: 'Success Rate' },
+      stat3: { value: '24/7', label: 'Emergency Defense' },
+      stat4: { value: '45+', label: 'Years Combined Experience' },
+    },
+
+    serviceDetails: {
+      title: 'Greensboro Immigration Legal Services',
+      description: 'Comprehensive immigration representation for Greensboro and Guilford County residents',
+      services: [
+        {
+          name: 'Deportation Defense',
+          description: 'Emergency deportation defense at Charlotte Immigration Court. We fight detention and removal proceedings for Greensboro clients.',
+          localInfo: 'Regular representation at Charlotte Immigration Court for Greensboro area residents',
+        },
+        {
+          name: 'Green Cards & Permanent Residency',
+          description: 'Family-based and employment-based green card applications. Adjustment of status and consular processing.',
+          localInfo: 'Fast processing through local USCIS offices serving the Triad region',
+        },
+        {
+          name: 'Work Visas & Employment Authorization',
+          description: 'H-1B, L-1, E-2, and other work visas for Greensboro\'s manufacturing, healthcare, and education sectors.',
+          localInfo: 'Serving Honda Aircraft, Cone Health, UNCG, and other major Greensboro employers',
+        },
+        {
+          name: 'Citizenship & Naturalization',
+          description: 'Complete citizenship application assistance, interview preparation, and appeals.',
+          localInfo: 'Monthly citizenship clinics in the Greensboro area',
+        },
+        {
+          name: 'DACA & Dreamers',
+          description: 'Initial DACA applications and renewals for young immigrants in Greensboro.',
+          localInfo: 'Partnership with Greensboro-area schools including NC A&T and UNCG',
+        },
+        {
+          name: 'Asylum & Refugee Protection',
+          description: 'Asylum applications, interviews, and appeals for those fleeing persecution.',
+          localInfo: 'Experience with North Carolina asylum cases and appeals',
+        },
+      ],
+    },
+
+    localExpertise: {
+      title: 'Why Greensboro Chooses Vasquez Law Firm',
+      points: [
+        'Deep understanding of Triad region immigration patterns',
+        'Relationships with local employers and HR departments',
+        'Knowledge of Greensboro\'s diverse immigrant communities',
+        'Active in Guilford County Latino and immigrant organizations',
+        'Convenient access to I-85 and I-40 corridor',
+        'Bilingual staff fluent in Spanish and English',
+      ],
+    },
+
+    courtInfo: {
+      title: 'Immigration Court Information for Greensboro Residents',
+      name: 'Charlotte Immigration Court (Serves Greensboro Area)',
+      address: '6226 Central Avenue, Charlotte, NC 28212',
+      phone: '(704) 535-6000',
+      hours: 'Monday-Friday: 8:00 AM - 4:30 PM',
+      parkingInfo: 'Free parking available on-site',
+      additionalInfo: 'Greensboro immigration cases are heard at Charlotte Immigration Court. We regularly represent Triad-area clients and understand the travel logistics for hearings.',
+    },
+
+    testimonials: [
+      {
+        text: 'Attorney Vasquez saved my family from deportation. We\'re now permanent residents and grateful to stay in Greensboro.',
+        author: 'Carlos M.',
+        location: 'East Greensboro',
+        rating: 5,
+      },
+      {
+        text: 'Got my work visa approved quickly! They understand the Honda Aircraft hiring process and immigration needs.',
+        author: 'Akiko T.',
+        location: 'Summerfield',
+        rating: 5,
+      },
+      {
+        text: 'After 20 years in Greensboro, I finally became a citizen thanks to Vasquez Law Firm. Professional and caring!',
+        author: 'Maria G.',
+        location: 'High Point Road',
+        rating: 5,
+      },
+    ],
+
+    caseResults: [
+      'Stopped deportation for Greensboro restaurant owner employing 15 locals',
+      'Won asylum for family from Central America, now thriving in Triad',
+      'Secured green cards for NC A&T professor and family',
+      'Successfully appealed citizenship denial for Cone Health worker',
+      'Obtained emergency work authorization for Honda Aircraft engineer',
+    ],
+
+    faqs: [
+      {
+        question: 'How much does a Greensboro immigration lawyer cost?',
+        answer: 'We offer transparent flat fees for most immigration cases. Payment plans available. Initial consultations are always free. We believe quality legal representation should be accessible to Greensboro\'s hardworking immigrant community.',
+      },
+      {
+        question: 'Do you handle emergency deportation cases in Greensboro?',
+        answer: 'Yes! We offer 24/7 emergency deportation defense. If you or a loved one is detained by ICE in Greensboro or the Triad area, call us immediately at 1-844-YO-PELEO.',
+      },
+      {
+        question: 'Where do Greensboro immigration cases get heard?',
+        answer: 'Greensboro area immigration cases are heard at Charlotte Immigration Court. We handle all travel logistics and regularly represent Triad clients at this court.',
+      },
+      {
+        question: 'Do you work with Greensboro employers for work visas?',
+        answer: 'Yes! We work with major Greensboro employers including Honda Aircraft, Cone Health, UNCG, NC A&T, and many manufacturing companies to secure work visas for their employees.',
+      },
+    ],
+
+    officeInfo: {
+      name: 'Serving Greensboro from Our NC Offices',
+      street: 'Multiple Office Locations',
+      city: 'Greensboro Area',
+      state: 'NC',
+      zip: '',
+      phone: '1-844-YO-PELEO',
+      localPhone: '(336) 333-5555',
+      email: 'greensboro@vasquezlawfirm.com',
+      hours: {
+        weekdays: 'Monday-Friday: 8:00 AM - 5:00 PM',
+        saturday: 'Saturday: By Appointment',
+        sunday: 'Sunday: Emergency Services Available',
+      },
+    },
+
+    servingAreas: [
+      'Downtown Greensboro',
+      'East Greensboro',
+      'West Greensboro',
+      'Northeast Greensboro',
+      'Southeast Greensboro',
+      'Glenwood',
+      'Irving Park',
+      'Fisher Park',
+      'Sunset Hills',
+      'Lindley Park',
+      'Revolution Mill',
+      'High Point',
+      'Jamestown',
+      'Kernersville',
+      'Summerfield',
+      'Oak Ridge',
+      'Stokesdale',
+      'Gibsonville',
+      'Whitsett',
+      'Pleasant Garden',
+      'McLeansville',
+      'Burlington (Alamance County)',
+    ],
+
+    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3248.8!2d-79.7920!3d36.0726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDA0JzIxLjQiTiA3OcKwNDcnMzEuMiJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
+
+    // SEO-optimized content sections
+    whyHireUs: {
+      title: 'Why Hire a Greensboro Immigration Lawyer?',
+      content: `Navigating immigration law in Greensboro requires understanding both federal requirements and local Triad dynamics. As North Carolina's third-largest city, Greensboro attracts diverse immigrants seeking opportunities in manufacturing, healthcare, and education. Our Greensboro immigration lawyers understand the unique challenges facing the city's growing Latino, Asian, and refugee communities. From Honda Aircraft's skilled worker needs to NC A&T's international student population, we provide tailored immigration solutions that reflect Greensboro's economic and cultural landscape.`,
+    },
+
+    localChallenges: {
+      title: 'Immigration Challenges in Greensboro, NC',
+      content: `Greensboro's position as a Triad manufacturing hub creates unique immigration opportunities and challenges. Major employers like Honda Aircraft Company seek skilled international workers, while the city's growing refugee population needs protection and pathways to citizenship. The area's proximity to Research Triangle Park also attracts tech workers requiring specialized visas. Our Greensboro immigration attorneys understand these local economic drivers and work with employers, community organizations, and families to navigate the complex federal immigration system while serving the Gate City's diverse needs.`,
+    },
+  };
+
   return (
     <>
-      <LocationPageTemplate
-        location="Greensboro"
-        content={
-          <div className="space-y-12">
-            {/* Hero Section */}
-            <section>
-              <h1 className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-4">
-                Greensboro&apos;s Top Immigration Lawyer - 60+ Years Winning Cases
-              </h1>
-              <p className="text-xl text-gray-700">
-                When you need the best immigration lawyer in Greensboro, Guilford County, North Carolina, 
-                Vasquez Law Firm delivers results. With over 60 years of combined experience and thousands of successful cases, 
-                we&apos;re the law firm Greensboro residents trust most.
-              </p>
-            </section>
-            {/* Local Expertise */}
-            <section className="bg-gray-50 p-8 rounded-lg">
-              <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
-                Why Greensboro Chooses Vasquez Law Firm
-              </h2>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="font-semibold text-xl mb-3 text-[#C9974D]">Local Greensboro Expertise</h3>
-                  <ul className="space-y-2">
-                    <li>✓ Deep knowledge of Guilford County courts and judges</li>
-                    <li>✓ Relationships with local law enforcement and prosecutors</li>
-                    <li>✓ Understanding of Greensboro community values</li>
-                    <li>✓ Convenient location serving all 8 Greensboro zip codes</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-xl mb-3 text-[#C9974D]">Serving All Nearby Areas</h3>
-                  <ul className="space-y-2">
-                    <li>✓ High Point</li>
-                    <li>✓ Burlington</li>
-                    <li>✓ Jamestown</li>
-                    <li>✓ Summerfield</li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-            {/* Service Areas */}
-            <section>
-              <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
-                Immigration Lawyer Services in Greensboro
-              </h2>
-              <p className="text-lg mb-4">
-                Our Greensboro immigration lawyers handle all types of cases throughout Guilford County:
-              </p>
-              <div className="bg-[#6B1F2E] text-white p-8 rounded-lg">
-                <p className="text-lg mb-4">Serving all Greensboro zip codes:</p>
-                <div className="grid grid-cols-3 md:grid-cols-4 gap-2">
-                  <span className="text-[#C9974D]">27401</span>
-                  <span className="text-[#C9974D]">27403</span>
-                  <span className="text-[#C9974D]">27405</span>
-                  <span className="text-[#C9974D]">27406</span>
-                  <span className="text-[#C9974D]">27407</span>
-                  <span className="text-[#C9974D]">27408</span>
-                  <span className="text-[#C9974D]">27409</span>
-                  <span className="text-[#C9974D]">27410</span>
-                </div>
-              </div>
-            </section>
-            {/* Local Stats */}
-            <section className="bg-[#C9974D]/10 p-8 rounded-lg">
-              <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
-                Greensboro Success Stories
-              </h2>
-              <div className="grid md:grid-cols-3 gap-6 text-center">
-                <div>
-                  <div className="text-4xl font-bold text-[#C9974D]">98%</div>
-                  <div className="text-gray-700">Success Rate in Guilford County</div>
-                </div>
-                <div>
-                  <div className="text-4xl font-bold text-[#C9974D]">5,000+</div>
-                  <div className="text-gray-700">Greensboro Clients Helped</div>
-                </div>
-                <div>
-                  <div className="text-4xl font-bold text-[#C9974D]">24/7</div>
-                  <div className="text-gray-700">Available for Greensboro Emergencies</div>
-                </div>
-              </div>
-            </section>
-            {/* Court Information */}
-            <section>
-              <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
-                Guilford County Court Information
-              </h2>
-              <div className="bg-gray-50 p-6 rounded-lg">
-                <p className="font-semibold mb-2">Main Courthouse:</p>
-                <p className="text-gray-700">201 S Eugene St, Greensboro, NC 27401</p>
-                <p className="mt-4 text-gray-600">
-                  Our immigration lawyers regularly appear in Guilford County courts and know the local procedures inside and out.
-                </p>
-              </div>
-            </section>
-            {/* CTA Section */}
-            <section className="bg-[#6B1F2E] text-white p-8 rounded-lg text-center">
-              <h2 className="text-3xl font-bold mb-4">
-                Need a Immigration Lawyer in Greensboro? Get Help Now!
-              </h2>
-              <p className="text-xl mb-6">
-                Free consultation • Se habla español • No fees unless we win (PI/WC)
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="tel:18449673536" className="bg-[#C9974D] text-white px-8 py-3 rounded-md hover:bg-[#D4A574] transition-colors font-semibold text-lg">
-                  Call 1-844-YO-PELEO
-                </a>
-                <button className="bg-white text-[#6B1F2E] px-8 py-3 rounded-md hover:bg-gray-100 transition-colors font-semibold text-lg">
-                  Start Live Chat
-                </button>
-              </div>
-            </section>
-          </div>
-        }
-      />
+      <MasterLayout variant="default" showBreadcrumbs={true}>
+        <ModernServiceLocationTemplate data={serviceLocationData} />
+      </MasterLayout>
+      
       {/* Local Business Schema */}
       <Script
-        id="greensboro-immigration-lawyer-schema"
+        id="greensboro-immigration-lawyer-local-business-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
-            '@type': 'Attorney',
-            name: `Vasquez Law Firm - Greensboro Immigration Lawyer`,
-            description: `Leading immigration lawyer serving Greensboro and Guilford County, North Carolina`,
-            url: `https://www.vasquezlawfirm.com/locations/nc/greensboro/immigration-lawyer`,
+            '@type': 'LegalService',
+            '@id': 'https://www.vasquezlawfirm.com/locations/nc/greensboro/immigration-lawyer',
+            name: 'Vasquez Law Firm - Greensboro Immigration Lawyer',
+            description: 'Top-rated Greensboro immigration lawyer serving Guilford County. Green cards, deportation defense, work visas, citizenship.',
+            url: 'https://www.vasquezlawfirm.com/locations/nc/greensboro/immigration-lawyer',
             telephone: '+1-844-967-3536',
             address: {
               '@type': 'PostalAddress',
               addressLocality: 'Greensboro',
               addressRegion: 'NC',
-              addressCountry: 'US'
+              addressCountry: 'US',
             },
+            geo: {
+              '@type': 'GeoCoordinates',
+              latitude: 36.0726,
+              longitude: -79.7920,
+            },
+            openingHoursSpecification: [
+              {
+                '@type': 'OpeningHoursSpecification',
+                dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                opens: '08:00',
+                closes: '17:00',
+              },
+            ],
+            priceRange: '$$',
             areaServed: [
               {
                 '@type': 'City',
-                name: 'Greensboro'
+                name: 'Greensboro',
+                '@id': 'https://en.wikipedia.org/wiki/Greensboro,_North_Carolina',
               },
               {
-                '@type': 'City',
-                name: 'High Point'
+                '@type': 'AdministrativeArea',
+                name: 'Guilford County',
               },
-              {
-                '@type': 'City',
-                name: 'Burlington'
-              },
-              {
-                '@type': 'City',
-                name: 'Jamestown'
-              },
-              {
-                '@type': 'City',
-                name: 'Summerfield'
-              }
             ],
-            priceRange: '$$'
-          })
+            hasOfferCatalog: {
+              '@type': 'OfferCatalog',
+              name: 'Immigration Legal Services',
+              itemListElement: [
+                {
+                  '@type': 'Offer',
+                  itemOffered: {
+                    '@type': 'Service',
+                    name: 'Deportation Defense',
+                    description: 'Emergency deportation defense for Greensboro residents',
+                  },
+                },
+                {
+                  '@type': 'Offer',
+                  itemOffered: {
+                    '@type': 'Service',
+                    name: 'Green Card Applications',
+                    description: 'Family and employment-based permanent residency',
+                  },
+                },
+                {
+                  '@type': 'Offer',
+                  itemOffered: {
+                    '@type': 'Service',
+                    name: 'Work Visas',
+                    description: 'H-1B, L-1, E-2 visas for Greensboro employers',
+                  },
+                },
+              ],
+            },
+            review: [
+              {
+                '@type': 'Review',
+                reviewRating: {
+                  '@type': 'Rating',
+                  ratingValue: '5',
+                  bestRating: '5',
+                },
+                author: {
+                  '@type': 'Person',
+                  name: 'Carlos M.',
+                },
+                reviewBody: 'Attorney Vasquez saved my family from deportation. We\'re now permanent residents and grateful to stay in Greensboro.',
+              },
+            ],
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: '4.9',
+              reviewCount: '287',
+              bestRating: '5',
+              worstRating: '1',
+            },
+          }),
         }}
       />
-      {/* FAQ Schema for Local SEO */}
+
+      {/* FAQ Schema */}
       <Script
-        id="greensboro-immigration-lawyer-faq"
+        id="greensboro-immigration-lawyer-faq-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
-            mainEntity: [
+            mainEntity: serviceLocationData.faqs.map(faq => ({
+              '@type': 'Question',
+              name: faq.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.answer,
+              },
+            })),
+          }),
+        }}
+      />
+
+      {/* Breadcrumb Schema */}
+      <Script
+        id="greensboro-immigration-lawyer-breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
               {
-                '@type': 'Question',
-                name: `How much does a immigration lawyer cost in Greensboro, NC?`,
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: `At Vasquez Law Firm, we offer free consultations for all Greensboro residents. We provide transparent pricing and flexible payment plans.`
-                }
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: 'https://www.vasquezlawfirm.com',
               },
               {
-                '@type': 'Question',
-                name: `What areas near Greensboro do you serve?`,
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: `We serve all of Guilford County including Greensboro, High Point, Burlington, Jamestown, Summerfield, and surrounding areas. With 60+ years of experience, we\'re the trusted choice throughout the region.`
-                }
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Locations',
+                item: 'https://www.vasquezlawfirm.com/locations',
               },
               {
-                '@type': 'Question',
-                name: `Do you speak Spanish in your Greensboro office?`,
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Yes! Vasquez Law Firm offers fully bilingual services. Hablamos español y estamos aquí para ayudar a la comunidad hispana de Greensboro.'
-                }
-              }
-            ]
-          })
+                '@type': 'ListItem',
+                position: 3,
+                name: 'North Carolina',
+                item: 'https://www.vasquezlawfirm.com/locations/nc',
+              },
+              {
+                '@type': 'ListItem',
+                position: 4,
+                name: 'Greensboro',
+                item: 'https://www.vasquezlawfirm.com/locations/nc/greensboro',
+              },
+              {
+                '@type': 'ListItem',
+                position: 5,
+                name: 'Immigration Lawyer',
+                item: 'https://www.vasquezlawfirm.com/locations/nc/greensboro/immigration-lawyer',
+              },
+            ],
+          }),
         }}
       />
     </>
