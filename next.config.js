@@ -78,7 +78,7 @@ const nextConfig = {
     // Tree shaking and optimization
     config.optimization = {
       ...config.optimization,
-      usedExports: true,
+      // Remove usedExports as it conflicts with cacheUnaffected
       sideEffects: false,
       splitChunks: {
         chunks: 'all',
