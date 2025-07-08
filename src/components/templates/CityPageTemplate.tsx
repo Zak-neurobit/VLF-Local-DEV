@@ -54,6 +54,15 @@ interface CityPageTemplateProps {
   };
 }
 
+// Practice area slug mapping
+const practiceAreaSlugs: Record<string, string> = {
+  'Immigration Law': 'immigration',
+  'Personal Injury': 'personal-injury',
+  'Workers Compensation': 'workers-compensation',
+  'Criminal Defense': 'criminal-defense',
+  'Family Law': 'family-law',
+};
+
 export function CityPageTemplate({ city, nearbyOffice, content }: CityPageTemplateProps) {
   const stats = [
     { icon: Users, value: '30K+', label: 'Clients Helped' },
@@ -186,7 +195,7 @@ export function CityPageTemplate({ city, nearbyOffice, content }: CityPageTempla
                       ))}
                     </div>
                     <Link 
-                      href={`/practice-areas/${area.name.toLowerCase().replace(/['\s]+/g, '-')}`}
+                      href={`/practice-areas/${practiceAreaSlugs[area.name] || area.name.toLowerCase().replace(/['\s]+/g, '-')}`}
                       className="inline-flex items-center text-primary hover:text-primary-300 mt-6 font-semibold"
                     >
                       Learn More →

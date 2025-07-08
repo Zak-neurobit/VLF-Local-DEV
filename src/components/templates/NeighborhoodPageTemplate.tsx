@@ -67,6 +67,15 @@ const IconMap = {
   CheckCircle
 };
 
+// Practice area slug mapping
+const practiceAreaSlugs: Record<string, string> = {
+  'Immigration Law': 'immigration',
+  'Personal Injury': 'personal-injury',
+  'Workers Compensation': 'workers-compensation',
+  'Criminal Defense': 'criminal-defense',
+  'Family Law': 'family-law',
+};
+
 export function NeighborhoodPageTemplate({ neighborhood, content }: NeighborhoodPageTemplateProps) {
   // Generate breadcrumb schema
   const breadcrumbSchema = generateEnhancedBreadcrumbSchema([
@@ -215,7 +224,7 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                     <p className="text-gray-300 mb-4">{area.description}</p>
                     <p className="text-sm text-gray-400 italic">{area.localNote}</p>
                     <Link 
-                      href={`/practice-areas/${area.name.toLowerCase().replace(/['\s]+/g, '-')}`}
+                      href={`/practice-areas/${practiceAreaSlugs[area.name] || area.name.toLowerCase().replace(/['\s]+/g, '-')}`}
                       className="inline-flex items-center text-primary hover:text-primary-300 mt-4 font-semibold"
                     >
                       Learn More →

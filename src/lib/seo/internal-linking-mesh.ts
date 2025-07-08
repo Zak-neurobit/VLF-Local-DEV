@@ -47,11 +47,11 @@ export const PRACTICE_AREAS = [
     name: 'Workers Compensation', 
     slug: 'workers-compensation',
     subPages: [
-      { name: 'Work Injuries', slug: 'work-injuries' },
-      { name: 'Construction Accidents', slug: 'construction-accidents' },
+      { name: 'Construction Injuries', slug: 'construction-site-injuries' },
+      { name: 'Equipment Accidents', slug: 'equipment-accidents' },
       { name: 'Repetitive Stress', slug: 'repetitive-stress-injuries' },
-      { name: 'Denied Claims', slug: 'denied-claims' },
-      { name: 'Permanent Disability', slug: 'permanent-disability' }
+      { name: 'Third Party Claims', slug: 'third-party-injury-claims' },
+      { name: 'Mental Health Claims', slug: 'mental-health-claims' }
     ]
   }
 ];

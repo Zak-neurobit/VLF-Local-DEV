@@ -139,11 +139,6 @@ export const ConsistentFooter: React.FC<ConsistentFooterProps> = ({ language }) 
                   {t.familyLaw}
                 </Link>
               </li>
-              <li>
-                <Link href={language === 'es' ? '/es/areas-de-practica/infracciones-transito' : '/practice-areas/traffic-violations'} className="text-neutral-300 hover:text-primary transition-colors">
-                  {t.trafficViolations}
-                </Link>
-              </li>
             </ul>
           </div>
 

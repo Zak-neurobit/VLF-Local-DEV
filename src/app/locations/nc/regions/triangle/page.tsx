@@ -55,35 +55,35 @@ export default function TriangleRegionPage() {
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Immigration Lawyer</h3>
                 <p className="text-gray-600 mb-4">Serving all of Triangle with expert immigration lawyer services</p>
-                <Link href="/practice-areas/immigration-lawyer" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
+                <Link href="/practice-areas/immigration" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
                 </Link>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Personal Injury Attorney</h3>
                 <p className="text-gray-600 mb-4">Serving all of Triangle with expert personal injury attorney services</p>
-                <Link href="/practice-areas/personal-injury-attorney" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
+                <Link href="/practice-areas/personal-injury" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
                 </Link>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Workers&apos; Compensation Lawyer</h3>
                 <p className="text-gray-600 mb-4">Serving all of Triangle with expert workers&apos; compensation lawyer services</p>
-                <Link href="/practice-areas/workers-compensation-lawyer" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
+                <Link href="/practice-areas/workers-compensation" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
                 </Link>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Criminal Defense Attorney</h3>
                 <p className="text-gray-600 mb-4">Serving all of Triangle with expert criminal defense attorney services</p>
-                <Link href="/practice-areas/criminal-defense-attorney" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
+                <Link href="/practice-areas/criminal-defense" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
                 </Link>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3">Car Accident Lawyer</h3>
                 <p className="text-gray-600 mb-4">Serving all of Triangle with expert car accident lawyer services</p>
-                <Link href="/practice-areas/car-accident-lawyer" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
+                <Link href="/practice-areas/personal-injury/car-accidents" className="text-[#C9974D] font-semibold hover:text-[#D4A574]">
                   Learn More →
                 </Link>
               </div>

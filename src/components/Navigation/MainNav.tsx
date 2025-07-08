@@ -56,7 +56,7 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
             subitems: [
               {
                 title: 'Car Accidents',
-                href: '/practice-areas/personal-injury/car-auto-accidents',
+                href: '/practice-areas/personal-injury/car-accidents',
               },
               { title: 'Truck Accidents', href: '/practice-areas/personal-injury/truck-accidents' },
               {
@@ -65,7 +65,7 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
               },
               {
                 title: 'Pedestrian Accidents',
-                href: '/practice-areas/personal-injury/pedestrian-hit-by-car',
+                href: '/practice-areas/personal-injury/pedestrian-accidents',
               },
               {
                 title: 'Premises Liability',
@@ -73,7 +73,7 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
               },
               {
                 title: 'Drunk Driver Accidents',
-                href: '/practice-areas/personal-injury/drunk-driver-liability',
+                href: '/practice-areas/personal-injury/drunk-driver-accidents',
               },
             ],
           },
@@ -87,7 +87,7 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
               },
               {
                 title: 'Repetitive Stress',
-                href: '/practice-areas/workers-compensation/repetitive-stress-carpal-tunnel',
+                href: '/practice-areas/workers-compensation/repetitive-stress-injuries',
               },
               {
                 title: 'Third Party Claims',
@@ -100,18 +100,18 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
             href: '/practice-areas/criminal-defense',
             subitems: [
               { title: 'DUI/DWI', href: '/practice-areas/criminal-defense/dwi-drunk-driving' },
-              { title: 'Drug Crimes', href: '/practice-areas/criminal-defense/drug-crime-cases' },
+              { title: 'Drug Crimes', href: '/practice-areas/criminal-defense/drug-crimes' },
               {
                 title: 'Domestic Violence',
-                href: '/practice-areas/criminal-defense/domestic-violence-abuse',
+                href: '/practice-areas/criminal-defense/domestic-violence',
               },
               {
                 title: 'Traffic Violations',
-                href: '/practice-areas/criminal-defense/traffic-offenses-tickets',
+                href: '/practice-areas/criminal-defense/traffic-offenses',
               },
               {
                 title: 'Expungement',
-                href: '/practice-areas/criminal-defense/expungement-expunction',
+                href: '/practice-areas/criminal-defense/expungement',
               },
             ],
           },
@@ -173,23 +173,23 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
             subitems: [
               {
                 title: 'Accidentes de Auto',
-                href: '/es/areas-de-practica/lesiones-personales/accidentes-auto',
+                href: '/es/areas-de-practica/lesiones-personales/accidentes-de-auto',
               },
               {
                 title: 'Accidentes de Camión',
-                href: '/es/areas-de-practica/lesiones-personales/accidentes-camion',
+                href: '/es/areas-de-practica/lesiones-personales/accidentes-de-camion',
               },
               {
                 title: 'Accidentes de Motocicleta',
-                href: '/es/areas-de-practica/lesiones-personales/accidentes-motocicleta',
+                href: '/es/areas-de-practica/lesiones-personales/accidentes-de-motocicleta',
               },
               {
                 title: 'Accidentes de Peatones',
-                href: '/es/areas-de-practica/lesiones-personales/accidentes-peatones',
+                href: '/es/areas-de-practica/lesiones-personales/accidentes-de-peatones',
               },
               {
                 title: 'Responsabilidad de Locales',
-                href: '/es/areas-de-practica/lesiones-personales/responsabilidad-locales',
+                href: '/es/areas-de-practica/lesiones-personales/responsabilidad-de-locales',
               },
               {
                 title: 'Conductor Ebrio',
@@ -203,7 +203,7 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
             subitems: [
               {
                 title: 'Lesiones de Construcción',
-                href: '/es/areas-de-practica/compensacion-laboral/lesiones-construccion',
+                href: '/es/areas-de-practica/compensacion-laboral/lesiones-de-construccion',
               },
               {
                 title: 'Estrés Repetitivo',
@@ -211,7 +211,7 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
               },
               {
                 title: 'Reclamos de Terceros',
-                href: '/es/areas-de-practica/compensacion-laboral/reclamos-terceros',
+                href: '/es/areas-de-practica/compensacion-laboral/reclamos-de-terceros',
               },
             ],
           },
@@ -222,7 +222,7 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
               { title: 'DUI/DWI', href: '/es/areas-de-practica/defensa-criminal/dui-dwi' },
               {
                 title: 'Delitos de Drogas',
-                href: '/es/areas-de-practica/defensa-criminal/delitos-drogas',
+                href: '/es/areas-de-practica/defensa-criminal/delitos-de-drogas',
               },
               {
                 title: 'Violencia Doméstica',
@@ -230,11 +230,11 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
               },
               {
                 title: 'Infracciones de Tráfico',
-                href: '/es/areas-de-practica/defensa-criminal/infracciones-trafico',
+                href: '/es/areas-de-practica/defensa-criminal/infracciones-de-trafico',
               },
               {
                 title: 'Eliminación de Antecedentes',
-                href: '/es/areas-de-practica/defensa-criminal/eliminacion-antecedentes',
+                href: '/es/areas-de-practica/defensa-criminal/eliminacion-de-antecedentes',
               },
             ],
           },
@@ -245,7 +245,7 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
               { title: 'Divorcio', href: '/es/areas-de-practica/derecho-familia/divorcio' },
               {
                 title: 'Custodia de Menores',
-                href: '/es/areas-de-practica/derecho-familia/custodia-menores',
+                href: '/es/areas-de-practica/derecho-familia/custodia-de-menores',
               },
               {
                 title: 'Pensión Alimenticia',
@@ -253,7 +253,7 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
               },
               {
                 title: 'División de Propiedad',
-                href: '/es/areas-de-practica/derecho-familia/division-propiedad',
+                href: '/es/areas-de-practica/derecho-familia/division-de-propiedad',
               },
             ],
           },
