@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     // Parse query parameters
     const page = parseInt(searchParams.get('page') || '1');
     const limit = Math.min(parseInt(searchParams.get('limit') || '10'), 50); // Max 50 per page
-    const source = searchParams.get('source') as 'google' | 'yelp' | undefined;
+    const source = searchParams.get('source') as 'google' | undefined;
     const refresh = searchParams.get('refresh') === 'true';
 
     // Validate page and limit

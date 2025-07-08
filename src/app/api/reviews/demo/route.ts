@@ -14,19 +14,18 @@ const demoReviews = [
     location: 'charlotte',
   },
   {
-    id: 'yelp-demo-1',
+    id: 'google-demo-2',
     author: 'John Smith',
     authorImage:
       'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
     rating: 5,
     text: "Outstanding legal representation! After my car accident, Vasquez Law Firm fought hard for me and got me a settlement that exceeded my expectations. Their personal injury team really knows what they're doing.",
     date: '2024-06-10T14:20:00Z',
-    source: 'yelp' as const,
-    sourceUrl: 'https://yelp.com/biz/vasquez-law-firm/review1',
+    source: 'google' as const,
     location: 'raleigh',
   },
   {
-    id: 'google-demo-2',
+    id: 'google-demo-3',
     author: 'Carmen Gonzalez',
     authorImage:
       'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
@@ -37,19 +36,18 @@ const demoReviews = [
     location: 'orlando',
   },
   {
-    id: 'yelp-demo-2',
+    id: 'google-demo-4',
     author: 'Robert Johnson',
     authorImage:
       'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
     rating: 5,
     text: 'Top-notch criminal defense attorneys. They handled my DWI case with expertise and got the charges reduced significantly. Very responsive and kept me informed every step of the way.',
     date: '2024-05-28T16:45:00Z',
-    source: 'yelp' as const,
-    sourceUrl: 'https://yelp.com/biz/vasquez-law-firm/review2',
+    source: 'google' as const,
     location: 'smithfield',
   },
   {
-    id: 'google-demo-3',
+    id: 'google-demo-5',
     author: 'Lisa Chen',
     authorImage:
       'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face',
@@ -60,7 +58,7 @@ const demoReviews = [
     location: 'charlotte',
   },
   {
-    id: 'google-demo-4',
+    id: 'google-demo-6',
     author: 'Michael Davis',
     authorImage:
       'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face',
@@ -76,8 +74,7 @@ const demoSummary = {
   totalReviews: demoReviews.length,
   averageRating: 4.8,
   sourceBreakdown: {
-    google: 4,
-    yelp: 2,
+    google: 6,
   },
   ratingDistribution: {
     1: 0,
@@ -101,13 +98,12 @@ export async function GET() {
       },
       serviceStatus: {
         google: false,
-        yelp: false,
         anyAvailable: false,
       },
       requestedAt: new Date().toISOString(),
       demo: true,
       message:
-        'This is demo data. Configure GOOGLE_PLACES_API_KEY and YELP_API_KEY environment variables to fetch real reviews.',
+        'This is demo data. Configure GOOGLE_PLACES_API_KEY environment variable to fetch real reviews.',
     });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to generate demo data' }, { status: 500 });

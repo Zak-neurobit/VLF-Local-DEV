@@ -1,7 +1,6 @@
 import { logger } from '@/lib/logger';
 import { cache } from '@/lib/cache';
 import { googlePlacesService, GoogleReview } from './google-places-service';
-import { yelpService, YelpReview } from './yelp-service';
 
 export interface ExternalReview {
   id: string;
@@ -11,7 +10,7 @@ export interface ExternalReview {
   rating: number;
   text: string;
   date: string;
-  source: 'google' | 'yelp';
+  source: 'google';
   sourceUrl?: string;
   location?: string;
 }
@@ -21,7 +20,6 @@ export interface ReviewSummary {
   averageRating: number;
   sourceBreakdown: {
     google: number;
-    yelp: number;
   };
   ratingDistribution: {
     1: number;
@@ -59,23 +57,6 @@ export class ReviewAggregatorService {
     };
   }
 
-  /**
-   * Transform Yelp review to standardized format
-   */
-  private transformYelpReview(review: YelpReview, location?: string): ExternalReview {
-    return {
-      id: `yelp-${review.id}`,
-      author: review.user.name,
-      authorImage: review.user.image_url,
-      authorUrl: review.user.profile_url,
-      rating: review.rating,
-      text: review.text,
-      date: review.time_created,
-      source: 'yelp',
-      sourceUrl: review.url,
-      location,
-    };
-  }
 
   /**
    * Calculate review summary statistics
@@ -90,7 +71,7 @@ export class ReviewAggregatorService {
         acc[review.source]++;
         return acc;
       },
-      { google: 0, yelp: 0 }
+      { google: 0 }
     );
 
     const ratingDistribution = reviews.reduce(
@@ -151,25 +132,6 @@ export class ReviewAggregatorService {
       logger.warn('Google Places API not available');
     }
 
-    // Fetch Yelp reviews if available
-    if (yelpService.isAvailable()) {
-      try {
-        const yelpReviews = await yelpService.getVasquezLawFirmReviews();
-
-        // Transform and add Yelp reviews
-        Object.entries(yelpReviews).forEach(([location, reviews]) => {
-          reviews.forEach(review => {
-            allReviews.push(this.transformYelpReview(review, location));
-          });
-        });
-
-        logger.info(`Total reviews after adding Yelp: ${allReviews.length}`);
-      } catch (error) {
-        logger.error('Failed to fetch Yelp reviews', { error });
-      }
-    } else {
-      logger.warn('Yelp API not available');
-    }
 
     // Sort reviews by date (newest first)
     allReviews.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -200,7 +162,7 @@ export class ReviewAggregatorService {
   async getReviews(
     page: number = 1,
     limit: number = 10,
-    source?: 'google' | 'yelp'
+    source?: 'google'
   ): Promise<{
     reviews: ExternalReview[];
     pagination: {
@@ -269,16 +231,13 @@ export class ReviewAggregatorService {
    */
   getServiceStatus(): {
     google: boolean;
-    yelp: boolean;
     anyAvailable: boolean;
   } {
     const google = googlePlacesService.isAvailable();
-    const yelp = yelpService.isAvailable();
 
     return {
       google,
-      yelp,
-      anyAvailable: google || yelp,
+      anyAvailable: google,
     };
   }
 }

@@ -210,7 +210,7 @@ class DashboardSocketManager {
       ],
       review: [
         'Responding to 5-star Google review',
-        'Addressing client feedback on Yelp',
+        'Addressing client feedback on Google',
         'Monitoring review platforms for new reviews',
         'Sending review request to satisfied client',
         'Analyzing review sentiment trends'

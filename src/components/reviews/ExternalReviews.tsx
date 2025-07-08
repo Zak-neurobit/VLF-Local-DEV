@@ -13,7 +13,7 @@ export interface ExternalReview {
   rating: number;
   text: string;
   date: string;
-  source: 'google' | 'yelp';
+  source: 'google';
   sourceUrl?: string;
   location?: string;
 }
@@ -23,7 +23,6 @@ export interface ReviewSummary {
   averageRating: number;
   sourceBreakdown: {
     google: number;
-    yelp: number;
   };
   ratingDistribution: {
     1: number;
@@ -55,17 +54,12 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-function SourceBadge({ source }: { source: 'google' | 'yelp' }) {
+function SourceBadge({ source }: { source: 'google' }) {
   const config = {
     google: {
       name: 'Google',
       className: 'bg-blue-100 text-blue-800',
       icon: '🔍',
-    },
-    yelp: {
-      name: 'Yelp',
-      className: 'bg-red-100 text-red-800',
-      icon: '🔥',
     },
   };
 

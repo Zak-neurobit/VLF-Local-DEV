@@ -466,7 +466,7 @@ export class AutonomousCrewSystem {
           title: 'Review Management',
           description: 'Monitor and respond to new reviews',
           context: {
-            platforms: ['google', 'yelp', 'avvo'],
+            platforms: ['google', 'avvo'],
             responseType: 'professional',
             checkPeriod: '4_hours'
           }

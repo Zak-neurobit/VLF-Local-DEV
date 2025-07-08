@@ -253,11 +253,6 @@ export class ContentSyndicator {
         submit: async () => this.submitToAppleMaps(content),
       },
       {
-        name: 'Yelp',
-        type: 'review',
-        submit: async () => this.updateYelpProfile(content),
-      },
-      {
         name: 'Better Business Bureau',
         type: 'trust',
         submit: async () => this.updateBBBProfile(content),
@@ -533,10 +528,6 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     return { status: 'updated', placeId: 'apple-vlf' };
   }
 
-  private async updateYelpProfile(content: any) {
-    // Add update to Yelp business page
-    return { status: 'updated', businessId: 'yelp-vlf' };
-  }
 
   private async updateBBBProfile(content: any) {
     // Update BBB business profile

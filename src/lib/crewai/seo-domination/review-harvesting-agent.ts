@@ -20,7 +20,7 @@ interface ReviewRequest {
 }
 
 interface ReviewPlatform {
-  name: 'google' | 'facebook' | 'avvo' | 'yelp' | 'trustpilot' | 'bbb';
+  name: 'google' | 'facebook' | 'avvo' | 'trustpilot' | 'bbb';
   url: string;
   priority: number;
   minimumRating: number;
@@ -73,12 +73,6 @@ export class ReviewHarvestingAgent {
       name: 'avvo',
       url: 'https://www.avvo.com/attorneys/vasquez-law-firm/reviews',
       priority: 3,
-      minimumRating: 4
-    },
-    {
-      name: 'yelp',
-      url: 'https://www.yelp.com/biz/vasquez-law-firm',
-      priority: 4,
       minimumRating: 4
     },
     {

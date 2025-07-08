@@ -15,7 +15,6 @@ interface ReviewSummary {
   averageRating: number;
   sourceBreakdown: {
     google: number;
-    yelp: number;
   };
 }
 
