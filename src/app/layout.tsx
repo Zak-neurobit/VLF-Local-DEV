@@ -11,6 +11,9 @@ import SessionProvider from '@/components/providers/SessionProvider';
 import dynamic from 'next/dynamic';
 import { Toaster } from 'react-hot-toast';
 import { DynamicHreflang } from '@/components/SEO/DynamicHreflang';
+import { GlobalReviewSchema } from '@/components/SEO/GlobalReviewSchema';
+import { DynamicBreadcrumbSchema } from '@/components/SEO/DynamicBreadcrumbSchema';
+import { SpeedOptimizer } from '@/components/SpeedOptimizer';
 // Removed SiteLayout import - will handle navigation directly
 
 // Dynamically import Chat Widget to avoid SSR issues
@@ -145,7 +148,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen bg-white">
+        <SpeedOptimizer />
         <StructuredData data={generateEnhancedOrganizationSchema()} />
+        <GlobalReviewSchema />
+        <DynamicBreadcrumbSchema />
         <SessionProvider>
           <ErrorBoundary>
             <Toaster

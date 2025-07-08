@@ -6,6 +6,8 @@ import { Button } from '@/design-system/components/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, MessageCircle, ChevronRight, Shield, Award, Clock, Users } from 'lucide-react';
 import Link from 'next/link';
+import { FAQSchema } from '@/components/SEO/FAQSchema';
+import { PracticeAreaSchema } from '@/components/SEO/PracticeAreaSchema';
 import { COLORS } from '@/design-system/constants';
 
 interface ModernPracticeAreaTemplateProps {
@@ -368,6 +370,14 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
           <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
           <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
         </div>
+
+        {/* Comprehensive Practice Area Schema for SEO */}
+        <PracticeAreaSchema 
+          title={title}
+          description={description}
+          services={services}
+          faqs={faqs}
+        />
       </div>
     </MasterLayout>
   );

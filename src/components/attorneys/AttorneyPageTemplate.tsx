@@ -7,6 +7,7 @@ import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { motion } from 'framer-motion';
 import { TRADEMARK } from '@/lib/constants/trademark';
 import { Attorney } from '@/data/attorneys';
+import { AttorneySchema } from '@/components/SEO/AttorneySchema';
 
 interface AttorneyPageTemplateProps {
   attorney: Attorney;
@@ -338,52 +339,8 @@ export function AttorneyPageTemplate({ attorney, language = 'en' }: AttorneyPage
           </div>
         </section>
 
-        {/* Structured Data for SEO */}
-        <Script
-          id={`${attorney.slug}-structured-data`}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: attorney.name,
-              honorificPrefix: "Attorney",
-              jobTitle: attorney.title,
-              description: attorney.bio,
-              url: `https://www.vasquezlawfirm.com/attorneys/${attorney.slug}`,
-              image: `https://www.vasquezlawfirm.com${attorney.image}`,
-              telephone: "+1-844-967-3536",
-              email: attorney.email || "leads@vasquezlawfirm.com",
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: attorney.offices?.[0] || "Charlotte",
-                addressRegion: "NC",
-                addressCountry: "US"
-              },
-              alumniOf: attorney.education.map(edu => ({
-                "@type": "EducationalOrganization",
-                name: edu.institution
-              })),
-              memberOf: attorney.associations.map(assoc => ({
-                "@type": "Organization",
-                name: assoc.name
-              })),
-              worksFor: {
-                "@type": "LegalService",
-                name: "Vasquez Law Firm, PLLC",
-                url: "https://www.vasquezlawfirm.com"
-              },
-              knowsLanguage: attorney.languages.map(lang => lang === 'English' ? 'en' : lang === 'Spanish' ? 'es' : lang),
-              award: attorney.militaryService?.awards || [],
-              hasOccupation: {
-                "@type": "Occupation",
-                name: attorney.title,
-                educationRequirements: "Juris Doctor",
-                occupationalCategory: "23-1011.00"
-              }
-            })
-          }}
-        />
+        {/* Enhanced Structured Data for SEO */}
+        <AttorneySchema attorney={attorney} language={language} />
       </div>
     </MasterLayout>
   );
