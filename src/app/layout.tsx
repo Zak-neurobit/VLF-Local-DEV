@@ -10,6 +10,7 @@ import { organizationSchema } from '@/lib/schema';
 import SessionProvider from '@/components/providers/SessionProvider';
 import dynamic from 'next/dynamic';
 import { Toaster } from 'react-hot-toast';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DynamicHreflang } from '@/components/SEO/DynamicHreflang';
 import { GlobalReviewSchema } from '@/components/SEO/GlobalReviewSchema';
 import { DynamicBreadcrumbSchema } from '@/components/SEO/DynamicBreadcrumbSchema';
@@ -165,6 +166,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </ErrorBoundary>
         </SessionProvider>
         <GoogleAnalytics />
+        <SpeedInsights />
       </body>
     </html>
   );
