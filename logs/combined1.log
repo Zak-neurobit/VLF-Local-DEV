@@ -1056,3 +1056,6 @@
 {"level":"info","message":"Skipping Retell agent initialization during build","service":"vasquez-law-website","timestamp":"2025-07-08 19:48:37"}
 {"level":"info","message":"SEOOptimizationService.generateSitemap","service":"vasquez-law-website","timestamp":"2025-07-08 19:48:40"}
 {"level":"info","message":"Skipping Retell agent initialization during build","service":"vasquez-law-website","timestamp":"2025-07-08 19:48:40"}
+{"level":"info","message":"Skipping Retell agent initialization during build","service":"vasquez-law-website","timestamp":"2025-07-08 19:50:17"}
+{"level":"info","message":"Skipping Retell agent initialization during build","service":"vasquez-law-website","timestamp":"2025-07-08 19:50:19"}
+{"level":"info","message":"SEOOptimizationService.generateSitemap","service":"vasquez-law-website","timestamp":"2025-07-08 19:50:20"}
