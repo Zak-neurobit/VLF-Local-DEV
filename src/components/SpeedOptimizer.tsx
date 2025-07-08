@@ -116,12 +116,7 @@ export function SpeedOptimizer() {
 
   return (
     <>
-      {/* Preload critical CSS */}
-      <link
-        rel="preload"
-        href="/_next/static/css/app.css"
-        as="style"
-      />
+      {/* CSS is handled by Next.js build process */}
       
       {/* DNS prefetch for external resources */}
       <link rel="dns-prefetch" href="https://www.google-analytics.com" />
