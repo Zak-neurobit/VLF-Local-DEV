@@ -48,8 +48,8 @@ export async function POST(_request: NextRequest) {
     body = await _request.json();
     
     logger.info('GHL trigger call webhook received', {
-      contactId: body.contactId,
-      campaignId: body.campaignId,
+      contactId: body?.contactId,
+      campaignId: body?.campaignId,
     });
 
     // Validate payload

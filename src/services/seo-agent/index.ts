@@ -6,7 +6,7 @@ import * as cheerio from 'cheerio';
 import { CronJob } from 'cron';
 import axios from 'axios';
 import { URL } from 'url';
-import type { SchemaOrgData } from '@/types/services';
+import type { SchemaOrgOrganization, SchemaOrgPerson, SchemaOrgFAQ } from '@/types/services';
 
 export interface SEOAgentConfig {
   openAIKey: string;
@@ -290,7 +290,7 @@ export class SEOAgent {
         title: original.title,
         content: original.content,
         metaDescription: original.metaDescription,
-        faqSection: original.faqSection,
+        faqSection: (original as any).faqSection,
       })}
       
       Return JSON with translated: title, content, metaDescription, faqSection, keywords`;
@@ -312,8 +312,8 @@ export class SEOAgent {
         language: targetLanguage,
         status: 'draft',
         seoScore: await this.calculateSEOScore(translatedData),
-        readTime: original.readTime,
-        originalId: original.id,
+        readTime: (original as any).readTime,
+        originalId: (original as any).id,
       },
     });
   }
@@ -580,10 +580,10 @@ export class SEOAgent {
       address: [
         {
           '@type': 'PostalAddress',
-          streetAddress: data.addresses?.[0]?.street || '123 Main St, Suite 100',
-          addressLocality: data.addresses?.[0]?.city || 'Raleigh',
-          addressRegion: data.addresses?.[0]?.state || 'NC',
-          postalCode: data.addresses?.[0]?.zip || '27601',
+          streetAddress: (data.addresses as any)?.[0]?.street || '123 Main St, Suite 100',
+          addressLocality: (data.addresses as any)?.[0]?.city || 'Raleigh',
+          addressRegion: (data.addresses as any)?.[0]?.state || 'NC',
+          postalCode: (data.addresses as any)?.[0]?.zip || '27601',
           addressCountry: 'US',
         },
       ],
@@ -650,7 +650,7 @@ export class SEOAgent {
       description: data.bio,
       alumniOf: (data.education as Array<{ name: string }>)?.map((edu) => ({
         '@type': 'EducationalOrganization',
-        name: edu.school,
+        name: edu.name,
       })),
       knowsLanguage: data.languages || ['English', 'Spanish'],
       hasOccupation: {
@@ -685,14 +685,14 @@ export class SEOAgent {
       dateModified: data.updatedAt || new Date().toISOString(),
       description: data.excerpt || data.metaDescription,
       articleBody: data.content,
-      keywords: data.keywords?.join(', '),
-      wordCount: data.content?.split(' ').length || 0,
+      keywords: (data.keywords as string[])?.join(', '),
+      wordCount: (data.content as string)?.split(' ').length || 0,
       inLanguage: data.language === 'es' ? 'es-US' : 'en-US',
       mainEntityOfPage: {
         '@type': 'WebPage',
         '@id': `${this.baseUrl}/blog/${data.slug}`,
       },
-      articleSection: this.formatPracticeAreaName(data.practiceArea),
+      articleSection: this.formatPracticeAreaName(data.practiceArea as string),
       ...(data.faqSection && {
         hasPart: {
           '@type': 'FAQPage',
@@ -794,7 +794,7 @@ export class SEOAgent {
     return {
       '@context': 'https://schema.org',
       '@type': 'Service',
-      serviceType: data.name || this.formatPracticeAreaName(data.practiceArea),
+      serviceType: data.name || this.formatPracticeAreaName(data.practiceArea as string),
       provider: {
         '@id': `${this.baseUrl}/#organization`,
       },
@@ -802,7 +802,7 @@ export class SEOAgent {
         { '@type': 'State', name: 'North Carolina' },
         { '@type': 'State', name: 'Florida' },
       ],
-      description: data.description || this.getPracticeAreaDescription(data.practiceArea),
+      description: data.description || this.getPracticeAreaDescription(data.practiceArea as string),
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: `${data.name} Services`,
@@ -1102,10 +1102,9 @@ export class SEOAgent {
 
       // Content gap analysis
       const contentGaps = await this.findContentGaps({
-        topPages,
-        contentStrategy,
-        backlinks,
-        technicalSEO,
+        competitors: topPages.map(page => ({ url: page.url, keywords: page.keywords || [] })),
+        currentKeywords: contentStrategy.keywords || [],
+        practiceAreas: contentStrategy.practiceAreas || [],
       });
 
       return {
@@ -1305,7 +1304,7 @@ export class SEOAgent {
 
     // Analyze missing topics
     const ourPracticeAreas = this.config.practiceAreas;
-    const theirTopics = analysis.contentStrategy?.topics || [];
+    const theirTopics = (analysis as any).contentStrategy?.topics || [];
 
     for (const area of ourPracticeAreas) {
       const relatedTopics = await this.suggestTopics(area, theirTopics);
@@ -1316,9 +1315,8 @@ export class SEOAgent {
           practiceArea: area,
           keywords: await this.suggestKeywords(topic, area),
           insights: {
-            competitorCoverage: false,
-            searchVolume: 'medium',
-            difficulty: 'low',
+            competitionLevel: 'low',
+            searchVolume: 5000,
           },
         });
       }
@@ -1430,7 +1428,7 @@ export class SEOAgent {
   ): Promise<boolean> {
     const prompt = `Analyze if this news article is relevant for a law firm's ${practiceArea} practice area blog:
       Title: ${article.title}
-      Summary: ${article.summary}
+      Summary: ${(article as any).summary || article.description || ''}
       
       Consider:
       1. Direct relevance to legal practice
@@ -1460,8 +1458,8 @@ export class SEOAgent {
     engagement?: { likes?: number; shares?: number; comments?: number };
     views?: number;
   }): boolean {
-    const engagementRate = (post.likes + post.comments + post.shares) / post.views;
-    return engagementRate > 0.05 || post.views > 10000;
+    const engagementRate = ((post.engagement?.likes || 0) + (post.engagement?.comments || 0) + (post.engagement?.shares || 0)) / (post.views || 1);
+    return engagementRate > 0.05 || (post.views || 0) > 10000;
   }
 
   private async generateSocialResponse(data: any): Promise<any> {
@@ -1498,8 +1496,8 @@ export class SEOAgent {
       language: 'en' as 'en' | 'es',
       keywords: await this.extractNewsKeywords(article),
       competitorInsights: {
-        newsJacking: true,
-        originalArticle: article,
+        topKeywords: await this.extractNewsKeywords(article),
+        contentStrategies: ['news-jacking', 'trending-topic'],
       },
     };
 

@@ -38,6 +38,15 @@ describe('ResourceLeadCaptureForm', () => {
     resourceType: 'download' as const,
   };
 
+  // Helper function to fill the form
+  const fillForm = async () => {
+    await userEvent.type(screen.getByLabelText(/full name/i), 'John Doe');
+    await userEvent.type(screen.getByLabelText(/email address/i), 'john@example.com');
+    await userEvent.type(screen.getByLabelText(/phone number/i), '919-555-0123');
+    await userEvent.type(screen.getByLabelText(/zip code/i), '27601');
+    await userEvent.click(screen.getByLabelText(/i agree to the privacy policy/i));
+  };
+
   describe('Rendering', () => {
     it('renders all required form fields', () => {
       const { container } = render(<ResourceLeadCaptureForm {...defaultProps} />);
@@ -144,13 +153,6 @@ describe('ResourceLeadCaptureForm', () => {
       });
     });
 
-    const fillForm = async () => {
-      await userEvent.type(screen.getByLabelText(/full name/i), 'John Doe');
-      await userEvent.type(screen.getByLabelText(/email address/i), 'john@example.com');
-      await userEvent.type(screen.getByLabelText(/phone number/i), '919-555-0123');
-      await userEvent.type(screen.getByLabelText(/zip code/i), '27601');
-      await userEvent.click(screen.getByLabelText(/i agree to the privacy policy/i));
-    };
 
     it('submits form with correct data', async () => {
       render(<ResourceLeadCaptureForm {...defaultProps} />);

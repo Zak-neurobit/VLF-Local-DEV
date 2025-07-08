@@ -61,12 +61,16 @@ export async function POST(request: NextRequest) {
     event = JSON.parse(rawBody);
 
     logger.info('Retell webhook received', {
-      event: event.event,
-      callId: event.call?.call_id,
+      event: event?.event,
+      callId: event?.call?.call_id,
     });
 
     // Handle the event with enhanced error handling
-    await handleRetellEvent(event);
+    if (event) {
+      await handleRetellEvent(event);
+    } else {
+      throw new Error('No event data received');
+    }
 
     // Respond quickly to acknowledge receipt
     return NextResponse.json({ received: true });
@@ -87,80 +91,98 @@ async function handleRetellEvent(event: RetellWebhookEvent) {
 
   switch (eventType) {
     case 'call_started':
-      await handleCallStarted(call);
-      await statusManager.updateCallStatus(call.call_id as string, 'connected', {
-        timestamp: new Date(),
-        agent_id: call.agent_id,
-      });
+      if (call) {
+        await handleCallStarted(call);
+        await statusManager.updateCallStatus(call.call_id as string, 'connected', {
+          timestamp: new Date(),
+          agent_id: call.agent_id,
+        });
+      }
       break;
 
     case 'call_ended':
-      await handleCallEnded(call);
-      await statusManager.updateCallStatus(call.call_id as string, 'ended', {
-        timestamp: new Date(),
-        duration: call.duration_ms,
-        reason: call.disconnection_reason,
-      });
+      if (call) {
+        await handleCallEnded(call);
+        await statusManager.updateCallStatus(call.call_id as string, 'ended', {
+          timestamp: new Date(),
+          duration: call.duration_ms,
+          reason: call.disconnection_reason,
+        });
+      }
       break;
 
     case 'call_analyzed':
-      await handleCallAnalyzed(event);
+      await handleCallAnalyzed(event as unknown as Record<string, unknown>);
       break;
 
     case 'transcript_ready':
-      await handleTranscriptReady(event);
+      await handleTranscriptReady(event as unknown as Record<string, unknown>);
       break;
 
     case 'recording_ready':
-      await handleRecordingReady(event);
+      await handleRecordingReady(event as unknown as Record<string, unknown>);
       // Process recording with new manager
-      setTimeout(async () => {
-        try {
-          await recordingManager.processRecording(call.call_id as string);
-        } catch (error) {
-          logger.error('Failed to process recording:', error);
-        }
-      }, 1000); // 1 second delay
+      if (call?.call_id) {
+        setTimeout(async () => {
+          try {
+            await recordingManager.processRecording(call.call_id as string);
+          } catch (error) {
+            logger.error('Failed to process recording:', error);
+          }
+        }, 1000); // 1 second delay
+      }
       break;
 
     // Additional Retell webhook events
     case 'call_queued':
-      await statusManager.updateCallStatus(call.call_id as string, 'queued', {
-        timestamp: new Date(),
-        agent_id: call.agent_id,
-      });
+      if (call) {
+        await statusManager.updateCallStatus(call.call_id as string, 'queued', {
+          timestamp: new Date(),
+          agent_id: call.agent_id,
+        });
+      }
       break;
 
     case 'call_ringing':
-      await statusManager.updateCallStatus(call.call_id as string, 'ringing', {
-        timestamp: new Date(),
-        to_number: call.to_number,
-      });
+      if (call) {
+        await statusManager.updateCallStatus(call.call_id as string, 'ringing', {
+          timestamp: new Date(),
+          to_number: call.to_number,
+        });
+      }
       break;
 
     case 'call_failed':
-      await statusManager.updateCallStatus(call.call_id as string, 'failed', {
-        timestamp: new Date(),
-        reason: call.disconnection_reason || 'Unknown error',
-      });
+      if (call) {
+        await statusManager.updateCallStatus(call.call_id as string, 'failed', {
+          timestamp: new Date(),
+          reason: call.disconnection_reason || 'Unknown error',
+        });
+      }
       break;
 
     case 'call_no_answer':
-      await statusManager.updateCallStatus(call.call_id as string, 'no_answer', {
-        timestamp: new Date(),
-      });
+      if (call) {
+        await statusManager.updateCallStatus(call.call_id as string, 'no_answer', {
+          timestamp: new Date(),
+        });
+      }
       break;
 
     case 'call_busy':
-      await statusManager.updateCallStatus(call.call_id as string, 'busy', {
-        timestamp: new Date(),
-      });
+      if (call) {
+        await statusManager.updateCallStatus(call.call_id as string, 'busy', {
+          timestamp: new Date(),
+        });
+      }
       break;
 
     case 'voicemail_detected':
-      await statusManager.updateCallStatus(call.call_id as string, 'voicemail', {
-        timestamp: new Date(),
-      });
+      if (call) {
+        await statusManager.updateCallStatus(call.call_id as string, 'voicemail', {
+          timestamp: new Date(),
+        });
+      }
       break;
 
     default:

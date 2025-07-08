@@ -42,8 +42,19 @@ const nextConfig = {
       '@radix-ui/react-select',
       '@radix-ui/react-tabs',
       '@radix-ui/react-toast',
+      'date-fns',
+      'react-hook-form',
+      '@langchain/core',
+      '@langchain/openai',
+      'three',
+      '@react-three/fiber',
+      '@react-three/drei',
+      'gsap',
+      'lottie-react',
+      '@react-pdf/renderer',
+      'pdf-lib',
     ],
-    serverComponentsExternalPackages: ['puppeteer', 'pdf-parse', 'canvas'],
+    serverComponentsExternalPackages: ['puppeteer', 'pdf-parse', 'canvas', 'sharp', 'bcryptjs'],
     optimizeCss: true,
   },
   // Webpack optimizations
@@ -70,32 +81,92 @@ const nextConfig = {
       usedExports: true,
       sideEffects: false,
       splitChunks: {
-        ...config.optimization.splitChunks,
         chunks: 'all',
+        maxAsyncRequests: 30,
+        maxInitialRequests: 30,
         cacheGroups: {
-          ...config.optimization.splitChunks.cacheGroups,
+          // Split Three.js and 3D libraries
+          three: {
+            test: /[\\/]node_modules[\\/](three|@react-three)[\\/]/,
+            name: 'three',
+            priority: 30,
+            reuseExistingChunk: true,
+          },
+          // Split PDF libraries
+          pdf: {
+            test: /[\\/]node_modules[\\/](pdf-lib|@react-pdf|pdf-parse)[\\/]/,
+            name: 'pdf',
+            priority: 25,
+            reuseExistingChunk: true,
+          },
+          // Split AI/LangChain libraries
+          ai: {
+            test: /[\\/]node_modules[\\/](@langchain|openai|ai)[\\/]/,
+            name: 'ai',
+            priority: 25,
+            reuseExistingChunk: true,
+          },
+          // Split animation libraries
+          animations: {
+            test: /[\\/]node_modules[\\/](framer-motion|gsap|lottie-react|@react-spring)[\\/]/,
+            name: 'animations',
+            priority: 20,
+            reuseExistingChunk: true,
+          },
+          // Split UI component libraries
+          ui: {
+            test: /[\\/]node_modules[\\/](@radix-ui|@heroicons|lucide-react)[\\/]/,
+            name: 'ui',
+            priority: 20,
+            reuseExistingChunk: true,
+          },
+          // Split utility libraries
+          utils: {
+            test: /[\\/]node_modules[\\/](date-fns|zod|axios|lodash)[\\/]/,
+            name: 'utils',
+            priority: 15,
+            reuseExistingChunk: true,
+          },
+          // React core
+          react: {
+            test: /[\\/]node_modules[\\/](react|react-dom|next)[\\/]/,
+            name: 'react',
+            priority: 40,
+            reuseExistingChunk: true,
+          },
+          // Default vendors
           vendor: {
             test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
+            name(module) {
+              const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+              return `vendor-${packageName.replace('@', '')}`;
+            },
             priority: 10,
+            reuseExistingChunk: true,
+            minSize: 30000, // Only create vendor chunks for packages > 30KB
           },
+          // Common chunks
           common: {
             name: 'common',
             minChunks: 2,
-            chunks: 'all',
-            enforce: true,
             priority: 5,
+            reuseExistingChunk: true,
+            enforce: true,
           },
+          // Styles
           styles: {
             name: 'styles',
-            test: /\.css$/,
+            test: /\.(css|scss)$/,
             chunks: 'all',
             enforce: true,
-            priority: 20,
+            priority: 50,
           },
         },
       },
+      runtimeChunk: {
+        name: 'runtime',
+      },
+      moduleIds: 'deterministic',
     };
 
     // Minimize JavaScript and CSS
