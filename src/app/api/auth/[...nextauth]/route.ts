@@ -3,7 +3,6 @@ import { authOptions } from '@/lib/auth';
 
 // Force Node.js runtime for this route as NextAuth requires it
 export const runtime = 'nodejs';
-
 // Mark this route as dynamic to prevent static generation
 export const dynamic = 'force-dynamic';
 
