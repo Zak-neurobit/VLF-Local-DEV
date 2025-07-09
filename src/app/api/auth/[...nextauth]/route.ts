@@ -1,6 +1,9 @@
 import NextAuth from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
+// Force Node.js runtime for this route as NextAuth requires it
+export const runtime = 'nodejs';
+
 // Create the NextAuth handler
 const handler = NextAuth(authOptions);
 

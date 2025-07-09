@@ -3,6 +3,9 @@ import { authOptions } from '@/lib/auth';
 import { NextResponse } from 'next/server';
 import { isDatabaseConnected } from '@/lib/prisma';
 
+// Force Node.js runtime for this route as NextAuth requires it
+export const runtime = 'nodejs';
+
 export async function GET() {
   try {
     // Check database connection status
