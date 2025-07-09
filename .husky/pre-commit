@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Run lint-staged for incremental checks on staged files
+npx lint-staged
+
+# Run type checking on the entire project
+npm run type-check
