@@ -1,4 +1,5 @@
 import '@/lib/stream-polyfill';
+import '@/lib/error-handler'; // Initialize global error handler
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { generateEnhancedOrganizationSchema } from '@/components/SEO/enhanced-schemas';
 import type { Metadata } from 'next';

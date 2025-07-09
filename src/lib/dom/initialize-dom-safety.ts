@@ -111,7 +111,7 @@ export function initializeDOMSafety(): (() => void) | undefined {
       original: Node.prototype.removeChild,
       patch: function(this: Node, child: Node) {
         if (!child || !child.parentNode || child.parentNode !== this) {
-          console.warn('Unsafe removeChild prevented:', { parent: this, child });
+          console.warn('Prevented unsafe DOM operation: attempted to remove orphaned node');
           return child;
         }
         return safetyPatches.removeChild.original.call(this, child);
@@ -151,12 +151,12 @@ export function initializeDOMSafety(): (() => void) | undefined {
       original: Element.prototype.remove,
       patch: function(this: Element) {
         if (!this.parentNode) {
-          console.warn('Unsafe remove prevented on orphaned element:', this);
+          console.warn('Prevented unsafe DOM operation: attempted to remove orphaned node');
           return;
         }
         // Check if element was already marked as removed
         if (this.hasAttribute('data-dom-removed')) {
-          console.warn('Attempted to remove already removed element:', this);
+          console.warn('Prevented unsafe DOM operation: attempted to remove orphaned node');
           return;
         }
         return safetyPatches.remove.original.call(this);
