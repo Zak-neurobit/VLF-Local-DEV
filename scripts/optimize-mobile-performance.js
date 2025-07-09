@@ -272,7 +272,6 @@ const CACHE_NAME = 'vasquez-law-v1';
 const urlsToCache = [
   '/',
   '/styles/critical.min.css',
-  '/fonts/inter-var.woff2',
   '/images/logo.svg',
   '/manifest.json'
 ];
@@ -348,24 +347,19 @@ self.addEventListener('activate', (event) => {
     console.log('\n🔤 Optimizing fonts...');
 
     const fontCSS = `
-/* Optimized Font Loading */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('/fonts/inter-var.woff2') format('woff2-variations');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+/* Font loading is handled by Next.js font optimization */
+/* Using next/font/google for Inter font */
 
 /* Fallback font stack */
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* Preload critical fonts */
-link[rel="preload"][as="font"] {
-  crossorigin: anonymous;
+/* Font optimization hints */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 `;
 

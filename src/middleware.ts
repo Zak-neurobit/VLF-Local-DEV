@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { getToken } from 'next-auth/jwt';
 
 // List of supported locales
 const locales = ['en', 'es'];
@@ -39,7 +40,7 @@ function getLocale(request: NextRequest): string {
   return defaultLocale;
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Skip middleware for API routes, static files, etc.
@@ -53,7 +54,40 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Check if the pathname already includes a locale
+  // Handle authentication for protected routes
+  const protectedPaths = ['/dashboard', '/admin', '/cases'];
+  const isProtectedPath = protectedPaths.some(path => 
+    pathname.startsWith(path) || 
+    pathname.startsWith(`/es${path}`) ||
+    pathname.startsWith(`/en${path}`)
+  );
+
+  if (isProtectedPath) {
+    try {
+      const token = await getToken({ 
+        req: request, 
+        secret: process.env.NEXTAUTH_SECRET 
+      });
+
+      if (!token) {
+        // Redirect to sign in page with callback
+        const signInUrl = new URL('/auth/signin', request.url);
+        signInUrl.searchParams.set('callbackUrl', pathname);
+        return NextResponse.redirect(signInUrl);
+      }
+
+      // Check admin access
+      if ((pathname.includes('/admin')) && token.role !== 'ADMIN') {
+        return NextResponse.redirect(new URL('/dashboard', request.url));
+      }
+    } catch (error) {
+      // Log error but don't block access if auth check fails
+      console.error('[Middleware] Auth check error:', error);
+      // Continue to allow the app to work even if auth is broken
+    }
+  }
+
+  // Handle locale routing
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );

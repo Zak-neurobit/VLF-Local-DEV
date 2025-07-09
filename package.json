@@ -32,6 +32,8 @@
     "setup:db": "prisma db push && prisma generate",
     "db:push": "prisma db push",
     "db:seed": "prisma db seed",
+    "db:test": "ts-node scripts/test-db-connection.ts",
+    "db:health": "curl -s http://localhost:3000/api/health/db | jq",
     "seo:agent": "ts-node scripts/start-seo-agent.ts",
     "import:content": "ts-node scripts/import-content.ts",
     "import:vasquez": "ts-node scripts/import-vasquez-site.ts",

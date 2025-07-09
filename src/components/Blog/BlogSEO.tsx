@@ -202,7 +202,9 @@ export function BlogSEO({ post, isListingPage = false }: BlogSEOProps) {
     return () => {
       document.querySelectorAll('script[type="application/ld+json"]').forEach(script => {
         if ((script as HTMLScriptElement).text.includes(post.title)) {
-          script.remove();
+          if (script.parentNode) {
+            script.parentNode.removeChild(script);
+          }
         }
       });
     };

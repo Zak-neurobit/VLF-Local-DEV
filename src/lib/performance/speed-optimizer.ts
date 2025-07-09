@@ -1,5 +1,6 @@
 // Comprehensive speed optimization utilities
 import { useEffect, useState } from 'react';
+import { safeAppendChild, safeCreateElement, safeQuerySelectorAll, safeReplaceChild } from '@/lib/dom/safe-dom';
 
 // Network status detection for adaptive loading
 export type ConnectionType = '4g' | '3g' | '2g' | 'slow-2g' | 'offline';
@@ -58,39 +59,47 @@ export class ResourceHints {
   static addPreconnect(origin: string) {
     if (this.hints.has(origin)) return;
     
-    const link = document.createElement('link');
-    link.rel = 'preconnect';
-    link.href = origin;
-    link.crossOrigin = '';
-    document.head.appendChild(link);
-    this.hints.add(origin);
+    const link = safeCreateElement('link');
+    if (link) {
+      link.rel = 'preconnect';
+      link.href = origin;
+      link.crossOrigin = '';
+      safeAppendChild(document.head, link);
+      this.hints.add(origin);
+    }
   }
   
   static addDnsPrefetch(origin: string) {
     if (this.hints.has(origin)) return;
     
-    const link = document.createElement('link');
-    link.rel = 'dns-prefetch';
-    link.href = origin;
-    document.head.appendChild(link);
-    this.hints.add(origin);
+    const link = safeCreateElement('link');
+    if (link) {
+      link.rel = 'dns-prefetch';
+      link.href = origin;
+      safeAppendChild(document.head, link);
+      this.hints.add(origin);
+    }
   }
   
   static preloadResource(href: string, as: string, type?: string) {
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.href = href;
-    link.as = as;
-    if (type) link.type = type;
-    if (as === 'font') link.crossOrigin = '';
-    document.head.appendChild(link);
+    const link = safeCreateElement('link');
+    if (link) {
+      link.rel = 'preload';
+      link.href = href;
+      link.as = as;
+      if (type) link.type = type;
+      if (as === 'font') link.crossOrigin = '';
+      safeAppendChild(document.head, link);
+    }
   }
   
   static prefetchRoute(href: string) {
-    const link = document.createElement('link');
-    link.rel = 'prefetch';
-    link.href = href;
-    document.head.appendChild(link);
+    const link = safeCreateElement('link');
+    if (link) {
+      link.rel = 'prefetch';
+      link.href = href;
+      safeAppendChild(document.head, link);
+    }
   }
 }
 
@@ -103,7 +112,12 @@ export function lazyLoadScript(src: string, attributes?: Record<string, string>)
       return;
     }
     
-    const script = document.createElement('script');
+    const script = safeCreateElement('script');
+    if (!script) {
+      reject(new Error(`Failed to create script element for: ${src}`));
+      return;
+    }
+    
     script.src = src;
     script.async = true;
     
@@ -117,7 +131,7 @@ export function lazyLoadScript(src: string, attributes?: Record<string, string>)
     script.onload = () => resolve();
     script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
     
-    document.body.appendChild(script);
+    safeAppendChild(document.body, script);
   });
 }
 
@@ -193,12 +207,16 @@ export async function registerServiceWorker() {
 // Defer non-critical JavaScript
 export function deferNonCriticalJS() {
   // Move non-critical inline scripts to defer
-  const scripts = document.querySelectorAll('script:not([src]):not([type="application/ld+json"])');
+  const scripts = safeQuerySelectorAll<HTMLScriptElement>('script:not([src]):not([type="application/ld+json"])');
   scripts.forEach(script => {
-    const newScript = document.createElement('script');
-    newScript.textContent = script.textContent;
-    newScript.defer = true;
-    script.parentNode?.replaceChild(newScript, script);
+    const newScript = safeCreateElement('script');
+    if (newScript && script.textContent) {
+      newScript.textContent = script.textContent;
+      newScript.defer = true;
+      if (script.parentNode) {
+        safeReplaceChild(script.parentNode, newScript, script);
+      }
+    }
   });
 }
 
@@ -297,8 +315,8 @@ export function initializeSpeedOptimizations() {
   ResourceHints.addDnsPrefetch('https://www.google-analytics.com');
   ResourceHints.addDnsPrefetch('https://www.googletagmanager.com');
   
-  // Preload critical fonts
-  ResourceHints.preloadResource('/fonts/inter-var.woff2', 'font', 'font/woff2');
+  // Font preloading is handled by Next.js font optimization
+  // No need to manually preload fonts when using next/font/google
   
   // Register service worker
   if (process.env.NODE_ENV === 'production') {

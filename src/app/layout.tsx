@@ -18,6 +18,8 @@ import { GlobalReviewSchema } from '@/components/SEO/GlobalReviewSchema';
 import { DynamicBreadcrumbSchema } from '@/components/SEO/DynamicBreadcrumbSchema';
 import { SpeedOptimizer } from '@/components/SpeedOptimizer';
 import { DOMSafeWrapper } from '@/components/DOMSafeWrapper';
+import { DOMSafetyInitializer } from '@/components/DOMSafetyInitializer';
+
 // Removed SiteLayout import - will handle navigation directly
 
 // Dynamically import Chat Widget to avoid SSR issues
@@ -32,6 +34,7 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   preload: true,
+  variable: '--font-inter',
 });
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
@@ -114,7 +117,7 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.className} ${playfairDisplay.variable}`}>
+    <html lang="en" className={`${inter.className} ${inter.variable} ${playfairDisplay.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -146,6 +149,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen bg-white">
+        <DOMSafetyInitializer />
         <SpeedOptimizer />
         <StructuredData data={generateEnhancedOrganizationSchema()} />
         <GlobalReviewSchema />
@@ -153,6 +157,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SessionProvider>
           <ErrorBoundary>
             <DOMSafeWrapper>
+              <DOMSafetyInitializer />
               <Toaster
                 position="top-right"
                 toastOptions={{

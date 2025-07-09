@@ -2,6 +2,7 @@
 
 import Head from 'next/head';
 import { useEffect } from 'react';
+import { safeAppendChild, safeCreateElement } from '@/lib/dom/safe-dom';
 
 interface ResourceHintsProps {
   criticalImages?: string[];
@@ -45,10 +46,12 @@ export default function ResourceHints({
       // Add DNS prefetch for discovered domains
       imageDomains.forEach(domain => {
         if (!document.querySelector(`link[rel="dns-prefetch"][href="${domain}"]`)) {
-          const link = document.createElement('link');
-          link.rel = 'dns-prefetch';
-          link.href = domain;
-          document.head.appendChild(link);
+          const link = safeCreateElement('link');
+          if (link) {
+            link.rel = 'dns-prefetch';
+            link.href = domain;
+            safeAppendChild(document.head, link);
+          }
         }
       });
 
@@ -65,20 +68,22 @@ export default function ResourceHints({
             const img = entry.target as HTMLImageElement;
             if (!img.getAttribute('data-preloaded')) {
               // Create preload link for this image
-              const link = document.createElement('link');
-              link.rel = 'preload';
-              link.href = img.src;
-              link.as = 'image';
-              
-              // Detect image format
-              if (img.src.includes('.webp')) {
-                link.type = 'image/webp';
-              } else if (img.src.includes('.avif')) {
-                link.type = 'image/avif';
+              const link = safeCreateElement('link');
+              if (link) {
+                link.rel = 'preload';
+                link.href = img.src;
+                link.as = 'image';
+                
+                // Detect image format
+                if (img.src.includes('.webp')) {
+                  link.type = 'image/webp';
+                } else if (img.src.includes('.avif')) {
+                  link.type = 'image/avif';
+                }
+                
+                safeAppendChild(document.head, link);
+                img.setAttribute('data-preloaded', 'true');
               }
-              
-              document.head.appendChild(link);
-              img.setAttribute('data-preloaded', 'true');
             }
             imageObserver.unobserve(img);
           }
@@ -96,10 +101,12 @@ export default function ResourceHints({
 
         const handleMouseEnter = () => {
           if (!prefetchLink) {
-            prefetchLink = document.createElement('link');
-            prefetchLink.rel = 'prefetch';
-            prefetchLink.href = link.getAttribute('href') || '';
-            document.head.appendChild(prefetchLink);
+            prefetchLink = safeCreateElement('link');
+            if (prefetchLink) {
+              prefetchLink.rel = 'prefetch';
+              prefetchLink.href = link.getAttribute('href') || '';
+              safeAppendChild(document.head, prefetchLink);
+            }
           }
         };
 

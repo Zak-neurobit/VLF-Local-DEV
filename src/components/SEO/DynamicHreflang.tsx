@@ -22,7 +22,11 @@ export function DynamicHreflang({ customPath, pageType = 'general' }: DynamicHre
     
     // Remove any existing hreflang tags added by this component
     const existingTags = document.querySelectorAll('link[rel="alternate"][data-dynamic-hreflang="true"]');
-    existingTags.forEach(tag => tag.remove());
+    existingTags.forEach(tag => {
+      if (tag.parentNode) {
+        tag.parentNode.removeChild(tag);
+      }
+    });
 
     // Generate new hreflang entries
     const entries = HreflangGenerator.generateHreflangEntries(safePathname, customPath);
@@ -60,7 +64,11 @@ export function DynamicHreflang({ customPath, pageType = 'general' }: DynamicHre
 
     // Remove existing og:locale:alternate tags
     const existingOgAlternates = document.querySelectorAll('meta[property="og:locale:alternate"]');
-    existingOgAlternates.forEach(tag => tag.remove());
+    existingOgAlternates.forEach(tag => {
+      if (tag.parentNode) {
+        tag.parentNode.removeChild(tag);
+      }
+    });
 
     // Add new og:locale:alternate tags
     ogLocales.alternateLocale.forEach(locale => {
@@ -73,7 +81,11 @@ export function DynamicHreflang({ customPath, pageType = 'general' }: DynamicHre
     // Cleanup function to remove tags when component unmounts
     return () => {
       const tagsToRemove = document.querySelectorAll('link[rel="alternate"][data-dynamic-hreflang="true"]');
-      tagsToRemove.forEach(tag => tag.remove());
+      tagsToRemove.forEach(tag => {
+        if (tag.parentNode) {
+          tag.parentNode.removeChild(tag);
+        }
+      });
     };
   }, [pathname, customPath]);
 

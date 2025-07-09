@@ -2,7 +2,7 @@ import { NextAuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
-import { getPrismaClient } from '@/lib/prisma';
+import { getPrismaClient, isDatabaseConnected, safeDbOperation } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { emailService } from '@/services/email.service';
 import { env } from '@/lib/env';
@@ -39,9 +39,25 @@ function getClientIp(headers?: Record<string, string | string[] | undefined>): s
   return 'unknown';
 }
 
+// Create a safe adapter that won't crash if database is unavailable
+const createSafeAdapter = () => {
+  try {
+    const client = getPrismaClient();
+    // Check if it's a mock client by checking for specific methods
+    if (!client.$queryRaw) {
+      logger.warn('Using mock Prisma client, NextAuth adapter disabled');
+      return undefined;
+    }
+    return PrismaAdapter(client);
+  } catch (error) {
+    logger.error('Failed to create Prisma adapter:', error);
+    return undefined;
+  }
+};
+
 export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
-  adapter: env.DATABASE_URL ? PrismaAdapter(getPrismaClient()) : undefined as any,
+  adapter: createSafeAdapter() as any,
   providers: [
     // Email/Password authentication
     CredentialsProvider({
@@ -55,25 +71,47 @@ export const authOptions: NextAuthOptions = {
           throw new Error('Invalid credentials');
         }
 
-        if (!env.DATABASE_URL) {
+        // Check if database is connected
+        const dbConnected = await isDatabaseConnected();
+        
+        if (!dbConnected) {
           logger.warn('Database not available for authentication');
           // Return a mock user in development without database
-          if (env.NODE_ENV === 'development') {
-            return {
-              id: 'dev-user',
-              email: credentials.email,
-              name: 'Development User',
-              role: 'ADMIN',
-              language: 'en',
-            };
+          if (env.NODE_ENV === 'development' || env.NODE_ENV === 'test') {
+            // Check for default dev credentials
+            if (credentials.email === 'admin@vasquezlaw.com' && credentials.password === 'admin123') {
+              return {
+                id: 'dev-admin',
+                email: credentials.email,
+                name: 'Development Admin',
+                role: 'ADMIN',
+                language: 'en',
+              };
+            }
+            if (credentials.email === 'test@example.com' && credentials.password === 'test123') {
+              return {
+                id: 'dev-user',
+                email: credentials.email,
+                name: 'Test User',
+                role: 'CLIENT',
+                language: 'en',
+              };
+            }
           }
           return null;
         }
 
         try {
-          const user = await getPrismaClient().user.findUnique({
-            where: { email: credentials.email },
-          });
+          const user = await safeDbOperation(
+            async () => {
+              const prisma = getPrismaClient();
+              return await prisma.user.findUnique({
+                where: { email: credentials.email },
+              });
+            },
+            null,
+            'user-auth-lookup'
+          );
 
           if (!user || !user.password) {
             throw new Error('User not found');
@@ -144,33 +182,67 @@ export const authOptions: NextAuthOptions = {
       }
 
       // Handle OAuth account linking
-      if (account && account.provider !== 'credentials' && env.DATABASE_URL) {
-        try {
-          const existingUser = await getPrismaClient().user.findUnique({
-            where: { email: token.email! },
-          });
-
-          if (!existingUser) {
-            // Create new user from OAuth
-            const newUser = await getPrismaClient().user.create({
-              data: {
-                email: token.email!,
-                name: token.name!,
-                role: 'CLIENT',
-                language: 'en',
-                image: token.picture,
+      if (account && account.provider !== 'credentials') {
+        const dbConnected = await isDatabaseConnected();
+        if (dbConnected) {
+          try {
+            const existingUser = await safeDbOperation(
+              async () => {
+                const prisma = getPrismaClient();
+                return await prisma.user.findUnique({
+                  where: { email: token.email! },
+                });
               },
-            });
-            token.id = newUser.id;
-            token.role = newUser.role;
-            token.language = newUser.language;
-          } else {
-            token.id = existingUser.id;
-            token.role = existingUser.role;
-            token.language = existingUser.language;
+              null,
+              'oauth-user-lookup'
+            );
+
+            if (!existingUser) {
+              // Create new user from OAuth
+              const newUser = await safeDbOperation(
+                async () => {
+                  const prisma = getPrismaClient();
+                  return await prisma.user.create({
+                    data: {
+                      email: token.email!,
+                      name: token.name!,
+                      role: 'CLIENT',
+                      language: 'en',
+                      image: token.picture,
+                    },
+                  });
+                },
+                {
+                  id: `oauth-${Date.now()}`,
+                  email: token.email!,
+                  name: token.name!,
+                  role: 'CLIENT',
+                  language: 'en',
+                  createdAt: new Date(),
+                  updatedAt: new Date(),
+                },
+                'oauth-user-create'
+              );
+              token.id = newUser.id;
+              token.role = newUser.role;
+              token.language = newUser.language;
+            } else {
+              token.id = existingUser.id;
+              token.role = existingUser.role;
+              token.language = existingUser.language;
+            }
+          } catch (error) {
+            logger.warn('Database error during OAuth linking:', error);
+            // Set default values for OAuth users when DB is unavailable
+            token.id = `oauth-${token.email}`;
+            token.role = 'CLIENT';
+            token.language = 'en';
           }
-        } catch (error) {
-          logger.warn('Database not available during OAuth linking:', error);
+        } else {
+          // Database not connected, use defaults
+          token.id = `oauth-${token.email}`;
+          token.role = 'CLIENT';
+          token.language = 'en';
         }
       }
 
@@ -192,18 +264,24 @@ export const authOptions: NextAuthOptions = {
       logger.info(`Sign-in attempt: ${user.email} via ${account?.provider}`);
 
       // Check if user is blocked
-      if (user.email && env.DATABASE_URL) {
-        try {
-          const dbUser = await getPrismaClient().user.findUnique({
-            where: { email: user.email },
-          });
+      if (user.email) {
+        const dbConnected = await isDatabaseConnected();
+        if (dbConnected) {
+          const dbUser = await safeDbOperation(
+            async () => {
+              const prisma = getPrismaClient();
+              return await prisma.user.findUnique({
+                where: { email: user.email },
+              });
+            },
+            null,
+            'blocked-user-check'
+          );
 
           if (dbUser?.blocked) {
             logger.warn(`Blocked user attempted sign-in: ${user.email}`);
             return false;
           }
-        } catch (error) {
-          logger.warn('Database not available for user check:', error);
         }
       }
 
@@ -217,24 +295,30 @@ export const authOptions: NextAuthOptions = {
       logger.info(`User signed in: ${user.email} via ${account?.provider}`);
 
       // Track sign-in for analytics
-      if (user.id && env.DATABASE_URL) {
-        try {
+      if (user.id) {
+        const dbConnected = await isDatabaseConnected();
+        if (dbConnected) {
           // Get IP address from the request headers passed from the route handler
           const headers = (message as any).__headers;
           const clientIp = getClientIp(headers);
 
-          await getPrismaClient().userActivity.create({
-            data: {
-              userId: user.id,
-              type: 'SIGN_IN',
-              metadata: {
-                provider: account?.provider,
-                ip: clientIp,
-              },
+          await safeDbOperation(
+            async () => {
+              const prisma = getPrismaClient();
+              return await prisma.userActivity.create({
+                data: {
+                  userId: user.id,
+                  type: 'SIGN_IN',
+                  metadata: {
+                    provider: account?.provider,
+                    ip: clientIp,
+                  },
+                },
+              });
             },
-          });
-        } catch (error) {
-          logger.warn('Failed to track sign-in activity:', error);
+            null,
+            'track-sign-in'
+          );
         }
       }
     },
@@ -270,13 +354,21 @@ export const authOptions: NextAuthOptions = {
 
     async session({ session, token }) {
       // Update last active timestamp
-      if (token.id && env.DATABASE_URL) {
-        await getPrismaClient()
-          .user.update({
-            where: { id: token.id as string },
-            data: { lastActive: new Date() },
-          })
-          .catch((err: Error) => logger.error('Failed to update last active:', err));
+      if (token.id) {
+        const dbConnected = await isDatabaseConnected();
+        if (dbConnected) {
+          await safeDbOperation(
+            async () => {
+              const prisma = getPrismaClient();
+              return await prisma.user.update({
+                where: { id: token.id as string },
+                data: { lastActive: new Date() },
+              });
+            },
+            null,
+            'update-last-active'
+          );
+        }
       }
     },
   },

@@ -531,7 +531,9 @@ export const a11yUtils = {
     document.body.appendChild(announcement);
     
     setTimeout(() => {
-      document.body.removeChild(announcement);
+      if (announcement.parentNode) {
+        announcement.parentNode.removeChild(announcement);
+      }
     }, 1000);
   },
 
