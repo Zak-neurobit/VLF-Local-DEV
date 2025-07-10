@@ -67,7 +67,7 @@
     "test:ghl": "tsx scripts/test-apis.ts --ghl-only",
     "test:email": "tsx scripts/test-apis.ts --email-only",
     "check:apis": "tsx scripts/check-api-status.ts",
-    "prepare": "husky"
+    "prepare": "node -e \"if (process.env.NODE_ENV !== 'production' && !process.env.CI) { require('child_process').execSync('husky', {stdio: 'inherit'}) }\""
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.3.22",
