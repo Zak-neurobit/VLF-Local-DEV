@@ -102,9 +102,7 @@ export default function ReviewWidget({
         <span className="text-sm text-gray-500">({summary.totalReviews} reviews)</span>
         {showSource && (
           <div className="flex items-center space-x-1 text-xs text-gray-400">
-            <span>Google</span>
-            <span>•</span>
-            <span>Yelp</span>
+            <span>Google Reviews</span>
           </div>
         )}
       </div>
@@ -131,11 +129,7 @@ export default function ReviewWidget({
           <div className="flex justify-center space-x-6 text-sm">
             <div className="text-center">
               <div className="font-semibold text-blue-600">{summary.sourceBreakdown.google}</div>
-              <div className="text-gray-500">Google</div>
-            </div>
-            <div className="text-center">
-              <div className="font-semibold text-red-600">{summary.sourceBreakdown.yelp}</div>
-              <div className="text-gray-500">Yelp</div>
+              <div className="text-gray-500">Google Reviews</div>
             </div>
           </div>
         )}

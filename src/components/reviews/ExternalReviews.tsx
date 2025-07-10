@@ -241,10 +241,6 @@ export default function ExternalReviews({
                       <span className="text-sm text-gray-600 mr-1">Google:</span>
                       <span className="font-medium">{summary.sourceBreakdown.google}</span>
                     </div>
-                    <div className="flex items-center">
-                      <span className="text-sm text-gray-600 mr-1">Yelp:</span>
-                      <span className="font-medium">{summary.sourceBreakdown.yelp}</span>
-                    </div>
                   </div>
                 </div>
               </div>

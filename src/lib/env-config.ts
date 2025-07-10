@@ -175,14 +175,5 @@ export const SERVICE_CONFIGS = {
       { key: 'NEXT_PUBLIC_GOOGLE_MAPS_API_KEY', required: false, description: 'Google Maps JavaScript API key' }
     ],
     onMissing: 'warn' as const
-  },
-  TWILIO: {
-    name: 'Twilio',
-    envVars: [
-      { key: 'TWILIO_ACCOUNT_SID', required: false, description: 'Twilio Account SID' },
-      { key: 'TWILIO_AUTH_TOKEN', required: false, description: 'Twilio Auth Token' },
-      { key: 'TWILIO_PHONE_NUMBER', required: false, description: 'Twilio Phone Number' }
-    ],
-    onMissing: 'warn' as const
   }
 };

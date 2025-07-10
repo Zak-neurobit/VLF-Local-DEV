@@ -13,23 +13,14 @@ NEXTAUTH_URL=https://vlf-website-hodos-360.vercel.app
 NEXTAUTH_SECRET=generate-with-openssl-rand-base64-32
 ```
 
-### Step 2: Database (Choose One)
+### Step 2: Database ✅ READY TO USE
 
-#### Option A: Vercel Postgres (Easiest)
-1. Go to Storage tab in Vercel Dashboard
-2. Create Postgres database
-3. It auto-adds DATABASE_URL
-
-#### Option B: Supabase
+Add your Neon database URL:
 ```env
-DATABASE_URL=postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres
+DATABASE_URL=postgresql://neondb_owner:npg_eCqcU6ELgvJ5@ep-old-mode-a4bj2csn-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require
 ```
 
-#### Option C: Use Mocks (Temporary)
-```env
-USE_MOCK_DATABASE=true
-USE_MOCK_SERVICES=true
-```
+**Important**: Mark as "Sensitive" in Vercel dashboard to hide the password.
 
 ### Step 3: Enable Basic Features
 ```env

@@ -3,7 +3,6 @@ import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 import * as cron from 'node-cron';
-import { Twilio } from 'twilio';
 import nodemailer from 'nodemailer';
 
 interface ReviewRequest {
@@ -50,7 +49,6 @@ interface ReviewCampaign {
 export class ReviewHarvestingAgent {
   private model: ChatOpenAI;
   private prisma: any;
-  private twilioClient: Twilio;
   private emailTransporter: nodemailer.Transporter;
   private isRunning: boolean = false;
   private scheduledJobs: cron.ScheduledTask[] = [];
@@ -206,12 +204,6 @@ The Vasquez Law Firm Team`
   }
 
   private initializeCommunicationServices() {
-    // Initialize Twilio
-    this.twilioClient = new Twilio(
-      process.env.TWILIO_ACCOUNT_SID!,
-      process.env.TWILIO_AUTH_TOKEN!
-    );
-
     // Initialize Email
     this.emailTransporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -738,17 +730,9 @@ Return as JSON: { email: { subject, body }, sms: { text } }
   }
 
   private async sendSMSRequest(request: ReviewRequest, message: any): Promise<void> {
-    if (!request.clientPhone) return;
-
-    try {
-      await this.twilioClient.messages.create({
-        body: message.text,
-        from: process.env.TWILIO_PHONE_NUMBER,
-        to: request.clientPhone
-      });
-    } catch (error) {
-      logger.error(`Failed to send SMS to ${request.clientPhone}:`, error);
-    }
+    // SMS functionality has been removed
+    // Consider using email-only communication or integrating with GoHighLevel
+    logger.info(`SMS request skipped for ${request.clientName} - SMS service not configured`);
   }
 
   private formatEmailHTML(body: string): string {
