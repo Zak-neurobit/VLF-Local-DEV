@@ -3,7 +3,6 @@
 ## 🤝 Partnership Philosophy
 
 We're building production-quality code together. This is a collaborative partnership where:
-
 - Your insights and guidance are valued and actively sought
 - We choose clarity over cleverness
 - Simple solutions are preferred over complex abstractions
@@ -18,7 +17,6 @@ When I seem stuck or overly complex, your redirection helps me stay on track. To
 ### The Four Phases (ALWAYS follow this sequence)
 
 **1. Research Phase**
-
 - Explore the codebase to understand existing patterns
 - Check documentation and Context7 before implementing
 - Search when confidence < 90%
@@ -28,7 +26,6 @@ When I seem stuck or overly complex, your redirection helps me stay on track. To
 - Expected output: Clear understanding of constraints and patterns
 
 **2. Planning Phase**
-
 - Create detailed implementation plan
 - Identify potential risks and edge cases
 - Consider alternative approaches (use PARALLEL agents to explore multiple options SIMULTANEOUSLY)
@@ -36,7 +33,6 @@ When I seem stuck or overly complex, your redirection helps me stay on track. To
 - Expected output: Step-by-step implementation strategy
 
 **3. Implementation Phase**
-
 - Execute plan with validation checkpoints
 - For new features: Write failing test → Minimal code to pass → Refactor (TDD)
 - For bug fixes: Write failing test reproducing bug → Fix → Refactor
@@ -50,17 +46,15 @@ When I seem stuck or overly complex, your redirection helps me stay on track. To
 **Agents work AT THE SAME TIME, not sequentially!**
 
 ❌ **Wrong approach (sequential):**
-
 ```
 "I'll research first, then analyze, then write tests..."
 ```
 
 ✅ **Right approach (parallel):**
-
 ```
 "I'm spawning 3 agents NOW to work SIMULTANEOUSLY:
 - Agent 1 is researching the database schema RIGHT NOW
-- Agent 2 is analyzing API patterns AT THE SAME TIME
+- Agent 2 is analyzing API patterns AT THE SAME TIME  
 - Agent 3 is writing test cases CONCURRENTLY
 - Meanwhile, I'm designing the architecture IN PARALLEL
 
@@ -68,7 +62,6 @@ All 4 tasks happen AT THE SAME TIME."
 ```
 
 **Key phrases that indicate PARALLEL execution:**
-
 - "Working simultaneously"
 - "While they investigate, I'll..."
 - "In parallel, agents are..."
@@ -77,7 +70,6 @@ All 4 tasks happen AT THE SAME TIME."
 - "Meanwhile"
 
 **When to spawn PARALLEL agents:**
-
 - Any task with independent parts → SIMULTANEOUS investigation
 - Research while implementing → CONCURRENT work
 - Testing while coding → PARALLEL execution
@@ -86,7 +78,6 @@ All 4 tasks happen AT THE SAME TIME."
 - Large codebase analysis → PARALLEL investigation
 
 **How to use agents effectively (ALWAYS EMPHASIZE SIMULTANEITY):**
-
 ```
 "I'll spawn agents to work SIMULTANEOUSLY on this:
 - Agent 1: Researching the database schema (WORKING NOW)
@@ -96,7 +87,6 @@ While they ALL work IN PARALLEL, I'll design the architecture."
 ```
 
 **Common PARALLEL patterns:**
-
 - **Divide & Conquer**: Split large tasks into SIMULTANEOUS investigations
 - **Scout Pattern**: One agent explores WHILE another implements AT THE SAME TIME
 - **Test & Code**: One writes tests WHILE another writes implementation CONCURRENTLY
@@ -104,7 +94,6 @@ While they ALL work IN PARALLEL, I'll design the architecture."
 - **Broad Search**: Agents investigate different parts of codebase AT THE SAME TIME
 
 **Benefits of TRUE PARALLEL execution:**
-
 - 5-10x faster for complex tasks
 - Better coverage of edge cases
 - Reduced cognitive load per agent
@@ -112,7 +101,6 @@ While they ALL work IN PARALLEL, I'll design the architecture."
 - More thorough analysis in LESS TIME
 
 **4. Validation Phase**
-
 - Run all tests and linters
 - Verify against original requirements
 - Check for edge cases (use PARALLEL agents for different edge case categories)
@@ -124,26 +112,20 @@ While they ALL work IN PARALLEL, I'll design the architecture."
 ## 🧠 Cognitive Support Systems
 
 ### Working Memory Management
-
 - **TODO.md** - Track current work AND parallel agent tasks:
-
   ```markdown
   ## Current Task
-
   - [ ] What we're doing RIGHT NOW
-
+  
   ## Parallel Agent Tasks (WORKING SIMULTANEOUSLY)
-
   - [ ] Agent 1: Researching X (IN PROGRESS)
   - [ ] Agent 2: Analyzing Y (IN PROGRESS)
   - [ ] Agent 3: Testing Z (IN PROGRESS)
-
-  ## Completed
-
+  
+  ## Completed  
   - [x] What's actually done and tested
-
+  
   ## Next Steps
-
   - [ ] What comes next
   ```
 
@@ -153,9 +135,7 @@ While they ALL work IN PARALLEL, I'll design the architecture."
 - **Use ken-you-remember** to store important discoveries and patterns for future reference
 
 ### Context Awareness Checks
-
 Every 10-15 minutes, assess:
-
 - Am I still aligned with the original goal?
 - Is my solution becoming too complex?
 - Should I pause and verify my approach?
@@ -164,9 +144,7 @@ Every 10-15 minutes, assess:
 - Would multiple CONCURRENT perspectives help here?
 
 ### Complexity Budget
-
 Track complexity indicators:
-
 - Nesting depth approaching limits
 - Function parameters increasing
 - File length growing
@@ -178,21 +156,18 @@ When any indicator warns, stop and refactor (using PARALLEL agents for different
 ## 📏 Code Architecture Principles
 
 ### Universal Limits (all languages)
-
 - **300 lines** per file maximum
-- **4 parameters** per function maximum
+- **4 parameters** per function maximum  
 - **120 characters** per line maximum
 - **4 levels** of nesting maximum
 - **One purpose** per file/function (no 'and' in names)
 
 Breaking limits is acceptable when:
-
 - Single responsibility genuinely needs it
 - Splitting would harm readability
 - Always document why limit was exceeded
 
 ### Code Quality Standards
-
 - Extract code appearing 2+ times into functions
 - Extract constants appearing 2+ times
 - Simplest solution that works
@@ -201,7 +176,6 @@ Breaking limits is acceptable when:
 - Delete old code when replacing (no versioned functions like `processV2`)
 
 ### Refactoring Approach (Tidy First)
-
 1. Only refactor when ALL tests pass
 2. Separate commits: structure vs behavior
 3. One refactoring type per commit
@@ -216,11 +190,10 @@ Breaking limits is acceptable when:
 ## 🗣️ Language-Specific Guidelines
 
 ### TypeScript/JavaScript
-
 ```typescript
 // File naming: camelCase.ts, PascalCase.tsx for components
 // Variables/Functions: camelCase
-// Constants: UPPER_SNAKE_CASE
+// Constants: UPPER_SNAKE_CASE  
 // Classes/Types: PascalCase
 
 // Required patterns:
@@ -236,7 +209,6 @@ Breaking limits is acceptable when:
 ```
 
 ### Python
-
 ```python
 # File naming: snake_case.py
 # Variables/Functions: snake_case
@@ -256,10 +228,9 @@ Breaking limits is acceptable when:
 ```
 
 ### Go
-
 ```go
 // File naming: snake_case.go
-// Variables/Functions: camelCase
+// Variables/Functions: camelCase  
 // Constants: CamelCase or UPPER_SNAKE_CASE
 // Types/Interfaces: PascalCase
 
@@ -289,7 +260,6 @@ pkg/        # Public libraries (only if truly reusable)
 ```
 
 ### Rust
-
 ```rust
 // File naming: snake_case.rs
 // Variables/Functions: snake_case
@@ -309,40 +279,39 @@ pkg/        # Public libraries (only if truly reusable)
 ```
 
 ### HTML/CSS
-
 ```html
 <!-- File naming: kebab-case.html/css -->
 <!-- IDs/Classes: kebab-case -->
 
 <!-- Required patterns: -->
-- Semantic HTML elements - Mobile-first responsive design - Alt text for all images - ARIA labels
-where needed
+- Semantic HTML elements
+- Mobile-first responsive design  
+- Alt text for all images
+- ARIA labels where needed
 
 <!-- Forbidden patterns: -->
-- Inline styles (except for dynamic values) - Non-semantic div soup - Missing meta viewport
+- Inline styles (except for dynamic values)
+- Non-semantic div soup
+- Missing meta viewport
 ```
 
 ## 🧪 Testing & Quality Assurance
 
 ### Testing Strategy
-
 **Must Test (100% coverage):**
-
 - Business logic
-- Error paths
+- Error paths  
 - Public APIs
 - Security boundaries
 - Data transformations
 
 **Can Skip:**
-
 - Simple getters/setters
 - One-line functions
 - Main() entry points
 - Direct CLI argument passing
 
 ### Test Structure
-
 ```
 test_functionName_condition_expectedResult()
 test_userLogin_invalidPassword_returnsError()
@@ -350,7 +319,6 @@ test_calculateTax_negativeIncome_returnsZero()
 ```
 
 ### Quality Gates (ALL must pass)
-
 - ✅ All tests passing
 - ✅ Zero linter warnings
 - ✅ Code coverage meets targets
@@ -362,7 +330,6 @@ test_calculateTax_negativeIncome_returnsZero()
 ## 🔒 Safety & Security Requirements
 
 ### Input Validation (ALWAYS at function entry)
-
 ```
 Strings:  trim → check length → validate format → sanitize
 Numbers:  check type → verify range → validate precision
@@ -372,7 +339,6 @@ Files:    check size → validate type → scan content → sanitize path
 ```
 
 ### Resource Management
-
 - Initialize all variables at declaration
 - Close all resources (files, connections, timers)
 - Bounds check before array access
@@ -380,14 +346,12 @@ Files:    check size → validate type → scan content → sanitize path
 - Try/catch all external calls
 
 ### Error Handling
-
 - **User errors**: Clear, actionable messages
 - **System errors**: Log details internally, generic message to user
 - **Never expose**: Stack traces, system paths, internal errors
 - **Always include**: Error context, recovery suggestions
 
 ### Security Checklist
-
 - [ ] All inputs validated
 - [ ] SQL uses prepared statements (NEVER concatenate)
 - [ ] Paths sanitized against traversal
@@ -404,7 +368,6 @@ Files:    check size → validate type → scan content → sanitize path
 ## 🚨 Recovery Protocols
 
 ### When Hooks Report Issues
-
 1. **STOP IMMEDIATELY** - Don't continue with other tasks
 2. **READ THE ERROR** - Understand what check failed
 3. **FIX ALL ISSUES** - Address every ❌ until all are ✅
@@ -412,7 +375,6 @@ Files:    check size → validate type → scan content → sanitize path
 5. **RESUME WORK** - Continue with original task
 
 ### When Stuck or Confused
-
 1. **Stop** - Don't spiral into complexity
 2. **Spawn PARALLEL agents** - SIMULTANEOUS investigation ALWAYS helps
 3. **Step Back** - Re-read requirements and this guide
@@ -421,7 +383,6 @@ Files:    check size → validate type → scan content → sanitize path
 6. **Ask** - "I see two approaches: [A] vs [B]. Which do you prefer?"
 
 ### Escalation Path
-
 - Confusion → Re-read docs
 - Still stuck → **Spawn PARALLEL agents to explore options SIMULTANEOUSLY**
 - Multiple options → Present choices (discovered CONCURRENTLY)
@@ -431,7 +392,6 @@ Files:    check size → validate type → scan content → sanitize path
 ## 💬 Communication & Collaboration
 
 ### Progress Updates (Including PARALLEL work)
-
 ```
 ✅ Implemented authentication (all tests passing)
 ✅ Added rate limiting with 100 req/min default
@@ -444,23 +404,19 @@ Files:    check size → validate type → scan content → sanitize path
 ```
 
 ### Suggesting Improvements
-
 "The current approach works, but I notice [specific observation].
 I can spawn PARALLEL agents to explore improvements SIMULTANEOUSLY.
 Would you like me to [specific improvement]?"
 
 ### Decision Matrix
-
 **Ask You About:**
-
 - Architecture choices
-- Business logic ambiguity
+- Business logic ambiguity  
 - Security implications
 - Breaking changes
 - Performance tradeoffs
 
 **Decide Myself:**
-
 - Following existing patterns
 - Implementation details
 - Reversible decisions
@@ -471,7 +427,6 @@ Would you like me to [specific improvement]?"
 ## 📋 Quick Reference Card
 
 ### Before Starting Any Task
-
 1. Read requirements completely
 2. **IMMEDIATELY consider PARALLEL agents** - What can be done SIMULTANEOUSLY?
 3. Check existing patterns
@@ -479,8 +434,7 @@ Would you like me to [specific improvement]?"
 5. Create implementation plan
 6. Verify approach with user
 
-### During Implementation
-
+### During Implementation  
 - **ALWAYS spawn PARALLEL agents** for independent tasks
 - **Work SIMULTANEOUSLY** not sequentially
 - Commit when: tests pass + zero warnings + single logical change
@@ -489,7 +443,6 @@ Would you like me to [specific improvement]?"
 - Handle errors: with context and recovery info
 
 ### Multi-Agent PARALLEL Triggers
-
 - "This has multiple parts" → Spawn agents to work SIMULTANEOUSLY
 - "I need to research while coding" → Spawn agents to work CONCURRENTLY
 - "This requires different expertise" → Spawn agents to work IN PARALLEL
@@ -498,12 +451,11 @@ Would you like me to [specific improvement]?"
 - Any independent tasks → ALWAYS PARALLEL execution
 
 ### Common Commands
-
 ```bash
 # Go reality checkpoint
 make fmt && make test && make lint
 
-# Full validation
+# Full validation  
 npm run test:all && npm run lint:fix
 
 # Python checks
@@ -549,7 +501,6 @@ A task is complete when:
 **CRITICAL REMINDER**: PARALLEL means SIMULTANEOUS. Agents work AT THE SAME TIME, not one after another. If you're not emphasizing CONCURRENT execution, you're not using agents effectively.
 
 **Note**: This is always a feature branch - no backwards compatibility needed. We can make bold improvements without legacy constraints.
-
 **MANDATORY**: This project uses Requirements-First Development. ALWAYS gather requirements before implementing ANY feature.
 
 **Project**: Modern AI-powered legal services website with voice agents and real-time chat  
