@@ -150,9 +150,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 exports.ChatSocketServer = void 0;
 exports.getChatSocketServer = getChatSocketServer;
 var socket_io_1 = require('socket.io');
-var logger_1 = require('@/lib/logger');
-var prisma_1 = require('@/lib/prisma');
-var client_1 = require('@/services/retell/client');
+var logger_1 = require('../../lib/logger');
+var prisma_1 = require('../../lib/prisma');
+var client_1 = require('../../services/retell/client');
 var ChatSocketServer = /** @class */ (function () {
   function ChatSocketServer(httpServer) {
     this.activeSessions = new Map();

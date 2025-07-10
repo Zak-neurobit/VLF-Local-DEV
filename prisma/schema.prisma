@@ -498,7 +498,9 @@ model VoiceCall {
   error                String? // Error message if call failed
   metadata             Json            @default("{}")
   startedAt            DateTime        @default(now())
+  connectedAt          DateTime?
   endedAt              DateTime?
+  lastStatusUpdate     DateTime?
   createdAt            DateTime        @default(now())
   updatedAt            DateTime        @updatedAt
 
@@ -1302,6 +1304,25 @@ model CallRouting {
   @@index([practiceArea])
   @@index([urgency])
   @@index([createdAt])
+}
+
+// Call Status History
+model CallStatusHistory {
+  id String @id @default(cuid())
+
+  // Call details
+  callId         String
+  previousStatus String
+  newStatus      String
+  
+  // Timestamps
+  timestamp DateTime @default(now())
+  
+  // Additional data
+  metadata Json @default("{}")
+
+  @@index([callId])
+  @@index([timestamp])
 }
 
 // Lead Validation Model

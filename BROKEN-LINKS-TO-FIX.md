@@ -5,11 +5,11 @@
 **BROKEN → CORRECT**
 
 ```
-/es/areas-de-practica/lesiones-personales/accidentes-auto 
+/es/areas-de-practica/lesiones-personales/accidentes-auto
 → /es/areas-de-practica/lesiones-personales/accidentes-de-auto
 
 /es/areas-de-practica/lesiones-personales/accidentes-camion
-→ /es/areas-de-practica/lesiones-personales/accidentes-de-camion  
+→ /es/areas-de-practica/lesiones-personales/accidentes-de-camion
 
 /es/areas-de-practica/lesiones-personales/accidentes-motocicleta
 → /es/areas-de-practica/lesiones-personales/accidentes-de-motocicleta (CHECK IF EXISTS)
@@ -29,10 +29,12 @@
 **Choose ONE pattern and redirect the other:**
 
 1. **Car Accidents**
+
    - Keep: `/practice-areas/personal-injury/car-auto-accidents`
    - Remove: `/practice-areas/personal-injury/car-accidents`
 
-2. **Drunk Driving**  
+2. **Drunk Driving**
+
    - Keep: `/practice-areas/personal-injury/drunk-driver-liability`
    - Remove: `/practice-areas/personal-injury/drunk-driver-accidents`
 
@@ -43,6 +45,7 @@
 ## Non-Existent Location Service Pages
 
 These links are being generated but pages don't exist:
+
 ```
 /locations/nc/charlotte/immigration
 /locations/nc/charlotte/personal-injury
@@ -51,6 +54,7 @@ These links are being generated but pages don't exist:
 ```
 
 **Solution:** Either create these pages OR update the link generation logic to point to:
+
 ```
 /locations/nc/charlotte#immigration
 /locations/nc/charlotte#personal-injury
@@ -60,18 +64,23 @@ etc.
 ## Files That Need Link Updates
 
 ### 1. MainNav.tsx (src/components/Navigation/MainNav.tsx)
+
 - Fix all Spanish navigation links (lines 173-197)
 
 ### 2. Internal Linking Mesh (src/lib/seo/internal-linking-mesh.ts)
+
 - Update practice area slugs to match actual pages
 - Fix location service link generation (lines 110-111)
 
 ### 3. County Pages (100+ files)
+
 All county pages have links to non-existent paths:
+
 - They link to `/practice-areas/personal-injury/car-accidents`
 - Should link to `/practice-areas/personal-injury/car-auto-accidents`
 
 ### 4. MegaFooterLinks.tsx
+
 - Verify all footer links match actual pages
 
 ## Quick Fix Script
@@ -91,6 +100,7 @@ find . -name "*.tsx" -exec sed -i '' 's|/car-accidents"|/car-auto-accidents"|g' 
 ## Validation Checklist
 
 After fixes:
+
 - [ ] All Spanish navigation links work
 - [ ] No duplicate practice area pages
 - [ ] All county pages link to correct URLs

@@ -5,12 +5,14 @@
 ### Changes Deployed
 
 1. **Lead Validation Agent**
+
    - Scores leads from 0-100 based on 4 factors
    - Categorizes as Hot/Warm/Cold/Invalid
    - Integrates with GoHighLevel CRM
    - Triggers appropriate campaigns
 
 2. **Follow-Up Automation Agent**
+
    - Creates multi-channel sequences (SMS, Email, Calls)
    - Personalized messaging with language support
    - Stop conditions for converted leads
@@ -22,12 +24,14 @@
    - Added comprehensive environment variables
 
 ### Git Commit
+
 - SHA: 27d4f22
 - Message: "feat: Deploy AI agent army with lead validation and GHL integration"
 
 ### Next Steps
 
 1. **Configure Environment Variables in Vercel**:
+
    ```
    GHL_PIPELINE_ID=your-main-pipeline-id
    GHL_HOT_LEAD_CAMPAIGN_ID=your-hot-lead-campaign
@@ -39,6 +43,7 @@
    ```
 
 2. **Test the Endpoints**:
+
    - POST `/api/agents/lead-validation` - Validate new leads
    - GET `/api/agents/lead-validation` - Check agent health
 
@@ -50,6 +55,7 @@
 ### Build Optimizations
 
 The following folders are now excluded from Vercel builds:
+
 - `Old site Brand guidelines and Vision/`
 - `vlf old site/`
 - `backup-untracked-files/`
@@ -59,4 +65,5 @@ The following folders are now excluded from Vercel builds:
 This significantly reduces deployment size and speeds up builds.
 
 ## Deployment URL
+
 Check https://vasquezlaw.vercel.app for the live deployment once the build completes.

@@ -3,20 +3,23 @@
 ## High Priority Pages to Create
 
 ### Attorney Pages
+
 - [ ] `/attorneys/malcom-rodriguez/` - Content exists in imports
 - [ ] `/attorneys/rania-arwani/` - Content exists in imports
 - [ ] `/es/abogados/adriana-ingram/` - Spanish version
 - [ ] `/es/abogados/roselyn-torrellas/` - Spanish version
 
 ### Utility Pages
+
 - [ ] `/about/` or `/about-us/` - Content exists in imports
-- [ ] `/disclaimer/` - Content exists in imports  
+- [ ] `/disclaimer/` - Content exists in imports
 - [ ] `/resources/` - English version
 - [ ] `/es/recursos/` - Spanish version (content exists)
 - [ ] `/our-team/` - May be redundant with attorneys page
 - [ ] `/es/medios/` or `/es/medios-de-comunicacion/` - Spanish media page
 
 ### Criminal Defense Sub-pages
+
 - [ ] `/practice-areas/criminal-defense/probation-violation/`
 - [ ] `/practice-areas/criminal-defense/theft-larceny-shoplifting/`
 - [ ] `/practice-areas/criminal-defense/violent-crimes/`
@@ -24,6 +27,7 @@
 - [ ] `/practice-areas/criminal-defense/white-collar-crimes/`
 
 ### Family Law Sub-pages
+
 - [ ] `/practice-areas/family-law/domestic-violence-protective-orders/`
 - [ ] `/practice-areas/family-law/legal-separation-agreements/`
 - [ ] `/practice-areas/family-law/name-changes/`
@@ -31,6 +35,7 @@
 - [ ] `/practice-areas/family-law/post-separation-support/`
 
 ### Immigration Sub-pages
+
 - [ ] `/practice-areas/immigration/criminal-convictions-impact/`
 - [ ] `/practice-areas/immigration/employment-based-immigration/e-visa/`
 - [ ] `/practice-areas/immigration/employment-based-immigration/h-2b-visa/`
@@ -42,12 +47,14 @@
 - [ ] `/practice-areas/immigration/venezuelan-deferred-deportation/`
 
 ### Workers Compensation Sub-pages
+
 - [ ] `/practice-areas/workers-compensation/depression-mental-health-anxiety/`
 - [ ] `/practice-areas/workers-compensation/equipment-accidents-failures/`
 - [ ] `/practice-areas/workers-compensation/lifting-injuries-overexertion/`
 - [ ] `/practice-areas/workers-compensation/repetitive-stress-carpal-tunnel/`
 
 ### Spanish Practice Area Sub-pages
+
 - [ ] `/es/areas-de-practica/defensa-criminal/violacion-de-libertad-condicional/`
 - [ ] `/es/areas-de-practica/defensa-criminal/robo-hurto-shoplifting/`
 - [ ] `/es/areas-de-practica/defensa-criminal/crimenes-violentos/`
@@ -59,15 +66,18 @@
 - [ ] `/es/areas-de-practica/derecho-familia/manutencion-post-separacion/`
 
 ### Blog Posts to Import
+
 - [ ] Various blog posts identified in old site but not in new site
 
 ## Medium Priority
 
 ### Location-Specific Service Pages
+
 - [ ] Specialized location + service pages (e.g., durham-nc-immigration-lawyers)
 - [ ] Spanish versions of location pages
 
 ### Additional Spanish Content
+
 - [ ] Spanish blog posts
 - [ ] Spanish testimonials
 - [ ] Spanish case results
@@ -75,6 +85,7 @@
 ## Low Priority
 
 ### Redundant or Outdated Pages
+
 - [ ] Review if separate "immigration-service" and "workers-compensation-service" pages are needed
 - [ ] Determine if location-specific lawyer pages are necessary with new structure
 

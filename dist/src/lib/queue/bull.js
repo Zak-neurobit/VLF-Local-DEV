@@ -160,7 +160,7 @@ exports.clearAllQueues = clearAllQueues;
 exports.pauseAllQueues = pauseAllQueues;
 exports.resumeAllQueues = resumeAllQueues;
 var bull_1 = require('bull');
-var logger_1 = require('@/lib/logger');
+var logger_1 = require('../../lib/logger');
 var client_1 = require('@prisma/client');
 var prisma = new client_1.PrismaClient();
 // Shared Redis configuration for all queues
@@ -351,7 +351,7 @@ exports.emailQueue.process(function (job) {
           return [
             4 /*yield*/,
             Promise.resolve().then(function () {
-              return require('@/services/email');
+              return require('../../services/email');
             }),
           ];
         case 2:

@@ -8,9 +8,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 exports.RetellService = void 0;
 exports.getRetellService = getRetellService;
 const axios_1 = __importDefault(require('axios'));
-const logger_1 = require('@/lib/logger');
-const cache_1 = require('@/lib/cache');
-const bull_1 = require('@/lib/queue/bull');
+const logger_1 = require('../../lib/logger');
+const cache_1 = require('../../lib/cache');
+const bull_1 = require('../../lib/queue/bull');
 class RetellService {
   constructor(config) {
     this.apiKey = config.apiKey;

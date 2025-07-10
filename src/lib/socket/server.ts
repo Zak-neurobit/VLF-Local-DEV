@@ -1,10 +1,9 @@
 import { Server as HTTPServer } from 'http';
 import { Server as SocketIOServer, Socket } from 'socket.io';
-import { wsLogger, userFlowLogger } from '@/lib/logger';
-import { getPrismaClient } from '@/lib/prisma';
-import { getRetellClient } from '@/services/retell/client';
+import { wsLogger, userFlowLogger } from '../logger';
+import { getPrismaClient } from '../prisma';
+import { getRetellClient } from '../../services/retell/client';
 import jwt from 'jsonwebtoken';
-import { notificationService } from '@/services/notifications';
 
 interface SocketData {
   userId?: string;

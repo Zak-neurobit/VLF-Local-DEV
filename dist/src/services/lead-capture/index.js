@@ -53,9 +53,9 @@ var __importStar =
   })();
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.leadCaptureService = exports.LeadCaptureService = void 0;
-const gohighlevel_1 = require('@/services/gohighlevel');
-const prisma_1 = require('@/lib/prisma');
-const logger_1 = require('@/lib/logger');
+const gohighlevel_1 = require('../../services/gohighlevel');
+const prisma_1 = require('../../lib/prisma');
+const logger_1 = require('../../lib/logger');
 const zod_1 = require('zod');
 // Lead capture schemas
 const LeadCaptureSchema = zod_1.z.object({
@@ -256,7 +256,7 @@ class LeadCaptureService {
       }
       // Also send email notification
       const emailService = (
-        await Promise.resolve().then(() => __importStar(require('@/services/email')))
+        await Promise.resolve().then(() => __importStar(require('../../services/email')))
       ).emailService;
       await emailService.sendEmail({
         to: process.env.URGENT_LEAD_EMAIL || 'intake@vasquezlawnc.com',

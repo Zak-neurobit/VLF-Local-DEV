@@ -209,7 +209,7 @@ ${data.leadScore ? `LEAD ANALYSIS\nLead Score: ${data.leadScore}/100` : ''}
         
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3>Appointment Details</h3>
-          <p><strong>Date:</strong> ${new Date(data.appointmentDate).toLocaleDateString()}</p>
+          <p><strong>Date:</strong> ${data.appointmentDate ? new Date(data.appointmentDate).toLocaleDateString() : 'Not specified'}</p>
           <p><strong>Time:</strong> ${data.appointmentTime}</p>
           <p><strong>Type:</strong> ${data.appointmentType}</p>
           <p><strong>Attorney:</strong> ${data.attorneyName || 'To be assigned'}</p>
@@ -252,7 +252,7 @@ Dear ${data.firstName},
 Your appointment with Vasquez Law Firm has been confirmed.
 
 APPOINTMENT DETAILS
-Date: ${new Date(data.appointmentDate).toLocaleDateString()}
+Date: ${data.appointmentDate ? new Date(data.appointmentDate).toLocaleDateString() : 'Not specified'}
 Time: ${data.appointmentTime}
 Type: ${data.appointmentType}
 Attorney: ${data.attorneyName || 'To be assigned'}
@@ -285,7 +285,7 @@ YO PELEO POR TI™
         
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3>Appointment Details</h3>
-          <p><strong>Date:</strong> ${new Date(data.appointmentDate).toLocaleDateString()}</p>
+          <p><strong>Date:</strong> ${data.appointmentDate ? new Date(data.appointmentDate).toLocaleDateString() : 'Not specified'}</p>
           <p><strong>Time:</strong> ${data.appointmentTime}</p>
           <p><strong>Attorney:</strong> ${data.attorneyName}</p>
           <p><strong>Location:</strong> ${data.location}</p>
@@ -315,7 +315,7 @@ Dear ${data.firstName},
 This is a reminder about your upcoming appointment with Vasquez Law Firm.
 
 APPOINTMENT DETAILS
-Date: ${new Date(data.appointmentDate).toLocaleDateString()}
+Date: ${data.appointmentDate ? new Date(data.appointmentDate).toLocaleDateString() : 'Not specified'}
 Time: ${data.appointmentTime}
 Attorney: ${data.attorneyName}
 Location: ${data.location}
@@ -349,7 +349,7 @@ YO PELEO POR TI™
         <hr style="margin: 30px 0;">
         <p style="font-size: 12px; color: #666;">
           You're receiving this email because you subscribed to our newsletter. 
-          If you wish to unsubscribe, please <a href="${process.env.NEXT_PUBLIC_URL}/unsubscribe?email=${encodeURIComponent(data.email)}&token=${data.unsubscribeToken}">click here</a>.
+          If you wish to unsubscribe, please <a href="${process.env.NEXT_PUBLIC_URL}/unsubscribe?email=${encodeURIComponent(data.email || '')}&token=${data.unsubscribeToken}">click here</a>.
         </p>
       </div>
     `,
@@ -374,7 +374,7 @@ YO PELEO POR TI™
 
 ---
 You're receiving this email because you subscribed to our newsletter. 
-To unsubscribe, visit: ${process.env.NEXT_PUBLIC_URL}/unsubscribe?email=${encodeURIComponent(data.email)}&token=${data.unsubscribeToken}
+To unsubscribe, visit: ${process.env.NEXT_PUBLIC_URL}/unsubscribe?email=${encodeURIComponent(data.email || '')}&token=${data.unsubscribeToken}
     `.trim(),
   }),
 
@@ -551,19 +551,19 @@ If you did not create this account, please contact us immediately.
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 0 0 8px 8px;">
           <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
             <h3 style="color: #C9974D; margin-top: 0;">Lead Details</h3>
-            <p><strong>Name:</strong> ${data.lead.firstName} ${data.lead.lastName}</p>
-            <p><strong>Email:</strong> ${data.lead.email}</p>
-            <p><strong>Phone:</strong> ${data.lead.phone}</p>
-            <p><strong>Practice Area:</strong> ${data.lead.practiceArea.replace(/_/g, ' ')}</p>
-            <p><strong>Lead Score:</strong> <span style="font-size: 24px; color: ${data.lead.score >= 80 ? '#ff4444' : data.lead.score >= 60 ? '#ff9944' : '#44aa44'};">${data.lead.score}/100</span></p>
-            <p><strong>Source:</strong> ${data.lead.source}</p>
-            <p><strong>Language:</strong> ${data.lead.language === 'es' ? 'Spanish' : 'English'}</p>
-            <p><strong>Created:</strong> ${new Date(data.lead.createdAt).toLocaleString()}</p>
-            ${data.lead.courtDate ? `<p><strong>Court Date:</strong> <span style="color: #ff0000; font-weight: bold;">${new Date(data.lead.courtDate).toLocaleDateString()}</span></p>` : ''}
+            <p><strong>Name:</strong> ${data.lead?.firstName || 'N/A'} ${data.lead?.lastName || ''}</p>
+            <p><strong>Email:</strong> ${data.lead?.email || 'N/A'}</p>
+            <p><strong>Phone:</strong> ${data.lead?.phone || 'N/A'}</p>
+            <p><strong>Practice Area:</strong> ${data.lead?.practiceArea ? data.lead.practiceArea.replace(/_/g, ' ') : 'N/A'}</p>
+            <p><strong>Lead Score:</strong> <span style="font-size: 24px; color: ${(data.lead?.score || 0) >= 80 ? '#ff4444' : (data.lead?.score || 0) >= 60 ? '#ff9944' : '#44aa44'};">${data.lead?.score || 0}/100</span></p>
+            <p><strong>Source:</strong> ${data.lead?.source || 'N/A'}</p>
+            <p><strong>Language:</strong> ${data.lead?.language === 'es' ? 'Spanish' : 'English'}</p>
+            <p><strong>Created:</strong> ${data.lead?.createdAt ? new Date(data.lead.createdAt).toLocaleString() : 'N/A'}</p>
+            ${data.lead?.courtDate ? `<p><strong>Court Date:</strong> <span style="color: #ff0000; font-weight: bold;">${new Date(data.lead.courtDate).toLocaleDateString()}</span></p>` : ''}
           </div>
           
           ${
-            data.lead.message
+            data.lead?.message
               ? `
           <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
             <h3 style="color: #C9974D; margin-top: 0;">Message</h3>
@@ -575,11 +575,11 @@ If you did not create this account, please contact us immediately.
           
           <div style="background-color: #fff9e6; border-left: 4px solid #C9974D; padding: 15px; margin-bottom: 20px;">
             <p style="margin: 0;"><strong>Action Required:</strong> This lead requires immediate attention. Please contact them within the next hour.</p>
-            ${data.lead.preferredContactTime ? `<p style="margin: 5px 0 0 0;"><strong>Preferred Contact Time:</strong> ${data.lead.preferredContactTime}</p>` : ''}
+            ${data.lead?.preferredContactTime ? `<p style="margin: 5px 0 0 0;"><strong>Preferred Contact Time:</strong> ${data.lead.preferredContactTime}</p>` : ''}
           </div>
           
           <div style="text-align: center;">
-            <a href="${process.env.NEXT_PUBLIC_URL}/admin/leads/${data.lead.id || data.leadId}" 
+            <a href="${process.env.NEXT_PUBLIC_URL}/admin/leads/${data.lead?.id || data.leadId}" 
                style="display: inline-block; background-color: #C9974D; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold;">
               View Lead in Dashboard
             </a>
@@ -595,22 +595,22 @@ If you did not create this account, please contact us immediately.
 🚨 URGENT LEAD NOTIFICATION
 
 LEAD DETAILS
-Name: ${data.lead.firstName} ${data.lead.lastName}
-Email: ${data.lead.email}
-Phone: ${data.lead.phone}
-Practice Area: ${data.lead.practiceArea.replace(/_/g, ' ')}
-Lead Score: ${data.lead.score}/100
-Source: ${data.lead.source}
-Language: ${data.lead.language === 'es' ? 'Spanish' : 'English'}
-Created: ${new Date(data.lead.createdAt).toLocaleString()}
-${data.lead.courtDate ? `Court Date: ${new Date(data.lead.courtDate).toLocaleDateString()}` : ''}
+Name: ${data.lead?.firstName} ${data.lead?.lastName}
+Email: ${data.lead?.email}
+Phone: ${data.lead?.phone}
+Practice Area: ${data.lead?.practiceArea?.replace(/_/g, ' ')}
+Lead Score: ${data.lead?.score}/100
+Source: ${data.lead?.source}
+Language: ${data.lead?.language === 'es' ? 'Spanish' : 'English'}
+Created: ${data.lead?.createdAt ? new Date(data.lead.createdAt).toLocaleString() : 'N/A'}
+${data.lead?.courtDate ? `Court Date: ${new Date(data.lead.courtDate).toLocaleDateString()}` : ''}
 
-${data.lead.message ? `MESSAGE\n${data.lead.message}\n\n` : ''}
+${data.lead?.message ? `MESSAGE\n${data.lead.message}\n\n` : ''}
 
 ACTION REQUIRED: This lead requires immediate attention. Please contact them within the next hour.
-${data.lead.preferredContactTime ? `Preferred Contact Time: ${data.lead.preferredContactTime}` : ''}
+${data.lead?.preferredContactTime ? `Preferred Contact Time: ${data.lead.preferredContactTime}` : ''}
 
-View lead in dashboard: ${process.env.NEXT_PUBLIC_URL}/admin/leads/${data.lead.id || data.leadId}
+View lead in dashboard: ${process.env.NEXT_PUBLIC_URL}/admin/leads/${data.lead?.id || data.leadId}
 
 This is an automated notification from Vasquez Law Firm's lead management system.
     `.trim(),
@@ -835,11 +835,11 @@ YO PELEO POR TI™
             </tr>
             <tr>
               <td style="padding: 8px 0;"><strong>Date:</strong></td>
-              <td style="padding: 8px 0;">${new Date(data.date).toLocaleDateString()}</td>
+              <td style="padding: 8px 0;">${data.date ? new Date(data.date).toLocaleDateString() : 'N/A'}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0;"><strong>Amount:</strong></td>
-              <td style="padding: 8px 0; font-size: 20px; color: #28a745;">$${data.amount.toFixed(2)}</td>
+              <td style="padding: 8px 0; font-size: 20px; color: #28a745;">$${data.amount?.toFixed(2) || '0.00'}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0;"><strong>Payment Method:</strong></td>
@@ -889,8 +889,8 @@ Thank you for your payment. This email serves as your official receipt.
 
 PAYMENT DETAILS
 Receipt Number: ${data.receiptNumber || data.transactionId}
-Date: ${new Date(data.date).toLocaleDateString()}
-Amount: $${data.amount.toFixed(2)}
+Date: ${data.date ? new Date(data.date).toLocaleDateString() : 'N/A'}
+Amount: $${data.amount?.toFixed(2) || '0.00'}
 Payment Method: ${data.paymentMethod}
 Description: ${data.description}
 ${data.caseNumber ? `Case Number: ${data.caseNumber}` : ''}
@@ -912,7 +912,7 @@ YO PELEO POR TI™
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #C9974D;">Thank You for Your Consultation</h2>
         <p>Dear ${data.clientName},</p>
-        <p>Thank you for meeting with us on ${new Date(data.consultationDate).toLocaleDateString()}. We appreciate the opportunity to discuss your legal matter.</p>
+        <p>Thank you for meeting with us on ${data.consultationDate ? new Date(data.consultationDate).toLocaleDateString() : '[consultation date]'}. We appreciate the opportunity to discuss your legal matter.</p>
         
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3>Consultation Summary</h3>
@@ -971,7 +971,7 @@ Thank You for Your Consultation
 
 Dear ${data.clientName},
 
-Thank you for meeting with us on ${new Date(data.consultationDate).toLocaleDateString()}. We appreciate the opportunity to discuss your legal matter.
+Thank you for meeting with us on ${data.consultationDate ? new Date(data.consultationDate).toLocaleDateString() : '[consultation date]'}. We appreciate the opportunity to discuss your legal matter.
 
 CONSULTATION SUMMARY
 Attorney: ${data.attorneyName}
@@ -1096,7 +1096,7 @@ class EmailService {
       // Prepare mail options
       const mailOptions: nodemailer.SendMailOptions = {
         from: `"Vasquez Law Firm" <${process.env.SMTP_USER}>`,
-        to: Array.isArray(to) ? to.join(', ') : to,
+        to: Array.isArray(to) ? to.join(', ') : (to as string),
         cc: cc ? (Array.isArray(cc) ? cc.join(', ') : cc) : undefined,
         bcc: bcc ? (Array.isArray(bcc) ? bcc.join(', ') : bcc) : undefined,
         subject,
@@ -1219,7 +1219,7 @@ class EmailService {
 
           await this.queueEmail({
             to: email,
-            subject: baseData.subject,
+            subject: baseData.subject || 'Newsletter from Vasquez Law Firm',
             template,
             data,
             priority: 'low',
@@ -1348,7 +1348,7 @@ class EmailService {
 
     // Send confirmation to client
     await this.queueEmail({
-      to: data.email,
+      to: data.email || '',
       subject: 'Thank you for contacting Vasquez Law Firm',
       template: 'client-notification',
       data,
@@ -1372,7 +1372,7 @@ class EmailService {
 
     // Send confirmation to client
     await this.queueEmail({
-      to: data.email,
+      to: data.email || '',
       subject: 'Case Evaluation Request Received',
       template: 'client-notification',
       data: {
@@ -1386,7 +1386,7 @@ class EmailService {
 
   async sendAppointmentConfirmation(data: EmailTemplateData): Promise<EmailResult> {
     return this.sendEmail({
-      to: data.email,
+      to: data.email || '',
       subject: 'Appointment Confirmation - Vasquez Law Firm',
       template: 'appointment-confirmation',
       data,
@@ -1395,7 +1395,7 @@ class EmailService {
 
   async sendAppointmentReminder(data: EmailTemplateData): Promise<EmailResult> {
     return this.sendEmail({
-      to: data.email,
+      to: data.email || '',
       subject: 'Appointment Reminder - Vasquez Law Firm',
       template: 'appointment-reminder',
       data,
@@ -1408,7 +1408,7 @@ class EmailService {
     const unsubscribeToken = Buffer.from(`${data.email}:${Date.now()}`).toString('base64');
 
     return this.sendEmail({
-      to: data.email,
+      to: data.email || '',
       subject: 'Welcome to Vasquez Law Firm Newsletter',
       template: 'newsletter-welcome',
       data: {
@@ -1420,7 +1420,7 @@ class EmailService {
 
   async sendPasswordReset(data: EmailTemplateData): Promise<EmailResult> {
     return this.sendEmail({
-      to: data.email,
+      to: data.email || '',
       subject: 'Password Reset Request - Vasquez Law Firm',
       template: 'password-reset',
       data,
@@ -1430,7 +1430,7 @@ class EmailService {
 
   async sendCaseUpdate(data: EmailTemplateData): Promise<EmailResult> {
     return this.sendEmail({
-      to: data.clientEmail,
+      to: data.clientEmail || '',
       subject: `Case Update: ${data.updateTitle}`,
       template: 'case-update',
       data,
@@ -1439,7 +1439,7 @@ class EmailService {
 
   async sendDocumentReady(data: EmailTemplateData): Promise<EmailResult> {
     return this.sendEmail({
-      to: data.clientEmail,
+      to: data.clientEmail || '',
       subject: `Document Ready: ${data.documentName}`,
       template: 'document-ready',
       data,
@@ -1449,7 +1449,7 @@ class EmailService {
 
   async sendPaymentReceipt(data: EmailTemplateData): Promise<EmailResult> {
     return this.sendEmail({
-      to: data.clientEmail,
+      to: data.clientEmail || '',
       subject: `Payment Receipt - Vasquez Law Firm`,
       template: 'payment-receipt',
       data,
@@ -1458,7 +1458,7 @@ class EmailService {
 
   async sendConsultationFollowup(data: EmailTemplateData): Promise<EmailResult> {
     return this.sendEmail({
-      to: data.clientEmail,
+      to: data.clientEmail || '',
       subject: 'Thank You for Your Consultation - Vasquez Law Firm',
       template: 'consultation-followup',
       data,
@@ -1473,7 +1473,7 @@ class EmailService {
 
     return this.sendEmail({
       to: attorneyEmails,
-      subject: `🚨 URGENT: New ${data.lead.practiceArea.replace(/_/g, ' ')} Lead - Score: ${data.lead.score}`,
+      subject: `🚨 URGENT: New ${data.lead?.practiceArea?.replace(/_/g, ' ') || 'Unknown'} Lead - Score: ${data.lead?.score || 0}`,
       template: 'urgent-lead-notification',
       data,
       priority: 'high',

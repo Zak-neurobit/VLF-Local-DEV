@@ -304,7 +304,21 @@ export async function POST(request: NextRequest) {
       };
 
       // Route to appropriate agent
-      const agentResponse = await orchestrator.routeMessage(message, agentContext);
+      let agentResponse;
+      try {
+        agentResponse = await orchestrator.routeMessage(message, agentContext);
+      } catch (agentError) {
+        logger.error('Agent orchestrator error:', agentError);
+        // Fallback to basic response if agent fails
+        agentResponse = {
+          agent: 'orchestrator',
+          response: null,
+          actions: [{
+            type: 'show-contact',
+            data: { phone: '(888) 979-8990' }
+          }]
+        };
+      }
 
       let aiResponse: string;
       const metadata: Record<string, unknown> = {
@@ -313,7 +327,7 @@ export async function POST(request: NextRequest) {
 
       // If agent provided a response, use it
       if (agentResponse.agent !== 'orchestrator' || agentResponse.response) {
-        aiResponse = agentResponse.response;
+        aiResponse = agentResponse.response || '';
         metadata.agent = agentResponse.agent;
         metadata.actions = agentResponse.actions;
         metadata.suggestions = agentResponse.suggestions;
@@ -441,12 +455,13 @@ export async function POST(request: NextRequest) {
         });
       }
 
-      // Generic fallback
+      // Generic fallback with disclaimer
+      const fallbackResponse = language === 'es'
+        ? 'Disculpa, encuentro un error. Por favor, intenta de nuevo o llámanos al 1-844-967-3536.'
+        : 'I apologize, but I encountered an error. Please try again or contact our office directly.';
+        
       return NextResponse.json({
-        response:
-          language === 'es'
-            ? 'Disculpa, tuve un problema al procesar tu mensaje. Por favor, intenta de nuevo o llámanos al 1-844-967-3536.'
-            : 'I apologize, I had trouble processing your message. Please try again or call us at 1-844-967-3536.',
+        response: `${fallbackResponse}\n\n*${LEGAL_DISCLAIMER[language as 'en' | 'es']}*`,
         error: 'Processing error',
         sessionId: conversation?.id,
       });

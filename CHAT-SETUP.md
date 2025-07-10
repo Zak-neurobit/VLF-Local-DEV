@@ -3,17 +3,20 @@
 ## Quick Start (5 minutes)
 
 1. **Run the setup script:**
+
    ```bash
    ./scripts/quick-setup.sh
    ```
 
 2. **Add your OpenAI API key:**
+
    - Open `.env.local` in your editor
    - Find the line `OPENAI_API_KEY=sk-your-openai-api-key-here`
    - Replace with your actual OpenAI API key
    - Get one at: https://platform.openai.com/api-keys
 
 3. **Start the development server:**
+
    ```bash
    npm run dev:next
    ```
@@ -35,20 +38,24 @@
 ## Troubleshooting
 
 ### Chat shows "I'm sorry, the chat service is unavailable"
+
 - **Cause:** OpenAI API key is not configured
 - **Fix:** Add your OpenAI API key to `.env.local`
 
 ### Chat shows "Failed to send message"
+
 - **Cause:** Network error or server not running
 - **Fix:** Make sure the development server is running with `npm run dev:next`
 
 ### Chat is stuck on "Connecting..."
+
 - **Cause:** This was the original issue - now fixed!
 - **Fix:** Pull the latest changes
 
 ## Configuration Options
 
 ### Basic Configuration (in `.env.local`):
+
 ```env
 # Required for chat to work
 OPENAI_API_KEY=sk-your-openai-api-key-here
@@ -60,6 +67,7 @@ MOCK_SMS=true
 ```
 
 ### Advanced Configuration:
+
 - GoHighLevel CRM integration
 - Email notifications
 - SMS notifications

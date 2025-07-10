@@ -14,11 +14,13 @@ Family law matters are among the most emotionally challenging legal issues anyon
 ### Grounds for Divorce
 
 **North Carolina:**
+
 - No-fault divorce after one year separation
 - Incurable insanity (rarely used)
 - Must live separately and apart for full year
 
 **Florida:**
+
 - No-fault state
 - Irretrievable breakdown of marriage
 - Mental incapacity of spouse
@@ -44,11 +46,13 @@ Family law matters are among the most emotionally challenging legal issues anyon
 ### Types of Custody
 
 **Legal Custody:**
+
 - Decision-making authority
 - Medical, educational, religious decisions
 - Can be joint or sole
 
 **Physical Custody:**
+
 - Where the child lives
 - Primary, joint, or shared arrangements
 - Visitation schedules
@@ -56,6 +60,7 @@ Family law matters are among the most emotionally challenging legal issues anyon
 ### Best Interests of the Child Standard
 
 Courts consider multiple factors:
+
 - Child's physical and emotional needs
 - Each parent's ability to provide stability
 - Child's relationship with each parent
@@ -67,6 +72,7 @@ Courts consider multiple factors:
 ### Creating Effective Parenting Plans
 
 A comprehensive parenting plan includes:
+
 - Regular schedule during school year
 - Holiday and vacation schedules
 - Transportation arrangements
@@ -79,6 +85,7 @@ A comprehensive parenting plan includes:
 ### How Child Support is Calculated
 
 **North Carolina:**
+
 - Uses Child Support Guidelines
 - Based on both parents' incomes
 - Number of children
@@ -86,6 +93,7 @@ A comprehensive parenting plan includes:
 - Other children being supported
 
 **Florida:**
+
 - Income Shares Model
 - Combined parental income
 - Number of overnights with each parent
@@ -94,6 +102,7 @@ A comprehensive parenting plan includes:
 ### Modifying Child Support
 
 Support can be modified when:
+
 - Substantial change in income (15% or more)
 - Change in custody arrangements
 - Child's needs significantly change
@@ -103,6 +112,7 @@ Support can be modified when:
 ### Enforcement Options
 
 If support isn't paid:
+
 - Wage garnishment
 - Asset seizure
 - License suspension
@@ -115,18 +125,22 @@ If support isn't paid:
 ### Types of Alimony
 
 **Temporary Alimony:**
+
 - During divorce proceedings
 - Maintains status quo
 
 **Rehabilitative Alimony:**
+
 - Helps spouse become self-supporting
 - Education or job training
 
 **Permanent Alimony:**
+
 - Long-term marriages
 - Spouse cannot become self-supporting
 
 **Reimbursement Alimony:**
+
 - Compensates for sacrifices made
 
 ### Factors Courts Consider
@@ -149,6 +163,7 @@ If support isn't paid:
 ### Equitable Distribution (North Carolina)
 
 Not necessarily 50/50, but fair considering:
+
 - Length of marriage
 - Each spouse's income and property
 - Contributions to marital property
@@ -159,6 +174,7 @@ Not necessarily 50/50, but fair considering:
 ### Equitable Distribution (Florida)
 
 Similar to NC with presumption of 50/50:
+
 - Marital vs. non-marital property
 - Economic circumstances
 - Contributions to marriage
@@ -168,12 +184,14 @@ Similar to NC with presumption of 50/50:
 ### Marital vs. Separate Property
 
 **Marital Property:**
+
 - Acquired during marriage
 - Appreciation of separate property
 - Gifts between spouses
 - Retirement accounts earned during marriage
 
 **Separate Property:**
+
 - Owned before marriage
 - Inheritance (kept separate)
 - Gifts from third parties
@@ -184,6 +202,7 @@ Similar to NC with presumption of 50/50:
 ### Domestic Violence
 
 Protection available through:
+
 - Domestic Violence Protective Orders
 - Ex parte (emergency) orders
 - Criminal charges
@@ -193,6 +212,7 @@ Protection available through:
 ### High-Asset Divorces
 
 Complex issues include:
+
 - Business valuations
 - Professional practices
 - Stock options and restricted stock
@@ -203,6 +223,7 @@ Complex issues include:
 ### Military Divorces
 
 Special considerations:
+
 - Federal laws affecting benefits
 - Deployment and custody
 - Military pension division
@@ -219,6 +240,7 @@ Special considerations:
 ### Mediation
 
 Benefits include:
+
 - Less expensive than trial
 - Faster resolution
 - More control over outcome
@@ -228,6 +250,7 @@ Benefits include:
 ### Collaborative Divorce
 
 Team approach with:
+
 - Attorneys for each party
 - Neutral financial professional
 - Mental health professionals
@@ -236,6 +259,7 @@ Team approach with:
 ### Negotiated Settlements
 
 Most cases settle because:
+
 - Predictable outcomes
 - Lower costs
 - Less emotional toll
@@ -274,6 +298,7 @@ Most cases settle because:
 ### Enforcement of Orders
 
 When ex-spouse doesn't comply:
+
 - File motion for contempt
 - Seek wage garnishment
 - Request property liens
@@ -282,6 +307,7 @@ When ex-spouse doesn't comply:
 ### Modifications
 
 Changed circumstances may warrant:
+
 - Custody modifications
 - Support adjustments
 - Visitation changes
@@ -300,6 +326,7 @@ Changed circumstances may warrant:
 ### Complex Legal System
 
 Family law involves:
+
 - Statutory requirements
 - Case law precedents
 - Local rules and customs
@@ -309,6 +336,7 @@ Family law involves:
 ### Emotional Decisions
 
 An attorney provides:
+
 - Objective perspective
 - Strategic thinking
 - Protection from mistakes
@@ -324,6 +352,7 @@ Family law matters require careful consideration of both immediate needs and lon
 If you're facing family law issues, you need experienced, compassionate legal representation. Contact Vasquez Law Firm, PLLC at 1-844-YO-PELEO (1-844-967-3536) for a confidential consultation. We have offices in Charlotte, Raleigh, Durham, Smithfield, Winston-Salem, and Orlando to serve you.
 
 Our family law team will:
+
 - Protect your rights and interests
 - Advocate for your children
 - Navigate complex financial issues
@@ -332,4 +361,4 @@ Our family law team will:
 
 We understand that family law matters are deeply personal. Our bilingual team provides culturally sensitive representation, ensuring you're comfortable and informed throughout the process. Don't face these challenges alone – let us help you build a stronger future for you and your family.
 
-*This article provides general information about family law and should not be construed as legal advice. Every situation is unique, and laws vary by state. Please consult with a qualified family law attorney to discuss your specific circumstances. Attorney-client privilege protects your communications.*
+_This article provides general information about family law and should not be construed as legal advice. Every situation is unique, and laws vary by state. Please consult with a qualified family law attorney to discuss your specific circumstances. Attorney-client privilege protects your communications._

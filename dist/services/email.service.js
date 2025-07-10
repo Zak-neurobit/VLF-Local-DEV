@@ -1,75 +1,96 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
+'use strict';
+var __createBinding =
+  (this && this.__createBinding) ||
+  (Object.create
+    ? function (o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        var desc = Object.getOwnPropertyDescriptor(m, k);
+        if (!desc || ('get' in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+          desc = {
+            enumerable: true,
+            get: function () {
+              return m[k];
+            },
+          };
+        }
+        Object.defineProperty(o, k2, desc);
+      }
+    : function (o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        o[k2] = m[k];
+      });
+var __setModuleDefault =
+  (this && this.__setModuleDefault) ||
+  (Object.create
+    ? function (o, v) {
+        Object.defineProperty(o, 'default', { enumerable: true, value: v });
+      }
+    : function (o, v) {
+        o['default'] = v;
+      });
+var __importStar =
+  (this && this.__importStar) ||
+  (function () {
+    var ownKeys = function (o) {
+      ownKeys =
+        Object.getOwnPropertyNames ||
+        function (o) {
+          var ar = [];
+          for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+          return ar;
         };
-        return ownKeys(o);
+      return ownKeys(o);
     };
     return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
+      if (mod && mod.__esModule) return mod;
+      var result = {};
+      if (mod != null)
+        for (var k = ownKeys(mod), i = 0; i < k.length; i++)
+          if (k[i] !== 'default') __createBinding(result, mod, k[i]);
+      __setModuleDefault(result, mod);
+      return result;
     };
-})();
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
+  })();
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
+Object.defineProperty(exports, '__esModule', { value: true });
 exports.emailService = void 0;
-const nodemailer = __importStar(require("nodemailer"));
-const logger_1 = require("@/lib/logger");
-const zod_1 = require("zod");
-const bull_1 = require("@/lib/queue/bull");
-const p_retry_1 = __importDefault(require("p-retry"));
-const perf_hooks_1 = require("perf_hooks");
+const nodemailer = __importStar(require('nodemailer'));
+const logger_1 = require('@/lib/logger');
+const zod_1 = require('zod');
+const bull_1 = require('@/lib/queue/bull');
+const p_retry_1 = __importDefault(require('p-retry'));
+const perf_hooks_1 = require('perf_hooks');
 // Email validation schemas
 const emailSchema = zod_1.z.string().email();
 const emailArraySchema = zod_1.z.union([emailSchema, zod_1.z.array(emailSchema).min(1)]);
 // Email configuration
 const emailConfig = {
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: process.env.SMTP_SECURE === 'true',
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD,
-    },
-    pool: true,
-    maxConnections: 5,
-    maxMessages: 100,
-    rateDelta: 1000,
-    rateLimit: 5,
-    tls: {
-        rejectUnauthorized: process.env.NODE_ENV === 'production',
-    },
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  port: parseInt(process.env.SMTP_PORT || '587'),
+  secure: process.env.SMTP_SECURE === 'true',
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD,
+  },
+  pool: true,
+  maxConnections: 5,
+  maxMessages: 100,
+  rateDelta: 1000,
+  rateLimit: 5,
+  tls: {
+    rejectUnauthorized: process.env.NODE_ENV === 'production',
+  },
 };
 // Create transporter with connection pooling
 const transporter = process.env.SMTP_USER ? nodemailer.createTransport(emailConfig) : null;
 // Email templates with enhanced styling and responsive design
 const templates = {
-    'contact-form': data => ({
-        html: `
+  'contact-form': data => ({
+    html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #C9974D;">New Contact Form Submission</h2>
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px;">
@@ -88,7 +109,7 @@ const templates = {
         </p>
       </div>
     `,
-        text: `
+    text: `
 New Contact Form Submission
 
 Name: ${data.name}
@@ -103,9 +124,9 @@ ${data.message}
 
 ${data.sourceUrl ? `Source: ${data.sourceUrl}` : ''}
     `.trim(),
-    }),
-    'case-evaluation': data => ({
-        html: `
+  }),
+  'case-evaluation': data => ({
+    html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #C9974D;">New Case Evaluation Request</h2>
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px;">
@@ -130,19 +151,21 @@ ${data.sourceUrl ? `Source: ${data.sourceUrl}` : ''}
           <p><strong>Preferred Contact Method:</strong> ${data.preferredContact}</p>
           <p><strong>Preferred Time:</strong> ${data.preferredTime}</p>
           
-          ${data.leadScore
-            ? `
+          ${
+            data.leadScore
+              ? `
           <h3>Lead Analysis</h3>
           <p><strong>Lead Score:</strong> <span style="font-size: 20px; color: ${data.leadScore >= 80 ? '#ff0000' : data.leadScore >= 60 ? '#ff9900' : '#009900'};">${data.leadScore}/100</span></p>
           `
-            : ''}
+              : ''
+          }
         </div>
         <p style="color: #666; font-size: 12px; margin-top: 20px;">
           This case evaluation was submitted through the Vasquez Law Firm website.
         </p>
       </div>
     `,
-        text: `
+    text: `
 New Case Evaluation Request
 
 PERSONAL INFORMATION
@@ -168,9 +191,9 @@ Preferred Time: ${data.preferredTime}
 
 ${data.leadScore ? `LEAD ANALYSIS\nLead Score: ${data.leadScore}/100` : ''}
     `.trim(),
-    }),
-    'appointment-confirmation': data => ({
-        html: `
+  }),
+  'appointment-confirmation': data => ({
+    html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #C9974D;">Appointment Confirmation</h2>
         <p>Dear ${data.firstName},</p>
@@ -178,16 +201,18 @@ ${data.leadScore ? `LEAD ANALYSIS\nLead Score: ${data.leadScore}/100` : ''}
         
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3>Appointment Details</h3>
-          <p><strong>Date:</strong> ${new Date(data.appointmentDate).toLocaleDateString()}</p>
+          <p><strong>Date:</strong> ${data.appointmentDate ? new Date(data.appointmentDate).toLocaleDateString() : 'Not specified'}</p>
           <p><strong>Time:</strong> ${data.appointmentTime}</p>
           <p><strong>Type:</strong> ${data.appointmentType}</p>
           <p><strong>Attorney:</strong> ${data.attorneyName || 'To be assigned'}</p>
           <p><strong>Location:</strong> ${data.location}</p>
-          ${data.meetingType === 'virtual'
-            ? `
+          ${
+            data.meetingType === 'virtual'
+              ? `
           <p><strong>Meeting Link:</strong> Will be sent 24 hours before your appointment</p>
           `
-            : ''}
+              : ''
+          }
           ${data.notes ? `<p><strong>Notes:</strong> ${data.notes}</p>` : ''}
         </div>
         
@@ -213,13 +238,13 @@ ${data.leadScore ? `LEAD ANALYSIS\nLead Score: ${data.leadScore}/100` : ''}
         <p>Best regards,<br>Vasquez Law Firm<br>YO PELEO POR TI™</p>
       </div>
     `,
-        text: `
+    text: `
 Dear ${data.firstName},
 
 Your appointment with Vasquez Law Firm has been confirmed.
 
 APPOINTMENT DETAILS
-Date: ${new Date(data.appointmentDate).toLocaleDateString()}
+Date: ${data.appointmentDate ? new Date(data.appointmentDate).toLocaleDateString() : 'Not specified'}
 Time: ${data.appointmentTime}
 Type: ${data.appointmentType}
 Attorney: ${data.attorneyName || 'To be assigned'}
@@ -241,9 +266,9 @@ Best regards,
 Vasquez Law Firm
 YO PELEO POR TI™
     `.trim(),
-    }),
-    'appointment-reminder': data => ({
-        html: `
+  }),
+  'appointment-reminder': data => ({
+    html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #C9974D;">Appointment Reminder</h2>
         <p>Dear ${data.firstName},</p>
@@ -251,19 +276,21 @@ YO PELEO POR TI™
         
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3>Appointment Details</h3>
-          <p><strong>Date:</strong> ${new Date(data.appointmentDate).toLocaleDateString()}</p>
+          <p><strong>Date:</strong> ${data.appointmentDate ? new Date(data.appointmentDate).toLocaleDateString() : 'Not specified'}</p>
           <p><strong>Time:</strong> ${data.appointmentTime}</p>
           <p><strong>Attorney:</strong> ${data.attorneyName}</p>
           <p><strong>Location:</strong> ${data.location}</p>
-          ${data.meetingType === 'virtual'
-            ? `
+          ${
+            data.meetingType === 'virtual'
+              ? `
           <div style="background-color: #d4edda; padding: 15px; border-radius: 5px; margin: 15px 0;">
             <p style="margin: 0;"><strong>Virtual Meeting Link:</strong></p>
             <p style="margin: 5px 0;"><a href="${data.meetingLink}" style="color: #0066cc;">${data.meetingLink}</a></p>
             <p style="margin: 0; font-size: 14px;">Please join 5 minutes early to test your connection.</p>
           </div>
           `
-            : ''}
+              : ''
+          }
         </div>
         
         <p>If you need to reschedule, please contact us as soon as possible at <strong>1-844-YO-PELEO (967-3536)</strong>.</p>
@@ -273,13 +300,13 @@ YO PELEO POR TI™
         <p>Best regards,<br>Vasquez Law Firm<br>YO PELEO POR TI™</p>
       </div>
     `,
-        text: `
+    text: `
 Dear ${data.firstName},
 
 This is a reminder about your upcoming appointment with Vasquez Law Firm.
 
 APPOINTMENT DETAILS
-Date: ${new Date(data.appointmentDate).toLocaleDateString()}
+Date: ${data.appointmentDate ? new Date(data.appointmentDate).toLocaleDateString() : 'Not specified'}
 Time: ${data.appointmentTime}
 Attorney: ${data.attorneyName}
 Location: ${data.location}
@@ -293,9 +320,9 @@ Best regards,
 Vasquez Law Firm
 YO PELEO POR TI™
     `.trim(),
-    }),
-    'newsletter-welcome': data => ({
-        html: `
+  }),
+  'newsletter-welcome': data => ({
+    html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #C9974D;">Welcome to Vasquez Law Firm Newsletter</h2>
         <p>Hello${data.firstName ? ` ${data.firstName}` : ''},</p>
@@ -312,11 +339,11 @@ YO PELEO POR TI™
         <hr style="margin: 30px 0;">
         <p style="font-size: 12px; color: #666;">
           You're receiving this email because you subscribed to our newsletter. 
-          If you wish to unsubscribe, please <a href="${process.env.NEXT_PUBLIC_URL}/unsubscribe?email=${encodeURIComponent(data.email)}&token=${data.unsubscribeToken}">click here</a>.
+          If you wish to unsubscribe, please <a href="${process.env.NEXT_PUBLIC_URL}/unsubscribe?email=${encodeURIComponent(data.email || '')}&token=${data.unsubscribeToken}">click here</a>.
         </p>
       </div>
     `,
-        text: `
+    text: `
 Welcome to Vasquez Law Firm Newsletter
 
 Hello${data.firstName ? ` ${data.firstName}` : ''},
@@ -337,11 +364,11 @@ YO PELEO POR TI™
 
 ---
 You're receiving this email because you subscribed to our newsletter. 
-To unsubscribe, visit: ${process.env.NEXT_PUBLIC_URL}/unsubscribe?email=${encodeURIComponent(data.email)}&token=${data.unsubscribeToken}
+To unsubscribe, visit: ${process.env.NEXT_PUBLIC_URL}/unsubscribe?email=${encodeURIComponent(data.email || '')}&token=${data.unsubscribeToken}
     `.trim(),
-    }),
-    'client-notification': data => ({
-        html: `
+  }),
+  'client-notification': data => ({
+    html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #C9974D;">Thank You for Contacting Vasquez Law Firm</h2>
         <p>Dear ${data.name},</p>
@@ -364,7 +391,7 @@ To unsubscribe, visit: ${process.env.NEXT_PUBLIC_URL}/unsubscribe?email=${encode
         <p>Best regards,<br>Vasquez Law Firm<br>YO PELEO POR TI™</p>
       </div>
     `,
-        text: `
+    text: `
 Dear ${data.name},
 
 We have received your message and appreciate you reaching out to us. Our team will review your inquiry and respond within 1 business day.
@@ -383,9 +410,9 @@ Best regards,
 Vasquez Law Firm
 YO PELEO POR TI™
     `.trim(),
-    }),
-    'attorney-notification': data => ({
-        html: `
+  }),
+  'attorney-notification': data => ({
+    html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #C9974D;">New ${data.formType} Submission</h2>
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px;">
@@ -403,7 +430,7 @@ YO PELEO POR TI™
         </p>
       </div>
     `,
-        text: `
+    text: `
 New ${data.formType} Submission
 
 Submission Type: ${data.formType}
@@ -414,9 +441,9 @@ ${data.assignedTo ? `Assigned To: ${data.assignedTo}` : ''}
 
 View full details at: ${process.env.NEXT_PUBLIC_URL}/admin/submissions/${data.id}
     `.trim(),
-    }),
-    'user-welcome': data => ({
-        html: `
+  }),
+  'user-welcome': data => ({
+    html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #C9974D;">Welcome to Vasquez Law Firm</h2>
         <p>Dear ${data.name},</p>
@@ -463,7 +490,7 @@ View full details at: ${process.env.NEXT_PUBLIC_URL}/admin/submissions/${data.id
         </p>
       </div>
     `,
-        text: `
+    text: `
 Welcome to Vasquez Law Firm
 
 Dear ${data.name},
@@ -499,9 +526,9 @@ YO PELEO POR TI™
 This email was sent to ${data.email} because you created an account on our website. 
 If you did not create this account, please contact us immediately.
     `.trim(),
-    }),
-    'urgent-lead-notification': data => ({
-        html: `
+  }),
+  'urgent-lead-notification': data => ({
+    html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="background-color: #ff4444; color: white; padding: 20px; border-radius: 8px 8px 0 0;">
           <h2 style="margin: 0; color: white;">🚨 URGENT LEAD NOTIFICATION</h2>
@@ -510,33 +537,35 @@ If you did not create this account, please contact us immediately.
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 0 0 8px 8px;">
           <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
             <h3 style="color: #C9974D; margin-top: 0;">Lead Details</h3>
-            <p><strong>Name:</strong> ${data.lead.firstName} ${data.lead.lastName}</p>
-            <p><strong>Email:</strong> ${data.lead.email}</p>
-            <p><strong>Phone:</strong> ${data.lead.phone}</p>
-            <p><strong>Practice Area:</strong> ${data.lead.practiceArea.replace(/_/g, ' ')}</p>
-            <p><strong>Lead Score:</strong> <span style="font-size: 24px; color: ${data.lead.score >= 80 ? '#ff4444' : data.lead.score >= 60 ? '#ff9944' : '#44aa44'};">${data.lead.score}/100</span></p>
-            <p><strong>Source:</strong> ${data.lead.source}</p>
-            <p><strong>Language:</strong> ${data.lead.language === 'es' ? 'Spanish' : 'English'}</p>
-            <p><strong>Created:</strong> ${new Date(data.lead.createdAt).toLocaleString()}</p>
-            ${data.lead.courtDate ? `<p><strong>Court Date:</strong> <span style="color: #ff0000; font-weight: bold;">${new Date(data.lead.courtDate).toLocaleDateString()}</span></p>` : ''}
+            <p><strong>Name:</strong> ${data.lead?.firstName || 'N/A'} ${data.lead?.lastName || ''}</p>
+            <p><strong>Email:</strong> ${data.lead?.email || 'N/A'}</p>
+            <p><strong>Phone:</strong> ${data.lead?.phone || 'N/A'}</p>
+            <p><strong>Practice Area:</strong> ${data.lead?.practiceArea ? data.lead.practiceArea.replace(/_/g, ' ') : 'N/A'}</p>
+            <p><strong>Lead Score:</strong> <span style="font-size: 24px; color: ${(data.lead?.score || 0) >= 80 ? '#ff4444' : (data.lead?.score || 0) >= 60 ? '#ff9944' : '#44aa44'};">${data.lead?.score || 0}/100</span></p>
+            <p><strong>Source:</strong> ${data.lead?.source || 'N/A'}</p>
+            <p><strong>Language:</strong> ${data.lead?.language === 'es' ? 'Spanish' : 'English'}</p>
+            <p><strong>Created:</strong> ${data.lead?.createdAt ? new Date(data.lead.createdAt).toLocaleString() : 'N/A'}</p>
+            ${data.lead?.courtDate ? `<p><strong>Court Date:</strong> <span style="color: #ff0000; font-weight: bold;">${new Date(data.lead.courtDate).toLocaleDateString()}</span></p>` : ''}
           </div>
           
-          ${data.lead.message
-            ? `
+          ${
+            data.lead?.message
+              ? `
           <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
             <h3 style="color: #C9974D; margin-top: 0;">Message</h3>
             <p style="white-space: pre-wrap;">${data.lead.message}</p>
           </div>
           `
-            : ''}
+              : ''
+          }
           
           <div style="background-color: #fff9e6; border-left: 4px solid #C9974D; padding: 15px; margin-bottom: 20px;">
             <p style="margin: 0;"><strong>Action Required:</strong> This lead requires immediate attention. Please contact them within the next hour.</p>
-            ${data.lead.preferredContactTime ? `<p style="margin: 5px 0 0 0;"><strong>Preferred Contact Time:</strong> ${data.lead.preferredContactTime}</p>` : ''}
+            ${data.lead?.preferredContactTime ? `<p style="margin: 5px 0 0 0;"><strong>Preferred Contact Time:</strong> ${data.lead.preferredContactTime}</p>` : ''}
           </div>
           
           <div style="text-align: center;">
-            <a href="${process.env.NEXT_PUBLIC_URL}/admin/leads/${data.lead.id || data.leadId}" 
+            <a href="${process.env.NEXT_PUBLIC_URL}/admin/leads/${data.lead?.id || data.leadId}" 
                style="display: inline-block; background-color: #C9974D; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold;">
               View Lead in Dashboard
             </a>
@@ -548,32 +577,32 @@ If you did not create this account, please contact us immediately.
         </p>
       </div>
     `,
-        text: `
+    text: `
 🚨 URGENT LEAD NOTIFICATION
 
 LEAD DETAILS
-Name: ${data.lead.firstName} ${data.lead.lastName}
-Email: ${data.lead.email}
-Phone: ${data.lead.phone}
-Practice Area: ${data.lead.practiceArea.replace(/_/g, ' ')}
-Lead Score: ${data.lead.score}/100
-Source: ${data.lead.source}
-Language: ${data.lead.language === 'es' ? 'Spanish' : 'English'}
-Created: ${new Date(data.lead.createdAt).toLocaleString()}
-${data.lead.courtDate ? `Court Date: ${new Date(data.lead.courtDate).toLocaleDateString()}` : ''}
+Name: ${data.lead?.firstName} ${data.lead?.lastName}
+Email: ${data.lead?.email}
+Phone: ${data.lead?.phone}
+Practice Area: ${data.lead?.practiceArea?.replace(/_/g, ' ')}
+Lead Score: ${data.lead?.score}/100
+Source: ${data.lead?.source}
+Language: ${data.lead?.language === 'es' ? 'Spanish' : 'English'}
+Created: ${data.lead?.createdAt ? new Date(data.lead.createdAt).toLocaleString() : 'N/A'}
+${data.lead?.courtDate ? `Court Date: ${new Date(data.lead.courtDate).toLocaleDateString()}` : ''}
 
-${data.lead.message ? `MESSAGE\n${data.lead.message}\n\n` : ''}
+${data.lead?.message ? `MESSAGE\n${data.lead.message}\n\n` : ''}
 
 ACTION REQUIRED: This lead requires immediate attention. Please contact them within the next hour.
-${data.lead.preferredContactTime ? `Preferred Contact Time: ${data.lead.preferredContactTime}` : ''}
+${data.lead?.preferredContactTime ? `Preferred Contact Time: ${data.lead.preferredContactTime}` : ''}
 
-View lead in dashboard: ${process.env.NEXT_PUBLIC_URL}/admin/leads/${data.lead.id || data.leadId}
+View lead in dashboard: ${process.env.NEXT_PUBLIC_URL}/admin/leads/${data.lead?.id || data.leadId}
 
 This is an automated notification from Vasquez Law Firm's lead management system.
     `.trim(),
-    }),
-    'password-reset': data => ({
-        html: `
+  }),
+  'password-reset': data => ({
+    html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #C9974D;">Password Reset Request</h2>
         <p>Dear ${data.name},</p>
@@ -601,7 +630,7 @@ This is an automated notification from Vasquez Law Firm's lead management system
         </p>
       </div>
     `,
-        text: `
+    text: `
 Password Reset Request
 
 Dear ${data.name},
@@ -620,9 +649,9 @@ YO PELEO POR TI™
 ---
 This is an automated security email. If you didn't request a password reset, please contact us immediately.
     `.trim(),
-    }),
-    'case-update': data => ({
-        html: `
+  }),
+  'case-update': data => ({
+    html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #C9974D;">Case Update: ${data.updateTitle}</h2>
         <p>Dear ${data.clientName},</p>
@@ -638,23 +667,27 @@ This is an automated security email. If you didn't request a password reset, ple
             ${data.updateContent}
           </div>
           
-          ${data.nextSteps && data.nextSteps.length > 0
-            ? `
+          ${
+            data.nextSteps && data.nextSteps.length > 0
+              ? `
           <h3>Next Steps</h3>
           <ol>
-            ${data.nextSteps.map((step) => `<li>${step}</li>`).join('')}
+            ${data.nextSteps.map(step => `<li>${step}</li>`).join('')}
           </ol>
           `
-            : ''}
+              : ''
+          }
           
-          ${data.documentsNeeded && data.documentsNeeded.length > 0
-            ? `
+          ${
+            data.documentsNeeded && data.documentsNeeded.length > 0
+              ? `
           <h3>Documents Needed</h3>
           <ul>
-            ${data.documentsNeeded.map((doc) => `<li>${doc}</li>`).join('')}
+            ${data.documentsNeeded.map(doc => `<li>${doc}</li>`).join('')}
           </ul>
           `
-            : ''}
+              : ''
+          }
         </div>
         
         <p>If you have any questions about this update, please don't hesitate to contact us at <strong>1-844-YO-PELEO (967-3536)</strong> or reply to this email.</p>
@@ -669,7 +702,7 @@ This is an automated security email. If you didn't request a password reset, ple
         <p>Best regards,<br>${data.attorneyName}<br>Vasquez Law Firm<br>YO PELEO POR TI™</p>
       </div>
     `,
-        text: `
+    text: `
 Case Update: ${data.updateTitle}
 
 Dear ${data.clientName},
@@ -685,7 +718,7 @@ ${data.updateContent}
 
 ${data.nextSteps && data.nextSteps.length > 0 ? `NEXT STEPS\n${data.nextSteps.map((step, i) => `${i + 1}. ${step}`).join('\n')}\n` : ''}
 
-${data.documentsNeeded && data.documentsNeeded.length > 0 ? `DOCUMENTS NEEDED\n${data.documentsNeeded.map((doc) => `- ${doc}`).join('\n')}\n` : ''}
+${data.documentsNeeded && data.documentsNeeded.length > 0 ? `DOCUMENTS NEEDED\n${data.documentsNeeded.map(doc => `- ${doc}`).join('\n')}\n` : ''}
 
 If you have any questions about this update, please don't hesitate to contact us at 1-844-YO-PELEO (967-3536) or reply to this email.
 
@@ -696,9 +729,9 @@ ${data.attorneyName}
 Vasquez Law Firm
 YO PELEO POR TI™
     `.trim(),
-    }),
-    'document-ready': data => ({
-        html: `
+  }),
+  'document-ready': data => ({
+    html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #C9974D;">Document Ready for Review</h2>
         <p>Dear ${data.clientName},</p>
@@ -710,21 +743,25 @@ YO PELEO POR TI™
           <p><strong>Prepared by:</strong> ${data.preparedBy}</p>
           <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
           
-          ${data.description
-            ? `
+          ${
+            data.description
+              ? `
           <p><strong>Description:</strong></p>
           <p>${data.description}</p>
           `
-            : ''}
+              : ''
+          }
           
-          ${data.actionRequired
-            ? `
+          ${
+            data.actionRequired
+              ? `
           <div style="background-color: #fff3cd; padding: 15px; border-radius: 5px; margin-top: 15px;">
             <p style="margin: 0;"><strong>Action Required:</strong> ${data.actionRequired}</p>
             ${data.deadline ? `<p style="margin: 5px 0 0 0;"><strong>Deadline:</strong> ${new Date(data.deadline).toLocaleDateString()}</p>` : ''}
           </div>
           `
-            : ''}
+              : ''
+          }
         </div>
         
         <div style="text-align: center; margin: 30px 0;">
@@ -739,7 +776,7 @@ YO PELEO POR TI™
         <p>Best regards,<br>Vasquez Law Firm<br>YO PELEO POR TI™</p>
       </div>
     `,
-        text: `
+    text: `
 Document Ready for Review
 
 Dear ${data.clientName},
@@ -763,9 +800,9 @@ Best regards,
 Vasquez Law Firm
 YO PELEO POR TI™
     `.trim(),
-    }),
-    'payment-receipt': data => ({
-        html: `
+  }),
+  'payment-receipt': data => ({
+    html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #C9974D;">Payment Receipt</h2>
         <p>Dear ${data.clientName},</p>
@@ -780,11 +817,11 @@ YO PELEO POR TI™
             </tr>
             <tr>
               <td style="padding: 8px 0;"><strong>Date:</strong></td>
-              <td style="padding: 8px 0;">${new Date(data.date).toLocaleDateString()}</td>
+              <td style="padding: 8px 0;">${data.date ? new Date(data.date).toLocaleDateString() : 'N/A'}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0;"><strong>Amount:</strong></td>
-              <td style="padding: 8px 0; font-size: 20px; color: #28a745;">$${data.amount.toFixed(2)}</td>
+              <td style="padding: 8px 0; font-size: 20px; color: #28a745;">$${data.amount?.toFixed(2) || '0.00'}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0;"><strong>Payment Method:</strong></td>
@@ -794,24 +831,28 @@ YO PELEO POR TI™
               <td style="padding: 8px 0;"><strong>Description:</strong></td>
               <td style="padding: 8px 0;">${data.description}</td>
             </tr>
-            ${data.caseNumber
-            ? `
+            ${
+              data.caseNumber
+                ? `
             <tr>
               <td style="padding: 8px 0;"><strong>Case Number:</strong></td>
               <td style="padding: 8px 0;">${data.caseNumber}</td>
             </tr>
             `
-            : ''}
+                : ''
+            }
           </table>
           
-          ${data.balance !== undefined
-            ? `
+          ${
+            data.balance !== undefined
+              ? `
           <div style="background-color: white; padding: 15px; border-radius: 5px; margin-top: 20px;">
             <p style="margin: 0;"><strong>Account Balance:</strong> $${data.balance.toFixed(2)}</p>
             ${data.nextPaymentDue ? `<p style="margin: 5px 0 0 0;"><strong>Next Payment Due:</strong> ${new Date(data.nextPaymentDue).toLocaleDateString()}</p>` : ''}
           </div>
           `
-            : ''}
+              : ''
+          }
         </div>
         
         <p>Please keep this receipt for your records. If you need a copy of this receipt or have any questions about your payment, please contact us at <strong>1-844-YO-PELEO (967-3536)</strong>.</p>
@@ -821,7 +862,7 @@ YO PELEO POR TI™
         <p>Best regards,<br>Vasquez Law Firm<br>YO PELEO POR TI™</p>
       </div>
     `,
-        text: `
+    text: `
 Payment Receipt
 
 Dear ${data.clientName},
@@ -830,8 +871,8 @@ Thank you for your payment. This email serves as your official receipt.
 
 PAYMENT DETAILS
 Receipt Number: ${data.receiptNumber || data.transactionId}
-Date: ${new Date(data.date).toLocaleDateString()}
-Amount: $${data.amount.toFixed(2)}
+Date: ${data.date ? new Date(data.date).toLocaleDateString() : 'N/A'}
+Amount: $${data.amount?.toFixed(2) || '0.00'}
 Payment Method: ${data.paymentMethod}
 Description: ${data.description}
 ${data.caseNumber ? `Case Number: ${data.caseNumber}` : ''}
@@ -846,13 +887,13 @@ Best regards,
 Vasquez Law Firm
 YO PELEO POR TI™
     `.trim(),
-    }),
-    'consultation-followup': data => ({
-        html: `
+  }),
+  'consultation-followup': data => ({
+    html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #C9974D;">Thank You for Your Consultation</h2>
         <p>Dear ${data.clientName},</p>
-        <p>Thank you for meeting with us on ${new Date(data.consultationDate).toLocaleDateString()}. We appreciate the opportunity to discuss your legal matter.</p>
+        <p>Thank you for meeting with us on ${data.consultationDate ? new Date(data.consultationDate).toLocaleDateString() : '[consultation date]'}. We appreciate the opportunity to discuss your legal matter.</p>
         
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3>Consultation Summary</h3>
@@ -860,24 +901,28 @@ YO PELEO POR TI™
           <p><strong>Practice Area:</strong> ${data.practiceArea}</p>
           ${data.summary ? `<p>${data.summary}</p>` : ''}
           
-          ${data.recommendations && data.recommendations.length > 0
-            ? `
+          ${
+            data.recommendations && data.recommendations.length > 0
+              ? `
           <h4>Our Recommendations:</h4>
           <ul>
-            ${data.recommendations.map((rec) => `<li>${rec}</li>`).join('')}
+            ${data.recommendations.map(rec => `<li>${rec}</li>`).join('')}
           </ul>
           `
-            : ''}
+              : ''
+          }
           
-          ${data.quote
-            ? `
+          ${
+            data.quote
+              ? `
           <div style="background-color: white; padding: 15px; border-radius: 5px; margin-top: 15px;">
             <h4 style="margin-top: 0;">Fee Estimate</h4>
             <p>${data.quote}</p>
             <p style="font-size: 14px; color: #666;">This estimate is valid for 30 days from the consultation date.</p>
           </div>
           `
-            : ''}
+              : ''
+          }
         </div>
         
         <p><strong>Next Steps:</strong></p>
@@ -902,19 +947,19 @@ YO PELEO POR TI™
         <p>Best regards,<br>${data.attorneyName}<br>Vasquez Law Firm<br>YO PELEO POR TI™</p>
       </div>
     `,
-        text: `
+    text: `
 Thank You for Your Consultation
 
 Dear ${data.clientName},
 
-Thank you for meeting with us on ${new Date(data.consultationDate).toLocaleDateString()}. We appreciate the opportunity to discuss your legal matter.
+Thank you for meeting with us on ${data.consultationDate ? new Date(data.consultationDate).toLocaleDateString() : '[consultation date]'}. We appreciate the opportunity to discuss your legal matter.
 
 CONSULTATION SUMMARY
 Attorney: ${data.attorneyName}
 Practice Area: ${data.practiceArea}
 ${data.summary ? `\n${data.summary}` : ''}
 
-${data.recommendations && data.recommendations.length > 0 ? `\nOUR RECOMMENDATIONS:\n${data.recommendations.map((rec) => `- ${rec}`).join('\n')}` : ''}
+${data.recommendations && data.recommendations.length > 0 ? `\nOUR RECOMMENDATIONS:\n${data.recommendations.map(rec => `- ${rec}`).join('\n')}` : ''}
 
 ${data.quote ? `\nFEE ESTIMATE\n${data.quote}\nThis estimate is valid for 30 days from the consultation date.` : ''}
 
@@ -935,222 +980,225 @@ ${data.attorneyName}
 Vasquez Law Firm
 YO PELEO POR TI™
     `.trim(),
-    }),
+  }),
 };
 // Email service class with enhanced functionality
 class EmailService {
-    constructor() {
-        this.retryOptions = {
-            retries: 3,
-            factor: 2,
-            minTimeout: 1000,
-            maxTimeout: 10000,
-            randomize: true,
+  constructor() {
+    this.retryOptions = {
+      retries: 3,
+      factor: 2,
+      minTimeout: 1000,
+      maxTimeout: 10000,
+      randomize: true,
+    };
+    this.isConfigured = !!process.env.SMTP_USER && !!process.env.SMTP_PASSWORD;
+    if (!this.isConfigured) {
+      logger_1.logger.warn('Email service not configured. Emails will be logged but not sent.');
+    }
+    // Skip SMTP verification during build time
+    if (
+      this.isConfigured &&
+      transporter &&
+      process.env.NODE_ENV !== 'production' &&
+      !process.env.NEXT_PHASE
+    ) {
+      // Defer verification to avoid build-time connection attempts
+      setTimeout(() => {
+        this.verifyConnection();
+      }, 5000);
+    }
+  }
+  // Verify SMTP connection
+  async verifyConnection() {
+    try {
+      await transporter.verify();
+      logger_1.logger.info('SMTP connection verified successfully');
+    } catch (error) {
+      logger_1.logger.error('SMTP connection verification failed', error);
+    }
+  }
+  // Validate email options
+  validateEmailOptions(options) {
+    // Validate email addresses
+    try {
+      emailArraySchema.parse(options.to);
+      if (options.cc) emailArraySchema.parse(options.cc);
+      if (options.bcc) emailArraySchema.parse(options.bcc);
+    } catch (error) {
+      throw new Error('Invalid email address format');
+    }
+    // Validate template exists
+    if (!templates[options.template]) {
+      throw new Error(`Email template '${options.template}' not found`);
+    }
+  }
+  // Send email with retry logic
+  async sendEmail(options) {
+    const startTime = perf_hooks_1.performance.now();
+    try {
+      // Validate options
+      this.validateEmailOptions(options);
+      const { to, subject, template, data, cc, bcc, attachments, replyTo, priority, headers } =
+        options;
+      // Get template
+      const templateFn = templates[template];
+      const { html, text } = templateFn(data);
+      // Log email for debugging
+      logger_1.logger.info('Sending email', {
+        to,
+        subject,
+        template,
+        configured: this.isConfigured,
+        hasAttachments: !!attachments?.length,
+      });
+      // If email not configured, just log and return
+      if (!this.isConfigured || !transporter) {
+        logger_1.logger.info('Email content (not sent - no SMTP config)', {
+          to,
+          subject,
+          text: text.substring(0, 200) + '...',
+        });
+        return {
+          success: true,
+          messageId: 'mock-' + Date.now(),
+          duration: perf_hooks_1.performance.now() - startTime,
         };
-        this.isConfigured = !!process.env.SMTP_USER && !!process.env.SMTP_PASSWORD;
-        if (!this.isConfigured) {
-            logger_1.logger.warn('Email service not configured. Emails will be logged but not sent.');
+      }
+      // Prepare mail options
+      const mailOptions = {
+        from: `"Vasquez Law Firm" <${process.env.SMTP_USER}>`,
+        to: Array.isArray(to) ? to.join(', ') : to,
+        cc: cc ? (Array.isArray(cc) ? cc.join(', ') : cc) : undefined,
+        bcc: bcc ? (Array.isArray(bcc) ? bcc.join(', ') : bcc) : undefined,
+        subject,
+        text,
+        html: this.wrapInEmailLayout(html, subject),
+        attachments: attachments?.map(att => ({
+          filename: att.filename,
+          content: att.content,
+          path: att.path,
+          contentType: att.contentType,
+          encoding: att.encoding,
+          cid: att.cid,
+        })),
+        replyTo,
+        priority,
+        headers: {
+          'X-Priority': priority === 'high' ? '1' : priority === 'low' ? '5' : '3',
+          'X-MSMail-Priority': priority === 'high' ? 'High' : priority === 'low' ? 'Low' : 'Normal',
+          ...headers,
+        },
+      };
+      // Send email with retry logic
+      const info = await (0, p_retry_1.default)(
+        async () => {
+          const result = await transporter.sendMail(mailOptions);
+          return result;
+        },
+        {
+          ...this.retryOptions,
+          onFailedAttempt: error => {
+            logger_1.logger.warn(`Email send attempt ${error.attemptNumber} failed`, {
+              error: error.message,
+              retriesLeft: error.retriesLeft,
+              to,
+              subject,
+            });
+          },
         }
-        // Skip SMTP verification during build time
-        if (this.isConfigured && transporter && process.env.NODE_ENV !== 'production' && !process.env.NEXT_PHASE) {
-            // Defer verification to avoid build-time connection attempts
-            setTimeout(() => {
-                this.verifyConnection();
-            }, 5000);
-        }
+      );
+      const duration = perf_hooks_1.performance.now() - startTime;
+      logger_1.logger.info('Email sent successfully', {
+        messageId: info.messageId,
+        to,
+        subject,
+        duration,
+        response: info.response,
+      });
+      return {
+        success: true,
+        messageId: info.messageId,
+        response: info.response,
+        duration,
+      };
+    } catch (error) {
+      const duration = perf_hooks_1.performance.now() - startTime;
+      logger_1.logger.error('Failed to send email', error, {
+        to: options.to,
+        subject: options.subject,
+        template: options.template,
+        duration,
+      });
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to send email',
+        duration,
+      };
     }
-    // Verify SMTP connection
-    async verifyConnection() {
+  }
+  // Queue email for asynchronous sending
+  async queueEmail(options) {
+    const { queueOptions, ...emailOptions } = options;
+    await bull_1.emailQueue.add('send-email', emailOptions, {
+      delay: queueOptions?.delay,
+      attempts: queueOptions?.attempts || 3,
+      backoff: queueOptions?.backoff || {
+        type: 'exponential',
+        delay: 5000,
+      },
+      priority: queueOptions?.priority,
+    });
+    logger_1.logger.info('Email queued for sending', {
+      to: options.to,
+      subject: options.subject,
+      template: options.template,
+      delay: queueOptions?.delay,
+    });
+  }
+  // Send bulk emails with batching
+  async sendBulkEmails(recipients, template, baseData, options = {}) {
+    const { batchSize = 50, delayBetweenBatches = 1000, personalizeData } = options;
+    const results = { sent: 0, failed: 0, errors: [] };
+    // Process in batches
+    for (let i = 0; i < recipients.length; i += batchSize) {
+      const batch = recipients.slice(i, i + batchSize);
+      // Queue each email in the batch
+      const batchPromises = batch.map(async email => {
         try {
-            await transporter.verify();
-            logger_1.logger.info('SMTP connection verified successfully');
+          const data = personalizeData ? { ...baseData, ...personalizeData(email) } : baseData;
+          await this.queueEmail({
+            to: email,
+            subject: baseData.subject || 'Newsletter from Vasquez Law Firm',
+            template,
+            data,
+            priority: 'low',
+          });
+          results.sent++;
+        } catch (error) {
+          results.failed++;
+          results.errors.push({
+            email,
+            error: error instanceof Error ? error.message : 'Unknown error',
+          });
         }
-        catch (error) {
-            logger_1.logger.error('SMTP connection verification failed', error);
-        }
+      });
+      await Promise.all(batchPromises);
+      // Delay between batches to avoid rate limits
+      if (i + batchSize < recipients.length) {
+        await new Promise(resolve => setTimeout(resolve, delayBetweenBatches));
+      }
     }
-    // Validate email options
-    validateEmailOptions(options) {
-        // Validate email addresses
-        try {
-            emailArraySchema.parse(options.to);
-            if (options.cc)
-                emailArraySchema.parse(options.cc);
-            if (options.bcc)
-                emailArraySchema.parse(options.bcc);
-        }
-        catch (error) {
-            throw new Error('Invalid email address format');
-        }
-        // Validate template exists
-        if (!templates[options.template]) {
-            throw new Error(`Email template '${options.template}' not found`);
-        }
-    }
-    // Send email with retry logic
-    async sendEmail(options) {
-        const startTime = perf_hooks_1.performance.now();
-        try {
-            // Validate options
-            this.validateEmailOptions(options);
-            const { to, subject, template, data, cc, bcc, attachments, replyTo, priority, headers } = options;
-            // Get template
-            const templateFn = templates[template];
-            const { html, text } = templateFn(data);
-            // Log email for debugging
-            logger_1.logger.info('Sending email', {
-                to,
-                subject,
-                template,
-                configured: this.isConfigured,
-                hasAttachments: !!attachments?.length,
-            });
-            // If email not configured, just log and return
-            if (!this.isConfigured || !transporter) {
-                logger_1.logger.info('Email content (not sent - no SMTP config)', {
-                    to,
-                    subject,
-                    text: text.substring(0, 200) + '...',
-                });
-                return {
-                    success: true,
-                    messageId: 'mock-' + Date.now(),
-                    duration: perf_hooks_1.performance.now() - startTime,
-                };
-            }
-            // Prepare mail options
-            const mailOptions = {
-                from: `"Vasquez Law Firm" <${process.env.SMTP_USER}>`,
-                to: Array.isArray(to) ? to.join(', ') : to,
-                cc: cc ? (Array.isArray(cc) ? cc.join(', ') : cc) : undefined,
-                bcc: bcc ? (Array.isArray(bcc) ? bcc.join(', ') : bcc) : undefined,
-                subject,
-                text,
-                html: this.wrapInEmailLayout(html, subject),
-                attachments: attachments?.map(att => ({
-                    filename: att.filename,
-                    content: att.content,
-                    path: att.path,
-                    contentType: att.contentType,
-                    encoding: att.encoding,
-                    cid: att.cid,
-                })),
-                replyTo,
-                priority,
-                headers: {
-                    'X-Priority': priority === 'high' ? '1' : priority === 'low' ? '5' : '3',
-                    'X-MSMail-Priority': priority === 'high' ? 'High' : priority === 'low' ? 'Low' : 'Normal',
-                    ...headers,
-                },
-            };
-            // Send email with retry logic
-            const info = await (0, p_retry_1.default)(async () => {
-                const result = await transporter.sendMail(mailOptions);
-                return result;
-            }, {
-                ...this.retryOptions,
-                onFailedAttempt: error => {
-                    logger_1.logger.warn(`Email send attempt ${error.attemptNumber} failed`, {
-                        error: error.message,
-                        retriesLeft: error.retriesLeft,
-                        to,
-                        subject,
-                    });
-                },
-            });
-            const duration = perf_hooks_1.performance.now() - startTime;
-            logger_1.logger.info('Email sent successfully', {
-                messageId: info.messageId,
-                to,
-                subject,
-                duration,
-                response: info.response,
-            });
-            return {
-                success: true,
-                messageId: info.messageId,
-                response: info.response,
-                duration,
-            };
-        }
-        catch (error) {
-            const duration = perf_hooks_1.performance.now() - startTime;
-            logger_1.logger.error('Failed to send email', error, {
-                to: options.to,
-                subject: options.subject,
-                template: options.template,
-                duration,
-            });
-            return {
-                success: false,
-                error: error instanceof Error ? error.message : 'Failed to send email',
-                duration,
-            };
-        }
-    }
-    // Queue email for asynchronous sending
-    async queueEmail(options) {
-        const { queueOptions, ...emailOptions } = options;
-        await bull_1.emailQueue.add('send-email', emailOptions, {
-            delay: queueOptions?.delay,
-            attempts: queueOptions?.attempts || 3,
-            backoff: queueOptions?.backoff || {
-                type: 'exponential',
-                delay: 5000,
-            },
-            priority: queueOptions?.priority,
-        });
-        logger_1.logger.info('Email queued for sending', {
-            to: options.to,
-            subject: options.subject,
-            template: options.template,
-            delay: queueOptions?.delay,
-        });
-    }
-    // Send bulk emails with batching
-    async sendBulkEmails(recipients, template, baseData, options = {}) {
-        const { batchSize = 50, delayBetweenBatches = 1000, personalizeData } = options;
-        const results = { sent: 0, failed: 0, errors: [] };
-        // Process in batches
-        for (let i = 0; i < recipients.length; i += batchSize) {
-            const batch = recipients.slice(i, i + batchSize);
-            // Queue each email in the batch
-            const batchPromises = batch.map(async (email) => {
-                try {
-                    const data = personalizeData ? { ...baseData, ...personalizeData(email) } : baseData;
-                    await this.queueEmail({
-                        to: email,
-                        subject: baseData.subject,
-                        template,
-                        data,
-                        priority: 'low',
-                    });
-                    results.sent++;
-                }
-                catch (error) {
-                    results.failed++;
-                    results.errors.push({
-                        email,
-                        error: error instanceof Error ? error.message : 'Unknown error',
-                    });
-                }
-            });
-            await Promise.all(batchPromises);
-            // Delay between batches to avoid rate limits
-            if (i + batchSize < recipients.length) {
-                await new Promise(resolve => setTimeout(resolve, delayBetweenBatches));
-            }
-        }
-        logger_1.logger.info('Bulk email operation completed', {
-            total: recipients.length,
-            sent: results.sent,
-            failed: results.failed,
-        });
-        return results;
-    }
-    // Wrap email content in branded layout
-    wrapInEmailLayout(content, title) {
-        return `
+    logger_1.logger.info('Bulk email operation completed', {
+      total: recipients.length,
+      sent: results.sent,
+      failed: results.failed,
+    });
+    return results;
+  }
+  // Wrap email content in branded layout
+  wrapInEmailLayout(content, title) {
+    return `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1229,134 +1277,134 @@ class EmailService {
 </body>
 </html>
     `;
-    }
-    // Convenience methods for common email types
-    async sendContactFormNotification(data) {
-        // Send to law firm
-        const attorneyResult = await this.sendEmail({
-            to: process.env.CONTACT_EMAIL || 'leads@vasquezlawfirm.com',
-            subject: `New Contact Form - ${data.caseType}`,
-            template: 'contact-form',
-            data,
-            priority: data.urgency === 'Immediate' ? 'high' : 'normal',
-        });
-        // Send confirmation to client
-        await this.queueEmail({
-            to: data.email,
-            subject: 'Thank you for contacting Vasquez Law Firm',
-            template: 'client-notification',
-            data,
-        });
-        return attorneyResult;
-    }
-    async sendCaseEvaluationNotification(data) {
-        // Calculate priority based on urgency and court date
-        const priority = data.urgency === 'Immediate' || data.courtDate ? 'high' : 'normal';
-        // Send to attorneys
-        const attorneyResult = await this.sendEmail({
-            to: process.env.ATTORNEY_EMAIL || 'attorneys@vasquezlawnc.com',
-            subject: `New Case Evaluation - ${data.caseType} - ${data.urgency}`,
-            template: 'case-evaluation',
-            data,
-            priority,
-        });
-        // Send confirmation to client
-        await this.queueEmail({
-            to: data.email,
-            subject: 'Case Evaluation Request Received',
-            template: 'client-notification',
-            data: {
-                name: `${data.firstName} ${data.lastName}`,
-                ...data,
-            },
-        });
-        return attorneyResult;
-    }
-    async sendAppointmentConfirmation(data) {
-        return this.sendEmail({
-            to: data.email,
-            subject: 'Appointment Confirmation - Vasquez Law Firm',
-            template: 'appointment-confirmation',
-            data,
-        });
-    }
-    async sendAppointmentReminder(data) {
-        return this.sendEmail({
-            to: data.email,
-            subject: 'Appointment Reminder - Vasquez Law Firm',
-            template: 'appointment-reminder',
-            data,
-            priority: 'high',
-        });
-    }
-    async sendNewsletterWelcome(data) {
-        // Generate unsubscribe token
-        const unsubscribeToken = Buffer.from(`${data.email}:${Date.now()}`).toString('base64');
-        return this.sendEmail({
-            to: data.email,
-            subject: 'Welcome to Vasquez Law Firm Newsletter',
-            template: 'newsletter-welcome',
-            data: {
-                ...data,
-                unsubscribeToken,
-            },
-        });
-    }
-    async sendPasswordReset(data) {
-        return this.sendEmail({
-            to: data.email,
-            subject: 'Password Reset Request - Vasquez Law Firm',
-            template: 'password-reset',
-            data,
-            priority: 'high',
-        });
-    }
-    async sendCaseUpdate(data) {
-        return this.sendEmail({
-            to: data.clientEmail,
-            subject: `Case Update: ${data.updateTitle}`,
-            template: 'case-update',
-            data,
-        });
-    }
-    async sendDocumentReady(data) {
-        return this.sendEmail({
-            to: data.clientEmail,
-            subject: `Document Ready: ${data.documentName}`,
-            template: 'document-ready',
-            data,
-            priority: data.actionRequired ? 'high' : 'normal',
-        });
-    }
-    async sendPaymentReceipt(data) {
-        return this.sendEmail({
-            to: data.clientEmail,
-            subject: `Payment Receipt - Vasquez Law Firm`,
-            template: 'payment-receipt',
-            data,
-        });
-    }
-    async sendConsultationFollowup(data) {
-        return this.sendEmail({
-            to: data.clientEmail,
-            subject: 'Thank You for Your Consultation - Vasquez Law Firm',
-            template: 'consultation-followup',
-            data,
-        });
-    }
-    async sendUrgentLeadNotification(data) {
-        // Send to multiple attorneys for urgent leads
-        const attorneyEmails = process.env.URGENT_LEAD_EMAILS?.split(',') || [
-            'attorneys@vasquezlawnc.com',
-        ];
-        return this.sendEmail({
-            to: attorneyEmails,
-            subject: `🚨 URGENT: New ${data.lead.practiceArea.replace(/_/g, ' ')} Lead - Score: ${data.lead.score}`,
-            template: 'urgent-lead-notification',
-            data,
-            priority: 'high',
-        });
-    }
+  }
+  // Convenience methods for common email types
+  async sendContactFormNotification(data) {
+    // Send to law firm
+    const attorneyResult = await this.sendEmail({
+      to: process.env.CONTACT_EMAIL || 'leads@vasquezlawfirm.com',
+      subject: `New Contact Form - ${data.caseType}`,
+      template: 'contact-form',
+      data,
+      priority: data.urgency === 'Immediate' ? 'high' : 'normal',
+    });
+    // Send confirmation to client
+    await this.queueEmail({
+      to: data.email || '',
+      subject: 'Thank you for contacting Vasquez Law Firm',
+      template: 'client-notification',
+      data,
+    });
+    return attorneyResult;
+  }
+  async sendCaseEvaluationNotification(data) {
+    // Calculate priority based on urgency and court date
+    const priority = data.urgency === 'Immediate' || data.courtDate ? 'high' : 'normal';
+    // Send to attorneys
+    const attorneyResult = await this.sendEmail({
+      to: process.env.ATTORNEY_EMAIL || 'attorneys@vasquezlawnc.com',
+      subject: `New Case Evaluation - ${data.caseType} - ${data.urgency}`,
+      template: 'case-evaluation',
+      data,
+      priority,
+    });
+    // Send confirmation to client
+    await this.queueEmail({
+      to: data.email || '',
+      subject: 'Case Evaluation Request Received',
+      template: 'client-notification',
+      data: {
+        name: `${data.firstName} ${data.lastName}`,
+        ...data,
+      },
+    });
+    return attorneyResult;
+  }
+  async sendAppointmentConfirmation(data) {
+    return this.sendEmail({
+      to: data.email || '',
+      subject: 'Appointment Confirmation - Vasquez Law Firm',
+      template: 'appointment-confirmation',
+      data,
+    });
+  }
+  async sendAppointmentReminder(data) {
+    return this.sendEmail({
+      to: data.email || '',
+      subject: 'Appointment Reminder - Vasquez Law Firm',
+      template: 'appointment-reminder',
+      data,
+      priority: 'high',
+    });
+  }
+  async sendNewsletterWelcome(data) {
+    // Generate unsubscribe token
+    const unsubscribeToken = Buffer.from(`${data.email}:${Date.now()}`).toString('base64');
+    return this.sendEmail({
+      to: data.email || '',
+      subject: 'Welcome to Vasquez Law Firm Newsletter',
+      template: 'newsletter-welcome',
+      data: {
+        ...data,
+        unsubscribeToken,
+      },
+    });
+  }
+  async sendPasswordReset(data) {
+    return this.sendEmail({
+      to: data.email || '',
+      subject: 'Password Reset Request - Vasquez Law Firm',
+      template: 'password-reset',
+      data,
+      priority: 'high',
+    });
+  }
+  async sendCaseUpdate(data) {
+    return this.sendEmail({
+      to: data.clientEmail || '',
+      subject: `Case Update: ${data.updateTitle}`,
+      template: 'case-update',
+      data,
+    });
+  }
+  async sendDocumentReady(data) {
+    return this.sendEmail({
+      to: data.clientEmail || '',
+      subject: `Document Ready: ${data.documentName}`,
+      template: 'document-ready',
+      data,
+      priority: data.actionRequired ? 'high' : 'normal',
+    });
+  }
+  async sendPaymentReceipt(data) {
+    return this.sendEmail({
+      to: data.clientEmail || '',
+      subject: `Payment Receipt - Vasquez Law Firm`,
+      template: 'payment-receipt',
+      data,
+    });
+  }
+  async sendConsultationFollowup(data) {
+    return this.sendEmail({
+      to: data.clientEmail || '',
+      subject: 'Thank You for Your Consultation - Vasquez Law Firm',
+      template: 'consultation-followup',
+      data,
+    });
+  }
+  async sendUrgentLeadNotification(data) {
+    // Send to multiple attorneys for urgent leads
+    const attorneyEmails = process.env.URGENT_LEAD_EMAILS?.split(',') || [
+      'attorneys@vasquezlawnc.com',
+    ];
+    return this.sendEmail({
+      to: attorneyEmails,
+      subject: `🚨 URGENT: New ${data.lead?.practiceArea?.replace(/_/g, ' ') || 'Unknown'} Lead - Score: ${data.lead?.score || 0}`,
+      template: 'urgent-lead-notification',
+      data,
+      priority: 'high',
+    });
+  }
 }
 // Export singleton instance
 exports.emailService = new EmailService();

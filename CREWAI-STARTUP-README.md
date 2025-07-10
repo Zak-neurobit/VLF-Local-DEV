@@ -3,32 +3,41 @@
 ## 🎯 Quick Start - Get Agents Working NOW!
 
 ### Option 1: Demo Mode (See Agents Working Immediately)
+
 ```bash
 npm run crews:demo
 ```
+
 This will show you the agents working in real-time with immediate results!
 
 ### Option 2: Full System Launch
+
 ```bash
 npm run crews:launch
 ```
+
 This starts the complete autonomous system with 24/7 operation.
 
 ### Option 3: Background Operation (Production Mode)
+
 ```bash
 npm run crews:launch:background
 ```
+
 Runs the system in the background continuously.
 
 ### Option 4: Development Mode (With Auto-Restart)
+
 ```bash
 npm run crews:start:dev
 ```
+
 Development mode with file watching and auto-restart.
 
 ## 🤖 What Gets Started
 
 ### 16+ AI Agents Working Autonomously:
+
 - **Legal Consultation Agent** - Analyzes legal inquiries
 - **Appointment Scheduling Agent** - Manages calendar bookings
 - **Document Analysis Agent** - Processes legal documents
@@ -47,8 +56,9 @@ Development mode with file watching and auto-restart.
 - **Competitor Spy Agent** - Intelligence gathering
 
 ### Autonomous Tasks (Running 24/7):
+
 - ✅ **Blog posts** every 2 hours
-- ✅ **Google My Business posts** every 6 hours  
+- ✅ **Google My Business posts** every 6 hours
 - ✅ **Review monitoring** every hour
 - ✅ **Competitor analysis** every 4 hours
 - ✅ **Social media content** every 3 hours
@@ -58,12 +68,14 @@ Development mode with file watching and auto-restart.
 ## 📊 Monitoring & Control
 
 ### Real-Time Monitoring Endpoints:
+
 - **Status Dashboard**: http://localhost:3000/api/crews/status
-- **Performance Metrics**: http://localhost:3000/api/crews/metrics  
+- **Performance Metrics**: http://localhost:3000/api/crews/metrics
 - **System Health**: http://localhost:3000/api/crews/health
 - **Activity Logs**: http://localhost:3000/api/crews/logs
 
 ### Manual Control:
+
 ```bash
 # Restart specific agent
 curl -X POST http://localhost:3000/api/crews/status \
@@ -79,26 +91,31 @@ curl -X POST http://localhost:3000/api/crews/status \
 ## 🛠️ System Features
 
 ### Parallel Processing:
+
 - Up to 10 concurrent tasks
 - Intelligent task prioritization
 - Auto-scaling based on load
 
 ### Communication System:
+
 - Inter-agent messaging
 - Real-time coordination
 - Shared intelligence
 
 ### Memory Management:
+
 - Distributed memory store
 - Automatic cleanup
 - Compression enabled
 
 ### Auto-Recovery:
+
 - Health monitoring every 30 seconds
 - Automatic agent restart on failure
 - System-wide recovery protocols
 
 ### Background Workers:
+
 - Continuous operation
 - Queue processing
 - Heavy task handling
@@ -106,6 +123,7 @@ curl -X POST http://localhost:3000/api/crews/status \
 ## 📈 Expected Results
 
 ### Immediate (First Hour):
+
 - 🎯 3-5 blog posts generated
 - 🎯 2-3 GMB posts created
 - 🎯 All reviews monitored and responded to
@@ -113,6 +131,7 @@ curl -X POST http://localhost:3000/api/crews/status \
 - 🎯 Social media content scheduled
 
 ### Daily Output:
+
 - 🎯 12-20 blog posts
 - 🎯 8-12 GMB posts
 - 🎯 50+ social media interactions
@@ -121,6 +140,7 @@ curl -X POST http://localhost:3000/api/crews/status \
 - 🎯 Review management
 
 ### Weekly Impact:
+
 - 🎯 100+ pieces of content
 - 🎯 Improved search rankings
 - 🎯 Increased local visibility
@@ -130,6 +150,7 @@ curl -X POST http://localhost:3000/api/crews/status \
 ## 🚨 Troubleshooting
 
 ### If Agents Stop Working:
+
 ```bash
 # Check system status
 curl http://localhost:3000/api/crews/status
@@ -142,7 +163,9 @@ npm run crews:launch
 ```
 
 ### If Memory Usage High:
+
 The system automatically manages memory, but you can force cleanup:
+
 ```bash
 # Check logs for memory warnings
 curl http://localhost:3000/api/crews/logs?timeRange=1h
@@ -152,6 +175,7 @@ npm run crews:launch
 ```
 
 ### If Tasks Stop Processing:
+
 ```bash
 # Check task queue
 curl http://localhost:3000/api/crews/metrics
@@ -163,11 +187,13 @@ curl http://localhost:3000/api/crews/logs?limit=20
 ## 📝 Log Files
 
 All activity is logged to:
+
 - Console output (real-time)
 - Database (persistent)
 - API endpoints (queryable)
 
 View logs in real-time:
+
 ```bash
 # If running in background
 tail -f logs/crews.log
@@ -179,6 +205,7 @@ curl "http://localhost:3000/api/crews/logs?limit=50&timeRange=1h"
 ## 🎉 Success Indicators
 
 The system is working when you see:
+
 - ✅ "AUTONOMOUS SYSTEM OPERATIONAL" message
 - ✅ Regular task completion logs
 - ✅ API endpoints responding
@@ -190,6 +217,7 @@ The system is working when you see:
 ## 🔧 Advanced Configuration
 
 ### Environment Variables:
+
 ```bash
 # Optional performance tuning
 export CREW_MAX_WORKERS=10
@@ -199,7 +227,9 @@ export CREW_LOG_LEVEL=info
 ```
 
 ### Custom Schedules:
+
 Edit `scripts/crewai-startup-system.ts` to modify:
+
 - Task frequencies
 - Agent behaviors
 - Monitoring intervals
@@ -216,6 +246,7 @@ Edit `scripts/crewai-startup-system.ts` to modify:
 ## 🎯 Next Steps
 
 Once the system is running:
+
 1. Monitor the dashboards for 10-15 minutes
 2. Check generated content quality
 3. Verify social media posting

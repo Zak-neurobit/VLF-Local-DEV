@@ -38,6 +38,7 @@ The Vasquez Law Firm website features a powerful integration between GoHighLevel
 **Purpose**: Validates and scores incoming leads to ensure quality before entering the sales pipeline.
 
 **Key Features**:
+
 - Scores leads from 0-100 based on 4 factors:
   - **Urgency** (0-25 points): Detects urgent keywords, deadlines, court dates
   - **Case Value** (0-25 points): Identifies high-value practice areas
@@ -45,12 +46,14 @@ The Vasquez Law Firm website features a powerful integration between GoHighLevel
   - **Contact Quality** (0-25 points): Validates contact information
 
 **Lead Tiers**:
+
 - **Hot** (75-100): Immediate action required
 - **Warm** (50-74): Follow up within 48-72 hours
 - **Cold** (25-49): Long-term nurture
 - **Invalid** (0-24): Do not contact
 
 **GHL Integration**:
+
 - Creates/updates contacts with validation scores
 - Assigns appropriate tags and custom fields
 - Routes to pipeline stages based on tier
@@ -61,6 +64,7 @@ The Vasquez Law Firm website features a powerful integration between GoHighLevel
 **Purpose**: Creates personalized follow-up sequences based on lead quality and behavior.
 
 **Sequence Types**:
+
 - Hot Lead Sequence (5min SMS → 10min Call → 30min Email → 24hr Task)
 - Warm Lead Sequence (1hr Email → 24hr SMS → 3day Campaign)
 - Cold Lead Sequence (24hr Email → 1week Newsletter)
@@ -68,6 +72,7 @@ The Vasquez Law Firm website features a powerful integration between GoHighLevel
 - Client Onboarding Sequence
 
 **Features**:
+
 - Dynamic content personalization
 - Multi-channel communication (SMS, Email, Call, Task)
 - Stop conditions (appointment booked, became client, opt-out)
@@ -76,6 +81,7 @@ The Vasquez Law Firm website features a powerful integration between GoHighLevel
 ### 3. Appointment Scheduling Agent
 
 **GHL Integration**:
+
 - Checks calendar availability in real-time
 - Books appointments directly in GHL calendar
 - Creates/updates contact records
@@ -85,6 +91,7 @@ The Vasquez Law Firm website features a powerful integration between GoHighLevel
 ### 4. Legal Consultation Agent
 
 **Capabilities**:
+
 - Analyzes legal inquiries
 - Provides preliminary guidance
 - Identifies practice areas
@@ -94,6 +101,7 @@ The Vasquez Law Firm website features a powerful integration between GoHighLevel
 ### 5. Document Analysis Agent
 
 **Features**:
+
 - Analyzes uploaded legal documents
 - Identifies missing information
 - Checks compliance requirements
@@ -103,6 +111,7 @@ The Vasquez Law Firm website features a powerful integration between GoHighLevel
 ### 6. Enhanced Intake Agent
 
 **Process**:
+
 - Collects detailed client information
 - Identifies all relevant practice areas
 - Assesses urgency level
@@ -123,18 +132,18 @@ The Vasquez Law Firm website features a powerful integration between GoHighLevel
 ```typescript
 // Create/Update Contact
 await ghl.upsertContact({
-  firstName: "John",
-  lastName: "Doe",
-  email: "john@example.com",
-  phone: "+17041234567",
-  tags: ["hot-lead", "removal-defense"],
+  firstName: 'John',
+  lastName: 'Doe',
+  email: 'john@example.com',
+  phone: '+17041234567',
+  tags: ['hot-lead', 'removal-defense'],
   customFields: {
-    lead_score: "85",
-    lead_tier: "hot",
-    priority_level: "urgent",
-    practice_areas: "removal-defense,family-immigration",
-    language_preference: "es"
-  }
+    lead_score: '85',
+    lead_tier: 'hot',
+    priority_level: 'urgent',
+    practice_areas: 'removal-defense,family-immigration',
+    language_preference: 'es',
+  },
 });
 ```
 
@@ -143,12 +152,12 @@ await ghl.upsertContact({
 ```typescript
 // Create Opportunity
 await ghl.createOpportunity({
-  contactId: "contact_123",
-  name: "John Doe - Removal Defense",
+  contactId: 'contact_123',
+  name: 'John Doe - Removal Defense',
   pipelineId: process.env.GHL_PIPELINE_ID,
-  pipelineStageId: "hot-leads-stage",
+  pipelineStageId: 'hot-leads-stage',
   value: 5000,
-  status: "open"
+  status: 'open',
 });
 ```
 
@@ -157,8 +166,8 @@ await ghl.createOpportunity({
 ```typescript
 // Trigger Campaign
 await ghl.triggerCampaign({
-  contactId: "contact_123",
-  campaignId: process.env.GHL_HOT_LEAD_CAMPAIGN_ID
+  contactId: 'contact_123',
+  campaignId: process.env.GHL_HOT_LEAD_CAMPAIGN_ID,
 });
 ```
 
@@ -167,12 +176,12 @@ await ghl.triggerCampaign({
 ```typescript
 // Create Task
 await ghl.createTask({
-  contactId: "contact_123",
-  title: "Urgent: Follow up on removal case",
-  description: "Client facing deportation proceedings",
+  contactId: 'contact_123',
+  title: 'Urgent: Follow up on removal case',
+  description: 'Client facing deportation proceedings',
   dueDate: new Date(),
   assignedTo: process.env.GHL_SENIOR_USER_ID,
-  priority: "high"
+  priority: 'high',
 });
 ```
 
@@ -181,8 +190,8 @@ await ghl.createTask({
 ```typescript
 // Send SMS
 await ghl.sendSMS({
-  contactId: "contact_123",
-  message: "Hi John, this is Vasquez Law. Your case is urgent. Can we talk now?"
+  contactId: 'contact_123',
+  message: 'Hi John, this is Vasquez Law. Your case is urgent. Can we talk now?',
 });
 ```
 
@@ -193,6 +202,7 @@ await ghl.sendSMS({
 **POST** `/api/agents/lead-validation`
 
 **Request Body**:
+
 ```json
 {
   "name": "John Doe",
@@ -206,6 +216,7 @@ await ghl.sendSMS({
 ```
 
 **Response**:
+
 ```json
 {
   "success": true,
@@ -228,6 +239,7 @@ await ghl.sendSMS({
 **GET** `/api/agents/lead-validation`
 
 **Response**:
+
 ```json
 {
   "success": true,
@@ -267,16 +279,19 @@ GHL_NEW_LEADS_STAGE_ID=new-leads-stage-id
 ## Database Schema
 
 ### LeadValidation Table
+
 - Stores all lead validation results
 - Tracks scoring history
 - Analytics and reporting
 
 ### FollowUpSequence Table
+
 - Manages active follow-up sequences
 - Tracks step completion
 - Stores personalization data
 
 ### AgentExecutionLog Table
+
 - Logs all agent executions
 - Performance metrics
 - Error tracking
@@ -284,26 +299,31 @@ GHL_NEW_LEADS_STAGE_ID=new-leads-stage-id
 ## Best Practices
 
 ### 1. Lead Quality Management
+
 - Always validate leads before adding to pipeline
 - Use appropriate tier-based follow-up strategies
 - Monitor conversion rates by tier
 
 ### 2. Campaign Management
+
 - Create separate campaigns for each lead tier
 - Use dynamic content based on practice area
 - Implement A/B testing for messages
 
 ### 3. Agent Coordination
+
 - Use Agent Orchestrator for complex workflows
 - Implement proper error handling
 - Log all agent interactions
 
 ### 4. GHL API Usage
+
 - Cache contact lookups when possible
 - Batch operations where available
 - Implement retry logic for failed requests
 
 ### 5. Monitoring & Analytics
+
 - Track agent performance metrics
 - Monitor lead conversion by source
 - Analyze follow-up sequence effectiveness
@@ -311,21 +331,25 @@ GHL_NEW_LEADS_STAGE_ID=new-leads-stage-id
 ## Deployment Checklist
 
 1. **Environment Variables**
+
    - [ ] All GHL API credentials configured
    - [ ] Campaign IDs set correctly
    - [ ] Pipeline and stage IDs verified
 
 2. **Database**
+
    - [ ] Run Prisma migrations
    - [ ] Verify indexes are created
    - [ ] Test database connectivity
 
 3. **Redis**
+
    - [ ] Redis configured or MOCK_REDIS=true
    - [ ] Cache keys properly namespaced
    - [ ] TTLs set appropriately
 
 4. **Agent Testing**
+
    - [ ] Test lead validation with various scores
    - [ ] Verify GHL contact creation
    - [ ] Test follow-up sequence triggers
@@ -339,12 +363,14 @@ GHL_NEW_LEADS_STAGE_ID=new-leads-stage-id
 ## Future Enhancements
 
 1. **Additional Agents**
+
    - Document Generation Agent
    - Case Strategy Agent
    - Compliance Monitoring Agent
    - Client Communication Agent
 
 2. **Advanced Features**
+
    - Multi-agent collaboration workflows
    - Machine learning for lead scoring
    - Predictive analytics for case outcomes

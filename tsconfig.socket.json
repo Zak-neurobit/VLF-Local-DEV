@@ -5,6 +5,7 @@
     "moduleResolution": "node",
     "outDir": "dist",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "downlevelIteration": true,
@@ -16,5 +17,21 @@
     "baseUrl": ".",
     "lib": ["ES2020"]
   },
-  "include": ["src/lib/socket/server.ts"]
+  "include": [
+    "src/lib/socket/server.ts",
+    "src/lib/socket/server-setup.js",
+    "src/lib/logger/index.ts",
+    "src/lib/logger/base.ts",
+    "src/lib/logger/loggers/*.ts",
+    "src/lib/prisma.ts",
+    "src/services/retell/client.ts",
+    "src/types/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/__tests__/**/*",
+    "node_modules",
+    "dist"
+  ]
 }

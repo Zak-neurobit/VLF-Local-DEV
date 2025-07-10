@@ -1,0 +1,9 @@
+  ▲ Next.js 14.2.30
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ⚠ Duplicate page detected. src/app/robots.ts and src/app/robots.txt/route.ts resolve to /robots.txt
+ ⚠ Duplicate page detected. src/app/robots.ts and src/app/robots.txt/route.ts resolve to /robots.txt
+ ✓ Ready in 1195ms
+[?25h

@@ -20,6 +20,7 @@ import { DynamicBreadcrumbSchema } from '@/components/SEO/DynamicBreadcrumbSchem
 import { SpeedOptimizer } from '@/components/SpeedOptimizer';
 import { DOMSafeWrapper } from '@/components/DOMSafeWrapper';
 import { DOMSafetyInitializer } from '@/components/DOMSafetyInitializer';
+import { HydrationBoundary } from '@/components/HydrationBoundary';
 
 // Removed SiteLayout import - will handle navigation directly
 
@@ -155,20 +156,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <StructuredData data={generateEnhancedOrganizationSchema()} />
         <GlobalReviewSchema />
         <DynamicBreadcrumbSchema />
+        <HydrationBoundary>
+          <div id="_rht_toaster">
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                duration: 4000,
+                style: {
+                  background: '#333',
+                  color: '#fff',
+                },
+              }}
+            />
+          </div>
+        </HydrationBoundary>
         <SessionProvider>
           <ErrorBoundary>
             <DOMSafeWrapper>
-              <DOMSafetyInitializer />
-              <Toaster
-                position="top-right"
-                toastOptions={{
-                  duration: 4000,
-                  style: {
-                    background: '#333',
-                    color: '#fff',
-                  },
-                }}
-              />
               <DynamicHreflang />
               {children}
               <ChatWidget />

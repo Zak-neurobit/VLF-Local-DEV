@@ -88,29 +88,66 @@ export class AgentOrchestrator extends EventEmitter {
   }
 
   private initializeAgents() {
+    // Track successful and failed initializations
+    const initResults = {
+      success: [] as string[],
+      failed: [] as string[],
+    };
+
+    // Helper function to safely create and register an agent
+    const safeRegister = (name: string, createFn: () => any, type: string) => {
+      try {
+        const agent = createFn();
+        this.registerAgentWithType(name, agent, type);
+        initResults.success.push(name);
+      } catch (error) {
+        logger.error(`Failed to create agent ${name}:`, error);
+        initResults.failed.push(name);
+      }
+    };
+
     // Initialize all customer-facing agents
-    this.registerAgentWithType('consultation', new LegalConsultationAgent(), 'crewai');
-    this.registerAgentWithType('appointment', new AppointmentSchedulingAgent(), 'crewai');
-    this.registerAgentWithType('document', new DocumentAnalysisAgent(), 'crewai');
-    this.registerAgentWithType('intake', new EnhancedIntakeAgent(), 'crewai');
-    this.registerAgentWithType('removal', new RemovalDefenseAgent(), 'crewai');
-    this.registerAgentWithType('business', new BusinessImmigrationAgent(), 'crewai');
-    this.registerAgentWithType('criminal', new CriminalDefenseAgent(), 'crewai');
-    this.registerAgentWithType('aila', new AILATrainedRemovalDefenseAgent(), 'crewai');
+    safeRegister('consultation', () => new LegalConsultationAgent(), 'crewai');
+    safeRegister('appointment', () => new AppointmentSchedulingAgent(), 'crewai');
+    safeRegister('document', () => new DocumentAnalysisAgent(), 'crewai');
+    safeRegister('intake', () => new EnhancedIntakeAgent(), 'crewai');
+    safeRegister('removal', () => new RemovalDefenseAgent(), 'crewai');
+    safeRegister('business', () => new BusinessImmigrationAgent(), 'crewai');
+    safeRegister('criminal', () => new CriminalDefenseAgent(), 'crewai');
+    safeRegister('aila', () => new AILATrainedRemovalDefenseAgent(), 'crewai');
     
     // Initialize automation agents
-    this.registerAgentWithType('lead-validation', new LeadValidationAgent(), 'automation');
-    this.registerAgentWithType('follow-up', new FollowUpAutomationAgent(), 'automation');
+    safeRegister('lead-validation', () => new LeadValidationAgent(), 'automation');
+    safeRegister('follow-up', () => new FollowUpAutomationAgent(), 'automation');
 
-    logger.info('Agent Orchestrator initialized with 10 agents including automation specialists');
-    this.emit('agents-initialized', { count: this.agents.size });
+    // Log initialization results
+    logger.info(`Agent Orchestrator initialization complete:`, {
+      totalAgents: this.agents.size,
+      successful: initResults.success.length,
+      failed: initResults.failed.length,
+      failedAgents: initResults.failed,
+    });
+
+    // Emit initialization event
+    this.emit('agents-initialized', { 
+      count: this.agents.size, 
+      success: initResults.success,
+      failed: initResults.failed,
+      hasErrors: initResults.failed.length > 0,
+    });
   }
 
   private registerAgentWithType(name: string, agent: any, type: string) {
-    this.agents.set(name, agent);
-    this.agentTypes.set(name, type);
-    this.initializeAgentMemory(name);
-    this.initializeAgentMetrics(name);
+    try {
+      this.agents.set(name, agent);
+      this.agentTypes.set(name, type);
+      this.initializeAgentMemory(name);
+      this.initializeAgentMetrics(name);
+      logger.info(`Successfully registered agent: ${name}`);
+    } catch (error) {
+      logger.error(`Failed to register agent ${name}:`, error);
+      // Continue without this agent rather than failing completely
+    }
   }
 
   private initializeAgentMemory(agentName: string) {
@@ -136,6 +173,12 @@ export class AgentOrchestrator extends EventEmitter {
     const startTime = Date.now();
     
     try {
+      // Check if orchestrator is properly initialized
+      if (this.agents.size === 0) {
+        logger.warn('No agents available in orchestrator');
+        return this.getFallbackResponse(context.language);
+      }
+
       // Analyze message intent
       const intent = await this.analyzeIntent(message, context);
 
@@ -154,6 +197,12 @@ export class AgentOrchestrator extends EventEmitter {
             'Learn about our services',
           ],
         };
+      }
+
+      // Check if agent exists
+      if (!this.agents.has(agentName)) {
+        logger.warn(`Agent ${agentName} not found, using fallback`);
+        return this.getFallbackResponse(context.language);
       }
 
       // Execute with parallel processing if enabled
@@ -181,27 +230,35 @@ export class AgentOrchestrator extends EventEmitter {
     } catch (error) {
       logger.error('Agent orchestration error:', error);
       
-      // Update error metrics
-      if (this.selectAgent(await this.analyzeIntent(message, context), context)) {
-        this.updateAgentMetrics(
-          this.selectAgent(await this.analyzeIntent(message, context), context)!,
-          false,
-          Date.now() - startTime
-        );
+      // Update error metrics safely
+      try {
+        const intent = await this.analyzeIntent(message, context);
+        const agentName = this.selectAgent(intent, context);
+        if (agentName) {
+          this.updateAgentMetrics(agentName, false, Date.now() - startTime);
+        }
+      } catch (metricsError) {
+        logger.error('Failed to update error metrics:', metricsError);
       }
       
-      return {
-        agent: 'orchestrator',
-        response:
-          'I apologize, but I encountered an error. Please try again or contact our office directly.',
-        actions: [
-          {
-            type: 'show-contact',
-            data: { phone: '(888) 979-8990' },
-          },
-        ],
-      };
+      return this.getFallbackResponse(context.language);
     }
+  }
+
+  private getFallbackResponse(language: string): AgentResponse {
+    return {
+      agent: 'orchestrator',
+      response:
+        language === 'es'
+          ? 'Disculpa, estoy teniendo dificultades técnicas. Por favor llama a nuestra oficina al (888) 979-8990 para asistencia inmediata.'
+          : 'I apologize, but I\'m experiencing technical difficulties. Please contact our office directly at (888) 979-8990 for immediate assistance.',
+      actions: [
+        {
+          type: 'show-contact',
+          data: { phone: '(888) 979-8990' },
+        },
+      ],
+    };
   }
 
   // Enable parallel processing

@@ -11,26 +11,29 @@ This report contains a comprehensive analysis of all linting and TypeScript erro
 ### Error Categories:
 
 #### 1. React Unescaped Entities (react/no-unescaped-entities) - **~580 instances**
-   - Most common error in the codebase
-   - Apostrophes (') need to be escaped with `&apos;`, `&lsquo;`, `&#39;`, or `&rsquo;`
-   - Double quotes (") need to be escaped with `&quot;`, `&ldquo;`, `&#34;`, or `&rdquo;`
-   - Found primarily in:
-     - Location pages (`/locations/nc/*`)
-     - Attorney profile pages
-     - Blog/content pages
+
+- Most common error in the codebase
+- Apostrophes (') need to be escaped with `&apos;`, `&lsquo;`, `&#39;`, or `&rsquo;`
+- Double quotes (") need to be escaped with `&quot;`, `&ldquo;`, `&#34;`, or `&rdquo;`
+- Found primarily in:
+  - Location pages (`/locations/nc/*`)
+  - Attorney profile pages
+  - Blog/content pages
 
 #### 2. TypeScript Warnings - **~17 instances**
-   - **Unexpected any types** (@typescript-eslint/no-explicit-any) - 8 instances
-     - `src/app/api/auth/[...nextauth]/route.ts`
-     - `src/app/api/content-import/route.ts`
-     - `src/app/api/ghl/trigger-call/route.ts`
-     - `src/app/api/webhooks/retell/route.ts`
-   - **Unused variables** (@typescript-eslint/no-unused-vars) - 9 instances
-     - `Image` import unused in multiple location pages
-     - `metaDescription` in content-import
-     - `callData` in send-sms route
+
+- **Unexpected any types** (@typescript-eslint/no-explicit-any) - 8 instances
+  - `src/app/api/auth/[...nextauth]/route.ts`
+  - `src/app/api/content-import/route.ts`
+  - `src/app/api/ghl/trigger-call/route.ts`
+  - `src/app/api/webhooks/retell/route.ts`
+- **Unused variables** (@typescript-eslint/no-unused-vars) - 9 instances
+  - `Image` import unused in multiple location pages
+  - `metaDescription` in content-import
+  - `callData` in send-sms route
 
 ### Most Affected Files:
+
 1. Location pages (Aberdeen, Albemarle, Asheboro, Asheville, Belmont, etc.)
 2. Attorney profile pages
 3. Blog/content pages (divorce timeline guide)
@@ -43,38 +46,45 @@ This report contains a comprehensive analysis of all linting and TypeScript erro
 ### Error Categories:
 
 #### 1. Missing Module Declarations (TS2307) - **~15 instances in src/**
-   - `@/services/twilio`
-   - `twilio`
-   - `@testing-library/user-event`
-   - `@react-pdf/renderer`
-   - `ws` (WebSocket library)
+
+- `@/services/twilio`
+- `twilio`
+- `@testing-library/user-event`
+- `@react-pdf/renderer`
+- `ws` (WebSocket library)
 
 #### 2. Missing Prisma Models (TS2339) - **~20 instances**
-   - `callRecording`
-   - `callStatusHistory`
-   - `callRouting`
-   - `errorLog`
-   - `retryQueue`
-   - `securityEvent`
+
+- `callRecording`
+- `callStatusHistory`
+- `callRouting`
+- `errorLog`
+- `retryQueue`
+- `securityEvent`
 
 #### 3. Type Mismatches (TS2345) - **~20 instances**
-   - Test files passing wrong argument types
-   - API route parameter mismatches
-   - CrewTask interface missing required properties
+
+- Test files passing wrong argument types
+- API route parameter mismatches
+- CrewTask interface missing required properties
 
 #### 4. Undefined References (TS2304) - **4 instances**
-   - `fillForm` function not defined in tests
+
+- `fillForm` function not defined in tests
 
 #### 5. Implicit Any Types (TS7031, TS7006) - **~10 instances**
-   - Destructured parameters without types
-   - Function parameters missing type annotations
+
+- Destructured parameters without types
+- Function parameters missing type annotations
 
 #### 6. Other Issues:
-   - Index signature missing (TS7053)
-   - Property assignment errors (TS2322)
-   - Missing exports (TS2305)
+
+- Index signature missing (TS7053)
+- Property assignment errors (TS2322)
+- Missing exports (TS2305)
 
 ### Most Affected Files:
+
 1. `src/services/retell/*` - Missing Prisma models
 2. `src/components/ResourceLeadCaptureForm/__tests__/*` - Missing test utilities
 3. `src/resources/guides/personal-injury-guide.tsx` - Missing PDF renderer
@@ -83,7 +93,9 @@ This report contains a comprehensive analysis of all linting and TypeScript erro
 ## Recommendations
 
 ### High Priority:
+
 1. **Install missing dependencies**:
+
    ```bash
    npm install --save-dev @testing-library/user-event
    npm install @react-pdf/renderer
@@ -91,6 +103,7 @@ This report contains a comprehensive analysis of all linting and TypeScript erro
    ```
 
 2. **Update Prisma schema** to include missing models:
+
    - callRecording
    - callStatusHistory
    - callRouting
@@ -101,11 +114,13 @@ This report contains a comprehensive analysis of all linting and TypeScript erro
 3. **Fix unescaped entities** in React components (use HTML entities)
 
 ### Medium Priority:
+
 1. **Remove unused imports** (especially `Image` from location pages)
 2. **Add explicit types** instead of `any`
 3. **Define missing test utilities** (`fillForm` function)
 
 ### Low Priority:
+
 1. **Add index signatures** where needed
 2. **Fix module exports** in immigration guide
 3. **Add proper type annotations** to destructured parameters

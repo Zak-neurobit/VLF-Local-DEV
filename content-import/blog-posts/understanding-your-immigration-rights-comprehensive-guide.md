@@ -60,6 +60,7 @@ If you're fleeing persecution, you have the right to:
 ### Documentation is Key
 
 Always maintain copies of:
+
 - All immigration documents and applications
 - Correspondence with USCIS or immigration courts
 - Receipts for any fees paid
@@ -68,6 +69,7 @@ Always maintain copies of:
 ### Know What to Do During Encounters
 
 If approached by immigration enforcement:
+
 1. Remain calm and polite
 2. Don't run or resist
 3. Exercise your right to remain silent
@@ -77,6 +79,7 @@ If approached by immigration enforcement:
 ### Red Flags to Avoid
 
 Be wary of:
+
 - **Immigration Fraud**: Anyone guaranteeing results or asking for payment before services
 - **Notario Fraud**: Non-attorneys claiming they can provide legal help
 - **Document Fraud**: Never use fake documents – it can permanently bar you from immigration benefits
@@ -132,8 +135,8 @@ Remember, knowing your rights is powerful, but having experienced legal counsel 
 
 ## Take Action Today
 
-Don't let uncertainty about your immigration rights hold you back from pursuing your American dream. Contact Vasquez Law Firm, PLLC today for a consultation. Call us at 1-844-YO-PELEO (1-844-967-3536) or visit our website to schedule your appointment. 
+Don't let uncertainty about your immigration rights hold you back from pursuing your American dream. Contact Vasquez Law Firm, PLLC today for a consultation. Call us at 1-844-YO-PELEO (1-844-967-3536) or visit our website to schedule your appointment.
 
 Our multilingual team is ready to help you understand your rights and explore your options. Whether you're just beginning your immigration journey or facing complex challenges, we're here to fight for you and your family's future.
 
-*The information provided in this article is for educational purposes only and should not be construed as legal advice. Immigration laws are complex and constantly changing. For advice specific to your situation, please consult with a qualified immigration attorney.*
+_The information provided in this article is for educational purposes only and should not be construed as legal advice. Immigration laws are complex and constantly changing. For advice specific to your situation, please consult with a qualified immigration attorney._

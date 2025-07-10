@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description:
       'Smithfield NC law office serving Johnston County. Immigration, personal injury, workers comp & criminal defense. Bilingual attorneys. 24/7 Emergency Services.',
     images: [{ url: '/images/offices/smithfield-office.jpg' }],
-    url: 'https://www.vasquezlawfirm.com/locations/smithfield',
+    url: 'https://www.vasquezlawnc.com/locations/smithfield',
     type: 'website',
   },
   twitter: {
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
       'Serving Smithfield & Johnston County with expert legal services. Bilingual attorneys.',
   },
   alternates: {
-    canonical: 'https://www.vasquezlawfirm.com/locations/smithfield',
+    canonical: 'https://www.vasquezlawnc.com/locations/smithfield',
     languages: {
-      'en-US': 'https://www.vasquezlawfirm.com/locations/smithfield',
-      'es-ES': 'https://www.vasquezlawfirm.com/es/ubicaciones/smithfield',
+      'en-US': 'https://www.vasquezlawnc.com/locations/smithfield',
+      'es-ES': 'https://www.vasquezlawnc.com/es/ubicaciones/smithfield',
     },
   },
 };
@@ -43,7 +43,7 @@ export default function SmithfieldPage() {
       zip: '27577',
     },
     phone: '(919) 989-3000',
-    email: 'smithfield@vasquezlawfirm.com',
+    email: 'smithfield@vasquezlawnc.com',
     hours: {
       weekdays: 'Mon-Fri: 8:30 AM - 5:30 PM',
       saturday: 'By Appointment',
@@ -174,15 +174,15 @@ export default function SmithfieldPage() {
             {
               '@context': 'https://schema.org',
               '@type': 'LegalService',
-              '@id': 'https://www.vasquezlawfirm.com/locations/smithfield#organization',
+              '@id': 'https://www.vasquezlawnc.com/locations/smithfield#organization',
               name: 'Vasquez Law Firm - Smithfield Office (Main Office)',
               alternateName: 'Smithfield Immigration & Personal Injury Lawyers',
               description:
                 'Main office of Vasquez Law Firm in Smithfield NC. Full-service law firm specializing in immigration, personal injury, workers compensation, criminal defense, and family law. Bilingual attorneys available 24/7.',
-              url: 'https://www.vasquezlawfirm.com/locations/smithfield',
+              url: 'https://www.vasquezlawnc.com/locations/smithfield',
               telephone: '+1-919-989-3000',
               faxNumber: '+1-919-261-1707',
-              email: 'smithfield@vasquezlawfirm.com',
+              email: 'smithfield@vasquezlawnc.com',
               address: {
                 '@type': 'PostalAddress',
                 streetAddress: '612 S Brightleaf Blvd',
@@ -313,14 +313,14 @@ export default function SmithfieldPage() {
               slogan: 'Yo Peleo Por Ti® - I Fight For You',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.vasquezlawfirm.com/images/logo.png',
+                url: 'https://www.vasquezlawnc.com/images/logo.png',
                 width: '300',
                 height: '100',
               },
               image: [
                 {
                   '@type': 'ImageObject',
-                  url: 'https://www.vasquezlawfirm.com/images/offices/smithfield-office.jpg',
+                  url: 'https://www.vasquezlawnc.com/images/offices/smithfield-office.jpg',
                   width: '1200',
                   height: '800',
                   caption: 'Vasquez Law Firm Smithfield Main Office Building',
@@ -384,26 +384,26 @@ export default function SmithfieldPage() {
                   '@type': 'ListItem',
                   position: 1,
                   name: 'Home',
-                  item: 'https://www.vasquezlawfirm.com',
+                  item: 'https://www.vasquezlawnc.com',
                 },
                 {
                   '@type': 'ListItem',
                   position: 2,
                   name: 'Locations',
-                  item: 'https://www.vasquezlawfirm.com/locations',
+                  item: 'https://www.vasquezlawnc.com/locations',
                 },
                 {
                   '@type': 'ListItem',
                   position: 3,
                   name: 'Smithfield',
-                  item: 'https://www.vasquezlawfirm.com/locations/smithfield',
+                  item: 'https://www.vasquezlawnc.com/locations/smithfield',
                 },
               ],
             },
             {
               '@context': 'https://schema.org',
               '@type': 'LocalBusiness',
-              '@id': 'https://www.vasquezlawfirm.com/locations/smithfield#localbusiness',
+              '@id': 'https://www.vasquezlawnc.com/locations/smithfield#localbusiness',
               name: 'Vasquez Law Firm Smithfield',
               description:
                 'Smithfield NC immigration and personal injury law firm. Main office serving Johnston County with experienced bilingual attorneys.',
@@ -418,7 +418,7 @@ export default function SmithfieldPage() {
               openingHours: 'Mo-Fr 08:30-17:30',
               hasMap: 'https://goo.gl/maps/smithfield-vasquez-law',
               parentOrganization: {
-                '@id': 'https://www.vasquezlawfirm.com/#organization',
+                '@id': 'https://www.vasquezlawnc.com/#organization',
               },
             },
           ]),

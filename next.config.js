@@ -31,27 +31,34 @@ const nextConfig = {
   },
   // Performance optimizations
   experimental: {
-    serverComponentsExternalPackages: ['puppeteer', 'pdf-parse', 'canvas', 'sharp', 'bcryptjs', 'socket.io-client'],
+    serverComponentsExternalPackages: [
+      'puppeteer',
+      'pdf-parse',
+      'canvas',
+      'sharp',
+      'bcryptjs',
+      'socket.io-client',
+    ],
   },
   // Webpack optimizations
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // Bundle analyzer
     if (process.env.ANALYZE === 'true') {
       const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-      config.plugins.push(new BundleAnalyzerPlugin({
-        analyzerMode: 'static',
-        openAnalyzer: false,
-        reportFilename: `../analyze/${isServer ? 'server' : 'client'}.html`,
-      }));
+      config.plugins.push(
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          openAnalyzer: false,
+          reportFilename: `../analyze/${isServer ? 'server' : 'client'}.html`,
+        })
+      );
     }
-
 
     // Optimize imports
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': require('path').resolve(__dirname, 'src'),
     };
-
 
     // Minimize JavaScript and CSS
     if (!dev) {
@@ -199,13 +206,17 @@ const nextConfig = {
       },
       // Spanish blog post redirects - moved to /es directory
       {
-        source: '/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos',
-        destination: '/es/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos',
+        source:
+          '/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos',
+        destination:
+          '/es/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos',
         permanent: true,
       },
       {
-        source: '/como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion',
-        destination: '/es/como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion',
+        source:
+          '/como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion',
+        destination:
+          '/es/como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion',
         permanent: true,
       },
       {
@@ -219,8 +230,10 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo',
-        destination: '/es/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo',
+        source:
+          '/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo',
+        destination:
+          '/es/el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo',
         permanent: true,
       },
       {

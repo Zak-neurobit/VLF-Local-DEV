@@ -3,47 +3,57 @@
 ## 🎯 PRIORITY 1: MUST-HAVE LEGAL DIRECTORIES (Complete Within 24 Hours)
 
 ### Legal-Specific Directories
+
 1. **Avvo.com** - Create complete profiles for ALL attorneys
+
    - Add practice areas, case results, publications
    - Request client reviews immediately
    - Upload professional photos
 
 2. **FindLaw.com** - Premium listing recommended
+
    - Complete all practice area pages
    - Add Spanish language capabilities
    - Link to all office locations
 
 3. **Justia.com** - Free but powerful
+
    - Claim all attorney profiles
    - Add case wins and publications
    - Connect social media
 
 4. **Martindale-Hubbell** - Prestigious rating system
+
    - Apply for AV rating
    - Complete peer review process
    - Add all practice areas
 
 5. **Lawyers.com** - High domain authority
+
    - Premium profile with video
    - Spanish language listing
    - All NC office locations
 
 6. **Nolo.com** - Consumer-friendly
+
    - Create expert profile
    - Answer legal questions
    - Build authority
 
 7. **LegalMatch.com** - Lead generation
+
    - Complete intake forms
    - Set up auto-responders
    - Track ROI carefully
 
 8. **Super Lawyers** - Prestige directory
+
    - Apply for recognition
    - Complete profile even if not selected
    - Add to website badges
 
 9. **American Immigration Lawyers Association (AILA)**
+
    - Ensure all immigration attorneys listed
    - Complete profile with specialties
    - Active in forums
@@ -56,6 +66,7 @@
 ## 🎯 PRIORITY 2: GOOGLE ECOSYSTEM (Complete Within 48 Hours)
 
 1. **Google My Business** - CRITICAL
+
    - Separate listing for EACH office
    - 50+ photos per location
    - Posts 3x per week
@@ -64,6 +75,7 @@
    - Attributes maximized
 
 2. **Google Maps**
+
    - Verify all locations
    - Add interior photos
    - Street view verification
@@ -78,27 +90,33 @@
 ## 🎯 PRIORITY 3: MAJOR BUSINESS DIRECTORIES (Week 1)
 
 ### Tier 1 Citations (Highest Priority)
+
 1. **Yelp for Business**
+
    - Complete profile with photos
    - Respond to ALL reviews
    - Check-in offers
 
 2. **Facebook Business**
+
    - Separate pages per location
    - Daily posts
    - Review monitoring
 
 3. **Bing Places**
+
    - Often forgotten but valuable
    - Complete profile
    - Monthly updates
 
 4. **Apple Maps Connect**
+
    - iOS user targeting
    - Complete profile
    - Photos and hours
 
 5. **YellowPages.com**
+
    - Enhanced listing
    - All categories
    - Coupons/offers
@@ -109,6 +127,7 @@
    - A+ rating maintenance
 
 ### Tier 2 Citations
+
 7. **Foursquare** - Location data provider
 8. **Citysearch** - Local reviews
 9. **Merchant Circle** - Business network
@@ -123,11 +142,13 @@
 ## 🎯 PRIORITY 4: SPANISH/HISPANIC DIRECTORIES (Week 1)
 
 1. **Abogado.com** - #1 Spanish legal directory
+
    - Complete Spanish profiles
    - All practice areas
    - Client testimonials in Spanish
 
 2. **HispanicLawyers.com**
+
    - Full profile creation
    - Spanish-first content
    - Cultural competency highlighted
@@ -144,6 +165,7 @@
 ## 🎯 PRIORITY 5: LOCAL NC DIRECTORIES (Week 2)
 
 ### State-Wide
+
 1. **NCLawyers.com**
 2. **NorthCarolinaLegalDirectory.com**
 3. **NC.gov Business Directory**
@@ -151,6 +173,7 @@
 5. **NCChamber.com** - State chamber
 
 ### Charlotte-Specific
+
 6. **CharlotteChamber.com**
 7. **CharlotteObserver.com Business Directory**
 8. **CLTBlog.com**
@@ -158,6 +181,7 @@
 10. **Localwiki.org/charlotte**
 
 ### Raleigh-Specific
+
 11. **VisitRaleigh.com**
 12. **RaleighChamber.org**
 13. **Triangle Business Journal Directory**
@@ -165,6 +189,7 @@
 15. **IndyWeek.com Directory**
 
 ### Regional Chambers (Join ALL)
+
 16. Durham Chamber
 17. Greensboro Chamber
 18. Winston-Salem Chamber
@@ -187,21 +212,25 @@
 ## 🎯 PRIORITY 7: SOCIAL & COMMUNITY (Week 3)
 
 1. **LinkedIn Company Pages**
+
    - Each attorney personal profile
    - Company showcase pages
    - Regular posting
 
 2. **Nextdoor Business**
+
    - Neighborhood presence
    - Local recommendations
    - Community involvement
 
 3. **Instagram Business**
+
    - Visual storytelling
    - Office culture
    - Client successes
 
 4. **Twitter/X**
+
    - Legal news commentary
    - Quick tips
    - Community engagement
@@ -239,6 +268,7 @@ These feed data to hundreds of other sites:
 ## 🎯 PRIORITY 10: NICHE DIRECTORIES (Month 2)
 
 ### Immigration-Specific
+
 1. **ImmigrationLawyers.com**
 2. **VisaLawyers.com**
 3. **GreenCardLawyers.org**
@@ -246,6 +276,7 @@ These feed data to hundreds of other sites:
 5. **AllLaw.com Immigration Directory**
 
 ### Personal Injury-Specific
+
 6. **InjuryLawyers.com**
 7. **AccidentAttorneys.org**
 8. **PersonalInjuryLaw.com**
@@ -253,11 +284,13 @@ These feed data to hundreds of other sites:
 10. **1800Injured.com**
 
 ### Workers Comp-Specific
+
 11. **WorkersCompensation.com**
 12. **CompLawyers.com**
 13. **WorkInjuryLawyers.org**
 
 ### Criminal Defense-Specific
+
 14. **CriminalDefenseLawyer.com**
 15. **DUILawyers.com**
 16. **CriminalLawyerUSA.com**
@@ -265,6 +298,7 @@ These feed data to hundreds of other sites:
 ## 📊 CITATION BUILDING BEST PRACTICES
 
 ### NAP Consistency (CRITICAL!)
+
 ```
 Name: Vasquez Law Firm, PLLC
 Address: 4801 E Independence Blvd Suite 714, Charlotte, NC 28212
@@ -272,6 +306,7 @@ Phone: 1-844-967-3536 or +1-844-967-3536
 ```
 
 ### Information to Include EVERYWHERE:
+
 - Hours: Monday-Friday 8:30 AM - 5:30 PM, 24/7 Emergency
 - Website: https://www.vasquezlawnc.com
 - Email: leads@vasquezlawfirm.com
@@ -281,6 +316,7 @@ Phone: 1-844-967-3536 or +1-844-967-3536
 - Attributes: Free Consultation, Wheelchair Accessible, Free Parking, Virtual Consultations
 
 ### Photos to Upload:
+
 1. Exterior building shot
 2. Interior office reception
 3. Attorney headshots
@@ -293,6 +329,7 @@ Phone: 1-844-967-3536 or +1-844-967-3536
 10. Awards and certificates
 
 ### Review Generation Strategy:
+
 1. Ask EVERY satisfied client
 2. Send follow-up email with links
 3. Make it easy - provide tablet in office
@@ -313,6 +350,7 @@ Phone: 1-844-967-3536 or +1-844-967-3536
 ## 📈 TRACKING SUCCESS
 
 Weekly Metrics:
+
 - Citation count (target: 500+ in 6 months)
 - Review velocity (target: 40+ per month)
 - Profile views increase
@@ -324,7 +362,7 @@ Weekly Metrics:
 ## 🚨 AVOID THESE MISTAKES
 
 1. **Never** use different NAP info
-2. **Don't** use tracking numbers inconsistently  
+2. **Don't** use tracking numbers inconsistently
 3. **Avoid** duplicate listings
 4. **Don't** ignore negative reviews
 5. **Never** pay for shady directory farms

@@ -142,7 +142,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
 
   const toggleChat = useCallback(() => {
     setIsOpen(prev => !prev);
-    userFlowLogger.flowStep('chat_interaction', 'toggle_widget', sessionId.current);
+    userFlowLogger.flowStep('chat_interaction', 'toggle_widget', sessionId.current || undefined);
   }, []);
 
   const sendMessage = useCallback(() => {
@@ -161,7 +161,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
       language: currentLanguage,
     });
 
-    userFlowLogger.flowStep('chat_interaction', 'message_sent', sessionId.current);
+    userFlowLogger.flowStep('chat_interaction', 'message_sent', sessionId.current || undefined);
 
     setInputValue('');
   }, [inputValue, isConnected, currentLanguage]);

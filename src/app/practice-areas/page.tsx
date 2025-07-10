@@ -15,7 +15,6 @@ export const metadata: Metadata = {
 };
 
 const PracticeAreasContent = dynamic(() => import('./PracticeAreasContent'), {
-  ssr: false,
   loading: () => <div className="min-h-screen bg-black" />
 });
 

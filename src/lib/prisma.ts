@@ -67,7 +67,7 @@ class MockPrismaClient {
 const prismaClientSingleton = () => {
   // Check if DATABASE_URL is available
   if (!process.env.DATABASE_URL) {
-    console.warn('DATABASE_URL not found, using mock Prisma client');
+    console.warn('DATABASE_URL not found, using mock Prisma client. Current DATABASE_URL:', process.env.DATABASE_URL);
     return new MockPrismaClient() as unknown as PrismaClient;
   }
 

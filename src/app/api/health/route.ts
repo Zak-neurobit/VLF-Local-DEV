@@ -35,8 +35,8 @@ export async function GET(_req: NextRequest) {
     }
   }
 
-  // Check Redis if configured
-  if (process.env.REDIS_HOST && process.env.REDIS_HOST !== 'localhost') {
+  // Check Redis if configured and not mocked
+  if (process.env.REDIS_HOST && process.env.MOCK_REDIS !== 'true') {
     try {
       const Redis = (await import('ioredis')).default;
       const redis = new Redis({

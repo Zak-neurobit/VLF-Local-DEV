@@ -23,6 +23,7 @@ npm run deploy:trigger
 ```
 
 This will:
+
 1. Check if Vercel CLI is installed (install if needed)
 2. Verify project is linked to Vercel
 3. Deploy current state directly to Vercel
@@ -85,14 +86,18 @@ Before deploying, ensure:
 ## Deployment Scripts
 
 ### `scripts/deploy-direct.sh`
+
 Interactive shell script that:
+
 - Checks for Vercel CLI
 - Verifies project linking
 - Offers production/preview/dev deployment options
 - Uses `--force` to bypass git
 
 ### `scripts/trigger-vercel-deployment.ts`
+
 TypeScript deployment script with multiple options:
+
 - `--cli`: Use Vercel CLI (default)
 - `--api`: Use Vercel API (requires VERCEL_TOKEN)
 - `--hook`: Create deployment webhook
@@ -100,23 +105,28 @@ TypeScript deployment script with multiple options:
 ## Troubleshooting
 
 ### "Project not linked" error
+
 ```bash
 vercel link
 # Follow prompts to link to existing project
 ```
 
 ### "No git repository" error
+
 Use the `--force` flag:
+
 ```bash
 vercel --prod --force
 ```
 
 ### API deployment fails
+
 1. Ensure VERCEL_TOKEN is valid
 2. Check token has proper permissions
 3. Verify project/org IDs are correct
 
 ### Build fails on Vercel
+
 1. Check build logs in Vercel dashboard
 2. Ensure all environment variables are set
 3. Verify `NODE_OPTIONS=--max-old-space-size=4096` is set in build env
@@ -154,7 +164,9 @@ If deployment causes issues:
 ## Automation Options
 
 ### GitHub Actions (without git push)
+
 Create `.github/workflows/deploy.yml`:
+
 ```yaml
 name: Manual Deploy
 on:
@@ -172,7 +184,9 @@ jobs:
 ```
 
 ### Cron Deployment
+
 Add to crontab for scheduled deployments:
+
 ```bash
 0 2 * * * cd /path/to/project && npm run deploy:trigger
 ```

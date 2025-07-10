@@ -3,6 +3,7 @@
 This guide will walk you through setting up all required API keys and services for the Vasquez Law Firm website.
 
 ## Table of Contents
+
 1. [Required APIs Overview](#required-apis-overview)
 2. [Step-by-Step Setup](#step-by-step-setup)
 3. [Testing Your Configuration](#testing-your-configuration)
@@ -11,18 +12,21 @@ This guide will walk you through setting up all required API keys and services f
 ## Required APIs Overview
 
 ### Critical APIs (Required for Basic Functionality)
+
 - **OpenAI API** - Powers the chatbot and AI features
 - **GoHighLevel (GHL)** - CRM integration for lead management
 - **PostgreSQL Database** - Data storage
 - **Redis** - Caching and session management
 
 ### Important APIs (Highly Recommended)
+
 - **Retell AI** - Voice agent functionality (API key already provided)
 - **Google Maps** - Location services
 - **Email Services** - Client communications
 - **Sentry** - Error tracking and monitoring
 
 ### Optional APIs (Enhanced Features)
+
 - **Payment Processing** - Authorize.Net, LawPay, or Stripe
 - **Google Services** - Analytics, Search, Places
 - **Yelp API** - Business reviews
@@ -62,6 +66,7 @@ MOCK_REDIS=false
 1. Go to https://platform.openai.com/api-keys
 2. Create a new API key
 3. Add to .env.local:
+
 ```
 OPENAI_API_KEY=sk-your-actual-api-key-here
 ```
@@ -75,6 +80,7 @@ OPENAI_API_KEY=sk-your-actual-api-key-here
 5. Find your Calendar ID, Pipeline ID, and User ID from respective sections
 
 Add to .env.local:
+
 ```
 GHL_API_KEY=your-ghl-api-key
 GHL_LOCATION_ID=your-location-id
@@ -88,6 +94,7 @@ GHL_DEFAULT_USER_ID=your-user-id
 ### 5. Retell AI Setup (Voice Agents)
 
 The API key is already provided:
+
 ```
 RETELL_API_KEY=2996bc9f-ca4e-422a-b64e-a09a3eaa9bc0
 RETELL_WEBHOOK_SECRET=2996bc9f-ca4e-422a-b64e-a09a3eaa9bc0
@@ -98,6 +105,7 @@ RETELL_WEBHOOK_SECRET=2996bc9f-ca4e-422a-b64e-a09a3eaa9bc0
 1. Enable app passwords in your Office 365 account
 2. Generate an app-specific password
 3. Add to .env.local:
+
 ```
 OFFICE365_EMAIL=info@vasquezlawnc.com
 OFFICE365_PASSWORD=your-app-password
@@ -111,21 +119,25 @@ EMAIL_FROM=info@vasquezlawnc.com
 ### 7. Google Services Setup
 
 #### Google Maps API
+
 1. Go to https://console.cloud.google.com/
 2. Create a new project or select existing
 3. Enable Maps JavaScript API
 4. Create API key with restrictions
 5. Add to .env.local:
+
 ```
 GOOGLE_MAPS_API_KEY=your-maps-api-key
 NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your-maps-api-key
 ```
 
 #### Google Analytics
+
 1. Go to https://analytics.google.com/
 2. Create a new property for vasquezlawfirm.com
 3. Get your Measurement ID
 4. Add to .env.local:
+
 ```
 GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
 ```
@@ -133,6 +145,7 @@ GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
 ### 8. Payment Processing (Choose One)
 
 #### Option A: LawPay (Recommended for Law Firms)
+
 ```
 LAWPAY_PUBLIC_KEY=your-lawpay-public-key
 LAWPAY_SECRET_KEY=your-lawpay-secret-key
@@ -141,6 +154,7 @@ LAWPAY_OPERATING_ACCOUNT_ID=your-operating-account-id
 ```
 
 #### Option B: Stripe
+
 ```
 STRIPE_SECRET_KEY=sk_live_your-stripe-key
 STRIPE_WEBHOOK_SECRET=whsec_your-webhook-secret
@@ -152,6 +166,7 @@ STRIPE_WEBHOOK_SECRET=whsec_your-webhook-secret
 2. Create a new project (Next.js)
 3. Get your DSN
 4. Add to .env.local:
+
 ```
 SENTRY_DSN=https://your-key@sentry.io/project-id
 ```
@@ -159,11 +174,13 @@ SENTRY_DSN=https://your-key@sentry.io/project-id
 ### 10. Authentication Setup
 
 Generate a secure secret:
+
 ```bash
 openssl rand -base64 32
 ```
 
 Add to .env.local:
+
 ```
 NEXTAUTH_URL=https://www.vasquezlawfirm.com
 NEXTAUTH_SECRET=your-generated-secret
@@ -178,6 +195,7 @@ npm run test:apis
 ```
 
 Or test individually:
+
 ```bash
 # Test database connection
 npm run test:db
@@ -279,21 +297,25 @@ YELP_API_KEY=
 ### Common Issues
 
 1. **Database Connection Failed**
+
    - Ensure PostgreSQL is running
    - Check connection string format
    - Verify database exists
 
 2. **Redis Connection Failed**
+
    - Ensure Redis is running
    - Check if port 6379 is available
    - Set MOCK_REDIS=true for development
 
 3. **OpenAI API Errors**
+
    - Verify API key is valid
    - Check usage limits
    - Ensure key has proper permissions
 
 4. **GHL Integration Issues**
+
    - Verify all IDs are correct
    - Check API key permissions
    - Ensure campaigns exist in GHL
@@ -306,12 +328,14 @@ YELP_API_KEY=
 ### Support
 
 For API-specific issues:
+
 - OpenAI: https://platform.openai.com/docs
 - GoHighLevel: https://help.gohighlevel.com/
 - Retell AI: https://docs.retellai.com/
 - Google APIs: https://console.cloud.google.com/support
 
 For website issues:
+
 - Check logs: `npm run logs`
 - View errors: Check Sentry dashboard
 - Debug mode: Set `NODE_ENV=development`

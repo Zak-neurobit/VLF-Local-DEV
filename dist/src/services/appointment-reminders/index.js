@@ -1,10 +1,10 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.appointmentReminderService = exports.AppointmentReminderService = void 0;
-const prisma_1 = require('@/lib/prisma');
-const gohighlevel_1 = require('@/services/gohighlevel');
-const email_1 = require('@/services/email');
-const logger_1 = require('@/lib/logger');
+const prisma_1 = require('../../lib/prisma');
+const gohighlevel_1 = require('../../services/gohighlevel');
+const email_1 = require('../../services/email');
+const logger_1 = require('../../lib/logger');
 const date_fns_1 = require('date-fns');
 class AppointmentReminderService {
   // Send reminders for appointments

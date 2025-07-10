@@ -2,8 +2,8 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.ghlService = exports.GoHighLevelService = void 0;
 const zod_1 = require('zod');
-const logger_1 = require('@/lib/logger');
-const prisma_1 = require('@/lib/prisma');
+const logger_1 = require('../../lib/logger');
+const prisma_1 = require('../../lib/prisma');
 // GHL API schemas
 const ContactSchema = zod_1.z.object({
   firstName: zod_1.z.string(),

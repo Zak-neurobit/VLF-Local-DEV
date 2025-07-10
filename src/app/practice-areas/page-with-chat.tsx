@@ -14,7 +14,7 @@ const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => m
 export default function PracticeAreasPage() {
   // Get language from URL params or default to 'en'
   const searchParams = useSearchParams();
-  const language: 'en' | 'es' = (searchParams.get('lang') as 'en' | 'es') || 'en';
+  const language: 'en' | 'es' = (searchParams?.get('lang') as 'en' | 'es') || 'en';
 
   const practiceAreas = [
     {

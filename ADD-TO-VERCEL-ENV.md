@@ -1,6 +1,7 @@
 # Environment Variables to Add to Vercel
 
 ## Instructions
+
 1. Go to https://vercel.com/[your-team]/vasquez-law-website/settings/environment-variables
 2. Add each of these variables to Vercel
 3. Make sure to add them for "Production", "Preview", and "Development" environments
@@ -8,9 +9,11 @@
 ## Required Environment Variables
 
 ### Database
+
 - `DATABASE_URL` - Your PostgreSQL connection string
 
 ### GoHighLevel API
+
 - `GHL_API_KEY` - Your GoHighLevel API key
 - `GHL_LOCATION_ID` - Your GHL location ID
 - `GHL_PIPELINE_ID` - Your GHL pipeline ID
@@ -22,9 +25,11 @@
 - `GHL_INVALID_LEADS_STAGE_ID` - Stage ID for invalid leads
 
 ### OpenAI
+
 - `OPENAI_API_KEY` - Your OpenAI API key
 
 ### Other Services
+
 - `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` - Google Maps API key
 - `TWILIO_ACCOUNT_SID` - Twilio account SID
 - `TWILIO_AUTH_TOKEN` - Twilio auth token
@@ -33,6 +38,7 @@
 - `SENTRY_DSN` - Sentry error tracking DSN
 
 ### Feature Flags
+
 - `MOCK_REDIS=true` - Since we're using mock Redis for now
 - `NEXT_PUBLIC_ENABLE_CHAT=true` - Enable chat feature
 - `NEXT_PUBLIC_ENABLE_VOICE=true` - Enable voice feature
@@ -40,6 +46,7 @@
 ## After Adding Variables
 
 1. Trigger a new deployment:
+
    ```bash
    vercel --prod
    ```

@@ -21,36 +21,42 @@ This integration connects Retell AI voice agents with GoHighLevel CRM to provide
 ## Features
 
 ### ✅ **Call Routing & Agent Assignment**
+
 - Intelligent routing based on practice area
 - Language preference detection (English/Spanish)
 - Priority-based queue management
 - Existing client recognition and prioritization
 
 ### ✅ **Real-time Status Updates**
+
 - Live call status tracking (queued, ringing, connected, ended, failed)
 - WebSocket notifications for status changes
 - Automatic retry logic for failed calls
 - Business hours and urgency handling
 
 ### ✅ **Recording & Transcription**
+
 - Automatic call recording processing
 - AI-powered transcript analysis
 - Sentiment detection and client satisfaction scoring
 - Keyword extraction and practice area confirmation
 
 ### ✅ **SMS Integration**
+
 - Post-call SMS follow-ups
 - Appointment reminders
 - No-answer and voicemail follow-ups
 - Template-based messaging with personalization
 
 ### ✅ **Error Handling & Recovery**
+
 - Comprehensive error classification and handling
 - Automatic retry mechanisms
 - Admin alerts for critical issues
 - Graceful degradation and fallbacks
 
 ### ✅ **Security & Authentication**
+
 - Webhook signature verification
 - Rate limiting and IP whitelisting
 - Input sanitization and validation
@@ -95,6 +101,7 @@ SECURITY_ALERT_EMAIL=security@vasquezlawnc.com
 ## API Endpoints
 
 ### 1. Trigger Outbound Call
+
 ```http
 POST /api/ghl/trigger-call
 Content-Type: application/json
@@ -118,6 +125,7 @@ Content-Type: application/json
 ```
 
 ### 2. Send SMS
+
 ```http
 POST /api/ghl/send-sms
 Content-Type: application/json
@@ -131,12 +139,14 @@ Content-Type: application/json
 ```
 
 ### 3. Webhook Endpoints
+
 - **Retell Webhooks**: `POST /api/webhooks/retell`
 - **GHL Webhooks**: `POST /api/webhooks/ghl`
 
 ## Service Components
 
 ### Call Router (`call-router.ts`)
+
 Handles intelligent call routing and agent assignment.
 
 ```typescript
@@ -159,6 +169,7 @@ const analytics = await callRouter.getRoutingAnalytics({
 ```
 
 ### Status Manager (`status-manager.ts`)
+
 Manages real-time call status updates and notifications.
 
 ```typescript
@@ -171,7 +182,7 @@ await statusManager.updateCallStatus('call-id', 'connected', {
 });
 
 // Subscribe to status updates
-const unsubscribe = statusManager.subscribeToCall('call-id', (status) => {
+const unsubscribe = statusManager.subscribeToCall('call-id', status => {
   console.log('Status updated:', status);
 });
 
@@ -180,6 +191,7 @@ const activeCalls = statusManager.getActiveCalls();
 ```
 
 ### Recording Manager (`recording-manager.ts`)
+
 Processes call recordings and transcripts with AI analysis.
 
 ```typescript
@@ -199,6 +211,7 @@ const recordings = await recordingManager.getContactRecordings('ghl-contact-id')
 ```
 
 ### Error Handler (`error-handler.ts`)
+
 Provides comprehensive error handling and recovery.
 
 ```typescript
@@ -223,6 +236,7 @@ const stats = await retellErrorHandler.getErrorStats({
 ```
 
 ### Security Manager (`security-manager.ts`)
+
 Handles authentication, validation, and security.
 
 ```typescript
@@ -269,6 +283,7 @@ The system handles the following Retell webhook events:
 ## Call Flow
 
 ### 1. Outbound Call Initiation
+
 ```mermaid
 sequenceDiagram
     participant GHL as GoHighLevel
@@ -291,6 +306,7 @@ sequenceDiagram
 ```
 
 ### 2. Recording Processing
+
 ```mermaid
 sequenceDiagram
     participant Retell as Retell AI
@@ -315,6 +331,7 @@ sequenceDiagram
 The system includes specialized agents for different practice areas:
 
 ### English Agents
+
 - **General Reception** - Routes calls and provides general information
 - **Immigration Law** - Handles immigration-related inquiries
 - **Personal Injury** - Assists with accident and injury cases
@@ -322,10 +339,12 @@ The system includes specialized agents for different practice areas:
 - **Workers' Compensation** - Handles workplace injury claims
 
 ### Spanish Agents
+
 - **Asistente de Inmigración** - Spanish immigration assistance
-- *Other practice areas can be configured with Spanish agents as needed*
+- _Other practice areas can be configured with Spanish agents as needed_
 
 ### Agent Selection Logic
+
 1. Check contact's preferred language
 2. Match practice area from contact data or call metadata
 3. Consider urgency and client status
@@ -334,12 +353,14 @@ The system includes specialized agents for different practice areas:
 ## Call Priority System
 
 ### Priority Levels (1-10)
+
 - **1-3**: Low priority (general inquiries, non-urgent)
 - **4-6**: Medium priority (potential clients, follow-ups)
 - **7-9**: High priority (existing clients, urgent matters)
 - **10**: Emergency (active client emergencies, court deadlines)
 
 ### Priority Factors
+
 - **Client Status**: Active clients get +3 priority
 - **Urgency Keywords**: "emergency", "urgent", "deadline" increase priority
 - **Practice Area**: Criminal defense gets higher priority due to time sensitivity
@@ -349,24 +370,29 @@ The system includes specialized agents for different practice areas:
 ## SMS Integration
 
 ### Template System
+
 The system includes pre-defined SMS templates for various scenarios:
 
 #### Post-Call SMS
+
 ```
 Thank you for speaking with Vasquez Law Firm today. We're here to help with your {{practiceArea}} case. If you have any questions, reply to this message or call 1-844-YO-PELEO.
 ```
 
 #### Appointment Reminder
+
 ```
 Reminder: Your appointment with {{attorneyName}} is scheduled for {{date}} at {{time}}. Reply CONFIRM to confirm or call 1-844-YO-PELEO to reschedule.
 ```
 
 #### Follow-up SMS
+
 ```
 Hi {{firstName}}, following up on our recent conversation about your {{practiceArea}} case. Do you have any questions or would you like to schedule a consultation? Reply or call 1-844-YO-PELEO.
 ```
 
 ### SMS Keyword Handling
+
 - `STOP`, `UNSUBSCRIBE`, `CANCEL` - Opt out of SMS
 - `START`, `SUBSCRIBE`, `YES` - Opt in to SMS
 - `CONFIRM` - Confirm appointment
@@ -375,6 +401,7 @@ Hi {{firstName}}, following up on our recent conversation about your {{practiceA
 ## Analytics & Reporting
 
 ### Call Analytics
+
 ```typescript
 // Get routing analytics
 const routingStats = await callRouter.getRoutingAnalytics();
@@ -393,6 +420,7 @@ const securityStats = await securityManager.getSecurityStats();
 ```
 
 ### Available Metrics
+
 - **Call Volume**: Total calls, by practice area, by time period
 - **Success Rates**: Connection rates, completion rates
 - **Sentiment Analysis**: Positive/negative/neutral distribution
@@ -404,6 +432,7 @@ const securityStats = await securityManager.getSecurityStats();
 ## Error Handling
 
 ### Error Types
+
 - **AUTHENTICATION** - API key issues
 - **RATE_LIMIT** - Too many requests
 - **AGENT_UNAVAILABLE** - No agents available
@@ -413,6 +442,7 @@ const securityStats = await securityManager.getSecurityStats();
 - **NETWORK_ERROR** - Connection problems
 
 ### Recovery Mechanisms
+
 - **Automatic Retry** - For transient errors
 - **Agent Fallback** - Switch to general agent if specialized unavailable
 - **Manual Callback** - Create tasks for failed calls
@@ -422,21 +452,25 @@ const securityStats = await securityManager.getSecurityStats();
 ## Security Features
 
 ### Authentication
+
 - API key validation for all requests
 - Webhook signature verification using HMAC-SHA256
 - Origin validation for web requests
 
 ### Rate Limiting
+
 - Configurable limits per minute/hour/day
 - Per-user and global rate limiting
 - Automatic blocking of excessive requests
 
 ### Input Validation
+
 - Phone number format validation
 - Metadata sanitization (XSS prevention)
 - Request size limits
 
 ### Monitoring
+
 - Security event logging
 - Failed authentication tracking
 - Suspicious activity detection
@@ -445,6 +479,7 @@ const securityStats = await securityManager.getSecurityStats();
 ## Deployment
 
 ### Prerequisites
+
 - Node.js 18+
 - PostgreSQL database
 - Redis (for caching and rate limiting)
@@ -452,7 +487,9 @@ const securityStats = await securityManager.getSecurityStats();
 - Valid GoHighLevel account and API access
 
 ### Database Schema
+
 The integration requires the following database tables:
+
 - `voiceCall` - Call records
 - `callRouting` - Routing decisions
 - `callRecording` - Recording data
@@ -462,12 +499,14 @@ The integration requires the following database tables:
 - `smsLog` - SMS tracking
 
 ### Environment Setup
+
 1. Copy `.env.example` to `.env.local`
 2. Configure all required environment variables
 3. Run database migrations: `npm run db:migrate`
 4. Initialize Retell agents: `npm run agents:init`
 
 ### Testing
+
 ```bash
 # Run integration tests
 npm run test:integration
@@ -484,12 +523,14 @@ npm run test:load
 ## Monitoring & Maintenance
 
 ### Health Checks
+
 - API endpoint health monitoring
 - Database connectivity checks
 - External service availability (Retell, GHL)
 - Agent availability verification
 
 ### Scheduled Tasks
+
 - Clean up old recordings (90 days)
 - Clean up old status data (30 days)
 - Clean up old security events (90 days)
@@ -497,7 +538,9 @@ npm run test:load
 - Generate daily analytics reports
 
 ### Logging
+
 All components use structured logging with the following levels:
+
 - **ERROR** - Failures requiring attention
 - **WARN** - Issues that may need monitoring
 - **INFO** - Normal operational events
@@ -508,38 +551,47 @@ All components use structured logging with the following levels:
 ### Common Issues
 
 #### 1. Calls Not Connecting
+
 **Symptoms**: Calls stuck in "queued" status
 **Solutions**:
+
 - Check Retell API key validity
 - Verify account balance
 - Check agent availability
 - Review error logs for API failures
 
 #### 2. Webhooks Not Working
+
 **Symptoms**: Status updates not appearing
 **Solutions**:
+
 - Verify webhook URL configuration
 - Check webhook secret matches
 - Review firewall/proxy settings
 - Test webhook signature verification
 
 #### 3. SMS Not Sending
+
 **Symptoms**: SMS follow-ups not delivered
 **Solutions**:
+
 - Check GHL API key and permissions
 - Verify phone number format
 - Review SMS opt-in status
 - Check campaign configuration
 
 #### 4. Recording Processing Errors
+
 **Symptoms**: Transcripts not appearing in GHL
 **Solutions**:
+
 - Verify recording URL accessibility
 - Check transcript processing status
 - Review analysis pipeline errors
 - Verify GHL sync permissions
 
 ### Debug Commands
+
 ```bash
 # Test Retell connection
 npm run test:retell-connection
@@ -572,6 +624,7 @@ For technical support or questions about this integration:
 ## Future Enhancements
 
 ### Planned Features
+
 - [ ] Advanced sentiment analysis with machine learning
 - [ ] Multi-language support beyond English/Spanish
 - [ ] Integration with additional CRM platforms
@@ -582,6 +635,7 @@ For technical support or questions about this integration:
 - [ ] Advanced fraud detection and prevention
 
 ### Configuration Extensions
+
 - [ ] Custom agent personalities and responses
 - [ ] Dynamic pricing and cost tracking
 - [ ] Advanced routing rules and business logic

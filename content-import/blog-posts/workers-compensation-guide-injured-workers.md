@@ -18,6 +18,7 @@ Workers' compensation is a state-mandated insurance program that provides benefi
 ### Who is Covered?
 
 In both North Carolina and Florida:
+
 - Most employees are covered from their first day of work
 - Coverage includes full-time, part-time, and seasonal workers
 - Independent contractors are generally not covered
@@ -26,6 +27,7 @@ In both North Carolina and Florida:
 ### Types of Injuries Covered
 
 Workers' compensation covers:
+
 - **Sudden Injuries**: Falls, equipment accidents, vehicle crashes
 - **Repetitive Stress Injuries**: Carpal tunnel, back problems from lifting
 - **Occupational Diseases**: Conditions caused by workplace exposure
@@ -37,6 +39,7 @@ Workers' compensation covers:
 ### Medical Benefits
 
 You're entitled to all reasonable and necessary medical treatment:
+
 - Doctor visits and specialist care
 - Surgery and hospitalization
 - Prescription medications
@@ -47,26 +50,31 @@ You're entitled to all reasonable and necessary medical treatment:
 ### Wage Replacement Benefits
 
 **Temporary Total Disability (TTD):**
+
 - When you cannot work at all during recovery
 - North Carolina: 66⅔% of average weekly wage
 - Florida: 66⅔% of average weekly wage
 - Subject to state maximum limits
 
 **Temporary Partial Disability (TPD):**
+
 - When you can work but earn less due to restrictions
 - Benefits make up a portion of lost wages
 
 **Permanent Partial Disability (PPD):**
+
 - Compensation for permanent impairment
 - Based on body part and impairment rating
 
 **Permanent Total Disability (PTD):**
+
 - For workers who can never return to any employment
 - Lifetime benefits in most cases
 
 ### Death Benefits
 
 If a workplace injury results in death:
+
 - Funeral expenses (up to state limits)
 - Dependency benefits for spouse and children
 - Educational benefits for dependent children
@@ -76,10 +84,12 @@ If a workplace injury results in death:
 ### 1. Report the Injury Immediately
 
 **Time Limits:**
+
 - North Carolina: 30 days (written notice)
 - Florida: 30 days (verbal or written)
 
 **What to Include:**
+
 - Date, time, and location of injury
 - How the injury occurred
 - Body parts affected
@@ -140,6 +150,7 @@ Once you settle, you typically can't reopen your claim. Ensure you know the full
 ### Fighting Denials
 
 If your claim is denied:
+
 1. Request the denial in writing
 2. Gather supporting evidence
 3. File an appeal within deadlines
@@ -149,6 +160,7 @@ If your claim is denied:
 ### Surveillance and Social Media
 
 Insurance companies often conduct surveillance:
+
 - Be aware you may be watched
 - Avoid social media posts about activities
 - Be honest about your limitations
@@ -159,6 +171,7 @@ Insurance companies often conduct surveillance:
 ### Construction Workers
 
 High-risk environment requires extra vigilance:
+
 - Fall protection violations
 - Scaffolding accidents
 - Electrocution hazards
@@ -168,6 +181,7 @@ High-risk environment requires extra vigilance:
 ### Healthcare Workers
 
 Unique risks include:
+
 - Back injuries from patient handling
 - Needle stick injuries
 - Exposure to infectious diseases
@@ -177,6 +191,7 @@ Unique risks include:
 ### Manufacturing and Warehouse Workers
 
 Common injuries:
+
 - Forklift accidents
 - Conveyor belt injuries
 - Repetitive motion disorders
@@ -186,6 +201,7 @@ Common injuries:
 ### Office Workers
 
 Don't overlook:
+
 - Repetitive stress injuries
 - Slip and fall accidents
 - Ergonomic injuries
@@ -210,6 +226,7 @@ Don't overlook:
 ### Vocational Rehabilitation
 
 If you can't return to your previous job:
+
 - Job placement assistance
 - Retraining programs
 - Education benefits
@@ -256,6 +273,7 @@ If you can't return to your previous job:
 ### Maximum Medical Improvement (MMI)
 
 When you reach MMI:
+
 - Permanent impairment rating assigned
 - Transition from temporary to permanent benefits
 - Settlement discussions may begin
@@ -264,6 +282,7 @@ When you reach MMI:
 ### Settlement Considerations
 
 Before accepting a settlement:
+
 - Understand what you're giving up
 - Consider future medical needs
 - Account for wage loss
@@ -273,12 +292,14 @@ Before accepting a settlement:
 ## Your Rights Against Retaliation
 
 Employers cannot:
+
 - Fire you for filing a claim
 - Demote or reduce pay
 - Harass or intimidate
 - Blacklist you to other employers
 
 If retaliation occurs:
+
 - Document everything
 - File a complaint
 - Seek legal protection
@@ -293,6 +314,7 @@ Workplace injuries can change your life in an instant. Don't let confusion about
 If you've been injured at work, don't wait to get help. Contact Vasquez Law Firm, PLLC today at 1-844-YO-PELEO (1-844-967-3536) for a free consultation. With offices in Charlotte, Raleigh, Durham, Smithfield, Winston-Salem, and Orlando, we're ready to fight for you.
 
 Our experienced workers' compensation attorneys will:
+
 - Evaluate your claim at no cost
 - Handle all communication with insurers
 - Ensure you receive proper medical treatment
@@ -301,4 +323,4 @@ Our experienced workers' compensation attorneys will:
 
 Remember, we don't get paid unless you do. Let us handle the legal battle while you focus on healing. Your job was to work hard – now let us work hard for you.
 
-*This article is for informational purposes only and does not constitute legal advice. Workers' compensation laws vary by state and change frequently. For advice specific to your situation, please consult with a qualified workers' compensation attorney.*
+_This article is for informational purposes only and does not constitute legal advice. Workers' compensation laws vary by state and change frequently. For advice specific to your situation, please consult with a qualified workers' compensation attorney._

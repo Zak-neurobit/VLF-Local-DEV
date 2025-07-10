@@ -5,8 +5,8 @@ Since the automatic deployment isn't triggering, follow these steps:
 ## Option 1: Trigger from Vercel Dashboard (Easiest)
 
 1. **Go to your Vercel dashboard**: https://vercel.com/hodos-360/vlf-website
-   
 2. **Check Git Integration**:
+
    - Click "Settings" → "Git"
    - Make sure it's connected to `quez2777/VLF-Website`
    - If not connected, click "Connect Git Repository"

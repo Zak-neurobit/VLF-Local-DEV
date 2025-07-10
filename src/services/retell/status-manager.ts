@@ -1,6 +1,7 @@
 import { logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 import { ghlService } from '@/services/gohighlevel';
+import type { VoiceCallStatus } from '@prisma/client';
 
 interface CallStatus {
   callId: string;
@@ -115,7 +116,7 @@ export class StatusManager {
           previousStatus,
           newStatus,
           timestamp: new Date(),
-          metadata: metadata || {},
+          metadata: metadata || {} as any,
         },
       });
 
@@ -123,7 +124,7 @@ export class StatusManager {
       await prisma.voiceCall.updateMany({
         where: { retellCallId: callId },
         data: {
-          status: newStatus,
+          status: newStatus as VoiceCallStatus,
           lastStatusUpdate: new Date(),
           metadata: {
             ...metadata,
@@ -132,7 +133,7 @@ export class StatusManager {
               to: newStatus,
               timestamp: new Date().toISOString(),
             },
-          },
+          } as any,
         },
       });
 
@@ -460,7 +461,7 @@ export class StatusManager {
           
           await callRouter.createRoutedCall({
             phoneNumber: call.phoneNumber,
-            practiceArea: call.practiceArea,
+            practiceArea: call.practiceArea || undefined,
             metadata: {
               retryReason: 'busy',
               originalCallId: callId,

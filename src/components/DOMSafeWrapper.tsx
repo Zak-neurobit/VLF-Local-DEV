@@ -98,6 +98,16 @@ export function DOMSafeWrapper({ children, fallback, onError }: DOMSafeWrapperPr
     
     // Override removeChild
     Node.prototype.removeChild = function(child: Node) {
+      // Skip safety checks for react-hot-toast elements
+      if (child && child instanceof Element) {
+        const element = child as Element;
+        if (element.classList?.contains('react-hot-toast-notification') ||
+            element.closest?.('[data-hot-toast-id]') ||
+            element.id?.includes('_rht_')) {
+          return originalRemoveChild.call(this, child);
+        }
+      }
+      
       if (!child || !child.parentNode || child.parentNode !== this) {
         console.warn('Prevented unsafe removeChild operation');
         return child;
@@ -134,6 +144,13 @@ export function DOMSafeWrapper({ children, fallback, onError }: DOMSafeWrapperPr
     
     // Override remove
     Element.prototype.remove = function() {
+      // Skip safety checks for react-hot-toast elements
+      if (this.classList?.contains('react-hot-toast-notification') ||
+          this.closest?.('[data-hot-toast-id]') ||
+          this.id?.includes('_rht_')) {
+        return originalRemove.call(this);
+      }
+      
       if (!this.parentNode) {
         console.warn('Prevented unsafe remove operation on orphaned element');
         return;

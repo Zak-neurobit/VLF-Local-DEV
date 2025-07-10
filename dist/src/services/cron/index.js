@@ -149,10 +149,10 @@ var __generator =
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.cronJobService = exports.CronJobService = void 0;
 var cron = require('node-cron');
-var logger_1 = require('@/lib/logger');
-var appointment_reminders_1 = require('@/services/appointment-reminders');
-var campaign_automation_1 = require('@/services/campaign-automation');
-var prisma_1 = require('@/lib/prisma');
+var logger_1 = require('../../lib/logger');
+var appointment_reminders_1 = require('../../services/appointment-reminders');
+var campaign_automation_1 = require('../../services/campaign-automation');
+var prisma_1 = require('../../lib/prisma');
 var CronJobService = /** @class */ (function () {
   function CronJobService() {
     this.jobs = new Map();

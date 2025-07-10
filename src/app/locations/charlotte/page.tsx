@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description:
       'Charlotte NC law office serving Mecklenburg County. Immigration, personal injury, workers comp & criminal defense. Bilingual attorneys. 24/7 Emergency Services.',
     images: [{ url: '/images/offices/charlotte-office.jpg' }],
-    url: 'https://www.vasquezlawfirm.com/locations/charlotte',
+    url: 'https://www.vasquezlawnc.com/locations/charlotte',
     type: 'website',
   },
   twitter: {
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
       'Serving Charlotte NC with expert legal services. Bilingual attorneys. Free consultation.',
   },
   alternates: {
-    canonical: 'https://www.vasquezlawfirm.com/locations/charlotte',
+    canonical: 'https://www.vasquezlawnc.com/locations/charlotte',
     languages: {
-      'en-US': 'https://www.vasquezlawfirm.com/locations/charlotte',
-      'es-ES': 'https://www.vasquezlawfirm.com/es/ubicaciones/charlotte',
+      'en-US': 'https://www.vasquezlawnc.com/locations/charlotte',
+      'es-ES': 'https://www.vasquezlawnc.com/es/ubicaciones/charlotte',
     },
   },
 };
@@ -43,7 +43,7 @@ export default function CharlottePage() {
       zip: '28212',
     },
     phone: '1-844-YO-PELEO',
-    email: 'leads@vasquezlawfirm.com',
+    email: 'leads@vasquezlawnc.com',
     hours: {
       weekdays: 'Mon-Fri: 8:00 AM - 5:00 PM',
       saturday: 'By Appointment',
@@ -136,15 +136,15 @@ export default function CharlottePage() {
             {
               '@context': 'https://schema.org',
               '@type': 'LegalService',
-              '@id': 'https://www.vasquezlawfirm.com/locations/charlotte#organization',
+              '@id': 'https://www.vasquezlawnc.com/locations/charlotte#organization',
               name: 'Vasquez Law Firm - Charlotte Office',
               alternateName: 'Charlotte Immigration & Personal Injury Lawyers',
               description:
                 'Full-service law firm in Charlotte NC specializing in immigration, personal injury, workers compensation, criminal defense, and family law. Bilingual attorneys available 24/7.',
-              url: 'https://www.vasquezlawfirm.com/locations/charlotte',
+              url: 'https://www.vasquezlawnc.com/locations/charlotte',
               telephone: '+1-704-533-7000',
               faxNumber: '+1-704-800-6779',
-              email: 'charlotte@vasquezlawfirm.com',
+              email: 'charlotte@vasquezlawnc.com',
               address: {
                 '@type': 'PostalAddress',
                 streetAddress: '5701 Executive Center Dr, Suite 103',
@@ -268,14 +268,14 @@ export default function CharlottePage() {
               slogan: 'Yo Peleo Por Ti® - I Fight For You',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.vasquezlawfirm.com/images/logo.png',
+                url: 'https://www.vasquezlawnc.com/images/logo.png',
                 width: '300',
                 height: '100',
               },
               image: [
                 {
                   '@type': 'ImageObject',
-                  url: 'https://www.vasquezlawfirm.com/images/offices/charlotte-office.jpg',
+                  url: 'https://www.vasquezlawnc.com/images/offices/charlotte-office.jpg',
                   width: '1200',
                   height: '800',
                   caption: 'Vasquez Law Firm Charlotte Office Building',
@@ -333,26 +333,26 @@ export default function CharlottePage() {
                   '@type': 'ListItem',
                   position: 1,
                   name: 'Home',
-                  item: 'https://www.vasquezlawfirm.com',
+                  item: 'https://www.vasquezlawnc.com',
                 },
                 {
                   '@type': 'ListItem',
                   position: 2,
                   name: 'Locations',
-                  item: 'https://www.vasquezlawfirm.com/locations',
+                  item: 'https://www.vasquezlawnc.com/locations',
                 },
                 {
                   '@type': 'ListItem',
                   position: 3,
                   name: 'Charlotte',
-                  item: 'https://www.vasquezlawfirm.com/locations/charlotte',
+                  item: 'https://www.vasquezlawnc.com/locations/charlotte',
                 },
               ],
             },
             {
               '@context': 'https://schema.org',
               '@type': 'LocalBusiness',
-              '@id': 'https://www.vasquezlawfirm.com/locations/charlotte#localbusiness',
+              '@id': 'https://www.vasquezlawnc.com/locations/charlotte#localbusiness',
               name: 'Vasquez Law Firm Charlotte',
               description:
                 'Charlotte NC immigration and personal injury law firm with experienced bilingual attorneys.',
@@ -367,7 +367,7 @@ export default function CharlottePage() {
               openingHours: 'Mo-Fr 08:00-17:00',
               hasMap: 'https://goo.gl/maps/charlotte-vasquez-law',
               parentOrganization: {
-                '@id': 'https://www.vasquezlawfirm.com/#organization',
+                '@id': 'https://www.vasquezlawnc.com/#organization',
               },
             },
           ]),

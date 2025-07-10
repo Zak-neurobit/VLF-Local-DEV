@@ -14,10 +14,10 @@ export const HreflangTags: React.FC<HreflangTagsProps> = ({
   const pathname = usePathname();
 
   // Remove language prefix from pathname
-  let cleanPath = pathname;
-  if (pathname.startsWith('/es/')) {
+  let cleanPath = pathname || '/';
+  if (pathname?.startsWith('/es/')) {
     cleanPath = pathname.slice(3) || '/';
-  } else if (pathname.startsWith('/en/')) {
+  } else if (pathname?.startsWith('/en/')) {
     cleanPath = pathname.slice(3) || '/';
   }
 
@@ -26,7 +26,7 @@ export const HreflangTags: React.FC<HreflangTagsProps> = ({
   const esUrl = `${baseUrl}/es${cleanPath === '/' ? '' : cleanPath}`;
 
   // Check if Spanish version exists (in production, this would be more sophisticated)
-  const spanishPageExists = checkIfSpanishPageExists(cleanPath);
+  const spanishPageExists = checkIfSpanishPageExists(cleanPath || '/');
 
   return (
     <Head>

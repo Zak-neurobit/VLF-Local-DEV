@@ -8,7 +8,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 exports.CacheTTL = exports.cacheKeys = exports.cache = exports.bullRedis = exports.redis = void 0;
 exports.Cacheable = Cacheable;
 const ioredis_1 = __importDefault(require('ioredis'));
-const logger_1 = require('@/lib/logger');
+const logger_1 = require('../../lib/logger');
 // Redis connection configuration
 const redisConfig = {
   host: process.env.REDIS_HOST || 'localhost',

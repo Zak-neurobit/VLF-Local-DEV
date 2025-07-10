@@ -5,6 +5,7 @@ Use this checklist to ensure all APIs are properly configured for the Vasquez La
 ## 🔴 Critical APIs (Required)
 
 ### ✅ Database (PostgreSQL)
+
 - [ ] PostgreSQL installed locally or cloud instance ready
 - [ ] Database created: `vasquez_law`
 - [ ] `DATABASE_URL` configured in `.env.local`
@@ -12,11 +13,13 @@ Use this checklist to ensure all APIs are properly configured for the Vasquez La
 - [ ] Test with: `npm run test:db`
 
 ### ✅ Authentication
+
 - [ ] `NEXTAUTH_URL` set to your domain
 - [ ] `NEXTAUTH_SECRET` generated (use `openssl rand -base64 32`)
 - [ ] Test login functionality works
 
 ### ✅ OpenAI API
+
 - [ ] Account created at https://platform.openai.com
 - [ ] API key generated
 - [ ] `OPENAI_API_KEY` added to `.env.local`
@@ -24,6 +27,7 @@ Use this checklist to ensure all APIs are properly configured for the Vasquez La
 - [ ] Test with: `npm run test:openai`
 
 ### ✅ GoHighLevel (CRM)
+
 - [ ] GHL account active
 - [ ] API key generated in Settings > API Keys
 - [ ] All required IDs collected:
@@ -43,18 +47,21 @@ Use this checklist to ensure all APIs are properly configured for the Vasquez La
 ## 🟡 Important APIs (Recommended)
 
 ### ✅ Redis (Caching)
+
 - [ ] Redis installed or cloud instance (Redis Cloud, Upstash)
 - [ ] `REDIS_URL` configured
 - [ ] OR set `MOCK_REDIS=true` for development
 - [ ] Test with: `npm run test:redis`
 
 ### ✅ Retell AI (Voice Agents)
+
 - [ ] API key already provided: `2996bc9f-ca4e-422a-b64e-a09a3eaa9bc0`
 - [ ] Webhook endpoints configured
 - [ ] Voice agents created in Retell dashboard
 - [ ] Phone numbers linked (via GHL)
 
 ### ✅ Email (SMTP)
+
 - [ ] SMTP credentials obtained
 - [ ] For Office 365:
   - [ ] App password generated
@@ -68,6 +75,7 @@ Use this checklist to ensure all APIs are properly configured for the Vasquez La
 - [ ] Test with: `npm run test:email`
 
 ### ✅ Google Maps
+
 - [ ] Google Cloud Console project created
 - [ ] Maps JavaScript API enabled
 - [ ] API key generated with restrictions
@@ -77,6 +85,7 @@ Use this checklist to ensure all APIs are properly configured for the Vasquez La
 - [ ] Test with: `npm run test:apis`
 
 ### ✅ Error Tracking (Sentry)
+
 - [ ] Sentry account created
 - [ ] Next.js project created
 - [ ] DSN obtained
@@ -86,27 +95,32 @@ Use this checklist to ensure all APIs are properly configured for the Vasquez La
 ## 🟢 Optional APIs
 
 ### ✅ Payment Processing
+
 Choose one:
 
 #### Option A: LawPay
+
 - [ ] LawPay account approved
 - [ ] API credentials obtained
 - [ ] Trust and operating accounts configured
 - [ ] Test mode credentials for development
 
 #### Option B: Stripe
+
 - [ ] Stripe account created
 - [ ] API keys obtained
 - [ ] Webhook endpoint configured
 - [ ] Test mode for development
 
 ### ✅ Google Analytics
+
 - [ ] GA4 property created
 - [ ] Measurement ID obtained
 - [ ] `GOOGLE_ANALYTICS_ID` configured
 - [ ] Tracking code verified
 
 ### ✅ Additional Services
+
 - [ ] Google Search Console verified
 - [ ] Google My Business claimed
 - [ ] Yelp Business account (if using reviews)
@@ -115,12 +129,14 @@ Choose one:
 ## 🚀 Quick Setup Commands
 
 1. **Initial Setup**:
+
    ```bash
    # Interactive setup wizard
    npm run setup:apis
    ```
 
 2. **Test All APIs**:
+
    ```bash
    # Test all configured APIs
    npm run test:apis

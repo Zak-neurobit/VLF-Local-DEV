@@ -197,12 +197,14 @@ Coordinates SMS sending through GHL with various trigger types.
 ### 3. SMS Coordination
 
 1. **Trigger Types:**
+
    - `post-call`: Sent after successful call connection
    - `appointment-reminder`: Sent before scheduled appointments
    - `follow-up`: Ongoing nurture sequences
    - `custom`: Manual or campaign-triggered messages
 
 2. **Template Variables:**
+
    - `{{firstName}}`, `{{lastName}}`
    - `{{practiceArea}}`
    - `{{attorneyName}}`
@@ -277,7 +279,7 @@ await ghlService.triggerVoiceCall({
   contactId: 'ghl-contact-id',
   practiceArea: 'immigration',
   callType: 'consultation',
-  preferredLanguage: 'en'
+  preferredLanguage: 'en',
 });
 
 // Update contact with call outcome
@@ -287,14 +289,14 @@ await ghlService.updateContactCallOutcome(contactId, {
   outcome: 'connected',
   summary: 'Client interested in family reunification case',
   sentiment: 'positive',
-  appointmentScheduled: true
+  appointmentScheduled: true,
 });
 
 // Send post-call SMS
 await ghlService.sendPostCallSMS({
   contactId: 'ghl-contact-id',
   callId: 'retell-call-id',
-  message: 'Custom thank you message'
+  message: 'Custom thank you message',
 });
 ```
 
@@ -305,7 +307,7 @@ await ghlService.sendPostCallSMS({
 await ghlService.createVoiceCallCampaign(['contact1', 'contact2'], {
   practiceArea: 'immigration',
   callType: 'follow-up',
-  campaignName: 'Monthly Immigration Check-in'
+  campaignName: 'Monthly Immigration Check-in',
 });
 
 // Get call analytics for contact
@@ -327,6 +329,7 @@ Configure these webhooks in your GHL account:
 Configure Retell webhook URL: `https://yourdomain.com/api/webhooks/retell`
 
 Events handled:
+
 - `call_started`
 - `call_ended`
 - `call_analyzed`

@@ -9,20 +9,20 @@
   --color-slate-900: #0f172a;
   --color-slate-800: #1e293b;
   --color-slate-700: #334155;
-  
+
   --color-blue-400: #60a5fa;
   --color-blue-500: #3b82f6;
   --color-blue-600: #2563eb;
-  
+
   --color-amber-500: #f59e0b;
   --color-emerald-500: #10b981;
   --color-red-500: #ef4444;
-  
+
   --color-gray-100: #f3f4f6;
   --color-gray-300: #d1d5db;
   --color-gray-400: #9ca3af;
   --color-gray-500: #6b7280;
-  
+
   /* Typography Scale */
   --font-xs: 0.75rem;
   --font-sm: 0.875rem;
@@ -35,7 +35,7 @@
   --font-5xl: 3rem;
   --font-6xl: 3.75rem;
   --font-7xl: 4.5rem;
-  
+
   /* Spacing */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -49,18 +49,18 @@
   --space-16: 4rem;
   --space-20: 5rem;
   --space-24: 6rem;
-  
+
   /* Animation Durations */
   --duration-fast: 150ms;
   --duration-normal: 300ms;
   --duration-slow: 500ms;
   --duration-slower: 800ms;
-  
+
   /* Easing Functions */
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
-  
+
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -83,9 +83,15 @@
 
 /* Gradient animation */
 @keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .animate-gradient {
@@ -126,7 +132,8 @@
 
 /* Float animation for particles */
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) translateX(0);
   }
   25% {
@@ -164,14 +171,15 @@
   overflow: hidden;
   white-space: nowrap;
   border-right: 3px solid var(--color-blue-400);
-  animation: 
+  animation:
     typewriter 3s steps(40) 1s forwards,
     blink 1s infinite;
 }
 
 /* Pulse animation */
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -185,7 +193,8 @@
 
 /* Bounce animation */
 @keyframes bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -229,7 +238,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   transition: left var(--duration-slow) var(--ease-in-out);
 }
 
@@ -316,11 +325,21 @@
   transition: all var(--duration-slow) var(--ease-out);
 }
 
-.stagger-children.animate-in > *:nth-child(1) { transition-delay: 0ms; }
-.stagger-children.animate-in > *:nth-child(2) { transition-delay: 100ms; }
-.stagger-children.animate-in > *:nth-child(3) { transition-delay: 200ms; }
-.stagger-children.animate-in > *:nth-child(4) { transition-delay: 300ms; }
-.stagger-children.animate-in > *:nth-child(5) { transition-delay: 400ms; }
+.stagger-children.animate-in > *:nth-child(1) {
+  transition-delay: 0ms;
+}
+.stagger-children.animate-in > *:nth-child(2) {
+  transition-delay: 100ms;
+}
+.stagger-children.animate-in > *:nth-child(3) {
+  transition-delay: 200ms;
+}
+.stagger-children.animate-in > *:nth-child(4) {
+  transition-delay: 300ms;
+}
+.stagger-children.animate-in > *:nth-child(5) {
+  transition-delay: 400ms;
+}
 
 /* ===========================
    5. Loading States
@@ -412,7 +431,7 @@
 
 /* Glow effect */
 .glow {
-  box-shadow: 
+  box-shadow:
     0 0 20px rgba(59, 130, 246, 0.5),
     0 0 40px rgba(59, 130, 246, 0.3),
     0 0 60px rgba(59, 130, 246, 0.1);
@@ -429,7 +448,12 @@
 
 /* Hero section styles */
 .hero-gradient {
-  background: linear-gradient(135deg, var(--color-slate-950) 0%, var(--color-slate-900) 50%, var(--color-slate-800) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-slate-950) 0%,
+    var(--color-slate-900) 50%,
+    var(--color-slate-800) 100%
+  );
 }
 
 /* Testimonial carousel */
@@ -453,7 +477,7 @@
 .service-card:hover {
   border-color: var(--color-blue-500);
   transform: translateY(-4px);
-  box-shadow: 
+  box-shadow:
     0 10px 20px rgba(59, 130, 246, 0.1),
     0 20px 40px rgba(59, 130, 246, 0.05);
 }

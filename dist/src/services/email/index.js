@@ -7,9 +7,9 @@ var __importDefault =
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.sendEmail = exports.emailService = void 0;
 const nodemailer_1 = __importDefault(require('nodemailer'));
-const logger_1 = require('@/lib/logger');
-const bull_1 = require('@/lib/queue/bull');
-const cache_1 = require('@/lib/cache');
+const logger_1 = require('../../lib/logger');
+const bull_1 = require('../../lib/queue/bull');
+const cache_1 = require('../../lib/cache');
 const promises_1 = __importDefault(require('fs/promises'));
 const path_1 = __importDefault(require('path'));
 const handlebars_1 = __importDefault(require('handlebars'));

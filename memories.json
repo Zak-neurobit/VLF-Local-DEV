@@ -1,0 +1,17 @@
+{
+  "memories": [
+    {
+      "id": "mem_1752040932723_qox9ox159",
+      "content": "VLF-Website Hook Configuration Analysis:\n\n**NO AUTOMATED HOOKS CONFIGURED**\n\nDespite CLAUDE.md emphasizing hooks are mandatory and blocking, the project currently has:\n- NO husky setup\n- NO pre-commit hooks\n- NO lint-staged configuration\n- NO commitlint\n- NO active git hooks (only sample files)\n\nAvailable commands in package.json:\n- `pre-commit` script: runs lint, type-check, and test\n- Individual commands: lint, format, type-check, test\n\nThis creates a gap between documented requirements (hooks MUST be green) and actual implementation (no hooks exist).",
+      "type": "config",
+      "tags": ["config", "vlf-website", "hooks", "configuration", "git", "discrepancy"],
+      "timestamp": "2025-07-09T06:02:12.723Z",
+      "context": "Analysis of VLF-Website project hook configuration showing no automated hooks despite CLAUDE.md requirements",
+      "accessCount": 0,
+      "lastAccessed": "2025-07-09T06:02:12.723Z",
+      "lastVerified": "2025-07-09T06:02:12.723Z",
+      "status": "fresh"
+    }
+  ],
+  "lastUpdated": "2025-07-09T06:02:12.723Z"
+}

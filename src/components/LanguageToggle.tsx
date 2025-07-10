@@ -10,7 +10,7 @@ export function LanguageToggle() {
 
   useEffect(() => {
     // Check if current path is Spanish
-    if (pathname.startsWith('/es')) {
+    if (pathname?.startsWith('/es')) {
       setLanguage('es');
     } else {
       setLanguage('en');
@@ -20,14 +20,14 @@ export function LanguageToggle() {
   const toggleLanguage = () => {
     if (language === 'en') {
       // Switch to Spanish
-      if (pathname === '/') {
+      if (!pathname || pathname === '/') {
         router.push('/es');
       } else {
-        router.push(`/es${pathname}`);
+        router.push(`/es${pathname || ''}`);
       }
     } else {
       // Switch to English
-      const englishPath = pathname.replace('/es', '') || '/';
+      const englishPath = pathname?.replace('/es', '') || '/';
       router.push(englishPath);
     }
   };

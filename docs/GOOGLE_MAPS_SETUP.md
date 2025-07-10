@@ -7,6 +7,7 @@ The Vasquez Law Firm website uses Google Maps to display office locations on var
 ## Current Status
 
 - **Google Maps components are implemented** in:
+
   - `/src/components/GoogleMap.tsx` - Individual office map display
   - `/src/components/AllOfficesMap.tsx` - All offices overview map
   - `/src/components/MiniMap.tsx` - Compact map for homepage
@@ -51,9 +52,11 @@ node scripts/setup-google-maps.js
 ## Where Maps Are Used
 
 1. **Contact Page** (`/contact`)
+
    - Uses `AllOfficesMap` component to show all office locations
 
 2. **Individual Office Pages**
+
    - `/contact/charlotte-nc-office-location`
    - `/contact/raleigh-nc-office-location`
    - `/contact/smithfield-office-location`
@@ -68,6 +71,7 @@ node scripts/setup-google-maps.js
 When Google Maps is not configured or fails to load:
 
 1. **Graceful Degradation**: Maps show static fallback content with:
+
    - Office addresses
    - Phone numbers
    - "View on Google Maps" links
@@ -98,6 +102,7 @@ When Google Maps is not configured or fails to load:
 ### Testing
 
 1. Start development server:
+
    ```bash
    npm run dev
    ```
@@ -116,6 +121,7 @@ When Google Maps is not configured or fails to load:
 ## Support
 
 For issues with Google Maps setup:
+
 1. Check this documentation
 2. Review error messages in browser console
 3. Verify API key configuration

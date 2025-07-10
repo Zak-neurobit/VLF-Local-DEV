@@ -1,9 +1,9 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.campaignAutomationService = exports.CampaignAutomationService = void 0;
-const gohighlevel_1 = require('@/services/gohighlevel');
-const prisma_1 = require('@/lib/prisma');
-const logger_1 = require('@/lib/logger');
+const gohighlevel_1 = require('../../services/gohighlevel');
+const prisma_1 = require('../../lib/prisma');
+const logger_1 = require('../../lib/logger');
 const date_fns_1 = require('date-fns');
 class CampaignAutomationService {
   // Run daily campaign automation

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description:
       'Orlando FL law office serving Orange County & Central Florida. Immigration, personal injury, workers comp & criminal defense. Bilingual attorneys. 24/7 Emergency Services.',
     images: [{ url: '/images/offices/orlando-office.jpg' }],
-    url: 'https://www.vasquezlawfirm.com/locations/orlando',
+    url: 'https://www.vasquezlawnc.com/locations/orlando',
     type: 'website',
   },
   twitter: {
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
       'Serving Orlando & Central Florida with expert legal services. Bilingual attorneys.',
   },
   alternates: {
-    canonical: 'https://www.vasquezlawfirm.com/locations/orlando',
+    canonical: 'https://www.vasquezlawnc.com/locations/orlando',
     languages: {
-      'en-US': 'https://www.vasquezlawfirm.com/locations/orlando',
-      'es-ES': 'https://www.vasquezlawfirm.com/es/ubicaciones/orlando',
+      'en-US': 'https://www.vasquezlawnc.com/locations/orlando',
+      'es-ES': 'https://www.vasquezlawnc.com/es/ubicaciones/orlando',
     },
   },
 };
@@ -43,7 +43,7 @@ export default function OrlandoPage() {
       zip: '32803',
     },
     phone: '(407) 955-5000',
-    email: 'orlando@vasquezlawfirm.com',
+    email: 'orlando@vasquezlawnc.com',
     hours: {
       weekdays: 'Mon-Fri: 8:30 AM - 5:30 PM',
       saturday: 'By Appointment',
@@ -190,14 +190,14 @@ export default function OrlandoPage() {
             {
               '@context': 'https://schema.org',
               '@type': 'LegalService',
-              '@id': 'https://www.vasquezlawfirm.com/locations/orlando#organization',
+              '@id': 'https://www.vasquezlawnc.com/locations/orlando#organization',
               name: 'Vasquez Law Firm - Orlando Office',
               alternateName: 'Orlando Immigration & Personal Injury Lawyers',
               description:
                 "Full-service law firm in Orlando FL specializing in immigration, personal injury, workers compensation, criminal defense, and family law. Serving Central Florida's diverse communities with bilingual attorneys available 24/7.",
-              url: 'https://www.vasquezlawfirm.com/locations/orlando',
+              url: 'https://www.vasquezlawnc.com/locations/orlando',
               telephone: '+1-407-955-5000',
-              email: 'orlando@vasquezlawfirm.com',
+              email: 'orlando@vasquezlawnc.com',
               address: {
                 '@type': 'PostalAddress',
                 streetAddress: '1111 E Amelia Street',
@@ -329,14 +329,14 @@ export default function OrlandoPage() {
               slogan: 'Yo Peleo Por Ti® - I Fight For You',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.vasquezlawfirm.com/images/logo.png',
+                url: 'https://www.vasquezlawnc.com/images/logo.png',
                 width: '300',
                 height: '100',
               },
               image: [
                 {
                   '@type': 'ImageObject',
-                  url: 'https://www.vasquezlawfirm.com/images/offices/orlando-office.jpg',
+                  url: 'https://www.vasquezlawnc.com/images/offices/orlando-office.jpg',
                   width: '1200',
                   height: '800',
                   caption: 'Vasquez Law Firm Orlando Office Building',
@@ -405,26 +405,26 @@ export default function OrlandoPage() {
                   '@type': 'ListItem',
                   position: 1,
                   name: 'Home',
-                  item: 'https://www.vasquezlawfirm.com',
+                  item: 'https://www.vasquezlawnc.com',
                 },
                 {
                   '@type': 'ListItem',
                   position: 2,
                   name: 'Locations',
-                  item: 'https://www.vasquezlawfirm.com/locations',
+                  item: 'https://www.vasquezlawnc.com/locations',
                 },
                 {
                   '@type': 'ListItem',
                   position: 3,
                   name: 'Orlando',
-                  item: 'https://www.vasquezlawfirm.com/locations/orlando',
+                  item: 'https://www.vasquezlawnc.com/locations/orlando',
                 },
               ],
             },
             {
               '@context': 'https://schema.org',
               '@type': 'LocalBusiness',
-              '@id': 'https://www.vasquezlawfirm.com/locations/orlando#localbusiness',
+              '@id': 'https://www.vasquezlawnc.com/locations/orlando#localbusiness',
               name: 'Vasquez Law Firm Orlando',
               description:
                 "Orlando FL immigration and personal injury law firm with experienced multilingual attorneys serving Central Florida's diverse communities.",
@@ -439,7 +439,7 @@ export default function OrlandoPage() {
               openingHours: 'Mo-Fr 08:30-17:30',
               hasMap: 'https://goo.gl/maps/orlando-vasquez-law',
               parentOrganization: {
-                '@id': 'https://www.vasquezlawfirm.com/#organization',
+                '@id': 'https://www.vasquezlawnc.com/#organization',
               },
             },
           ]),

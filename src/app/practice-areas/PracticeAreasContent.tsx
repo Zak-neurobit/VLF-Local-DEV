@@ -11,11 +11,11 @@ export default function PracticeAreasContent() {
 
   useEffect(() => {
     // Check URL params first
-    const langParam = searchParams.get('lang') as 'en' | 'es';
+    const langParam = searchParams?.get('lang') as 'en' | 'es';
     if (langParam) {
       setLanguage(langParam);
-    } else {
-      // Check browser language
+    } else if (typeof navigator !== 'undefined') {
+      // Check browser language (only on client)
       const browserLang = navigator.language.toLowerCase();
       if (browserLang.startsWith('es')) {
         setLanguage('es');

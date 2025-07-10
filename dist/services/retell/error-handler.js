@@ -1,572 +1,589 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
+'use strict';
+var __createBinding =
+  (this && this.__createBinding) ||
+  (Object.create
+    ? function (o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        var desc = Object.getOwnPropertyDescriptor(m, k);
+        if (!desc || ('get' in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+          desc = {
+            enumerable: true,
+            get: function () {
+              return m[k];
+            },
+          };
+        }
+        Object.defineProperty(o, k2, desc);
+      }
+    : function (o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        o[k2] = m[k];
+      });
+var __setModuleDefault =
+  (this && this.__setModuleDefault) ||
+  (Object.create
+    ? function (o, v) {
+        Object.defineProperty(o, 'default', { enumerable: true, value: v });
+      }
+    : function (o, v) {
+        o['default'] = v;
+      });
+var __importStar =
+  (this && this.__importStar) ||
+  (function () {
+    var ownKeys = function (o) {
+      ownKeys =
+        Object.getOwnPropertyNames ||
+        function (o) {
+          var ar = [];
+          for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+          return ar;
         };
-        return ownKeys(o);
+      return ownKeys(o);
     };
     return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
+      if (mod && mod.__esModule) return mod;
+      var result = {};
+      if (mod != null)
+        for (var k = ownKeys(mod), i = 0; i < k.length; i++)
+          if (k[i] !== 'default') __createBinding(result, mod, k[i]);
+      __setModuleDefault(result, mod);
+      return result;
     };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
+  })();
+Object.defineProperty(exports, '__esModule', { value: true });
 exports.retellErrorHandler = exports.RetellErrorHandler = exports.RetellErrorType = void 0;
-const logger_1 = require("@/lib/logger");
-const gohighlevel_1 = require("@/services/gohighlevel");
-const prisma_1 = require("@/lib/prisma");
+const logger_1 = require('@/lib/logger');
+const gohighlevel_1 = require('@/services/gohighlevel');
+const prisma_1 = require('@/lib/prisma');
 var RetellErrorType;
 (function (RetellErrorType) {
-    RetellErrorType["AUTHENTICATION"] = "AUTHENTICATION";
-    RetellErrorType["RATE_LIMIT"] = "RATE_LIMIT";
-    RetellErrorType["AGENT_UNAVAILABLE"] = "AGENT_UNAVAILABLE";
-    RetellErrorType["CALL_FAILED"] = "CALL_FAILED";
-    RetellErrorType["WEBHOOK_VERIFICATION"] = "WEBHOOK_VERIFICATION";
-    RetellErrorType["INVALID_PHONE"] = "INVALID_PHONE";
-    RetellErrorType["INSUFFICIENT_BALANCE"] = "INSUFFICIENT_BALANCE";
-    RetellErrorType["NETWORK_ERROR"] = "NETWORK_ERROR";
-    RetellErrorType["UNKNOWN"] = "UNKNOWN";
+  RetellErrorType['AUTHENTICATION'] = 'AUTHENTICATION';
+  RetellErrorType['RATE_LIMIT'] = 'RATE_LIMIT';
+  RetellErrorType['AGENT_UNAVAILABLE'] = 'AGENT_UNAVAILABLE';
+  RetellErrorType['CALL_FAILED'] = 'CALL_FAILED';
+  RetellErrorType['WEBHOOK_VERIFICATION'] = 'WEBHOOK_VERIFICATION';
+  RetellErrorType['INVALID_PHONE'] = 'INVALID_PHONE';
+  RetellErrorType['INSUFFICIENT_BALANCE'] = 'INSUFFICIENT_BALANCE';
+  RetellErrorType['NETWORK_ERROR'] = 'NETWORK_ERROR';
+  RetellErrorType['UNKNOWN'] = 'UNKNOWN';
 })(RetellErrorType || (exports.RetellErrorType = RetellErrorType = {}));
 class RetellErrorHandler {
-    static getInstance() {
-        if (!RetellErrorHandler.instance) {
-            RetellErrorHandler.instance = new RetellErrorHandler();
-        }
-        return RetellErrorHandler.instance;
+  static getInstance() {
+    if (!RetellErrorHandler.instance) {
+      RetellErrorHandler.instance = new RetellErrorHandler();
     }
-    // Main error handling method
-    async handleError(error, context) {
-        const retellError = this.classifyError(error, context);
-        // Log the error
-        await this.logError(retellError, context);
-        // Handle specific error types
-        await this.processErrorType(retellError, context);
-        // Notify stakeholders if necessary
-        await this.notifyIfRequired(retellError, context);
-        return retellError;
+    return RetellErrorHandler.instance;
+  }
+  // Main error handling method
+  async handleError(error, context) {
+    const retellError = this.classifyError(error, context);
+    // Log the error
+    await this.logError(retellError, context);
+    // Handle specific error types
+    await this.processErrorType(retellError, context);
+    // Notify stakeholders if necessary
+    await this.notifyIfRequired(retellError, context);
+    return retellError;
+  }
+  // Classify error type based on error details
+  classifyError(error, context) {
+    let type = RetellErrorType.UNKNOWN;
+    let recoverable = false;
+    let retryAfter;
+    // Check HTTP status codes
+    if (error.response?.status) {
+      const status = error.response.status;
+      switch (status) {
+        case 401:
+        case 403:
+          type = RetellErrorType.AUTHENTICATION;
+          recoverable = false;
+          break;
+        case 429:
+          type = RetellErrorType.RATE_LIMIT;
+          recoverable = true;
+          retryAfter = this.extractRetryAfter(error.response.headers);
+          break;
+        case 404:
+          if (context?.operation?.includes('agent')) {
+            type = RetellErrorType.AGENT_UNAVAILABLE;
+            recoverable = true;
+          }
+          break;
+        case 422:
+          if (error.response.data?.message?.includes('phone')) {
+            type = RetellErrorType.INVALID_PHONE;
+            recoverable = false;
+          }
+          break;
+        case 402:
+          type = RetellErrorType.INSUFFICIENT_BALANCE;
+          recoverable = false;
+          break;
+        case 500:
+        case 502:
+        case 503:
+        case 504:
+          type = RetellErrorType.NETWORK_ERROR;
+          recoverable = true;
+          retryAfter = 30; // 30 seconds
+          break;
+      }
     }
-    // Classify error type based on error details
-    classifyError(error, context) {
-        let type = RetellErrorType.UNKNOWN;
-        let recoverable = false;
-        let retryAfter;
-        // Check HTTP status codes
-        if (error.response?.status) {
-            const status = error.response.status;
-            switch (status) {
-                case 401:
-                case 403:
-                    type = RetellErrorType.AUTHENTICATION;
-                    recoverable = false;
-                    break;
-                case 429:
-                    type = RetellErrorType.RATE_LIMIT;
-                    recoverable = true;
-                    retryAfter = this.extractRetryAfter(error.response.headers);
-                    break;
-                case 404:
-                    if (context?.operation?.includes('agent')) {
-                        type = RetellErrorType.AGENT_UNAVAILABLE;
-                        recoverable = true;
-                    }
-                    break;
-                case 422:
-                    if (error.response.data?.message?.includes('phone')) {
-                        type = RetellErrorType.INVALID_PHONE;
-                        recoverable = false;
-                    }
-                    break;
-                case 402:
-                    type = RetellErrorType.INSUFFICIENT_BALANCE;
-                    recoverable = false;
-                    break;
-                case 500:
-                case 502:
-                case 503:
-                case 504:
-                    type = RetellErrorType.NETWORK_ERROR;
-                    recoverable = true;
-                    retryAfter = 30; // 30 seconds
-                    break;
-            }
+    // Check error messages for specific patterns
+    if (error.message) {
+      const message = error.message.toLowerCase();
+      if (message.includes('call failed') || message.includes('call ended')) {
+        type = RetellErrorType.CALL_FAILED;
+        recoverable = true;
+      } else if (message.includes('webhook') || message.includes('signature')) {
+        type = RetellErrorType.WEBHOOK_VERIFICATION;
+        recoverable = false;
+      } else if (message.includes('agent') && message.includes('not found')) {
+        type = RetellErrorType.AGENT_UNAVAILABLE;
+        recoverable = true;
+      } else if (message.includes('phone') && message.includes('invalid')) {
+        type = RetellErrorType.INVALID_PHONE;
+        recoverable = false;
+      }
+    }
+    return {
+      type,
+      message: error.message || 'Unknown error occurred',
+      code: error.code || error.response?.data?.code,
+      details: error.response?.data || error.details,
+      callId: context?.callId,
+      contactId: context?.contactId,
+      timestamp: new Date(),
+      recoverable,
+      retryAfter,
+    };
+  }
+  // Extract retry-after header
+  extractRetryAfter(headers) {
+    const retryAfter = headers?.['retry-after'] || headers?.['x-ratelimit-reset'];
+    if (retryAfter) {
+      const seconds = parseInt(retryAfter, 10);
+      return isNaN(seconds) ? 60 : seconds;
+    }
+    return 60; // Default 1 minute
+  }
+  // Log error to database and external systems
+  async logError(retellError, context) {
+    try {
+      // Log to Winston/Pino
+      logger_1.logger.error('Retell service error', {
+        type: retellError.type,
+        message: retellError.message,
+        code: retellError.code,
+        callId: retellError.callId,
+        contactId: retellError.contactId,
+        recoverable: retellError.recoverable,
+        retryAfter: retellError.retryAfter,
+        context,
+      });
+      // Store in database for analytics
+      const prisma = (0, prisma_1.getPrismaClient)();
+      await prisma.errorLog.create({
+        data: {
+          service: 'retell',
+          errorType: retellError.type,
+          message: retellError.message,
+          code: retellError.code,
+          callId: retellError.callId,
+          contactId: retellError.contactId,
+          recoverable: retellError.recoverable,
+          retryAfter: retellError.retryAfter,
+          metadata: {
+            details: retellError.details,
+            context,
+          },
+        },
+      });
+    } catch (error) {
+      // If logging fails, at least log to console
+      console.error('Failed to log Retell error:', error);
+      console.error('Original Retell error:', retellError);
+    }
+  }
+  // Process specific error types
+  async processErrorType(retellError, context) {
+    try {
+      switch (retellError.type) {
+        case RetellErrorType.AUTHENTICATION:
+          await this.handleAuthenticationError(retellError, context);
+          break;
+        case RetellErrorType.RATE_LIMIT:
+          await this.handleRateLimitError(retellError, context);
+          break;
+        case RetellErrorType.AGENT_UNAVAILABLE:
+          await this.handleAgentUnavailableError(retellError, context);
+          break;
+        case RetellErrorType.CALL_FAILED:
+          await this.handleCallFailedError(retellError, context);
+          break;
+        case RetellErrorType.INVALID_PHONE:
+          await this.handleInvalidPhoneError(retellError, context);
+          break;
+        case RetellErrorType.INSUFFICIENT_BALANCE:
+          await this.handleInsufficientBalanceError(retellError, context);
+          break;
+        default:
+          // Generic error handling
+          await this.handleGenericError(retellError, context);
+      }
+    } catch (error) {
+      logger_1.logger.error('Failed to process error type:', error);
+    }
+  }
+  // Handle authentication errors
+  async handleAuthenticationError(retellError, context) {
+    logger_1.logger.error('Retell authentication error - check API key', {
+      callId: retellError.callId,
+      context,
+    });
+    // Update contact in GHL with error status
+    if (retellError.contactId) {
+      await this.updateContactWithError(retellError.contactId, {
+        error: 'Authentication failed',
+        timestamp: retellError.timestamp,
+      });
+    }
+    // Create admin task to check configuration
+    await this.createAdminTask({
+      title: 'Retell Authentication Error',
+      description: 'Retell API authentication failed. Please check API key configuration.',
+      priority: 'high',
+      type: 'system_error',
+    });
+  }
+  // Handle rate limit errors
+  async handleRateLimitError(retellError, context) {
+    logger_1.logger.warn('Retell rate limit reached', {
+      retryAfter: retellError.retryAfter,
+      callId: retellError.callId,
+    });
+    // Schedule retry if possible
+    if (retellError.recoverable && context?.operation) {
+      await this.scheduleRetry(context.operation, retellError.retryAfter || 60, context);
+    }
+    // Update contact status
+    if (retellError.contactId) {
+      await this.updateContactWithError(retellError.contactId, {
+        error: 'Rate limit reached - call will be retried',
+        retryAfter: retellError.retryAfter,
+        timestamp: retellError.timestamp,
+      });
+    }
+  }
+  // Handle agent unavailable errors
+  async handleAgentUnavailableError(retellError, context) {
+    logger_1.logger.warn('Retell agent unavailable', {
+      callId: retellError.callId,
+      context,
+    });
+    // Try to find alternative agent
+    const alternativeAgent = await this.findAlternativeAgent(context);
+    if (alternativeAgent) {
+      logger_1.logger.info('Found alternative agent', { agentId: alternativeAgent });
+      // Schedule retry with alternative agent
+      await this.scheduleRetry(
+        context?.operation || 'create-call',
+        5, // 5 seconds
+        { ...context, agentId: alternativeAgent }
+      );
+    } else {
+      // No alternative found - create callback task
+      await this.createCallbackTask(retellError, context);
+    }
+  }
+  // Handle call failed errors
+  async handleCallFailedError(retellError, context) {
+    logger_1.logger.warn('Retell call failed', {
+      callId: retellError.callId,
+      reason: retellError.message,
+    });
+    // Update call status in database
+    if (retellError.callId) {
+      const prisma = (0, prisma_1.getPrismaClient)();
+      await prisma.voiceCall.updateMany({
+        where: { retellCallId: retellError.callId },
+        data: {
+          status: 'failed',
+          error: retellError.message,
+          metadata: {
+            errorDetails: retellError.details,
+            failureTimestamp: retellError.timestamp,
+          },
+        },
+      });
+    }
+    // Update GHL contact
+    if (retellError.contactId) {
+      await this.updateContactWithError(retellError.contactId, {
+        error: 'Call failed',
+        reason: retellError.message,
+        timestamp: retellError.timestamp,
+      });
+      // Create follow-up task
+      await gohighlevel_1.ghlService.createTask({
+        contactId: retellError.contactId,
+        title: 'Call Failed - Manual Follow-up Required',
+        body: `Automated call failed: ${retellError.message}. Please contact manually.`,
+        dueDate: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
+      });
+    }
+  }
+  // Handle invalid phone errors
+  async handleInvalidPhoneError(retellError, context) {
+    logger_1.logger.warn('Invalid phone number for call', {
+      callId: retellError.callId,
+      phone: context?.phoneNumber,
+    });
+    // Update contact with invalid phone flag
+    if (retellError.contactId) {
+      await this.updateContactWithError(retellError.contactId, {
+        error: 'Invalid phone number',
+        phoneNumber: context?.phoneNumber,
+        timestamp: retellError.timestamp,
+      });
+      // Add tag for invalid phone
+      await gohighlevel_1.ghlService.updateContact(retellError.contactId, {
+        tags: ['invalid-phone', 'needs-phone-update'],
+      });
+      // Create task to verify phone number
+      await gohighlevel_1.ghlService.createTask({
+        contactId: retellError.contactId,
+        title: 'Verify Phone Number',
+        body: `Phone number ${context?.phoneNumber} is invalid. Please verify and update contact information.`,
+        dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+      });
+    }
+  }
+  // Handle insufficient balance errors
+  async handleInsufficientBalanceError(retellError, context) {
+    logger_1.logger.error('Insufficient Retell account balance', {
+      callId: retellError.callId,
+    });
+    // Create high-priority admin task
+    await this.createAdminTask({
+      title: 'Retell Account Balance Low',
+      description:
+        'Retell account has insufficient balance for calls. Please add funds immediately.',
+      priority: 'urgent',
+      type: 'billing_issue',
+    });
+    // Update contact with service unavailable message
+    if (retellError.contactId) {
+      await this.updateContactWithError(retellError.contactId, {
+        error: 'Service temporarily unavailable',
+        timestamp: retellError.timestamp,
+      });
+      // Send SMS if possible
+      try {
+        await gohighlevel_1.ghlService.sendSMS({
+          contactId: retellError.contactId,
+          message:
+            'We apologize, but our voice service is temporarily unavailable. Please call us directly at 1-844-YO-PELEO or reply to this message.',
+        });
+      } catch (smsError) {
+        logger_1.logger.error('Failed to send SMS after balance error:', smsError);
+      }
+    }
+  }
+  // Generic error handling
+  async handleGenericError(retellError, context) {
+    logger_1.logger.error('Generic Retell error', {
+      type: retellError.type,
+      message: retellError.message,
+      callId: retellError.callId,
+    });
+    // If recoverable, schedule retry
+    if (retellError.recoverable && context?.operation) {
+      await this.scheduleRetry(context.operation, retellError.retryAfter || 30, context);
+    } else if (retellError.contactId) {
+      // Create manual follow-up task
+      await this.createCallbackTask(retellError, context);
+    }
+  }
+  // Update GHL contact with error information
+  async updateContactWithError(contactId, errorInfo) {
+    try {
+      const contact = await gohighlevel_1.ghlService.getContact(contactId);
+      if (contact) {
+        await gohighlevel_1.ghlService.updateContact(contactId, {
+          customFields: {
+            ...contact.customFields,
+            lastCallError: errorInfo.error,
+            lastCallErrorTime: errorInfo.timestamp.toISOString(),
+            callErrors: JSON.stringify(
+              [...JSON.parse(contact.customFields?.callErrors || '[]'), errorInfo].slice(-5)
+            ), // Keep last 5 errors
+          },
+        });
+        // Add note about the error
+        await gohighlevel_1.ghlService.addNote(
+          contactId,
+          `Call Error: ${errorInfo.error}. ${errorInfo.reason || ''} - ${errorInfo.timestamp.toLocaleString()}`
+        );
+      }
+    } catch (error) {
+      logger_1.logger.error('Failed to update contact with error:', error);
+    }
+  }
+  // Create admin task for system issues
+  async createAdminTask(task) {
+    try {
+      const prisma = (0, prisma_1.getPrismaClient)();
+      // Find admin user
+      const adminUser = await prisma.user.findFirst({
+        where: { role: 'ADMIN' },
+      });
+      if (adminUser) {
+        await prisma.task.create({
+          data: {
+            title: task.title,
+            description: task.description,
+            type: task.type,
+            priority: task.priority,
+            status: 'pending',
+            createdById: adminUser.id,
+            assignedToId: adminUser.id,
+            dueDate: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
+            metadata: {
+              source: 'retell_error_handler',
+              autoGenerated: true,
+            },
+          },
+        });
+      }
+    } catch (error) {
+      logger_1.logger.error('Failed to create admin task:', error);
+    }
+  }
+  // Create callback task for failed calls
+  async createCallbackTask(retellError, context) {
+    if (!retellError.contactId) return;
+    try {
+      await gohighlevel_1.ghlService.createTask({
+        contactId: retellError.contactId,
+        title: 'Manual Callback Required',
+        body: `Automated call failed: ${retellError.message}. Please contact manually to follow up.`,
+        dueDate: new Date(Date.now() + 2 * 60 * 60 * 1000), // 2 hours
+      });
+      // Add urgent tag if high priority
+      if (
+        context?.priority === 'high' ||
+        retellError.type === RetellErrorType.INSUFFICIENT_BALANCE
+      ) {
+        const contact = await gohighlevel_1.ghlService.getContact(retellError.contactId);
+        if (contact) {
+          await gohighlevel_1.ghlService.updateContact(retellError.contactId, {
+            tags: [...(contact.tags || []), 'urgent-callback'],
+          });
         }
-        // Check error messages for specific patterns
-        if (error.message) {
-            const message = error.message.toLowerCase();
-            if (message.includes('call failed') || message.includes('call ended')) {
-                type = RetellErrorType.CALL_FAILED;
-                recoverable = true;
-            }
-            else if (message.includes('webhook') || message.includes('signature')) {
-                type = RetellErrorType.WEBHOOK_VERIFICATION;
-                recoverable = false;
-            }
-            else if (message.includes('agent') && message.includes('not found')) {
-                type = RetellErrorType.AGENT_UNAVAILABLE;
-                recoverable = true;
-            }
-            else if (message.includes('phone') && message.includes('invalid')) {
-                type = RetellErrorType.INVALID_PHONE;
-                recoverable = false;
-            }
-        }
-        return {
-            type,
-            message: error.message || 'Unknown error occurred',
-            code: error.code || error.response?.data?.code,
-            details: error.response?.data || error.details,
-            callId: context?.callId,
-            contactId: context?.contactId,
-            timestamp: new Date(),
-            recoverable,
-            retryAfter,
+      }
+    } catch (error) {
+      logger_1.logger.error('Failed to create callback task:', error);
+    }
+  }
+  // Find alternative agent when primary agent fails
+  async findAlternativeAgent(context) {
+    try {
+      // Try general agent as fallback
+      const { RetellAgentManager } = await Promise.resolve().then(() =>
+        __importStar(require('./agent-manager-v2'))
+      );
+      return await RetellAgentManager.getAgentForPracticeArea('general');
+    } catch (error) {
+      logger_1.logger.error('Failed to find alternative agent:', error);
+      return null;
+    }
+  }
+  // Schedule retry for failed operations
+  async scheduleRetry(operation, delaySeconds, context) {
+    try {
+      // Store retry information in database
+      const prisma = (0, prisma_1.getPrismaClient)();
+      await prisma.retryQueue.create({
+        data: {
+          operation,
+          delaySeconds,
+          context: context,
+          scheduledFor: new Date(Date.now() + delaySeconds * 1000),
+          attempts: 0,
+          maxAttempts: 3,
+        },
+      });
+      logger_1.logger.info('Scheduled retry', {
+        operation,
+        delaySeconds,
+        scheduledFor: new Date(Date.now() + delaySeconds * 1000),
+      });
+    } catch (error) {
+      logger_1.logger.error('Failed to schedule retry:', error);
+    }
+  }
+  // Get error statistics
+  async getErrorStats(timeRange) {
+    try {
+      const prisma = (0, prisma_1.getPrismaClient)();
+      const where = { service: 'retell' };
+      if (timeRange) {
+        where.createdAt = {
+          gte: timeRange.start,
+          lte: timeRange.end,
         };
+      }
+      const errors = await prisma.errorLog.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+      });
+      const stats = {
+        total: errors.length,
+        byType: {},
+        recoverable: 0,
+        nonRecoverable: 0,
+        mostCommon: '',
+        errorRate: 0, // Will need total calls to calculate
+      };
+      errors.forEach(error => {
+        stats.byType[error.errorType] = (stats.byType[error.errorType] || 0) + 1;
+        if (error.recoverable) {
+          stats.recoverable++;
+        } else {
+          stats.nonRecoverable++;
+        }
+      });
+      // Find most common error type
+      const sortedTypes = Object.entries(stats.byType).sort((a, b) => b[1] - a[1]);
+      stats.mostCommon = sortedTypes[0]?.[0] || 'none';
+      return stats;
+    } catch (error) {
+      logger_1.logger.error('Failed to get error stats:', error);
+      throw error;
     }
-    // Extract retry-after header
-    extractRetryAfter(headers) {
-        const retryAfter = headers?.['retry-after'] || headers?.['x-ratelimit-reset'];
-        if (retryAfter) {
-            const seconds = parseInt(retryAfter, 10);
-            return isNaN(seconds) ? 60 : seconds;
-        }
-        return 60; // Default 1 minute
-    }
-    // Log error to database and external systems
-    async logError(retellError, context) {
-        try {
-            // Log to Winston/Pino
-            logger_1.logger.error('Retell service error', {
-                type: retellError.type,
-                message: retellError.message,
-                code: retellError.code,
-                callId: retellError.callId,
-                contactId: retellError.contactId,
-                recoverable: retellError.recoverable,
-                retryAfter: retellError.retryAfter,
-                context,
-            });
-            // Store in database for analytics
-            const prisma = (0, prisma_1.getPrismaClient)();
-            await prisma.errorLog.create({
-                data: {
-                    service: 'retell',
-                    errorType: retellError.type,
-                    message: retellError.message,
-                    code: retellError.code,
-                    callId: retellError.callId,
-                    contactId: retellError.contactId,
-                    recoverable: retellError.recoverable,
-                    retryAfter: retellError.retryAfter,
-                    metadata: {
-                        details: retellError.details,
-                        context,
-                    },
-                },
-            });
-        }
-        catch (error) {
-            // If logging fails, at least log to console
-            console.error('Failed to log Retell error:', error);
-            console.error('Original Retell error:', retellError);
-        }
-    }
-    // Process specific error types
-    async processErrorType(retellError, context) {
-        try {
-            switch (retellError.type) {
-                case RetellErrorType.AUTHENTICATION:
-                    await this.handleAuthenticationError(retellError, context);
-                    break;
-                case RetellErrorType.RATE_LIMIT:
-                    await this.handleRateLimitError(retellError, context);
-                    break;
-                case RetellErrorType.AGENT_UNAVAILABLE:
-                    await this.handleAgentUnavailableError(retellError, context);
-                    break;
-                case RetellErrorType.CALL_FAILED:
-                    await this.handleCallFailedError(retellError, context);
-                    break;
-                case RetellErrorType.INVALID_PHONE:
-                    await this.handleInvalidPhoneError(retellError, context);
-                    break;
-                case RetellErrorType.INSUFFICIENT_BALANCE:
-                    await this.handleInsufficientBalanceError(retellError, context);
-                    break;
-                default:
-                    // Generic error handling
-                    await this.handleGenericError(retellError, context);
-            }
-        }
-        catch (error) {
-            logger_1.logger.error('Failed to process error type:', error);
-        }
-    }
-    // Handle authentication errors
-    async handleAuthenticationError(retellError, context) {
-        logger_1.logger.error('Retell authentication error - check API key', {
-            callId: retellError.callId,
-            context,
-        });
-        // Update contact in GHL with error status
-        if (retellError.contactId) {
-            await this.updateContactWithError(retellError.contactId, {
-                error: 'Authentication failed',
-                timestamp: retellError.timestamp,
-            });
-        }
-        // Create admin task to check configuration
-        await this.createAdminTask({
-            title: 'Retell Authentication Error',
-            description: 'Retell API authentication failed. Please check API key configuration.',
-            priority: 'high',
-            type: 'system_error',
-        });
-    }
-    // Handle rate limit errors
-    async handleRateLimitError(retellError, context) {
-        logger_1.logger.warn('Retell rate limit reached', {
-            retryAfter: retellError.retryAfter,
-            callId: retellError.callId,
-        });
-        // Schedule retry if possible
-        if (retellError.recoverable && context?.operation) {
-            await this.scheduleRetry(context.operation, retellError.retryAfter || 60, context);
-        }
-        // Update contact status
-        if (retellError.contactId) {
-            await this.updateContactWithError(retellError.contactId, {
-                error: 'Rate limit reached - call will be retried',
-                retryAfter: retellError.retryAfter,
-                timestamp: retellError.timestamp,
-            });
-        }
-    }
-    // Handle agent unavailable errors
-    async handleAgentUnavailableError(retellError, context) {
-        logger_1.logger.warn('Retell agent unavailable', {
-            callId: retellError.callId,
-            context,
-        });
-        // Try to find alternative agent
-        const alternativeAgent = await this.findAlternativeAgent(context);
-        if (alternativeAgent) {
-            logger_1.logger.info('Found alternative agent', { agentId: alternativeAgent });
-            // Schedule retry with alternative agent
-            await this.scheduleRetry(context?.operation || 'create-call', 5, // 5 seconds
-            { ...context, agentId: alternativeAgent });
-        }
-        else {
-            // No alternative found - create callback task
-            await this.createCallbackTask(retellError, context);
-        }
-    }
-    // Handle call failed errors
-    async handleCallFailedError(retellError, context) {
-        logger_1.logger.warn('Retell call failed', {
-            callId: retellError.callId,
-            reason: retellError.message,
-        });
-        // Update call status in database
-        if (retellError.callId) {
-            const prisma = (0, prisma_1.getPrismaClient)();
-            await prisma.voiceCall.updateMany({
-                where: { retellCallId: retellError.callId },
-                data: {
-                    status: 'failed',
-                    error: retellError.message,
-                    metadata: {
-                        errorDetails: retellError.details,
-                        failureTimestamp: retellError.timestamp,
-                    },
-                },
-            });
-        }
-        // Update GHL contact
-        if (retellError.contactId) {
-            await this.updateContactWithError(retellError.contactId, {
-                error: 'Call failed',
-                reason: retellError.message,
-                timestamp: retellError.timestamp,
-            });
-            // Create follow-up task
-            await gohighlevel_1.ghlService.createTask({
-                contactId: retellError.contactId,
-                title: 'Call Failed - Manual Follow-up Required',
-                body: `Automated call failed: ${retellError.message}. Please contact manually.`,
-                dueDate: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
-            });
-        }
-    }
-    // Handle invalid phone errors
-    async handleInvalidPhoneError(retellError, context) {
-        logger_1.logger.warn('Invalid phone number for call', {
-            callId: retellError.callId,
-            phone: context?.phoneNumber,
-        });
-        // Update contact with invalid phone flag
-        if (retellError.contactId) {
-            await this.updateContactWithError(retellError.contactId, {
-                error: 'Invalid phone number',
-                phoneNumber: context?.phoneNumber,
-                timestamp: retellError.timestamp,
-            });
-            // Add tag for invalid phone
-            await gohighlevel_1.ghlService.updateContact(retellError.contactId, {
-                tags: ['invalid-phone', 'needs-phone-update'],
-            });
-            // Create task to verify phone number
-            await gohighlevel_1.ghlService.createTask({
-                contactId: retellError.contactId,
-                title: 'Verify Phone Number',
-                body: `Phone number ${context?.phoneNumber} is invalid. Please verify and update contact information.`,
-                dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
-            });
-        }
-    }
-    // Handle insufficient balance errors
-    async handleInsufficientBalanceError(retellError, context) {
-        logger_1.logger.error('Insufficient Retell account balance', {
-            callId: retellError.callId,
-        });
-        // Create high-priority admin task
-        await this.createAdminTask({
-            title: 'Retell Account Balance Low',
-            description: 'Retell account has insufficient balance for calls. Please add funds immediately.',
-            priority: 'urgent',
-            type: 'billing_issue',
-        });
-        // Update contact with service unavailable message
-        if (retellError.contactId) {
-            await this.updateContactWithError(retellError.contactId, {
-                error: 'Service temporarily unavailable',
-                timestamp: retellError.timestamp,
-            });
-            // Send SMS if possible
-            try {
-                await gohighlevel_1.ghlService.sendSMS({
-                    contactId: retellError.contactId,
-                    message: 'We apologize, but our voice service is temporarily unavailable. Please call us directly at 1-844-YO-PELEO or reply to this message.',
-                });
-            }
-            catch (smsError) {
-                logger_1.logger.error('Failed to send SMS after balance error:', smsError);
-            }
-        }
-    }
-    // Generic error handling
-    async handleGenericError(retellError, context) {
-        logger_1.logger.error('Generic Retell error', {
-            type: retellError.type,
-            message: retellError.message,
-            callId: retellError.callId,
-        });
-        // If recoverable, schedule retry
-        if (retellError.recoverable && context?.operation) {
-            await this.scheduleRetry(context.operation, retellError.retryAfter || 30, context);
-        }
-        else if (retellError.contactId) {
-            // Create manual follow-up task
-            await this.createCallbackTask(retellError, context);
-        }
-    }
-    // Update GHL contact with error information
-    async updateContactWithError(contactId, errorInfo) {
-        try {
-            const contact = await gohighlevel_1.ghlService.getContact(contactId);
-            if (contact) {
-                await gohighlevel_1.ghlService.updateContact(contactId, {
-                    customFields: {
-                        ...contact.customFields,
-                        lastCallError: errorInfo.error,
-                        lastCallErrorTime: errorInfo.timestamp.toISOString(),
-                        callErrors: JSON.stringify([
-                            ...(JSON.parse(contact.customFields?.callErrors || '[]')),
-                            errorInfo,
-                        ].slice(-5)), // Keep last 5 errors
-                    },
-                });
-                // Add note about the error
-                await gohighlevel_1.ghlService.addNote(contactId, `Call Error: ${errorInfo.error}. ${errorInfo.reason || ''} - ${errorInfo.timestamp.toLocaleString()}`);
-            }
-        }
-        catch (error) {
-            logger_1.logger.error('Failed to update contact with error:', error);
-        }
-    }
-    // Create admin task for system issues
-    async createAdminTask(task) {
-        try {
-            const prisma = (0, prisma_1.getPrismaClient)();
-            // Find admin user
-            const adminUser = await prisma.user.findFirst({
-                where: { role: 'ADMIN' },
-            });
-            if (adminUser) {
-                await prisma.task.create({
-                    data: {
-                        title: task.title,
-                        description: task.description,
-                        type: task.type,
-                        priority: task.priority,
-                        status: 'pending',
-                        createdById: adminUser.id,
-                        assignedToId: adminUser.id,
-                        dueDate: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
-                        metadata: {
-                            source: 'retell_error_handler',
-                            autoGenerated: true,
-                        },
-                    },
-                });
-            }
-        }
-        catch (error) {
-            logger_1.logger.error('Failed to create admin task:', error);
-        }
-    }
-    // Create callback task for failed calls
-    async createCallbackTask(retellError, context) {
-        if (!retellError.contactId)
-            return;
-        try {
-            await gohighlevel_1.ghlService.createTask({
-                contactId: retellError.contactId,
-                title: 'Manual Callback Required',
-                body: `Automated call failed: ${retellError.message}. Please contact manually to follow up.`,
-                dueDate: new Date(Date.now() + 2 * 60 * 60 * 1000), // 2 hours
-            });
-            // Add urgent tag if high priority
-            if (context?.priority === 'high' || retellError.type === RetellErrorType.INSUFFICIENT_BALANCE) {
-                const contact = await gohighlevel_1.ghlService.getContact(retellError.contactId);
-                if (contact) {
-                    await gohighlevel_1.ghlService.updateContact(retellError.contactId, {
-                        tags: [...(contact.tags || []), 'urgent-callback'],
-                    });
-                }
-            }
-        }
-        catch (error) {
-            logger_1.logger.error('Failed to create callback task:', error);
-        }
-    }
-    // Find alternative agent when primary agent fails
-    async findAlternativeAgent(context) {
-        try {
-            // Try general agent as fallback
-            const { RetellAgentManager } = await Promise.resolve().then(() => __importStar(require('./agent-manager-v2')));
-            return await RetellAgentManager.getAgentForPracticeArea('general');
-        }
-        catch (error) {
-            logger_1.logger.error('Failed to find alternative agent:', error);
-            return null;
-        }
-    }
-    // Schedule retry for failed operations
-    async scheduleRetry(operation, delaySeconds, context) {
-        try {
-            // Store retry information in database
-            const prisma = (0, prisma_1.getPrismaClient)();
-            await prisma.retryQueue.create({
-                data: {
-                    operation,
-                    delaySeconds,
-                    context: context,
-                    scheduledFor: new Date(Date.now() + delaySeconds * 1000),
-                    attempts: 0,
-                    maxAttempts: 3,
-                },
-            });
-            logger_1.logger.info('Scheduled retry', {
-                operation,
-                delaySeconds,
-                scheduledFor: new Date(Date.now() + delaySeconds * 1000),
-            });
-        }
-        catch (error) {
-            logger_1.logger.error('Failed to schedule retry:', error);
-        }
-    }
-    // Get error statistics
-    async getErrorStats(timeRange) {
-        try {
-            const prisma = (0, prisma_1.getPrismaClient)();
-            const where = { service: 'retell' };
-            if (timeRange) {
-                where.createdAt = {
-                    gte: timeRange.start,
-                    lte: timeRange.end,
-                };
-            }
-            const errors = await prisma.errorLog.findMany({
-                where,
-                orderBy: { createdAt: 'desc' },
-            });
-            const stats = {
-                total: errors.length,
-                byType: {},
-                recoverable: 0,
-                nonRecoverable: 0,
-                mostCommon: '',
-                errorRate: 0, // Will need total calls to calculate
-            };
-            errors.forEach(error => {
-                stats.byType[error.errorType] = (stats.byType[error.errorType] || 0) + 1;
-                if (error.recoverable) {
-                    stats.recoverable++;
-                }
-                else {
-                    stats.nonRecoverable++;
-                }
-            });
-            // Find most common error type
-            const sortedTypes = Object.entries(stats.byType).sort((a, b) => b[1] - a[1]);
-            stats.mostCommon = sortedTypes[0]?.[0] || 'none';
-            return stats;
-        }
-        catch (error) {
-            logger_1.logger.error('Failed to get error stats:', error);
-            throw error;
-        }
-    }
-    // Notify stakeholders of critical errors
-    async notifyIfRequired(retellError, context) {
-        // Only notify for critical, non-recoverable errors
-        const criticalErrors = [
-            RetellErrorType.AUTHENTICATION,
-            RetellErrorType.INSUFFICIENT_BALANCE,
-        ];
-        if (criticalErrors.includes(retellError.type)) {
-            try {
-                // Send email notification if configured
-                if (process.env.ADMIN_EMAIL) {
-                    // Import email service dynamically to avoid circular dependencies
-                    const { emailService } = await Promise.resolve().then(() => __importStar(require('@/services/email')));
-                    await emailService.sendNotification({
-                        to: process.env.ADMIN_EMAIL,
-                        subject: `Critical Retell Error: ${retellError.type}`,
-                        body: `
+  }
+  // Notify stakeholders of critical errors
+  async notifyIfRequired(retellError, context) {
+    // Only notify for critical, non-recoverable errors
+    const criticalErrors = [RetellErrorType.AUTHENTICATION, RetellErrorType.INSUFFICIENT_BALANCE];
+    if (criticalErrors.includes(retellError.type)) {
+      try {
+        // Send email notification if configured
+        if (process.env.ADMIN_EMAIL) {
+          // Import email service dynamically to avoid circular dependencies
+          const { emailService } = await Promise.resolve().then(() =>
+            __importStar(require('@/services/email.service'))
+          );
+          await emailService.sendEmail({
+            to: process.env.ADMIN_EMAIL,
+            subject: `Critical Retell Error: ${retellError.type}`,
+            template: 'attorney-notification',
+            data: {
+              subject: `Critical Retell Error: ${retellError.type}`,
+              message: `
               Critical Retell service error detected:
               
               Type: ${retellError.type}
@@ -576,15 +593,15 @@ class RetellErrorHandler {
               Contact ID: ${retellError.contactId || 'N/A'}
               
               Please address this issue immediately.
-            `,
-                    });
-                }
-            }
-            catch (notificationError) {
-                logger_1.logger.error('Failed to send error notification:', notificationError);
-            }
+`,
+            },
+          });
         }
+      } catch (notificationError) {
+        logger_1.logger.error('Failed to send error notification:', notificationError);
+      }
     }
+  }
 }
 exports.RetellErrorHandler = RetellErrorHandler;
 // Export singleton instance

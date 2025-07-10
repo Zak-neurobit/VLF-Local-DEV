@@ -1,6 +1,7 @@
 import { logger } from '@/lib/logger';
 import { ghlService } from '@/services/gohighlevel';
 import { getPrismaClient } from '@/lib/prisma';
+import type { TaskType } from '@prisma/client';
 
 export enum RetellErrorType {
   AUTHENTICATION = 'AUTHENTICATION',
@@ -469,7 +470,7 @@ export class RetellErrorHandler {
           data: {
             title: task.title,
             description: task.description,
-            type: task.type,
+            type: task.type as TaskType,
             priority: task.priority,
             status: 'pending',
             createdById: adminUser.id,
@@ -612,12 +613,15 @@ export class RetellErrorHandler {
         // Send email notification if configured
         if (process.env.ADMIN_EMAIL) {
           // Import email service dynamically to avoid circular dependencies
-          const { emailService } = await import('@/services/email');
+          const { emailService } = await import('@/services/email.service');
           
-          await emailService.sendNotification({
+          await emailService.sendEmail({
             to: process.env.ADMIN_EMAIL,
             subject: `Critical Retell Error: ${retellError.type}`,
-            body: `
+            template: 'attorney-notification' as any,
+            data: {
+              subject: `Critical Retell Error: ${retellError.type}`,
+              message: `
               Critical Retell service error detected:
               
               Type: ${retellError.type}
@@ -627,7 +631,8 @@ export class RetellErrorHandler {
               Contact ID: ${retellError.contactId || 'N/A'}
               
               Please address this issue immediately.
-            `,
+`,
+            },
           });
         }
       } catch (notificationError) {

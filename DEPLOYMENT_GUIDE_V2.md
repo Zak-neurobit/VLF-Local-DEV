@@ -71,6 +71,7 @@ console.log('System Status:', systemMetrics);
 The main deployment orchestrator that handles:
 
 **Features:**
+
 - **Parallel Deployment**: Deploy up to 5 agents simultaneously
 - **Dependency Management**: Ensure agents deploy in correct order
 - **Health Checks**: Verify agent functionality post-deployment
@@ -78,12 +79,14 @@ The main deployment orchestrator that handles:
 - **Auto-Scaling Configuration**: Setup scaling policies during deployment
 
 **Usage:**
+
 ```typescript
 const deployer = new EnhancedAgentDeployer();
 await deployer.deployAllAgents();
 ```
 
 **Configuration:**
+
 ```typescript
 const agentConfig: AgentDeploymentConfig = {
   name: 'Legal Consultation Agent',
@@ -93,8 +96,8 @@ const agentConfig: AgentDeploymentConfig = {
   autoScaling: {
     minInstances: 2,
     maxInstances: 10,
-    targetCPU: 70
-  }
+    targetCPU: 70,
+  },
 };
 ```
 
@@ -103,6 +106,7 @@ const agentConfig: AgentDeploymentConfig = {
 Real-time monitoring and management system:
 
 **Features:**
+
 - **Performance Metrics**: CPU, memory, request count, response times
 - **Health Monitoring**: Continuous health checks with alerting
 - **Auto-Scaling**: Dynamic instance management based on load
@@ -110,12 +114,13 @@ Real-time monitoring and management system:
 - **Error Recovery**: Circuit breaker pattern and retry logic
 
 **Key Methods:**
+
 ```typescript
 // Start monitoring
 await monitor.startMonitoring({
   agents: ['legal-consultation', 'document-analysis'],
   interval: 30000,
-  metrics: ['cpu', 'memory', 'requests', 'errors', 'latency']
+  metrics: ['cpu', 'memory', 'requests', 'errors', 'latency'],
 });
 
 // Configure auto-scaling
@@ -125,7 +130,7 @@ await monitor.configureAutoScaling('legal-consultation', {
   targetCPU: 70,
   scaleUpThreshold: 80,
   scaleDownThreshold: 50,
-  cooldownPeriod: 300
+  cooldownPeriod: 300,
 });
 
 // Get system metrics
@@ -137,12 +142,14 @@ const metrics = await monitor.getSystemMetrics();
 Advanced agent coordination and communication:
 
 **Features:**
+
 - **Parallel Processing**: Concurrent request handling
 - **Inter-Agent Communication**: Message passing between agents
 - **Distributed Memory**: Shared memory system across agents
 - **Performance Tracking**: Detailed agent performance metrics
 
 **Key Features:**
+
 ```typescript
 // Enable parallel processing
 orchestrator.enableParallelProcessing(10);
@@ -168,12 +175,14 @@ orchestrator.updateAgentMemory(
 Advanced workflow and task management:
 
 **Features:**
+
 - **Workflow Management**: Complex multi-step workflows
 - **Communication Channels**: Agent-to-agent messaging
 - **Distributed Memory**: Persistent agent memory
 - **Event-Driven Architecture**: Real-time event handling
 
 **Workflow Creation:**
+
 ```typescript
 const workflowId = await coordinator.createWorkflow('Client Intake', [
   {
@@ -181,15 +190,15 @@ const workflowId = await coordinator.createWorkflow('Client Intake', [
     action: 'process-initial-inquiry',
     input: clientData,
     dependencies: [],
-    maxRetries: 2
+    maxRetries: 2,
   },
   {
     agentName: 'legal-consultation',
     action: 'analyze-case',
     input: {},
     dependencies: ['step-0'],
-    maxRetries: 1
-  }
+    maxRetries: 1,
+  },
 ]);
 
 await coordinator.executeWorkflow(workflowId);
@@ -257,12 +266,12 @@ await coordinator.executeWorkflow(workflowId);
 ```typescript
 // Configure sophisticated auto-scaling
 await monitor.configureAutoScaling('legal-consultation', {
-  minInstances: 2,        // Minimum instances always running
-  maxInstances: 10,       // Maximum instances during peak load
-  targetCPU: 70,          // Target CPU utilization
-  scaleUpThreshold: 80,   // Scale up when CPU > 80%
+  minInstances: 2, // Minimum instances always running
+  maxInstances: 10, // Maximum instances during peak load
+  targetCPU: 70, // Target CPU utilization
+  scaleUpThreshold: 80, // Scale up when CPU > 80%
   scaleDownThreshold: 50, // Scale down when CPU < 50%
-  cooldownPeriod: 300     // Wait 5 minutes between scaling actions
+  cooldownPeriod: 300, // Wait 5 minutes between scaling actions
 });
 ```
 
@@ -276,9 +285,9 @@ await monitor.enableLoadBalancing({
   failoverEnabled: true,
   weights: {
     'instance-1': 1.0,
-    'instance-2': 0.8,  // Lower weight for less powerful instance
-    'instance-3': 1.2   // Higher weight for more powerful instance
-  }
+    'instance-2': 0.8, // Lower weight for less powerful instance
+    'instance-3': 1.2, // Higher weight for more powerful instance
+  },
 });
 ```
 
@@ -287,10 +296,10 @@ await monitor.enableLoadBalancing({
 ```typescript
 // Configure circuit breaker and retry logic
 await monitor.configureErrorRecovery({
-  maxRetries: 3,              // Retry failed requests up to 3 times
-  retryDelay: 5000,           // Wait 5 seconds between retries
+  maxRetries: 3, // Retry failed requests up to 3 times
+  retryDelay: 5000, // Wait 5 seconds between retries
   circuitBreakerThreshold: 5, // Open circuit after 5 consecutive failures
-  recoveryTimeout: 60000      // Try to close circuit after 1 minute
+  recoveryTimeout: 60000, // Try to close circuit after 1 minute
 });
 ```
 
@@ -299,10 +308,10 @@ await monitor.configureErrorRecovery({
 ```typescript
 // Setup communication channels
 await coordinator.setupCommunicationChannels({
-  messageQueue: 'redis',        // Use Redis for message queuing
-  enableDirectMessaging: true,  // Allow direct agent-to-agent messages
-  messageRetention: 86400,      // Keep messages for 24 hours
-  maxMessageSize: 1048576       // 1MB max message size
+  messageQueue: 'redis', // Use Redis for message queuing
+  enableDirectMessaging: true, // Allow direct agent-to-agent messages
+  messageRetention: 86400, // Keep messages for 24 hours
+  maxMessageSize: 1048576, // 1MB max message size
 });
 
 // Send task delegation message
@@ -312,7 +321,7 @@ await coordinator.sendMessageToAgent(
   'delegate-task',
   {
     taskId: 'task-123',
-    taskData: appointmentRequest
+    taskData: appointmentRequest,
   }
 );
 ```
@@ -325,20 +334,16 @@ await coordinator.initializeMemorySystem({
   type: 'distributed',
   provider: 'redis',
   maxMemoryPerAgent: '100MB',
-  ttl: 3600,              // 1 hour TTL
-  compressionEnabled: true
+  ttl: 3600, // 1 hour TTL
+  compressionEnabled: true,
 });
 
 // Store client conversation
-await coordinator.storeInDistributedMemory(
-  'legal-consultation',
-  'client-session-123',
-  {
-    conversation: conversationHistory,
-    caseNotes: notes,
-    documents: documentRefs
-  }
-);
+await coordinator.storeInDistributedMemory('legal-consultation', 'client-session-123', {
+  conversation: conversationHistory,
+  caseNotes: notes,
+  documents: documentRefs,
+});
 
 // Retrieve conversation for another agent
 const clientData = await coordinator.getFromDistributedMemory(
@@ -453,37 +458,41 @@ if (canarySuccessful) {
 ### Common Issues
 
 1. **Deployment Failures**
+
    ```typescript
    // Check deployment logs
    const deploymentReport = await deployer.getDeploymentReport();
-   
+
    // Manual rollback if needed
    await deployer.rollbackDeployment();
    ```
 
 2. **Agent Health Issues**
+
    ```typescript
    // Get detailed health information
    const healthDetails = await monitor.getAgentHealthStatus('agent-name');
-   
+
    // Restart unhealthy agents
    await monitor.restartAgent('agent-name');
    ```
 
 3. **Performance Issues**
+
    ```typescript
    // Check system metrics
    const metrics = await monitor.getSystemMetrics();
-   
+
    // Scale up if needed
    await monitor.scaleUp('agent-name', additionalInstances);
    ```
 
 4. **Communication Issues**
+
    ```typescript
    // Check communication stats
    const commStats = orchestrator.getInterAgentCommunicationStats();
-   
+
    // Reset communication channels
    await coordinator.resetCommunicationChannels();
    ```
@@ -514,24 +523,28 @@ tail -f logs/error.log
 ## Best Practices
 
 ### 1. Deployment
+
 - Always test in staging environment first
 - Use gradual rollout for production deployments
 - Monitor metrics closely during deployment
 - Have rollback plan ready
 
 ### 2. Monitoring
+
 - Set appropriate alert thresholds
 - Monitor trends, not just current values
 - Use multiple metrics for health decisions
 - Regular health check intervals
 
 ### 3. Scaling
+
 - Start with conservative scaling policies
 - Monitor scaling events and adjust thresholds
 - Use predictive scaling for known traffic patterns
 - Consider costs when setting max instances
 
 ### 4. Error Handling
+
 - Implement proper retry logic
 - Use circuit breakers for external dependencies
 - Log errors with sufficient context
@@ -543,11 +556,11 @@ tail -f logs/error.log
 
 ```typescript
 class EnhancedAgentDeployer {
-  async deployAllAgents(): Promise<void>
-  async deployAgent(config: AgentDeploymentConfig): Promise<DeploymentResult>
-  async rollbackDeployment(): Promise<void>
-  async performHealthChecks(): Promise<void>
-  async generateDeploymentReport(): Promise<void>
+  async deployAllAgents(): Promise<void>;
+  async deployAgent(config: AgentDeploymentConfig): Promise<DeploymentResult>;
+  async rollbackDeployment(): Promise<void>;
+  async performHealthChecks(): Promise<void>;
+  async generateDeploymentReport(): Promise<void>;
 }
 ```
 
@@ -555,12 +568,12 @@ class EnhancedAgentDeployer {
 
 ```typescript
 class AgentMonitor {
-  async startMonitoring(config: MonitoringConfig): Promise<void>
-  async configureAutoScaling(agentName: string, config: AutoScalingConfig): Promise<void>
-  async enableLoadBalancing(config: LoadBalancingConfig): Promise<void>
-  async getSystemMetrics(): Promise<SystemMetrics>
-  async getAgentMetrics(agentName: string): Promise<AgentMetrics[]>
-  async checkAgentHealth(agentName: string): Promise<boolean>
+  async startMonitoring(config: MonitoringConfig): Promise<void>;
+  async configureAutoScaling(agentName: string, config: AutoScalingConfig): Promise<void>;
+  async enableLoadBalancing(config: LoadBalancingConfig): Promise<void>;
+  async getSystemMetrics(): Promise<SystemMetrics>;
+  async getAgentMetrics(agentName: string): Promise<AgentMetrics[]>;
+  async checkAgentHealth(agentName: string): Promise<boolean>;
 }
 ```
 
@@ -568,11 +581,11 @@ class AgentMonitor {
 
 ```typescript
 class AgentOrchestrator {
-  enableParallelProcessing(maxConcurrent: number): void
-  async sendInterAgentMessage(message: InterAgentMessage): Promise<void>
-  updateAgentMemory(agentName: string, key: string, value: any): void
-  getAgentMemory(agentName: string, key: string): any
-  getAllMetrics(): Record<string, AgentPerformanceMetrics>
+  enableParallelProcessing(maxConcurrent: number): void;
+  async sendInterAgentMessage(message: InterAgentMessage): Promise<void>;
+  updateAgentMemory(agentName: string, key: string, value: any): void;
+  getAgentMemory(agentName: string, key: string): any;
+  getAllMetrics(): Record<string, AgentPerformanceMetrics>;
 }
 ```
 
@@ -580,12 +593,12 @@ class AgentOrchestrator {
 
 ```typescript
 class CrewCoordinator {
-  async enableParallelProcessing(config: ParallelProcessingConfig): Promise<void>
-  async setupCommunicationChannels(config: CommunicationConfig): Promise<void>
-  async initializeMemorySystem(config: MemoryConfig): Promise<void>
-  async createWorkflow(name: string, steps: WorkflowStep[]): Promise<string>
-  async executeWorkflow(workflowId: string): Promise<any>
-  getSystemStatus(): SystemStatus
+  async enableParallelProcessing(config: ParallelProcessingConfig): Promise<void>;
+  async setupCommunicationChannels(config: CommunicationConfig): Promise<void>;
+  async initializeMemorySystem(config: MemoryConfig): Promise<void>;
+  async createWorkflow(name: string, steps: WorkflowStep[]): Promise<string>;
+  async executeWorkflow(workflowId: string): Promise<any>;
+  getSystemStatus(): SystemStatus;
 }
 ```
 

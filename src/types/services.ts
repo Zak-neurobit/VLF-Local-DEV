@@ -49,26 +49,108 @@ export interface PaymentMetadata {
 }
 
 // Email Types
+export interface LeadData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  practiceArea: string;
+  score: number;
+  source: string;
+  language: string;
+  createdAt: Date;
+  courtDate?: Date;
+  message?: string;
+  preferredContactTime?: string;
+  id?: string;
+}
+
 export interface EmailTemplateData {
+  // Common fields
+  email?: string;
+  name?: string; // Used for client-notification, user-welcome, password-reset
   firstName?: string;
   lastName?: string;
-  email?: string;
   phone?: string;
   caseType?: string;
   message?: string;
+  location?: string;
+  sourceUrl?: string;
+  preferredContact?: string;
+  attorneyName?: string;
+  clientName?: string; // Used for case-update, document-ready, payment-receipt, consultation-followup
+  clientEmail?: string; // Used for case-update, document-ready, payment-receipt, consultation-followup
+  subject?: string; // Used for bulk emails
+
+  // Appointment related
   appointmentDate?: Date;
   appointmentTime?: string;
-  officeName?: string;
-  officeAddress?: string;
-  officePhone?: string;
-  attorneyName?: string;
+  appointmentType?: string;
+  meetingType?: 'virtual' | 'in-person';
+  meetingLink?: string;
+  notes?: string;
+  appointmentId?: string;
+
+  // Case Evaluation related
+  preferredLanguage?: string;
+  incidentDate?: Date;
+  urgency?: 'Immediate' | 'This Week' | 'Normal';
+  previousAttorney?: boolean;
+  courtDate?: Date;
+  documentsAvailable?: boolean;
+  description?: string;
+  preferredTime?: string;
+  leadScore?: number;
+
+  // Newsletter related
+  unsubscribeToken?: string;
+
+  // Attorney Notification related
+  formType?: string;
+  priority?: 'High' | 'Medium' | 'Normal';
+  summary?: string;
+  assignedTo?: string;
+  id?: string; // For attorney-notification to link to submission
+
+  // Urgent Lead Notification related
+  lead?: LeadData;
+  leadId?: string; // Fallback for urgent-lead-notification
+
+  // Password Reset related
+  resetLink?: string;
+
+  // Case Update related
+  updateTitle?: string;
   caseNumber?: string;
-  documentName?: string;
-  documentUrl?: string;
-  paymentAmount?: number;
-  paymentDate?: Date;
-  invoiceNumber?: string;
+  updateContent?: string;
   nextSteps?: string[];
+  documentsNeeded?: string[];
+  caseId?: string;
+
+  // Document Ready related
+  documentName?: string;
+  documentType?: string;
+  preparedBy?: string;
+  actionRequired?: string;
+  deadline?: Date;
+  documentId?: string;
+
+  // Payment Receipt related
+  receiptNumber?: string;
+  transactionId?: string;
+  date?: Date; // For payment date
+  amount?: number;
+  paymentMethod?: string;
+  balance?: number;
+  nextPaymentDue?: Date;
+
+  // Consultation Follow-up related
+  consultationDate?: Date;
+  practiceArea?: string;
+  recommendations?: string[];
+  quote?: string;
+
+  // Generic custom data
   customData?: Record<string, unknown>;
 }
 

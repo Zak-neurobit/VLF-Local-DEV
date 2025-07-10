@@ -3,6 +3,7 @@
 ## Current Issues (July 4, 2025)
 
 ### 1. API Routes Returning Errors
+
 - **Lead Validation**: 404/405 errors
 - **Consultation/Appointment**: 500 errors
 - **Main Site**: Working correctly ✅
@@ -10,13 +11,17 @@
 ### 2. Likely Causes
 
 #### Database Connection Issues
+
 The 500 errors suggest database connection problems. Check:
+
 - [ ] DATABASE_URL environment variable in Vercel
 - [ ] Prisma client generation in build
 - [ ] Database SSL requirements
 
 #### Environment Variables
+
 Ensure ALL these are set in Vercel dashboard:
+
 ```
 DATABASE_URL
 GHL_API_KEY
@@ -35,7 +40,9 @@ MOCK_REDIS=true
 ### 3. Quick Fixes to Try
 
 #### Option 1: Add Prisma Generate to Build
+
 Update `package.json`:
+
 ```json
 {
   "scripts": {
@@ -45,6 +52,7 @@ Update `package.json`:
 ```
 
 #### Option 2: Add postinstall Script
+
 ```json
 {
   "scripts": {
@@ -54,7 +62,9 @@ Update `package.json`:
 ```
 
 #### Option 3: Check Database URL Format
+
 PostgreSQL URL should be:
+
 ```
 postgresql://user:password@host:port/database?sslmode=require
 ```
@@ -62,11 +72,13 @@ postgresql://user:password@host:port/database?sslmode=require
 ### 4. Debugging Steps
 
 1. **Check Vercel Function Logs**
+
    ```bash
    vercel logs --follow
    ```
 
 2. **Test Locally with Production ENV**
+
    ```bash
    npm run build
    npm start
@@ -83,6 +95,7 @@ If API routes still fail:
 
 1. **Simplify the Route** (Temporary)
    Create a test route without database:
+
    ```typescript
    export async function GET() {
      return NextResponse.json({ status: 'ok' });
@@ -101,6 +114,7 @@ If API routes still fail:
 ### 6. Build Configuration
 
 Ensure `vercel.json` includes:
+
 ```json
 {
   "functions": {
@@ -114,11 +128,13 @@ Ensure `vercel.json` includes:
 ### 7. Next Steps
 
 1. Check Vercel dashboard for:
+
    - Build logs
    - Function logs
    - Environment variables
 
 2. If database issue:
+
    - Verify connection string
    - Check Prisma schema
    - Test with a simple query

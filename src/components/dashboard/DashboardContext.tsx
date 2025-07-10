@@ -82,7 +82,7 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       uptime: 0,
       performance: 0,
       errors: 0,
-      lastUpdate: null as Date | null
+      lastUpdate: new Date()
     }
   });
 

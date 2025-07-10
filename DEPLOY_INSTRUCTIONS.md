@@ -32,11 +32,13 @@ If the project isn't showing up:
 ## Option 3: Deploy via Vercel CLI
 
 1. Install Vercel CLI globally (if not installed):
+
    ```bash
    npm i -g vercel
    ```
 
 2. Login to Vercel:
+
    ```bash
    vercel login
    ```
@@ -52,6 +54,7 @@ If the project isn't showing up:
 Before deployment, make sure to add these in Vercel project settings:
 
 ### Required:
+
 - `DATABASE_URL` - Your PostgreSQL connection string
 - `NEXTAUTH_SECRET` - Use: `QnJ386rd1BIjDuiik6ccHXD3OVtNxMBo/3F+IOJLu+M=`
 - `NEXTAUTH_URL` - Your production URL (e.g., https://vlf-website.vercel.app)
@@ -59,6 +62,7 @@ Before deployment, make sure to add these in Vercel project settings:
 - `GOOGLE_CLIENT_SECRET` - From Google Console
 
 ### Optional (app will use mocks if not provided):
+
 - Redis configuration
 - Email SMTP settings
 - API keys for various services
@@ -66,6 +70,7 @@ Before deployment, make sure to add these in Vercel project settings:
 ## Build Status
 
 The code has been tested and builds successfully locally. The following fixes have been applied:
+
 - ✅ Fixed all SSR "window is not defined" errors
 - ✅ Fixed database/Redis initialization during build
 - ✅ Added mock support for missing services
@@ -74,6 +79,7 @@ The code has been tested and builds successfully locally. The following fixes ha
 ## Latest Commit
 
 The latest commit with all fixes is:
+
 - Commit: `060a515`
 - Message: "Fix SSR build errors and prepare for Vercel deployment"
 - Branch: `main`

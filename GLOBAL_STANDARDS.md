@@ -3,12 +3,14 @@
 ## CORE PRINCIPLES - NEVER VIOLATE
 
 ### 1. **NO SIMPLIFICATION - EVER**
+
 - We BUILD UP, never tear down
 - Add features, don't remove them
 - Complex problems require sophisticated solutions
 - If something doesn't work, we fix it properly
 
 ### 2. **CUTTING-EDGE TECHNOLOGY ONLY**
+
 - Latest frameworks and libraries
 - Advanced animations and interactions
 - AI-powered features
@@ -16,6 +18,7 @@
 - 3D graphics where appropriate
 
 ### 3. **TEST, TEST, TEST**
+
 - Test before every commit
 - Test after every change
 - Test in multiple browsers
@@ -25,12 +28,14 @@
 - SEO testing
 
 ### 4. **GOLD STANDARD QUALITY**
+
 - We set the standard others follow
 - Every feature must be best-in-class
 - No compromises on quality
 - Triple-check everything
 
 ### 5. **INNOVATION FIRST**
+
 - Push boundaries
 - Implement features others haven't thought of
 - Be 2 years ahead of competition

@@ -41,8 +41,8 @@ async function startServer() {
     // Initialize WebSocket server if enabled
     if (process.env.ENABLE_WEBSOCKET !== 'false') {
       try {
-        // Import the compiled WebSocket server
-        const { getChatSocketServer } = require('../dist/src/lib/socket/server.js');
+        // Import the compiled WebSocket server with module-alias setup
+        const { getChatSocketServer } = require('../dist/lib/socket/server-setup.js');
         const chatServer = getChatSocketServer(httpServer);
         console.log('✅ WebSocket server initialized');
 

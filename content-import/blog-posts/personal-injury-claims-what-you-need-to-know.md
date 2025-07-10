@@ -37,11 +37,13 @@ To succeed in a personal injury claim, you must establish four key elements:
 Time limits vary by state and claim type:
 
 **North Carolina:**
+
 - Personal injury: 3 years from the date of injury
 - Medical malpractice: 3 years (with some exceptions)
 - Wrongful death: 2 years
 
 **Florida:**
+
 - Personal injury: 2 years from the date of injury
 - Medical malpractice: 2 years
 - Wrongful death: 2 years
@@ -49,6 +51,7 @@ Time limits vary by state and claim type:
 ### Why Acting Quickly Matters
 
 Beyond legal deadlines, prompt action helps:
+
 - Preserve crucial evidence
 - Locate witnesses while memories are fresh
 - Document injuries before they heal
@@ -59,6 +62,7 @@ Beyond legal deadlines, prompt action helps:
 ### Economic Damages
 
 These are quantifiable losses:
+
 - **Medical Expenses**: Current and future treatment costs
 - **Lost Wages**: Income lost due to injury
 - **Loss of Earning Capacity**: Future income reduction
@@ -68,6 +72,7 @@ These are quantifiable losses:
 ### Non-Economic Damages
 
 These compensate for intangible losses:
+
 - **Pain and Suffering**: Physical discomfort and emotional distress
 - **Loss of Enjoyment**: Inability to participate in activities
 - **Loss of Consortium**: Impact on marital relationship
@@ -122,6 +127,7 @@ Skipping appointments or ignoring medical advice can be used to argue you're not
 ### Initial Investigation
 
 Your attorney will:
+
 - Review all documentation
 - Interview witnesses
 - Consult with experts
@@ -130,6 +136,7 @@ Your attorney will:
 ### Demand and Negotiation
 
 Once you've reached maximum medical improvement:
+
 - A demand letter outlines your damages
 - Negotiations with insurance companies begin
 - Most cases settle during this phase
@@ -137,6 +144,7 @@ Once you've reached maximum medical improvement:
 ### Litigation (If Necessary)
 
 If settlement negotiations fail:
+
 - A lawsuit is filed
 - Discovery process begins
 - Depositions are taken
@@ -149,6 +157,7 @@ If settlement negotiations fail:
 ### Work with Experienced Attorneys
 
 An experienced personal injury attorney can:
+
 - Accurately value your claim
 - Navigate complex legal procedures
 - Negotiate with insurance companies
@@ -157,6 +166,7 @@ An experienced personal injury attorney can:
 ### Document Your Recovery Journey
 
 Keep a daily journal documenting:
+
 - Pain levels and symptoms
 - Impact on daily activities
 - Emotional struggles
@@ -165,6 +175,7 @@ Keep a daily journal documenting:
 ### Consider Future Impacts
 
 Don't settle before understanding:
+
 - Long-term medical needs
 - Permanent limitations
 - Future lost earnings
@@ -203,6 +214,7 @@ Most personal injury attorneys work on contingency – you don't pay unless you 
 ### Peace of Mind
 
 Focus on healing while your attorney handles:
+
 - Legal deadlines and procedures
 - Insurance company tactics
 - Evidence gathering and preservation
@@ -220,4 +232,4 @@ Don't let insurance companies take advantage of you. Call Vasquez Law Firm, PLLC
 
 Remember, there's no fee unless we win your case. Let our experience work for you. Your recovery is our priority, and your fight is our fight.
 
-*This article is for informational purposes only and does not constitute legal advice. Every case is unique, and outcomes depend on specific circumstances. Please consult with a qualified personal injury attorney to discuss your specific situation.*
+_This article is for informational purposes only and does not constitute legal advice. Every case is unique, and outcomes depend on specific circumstances. Please consult with a qualified personal injury attorney to discuss your specific situation._

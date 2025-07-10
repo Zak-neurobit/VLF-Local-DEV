@@ -466,9 +466,9 @@ export class CallRoutingService {
           urgency: options.urgency || 'low',
           routingReason: routeDecision.specialInstructions || 'Standard routing',
           metadata: {
-            routeDecision,
-            originalOptions: options,
-          },
+            routeDecision: routeDecision as any,
+            originalOptions: options as any,
+          } as any,
         },
       });
 
@@ -539,9 +539,6 @@ export class CallRoutingService {
 
       const routings = await prisma.callRouting.findMany({
         where,
-        include: {
-          _count: true,
-        },
       });
 
       // Analyze routing patterns
