@@ -4,6 +4,9 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { logger } from '@/lib/logger';
 
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 export async function POST(_request: NextRequest) {
   try {
     // Check authentication

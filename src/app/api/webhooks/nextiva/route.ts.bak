@@ -1,0 +1,324 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { requestLogger } from '@/lib/logger';
+import { getRetellClient } from '@/services/retell/client';
+import { prisma } from '@/lib/prisma';
+
+interface NextivaWebhookEvent {
+  event: string;
+  timestamp: string;
+  data: {
+    call_id: string;
+    call_sid?: string;
+    from: string;
+    to: string;
+    direction: 'inbound' | 'outbound';
+    status?: string;
+    duration?: number;
+    recording_url?: string;
+    queue?: string;
+    agent?: {
+      id: string;
+      name: string;
+      extension: string;
+    };
+  };
+}
+
+// Mapping of Nextiva queues/extensions to Retell agents
+const QUEUE_TO_AGENT_MAP: Record<string, string> = {
+  'immigration': process.env.RETELL_IMMIGRATION_AGENT_ID || '',
+  'personal_injury': process.env.RETELL_PERSONAL_INJURY_AGENT_ID || '',
+  'criminal_defense': process.env.RETELL_CRIMINAL_DEFENSE_AGENT_ID || '',
+  'workers_comp': process.env.RETELL_WORKERS_COMP_AGENT_ID || '',
+  'general': process.env.RETELL_GENERAL_AGENT_ID || '',
+};
+
+export async function POST(request: NextRequest) {
+  const requestId = requestLogger.incoming(request);
+
+  try {
+    // Verify webhook authenticity (if Nextiva provides a signature)
+    const signature = request.headers.get('x-nextiva-signature');
+    if (signature && !verifyNextivaWebhook(signature, await request.text())) {
+      requestLogger.response(requestId, 401, 0);
+      return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
+    }
+
+    const event: NextivaWebhookEvent = await request.json();
+    
+    requestLogger.middleware(requestId, 'nextiva-webhook', {
+      event: event.event,
+      callId: event.data.call_id,
+    });
+
+    // Handle different Nextiva events
+    switch (event.event) {
+      case 'call.ringing':
+        await handleIncomingCall(event);
+        break;
+      
+      case 'call.answered':
+        await handleCallAnswered(event);
+        break;
+      
+      case 'call.completed':
+        await handleCallCompleted(event);
+        break;
+      
+      case 'call.missed':
+        await handleCallMissed(event);
+        break;
+      
+      case 'voicemail.received':
+        await handleVoicemail(event);
+        break;
+      
+      default:
+        console.log(`Unhandled Nextiva event: ${event.event}`);
+    }
+
+    requestLogger.response(requestId, 200, Date.now());
+    return NextResponse.json({ success: true });
+
+  } catch (error) {
+    requestLogger.middleware(requestId, 'nextiva-webhook-error', error);
+    requestLogger.response(requestId, 500, Date.now());
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+
+async function handleIncomingCall(event: NextivaWebhookEvent) {
+  try {
+    const { from, to, queue } = event.data;
+    
+    // Determine which Retell agent to use based on queue or number
+    const agentId = determineRetellAgent(queue, to);
+    
+    if (!agentId) {
+      console.error('No Retell agent configured for queue:', queue);
+      return;
+    }
+
+    // Create a new Retell call
+    const retellClient = getRetellClient();
+    const retellCall = await retellClient.createCall({
+      agent_id: agentId,
+      from_number: from,
+      to_number: to,
+      metadata: {
+        nextiva_call_id: event.data.call_id,
+        nextiva_call_sid: event.data.call_sid,
+        queue: queue,
+        source: 'nextiva',
+      },
+    });
+
+    // Store the call mapping
+    await prisma.callMapping.create({
+      data: {
+        nextivaCallId: event.data.call_id,
+        retellCallId: retellCall.call_id,
+        createdAt: new Date(),
+      },
+    });
+
+    // Return Retell's phone number for call forwarding
+    return NextResponse.json({
+      action: 'forward',
+      destination: process.env.RETELL_PHONE_NUMBER,
+      retell_call_id: retellCall.call_id,
+    });
+
+  } catch (error) {
+    console.error('Failed to handle incoming call:', error);
+    throw error;
+  }
+}
+
+async function handleCallAnswered(event: NextivaWebhookEvent) {
+  try {
+    // Update call status in our database
+    await prisma.call.updateMany({
+      where: {
+        OR: [
+          { externalCallId: event.data.call_id },
+          { metadata: { path: ['nextiva_call_id'], equals: event.data.call_id } },
+        ],
+      },
+      data: {
+        status: 'active',
+        answeredAt: new Date(event.timestamp),
+        metadata: {
+          agent: event.data.agent,
+        },
+      },
+    });
+
+    // Trigger workflow for call answered
+    await triggerN8NWorkflow('nextiva_call_answered', {
+      callId: event.data.call_id,
+      agent: event.data.agent,
+    });
+
+  } catch (error) {
+    console.error('Failed to handle call answered:', error);
+    throw error;
+  }
+}
+
+async function handleCallCompleted(event: NextivaWebhookEvent) {
+  try {
+    // Update call with completion data
+    await prisma.call.updateMany({
+      where: {
+        OR: [
+          { externalCallId: event.data.call_id },
+          { metadata: { path: ['nextiva_call_id'], equals: event.data.call_id } },
+        ],
+      },
+      data: {
+        status: 'completed',
+        endedAt: new Date(event.timestamp),
+        duration: event.data.duration,
+        metadata: {
+          nextiva_recording_url: event.data.recording_url,
+        },
+      },
+    });
+
+    // If there's a Nextiva recording, we might want to transcribe it
+    if (event.data.recording_url) {
+      await triggerN8NWorkflow('transcribe_nextiva_recording', {
+        callId: event.data.call_id,
+        recordingUrl: event.data.recording_url,
+      });
+    }
+
+  } catch (error) {
+    console.error('Failed to handle call completed:', error);
+    throw error;
+  }
+}
+
+async function handleCallMissed(event: NextivaWebhookEvent) {
+  try {
+    // Create a task for follow-up
+    await prisma.task.create({
+      data: {
+        title: `Follow up on missed call from ${event.data.from}`,
+        type: 'callback',
+        priority: 'high',
+        status: 'pending',
+        metadata: {
+          nextivaCallId: event.data.call_id,
+          fromNumber: event.data.from,
+          toNumber: event.data.to,
+          missedAt: event.timestamp,
+        },
+      },
+    });
+
+    // Trigger workflow for missed call
+    await triggerN8NWorkflow('missed_call_alert', {
+      callId: event.data.call_id,
+      from: event.data.from,
+      to: event.data.to,
+    });
+
+  } catch (error) {
+    console.error('Failed to handle missed call:', error);
+    throw error;
+  }
+}
+
+async function handleVoicemail(event: NextivaWebhookEvent) {
+  try {
+    // Create a high-priority task for voicemail
+    await prisma.task.create({
+      data: {
+        title: `New voicemail from ${event.data.from}`,
+        type: 'voicemail',
+        priority: 'high',
+        status: 'pending',
+        metadata: {
+          nextivaCallId: event.data.call_id,
+          fromNumber: event.data.from,
+          recordingUrl: event.data.recording_url,
+        },
+      },
+    });
+
+    // Trigger transcription and analysis workflow
+    await triggerN8NWorkflow('voicemail_received', {
+      callId: event.data.call_id,
+      from: event.data.from,
+      recordingUrl: event.data.recording_url,
+    });
+
+  } catch (error) {
+    console.error('Failed to handle voicemail:', error);
+    throw error;
+  }
+}
+
+function determineRetellAgent(queue?: string, toNumber?: string): string | null {
+  // First check by queue
+  if (queue && QUEUE_TO_AGENT_MAP[queue]) {
+    return QUEUE_TO_AGENT_MAP[queue];
+  }
+
+  // Then check by phone number patterns
+  if (toNumber) {
+    // Add logic to map specific phone numbers to agents
+    // For example, different toll-free numbers for different services
+  }
+
+  // Default to general agent
+  return QUEUE_TO_AGENT_MAP['general'];
+}
+
+function verifyNextivaWebhook(signature: string, payload: string): boolean {
+  // Implement Nextiva webhook verification
+  // This is a placeholder - actual implementation depends on Nextiva's security
+  const crypto = require('crypto');
+  const secret = process.env.NEXTIVA_WEBHOOK_SECRET || '';
+  
+  const expectedSignature = crypto
+    .createHmac('sha256', secret)
+    .update(payload)
+    .digest('hex');
+  
+  return signature === expectedSignature;
+}
+
+async function triggerN8NWorkflow(workflowName: string, data: any) {
+  try {
+    const n8nWebhookUrl = process.env.N8N_WEBHOOK_BASE_URL;
+    if (!n8nWebhookUrl) {
+      console.warn('N8N_WEBHOOK_BASE_URL not configured');
+      return;
+    }
+
+    const response = await fetch(`${n8nWebhookUrl}/${workflowName}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        event: workflowName,
+        data,
+        timestamp: new Date().toISOString(),
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`n8n workflow trigger failed: ${response.statusText}`);
+    }
+
+  } catch (error) {
+    console.error('Failed to trigger n8n workflow:', error);
+  }
+}

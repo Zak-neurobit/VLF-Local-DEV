@@ -7,6 +7,8 @@ import { PaymentStatus, PaymentGateway, PaymentMethod } from '@prisma/client';
 import { emailQueue } from '@/lib/queue/bull';
 import type { PaymentPlanMetadata } from '@/types/api';
 
+
+export const dynamic = 'force-dynamic';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16',
 });

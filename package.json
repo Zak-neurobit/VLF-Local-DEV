@@ -48,6 +48,8 @@
     "crews:launch": "tsx scripts/launch-autonomous-system.ts",
     "crews:launch:background": "nohup tsx scripts/launch-autonomous-system.ts > logs/crews.log 2>&1 &",
     "crews:demo": "tsx scripts/demo-crews-working.ts",
+    "fix:dynamic": "tsx scripts/fix-dynamic-server-usage.ts",
+    "verify:dynamic": "tsx scripts/verify-dynamic-fixes.ts",
     "crews:simple": "tsx scripts/simple-crew-startup.ts",
     "validate-env": "node scripts/validate-env.js",
     "deploy": "./scripts/deploy.sh",

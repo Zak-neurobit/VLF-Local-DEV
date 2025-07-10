@@ -4,6 +4,8 @@ import { logger } from '@/lib/logger';
 import { z } from 'zod';
 import { rateLimit } from '@/lib/rate-limiter';
 
+
+export const dynamic = 'force-dynamic';
 // Rate limiter for lead capture (prevent spam)
 const limiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute

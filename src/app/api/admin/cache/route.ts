@@ -3,6 +3,9 @@ import { cache, redis } from '@/lib/cache';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
   try {
     // Check admin authentication

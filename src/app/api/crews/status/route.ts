@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { CrewCoordinator } from '@/lib/crewai/enhanced-crew-coordinator';
 import { logger } from '@/lib/logger';
 
+
+export const dynamic = 'force-dynamic';
 export async function GET(_request: NextRequest): Promise<NextResponse> {
   try {
     const crewCoordinator = CrewCoordinator.getInstance();

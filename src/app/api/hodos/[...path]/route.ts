@@ -3,6 +3,9 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { logger } from '@/lib/logger';
 
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 const HODOS_API_URL = process.env.HODOS_API_URL || 'http://localhost:3001';
 const HODOS_API_KEY = process.env.HODOS_API_KEY || '';
 

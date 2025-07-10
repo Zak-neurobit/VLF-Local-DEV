@@ -5,6 +5,9 @@ import { emailService } from '@/services/email';
 import { z } from 'zod';
 import { logger } from '@/lib/logger';
 
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 // Validation schema
 const sendEmailSchema = z.object({
   to: z.union([z.string().email(), z.array(z.string().email())]),

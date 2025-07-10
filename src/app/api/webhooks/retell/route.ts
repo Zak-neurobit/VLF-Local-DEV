@@ -8,6 +8,8 @@ import { recordingManager } from '@/services/retell/recording-manager';
 import { retellErrorHandler } from '@/services/retell/error-handler';
 import type { RetellCallAnalysis, RetellCallMetadata } from '@/types/api';
 
+
+export const dynamic = 'force-dynamic';
 interface RetellWebhookEvent {
   event: string;
   call?: {

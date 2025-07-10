@@ -9,6 +9,9 @@ import { AgentOrchestrator } from '@/lib/agents/agent-orchestrator';
 import { ghlChatSync } from '@/services/gohighlevel/chat-sync';
 import { ghlService } from '@/services/gohighlevel';
 
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 // Initialize OpenAI client
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
