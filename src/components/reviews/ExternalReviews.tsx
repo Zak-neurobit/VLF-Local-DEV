@@ -321,7 +321,7 @@ export default function ExternalReviews({
               </div>
 
               {/* Review Text */}
-              <p className="text-gray-700 leading-relaxed mb-4">"{review.text}"</p>
+              <p className="text-gray-700 leading-relaxed mb-4">&ldquo;{review.text}&rdquo;</p>
 
               {/* Review Footer */}
               <div className="flex items-center justify-between text-sm text-gray-500">
