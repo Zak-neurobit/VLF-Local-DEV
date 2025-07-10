@@ -44,7 +44,7 @@ interface ContentGap {
   };
 }
 
-type SchemaMarkup = SchemaOrgData;
+type SchemaMarkup = SchemaOrgFAQ;
 
 export class SEOAgent {
   private openai: OpenAI;
@@ -648,7 +648,7 @@ export class SEOAgent {
         '@id': `${this.baseUrl}/#organization`,
       },
       description: data.bio,
-      alumniOf: (data.education as Array<{ name: string }>)?.map((edu) => ({
+      alumniOf: (data.education as Array<{ name: string }>)?.map(edu => ({
         '@type': 'EducationalOrganization',
         name: edu.name,
       })),
@@ -658,7 +658,7 @@ export class SEOAgent {
         name: 'Attorney',
         occupationalCategory: '23-1011.00',
       },
-      memberOf: (data.associations as Array<{ name: string }>)?.map((assoc) => ({
+      memberOf: (data.associations as Array<{ name: string }>)?.map(assoc => ({
         '@type': 'Organization',
         name: assoc,
       })),
@@ -696,7 +696,7 @@ export class SEOAgent {
       ...(data.faqSection && {
         hasPart: {
           '@type': 'FAQPage',
-          mainEntity: (data.faqSection as Array<{ question: string; answer: string }>).map((faq) => ({
+          mainEntity: (data.faqSection as Array<{ question: string; answer: string }>).map(faq => ({
             '@type': 'Question',
             name: faq.question,
             acceptedAnswer: {
@@ -714,7 +714,7 @@ export class SEOAgent {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity:
-        (data.questions as Array<{ question: string; answer: string }>)?.map((item) => ({
+        (data.questions as Array<{ question: string; answer: string }>)?.map(item => ({
           '@type': 'Question',
           name: item.question,
           acceptedAnswer: {
@@ -807,14 +807,16 @@ export class SEOAgent {
         '@type': 'OfferCatalog',
         name: `${data.name} Services`,
         itemListElement:
-          (data.services as Array<{ name: string; description: string; price?: string }>)?.map((service) => ({
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: service.name,
-              description: service.description,
-            },
-          })) || [],
+          (data.services as Array<{ name: string; description: string; price?: string }>)?.map(
+            service => ({
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: service.name,
+                description: service.description,
+              },
+            })
+          ) || [],
       },
     };
   }
@@ -833,23 +835,25 @@ export class SEOAgent {
         value: data.cost,
       },
       supply:
-        (data.supplies as Array<{ name: string }>)?.map((supply) => ({
+        (data.supplies as Array<{ name: string }>)?.map(supply => ({
           '@type': 'HowToSupply',
           name: supply,
         })) || [],
       tool:
-        (data.tools as Array<{ name: string }>)?.map((tool) => ({
+        (data.tools as Array<{ name: string }>)?.map(tool => ({
           '@type': 'HowToTool',
           name: tool,
         })) || [],
       step:
-        (data.steps as Array<{ name: string; text?: string; url?: string; image?: string }>)?.map((step, index) => ({
-          '@type': 'HowToStep',
-          name: step.name,
-          text: step.text,
-          image: step.image,
-          url: `${this.baseUrl}#step${index + 1}`,
-        })) || [],
+        (data.steps as Array<{ name: string; text?: string; url?: string; image?: string }>)?.map(
+          (step, index) => ({
+            '@type': 'HowToStep',
+            name: step.name,
+            text: step.text,
+            image: step.image,
+            url: `${this.baseUrl}#step${index + 1}`,
+          })
+        ) || [],
     };
   }
 
@@ -1166,13 +1170,15 @@ export class SEOAgent {
     return topPages;
   }
 
-  private async extractContentStrategy(topPages: Array<{
-    url: string;
-    title: string;
-    description?: string;
-    keywords?: string[];
-    traffic?: number;
-  }>): Promise<{
+  private async extractContentStrategy(
+    topPages: Array<{
+      url: string;
+      title: string;
+      description?: string;
+      keywords?: string[];
+      traffic?: number;
+    }>
+  ): Promise<{
     topKeywords: string[];
     contentTypes: string[];
     publishingFrequency: string;
@@ -1458,7 +1464,11 @@ export class SEOAgent {
     engagement?: { likes?: number; shares?: number; comments?: number };
     views?: number;
   }): boolean {
-    const engagementRate = ((post.engagement?.likes || 0) + (post.engagement?.comments || 0) + (post.engagement?.shares || 0)) / (post.views || 1);
+    const engagementRate =
+      ((post.engagement?.likes || 0) +
+        (post.engagement?.comments || 0) +
+        (post.engagement?.shares || 0)) /
+      (post.views || 1);
     return engagementRate > 0.05 || (post.views || 0) > 10000;
   }
 

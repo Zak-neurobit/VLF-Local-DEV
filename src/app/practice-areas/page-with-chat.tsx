@@ -231,7 +231,6 @@ export default function PracticeAreasPage() {
 
   return (
     <div className="min-h-screen bg-white">
-
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-gray-50 to-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -382,7 +381,8 @@ export default function PracticeAreasPage() {
               name: 'North Carolina',
             },
             url: 'https://www.vasquezlawfirm.com/practice-areas',
-            description: 'Comprehensive legal services in North Carolina. Free consultation. Se habla español.',
+            description:
+              'Comprehensive legal services in North Carolina. Free consultation. Se habla español.',
           }),
         }}
       />

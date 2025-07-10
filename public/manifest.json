@@ -1,84 +1,21 @@
 {
-  "name": "Vasquez Law Firm - NC's ELITE Legal Warriors | YO PELEO POR TI",
-  "short_name": "Vasquez Law",
-  "description": "EMERGENCY legal help 24/7! NC's MOST AGGRESSIVE law firm. Immigration, injury, criminal defense. 98% WIN rate. Call NOW: 1-844-YO-PELEO",
-  "start_url": "/?utm_source=pwa&utm_medium=homescreen",
+  "name": "Vasquez Law Firm",
+  "short_name": "VLF",
+  "description": "Immigration & Personal Injury Attorneys",
+  "start_url": "/",
   "display": "standalone",
-  "theme_color": "#C9974D",
-  "background_color": "#000000",
+  "background_color": "#ffffff",
+  "theme_color": "#6B1F2E",
   "icons": [
     {
-      "src": "/images/LOGO_TRANS.PNG",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "/images/LOGO_TRANS.PNG",
+      "src": "/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/favicon-32x32.png",
-      "sizes": "32x32",
-      "type": "image/png"
-    },
-    {
-      "src": "/favicon-16x16.png",
-      "sizes": "16x16",
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "categories": ["legal", "business", "utilities"],
-  "lang": "en-US",
-  "dir": "ltr",
-  "orientation": "portrait",
-  "shortcuts": [
-    {
-      "name": "🚨 EMERGENCY Legal Help",
-      "short_name": "Emergency",
-      "description": "Get IMMEDIATE legal assistance NOW",
-      "url": "/contact?emergency=true&utm_source=pwa_shortcut",
-      "icons": [{"src": "/images/LOGO_TRANS.PNG", "sizes": "96x96"}]
-    },
-    {
-      "name": "⚡ Immigration Crisis",
-      "short_name": "Immigration",
-      "description": "URGENT deportation defense",
-      "url": "/practice-areas/immigration?urgent=true",
-      "icons": [{"src": "/images/LOGO_TRANS.PNG", "sizes": "96x96"}]
-    },
-    {
-      "name": "📍 Office Near Me",
-      "short_name": "Near Me",
-      "description": "Find help near you NOW",
-      "url": "/near-me",
-      "icons": [{"src": "/images/LOGO_TRANS.PNG", "sizes": "96x96"}]
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/images/screenshot-desktop.jpg",
-      "sizes": "1920x1080",
-      "type": "image/jpeg",
-      "label": "Elite Legal Team Ready to FIGHT"
-    },
-    {
-      "src": "/images/screenshot-mobile.jpg",
-      "sizes": "750x1334",
-      "type": "image/jpeg",
-      "label": "24/7 Emergency Legal Help"
-    }
-  ],
-  "prefer_related_applications": false,
-  "scope": "/",
-  "share_target": {
-    "action": "/share",
-    "method": "POST",
-    "enctype": "multipart/form-data",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
-    }
-  }
+  ]
 }

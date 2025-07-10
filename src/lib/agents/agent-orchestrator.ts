@@ -63,7 +63,7 @@ export class AgentOrchestrator extends EventEmitter {
   private agentMemory: Map<string, AgentMemory>;
   private messageQueue: InterAgentMessage[];
   private performanceMetrics: Map<string, AgentPerformanceMetrics>;
-  private concurrencyLimit: pLimit.Limit;
+  private concurrencyLimit: ReturnType<typeof pLimit>;
   private static instance: AgentOrchestrator;
   private parallelProcessingEnabled: boolean = false;
   private maxConcurrentRequests: number = 10;
@@ -115,7 +115,7 @@ export class AgentOrchestrator extends EventEmitter {
     safeRegister('business', () => new BusinessImmigrationAgent(), 'crewai');
     safeRegister('criminal', () => new CriminalDefenseAgent(), 'crewai');
     safeRegister('aila', () => new AILATrainedRemovalDefenseAgent(), 'crewai');
-    
+
     // Initialize automation agents
     safeRegister('lead-validation', () => new LeadValidationAgent(), 'automation');
     safeRegister('follow-up', () => new FollowUpAutomationAgent(), 'automation');
@@ -129,8 +129,8 @@ export class AgentOrchestrator extends EventEmitter {
     });
 
     // Emit initialization event
-    this.emit('agents-initialized', { 
-      count: this.agents.size, 
+    this.emit('agents-initialized', {
+      count: this.agents.size,
       success: initResults.success,
       failed: initResults.failed,
       hasErrors: initResults.failed.length > 0,
@@ -171,7 +171,7 @@ export class AgentOrchestrator extends EventEmitter {
 
   async routeMessage(message: string, context: AgentContext): Promise<AgentResponse> {
     const startTime = Date.now();
-    
+
     try {
       // Check if orchestrator is properly initialized
       if (this.agents.size === 0) {
@@ -207,9 +207,9 @@ export class AgentOrchestrator extends EventEmitter {
 
       // Execute with parallel processing if enabled
       let response: AgentResponse;
-      
+
       if (this.parallelProcessingEnabled) {
-        response = await this.concurrencyLimit(() => 
+        response = await this.concurrencyLimit(() =>
           this.executeAgent(agentName, message, context)
         );
       } else {
@@ -218,7 +218,7 @@ export class AgentOrchestrator extends EventEmitter {
 
       // Update metrics
       this.updateAgentMetrics(agentName, true, Date.now() - startTime);
-      
+
       // Store in agent memory
       this.updateAgentMemory(agentName, context.sessionId, {
         message,
@@ -229,7 +229,7 @@ export class AgentOrchestrator extends EventEmitter {
       return response;
     } catch (error) {
       logger.error('Agent orchestration error:', error);
-      
+
       // Update error metrics safely
       try {
         const intent = await this.analyzeIntent(message, context);
@@ -240,7 +240,7 @@ export class AgentOrchestrator extends EventEmitter {
       } catch (metricsError) {
         logger.error('Failed to update error metrics:', metricsError);
       }
-      
+
       return this.getFallbackResponse(context.language);
     }
   }
@@ -251,7 +251,7 @@ export class AgentOrchestrator extends EventEmitter {
       response:
         language === 'es'
           ? 'Disculpa, estoy teniendo dificultades técnicas. Por favor llama a nuestra oficina al (888) 979-8990 para asistencia inmediata.'
-          : 'I apologize, but I\'m experiencing technical difficulties. Please contact our office directly at (888) 979-8990 for immediate assistance.',
+          : "I apologize, but I'm experiencing technical difficulties. Please contact our office directly at (888) 979-8990 for immediate assistance.",
       actions: [
         {
           type: 'show-contact',
@@ -290,7 +290,7 @@ export class AgentOrchestrator extends EventEmitter {
 
   private async processInterAgentMessage(message: InterAgentMessage) {
     const targetAgent = this.agents.get(message.to);
-    
+
     if (!targetAgent) {
       logger.warn(`Target agent ${message.to} not found for message from ${message.from}`);
       return;
@@ -315,13 +315,13 @@ export class AgentOrchestrator extends EventEmitter {
     if (memory) {
       memory.workingMemory.push(message);
       memory.lastAccessed = new Date();
-      
+
       // Limit working memory size
       if (memory.workingMemory.length > 100) {
         memory.workingMemory.shift();
       }
     }
-    
+
     this.emit('message-delivered', { agent: agentName, message });
   }
 
@@ -334,7 +334,7 @@ export class AgentOrchestrator extends EventEmitter {
       memory.longTerm.set(key, value);
     } else {
       memory.shortTerm.set(key, value);
-      
+
       // Clear old short-term memories (older than 1 hour)
       const oneHourAgo = Date.now() - 3600000;
       for (const [k, v] of memory.shortTerm) {
@@ -343,7 +343,7 @@ export class AgentOrchestrator extends EventEmitter {
         }
       }
     }
-    
+
     memory.lastAccessed = new Date();
   }
 
@@ -366,12 +366,12 @@ export class AgentOrchestrator extends EventEmitter {
     } else {
       metrics.errorCount++;
     }
-    
+
     metrics.lastResponseTime = responseTime;
-    metrics.averageResponseTime = 
-      (metrics.averageResponseTime * (metrics.requestCount - 1) + responseTime) / 
+    metrics.averageResponseTime =
+      (metrics.averageResponseTime * (metrics.requestCount - 1) + responseTime) /
       metrics.requestCount;
-    
+
     this.emit('metrics-updated', { agent: agentName, metrics });
   }
 
@@ -381,11 +381,11 @@ export class AgentOrchestrator extends EventEmitter {
 
   getAllMetrics(): Record<string, AgentPerformanceMetrics> {
     const allMetrics: Record<string, AgentPerformanceMetrics> = {};
-    
+
     for (const [agentName, metrics] of this.performanceMetrics) {
       allMetrics[agentName] = metrics;
     }
-    
+
     return allMetrics;
   }
 
@@ -785,9 +785,7 @@ export class AgentOrchestrator extends EventEmitter {
 
     // Analyze message queue and agent memories
     for (const [agentName, memory] of this.agentMemory) {
-      const agentMessages = memory.workingMemory.filter(
-        (item: any) => item.from || item.to
-      ).length;
+      const agentMessages = memory.workingMemory.filter((item: any) => item.from || item.to).length;
       stats.messagesByAgent[agentName] = agentMessages;
       stats.totalMessages += agentMessages;
     }

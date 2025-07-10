@@ -9,7 +9,17 @@ import Image from 'next/image';
 const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
   ssr: false,
 });
-import { Globe, Scale, Phone, ArrowRight, Award, Users, Shield, Star, Briefcase } from 'lucide-react';
+import {
+  Globe,
+  Scale,
+  Phone,
+  ArrowRight,
+  Award,
+  Users,
+  Shield,
+  Star,
+  Briefcase,
+} from 'lucide-react';
 import { generateAttorneySchema } from '@/components/SEO/schemas';
 import { attorneys } from '@/data/attorneys';
 import { TRADEMARK } from '@/lib/constants/trademark';
@@ -17,6 +27,18 @@ import { TRADEMARK } from '@/lib/constants/trademark';
 interface AttorneysPageContentProps {
   language: 'en' | 'es';
 }
+
+const attorneySlugMap: Record<string, string> = {
+  'william-vasquez': 'william-vasquez',
+  'adrianna-ingram': 'adrianna-ingram',
+  'christopher-afanador': 'christopher-afanador',
+  'jillian-baucom': 'jillian-baucom',
+  'kelly-vega': 'kelly-vega',
+  'mark-kelsey': 'mark-kelsey',
+  'rebecca-sommer': 'rebecca-sommer',
+  'roselyn-torrellas': 'roselyn-v-torrellas', // Note the different slug
+  'judith-parkes': 'judith-parkes',
+};
 
 export default function AttorneysPageContent({ language }: AttorneysPageContentProps) {
   const [hoveredAttorney, setHoveredAttorney] = useState<string | null>(null);
@@ -174,12 +196,16 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4">
                       <h3 className="text-2xl font-bold text-white">{attorney.name}</h3>
-                      <p className="text-primary font-semibold">{isSpanish ? attorney.titleEs : attorney.title}</p>
+                      <p className="text-primary font-semibold">
+                        {isSpanish ? attorney.titleEs : attorney.title}
+                      </p>
                     </div>
                   </div>
-                  
+
                   <div className="p-6 relative">
-                    <p className="text-gray-400 mb-4 line-clamp-3">{isSpanish ? attorney.bioEs : attorney.bio}</p>
+                    <p className="text-gray-400 mb-4 line-clamp-3">
+                      {isSpanish ? attorney.bioEs : attorney.bio}
+                    </p>
 
                     {/* Practice Areas with Modern Pills */}
                     <div className="mb-4">
@@ -211,7 +237,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                     )}
 
                     <Link
-                      href={`/attorneys/${attorney.slug}`}
+                      href={`/attorneys/${attorneySlugMap[attorney.slug || attorney.id] || attorney.slug || attorney.id}`}
                       className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black rounded-full hover:bg-primary-300 transition-all font-bold group-hover:scale-105"
                     >
                       {t.viewProfile}
@@ -249,10 +275,30 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
 
           <div className="grid md:grid-cols-4 gap-8">
             {[
-              { icon: <Award className="w-8 h-8" />, text: t.experience, value: '35+', metric: 'Years' },
-              { icon: <Shield className="w-8 h-8" />, text: t.technology, value: 'Elite', metric: 'Status' },
-              { icon: <Globe className="w-8 h-8" />, text: t.bilingual, value: '2', metric: 'Languages' },
-              { icon: <Users className="w-8 h-8" />, text: t.results, value: '30K+', metric: 'Cases Won' },
+              {
+                icon: <Award className="w-8 h-8" />,
+                text: t.experience,
+                value: '35+',
+                metric: 'Years',
+              },
+              {
+                icon: <Shield className="w-8 h-8" />,
+                text: t.technology,
+                value: 'Elite',
+                metric: 'Status',
+              },
+              {
+                icon: <Globe className="w-8 h-8" />,
+                text: t.bilingual,
+                value: '2',
+                metric: 'Languages',
+              },
+              {
+                icon: <Users className="w-8 h-8" />,
+                text: t.results,
+                value: '30K+',
+                metric: 'Cases Won',
+              },
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -265,7 +311,9 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                 <div className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 text-center">
                   <div className="text-primary mb-4 flex justify-center">{item.icon}</div>
                   <div className="text-4xl font-black text-primary mb-1">{item.value}</div>
-                  <div className="text-xs text-primary uppercase tracking-wider mb-2">{item.metric}</div>
+                  <div className="text-xs text-primary uppercase tracking-wider mb-2">
+                    {item.metric}
+                  </div>
                   <h3 className="font-bold text-white">{item.text}</h3>
                 </div>
               </motion.div>
@@ -295,7 +343,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
               {
                 icon: <Star className="w-12 h-12" />,
                 title: isSpanish ? 'Reconocimiento Elite' : 'Elite Recognition',
-                description: isSpanish 
+                description: isSpanish
                   ? 'Abogados de primera categoría con premios prestigiosos y reconocimiento de pares'
                   : 'Top-rated attorneys with prestigious awards and peer recognition',
               },
@@ -357,7 +405,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
               </span>
             </h2>
             <p className="text-xl text-gray-300 mb-8">{t.cta.description}</p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"

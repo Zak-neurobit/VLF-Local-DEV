@@ -9,7 +9,8 @@ export const metadata: Metadata = {
   title: 'Raleigh NC Immigration & Injury Lawyers | Vasquez Law Firm Office',
   description:
     'Visit our Raleigh NC law office for immigration, personal injury, workers comp & criminal defense. Free consultations. Open M-F 8:30-5:30. Call 919-755-9425.',
-  keywords: 'Raleigh immigration lawyer, Raleigh personal injury attorney, Raleigh NC law office, Vasquez Law Firm Raleigh',
+  keywords:
+    'Raleigh immigration lawyer, Raleigh personal injury attorney, Raleigh NC law office, Vasquez Law Firm Raleigh',
   openGraph: {
     title: 'Raleigh NC Office - Vasquez Law Firm',
     description:
@@ -35,39 +36,39 @@ const raleighOfficeSchema = {
     addressLocality: 'Raleigh',
     addressRegion: 'NC',
     postalCode: '27616',
-    addressCountry: 'US'
+    addressCountry: 'US',
   },
   geo: {
     '@type': 'GeoCoordinates',
     latitude: 35.8486,
-    longitude: -78.5755
+    longitude: -78.5755,
   },
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
       opens: '08:30',
-      closes: '17:30'
-    }
+      closes: '17:30',
+    },
   ],
   areaServed: [
     {
       '@type': 'City',
       name: 'Raleigh',
-      '@id': 'https://en.wikipedia.org/wiki/Raleigh,_North_Carolina'
+      '@id': 'https://en.wikipedia.org/wiki/Raleigh,_North_Carolina',
     },
     {
       '@type': 'AdministrativeArea',
-      name: 'Wake County'
+      name: 'Wake County',
     },
     {
       '@type': 'AdministrativeArea',
-      name: 'Durham County'
+      name: 'Durham County',
     },
     {
       '@type': 'AdministrativeArea',
-      name: 'Johnston County'
-    }
+      name: 'Johnston County',
+    },
   ],
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
@@ -78,34 +79,34 @@ const raleighOfficeSchema = {
         itemOffered: {
           '@type': 'Service',
           name: 'Immigration Law',
-          description: 'Green cards, visas, citizenship, deportation defense'
-        }
+          description: 'Green cards, visas, citizenship, deportation defense',
+        },
       },
       {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
           name: 'Personal Injury',
-          description: 'Car accidents, slip & fall, medical malpractice'
-        }
+          description: 'Car accidents, slip & fall, medical malpractice',
+        },
       },
       {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
           name: 'Workers Compensation',
-          description: 'Workplace injuries, disability claims'
-        }
+          description: 'Workplace injuries, disability claims',
+        },
       },
       {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
           name: 'Criminal Defense',
-          description: 'DWI, drug charges, assault, theft'
-        }
-      }
-    ]
+          description: 'DWI, drug charges, assault, theft',
+        },
+      },
+    ],
   },
   review: [
     {
@@ -113,22 +114,23 @@ const raleighOfficeSchema = {
       reviewRating: {
         '@type': 'Rating',
         ratingValue: '5',
-        bestRating: '5'
+        bestRating: '5',
       },
       author: {
         '@type': 'Person',
-        name: 'Maria G.'
+        name: 'Maria G.',
       },
-      reviewBody: 'Excellent immigration lawyers. They helped me get my green card after years of waiting.'
-    }
+      reviewBody:
+        'Excellent immigration lawyers. They helped me get my green card after years of waiting.',
+    },
   ],
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '4.9',
     reviewCount: '127',
     bestRating: '5',
-    worstRating: '1'
-  }
+    worstRating: '1',
+  },
 };
 
 export default function RaleighLocationPage() {
@@ -137,15 +139,19 @@ export default function RaleighLocationPage() {
   return (
     <>
       <StructuredData data={raleighOfficeSchema} />
-      
+
       <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-brand-charcoal via-brand-crimson to-brand-charcoal text-white py-20">
           <div className="absolute inset-0 bg-black/20" />
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-5xl mx-auto text-center">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">Raleigh Immigration & Injury Law Office</h1>
-              <p className="text-xl md:text-2xl mb-8 text-gold-200">Serving Wake County & The Triangle Since 1993</p>
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                Raleigh Immigration & Injury Law Office
+              </h1>
+              <p className="text-xl md:text-2xl mb-8 text-gold-200">
+                Serving Wake County & The Triangle Since 1993
+              </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link
                   href="/contact"
@@ -175,17 +181,18 @@ export default function RaleighLocationPage() {
                   <Building className="w-8 h-8 mr-3 text-brand-crimson" />
                   Raleigh Office Information
                 </h2>
-                
+
                 <div className="space-y-6">
                   <div className="flex items-start">
                     <MapPin className="w-6 h-6 text-brand-crimson mt-1 mr-4 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg mb-2">Office Address</h3>
                       <p className="text-gray-600">
-                        4426 Louisburg Road<br />
+                        4426 Louisburg Road
+                        <br />
                         Raleigh, NC 27616
                       </p>
-                      <a 
+                      <a
                         href="https://maps.google.com/?q=4426+Louisburg+Road+Raleigh+NC+27616"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -201,8 +208,22 @@ export default function RaleighLocationPage() {
                     <div>
                       <h3 className="font-semibold text-lg mb-2">Phone Numbers</h3>
                       <p className="text-gray-600">
-                        Main: <a href="tel:919-755-9425" className="text-brand-crimson hover:text-brand-gold font-medium">(919) 755-9425</a><br />
-                        Toll-Free: <a href="tel:844-967-3536" className="text-brand-crimson hover:text-brand-gold font-medium">1-844-YO-PELEO</a><br />
+                        Main:{' '}
+                        <a
+                          href="tel:919-755-9425"
+                          className="text-brand-crimson hover:text-brand-gold font-medium"
+                        >
+                          (919) 755-9425
+                        </a>
+                        <br />
+                        Toll-Free:{' '}
+                        <a
+                          href="tel:844-967-3536"
+                          className="text-brand-crimson hover:text-brand-gold font-medium"
+                        >
+                          1-844-YO-PELEO
+                        </a>
+                        <br />
                         Fax: (919) 755-9426
                       </p>
                     </div>
@@ -213,9 +234,15 @@ export default function RaleighLocationPage() {
                     <div>
                       <h3 className="font-semibold text-lg mb-2">Office Hours</h3>
                       <div className="text-gray-600">
-                        <p><strong>Monday - Friday:</strong> 8:30 AM - 5:30 PM</p>
-                        <p><strong>Saturday:</strong> By Appointment Only</p>
-                        <p><strong>Sunday:</strong> Closed</p>
+                        <p>
+                          <strong>Monday - Friday:</strong> 8:30 AM - 5:30 PM
+                        </p>
+                        <p>
+                          <strong>Saturday:</strong> By Appointment Only
+                        </p>
+                        <p>
+                          <strong>Sunday:</strong> Closed
+                        </p>
                         <p className="mt-2 text-sm">*24/7 Emergency Line Available*</p>
                       </div>
                     </div>
@@ -225,8 +252,8 @@ export default function RaleighLocationPage() {
                     <Mail className="w-6 h-6 text-brand-crimson mt-1 mr-4 flex-shrink-0" />
                     <div>
                       <h3 className="font-semibold text-lg mb-2">Email</h3>
-                      <a 
-                        href="mailto:raleigh@vasquezlawnc.com" 
+                      <a
+                        href="mailto:raleigh@vasquezlawnc.com"
                         className="text-brand-crimson hover:text-brand-gold"
                       >
                         raleigh@vasquezlawnc.com
@@ -270,8 +297,8 @@ export default function RaleighLocationPage() {
                       'Workers Compensation',
                       'Criminal Defense',
                       'Family Law',
-                      'Traffic Violations'
-                    ].map((area) => (
+                      'Traffic Violations',
+                    ].map(area => (
                       <Link
                         key={area}
                         href={`/practice-areas/${area.toLowerCase().replace(' ', '-')}`}
@@ -319,11 +346,11 @@ export default function RaleighLocationPage() {
             <h2 className="text-3xl font-bold text-center text-brand-charcoal mb-12">
               Find Our Raleigh Office
             </h2>
-            
+
             {/* Google Map */}
             <div className="max-w-6xl mx-auto">
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                <GoogleMap 
+                <GoogleMap
                   address="4426 Louisburg Road, Raleigh, NC 27616"
                   lat={35.8438}
                   lng={-78.7206}
@@ -333,7 +360,7 @@ export default function RaleighLocationPage() {
                   height="500px"
                 />
               </div>
-              
+
               {/* Parking & Accessibility Info */}
               <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="bg-white rounded-xl shadow-lg p-6">
@@ -348,7 +375,7 @@ export default function RaleighLocationPage() {
                     <li>• Covered parking for rainy days</li>
                   </ul>
                 </div>
-                
+
                 <div className="bg-white rounded-xl shadow-lg p-6">
                   <h3 className="font-semibold text-xl mb-4 flex items-center">
                     <FileText className="w-6 h-6 mr-2 text-brand-crimson" />
@@ -375,11 +402,20 @@ export default function RaleighLocationPage() {
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {[
-                  'Raleigh', 'Cary', 'Apex', 'Holly Springs',
-                  'Morrisville', 'Wake Forest', 'Garner', 'Knightdale',
-                  'Fuquay-Varina', 'Clayton', 'Durham', 'Chapel Hill'
-                ].map((city) => (
-                  <div 
+                  'Raleigh',
+                  'Cary',
+                  'Apex',
+                  'Holly Springs',
+                  'Morrisville',
+                  'Wake Forest',
+                  'Garner',
+                  'Knightdale',
+                  'Fuquay-Varina',
+                  'Clayton',
+                  'Durham',
+                  'Chapel Hill',
+                ].map(city => (
+                  <div
                     key={city}
                     className="bg-gray-50 px-4 py-3 rounded-lg text-gray-700 font-medium"
                   >
@@ -388,7 +424,8 @@ export default function RaleighLocationPage() {
                 ))}
               </div>
               <p className="mt-8 text-gray-600">
-                Can't make it to our office? We offer virtual consultations and can come to you for serious injury cases.
+                Can&apos;t make it to our office? We offer virtual consultations and can come to you
+                for serious injury cases.
               </p>
             </div>
           </div>
@@ -397,11 +434,10 @@ export default function RaleighLocationPage() {
         {/* CTA Section */}
         <section className="bg-gradient-to-r from-brand-crimson to-brand-charcoal text-white py-16">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Discuss Your Case?
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Discuss Your Case?</h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Our Raleigh attorneys are ready to fight for you. Schedule your free consultation today.
+              Our Raleigh attorneys are ready to fight for you. Schedule your free consultation
+              today.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link

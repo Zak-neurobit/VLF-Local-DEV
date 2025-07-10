@@ -41,24 +41,39 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
   const practiceAreaLinks = [
     {
       name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
-      href: '/practice-areas/immigration',
+      href: { en: '/practice-areas/immigration', es: '/es/areas-de-practica/inmigracion' },
     },
     {
       name: { en: 'Personal Injury', es: 'Lesiones Personales' },
-      href: '/practice-areas/personal-injury',
+      href: {
+        en: '/practice-areas/personal-injury',
+        es: '/es/areas-de-practica/lesiones-personales',
+      },
     },
     {
       name: { en: 'Workers Compensation', es: 'Compensación Laboral' },
-      href: '/practice-areas/workers-compensation',
+      href: {
+        en: '/practice-areas/workers-compensation',
+        es: '/es/areas-de-practica/compensacion-laboral',
+      },
     },
     {
       name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
-      href: '/practice-areas/criminal-defense',
+      href: {
+        en: '/practice-areas/criminal-defense',
+        es: '/es/areas-de-practica/defensa-criminal',
+      },
     },
-    { name: { en: 'Family Law', es: 'Derecho Familiar' }, href: '/practice-areas/family-law' },
+    {
+      name: { en: 'Family Law', es: 'Derecho Familiar' },
+      href: { en: '/practice-areas/family-law', es: '/es/areas-de-practica/derecho-familia' },
+    },
     {
       name: { en: 'Traffic Violations', es: 'Infracciones de Tráfico' },
-      href: '/practice-areas/traffic-violations',
+      href: {
+        en: '/practice-areas/traffic-violations',
+        es: '/es/areas-de-practica/infracciones-transito',
+      },
     },
   ];
 
@@ -127,7 +142,7 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
               <p className="text-gray-400 text-sm">
                 {language === 'es'
                   ? 'Más de 35 años de experiencia combinada luchando por los derechos de nuestros clientes.'
-                  : 'Over 35 years of combined experience fighting for our clients\' rights.'}
+                  : "Over 35 years of combined experience fighting for our clients' rights."}
               </p>
             </div>
 
@@ -136,9 +151,9 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
               <h3 className="text-lg font-semibold mb-4">{t.practiceAreas}</h3>
               <ul className="space-y-2">
                 {practiceAreaLinks.map(area => (
-                  <li key={area.href}>
+                  <li key={area.href.en}>
                     <Link
-                      href={area.href}
+                      href={area.href[language]}
                       className="text-neutral-400 hover:text-primary-400 transition-colors text-sm"
                     >
                       {area.name[language]}
@@ -241,13 +256,13 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
               </p>
               <div className="flex space-x-6 text-sm">
                 <Link
-                  href="/privacy-policy"
+                  href={language === 'es' ? '/es/politica-privacidad' : '/privacy-policy'}
                   className="text-neutral-400 hover:text-primary-400 transition-colors"
                 >
                   {t.privacy}
                 </Link>
                 <Link
-                  href="/terms-of-service"
+                  href={language === 'es' ? '/es/terminos-servicio' : '/terms-of-service'}
                   className="text-neutral-400 hover:text-primary-400 transition-colors"
                 >
                   {t.terms}

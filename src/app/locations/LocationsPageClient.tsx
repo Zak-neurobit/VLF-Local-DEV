@@ -3,7 +3,19 @@
 import Script from 'next/script';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MapPin, Phone, Clock, Mail, ArrowRight, Building2, Car, Accessibility, Users, Shield, Award } from 'lucide-react';
+import {
+  MapPin,
+  Phone,
+  Clock,
+  Mail,
+  ArrowRight,
+  Building2,
+  Car,
+  Accessibility,
+  Users,
+  Shield,
+  Award,
+} from 'lucide-react';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { motion } from 'framer-motion';
 import { TRADEMARK } from '@/lib/constants/trademark';
@@ -29,12 +41,19 @@ export default function LocationsPageClient() {
 
   function getOfficeDescription(id: string) {
     const descriptions = {
-      smithfield: 'Our main office serving Johnston County and Eastern North Carolina with comprehensive legal services. Over 60 years of combined experience.',
-      raleigh: 'Serving the Triangle area including Wake County, Durham, and Chapel Hill with expert immigration and personal injury representation.',
-      charlotte: 'Dedicated to serving Mecklenburg County and the greater Charlotte metro area with bilingual legal services.',
-      orlando: 'Extending our exceptional legal services to Central Florida\'s diverse communities with multilingual support.',
+      smithfield:
+        'Our main office serving Johnston County and Eastern North Carolina with comprehensive legal services. Over 60 years of combined experience.',
+      raleigh:
+        'Serving the Triangle area including Wake County, Durham, and Chapel Hill with expert immigration and personal injury representation.',
+      charlotte:
+        'Dedicated to serving Mecklenburg County and the greater Charlotte metro area with bilingual legal services.',
+      orlando:
+        "Extending our exceptional legal services to Central Florida's diverse communities with multilingual support.",
     };
-    return descriptions[id as keyof typeof descriptions] || 'Providing exceptional legal services to our community.';
+    return (
+      descriptions[id as keyof typeof descriptions] ||
+      'Providing exceptional legal services to our community.'
+    );
   }
 
   return (
@@ -77,9 +96,9 @@ export default function LocationsPageClient() {
                   Serving North Carolina and Florida - {TRADEMARK.YO_PELEO_POR_TI}
                 </p>
                 <p className="text-lg mb-8 max-w-3xl mx-auto text-gray-300">
-                  With four strategically located offices across North Carolina and Florida, 
-                  Vasquez Law Firm is always within reach. Each office provides the same 
-                  exceptional legal services with bilingual staff ready to assist you.
+                  With four strategically located offices across North Carolina and Florida, Vasquez
+                  Law Firm is always within reach. Each office provides the same exceptional legal
+                  services with bilingual staff ready to assist you.
                 </p>
               </motion.div>
             </div>
@@ -188,13 +207,21 @@ export default function LocationsPageClient() {
                       <div className="mt-6 pt-6 border-t border-primary/10">
                         <div className="flex flex-wrap gap-2">
                           {location.features.map((feature, idx) => {
-                            const icon = feature.includes('Parking') ? <Car className="w-4 h-4" /> 
-                              : feature.includes('Wheelchair') ? <Accessibility className="w-4 h-4" />
-                              : feature.includes('Bilingual') ? <Users className="w-4 h-4" />
-                              : <Building2 className="w-4 h-4" />;
-                            
+                            const icon = feature.includes('Parking') ? (
+                              <Car className="w-4 h-4" />
+                            ) : feature.includes('Wheelchair') ? (
+                              <Accessibility className="w-4 h-4" />
+                            ) : feature.includes('Bilingual') ? (
+                              <Users className="w-4 h-4" />
+                            ) : (
+                              <Building2 className="w-4 h-4" />
+                            );
+
                             return (
-                              <div key={idx} className="flex items-center text-xs text-gray-400 bg-primary/10 px-3 py-1 rounded-full">
+                              <div
+                                key={idx}
+                                className="flex items-center text-xs text-gray-400 bg-primary/10 px-3 py-1 rounded-full"
+                              >
                                 <span className="mr-1">{icon}</span>
                                 {feature}
                               </div>
@@ -206,7 +233,11 @@ export default function LocationsPageClient() {
                       {/* Action Buttons */}
                       <div className="mt-6 flex gap-3">
                         <Link
-                          href={`/locations/${location.id}`}
+                          href={
+                            location.id === 'orlando'
+                              ? '/locations/orlando'
+                              : `/locations/nc/${location.id}`
+                          }
                           className="flex-1 text-center bg-primary text-black py-3 px-4 rounded-full font-bold hover:bg-primary-300 transition-all"
                         >
                           View Details
@@ -248,33 +279,34 @@ export default function LocationsPageClient() {
                 {
                   icon: <Building2 className="w-12 h-12" />,
                   title: 'Modern Facilities',
-                  description: 'State-of-the-art offices designed for client comfort and privacy'
+                  description: 'State-of-the-art offices designed for client comfort and privacy',
                 },
                 {
                   icon: <Car className="w-12 h-12" />,
                   title: 'Easy Access',
-                  description: 'Free parking and convenient locations with wheelchair accessibility'
+                  description:
+                    'Free parking and convenient locations with wheelchair accessibility',
                 },
                 {
                   icon: <Users className="w-12 h-12" />,
                   title: 'Bilingual Staff',
-                  description: 'Spanish and English speaking professionals at every location'
+                  description: 'Spanish and English speaking professionals at every location',
                 },
                 {
                   icon: <Shield className="w-12 h-12" />,
                   title: 'Secure & Confidential',
-                  description: 'Private consultation rooms and secure document handling'
+                  description: 'Private consultation rooms and secure document handling',
                 },
                 {
                   icon: <Clock className="w-12 h-12" />,
                   title: 'Flexible Hours',
-                  description: 'Extended hours and weekend appointments available'
+                  description: 'Extended hours and weekend appointments available',
                 },
                 {
                   icon: <Award className="w-12 h-12" />,
                   title: 'Experienced Team',
-                  description: '60+ years of combined legal experience across all offices'
-                }
+                  description: '60+ years of combined legal experience across all offices',
+                },
               ].map((feature, index) => (
                 <motion.div
                   key={index}

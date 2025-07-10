@@ -7,10 +7,10 @@ import { getTranslations } from '@/lib/i18n';
 export function useI18n() {
   const pathname = usePathname();
   const router = useRouter();
-  
+
   // Determine current language from pathname
-  const currentLanguage: 'en' | 'es' = pathname.startsWith('/es') ? 'es' : 'en';
-  
+  const currentLanguage: 'en' | 'es' = pathname?.startsWith('/es') ? 'es' : 'en';
+
   const [translations, setTranslations] = useState(() => getTranslations(currentLanguage));
 
   useEffect(() => {
@@ -26,12 +26,12 @@ export function useI18n() {
     }
 
     // Calculate new path
-    let newPath = pathname;
-    
+    let newPath = pathname || '/';
+
     // Remove existing language prefix
-    if (pathname.startsWith('/es/')) {
+    if (pathname?.startsWith('/es/')) {
       newPath = pathname.slice(3) || '/';
-    } else if (pathname.startsWith('/en/')) {
+    } else if (pathname?.startsWith('/en/')) {
       newPath = pathname.slice(3) || '/';
     }
 
@@ -41,7 +41,9 @@ export function useI18n() {
     }
 
     // Navigate to new path
-    router.push(newPath);
+    if (newPath) {
+      router.push(newPath);
+    }
   };
 
   return {
@@ -54,7 +56,7 @@ export function useI18n() {
 // Hook for using translations in components
 export function useTranslation() {
   const { t, language } = useI18n();
-  
+
   return {
     t,
     language,
@@ -62,7 +64,7 @@ export function useTranslation() {
     translate: (key: string) => {
       const keys = key.split('.');
       let value: any = t;
-      
+
       for (const k of keys) {
         value = value?.[k];
         if (value === undefined) {
@@ -70,7 +72,7 @@ export function useTranslation() {
           return key;
         }
       }
-      
+
       return value;
     },
   };

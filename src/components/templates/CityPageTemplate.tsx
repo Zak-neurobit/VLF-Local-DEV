@@ -4,9 +4,17 @@ import React from 'react';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Button } from '@/design-system/components/Button';
 import { motion } from 'framer-motion';
-import { Phone, MapPin, Clock, MessageCircle, CheckCircle, Award, Users, Shield } from 'lucide-react';
+import {
+  Phone,
+  MapPin,
+  Clock,
+  MessageCircle,
+  CheckCircle,
+  Award,
+  Users,
+  Shield,
+} from 'lucide-react';
 import Link from 'next/link';
-import { PracticeAreaSchema } from '@/components/SEO/PracticeAreaSchema';
 import { generateEnhancedLocalBusinessSchema } from '@/lib/seo/comprehensive-schema';
 import Script from 'next/script';
 
@@ -78,7 +86,7 @@ export function CityPageTemplate({ city, nearbyOffice, content }: CityPageTempla
       street: getOfficeAddress(nearbyOffice).street,
       city: city.name,
       state: 'NC',
-      zip: getOfficeAddress(nearbyOffice).zip
+      zip: getOfficeAddress(nearbyOffice).zip,
     },
     phone: '+1-844-967-3536',
     geo: getOfficeCoordinates(nearbyOffice),
@@ -86,11 +94,11 @@ export function CityPageTemplate({ city, nearbyOffice, content }: CityPageTempla
       {
         days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         opens: '08:30',
-        closes: '17:30'
-      }
+        closes: '17:30',
+      },
     ],
     amenities: ['Free Parking', 'Wheelchair Accessible', 'Free WiFi', 'Spanish Speaking Staff'],
-    paymentAccepted: ['Cash', 'Check', 'Credit Card', 'Payment Plans Available']
+    paymentAccepted: ['Cash', 'Check', 'Credit Card', 'Payment Plans Available'],
   });
 
   return (
@@ -194,7 +202,7 @@ export function CityPageTemplate({ city, nearbyOffice, content }: CityPageTempla
                         </div>
                       ))}
                     </div>
-                    <Link 
+                    <Link
                       href={`/practice-areas/${practiceAreaSlugs[area.name] || area.name.toLowerCase().replace(/['\s]+/g, '-')}`}
                       className="inline-flex items-center text-primary hover:text-primary-300 mt-6 font-semibold"
                     >
@@ -264,15 +272,21 @@ export function CityPageTemplate({ city, nearbyOffice, content }: CityPageTempla
                   <dl className="space-y-4">
                     <div>
                       <dt className="text-gray-400 text-sm">City Population</dt>
-                      <dd className="text-2xl font-bold text-white">{content.localContent.statistics.population}</dd>
+                      <dd className="text-2xl font-bold text-white">
+                        {content.localContent.statistics.population}
+                      </dd>
                     </div>
                     <div>
                       <dt className="text-gray-400 text-sm">Hispanic Population</dt>
-                      <dd className="text-2xl font-bold text-white">{content.localContent.statistics.hispanicPopulation}</dd>
+                      <dd className="text-2xl font-bold text-white">
+                        {content.localContent.statistics.hispanicPopulation}
+                      </dd>
                     </div>
                     <div>
                       <dt className="text-gray-400 text-sm">Average Settlement</dt>
-                      <dd className="text-2xl font-bold text-primary">{content.localContent.statistics.averageSettlement}</dd>
+                      <dd className="text-2xl font-bold text-primary">
+                        {content.localContent.statistics.averageSettlement}
+                      </dd>
                     </div>
                   </dl>
                 </div>
@@ -304,16 +318,18 @@ export function CityPageTemplate({ city, nearbyOffice, content }: CityPageTempla
                     </div>
                     <div>
                       <p className="text-sm text-gray-400">Travel Time from {city.name}</p>
-                      <p className="text-lg font-semibold text-white">{getEstimatedTravelTime(city.name, nearbyOffice)}</p>
+                      <p className="text-lg font-semibold text-white">
+                        {getEstimatedTravelTime(city.name, nearbyOffice)}
+                      </p>
                     </div>
-                    <Button
+                    <a
                       href={`https://maps.google.com/maps?q=${encodeURIComponent(getOfficeAddress(nearbyOffice).full)}`}
                       target="_blank"
-                      size="sm"
-                      className="w-full bg-primary text-black hover:bg-primary-300"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-semibold text-black bg-primary rounded-full hover:bg-primary-300 transition-all duration-300 transform hover:scale-105"
                     >
                       Get Directions
-                    </Button>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -346,10 +362,12 @@ export function CityPageTemplate({ city, nearbyOffice, content }: CityPageTempla
                   >
                     <div className="flex mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <span key={i} className="text-primary text-xl">★</span>
+                        <span key={i} className="text-primary text-xl">
+                          ★
+                        </span>
                       ))}
                     </div>
-                    <p className="text-gray-300 mb-4 italic">"{testimonial.text}"</p>
+                    <p className="text-gray-300 mb-4 italic">&ldquo;{testimonial.text}&rdquo;</p>
                     <div className="text-sm">
                       <p className="font-semibold text-white">{testimonial.author}</p>
                       <p className="text-gray-400">{testimonial.location}</p>
@@ -369,7 +387,8 @@ export function CityPageTemplate({ city, nearbyOffice, content }: CityPageTempla
                 Get Help Today in {city.name}
               </h2>
               <p className="text-xl text-black/80 mb-8">
-                Don't wait to get the legal help you need. Our {nearbyOffice} office serves all of {city.county} County.
+                Don&apos;t wait to get the legal help you need. Our {nearbyOffice} office serves all
+                of {city.county} County.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
@@ -398,7 +417,7 @@ export function CityPageTemplate({ city, nearbyOffice, content }: CityPageTempla
           id={`city-schema-${city.slug}`}
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(localBusinessSchema)
+            __html: JSON.stringify(localBusinessSchema),
           }}
         />
       </div>
@@ -413,28 +432,28 @@ function getOfficeAddress(office: string) {
       street: '201 N. Tryon St #1250',
       city: 'Charlotte',
       zip: '28202',
-      full: '201 N. Tryon St #1250, Charlotte, NC 28202'
+      full: '201 N. Tryon St #1250, Charlotte, NC 28202',
     },
     Raleigh: {
       street: '333 Fayetteville Street, Suite 810',
       city: 'Raleigh',
       zip: '27601',
-      full: '333 Fayetteville Street, Suite 810, Raleigh, NC 27601'
+      full: '333 Fayetteville Street, Suite 810, Raleigh, NC 27601',
     },
     Smithfield: {
       street: '328 Brightleaf Blvd',
       city: 'Smithfield',
       zip: '27577',
-      full: '328 Brightleaf Blvd, Smithfield, NC 27577'
+      full: '328 Brightleaf Blvd, Smithfield, NC 27577',
     },
     Greensboro: {
       street: '100 N Elm St',
       city: 'Greensboro',
       zip: '27401',
-      full: '100 N Elm St, Greensboro, NC 27401'
-    }
+      full: '100 N Elm St, Greensboro, NC 27401',
+    },
   };
-  
+
   return addresses[office] || addresses.Raleigh;
 }
 
@@ -443,9 +462,9 @@ function getOfficeCoordinates(office: string) {
     Charlotte: { lat: 35.2271, lng: -80.8431 },
     Raleigh: { lat: 35.7796, lng: -78.6382 },
     Smithfield: { lat: 35.5085, lng: -78.3394 },
-    Greensboro: { lat: 36.0726, lng: -79.7920 }
+    Greensboro: { lat: 36.0726, lng: -79.792 },
   };
-  
+
   return coordinates[office] || coordinates.Raleigh;
 }
 
@@ -458,16 +477,16 @@ function getEstimatedTravelTime(fromCity: string, toOffice: string) {
       Huntersville: '20-25 min',
       Matthews: '15-20 min',
       Gastonia: '25-30 min',
-      Monroe: '30-35 min'
+      Monroe: '30-35 min',
     },
     Raleigh: {
       Raleigh: '10-15 min',
       Cary: '15-20 min',
       Durham: '25-30 min',
       'Chapel Hill': '35-40 min',
-      'Wake Forest': '25-30 min'
-    }
+      'Wake Forest': '25-30 min',
+    },
   };
-  
+
   return times[toOffice]?.[fromCity] || '30-45 min';
 }

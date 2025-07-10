@@ -31,12 +31,15 @@ export default function ResourceHints({
       // DNS prefetch for external images
       const images = document.querySelectorAll('img[src^="http"]');
       const imageDomains = new Set<string>();
-      
+
       images.forEach(img => {
         try {
-          const url = new URL((img as HTMLImageElement).src);
-          if (url.hostname !== window.location.hostname) {
-            imageDomains.add(url.origin);
+          const imgSrc = (img as HTMLImageElement).src;
+          if (imgSrc && !imgSrc.includes('${')) {
+            const url = new URL(imgSrc);
+            if (url.hostname !== window.location.hostname) {
+              imageDomains.add(url.origin);
+            }
           }
         } catch (e) {
           // Invalid URL, ignore
@@ -62,7 +65,7 @@ export default function ResourceHints({
         threshold: 0.1,
       };
 
-      const imageObserver = new IntersectionObserver((entries) => {
+      const imageObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const img = entry.target as HTMLImageElement;
@@ -73,14 +76,14 @@ export default function ResourceHints({
                 link.rel = 'preload';
                 link.href = img.src;
                 link.as = 'image';
-                
+
                 // Detect image format
                 if (img.src.includes('.webp')) {
                   link.type = 'image/webp';
                 } else if (img.src.includes('.avif')) {
                   link.type = 'image/avif';
                 }
-                
+
                 safeAppendChild(document.head, link);
                 img.setAttribute('data-preloaded', 'true');
               }
@@ -95,7 +98,9 @@ export default function ResourceHints({
       nonCriticalImages.forEach(img => imageObserver.observe(img));
 
       // Prefetch links on hover
-      const links = document.querySelectorAll('a[href^="/"], a[href^="' + window.location.origin + '"]');
+      const links = document.querySelectorAll(
+        'a[href^="/"], a[href^="' + window.location.origin + '"]'
+      );
       links.forEach(link => {
         let prefetchLink: HTMLLinkElement | null = null;
 
@@ -140,17 +145,15 @@ export default function ResourceHints({
       {criticalImages.map(image => {
         const isWebP = image.includes('.webp');
         const isAVIF = image.includes('.avif');
-        const type = isAVIF ? 'image/avif' : isWebP ? 'image/webp' : image.includes('.png') ? 'image/png' : undefined;
-        
-        return (
-          <link
-            key={image}
-            rel="preload"
-            as="image"
-            href={image}
-            {...(type && { type })}
-          />
-        );
+        const type = isAVIF
+          ? 'image/avif'
+          : isWebP
+            ? 'image/webp'
+            : image.includes('.png')
+              ? 'image/png'
+              : undefined;
+
+        return <link key={image} rel="preload" as="image" href={image} {...(type && { type })} />;
       })}
 
       {/* Preload critical fonts */}
@@ -164,33 +167,24 @@ export default function ResourceHints({
           crossOrigin="anonymous"
         />
       ))}
-      
+
       {/* Preload critical scripts */}
-      {preloadScripts.map((script) => (
-        <link
-          key={script}
-          rel="preload"
-          href={script}
-          as="script"
-        />
+      {preloadScripts.map(script => (
+        <link key={script} rel="preload" href={script} as="script" />
       ))}
-      
+
       {/* Module preload for ES modules */}
-      {modulePreloadScripts.map((script) => (
-        <link
-          key={script}
-          rel="modulepreload"
-          href={script}
-        />
+      {modulePreloadScripts.map(script => (
+        <link key={script} rel="modulepreload" href={script} />
       ))}
 
       {/* Prefetch next likely pages */}
       <link rel="prefetch" href="/contact" />
       <link rel="prefetch" href="/practice-areas" />
       <link rel="prefetch" href="/attorneys/william-vasquez" />
-      
+
       {/* Additional prefetch resources */}
-      {prefetchResources.map((resource) => (
+      {prefetchResources.map(resource => (
         <link key={resource} rel="prefetch" href={resource} />
       ))}
     </Head>

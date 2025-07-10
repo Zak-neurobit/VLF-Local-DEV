@@ -21,7 +21,7 @@ interface HreflangGeneratorProps {
 
 export class HreflangGenerator {
   private static readonly BASE_URL = 'https://www.vasquezlawnc.com';
-  
+
   // Define page translation mappings
   private static readonly PAGE_TRANSLATIONS: Record<string, PageTranslation> = {
     // Main pages
@@ -40,37 +40,88 @@ export class HreflangGenerator {
     '/terms-of-service': { en: '/terms-of-service', es: '/es/terminos-servicio' },
     '/sitemap': { en: '/sitemap', es: '/es/mapa-del-sitio' },
     '/blog': { en: '/blog', es: '/es/blog' },
-    
+
     // Practice areas - main categories
-    '/practice-areas/immigration': { en: '/practice-areas/immigration', es: '/es/areas-de-practica/inmigracion' },
-    '/practice-areas/personal-injury': { en: '/practice-areas/personal-injury', es: '/es/areas-de-practica/lesiones-personales' },
-    '/practice-areas/criminal-defense': { en: '/practice-areas/criminal-defense', es: '/es/areas-de-practica/defensa-criminal' },
-    '/practice-areas/workers-compensation': { en: '/practice-areas/workers-compensation', es: '/es/areas-de-practica/compensacion-laboral' },
-    '/practice-areas/family-law': { en: '/practice-areas/family-law', es: '/es/areas-de-practica/derecho-familia' },
-    '/practice-areas/traffic-violations': { en: '/practice-areas/traffic-violations', es: '/es/areas-de-practica/infracciones-transito' },
-    
+    '/practice-areas/immigration': {
+      en: '/practice-areas/immigration',
+      es: '/es/areas-de-practica/inmigracion',
+    },
+    '/practice-areas/personal-injury': {
+      en: '/practice-areas/personal-injury',
+      es: '/es/areas-de-practica/lesiones-personales',
+    },
+    '/practice-areas/criminal-defense': {
+      en: '/practice-areas/criminal-defense',
+      es: '/es/areas-de-practica/defensa-criminal',
+    },
+    '/practice-areas/workers-compensation': {
+      en: '/practice-areas/workers-compensation',
+      es: '/es/areas-de-practica/compensacion-laboral',
+    },
+    '/practice-areas/family-law': {
+      en: '/practice-areas/family-law',
+      es: '/es/areas-de-practica/derecho-familia',
+    },
+    '/practice-areas/traffic-violations': {
+      en: '/practice-areas/traffic-violations',
+      es: '/es/areas-de-practica/infracciones-transito',
+    },
+
     // Attorney pages
-    '/attorneys/william-vasquez': { en: '/attorneys/william-vasquez', es: '/es/abogados/william-vasquez' },
-    '/attorneys/adrianna-ingram': { en: '/attorneys/adrianna-ingram', es: '/es/abogados/adrianna-ingram' },
-    '/attorneys/christopher-afanador': { en: '/attorneys/christopher-afanador', es: '/es/abogados/christopher-afanador' },
-    '/attorneys/jillian-baucom': { en: '/attorneys/jillian-baucom', es: '/es/abogados/jillian-baucom' },
+    '/attorneys/william-vasquez': {
+      en: '/attorneys/william-vasquez',
+      es: '/es/abogados/william-vasquez',
+    },
+    '/attorneys/adrianna-ingram': {
+      en: '/attorneys/adrianna-ingram',
+      es: '/es/abogados/adrianna-ingram',
+    },
+    '/attorneys/christopher-afanador': {
+      en: '/attorneys/christopher-afanador',
+      es: '/es/abogados/christopher-afanador',
+    },
+    '/attorneys/jillian-baucom': {
+      en: '/attorneys/jillian-baucom',
+      es: '/es/abogados/jillian-baucom',
+    },
     '/attorneys/mark-kelsey': { en: '/attorneys/mark-kelsey', es: '/es/abogados/mark-kelsey' },
-    '/attorneys/roselyn-v-torrellas': { en: '/attorneys/roselyn-v-torrellas', es: '/es/abogados/roselyn-torrellas' },
-    '/attorneys/judith-parkes': { en: '/attorneys/judith-parkes', es: '/es/abogados/judith-parkes' },
-    
+    '/attorneys/roselyn-v-torrellas': {
+      en: '/attorneys/roselyn-v-torrellas',
+      es: '/es/abogados/roselyn-torrellas',
+    },
+    '/attorneys/judith-parkes': {
+      en: '/attorneys/judith-parkes',
+      es: '/es/abogados/judith-parkes',
+    },
+
     // Location pages - main offices
     '/locations/charlotte': { en: '/locations/charlotte', es: '/es/ubicaciones/charlotte' },
     '/locations/raleigh': { en: '/locations/raleigh', es: '/es/ubicaciones/raleigh' },
     '/locations/orlando': { en: '/locations/orlando', es: '/es/ubicaciones/orlando' },
     '/locations/smithfield': { en: '/locations/smithfield', es: '/es/ubicaciones/smithfield' },
     '/locations/durham': { en: '/locations/durham', es: '/es/ubicaciones/durham' },
-    '/locations/winston-salem': { en: '/locations/winston-salem', es: '/es/ubicaciones/winston-salem' },
-    
+    '/locations/winston-salem': {
+      en: '/locations/winston-salem',
+      es: '/es/ubicaciones/winston-salem',
+    },
+
     // Contact location pages
-    '/contact/charlotte-nc-office-location': { en: '/contact/charlotte-nc-office-location', es: '/es/contacto/ubicacion-oficina-charlotte-nc' },
-    '/contact/raleigh-nc-office-location': { en: '/contact/raleigh-nc-office-location', es: '/es/contacto/ubicacion-oficina-raleigh-nc' },
-    '/contact/orlando-fl-office-location': { en: '/contact/orlando-fl-office-location', es: '/es/contacto/ubicacion-oficina-orlando-fl' },
-    '/contact/smithfield-office-location': { en: '/contact/smithfield-office-location', es: '/es/contacto/ubicacion-oficina-smithfield' },
+    '/contact/charlotte-nc-office-location': {
+      en: '/contact/charlotte-nc-office-location',
+      es: '/es/contacto/ubicacion-oficina-charlotte-nc',
+    },
+    '/contact/raleigh-nc-office-location': {
+      en: '/contact/raleigh-nc-office-location',
+      es: '/es/contacto/ubicacion-oficina-raleigh-nc',
+    },
+    '/contact/orlando-fl-office-location': {
+      en: '/contact/orlando-fl-office-location',
+      es: '/es/contacto/ubicacion-oficina-orlando-fl',
+    },
+    '/contact/smithfield-office-location': {
+      en: '/contact/smithfield-office-location',
+      es: '/es/contacto/ubicacion-oficina-smithfield',
+    },
   };
 
   // Pattern-based translations for dynamic pages
@@ -79,51 +130,51 @@ export class HreflangGenerator {
       pattern: /^\/practice-areas\/immigration\/(.+)$/,
       transform: (match: RegExpMatchArray) => ({
         en: `/practice-areas/immigration/${match[1]}`,
-        es: `/es/areas-de-practica/inmigracion/${match[1]}`
-      })
+        es: `/es/areas-de-practica/inmigracion/${match[1]}`,
+      }),
     },
     {
       pattern: /^\/practice-areas\/personal-injury\/(.+)$/,
       transform: (match: RegExpMatchArray) => ({
         en: `/practice-areas/personal-injury/${match[1]}`,
-        es: `/es/areas-de-practica/lesiones-personales/${match[1]}`
-      })
+        es: `/es/areas-de-practica/lesiones-personales/${match[1]}`,
+      }),
     },
     {
       pattern: /^\/practice-areas\/criminal-defense\/(.+)$/,
       transform: (match: RegExpMatchArray) => ({
         en: `/practice-areas/criminal-defense/${match[1]}`,
-        es: `/es/areas-de-practica/defensa-criminal/${match[1]}`
-      })
+        es: `/es/areas-de-practica/defensa-criminal/${match[1]}`,
+      }),
     },
     {
       pattern: /^\/practice-areas\/workers-compensation\/(.+)$/,
       transform: (match: RegExpMatchArray) => ({
         en: `/practice-areas/workers-compensation/${match[1]}`,
-        es: `/es/areas-de-practica/compensacion-laboral/${match[1]}`
-      })
+        es: `/es/areas-de-practica/compensacion-laboral/${match[1]}`,
+      }),
     },
     {
       pattern: /^\/practice-areas\/family-law\/(.+)$/,
       transform: (match: RegExpMatchArray) => ({
         en: `/practice-areas/family-law/${match[1]}`,
-        es: `/es/areas-de-practica/derecho-familia/${match[1]}`
-      })
+        es: `/es/areas-de-practica/derecho-familia/${match[1]}`,
+      }),
     },
     {
       pattern: /^\/blog\/(.+)$/,
       transform: (match: RegExpMatchArray) => ({
         en: `/blog/${match[1]}`,
-        es: `/es/blog/${match[1]}`
-      })
+        es: `/es/blog/${match[1]}`,
+      }),
     },
     {
       pattern: /^\/locations\/nc\/(.+)$/,
       transform: (match: RegExpMatchArray) => ({
         en: `/locations/nc/${match[1]}`,
-        es: `/es/ubicaciones/nc/${match[1]}`
-      })
-    }
+        es: `/es/ubicaciones/nc/${match[1]}`,
+      }),
+    },
   ];
 
   /**
@@ -193,7 +244,7 @@ export class HreflangGenerator {
     } else {
       // Page exists only in current language
       const currentUrl = `${this.BASE_URL}${currentPath}`;
-      
+
       if (currentLocale === 'en') {
         entries.push(
           { hreflang: 'en', href: currentUrl },
@@ -223,7 +274,10 @@ export class HreflangGenerator {
   /**
    * Generate alternate links metadata for Next.js
    */
-  public static generateAlternateLinks(pathname?: string, customPath?: string): Record<string, string> {
+  public static generateAlternateLinks(
+    pathname?: string,
+    customPath?: string
+  ): Record<string, string> {
     const entries = this.generateHreflangEntries(pathname, customPath);
     const alternates: Record<string, string> = {};
 
@@ -239,7 +293,10 @@ export class HreflangGenerator {
   /**
    * Generate OpenGraph locale metadata
    */
-  public static generateOpenGraphLocales(pathname?: string): { locale: string; alternateLocale: string[] } {
+  public static generateOpenGraphLocales(pathname?: string): {
+    locale: string;
+    alternateLocale: string[];
+  } {
     const currentPath = pathname || '/';
     const currentLocale = this.detectLocale(currentPath);
     const cleanPath = this.getCleanPath(currentPath);
@@ -263,13 +320,13 @@ export class HreflangGenerator {
 /**
  * React component for rendering hreflang tags
  */
-export function HreflangTags({ 
+export function HreflangTags({
   currentLocale,
   customPath,
-  pageType = 'general' 
+  pageType = 'general',
 }: HreflangGeneratorProps) {
   const pathname = usePathname();
-  const entries = HreflangGenerator.generateHreflangEntries(pathname, customPath);
+  const entries = HreflangGenerator.generateHreflangEntries(pathname || '/', customPath);
 
   // Return link elements for head
   return (

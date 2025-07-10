@@ -46,7 +46,8 @@ export default function BlogPage() {
   const content = {
     en: {
       title: 'Legal Insights & News',
-      subtitle: 'Stay informed with expert legal analysis and updates for North Carolina and Florida',
+      subtitle:
+        'Stay informed with expert legal analysis and updates for North Carolina and Florida',
       search: 'Search articles...',
       readMore: 'Read More',
       minRead: 'min read',
@@ -70,7 +71,8 @@ export default function BlogPage() {
     },
     es: {
       title: 'Perspectivas Legales y Noticias',
-      subtitle: 'Manténgase informado con análisis legal experto y actualizaciones para Carolina del Norte y Florida',
+      subtitle:
+        'Manténgase informado con análisis legal experto y actualizaciones para Carolina del Norte y Florida',
       search: 'Buscar artículos...',
       readMore: 'Leer Más',
       minRead: 'min de lectura',
@@ -182,336 +184,349 @@ export default function BlogPage() {
 
   const trendingTopics =
     language === 'es'
-      ? ['Reforma Migratoria 2024', 'Accidentes de Uber', 'Custodia Compartida', 'DUI Primera Ofensa', 'Compensación Laboral']
-      : ['Immigration Reform 2024', 'Uber Accidents', 'Joint Custody', 'First DUI Offense', 'Workers Compensation'];
+      ? [
+          'Reforma Migratoria 2024',
+          'Accidentes de Uber',
+          'Custodia Compartida',
+          'DUI Primera Ofensa',
+          'Compensación Laboral',
+        ]
+      : [
+          'Immigration Reform 2024',
+          'Uber Accidents',
+          'Joint Custody',
+          'First DUI Offense',
+          'Workers Compensation',
+        ];
 
   return (
     <MasterLayout variant="default" showBreadcrumbs={true}>
       <div className="min-h-screen bg-black">
+        {/* Hero Section */}
+        <section className="bg-black py-16 pt-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center"
+            >
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{t.title}</h1>
+              <p className="text-xl text-primary font-semibold mb-8">{t.subtitle}</p>
 
-      {/* Hero Section */}
-      <section className="bg-black py-16 pt-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{t.title}</h1>
-            <p className="text-xl text-primary font-semibold mb-8">{t.subtitle}</p>
-
-            {/* Search Bar */}
-            <div className="max-w-2xl mx-auto">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder={t.search}
-                  value={searchQuery}
-                  onChange={e => setSearchQuery(e.target.value)}
-                  className="w-full px-6 py-4 pr-12 bg-white/5 backdrop-blur-sm border border-primary/20 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                />
-                <svg
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              {/* Search Bar */}
+              <div className="max-w-2xl mx-auto">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder={t.search}
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    className="w-full px-6 py-4 pr-12 bg-white/5 backdrop-blur-sm border border-primary/20 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                   />
-                </svg>
+                  <svg
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </div>
               </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+            </motion.div>
+          </div>
+        </section>
 
-      {/* Categories Filter */}
-      <section className="py-8 bg-black/50 backdrop-blur-sm sticky top-20 z-30 border-b border-primary/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-300">{t.filterBy}</h2>
-            {selectedCategory !== 'all' && (
+        {/* Categories Filter */}
+        <section className="py-8 bg-black/50 backdrop-blur-sm sticky top-20 z-30 border-b border-primary/20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-gray-300">{t.filterBy}</h2>
+              {selectedCategory !== 'all' && (
+                <button
+                  onClick={() => setSelectedCategory('all')}
+                  className="text-sm text-primary hover:underline"
+                >
+                  {t.clearFilters}
+                </button>
+              )}
+            </div>
+            <div className="flex gap-4 overflow-x-auto pb-2">
               <button
                 onClick={() => setSelectedCategory('all')}
-                className="text-sm text-primary hover:underline"
-              >
-                {t.clearFilters}
-              </button>
-            )}
-          </div>
-          <div className="flex gap-4 overflow-x-auto pb-2">
-            <button
-              onClick={() => setSelectedCategory('all')}
-              className={`px-6 py-2 rounded-full whitespace-nowrap transition-all ${
-                selectedCategory === 'all'
-                  ? 'bg-primary text-black font-semibold'
-                  : 'bg-white/5 backdrop-blur-sm border border-primary/20 text-gray-300 hover:bg-white/10'
-              }`}
-            >
-              {t.allCategories}
-            </button>
-            {getAllCategories().map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-2 rounded-full whitespace-nowrap transition-all flex items-center gap-2 ${
-                  selectedCategory === category.id
+                className={`px-6 py-2 rounded-full whitespace-nowrap transition-all ${
+                  selectedCategory === 'all'
                     ? 'bg-primary text-black font-semibold'
                     : 'bg-white/5 backdrop-blur-sm border border-primary/20 text-gray-300 hover:bg-white/10'
                 }`}
               >
-                <span>{category.icon}</span>
-                {category.name[language]}
+                {t.allCategories}
               </button>
-            ))}
+              {getAllCategories().map(category => (
+                <button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`px-6 py-2 rounded-full whitespace-nowrap transition-all flex items-center gap-2 ${
+                    selectedCategory === category.id
+                      ? 'bg-primary text-black font-semibold'
+                      : 'bg-white/5 backdrop-blur-sm border border-primary/20 text-gray-300 hover:bg-white/10'
+                  }`}
+                >
+                  <span>{category.icon}</span>
+                  {category.name[language]}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Main Content */}
-      <section className="py-16 bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Blog Posts */}
-            <div className="lg:col-span-2">
-              {loading && page === 1 ? (
-                <div className="flex justify-center py-12">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-                </div>
-              ) : posts.length === 0 ? (
-                <p className="text-center text-gray-400 py-12">{t.noResults}</p>
-              ) : (
-                <div className="space-y-8">
-                  {posts.map((post, index) => {
-                    const category = getCategoryById(post.practiceArea);
-                    return (
-                      <motion.article
-                        key={post.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
-                      >
-                        {post.featuredImage && (
-                          <div className="relative h-48 bg-gray-700">
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <span className="text-4xl">{category?.icon || '📰'}</span>
-                            </div>
-                          </div>
-                        )}
-                        <div className="p-6">
-                          <div className="flex items-center gap-4 mb-4">
-                            {category && (
-                              <span className={`px-3 py-1 ${category.lightColor} ${category.textColor} rounded-full text-sm font-medium flex items-center gap-1`}>
-                                <span>{category.icon}</span>
-                                {category.name[language]}
-                              </span>
-                            )}
-                            <span className="text-sm text-gray-400">
-                              {post.readTime} {t.minRead}
-                            </span>
-                            {post.seoScore >= 90 && (
-                              <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
-                                SEO {post.seoScore}%
-                              </span>
-                            )}
-                          </div>
-                          <h2 className="text-2xl font-bold text-white mb-3">
-                            <Link
-                              href={`/blog/${post.slug}`}
-                              className="hover:text-primary transition-colors"
-                            >
-                              {post.title}
-                            </Link>
-                          </h2>
-                          <p className="text-gray-400 mb-4">{post.excerpt}</p>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
-                                <span className="text-sm">👤</span>
+        {/* Main Content */}
+        <section className="py-16 bg-black">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+              {/* Blog Posts */}
+              <div className="lg:col-span-2">
+                {loading && page === 1 ? (
+                  <div className="flex justify-center py-12">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                  </div>
+                ) : posts.length === 0 ? (
+                  <p className="text-center text-gray-400 py-12">{t.noResults}</p>
+                ) : (
+                  <div className="space-y-8">
+                    {posts.map((post, index) => {
+                      const category = getCategoryById(post.practiceArea);
+                      return (
+                        <motion.article
+                          key={post.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                        >
+                          {post.featuredImage && (
+                            <div className="relative h-48 bg-gray-700">
+                              <div className="absolute inset-0 flex items-center justify-center">
+                                <span className="text-4xl">{category?.icon || '📰'}</span>
                               </div>
-                              <div>
-                                <p className="text-sm font-medium text-white">
-                                  {post.author.name}
-                                </p>
-                                <p className="text-xs text-gray-400">
-                                  {t.published}{' '}
-                                  {format(post.publishedAt, 'PPP', {
-                                    locale: language === 'es' ? es : undefined,
-                                  })}
-                                </p>
-                              </div>
-                            </div>
-                            <Link
-                              href={`/blog/${post.slug}`}
-                              className="text-primary font-medium hover:underline"
-                            >
-                              {t.readMore} →
-                            </Link>
-                          </div>
-                          {post.tags.length > 0 && (
-                            <div className="mt-4 flex flex-wrap gap-2">
-                              {post.tags.slice(0, 5).map(tag => (
-                                <span
-                                  key={tag}
-                                  className="px-2 py-1 bg-white/5 text-gray-400 rounded text-xs border border-gray-700"
-                                >
-                                  #{tag}
-                                </span>
-                              ))}
                             </div>
                           )}
-                        </div>
-                      </motion.article>
-                    );
-                  })}
-                </div>
-              )}
+                          <div className="p-6">
+                            <div className="flex items-center gap-4 mb-4">
+                              {category && (
+                                <span
+                                  className={`px-3 py-1 ${category.lightColor} ${category.textColor} rounded-full text-sm font-medium flex items-center gap-1`}
+                                >
+                                  <span>{category.icon}</span>
+                                  {category.name[language]}
+                                </span>
+                              )}
+                              <span className="text-sm text-gray-400">
+                                {post.readTime} {t.minRead}
+                              </span>
+                              {post.seoScore >= 90 && (
+                                <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                                  SEO {post.seoScore}%
+                                </span>
+                              )}
+                            </div>
+                            <h2 className="text-2xl font-bold text-white mb-3">
+                              <Link
+                                href={`/blog/${post.slug}`}
+                                className="hover:text-primary transition-colors"
+                              >
+                                {post.title}
+                              </Link>
+                            </h2>
+                            <p className="text-gray-400 mb-4">{post.excerpt}</p>
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                                  <span className="text-sm">👤</span>
+                                </div>
+                                <div>
+                                  <p className="text-sm font-medium text-white">
+                                    {post.author.name}
+                                  </p>
+                                  <p className="text-xs text-gray-400">
+                                    {t.published}{' '}
+                                    {format(post.publishedAt, 'PPP', {
+                                      locale: language === 'es' ? es : undefined,
+                                    })}
+                                  </p>
+                                </div>
+                              </div>
+                              <Link
+                                href={`/blog/${post.slug}`}
+                                className="text-primary font-medium hover:underline"
+                              >
+                                {t.readMore} →
+                              </Link>
+                            </div>
+                            {post.tags.length > 0 && (
+                              <div className="mt-4 flex flex-wrap gap-2">
+                                {post.tags.slice(0, 5).map(tag => (
+                                  <span
+                                    key={tag}
+                                    className="px-2 py-1 bg-white/5 text-gray-400 rounded text-xs border border-gray-700"
+                                  >
+                                    #{tag}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </motion.article>
+                      );
+                    })}
+                  </div>
+                )}
 
-              {/* Load More */}
-              {hasMore && !loading && posts.length > 0 && (
-                <div className="text-center mt-12">
-                  <button
-                    onClick={() => setPage(page + 1)}
-                    className="px-8 py-3 bg-primary text-black rounded-md font-semibold hover:bg-primary/90 transition-colors"
-                  >
-                    {t.loadMore}
-                  </button>
-                </div>
-              )}
-            </div>
+                {/* Load More */}
+                {hasMore && !loading && posts.length > 0 && (
+                  <div className="text-center mt-12">
+                    <button
+                      onClick={() => setPage(page + 1)}
+                      className="px-8 py-3 bg-primary text-black rounded-md font-semibold hover:bg-primary/90 transition-colors"
+                    >
+                      {t.loadMore}
+                    </button>
+                  </div>
+                )}
+              </div>
 
-            {/* Sidebar */}
-            <div className="space-y-8">
-              {/* Recent Posts */}
-              <div className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg p-6">
-                <h3 className="text-xl font-bold text-white mb-4">{t.recent}</h3>
-                <div className="space-y-4">
-                  {recentPosts.map((post) => {
-                    const category = getCategoryById(post.practiceArea);
-                    return (
-                      <div key={post.id} className="border-b last:border-0 pb-4 last:pb-0">
-                        <div className="flex items-start gap-3">
-                          <span className="text-2xl flex-shrink-0">{category?.icon || '📄'}</span>
-                          <div className="flex-1">
-                            <Link
-                              href={`/blog/${post.slug}`}
-                              className="text-sm font-medium text-white hover:text-primary line-clamp-2"
-                            >
-                              {post.title}
-                            </Link>
-                            <p className="text-xs text-gray-400 mt-1">
-                              {format(post.publishedAt, 'MMM d, yyyy', {
-                                locale: language === 'es' ? es : undefined,
-                              })}
-                            </p>
+              {/* Sidebar */}
+              <div className="space-y-8">
+                {/* Recent Posts */}
+                <div className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg p-6">
+                  <h3 className="text-xl font-bold text-white mb-4">{t.recent}</h3>
+                  <div className="space-y-4">
+                    {recentPosts.map(post => {
+                      const category = getCategoryById(post.practiceArea);
+                      return (
+                        <div key={post.id} className="border-b last:border-0 pb-4 last:pb-0">
+                          <div className="flex items-start gap-3">
+                            <span className="text-2xl flex-shrink-0">{category?.icon || '📄'}</span>
+                            <div className="flex-1">
+                              <Link
+                                href={`/blog/${post.slug}`}
+                                className="text-sm font-medium text-white hover:text-primary line-clamp-2"
+                              >
+                                {post.title}
+                              </Link>
+                              <p className="text-xs text-gray-400 mt-1">
+                                {format(post.publishedAt, 'MMM d, yyyy', {
+                                  locale: language === 'es' ? es : undefined,
+                                })}
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
 
-              {/* Category Links */}
-              <div className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg p-6">
-                <h3 className="text-xl font-bold text-white mb-4">{t.allCategories}</h3>
-                <div className="space-y-3">
-                  {getAllCategories().map((category) => (
-                    <Link
-                      key={category.id}
-                      href={`/blog/category/${category.id}`}
-                      className={`flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors group`}
+                {/* Category Links */}
+                <div className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg p-6">
+                  <h3 className="text-xl font-bold text-white mb-4">{t.allCategories}</h3>
+                  <div className="space-y-3">
+                    {getAllCategories().map(category => (
+                      <Link
+                        key={category.id}
+                        href={`/blog/category/${category.slug.en}`}
+                        className={`flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors group`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className={`text-2xl`}>{category.icon}</span>
+                          <span className="font-medium text-gray-300 group-hover:text-primary">
+                            {category.name[language]}
+                          </span>
+                        </div>
+                        <svg
+                          className="w-5 h-5 text-gray-400 group-hover:text-primary"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Trending Topics */}
+                <div className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg p-6">
+                  <h3 className="text-xl font-bold text-white mb-4">{t.trending}</h3>
+                  <div className="space-y-3">
+                    {trendingTopics.map((topic, index) => (
+                      <div key={index} className="flex items-center gap-3">
+                        <span className="text-2xl text-primary">🔥</span>
+                        <button
+                          onClick={() => setSearchQuery(topic)}
+                          className="text-gray-300 hover:text-primary transition-colors text-left"
+                        >
+                          {topic}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Newsletter Signup */}
+                <div className="bg-gradient-to-r from-primary/20 to-primary/10 backdrop-blur-sm border border-primary/20 rounded-lg p-6">
+                  <h3 className="text-xl font-bold mb-3 text-white">{t.newsletter}</h3>
+                  <p className="text-sm mb-4 text-gray-300">{t.newsletterDesc}</p>
+                  <form className="space-y-3">
+                    <input
+                      type="email"
+                      placeholder={t.email}
+                      className="w-full px-4 py-2 bg-white/5 border border-primary/20 rounded-md text-white placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent"
+                    />
+                    <button
+                      type="submit"
+                      className="w-full px-4 py-2 bg-primary text-black rounded-md font-semibold hover:bg-primary/90 transition-colors"
                     >
-                      <div className="flex items-center gap-3">
-                        <span className={`text-2xl`}>{category.icon}</span>
-                        <span className="font-medium text-gray-300 group-hover:text-primary">
-                          {category.name[language]}
-                        </span>
-                      </div>
-                      <svg
-                        className="w-5 h-5 text-gray-400 group-hover:text-primary"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </Link>
-                  ))}
+                      {t.subscribe}
+                    </button>
+                  </form>
                 </div>
-              </div>
 
-              {/* Trending Topics */}
-              <div className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg p-6">
-                <h3 className="text-xl font-bold text-white mb-4">{t.trending}</h3>
-                <div className="space-y-3">
-                  {trendingTopics.map((topic, index) => (
-                    <div key={index} className="flex items-center gap-3">
-                      <span className="text-2xl text-primary">🔥</span>
-                      <button
-                        onClick={() => setSearchQuery(topic)}
-                        className="text-gray-300 hover:text-primary transition-colors text-left"
-                      >
-                        {topic}
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Newsletter Signup */}
-              <div className="bg-gradient-to-r from-primary/20 to-primary/10 backdrop-blur-sm border border-primary/20 rounded-lg p-6">
-                <h3 className="text-xl font-bold mb-3 text-white">{t.newsletter}</h3>
-                <p className="text-sm mb-4 text-gray-300">{t.newsletterDesc}</p>
-                <form className="space-y-3">
-                  <input
-                    type="email"
-                    placeholder={t.email}
-                    className="w-full px-4 py-2 bg-white/5 border border-primary/20 rounded-md text-white placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent"
-                  />
-                  <button
-                    type="submit"
-                    className="w-full px-4 py-2 bg-primary text-black rounded-md font-semibold hover:bg-primary/90 transition-colors"
-                  >
-                    {t.subscribe}
-                  </button>
-                </form>
-              </div>
-
-              {/* AI Assistant CTA */}
-              <div className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg p-6">
-                <div className="text-center">
-                  <div className="text-5xl mb-3">🤖</div>
-                  <h3 className="text-lg font-bold text-primary mb-2">
-                    {language === 'es' ? '¿Necesita Ayuda Legal?' : 'Need Legal Help?'}
-                  </h3>
-                  <p className="text-sm text-gray-300 mb-4">
-                    {language === 'es'
-                      ? 'Nuestro asistente de IA está disponible 24/7'
-                      : 'Our AI assistant is available 24/7'}
-                  </p>
-                  <button className="px-4 py-2 bg-primary text-black rounded-md font-semibold hover:bg-primary/90 transition-colors">
-                    {language === 'es' ? 'Chatear Ahora' : 'Chat Now'}
-                  </button>
+                {/* AI Assistant CTA */}
+                <div className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg p-6">
+                  <div className="text-center">
+                    <div className="text-5xl mb-3">🤖</div>
+                    <h3 className="text-lg font-bold text-primary mb-2">
+                      {language === 'es' ? '¿Necesita Ayuda Legal?' : 'Need Legal Help?'}
+                    </h3>
+                    <p className="text-sm text-gray-300 mb-4">
+                      {language === 'es'
+                        ? 'Nuestro asistente de IA está disponible 24/7'
+                        : 'Our AI assistant is available 24/7'}
+                    </p>
+                    <button className="px-4 py-2 bg-primary text-black rounded-md font-semibold hover:bg-primary/90 transition-colors">
+                      {language === 'es' ? 'Chatear Ahora' : 'Chat Now'}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <ChatWidget language={language} />
+        <ChatWidget language={language} />
       </div>
     </MasterLayout>
   );

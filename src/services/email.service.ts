@@ -94,7 +94,10 @@ const emailConfig = {
 const transporter = process.env.SMTP_USER ? nodemailer.createTransport(emailConfig) : null;
 
 // Email templates with enhanced styling and responsive design
-const templates: Record<EmailTemplate, (data: EmailTemplateData) => { html: string; text: string }> = {
+const templates: Record<
+  EmailTemplate,
+  (data: EmailTemplateData) => { html: string; text: string }
+> = {
   'contact-form': data => ({
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -237,7 +240,7 @@ ${data.leadScore ? `LEAD ANALYSIS\nLead Score: ${data.leadScore}/100` : ''}
         <p>If you need to reschedule or cancel, please call us at <strong>1-844-YO-PELEO (967-3536)</strong> at least 24 hours in advance.</p>
         
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${process.env.NEXT_PUBLIC_URL}/appointments/manage?id=${data.appointmentId}" 
+          <a href="${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/appointments/manage?id=${data.appointmentId || ''}" 
              style="background-color: #C9974D; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
             Manage Appointment
           </a>
@@ -268,7 +271,7 @@ WHAT TO BRING:
 
 If you need to reschedule or cancel, please call us at 1-844-YO-PELEO (967-3536) at least 24 hours in advance.
 
-Manage your appointment: ${process.env.NEXT_PUBLIC_URL}/appointments/manage?id=${data.appointmentId}
+Manage your appointment: ${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/appointments/manage?id=${data.appointmentId || ''}
 
 Best regards,
 Vasquez Law Firm
@@ -294,7 +297,7 @@ YO PELEO POR TI™
               ? `
           <div style="background-color: #d4edda; padding: 15px; border-radius: 5px; margin: 15px 0;">
             <p style="margin: 0;"><strong>Virtual Meeting Link:</strong></p>
-            <p style="margin: 5px 0;"><a href="${data.meetingLink}" style="color: #0066cc;">${data.meetingLink}</a></p>
+            <p style="margin: 5px 0;"><a href="${data.meetingLink || '#'}" style="color: #0066cc;">${data.meetingLink || 'Link will be provided'}</a></p>
             <p style="margin: 0; font-size: 14px;">Please join 5 minutes early to test your connection.</p>
           </div>
           `
@@ -319,7 +322,7 @@ Date: ${data.appointmentDate ? new Date(data.appointmentDate).toLocaleDateString
 Time: ${data.appointmentTime}
 Attorney: ${data.attorneyName}
 Location: ${data.location}
-${data.meetingType === 'virtual' ? `\nVirtual Meeting Link: ${data.meetingLink}\nPlease join 5 minutes early to test your connection.` : ''}
+${data.meetingType === 'virtual' ? `\nVirtual Meeting Link: ${data.meetingLink || 'Link will be provided'}\nPlease join 5 minutes early to test your connection.` : ''}
 
 If you need to reschedule, please contact us as soon as possible at 1-844-YO-PELEO (967-3536).
 
@@ -349,7 +352,7 @@ YO PELEO POR TI™
         <hr style="margin: 30px 0;">
         <p style="font-size: 12px; color: #666;">
           You're receiving this email because you subscribed to our newsletter. 
-          If you wish to unsubscribe, please <a href="${process.env.NEXT_PUBLIC_URL}/unsubscribe?email=${encodeURIComponent(data.email || '')}&token=${data.unsubscribeToken}">click here</a>.
+          If you wish to unsubscribe, please <a href="${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/unsubscribe?email=${encodeURIComponent(data.email || '')}&token=${data.unsubscribeToken || ''}">click here</a>.
         </p>
       </div>
     `,
@@ -374,7 +377,7 @@ YO PELEO POR TI™
 
 ---
 You're receiving this email because you subscribed to our newsletter. 
-To unsubscribe, visit: ${process.env.NEXT_PUBLIC_URL}/unsubscribe?email=${encodeURIComponent(data.email || '')}&token=${data.unsubscribeToken}
+To unsubscribe, visit: ${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/unsubscribe?email=${encodeURIComponent(data.email || '')}&token=${data.unsubscribeToken || ''}
     `.trim(),
   }),
 
@@ -435,7 +438,7 @@ YO PELEO POR TI™
           ${data.assignedTo ? `<p><strong>Assigned To:</strong> ${data.assignedTo}</p>` : ''}
         </div>
         <p style="margin-top: 20px;">
-          <a href="${process.env.NEXT_PUBLIC_URL}/admin/submissions/${data.id}" 
+          <a href="${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/admin/submissions/${data.id || ''}" 
              style="background-color: #C9974D; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
             View Full Details
           </a>
@@ -451,7 +454,7 @@ Priority: ${data.priority || 'Normal'}
 ${data.summary ? `Summary: ${data.summary}` : ''}
 ${data.assignedTo ? `Assigned To: ${data.assignedTo}` : ''}
 
-View full details at: ${process.env.NEXT_PUBLIC_URL}/admin/submissions/${data.id}
+View full details at: ${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/admin/submissions/${data.id || ''}
     `.trim(),
   }),
 
@@ -483,7 +486,7 @@ View full details at: ${process.env.NEXT_PUBLIC_URL}/admin/submissions/${data.id
         </ul>
         
         <p style="margin-top: 20px;">
-          <a href="${process.env.NEXT_PUBLIC_URL}/dashboard" 
+          <a href="${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/dashboard" 
              style="background-color: #C9974D; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
             Access Your Dashboard
           </a>
@@ -524,7 +527,7 @@ You can now log in to your account at any time to:
 - Schedule a consultation
 - Access our legal resources
 
-Access Your Dashboard: ${process.env.NEXT_PUBLIC_URL}/dashboard
+Access Your Dashboard: ${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/dashboard
 
 NEED HELP?
 Our team is here to assist you. Call us at 1-844-YO-PELEO (967-3536) or use our AI assistant available 24/7 on our website.
@@ -579,7 +582,7 @@ If you did not create this account, please contact us immediately.
           </div>
           
           <div style="text-align: center;">
-            <a href="${process.env.NEXT_PUBLIC_URL}/admin/leads/${data.lead?.id || data.leadId}" 
+            <a href="${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/admin/leads/${data.lead?.id || data.leadId || ''}" 
                style="display: inline-block; background-color: #C9974D; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold;">
               View Lead in Dashboard
             </a>
@@ -610,7 +613,7 @@ ${data.lead?.message ? `MESSAGE\n${data.lead.message}\n\n` : ''}
 ACTION REQUIRED: This lead requires immediate attention. Please contact them within the next hour.
 ${data.lead?.preferredContactTime ? `Preferred Contact Time: ${data.lead.preferredContactTime}` : ''}
 
-View lead in dashboard: ${process.env.NEXT_PUBLIC_URL}/admin/leads/${data.lead?.id || data.leadId}
+View lead in dashboard: ${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/admin/leads/${data.lead?.id || data.leadId || ''}
 
 This is an automated notification from Vasquez Law Firm's lead management system.
     `.trim(),
@@ -626,7 +629,7 @@ This is an automated notification from Vasquez Law Firm's lead management system
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <p>To reset your password, click the button below:</p>
           <div style="text-align: center; margin: 20px 0;">
-            <a href="${data.resetLink}" 
+            <a href="${data.resetLink || '#'}" 
                style="background-color: #C9974D; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
               Reset Password
             </a>
@@ -635,7 +638,7 @@ This is an automated notification from Vasquez Law Firm's lead management system
         </div>
         
         <p>If you're having trouble clicking the button, copy and paste this URL into your browser:</p>
-        <p style="word-break: break-all; color: #0066cc;">${data.resetLink}</p>
+        <p style="word-break: break-all; color: #0066cc;">${data.resetLink || 'Reset link not available'}</p>
         
         <p>Best regards,<br>Vasquez Law Firm<br>YO PELEO POR TI™</p>
         
@@ -653,7 +656,7 @@ Dear ${data.name},
 We received a request to reset your password. If you didn't make this request, you can safely ignore this email.
 
 To reset your password, visit this link:
-${data.resetLink}
+${data.resetLink || 'Reset link not available'}
 
 This link will expire in 1 hour for security reasons.
 
@@ -709,7 +712,7 @@ This is an automated security email. If you didn't request a password reset, ple
         <p>If you have any questions about this update, please don't hesitate to contact us at <strong>1-844-YO-PELEO (967-3536)</strong> or reply to this email.</p>
         
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${process.env.NEXT_PUBLIC_URL}/dashboard/cases/${data.caseId}" 
+          <a href="${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/dashboard/cases/${data.caseId || ''}" 
              style="background-color: #C9974D; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
             View Case Details
           </a>
@@ -738,7 +741,7 @@ ${data.documentsNeeded && data.documentsNeeded.length > 0 ? `DOCUMENTS NEEDED\n$
 
 If you have any questions about this update, please don't hesitate to contact us at 1-844-YO-PELEO (967-3536) or reply to this email.
 
-View case details: ${process.env.NEXT_PUBLIC_URL}/dashboard/cases/${data.caseId}
+View case details: ${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/dashboard/cases/${data.caseId || ''}
 
 Best regards,
 ${data.attorneyName}
@@ -782,7 +785,7 @@ YO PELEO POR TI™
         </div>
         
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${process.env.NEXT_PUBLIC_URL}/dashboard/documents/${data.documentId}" 
+          <a href="${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/dashboard/documents/${data.documentId || ''}" 
              style="background-color: #C9974D; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
             View Document
           </a>
@@ -809,7 +812,7 @@ ${data.description ? `Description:\n${data.description}\n` : ''}
 
 ${data.actionRequired ? `ACTION REQUIRED: ${data.actionRequired}${data.deadline ? `\nDeadline: ${new Date(data.deadline).toLocaleDateString()}` : ''}\n` : ''}
 
-View document: ${process.env.NEXT_PUBLIC_URL}/dashboard/documents/${data.documentId}
+View document: ${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/dashboard/documents/${data.documentId || ''}
 
 If you have any questions about this document, please contact us at 1-844-YO-PELEO (967-3536).
 
@@ -953,7 +956,7 @@ YO PELEO POR TI™
         </ol>
         
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${process.env.NEXT_PUBLIC_URL}/contact" 
+          <a href="${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/contact" 
              style="background-color: #C9974D; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
             Get Started
           </a>
@@ -988,7 +991,7 @@ If you would like to proceed with our representation, please:
 2. Submit any additional documents we discussed
 3. Contact us to schedule your next appointment
 
-Get started: ${process.env.NEXT_PUBLIC_URL}/contact
+Get started: ${process.env.NEXT_PUBLIC_URL || 'https://www.vasquezlawnc.com'}/contact
 
 If you have any questions or need clarification on anything we discussed, please don't hesitate to contact us at 1-844-YO-PELEO (967-3536).
 
@@ -1020,7 +1023,12 @@ class EmailService {
     }
 
     // Skip SMTP verification during build time
-    if (this.isConfigured && transporter && process.env.NODE_ENV !== 'production' && !process.env.NEXT_PHASE) {
+    if (
+      this.isConfigured &&
+      transporter &&
+      process.env.NODE_ENV !== 'production' &&
+      !process.env.NEXT_PHASE
+    ) {
       // Defer verification to avoid build-time connection attempts
       setTimeout(() => {
         this.verifyConnection();

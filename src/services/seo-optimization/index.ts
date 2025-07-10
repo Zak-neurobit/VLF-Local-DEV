@@ -136,7 +136,7 @@ export class SEOOptimizationService {
           email: 'leads@vasquezlawfirm.com',
           address: [
             {
-              '@type': 'PostalAddress',
+              '@type': 'PostalAddress' as const,
               streetAddress: '123 Main St, Suite 100',
               addressLocality: 'Raleigh',
               addressRegion: 'NC',
@@ -144,7 +144,7 @@ export class SEOOptimizationService {
               addressCountry: 'US',
             },
             {
-              '@type': 'PostalAddress',
+              '@type': 'PostalAddress' as const,
               streetAddress: '456 Trade St, Suite 200',
               addressLocality: 'Charlotte',
               addressRegion: 'NC',
@@ -152,7 +152,7 @@ export class SEOOptimizationService {
               addressCountry: 'US',
             },
             {
-              '@type': 'PostalAddress',
+              '@type': 'PostalAddress' as const,
               streetAddress: '321 Orange Ave, Suite 400',
               addressLocality: 'Orlando',
               addressRegion: 'FL',
@@ -236,7 +236,7 @@ export class SEOOptimizationService {
             '@id': `${baseUrl}/#organization`,
           },
           description: data.bio,
-          alumniOf: (data.education as Array<{ name: string }>)?.map((edu) => ({
+          alumniOf: (data.education as Array<{ name: string }>)?.map(edu => ({
             '@type': 'EducationalOrganization',
             name: edu.school,
           })),
@@ -278,14 +278,16 @@ export class SEOOptimizationService {
           ...(data.faqSection && {
             hasPart: {
               '@type': 'FAQPage',
-              mainEntity: (data.faqSection as Array<{ question: string; answer: string }>).map((faq) => ({
-                '@type': 'Question',
-                name: faq.question,
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: faq.answer,
-                },
-              })),
+              mainEntity: (data.faqSection as Array<{ question: string; answer: string }>).map(
+                faq => ({
+                  '@type': 'Question',
+                  name: faq.question,
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: faq.answer,
+                  },
+                })
+              ),
             },
           }),
         };
@@ -294,7 +296,7 @@ export class SEOOptimizationService {
         return {
           '@context': 'https://schema.org',
           '@type': 'FAQPage',
-          mainEntity: (data.questions as Array<{ question: string; answer: string }>).map((item) => ({
+          mainEntity: (data.questions as Array<{ question: string; answer: string }>).map(item => ({
             '@type': 'Question',
             name: item.question,
             acceptedAnswer: {
@@ -345,12 +347,14 @@ export class SEOOptimizationService {
         return {
           '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
-          itemListElement: (data.items as Array<{ name: string; url: string }>).map((item, index) => ({
-            '@type': 'ListItem',
-            position: index + 1,
-            name: item.name,
-            item: `${baseUrl}${item.url}`,
-          })),
+          itemListElement: (data.items as Array<{ name: string; url: string }>).map(
+            (item, index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              name: item.name,
+              item: `${baseUrl}${item.url}`,
+            })
+          ),
         };
 
       default:
@@ -521,5 +525,43 @@ Sitemap: ${baseUrl}/sitemap-news.xml`;
     tags.push(`<link rel="alternate" hreflang="x-default" href="${baseUrl}${currentPath}" />`);
 
     return tags.join('\n');
+  }
+
+  // Generate hreflang sitemap
+  async generateHreflangSitemap(): Promise<string> {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vasquezlawnc.com';
+
+    // Define pages that have translations
+    const pages = [
+      '/',
+      '/practice-areas',
+      '/practice-areas/immigration',
+      '/practice-areas/personal-injury',
+      '/practice-areas/workers-compensation',
+      '/practice-areas/criminal-defense',
+      '/practice-areas/family-law',
+      '/practice-areas/traffic-violations',
+      '/attorneys',
+      '/about',
+      '/contact',
+      '/blog',
+    ];
+
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n';
+    xml += '        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n';
+
+    for (const page of pages) {
+      xml += '  <url>\n';
+      xml += `    <loc>${baseUrl}${page}</loc>\n`;
+      xml += `    <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}${page}" />\n`;
+      xml += `    <xhtml:link rel="alternate" hreflang="es" href="${baseUrl}/es${page === '/' ? '' : page}" />\n`;
+      xml += `    <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}${page}" />\n`;
+      xml += '  </url>\n';
+    }
+
+    xml += '</urlset>';
+
+    return xml;
   }
 }

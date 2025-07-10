@@ -70,10 +70,14 @@ const AgentStatusCard: React.FC<AgentStatusCardProps> = ({ agent }) => {
   };
 
   return (
-    <div className={`bg-white rounded-lg shadow-lg p-6 border-l-4 ${getStatusColor().replace('bg-', 'border-l-')} transition-all duration-300 hover:shadow-xl`}>
+    <div
+      className={`bg-white rounded-lg shadow-lg p-6 border-l-4 ${getStatusColor().replace('bg-', 'border-l-')} transition-all duration-300 hover:shadow-xl`}
+    >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
-          <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white ${getStatusColor()}`}>
+          <div
+            className={`w-8 h-8 rounded-full flex items-center justify-center text-white ${getStatusColor()}`}
+          >
             {getAgentIcon()}
           </div>
           <div>
@@ -81,7 +85,9 @@ const AgentStatusCard: React.FC<AgentStatusCardProps> = ({ agent }) => {
             <p className="text-sm text-gray-600">{getStatusText()}</p>
           </div>
         </div>
-        <div className={`w-3 h-3 rounded-full ${getStatusColor()} ${isActive ? 'animate-pulse' : ''}`} />
+        <div
+          className={`w-3 h-3 rounded-full ${getStatusColor()} ${isActive ? 'animate-pulse' : ''}`}
+        />
       </div>
 
       <div className="space-y-3">
@@ -96,7 +102,7 @@ const AgentStatusCard: React.FC<AgentStatusCardProps> = ({ agent }) => {
             <span className="text-sm font-medium text-gray-900">{agent.progress}%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
-            <div 
+            <div
               className={`h-2 rounded-full transition-all duration-500 ${getStatusColor()}`}
               style={{ width: `${agent.progress}%` }}
             />
@@ -113,7 +119,9 @@ const AgentStatusCard: React.FC<AgentStatusCardProps> = ({ agent }) => {
             <div className="text-xs text-gray-600">Errors</div>
           </div>
           <div className="bg-blue-50 rounded-lg p-2">
-            <div className="text-sm font-semibold text-blue-600">{agent.performance.efficiency}%</div>
+            <div className="text-sm font-semibold text-blue-600">
+              {agent.performance.efficiency}%
+            </div>
             <div className="text-xs text-gray-600">Efficiency</div>
           </div>
         </div>
@@ -146,10 +154,10 @@ const AgentStatusPanel: React.FC = () => {
 
   const getOverallHealth = () => {
     if (data.agents.length === 0) return 'unknown';
-    
+
     const workingCount = data.agents.filter(a => a.status === 'working').length;
     const errorCount = data.agents.filter(a => a.status === 'error').length;
-    
+
     if (errorCount > 0) return 'warning';
     if (workingCount > 0) return 'healthy';
     return 'idle';
@@ -161,8 +169,8 @@ const AgentStatusPanel: React.FC = () => {
         return 'text-green-500';
       case 'warning':
         return 'text-yellow-500';
-      case 'error':
-        return 'text-red-500';
+      case 'idle':
+        return 'text-gray-500';
       default:
         return 'text-gray-500';
     }
@@ -177,29 +185,29 @@ const AgentStatusPanel: React.FC = () => {
             System Health: {getOverallHealth().toUpperCase()}
           </p>
         </div>
-        
+
         <div className="flex items-center space-x-4">
-          <select 
-            value={sortBy} 
-            onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+          <select
+            value={sortBy}
+            onChange={e => setSortBy(e.target.value as typeof sortBy)}
             className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="status">Sort by Status</option>
             <option value="name">Sort by Name</option>
             <option value="performance">Sort by Performance</option>
           </select>
-          
+
           <div className="flex items-center space-x-2">
-            <div className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
-            <span className="text-sm text-gray-600">
-              {isConnected ? 'Live' : 'Offline'}
-            </span>
+            <div
+              className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}
+            />
+            <span className="text-sm text-gray-600">{isConnected ? 'Live' : 'Offline'}</span>
           </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {sortedAgents.map((agent) => (
+        {sortedAgents.map(agent => (
           <AgentStatusCard key={agent.id} agent={agent} />
         ))}
       </div>

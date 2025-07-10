@@ -150,13 +150,4 @@ exports.SERVICE_CONFIGS = {
     ],
     onMissing: 'warn',
   },
-  TWILIO: {
-    name: 'Twilio',
-    envVars: [
-      { key: 'TWILIO_ACCOUNT_SID', required: false, description: 'Twilio Account SID' },
-      { key: 'TWILIO_AUTH_TOKEN', required: false, description: 'Twilio Auth Token' },
-      { key: 'TWILIO_PHONE_NUMBER', required: false, description: 'Twilio Phone Number' },
-    ],
-    onMissing: 'warn',
-  },
 };

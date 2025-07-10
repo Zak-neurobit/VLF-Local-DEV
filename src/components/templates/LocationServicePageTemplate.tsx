@@ -5,8 +5,10 @@ import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Button } from '@/design-system/components/Button';
 import { motion } from 'framer-motion';
 import { Phone, MapPin, Clock, MessageCircle, CheckCircle } from 'lucide-react';
-import Link from 'next/link';
-import { generateServiceSchema, generateEnhancedBreadcrumbSchema } from '@/lib/seo/comprehensive-schema';
+import {
+  generateServiceSchema,
+  generateEnhancedBreadcrumbSchema,
+} from '@/lib/seo/comprehensive-schema';
 import Script from 'next/script';
 
 interface LocationServicePageTemplateProps {
@@ -16,17 +18,28 @@ interface LocationServicePageTemplateProps {
   slug: string;
 }
 
-export function LocationServicePageTemplate({ city, county, service, slug }: LocationServicePageTemplateProps) {
+export function LocationServicePageTemplate({
+  city,
+  county,
+  service,
+  slug,
+}: LocationServicePageTemplateProps) {
   const serviceContent = getServiceContent(service, city);
-  
+
   // Generate schemas
   const breadcrumbSchema = generateEnhancedBreadcrumbSchema([
     { name: 'Home', url: 'https://www.vasquezlawnc.com' },
     { name: 'Locations', url: 'https://www.vasquezlawnc.com/locations' },
-    { name: city, url: `https://www.vasquezlawnc.com/locations/nc/${city.toLowerCase().replace(/\s+/g, '-')}` },
-    { name: service, url: `https://www.vasquezlawnc.com/locations/nc/${city.toLowerCase().replace(/\s+/g, '-')}/${slug}` }
+    {
+      name: city,
+      url: `https://www.vasquezlawnc.com/locations/nc/${city.toLowerCase().replace(/\s+/g, '-')}`,
+    },
+    {
+      name: service,
+      url: `https://www.vasquezlawnc.com/locations/nc/${city.toLowerCase().replace(/\s+/g, '-')}/${slug}`,
+    },
   ]);
-  
+
   const serviceSchema = generateServiceSchema({
     name: `${service} Services in ${city}`,
     description: serviceContent.description,
@@ -35,16 +48,16 @@ export function LocationServicePageTemplate({ city, county, service, slug }: Loc
     availableLanguages: ['English', 'Spanish'],
     priceRange: '$$',
     url: `https://www.vasquezlawnc.com/locations/nc/${city.toLowerCase().replace(/\s+/g, '-')}/${slug}`,
-    serviceType: service
+    serviceType: service,
   });
-  
+
   return (
     <MasterLayout variant="hero" showBreadcrumbs={true}>
       <div className="min-h-screen bg-black">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-20">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-black to-secondary/10" />
-          
+
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <motion.div
@@ -61,7 +74,7 @@ export function LocationServicePageTemplate({ city, county, service, slug }: Loc
                 <p className="text-lg mb-8 max-w-2xl mx-auto text-gray-300">
                   {serviceContent.heroDescription}
                 </p>
-                
+
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button
@@ -86,7 +99,7 @@ export function LocationServicePageTemplate({ city, county, service, slug }: Loc
             </div>
           </div>
         </section>
-        
+
         {/* Service Details */}
         <section className="py-16 bg-neutral-950">
           <div className="container mx-auto px-4">
@@ -102,15 +115,13 @@ export function LocationServicePageTemplate({ city, county, service, slug }: Loc
                     <h2 className="text-3xl font-bold text-white mb-6">
                       {serviceContent.mainTitle}
                     </h2>
-                    <p className="text-gray-300 mb-6">
-                      {serviceContent.description}
-                    </p>
-                    
+                    <p className="text-gray-300 mb-6">{serviceContent.description}</p>
+
                     <h3 className="text-2xl font-bold text-primary mb-4">
                       How We Help {city} Residents
                     </h3>
                     <ul className="space-y-3">
-                      {serviceContent.services.map((item, index) => (
+                      {serviceContent.services.map((item: string, index: number) => (
                         <li key={index} className="flex items-start">
                           <CheckCircle className="w-5 h-5 text-primary mt-1 mr-3 flex-shrink-0" />
                           <span className="text-gray-300">{item}</span>
@@ -119,7 +130,7 @@ export function LocationServicePageTemplate({ city, county, service, slug }: Loc
                     </ul>
                   </motion.div>
                 </div>
-                
+
                 {/* Sidebar */}
                 <div>
                   <motion.div
@@ -128,9 +139,7 @@ export function LocationServicePageTemplate({ city, county, service, slug }: Loc
                     viewport={{ once: true }}
                     className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-primary/20"
                   >
-                    <h3 className="text-2xl font-bold text-white mb-6">
-                      Get Help Today
-                    </h3>
+                    <h3 className="text-2xl font-bold text-white mb-6">Get Help Today</h3>
                     <div className="space-y-4 mb-6">
                       <div className="flex items-center text-gray-300">
                         <Phone className="w-5 h-5 text-primary mr-3" />
@@ -152,7 +161,7 @@ export function LocationServicePageTemplate({ city, county, service, slug }: Loc
                       Schedule Free Consultation
                     </Button>
                   </motion.div>
-                  
+
                   <motion.div
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -160,11 +169,9 @@ export function LocationServicePageTemplate({ city, county, service, slug }: Loc
                     transition={{ delay: 0.1 }}
                     className="mt-8 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10"
                   >
-                    <h3 className="text-xl font-bold text-primary mb-4">
-                      Why Choose Us?
-                    </h3>
+                    <h3 className="text-xl font-bold text-primary mb-4">Why Choose Us?</h3>
                     <ul className="space-y-3">
-                      {serviceContent.whyChooseUs.map((reason, index) => (
+                      {serviceContent.whyChooseUs.map((reason: string, index: number) => (
                         <li key={index} className="text-gray-300">
                           • {reason}
                         </li>
@@ -176,7 +183,7 @@ export function LocationServicePageTemplate({ city, county, service, slug }: Loc
             </div>
           </div>
         </section>
-        
+
         {/* FAQ Section */}
         <section className="py-16 bg-black">
           <div className="container mx-auto px-4">
@@ -189,35 +196,38 @@ export function LocationServicePageTemplate({ city, county, service, slug }: Loc
               >
                 Frequently Asked Questions
               </motion.h2>
-              
+
               <div className="space-y-6">
-                {serviceContent.faqs.map((faq, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10"
-                  >
-                    <h3 className="text-xl font-semibold text-primary mb-3">{faq.question}</h3>
-                    <p className="text-gray-300">{faq.answer}</p>
-                  </motion.div>
-                ))}
+                {serviceContent.faqs.map(
+                  (faq: { question: string; answer: string }, index: number) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                      className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10"
+                    >
+                      <h3 className="text-xl font-semibold text-primary mb-3">{faq.question}</h3>
+                      <p className="text-gray-300">{faq.answer}</p>
+                    </motion.div>
+                  )
+                )}
               </div>
             </div>
           </div>
         </section>
-        
+
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-r from-primary to-primary-300">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-3xl font-black text-black mb-6">
-                Don't Wait - Get Legal Help in {city} Today
+                Don&apos;t Wait - Get Legal Help in {city} Today
               </h2>
               <p className="text-xl text-black/80 mb-8">
-                Our experienced {service.toLowerCase()}s are ready to fight for you. Call now for a free consultation.
+                Our experienced {service.toLowerCase()}s are ready to fight for you. Call now for a
+                free consultation.
               </p>
               <Button
                 href="tel:1-844-967-3536"
@@ -230,16 +240,16 @@ export function LocationServicePageTemplate({ city, county, service, slug }: Loc
             </div>
           </div>
         </section>
-        
+
         {/* Schemas */}
         <Script
           id={`service-schema-${slug}-${city.toLowerCase()}`}
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@graph": [breadcrumbSchema, serviceSchema]
-            })
+              '@context': 'https://schema.org',
+              '@graph': [breadcrumbSchema, serviceSchema],
+            }),
           }}
         />
       </div>
@@ -260,7 +270,7 @@ function getServiceContent(service: string, city: string) {
         'Deportation and removal defense',
         'Citizenship and naturalization',
         'DACA applications and renewals',
-        'Asylum and refugee protection'
+        'Asylum and refugee protection',
       ],
       whyChooseUs: [
         '60+ years combined experience',
@@ -268,22 +278,25 @@ function getServiceContent(service: string, city: string) {
         'Fluent Spanish speakers',
         'Former immigration officers on staff',
         'Same-day consultations available',
-        '24/7 emergency support'
+        '24/7 emergency support',
       ],
       faqs: [
         {
           question: `How much does an immigration lawyer cost in ${city}?`,
-          answer: 'We offer competitive rates with flexible payment plans. Every case starts with a free consultation to discuss your needs and provide transparent pricing.'
+          answer:
+            'We offer competitive rates with flexible payment plans. Every case starts with a free consultation to discuss your needs and provide transparent pricing.',
         },
         {
           question: 'Do you handle deportation cases?',
-          answer: 'Yes, we have extensive experience in deportation defense and have successfully helped many clients remain in the United States with their families.'
+          answer:
+            'Yes, we have extensive experience in deportation defense and have successfully helped many clients remain in the United States with their families.',
         },
         {
           question: 'How long do immigration cases take?',
-          answer: 'Processing times vary by case type. During your consultation, we\'ll provide realistic timelines and keep you updated throughout the process.'
-        }
-      ]
+          answer:
+            "Processing times vary by case type. During your consultation, we'll provide realistic timelines and keep you updated throughout the process.",
+        },
+      ],
     },
     'Personal Injury Attorney': {
       mainTitle: `Trusted Personal Injury Attorneys in ${city}`,
@@ -295,7 +308,7 @@ function getServiceContent(service: string, city: string) {
         'Medical malpractice claims',
         'Wrongful death cases',
         'Product liability',
-        'Workplace accidents'
+        'Workplace accidents',
       ],
       whyChooseUs: [
         'No win, no fee guarantee',
@@ -303,22 +316,25 @@ function getServiceContent(service: string, city: string) {
         'Available 24/7 for emergencies',
         'Direct attorney access',
         'In-house medical experts',
-        'Aggressive negotiators'
+        'Aggressive negotiators',
       ],
       faqs: [
         {
           question: `What's my personal injury case worth in ${city}?`,
-          answer: 'Case values depend on injuries, medical costs, lost wages, and other factors. We offer free case evaluations to assess your potential compensation.'
+          answer:
+            'Case values depend on injuries, medical costs, lost wages, and other factors. We offer free case evaluations to assess your potential compensation.',
         },
         {
           question: 'How long do I have to file a claim?',
-          answer: 'North Carolina generally has a 3-year statute of limitations for personal injury, but some cases have shorter deadlines. Contact us immediately to protect your rights.'
+          answer:
+            'North Carolina generally has a 3-year statute of limitations for personal injury, but some cases have shorter deadlines. Contact us immediately to protect your rights.',
         },
         {
           question: 'What if I was partially at fault?',
-          answer: 'North Carolina follows contributory negligence rules. We\'ll investigate thoroughly to build the strongest possible case for you.'
-        }
-      ]
+          answer:
+            "North Carolina follows contributory negligence rules. We'll investigate thoroughly to build the strongest possible case for you.",
+        },
+      ],
     },
     'Workers Compensation Lawyer': {
       mainTitle: `Workers' Compensation Lawyers Serving ${city}`,
@@ -330,7 +346,7 @@ function getServiceContent(service: string, city: string) {
         'Disability benefits',
         'Medical treatment authorization',
         'Lost wage recovery',
-        'Third-party liability claims'
+        'Third-party liability claims',
       ],
       whyChooseUs: [
         'Former insurance adjusters on staff',
@@ -338,22 +354,25 @@ function getServiceContent(service: string, city: string) {
         'Expedited claim processing',
         'Maximum benefit recovery',
         'No upfront costs',
-        'Bilingual support'
+        'Bilingual support',
       ],
       faqs: [
         {
           question: 'What should I do after a workplace injury?',
-          answer: 'Report the injury immediately, seek medical care, document everything, and contact us for a free consultation to protect your rights.'
+          answer:
+            'Report the injury immediately, seek medical care, document everything, and contact us for a free consultation to protect your rights.',
         },
         {
           question: 'Can I choose my own doctor?',
-          answer: 'Initially, you must see the employer\'s approved doctor, but we can help you change doctors and get the treatment you need.'
+          answer:
+            "Initially, you must see the employer's approved doctor, but we can help you change doctors and get the treatment you need.",
         },
         {
           question: 'What if my claim was denied?',
-          answer: 'Don\'t give up. We have a strong track record of overturning denials and securing benefits for injured workers.'
-        }
-      ]
+          answer:
+            "Don't give up. We have a strong track record of overturning denials and securing benefits for injured workers.",
+        },
+      ],
     },
     'Criminal Defense Attorney': {
       mainTitle: `Aggressive Criminal Defense in ${city}`,
@@ -365,7 +384,7 @@ function getServiceContent(service: string, city: string) {
         'Assault and battery',
         'Theft and property crimes',
         'Federal criminal defense',
-        'Traffic violations'
+        'Traffic violations',
       ],
       whyChooseUs: [
         'Former prosecutors on team',
@@ -373,22 +392,25 @@ function getServiceContent(service: string, city: string) {
         'Aggressive trial attorneys',
         'Proven case dismissals',
         'Flexible payment plans',
-        'Confidential consultations'
+        'Confidential consultations',
       ],
       faqs: [
         {
           question: 'Should I talk to police without a lawyer?',
-          answer: 'No. Exercise your right to remain silent and contact us immediately. Anything you say can be used against you.'
+          answer:
+            'No. Exercise your right to remain silent and contact us immediately. Anything you say can be used against you.',
         },
         {
           question: 'Can you get my charges dropped?',
-          answer: 'Every case is unique. We\'ll review evidence, identify weaknesses, and fight for dismissal, reduction, or the best possible outcome.'
+          answer:
+            "Every case is unique. We'll review evidence, identify weaknesses, and fight for dismissal, reduction, or the best possible outcome.",
         },
         {
           question: 'What about my immigration status?',
-          answer: 'Criminal charges can affect immigration. Our attorneys understand both criminal and immigration law to protect your entire future.'
-        }
-      ]
+          answer:
+            'Criminal charges can affect immigration. Our attorneys understand both criminal and immigration law to protect your entire future.',
+        },
+      ],
     },
     'Car Accident Lawyer': {
       mainTitle: `Car Accident Lawyers Fighting for ${city} Victims`,
@@ -400,7 +422,7 @@ function getServiceContent(service: string, city: string) {
         'Drunk driving crashes',
         'Hit and run cases',
         'Uber/Lyft accidents',
-        'Uninsured motorist claims'
+        'Uninsured motorist claims',
       ],
       whyChooseUs: [
         'Average settlement $127,000+',
@@ -408,24 +430,27 @@ function getServiceContent(service: string, city: string) {
         'Medical treatment coordination',
         'Property damage help',
         'No recovery, no fee',
-        'Bilingual team'
+        'Bilingual team',
       ],
       faqs: [
         {
           question: 'What should I do after a car accident?',
-          answer: 'Call 911, get medical attention, document the scene, don\'t admit fault, and contact us before speaking with insurance companies.'
+          answer:
+            "Call 911, get medical attention, document the scene, don't admit fault, and contact us before speaking with insurance companies.",
         },
         {
           question: 'How much is my car accident case worth?',
-          answer: 'Values depend on injuries, medical bills, lost wages, and pain/suffering. We offer free evaluations to assess your case.'
+          answer:
+            'Values depend on injuries, medical bills, lost wages, and pain/suffering. We offer free evaluations to assess your case.',
         },
         {
           question: 'How long will my case take?',
-          answer: 'Most cases settle in 3-6 months, but serious injuries may take longer. We work efficiently while maximizing your compensation.'
-        }
-      ]
-    }
+          answer:
+            'Most cases settle in 3-6 months, but serious injuries may take longer. We work efficiently while maximizing your compensation.',
+        },
+      ],
+    },
   };
-  
+
   return contents[service] || contents['Immigration Lawyer'];
 }

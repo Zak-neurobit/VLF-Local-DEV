@@ -36,6 +36,7 @@ interface DashboardData {
     message: string;
     timestamp: Date;
     success: boolean;
+    details?: string;
   }>;
   systemHealth: {
     uptime: number;
@@ -75,15 +76,15 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       rankingChanges: 0,
       socialEngagement: 0,
       leadGeneration: 0,
-      conversionRate: 0
+      conversionRate: 0,
     },
     recentActivity: [],
     systemHealth: {
       uptime: 0,
       performance: 0,
       errors: 0,
-      lastUpdate: new Date()
-    }
+      lastUpdate: new Date(),
+    },
   });
 
   // Initialize socket connection only on client side
@@ -96,8 +97,8 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         ...prev,
         systemHealth: {
           ...prev.systemHealth,
-          lastUpdate: new Date()
-        }
+          lastUpdate: new Date(),
+        },
       }));
     }
 
@@ -130,9 +131,7 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         newSocket.on('agent:activity', (activity: AgentActivity) => {
           setData(prev => ({
             ...prev,
-            agents: prev.agents.map(agent => 
-              agent.id === activity.id ? activity : agent
-            )
+            agents: prev.agents.map(agent => (agent.id === activity.id ? activity : agent)),
           }));
         });
 
@@ -143,7 +142,7 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         newSocket.on('activity:new', (activity: DashboardData['recentActivity'][0]) => {
           setData(prev => ({
             ...prev,
-            recentActivity: [activity, ...prev.recentActivity.slice(0, 49)]
+            recentActivity: [activity, ...prev.recentActivity.slice(0, 49)],
           }));
         });
 

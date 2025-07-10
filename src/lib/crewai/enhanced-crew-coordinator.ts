@@ -64,7 +64,7 @@ export interface AgentCommunicationChannel {
   agentName: string;
   messageQueue: any[];
   subscribers: Set<string>;
-  messageHandlers: Map<string, Function>;
+  messageHandlers: Map<string, (...args: any[]) => any>;
   lastActivity: Date;
 }
 
@@ -87,7 +87,7 @@ export class CrewCoordinator {
   private parallelProcessingConfig?: ParallelProcessingConfig;
   private communicationConfig?: CommunicationConfig;
   private memoryConfig?: MemoryConfig;
-  private concurrencyLimit?: pLimit.Limit;
+  private concurrencyLimit?: ReturnType<typeof pLimit>;
   private workflowManager: Map<string, Workflow> = new Map();
   private communicationChannels: Map<string, AgentCommunicationChannel> = new Map();
   private distributedMemory: Map<string, DistributedMemoryStore> = new Map();
@@ -207,7 +207,7 @@ export class CrewCoordinator {
   async enableParallelProcessing(config: ParallelProcessingConfig): Promise<void> {
     this.parallelProcessingConfig = config;
     this.concurrencyLimit = pLimit(config.maxConcurrentTasks);
-    
+
     logger.info('Parallel processing enabled:', config);
     this.eventEmitter.emit('parallel-processing-enabled', config);
   }
@@ -218,24 +218,22 @@ export class CrewCoordinator {
     }
 
     logger.info(`Executing ${tasks.length} tasks in parallel`);
-    
+
     const startTime = Date.now();
-    
+
     try {
       const results = await Promise.allSettled(
-        tasks.map(task => 
-          this.concurrencyLimit!(() => this.executeTask(task))
-        )
+        tasks.map(task => this.concurrencyLimit!(() => this.executeTask(task)))
       );
 
       const successful = results.filter(r => r.status === 'fulfilled').length;
       const failed = results.filter(r => r.status === 'rejected').length;
-      
-      logger.info(`Parallel execution completed: ${successful} successful, ${failed} failed in ${Date.now() - startTime}ms`);
-      
-      return results.map(result => 
-        result.status === 'fulfilled' ? result.value : result.reason
+
+      logger.info(
+        `Parallel execution completed: ${successful} successful, ${failed} failed in ${Date.now() - startTime}ms`
       );
+
+      return results.map(result => (result.status === 'fulfilled' ? result.value : result.reason));
     } catch (error) {
       logger.error('Parallel execution failed:', error);
       throw error;
@@ -245,9 +243,9 @@ export class CrewCoordinator {
   // Inter-agent communication
   async setupCommunicationChannels(config: CommunicationConfig): Promise<void> {
     this.communicationConfig = config;
-    
+
     logger.info('Setting up communication channels:', config);
-    
+
     // Initialize communication channels for each agent
     const agentNames = [
       'legal-consultation',
@@ -266,7 +264,7 @@ export class CrewCoordinator {
     for (const agentName of agentNames) {
       await this.setupAgentCommunication(agentName);
     }
-    
+
     this.eventEmitter.emit('communication-channels-setup', config);
   }
 
@@ -280,10 +278,10 @@ export class CrewCoordinator {
     };
 
     this.communicationChannels.set(agentName, channel);
-    
+
     // Setup default message handlers
     this.setupDefaultMessageHandlers(agentName);
-    
+
     logger.info(`Communication channel setup for ${agentName}`);
   }
 
@@ -295,7 +293,7 @@ export class CrewCoordinator {
     channel.messageHandlers.set('delegate-task', async (message: any) => {
       const { taskId, taskData } = message;
       logger.info(`Agent ${agentName} received task delegation: ${taskId}`);
-      
+
       // Create and execute delegated task
       const task: CrewTask = {
         id: taskId,
@@ -306,7 +304,7 @@ export class CrewCoordinator {
         status: 'pending',
         createdAt: new Date(),
       };
-      
+
       return await this.executeTask(task);
     });
 
@@ -314,7 +312,7 @@ export class CrewCoordinator {
     channel.messageHandlers.set('share-information', async (message: any) => {
       const { information, context } = message;
       logger.info(`Agent ${agentName} received information sharing:`, information);
-      
+
       // Store in distributed memory
       await this.storeInDistributedMemory(agentName, `shared-${Date.now()}`, {
         information,
@@ -327,7 +325,7 @@ export class CrewCoordinator {
     channel.messageHandlers.set('status-update', async (message: any) => {
       const { status, details } = message;
       logger.info(`Agent ${agentName} received status update:`, status);
-      
+
       this.eventEmitter.emit('agent-status-update', {
         agentName,
         status,
@@ -337,7 +335,12 @@ export class CrewCoordinator {
     });
   }
 
-  async sendMessageToAgent(fromAgent: string, toAgent: string, messageType: string, payload: any): Promise<void> {
+  async sendMessageToAgent(
+    fromAgent: string,
+    toAgent: string,
+    messageType: string,
+    payload: any
+  ): Promise<void> {
     const channel = this.communicationChannels.get(toAgent);
     if (!channel) {
       logger.error(`Communication channel not found for agent: ${toAgent}`);
@@ -356,7 +359,7 @@ export class CrewCoordinator {
     // Add to message queue
     channel.messageQueue.push(message);
     channel.lastActivity = new Date();
-    
+
     // Process message if handler exists
     const handler = channel.messageHandlers.get(messageType);
     if (handler) {
@@ -372,7 +375,7 @@ export class CrewCoordinator {
 
   async broadcastMessage(fromAgent: string, messageType: string, payload: any): Promise<void> {
     logger.info(`Broadcasting message from ${fromAgent}: ${messageType}`);
-    
+
     const broadcastPromises = Array.from(this.communicationChannels.keys())
       .filter(agentName => agentName !== fromAgent)
       .map(agentName => this.sendMessageToAgent(fromAgent, agentName, messageType, payload));
@@ -383,21 +386,26 @@ export class CrewCoordinator {
   // Distributed memory system
   async initializeMemorySystem(config: MemoryConfig): Promise<void> {
     this.memoryConfig = config;
-    
+
     logger.info('Initializing distributed memory system:', config);
-    
+
     // Setup memory cleanup interval
     setInterval(() => {
       this.cleanupExpiredMemory();
     }, 60000); // Clean up every minute
-    
+
     this.eventEmitter.emit('memory-system-initialized', config);
   }
 
-  async storeInDistributedMemory(agent: string, key: string, value: any, ttl?: number): Promise<void> {
+  async storeInDistributedMemory(
+    agent: string,
+    key: string,
+    value: any,
+    ttl?: number
+  ): Promise<void> {
     const memoryKey = `${agent}:${key}`;
     const actualTtl = ttl || this.memoryConfig?.ttl || 3600; // Default 1 hour
-    
+
     const memoryStore: DistributedMemoryStore = {
       agent,
       key,
@@ -408,7 +416,7 @@ export class CrewCoordinator {
     };
 
     this.distributedMemory.set(memoryKey, memoryStore);
-    
+
     this.eventEmitter.emit('memory-access', {
       operation: 'store',
       agent,
@@ -420,7 +428,7 @@ export class CrewCoordinator {
   async getFromDistributedMemory(agent: string, key: string): Promise<any> {
     const memoryKey = `${agent}:${key}`;
     const memoryStore = this.distributedMemory.get(memoryKey);
-    
+
     if (!memoryStore) {
       return null;
     }
@@ -429,7 +437,7 @@ export class CrewCoordinator {
     const now = Date.now();
     const storeTime = memoryStore.timestamp.getTime();
     const ttlMs = memoryStore.ttl * 1000;
-    
+
     if (now - storeTime > ttlMs) {
       this.distributedMemory.delete(memoryKey);
       return null;
@@ -452,7 +460,7 @@ export class CrewCoordinator {
     for (const [key, store] of this.distributedMemory) {
       const storeTime = store.timestamp.getTime();
       const ttlMs = store.ttl * 1000;
-      
+
       if (now - storeTime > ttlMs) {
         this.distributedMemory.delete(key);
         cleanedCount++;
@@ -475,9 +483,12 @@ export class CrewCoordinator {
   }
 
   // Advanced workflow management
-  async createWorkflow(name: string, steps: Omit<WorkflowStep, 'id' | 'status' | 'retryCount'>[]): Promise<string> {
+  async createWorkflow(
+    name: string,
+    steps: Omit<WorkflowStep, 'id' | 'status' | 'retryCount'>[]
+  ): Promise<string> {
     const workflowId = `workflow-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    
+
     const workflow: Workflow = {
       id: workflowId,
       name,
@@ -494,7 +505,7 @@ export class CrewCoordinator {
     };
 
     this.workflowManager.set(workflowId, workflow);
-    
+
     logger.info(`Created workflow ${name} with ${steps.length} steps`);
     return workflowId;
   }
@@ -510,7 +521,7 @@ export class CrewCoordinator {
 
     try {
       const results = [];
-      
+
       for (let i = 0; i < workflow.steps.length; i++) {
         const step = workflow.steps[i];
         workflow.currentStep = i;
@@ -518,7 +529,9 @@ export class CrewCoordinator {
         // Check dependencies
         const dependencyResults = await this.checkStepDependencies(step, results);
         if (!dependencyResults.canExecute) {
-          throw new Error(`Step ${step.id} dependencies not met: ${dependencyResults.missingDependencies.join(', ')}`);
+          throw new Error(
+            `Step ${step.id} dependencies not met: ${dependencyResults.missingDependencies.join(', ')}`
+          );
         }
 
         // Execute step
@@ -527,7 +540,7 @@ export class CrewCoordinator {
 
         // Update workflow context
         workflow.context[step.id] = stepResult;
-        
+
         this.eventEmitter.emit('workflow-step-completed', {
           workflowId,
           stepId: step.id,
@@ -537,7 +550,7 @@ export class CrewCoordinator {
 
       workflow.status = 'completed';
       workflow.completedAt = new Date();
-      
+
       logger.info(`Workflow ${workflow.name} completed successfully`);
       return results;
     } catch (error) {
@@ -547,12 +560,15 @@ export class CrewCoordinator {
     }
   }
 
-  private async checkStepDependencies(step: WorkflowStep, results: any[]): Promise<{
+  private async checkStepDependencies(
+    step: WorkflowStep,
+    results: any[]
+  ): Promise<{
     canExecute: boolean;
     missingDependencies: string[];
   }> {
     const missingDependencies = [];
-    
+
     for (const dependency of step.dependencies) {
       const dependencyIndex = parseInt(dependency.replace('step-', ''));
       if (dependencyIndex >= results.length || !results[dependencyIndex]) {
@@ -566,14 +582,17 @@ export class CrewCoordinator {
     };
   }
 
-  private async executeWorkflowStep(step: WorkflowStep, context: Record<string, any>): Promise<any> {
+  private async executeWorkflowStep(
+    step: WorkflowStep,
+    context: Record<string, any>
+  ): Promise<any> {
     step.status = 'running';
     step.startTime = new Date();
 
     try {
       // Execute the step based on agent name and action
       let result;
-      
+
       switch (step.agentName) {
         case 'legal-consultation':
           result = await this.legalConsultationAgent.analyze(step.input);
@@ -614,10 +633,10 @@ export class CrewCoordinator {
   // Agent initialization and management
   async initializeAgent(agentName: string): Promise<void> {
     logger.info(`Initializing agent: ${agentName}`);
-    
+
     // Setup communication channel
     await this.setupAgentCommunication(agentName);
-    
+
     // Initialize performance metrics
     this.performanceMetrics.set(agentName, {
       tasksExecuted: 0,
@@ -625,20 +644,20 @@ export class CrewCoordinator {
       successRate: 0,
       lastActivity: new Date(),
     });
-    
+
     this.eventEmitter.emit('agent-initialized', { agentName });
   }
 
   async setupAutomationWorkflows(agentName: string): Promise<void> {
     logger.info(`Setting up automation workflows for: ${agentName}`);
-    
+
     // Setup common automation workflows
     if (agentName === 'Lead Validation Agent') {
       await this.createLeadValidationWorkflow();
     } else if (agentName === 'Follow-Up Automation Agent') {
       await this.createFollowUpWorkflow();
     }
-    
+
     this.eventEmitter.emit('automation-workflows-setup', { agentName });
   }
 
@@ -703,7 +722,7 @@ export class CrewCoordinator {
   private handleTaskCompleted(event: any): void {
     const { taskId, agentName, result, executionTime } = event;
     logger.info(`Task ${taskId} completed by ${agentName} in ${executionTime}ms`);
-    
+
     // Update performance metrics
     this.updateAgentPerformanceMetrics(agentName, true, executionTime);
   }
@@ -711,7 +730,7 @@ export class CrewCoordinator {
   private handleTaskFailed(event: any): void {
     const { taskId, agentName, error, executionTime } = event;
     logger.error(`Task ${taskId} failed by ${agentName}:`, error);
-    
+
     // Update performance metrics
     this.updateAgentPerformanceMetrics(agentName, false, executionTime);
   }
@@ -735,20 +754,27 @@ export class CrewCoordinator {
     }
   }
 
-  private updateAgentPerformanceMetrics(agentName: string, success: boolean, executionTime: number): void {
+  private updateAgentPerformanceMetrics(
+    agentName: string,
+    success: boolean,
+    executionTime: number
+  ): void {
     const metrics = this.performanceMetrics.get(agentName);
     if (!metrics) return;
 
     metrics.tasksExecuted++;
-    metrics.averageExecutionTime = 
-      (metrics.averageExecutionTime * (metrics.tasksExecuted - 1) + executionTime) / metrics.tasksExecuted;
-    
+    metrics.averageExecutionTime =
+      (metrics.averageExecutionTime * (metrics.tasksExecuted - 1) + executionTime) /
+      metrics.tasksExecuted;
+
     if (success) {
-      metrics.successRate = (metrics.successRate * (metrics.tasksExecuted - 1) + 1) / metrics.tasksExecuted;
+      metrics.successRate =
+        (metrics.successRate * (metrics.tasksExecuted - 1) + 1) / metrics.tasksExecuted;
     } else {
-      metrics.successRate = (metrics.successRate * (metrics.tasksExecuted - 1)) / metrics.tasksExecuted;
+      metrics.successRate =
+        (metrics.successRate * (metrics.tasksExecuted - 1)) / metrics.tasksExecuted;
     }
-    
+
     metrics.lastActivity = new Date();
   }
 
@@ -776,7 +802,8 @@ export class CrewCoordinator {
       parallelProcessing: !!this.parallelProcessingConfig,
       communicationChannels: this.communicationChannels.size,
       memoryEntries: this.distributedMemory.size,
-      activeWorkflows: Array.from(this.workflowManager.values()).filter(w => w.status === 'running').length,
+      activeWorkflows: Array.from(this.workflowManager.values()).filter(w => w.status === 'running')
+        .length,
       totalAgents: this.communicationChannels.size,
     };
   }

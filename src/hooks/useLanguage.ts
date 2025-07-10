@@ -11,11 +11,11 @@ export function useLanguage() {
 
   useEffect(() => {
     // Determine language from URL
-    const isSpanishPath = pathname.startsWith('/es');
+    const isSpanishPath = pathname?.startsWith('/es') ?? false;
     const detectedLanguage = isSpanishPath ? 'es' : 'en';
-    
+
     setLanguage(detectedLanguage);
-    
+
     // Update i18n language
     if (i18n.language !== detectedLanguage) {
       i18n.changeLanguage(detectedLanguage);

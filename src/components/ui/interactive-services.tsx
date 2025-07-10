@@ -226,7 +226,7 @@ export function InteractiveServices() {
                 </div>
 
                 <div className="flex gap-4">
-                  <Link href={`/practice-areas/${selectedService.id}`} className="flex-1">
+                  <Link href={`/practice-areas/${selectedService?.id || ''}`} className="flex-1">
                     <button className="w-full px-6 py-3 bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] text-white font-semibold rounded-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
                       Más Información
                     </button>

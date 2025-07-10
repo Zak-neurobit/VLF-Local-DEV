@@ -73,13 +73,16 @@ export const authOptions: NextAuthOptions = {
 
         // Check if database is connected
         const dbConnected = await isDatabaseConnected();
-        
+
         if (!dbConnected) {
           logger.warn('Database not available for authentication');
           // Return a mock user in development without database
           if (env.NODE_ENV === 'development' || env.NODE_ENV === 'test') {
             // Check for default dev credentials
-            if (credentials.email === 'admin@vasquezlaw.com' && credentials.password === 'admin123') {
+            if (
+              credentials.email === 'admin@vasquezlaw.com' &&
+              credentials.password === 'admin123'
+            ) {
               return {
                 id: 'dev-admin',
                 email: credentials.email,
@@ -140,20 +143,24 @@ export const authOptions: NextAuthOptions = {
     }),
 
     // Google OAuth (only if configured)
-    ...(env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET ? [GoogleProvider({
-      clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
-      profile(profile) {
-        return {
-          id: profile.sub,
-          name: profile.name,
-          email: profile.email,
-          image: profile.picture,
-          role: 'CLIENT',
-          language: 'en',
-        };
-      },
-    })] : []),
+    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+      ? [
+          GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            profile(profile) {
+              return {
+                id: profile.sub,
+                name: profile.name,
+                email: profile.email,
+                image: profile.picture,
+                role: 'CLIENT',
+                language: 'en',
+              };
+            },
+          }),
+        ]
+      : []),
   ],
 
   session: {
@@ -216,8 +223,14 @@ export const authOptions: NextAuthOptions = {
                   id: `oauth-${Date.now()}`,
                   email: token.email!,
                   name: token.name!,
+                  password: null,
+                  image: null,
                   role: 'CLIENT',
                   language: 'en',
+                  phone: null,
+                  blocked: false,
+                  emailVerified: null,
+                  lastActive: null,
                   createdAt: new Date(),
                   updatedAt: new Date(),
                 },
@@ -379,7 +392,7 @@ export const authOptions: NextAuthOptions = {
     error: (code, metadata) => {
       logger.error('NextAuth error:', { code, metadata });
     },
-    warn: (code) => {
+    warn: code => {
       logger.warn('NextAuth warning:', code);
     },
     debug: (code, metadata) => {

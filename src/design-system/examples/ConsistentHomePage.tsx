@@ -1,7 +1,19 @@
 'use client';
 
 import React, { useState } from 'react';
-import { MasterLayout, HeroTemplate, Section, Container, SectionHeader, Button, PracticeAreaCard, Heading, Text, Tagline, BRAND } from '@/design-system';
+import {
+  MasterLayout,
+  HeroTemplate,
+  Section,
+  Container,
+  SectionHeader,
+  Button,
+  PracticeAreaCard,
+  Heading,
+  Text,
+  Tagline,
+  BRAND,
+} from '@/design-system';
 import { motion } from 'framer-motion';
 
 export default function ConsistentHomePage() {
@@ -202,4 +214,4 @@ export default function ConsistentHomePage() {
       </Section>
     </MasterLayout>
   );
-};
+}
