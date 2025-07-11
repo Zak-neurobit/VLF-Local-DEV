@@ -33,8 +33,12 @@ interface BlogPost {
   seoScore: number;
 }
 
-export default function BlogPage() {
-  const [language] = useState<'en' | 'es'>('en');
+interface BlogPageClientProps {
+  language?: 'en' | 'es';
+}
+
+export default function BlogPageClient({ language: propLanguage }: BlogPageClientProps = {}) {
+  const [language] = useState<'en' | 'es'>(propLanguage || 'en');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -42,6 +46,7 @@ export default function BlogPage() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
+  const [categorizedPosts, setCategorizedPosts] = useState<Record<string, BlogPost[]>>({});
 
   const content = {
     en: {
@@ -174,6 +179,18 @@ export default function BlogPage() {
     }
   };
 
+  useEffect(() => {
+    const newCategorizedPosts: Record<string, BlogPost[]> = {};
+    posts.forEach(post => {
+      const { practiceArea } = post;
+      if (!newCategorizedPosts[practiceArea]) {
+        newCategorizedPosts[practiceArea] = [];
+      }
+      newCategorizedPosts[practiceArea].push(post);
+    });
+    setCategorizedPosts(newCategorizedPosts);
+  }, [posts]);
+
   // Reset page when search or category changes
   useEffect(() => {
     if (page !== 1) {
@@ -292,100 +309,94 @@ export default function BlogPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
               {/* Blog Posts */}
               <div className="lg:col-span-2">
+                {/* Categorized Posts */}
                 {loading && page === 1 ? (
                   <div className="flex justify-center py-12">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
                   </div>
-                ) : posts.length === 0 ? (
+                ) : Object.keys(categorizedPosts).length === 0 ? (
                   <p className="text-center text-gray-400 py-12">{t.noResults}</p>
                 ) : (
-                  <div className="space-y-8">
-                    {posts.map((post, index) => {
-                      const category = getCategoryById(post.practiceArea);
-                      return (
-                        <motion.article
-                          key={post.id}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                          className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
-                        >
-                          {post.featuredImage && (
-                            <div className="relative h-48 bg-gray-700">
-                              <div className="absolute inset-0 flex items-center justify-center">
-                                <span className="text-4xl">{category?.icon || '📰'}</span>
-                              </div>
-                            </div>
-                          )}
-                          <div className="p-6">
-                            <div className="flex items-center gap-4 mb-4">
-                              {category && (
-                                <span
-                                  className={`px-3 py-1 ${category.lightColor} ${category.textColor} rounded-full text-sm font-medium flex items-center gap-1`}
-                                >
-                                  <span>{category.icon}</span>
-                                  {category.name[language]}
-                                </span>
-                              )}
-                              <span className="text-sm text-gray-400">
-                                {post.readTime} {t.minRead}
-                              </span>
-                              {post.seoScore >= 90 && (
-                                <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
-                                  SEO {post.seoScore}%
-                                </span>
-                              )}
-                            </div>
-                            <h2 className="text-2xl font-bold text-white mb-3">
-                              <Link
-                                href={`/blog/${post.slug}`}
-                                className="hover:text-primary transition-colors"
-                              >
-                                {post.title}
-                              </Link>
-                            </h2>
-                            <p className="text-gray-400 mb-4">{post.excerpt}</p>
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
-                                  <span className="text-sm">👤</span>
+                  Object.entries(categorizedPosts).map(([practiceArea, posts]) => (
+                    <div key={practiceArea} className="mb-12">
+                      <h2 className="text-3xl font-bold text-white mb-6">
+                        {getCategoryById(practiceArea)?.name[language] || practiceArea}
+                      </h2>
+                      <div className="space-y-8">
+                        {posts.map((post, index) => {
+                          const category = getCategoryById(post.practiceArea);
+                          return (
+                            <motion.article
+                              key={post.id}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{
+                                duration: 0.5,
+                                delay: index * 0.1,
+                              }}
+                              className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                            >
+                              {post.featuredImage && (
+                                <div className="relative h-48 bg-gray-700">
+                                  <div className="absolute inset-0 flex items-center justify-center">
+                                    <span className="text-4xl">{category?.icon || '📰'}</span>
+                                  </div>
                                 </div>
-                                <div>
-                                  <p className="text-sm font-medium text-white">
-                                    {post.author.name}
-                                  </p>
-                                  <p className="text-xs text-gray-400">
-                                    {t.published}{' '}
-                                    {format(post.publishedAt, 'PPP', {
-                                      locale: language === 'es' ? es : undefined,
-                                    })}
-                                  </p>
-                                </div>
-                              </div>
-                              <Link
-                                href={`/blog/${post.slug}`}
-                                className="text-primary font-medium hover:underline"
-                              >
-                                {t.readMore} →
-                              </Link>
-                            </div>
-                            {post.tags.length > 0 && (
-                              <div className="mt-4 flex flex-wrap gap-2">
-                                {post.tags.slice(0, 5).map(tag => (
-                                  <span
-                                    key={tag}
-                                    className="px-2 py-1 bg-white/5 text-gray-400 rounded text-xs border border-gray-700"
-                                  >
-                                    #{tag}
+                              )}
+                              <div className="p-6">
+                                <div className="flex items-center gap-4 mb-4">
+                                  {category && (
+                                    <span
+                                      className={`px-3 py-1 ${category.lightColor} ${category.textColor} rounded-full text-sm font-medium flex items-center gap-1`}
+                                    >
+                                      <span>{category.icon}</span>
+                                      {category.name[language]}
+                                    </span>
+                                  )}
+                                  <span className="text-sm text-gray-400">
+                                    {post.readTime} {t.minRead}
                                   </span>
-                                ))}
+                                </div>
+                                <h2 className="text-2xl font-bold text-white mb-3">
+                                  <Link
+                                    href={`/blog/${post.slug}`}
+                                    className="hover:text-primary transition-colors"
+                                  >
+                                    {post.title}
+                                  </Link>
+                                </h2>
+                                <p className="text-gray-400 mb-4">{post.excerpt}</p>
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                                      <span className="text-sm">👤</span>
+                                    </div>
+                                    <div>
+                                      <p className="text-sm font-medium text-white">
+                                        {post.author.name}
+                                      </p>
+                                      <p className="text-xs text-gray-400">
+                                        {t.published}{' '}
+                                        {format(post.publishedAt, 'PPP', {
+                                          locale: language === 'es' ? es : undefined,
+                                        })}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <Link
+                                    href={`/blog/${post.slug}`}
+                                    className="text-primary font-medium hover:underline"
+                                  >
+                                    {t.readMore} →
+                                  </Link>
+                                </div>
                               </div>
-                            )}
-                          </div>
-                        </motion.article>
-                      );
-                    })}
-                  </div>
+                            </motion.article>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))
                 )}
 
                 {/* Load More */}
@@ -403,36 +414,6 @@ export default function BlogPage() {
 
               {/* Sidebar */}
               <div className="space-y-8">
-                {/* Recent Posts */}
-                <div className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg p-6">
-                  <h3 className="text-xl font-bold text-white mb-4">{t.recent}</h3>
-                  <div className="space-y-4">
-                    {recentPosts.map(post => {
-                      const category = getCategoryById(post.practiceArea);
-                      return (
-                        <div key={post.id} className="border-b last:border-0 pb-4 last:pb-0">
-                          <div className="flex items-start gap-3">
-                            <span className="text-2xl flex-shrink-0">{category?.icon || '📄'}</span>
-                            <div className="flex-1">
-                              <Link
-                                href={`/blog/${post.slug}`}
-                                className="text-sm font-medium text-white hover:text-primary line-clamp-2"
-                              >
-                                {post.title}
-                              </Link>
-                              <p className="text-xs text-gray-400 mt-1">
-                                {format(post.publishedAt, 'MMM d, yyyy', {
-                                  locale: language === 'es' ? es : undefined,
-                                })}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
                 {/* Category Links */}
                 <div className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg p-6">
                   <h3 className="text-xl font-bold text-white mb-4">{t.allCategories}</h3>

@@ -19,7 +19,7 @@ interface ExtractedKnowledge {
 }
 
 export class CookbookExtractor {
-  private cookbookPath = '/Users/williamvasquez/Downloads/Cookbook-Of-Essential-Practice-Materials-4th';
+  private cookbookPath = process.env.COOKBOOK_PATH || path.join(process.cwd(), 'data/cookbook');
 
   // Category mappings based on file analysis
   private categoryMappings = {
@@ -121,7 +121,7 @@ export class CookbookExtractor {
         forms: ['ETA-9035 (LCA)', 'I-129', 'H supplement'],
         requirements: [
           'Specialty occupation position',
-          'Bachelor\'s degree or equivalent',
+          "Bachelor's degree or equivalent",
           'Employer-employee relationship',
           'Prevailing wage compliance',
         ],
@@ -190,7 +190,7 @@ export class CookbookExtractor {
 
   private async extractFromVolume2(knowledge: ExtractedKnowledge) {
     // Volume 2: PERM, EB categories, Family-based, Naturalization
-    
+
     // PERM Process
     knowledge.procedures.business.push(
       'PERM: 1) PWD request, 2) Recruitment, 3) ETA-9089 filing, 4) Certification',
@@ -276,7 +276,7 @@ export class CookbookExtractor {
 
   private async extractFromVolume3(knowledge: ExtractedKnowledge) {
     // Volume 3: Humanitarian - T, U, VAWA, TPS, DACA, Humanitarian Parole
-    
+
     // T Visa
     knowledge.forms.humanitarian.push('T visa: I-914, I-914A (family), I-914B (declaration)');
     knowledge.requirements.humanitarian.push(
@@ -290,11 +290,15 @@ export class CookbookExtractor {
     );
 
     // U Visa
-    knowledge.forms.humanitarian.push('U visa: I-918, I-918A (family), I-918B (law enforcement certification)');
+    knowledge.forms.humanitarian.push(
+      'U visa: I-918, I-918A (family), I-918B (law enforcement certification)'
+    );
     knowledge.requirements.humanitarian.push(
       'U visa: Victim of qualifying crime, substantial harm, helpful to law enforcement, admissible'
     );
-    knowledge.timelines.humanitarian.push('U visa: 5+ years wait; Bona fide determination: 6-8 months');
+    knowledge.timelines.humanitarian.push(
+      'U visa: 5+ years wait; Bona fide determination: 6-8 months'
+    );
     knowledge.bestPractices.humanitarian.push(
       'U visa: Get certification signed promptly (6-month validity)',
       'U visa: Document substantial harm thoroughly',
@@ -370,7 +374,7 @@ export class CookbookExtractor {
 
   async generateTrainingData(): Promise<{
     affirmative: any;
-    humanitarian: any; 
+    humanitarian: any;
     business: any;
   }> {
     const knowledge = await this.extractKnowledge();

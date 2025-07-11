@@ -4,8 +4,10 @@ import { BlogListStructuredData } from '@/components/Blog/BlogStructuredData';
 
 export const metadata: Metadata = {
   title: 'Legal Blog | Expert Insights & News | Vasquez Law Firm, PLLC',
-  description: 'Stay informed with expert legal analysis on immigration, personal injury, criminal defense, workers compensation, and family law in North Carolina and Florida.',
-  keywords: 'legal blog, immigration law, personal injury, criminal defense, workers compensation, family law, North Carolina attorney, Florida lawyer, legal advice',
+  description:
+    'Stay informed with expert legal analysis on immigration, personal injury, criminal defense, workers compensation, and family law in North Carolina and Florida.',
+  keywords:
+    'legal blog, immigration law, personal injury, criminal defense, workers compensation, family law, North Carolina attorney, Florida lawyer, legal advice',
   openGraph: {
     title: 'Legal Blog | Vasquez Law Firm, PLLC',
     description: 'Expert legal insights and updates for North Carolina and Florida',
@@ -28,8 +30,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.vasquezlawnc.com/blog',
     languages: {
-      'en': '/blog',
-      'es': '/es/blog',
+      en: '/blog',
+      es: '/es/blog',
     },
   },
   robots: {
@@ -45,11 +47,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogPageWrapper() {
+export default function BlogPageWrapper({ language = 'en' }: { language?: 'en' | 'es' }) {
   return (
     <>
-      <BlogListStructuredData language="en" />
-      <BlogPageClient />
+      <BlogListStructuredData language={language} />
+      <BlogPageClient language={language} />
     </>
   );
 }

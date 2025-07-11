@@ -129,11 +129,7 @@ export default function SpanishHomePage() {
 
       {/* Virtual Paralegal Modal */}
       {showVirtualParalegal && (
-        <VirtualParalegal
-          isOpen={showVirtualParalegal}
-          onClose={() => setShowVirtualParalegal(false)}
-          language="es"
-        />
+        <VirtualParalegal language="es" onClose={() => setShowVirtualParalegal(false)} />
       )}
 
       {/* Background Effects */}

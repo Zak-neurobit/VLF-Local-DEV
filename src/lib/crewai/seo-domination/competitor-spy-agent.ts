@@ -82,32 +82,32 @@ export class CompetitorSpyAgent {
       name: 'Brent Adams & Associates',
       domain: 'brentadams.com',
       locations: ['Charlotte', 'Raleigh', 'Fayetteville'],
-      practiceAreas: ['personal_injury', 'workers_compensation']
+      practiceAreas: ['personal_injury', 'workers_compensation'],
     },
     {
       name: 'Hardwick Law Firm',
       domain: 'hardwicklaw.com',
       locations: ['Charlotte'],
-      practiceAreas: ['personal_injury', 'criminal_defense']
+      practiceAreas: ['personal_injury', 'criminal_defense'],
     },
     {
       name: 'The Law Offices of Jason E. Taylor',
       domain: 'taylorlawfirmnc.com',
       locations: ['Charlotte', 'Hickory'],
-      practiceAreas: ['personal_injury', 'workers_compensation']
+      practiceAreas: ['personal_injury', 'workers_compensation'],
     },
     {
       name: 'Whitley Law Firm',
       domain: 'whitleylaw.com',
       locations: ['Raleigh', 'Kinston'],
-      practiceAreas: ['personal_injury']
+      practiceAreas: ['personal_injury'],
     },
     {
       name: 'Nagle & Associates',
       domain: 'naglehartnc.com',
       locations: ['Charlotte', 'Winston-Salem'],
-      practiceAreas: ['personal_injury', 'workers_compensation']
-    }
+      practiceAreas: ['personal_injury', 'workers_compensation'],
+    },
   ];
 
   // Key Performance Indicators to Track
@@ -116,7 +116,7 @@ export class CompetitorSpyAgent {
     domain_authority: { weight: 0.2, threshold: 50 },
     keyword_rankings: { weight: 0.25, threshold: 100 },
     backlink_velocity: { weight: 0.15, threshold: 50 },
-    content_frequency: { weight: 0.1, threshold: 4 } // posts per month
+    content_frequency: { weight: 0.1, threshold: 4 }, // posts per month
   };
 
   // Monitoring Targets
@@ -127,27 +127,27 @@ export class CompetitorSpyAgent {
       'deportation defense attorney',
       'green card lawyer nc',
       'citizenship attorney north carolina',
-      
+
       // Personal Injury
       'personal injury lawyer charlotte',
       'car accident attorney nc',
       'workers comp lawyer charlotte',
-      
+
       // Criminal Defense
       'criminal defense attorney charlotte',
       'dwi lawyer nc',
-      
+
       // Spanish Keywords
       'abogado de inmigracion charlotte',
-      'abogado de accidentes'
+      'abogado de accidentes',
     ],
     content_topics: [
       'immigration law changes',
       'personal injury settlements',
       'workers compensation claims',
       'criminal defense strategies',
-      'legal rights in NC'
-    ]
+      'legal rights in NC',
+    ],
   };
 
   constructor() {
@@ -262,7 +262,7 @@ export class CompetitorSpyAgent {
           backlinks: await this.analyzeBacklinks(competitor),
           socialMedia: await this.analyzeSocialMedia(competitor),
           technicalSEO: await this.analyzeTechnicalSEO(competitor),
-          opportunities: []
+          opportunities: [],
         };
 
         // Identify opportunities based on gathered data
@@ -272,7 +272,6 @@ export class CompetitorSpyAgent {
 
         // Store in database
         await this.storeIntelligence(intel);
-
       } catch (error) {
         logger.error(`Failed to gather intelligence on ${competitor.name}:`, error);
       }
@@ -291,15 +290,15 @@ export class CompetitorSpyAgent {
       try {
         // In production, would use SERP API
         const position = await this.checkKeywordPosition(keyword, competitor.domain);
-        
+
         // Get previous position for comparison
         const previousRanking = await this.getPreviousRanking(competitor.domain, keyword);
-        
+
         rankings.push({
           keyword,
           position,
           change: previousRanking ? position - previousRanking.position : 0,
-          url: `https://${competitor.domain}/${this.guessRankingPage(keyword, competitor)}`
+          url: `https://${competitor.domain}/${this.guessRankingPage(keyword, competitor)}`,
         });
       } catch (error) {
         logger.warn(`Failed to check ranking for ${keyword}`);
@@ -316,7 +315,7 @@ export class CompetitorSpyAgent {
     const content = {
       newPosts: [] as ContentPiece[],
       updatedPosts: [] as ContentPiece[],
-      topPerformers: [] as ContentPiece[]
+      topPerformers: [] as ContentPiece[],
     };
 
     try {
@@ -327,16 +326,16 @@ export class CompetitorSpyAgent {
 
       // Extract recent posts
       const posts: ContentPiece[] = [];
-      
+
       $('.blog-post, article, .post').each((_, elem) => {
         const $elem = $(elem);
         const title = $elem.find('h1, h2, h3, .title').first().text().trim();
         const link = $elem.find('a').first().attr('href');
         const dateText = $elem.find('.date, time, .published').first().text().trim();
-        
+
         if (title && link) {
           const fullUrl = link.startsWith('http') ? link : `https://${competitor.domain}${link}`;
-          
+
           posts.push({
             url: fullUrl,
             title,
@@ -345,7 +344,7 @@ export class CompetitorSpyAgent {
             keywords: this.extractKeywords(title),
             backlinks: 0, // Would check with backlink API
             socialShares: 0, // Would check social APIs
-            estimatedTraffic: Math.floor(Math.random() * 1000) // Would use traffic estimation API
+            estimatedTraffic: Math.floor(Math.random() * 1000), // Would use traffic estimation API
           });
         }
       });
@@ -353,7 +352,7 @@ export class CompetitorSpyAgent {
       // Categorize posts
       const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
       content.newPosts = posts.filter(p => p.publishDate > weekAgo);
-      
+
       // Identify top performers (in production, would use actual metrics)
       content.topPerformers = posts
         .sort((a, b) => b.estimatedTraffic - a.estimatedTraffic)
@@ -365,7 +364,6 @@ export class CompetitorSpyAgent {
           content.updatedPosts.push(post);
         }
       }
-
     } catch (error) {
       logger.error(`Failed to analyze content for ${competitor.domain}:`, error);
     }
@@ -387,11 +385,11 @@ export class CompetitorSpyAgent {
           anchorText: competitor.practiceAreas[0].replace('_', ' ') + ' lawyer',
           domainAuthority: 75,
           isDoFollow: true,
-          dateFound: new Date()
-        }
+          dateFound: new Date(),
+        },
       ],
       lost: [],
-      quality: Math.floor(Math.random() * 30) + 70
+      quality: Math.floor(Math.random() * 30) + 70,
     };
 
     return mockBacklinks;
@@ -405,7 +403,7 @@ export class CompetitorSpyAgent {
 
     // Check major platforms
     const platforms = ['facebook', 'twitter', 'linkedin', 'instagram'];
-    
+
     for (const platform of platforms) {
       try {
         const profile = await this.fetchSocialProfile(competitor, platform);
@@ -434,7 +432,7 @@ export class CompetitorSpyAgent {
         siteSpeed: await this.measureSiteSpeed(homepage),
         mobileScore: await this.checkMobileScore(homepage),
         schemaMarkup: this.extractSchemaMarkup($),
-        sslStatus: homepage.startsWith('https')
+        sslStatus: homepage.startsWith('https'),
       };
 
       return technical;
@@ -444,7 +442,7 @@ export class CompetitorSpyAgent {
         siteSpeed: 0,
         mobileScore: 0,
         schemaMarkup: [],
-        sslStatus: false
+        sslStatus: false,
       };
     }
   }
@@ -452,7 +450,10 @@ export class CompetitorSpyAgent {
   /**
    * Identify opportunities based on competitor data
    */
-  private async identifyOpportunities(intel: CompetitorIntelligence, competitor: any): Promise<Opportunity[]> {
+  private async identifyOpportunities(
+    intel: CompetitorIntelligence,
+    competitor: any
+  ): Promise<Opportunity[]> {
     const opportunities: Opportunity[] = [];
 
     // Content gap opportunities
@@ -489,10 +490,10 @@ export class CompetitorSpyAgent {
     logger.info('📊 Executing daily intelligence gathering');
 
     const intelligence = await this.gatherCompetitorIntelligence();
-    
+
     // Generate daily report
     const report = await this.generateDailyIntelligenceReport(intelligence);
-    
+
     // Send alerts for significant changes
     await this.sendIntelligenceAlerts(report);
   }
@@ -505,7 +506,7 @@ export class CompetitorSpyAgent {
 
     for (const competitor of this.PRIMARY_COMPETITORS) {
       const newContent = await this.checkForNewContent(competitor);
-      
+
       if (newContent.length > 0) {
         // Analyze and respond
         for (const content of newContent) {
@@ -525,17 +526,17 @@ export class CompetitorSpyAgent {
 
     for (const keyword of this.MONITORING_TARGETS.keywords) {
       const ourRanking = await this.checkKeywordPosition(keyword, 'vasquezlawfirm.com');
-      
+
       for (const competitor of this.PRIMARY_COMPETITORS) {
         const theirRanking = await this.checkKeywordPosition(keyword, competitor.domain);
-        
+
         if (theirRanking < ourRanking) {
           rankingChanges.push({
             keyword,
             ourPosition: ourRanking,
             competitor: competitor.name,
             theirPosition: theirRanking,
-            gap: ourRanking - theirRanking
+            gap: ourRanking - theirRanking,
           });
         }
       }
@@ -588,7 +589,19 @@ export class CompetitorSpyAgent {
   private extractKeywords(text: string): string[] {
     // Simple keyword extraction
     const words = text.toLowerCase().split(/\s+/);
-    const stopWords = new Set(['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for']);
+    const stopWords = new Set([
+      'the',
+      'a',
+      'an',
+      'and',
+      'or',
+      'but',
+      'in',
+      'on',
+      'at',
+      'to',
+      'for',
+    ]);
     return words.filter(w => !stopWords.has(w) && w.length > 3);
   }
 
@@ -610,7 +623,7 @@ export class CompetitorSpyAgent {
       platform,
       followers: Math.floor(Math.random() * 10000),
       engagement: Math.random() * 0.05,
-      recentPosts: []
+      recentPosts: [],
     };
   }
 
@@ -626,7 +639,7 @@ export class CompetitorSpyAgent {
 
   private extractSchemaMarkup($: cheerio.CheerioAPI): string[] {
     const schemas: string[] = [];
-    
+
     $('script[type="application/ld+json"]').each((_, elem) => {
       try {
         const schema = JSON.parse($(elem).html() || '{}');
@@ -649,12 +662,12 @@ export class CompetitorSpyAgent {
         blogPosts: intel.content.newPosts,
         seoData: {
           rankings: intel.rankings,
-          technical: intel.technicalSEO
+          technical: intel.technicalSEO,
         },
         backlinks: intel.backlinks,
         keywords: intel.rankings.map(r => ({ keyword: r.keyword, position: r.position })),
-        analyzedAt: new Date()
-      }
+        analyzedAt: new Date(),
+      },
     });
   }
 
@@ -667,7 +680,7 @@ export class CompetitorSpyAgent {
 
     for (const topic of uniqueTopics) {
       const weHaveTopic = await this.checkIfWeHaveTopic(topic);
-      
+
       if (!weHaveTopic) {
         gaps.push({
           type: 'content_gap',
@@ -676,9 +689,9 @@ export class CompetitorSpyAgent {
           actionItems: [
             `Create comprehensive guide on ${topic}`,
             `Target long-tail variations of ${topic}`,
-            `Build topic cluster around ${topic}`
+            `Build topic cluster around ${topic}`,
           ],
-          estimatedImpact: 8
+          estimatedImpact: 8,
         });
       }
     }
@@ -700,9 +713,9 @@ export class CompetitorSpyAgent {
         actionItems: [
           `Create superior content for ${weak.keyword}`,
           `Build authoritative page targeting ${weak.keyword}`,
-          `Acquire backlinks for ${weak.keyword} page`
+          `Acquire backlinks for ${weak.keyword} page`,
         ],
-        estimatedImpact: 7
+        estimatedImpact: 7,
       });
     }
 
@@ -722,9 +735,9 @@ export class CompetitorSpyAgent {
           actionItems: [
             `Reach out to ${new URL(backlink.sourceUrl).hostname}`,
             `Create similar content that earned the link`,
-            `Build relationship with the publisher`
+            `Build relationship with the publisher`,
           ],
-          estimatedImpact: 9
+          estimatedImpact: 9,
         });
       }
     }
@@ -744,9 +757,9 @@ export class CompetitorSpyAgent {
         actionItems: [
           'Ensure our site loads under 2 seconds',
           'Highlight fast, mobile-friendly experience',
-          'Use site speed in competitive comparisons'
+          'Use site speed in competitive comparisons',
         ],
-        estimatedImpact: 6
+        estimatedImpact: 6,
       });
     }
 
@@ -758,9 +771,9 @@ export class CompetitorSpyAgent {
         actionItems: [
           'Optimize our mobile experience to 95+',
           'Create mobile-first content',
-          'Target mobile-specific keywords'
+          'Target mobile-specific keywords',
         ],
-        estimatedImpact: 8
+        estimatedImpact: 8,
       });
     }
 
@@ -771,29 +784,30 @@ export class CompetitorSpyAgent {
     // Check our content database
     const ourContent = await this.prisma.blogPost.findFirst({
       where: {
-        OR: [
-          { title: { contains: topic, mode: 'insensitive' } },
-          { keywords: { has: topic } }
-        ]
-      }
+        OR: [{ title: { contains: topic, mode: 'insensitive' } }, { keywords: { has: topic } }],
+      },
     });
 
     return !!ourContent;
   }
 
-  private async generateDailyIntelligenceReport(intelligence: CompetitorIntelligence[]): Promise<any> {
+  private async generateDailyIntelligenceReport(
+    intelligence: CompetitorIntelligence[]
+  ): Promise<any> {
     const report = {
       date: new Date(),
       competitors: intelligence.length,
-      keyFindings: [],
-      urgentActions: [],
-      opportunities: []
+      keyFindings: [] as string[],
+      urgentActions: [] as string[],
+      opportunities: [] as Opportunity[],
     };
 
     for (const intel of intelligence) {
       // Key findings
       if (intel.content.newPosts.length > 0) {
-        report.keyFindings.push(`${intel.domain} published ${intel.content.newPosts.length} new posts`);
+        report.keyFindings.push(
+          `${intel.domain} published ${intel.content.newPosts.length} new posts`
+        );
       }
 
       // Urgent actions
@@ -810,7 +824,7 @@ export class CompetitorSpyAgent {
   private async sendIntelligenceAlerts(report: any): Promise<void> {
     if (report.urgentActions.length > 0) {
       logger.warn('🚨 URGENT Competitor Intelligence:', report.urgentActions);
-      
+
       // In production, would send email/Slack alerts
     }
   }
@@ -818,12 +832,12 @@ export class CompetitorSpyAgent {
   private async checkForNewContent(competitor: any): Promise<any[]> {
     // Check for content published in last hour
     const recentContent = [];
-    
+
     try {
       const content = await this.analyzeCompetitorContent(competitor);
       const hourAgo = new Date(Date.now() - 60 * 60 * 1000);
-      
-      return content.newPosts.filter(post => post.publishDate > hourAgo);
+
+      return content.newPosts.filter((post: ContentPiece) => post.publishDate > hourAgo);
     } catch (error) {
       logger.error(`Failed to check new content for ${competitor.name}:`, error);
       return [];
@@ -863,19 +877,22 @@ Consider our resources and potential impact.
 
     const response = await this.model.invoke([
       new SystemMessage('You are a competitive SEO strategist.'),
-      new HumanMessage(prompt)
+      new HumanMessage(prompt),
     ]);
 
     // Parse response and return strategy
     return {
       action: 'counter', // or 'monitor' or 'ignore'
-      reason: 'High-value topic with traffic potential'
+      reason: 'High-value topic with traffic potential',
     };
   }
 
-  private async createCounterContent(competitorContent: ContentPiece, strategy: any): Promise<void> {
+  private async createCounterContent(
+    competitorContent: ContentPiece,
+    strategy: any
+  ): Promise<void> {
     logger.info(`🔥 Creating counter-content for: ${competitorContent.title}`);
-    
+
     // Generate superior content immediately
     // This would trigger the blog content domination agent
   }
@@ -886,8 +903,10 @@ Consider our resources and potential impact.
   }
 
   private async addressRankingGap(gap: any): Promise<void> {
-    logger.info(`📉 Addressing ranking gap for "${gap.keyword}" - We're #${gap.ourPosition}, ${gap.competitor} is #${gap.theirPosition}`);
-    
+    logger.info(
+      `📉 Addressing ranking gap for "${gap.keyword}" - We're #${gap.ourPosition}, ${gap.competitor} is #${gap.theirPosition}`
+    );
+
     // Trigger content optimization or creation
   }
 
@@ -897,7 +916,7 @@ Consider our resources and potential impact.
       marketShare: await this.estimateMarketShare(),
       contentStrategy: await this.reverseEngineerContentStrategy(),
       linkBuilding: await this.analyzeLinkBuildingTactics(),
-      conversionTactics: await this.identifyConversionTactics()
+      conversionTactics: await this.identifyConversionTactics(),
     };
   }
 
@@ -909,8 +928,8 @@ Consider our resources and potential impact.
         brentAdams: 25,
         hardwickLaw: 20,
         whitleyLaw: 15,
-        others: 25
-      }
+        others: 25,
+      },
     };
   }
 
@@ -919,7 +938,7 @@ Consider our resources and potential impact.
     return {
       publishingFrequency: 'weekly',
       contentTypes: ['blog posts', 'case studies', 'FAQs'],
-      topicClusters: ['personal injury', 'workers comp', 'car accidents']
+      topicClusters: ['personal injury', 'workers comp', 'car accidents'],
     };
   }
 
@@ -932,8 +951,8 @@ Consider our resources and potential impact.
         branded: 40,
         exact: 20,
         partial: 25,
-        generic: 15
-      }
+        generic: 15,
+      },
     };
   }
 
@@ -942,7 +961,7 @@ Consider our resources and potential impact.
     return {
       ctaTypes: ['free consultation', 'case evaluation', 'download guide'],
       trustSignals: ['testimonials', 'case results', 'badges'],
-      urgencyTactics: ['limited time', '24/7 availability', 'act now']
+      urgencyTactics: ['limited time', '24/7 availability', 'act now'],
     };
   }
 
@@ -951,18 +970,18 @@ Consider our resources and potential impact.
       immediate: [
         'Counter top competitor content within 48 hours',
         'Acquire links from their top referring domains',
-        'Implement missing schema markup'
+        'Implement missing schema markup',
       ],
       shortTerm: [
         'Close content gaps in high-traffic topics',
         'Improve site speed to beat competitors',
-        'Launch targeted PPC campaigns for their branded terms'
+        'Launch targeted PPC campaigns for their branded terms',
       ],
       longTerm: [
         'Build superior topical authority',
         'Develop unique content formats they lack',
-        'Create strategic partnerships they don\'t have'
-      ]
+        "Create strategic partnerships they don't have",
+      ],
     };
 
     logger.info('📋 Strategic Recommendations Generated:', recommendations);
@@ -977,7 +996,7 @@ Consider our resources and potential impact.
       averagePostsPerWeek: 0,
       topPerformingTopics: [] as string[],
       contentFormats: new Set<string>(),
-      averageWordCount: 0
+      averageWordCount: 0,
     };
 
     for (const intel of intelligence) {
@@ -991,7 +1010,7 @@ Consider our resources and potential impact.
 
     logger.info('📊 Content Strategy Analysis:', {
       avgPostsPerWeek: patterns.averagePostsPerWeek.toFixed(1),
-      trendingTopics: [...new Set(patterns.topPerformingTopics)].slice(0, 10)
+      trendingTopics: [...new Set(patterns.topPerformingTopics)].slice(0, 10),
     });
   }
 
@@ -1002,7 +1021,7 @@ Consider our resources and potential impact.
     const movements = {
       gained: [] as any[],
       lost: [] as any[],
-      newEntrants: [] as any[]
+      newEntrants: [] as any[],
     };
 
     for (const intel of intelligence) {
@@ -1028,7 +1047,9 @@ Consider our resources and potential impact.
   /**
    * Discover backlink opportunities from competitor profiles
    */
-  private async discoverBacklinkOpportunities(intelligence: CompetitorIntelligence[]): Promise<void> {
+  private async discoverBacklinkOpportunities(
+    intelligence: CompetitorIntelligence[]
+  ): Promise<void> {
     const opportunities = new Map<string, Set<string>>();
 
     for (const intel of intelligence) {
@@ -1049,7 +1070,7 @@ Consider our resources and potential impact.
       .map(([domain, competitors]) => ({
         domain,
         competitorsLinked: Array.from(competitors),
-        priority: competitors.size
+        priority: competitors.size,
       }));
 
     logger.info(`🔗 Found ${highValueTargets.length} high-value backlink opportunities`);
@@ -1058,7 +1079,9 @@ Consider our resources and potential impact.
   /**
    * Identify competitor weaknesses to exploit
    */
-  private async identifyCompetitorWeaknesses(intelligence: CompetitorIntelligence[]): Promise<void> {
+  private async identifyCompetitorWeaknesses(
+    intelligence: CompetitorIntelligence[]
+  ): Promise<void> {
     const weaknesses = [];
 
     for (const intel of intelligence) {
@@ -1068,7 +1091,7 @@ Consider our resources and potential impact.
           domain: intel.domain,
           type: 'technical',
           issue: 'slow site speed',
-          exploitation: 'Emphasize our fast, mobile-first experience'
+          exploitation: 'Emphasize our fast, mobile-first experience',
         });
       }
 
@@ -1078,7 +1101,7 @@ Consider our resources and potential impact.
           domain: intel.domain,
           type: 'content',
           issue: 'no recent content',
-          exploitation: 'Dominate with fresh, relevant content'
+          exploitation: 'Dominate with fresh, relevant content',
         });
       }
 
@@ -1089,7 +1112,7 @@ Consider our resources and potential impact.
           domain: intel.domain,
           type: 'rankings',
           issue: `weak for ${poorRankings.length} keywords`,
-          exploitation: 'Target these keywords aggressively'
+          exploitation: 'Target these keywords aggressively',
         });
       }
     }
@@ -1110,7 +1133,7 @@ Consider our resources and potential impact.
           type: 'content',
           action: `Create superior version of "${post.title}"`,
           timeline: 'within 48 hours',
-          resources: 'content team + SEO'
+          resources: 'content team + SEO',
         });
       }
 
@@ -1121,7 +1144,7 @@ Consider our resources and potential impact.
           type: 'seo',
           action: `Outrank for "${ranking.keyword}"`,
           timeline: '30 days',
-          resources: 'SEO team'
+          resources: 'SEO team',
         });
       }
 
@@ -1143,7 +1166,7 @@ Consider our resources and potential impact.
           type: 'viral_content',
           competitor: intel.domain,
           action: 'Create counter-content immediately',
-          details: viralContent
+          details: viralContent,
         });
       }
 
@@ -1154,7 +1177,7 @@ Consider our resources and potential impact.
           type: 'ranking_threat',
           competitor: intel.domain,
           action: 'Defend rankings',
-          details: bigGains
+          details: bigGains,
         });
       }
 
@@ -1165,7 +1188,7 @@ Consider our resources and potential impact.
           type: 'link_opportunity',
           competitor: intel.domain,
           action: 'Acquire same links',
-          details: powerLinks
+          details: powerLinks,
         });
       }
     }

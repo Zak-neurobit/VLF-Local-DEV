@@ -289,4 +289,27 @@ For more information about our services or to schedule a consultation, please co
       description: `Fee ${index + 1} found in content`,
     }));
   }
+
+  async fetchHTML(url: string): Promise<string> {
+    try {
+      logger.info(`Fetching HTML from ${url}`);
+
+      const response = await fetch(url, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; VLF-Bot/1.0)',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const html = await response.text();
+      return html;
+    } catch (error) {
+      logger.error(`Failed to fetch HTML from ${url}:`, error);
+      // Return mock HTML content
+      return this.getMockWebContent(url);
+    }
+  }
 }

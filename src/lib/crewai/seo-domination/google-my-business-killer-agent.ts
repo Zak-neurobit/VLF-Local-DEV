@@ -57,14 +57,14 @@ export class GoogleMyBusinessKillerAgent {
     raleigh: process.env.GMB_LOCATION_RALEIGH,
     smithfield: process.env.GMB_LOCATION_SMITHFIELD,
     goldsboro: process.env.GMB_LOCATION_GOLDSBORO,
-    orlando: process.env.GMB_LOCATION_ORLANDO
+    orlando: process.env.GMB_LOCATION_ORLANDO,
   };
 
   // Posting Schedule (optimized for maximum visibility)
   private readonly POSTING_SCHEDULE = [
-    { hour: 8, minute: 0 },   // Morning commute
+    { hour: 8, minute: 0 }, // Morning commute
     { hour: 12, minute: 30 }, // Lunch break
-    { hour: 17, minute: 30 }  // Evening commute
+    { hour: 17, minute: 30 }, // Evening commute
   ];
 
   // Content Templates
@@ -74,67 +74,67 @@ export class GoogleMyBusinessKillerAgent {
         'Just secured permanent residency for another family! 🎉',
         'Another successful deportation defense case! 💪',
         'Workers comp claim approved - client gets full benefits! ✅',
-        'DWI charges dismissed for our client! ⚖️'
+        'DWI charges dismissed for our client! ⚖️',
       ],
-      cta: 'BOOK'
+      cta: 'BOOK',
     },
     legal_tip: {
       topics: [
         'Know Your Rights: What to do during an ICE encounter',
-        'Injured at work? Here\'s what to do immediately',
+        "Injured at work? Here's what to do immediately",
         'Traffic stop? Remember these 3 crucial rights',
-        'Green card delays? New expedite options available'
+        'Green card delays? New expedite options available',
       ],
-      cta: 'LEARN_MORE'
+      cta: 'LEARN_MORE',
     },
     community_event: {
       topics: [
         'Free Immigration Consultation Day',
         'Know Your Rights Workshop',
         'Workers Compensation Clinic',
-        'DWI Defense Seminar'
+        'DWI Defense Seminar',
       ],
-      cta: 'SIGN_UP'
+      cta: 'SIGN_UP',
     },
     urgent_update: {
       topics: [
         'New immigration law changes - Act now!',
         'Workers comp deadline approaching',
         'Court closures and delays update',
-        'Emergency legal services available 24/7'
+        'Emergency legal services available 24/7',
       ],
-      cta: 'CALL'
+      cta: 'CALL',
     },
     seasonal: {
       topics: [
         'Holiday DWI checkpoints - Stay safe!',
         'Tax season immigration document prep',
         'Summer construction injuries on the rise',
-        'Back to school - Update custody agreements'
+        'Back to school - Update custody agreements',
       ],
-      cta: 'LEARN_MORE'
-    }
+      cta: 'LEARN_MORE',
+    },
   };
 
   // Review Response Templates
   private readonly REVIEW_RESPONSES = {
     positive: {
       fiveStar: [
-        'Thank you so much for your kind words! It was our pleasure to help you navigate [CASE_TYPE]. We\'re always here when you need us. 🌟',
-        'We\'re thrilled we could help! Your success is our success. Thank you for trusting Vasquez Law Firm with your [CASE_TYPE] case. 💼',
-        'Your review made our day! We\'re honored to have been part of your journey. Wishing you all the best! 🎯'
+        "Thank you so much for your kind words! It was our pleasure to help you navigate [CASE_TYPE]. We're always here when you need us. 🌟",
+        "We're thrilled we could help! Your success is our success. Thank you for trusting Vasquez Law Firm with your [CASE_TYPE] case. 💼",
+        "Your review made our day! We're honored to have been part of your journey. Wishing you all the best! 🎯",
       ],
       fourStar: [
-        'Thank you for the great feedback! We\'re glad we could help with your [CASE_TYPE] matter. If there\'s anything else we can do to earn that 5th star, please let us know! 📞',
-        'We appreciate your honest review! We\'re always working to improve our services. Thank you for choosing Vasquez Law Firm. 🙏'
-      ]
+        "Thank you for the great feedback! We're glad we could help with your [CASE_TYPE] matter. If there's anything else we can do to earn that 5th star, please let us know! 📞",
+        "We appreciate your honest review! We're always working to improve our services. Thank you for choosing Vasquez Law Firm. 🙏",
+      ],
     },
     negative: {
       general: [
-        'We\'re sorry to hear about your experience. This isn\'t the level of service we strive for. Please contact us at (INSERT_PHONE) so we can make this right. Your satisfaction is important to us.',
-        'Thank you for your feedback. We take all concerns seriously and would like to discuss this further. Please reach out to our office manager at (INSERT_PHONE). We\'re committed to resolving this.'
-      ]
-    }
+        "We're sorry to hear about your experience. This isn't the level of service we strive for. Please contact us at (INSERT_PHONE) so we can make this right. Your satisfaction is important to us.",
+        "Thank you for your feedback. We take all concerns seriously and would like to discuss this further. Please reach out to our office manager at (INSERT_PHONE). We're committed to resolving this.",
+      ],
+    },
   };
 
   constructor() {
@@ -152,20 +152,20 @@ export class GoogleMyBusinessKillerAgent {
       keyFile: process.env.GOOGLE_SERVICE_ACCOUNT_KEY_PATH,
       scopes: [
         'https://www.googleapis.com/auth/business.manage',
-        'https://www.googleapis.com/auth/plus.business.manage'
+        'https://www.googleapis.com/auth/plus.business.manage',
       ],
     });
 
     const authClient = await auth.getClient();
-    
+
     this.mybusinessApi = google.mybusinessbusinessinformation({
       version: 'v1',
-      auth: authClient
+      auth: authClient as any,
     });
 
     this.placesApi = google.places({
       version: 'v1',
-      auth: authClient
+      auth: authClient as any,
     });
   }
 
@@ -263,7 +263,7 @@ export class GoogleMyBusinessKillerAgent {
     try {
       // Determine post type based on various factors
       const postType = await this.determineOptimalPostType();
-      
+
       // Generate post content
       const postContent = await this.generateEngagingPost(postType);
 
@@ -274,8 +274,10 @@ export class GoogleMyBusinessKillerAgent {
         try {
           const localizedPost = await this.localizePost(postContent, location);
           await this.publishGMBPost(locationId, localizedPost);
-          
-          logger.info(`✅ Published GMB post to ${location}: ${localizedPost.summary.substring(0, 50)}...`);
+
+          logger.info(
+            `✅ Published GMB post to ${location}: ${localizedPost.summary.substring(0, 50)}...`
+          );
 
           // Track in database
           await this.trackGMBPost(location, localizedPost);
@@ -294,7 +296,7 @@ export class GoogleMyBusinessKillerAgent {
   private async determineOptimalPostType(): Promise<string> {
     const hour = new Date().getHours();
     const dayOfWeek = new Date().getDay();
-    
+
     // Check for urgent legal updates
     const urgentNews = await this.checkForUrgentLegalNews();
     if (urgentNews) return 'urgent_update';
@@ -348,8 +350,10 @@ Format as JSON with: summary, callToAction (actionType, url)
 `;
 
     const response = await this.model.invoke([
-      new SystemMessage('You are a master GMB copywriter who creates posts that drive massive engagement and conversions.'),
-      new HumanMessage(prompt)
+      new SystemMessage(
+        'You are a master GMB copywriter who creates posts that drive massive engagement and conversions.'
+      ),
+      new HumanMessage(prompt),
     ]);
 
     const content = JSON.parse(response.content.toString());
@@ -383,7 +387,7 @@ Format as JSON with: summary, callToAction (actionType, url)
         if (!locationId) continue;
 
         const reviews = await this.fetchLatestReviews(locationId);
-        
+
         for (const review of reviews) {
           // Check if already responded
           if (review.reply) continue;
@@ -408,8 +412,10 @@ Format as JSON with: summary, callToAction (actionType, url)
    */
   private async generateReviewResponse(review: any): Promise<ReviewResponse> {
     const isPositive = review.rating >= 4;
-    const templates = isPositive 
-      ? this.REVIEW_RESPONSES.positive[review.rating === 5 ? '5_star' : '4_star']
+    const templates = isPositive
+      ? review.rating === 5
+        ? this.REVIEW_RESPONSES.positive.fiveStar
+        : this.REVIEW_RESPONSES.positive.fourStar
       : this.REVIEW_RESPONSES.negative.general;
 
     // Use AI to personalize response
@@ -434,14 +440,14 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
     const response = await this.model.invoke([
       new SystemMessage('You are a caring law firm representative who values every client.'),
-      new HumanMessage(prompt)
+      new HumanMessage(prompt),
     ]);
 
     return {
       reviewId: review.name,
       response: response.content.toString(),
       sentiment: isPositive ? 'positive' : 'negative',
-      urgency: review.rating <= 2 ? 'immediate' : 'medium'
+      urgency: review.rating <= 2 ? 'immediate' : 'medium',
     };
   }
 
@@ -452,19 +458,19 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     const competitors = [
       { name: 'Brent Adams & Associates', placeId: 'ChIJxxxxxxxxxxxxxx' },
       { name: 'Hardwick Law Firm', placeId: 'ChIJyyyyyyyyyyyyyy' },
-      { name: 'Nagle & Associates', placeId: 'ChIJzzzzzzzzzzzzzz' }
+      { name: 'Nagle & Associates', placeId: 'ChIJzzzzzzzzzzzzzz' },
     ];
 
     for (const competitor of competitors) {
       try {
         const competitorData = await this.fetchCompetitorGMBData(competitor.placeId);
-        
+
         // Analyze their strategy
         const analysis = await this.analyzeCompetitorGMBStrategy(competitorData);
-        
+
         // Generate counter-strategy
         const counterStrategy = await this.generateCounterStrategy(analysis);
-        
+
         // Execute counter-moves
         await this.executeCounterStrategy(counterStrategy);
 
@@ -484,13 +490,13 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       'personal injury attorney',
       'workers comp lawyer',
       'criminal defense attorney',
-      'abogado de inmigracion'
+      'abogado de inmigracion',
     ];
 
     const locations = [
       { name: 'Charlotte', lat: 35.2271, lng: -80.8431 },
       { name: 'Raleigh', lat: 35.7796, lng: -78.6382 },
-      { name: 'Durham', lat: 35.9940, lng: -78.8986 }
+      { name: 'Durham', lat: 35.994, lng: -78.8986 },
     ];
 
     const rankings: LocalRankingData[] = [];
@@ -524,7 +530,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       categories: await this.selectOptimalCategories(),
       attributes: await this.selectOptimalAttributes(),
       serviceArea: await this.defineOptimalServiceArea(),
-      hours: await this.optimizeBusinessHours()
+      hours: await this.optimizeBusinessHours(),
     };
 
     for (const [location, locationId] of Object.entries(this.LOCATION_IDS)) {
@@ -548,7 +554,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       { type: 'PROFILE', description: 'Attorney team photo' },
       { type: 'PRODUCT', description: 'Legal service examples' },
       { type: 'TEAM', description: 'Staff at work' },
-      { type: 'INTERIOR', description: 'Office interior' }
+      { type: 'INTERIOR', description: 'Office interior' },
     ];
 
     // Check if we need new photos (rotate weekly)
@@ -563,7 +569,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       try {
         // Select photos optimized for engagement
         const photos = await this.selectEngagementPhotos(location);
-        
+
         for (const photo of photos) {
           await this.uploadPhoto(locationId, photo);
         }
@@ -582,8 +588,8 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     const urgentNews = await this.prisma.newsAlert.findFirst({
       where: {
         publishedAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) },
-        relevanceScore: { gte: 0.8 }
-      }
+        relevanceScore: { gte: 0.8 },
+      },
     });
 
     return !!urgentNews;
@@ -597,9 +603,9 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
         status: 'scheduled',
         scheduledAt: {
           gte: new Date(),
-          lte: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-        }
-      }
+          lte: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        },
+      },
     });
 
     return !!upcomingEvent;
@@ -608,13 +614,13 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
   private async localizePost(post: GMBPost, location: string): Promise<GMBPost> {
     // Add location-specific content
     const localizedPost = { ...post };
-    
+
     const locationMap = {
       charlotte: 'Charlotte, NC',
       raleigh: 'Raleigh-Durham',
       smithfield: 'Johnston County',
       goldsboro: 'Wayne County',
-      orlando: 'Orlando, FL'
+      orlando: 'Orlando, FL',
     };
 
     localizedPost.summary = post.summary.replace(
@@ -634,8 +640,8 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
           callToAction: post.callToAction,
           media: post.media ? [post.media] : undefined,
           topicType: post.topicType,
-          event: post.event
-        }
+          event: post.event,
+        },
       });
     } catch (error) {
       logger.error('Failed to publish GMB post:', error);
@@ -650,8 +656,8 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
         blogPostId: `gmb_${Date.now()}`,
         platform: `gmb_${location}`,
         scheduledFor: new Date(),
-        status: 'published'
-      }
+        status: 'published',
+      },
     });
   }
 
@@ -662,7 +668,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       legal_tip: { mediaFormat: 'PHOTO', sourceUrl: '/images/legal-advice.jpg' },
       community_event: { mediaFormat: 'PHOTO', sourceUrl: '/images/community-event.jpg' },
       urgent_update: { mediaFormat: 'PHOTO', sourceUrl: '/images/urgent-alert.jpg' },
-      seasonal: { mediaFormat: 'PHOTO', sourceUrl: '/images/seasonal.jpg' }
+      seasonal: { mediaFormat: 'PHOTO', sourceUrl: '/images/seasonal.jpg' },
     };
 
     return mediaMap[postType as keyof typeof mediaMap];
@@ -674,24 +680,24 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       legal_tip: 'STANDARD',
       community_event: 'EVENT',
       urgent_update: 'ALERT',
-      seasonal: 'OFFER'
+      seasonal: 'OFFER',
     };
 
-    return topicMap[postType as keyof typeof topicMap] as GMBPost['topicType'] || 'STANDARD';
+    return (topicMap[postType as keyof typeof topicMap] as GMBPost['topicType']) || 'STANDARD';
   }
 
   private async generateEventDetails(topic: string): Promise<any> {
     // Generate event details for community events
     const nextWeek = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-    
+
     return {
       title: topic,
       schedule: {
         startDate: nextWeek.toISOString().split('T')[0],
         startTime: '18:00',
         endDate: nextWeek.toISOString().split('T')[0],
-        endTime: '20:00'
-      }
+        endTime: '20:00',
+      },
     };
   }
 
@@ -699,7 +705,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     try {
       const response = await this.mybusinessApi.locations.reviews.list({
         parent: `locations/${locationId}`,
-        pageSize: 50
+        pageSize: 50,
       });
 
       return response.data.reviews || [];
@@ -709,20 +715,28 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     }
   }
 
-  private async postReviewResponse(locationId: string, reviewName: string, response: ReviewResponse): Promise<void> {
+  private async postReviewResponse(
+    locationId: string,
+    reviewName: string,
+    response: ReviewResponse
+  ): Promise<void> {
     try {
       await this.mybusinessApi.locations.reviews.reply({
         name: reviewName,
         requestBody: {
-          comment: response.response
-        }
+          comment: response.response,
+        },
       });
     } catch (error) {
       logger.error('Failed to post review response:', error);
     }
   }
 
-  private async trackReviewResponse(location: string, review: any, response: ReviewResponse): Promise<void> {
+  private async trackReviewResponse(
+    location: string,
+    review: any,
+    response: ReviewResponse
+  ): Promise<void> {
     // Track in database for analytics
     logger.info(`Tracked review response for ${location}: ${response.sentiment}`);
   }
@@ -732,7 +746,8 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     try {
       const response = await this.placesApi.places.get({
         name: `places/${placeId}`,
-        fields: 'displayName,formattedAddress,rating,userRatingCount,businessStatus,regularOpeningHours,websiteUri,reviews'
+        fields:
+          'displayName,formattedAddress,rating,userRatingCount,businessStatus,regularOpeningHours,websiteUri,reviews',
       });
 
       return response.data;
@@ -751,7 +766,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       postingFrequency: 'unknown', // Would need historical data
       responseRate: this.calculateResponseRate(data.reviews),
       strengths: this.identifyStrengths(data),
-      weaknesses: this.identifyWeaknesses(data)
+      weaknesses: this.identifyWeaknesses(data),
     };
   }
 
@@ -792,7 +807,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       strategies.push('Create posts showcasing recent wins');
     }
 
-    analysis.weaknesses.forEach(weakness => {
+    analysis.weaknesses.forEach((weakness: string) => {
       if (weakness.includes('Rating')) {
         strategies.push('Implement review improvement campaign');
       }
@@ -814,23 +829,26 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     }
   }
 
-  private async checkKeywordRanking(keyword: string, location: { name: string, lat: number, lng: number }): Promise<LocalRankingData> {
+  private async checkKeywordRanking(
+    keyword: string,
+    location: { name: string; lat: number; lng: number }
+  ): Promise<LocalRankingData> {
     // In production, would use local rank tracking API
     return {
       keyword,
       ranking: Math.floor(Math.random() * 20) + 1,
       location: location.name,
       competitor: 'Unknown',
-      change: Math.floor(Math.random() * 5) - 2
+      change: Math.floor(Math.random() * 5) - 2,
     };
   }
 
   private async boostLocalSEO(keyword: string, location: any): Promise<void> {
     logger.info(`🚀 Boosting local SEO for "${keyword}" in ${location.name}`);
-    
+
     // Create targeted content
     await this.createLocationSpecificPost(keyword, location);
-    
+
     // Update business description with keyword
     await this.updateDescriptionWithKeyword(keyword, location);
   }
@@ -840,15 +858,15 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       summary: `Looking for a ${keyword} in ${location.name}? Vasquez Law Firm has been serving ${location.name} for over 20 years with proven results. Free consultation available! 📍 ${location.name} #${keyword.replace(/\s+/g, '')}`,
       callToAction: {
         actionType: 'CALL',
-        url: 'tel:+19803420919'
+        url: 'tel:+19803420919',
       },
-      topicType: 'STANDARD'
+      topicType: 'STANDARD',
     };
 
     // Publish to relevant location
     const locationKey = location.name.toLowerCase().replace(/\s+/g, '');
     const locationId = this.LOCATION_IDS[locationKey as keyof typeof this.LOCATION_IDS];
-    
+
     if (locationId) {
       await this.publishGMBPost(locationId, post);
     }
@@ -866,13 +884,19 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       rankings,
       topPerformers: rankings.filter(r => r.ranking <= 3),
       needsImprovement: rankings.filter(r => r.ranking > 10),
-      biggestGains: rankings.filter(r => r.change > 0).sort((a, b) => b.change - a.change).slice(0, 5),
-      biggestLosses: rankings.filter(r => r.change < 0).sort((a, b) => a.change - b.change).slice(0, 5)
+      biggestGains: rankings
+        .filter(r => r.change > 0)
+        .sort((a, b) => b.change - a.change)
+        .slice(0, 5),
+      biggestLosses: rankings
+        .filter(r => r.change < 0)
+        .sort((a, b) => a.change - b.change)
+        .slice(0, 5),
     };
 
     logger.info('📊 Local Ranking Report Generated', {
       topPerformers: report.topPerformers.length,
-      needsImprovement: report.needsImprovement.length
+      needsImprovement: report.needsImprovement.length,
     });
   }
 
@@ -886,18 +910,18 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       'personal_injury_attorney',
       'criminal_justice_attorney',
       'labor_relations_attorney',
-      'law_firm'
+      'law_firm',
     ];
   }
 
   private async selectOptimalAttributes(): Promise<any> {
     return {
-      'has_free_consultation': true,
-      'has_spanish_speaking_staff': true,
-      'has_wheelchair_accessible_entrance': true,
-      'has_parking': true,
-      'accepts_credit_cards': true,
-      'by_appointment_only': false
+      has_free_consultation: true,
+      has_spanish_speaking_staff: true,
+      has_wheelchair_accessible_entrance: true,
+      has_parking: true,
+      accepts_credit_cards: true,
+      by_appointment_only: false,
     };
   }
 
@@ -905,60 +929,56 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     return {
       businessType: 'CUSTOMER_AND_BUSINESS_LOCATION',
       regionCode: 'US',
-      places: [
-        { name: 'North Carolina' },
-        { name: 'South Carolina' },
-        { name: 'Florida' }
-      ]
+      places: [{ name: 'North Carolina' }, { name: 'South Carolina' }, { name: 'Florida' }],
     };
   }
 
   private async optimizeBusinessHours(): Promise<any> {
     return {
       periods: [
-        { 
-          openDay: 'MONDAY', 
-          openTime: '08:00', 
-          closeDay: 'MONDAY', 
-          closeTime: '18:00' 
+        {
+          openDay: 'MONDAY',
+          openTime: '08:00',
+          closeDay: 'MONDAY',
+          closeTime: '18:00',
         },
-        { 
-          openDay: 'TUESDAY', 
-          openTime: '08:00', 
-          closeDay: 'TUESDAY', 
-          closeTime: '18:00' 
+        {
+          openDay: 'TUESDAY',
+          openTime: '08:00',
+          closeDay: 'TUESDAY',
+          closeTime: '18:00',
         },
-        { 
-          openDay: 'WEDNESDAY', 
-          openTime: '08:00', 
-          closeDay: 'WEDNESDAY', 
-          closeTime: '18:00' 
+        {
+          openDay: 'WEDNESDAY',
+          openTime: '08:00',
+          closeDay: 'WEDNESDAY',
+          closeTime: '18:00',
         },
-        { 
-          openDay: 'THURSDAY', 
-          openTime: '08:00', 
-          closeDay: 'THURSDAY', 
-          closeTime: '18:00' 
+        {
+          openDay: 'THURSDAY',
+          openTime: '08:00',
+          closeDay: 'THURSDAY',
+          closeTime: '18:00',
         },
-        { 
-          openDay: 'FRIDAY', 
-          openTime: '08:00', 
-          closeDay: 'FRIDAY', 
-          closeTime: '18:00' 
+        {
+          openDay: 'FRIDAY',
+          openTime: '08:00',
+          closeDay: 'FRIDAY',
+          closeTime: '18:00',
         },
-        { 
-          openDay: 'SATURDAY', 
-          openTime: '09:00', 
-          closeDay: 'SATURDAY', 
-          closeTime: '14:00' 
-        }
+        {
+          openDay: 'SATURDAY',
+          openTime: '09:00',
+          closeDay: 'SATURDAY',
+          closeTime: '14:00',
+        },
       ],
       specialHours: [
         {
           date: '2024-12-25',
-          isClosed: true
-        }
-      ]
+          isClosed: true,
+        },
+      ],
     };
   }
 
@@ -967,7 +987,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       await this.mybusinessApi.locations.patch({
         name: `locations/${locationId}`,
         updateMask: 'description,categories,attributes,serviceArea,regularHours',
-        requestBody: optimizations
+        requestBody: optimizations,
       });
     } catch (error) {
       logger.error('Failed to update business info:', error);
@@ -978,9 +998,9 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     // Check when photos were last updated
     const lastUpdate = await this.prisma.contentSchedule.findFirst({
       where: {
-        platform: { startsWith: 'gmb_photo_' }
+        platform: { startsWith: 'gmb_photo_' },
       },
-      orderBy: { scheduledFor: 'desc' }
+      orderBy: { scheduledFor: 'desc' },
     });
 
     return lastUpdate ? lastUpdate.scheduledFor.getTime() : 0;
@@ -992,18 +1012,18 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       {
         type: 'COVER',
         sourceUrl: `/images/offices/${location}-exterior.jpg`,
-        description: `Vasquez Law Firm ${location} office - Serving the community since 2003`
+        description: `Vasquez Law Firm ${location} office - Serving the community since 2003`,
       },
       {
         type: 'TEAM',
         sourceUrl: `/images/team/${location}-team.jpg`,
-        description: `Our experienced legal team in ${location}`
+        description: `Our experienced legal team in ${location}`,
       },
       {
         type: 'INTERIOR',
         sourceUrl: `/images/offices/${location}-interior.jpg`,
-        description: `Modern, comfortable consultation rooms`
-      }
+        description: `Modern, comfortable consultation rooms`,
+      },
     ];
   }
 
@@ -1011,15 +1031,15 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     try {
       // Upload photo to GMB
       logger.info(`Uploading photo to location ${locationId}: ${photo.type}`);
-      
+
       // Track upload
       await this.prisma.contentSchedule.create({
         data: {
           blogPostId: `gmb_photo_${Date.now()}`,
           platform: `gmb_photo_${locationId}`,
           scheduledFor: new Date(),
-          status: 'published'
-        }
+          status: 'published',
+        },
       });
     } catch (error) {
       logger.error('Failed to upload photo:', error);

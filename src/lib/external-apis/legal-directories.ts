@@ -21,9 +21,9 @@ export class LegalDirectoryAPI {
 
   async submit(directory: string, submission: DirectorySubmission): Promise<SubmissionResult> {
     logger.info('Submitting to legal directory', { directory });
-    
+
     // Mock implementation
-    const directoryUrls = {
+    const directoryUrls: Record<string, string> = {
       avvo: 'https://www.avvo.com/attorneys/vasquez-law-firm',
       findlaw: 'https://lawyers.findlaw.com/profile/vasquez-law-firm',
       justia: 'https://www.justia.com/lawyers/vasquez-law-firm',
@@ -31,7 +31,7 @@ export class LegalDirectoryAPI {
       martindale: 'https://www.martindale.com/vasquez-law-firm',
       nolo: 'https://www.nolo.com/lawyers/vasquez-law-firm',
     };
-    
+
     return {
       url: directoryUrls[directory] || `https://${directory}.com/vasquez-law-firm`,
       backlink: `https://${directory}.com/vasquez-law-firm/articles/${Date.now()}`,

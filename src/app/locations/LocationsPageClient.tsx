@@ -21,7 +21,11 @@ import { motion } from 'framer-motion';
 import { TRADEMARK } from '@/lib/constants/trademark';
 import { officeLocations } from '@/data/locations';
 
-export default function LocationsPageClient() {
+interface LocationsPageClientProps {
+  language?: 'en' | 'es';
+}
+
+export default function LocationsPageClient({ language = 'en' }: LocationsPageClientProps) {
   // Map the office locations from the data file
   const locations = officeLocations.map(office => ({
     id: office.slug.replace('-office-location', ''),
@@ -33,26 +37,47 @@ export default function LocationsPageClient() {
     email: `${office.city.toLowerCase()}@vasquezlawnc.com`,
     mapUrl: office.mapUrl,
     image: `/images/offices/${office.id}-office.jpg`,
-    features: ['Free Parking', 'Wheelchair Accessible', 'Bilingual Staff (English/Spanish)'],
+    features:
+      language === 'es'
+        ? [
+            'Estacionamiento Gratis',
+            'Accesible para Sillas de Ruedas',
+            'Personal Bilingüe (Inglés/Español)',
+          ]
+        : ['Free Parking', 'Wheelchair Accessible', 'Bilingual Staff (English/Spanish)'],
     description: getOfficeDescription(office.id),
     lat: office.lat,
     lng: office.lng,
   }));
 
   function getOfficeDescription(id: string) {
-    const descriptions = {
-      smithfield:
-        'Our main office serving Johnston County and Eastern North Carolina with comprehensive legal services. Over 60 years of combined experience.',
-      raleigh:
-        'Serving the Triangle area including Wake County, Durham, and Chapel Hill with expert immigration and personal injury representation.',
-      charlotte:
-        'Dedicated to serving Mecklenburg County and the greater Charlotte metro area with bilingual legal services.',
-      orlando:
-        "Extending our exceptional legal services to Central Florida's diverse communities with multilingual support.",
-    };
+    const descriptions =
+      language === 'es'
+        ? {
+            smithfield:
+              'Nuestra oficina principal sirviendo al Condado de Johnston y el este de Carolina del Norte con servicios legales integrales. Más de 60 años de experiencia combinada.',
+            raleigh:
+              'Sirviendo el área del Triángulo incluyendo el Condado de Wake, Durham y Chapel Hill con representación experta en inmigración y lesiones personales.',
+            charlotte:
+              'Dedicados a servir al Condado de Mecklenburg y el área metropolitana de Charlotte con servicios legales bilingües.',
+            orlando:
+              'Extendiendo nuestros excepcionales servicios legales a las diversas comunidades de Florida Central con soporte multilingüe.',
+          }
+        : {
+            smithfield:
+              'Our main office serving Johnston County and Eastern North Carolina with comprehensive legal services. Over 60 years of combined experience.',
+            raleigh:
+              'Serving the Triangle area including Wake County, Durham, and Chapel Hill with expert immigration and personal injury representation.',
+            charlotte:
+              'Dedicated to serving Mecklenburg County and the greater Charlotte metro area with bilingual legal services.',
+            orlando:
+              "Extending our exceptional legal services to Central Florida's diverse communities with multilingual support.",
+          };
     return (
       descriptions[id as keyof typeof descriptions] ||
-      'Providing exceptional legal services to our community.'
+      (language === 'es'
+        ? 'Proporcionando servicios legales excepcionales a nuestra comunidad.'
+        : 'Providing exceptional legal services to our community.')
     );
   }
 
@@ -86,19 +111,31 @@ export default function LocationsPageClient() {
               >
                 <div className="inline-flex items-center px-6 py-3 bg-primary/20 backdrop-blur-sm rounded-full mb-6">
                   <Building2 className="w-5 h-5 text-primary mr-2" />
-                  <span className="text-primary font-semibold">4 Convenient Locations</span>
+                  <span className="text-primary font-semibold">
+                    {language === 'es' ? '4 Ubicaciones Convenientes' : '4 Convenient Locations'}
+                  </span>
                 </div>
 
                 <h1 className="text-5xl md:text-7xl font-black mb-6 text-white">
-                  Our Office <span className="text-primary">Locations</span>
+                  {language === 'es' ? (
+                    <>
+                      Nuestras <span className="text-primary">Ubicaciones</span>
+                    </>
+                  ) : (
+                    <>
+                      Our Office <span className="text-primary">Locations</span>
+                    </>
+                  )}
                 </h1>
                 <p className="text-xl md:text-2xl mb-8 font-semibold text-primary">
-                  Serving North Carolina and Florida - {TRADEMARK.YO_PELEO_POR_TI}
+                  {language === 'es'
+                    ? `Sirviendo Carolina del Norte y Florida - ${TRADEMARK.YO_PELEO_POR_TI}`
+                    : `Serving North Carolina and Florida - ${TRADEMARK.YO_PELEO_POR_TI}`}
                 </p>
                 <p className="text-lg mb-8 max-w-3xl mx-auto text-gray-300">
-                  With four strategically located offices across North Carolina and Florida, Vasquez
-                  Law Firm is always within reach. Each office provides the same exceptional legal
-                  services with bilingual staff ready to assist you.
+                  {language === 'es'
+                    ? 'Con cuatro oficinas estratégicamente ubicadas en Carolina del Norte y Florida, el Bufete de Abogados Vasquez siempre está a su alcance. Cada oficina proporciona los mismos servicios legales excepcionales con personal bilingüe listo para asistirle.'
+                    : 'With four strategically located offices across North Carolina and Florida, Vasquez Law Firm is always within reach. Each office provides the same exceptional legal services with bilingual staff ready to assist you.'}
                 </p>
               </motion.div>
             </div>
@@ -115,10 +152,20 @@ export default function LocationsPageClient() {
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
-                Find the Office <span className="text-primary">Nearest You</span>
+                {language === 'es' ? (
+                  <>
+                    Encuentre la Oficina <span className="text-primary">Más Cercana</span>
+                  </>
+                ) : (
+                  <>
+                    Find the Office <span className="text-primary">Nearest You</span>
+                  </>
+                )}
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Click on any location card below to view details and get directions
+                {language === 'es'
+                  ? 'Haga clic en cualquier tarjeta de ubicación a continuación para ver detalles y obtener direcciones'
+                  : 'Click on any location card below to view details and get directions'}
               </p>
             </motion.div>
 
@@ -146,7 +193,7 @@ export default function LocationsPageClient() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                       {location.id === 'smithfield' && (
                         <div className="absolute top-4 right-4 bg-primary text-black px-3 py-1 rounded-full text-sm font-bold">
-                          Main Office
+                          {language === 'es' ? 'Oficina Principal' : 'Main Office'}
                         </div>
                       )}
                     </div>
@@ -166,7 +213,7 @@ export default function LocationsPageClient() {
                               rel="noopener noreferrer"
                               className="text-primary hover:text-primary-300 text-sm inline-flex items-center mt-1"
                             >
-                              Get Directions
+                              {language === 'es' ? 'Obtener Direcciones' : 'Get Directions'}
                               <ArrowRight className="w-3 h-3 ml-1" />
                             </a>
                           </div>
@@ -182,7 +229,9 @@ export default function LocationsPageClient() {
                               {location.phone}
                             </a>
                             {location.fax && (
-                              <p className="text-gray-400 text-sm">Fax: {location.fax}</p>
+                              <p className="text-gray-400 text-sm">
+                                {language === 'es' ? 'Fax' : 'Fax'}: {location.fax}
+                              </p>
                             )}
                           </div>
                         </div>
@@ -240,13 +289,13 @@ export default function LocationsPageClient() {
                           }
                           className="flex-1 text-center bg-primary text-black py-3 px-4 rounded-full font-bold hover:bg-primary-300 transition-all"
                         >
-                          View Details
+                          {language === 'es' ? 'Ver Detalles' : 'View Details'}
                         </Link>
                         <Link
                           href="/contact"
                           className="flex-1 text-center border-2 border-white text-white py-3 px-4 rounded-full font-bold hover:bg-white hover:text-black transition-all"
                         >
-                          Contact
+                          {language === 'es' ? 'Contactar' : 'Contact'}
                         </Link>
                       </div>
                     </div>
@@ -267,47 +316,95 @@ export default function LocationsPageClient() {
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
-                Why Choose <span className="text-primary">Our Offices</span>
+                {language === 'es' ? (
+                  <>
+                    ¿Por Qué Elegir <span className="text-primary">Nuestras Oficinas</span>?
+                  </>
+                ) : (
+                  <>
+                    Why Choose <span className="text-primary">Our Offices</span>
+                  </>
+                )}
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Every location is designed with your comfort and convenience in mind
+                {language === 'es'
+                  ? 'Cada ubicación está diseñada pensando en su comodidad y conveniencia'
+                  : 'Every location is designed with your comfort and convenience in mind'}
               </p>
             </motion.div>
 
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {[
-                {
-                  icon: <Building2 className="w-12 h-12" />,
-                  title: 'Modern Facilities',
-                  description: 'State-of-the-art offices designed for client comfort and privacy',
-                },
-                {
-                  icon: <Car className="w-12 h-12" />,
-                  title: 'Easy Access',
-                  description:
-                    'Free parking and convenient locations with wheelchair accessibility',
-                },
-                {
-                  icon: <Users className="w-12 h-12" />,
-                  title: 'Bilingual Staff',
-                  description: 'Spanish and English speaking professionals at every location',
-                },
-                {
-                  icon: <Shield className="w-12 h-12" />,
-                  title: 'Secure & Confidential',
-                  description: 'Private consultation rooms and secure document handling',
-                },
-                {
-                  icon: <Clock className="w-12 h-12" />,
-                  title: 'Flexible Hours',
-                  description: 'Extended hours and weekend appointments available',
-                },
-                {
-                  icon: <Award className="w-12 h-12" />,
-                  title: 'Experienced Team',
-                  description: '60+ years of combined legal experience across all offices',
-                },
-              ].map((feature, index) => (
+              {(language === 'es'
+                ? [
+                    {
+                      icon: <Building2 className="w-12 h-12" />,
+                      title: 'Instalaciones Modernas',
+                      description:
+                        'Oficinas de última generación diseñadas para la comodidad y privacidad del cliente',
+                    },
+                    {
+                      icon: <Car className="w-12 h-12" />,
+                      title: 'Fácil Acceso',
+                      description:
+                        'Estacionamiento gratuito y ubicaciones convenientes con accesibilidad para sillas de ruedas',
+                    },
+                    {
+                      icon: <Users className="w-12 h-12" />,
+                      title: 'Personal Bilingüe',
+                      description: 'Profesionales que hablan español e inglés en cada ubicación',
+                    },
+                    {
+                      icon: <Shield className="w-12 h-12" />,
+                      title: 'Seguro y Confidencial',
+                      description: 'Salas de consulta privadas y manejo seguro de documentos',
+                    },
+                    {
+                      icon: <Clock className="w-12 h-12" />,
+                      title: 'Horarios Flexibles',
+                      description: 'Horarios extendidos y citas de fin de semana disponibles',
+                    },
+                    {
+                      icon: <Award className="w-12 h-12" />,
+                      title: 'Equipo Experimentado',
+                      description:
+                        'Más de 60 años de experiencia legal combinada en todas las oficinas',
+                    },
+                  ]
+                : [
+                    {
+                      icon: <Building2 className="w-12 h-12" />,
+                      title: 'Modern Facilities',
+                      description:
+                        'State-of-the-art offices designed for client comfort and privacy',
+                    },
+                    {
+                      icon: <Car className="w-12 h-12" />,
+                      title: 'Easy Access',
+                      description:
+                        'Free parking and convenient locations with wheelchair accessibility',
+                    },
+                    {
+                      icon: <Users className="w-12 h-12" />,
+                      title: 'Bilingual Staff',
+                      description: 'Spanish and English speaking professionals at every location',
+                    },
+                    {
+                      icon: <Shield className="w-12 h-12" />,
+                      title: 'Secure & Confidential',
+                      description: 'Private consultation rooms and secure document handling',
+                    },
+                    {
+                      icon: <Clock className="w-12 h-12" />,
+                      title: 'Flexible Hours',
+                      description: 'Extended hours and weekend appointments available',
+                    },
+                    {
+                      icon: <Award className="w-12 h-12" />,
+                      title: 'Experienced Team',
+                      description: '60+ years of combined legal experience across all offices',
+                    },
+                  ]
+              ).map((feature, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
@@ -337,10 +434,20 @@ export default function LocationsPageClient() {
               className="max-w-4xl mx-auto text-center"
             >
               <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
-                Ready to <span className="text-primary">Get Started?</span>
+                {language === 'es' ? (
+                  <>
+                    ¿Listo para <span className="text-primary">Comenzar</span>?
+                  </>
+                ) : (
+                  <>
+                    Ready to <span className="text-primary">Get Started?</span>
+                  </>
+                )}
               </h2>
               <p className="text-xl text-gray-300 mb-8">
-                Visit any of our offices or schedule a virtual consultation today
+                {language === 'es'
+                  ? 'Visite cualquiera de nuestras oficinas o programe una consulta virtual hoy'
+                  : 'Visit any of our offices or schedule a virtual consultation today'}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <motion.a
@@ -350,7 +457,7 @@ export default function LocationsPageClient() {
                   className="inline-flex items-center px-8 py-4 bg-primary text-black font-bold rounded-full transition-all hover:bg-primary-300"
                 >
                   <Phone className="mr-2 w-5 h-5" />
-                  Call 1-844-YO-PELEO
+                  {language === 'es' ? 'Llame' : 'Call'} 1-844-YO-PELEO
                 </motion.a>
                 <motion.a
                   href="/contact"
@@ -358,7 +465,7 @@ export default function LocationsPageClient() {
                   whileTap={{ scale: 0.95 }}
                   className="inline-flex items-center px-8 py-4 bg-transparent text-white font-bold rounded-full border-2 border-white hover:bg-white hover:text-black transition-all"
                 >
-                  Schedule Consultation
+                  {language === 'es' ? 'Programar Consulta' : 'Schedule Consultation'}
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </motion.a>
               </div>

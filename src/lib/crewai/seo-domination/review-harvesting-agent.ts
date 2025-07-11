@@ -49,7 +49,7 @@ interface ReviewCampaign {
 export class ReviewHarvestingAgent {
   private model: ChatOpenAI;
   private prisma: any;
-  private emailTransporter: nodemailer.Transporter;
+  private emailTransporter!: nodemailer.Transporter;
   private isRunning: boolean = false;
   private scheduledJobs: cron.ScheduledTask[] = [];
 
@@ -59,26 +59,26 @@ export class ReviewHarvestingAgent {
       name: 'google',
       url: 'https://g.page/r/CYsNw0PZ4KGCEAE/review',
       priority: 1,
-      minimumRating: 4
+      minimumRating: 4,
     },
     {
       name: 'facebook',
       url: 'https://www.facebook.com/vasquezlawfirm/reviews',
       priority: 2,
-      minimumRating: 4
+      minimumRating: 4,
     },
     {
       name: 'avvo',
       url: 'https://www.avvo.com/attorneys/vasquez-law-firm/reviews',
       priority: 3,
-      minimumRating: 4
+      minimumRating: 4,
     },
     {
       name: 'trustpilot',
       url: 'https://www.trustpilot.com/review/vasquezlawfirm.com',
       priority: 5,
-      minimumRating: 4
-    }
+      minimumRating: 4,
+    },
   ];
 
   // Review Request Templates
@@ -98,7 +98,7 @@ Thank you for being part of the Vasquez Law Firm family!
 
 Warm regards,
 {attorneyName}
-Vasquez Law Firm, PLLC`
+Vasquez Law Firm, PLLC`,
       },
       standard: {
         subject: 'How was your experience with Vasquez Law Firm?',
@@ -114,7 +114,7 @@ If you have any questions or need anything at all, please don't hesitate to reac
 
 Best regards,
 {attorneyName}
-Vasquez Law Firm, PLLC`
+Vasquez Law Firm, PLLC`,
       },
       gentle_reminder: {
         subject: 'Your opinion matters to us',
@@ -131,47 +131,47 @@ No pressure at all - we just appreciate hearing from our clients.
 Thanks again for trusting us with your {caseType} matter.
 
 Best,
-The Vasquez Law Firm Team`
-      }
+The Vasquez Law Firm Team`,
+      },
     },
     sms: {
       immediate_win: {
-        text: `🎉 {clientName}! Congrats on your {caseType} win! Mind sharing a quick review? It helps others find help: {shortLink} Reply STOP to opt out.`
+        text: `🎉 {clientName}! Congrats on your {caseType} win! Mind sharing a quick review? It helps others find help: {shortLink} Reply STOP to opt out.`,
       },
       standard: {
-        text: `Hi {clientName}, hope you're well! Would you share your experience with Vasquez Law Firm? {shortLink} Reply STOP to opt out.`
+        text: `Hi {clientName}, hope you're well! Would you share your experience with Vasquez Law Firm? {shortLink} Reply STOP to opt out.`,
       },
       gentle_reminder: {
-        text: `{clientName}, your feedback helps families find legal help. Quick review? {shortLink} Thanks! Reply STOP to opt out.`
-      }
-    }
+        text: `{clientName}, your feedback helps families find legal help. Quick review? {shortLink} Thanks! Reply STOP to opt out.`,
+      },
+    },
   };
 
   // Review Response Templates by Sentiment
   private readonly RESPONSE_TEMPLATES = {
     positive: {
       fiveStar: [
-        'Thank you so much, {reviewerName}! Your kind words mean everything to us. We\'re honored to have been part of your journey. 🌟',
-        '{reviewerName}, we\'re touched by your review! It\'s clients like you who make our work so rewarding. Thank you for trusting us! 💙',
-        'Wow, thank you {reviewerName}! Your success is our success. We\'re always here if you need us. 🙏'
+        "Thank you so much, {reviewerName}! Your kind words mean everything to us. We're honored to have been part of your journey. 🌟",
+        "{reviewerName}, we're touched by your review! It's clients like you who make our work so rewarding. Thank you for trusting us! 💙",
+        "Wow, thank you {reviewerName}! Your success is our success. We're always here if you need us. 🙏",
       ],
       fourStar: [
-        'Thank you for the wonderful feedback, {reviewerName}! We\'re glad we could help. Always striving to provide 5-star service! 📞',
-        'We appreciate your review, {reviewerName}! Your feedback helps us improve. Thank you for choosing Vasquez Law Firm! 🏆'
-      ]
+        "Thank you for the wonderful feedback, {reviewerName}! We're glad we could help. Always striving to provide 5-star service! 📞",
+        'We appreciate your review, {reviewerName}! Your feedback helps us improve. Thank you for choosing Vasquez Law Firm! 🏆',
+      ],
     },
     negative: {
       general: [
-        '{reviewerName}, we\'re truly sorry about your experience. This isn\'t our standard. Please call us at (980) 342-0919 so we can make this right.',
-        'Thank you for your feedback, {reviewerName}. We take all concerns seriously. Please contact our office manager to discuss how we can improve your experience.'
-      ]
+        "{reviewerName}, we're truly sorry about your experience. This isn't our standard. Please call us at (980) 342-0919 so we can make this right.",
+        'Thank you for your feedback, {reviewerName}. We take all concerns seriously. Please contact our office manager to discuss how we can improve your experience.',
+      ],
     },
     neutral: {
       general: [
-        'Thank you for taking the time to review us, {reviewerName}. We\'d love to hear more about how we can better serve you. Please feel free to reach out!',
-        'We appreciate your honest feedback, {reviewerName}. Your input helps us grow and serve our community better. Thank you!'
-      ]
-    }
+        "Thank you for taking the time to review us, {reviewerName}. We'd love to hear more about how we can better serve you. Please feel free to reach out!",
+        'We appreciate your honest feedback, {reviewerName}. Your input helps us grow and serve our community better. Thank you!',
+      ],
+    },
   };
 
   // Incentive Programs
@@ -179,18 +179,18 @@ The Vasquez Law Firm Team`
     charity_donation: {
       name: 'Reviews for Good',
       description: 'For every review, we donate $10 to local NC charities',
-      active: true
+      active: true,
     },
     future_discount: {
       name: 'Loyalty Rewards',
       description: '10% off future services for detailed reviews',
-      active: false
+      active: false,
     },
     gift_card_drawing: {
       name: 'Monthly Drawing',
       description: 'Monthly $100 gift card drawing for reviewers',
-      active: true
-    }
+      active: true,
+    },
   };
 
   constructor() {
@@ -309,12 +309,12 @@ The Vasquez Law Firm Team`
         where: {
           status: 'closed',
           updatedAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) }, // Last 30 days
-          metadata: { path: '$.outcome', equals: 'won' }
+          metadata: { path: '$.outcome', equals: 'won' },
         },
         include: {
           client: true,
-          attorney: true
-        }
+          attorney: true,
+        },
       });
 
       for (const case_ of recentWins) {
@@ -332,8 +332,8 @@ The Vasquez Law Firm Team`
             personalizationData: {
               attorneyName: case_.attorney?.name || 'Your Attorney',
               caseDetails: case_.description,
-              timeSince: this.getTimeSince(case_.updatedAt)
-            }
+              timeSince: this.getTimeSince(case_.updatedAt),
+            },
           });
         }
       }
@@ -345,17 +345,17 @@ The Vasquez Law Firm Team`
           createdAt: { lte: new Date(Date.now() - 180 * 24 * 60 * 60 * 1000) }, // Over 6 months
           cases: {
             some: {
-              status: 'closed'
-            }
-          }
+              status: 'closed',
+            },
+          },
         },
         include: {
           cases: {
             where: { status: 'closed' },
             orderBy: { updatedAt: 'desc' },
-            take: 1
-          }
-        }
+            take: 1,
+          },
+        },
       });
 
       for (const client of longTermClients) {
@@ -373,8 +373,8 @@ The Vasquez Law Firm Team`
             urgency: 'standard',
             personalizationData: {
               attorneyName: 'The Vasquez Law Firm Team',
-              timeSince: this.getTimeSince(latestCase?.updatedAt || client.createdAt)
-            }
+              timeSince: this.getTimeSince(latestCase?.updatedAt || client.createdAt),
+            },
           });
         }
       }
@@ -423,13 +423,18 @@ The Vasquez Law Firm Team`
    * Generate personalized review request message
    */
   private async generatePersonalizedMessage(request: ReviewRequest): Promise<any> {
-    const templateKey = `${request.urgency}_${request.caseOutcome === 'won' ? 'win' : ''}`.replace(/_$/, '');
-    
+    const templateKey = `${request.urgency}_${request.caseOutcome === 'won' ? 'win' : ''}`.replace(
+      /_$/,
+      ''
+    );
+
     // Get base templates
-    const emailTemplate = this.REQUEST_TEMPLATES.email[templateKey as keyof typeof this.REQUEST_TEMPLATES.email] 
-      || this.REQUEST_TEMPLATES.email.standard;
-    const smsTemplate = this.REQUEST_TEMPLATES.sms[templateKey as keyof typeof this.REQUEST_TEMPLATES.sms] 
-      || this.REQUEST_TEMPLATES.sms.standard;
+    const emailTemplate =
+      this.REQUEST_TEMPLATES.email[templateKey as keyof typeof this.REQUEST_TEMPLATES.email] ||
+      this.REQUEST_TEMPLATES.email.standard;
+    const smsTemplate =
+      this.REQUEST_TEMPLATES.sms[templateKey as keyof typeof this.REQUEST_TEMPLATES.sms] ||
+      this.REQUEST_TEMPLATES.sms.standard;
 
     // Generate review links
     const reviewLinks = this.generateReviewLinks(request);
@@ -440,8 +445,8 @@ The Vasquez Law Firm Team`
       body: this.personalizText(emailTemplate.body, {
         ...request,
         ...request.personalizationData,
-        reviewLinks: reviewLinks.email
-      })
+        reviewLinks: reviewLinks.email,
+      }),
     };
 
     // Personalize SMS
@@ -449,8 +454,8 @@ The Vasquez Law Firm Team`
       text: this.personalizText(smsTemplate.text, {
         ...request,
         ...request.personalizationData,
-        shortLink: reviewLinks.sms
-      })
+        shortLink: reviewLinks.sms,
+      }),
     };
 
     // Use AI to enhance personalization
@@ -486,8 +491,10 @@ Return as JSON: { email: { subject, body }, sms: { text } }
 
     try {
       const response = await this.model.invoke([
-        new SystemMessage('You are an expert at crafting compelling review requests that generate 5-star reviews.'),
-        new HumanMessage(prompt)
+        new SystemMessage(
+          'You are an expert at crafting compelling review requests that generate 5-star reviews.'
+        ),
+        new HumanMessage(prompt),
       ]);
 
       return JSON.parse(response.content.toString());
@@ -569,8 +576,8 @@ Return as JSON: { email: { subject, body }, sms: { text } }
       const negativeReviews = await this.prisma.reviewResponse.findMany({
         where: {
           sentiment: 'negative',
-          responseDate: null
-        }
+          responseDate: null,
+        },
       });
 
       for (const review of negativeReviews) {
@@ -599,10 +606,10 @@ Return as JSON: { email: { subject, body }, sms: { text } }
         where: {
           rating: 5,
           sentiment: 'positive',
-          reviewDate: { gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } // Last week
+          reviewDate: { gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) }, // Last week
         },
         orderBy: { reviewDate: 'desc' },
-        take: 5
+        take: 5,
       });
 
       for (const review of positiveReviews) {
@@ -630,8 +637,8 @@ Return as JSON: { email: { subject, body }, sms: { text } }
       where: {
         agentName: 'ReviewHarvestingAgent',
         input: { path: '$.clientId', equals: client.id },
-        createdAt: { gte: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000) } // 90 days
-      }
+        createdAt: { gte: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000) }, // 90 days
+      },
     });
 
     if (recentRequest) return false;
@@ -652,7 +659,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
       workers_compensation: 'workers compensation',
       criminal_defense: 'criminal defense',
       family_law: 'family law',
-      traffic: 'traffic violation'
+      traffic: 'traffic violation',
     };
 
     return formatted[practiceArea as keyof typeof formatted] || practiceArea;
@@ -667,7 +674,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
 
   private getTimeSince(date: Date): string {
     const days = Math.floor((Date.now() - date.getTime()) / (1000 * 60 * 60 * 24));
-    
+
     if (days === 0) return 'today';
     if (days === 1) return 'yesterday';
     if (days < 7) return `${days} days ago`;
@@ -680,21 +687,21 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     const positiveCalls = await this.prisma.callRecording.findMany({
       where: {
         sentiment: 'positive',
-        createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) }
+        createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
       },
-      take: 20
+      take: 20,
     });
 
     // Convert to review requests
     return [];
   }
 
-  private generateReviewLinks(request: ReviewRequest): { email: string, sms: string } {
+  private generateReviewLinks(request: ReviewRequest): { email: string; sms: string } {
     const platforms = this.REVIEW_PLATFORMS.slice(0, 3); // Top 3 platforms
-    
-    const emailLinks = platforms.map(p => 
-      `• ${p.name.charAt(0).toUpperCase() + p.name.slice(1)}: ${p.url}`
-    ).join('\n');
+
+    const emailLinks = platforms
+      .map(p => `• ${p.name.charAt(0).toUpperCase() + p.name.slice(1)}: ${p.url}`)
+      .join('\n');
 
     // Create shortened link for SMS (in production would use URL shortener)
     const smsLink = 'https://vlf.link/review';
@@ -704,7 +711,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
 
   private personalizText(template: string, data: any): string {
     let personalized = template;
-    
+
     Object.keys(data).forEach(key => {
       const regex = new RegExp(`{${key}}`, 'g');
       personalized = personalized.replace(regex, data[key] || '');
@@ -722,7 +729,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
         to: request.clientEmail,
         subject: message.subject,
         text: message.body,
-        html: this.formatEmailHTML(message.body)
+        html: this.formatEmailHTML(message.body),
       });
     } catch (error) {
       logger.error(`Failed to send email to ${request.clientEmail}:`, error);
@@ -775,15 +782,15 @@ Return as JSON: { email: { subject, body }, sms: { text } }
         input: request,
         output: { status: 'sent' },
         duration: 1000,
-        success: true
-      }
+        success: true,
+      },
     });
   }
 
   private async fetchNewReviews(platform: ReviewPlatform): Promise<any[]> {
     // In production, would use platform APIs
     logger.info(`Fetching new reviews from ${platform.name}`);
-    
+
     // Mock data for demonstration
     return [];
   }
@@ -796,9 +803,18 @@ Return as JSON: { email: { subject, body }, sms: { text } }
 
   private async generateReviewResponse(review: any, sentiment: string): Promise<string> {
     const templates = this.RESPONSE_TEMPLATES[sentiment as keyof typeof this.RESPONSE_TEMPLATES];
-    const templateArray = review.rating === 5 && sentiment === 'positive' 
-      ? templates['5_star' as keyof typeof templates] || templates.general
-      : templates.general || [];
+    let templateArray: string[] = [];
+
+    if (sentiment === 'positive') {
+      const positiveTemplates = templates as typeof this.RESPONSE_TEMPLATES.positive;
+      templateArray = review.rating === 5 ? positiveTemplates.fiveStar : positiveTemplates.fourStar;
+    } else if (sentiment === 'negative') {
+      const negativeTemplates = templates as typeof this.RESPONSE_TEMPLATES.negative;
+      templateArray = negativeTemplates.general;
+    } else if (sentiment === 'neutral') {
+      const neutralTemplates = templates as typeof this.RESPONSE_TEMPLATES.neutral;
+      templateArray = neutralTemplates.general;
+    }
 
     const template = templateArray[Math.floor(Math.random() * templateArray.length)];
 
@@ -806,12 +822,20 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     return template.replace(/{reviewerName}/g, review.reviewerName || 'there');
   }
 
-  private async postReviewResponse(platform: ReviewPlatform, review: any, response: string): Promise<void> {
+  private async postReviewResponse(
+    platform: ReviewPlatform,
+    review: any,
+    response: string
+  ): Promise<void> {
     // In production, would use platform APIs to post response
     logger.info(`Posted response to ${platform.name}: ${response.substring(0, 50)}...`);
   }
 
-  private async trackReviewResponse(review: any, response: string, sentiment: string): Promise<void> {
+  private async trackReviewResponse(
+    review: any,
+    response: string,
+    sentiment: string
+  ): Promise<void> {
     // Track in database
     logger.info(`Tracked ${sentiment} review response`);
   }
@@ -826,8 +850,8 @@ Return as JSON: { email: { subject, body }, sms: { text } }
         priority: 'urgent',
         status: 'pending',
         createdById: 'system',
-        assignedToId: process.env.MANAGER_USER_ID
-      }
+        assignedToId: process.env.MANAGER_USER_ID,
+      },
     });
   }
 
@@ -853,7 +877,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
   private async generateFollowUpMessage(followUp: any): Promise<any> {
     return {
       email: this.REQUEST_TEMPLATES.email.gentle_reminder,
-      sms: this.REQUEST_TEMPLATES.sms.gentle_reminder
+      sms: this.REQUEST_TEMPLATES.sms.gentle_reminder,
     };
   }
 
@@ -895,8 +919,8 @@ Return as JSON: { email: { subject, body }, sms: { text } }
       platforms: {
         google: 250,
         facebook: 150,
-        avvo: 100
-      }
+        avvo: 100,
+      },
     };
 
     logger.info('📊 Updated review widgets:', stats);
@@ -911,10 +935,62 @@ Return as JSON: { email: { subject, body }, sms: { text } }
       platformBreakdown: {
         google: 15,
         facebook: 7,
-        avvo: 3
-      }
+        avvo: 3,
+      },
     };
 
     logger.info('📈 Review Performance Analysis:', performance);
+  }
+
+  /**
+   * Execute review request campaign
+   */
+  private async executeReviewRequestCampaign(): Promise<void> {
+    logger.info('📧 Executing review request campaign');
+
+    // Get eligible clients for review requests
+    const eligibleClients = await this.getEligibleClients();
+
+    for (const client of eligibleClients) {
+      try {
+        await this.sendReviewRequest(client);
+
+        // Track campaign
+        await this.trackCampaign({
+          clientId: client.id,
+          campaignType: 'review_request',
+          sentAt: new Date(),
+        });
+      } catch (error) {
+        logger.error(`Failed to send review request to ${client.name}:`, error);
+      }
+    }
+  }
+
+  private async getEligibleClients(): Promise<any[]> {
+    // In production, would query database for clients who:
+    // - Had successful case outcomes
+    // - Haven't been asked for review in 90 days
+    // - Have valid contact information
+    return [];
+  }
+
+  private async trackCampaign(data: any): Promise<void> {
+    // Track campaign data for analytics
+    logger.info('Tracking campaign:', data);
+  }
+
+  private async sendReviewRequest(client: any): Promise<void> {
+    logger.info(`Sending review request to ${client.name}`);
+
+    // Choose communication method based on client preferences
+    if (client.preferredContact === 'email') {
+      await this.sendEmailRequest(client.email, client.name);
+    } else if (client.preferredContact === 'sms') {
+      await this.sendSMSRequest(client.phone, client.name);
+    } else {
+      // Default to email
+      await this.sendEmailRequest(client.email, client.name);
+    }
   }
 }

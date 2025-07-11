@@ -92,11 +92,6 @@ const oldSiteRedirects = [
   },
 
   // Remove index.html from all URLs
-  {
-    source: '/:path*index.html',
-    destination: '/:path*',
-    permanent: true,
-  },
 
   // Remove ﹖et_blog query parameter
   {

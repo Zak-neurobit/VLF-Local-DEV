@@ -12,7 +12,7 @@ interface AgentTrainingConfig {
 
 export class AgentTrainer {
   private extractor: CookbookExtractor;
-  private agentsPath = '/Users/williamvasquez/Documents/VLF Website/src/lib/crewai/agents';
+  private agentsPath = path.join(process.cwd(), 'src/lib/crewai/agents');
 
   constructor() {
     this.extractor = new CookbookExtractor();
@@ -62,17 +62,17 @@ export class AgentTrainer {
 
     const agentCode = this.generateAgentCode(config, trainingData);
     const filePath = path.join(this.agentsPath, config.agentFile);
-    
+
     await writeFile(filePath, agentCode, 'utf-8');
     logger.info(`Created ${config.agentFile}`);
   }
 
   private generateAgentCode(config: AgentTrainingConfig, trainingData: any): string {
     const { className, systemPromptVar, agentType } = config;
-    
+
     // Generate comprehensive system prompt with cookbook knowledge
     const systemPrompt = this.generateSystemPrompt(agentType, trainingData);
-    
+
     // Generate methods based on specializations
     const methods = this.generateSpecializedMethods(agentType, trainingData);
 
@@ -862,7 +862,7 @@ Corporate Relationship: \${params.relationship}\`;
     logger.info('Updating crew coordinator to use enhanced agents');
 
     const coordinatorPath = path.join(this.agentsPath, '..', 'enhanced-crew-coordinator.ts');
-    
+
     const updatedCoordinator = `import { logger } from '@/lib/logger';
 import { EnhancedAffirmativeImmigrationAgent } from './agents/enhanced-affirmative-immigration-agent';
 import { EnhancedHumanitarianAgent } from './agents/enhanced-humanitarian-agent';

@@ -24,40 +24,50 @@ export interface CourtInfo {
 export class NCDataService {
   async getCityDemographics(city: string): Promise<CityDemographics> {
     logger.info('Getting city demographics', { city });
-    
+
     // Mock implementation - replace with actual data source
-    const demographics = {
-      'Raleigh': {
+    const demographics: Record<
+      string,
+      {
+        population: number;
+        medianIncome: number;
+        majorEmployers: string[];
+        immigrantPopulation: string;
+      }
+    > = {
+      Raleigh: {
         population: 474708,
         medianIncome: 67266,
         majorEmployers: ['IBM', 'WakeMed', 'NC State University', 'Red Hat'],
         immigrantPopulation: '14.2%',
       },
-      'Charlotte': {
+      Charlotte: {
         population: 874579,
         medianIncome: 65359,
         majorEmployers: ['Bank of America', 'Wells Fargo', 'Atrium Health', 'Duke Energy'],
         immigrantPopulation: '16.8%',
       },
-      'Durham': {
+      Durham: {
         population: 278993,
         medianIncome: 60157,
         majorEmployers: ['Duke University', 'Duke Health', 'IBM', 'Research Triangle'],
         immigrantPopulation: '13.5%',
       },
     };
-    
-    return demographics[city] || {
-      population: 50000,
-      medianIncome: 55000,
-      majorEmployers: ['Local Hospital', 'School District', 'Manufacturing'],
-      immigrantPopulation: '10%',
-    };
+
+    return (
+      demographics[city] || {
+        population: 50000,
+        medianIncome: 55000,
+        majorEmployers: ['Local Hospital', 'School District', 'Manufacturing'],
+        immigrantPopulation: '10%',
+      }
+    );
   }
 
   async getCrimeStatistics(city: string): Promise<CrimeStatistics> {
     logger.info('Getting crime statistics', { city });
-    
+
     // Mock implementation
     return {
       vehicleAccidents: Math.floor(Math.random() * 1000) + 500,
@@ -68,10 +78,19 @@ export class NCDataService {
 
   async getLocalCourtInfo(city: string): Promise<CourtInfo> {
     logger.info('Getting local court info', { city });
-    
+
     // Mock implementation
-    const courtSystems = {
-      'Raleigh': {
+    const courtSystems: Record<
+      string,
+      {
+        courts: Array<{
+          name: string;
+          address: string;
+          type: string;
+        }>;
+      }
+    > = {
+      Raleigh: {
         courts: [
           {
             name: 'Wake County Courthouse',
@@ -85,7 +104,7 @@ export class NCDataService {
           },
         ],
       },
-      'Charlotte': {
+      Charlotte: {
         courts: [
           {
             name: 'Mecklenburg County Courthouse',
@@ -95,15 +114,17 @@ export class NCDataService {
         ],
       },
     };
-    
-    return courtSystems[city] || {
-      courts: [
-        {
-          name: `${city} County Courthouse`,
-          address: `Downtown ${city}, NC`,
-          type: 'District Court',
-        },
-      ],
-    };
+
+    return (
+      courtSystems[city] || {
+        courts: [
+          {
+            name: `${city} County Courthouse`,
+            address: `Downtown ${city}, NC`,
+            type: 'District Court',
+          },
+        ],
+      }
+    );
   }
 }

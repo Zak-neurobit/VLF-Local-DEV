@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import SpanishHomePage from '@/components/HomePage/SpanishHomePage';
+import HomePage from '@/components/HomePage';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import ResourceHints from '@/components/ResourceHints';
 
@@ -30,7 +30,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Bufete de Abogados Vasquez - YO PELEO POR TI™',
-    description: '60+ años de experiencia. 30,000+ casos ganados. Consulta gratuita. Llama 1-844-YO-PELEO',
+    description:
+      '60+ años de experiencia. 30,000+ casos ganados. Consulta gratuita. Llama 1-844-YO-PELEO',
     images: ['/images/BANNER_TRANS.PNG'],
   },
   alternates: {
@@ -60,7 +61,7 @@ export default function EsPage() {
         preconnectDomains={['https://fonts.gstatic.com']}
       />
       <MasterLayout variant="hero" showBreadcrumbs={false}>
-        <SpanishHomePage />
+        <HomePage language="es" />
       </MasterLayout>
     </>
   );

@@ -42,57 +42,115 @@ export class BlogContentDominationAgent {
     'https://www.gruelawgroup.com',
     'https://www.olivertate.com',
     'https://www.hardenfirm.com',
-    'https://www.daggettlaw.com'
+    'https://www.daggettlaw.com',
   ];
 
   private readonly PRACTICE_AREA_KEYWORDS = {
     immigration: [
-      'immigration lawyer NC', 'deportation defense', 'green card attorney',
-      'visa lawyer North Carolina', 'citizenship attorney', 'asylum lawyer',
-      'DACA renewal NC', 'immigration court Charlotte', 'ICE detention lawyer',
-      'family immigration petition', 'work visa attorney', 'deportation relief'
+      'immigration lawyer NC',
+      'deportation defense',
+      'green card attorney',
+      'visa lawyer North Carolina',
+      'citizenship attorney',
+      'asylum lawyer',
+      'DACA renewal NC',
+      'immigration court Charlotte',
+      'ICE detention lawyer',
+      'family immigration petition',
+      'work visa attorney',
+      'deportation relief',
     ],
     personal_injury: [
-      'personal injury lawyer NC', 'car accident attorney', 'truck accident lawyer',
-      'slip and fall attorney', 'wrongful death lawyer', 'motorcycle accident',
-      'medical malpractice NC', 'dog bite attorney', 'premises liability',
-      'catastrophic injury lawyer', 'brain injury attorney', 'spinal cord injury'
+      'personal injury lawyer NC',
+      'car accident attorney',
+      'truck accident lawyer',
+      'slip and fall attorney',
+      'wrongful death lawyer',
+      'motorcycle accident',
+      'medical malpractice NC',
+      'dog bite attorney',
+      'premises liability',
+      'catastrophic injury lawyer',
+      'brain injury attorney',
+      'spinal cord injury',
     ],
     workers_compensation: [
-      'workers comp lawyer NC', 'workplace injury attorney', 'workers compensation benefits',
-      'job injury lawyer', 'construction accident attorney', 'repetitive stress injury',
-      'workers comp denial', 'occupational disease lawyer', 'work accident attorney',
-      'disability benefits NC', 'return to work rights', 'workers comp settlement'
+      'workers comp lawyer NC',
+      'workplace injury attorney',
+      'workers compensation benefits',
+      'job injury lawyer',
+      'construction accident attorney',
+      'repetitive stress injury',
+      'workers comp denial',
+      'occupational disease lawyer',
+      'work accident attorney',
+      'disability benefits NC',
+      'return to work rights',
+      'workers comp settlement',
     ],
     criminal_defense: [
-      'criminal defense lawyer NC', 'DWI attorney North Carolina', 'drug charges lawyer',
-      'assault attorney', 'theft lawyer NC', 'federal crimes attorney',
-      'expungement lawyer', 'traffic violation attorney', 'domestic violence lawyer',
-      'white collar crime', 'juvenile defense attorney', 'felony lawyer NC'
-    ]
+      'criminal defense lawyer NC',
+      'DWI attorney North Carolina',
+      'drug charges lawyer',
+      'assault attorney',
+      'theft lawyer NC',
+      'federal crimes attorney',
+      'expungement lawyer',
+      'traffic violation attorney',
+      'domestic violence lawyer',
+      'white collar crime',
+      'juvenile defense attorney',
+      'felony lawyer NC',
+    ],
   };
 
   private readonly CONTENT_TEMPLATES = {
     breaking_news_response: {
-      structure: ['immediate_impact', 'legal_implications', 'what_clients_should_do', 'expert_analysis', 'call_to_action'],
+      structure: [
+        'immediate_impact',
+        'legal_implications',
+        'what_clients_should_do',
+        'expert_analysis',
+        'call_to_action',
+      ],
       urgency: 'critical',
-      publishTime: 'within_2_hours'
+      publishTime: 'within_2_hours',
     },
     competitor_outrank: {
-      structure: ['better_intro', 'deeper_analysis', 'unique_insights', 'local_examples', 'comprehensive_faq', 'stronger_cta'],
+      structure: [
+        'better_intro',
+        'deeper_analysis',
+        'unique_insights',
+        'local_examples',
+        'comprehensive_faq',
+        'stronger_cta',
+      ],
       urgency: 'high',
-      publishTime: 'within_24_hours'
+      publishTime: 'within_24_hours',
     },
     trending_topic: {
-      structure: ['trend_context', 'legal_perspective', 'case_examples', 'practical_advice', 'future_outlook'],
+      structure: [
+        'trend_context',
+        'legal_perspective',
+        'case_examples',
+        'practical_advice',
+        'future_outlook',
+      ],
       urgency: 'medium',
-      publishTime: 'within_48_hours'
+      publishTime: 'within_48_hours',
     },
     evergreen_domination: {
-      structure: ['comprehensive_guide', 'step_by_step', 'common_mistakes', 'pro_tips', 'resource_list', 'faq'],
+      structure: [
+        'comprehensive_guide',
+        'step_by_step',
+        'common_mistakes',
+        'pro_tips',
+        'resource_list',
+        'faq',
+      ],
       urgency: 'low',
-      publishTime: 'scheduled'
-    }
+      publishTime: 'scheduled',
+    },
   };
 
   constructor() {
@@ -121,9 +179,12 @@ export class BlogContentDominationAgent {
     await this.executeDominationCycle();
 
     // Run every 2 hours for maximum aggression
-    this.monitoringInterval = setInterval(async () => {
-      await this.executeDominationCycle();
-    }, 2 * 60 * 60 * 1000);
+    this.monitoringInterval = setInterval(
+      async () => {
+        await this.executeDominationCycle();
+      },
+      2 * 60 * 60 * 1000
+    );
   }
 
   /**
@@ -147,20 +208,20 @@ export class BlogContentDominationAgent {
 
       // 1. Monitor competitors
       const competitorInsights = await this.spyOnCompetitors();
-      
+
       // 2. Identify trending topics
       const trendingTopics = await this.identifyTrendingTopics();
-      
+
       // 3. Find content gaps
       const contentGaps = await this.findContentGaps(competitorInsights);
-      
+
       // 4. Generate content opportunities
       const opportunities = await this.generateContentOpportunities(
         competitorInsights,
         trendingTopics,
         contentGaps
       );
-      
+
       // 5. Create and publish content for top opportunities
       await this.dominateWithContent(opportunities);
 
@@ -202,7 +263,7 @@ export class BlogContentDominationAgent {
               link: link.startsWith('http') ? link : `${competitorUrl}${link}`,
               excerpt,
               date,
-              keywords: this.extractKeywords(title + ' ' + excerpt)
+              keywords: this.extractKeywords(title + ' ' + excerpt),
             });
           }
         });
@@ -212,8 +273,12 @@ export class BlogContentDominationAgent {
           title: $('title').text(),
           metaDescription: $('meta[name="description"]').attr('content'),
           metaKeywords: $('meta[name="keywords"]').attr('content'),
-          h1Tags: $('h1').map((_, el) => $(el).text()).get(),
-          schemaMarkup: $('script[type="application/ld+json"]').map((_, el) => $(el).html()).get()
+          h1Tags: $('h1')
+            .map((_, el) => $(el).text())
+            .get(),
+          schemaMarkup: $('script[type="application/ld+json"]')
+            .map((_, el) => $(el).html())
+            .get(),
         };
 
         // Identify their content strategy
@@ -226,8 +291,8 @@ export class BlogContentDominationAgent {
             blogPosts: posts,
             seoData,
             contentGaps,
-            analyzedAt: new Date()
-          }
+            analyzedAt: new Date(),
+          },
         });
 
         analyses.push(analysis);
@@ -251,12 +316,12 @@ export class BlogContentDominationAgent {
         'site:google.com/trends "North Carolina" legal',
         'site:reddit.com/r/NorthCarolina legal advice',
         'site:news.google.com "North Carolina" attorney lawyer',
-        'site:twitter.com NC lawyer trending'
+        'site:twitter.com NC lawyer trending',
       ];
 
       for (const source of trendingSources) {
         const results = await this.webFetch.searchGoogle(source, 20);
-        
+
         for (const result of results) {
           const topic = await this.extractTrendingTopic(result);
           if (topic) {
@@ -267,7 +332,8 @@ export class BlogContentDominationAgent {
 
       // Analyze Google Trends data
       const trendKeywords = Object.values(this.PRACTICE_AREA_KEYWORDS).flat();
-      for (const keyword of trendKeywords.slice(0, 10)) { // Top 10 to avoid rate limits
+      for (const keyword of trendKeywords.slice(0, 10)) {
+        // Top 10 to avoid rate limits
         const trendData = await this.analyzeTrendData(keyword);
         if (trendData && trendData.trendDirection === 'rising') {
           topics.push(trendData);
@@ -276,7 +342,6 @@ export class BlogContentDominationAgent {
 
       // Sort by potential impact
       topics.sort((a, b) => b.searchVolume - a.searchVolume);
-
     } catch (error) {
       logger.error('Failed to identify trending topics:', error);
     }
@@ -296,17 +361,21 @@ export class BlogContentDominationAgent {
       const posts = analysis.blogPosts as any[];
       posts.forEach(post => {
         if (post.keywords) {
-          post.keywords.forEach((keyword: string) => allCompetitorTopics.add(keyword.toLowerCase()));
+          post.keywords.forEach((keyword: string) =>
+            allCompetitorTopics.add(keyword.toLowerCase())
+          );
         }
       });
     });
 
     // Find keywords we should target that competitors miss
-    Object.values(this.PRACTICE_AREA_KEYWORDS).flat().forEach(keyword => {
-      if (!allCompetitorTopics.has(keyword.toLowerCase())) {
-        gaps.add(keyword);
-      }
-    });
+    Object.values(this.PRACTICE_AREA_KEYWORDS)
+      .flat()
+      .forEach(keyword => {
+        if (!allCompetitorTopics.has(keyword.toLowerCase())) {
+          gaps.add(keyword);
+        }
+      });
 
     // Use AI to identify strategic gaps
     const gapAnalysisPrompt = `
@@ -328,7 +397,7 @@ Respond with a JSON array of gap opportunities.
     try {
       const response = await this.model.invoke([
         new SystemMessage('You are an SEO content strategist identifying market opportunities.'),
-        new HumanMessage(gapAnalysisPrompt)
+        new HumanMessage(gapAnalysisPrompt),
       ]);
 
       const aiGaps = JSON.parse(response.content.toString());
@@ -360,10 +429,11 @@ Respond with a JSON array of gap opportunities.
         title: `${trend.topic} - What NC Residents Need to Know`,
         targetKeywords: [trend.topic, ...trend.relatedQueries],
         estimatedTraffic: trend.searchVolume,
-        competitionLevel: trend.competitorCoverage > 50 ? 'high' : trend.competitorCoverage > 20 ? 'medium' : 'low',
+        competitionLevel:
+          trend.competitorCoverage > 50 ? 'high' : trend.competitorCoverage > 20 ? 'medium' : 'low',
         contentType: 'blog',
         priority: trend.trendDirection === 'rising' ? 9 : 7,
-        reason: `Trending topic with ${trend.searchVolume} searches and ${trend.trendDirection} trend`
+        reason: `Trending topic with ${trend.searchVolume} searches and ${trend.trendDirection} trend`,
       });
     }
 
@@ -374,10 +444,15 @@ Respond with a JSON array of gap opportunities.
         title: this.generateTitleForKeyword(gap),
         targetKeywords: [gap, ...this.generateRelatedKeywords(gap)],
         estimatedTraffic: keywordData?.searchVolume || 100,
-        competitionLevel: keywordData?.difficulty > 70 ? 'high' : keywordData?.difficulty > 40 ? 'medium' : 'low',
+        competitionLevel:
+          keywordData?.difficulty && keywordData.difficulty > 70
+            ? 'high'
+            : keywordData?.difficulty && keywordData.difficulty > 40
+              ? 'medium'
+              : 'low',
         contentType: this.determineContentType(gap),
-        priority: keywordData?.difficulty < 40 ? 8 : 6,
-        reason: `Content gap with ${keywordData?.searchVolume || 'unknown'} monthly searches`
+        priority: keywordData?.difficulty && keywordData.difficulty < 40 ? 8 : 6,
+        reason: `Content gap with ${keywordData?.searchVolume || 'unknown'} monthly searches`,
       });
     }
 
@@ -432,7 +507,7 @@ Respond with a JSON array of gap opportunities.
    */
   private async generateDominationContent(opportunity: ContentOpportunity): Promise<any> {
     const template = this.getContentTemplate(opportunity);
-    
+
     const prompt = `
 Create a comprehensive, SEO-dominating article for: "${opportunity.title}"
 
@@ -460,8 +535,10 @@ Format as JSON with all sections clearly defined.
 `;
 
     const response = await this.model.invoke([
-      new SystemMessage('You are the best legal content writer in North Carolina. Your content dominates search results.'),
-      new HumanMessage(prompt)
+      new SystemMessage(
+        'You are the best legal content writer in North Carolina. Your content dominates search results.'
+      ),
+      new HumanMessage(prompt),
     ]);
 
     return JSON.parse(response.content.toString());
@@ -473,7 +550,7 @@ Format as JSON with all sections clearly defined.
   private async optimizeForSupremacy(content: any, opportunity: ContentOpportunity): Promise<any> {
     // Add power words for CTR
     const powerWords = ['Ultimate', 'Essential', 'Proven', 'Expert', 'Comprehensive', 'Exclusive'];
-    
+
     // Enhance title for maximum CTR
     if (!content.title.includes('2024')) {
       content.title = `${content.title} (2024 Updated)`;
@@ -483,14 +560,14 @@ Format as JSON with all sections clearly defined.
     content.localSEO = {
       citations: this.generateLocalCitations(),
       geoTargeting: this.getNCGeoTargeting(),
-      localSchema: this.generateLocalBusinessSchema()
+      localSchema: this.generateLocalBusinessSchema(),
     };
 
     // Add competitive advantages
     content.competitiveEdge = {
       uniqueDataPoints: await this.generateUniqueData(opportunity),
       expertQuotes: this.generateExpertQuotes(opportunity),
-      interactiveElements: this.suggestInteractiveElements(opportunity)
+      interactiveElements: this.suggestInteractiveElements(opportunity),
     };
 
     return content;
@@ -519,8 +596,8 @@ Format as JSON with all sections clearly defined.
           keywords: content.keywords,
           seoScore: 95, // We only publish excellence
           viewCount: 0,
-          readTime: Math.ceil(content.wordCount / 200)
-        }
+          readTime: Math.ceil(content.wordCount / 200),
+        },
       });
 
       // Trigger immediate indexing
@@ -528,7 +605,6 @@ Format as JSON with all sections clearly defined.
 
       // Update sitemap
       await this.updateSitemap(blogPost);
-
     } catch (error) {
       logger.error('Failed to publish content:', error);
       throw error;
@@ -545,10 +621,10 @@ Format as JSON with all sections clearly defined.
         where: {
           seoScore: { lt: 80 },
           status: 'published',
-          publishedAt: { lt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) } // Older than 30 days
+          publishedAt: { lt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) }, // Older than 30 days
         },
         orderBy: { viewCount: 'asc' },
-        take: 10
+        take: 10,
       });
 
       for (const post of underperformingPosts) {
@@ -575,28 +651,44 @@ Format as JSON with all sections clearly defined.
   private extractKeywords(text: string): string[] {
     // Simple keyword extraction - in production would use NLP
     const words = text.toLowerCase().split(/\s+/);
-    const stopWords = new Set(['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for']);
+    const stopWords = new Set([
+      'the',
+      'a',
+      'an',
+      'and',
+      'or',
+      'but',
+      'in',
+      'on',
+      'at',
+      'to',
+      'for',
+    ]);
     return words.filter(word => !stopWords.has(word) && word.length > 3);
   }
 
   private async analyzeCompetitorGaps(posts: any[], competitorUrl: string): Promise<any> {
     // Analyze what the competitor is missing
     const coveredTopics = new Set(posts.map(p => p.keywords).flat());
-    const missingTopics = [];
+    const missingTopics: string[] = [];
 
-    Object.values(this.PRACTICE_AREA_KEYWORDS).flat().forEach(keyword => {
-      if (!Array.from(coveredTopics).some(topic => 
-        topic.toLowerCase().includes(keyword.toLowerCase())
-      )) {
-        missingTopics.push(keyword);
-      }
-    });
+    Object.values(this.PRACTICE_AREA_KEYWORDS)
+      .flat()
+      .forEach(keyword => {
+        if (
+          !Array.from(coveredTopics).some(topic =>
+            topic.toLowerCase().includes(keyword.toLowerCase())
+          )
+        ) {
+          missingTopics.push(keyword);
+        }
+      });
 
     return {
       coveredTopics: Array.from(coveredTopics),
       missingTopics,
       lastPostDate: posts[0]?.date || 'unknown',
-      postingFrequency: posts.length
+      postingFrequency: posts.length,
     };
   }
 
@@ -604,13 +696,13 @@ Format as JSON with all sections clearly defined.
     try {
       // Extract and analyze the search result for trending potential
       const topic = searchResult.title.replace(/[^\w\s]/g, '').trim();
-      
+
       return {
         topic,
         searchVolume: Math.floor(Math.random() * 1000) + 100, // Would use real API
         trendDirection: Math.random() > 0.5 ? 'rising' : 'stable',
         relatedQueries: this.generateRelatedKeywords(topic),
-        competitorCoverage: Math.floor(Math.random() * 100)
+        competitorCoverage: Math.floor(Math.random() * 100),
       };
     } catch (error) {
       return null;
@@ -624,7 +716,7 @@ Format as JSON with all sections clearly defined.
       searchVolume: Math.floor(Math.random() * 5000) + 500,
       trendDirection: Math.random() > 0.7 ? 'rising' : Math.random() > 0.3 ? 'stable' : 'falling',
       relatedQueries: this.generateRelatedKeywords(keyword),
-      competitorCoverage: Math.floor(Math.random() * 100)
+      competitorCoverage: Math.floor(Math.random() * 100),
     };
   }
 
@@ -636,21 +728,25 @@ Format as JSON with all sections clearly defined.
       const newsAlerts = await this.prisma.newsAlert.findMany({
         where: {
           contentCreated: false,
-          publishedAt: { gte: new Date(Date.now() - 48 * 60 * 60 * 1000) } // Last 48 hours
+          publishedAt: { gte: new Date(Date.now() - 48 * 60 * 60 * 1000) }, // Last 48 hours
         },
         orderBy: { relevanceScore: 'desc' },
-        take: 5
+        take: 5,
       });
 
       for (const alert of newsAlerts) {
         opportunities.push({
           title: `Breaking: ${alert.title} - What This Means for NC Residents`,
-          targetKeywords: [alert.title.split(' ').slice(0, 3).join(' '), alert.practiceArea, 'North Carolina'],
+          targetKeywords: [
+            alert.title.split(' ').slice(0, 3).join(' '),
+            alert.practiceArea,
+            'North Carolina',
+          ],
           estimatedTraffic: 1000,
           competitionLevel: 'low', // First mover advantage
           contentType: 'news_response',
           priority: 10, // Highest priority
-          reason: `Breaking news opportunity with ${alert.relevanceScore} relevance score`
+          reason: `Breaking news opportunity with ${alert.relevanceScore} relevance score`,
         });
       }
     } catch (error) {
@@ -666,8 +762,8 @@ Format as JSON with all sections clearly defined.
       const existing = await this.prisma.keywordResearch.findFirst({
         where: {
           keyword,
-          updatedAt: { gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } // Less than 7 days old
-        }
+          updatedAt: { gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) }, // Less than 7 days old
+        },
       });
 
       if (existing) return existing;
@@ -682,8 +778,8 @@ Format as JSON with all sections clearly defined.
           difficulty: Math.floor(Math.random() * 100),
           cpc: Math.random() * 20 + 1,
           intent: this.detectSearchIntent(keyword),
-          serp: {}
-        }
+          serp: {},
+        },
       });
 
       return keywordData;
@@ -699,16 +795,25 @@ Format as JSON with all sections clearly defined.
       `The Complete Guide to ${keyword} in North Carolina`,
       `${keyword} Explained by NC Legal Experts`,
       `How to Handle ${keyword}: Expert Attorney Advice`,
-      `${keyword} Laws in NC: What You Must Know`
+      `${keyword} Laws in NC: What You Must Know`,
     ];
 
     return templates[Math.floor(Math.random() * templates.length)];
   }
 
   private generateRelatedKeywords(keyword: string): string[] {
-    const related = [];
-    const modifiers = ['best', 'top', 'experienced', 'affordable', 'near me', 'Charlotte', 'Raleigh', 'NC'];
-    
+    const related: string[] = [];
+    const modifiers = [
+      'best',
+      'top',
+      'experienced',
+      'affordable',
+      'near me',
+      'Charlotte',
+      'Raleigh',
+      'NC',
+    ];
+
     modifiers.forEach(modifier => {
       related.push(`${modifier} ${keyword}`);
       related.push(`${keyword} ${modifier}`);
@@ -724,7 +829,9 @@ Format as JSON with all sections clearly defined.
     return 'blog';
   }
 
-  private async identifyOutrankingOpportunities(analyses: CompetitorAnalysis[]): Promise<ContentOpportunity[]> {
+  private async identifyOutrankingOpportunities(
+    analyses: CompetitorAnalysis[]
+  ): Promise<ContentOpportunity[]> {
     const opportunities: ContentOpportunity[] = [];
 
     for (const analysis of analyses) {
@@ -739,7 +846,7 @@ Format as JSON with all sections clearly defined.
           competitionLevel: 'medium',
           contentType: 'blog',
           priority: 7,
-          reason: `Outrank ${analysis.domain} by creating superior content`
+          reason: `Outrank ${analysis.domain} by creating superior content`,
         });
       }
     }
@@ -748,7 +855,8 @@ Format as JSON with all sections clearly defined.
   }
 
   private getContentTemplate(opportunity: ContentOpportunity): any {
-    if (opportunity.contentType === 'news_response') return this.CONTENT_TEMPLATES.breaking_news_response;
+    if (opportunity.contentType === 'news_response')
+      return this.CONTENT_TEMPLATES.breaking_news_response;
     if (opportunity.priority >= 9) return this.CONTENT_TEMPLATES.trending_topic;
     if (opportunity.competitionLevel === 'high') return this.CONTENT_TEMPLATES.competitor_outrank;
     return this.CONTENT_TEMPLATES.evergreen_domination;
@@ -779,8 +887,8 @@ Format as JSON with all sections clearly defined.
             blogPostId: content.id,
             platform,
             scheduledFor,
-            status: 'scheduled'
-          }
+            status: 'scheduled',
+          },
         });
       }
     }
@@ -792,7 +900,7 @@ Format as JSON with all sections clearly defined.
       'North Carolina State Bar',
       'Mecklenburg County Courthouse',
       'Wake County Justice Center',
-      'Durham Legal Aid'
+      'Durham Legal Aid',
     ];
   }
 
@@ -801,7 +909,7 @@ Format as JSON with all sections clearly defined.
       state: 'North Carolina',
       cities: ['Charlotte', 'Raleigh', 'Durham', 'Greensboro', 'Winston-Salem', 'Fayetteville'],
       counties: ['Mecklenburg', 'Wake', 'Guilford', 'Forsyth', 'Durham', 'Cumberland'],
-      zipCodes: ['28202', '27601', '27701', '27401', '27101', '28301']
+      zipCodes: ['28202', '27601', '27701', '27401', '27101', '28301'],
     };
   }
 
@@ -815,14 +923,14 @@ Format as JSON with all sections clearly defined.
         streetAddress: '333 W Trade St #1700',
         addressLocality: 'Charlotte',
         addressRegion: 'NC',
-        postalCode: '28202'
+        postalCode: '28202',
       },
       geo: {
         '@type': 'GeoCoordinates',
         latitude: 35.2271,
-        longitude: -80.8431
+        longitude: -80.8431,
       },
-      areaServed: 'North Carolina'
+      areaServed: 'North Carolina',
     };
   }
 
@@ -830,7 +938,7 @@ Format as JSON with all sections clearly defined.
     return [
       `${Math.floor(Math.random() * 50) + 50}% of NC residents don't know their rights regarding ${opportunity.targetKeywords[0]}`,
       `Average case resolution time: ${Math.floor(Math.random() * 6) + 3} months`,
-      `Success rate: ${Math.floor(Math.random() * 20) + 80}% for ${opportunity.targetKeywords[0]} cases`
+      `Success rate: ${Math.floor(Math.random() * 20) + 80}% for ${opportunity.targetKeywords[0]} cases`,
     ];
   }
 
@@ -838,7 +946,7 @@ Format as JSON with all sections clearly defined.
     return [
       `"In my 20+ years practicing law in North Carolina, ${opportunity.targetKeywords[0]} cases require immediate attention." - William Vasquez`,
       `"The key to success in ${opportunity.targetKeywords[0]} matters is understanding NC-specific regulations." - Legal Expert`,
-      `"Most people don't realize how ${opportunity.targetKeywords[0]} can impact their future." - Vasquez Law Firm`
+      `"Most people don't realize how ${opportunity.targetKeywords[0]} can impact their future." - Vasquez Law Firm`,
     ];
   }
 
@@ -848,7 +956,7 @@ Format as JSON with all sections clearly defined.
       'Downloadable checklist PDF',
       'Cost calculator widget',
       'Live chat integration',
-      'Video consultation scheduler'
+      'Video consultation scheduler',
     ];
   }
 
@@ -863,10 +971,10 @@ Format as JSON with all sections clearly defined.
   private formatContentAsHTML(content: any): string {
     // Convert structured content to HTML
     let html = `<article class="seo-domination-content">`;
-    
+
     // Add structured data
     html += `<script type="application/ld+json">${JSON.stringify(content.schema || {})}</script>`;
-    
+
     // Add content sections
     if (content.introduction) {
       html += `<section class="introduction">${content.introduction}</section>`;
@@ -902,7 +1010,7 @@ Format as JSON with all sections clearly defined.
 
   private detectPracticeArea(content: any): string {
     const text = JSON.stringify(content).toLowerCase();
-    
+
     if (text.includes('immigration') || text.includes('visa') || text.includes('deportation')) {
       return 'immigration';
     }
@@ -915,7 +1023,7 @@ Format as JSON with all sections clearly defined.
     if (text.includes('workers comp') || text.includes('workplace')) {
       return 'workers_compensation';
     }
-    
+
     return 'general';
   }
 
@@ -931,29 +1039,33 @@ Format as JSON with all sections clearly defined.
 
   private detectPracticeAreaFromKeyword(keyword: string): string {
     const lowerKeyword = keyword.toLowerCase();
-    
+
     for (const [area, keywords] of Object.entries(this.PRACTICE_AREA_KEYWORDS)) {
       if (keywords.some(k => lowerKeyword.includes(k.toLowerCase()))) {
         return area;
       }
     }
-    
+
     return 'general';
   }
 
   private detectSearchIntent(keyword: string): string {
     const lowerKeyword = keyword.toLowerCase();
-    
+
     if (lowerKeyword.includes('how to') || lowerKeyword.includes('what is')) {
       return 'informational';
     }
-    if (lowerKeyword.includes('lawyer') || lowerKeyword.includes('attorney') || lowerKeyword.includes('hire')) {
+    if (
+      lowerKeyword.includes('lawyer') ||
+      lowerKeyword.includes('attorney') ||
+      lowerKeyword.includes('hire')
+    ) {
       return 'transactional';
     }
     if (lowerKeyword.includes('near me') || lowerKeyword.includes('location')) {
       return 'navigational';
     }
-    
+
     return 'informational';
   }
 
@@ -964,7 +1076,7 @@ Format as JSON with all sections clearly defined.
       organicTraffic: post.viewCount,
       bounceRate: Math.random() * 100,
       avgTimeOnPage: Math.floor(Math.random() * 300) + 30,
-      backlinks: Math.floor(Math.random() * 10)
+      backlinks: Math.floor(Math.random() * 10),
     };
   }
 
@@ -989,12 +1101,12 @@ Respond with actionable improvements in JSON format.
 
     const response = await this.model.invoke([
       new SystemMessage('You are an SEO expert who makes content rank #1.'),
-      new HumanMessage(prompt)
+      new HumanMessage(prompt),
     ]);
 
     const improvements = JSON.parse(response.content.toString());
     improvements.newSeoScore = Math.min(100, post.seoScore + 20);
-    
+
     return improvements;
   }
 
@@ -1008,8 +1120,8 @@ Respond with actionable improvements in JSON format.
         content: post.content + (improvements.additionalContent || ''),
         seoScore: improvements.newSeoScore,
         keywords: [...post.keywords, ...(improvements.newKeywords || [])],
-        updatedAt: new Date()
-      }
+        updatedAt: new Date(),
+      },
     });
   }
 }

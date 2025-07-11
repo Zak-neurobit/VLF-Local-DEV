@@ -3,5 +3,5 @@ import BlogPageWrapper from './BlogPageWrapper';
 export { metadata } from './BlogPageWrapper';
 
 export default function BlogPage() {
-  return <BlogPageWrapper />;
+  return <BlogPageWrapper language="en" />;
 }

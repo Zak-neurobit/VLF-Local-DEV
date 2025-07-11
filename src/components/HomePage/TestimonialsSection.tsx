@@ -6,7 +6,11 @@ import { Star, Quote, ChevronLeft, ChevronRight, MessageSquare } from 'lucide-re
 import { getHomepageTestimonials } from '@/data/testimonials';
 import Image from 'next/image';
 
-export function TestimonialsSection() {
+interface TestimonialsSectionProps {
+  language?: 'en' | 'es';
+}
+
+export function TestimonialsSection({ language = 'en' }: TestimonialsSectionProps = {}) {
   const testimonials = getHomepageTestimonials();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -68,7 +72,8 @@ export function TestimonialsSection() {
             What Our Clients <span className="text-primary">Say About Us</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Real stories from real people. Over 5,000 satisfied clients have trusted us with their cases.
+            Real stories from real people. Over 5,000 satisfied clients have trusted us with their
+            cases.
           </p>
         </motion.div>
 
@@ -84,7 +89,7 @@ export function TestimonialsSection() {
               className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-primary/30 transition-all"
             >
               <Quote className="h-8 w-8 text-primary/30 mb-4" />
-              
+
               {/* Rating */}
               <div className="flex mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
@@ -125,7 +130,7 @@ export function TestimonialsSection() {
                 <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 h-full flex flex-col justify-between">
                   <div>
                     <Quote className="h-8 w-8 text-primary/30 mb-4" />
-                    
+
                     {/* Rating */}
                     <div className="flex mb-4">
                       {[...Array(currentTestimonial.rating)].map((_, i) => (
@@ -167,9 +172,7 @@ export function TestimonialsSection() {
                     setCurrentIndex(index);
                   }}
                   className={`h-2 rounded-full transition-all ${
-                    index === currentIndex
-                      ? 'w-8 bg-primary'
-                      : 'w-2 bg-white/30 hover:bg-white/50'
+                    index === currentIndex ? 'w-8 bg-primary' : 'w-2 bg-white/30 hover:bg-white/50'
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
@@ -205,10 +208,14 @@ export function TestimonialsSection() {
                       <Star key={i} className="w-4 h-4 text-primary fill-current" />
                     ))}
                   </div>
-                  <p className="text-gray-300 mb-4 text-sm italic">&quot;{testimonial.content}&quot;</p>
+                  <p className="text-gray-300 mb-4 text-sm italic">
+                    &quot;{testimonial.content}&quot;
+                  </p>
                   <div>
                     <p className="font-semibold text-white text-sm">{testimonial.name}</p>
-                    <p className="text-xs text-gray-400">{testimonial.caseType} • {testimonial.location}</p>
+                    <p className="text-xs text-gray-400">
+                      {testimonial.caseType} • {testimonial.location}
+                    </p>
                   </div>
                 </div>
               </div>
