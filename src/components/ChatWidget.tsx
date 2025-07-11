@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, memo } from 'react';
+import { useRouter } from 'next/navigation';
 import { MessageCircle, X, Phone } from 'lucide-react';
 import { ChatInterface } from './VirtualAssistant/ChatInterface';
 import { isBrowser, safeWindow } from '@/lib/utils/browser';
@@ -14,6 +15,7 @@ const ChatWidgetComponent: React.FC<ChatWidgetProps> = ({
   language = 'en',
   userId = 'anonymous',
 }) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [hasNewMessage, setHasNewMessage] = useState(false);
   const [displayLanguage, setDisplayLanguage] = useState(language);
@@ -54,10 +56,8 @@ const ChatWidgetComponent: React.FC<ChatWidgetProps> = ({
 
   const handleScheduleAppointment = useCallback(() => {
     try {
-      // Navigate to appointment page or open appointment modal
-      if (isBrowser) {
-        window.location.href = '/contact#appointment';
-      }
+      // Navigate to appointment page using Next.js router
+      router.push('/contact#appointment');
     } catch (error) {
       console.error('Error navigating to appointment page:', error);
       // Fallback: open in new window
@@ -65,7 +65,7 @@ const ChatWidgetComponent: React.FC<ChatWidgetProps> = ({
         window.open('/contact#appointment', '_blank');
       }
     }
-  }, []);
+  }, [router]);
 
   const handleCallRequest = useCallback(() => {
     try {

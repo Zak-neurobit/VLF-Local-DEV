@@ -79,10 +79,9 @@ export function LanguageSwitcher({
 
     try {
       if (targetUrl) {
-        // Use the full URL from hreflang generator
-        if (typeof window !== 'undefined') {
-          window.location.href = targetUrl;
-        }
+        // Extract pathname from full URL for client-side navigation
+        const url = new URL(targetUrl);
+        router.push(url.pathname + url.search + url.hash);
       } else {
         // Fallback: manual URL construction
         if (targetLang === 'es') {
@@ -126,7 +125,7 @@ export function LanguageSwitcher({
 
   if (variant === 'toggle' && availableLanguages.length === 2) {
     const otherLang = availableLanguages.find(lang => lang.code !== currentLang);
-    
+
     if (!otherLang) return null;
 
     return (
@@ -162,12 +161,8 @@ export function LanguageSwitcher({
       {isOpen && (
         <>
           {/* Backdrop */}
-          <div
-            className="fixed inset-0 z-10"
-            onClick={() => setIsOpen(false)}
-            aria-hidden="true"
-          />
-          
+          <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} aria-hidden="true" />
+
           {/* Dropdown */}
           <div className="absolute right-0 z-20 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
             <div className="py-1" role="menu" aria-orientation="vertical">
@@ -195,7 +190,7 @@ export function LanguageSwitcher({
                   )}
                 </button>
               ))}
-              
+
               {!pageHasSpanishVersion && currentLang === 'en' && (
                 <div className="px-4 py-2 text-xs text-gray-500 border-t border-gray-100">
                   Spanish translation not available for this page
@@ -221,12 +216,15 @@ export function LanguageLinks({ className = '' }: { className?: string }) {
   // Filter out x-default and get unique language entries
   const languageUrls = hreflangEntries
     .filter(entry => entry.hreflang !== 'x-default' && !entry.hreflang.includes('-'))
-    .reduce((acc, entry) => {
-      if (!acc.find(item => item.hreflang === entry.hreflang)) {
-        acc.push(entry);
-      }
-      return acc;
-    }, [] as typeof hreflangEntries);
+    .reduce(
+      (acc, entry) => {
+        if (!acc.find(item => item.hreflang === entry.hreflang)) {
+          acc.push(entry);
+        }
+        return acc;
+      },
+      [] as typeof hreflangEntries
+    );
 
   return (
     <div className={`flex items-center space-x-4 ${className}`}>
@@ -242,9 +240,7 @@ export function LanguageLinks({ className = '' }: { className?: string }) {
             href={entry.href}
             hrefLang={entry.hreflang}
             className={`flex items-center space-x-1 text-sm transition-colors ${
-              isActive
-                ? 'text-primary-600 font-medium'
-                : 'text-gray-600 hover:text-primary-600'
+              isActive ? 'text-primary-600 font-medium' : 'text-gray-600 hover:text-primary-600'
             }`}
             aria-label={`Switch to ${lang.name}`}
             aria-current={isActive ? 'page' : undefined}

@@ -1,12 +1,13 @@
 import { Metadata } from 'next';
 import HomePage from '@/components/HomePage';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
-import ResourceHints from '@/components/ResourceHints';
+import ResourceHintsLite from '@/components/ResourceHintsLite';
 import { optimizeMetadata } from '@/lib/seo/metadata-optimizer';
 
 // Power-packed metadata with urgency and trust signals
 const powerTitle = 'Elite Immigration & Injury Lawyers NC/FL | 24/7 Help';
-const powerDescription = 'Award-Winning Attorneys • 30,000+ WINS • Maximum Settlements FAST • Veteran-Owned • FREE Consultation TODAY • Hablamos Español • Call 1-844-YO-PELEO Now!';
+const powerDescription =
+  'Award-Winning Attorneys • 30,000+ WINS • Maximum Settlements FAST • Veteran-Owned • FREE Consultation TODAY • Hablamos Español • Call 1-844-YO-PELEO Now!';
 
 export const metadata: Metadata = {
   title: powerTitle,
@@ -19,7 +20,8 @@ export const metadata: Metadata = {
     alternateLocale: 'es_ES',
     siteName: 'Vasquez Law Firm',
     title: powerTitle,
-    description: 'Elite Legal Team • U.S. Air Force Veteran-Owned • 30,000+ Clients WON • Immediate FREE Consultation • Maximum Results GUARANTEED • Se Habla Español',
+    description:
+      'Elite Legal Team • U.S. Air Force Veteran-Owned • 30,000+ Clients WON • Immediate FREE Consultation • Maximum Results GUARANTEED • Se Habla Español',
     images: [
       {
         url: '/images/BANNER_TRANS.PNG',
@@ -32,7 +34,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: powerTitle,
-    description: '60+ Years WINNING • 30,000+ Cases WON • FREE Consultation NOW • Call 1-844-YO-PELEO',
+    description:
+      '60+ Years WINNING • 30,000+ Cases WON • FREE Consultation NOW • Call 1-844-YO-PELEO',
     images: ['/images/BANNER_TRANS.PNG'],
   },
   alternates: {
@@ -53,7 +56,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <ResourceHints
+      <ResourceHintsLite
         criticalImages={[
           '/images/BANNER_TRANS.PNG',
           '/william-vasquez-cutout.png',
@@ -62,15 +65,13 @@ export default function Page() {
         preconnectDomains={[
           'https://fonts.gstatic.com',
           'https://www.googletagmanager.com',
-          'https://www.google-analytics.com'
+          'https://www.google-analytics.com',
         ]}
         prefetchResources={[
           '/contact',
           '/practice-areas/immigration',
           '/practice-areas/personal-injury',
-          '/attorneys/william-vasquez'
         ]}
-        enableAutomaticOptimization={true}
       />
       <MasterLayout variant="hero" showBreadcrumbs={false}>
         <HomePage />
