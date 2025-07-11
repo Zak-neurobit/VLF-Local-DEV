@@ -7,7 +7,7 @@
     "dev:next": "next dev",
     "dev:socket": "npm run build:socket && node scripts/dev-server.js",
     "build:socket": "tsc --project tsconfig.socket.json && mkdir -p dist/lib/socket && cp src/lib/socket/server-setup.js dist/lib/socket/",
-    "build": "bash scripts/build.sh",
+    "build": "prisma generate && next build",
     "validate:env": "tsx scripts/validate-env.ts",
     "setup:env": "node scripts/setup-environment.js",
     "start": "next start",

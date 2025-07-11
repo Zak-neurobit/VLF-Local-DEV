@@ -39,7 +39,6 @@ Thumbs.db
 .gitignore
 README.md
 docs/
-scripts/
 *.md
 
 # Old site content - NEVER upload to Vercel
