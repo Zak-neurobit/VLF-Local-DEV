@@ -25,13 +25,13 @@ export class ContentScheduler {
     try {
       // Get historical performance data
       const performanceData = await this.getHistoricalPerformance();
-      
+
       // Analyze best performing times
       const optimalHours = this.analyzeOptimalHours(performanceData);
-      
+
       // Generate schedule for next 7 days
       const schedule = this.generatePublishingSchedule(optimalHours);
-      
+
       return schedule;
     } catch (error) {
       logger.error('Error calculating optimal times', { error });
@@ -126,12 +126,12 @@ export class ContentScheduler {
     try {
       // Get content performance
       const performance = await this.getContentPerformance(contentId);
-      
+
       // Check if rescheduling would help
-      if (performance.viewsPerHour < 10) {
+      if ((performance as any).viewsPerHour < 10) {
         // Find better time slot
         const betterTime = await this.findBetterTimeSlot(contentId);
-        
+
         if (betterTime) {
           // Update schedule
           await prisma.contentSchedule.updateMany({
@@ -185,11 +185,11 @@ export class ContentScheduler {
 
     for (const item of scheduled) {
       const dateKey = item.scheduledFor.toISOString().split('T')[0];
-      
+
       if (!calendar.has(dateKey)) {
         calendar.set(dateKey, []);
       }
-      
+
       calendar.get(dateKey)!.push({
         ...item,
         content: await this.getContentDetails(item.contentId, item.contentType),
@@ -234,11 +234,11 @@ export class ContentScheduler {
 
     performanceData.forEach(data => {
       const hour = new Date(data.publishedAt).getHours();
-      
+
       if (!hourlyPerformance.has(hour)) {
         hourlyPerformance.set(hour, []);
       }
-      
+
       // Score based on first hour views and engagement
       const score = data.viewsFirstHour * (1 + data.engagementRate);
       hourlyPerformance.get(hour)!.push(score);
@@ -379,7 +379,7 @@ export class ContentScheduler {
   }
 
   private async publishContent(publication: any) {
-    logger.info('Publishing scheduled content', { 
+    logger.info('Publishing scheduled content', {
       contentId: publication.contentId,
       platforms: publication.platforms,
     });
@@ -410,16 +410,15 @@ export class ContentScheduler {
 
       // Track publication
       await this.trackPublication(publication);
-
     } catch (error) {
       logger.error('Error publishing content', { error });
-      
+
       // Update schedule status to failed
       await prisma.contentSchedule.update({
         where: { id: publication.id },
         data: {
           status: 'failed',
-          error: error.message,
+          error: error instanceof Error ? error.message : 'Unknown error',
         },
       });
     }
@@ -431,7 +430,7 @@ export class ContentScheduler {
     if (contentType === 'BlogPost') {
       await prisma.blogPost.update({
         where: { id: contentId },
-        data: { 
+        data: {
           status,
           publishedAt: status === 'published' ? new Date() : undefined,
         },
@@ -439,7 +438,7 @@ export class ContentScheduler {
     } else if (contentType === 'LandingPage') {
       await prisma.landingPage.update({
         where: { id: contentId },
-        data: { 
+        data: {
           status,
           publishedAt: status === 'published' ? new Date() : undefined,
         },
@@ -450,7 +449,7 @@ export class ContentScheduler {
   private async publishToPlatform(contentId: string, contentType: string, platform: string) {
     // Get content syndicator
     const syndicator = await import('./content-syndicator').then(m => new m.ContentSyndicator());
-    
+
     // Get content
     const content = await this.getContentDetails(contentId, contentType);
 
@@ -524,19 +523,21 @@ export class ContentScheduler {
       orderBy: { createdAt: 'desc' },
     });
 
-    return performance || {
-      viewsPerHour: 0,
-      publishedAt: new Date(),
-    };
+    return (
+      performance || {
+        viewsPerHour: 0,
+        publishedAt: new Date(),
+      }
+    );
   }
 
   private async findBetterTimeSlot(contentId: string): Promise<Date | null> {
     // Get optimal times
     const optimalTimes = await this.getOptimalPublishingTimes();
-    
+
     // Find next available optimal time
     const now = new Date();
-    
+
     for (const time of optimalTimes) {
       if (time > now) {
         // Check if slot is available
@@ -556,7 +557,7 @@ export class ContentScheduler {
     // Check if there are already too many items scheduled for this time
     const oneHourBefore = new Date(time);
     oneHourBefore.setHours(oneHourBefore.getHours() - 1);
-    
+
     const oneHourAfter = new Date(time);
     oneHourAfter.setHours(oneHourAfter.getHours() + 1);
 

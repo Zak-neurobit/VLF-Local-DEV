@@ -5,7 +5,7 @@ import { logger } from '@/lib/logger';
 
 async function testRedisConnection() {
   logger.info('🔧 Testing Redis connection...');
-  
+
   try {
     // Test 1: Basic connectivity
     logger.info('Test 1: Basic connectivity');
@@ -21,12 +21,12 @@ async function testRedisConnection() {
     logger.info('\nTest 2: Basic set/get operations');
     const testKey = 'test:connection';
     const testValue = { message: 'Redis is working!', timestamp: new Date().toISOString() };
-    
+
     await cache.set(testKey, testValue, CacheTTL.SHORT);
     logger.info(`✅ Set value for key: ${testKey}`);
-    
+
     const retrievedValue = await cache.get(testKey);
-    if (retrievedValue && retrievedValue.message === testValue.message) {
+    if (retrievedValue && (retrievedValue as any).message === testValue.message) {
       logger.info('✅ Retrieved value matches what was set');
       logger.info(`   Value: ${JSON.stringify(retrievedValue)}`);
     } else {
@@ -48,7 +48,7 @@ async function testRedisConnection() {
 
     const result1 = await cache.remember('test:remember', expensiveOperation, CacheTTL.SHORT);
     const result2 = await cache.remember('test:remember', expensiveOperation, CacheTTL.SHORT);
-    
+
     if (result1.callCount === 1 && result2.callCount === 1) {
       logger.info('✅ Cache remember is working correctly (expensive operation called only once)');
     } else {
@@ -60,10 +60,10 @@ async function testRedisConnection() {
     await cache.set('pattern:test:1', 'value1', CacheTTL.SHORT);
     await cache.set('pattern:test:2', 'value2', CacheTTL.SHORT);
     await cache.set('pattern:test:3', 'value3', CacheTTL.SHORT);
-    
+
     await cache.deletePattern('pattern:test:*');
     const exists = await cache.exists('pattern:test:1');
-    
+
     if (!exists) {
       logger.info('✅ Pattern deletion working correctly');
     } else {
@@ -95,10 +95,9 @@ async function testRedisConnection() {
     // Cleanup
     await cache.delete(testKey);
     await cache.delete('test:remember');
-    
+
     logger.info('\n🎉 All Redis tests completed successfully!');
     logger.info('Redis is properly configured and ready for production use.');
-    
   } catch (error) {
     logger.error('❌ Redis test failed:', error);
     logger.error('Please ensure Redis is running and properly configured.');
@@ -108,7 +107,7 @@ async function testRedisConnection() {
 // Run the tests
 testRedisConnection()
   .then(() => process.exit(0))
-  .catch((error) => {
+  .catch(error => {
     logger.error('Test script failed:', error);
     process.exit(1);
   });

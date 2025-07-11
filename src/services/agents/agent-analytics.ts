@@ -75,7 +75,7 @@ export class AgentAnalyticsService {
           success: data.success,
           satisfaction: data.satisfaction,
           escalated: data.escalated || false,
-          metadata: data.metadata || {},
+          metadata: (data.metadata || {}) as any,
         },
       });
 
@@ -99,20 +99,21 @@ export class AgentAnalyticsService {
     intent: string;
     escalated?: boolean;
   }): void {
-    const metrics = this.metricsCache.get(data.agentId) || this.initializeMetrics(data.agentId, data.agentName);
-    
+    const metrics =
+      this.metricsCache.get(data.agentId) || this.initializeMetrics(data.agentId, data.agentName);
+
     metrics.totalInteractions++;
     if (data.success) metrics.successfulInteractions++;
     else metrics.failedInteractions++;
-    
+
     // Update average response time
-    metrics.averageResponseTime = 
-      (metrics.averageResponseTime * (metrics.totalInteractions - 1) + data.responseTime) / 
+    metrics.averageResponseTime =
+      (metrics.averageResponseTime * (metrics.totalInteractions - 1) + data.responseTime) /
       metrics.totalInteractions;
-    
+
     // Update language breakdown
     metrics.languageBreakdown[data.language] = (metrics.languageBreakdown[data.language] || 0) + 1;
-    
+
     // Update top intents
     const intentIndex = metrics.topIntents.findIndex(i => i.intent === data.intent);
     if (intentIndex >= 0) {
@@ -122,26 +123,26 @@ export class AgentAnalyticsService {
     }
     metrics.topIntents.sort((a, b) => b.count - a.count);
     metrics.topIntents = metrics.topIntents.slice(0, 10); // Keep top 10
-    
+
     // Update hourly activity
     const hour = new Date().getHours();
     metrics.hourlyActivity[hour] = (metrics.hourlyActivity[hour] || 0) + 1;
-    
+
     // Update satisfaction score
     if (data.satisfaction) {
       const totalWithSatisfaction = metrics.totalInteractions - (metrics.failedInteractions || 0);
-      metrics.satisfactionScore = 
-        (metrics.satisfactionScore * (totalWithSatisfaction - 1) + data.satisfaction) / 
+      metrics.satisfactionScore =
+        (metrics.satisfactionScore * (totalWithSatisfaction - 1) + data.satisfaction) /
         totalWithSatisfaction;
     }
-    
+
     // Update rates
     metrics.conversionRate = metrics.successfulInteractions / metrics.totalInteractions;
     if (data.escalated) {
       const escalatedCount = metrics.topIntents.find(i => i.intent === 'escalation')?.count || 0;
       metrics.escalationRate = escalatedCount / metrics.totalInteractions;
     }
-    
+
     this.metricsCache.set(data.agentId, metrics);
   }
 
@@ -174,7 +175,7 @@ export class AgentAnalyticsService {
     if (data.responseTime > 5000) {
       alerts.push({
         level: 'warning',
-        message: `Slow response time for ${data.agentName}: ${data.responseTime}ms`,
+        message: `Slow response time for ${data.agentId}: ${data.responseTime}ms`,
       });
     }
 
@@ -185,7 +186,7 @@ export class AgentAnalyticsService {
       if (failureRate > 0.1) {
         alerts.push({
           level: 'error',
-          message: `High failure rate for ${data.agentName}: ${(failureRate * 100).toFixed(1)}%`,
+          message: `High failure rate for ${data.agentId}: ${(failureRate * 100).toFixed(1)}%`,
         });
       }
     }
@@ -208,7 +209,7 @@ export class AgentAnalyticsService {
   async getSystemPerformance(): Promise<AgentPerformance> {
     const now = new Date();
     const activeAgents = this.metricsCache.size;
-    
+
     // Calculate current performance
     if (!prisma) {
       return {
@@ -221,19 +222,21 @@ export class AgentAnalyticsService {
         alerts: [],
       };
     }
-    
-    const recentInteractions = await prisma.agentInteraction.findMany({
-      where: {
-        createdAt: {
-          gte: new Date(now.getTime() - 3600000), // Last hour
+
+    const recentInteractions =
+      (await prisma.agentInteraction.findMany({
+        where: {
+          createdAt: {
+            gte: new Date(now.getTime() - 3600000), // Last hour
+          },
         },
-      },
-    }) ?? [];
+      })) ?? [];
 
     const sessionDurations = recentInteractions.map(i => i.responseTime ?? 0);
-    const averageSessionDuration = sessionDurations.length > 0
-      ? sessionDurations.reduce((a, b) => a + b, 0) / sessionDurations.length
-      : 0;
+    const averageSessionDuration =
+      sessionDurations.length > 0
+        ? sessionDurations.reduce((a, b) => a + b, 0) / sessionDurations.length
+        : 0;
 
     // Determine system health
     let systemHealth: 'excellent' | 'good' | 'degraded' | 'critical' = 'excellent';
@@ -276,9 +279,8 @@ export class AgentAnalyticsService {
     const topPerformingAgents = allMetrics
       .map(m => ({
         agentName: m.agentName,
-        score: (m.conversionRate * 0.4) + 
-               ((m.satisfactionScore / 5) * 0.3) + 
-               ((1 - m.escalationRate) * 0.3),
+        score:
+          m.conversionRate * 0.4 + (m.satisfactionScore / 5) * 0.3 + (1 - m.escalationRate) * 0.3,
       }))
       .sort((a, b) => b.score - a.score)
       .slice(0, 5);
@@ -300,7 +302,9 @@ export class AgentAnalyticsService {
     // Generate recommendations
     const recommendations: string[] = [];
     if (improvementAreas.some(area => area.includes('Slow response'))) {
-      recommendations.push('Consider optimizing agent response algorithms or increasing compute resources');
+      recommendations.push(
+        'Consider optimizing agent response algorithms or increasing compute resources'
+      );
     }
     if (improvementAreas.some(area => area.includes('High escalation'))) {
       recommendations.push('Review and expand agent training data for better autonomous handling');
@@ -328,7 +332,7 @@ export class AgentAnalyticsService {
     if (!prisma) {
       return Buffer.from('[]');
     }
-    
+
     const interactions = await prisma.agentInteraction.findMany({
       where: {
         createdAt: {

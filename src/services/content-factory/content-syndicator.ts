@@ -23,7 +23,7 @@ export class ContentSyndicator {
   async initialize(platforms: string[]) {
     logger.info('Initializing Content Syndicator', { platforms });
     this.platforms = platforms;
-    
+
     // Initialize platform APIs
     await Promise.all([
       this.linkedInAPI.initialize(),
@@ -58,7 +58,7 @@ export class ContentSyndicator {
       try {
         const submission = await this.formatForDirectory(content, directory);
         const result = await this.directoryAPI.submit(directory, submission);
-        
+
         results.push({
           directory,
           success: true,
@@ -72,7 +72,7 @@ export class ContentSyndicator {
         results.push({
           directory,
           success: false,
-          error: error.message,
+          error: error instanceof Error ? error.message : 'Unknown error',
         });
       }
     }
@@ -184,10 +184,10 @@ export class ContentSyndicator {
       const release = {
         headline: this.createPRHeadline(content),
         subheadline: content.metaDescription,
-        dateline: `RALEIGH, NC - ${new Date().toLocaleDateString('en-US', { 
-          month: 'long', 
-          day: 'numeric', 
-          year: 'numeric' 
+        dateline: `RALEIGH, NC - ${new Date().toLocaleDateString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
         })}`,
         body: await this.createPRBody(content),
         boilerplate: this.getCompanyBoilerplate(),
@@ -217,9 +217,9 @@ export class ContentSyndicator {
         estimatedReach: result.reach,
       });
 
-      logger.info('PR release distributed', { 
-        releaseId: result.id, 
-        outlets: result.outlets.length 
+      logger.info('PR release distributed', {
+        releaseId: result.id,
+        outlets: result.outlets.length,
       });
 
       return result;
@@ -291,7 +291,7 @@ export class ContentSyndicator {
           source: source.name,
           type: source.type,
           success: false,
-          error: error.message,
+          error: error instanceof Error ? error.message : 'Unknown error',
         });
       }
     }
@@ -337,11 +337,13 @@ export class ContentSyndicator {
       // Add more directory formats...
     };
 
-    return formats[directory] || {
-      title: content.title,
-      content: content.content,
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}`,
-    };
+    return (
+      formats[directory as keyof typeof formats] || {
+        title: content.title,
+        content: content.content,
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}`,
+      }
+    );
   }
 
   private async convertToMediumFormat(content: any): Promise<string> {
@@ -362,7 +364,7 @@ export class ContentSyndicator {
 
   private getMediumTags(content: any): string[] {
     const practiceAreaTags = {
-      'immigration': ['immigration', 'immigration-law', 'visa', 'green-card', 'citizenship'],
+      immigration: ['immigration', 'immigration-law', 'visa', 'green-card', 'citizenship'],
       'personal-injury': ['personal-injury', 'car-accident', 'injury-law', 'accident-lawyer'],
       'workers-compensation': ['workers-compensation', 'workplace-injury', 'workers-rights'],
       'criminal-defense': ['criminal-defense', 'criminal-law', 'legal-defense', 'dui'],
@@ -371,7 +373,7 @@ export class ContentSyndicator {
     };
 
     const tags = practiceAreaTags[content.practiceArea] || [];
-    
+
     // Medium allows max 5 tags
     return tags.slice(0, 5);
   }
@@ -385,7 +387,7 @@ export class ContentSyndicator {
     ];
 
     const intro = intros[Math.floor(Math.random() * intros.length)];
-    
+
     return `${intro}\n\n${content.excerpt}\n\nRead more: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}\n\n#LegalAdvice #${this.formatHashtag(content.practiceArea)} #NorthCarolinaLaw #VasquezLawFirm`;
   }
 
@@ -451,15 +453,15 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
   private async createPRBody(content: any): Promise<string> {
     // Convert blog content to PR format
     const sections = content.content.split(/^##/m);
-    
+
     let prBody = '';
-    
+
     // Lead paragraph
     prBody += `Vasquez Law Firm, a leading ${content.practiceArea} law firm in North Carolina, today released a comprehensive guide addressing ${content.title.toLowerCase()}. This timely resource provides crucial information for individuals facing ${content.practiceArea} legal challenges.\n\n`;
 
     // Key points
     prBody += `Key highlights from the guide include:\n\n`;
-    
+
     // Extract 3-5 key points
     const keyPoints = this.extractKeyPoints(content.content, 5);
     keyPoints.forEach(point => {
@@ -484,7 +486,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
 
   private getPRCategories(practiceArea: string): string[] {
     const categories = {
-      'immigration': ['Legal Services', 'Immigration', 'Law', 'Hispanic Business'],
+      immigration: ['Legal Services', 'Immigration', 'Law', 'Hispanic Business'],
       'personal-injury': ['Legal Services', 'Personal Injury', 'Insurance', 'Healthcare'],
       'workers-compensation': ['Legal Services', 'Workplace Safety', 'Insurance', 'Employment'],
       'criminal-defense': ['Legal Services', 'Crime', 'Justice', 'Law Enforcement'],
@@ -528,7 +530,6 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     return { status: 'updated', placeId: 'apple-vlf' };
   }
 
-
   private async updateBBBProfile(content: any) {
     // Update BBB business profile
     return { status: 'updated', accreditationId: 'bbb-vlf' };
@@ -536,22 +537,20 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
 
   private async submitToChamber(content: any) {
     // Submit to local Chamber of Commerce directories
-    const chambers = [
-      'Greater Raleigh Chamber',
-      'Charlotte Chamber',
-      'Orlando Chamber',
-    ];
+    const chambers = ['Greater Raleigh Chamber', 'Charlotte Chamber', 'Orlando Chamber'];
 
-    return { 
-      status: 'submitted', 
+    return {
+      status: 'submitted',
       chambers: chambers,
-      urls: chambers.map(c => `${c.toLowerCase().replace(/\s+/g, '-')}.com/members/vasquez-law-firm`),
+      urls: chambers.map(
+        c => `${c.toLowerCase().replace(/\s+/g, '-')}.com/members/vasquez-law-firm`
+      ),
     };
   }
 
   private async submitToLegalAid(content: any) {
     // Submit to legal aid directories
-    return { 
+    return {
       status: 'submitted',
       directories: ['NC Legal Aid', 'FL Legal Aid', 'National Legal Aid'],
     };
@@ -591,7 +590,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
   private async submitGuestPost(content: any) {
     // Submit guest posts to relevant sites
     const sites = this.getGuestPostSites(content.practiceArea);
-    
+
     // Format as guest post
     const guestPost = {
       title: `Guest Post: ${content.title}`,
@@ -629,7 +628,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
    */
   private async trackSyndication(contentId: string, platform: string, result: any) {
     const prisma = await import('@/lib/prisma').then(m => m.getPrismaClient());
-    
+
     await prisma.contentSyndication.create({
       data: {
         contentId,
@@ -673,7 +672,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
 
   private mapToAvvoCategory(practiceArea: string): string {
     const mapping = {
-      'immigration': 'Immigration',
+      immigration: 'Immigration',
       'personal-injury': 'Personal Injury',
       'workers-compensation': 'Workers Compensation',
       'criminal-defense': 'Criminal Defense',
@@ -690,9 +689,9 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
 
   private formatPracticeArea(practiceArea: string): string {
     const formatted = {
-      'immigration': 'Immigration Law',
+      immigration: 'Immigration Law',
       'personal-injury': 'Personal Injury',
-      'workers-compensation': 'Workers\' Compensation',
+      'workers-compensation': "Workers' Compensation",
       'criminal-defense': 'Criminal Defense',
       'family-law': 'Family Law',
       'traffic-violations': 'Traffic Violations',
@@ -710,21 +709,22 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
 
     // Try to extract from content
     const points = this.extractKeyPoints(content.content, 3);
-    
+
     return points[index] || defaultPoints[index];
   }
 
   private extractKeyPoints(content: string, count: number): string[] {
     const points = [];
-    
+
     // Look for bullet points or numbered lists
     const bulletPoints = content.match(/^[\*\-]\s(.+)$/gm) || [];
     const numberedPoints = content.match(/^\d+\.\s(.+)$/gm) || [];
-    
+
     // Clean and add points
     [...bulletPoints, ...numberedPoints].forEach(point => {
       const cleaned = point.replace(/^[\*\-\d\.]\s/, '').trim();
-      if (cleaned.length < 100) { // Keep concise points
+      if (cleaned.length < 100) {
+        // Keep concise points
         points.push(cleaned);
       }
     });
@@ -734,36 +734,49 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
 
   private generateAttorneyQuote(content: any): string {
     const quotes = {
-      'immigration': 'Understanding your rights and options is crucial when navigating immigration law. This guide provides the clarity our clients need.',
-      'personal-injury': 'Accident victims deserve full compensation for their injuries. This information helps level the playing field with insurance companies.',
-      'workers-compensation': 'Injured workers have rights that employers and insurers often overlook. Knowledge is power in protecting those rights.',
-      'criminal-defense': 'Everyone deserves a strong defense. This guide helps individuals understand the legal process and their constitutional rights.',
-      'family-law': 'Family legal matters are deeply personal. We provide this guidance to help families make informed decisions during difficult times.',
-      'traffic-violations': 'Traffic violations can have serious consequences beyond fines. This information helps drivers protect their licenses and futures.',
+      immigration:
+        'Understanding your rights and options is crucial when navigating immigration law. This guide provides the clarity our clients need.',
+      'personal-injury':
+        'Accident victims deserve full compensation for their injuries. This information helps level the playing field with insurance companies.',
+      'workers-compensation':
+        'Injured workers have rights that employers and insurers often overlook. Knowledge is power in protecting those rights.',
+      'criminal-defense':
+        'Everyone deserves a strong defense. This guide helps individuals understand the legal process and their constitutional rights.',
+      'family-law':
+        'Family legal matters are deeply personal. We provide this guidance to help families make informed decisions during difficult times.',
+      'traffic-violations':
+        'Traffic violations can have serious consequences beyond fines. This information helps drivers protect their licenses and futures.',
     };
 
-    return quotes[content.practiceArea] || 'Legal knowledge empowers our clients to make informed decisions about their cases.';
+    return (
+      quotes[content.practiceArea] ||
+      'Legal knowledge empowers our clients to make informed decisions about their cases.'
+    );
   }
 
   private getAuthorBio(author: string): string {
     const bios = {
-      'William Vasquez': 'William Vasquez is the founder and managing attorney of Vasquez Law Firm, PLLC, with over 30 years of experience in immigration and personal injury law.',
-      'Jillian Baucom': 'Jillian Baucom is a senior attorney at Vasquez Law Firm specializing in workers\' compensation and personal injury cases.',
-      'Christopher Afanador': 'Christopher Afanador is an experienced personal injury attorney at Vasquez Law Firm, dedicated to helping accident victims.',
-      'Mark Kelsey': 'Mark Kelsey is a criminal defense attorney at Vasquez Law Firm with extensive trial experience.',
-      'Roselyn Torrellas': 'Roselyn Torrellas is a family law attorney at Vasquez Law Firm, compassionately guiding clients through divorce and custody matters.',
+      'William Vasquez':
+        'William Vasquez is the founder and managing attorney of Vasquez Law Firm, PLLC, with over 30 years of experience in immigration and personal injury law.',
+      'Jillian Baucom':
+        "Jillian Baucom is a senior attorney at Vasquez Law Firm specializing in workers' compensation and personal injury cases.",
+      'Christopher Afanador':
+        'Christopher Afanador is an experienced personal injury attorney at Vasquez Law Firm, dedicated to helping accident victims.',
+      'Mark Kelsey':
+        'Mark Kelsey is a criminal defense attorney at Vasquez Law Firm with extensive trial experience.',
+      'Roselyn Torrellas':
+        'Roselyn Torrellas is a family law attorney at Vasquez Law Firm, compassionately guiding clients through divorce and custody matters.',
     };
 
-    return bios[author] || `${author} is an experienced attorney at Vasquez Law Firm, PLLC. Visit vasquezlawnc.com or call 1-844-YO-PELEO.`;
+    return (
+      bios[author] ||
+      `${author} is an experienced attorney at Vasquez Law Firm, PLLC. Visit vasquezlawnc.com or call 1-844-YO-PELEO.`
+    );
   }
 
   private getGuestPostSites(practiceArea: string): string[] {
     const sites = {
-      'immigration': [
-        'immigrationimpact.com',
-        'ilw.com',
-        'immigrationlawhelp.org',
-      ],
+      immigration: ['immigrationimpact.com', 'ilw.com', 'immigrationlawhelp.org'],
       'personal-injury': [
         'injurylawyersnow.com',
         'personalinjurylawyermagazine.com',
@@ -778,16 +791,16 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
   private async formatAsGuestPost(content: any): Promise<string> {
     // Reformat content as guest post
     let guestContent = content.content;
-    
+
     // Remove internal links
     guestContent = guestContent.replace(/\[([^\]]+)\]\(\/[^)]+\)/g, '$1');
-    
+
     // Add guest post intro
     const intro = `*Editor's Note: This guest post provides valuable insights on ${content.practiceArea} law from the experienced team at Vasquez Law Firm.*\n\n`;
-    
+
     // Add author resource box
     const resourceBox = `\n\n---\n\n**About the Author**\n\n${this.getAuthorBio(content.author)}\n\nThis article originally appeared on the [Vasquez Law Firm blog](${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}).`;
-    
+
     return intro + guestContent + resourceBox;
   }
 }

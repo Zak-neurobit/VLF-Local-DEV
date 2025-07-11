@@ -29,28 +29,28 @@ export function generateHreflangMetadata(options: PageMetadataOptions): Metadata
     keywords = [],
     ogImage = '/images/BANNER_TRANS.PNG',
     noIndex = false,
-    pageType = 'general'
+    pageType = 'general',
   } = options;
 
   // Generate hreflang and canonical URLs
   const canonical = HreflangUtils.generateCanonicalUrl(pathname, customPath);
   const alternates = HreflangUtils.generateAlternateLinks(pathname, customPath);
   const ogLocales = HreflangUtils.generateOpenGraphLocales(pathname);
-  
+
   // Determine current locale from pathname
   const currentLocale = pathname.startsWith('/es') ? 'es' : 'en';
-  
+
   const metadata: Metadata = {
     title,
     description,
     keywords: keywords.join(', '),
-    
+
     // Canonical and alternate URLs
     alternates: {
       canonical,
       languages: alternates,
     },
-    
+
     // OpenGraph metadata with locale support
     openGraph: {
       title,
@@ -69,7 +69,7 @@ export function generateHreflangMetadata(options: PageMetadataOptions): Metadata
         },
       ],
     },
-    
+
     // Twitter metadata
     twitter: {
       card: 'summary_large_image',
@@ -77,7 +77,7 @@ export function generateHreflangMetadata(options: PageMetadataOptions): Metadata
       description,
       images: [ogImage],
     },
-    
+
     // Robots directive
     robots: {
       index: !noIndex,
@@ -90,14 +90,14 @@ export function generateHreflangMetadata(options: PageMetadataOptions): Metadata
         'max-snippet': -1,
       },
     },
-    
+
     // Additional metadata
     other: {
       'geo.region': 'US-NC',
       'geo.placename': 'Smithfield, Charlotte, Raleigh, Orlando',
       'geo.position': '35.5085;-78.3394',
-      'ICBM': '35.5085, -78.3394',
-      'language': currentLocale,
+      ICBM: '35.5085, -78.3394',
+      language: currentLocale,
       'page-type': pageType,
     },
   };
@@ -110,11 +110,12 @@ export function generateHreflangMetadata(options: PageMetadataOptions): Metadata
  */
 export function generateBilingualMetadata(options: BilingualMetadataOptions): Metadata {
   const currentLocale = options.pathname.startsWith('/es') ? 'es' : 'en';
-  
+
   // Use appropriate title and description based on current locale
   const title = currentLocale === 'es' && options.titleEs ? options.titleEs : options.title;
-  const description = currentLocale === 'es' && options.descriptionEs ? options.descriptionEs : options.description;
-  
+  const description =
+    currentLocale === 'es' && options.descriptionEs ? options.descriptionEs : options.description;
+
   return generateHreflangMetadata({
     ...options,
     title,
@@ -138,10 +139,11 @@ export function generateAttorneyMetadata(options: {
 }): Metadata {
   const pathname = `/attorneys/${options.slug}`;
   const currentLocale = pathname.startsWith('/es') ? 'es' : 'en';
-  
+
   const title = currentLocale === 'es' && options.titleEs ? options.titleEs : options.title;
-  const description = currentLocale === 'es' && options.descriptionEs ? options.descriptionEs : options.description;
-  
+  const description =
+    currentLocale === 'es' && options.descriptionEs ? options.descriptionEs : options.description;
+
   return generateHreflangMetadata({
     title: `${options.name} | ${title} | Vasquez Law Firm`,
     description,
@@ -155,7 +157,7 @@ export function generateAttorneyMetadata(options: {
       ...(options.specialties || []),
       'North Carolina',
       'Orlando',
-      'Vasquez Law Firm'
+      'Vasquez Law Firm',
     ],
     pageType: 'attorney',
   });
@@ -178,11 +180,12 @@ export function generatePracticeAreaMetadata(options: {
   const pathSegments = ['/practice-areas', options.area];
   if (options.subArea) pathSegments.push(options.subArea);
   const pathname = pathSegments.join('/');
-  
+
   const currentLocale = pathname.startsWith('/es') ? 'es' : 'en';
   const title = currentLocale === 'es' && options.titleEs ? options.titleEs : options.title;
-  const description = currentLocale === 'es' && options.descriptionEs ? options.descriptionEs : options.description;
-  
+  const description =
+    currentLocale === 'es' && options.descriptionEs ? options.descriptionEs : options.description;
+
   return generateHreflangMetadata({
     title: `${title} | Vasquez Law Firm - YO PELEO POR TI™`,
     description,
@@ -196,7 +199,7 @@ export function generatePracticeAreaMetadata(options: {
       'North Carolina',
       'Orlando',
       'Vasquez Law Firm',
-      ...(options.keywords || [])
+      ...(options.keywords || []),
     ].filter(Boolean) as string[],
     pageType: 'practice-area',
   });
@@ -220,10 +223,11 @@ export function generateLocationMetadata(options: {
 }): Metadata {
   const pathname = `/locations/${options.city.toLowerCase().replace(/\s+/g, '-')}`;
   const currentLocale = pathname.startsWith('/es') ? 'es' : 'en';
-  
+
   const title = currentLocale === 'es' && options.titleEs ? options.titleEs : options.title;
-  const description = currentLocale === 'es' && options.descriptionEs ? options.descriptionEs : options.description;
-  
+  const description =
+    currentLocale === 'es' && options.descriptionEs ? options.descriptionEs : options.description;
+
   return generateHreflangMetadata({
     title: `${title} | Vasquez Law Firm`,
     description,
@@ -235,7 +239,7 @@ export function generateLocationMetadata(options: {
       'lawyer',
       'legal services',
       ...(options.practiceAreas || []),
-      'Vasquez Law Firm'
+      'Vasquez Law Firm',
     ],
     pageType: 'location',
     ogImage: `/images/locations/${options.city.toLowerCase().replace(/\s+/g, '-')}.jpg`,
@@ -258,10 +262,11 @@ export function generateBlogMetadata(options: {
 }): Metadata {
   const pathname = `/blog/${options.slug}`;
   const currentLocale = pathname.startsWith('/es') ? 'es' : 'en';
-  
+
   const title = currentLocale === 'es' && options.titleEs ? options.titleEs : options.title;
-  const description = currentLocale === 'es' && options.descriptionEs ? options.descriptionEs : options.description;
-  
+  const description =
+    currentLocale === 'es' && options.descriptionEs ? options.descriptionEs : options.description;
+
   const metadata = generateHreflangMetadata({
     title: `${title} | Vasquez Law Firm Blog`,
     description,
@@ -273,10 +278,10 @@ export function generateBlogMetadata(options: {
 
   // Add article-specific OpenGraph data
   if (metadata.openGraph) {
-    metadata.openGraph.type = 'article';
-    metadata.openGraph.authors = options.author ? [options.author] : undefined;
-    metadata.openGraph.publishedTime = options.publishDate?.toISOString();
-    metadata.openGraph.tags = options.tags;
+    (metadata.openGraph as any).type = 'article';
+    (metadata.openGraph as any).authors = options.author ? [options.author] : undefined;
+    (metadata.openGraph as any).publishedTime = options.publishDate?.toISOString();
+    (metadata.openGraph as any).tags = options.tags;
   }
 
   return metadata;
@@ -294,6 +299,8 @@ export function getHreflangLinks(pathname: string, customPath?: string) {
  */
 export function hasBilingualSupport(pathname: string): boolean {
   const entries = HreflangUtils.generateHreflangEntries(pathname);
-  return entries.some(entry => entry.hreflang.startsWith('es')) && 
-         entries.some(entry => entry.hreflang.startsWith('en'));
+  return (
+    entries.some(entry => entry.hreflang.startsWith('es')) &&
+    entries.some(entry => entry.hreflang.startsWith('en'))
+  );
 }

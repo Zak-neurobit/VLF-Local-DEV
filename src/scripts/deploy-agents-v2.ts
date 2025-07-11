@@ -53,7 +53,7 @@ class EnhancedAgentDeployer {
   private monitor: AgentMonitor;
   private orchestrator: AgentOrchestrator;
   private coordinator: CrewCoordinator;
-  private concurrencyLimit: pLimit.Limit;
+  private concurrencyLimit: ReturnType<typeof pLimit>;
 
   constructor() {
     this.monitor = AgentMonitor.getInstance();
@@ -64,7 +64,7 @@ class EnhancedAgentDeployer {
 
   async deployAllAgents(): Promise<void> {
     logger.info('🚀 Starting Enhanced Agent Deployment v2...');
-    
+
     try {
       // Take a snapshot before deployment
       await this.createDeploymentSnapshot();
@@ -222,13 +222,13 @@ class EnhancedAgentDeployer {
 
       for (const [priority, agents] of priorityGroups) {
         logger.info(`\n📦 Deploying Priority ${priority} Agents (${agents.length} agents)...`);
-        
+
         const deploymentPromises = agents.map(config =>
           this.concurrencyLimit(() => this.deployAgent(config))
         );
 
         const results = await Promise.allSettled(deploymentPromises);
-        
+
         // Check for failures and handle rollbacks if needed
         const failures = results.filter(r => r.status === 'rejected');
         if (failures.length > 0 && priority <= 2) {
@@ -249,7 +249,6 @@ class EnhancedAgentDeployer {
 
       // Generate deployment report
       await this.generateDeploymentReport();
-
     } catch (error) {
       logger.error('Deployment failed:', error);
       await this.rollbackDeployment();
@@ -268,10 +267,10 @@ class EnhancedAgentDeployer {
     try {
       // Check dependencies
       if (config.dependencies) {
-        const unmetDeps = config.dependencies.filter(dep => 
-          !this.deploymentResults.some(r => r.agent === dep && r.status === 'deployed')
+        const unmetDeps = config.dependencies.filter(
+          dep => !this.deploymentResults.some(r => r.agent === dep && r.status === 'deployed')
         );
-        
+
         if (unmetDeps.length > 0) {
           throw new Error(`Unmet dependencies: ${unmetDeps.join(', ')}`);
         }
@@ -315,9 +314,8 @@ class EnhancedAgentDeployer {
 
       this.deploymentResults.push(result);
       logger.info(`✅ ${config.name} deployed in ${result.deploymentTime}ms`);
-      
-      return result;
 
+      return result;
     } catch (error) {
       const result: DeploymentResult = {
         agent: config.name,
@@ -329,11 +327,11 @@ class EnhancedAgentDeployer {
 
       this.deploymentResults.push(result);
       logger.error(`❌ ${config.name} deployment failed:`, error);
-      
+
       if (config.rollbackEnabled) {
         await this.rollbackAgent(config.name);
       }
-      
+
       throw error;
     }
   }
@@ -341,10 +339,10 @@ class EnhancedAgentDeployer {
   private async deployCrewAIAgent(config: AgentDeploymentConfig): Promise<void> {
     // Initialize the agent through the coordinator
     await this.coordinator.initializeAgent(config.name);
-    
+
     // Register with orchestrator
     await this.orchestrator.registerAgent(config.name, 'crewai');
-    
+
     // Setup inter-agent communication
     await this.coordinator.setupAgentCommunication(config.name);
   }
@@ -354,7 +352,7 @@ class EnhancedAgentDeployer {
     if (!process.env.RETELL_API_KEY) {
       throw new Error('Retell API key not configured');
     }
-    
+
     // Deploy voice agent through Retell API
     // Implementation depends on Retell service
     logger.info(`Voice agent ${config.name} registered with Retell`);
@@ -365,7 +363,7 @@ class EnhancedAgentDeployer {
     if (!process.env.OPENAI_API_KEY) {
       throw new Error('OpenAI API key not configured');
     }
-    
+
     // Initialize chat infrastructure
     await this.orchestrator.initializeChatAgent(config.name);
   }
@@ -373,14 +371,14 @@ class EnhancedAgentDeployer {
   private async deployAutomationAgent(config: AgentDeploymentConfig): Promise<void> {
     // Deploy automation agents
     await this.orchestrator.registerAgent(config.name, 'automation');
-    
+
     // Setup automation workflows
     await this.coordinator.setupAutomationWorkflows(config.name);
   }
 
   private async configureAutoScaling(agentName: string, config: any): Promise<void> {
     logger.info(`Configuring auto-scaling for ${agentName}:`, config);
-    
+
     // Register scaling configuration with monitor
     await this.monitor.configureAutoScaling(agentName, {
       minInstances: config.minInstances,
@@ -393,15 +391,15 @@ class EnhancedAgentDeployer {
   }
 
   private async performAgentHealthCheck(
-    agentName: string, 
+    agentName: string,
     endpoint: string
   ): Promise<DeploymentResult['healthCheck']> {
     const startTime = Date.now();
-    
+
     try {
       // Simulate health check (in production, this would make an HTTP request)
       const isHealthy = await this.monitor.checkAgentHealth(agentName);
-      
+
       return {
         status: isHealthy ? 'healthy' : 'unhealthy',
         responseTime: Date.now() - startTime,
@@ -418,7 +416,7 @@ class EnhancedAgentDeployer {
 
   private async setupAgentOrchestration(): Promise<void> {
     logger.info('🔗 Setting up agent orchestration and communication...');
-    
+
     // Enable parallel processing
     await this.coordinator.enableParallelProcessing({
       maxConcurrentTasks: 20,
@@ -426,7 +424,7 @@ class EnhancedAgentDeployer {
       workerThreads: 4,
       priorityQueues: true,
     });
-    
+
     // Setup inter-agent communication channels
     await this.coordinator.setupCommunicationChannels({
       messageQueue: 'redis', // or 'rabbitmq', 'kafka'
@@ -434,7 +432,7 @@ class EnhancedAgentDeployer {
       messageRetention: 86400, // 24 hours
       maxMessageSize: 1048576, // 1MB
     });
-    
+
     // Configure agent memory system
     await this.coordinator.initializeMemorySystem({
       type: 'distributed',
@@ -443,7 +441,7 @@ class EnhancedAgentDeployer {
       ttl: 3600, // 1 hour
       compressionEnabled: false,
     });
-    
+
     // Setup performance monitoring
     await this.monitor.enablePerformanceTracking({
       metricsInterval: 60, // Collect metrics every minute
@@ -453,22 +451,20 @@ class EnhancedAgentDeployer {
         memoryUsage: 0.85, // 85%
       },
     });
-    
+
     logger.info('✅ Agent orchestration configured successfully');
   }
 
   private async initializeMonitoring(): Promise<void> {
     logger.info('📊 Initializing agent monitoring...');
-    
+
     // Setup real-time monitoring
     await this.monitor.startMonitoring({
-      agents: this.deploymentResults
-        .filter(r => r.status === 'deployed')
-        .map(r => r.agent),
+      agents: this.deploymentResults.filter(r => r.status === 'deployed').map(r => r.agent),
       interval: 30000, // 30 seconds
       metrics: ['cpu', 'memory', 'requests', 'errors', 'latency'],
     });
-    
+
     // Setup error detection and recovery
     await this.monitor.configureErrorRecovery({
       maxRetries: 3,
@@ -476,24 +472,24 @@ class EnhancedAgentDeployer {
       circuitBreakerThreshold: 5,
       recoveryTimeout: 60000,
     });
-    
+
     // Setup load balancing
     await this.monitor.enableLoadBalancing({
       algorithm: 'weighted-round-robin',
       healthCheckInterval: 10000,
       failoverEnabled: true,
     });
-    
+
     logger.info('✅ Monitoring systems initialized');
   }
 
   private async performHealthChecks(): Promise<void> {
     logger.info('🏥 Performing system-wide health checks...');
-    
+
     const healthChecks = await Promise.all(
       this.deploymentResults
         .filter(r => r.status === 'deployed')
-        .map(async (result) => {
+        .map(async result => {
           const health = await this.monitor.checkAgentHealth(result.agent);
           return {
             agent: result.agent,
@@ -502,11 +498,12 @@ class EnhancedAgentDeployer {
           };
         })
     );
-    
+
     const unhealthyAgents = healthChecks.filter(h => !h.healthy);
-    
+
     if (unhealthyAgents.length > 0) {
-      logger.warn(`⚠️  ${unhealthyAgents.length} agents are unhealthy:`, 
+      logger.warn(
+        `⚠️  ${unhealthyAgents.length} agents are unhealthy:`,
         unhealthyAgents.map(a => a.agent)
       );
     } else {
@@ -521,47 +518,46 @@ class EnhancedAgentDeployer {
       agents: new Map(), // Store current agent states
       configurations: new Map(), // Store current configurations
     };
-    
+
     this.deploymentSnapshots.push(snapshot);
     logger.info(`📸 Created deployment snapshot: ${snapshot.id}`);
   }
 
   private async rollbackDeployment(): Promise<void> {
     logger.warn('🔄 Initiating deployment rollback...');
-    
+
     if (this.deploymentSnapshots.length === 0) {
       logger.error('No snapshots available for rollback');
       return;
     }
-    
+
     const lastSnapshot = this.deploymentSnapshots[this.deploymentSnapshots.length - 1];
-    
+
     // Rollback each deployed agent
     for (const result of this.deploymentResults) {
       if (result.status === 'deployed') {
         await this.rollbackAgent(result.agent);
       }
     }
-    
+
     logger.info('✅ Rollback completed');
   }
 
   private async rollbackAgent(agentName: string): Promise<void> {
     try {
       logger.info(`Rolling back ${agentName}...`);
-      
+
       // Unregister from orchestrator
       await this.orchestrator.unregisterAgent(agentName);
-      
+
       // Stop monitoring
       await this.monitor.stopMonitoringAgent(agentName);
-      
+
       // Update deployment result
       const resultIndex = this.deploymentResults.findIndex(r => r.agent === agentName);
       if (resultIndex !== -1) {
         this.deploymentResults[resultIndex].status = 'rolled-back';
       }
-      
     } catch (error) {
       logger.error(`Failed to rollback ${agentName}:`, error);
     }
@@ -570,29 +566,29 @@ class EnhancedAgentDeployer {
   private sortAgentsByDependencies(agents: AgentDeploymentConfig[]): AgentDeploymentConfig[] {
     const sorted: AgentDeploymentConfig[] = [];
     const visited = new Set<string>();
-    
+
     const visit = (agent: AgentDeploymentConfig) => {
       if (visited.has(agent.name)) return;
-      
+
       visited.add(agent.name);
-      
+
       if (agent.dependencies) {
         for (const dep of agent.dependencies) {
           const depAgent = agents.find(a => a.name === dep);
           if (depAgent) visit(depAgent);
         }
       }
-      
+
       sorted.push(agent);
     };
-    
+
     agents.forEach(visit);
     return sorted;
   }
 
   private groupByPriority(agents: AgentDeploymentConfig[]): Map<number, AgentDeploymentConfig[]> {
     const groups = new Map<number, AgentDeploymentConfig[]>();
-    
+
     agents.forEach(agent => {
       const priority = agent.priority;
       if (!groups.has(priority)) {
@@ -600,7 +596,7 @@ class EnhancedAgentDeployer {
       }
       groups.get(priority)!.push(agent);
     });
-    
+
     // Sort by priority (ascending)
     return new Map([...groups.entries()].sort((a, b) => a[0] - b[0]));
   }
@@ -608,18 +604,22 @@ class EnhancedAgentDeployer {
   private async generateDeploymentReport(): Promise<void> {
     logger.info('\n🎯 DEPLOYMENT SUMMARY:');
     logger.info('=======================');
-    
+
     const successful = this.deploymentResults.filter(r => r.status === 'deployed').length;
     const failed = this.deploymentResults.filter(r => r.status === 'failed').length;
     const rolledBack = this.deploymentResults.filter(r => r.status === 'rolled-back').length;
     const skipped = this.deploymentResults.filter(r => r.status === 'skipped').length;
-    
+
     this.deploymentResults.forEach(result => {
-      const emoji = 
-        result.status === 'deployed' ? '✅' :
-        result.status === 'failed' ? '❌' :
-        result.status === 'rolled-back' ? '🔄' : '⏭️';
-      
+      const emoji =
+        result.status === 'deployed'
+          ? '✅'
+          : result.status === 'failed'
+            ? '❌'
+            : result.status === 'rolled-back'
+              ? '🔄'
+              : '⏭️';
+
       let message = `${emoji} ${result.agent}: ${result.message}`;
       if (result.deploymentTime) {
         message += ` (${result.deploymentTime}ms)`;
@@ -627,29 +627,29 @@ class EnhancedAgentDeployer {
       if (result.healthCheck) {
         message += ` [${result.healthCheck.status}]`;
       }
-      
+
       logger.info(message);
     });
-    
+
     logger.info('\n📈 STATISTICS:');
     logger.info(`✅ Successful: ${successful}`);
     logger.info(`❌ Failed: ${failed}`);
     logger.info(`🔄 Rolled Back: ${rolledBack}`);
     logger.info(`⏭️  Skipped: ${skipped}`);
     logger.info(`📊 Total: ${this.deploymentResults.length}`);
-    
+
     const totalDeploymentTime = this.deploymentResults
       .filter(r => r.deploymentTime)
       .reduce((sum, r) => sum + r.deploymentTime!, 0);
-    
+
     logger.info(`⏱️  Total Deployment Time: ${totalDeploymentTime}ms`);
-    
+
     if (failed === 0 && rolledBack === 0) {
       logger.info('\n🎉 All agents deployed successfully! The system is EPIC!');
     } else {
       logger.warn(`\n⚠️  Deployment completed with issues. Review logs above.`);
     }
-    
+
     // Save deployment report would go here in production
     // when prisma schema includes deploymentLog table
     logger.info('Deployment report generated successfully');
@@ -659,7 +659,7 @@ class EnhancedAgentDeployer {
 // Run deployment
 async function main() {
   const deployer = new EnhancedAgentDeployer();
-  
+
   try {
     await deployer.deployAllAgents();
     process.exit(0);

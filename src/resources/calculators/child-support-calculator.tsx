@@ -70,7 +70,8 @@ export default function ChildSupportCalculator() {
     const nonCustodialShare = combinedIncome > 0 ? nonCustodial / combinedIncome : 0.5;
 
     // Base child support (using NC guidelines percentages)
-    const percentage = supportPercentages[Math.min(numberOfChildren, 5)];
+    const percentage =
+      supportPercentages[Math.min(numberOfChildren, 5) as keyof typeof supportPercentages];
     const basicChildSupport = combinedIncome * percentage;
 
     // Adjust for custody time (simplified calculation)

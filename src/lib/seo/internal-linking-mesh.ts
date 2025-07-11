@@ -294,7 +294,7 @@ export function generateRelatedLinks(
   currentSlug: string,
   limit: number = 6
 ): Array<{ text: string; href: string; description: string }> {
-  const related = [];
+  const related: Array<{ text: string; href: string; description: string }> = [];
 
   if (contentType === 'practice-area') {
     // Find current practice area
@@ -374,7 +374,7 @@ export function generateAnchorText(
     ],
   };
 
-  const options = variations[targetType] || [`${targetName}`];
+  const options = variations[targetType as keyof typeof variations] || [`${targetName}`];
   return options[variation % options.length];
 }
 
@@ -382,7 +382,7 @@ export function generateAnchorText(
 export function generateHubPageLinks(
   hubType: string
 ): Array<{ category: string; links: Array<{ text: string; href: string }> }> {
-  const hubLinks = [];
+  const hubLinks: Array<{ category: string; links: Array<{ text: string; href: string }> }> = [];
 
   if (hubType === 'locations') {
     // Group by region

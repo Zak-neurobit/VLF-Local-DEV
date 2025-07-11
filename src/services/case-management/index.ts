@@ -327,8 +327,7 @@ export class CaseManagementService {
       notes.push({
         id: Date.now().toString(),
         content: validated.content,
-        isPrivate: validated.isPrivate,
-        createdAt: new Date().toISOString(),
+        createdAt: new Date(),
         createdBy: 'current-user', // Get from auth context
       });
 
@@ -338,7 +337,7 @@ export class CaseManagementService {
           metadata: {
             ...metadata,
             notes,
-          },
+          } as any,
         },
       });
 
@@ -363,7 +362,7 @@ export class CaseManagementService {
         OR: Array<Record<string, unknown>>;
         clientId?: string;
         status?: CaseStatus;
-        practiceArea?: string;
+        practiceArea?: PracticeArea;
         attorneyId?: string;
         createdAt?: { gte?: Date; lte?: Date };
       } = {
@@ -513,6 +512,10 @@ export class CaseManagementService {
       firstName?: string | null;
       lastName?: string | null;
     };
+    attorney?: {
+      email: string;
+      name?: string | null;
+    } | null;
   }) {
     // Notify attorney
     if (caseData.attorney) {
@@ -524,7 +527,7 @@ export class CaseManagementService {
           <p>You have been assigned to a new case:</p>
           <ul>
             <li>Case Number: ${caseData.caseNumber}</li>
-            <li>Client: ${caseData.client.name}</li>
+            <li>Client: ${caseData.client.firstName || ''} ${caseData.client.lastName || ''}</li>
             <li>Practice Area: ${caseData.practiceArea}</li>
           </ul>
           <p>Please review the case details in the case management system.</p>
@@ -538,7 +541,7 @@ export class CaseManagementService {
       subject: 'Your Case Has Been Created',
       html: `
         <h2>Case Created Successfully</h2>
-        <p>Dear ${caseData.client.name},</p>
+        <p>Dear ${caseData.client.firstName || ''} ${caseData.client.lastName || ''},</p>
         <p>Your case has been created with the following details:</p>
         <ul>
           <li>Case Number: ${caseData.caseNumber}</li>
@@ -558,6 +561,7 @@ export class CaseManagementService {
         email: string;
         firstName?: string | null;
         lastName?: string | null;
+        phone?: string | null;
       };
     },
     previousStatus: CaseStatus
@@ -575,7 +579,7 @@ export class CaseManagementService {
       subject: `Case Status Update: ${caseData.caseNumber}`,
       html: `
         <h2>Case Status Update</h2>
-        <p>Dear ${caseData.client.name},</p>
+        <p>Dear ${caseData.client.firstName || ''} ${caseData.client.lastName || ''},</p>
         <p>${statusMessages[caseData.status as CaseStatus]}</p>
         <p>Previous Status: ${previousStatus}</p>
         <p>Current Status: ${caseData.status}</p>
@@ -770,7 +774,6 @@ export class CaseManagementService {
           timestamp: new Date(note.createdAt),
           content: note.content,
           createdBy: note.createdBy,
-          isPrivate: note.isPrivate,
         }))
       );
 
@@ -794,17 +797,13 @@ export class CaseManagementService {
       });
 
       const metadata = caseData?.metadata as CaseMetadata;
-      const financials = metadata?.financials || {} as CaseFinancials;
+      const financials = metadata?.financials || ({} as CaseFinancials);
 
       return {
         totalBilled: financials.totalBilled || 0,
         totalPaid: financials.totalPaid || 0,
         outstanding: (financials.totalBilled || 0) - (financials.totalPaid || 0),
-        trustBalance: financials.trustBalance || 0,
         lastPaymentDate: financials.lastPaymentDate ? new Date(financials.lastPaymentDate) : null,
-        paymentPlan: financials.paymentPlan || null,
-        invoices: financials.invoices || [],
-        payments: financials.payments || [],
       };
     } catch (error) {
       logger.error('Error getting case financials', error);
@@ -1084,7 +1083,7 @@ export class CaseManagementService {
   }) {
     try {
       const where: {
-        practiceArea?: string;
+        practiceArea?: PracticeArea;
         status?: CaseStatus;
         attorneyId?: string;
         createdAt?: { gte?: Date; lte?: Date };

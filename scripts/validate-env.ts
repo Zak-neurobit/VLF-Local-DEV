@@ -5,6 +5,12 @@
  * environment variables are present before deployment
  */
 
+import { config } from 'dotenv';
+import path from 'path';
+
+// Load environment variables from .env.local
+config({ path: path.resolve(process.cwd(), '.env.local') });
+
 import { getEnvironmentSummary } from '../src/lib/env-validation';
 
 console.log('\n🔍 Validating environment variables...\n');

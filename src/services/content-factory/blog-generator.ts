@@ -87,13 +87,14 @@ export class BlogContentGenerator {
       for (const topic of allTopics) {
         const practiceArea = this.categorizeTopic(topic.title);
         const keywords = await this.extractKeywords(topic.title);
-        
+
         topics.push({
           title: topic.title,
           practiceArea,
           keywords,
-          relevanceScore: topic.score || this.calculateRelevanceScore(topic),
-          isVoiceSearch: topic.isVoiceSearch || false,
+          relevanceScore:
+            ('score' in topic ? topic.score : undefined) || this.calculateRelevanceScore(topic),
+          isVoiceSearch: ('isVoiceSearch' in topic ? topic.isVoiceSearch : false) || false,
           source: topic.source,
         });
       }
@@ -114,7 +115,8 @@ export class BlogContentGenerator {
 
     try {
       const newsItems = await this.googleNews.searchNews({
-        query: 'North Carolina legal news OR NC law changes OR Charlotte lawyer OR Raleigh attorney',
+        query:
+          'North Carolina legal news OR NC law changes OR Charlotte lawyer OR Raleigh attorney',
         dateRange: 'last7days',
         location: 'North Carolina',
       });
@@ -158,7 +160,7 @@ export class BlogContentGenerator {
       for (const pattern of voiceSearchPatterns) {
         const query = this.generateVoiceSearchQuery(pattern, practiceArea);
         const searchVolume = await this.keywordAPI.getSearchVolume(query);
-        
+
         if (searchVolume > 50) {
           queries.push({
             title: query,
@@ -179,8 +181,8 @@ export class BlogContentGenerator {
    * Generate a blog post based on options
    */
   async generateBlogPost(options: BlogGenerationOptions): Promise<GeneratedBlogPost> {
-    logger.info('Generating blog post', { 
-      topic: options.topic, 
+    logger.info('Generating blog post', {
+      topic: options.topic,
       practiceArea: options.practiceArea,
       language: options.language,
     });
@@ -188,29 +190,29 @@ export class BlogContentGenerator {
     try {
       // Research keywords and related topics
       const keywordData = await this.researchKeywords(options);
-      
+
       // Generate content outline
       const outline = await this.generateOutline(options, keywordData);
-      
+
       // Generate main content
-      const content = await this.generateContent(options, outline, keywordData);
-      
+      const content = await this.generateContent(options, outline || '', keywordData);
+
       // Add local case study if requested
       if (options.includeLocalCaseStudy) {
-        content.content = await this.addLocalCaseStudy(content.content, options);
+        content.content = await this.addLocalCaseStudy(content.content || '', options);
       }
-      
+
       // Optimize for voice search if requested
       if (options.optimizeForVoiceSearch) {
-        content.content = await this.optimizeForVoiceSearch(content.content, options);
+        content.content = await this.optimizeForVoiceSearch(content.content || '', options);
       }
-      
+
       // Generate FAQ section
       const faqSection = await this.generateFAQSection(options, keywordData);
-      
+
       // Generate meta data
       const metadata = await this.generateMetadata(content, options, keywordData);
-      
+
       // Translate if needed
       if (options.language === 'es') {
         return await this.translateContent(content, metadata, faqSection);
@@ -219,9 +221,10 @@ export class BlogContentGenerator {
       return {
         ...content,
         ...metadata,
+        content: content.content || '',
         faqSection,
         author: this.selectAuthor(options.practiceArea),
-        readTime: this.calculateReadTime(content.content),
+        readTime: this.calculateReadTime(content.content || ''),
       };
     } catch (error) {
       logger.error('Error generating blog post', { error, options });
@@ -234,16 +237,16 @@ export class BlogContentGenerator {
    */
   private async researchKeywords(options: BlogGenerationOptions) {
     const primaryKeyword = options.targetKeywords[0] || options.topic;
-    
+
     // Get keyword data
     const keywordData = await this.keywordAPI.getKeywordData(primaryKeyword);
-    
+
     // Get related keywords
     const relatedKeywords = await this.keywordAPI.getRelatedKeywords(primaryKeyword);
-    
+
     // Get long-tail keywords
     const longTailKeywords = await this.keywordAPI.getLongTailKeywords(primaryKeyword);
-    
+
     // Get competitor keywords
     const competitorKeywords = await this.keywordAPI.getCompetitorKeywords(
       primaryKeyword,
@@ -323,8 +326,8 @@ Write the content in markdown format with proper headings.`;
       max_tokens: 3000,
     });
 
-    const content = response.choices[0].message.content;
-    
+    const content = response.choices[0].message.content || '';
+
     // Generate title and meta elements
     const titlePrompt = `Based on this content, create:
 1. An engaging, SEO-optimized title (50-60 characters)
@@ -344,7 +347,7 @@ Format as JSON with keys: title, metaDescription, excerpt, slug`;
       max_tokens: 500,
     });
 
-    const metadata = JSON.parse(titleResponse.choices[0].message.content);
+    const metadata = JSON.parse(titleResponse.choices[0].message.content || '{}');
 
     return {
       title: metadata.title,
@@ -433,7 +436,7 @@ Format as JSON array with 'question' and 'answer' keys.`;
       max_tokens: 1500,
     });
 
-    return JSON.parse(response.choices[0].message.content);
+    return JSON.parse(response.choices[0].message.content || '[]');
   }
 
   /**
@@ -443,7 +446,7 @@ Format as JSON array with 'question' and 'answer' keys.`;
     return {
       keywords: keywordData.all,
       featuredImage: await this.generateFeaturedImage(options.topic),
-      images: await this.generateContentImages(content.content),
+      images: await this.generateContentImages(content.content || ''),
     };
   }
 
@@ -464,7 +467,7 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
       max_tokens: 4000,
     });
 
-    const translated = JSON.parse(response.choices[0].message.content);
+    const translated = JSON.parse(response.choices[0].message.content || '{}');
 
     return {
       ...content,
@@ -487,7 +490,7 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
     };
 
     const lowerText = text.toLowerCase();
-    
+
     for (const [category, keywords] of Object.entries(categories)) {
       if (keywords.some(keyword => lowerText.includes(keyword))) {
         return category;
@@ -500,7 +503,7 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
   private extractKeywords(text: string): string[] {
     // Simple keyword extraction - could be enhanced with NLP
     const stopWords = new Set(['the', 'is', 'at', 'which', 'on', 'a', 'an', 'and', 'or', 'but']);
-    
+
     return text
       .toLowerCase()
       .split(/\s+/)
@@ -515,7 +518,7 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
 
   private calculateRelevanceScore(topic: any): number {
     let score = 50; // Base score
-    
+
     // Boost for recent topics
     if (topic.publishedAt) {
       const daysOld = (Date.now() - new Date(topic.publishedAt).getTime()) / (1000 * 60 * 60 * 24);
@@ -523,34 +526,34 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
       else if (daysOld < 3) score += 20;
       else if (daysOld < 7) score += 10;
     }
-    
+
     // Boost for trending
     if (topic.trending) score += 20;
-    
+
     // Boost for local relevance
     if (topic.location?.includes('North Carolina')) score += 15;
-    
+
     return Math.min(score, 100);
   }
 
   private calculateNewsRelevance(newsItem: any): number {
     let score = 0;
-    
+
     // Check for legal keywords
     const legalKeywords = ['law', 'legal', 'attorney', 'lawyer', 'court', 'judge', 'case'];
     const text = `${newsItem.title} ${newsItem.description}`.toLowerCase();
-    
+
     score += legalKeywords.filter(kw => text.includes(kw)).length * 10;
-    
+
     // Boost for local news
     if (text.includes('north carolina') || text.includes(' nc ')) score += 20;
-    
+
     // Recency bonus
     const hoursOld = (Date.now() - new Date(newsItem.publishedAt).getTime()) / (1000 * 60 * 60);
     if (hoursOld < 24) score += 25;
     else if (hoursOld < 72) score += 15;
     else if (hoursOld < 168) score += 5;
-    
+
     return Math.min(score, 100);
   }
 
@@ -575,8 +578,8 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
       // Add more practice areas...
     };
 
-    const queries = practiceAreaQueries[practiceArea] || {};
-    return `${pattern} ${queries[pattern] || practiceArea}`;
+    const queries = practiceAreaQueries[practiceArea as keyof typeof practiceAreaQueries] || {};
+    return `${pattern} ${queries[pattern as keyof typeof queries] || practiceArea}`;
   }
 
   private getPracticeAreas(): string[] {
@@ -599,8 +602,8 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
       'family-law': 'Roselyn Torrellas',
       'traffic-violations': 'Vasquez Law Team',
     };
-    
-    return authorMap[practiceArea] || 'Vasquez Law Team';
+
+    return authorMap[practiceArea as keyof typeof authorMap] || 'Vasquez Law Team';
   }
 
   private calculateReadTime(content: string): number {
@@ -609,22 +612,22 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
     return Math.max(1, Math.ceil(wordCount / wordsPerMinute));
   }
 
-  private async generateFeaturedImage(topic: string): string {
+  private async generateFeaturedImage(topic: string): Promise<string> {
     // This would integrate with an image generation service
     // For now, return a placeholder
     return `/images/blog/featured/${topic.toLowerCase().replace(/\s+/g, '-')}.jpg`;
   }
 
-  private async generateContentImages(content: string): string[] {
+  private async generateContentImages(content: string): Promise<string[]> {
     // Extract sections that could benefit from images
     const sections = content.split(/^##/m).slice(1);
     const images = [];
-    
+
     for (let i = 0; i < Math.min(sections.length, 3); i++) {
       const sectionTitle = sections[i].split('\n')[0].trim();
       images.push(`/images/blog/content/${sectionTitle.toLowerCase().replace(/\s+/g, '-')}.jpg`);
     }
-    
+
     return images;
   }
 
