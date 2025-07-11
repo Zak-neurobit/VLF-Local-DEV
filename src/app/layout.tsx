@@ -22,6 +22,7 @@ import { DOMSafeWrapper } from '@/components/DOMSafeWrapper';
 import { DOMSafetyInitializer } from '@/components/DOMSafetyInitializer';
 import { HydrationBoundary } from '@/components/HydrationBoundary';
 import { NavigationDebugger } from '@/components/NavigationDebugger';
+import { Suspense } from 'react';
 
 // Removed SiteLayout import - will handle navigation directly
 
@@ -186,7 +187,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </DOMSafeWrapper>
           </ErrorBoundary>
         </SessionProvider>
-        <NavigationDebugger />
+        <Suspense fallback={null}>
+          <NavigationDebugger />
+        </Suspense>
         <GoogleAnalytics />
         <SpeedInsights />
         <Analytics />
