@@ -11,7 +11,7 @@ export function NavigationDebugger() {
     // Log navigation events
     console.log('[NavigationDebugger] Route changed:', {
       pathname,
-      searchParams: searchParams.toString(),
+      searchParams: searchParams?.toString() || '',
       timestamp: new Date().toISOString(),
     });
 
@@ -50,7 +50,7 @@ export function NavigationDebugger() {
 
   // Add meta tag for server-rendered path
   if (typeof window === 'undefined') {
-    return <meta name="server-path" content={pathname} />;
+    return <meta name="server-path" content={pathname || '/'} />;
   }
 
   return null;

@@ -5,6 +5,7 @@
 export const TRADEMARK = {
   YO_PELEO: 'YO PELEO™',
   YO_PELEO_POR_TI: 'YO PELEO POR TI™',
+  I_FIGHT_FOR_YOU: 'I FIGHT FOR YOU™',
   YO_PELEO_NUMBER: '1-844-YO-PELEO',
 } as const;
 
