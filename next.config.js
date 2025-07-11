@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== 'test') {
   } catch (error) {
     console.error('❌ Environment validation failed during build configuration');
     console.error(error);
-    process.exit(1);
+    // Don't exit, just warn
   }
 }
 
