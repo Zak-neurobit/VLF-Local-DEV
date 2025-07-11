@@ -11,7 +11,7 @@ function getLocale(request: NextRequest): string {
   // Check if locale is already in the path
   const pathname = request.nextUrl.pathname;
   const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+    locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
   if (pathnameHasLocale) {
@@ -29,9 +29,9 @@ function getLocale(request: NextRequest): string {
   if (acceptLanguage) {
     const detectedLocale = acceptLanguage
       .split(',')
-      .map((lang) => lang.split(';')[0].split('-')[0].trim())
-      .find((lang) => locales.includes(lang));
-    
+      .map(lang => lang.split(';')[0].split('-')[0].trim())
+      .find(lang => locales.includes(lang));
+
     if (detectedLocale) {
       return detectedLocale;
     }
@@ -56,17 +56,18 @@ export async function middleware(request: NextRequest) {
 
   // Handle authentication for protected routes
   const protectedPaths = ['/dashboard', '/admin', '/cases'];
-  const isProtectedPath = protectedPaths.some(path => 
-    pathname.startsWith(path) || 
-    pathname.startsWith(`/es${path}`) ||
-    pathname.startsWith(`/en${path}`)
+  const isProtectedPath = protectedPaths.some(
+    path =>
+      pathname.startsWith(path) ||
+      pathname.startsWith(`/es${path}`) ||
+      pathname.startsWith(`/en${path}`)
   );
 
   if (isProtectedPath) {
     try {
-      const token = await getToken({ 
-        req: request, 
-        secret: process.env.NEXTAUTH_SECRET 
+      const token = await getToken({
+        req: request,
+        secret: process.env.NEXTAUTH_SECRET,
       });
 
       if (!token) {
@@ -77,7 +78,7 @@ export async function middleware(request: NextRequest) {
       }
 
       // Check admin access
-      if ((pathname.includes('/admin')) && token.role !== 'ADMIN') {
+      if (pathname.includes('/admin') && token.role !== 'ADMIN') {
         return NextResponse.redirect(new URL('/dashboard', request.url));
       }
     } catch (error) {
@@ -89,7 +90,7 @@ export async function middleware(request: NextRequest) {
 
   // Handle locale routing
   const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+    locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
   // If pathname already has locale, continue
@@ -100,12 +101,16 @@ export async function middleware(request: NextRequest) {
   // Get the preferred locale
   const locale = getLocale(request);
 
+  // TEMPORARILY DISABLED: Automatic locale redirects to debug navigation issues
+  // Uncomment the following block to re-enable automatic Spanish redirects
+  /*
   // For Spanish, redirect to /es path
   if (locale === 'es') {
     const newUrl = new URL(`/es${pathname}`, request.url);
     newUrl.search = request.nextUrl.search;
     return NextResponse.redirect(newUrl);
   }
+  */
 
   // For English (default), continue without prefix
   return NextResponse.next();

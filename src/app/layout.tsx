@@ -12,8 +12,8 @@ import { organizationSchema } from '@/lib/schema';
 import SessionProvider from '@/components/providers/SessionProvider';
 import dynamic from 'next/dynamic';
 import { Toaster } from 'react-hot-toast';
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next';
 import { DynamicHreflang } from '@/components/SEO/DynamicHreflang';
 import { GlobalReviewSchema } from '@/components/SEO/GlobalReviewSchema';
 import { DynamicBreadcrumbSchema } from '@/components/SEO/DynamicBreadcrumbSchema';
@@ -21,6 +21,7 @@ import { SpeedOptimizer } from '@/components/SpeedOptimizer';
 import { DOMSafeWrapper } from '@/components/DOMSafeWrapper';
 import { DOMSafetyInitializer } from '@/components/DOMSafetyInitializer';
 import { HydrationBoundary } from '@/components/HydrationBoundary';
+import { NavigationDebugger } from '@/components/NavigationDebugger';
 
 // Removed SiteLayout import - will handle navigation directly
 
@@ -138,9 +139,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="alternate" hrefLang="es-US" href="https://www.vasquezlawnc.com/es" />
         <link rel="alternate" hrefLang="es-MX" href="https://www.vasquezlawnc.com/es" />
         <link rel="alternate" hrefLang="x-default" href="https://www.vasquezlawnc.com" />
-        
+
         {/* Add hreflang sitemap for search engines */}
-        <link rel="sitemap" type="application/xml" title="Hreflang Sitemap" href="/hreflang-sitemap.xml" />
+        <link
+          rel="sitemap"
+          type="application/xml"
+          title="Hreflang Sitemap"
+          href="/hreflang-sitemap.xml"
+        />
         <meta name="geo.region" content="US-NC" />
         <meta name="geo.placename" content="Smithfield, Charlotte, Raleigh, Orlando" />
         <meta name="geo.position" content="35.5085;-78.3394" />
@@ -180,6 +186,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </DOMSafeWrapper>
           </ErrorBoundary>
         </SessionProvider>
+        <NavigationDebugger />
         <GoogleAnalytics />
         <SpeedInsights />
         <Analytics />

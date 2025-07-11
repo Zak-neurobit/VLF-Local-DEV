@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { BRAND } from '../constants';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { LanguageToggle } from '@/components/LanguageToggle';
 
 interface ConsistentHeaderProps {
   language: 'en' | 'es';
@@ -177,7 +177,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                 {BRAND.email}
               </a>
             </div>
-            <LanguageSwitcher currentLanguage={language} variant="header" />
+            <LanguageToggle />
           </div>
         </div>
       </div>
@@ -266,9 +266,8 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                                 key={subItem.name}
                                 href={subItem.href}
                                 className="block px-4 py-2.5 text-sm text-neutral-700 hover:bg-primary/10 hover:text-primary transition-colors"
-                                onClick={e => {
-                                  // Allow navigation to start before closing dropdown
-                                  setTimeout(() => setActiveDropdown(null), 100);
+                                onClick={() => {
+                                  setActiveDropdown(null);
                                 }}
                               >
                                 {subItem.name}
@@ -293,8 +292,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
 
             {/* Mobile Menu Button */}
             <button
-              onClick={e => {
-                e.stopPropagation();
+              onClick={() => {
                 setMobileMenuOpen(!mobileMenuOpen);
               }}
               className={`lg:hidden p-2 rounded-md transition-colors ${
@@ -340,10 +338,10 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                   <div key={item.name}>
                     <Link
                       href={item.href}
-                      onClick={e => {
-                        // Only close menu if no submenu and allow navigation to start
+                      onClick={() => {
+                        // Only close menu if no submenu
                         if (!item.submenu) {
-                          setTimeout(() => setMobileMenuOpen(false), 100);
+                          setMobileMenuOpen(false);
                         }
                       }}
                       className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors ${
@@ -360,9 +358,8 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                           <Link
                             key={subItem.name}
                             href={subItem.href}
-                            onClick={e => {
-                              // Allow navigation to start before closing menu
-                              setTimeout(() => setMobileMenuOpen(false), 100);
+                            onClick={() => {
+                              setMobileMenuOpen(false);
                             }}
                             className="block px-4 py-2 text-sm text-neutral-600 hover:text-primary transition-colors"
                           >
@@ -376,9 +373,8 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                 <div className="pt-4 mt-4 border-t border-neutral-200">
                   <Link
                     href={language === 'es' ? '/es/contacto' : '/contact'}
-                    onClick={e => {
-                      // Allow navigation to start before closing menu
-                      setTimeout(() => setMobileMenuOpen(false), 100);
+                    onClick={() => {
+                      setMobileMenuOpen(false);
                     }}
                     className="block w-full px-4 py-3 bg-gradient-to-r from-primary to-primary-600 text-secondary text-center font-bold rounded-full hover:from-primary-600 hover:to-primary-700 transition-all shadow-md"
                   >

@@ -18,18 +18,27 @@ export function LanguageToggle() {
   }, [pathname]);
 
   const toggleLanguage = () => {
-    if (language === 'en') {
-      // Switch to Spanish
-      if (!pathname || pathname === '/') {
-        router.push('/es');
+    const newLanguage = language === 'en' ? 'es' : 'en';
+    let newPath;
+
+    if (newLanguage === 'es') {
+      if (pathname === '/') {
+        newPath = '/es';
       } else {
-        router.push(`/es${pathname || ''}`);
+        newPath = `/es${pathname}`;
       }
     } else {
-      // Switch to English
-      const englishPath = pathname?.replace('/es', '') || '/';
-      router.push(englishPath);
+      // Remove /es prefix only if it's at the beginning
+      if (pathname?.startsWith('/es/')) {
+        newPath = pathname.substring(3); // Remove '/es' prefix
+      } else if (pathname === '/es') {
+        newPath = '/';
+      } else {
+        newPath = pathname || '/';
+      }
     }
+
+    router.push(newPath);
   };
 
   return (
