@@ -22,6 +22,21 @@ const FirmHighlights = dynamic(() => import('./FirmHighlights'), {
   loading: () => <div className="h-96 bg-black" />,
 });
 
+const TestimonialsSection = dynamic(
+  () => import('./TestimonialsSection').then(mod => ({ default: mod.TestimonialsSection })),
+  {
+    loading: () => <div className="h-96 bg-black" />,
+  }
+);
+
+const PracticeAreasShowcase = dynamic(() => import('./PracticeAreasShowcase'), {
+  loading: () => <div className="h-96 bg-black" />,
+});
+
+const VirtualParalegal = dynamic(() => import('../VirtualParalegal'), {
+  loading: () => null,
+});
+
 export default function SpanishHomePage() {
   const [showVirtualParalegal, setShowVirtualParalegal] = useState(false);
 
@@ -107,8 +122,19 @@ export default function SpanishHomePage() {
       </motion.section>
 
       <FirmHighlights language="es" />
+      <PracticeAreasShowcase language="es" />
       <OfficeLocations language="es" />
       <ResultsShowcase language="es" />
+      <TestimonialsSection language="es" />
+
+      {/* Virtual Paralegal Modal */}
+      {showVirtualParalegal && (
+        <VirtualParalegal
+          isOpen={showVirtualParalegal}
+          onClose={() => setShowVirtualParalegal(false)}
+          language="es"
+        />
+      )}
 
       {/* Background Effects */}
       <div className="fixed inset-0 -z-10 overflow-hidden">

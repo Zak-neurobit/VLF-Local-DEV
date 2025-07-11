@@ -6,28 +6,26 @@ import { generateAttorneyMetadata } from '@/lib/seo/hreflang-metadata';
 import { AttorneyPageHreflang } from '@/components/SEO/DynamicHreflang';
 
 export const metadata: Metadata = generateAttorneyMetadata({
-  name: 'Roselyn V. Torrellas',
-  nameEs: 'Roselyn V. Torrellas',
+  name: 'Kelly Vega',
+  nameEs: 'Kelly Vega',
   title: 'Immigration Attorney',
   titleEs: 'Abogada de Inmigración',
   description:
-    'Roselyn V. Torrellas is a passionate immigration attorney dedicated to protecting the rights of immigrants, specializing in humanitarian immigration cases.',
+    'Kelly Vega is a dedicated immigration attorney at Vasquez Law Firm, helping clients navigate complex immigration matters with compassion and expertise.',
   descriptionEs:
-    'Roselyn V. Torrellas es una abogada de inmigración apasionada dedicada a proteger los derechos de los inmigrantes, especializada en casos de inmigración humanitaria.',
-  slug: 'roselyn-torrellas',
-  photo: '/images/attorneys/roselyn-torrellas.jpg',
+    'Kelly Vega es una abogada de inmigración dedicada en Vasquez Law Firm, ayudando a clientes a navegar asuntos migratorios complejos con compasión y experiencia.',
+  slug: 'kelly-vega',
+  photo: '/images/attorneys/kelly-vega.jpg',
   specialties: [
     'immigration law',
-    'asylum',
-    'U-visas',
-    'DACA',
     'deportation defense',
+    'family immigration',
     'Spanish speaking lawyer',
   ],
 });
 
 export default function Page() {
-  const attorney = getAttorneyBySlug('roselyn-torrellas');
+  const attorney = getAttorneyBySlug('kelly-vega');
 
   if (!attorney) {
     notFound();
@@ -35,7 +33,7 @@ export default function Page() {
 
   return (
     <>
-      <AttorneyPageHreflang slug="roselyn-torrellas" />
+      <AttorneyPageHreflang slug="kelly-vega" />
       <AttorneyPageTemplate attorney={attorney} language="es" />
     </>
   );

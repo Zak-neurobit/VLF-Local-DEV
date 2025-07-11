@@ -1027,7 +1027,8 @@ class EmailService {
       this.isConfigured &&
       transporter &&
       process.env.NODE_ENV !== 'production' &&
-      !process.env.NEXT_PHASE
+      !process.env.NEXT_PHASE &&
+      !process.env.DISABLE_EMAIL_SERVICE
     ) {
       // Defer verification to avoid build-time connection attempts
       setTimeout(() => {

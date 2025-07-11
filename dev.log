@@ -4,286 +4,116 @@
 
 
 > vasquez-law-website@1.0.0 build:socket
-> tsc --project tsconfig.socket.json
+> tsc --project tsconfig.socket.json && mkdir -p dist/lib/socket && cp src/lib/socket/server-setup.js dist/lib/socket/
 
-src/services/email.service.ts(103,44): error TS2339: Property 'name' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(107,57): error TS2339: Property 'preferredContact' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(108,18): error TS2339: Property 'location' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(108,67): error TS2339: Property 'location' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(111,18): error TS2339: Property 'sourceUrl' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(111,75): error TS2339: Property 'sourceUrl' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(111,94): error TS2339: Property 'sourceUrl' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(121,14): error TS2339: Property 'name' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(125,27): error TS2339: Property 'preferredContact' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(126,8): error TS2339: Property 'location' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(126,37): error TS2339: Property 'location' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(131,8): error TS2339: Property 'sourceUrl' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(131,36): error TS2339: Property 'sourceUrl' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(144,18): error TS2339: Property 'preferredLanguage' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(144,86): error TS2339: Property 'preferredLanguage' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(148,18): error TS2339: Property 'incidentDate' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(148,85): error TS2339: Property 'incidentDate' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(149,67): error TS2339: Property 'urgency' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(149,110): error TS2339: Property 'urgency' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(149,168): error TS2339: Property 'urgency' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(150,57): error TS2339: Property 'previousAttorney' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(151,18): error TS2339: Property 'courtDate' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(151,128): error TS2339: Property 'courtDate' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(152,59): error TS2339: Property 'documentsAvailable' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(155,52): error TS2339: Property 'description' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(158,64): error TS2339: Property 'preferredContact' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(159,54): error TS2339: Property 'preferredTime' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(162,18): error TS2339: Property 'leadScore' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(165,87): error TS2339: Property 'leadScore' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(165,122): error TS2339: Property 'leadScore' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(165,172): error TS2339: Property 'leadScore' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(182,8): error TS2339: Property 'preferredLanguage' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(182,56): error TS2339: Property 'preferredLanguage' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(186,8): error TS2339: Property 'incidentDate' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(186,55): error TS2339: Property 'incidentDate' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(187,17): error TS2339: Property 'urgency' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(188,27): error TS2339: Property 'previousAttorney' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(189,8): error TS2339: Property 'courtDate' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(189,49): error TS2339: Property 'courtDate' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(190,29): error TS2339: Property 'documentsAvailable' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(193,8): error TS2339: Property 'description' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(196,34): error TS2339: Property 'preferredContact' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(197,24): error TS2339: Property 'preferredTime' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(199,8): error TS2339: Property 'leadScore' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(199,55): error TS2339: Property 'leadScore' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(212,48): error TS2769: No overload matches this call.
-  Overload 1 of 4, '(value: string | number | Date): Date', gave the following error.
-    Argument of type 'Date | undefined' is not assignable to parameter of type 'string | number | Date'.
-      Type 'undefined' is not assignable to type 'string | number | Date'.
-  Overload 2 of 4, '(value: string | number): Date', gave the following error.
-    Argument of type 'Date | undefined' is not assignable to parameter of type 'string | number'.
-      Type 'undefined' is not assignable to type 'string | number'.
-src/services/email.service.ts(214,44): error TS2551: Property 'appointmentType' does not exist on type 'EmailTemplateData'. Did you mean 'appointmentDate'?
-src/services/email.service.ts(216,48): error TS2339: Property 'location' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(218,18): error TS2339: Property 'meetingType' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(224,18): error TS2339: Property 'notes' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(224,61): error TS2339: Property 'notes' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(240,81): error TS2551: Property 'appointmentId' does not exist on type 'EmailTemplateData'. Did you mean 'appointmentDate'?
-src/services/email.service.ts(255,18): error TS2769: No overload matches this call.
-  Overload 1 of 4, '(value: string | number | Date): Date', gave the following error.
-    Argument of type 'Date | undefined' is not assignable to parameter of type 'string | number | Date'.
-      Type 'undefined' is not assignable to type 'string | number | Date'.
-  Overload 2 of 4, '(value: string | number): Date', gave the following error.
-    Argument of type 'Date | undefined' is not assignable to parameter of type 'string | number'.
-      Type 'undefined' is not assignable to type 'string | number'.
-src/services/email.service.ts(257,14): error TS2551: Property 'appointmentType' does not exist on type 'EmailTemplateData'. Did you mean 'appointmentDate'?
-src/services/email.service.ts(259,18): error TS2339: Property 'location' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(260,8): error TS2339: Property 'meetingType' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(261,8): error TS2339: Property 'notes' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(261,31): error TS2339: Property 'notes' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(271,87): error TS2551: Property 'appointmentId' does not exist on type 'EmailTemplateData'. Did you mean 'appointmentDate'?
-src/services/email.service.ts(288,48): error TS2769: No overload matches this call.
-  Overload 1 of 4, '(value: string | number | Date): Date', gave the following error.
-    Argument of type 'Date | undefined' is not assignable to parameter of type 'string | number | Date'.
-      Type 'undefined' is not assignable to type 'string | number | Date'.
-  Overload 2 of 4, '(value: string | number): Date', gave the following error.
-    Argument of type 'Date | undefined' is not assignable to parameter of type 'string | number'.
-      Type 'undefined' is not assignable to type 'string | number'.
-src/services/email.service.ts(291,48): error TS2339: Property 'location' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(293,18): error TS2339: Property 'meetingType' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(297,55): error TS2339: Property 'meetingLink' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(297,100): error TS2339: Property 'meetingLink' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(318,18): error TS2769: No overload matches this call.
-  Overload 1 of 4, '(value: string | number | Date): Date', gave the following error.
-    Argument of type 'Date | undefined' is not assignable to parameter of type 'string | number | Date'.
-      Type 'undefined' is not assignable to type 'string | number | Date'.
-  Overload 2 of 4, '(value: string | number): Date', gave the following error.
-    Argument of type 'Date | undefined' is not assignable to parameter of type 'string | number'.
-      Type 'undefined' is not assignable to type 'string | number'.
-src/services/email.service.ts(321,18): error TS2339: Property 'location' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(322,8): error TS2339: Property 'meetingType' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(322,68): error TS2339: Property 'meetingLink' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(352,125): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string | number | boolean'.
-  Type 'undefined' is not assignable to type 'string | number | boolean'.
-src/services/email.service.ts(352,151): error TS2339: Property 'unsubscribeToken' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(377,94): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string | number | boolean'.
-  Type 'undefined' is not assignable to type 'string | number | boolean'.
-src/services/email.service.ts(377,120): error TS2339: Property 'unsubscribeToken' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(385,24): error TS2339: Property 'name' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(406,13): error TS2339: Property 'name' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(429,48): error TS2339: Property 'formType' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(431,55): error TS2339: Property 'formType' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(433,68): error TS2339: Property 'priority' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(433,107): error TS2339: Property 'priority' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(433,163): error TS2339: Property 'priority' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(434,18): error TS2339: Property 'summary' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(434,65): error TS2339: Property 'summary' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(435,18): error TS2339: Property 'assignedTo' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(435,72): error TS2339: Property 'assignedTo' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(438,76): error TS2339: Property 'id' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(446,12): error TS2339: Property 'formType' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(448,25): error TS2339: Property 'formType' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(450,18): error TS2339: Property 'priority' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(451,8): error TS2339: Property 'summary' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(451,35): error TS2339: Property 'summary' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(452,8): error TS2339: Property 'assignedTo' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(452,42): error TS2339: Property 'assignedTo' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(454,79): error TS2339: Property 'id' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(462,24): error TS2339: Property 'name' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(509,13): error TS2339: Property 'name' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(554,46): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(554,69): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(555,47): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(556,47): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(557,55): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(558,89): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(558,125): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(558,176): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(559,48): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(560,50): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(561,58): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(562,20): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(562,135): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(566,18): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(570,54): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(578,20): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(578,127): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(582,72): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(582,88): error TS2339: Property 'leadId' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(598,14): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(598,37): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(599,15): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(600,15): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(601,23): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(602,20): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(603,16): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(604,18): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(605,26): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(606,8): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(606,54): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(608,8): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(608,40): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(611,8): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(611,68): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(613,75): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(613,91): error TS2339: Property 'leadId' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(623,24): error TS2339: Property 'name' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(629,29): error TS2339: Property 'resetLink' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(638,66): error TS2339: Property 'resetLink' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(651,13): error TS2339: Property 'name' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(656,8): error TS2339: Property 'resetLink' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(672,57): error TS2339: Property 'updateTitle' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(673,24): error TS2339: Property 'clientName' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(683,20): error TS2339: Property 'updateContent' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(698,18): error TS2339: Property 'documentsNeeded' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(698,42): error TS2339: Property 'documentsNeeded' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(702,20): error TS2339: Property 'documentsNeeded' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(712,74): error TS2339: Property 'caseId' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(722,21): error TS2339: Property 'updateTitle' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(724,13): error TS2339: Property 'clientName' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(733,8): error TS2339: Property 'updateContent' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(737,8): error TS2339: Property 'documentsNeeded' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(737,32): error TS2339: Property 'documentsNeeded' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(737,87): error TS2339: Property 'documentsNeeded' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(741,74): error TS2339: Property 'caseId' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(754,24): error TS2339: Property 'clientName' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(759,44): error TS2339: Property 'documentType' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(760,51): error TS2339: Property 'preparedBy' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(764,18): error TS2339: Property 'description' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(767,21): error TS2339: Property 'description' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(773,18): error TS2339: Property 'actionRequired' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(776,76): error TS2339: Property 'actionRequired' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(777,20): error TS2339: Property 'deadline' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(777,105): error TS2339: Property 'deadline' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(785,78): error TS2339: Property 'documentId' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(799,13): error TS2339: Property 'clientName' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(804,14): error TS2339: Property 'documentType' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(805,21): error TS2339: Property 'preparedBy' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(808,8): error TS2339: Property 'description' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(808,44): error TS2339: Property 'description' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(810,8): error TS2339: Property 'actionRequired' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(810,50): error TS2339: Property 'actionRequired' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(810,72): error TS2339: Property 'deadline' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(810,112): error TS2339: Property 'deadline' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(812,74): error TS2339: Property 'documentId' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(826,24): error TS2339: Property 'clientName' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(834,50): error TS2339: Property 'receiptNumber' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(834,72): error TS2339: Property 'transactionId' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(838,59): error TS2339: Property 'date' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(842,84): error TS2339: Property 'amount' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(846,50): error TS2339: Property 'paymentMethod' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(850,50): error TS2339: Property 'description' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(865,18): error TS2339: Property 'balance' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(868,77): error TS2339: Property 'balance' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(869,20): error TS2339: Property 'nextPaymentDue' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(869,119): error TS2339: Property 'nextPaymentDue' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(886,13): error TS2339: Property 'clientName' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(891,24): error TS2339: Property 'receiptNumber' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(891,46): error TS2339: Property 'transactionId' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(892,23): error TS2339: Property 'date' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(893,17): error TS2339: Property 'amount' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(894,24): error TS2339: Property 'paymentMethod' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(895,21): error TS2339: Property 'description' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(898,8): error TS2339: Property 'balance' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(898,60): error TS2339: Property 'balance' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(898,86): error TS2339: Property 'nextPaymentDue' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(898,140): error TS2339: Property 'nextPaymentDue' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(914,24): error TS2339: Property 'clientName' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(915,61): error TS2339: Property 'consultationDate' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(920,53): error TS2339: Property 'practiceArea' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(921,18): error TS2339: Property 'summary' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(921,39): error TS2339: Property 'summary' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(924,18): error TS2339: Property 'recommendations' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(924,42): error TS2339: Property 'recommendations' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(928,20): error TS2339: Property 'recommendations' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(935,18): error TS2339: Property 'quote' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(939,23): error TS2339: Property 'quote' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(972,13): error TS2339: Property 'clientName' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(974,50): error TS2339: Property 'consultationDate' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(978,23): error TS2339: Property 'practiceArea' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(979,8): error TS2339: Property 'summary' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(979,28): error TS2339: Property 'summary' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(981,8): error TS2339: Property 'recommendations' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(981,32): error TS2339: Property 'recommendations' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(981,93): error TS2339: Property 'recommendations' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(983,8): error TS2339: Property 'quote' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(983,40): error TS2339: Property 'quote' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(1222,31): error TS2339: Property 'subject' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(1346,22): error TS2339: Property 'urgency' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(1351,7): error TS2322: Type 'string | undefined' is not assignable to type 'string | string[]'.
-  Type 'undefined' is not assignable to type 'string | string[]'.
-src/services/email.service.ts(1362,27): error TS2339: Property 'urgency' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(1362,59): error TS2339: Property 'courtDate' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(1367,65): error TS2339: Property 'urgency' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(1375,7): error TS2322: Type 'string | undefined' is not assignable to type 'string | string[]'.
-  Type 'undefined' is not assignable to type 'string | string[]'.
-src/services/email.service.ts(1379,9): error TS2353: Object literal may only specify known properties, and 'name' does not exist in type 'EmailTemplateData'.
-src/services/email.service.ts(1389,7): error TS2322: Type 'string | undefined' is not assignable to type 'string | string[]'.
-  Type 'undefined' is not assignable to type 'string | string[]'.
-src/services/email.service.ts(1398,7): error TS2322: Type 'string | undefined' is not assignable to type 'string | string[]'.
-  Type 'undefined' is not assignable to type 'string | string[]'.
-src/services/email.service.ts(1411,7): error TS2322: Type 'string | undefined' is not assignable to type 'string | string[]'.
-  Type 'undefined' is not assignable to type 'string | string[]'.
-src/services/email.service.ts(1416,9): error TS2353: Object literal may only specify known properties, and 'unsubscribeToken' does not exist in type 'EmailTemplateData'.
-src/services/email.service.ts(1423,7): error TS2322: Type 'string | undefined' is not assignable to type 'string | string[]'.
-  Type 'undefined' is not assignable to type 'string | string[]'.
-src/services/email.service.ts(1433,16): error TS2339: Property 'clientEmail' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(1434,37): error TS2339: Property 'updateTitle' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(1442,16): error TS2339: Property 'clientEmail' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(1446,22): error TS2339: Property 'actionRequired' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(1452,16): error TS2339: Property 'clientEmail' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(1461,16): error TS2339: Property 'clientEmail' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(1476,39): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/email.service.ts(1476,98): error TS2339: Property 'lead' does not exist on type 'EmailTemplateData'.
-src/services/retell/call-router.ts(468,11): error TS2322: Type '{ routeDecision: RouteDecision; originalOptions: CallRoutingOptions; }' is not assignable to type 'JsonNull | InputJsonValue | undefined'.
-  Types of property 'routeDecision' are incompatible.
-    Type 'RouteDecision' is not assignable to type 'InputJsonValue | null | undefined'.
-      Type 'RouteDecision' is not assignable to type 'InputJsonObject'.
-        Index signature for type 'string' is missing in type 'RouteDecision'.
-src/services/retell/call-router.ts(542,9): error TS2322: Type '{ _count: true; }' is not assignable to type 'never'.
-src/services/retell/error-handler.ts(472,13): error TS2322: Type 'string' is not assignable to type 'TaskType'.
-src/services/retell/error-handler.ts(617,30): error TS2339: Property 'sendNotification' does not exist on type 'EmailService'.
-src/services/retell/status-manager.ts(112,20): error TS2339: Property 'callStatusHistory' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
-src/services/retell/status-manager.ts(126,11): error TS2322: Type 'string' is not assignable to type 'VoiceCallStatus | EnumVoiceCallStatusFieldUpdateOperationsInput | undefined'.
-src/services/retell/status-manager.ts(310,9): error TS2353: Object literal may only specify known properties, and 'connectedAt' does not exist in type '(Without<VoiceCallUpdateManyMutationInput, VoiceCallUncheckedUpdateManyInput> & VoiceCallUncheckedUpdateManyInput) | (Without<...> & VoiceCallUpdateManyMutationInput)'.
-src/services/retell/status-manager.ts(463,13): error TS2322: Type 'string | null' is not assignable to type 'string | undefined'.
-  Type 'null' is not assignable to type 'string | undefined'.
-src/services/retell/status-manager.ts(522,36): error TS2339: Property 'callStatusHistory' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
-src/services/retell/status-manager.ts(554,42): error TS2339: Property 'callStatusHistory' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
-src/services/retell/status-manager.ts(568,29): error TS7006: Parameter 'update' implicitly has an 'any' type.
-src/services/retell/status-manager.ts(586,41): error TS2339: Property 'callStatusHistory' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+[dotenv@17.0.0] injecting env (27) from .env.local – 🔐 encrypt with dotenvx: https://dotenvx.com
+Next.js app prepared
+✅ WebSocket server initialized
+
+  ▲ Vasquez Law Firm Development Server Ready
+  ─────────────────────────────────────────────
+  
+  Environment: development
+  URL:         http://localhost:3000
+  WebSocket:   Enabled ✅
+  
+  Chat Status: OpenAI Connected ✅
+  
+  ─────────────────────────────────────────────
+  
+  Press Ctrl+C to stop the server
+      
+ ✓ Compiled /src/middleware in 302ms (216 modules)
+ ○ Compiling /es/areas-de-practica/inmigracion ...
+ ✓ Compiled /es/areas-de-practica/inmigracion in 4.2s (2694 modules)
+ GET /es/areas-de-practica/inmigracion 200 in 4433ms
+ GET /es/areas-de-practica/inmigracion 200 in 68ms
+ GET /es/areas-de-practica/inmigracion 200 in 71ms
+ ○ Compiling /api/auth/session ...
+ ✓ Compiled /api/auth/session in 844ms (2130 modules)
+[WARN] NextAuth warning: DEBUG_ENABLED
+ GET /api/auth/session 200 in 1822ms
+[DB Query] 68ms - SELECT 1...
+[DB Query] 64ms - SELECT 1...
+ GET /api/auth/session 200 in 1959ms
+[DB Query] 63ms - SELECT 1...
+ GET /api/auth/session 200 in 1967ms
+[DB Query] 62ms - SELECT 1...
+ GET /api/auth/session 200 in 2078ms
+ GET /api/auth/session 200 in 40ms
+ ○ Compiling /es/areas-de-practica ...
+ ✓ Compiled /es/areas-de-practica in 593ms (3167 modules)
+ GET /es/areas-de-practica 200 in 725ms
+ GET /es/areas-de-practica/inmigracion 200 in 44ms
+ ✓ Compiled /es/areas-de-practica/lesiones-personales in 236ms (3170 modules)
+ GET /es/areas-de-practica/lesiones-personales 200 in 350ms
+ ✓ Compiled /es/areas-de-practica/compensacion-laboral in 240ms (3189 modules)
+ GET /es/areas-de-practica/compensacion-laboral 200 in 344ms
+ ✓ Compiled /es/areas-de-practica/defensa-criminal in 183ms (3193 modules)
+ GET /es/areas-de-practica/defensa-criminal 200 in 252ms
+ ✓ Compiled /es/areas-de-practica/derecho-familia in 202ms (3195 modules)
+ GET /es/areas-de-practica/derecho-familia 200 in 267ms
+ ✓ Compiled /es/areas-de-practica/infracciones-transito in 443ms (3203 modules)
+ GET /es/areas-de-practica/infracciones-transito 200 in 510ms
+ ○ Compiling /es/abogados ...
+ ✓ Compiled /es/abogados in 995ms (2732 modules)
+ GET /es/abogados 200 in 1196ms
+ ✓ Compiled /es/abogados/william-vasquez in 257ms (2755 modules)
+ GET /es/abogados/william-vasquez 200 in 415ms
+ ✓ Compiled /es/abogados/kelly-vega in 217ms (2757 modules)
+ GET /es/abogados/kelly-vega 200 in 328ms
+ ✓ Compiled /es/abogados/rebecca-sommer in 265ms (2759 modules)
+ GET /es/abogados/rebecca-sommer 200 in 380ms
+ ○ Compiling /es ...
+ ✓ Compiled /es in 3.1s (4104 modules)
+ GET /es 200 in 3381ms
+ ✓ Compiled /es/ubicaciones in 365ms (4115 modules)
+ GET /es/ubicaciones 200 in 483ms
+ ✓ Compiled /es/contacto in 379ms (4154 modules)
+ GET /es/contacto 200 in 507ms
+ ✓ Compiled /es/blog in 283ms (4163 modules)
+ GET /es/blog 200 in 365ms
+[DB Error] Error in PostgreSQL connection: Error { kind: Closed, cause: None }: {
+  timestamp: 2025-07-11T02:51:48.425Z,
+  message: 'Error in PostgreSQL connection: Error { kind: Closed, cause: None }',
+  target: 'quaint::connector::postgres::native'
+}
+[DB Error] Error in PostgreSQL connection: Error { kind: Closed, cause: None }: {
+  timestamp: 2025-07-11T02:51:48.428Z,
+  message: 'Error in PostgreSQL connection: Error { kind: Closed, cause: None }',
+  target: 'quaint::connector::postgres::native'
+}
+[DB Error] Error in PostgreSQL connection: Error { kind: Closed, cause: None }: {
+  timestamp: 2025-07-11T02:51:48.428Z,
+  message: 'Error in PostgreSQL connection: Error { kind: Closed, cause: None }',
+  target: 'quaint::connector::postgres::native'
+}
+[DB Error] Error in PostgreSQL connection: Error { kind: Closed, cause: None }: {
+  timestamp: 2025-07-11T02:51:48.429Z,
+  message: 'Error in PostgreSQL connection: Error { kind: Closed, cause: None }',
+  target: 'quaint::connector::postgres::native'
+}
+ ○ Compiling /api/auth/session ...
+ ✓ Compiled /api/auth/session in 778ms (2130 modules)
+[WARN] NextAuth warning: DEBUG_ENABLED
+ GET /api/auth/session 200 in 1093ms
+ GET /api/auth/session 200 in 1089ms
+ ✓ Compiled /es in 402ms (2824 modules)
+ GET /es 200 in 630ms
+ ✓ Compiled /_not-found in 354ms (4577 modules)
+ GET /images/grid.svg 404 in 433ms
+ ⚠ The "images.domains" configuration is deprecated. Please use "images.remotePatterns" configuration instead.
+[WARN] NextAuth warning: DEBUG_ENABLED
+ GET /api/auth/session 200 in 128ms
+ GET /api/auth/session 200 in 155ms
+ GET /es 200 in 134ms
+ GET /images/grid.svg 404 in 16ms
+ GET /api/auth/session 200 in 80ms
+ GET /api/auth/session 200 in 55ms
+ GET /es 200 in 101ms
+ GET /images/grid.svg 404 in 19ms
+ GET /api/auth/session 200 in 80ms
+ GET /api/auth/session 200 in 55ms
+ GET /es/areas-de-practica/inmigracion 200 in 74ms
+ GET /api/auth/session 200 in 77ms
+ GET /api/auth/session 200 in 67ms

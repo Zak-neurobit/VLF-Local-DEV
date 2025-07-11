@@ -79,11 +79,6 @@ const oldSiteRedirects = [
 
   // Spanish redirects
   {
-    source: '/es/areas-de-practica/inmigracion/:path*',
-    destination: '/es/areas-de-practica/inmigracion/:path*',
-    permanent: true,
-  },
-  {
     source: '/abogados-de-inmigracion-de-t-visa/index.html',
     destination: '/t-visa-immigration-attorneys',
     permanent: true,
