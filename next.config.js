@@ -1,18 +1,29 @@
 /** @type {import('next').NextConfig} */
 const oldSiteRedirects = require('./redirects-config');
+const spanishRedirects = require('./spanish-redirects');
+
+// Validate environment variables at build time
+if (process.env.NODE_ENV !== 'test') {
+  try {
+    require('./src/lib/env-check');
+  } catch (error) {
+    console.error('❌ Environment validation failed during build configuration');
+    console.error(error);
+    process.exit(1);
+  }
+}
 
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   compress: true,
   eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
+    // We want to catch all ESLint errors during build
+    ignoreDuringBuilds: false,
   },
-  // Skip type checking during build to speed up deployment
+  // Enable type checking during build
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   images: {
     domains: ['vasquezlawnc.com', 'images.unsplash.com', 'via.placeholder.com'],
@@ -192,6 +203,7 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      ...spanishRedirects,
       ...oldSiteRedirects,
       // Additional custom redirects
       {

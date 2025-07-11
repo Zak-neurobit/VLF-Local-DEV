@@ -23,7 +23,8 @@ function listDirectory(dirPath) {
 }
 
 // Try different path variations
-const desktopPath = '/Users/williamvasquez/Desktop';
+const homePath = require('os').homedir();
+const desktopPath = path.join(homePath, 'Desktop');
 const possiblePaths = [
   path.join(desktopPath, 'AILA CLE'),
   path.join(desktopPath, 'AILA'),

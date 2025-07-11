@@ -2,8 +2,8 @@
 const fs = require('fs').promises;
 
 async function fixSyntax() {
-  const filePath =
-    '/Users/williamvasquez/Documents/VLF Website/vasquez-law-website/scripts/enhanced-seo-autoloop.js';
+  const path = require('path');
+  const filePath = path.join(process.cwd(), 'vasquez-law-website/scripts/enhanced-seo-autoloop.js');
 
   let content = await fs.readFile(filePath, 'utf-8');
 

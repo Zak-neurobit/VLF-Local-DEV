@@ -3,7 +3,7 @@ const path = require('path');
 const glob = require('glob');
 
 // Find all TypeScript files that might have the conflict
-const pattern = '/Users/williamvasquez/Documents/VLF Website/src/app/**/*.{ts,tsx}';
+const pattern = path.join(process.cwd(), 'src/app/**/*.{ts,tsx}');
 const allFiles = glob.sync(pattern);
 
 // Filter files that have both the dynamic import and export const dynamic
@@ -26,9 +26,7 @@ let successCount = 0;
 filesToFix.forEach(filePath => {
   let content = fs.readFileSync(filePath, 'utf8');
 
-  console.log(
-    `Processing: ${path.relative('/Users/williamvasquez/Documents/VLF Website', filePath)}`
-  );
+  console.log(`Processing: ${path.relative(process.cwd(), filePath)}`);
 
   // Replace the import statement
   content = content.replace(

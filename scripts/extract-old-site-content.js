@@ -9,7 +9,8 @@ const fs = require('fs').promises;
 const path = require('path');
 const cheerio = require('cheerio');
 
-const OLD_SITE_PATH = '/Users/williamvasquez/Documents/vlf old site /www.vasquezlawnc.com';
+const homePath = require('os').homedir();
+const OLD_SITE_PATH = path.join(homePath, 'Documents/vlf old site /www.vasquezlawnc.com');
 const OUTPUT_PATH = path.join(process.cwd(), 'content-import/old-site');
 
 // Ensure output directory exists
@@ -264,7 +265,7 @@ async function main() {
     } catch (error) {
       console.error(`❌ Old site directory not found at: ${OLD_SITE_PATH}`);
       console.log('\nPlease ensure the old site is located at:');
-      console.log('/Users/williamvasquez/Documents/vlf old site /www.vasquezlawnc.com/\n');
+      console.log(`${path.join(homePath, 'Documents/vlf old site /www.vasquezlawnc.com/')}\n`);
       process.exit(1);
     }
 

@@ -4,10 +4,10 @@
  * This system makes the website ALIVE and self-running
  */
 
-import { BullMQ } from 'bullmq';
+import { Queue } from 'bullmq';
 import Redis from 'ioredis';
 import { OpenAI } from 'openai';
-import nodeCron from 'node-cron';
+import * as cron from 'node-cron';
 import { v4 as uuidv4 } from 'uuid';
 import winston from 'winston';
 import moment from 'moment';
@@ -26,9 +26,9 @@ const logger = winston.createLogger({
     new winston.transports.File({ filename: 'logs/crew-error.log', level: 'error' }),
     new winston.transports.File({ filename: 'logs/crew-combined.log' }),
     new winston.transports.Console({
-      format: winston.format.simple()
-    })
-  ]
+      format: winston.format.simple(),
+    }),
+  ],
 });
 
 // Agent Types
@@ -42,7 +42,7 @@ export enum AgentType {
   COURT_LISTENER = 'court_listener',
   COMPETITION_TRACKER = 'competition_tracker',
   SEO_DOMINATOR = 'seo_dominator',
-  WEBSITE_UPDATER = 'website_updater'
+  WEBSITE_UPDATER = 'website_updater',
 }
 
 // Task Types
@@ -55,7 +55,7 @@ export enum TaskType {
   LEGAL_UPDATE = 'legal_update',
   WEBSITE_UPDATE = 'website_update',
   SEO_OPTIMIZATION = 'seo_optimization',
-  COMPETITIVE_ANALYSIS = 'competitive_analysis'
+  COMPETITIVE_ANALYSIS = 'competitive_analysis',
 }
 
 // Agent Configuration
@@ -119,20 +119,22 @@ export class AutonomousCrewSystem {
   private tasks: Map<string, TaskConfig> = new Map();
   private metrics: Map<string, AgentMetrics> = new Map();
   private isRunning: boolean = false;
-  private cronJobs: Map<string, nodeCron.ScheduledTask> = new Map();
-  private queues: Map<string, BullMQ> = new Map();
+  private cronJobs: Map<string, cron.ScheduledTask> = new Map();
+  private queues: Map<string, Queue> = new Map();
 
   constructor() {
     this.redis = new Redis({
       host: process.env.REDIS_HOST || 'localhost',
       port: parseInt(process.env.REDIS_PORT || '6379'),
       password: process.env.REDIS_PASSWORD,
-      retryDelayOnFailover: 100,
-      maxRetriesPerRequest: 3
+      retryStrategy: (times: number) => {
+        const delay = Math.min(times * 100, 3000);
+        return delay;
+      },
     });
 
     this.openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY!
+      apiKey: process.env.OPENAI_API_KEY!,
     });
 
     this.initializeAgents();
@@ -161,14 +163,20 @@ export class AutonomousCrewSystem {
         systemPrompt: `You are an expert legal content creator for Vasquez Law Firm. Create compelling, SEO-optimized content that converts readers into clients. Focus on North Carolina law, immigration, personal injury, and workers compensation. Always include call-to-actions and contact information.`,
         tools: ['web_search', 'seo_analyzer', 'content_optimizer', 'image_generator'],
         memory: true,
-        learning: true
+        learning: true,
       },
       {
         id: 'social-media-001',
         name: 'Social Media Automation Agent',
         type: AgentType.SOCIAL_MEDIA,
         description: 'Manages all social media accounts with automated posting and engagement',
-        capabilities: ['facebook_posting', 'instagram_posting', 'linkedin_posting', 'twitter_posting', 'engagement_tracking'],
+        capabilities: [
+          'facebook_posting',
+          'instagram_posting',
+          'linkedin_posting',
+          'twitter_posting',
+          'engagement_tracking',
+        ],
         schedule: '0 9,13,17 * * *', // 9AM, 1PM, 5PM daily
         maxConcurrency: 2,
         priority: 8,
@@ -179,14 +187,19 @@ export class AutonomousCrewSystem {
         systemPrompt: `You are a social media manager for Vasquez Law Firm. Create engaging posts that showcase success stories, legal tips, and community involvement. Maintain professional tone while being approachable. Include relevant hashtags and call-to-actions.`,
         tools: ['social_apis', 'image_generator', 'hashtag_analyzer', 'engagement_tracker'],
         memory: true,
-        learning: true
+        learning: true,
       },
       {
         id: 'review-manager-001',
         name: 'Review Response Manager',
         type: AgentType.REVIEW_MANAGER,
         description: 'Monitors and responds to reviews across all platforms',
-        capabilities: ['review_monitoring', 'response_generation', 'reputation_management', 'review_analysis'],
+        capabilities: [
+          'review_monitoring',
+          'response_generation',
+          'reputation_management',
+          'review_analysis',
+        ],
         schedule: '0 */4 * * *', // Every 4 hours
         maxConcurrency: 1,
         priority: 8,
@@ -197,14 +210,19 @@ export class AutonomousCrewSystem {
         systemPrompt: `You are a reputation manager for Vasquez Law Firm. Respond to all reviews professionally and personally. Thank positive reviewers and address negative feedback constructively. Always maintain the firm's professional image.`,
         tools: ['review_apis', 'sentiment_analyzer', 'response_templates'],
         memory: true,
-        learning: true
+        learning: true,
       },
       {
         id: 'lead-nurturing-001',
         name: 'Lead Nurturing Agent',
         type: AgentType.LEAD_NURTURING,
         description: 'Follows up with leads and nurtures them through the sales funnel',
-        capabilities: ['email_automation', 'lead_scoring', 'follow_up_sequences', 'conversion_tracking'],
+        capabilities: [
+          'email_automation',
+          'lead_scoring',
+          'follow_up_sequences',
+          'conversion_tracking',
+        ],
         schedule: '0 8,12,16,20 * * *', // 8AM, 12PM, 4PM, 8PM
         maxConcurrency: 2,
         priority: 9,
@@ -215,14 +233,19 @@ export class AutonomousCrewSystem {
         systemPrompt: `You are a lead nurturing specialist for Vasquez Law Firm. Follow up with potential clients professionally and persistently. Provide value in each interaction and guide leads toward scheduling consultations.`,
         tools: ['email_service', 'crm_integration', 'lead_scorer', 'appointment_scheduler'],
         memory: true,
-        learning: true
+        learning: true,
       },
       {
         id: 'performance-optimizer-001',
         name: 'Performance Optimization Agent',
         type: AgentType.PERFORMANCE_OPTIMIZER,
         description: 'Continuously monitors and optimizes website performance',
-        capabilities: ['performance_monitoring', 'ab_testing', 'conversion_optimization', 'speed_optimization'],
+        capabilities: [
+          'performance_monitoring',
+          'ab_testing',
+          'conversion_optimization',
+          'speed_optimization',
+        ],
         schedule: '0 */6 * * *', // Every 6 hours
         maxConcurrency: 1,
         priority: 7,
@@ -233,7 +256,7 @@ export class AutonomousCrewSystem {
         systemPrompt: `You are a performance optimization expert for Vasquez Law Firm website. Continuously monitor site performance, conduct A/B tests, and implement improvements to increase conversions and user experience.`,
         tools: ['analytics_api', 'performance_monitor', 'ab_test_runner', 'conversion_tracker'],
         memory: true,
-        learning: true
+        learning: true,
       },
       {
         id: 'federal-monitor-001',
@@ -251,7 +274,7 @@ export class AutonomousCrewSystem {
         systemPrompt: `You are a legal research specialist monitoring federal regulations. Identify changes that affect immigration, workers compensation, and personal injury law. Create timely content and alerts for the firm.`,
         tools: ['federal_api', 'legal_analyzer', 'content_creator', 'alert_system'],
         memory: true,
-        learning: true
+        learning: true,
       },
       {
         id: 'seo-dominator-001',
@@ -269,14 +292,19 @@ export class AutonomousCrewSystem {
         systemPrompt: `You are an SEO domination specialist for Vasquez Law Firm. Aggressively optimize all content for search engines. Focus on North Carolina legal keywords and dominate local search results.`,
         tools: ['seo_analyzer', 'keyword_planner', 'backlink_checker', 'competitor_tracker'],
         memory: true,
-        learning: true
+        learning: true,
       },
       {
         id: 'website-updater-001',
         name: 'Dynamic Website Updater',
         type: AgentType.WEBSITE_UPDATER,
         description: 'Keeps website content fresh and dynamic',
-        capabilities: ['content_updates', 'dynamic_sections', 'real_time_updates', 'personalization'],
+        capabilities: [
+          'content_updates',
+          'dynamic_sections',
+          'real_time_updates',
+          'personalization',
+        ],
         schedule: '0 */3 * * *', // Every 3 hours
         maxConcurrency: 1,
         priority: 8,
@@ -285,10 +313,15 @@ export class AutonomousCrewSystem {
         temperature: 0.6,
         maxTokens: 800,
         systemPrompt: `You are a website content manager for Vasquez Law Firm. Keep the website fresh and dynamic with real-time updates, personalized content, and engaging sections that adapt to current events and user behavior.`,
-        tools: ['content_manager', 'personalization_engine', 'dynamic_updater', 'engagement_tracker'],
+        tools: [
+          'content_manager',
+          'personalization_engine',
+          'dynamic_updater',
+          'engagement_tracker',
+        ],
         memory: true,
-        learning: true
-      }
+        learning: true,
+      },
     ];
 
     // Load agents into memory
@@ -304,7 +337,7 @@ export class AutonomousCrewSystem {
         errorRate: 0,
         successRate: 0,
         contentGenerated: 0,
-        engagementGenerated: 0
+        engagementGenerated: 0,
       });
     });
 
@@ -317,9 +350,9 @@ export class AutonomousCrewSystem {
    */
   private setupQueues(): void {
     const queueTypes = Object.values(TaskType);
-    
+
     queueTypes.forEach(taskType => {
-      const queue = new BullMQ(taskType, {
+      const queue = new Queue(taskType, {
         connection: this.redis,
         defaultJobOptions: {
           removeOnComplete: 100,
@@ -327,9 +360,9 @@ export class AutonomousCrewSystem {
           attempts: 3,
           backoff: {
             type: 'exponential',
-            delay: 2000
-          }
-        }
+            delay: 2000,
+          },
+        },
       });
 
       this.queues.set(taskType, queue);
@@ -353,11 +386,8 @@ export class AutonomousCrewSystem {
     // Schedule all agents
     for (const [agentId, config] of this.agents) {
       if (config.enabled) {
-        const cronJob = nodeCron.schedule(config.schedule, async () => {
+        const cronJob = cron.schedule(config.schedule, async () => {
           await this.executeAgent(agentId);
-        }, {
-          scheduled: true,
-          timezone: 'America/New_York'
         });
 
         this.cronJobs.set(agentId, cronJob);
@@ -389,23 +419,23 @@ export class AutonomousCrewSystem {
     try {
       // Create task based on agent type
       const task = await this.createTaskForAgent(agent);
-      
+
       // Execute task
       const result = await this.executeTask(task);
-      
+
       // Update metrics
       const metrics = this.metrics.get(agentId)!;
       metrics.tasksCompleted++;
       metrics.tasksSuccessful++;
       metrics.lastActive = new Date();
-      metrics.averageExecutionTime = (metrics.averageExecutionTime + (performance.now() - startTime)) / 2;
+      metrics.averageExecutionTime =
+        (metrics.averageExecutionTime + (performance.now() - startTime)) / 2;
       metrics.successRate = (metrics.tasksSuccessful / metrics.tasksCompleted) * 100;
 
       logger.info(`✅ Agent ${agent.name} completed task successfully`);
-      
     } catch (error) {
       logger.error(`❌ Agent ${agent.name} failed:`, error);
-      
+
       // Update error metrics
       const metrics = this.metrics.get(agentId)!;
       metrics.tasksFailed++;
@@ -430,7 +460,7 @@ export class AutonomousCrewSystem {
       tools: agent.tools,
       context: {},
       retryCount: 0,
-      maxRetries: 3
+      maxRetries: 3,
     };
 
     switch (agent.type) {
@@ -443,8 +473,8 @@ export class AutonomousCrewSystem {
             topics: ['immigration', 'personal_injury', 'workers_compensation', 'criminal_defense'],
             targetAudience: 'north_carolina_residents',
             contentType: 'blog_post',
-            seoKeywords: await this.getTopKeywords()
-          }
+            seoKeywords: await this.getTopKeywords(),
+          },
         };
 
       case AgentType.SOCIAL_MEDIA:
@@ -456,8 +486,8 @@ export class AutonomousCrewSystem {
             platforms: ['facebook', 'instagram', 'linkedin', 'twitter'],
             postType: 'success_story',
             tone: 'professional_friendly',
-            hashtags: await this.getTrendingHashtags()
-          }
+            hashtags: await this.getTrendingHashtags(),
+          },
         };
 
       case AgentType.REVIEW_MANAGER:
@@ -468,8 +498,8 @@ export class AutonomousCrewSystem {
           context: {
             platforms: ['google', 'avvo'],
             responseType: 'professional',
-            checkPeriod: '4_hours'
-          }
+            checkPeriod: '4_hours',
+          },
         };
 
       case AgentType.LEAD_NURTURING:
@@ -480,8 +510,8 @@ export class AutonomousCrewSystem {
           context: {
             leadSources: ['website', 'google_ads', 'referrals'],
             followUpType: 'email_sequence',
-            timeframe: '24_hours'
-          }
+            timeframe: '24_hours',
+          },
         };
 
       case AgentType.PERFORMANCE_OPTIMIZER:
@@ -492,8 +522,8 @@ export class AutonomousCrewSystem {
           context: {
             metrics: ['page_speed', 'conversion_rate', 'bounce_rate'],
             pages: ['homepage', 'practice_areas', 'contact'],
-            optimizationType: 'conversion'
-          }
+            optimizationType: 'conversion',
+          },
         };
 
       case AgentType.FEDERAL_MONITOR:
@@ -504,8 +534,8 @@ export class AutonomousCrewSystem {
           context: {
             categories: ['immigration', 'labor', 'commerce'],
             keywords: ['visa', 'immigration', 'workers', 'compensation'],
-            timeframe: '1_hour'
-          }
+            timeframe: '1_hour',
+          },
         };
 
       case AgentType.SEO_DOMINATOR:
@@ -516,8 +546,8 @@ export class AutonomousCrewSystem {
           context: {
             targetKeywords: await this.getCompetitorKeywords(),
             locations: ['charlotte', 'raleigh', 'durham', 'winston-salem'],
-            practiceAreas: ['immigration', 'personal_injury', 'workers_comp']
-          }
+            practiceAreas: ['immigration', 'personal_injury', 'workers_comp'],
+          },
         };
 
       case AgentType.WEBSITE_UPDATER:
@@ -528,8 +558,8 @@ export class AutonomousCrewSystem {
           context: {
             sections: ['hero', 'testimonials', 'news', 'practice_areas'],
             updateType: 'real_time',
-            personalizeFor: 'returning_visitors'
-          }
+            personalizeFor: 'returning_visitors',
+          },
         };
 
       default:
@@ -551,7 +581,7 @@ export class AutonomousCrewSystem {
       [AgentType.SEO_DOMINATOR]: TaskType.SEO_OPTIMIZATION,
       [AgentType.WEBSITE_UPDATER]: TaskType.WEBSITE_UPDATE,
       [AgentType.COURT_LISTENER]: TaskType.LEGAL_UPDATE,
-      [AgentType.COMPETITION_TRACKER]: TaskType.COMPETITIVE_ANALYSIS
+      [AgentType.COMPETITION_TRACKER]: TaskType.COMPETITIVE_ANALYSIS,
     };
 
     return mapping[agentType] || TaskType.CONTENT_GENERATION;
@@ -576,17 +606,17 @@ export class AutonomousCrewSystem {
       model: agent.model,
       messages: [
         { role: 'system', content: agent.systemPrompt },
-        { role: 'user', content: fullPrompt }
+        { role: 'user', content: fullPrompt },
       ],
       temperature: agent.temperature,
-      max_tokens: agent.maxTokens
+      max_tokens: agent.maxTokens,
     });
 
-    const result = response.choices[0].message.content;
-    
+    const result = response.choices[0].message.content || '';
+
     // Process the result based on task type
     await this.processTaskResult(task, result);
-    
+
     return result;
   }
 
@@ -714,9 +744,12 @@ export class AutonomousCrewSystem {
    */
   private async startMonitoring(): Promise<void> {
     // Health check every 5 minutes
-    setInterval(async () => {
-      await this.healthCheck();
-    }, 5 * 60 * 1000);
+    setInterval(
+      async () => {
+        await this.healthCheck();
+      },
+      5 * 60 * 1000
+    );
 
     logger.info('📊 Monitoring system started');
   }
@@ -731,18 +764,18 @@ export class AutonomousCrewSystem {
         id: agent.id,
         name: agent.name,
         enabled: agent.enabled,
-        metrics: this.metrics.get(agent.id)
+        metrics: this.metrics.get(agent.id),
       })),
       queues: Array.from(this.queues.keys()).map(queueName => ({
         name: queueName,
-        active: true // Check actual queue status
+        active: true, // Check actual queue status
       })),
-      redis: await this.redis.ping() === 'PONG',
+      redis: (await this.redis.ping()) === 'PONG',
       system: {
         uptime: process.uptime(),
         memory: process.memoryUsage(),
-        cpu: process.cpuUsage()
-      }
+        cpu: process.cpuUsage(),
+      },
     };
 
     logger.info('💊 Health check completed', healthStatus);
@@ -757,7 +790,7 @@ export class AutonomousCrewSystem {
       activeAgents: Array.from(this.agents.values()).filter(a => a.enabled).length,
       cronJobs: this.cronJobs.size,
       queues: this.queues.size,
-      startTime: new Date()
+      startTime: new Date(),
     };
 
     logger.info('📈 System Status:', status);
@@ -802,9 +835,9 @@ export class AutonomousCrewSystem {
     if (!agent) throw new Error(`Agent ${agentId} not found`);
 
     agent.enabled = enabled;
-    
+
     if (enabled && !this.cronJobs.has(agentId)) {
-      const cronJob = nodeCron.schedule(agent.schedule, async () => {
+      const cronJob = cron.schedule(agent.schedule, async () => {
         await this.executeAgent(agentId);
       });
       this.cronJobs.set(agentId, cronJob);
