@@ -180,9 +180,7 @@ export const Header: React.FC<HeaderProps> = ({ language, setLanguage }) => {
                   <Link
                     key={item.name}
                     href={item.href}
-                    onClick={(e) => {
-                      setTimeout(() => setMobileMenuOpen(false), 100);
-                    }}
+                    onClick={() => setMobileMenuOpen(false)}
                     className={`block px-3 py-2.5 text-base font-medium rounded-md transition-colors ${
                       pathname === item.href
                         ? 'bg-secondary/10 text-secondary'
@@ -195,9 +193,7 @@ export const Header: React.FC<HeaderProps> = ({ language, setLanguage }) => {
                 <div className="pt-4 mt-4 border-t border-gray-200">
                   <Link
                     href="/contact"
-                    onClick={(e) => {
-                      setTimeout(() => setMobileMenuOpen(false), 100);
-                    }}
+                    onClick={() => setMobileMenuOpen(false)}
                     className="block w-full px-4 py-3 bg-gradient-to-r from-secondary to-secondary-600 text-white text-center font-semibold rounded hover:from-secondary-600 hover:to-secondary transition-all"
                   >
                     {language === 'es' ? 'Consulta Gratis' : 'Free Consultation'}
