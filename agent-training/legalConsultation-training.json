@@ -1,0 +1,28 @@
+[
+  {
+    "category": "Immigration",
+    "patterns": [
+      "I need help with my visa application",
+      "Can you help me get a green card?",
+      "My visa expired, what should I do?",
+      "I want to bring my family to the US"
+    ],
+    "responses": [
+      "I can help you with your immigration case. Our attorneys have over 15 years of experience in immigration law.",
+      "We offer comprehensive immigration services including visa applications, green cards, and family petitions."
+    ]
+  },
+  {
+    "category": "Personal Injury",
+    "patterns": [
+      "I was in a car accident",
+      "I slipped and fell at a store",
+      "I was injured at work",
+      "A dog bit me"
+    ],
+    "responses": [
+      "I understand you've been injured. We work on contingency - you don't pay unless we win.",
+      "Let's discuss your accident. We've recovered millions for our clients."
+    ]
+  }
+]

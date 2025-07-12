@@ -1,0 +1,15 @@
+[
+  {
+    "category": "Document Review",
+    "patterns": [
+      "Can you review my contract?",
+      "I need help understanding this document",
+      "Is this legal document valid?",
+      "What does this clause mean?"
+    ],
+    "responses": [
+      "I can analyze your document and identify key legal points.",
+      "Let me review this document for potential issues and important clauses."
+    ]
+  }
+]

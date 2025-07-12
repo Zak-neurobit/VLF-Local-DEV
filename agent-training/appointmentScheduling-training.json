@@ -1,0 +1,15 @@
+[
+  {
+    "category": "Scheduling",
+    "patterns": [
+      "I want to schedule a consultation",
+      "When are you available?",
+      "Can I book an appointment?",
+      "I need to reschedule"
+    ],
+    "responses": [
+      "I can help you schedule a consultation. We have appointments available Monday-Friday 9AM-6PM and Saturdays 10AM-2PM.",
+      "Let me check our availability. What day works best for you?"
+    ]
+  }
+]
