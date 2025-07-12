@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import { logger } from '../src/lib/logger';
 import { crewCoordinator } from '../src/lib/crewai/crew-coordinator';
 
-dotenv.config();
+dotenv.config({ path: '.env.local' });
 
 interface AgentSetupConfig {
   name: string;
