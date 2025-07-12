@@ -47,7 +47,11 @@ const envSchema = z.object({
   RETELL_WEBHOOK_SECRET: z.string().optional(),
 
   // Email Configuration (Optional with defaults)
-  EMAIL_FROM: z.string().email().optional().default('info@vasquezlawnc.com'),
+  EMAIL_FROM: z
+    .string()
+    .transform(val => (val === '' ? undefined : val))
+    .optional()
+    .default('info@vasquezlawnc.com'),
   SMTP_HOST: z.string().optional(),
   SMTP_PORT: z.string().optional(),
   SMTP_USER: z.string().optional(),
