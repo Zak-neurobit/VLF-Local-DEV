@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 // Removed unused framer-motion import
+import { useRouter } from 'next/navigation';
 import {
   DollarSign,
   CreditCard,
@@ -34,7 +35,6 @@ interface Invoice {
   }>;
 }
 
-
 interface TrustAccount {
   balance: number;
   lastUpdated: string;
@@ -57,6 +57,7 @@ interface ClientData {
 
 export default function BillingSection({ clientData }: { clientData: ClientData }) {
   // Using clientData for future client-specific billing queries
+  const router = useRouter();
   const clientId = clientData.id;
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [trustAccount, setTrustAccount] = useState<TrustAccount | null>(null);
@@ -85,7 +86,6 @@ export default function BillingSection({ clientData }: { clientData: ClientData 
 
     fetchBillingData();
   }, [clientId]);
-
 
   const calculateTotals = () => {
     const totalBilled = invoices.reduce((sum, inv) => sum + inv.amount, 0);
@@ -116,7 +116,7 @@ export default function BillingSection({ clientData }: { clientData: ClientData 
 
   const handlePayInvoice = async (invoice: Invoice) => {
     // Navigate to payment page
-    window.location.href = `/payment?invoice=${invoice.id}&amount=${invoice.amount}`;
+    router.push(`/payment?invoice=${invoice.id}&amount=${invoice.amount}`);
   };
 
   const handleDownloadInvoice = async (invoiceId: string) => {

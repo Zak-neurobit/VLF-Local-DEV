@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Loader2, Bot, User, Phone, Calendar, Globe } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface Message {
   id: string;
@@ -50,6 +51,8 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
   onScheduleAppointment,
   onCallRequest,
 }) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -322,7 +325,9 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
           <button
             onClick={() => {
               const newLang = language === 'en' ? 'es' : 'en';
-              window.location.href = `?lang=${newLang}`;
+              const params = new URLSearchParams(searchParams.toString());
+              params.set('lang', newLang);
+              router.push(`?${params.toString()}`);
             }}
             className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-[#6B1F2E] transition-colors"
           >

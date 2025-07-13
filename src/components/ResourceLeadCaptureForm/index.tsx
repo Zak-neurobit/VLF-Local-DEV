@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, AlertCircle, Loader2, Download, Mail, Shield } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface ResourceLeadCaptureFormProps {
   resourceId: string;
@@ -27,6 +28,7 @@ export default function ResourceLeadCaptureForm({
   className = '',
   customThankYouMessage,
 }: ResourceLeadCaptureFormProps) {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -186,13 +188,20 @@ export default function ResourceLeadCaptureForm({
       setSuccess(true);
 
       // Track conversion
-      if (typeof window !== 'undefined' && (window as Window & { gtag?: (...args: unknown[]) => void }).gtag) {
-        (window as Window & { gtag?: (...args: unknown[]) => void }).gtag('event', 'generate_lead', {
-          currency: 'USD',
-          value: 50, // Resource download value
-          lead_source: 'resource_download',
-          resource_id: resourceId,
-        });
+      if (
+        typeof window !== 'undefined' &&
+        (window as Window & { gtag?: (...args: unknown[]) => void }).gtag
+      ) {
+        (window as Window & { gtag?: (...args: unknown[]) => void }).gtag(
+          'event',
+          'generate_lead',
+          {
+            currency: 'USD',
+            value: 50, // Resource download value
+            lead_source: 'resource_download',
+            resource_id: resourceId,
+          }
+        );
       }
 
       // Deliver resource based on type
@@ -203,9 +212,18 @@ export default function ResourceLeadCaptureForm({
         link.download = resourceTitle;
         link.click();
       } else if (resourceType === 'redirect' && resourceUrl) {
-        // Redirect to resource page
+        // Check if URL is internal or external
+        const isInternalUrl =
+          resourceUrl.startsWith('/') || resourceUrl.includes(window.location.origin);
+
         setTimeout(() => {
-          window.location.href = resourceUrl;
+          if (isInternalUrl) {
+            // Use Next.js router for internal URLs
+            router.push(resourceUrl);
+          } else {
+            // Use window.location for external URLs
+            window.location.href = resourceUrl;
+          }
         }, 2000);
       }
       // For 'email' type, the backend should handle sending the resource
