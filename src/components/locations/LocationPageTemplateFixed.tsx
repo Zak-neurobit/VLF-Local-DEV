@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Phone, MapPin, Clock, CheckCircle } from 'lucide-react';
 
 interface LocationPageProps {

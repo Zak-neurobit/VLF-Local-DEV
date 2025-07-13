@@ -3,8 +3,6 @@
 import React, { useState } from 'react';
 import { format } from 'date-fns';
 import {
-  Search,
-  Filter,
   Download,
   Trash2,
   RefreshCw,
@@ -22,7 +20,6 @@ import { CrewLog } from '@/types/crews';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -67,7 +64,6 @@ export const CrewLogsViewer: React.FC = () => {
 
   const [selectedLogs, setSelectedLogs] = useState<Set<string>>(new Set());
   const [showLogDetail, setShowLogDetail] = useState<CrewLog | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
 
   const handleSelectLog = (logId: string) => {
     const newSelection = new Set(selectedLogs);
@@ -217,7 +213,7 @@ export const CrewLogsViewer: React.FC = () => {
 
               <Select
                 value={filters.timeRange || '24h'}
-                onValueChange={value => updateFilters({ timeRange: value as any })}
+                onValueChange={value => updateFilters({ timeRange: value as '1h' | '6h' | '24h' | '7d' | '30d' })}
               >
                 <SelectTrigger className="w-32">
                   <SelectValue />
@@ -234,7 +230,7 @@ export const CrewLogsViewer: React.FC = () => {
               <Select
                 value={filters.status || 'all'}
                 onValueChange={value =>
-                  updateFilters({ status: value === 'all' ? undefined : (value as any) })
+                  updateFilters({ status: value === 'all' ? undefined : (value as 'success' | 'failure') })
                 }
               >
                 <SelectTrigger className="w-32">

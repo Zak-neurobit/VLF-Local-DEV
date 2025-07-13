@@ -5,10 +5,7 @@ import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Button } from '@/design-system/components/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, MessageCircle, ChevronRight, Shield, Award, Clock, Users } from 'lucide-react';
-import Link from 'next/link';
-import { FAQSchema } from '@/components/SEO/FAQSchema';
 import { PracticeAreaSchema } from '@/components/SEO/PracticeAreaSchema';
-import { COLORS } from '@/design-system/constants';
 
 interface ModernPracticeAreaTemplateProps {
   title: string;
@@ -39,7 +36,6 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
   faqs = [],
 }) => {
   const [language, setLanguage] = useState<'en' | 'es'>('en');
-  const [activeService, setActiveService] = useState(-1);
 
   useEffect(() => {
     // Only access navigator in browser environment

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 
 interface BlogSEOProps {
@@ -31,11 +31,9 @@ export function BlogSEO({ post, isListingPage = false }: BlogSEOProps) {
     post.excerpt ||
     `Expert legal insights from Vasquez Law Firm. ${post.language === 'es' ? 'YO PELEO POR TI™' : 'I FIGHT FOR YOU'}`;
 
-  const title = isListingPage
-    ? `${post.title} | Vasquez Law Firm Blog - YO PELEO POR TI™`
-    : `${post.title} | Vasquez Law Firm, PLLC - YO PELEO POR TI™`;
+  // Removed unused title variable - title is handled by Next.js metadata
 
-  const structuredData = {
+  const structuredData = useMemo(() => ({
     '@context': 'https://schema.org',
     '@type': isListingPage ? 'Blog' : 'BlogPosting',
     headline: post.title,
@@ -83,16 +81,16 @@ export function BlogSEO({ post, isListingPage = false }: BlogSEOProps) {
           ? 'Servicios legales especializados en inmigración, lesiones personales, compensación laboral y más.'
           : 'Specialized legal services in immigration, personal injury, workers compensation and more.',
     },
-  };
+  } as Record<string, unknown>), [post, isListingPage, baseUrl, canonicalUrl, description]);
 
   // Add reading time for blog posts
   if (!isListingPage && post.readTime) {
-    (structuredData as any).wordCount = post.readTime * 200; // Approximate word count
-    (structuredData as any).timeRequired = `PT${post.readTime}M`;
+    (structuredData as Record<string, unknown>).wordCount = post.readTime * 200; // Approximate word count
+    (structuredData as Record<string, unknown>).timeRequired = `PT${post.readTime}M`;
   }
 
   // Add organization schema for the law firm
-  const organizationSchema = {
+  const organizationSchema = useMemo(() => ({
     '@context': 'https://schema.org',
     '@type': 'LegalService',
     name: 'Vasquez Law Firm, PLLC',
@@ -152,10 +150,10 @@ export function BlogSEO({ post, isListingPage = false }: BlogSEOProps) {
       'https://www.linkedin.com/company/vasquez-law-firm',
       'https://www.youtube.com/channel/UC_VasquezLaw',
     ],
-  };
+  }), [post.language, baseUrl]);
 
   // FAQ Schema if this is a blog post with common legal questions
-  const faqSchema = post.categories?.includes('immigration')
+  const faqSchema = useMemo(() => post.categories?.includes('immigration')
     ? {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
@@ -176,7 +174,7 @@ export function BlogSEO({ post, isListingPage = false }: BlogSEOProps) {
           },
         ],
       }
-    : null;
+    : null, [post.categories, post.language]);
 
   // Inject structured data into document head
   React.useEffect(() => {

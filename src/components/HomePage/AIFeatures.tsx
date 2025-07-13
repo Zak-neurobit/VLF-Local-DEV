@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Box, Sphere, Torus, MeshDistortMaterial } from '@react-three/drei';
+import { MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
 function AIBrain() {
@@ -72,7 +72,6 @@ export default function AIFeatures({ language }: AIFeaturesProps) {
     offset: ['start end', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
 
   const features = {

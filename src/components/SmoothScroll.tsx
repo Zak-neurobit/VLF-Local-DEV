@@ -22,7 +22,6 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     // Set up smooth scrolling
     const content = contentRef.current;
-    const scroll = scrollRef.current;
 
     // Set body height to content height
     const setBodyHeight = () => {

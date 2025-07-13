@@ -10,16 +10,6 @@ interface OfficeLocationsProps {
   language: 'en' | 'es';
 }
 
-interface Office {
-  city: string;
-  state: string;
-  address: string;
-  zip: string;
-  phone: string;
-  fax?: string;
-  hours: string;
-  mapUrl: string;
-}
 
 export default function OfficeLocations({ language }: OfficeLocationsProps) {
   const content = {
@@ -175,10 +165,12 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
               >
                 {/* Office Photo */}
                 <div className="relative h-48 overflow-hidden">
-                  <img
+                  <Image
                     src={officeImages[office.city]}
                     alt={`${office.city} office exterior`}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 

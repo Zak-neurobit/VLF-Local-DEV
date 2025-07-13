@@ -2,8 +2,6 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
 import {
   Phone,
   Mail,
@@ -66,13 +64,6 @@ export default function ModernLocationTemplate({
     'immigration' | 'personalInjury' | 'workersComp' | 'criminalDefense'
   >('immigration');
 
-  // Map tab keys to data structure keys
-  const practiceAreaMap: Record<string, keyof typeof data.practiceAreas> = {
-    immigration: 'immigration',
-    personalInjury: 'personalInjury',
-    workersComp: 'workersComp',
-    criminalDefense: 'criminalDefense',
-  };
 
   const content = {
     en: {

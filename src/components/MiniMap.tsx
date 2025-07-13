@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Loader } from '@googlemaps/js-api-loader';
 import { officeLocations } from '@/data/locations';
 import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-config';
 
@@ -26,7 +25,7 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
     }
 
     // Check if Google Maps is already loaded
-    if ((window as any).google?.maps) {
+    if ((window as typeof window & { google?: { maps?: typeof google.maps } }).google?.maps) {
       initializeMap();
       return;
     }
@@ -140,11 +139,12 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
     // Cleanup
     return () => {
       // Don't remove the script as it might be used by other components
-      if (map && mapRef.current) {
-        mapRef.current.innerHTML = '';
+      const currentMapRef = mapRef.current;
+      if (map && currentMapRef) {
+        currentMapRef.innerHTML = '';
       }
     };
-  }, []);
+  }, [map]);
 
   // Fallback for when JavaScript is disabled or map fails to load
   const fallbackContent = (

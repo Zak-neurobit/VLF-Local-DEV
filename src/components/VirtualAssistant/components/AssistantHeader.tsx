@@ -44,7 +44,7 @@ export default function AssistantHeader({
         {modes.map(({ id, icon: Icon, label }) => (
           <button
             key={id}
-            onClick={() => onModeChange(id as any)}
+            onClick={() => onModeChange(id as 'chat' | 'voice' | 'consultation' | 'appointment' | 'document')}
             className={`flex-1 px-2 py-1.5 rounded text-xs font-medium transition-colors flex items-center justify-center gap-1 ${
               mode === id
                 ? 'bg-white text-burgundy-600'

@@ -3,7 +3,6 @@ import Link from 'next/link';
 import {
   generateContextualLinks,
   generateRelatedLinks,
-  generateAnchorText,
 } from '@/lib/seo/internal-linking-mesh';
 
 interface InternalLinkingSectionProps {

@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useSession } from 'next-auth/react';
 // Collaborative editing features - to be implemented
 // import * as Y from 'yjs';
 // import { WebrtcProvider } from 'y-webrtc';
@@ -20,13 +19,12 @@ interface Document {
 }
 
 export const ClientPortal: React.FC = () => {
-  const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState<'overview' | 'documents' | 'messages' | 'timeline'>(
     'overview'
   );
-  const [documents, setDocuments] = useState<Document[]>([]);
+  const [documents] = useState<Document[]>([]);
   const [selectedDoc, setSelectedDoc] = useState<Document | null>(null);
-  const [collaborators, setCollaborators] = useState<any[]>([]);
+  const [collaborators] = useState<Array<{ name?: string }>>([]);
   // const [ydoc, setYdoc] = useState<Y.Doc | null>(null);
 
   // Initialize real-time collaboration - to be implemented
@@ -160,8 +158,8 @@ interface CaseMetrics {
   nextDeadline: Date;
   completedTasks: number;
   totalTasks: number;
-  messages: number;
-  documents: number;
+  messagesUnread: number;
+  documentsUploaded: number;
 }
 
 const CaseOverview: React.FC<{ metrics: CaseMetrics }> = ({ metrics }) => {
@@ -311,8 +309,16 @@ const DocumentCollaboration: React.FC<{
 };
 
 // Secure Messaging Component
+interface SecureMessage {
+  id: string;
+  content: string;
+  sender: 'client' | 'attorney';
+  timestamp: Date;
+  encrypted: boolean;
+}
+
 const SecureMessaging: React.FC = () => {
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<SecureMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [isEncrypted, setIsEncrypted] = useState(true);
 
@@ -444,7 +450,7 @@ const MetricCard: React.FC<{
   value: string;
   color: string;
   icon: string;
-}> = ({ label, value, color, icon }) => (
+}> = ({ label, value, icon }) => (
   <div className="bg-gray-50 rounded-lg p-4">
     <div className="flex items-center justify-between">
       <div>
@@ -561,13 +567,7 @@ const NotificationBell: React.FC<{ unread: number }> = ({ unread }) => (
   </button>
 );
 
-interface Message {
-  sender: 'client' | 'attorney';
-  content: string;
-  timestamp: Date;
-}
-
-const MessageBubble: React.FC<{ message: Message }> = ({ message }) => (
+const MessageBubble: React.FC<{ message: SecureMessage }> = ({ message }) => (
   <div className={`flex ${message.sender === 'client' ? 'justify-end' : 'justify-start'}`}>
     <div
       className={`max-w-xs p-3 rounded-lg ${
@@ -581,13 +581,15 @@ const MessageBubble: React.FC<{ message: Message }> = ({ message }) => (
 );
 
 interface TimelineEventData {
-  status: 'completed' | 'in-progress' | 'pending';
+  id: string;
+  status: 'completed' | 'in-progress' | 'upcoming';
   title: string;
   description: string;
   date: Date;
+  documents: string[];
 }
 
-const TimelineEvent: React.FC<{ event: TimelineEventData; isLast: boolean }> = ({ event, isLast }) => (
+const TimelineEvent: React.FC<{ event: TimelineEventData; isLast: boolean }> = ({ event }) => (
   <div className="relative flex items-start">
     <div
       className={`absolute left-8 w-4 h-4 rounded-full -translate-x-1/2 ${

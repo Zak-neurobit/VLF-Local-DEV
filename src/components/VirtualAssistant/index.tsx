@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCrewAI } from '@/hooks/useCrewAI';
 import { useVoiceRecognition } from '@/hooks/useVoiceRecognition';
@@ -77,11 +77,8 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
   const {
     isLoading,
     activeTasks,
-    createLegalConsultationTask,
-    createAppointmentSchedulingTask,
     createDocumentAnalysisTask,
     createClientIntakeWorkflow,
-    getTaskStatus,
   } = useCrewAI();
 
   // Initialize WebSocket connection
@@ -144,7 +141,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
         setSocket(null);
       }
     };
-  }, [isOpen, language, userId, mode, isVoiceEnabled]);
+  }, [isOpen, language, userId, mode, isVoiceEnabled, handleSpeakText, socket]);
 
   // State for managing voice message sending
   const [pendingVoiceMessage, setPendingVoiceMessage] = useState<string | null>(null);

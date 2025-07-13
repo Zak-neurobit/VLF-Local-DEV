@@ -20,8 +20,6 @@ import { generateOrganizationSchema } from '@/components/SEO/schemas';
 import { TRADEMARK } from '@/lib/constants/trademark';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import { Button } from '@/design-system/components/Button';
-import { Heading, Text } from '@/design-system/components/Typography';
 
 // Dynamic import for client-side only rendering
 const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {

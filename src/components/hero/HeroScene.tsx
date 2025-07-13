@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
-import { isBrowser, safeWindow, addWindowListener } from '@/lib/utils/browser';
+import { safeWindow, addWindowListener } from '@/lib/utils/browser';
 
 // Particle Field Background
 function ParticleField() {

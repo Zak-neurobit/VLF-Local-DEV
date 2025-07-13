@@ -133,7 +133,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
         componentLogger.unmount('ChatWidget');
       }
     };
-  }, [isOpen, userId, currentLanguage, handleError]);
+  }, [isOpen, userId, currentLanguage, handleError, language, messages.length, onEscalation]);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {

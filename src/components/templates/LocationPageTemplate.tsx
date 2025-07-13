@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Button } from '@/design-system/components/Button';
 import { Section, Card, Heading, Text } from './TemplateComponents';
-import { COLORS, SPACING, BRAND } from '@/design-system/constants';
+import { COLORS, BRAND } from '@/design-system/constants';
 import { Phone, MapPin, Clock, DollarSign } from 'lucide-react';
 import { InteractiveLink } from '@/components/ui/InteractiveLink';
 

@@ -69,8 +69,8 @@ export default function GHLContactForm({
       if (!ghlResponse.ok) throw new Error('Failed to submit');
 
       // Track conversion
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'conversion', {
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'conversion', {
           send_to: 'YOUR_CONVERSION_ID',
           value: formType === 'consultation' ? 150 : 0,
           currency: 'USD',

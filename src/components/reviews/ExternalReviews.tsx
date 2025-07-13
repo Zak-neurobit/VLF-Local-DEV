@@ -134,7 +134,7 @@ export default function ExternalReviews({
   // Initial load
   useEffect(() => {
     fetchReviews();
-  }, [maxReviews]);
+  }, [maxReviews, fetchReviews]);
 
   // Auto-refresh
   useEffect(() => {
@@ -148,7 +148,7 @@ export default function ExternalReviews({
     ); // Convert minutes to milliseconds
 
     return () => clearInterval(interval);
-  }, [autoRefresh, refreshInterval]);
+  }, [autoRefresh, refreshInterval, fetchReviews]);
 
   if (loading) {
     return (

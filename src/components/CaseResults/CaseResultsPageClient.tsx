@@ -3,7 +3,7 @@
 import PageLayout from '@/components/Layout/PageLayout';
 import Section from '@/components/ui/Section';
 import { Card, CardContent } from '@/components/ui/card';
-import { Shield, Heart, Briefcase, CheckCircle, DollarSign, Users, Phone } from 'lucide-react';
+import { Shield, Heart, Briefcase, CheckCircle, DollarSign, Users } from 'lucide-react';
 
 interface CaseResultsPageClientProps {
   language?: 'en' | 'es';

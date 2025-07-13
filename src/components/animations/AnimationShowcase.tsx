@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ParallaxSection, ParallaxHero } from './ParallaxSection';
+import { ParallaxHero } from './ParallaxSection';
 import { MorphingText, SplitText, GradientText } from './MorphingText';
-import { ParticleSystem, FloatingParticles, ConfettiExplosion } from './ParticleSystem';
+import { FloatingParticles, ConfettiExplosion } from './ParticleSystem';
 import { LiquidButton, LiquidReveal, BlobAnimation } from './LiquidTransitions';
 import { Card3D, FlipCard, ParallaxTiltCard } from './Card3D';
 import { MagneticButton, MagneticCard, MagneticNav } from './MagneticElements';
@@ -13,7 +12,6 @@ import {
   ScrollProgressBar,
   Reveal,
   StaggeredList,
-  ParallaxImage,
   ScrollMorphShape,
 } from './ScrollTriggeredAnimations';
 import {

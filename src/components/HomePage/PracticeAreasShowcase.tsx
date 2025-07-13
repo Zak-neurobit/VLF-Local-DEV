@@ -3,10 +3,9 @@
 import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Text as Text3D, Box, Sphere, MeshDistortMaterial, Float } from '@react-three/drei';
+import { Text as Text3D, Box, MeshDistortMaterial, Float } from '@react-three/drei';
 import * as THREE from 'three';
 import Link from 'next/link';
-import { gsap } from 'gsap';
 
 // 3D Icon Components for each practice area
 function ImmigrationIcon3D({ active }: { active: boolean }) {

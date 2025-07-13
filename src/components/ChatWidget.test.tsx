@@ -7,40 +7,16 @@ jest.mock('framer-motion', () => ({
   motion: {
     div: ({
       children,
-      initial,
-      animate,
-      exit,
-      whileHover,
-      whileTap,
-      transition,
       ...props
     }: {
       children?: React.ReactNode;
-      initial?: Record<string, unknown>;
-      animate?: Record<string, unknown>;
-      exit?: Record<string, unknown>;
-      whileHover?: Record<string, unknown>;
-      whileTap?: Record<string, unknown>;
-      transition?: Record<string, unknown>;
       [key: string]: unknown;
     }) => <div {...props}>{children}</div>,
     button: ({
       children,
-      initial,
-      animate,
-      exit,
-      whileHover,
-      whileTap,
-      transition,
       ...props
     }: {
       children?: React.ReactNode;
-      initial?: Record<string, unknown>;
-      animate?: Record<string, unknown>;
-      exit?: Record<string, unknown>;
-      whileHover?: Record<string, unknown>;
-      whileTap?: Record<string, unknown>;
-      transition?: Record<string, unknown>;
       [key: string]: unknown;
     }) => <button {...props}>{children}</button>,
   },

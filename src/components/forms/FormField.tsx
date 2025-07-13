@@ -84,7 +84,6 @@ export function FormField({
                   type="radio"
                   value={option.value}
                   className="mr-2 text-[#C9974D] focus:ring-[#C9974D]"
-                  aria-invalid={!!error}
                   aria-describedby={error ? `${name}-error` : undefined}
                 />
                 <span className="text-gray-700">{option.label}</span>

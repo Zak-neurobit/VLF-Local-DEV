@@ -333,7 +333,7 @@ export default function CaseEvaluator({ language }: CaseEvaluatorProps) {
     setEligibility(Math.min(score, 100));
   }, [watchedValues]);
 
-  const onSubmit = async (data: EvaluationData) => {
+  const onSubmit = async (_data: EvaluationData) => {
     setIsCalculating(true);
 
     // Simulate AI processing

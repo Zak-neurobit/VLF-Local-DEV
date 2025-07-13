@@ -13,7 +13,7 @@ interface DynamicHreflangProps {
  * Dynamic component that automatically adds hreflang tags to the page head
  * This component should be included in layouts or pages that need hreflang support
  */
-export function DynamicHreflang({ customPath, pageType = 'general' }: DynamicHreflangProps) {
+export function DynamicHreflang({ customPath }: DynamicHreflangProps) {
   const pathname = usePathname();
 
   useEffect(() => {

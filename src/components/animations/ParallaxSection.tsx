@@ -18,7 +18,7 @@ export function ParallaxSection({ children, className = '', layers = 3 }: Parall
   const gradientOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 0.6, 0.3]);
 
   return (
-    <section ref={containerRef as any} className={`relative overflow-hidden ${className}`}>
+    <section ref={containerRef as React.RefObject<HTMLElement>} className={`relative overflow-hidden ${className}`}>
       {/* Animated gradient background */}
       <motion.div
         className="absolute inset-0 bg-gradient-to-b from-[#6B1F2E] via-[#8B2635] to-[#C9974D]"

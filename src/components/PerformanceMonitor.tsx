@@ -50,8 +50,8 @@ export default function PerformanceMonitor() {
 
       // Monitor for dynamic content changes
       const observer = new MutationObserver(() => {
-        clearTimeout((window as any).a11yCheckTimeout);
-        (window as any).a11yCheckTimeout = setTimeout(runA11yCheck, 1000);
+        clearTimeout((window as Window & { a11yCheckTimeout?: NodeJS.Timeout }).a11yCheckTimeout);
+        (window as Window & { a11yCheckTimeout?: NodeJS.Timeout }).a11yCheckTimeout = setTimeout(runA11yCheck, 1000);
       });
 
       observer.observe(document.body, {
@@ -82,7 +82,7 @@ export default function PerformanceMonitor() {
     // Monitor memory usage
     const monitorMemory = () => {
       if ('memory' in performance) {
-        const memory = (performance as any).memory;
+        const memory = (performance as Performance & { memory?: { usedJSHeapSize: number; jsHeapSizeLimit: number; totalJSHeapSize: number } }).memory!;
         const memoryUsage = (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100;
 
         if (memoryUsage > 80) {
@@ -100,7 +100,7 @@ export default function PerformanceMonitor() {
 
     // Monitor network conditions
     if ('connection' in navigator) {
-      const connection = (navigator as any).connection;
+      const connection = (navigator as Navigator & { connection?: { effectiveType: string; downlink: number; rtt: number; saveData: boolean; addEventListener: (event: string, handler: () => void) => void } }).connection!;
 
       const logNetworkInfo = () => {
         logger.info('Network conditions', {

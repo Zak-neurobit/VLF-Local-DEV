@@ -4,13 +4,12 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, Quote, ChevronLeft, ChevronRight, MessageSquare } from 'lucide-react';
 import { getHomepageTestimonials } from '@/data/testimonials';
-import Image from 'next/image';
 
 interface TestimonialsSectionProps {
   language?: 'en' | 'es';
 }
 
-export function TestimonialsSection({ language = 'en' }: TestimonialsSectionProps = {}) {
+export function TestimonialsSection({}: TestimonialsSectionProps = {}) {
   const testimonials = getHomepageTestimonials();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);

@@ -48,11 +48,7 @@ export default function CaseList() {
   });
   const [showFilters, setShowFilters] = useState(false);
 
-  useEffect(() => {
-    fetchCases();
-  }, [searchQuery, filters]);
-
-  const fetchCases = async () => {
+  const fetchCases = React.useCallback(async () => {
     try {
       const params = new URLSearchParams();
       if (searchQuery) params.append('q', searchQuery);
@@ -68,7 +64,12 @@ export default function CaseList() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [searchQuery, filters]);
+
+  useEffect(() => {
+    fetchCases();
+  }, [fetchCases]);
+
 
   const getStatusColor = (status: CaseStatus) => {
     const colors = {
@@ -81,10 +82,6 @@ export default function CaseList() {
     return colors[status] || 'bg-gray-100 text-gray-800';
   };
 
-  const getPracticeAreaIcon = (area: PracticeArea) => {
-    // Return appropriate icon based on practice area
-    return Briefcase;
-  };
 
   const formatPracticeArea = (area: PracticeArea) => {
     return area

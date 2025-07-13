@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useDeviceCapabilities } from '@/lib/performance/device-detection';
 import dynamic from 'next/dynamic';
 

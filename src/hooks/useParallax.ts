@@ -28,7 +28,7 @@ export function useParallax({
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: offset as any,
+    offset: offset as ['start end', 'end start'],
   });
 
   // Calculate parallax values

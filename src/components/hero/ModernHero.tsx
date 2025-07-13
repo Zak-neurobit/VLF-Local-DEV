@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/design-system/Button';
-import { Heading, Text, Tagline } from '@/components/design-system/Typography';
+import { Heading, Text } from '@/components/design-system/Typography';
 import { TRADEMARK } from '@/lib/constants/trademark';
 
 interface ModernHeroProps {

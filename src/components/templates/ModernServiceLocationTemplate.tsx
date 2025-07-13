@@ -2,8 +2,6 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
 import {
   Phone,
   Mail,
@@ -11,13 +9,8 @@ import {
   Clock,
   ArrowRight,
   Scale,
-  Shield,
-  Heart,
-  Briefcase,
   CheckCircle,
   Star,
-  Globe,
-  Gavel,
   Users,
   Award,
   Building,
@@ -26,7 +19,6 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/design-system/Button';
 import { Heading, Text } from '@/components/design-system/Typography';
-import { TRADEMARK } from '@/lib/constants/trademark';
 
 interface ServiceLocationData {
   cityName: string;

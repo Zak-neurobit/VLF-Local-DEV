@@ -4,48 +4,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Text as Text3D, Float, MeshDistortMaterial, Environment } from '@react-three/drei';
-import { gsap } from 'gsap';
+import { Environment } from '@react-three/drei';
 import Link from 'next/link';
 import Image from 'next/image';
 import Script from 'next/script';
 
-// 3D Shield Component
-function Shield3D() {
-  const meshRef = useRef<THREE.Mesh>(null);
-
-  useFrame(state => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y = Math.sin(state.clock.elapsedTime) * 0.1;
-    }
-  });
-
-  return (
-    <Float speed={1} rotationIntensity={0.5} floatIntensity={0.5}>
-      <mesh ref={meshRef} scale={[2, 2, 0.3]}>
-        <boxGeometry args={[1.5, 2, 0.3]} />
-        <MeshDistortMaterial
-          color="#6B1F2E"
-          attach="material"
-          distort={0.2}
-          speed={2}
-          roughness={0.2}
-          metalness={0.8}
-        />
-      </mesh>
-      <Text3D
-        position={[0, 0, 0.2]}
-        fontSize={0.5}
-        color="#C9974D"
-        anchorX="center"
-        anchorY="middle"
-        font="/fonts/bold.woff"
-      >
-        VLF
-      </Text3D>
-    </Float>
-  );
-}
 
 // Particle Field Background
 function ParticleField() {
@@ -91,7 +54,6 @@ export default function ModernHero({ language }: ModernHeroProps) {
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-  const [isLoaded, setIsLoaded] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   const content = {

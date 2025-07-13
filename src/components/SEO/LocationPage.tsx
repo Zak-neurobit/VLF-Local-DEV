@@ -1,7 +1,6 @@
 import { generateEnhancedLocalBusinessSchema } from '@/components/SEO/enhanced-schemas';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { officeLocations } from '@/data/locations';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Phone, MapPin, Clock, ArrowRight } from 'lucide-react';
 

@@ -49,6 +49,8 @@ interface ClientData {
 }
 
 export default function DocumentManager({ clientData }: { clientData: ClientData }) {
+  // Using clientData for future client-specific document queries
+  const clientId = clientData.id;
   const [documents, setDocuments] = useState<Document[]>([]);
   const [filteredDocuments, setFilteredDocuments] = useState<Document[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -69,26 +71,22 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
   ];
 
   useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        const response = await fetch(`/api/client/documents?clientId=${clientId}`);
+        const data = await response.json();
+        setDocuments(data.documents || []);
+      } catch (error) {
+        console.error('Error fetching documents:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchDocuments();
-  }, []);
+  }, [clientId]);
 
-  useEffect(() => {
-    filterDocuments();
-  }, [documents, selectedCategory, searchTerm]);
-
-  const fetchDocuments = async () => {
-    try {
-      const response = await fetch('/api/client/documents');
-      const data = await response.json();
-      setDocuments(data.documents || []);
-    } catch (error) {
-      console.error('Error fetching documents:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const filterDocuments = () => {
+  const filterDocuments = React.useCallback(() => {
     let filtered = documents;
 
     if (selectedCategory !== 'all') {
@@ -104,7 +102,13 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
     }
 
     setFilteredDocuments(filtered);
-  };
+  }, [documents, selectedCategory, searchTerm]);
+
+  useEffect(() => {
+    filterDocuments();
+  }, [filterDocuments]);
+
+
 
   const formatFileSize = (bytes: number) => {
     if (bytes < 1024) return bytes + ' B';
@@ -112,11 +116,6 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
     return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
   };
 
-  const getFileIcon = (type: string) => {
-    if (type.includes('image')) return Image;
-    if (type.includes('pdf')) return FileText;
-    return File;
-  };
 
   const handleFileUpload = async (files: FileList) => {
     const formData = new FormData();
@@ -132,7 +131,9 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
       });
 
       if (response.ok) {
-        await fetchDocuments();
+        const response = await fetch(`/api/client/documents?clientId=${clientId}`);
+        const data = await response.json();
+        setDocuments(data.documents || []);
         setUploadModalOpen(false);
       }
     } catch (error) {
@@ -164,7 +165,9 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
       });
 
       if (response.ok) {
-        await fetchDocuments();
+        const docResponse = await fetch(`/api/client/documents?clientId=${clientId}`);
+        const data = await docResponse.json();
+        setDocuments(data.documents || []);
         setSelectedDocument(null);
       }
     } catch (error) {
@@ -231,7 +234,6 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
       {/* Documents Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredDocuments.map(document => {
-          const FileIcon = getFileIcon(document.type);
           return (
             <motion.div
               key={document.id}

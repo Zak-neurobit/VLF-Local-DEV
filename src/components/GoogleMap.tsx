@@ -2,6 +2,8 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
+
+/// <reference types="@types/google.maps" />
 import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-config';
 
 interface GoogleMapProps {
@@ -30,7 +32,7 @@ export default function GoogleMap({
   className = '',
 }: GoogleMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<any>(null);
+  const [map, setMap] = useState<google.maps.Map | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -54,7 +56,7 @@ export default function GoogleMap({
       .then(() => {
         if (!mapRef.current) return;
 
-        const mapInstance = new (window as any).google.maps.Map(mapRef.current, {
+        const mapInstance = new google.maps.Map(mapRef.current, {
           center: { lat, lng },
           zoom,
           mapTypeControl: false,
@@ -71,11 +73,11 @@ export default function GoogleMap({
         });
 
         // Create marker
-        const marker = new (window as any).google.maps.Marker({
+        const marker = new google.maps.Marker({
           position: { lat, lng },
           map: mapInstance,
           title: officeName || 'Vasquez Law Firm',
-          animation: (window as any).google.maps.Animation.DROP,
+          animation: google.maps.Animation.DROP,
         });
 
         // Create info window
@@ -137,7 +139,7 @@ export default function GoogleMap({
           </div>
         `;
 
-        const infoWindow = new (window as any).google.maps.InfoWindow({
+        const infoWindow = new google.maps.InfoWindow({
           content: infoWindowContent,
         });
 
@@ -159,15 +161,11 @@ export default function GoogleMap({
       });
 
     // Cleanup
+    // Cleanup
     return () => {
-      if (map) {
-        // Google Maps doesn\'t provide a destroy method, but we can clear the div
-        if (mapRef.current) {
-          mapRef.current.innerHTML = '';
-        }
-      }
+      // React hook cleanup
     };
-  }, [lat, lng, zoom, address, officeName, phone, hours, showDirectionsButton]);
+  }, [lat, lng, zoom, address, officeName, phone, hours, showDirectionsButton, map]);
 
   // Fallback for when JavaScript is disabled or map fails to load
   const fallbackContent = (

@@ -14,7 +14,7 @@ export function GoogleMyBusinessWidget({
 }: GoogleMyBusinessProps) {
   useEffect(() => {
     // Initialize Google Places widget when component mounts
-    if ((window as any).google && (window as any).google.maps) {
+    if ((window as Window & { google?: { maps?: typeof google.maps } }).google?.maps) {
       initializeWidget();
     }
   }, [placeId]);
@@ -86,7 +86,7 @@ export function GoogleBusinessProfile({ locationId }: { locationId: string }) {
 }
 
 // Component for Google Posts integration
-export function GooglePosts({ businessName }: { businessName: string }) {
+export function GooglePosts() {
   return (
     <div className="google-posts bg-gray-50 rounded-lg p-6">
       <h3 className="text-xl font-bold text-burgundy-700 mb-4">Latest Updates</h3>

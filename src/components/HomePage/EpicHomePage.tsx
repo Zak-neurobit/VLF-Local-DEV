@@ -16,7 +16,6 @@ import {
   GradientText,
   SplitText,
 } from '@/components/animations';
-import { useScrollReveal, useCascadeReveal } from '@/hooks/useScrollReveal';
 import { useAnimationPerformance } from '@/hooks/useAnimationPerformance';
 import { Users, Trophy, Clock, Star, Shield, Scale, Heart, Brain, Activity } from 'lucide-react';
 
@@ -28,7 +27,7 @@ interface LiveMetrics {
 }
 
 export function EpicHomePage() {
-  const { shouldAnimate, getAnimationProps } = useAnimationPerformance();
+  const { getAnimationProps } = useAnimationPerformance();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [liveMetrics, setLiveMetrics] = useState<LiveMetrics>({
     visitorCount: 0,
@@ -312,7 +311,7 @@ export function EpicHomePage() {
                     <Star key={i} className="w-5 h-5 fill-[#C9974D] text-[#C9974D]" />
                   ))}
                 </div>
-                <p className="text-gray-700 italic mb-4">"{testimonial.text}"</p>
+                <p className="text-gray-700 italic mb-4">&ldquo;{testimonial.text}&rdquo;</p>
                 <p className="font-semibold text-[#6B1F2E]">- {testimonial.author}</p>
               </motion.div>
             ))}

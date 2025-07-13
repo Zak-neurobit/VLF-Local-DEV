@@ -187,7 +187,7 @@ export function ParallaxTiltCard({
 
   return (
     <motion.div
-      ref={cardRef as any}
+      ref={cardRef as React.RefObject<HTMLDivElement>}
       className={`relative ${className}`}
       style={{
         rotateX,

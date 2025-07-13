@@ -257,9 +257,21 @@ export function LocationServicePageTemplate({
   );
 }
 
+interface ServiceContentData {
+  mainTitle: string;
+  heroDescription: string;
+  description: string;
+  services: string[];
+  whyChooseUs: string[];
+  faqs: Array<{
+    question: string;
+    answer: string;
+  }>;
+}
+
 // Helper function to get service-specific content
 function getServiceContent(service: string, city: string) {
-  const contents: Record<string, any> = {
+  const contents: Record<string, ServiceContentData> = {
     'Immigration Lawyer': {
       mainTitle: `Experienced Immigration Lawyers in ${city}`,
       heroDescription: `Get expert immigration legal help from North Carolina's most trusted law firm. Green cards, visas, deportation defense, and more.`,

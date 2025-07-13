@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+// Removed unused framer-motion import
 import {
   DollarSign,
   CreditCard,
@@ -15,7 +15,7 @@ import {
   Receipt,
 } from 'lucide-react';
 import { format } from 'date-fns';
-import Link from 'next/link';
+// Removed unused next/link import
 
 interface Invoice {
   id: string;
@@ -34,14 +34,6 @@ interface Invoice {
   }>;
 }
 
-interface Payment {
-  id: string;
-  date: string;
-  amount: number;
-  method: string;
-  invoiceNumber: string;
-  transactionId: string;
-}
 
 interface TrustAccount {
   balance: number;
@@ -64,38 +56,36 @@ interface ClientData {
 }
 
 export default function BillingSection({ clientData }: { clientData: ClientData }) {
+  // Using clientData for future client-specific billing queries
+  const clientId = clientData.id;
   const [invoices, setInvoices] = useState<Invoice[]>([]);
-  const [payments, setPayments] = useState<Payment[]>([]);
   const [trustAccount, setTrustAccount] = useState<TrustAccount | null>(null);
-  const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
 
   useEffect(() => {
+    const fetchBillingData = async () => {
+      try {
+        const [invoicesRes, trustRes] = await Promise.all([
+          fetch(`/api/client/billing/invoices?clientId=${clientId}`),
+          fetch(`/api/client/billing/trust-account?clientId=${clientId}`),
+        ]);
+
+        const invoicesData = await invoicesRes.json();
+        const trustData = await trustRes.json();
+
+        setInvoices(invoicesData.invoices || []);
+        setTrustAccount(trustData.trustAccount || null);
+      } catch (error) {
+        console.error('Error fetching billing data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchBillingData();
-  }, []);
+  }, [clientId]);
 
-  const fetchBillingData = async () => {
-    try {
-      const [invoicesRes, paymentsRes, trustRes] = await Promise.all([
-        fetch('/api/client/billing/invoices'),
-        fetch('/api/client/billing/payments'),
-        fetch('/api/client/billing/trust-account'),
-      ]);
-
-      const invoicesData = await invoicesRes.json();
-      const paymentsData = await paymentsRes.json();
-      const trustData = await trustRes.json();
-
-      setInvoices(invoicesData.invoices || []);
-      setPayments(paymentsData.payments || []);
-      setTrustAccount(trustData.trustAccount || null);
-    } catch (error) {
-      console.error('Error fetching billing data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const calculateTotals = () => {
     const totalBilled = invoices.reduce((sum, inv) => sum + inv.amount, 0);

@@ -123,8 +123,8 @@ export default function LeadCaptureForm({
       setSuccess(true);
 
       // Track conversion
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'generate_lead', {
+      if (typeof window !== 'undefined' && (window as Window & { gtag?: (...args: unknown[]) => void }).gtag) {
+        (window as Window & { gtag?: (...args: unknown[]) => void }).gtag('event', 'generate_lead', {
           currency: 'USD',
           value: practiceAreaValues[formData.practiceArea] || 0,
         });

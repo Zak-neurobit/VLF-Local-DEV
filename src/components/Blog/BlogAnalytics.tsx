@@ -1,7 +1,44 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+
+// Global type declarations for external analytics libraries
+declare global {
+  interface Window {
+    gtag?: (
+      command: string,
+      action: string,
+      params: {
+        event_category?: string;
+        event_label?: string;
+        language?: string;
+        page_location?: string;
+        page_title?: string;
+        practice_area?: string;
+        custom_map?: Record<string, string>;
+        value?: number;
+        name?: string;
+        method?: string;
+        content_type?: string;
+        content_id?: string;
+      }
+    ) => void;
+    fbq?: (
+      command: string,
+      action: string,
+      params: {
+        content_type?: string;
+        content_ids?: string[];
+        content_name?: string;
+        content_category?: string;
+        language?: string;
+        content_id?: string;
+        method?: string;
+      }
+    ) => void;
+  }
+}
 
 interface BlogAnalyticsProps {
   postSlug?: string;
@@ -17,8 +54,8 @@ export function BlogAnalytics({ postSlug, language, action, category }: BlogAnal
     // Track blog interactions
     const trackEvent = () => {
       // Google Analytics 4
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', action, {
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', action, {
           event_category: 'Blog',
           event_label: postSlug || 'blog_listing',
           language: language,
@@ -32,8 +69,8 @@ export function BlogAnalytics({ postSlug, language, action, category }: BlogAnal
       }
 
       // Facebook Pixel
-      if (typeof window !== 'undefined' && (window as any).fbq) {
-        (window as any).fbq('track', 'ViewContent', {
+      if (typeof window !== 'undefined' && window.fbq) {
+        window.fbq('track', 'ViewContent', {
           content_type: 'blog_post',
           content_ids: [postSlug || 'blog_listing'],
           content_name: document.title,
@@ -97,8 +134,8 @@ export function BlogReadingProgress({ contentId }: { contentId: string }) {
             readingMilestones.push(milestone);
 
             // Track milestone
-            if (typeof window !== 'undefined' && (window as any).gtag) {
-              (window as any).gtag('event', 'scroll', {
+            if (typeof window !== 'undefined' && window.gtag) {
+              window.gtag('event', 'scroll', {
                 event_category: 'Blog Reading',
                 event_label: `${milestone}% read`,
                 value: milestone,
@@ -120,8 +157,8 @@ export function BlogReadingProgress({ contentId }: { contentId: string }) {
     const handleBeforeUnload = () => {
       const timeSpent = Math.round((Date.now() - startTime) / 1000);
 
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'timing_complete', {
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'timing_complete', {
           name: 'blog_reading_time',
           value: timeSpent,
           event_category: 'Blog Engagement',
@@ -158,8 +195,8 @@ export function BlogReadingProgress({ contentId }: { contentId: string }) {
 // Social sharing tracker
 export function trackSocialShare(platform: string, postSlug: string, language: 'en' | 'es') {
   // Google Analytics
-  if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('event', 'share', {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'share', {
       method: platform,
       content_type: 'blog_post',
       content_id: postSlug,
@@ -169,8 +206,8 @@ export function trackSocialShare(platform: string, postSlug: string, language: '
   }
 
   // Facebook Pixel
-  if (typeof window !== 'undefined' && (window as any).fbq) {
-    (window as any).fbq('track', 'Share', {
+  if (typeof window !== 'undefined' && window.fbq) {
+    window.fbq('track', 'Share', {
       content_type: 'blog_post',
       content_id: postSlug,
       method: platform,

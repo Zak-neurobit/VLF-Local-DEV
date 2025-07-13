@@ -13,7 +13,7 @@ export function useVoiceRecognition({
   onError,
   onEnd,
 }: UseVoiceRecognitionOptions) {
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && 'webkitSpeechRecognition' in window) {

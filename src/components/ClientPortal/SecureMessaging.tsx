@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import {
   MessageSquare,
   Send,
@@ -58,14 +58,7 @@ interface Conversation {
   starred: boolean;
 }
 
-interface ClientData {
-  id: string;
-  name: string;
-  email: string;
-  phone?: string;
-}
-
-export default function SecureMessaging({ clientData }: { clientData: ClientData }) {
+export default function SecureMessaging() {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -77,22 +70,7 @@ export default function SecureMessaging({ clientData }: { clientData: ClientData
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    fetchConversations();
-  }, []);
-
-  useEffect(() => {
-    if (selectedConversation) {
-      fetchMessages(selectedConversation.id);
-      markAsRead(selectedConversation.id);
-    }
-  }, [selectedConversation]);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  const fetchConversations = async () => {
+  const fetchConversations = useCallback(async () => {
     try {
       const response = await fetch('/api/client/messages/conversations');
       const data = await response.json();
@@ -105,7 +83,23 @@ export default function SecureMessaging({ clientData }: { clientData: ClientData
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedConversation]);
+
+  useEffect(() => {
+    fetchConversations();
+  }, [fetchConversations]);
+
+  useEffect(() => {
+    if (selectedConversation) {
+      fetchMessages(selectedConversation.id);
+      markAsRead(selectedConversation.id);
+    }
+  }, [selectedConversation]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
 
   const fetchMessages = async (conversationId: string) => {
     try {
@@ -174,7 +168,7 @@ export default function SecureMessaging({ clientData }: { clientData: ClientData
     }
   };
 
-  const handleFileUpload = async (files: FileList) => {
+  const handleFileUpload = async (_files: FileList) => {
     // Implement file upload logic
     // TODO: Integrate with file upload service
   };

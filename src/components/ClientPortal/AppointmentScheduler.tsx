@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Calendar,
@@ -25,7 +25,6 @@ import {
   endOfMonth,
   isSameDay,
   isToday,
-  isPast,
   isFuture,
 } from 'date-fns';
 
@@ -100,7 +99,7 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
     if (showScheduleModal && formData.date) {
       fetchAvailableSlots(formData.date);
     }
-  }, [formData.date, showScheduleModal]);
+  }, [formData.date, showScheduleModal, fetchAvailableSlots]);
 
   const fetchAppointments = async () => {
     try {
@@ -114,7 +113,7 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
     }
   };
 
-  const fetchAvailableSlots = async (date: string) => {
+  const fetchAvailableSlots = useCallback(async (date: string) => {
     try {
       const response = await fetch(
         `/api/client/appointments/slots?date=${date}&attorneyId=${formData.attorneyId}`
@@ -124,7 +123,7 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
     } catch (error) {
       console.error('Error fetching available slots:', error);
     }
-  };
+  }, [formData.attorneyId]);
 
   const handleScheduleAppointment = async () => {
     try {
@@ -257,7 +256,7 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
               {['month', 'week', 'day'].map(v => (
                 <button
                   key={v}
-                  onClick={() => setView(v as any)}
+                  onClick={() => setView(v as 'month' | 'week' | 'day')}
                   className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                     view === v
                       ? 'bg-[#6B1F2E] text-white'

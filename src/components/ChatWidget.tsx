@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback, memo } from 'react';
 import { useRouter } from 'next/navigation';
 import { MessageCircle, X, Phone } from 'lucide-react';
 import { ChatInterface } from './VirtualAssistant/ChatInterface';
-import { isBrowser, safeWindow } from '@/lib/utils/browser';
+import { isBrowser } from '@/lib/utils/browser';
 
 interface ChatWidgetProps {
   language?: 'en' | 'es';

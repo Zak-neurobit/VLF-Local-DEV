@@ -97,7 +97,7 @@ async function generateNearMePages() {
 function generateNearMeHubPage() {
   return `import { Metadata } from 'next';
 import Link from 'next/link';
-import { Search, MapPin, Phone } from 'lucide-react';
+import { MapPin, Phone } from 'lucide-react';
 import { NEAR_ME_SERVICES, NEAR_ME_CITIES } from '@/lib/seo/near-me-page-generator';
 
 export const metadata: Metadata = {

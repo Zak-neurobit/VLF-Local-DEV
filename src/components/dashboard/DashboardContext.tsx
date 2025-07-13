@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
+import type { Socket } from 'socket.io-client';
 
 interface AgentActivity {
   id: string;
@@ -63,7 +64,7 @@ export const useDashboard = () => {
 };
 
 export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [socket, setSocket] = useState<any>(null);
+  const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const isMountedRef = useRef(false);
   const [data, setData] = useState<DashboardData>({
@@ -164,7 +165,7 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         socket.disconnect();
       }
     };
-  }, []);
+  }, [socket]);
 
   const refreshData = () => {
     if (socket) {

@@ -7,7 +7,6 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { ArrowRight, Calendar, Clock, Tag } from 'lucide-react';
 import {
-  BLOG_CATEGORIES,
   getCategoryById,
   getRelatedCategories,
   getCategoryUrl,
@@ -103,11 +102,7 @@ export default function CategoryPageTemplate({
 
   const t = content[language];
 
-  useEffect(() => {
-    fetchPosts();
-  }, [language, page, searchQuery, categoryId]);
-
-  const fetchPosts = async () => {
+  const fetchPosts = React.useCallback(async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams({
@@ -144,13 +139,19 @@ export default function CategoryPageTemplate({
     } finally {
       setLoading(false);
     }
-  };
+  }, [language, page, searchQuery, categoryId]);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
 
   // Reset page when search changes
   useEffect(() => {
     if (page !== 1) {
       setPage(1);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
   if (!category) {

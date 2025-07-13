@@ -14,7 +14,7 @@ export function useHodos() {
    * Make authenticated request to HODOS via proxy
    */
   const hodosRequest = useCallback(
-    async <T = any>(endpoint: string, options: RequestInit = {}): Promise<T | null> => {
+    async <T>(endpoint: string, options: RequestInit = {}): Promise<T | null> => {
       if (!session) {
         toast.error('Please log in to continue');
         return null;

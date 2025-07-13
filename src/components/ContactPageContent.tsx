@@ -1,10 +1,10 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Phone, Mail, MapPin, Clock, MessageCircle, Globe, Building } from 'lucide-react';
+import { Phone, MapPin, Clock, MessageCircle, Globe, Building } from 'lucide-react';
 import { ModernPageWrapper } from '@/components/ModernPageWrapper';
 import AllOfficesMap from '@/components/AllOfficesMap';
 import { officeLocations } from '@/data/locations';

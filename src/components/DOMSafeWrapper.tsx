@@ -16,12 +16,7 @@ interface DOMSafeWrapperProps {
 export function DOMSafeWrapper({ children, fallback, onError }: DOMSafeWrapperProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hasError, setHasError] = useState(false);
-  const [isHydrated, setIsHydrated] = useState(false);
-
-  // Mark component as hydrated
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
+  // Removed unused isHydrated state - hydration is handled by suppressHydrationWarning prop
 
   useEffect(() => {
     // Ensure the container is in the DOM before any operations

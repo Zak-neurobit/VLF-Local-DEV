@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Mail, Phone, User, MessageSquare, MapPin, CheckCircle2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { contactFormSchema, ContactFormData } from '@/lib/validations/forms';
@@ -140,7 +140,7 @@ export function ContactForm({ language = 'en', onSuccess }: ContactFormProps) {
         throw new Error('Failed to submit form');
       }
 
-      const result = await response.json();
+      await response.json();
 
       // Show success state
       setIsSubmitted(true);
@@ -158,8 +158,8 @@ export function ContactForm({ language = 'en', onSuccess }: ContactFormProps) {
       }, 5000);
 
       // Track form submission
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'form_submit', {
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'form_submit', {
           form_type: 'contact',
           case_type: data.caseType,
         });

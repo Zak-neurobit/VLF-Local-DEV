@@ -24,16 +24,19 @@ export { Heading, Text, Tagline } from './components/Typography';
 export { PracticeAreaCard } from './components/PracticeAreaCard';
 
 // Color Utilities
-export const getColorValue = (path: string) => {
+export const getColorValue = (path: string): string | undefined => {
   const parts = path.split('.');
-  let value: any = require('./constants').COLORS;
+  let value: Record<string, unknown> = require('./constants').COLORS as Record<string, unknown>;
 
   for (const part of parts) {
-    value = value[part];
-    if (!value) return undefined;
+    if (typeof value === 'object' && value !== null && part in value) {
+      value = value[part] as Record<string, unknown>;
+    } else {
+      return undefined;
+    }
   }
 
-  return value;
+  return typeof value === 'string' ? value : undefined;
 };
 
 // Responsive Utilities

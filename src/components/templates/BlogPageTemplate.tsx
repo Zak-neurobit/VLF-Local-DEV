@@ -12,7 +12,6 @@ import {
   ChevronRight,
   TrendingUp,
   BookOpen,
-  Share2,
   Facebook,
   Twitter,
   Linkedin,
@@ -63,7 +62,7 @@ export const BlogPageTemplate: React.FC<BlogPageTemplateProps> = ({
   currentPost,
   relatedPosts = [],
 }) => {
-  const [language, setLanguage] = useState<'en' | 'es'>('en');
+  const [language] = useState<'en' | 'es'>('en');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [filteredPosts, setFilteredPosts] = useState(posts);

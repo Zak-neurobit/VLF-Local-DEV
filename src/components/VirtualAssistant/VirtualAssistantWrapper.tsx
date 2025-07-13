@@ -12,7 +12,7 @@ export const VirtualAssistantWrapper: React.FC<VirtualAssistantWrapperProps> = (
   language,
   userId,
 }) => {
-  const handleMessage = (message: string) => {
+  const handleMessage = (_message: string) => {
     // Handle voice message
   };
 

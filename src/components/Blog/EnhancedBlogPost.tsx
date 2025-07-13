@@ -53,7 +53,7 @@ interface EnhancedBlogPostProps {
 }
 
 export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogPostProps) {
-  const [isShareMenuOpen, setIsShareMenuOpen] = useState(false);
+  // Removed unused isShareMenuOpen state - share functionality is handled inline
   const [copyLinkSuccess, setCopyLinkSuccess] = useState(false);
   const [tableOfContents, setTableOfContents] = useState<
     Array<{ id: string; text: string; level: number }>
@@ -176,7 +176,6 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
         });
         break;
     }
-    setIsShareMenuOpen(false);
   };
 
   const practiceAreaColors = {

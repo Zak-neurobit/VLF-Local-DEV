@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import {
   generateContextualLinks,
-  PRACTICE_AREAS,
-  NC_CITIES,
 } from '@/lib/seo/internal-linking-mesh';
 
 interface ContentInternalLinksProps {

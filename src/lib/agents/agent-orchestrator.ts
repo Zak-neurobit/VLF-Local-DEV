@@ -17,7 +17,7 @@ export interface AgentContext {
   sessionId: string;
   language: string;
   history: Array<{ role: string; content: string }>;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface AgentResponse {
@@ -26,15 +26,15 @@ export interface AgentResponse {
   suggestions?: string[];
   actions?: Array<{
     type: string;
-    data: any;
+    data: unknown;
   }>;
   handoff?: string;
 }
 
 export interface AgentMemory {
-  shortTerm: Map<string, any>;
-  longTerm: Map<string, any>;
-  workingMemory: any[];
+  shortTerm: Map<string, unknown>;
+  longTerm: Map<string, unknown>;
+  workingMemory: unknown[];
   lastAccessed: Date;
 }
 
@@ -42,7 +42,7 @@ export interface InterAgentMessage {
   from: string;
   to: string;
   type: 'request' | 'response' | 'broadcast';
-  payload: any;
+  payload: unknown;
   timestamp: Date;
   correlationId?: string;
 }
@@ -57,8 +57,18 @@ export interface AgentPerformanceMetrics {
   memoryUsage?: number;
 }
 
+// Base agent interface that all agents should implement
+export interface BaseAgent {
+  process?: (input: string, context: AgentContext) => Promise<AgentResponse>;
+  execute?: (input: string, context: AgentContext) => Promise<AgentResponse>;
+  analyze?: (input: string, context: AgentContext) => Promise<AgentResponse>;
+  processTask?: (task: string, context: AgentContext) => Promise<AgentResponse>;
+  validateLead?: (leadData: unknown) => Promise<unknown>;
+  createFollowUpSequence?: (leadData: unknown) => Promise<unknown>;
+}
+
 export class AgentOrchestrator extends EventEmitter {
-  private agents: Map<string, any>;
+  private agents: Map<string, BaseAgent>;
   private agentTypes: Map<string, string>;
   private agentMemory: Map<string, AgentMemory>;
   private messageQueue: InterAgentMessage[];
@@ -95,7 +105,7 @@ export class AgentOrchestrator extends EventEmitter {
     };
 
     // Helper function to safely create and register an agent
-    const safeRegister = (name: string, createFn: () => any, type: string) => {
+    const safeRegister = (name: string, createFn: () => BaseAgent, type: string) => {
       try {
         const agent = createFn();
         this.registerAgentWithType(name, agent, type);
@@ -137,7 +147,7 @@ export class AgentOrchestrator extends EventEmitter {
     });
   }
 
-  private registerAgentWithType(name: string, agent: any, type: string) {
+  private registerAgentWithType(name: string, agent: BaseAgent, type: string) {
     try {
       this.agents.set(name, agent);
       this.agentTypes.set(name, type);
@@ -299,7 +309,7 @@ export class AgentOrchestrator extends EventEmitter {
     // Process message based on type
     if (message.type === 'broadcast') {
       // Broadcast to all agents except sender
-      for (const [agentName, agent] of this.agents) {
+      for (const [agentName] of this.agents) {
         if (agentName !== message.from) {
           await this.deliverMessage(agentName, message);
         }
@@ -326,7 +336,7 @@ export class AgentOrchestrator extends EventEmitter {
   }
 
   // Agent memory management
-  updateAgentMemory(agentName: string, key: string, value: any, persistent: boolean = false) {
+  updateAgentMemory(agentName: string, key: string, value: unknown, persistent: boolean = false) {
     const memory = this.agentMemory.get(agentName);
     if (!memory) return;
 
@@ -338,8 +348,11 @@ export class AgentOrchestrator extends EventEmitter {
       // Clear old short-term memories (older than 1 hour)
       const oneHourAgo = Date.now() - 3600000;
       for (const [k, v] of memory.shortTerm) {
-        if (v.timestamp && v.timestamp < oneHourAgo) {
-          memory.shortTerm.delete(k);
+        if (typeof v === 'object' && v !== null && 'timestamp' in v) {
+          const timestamp = v.timestamp as number;
+          if (timestamp < oneHourAgo) {
+            memory.shortTerm.delete(k);
+          }
         }
       }
     }
@@ -389,7 +402,7 @@ export class AgentOrchestrator extends EventEmitter {
     return allMetrics;
   }
 
-  private async analyzeIntent(message: string, context: AgentContext): Promise<string> {
+  private async analyzeIntent(message: string, _context: AgentContext): Promise<string> {
     const lowerMessage = message.toLowerCase();
 
     // Simple intent detection (can be enhanced with AI)
@@ -662,13 +675,16 @@ export class AgentOrchestrator extends EventEmitter {
     message: string,
     context: AgentContext
   ): Promise<AgentResponse> {
-    const intakeData = context.metadata?.intakeData || {};
 
     const result = await agent.processIntake({
       clientInput: message,
       preferredLanguage: context.language as 'en' | 'es',
       isEmergency: false,
-      contactInfo: context.metadata?.contactInfo as any,
+      contactInfo: context.metadata?.contactInfo as {
+        name?: string;
+        email?: string;
+        phone?: string;
+      },
     });
 
     return {
@@ -689,7 +705,11 @@ export class AgentOrchestrator extends EventEmitter {
     };
   }
 
-  private async extractAppointmentData(message: string, context: AgentContext): Promise<any> {
+  private async extractAppointmentData(_message: string, _context: AgentContext): Promise<{
+    complete: boolean;
+    prompt: string;
+    availableDates: string[];
+  }> {
     // This would use NLP to extract date, time, and other appointment details
     // For now, return a simple structure
     return {

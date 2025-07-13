@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Star, ExternalLink } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import Image from 'next/image';
 
 interface GoogleReview {
   author_name: string;
@@ -115,7 +116,7 @@ export default function GoogleReviewsWidget({ placeId, apiKey }: GoogleReviewsWi
 
       <div className="bg-gray-50 rounded-lg p-6 text-center">
         <div className="flex items-center justify-center mb-3">
-          <img src="/images/google-logo.png" alt="Google" className="h-6 mr-3" />
+          <Image src="/images/google-logo.png" alt="Google" width={24} height={24} className="h-6 w-auto mr-3" />
           <div className="flex">
             {[...Array(5)].map((_, i) => (
               <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />

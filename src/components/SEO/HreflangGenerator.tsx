@@ -321,9 +321,7 @@ export class HreflangGenerator {
  * React component for rendering hreflang tags
  */
 export function HreflangTags({
-  currentLocale,
   customPath,
-  pageType = 'general',
 }: HreflangGeneratorProps) {
   const pathname = usePathname();
   const entries = HreflangGenerator.generateHreflangEntries(pathname || '/', customPath);
@@ -347,7 +345,6 @@ export function HreflangTags({
  * Hook for generating metadata with hreflang
  */
 export function useHreflangMetadata(pathname?: string, customPath?: string): Partial<Metadata> {
-  const entries = HreflangGenerator.generateHreflangEntries(pathname, customPath);
   const canonical = HreflangGenerator.generateCanonicalUrl(pathname, customPath);
   const alternates = HreflangGenerator.generateAlternateLinks(pathname, customPath);
   const ogLocales = HreflangGenerator.generateOpenGraphLocales(pathname);

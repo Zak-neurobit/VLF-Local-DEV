@@ -106,7 +106,12 @@ export class LeadValidationAgent extends Agent {
     }
   }
 
-  private calculateUrgencyScore(leadData: any): number {
+  private calculateUrgencyScore(leadData: {
+    message: string;
+    phone?: string;
+    contactedWithin?: string;
+    preferredContactTime?: string;
+  }): number {
     let score = 0;
     const message = leadData.message.toLowerCase();
 
@@ -147,7 +152,11 @@ export class LeadValidationAgent extends Agent {
     return Math.min(score, 25);
   }
 
-  private calculateCaseValueScore(leadData: any): number {
+  private calculateCaseValueScore(leadData: {
+    message: string;
+    practiceArea?: string;
+    phone?: string;
+  }): number {
     let score = 0;
     const message = leadData.message.toLowerCase();
 
@@ -190,7 +199,12 @@ export class LeadValidationAgent extends Agent {
     return Math.min(score, 25);
   }
 
-  private calculateReadinessScore(leadData: any): number {
+  private calculateReadinessScore(leadData: {
+    message: string;
+    phone?: string;
+    preferredContactTime?: string;
+    contactedWithin?: string;
+  }): number {
     let score = 0;
     const message = leadData.message.toLowerCase();
 
@@ -223,7 +237,12 @@ export class LeadValidationAgent extends Agent {
     return Math.min(score, 25);
   }
 
-  private calculateContactQualityScore(leadData: any): number {
+  private calculateContactQualityScore(leadData: {
+    phone?: string;
+    email?: string;
+    name?: string;
+    preferredContactTime?: string;
+  }): number {
     let score = 0;
 
     // Contact quality (max 25 points)
@@ -267,7 +286,11 @@ export class LeadValidationAgent extends Agent {
     return 'low';
   }
 
-  private generateRecommendations(leadData: any, tier: string, score: number): string[] {
+  private generateRecommendations(leadData: {
+    message: string;
+    practiceArea?: string;
+    urgencyIndicators?: string[];
+  }, tier: string, _score: number): string[] {
     const recommendations = [];
 
     if (tier === 'hot') {
@@ -362,7 +385,10 @@ export class LeadValidationAgent extends Agent {
     return Math.round(baseValue);
   }
 
-  private identifyPracticeAreas(leadData: any): string[] {
+  private identifyPracticeAreas(leadData: {
+    message: string;
+    practiceArea?: string;
+  }): string[] {
     const message = leadData.message.toLowerCase();
     const areas = [];
 
@@ -494,7 +520,10 @@ export class LeadValidationAgent extends Agent {
     }
   }
 
-  private async logValidation(leadData: any, validation: LeadScore): Promise<void> {
+  private async logValidation(leadData: {
+    contactId?: string;
+    source?: string;
+  }, validation: LeadScore): Promise<void> {
     try {
       const prisma = getPrismaClient();
       if (!prisma) {

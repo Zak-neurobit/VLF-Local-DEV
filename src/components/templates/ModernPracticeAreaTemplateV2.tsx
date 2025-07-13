@@ -1,20 +1,15 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Phone,
   MessageCircle,
-  ChevronRight,
   Shield,
-  Award,
-  Clock,
-  Users,
   AlertCircle,
   CheckCircle,
 } from 'lucide-react';
-import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import {
   EnhancedHero,
@@ -96,7 +91,6 @@ export const ModernPracticeAreaTemplateV2: React.FC<ModernPracticeAreaTemplateV2
   isSubpage = false,
 }) => {
   const [language, setLanguage] = useState<'en' | 'es'>('en');
-  const [activeService, setActiveService] = useState(-1);
 
   // Determine theme based on urgency
   const isUrgent = urgencyLevel === 'critical' || urgencyLevel === 'high';

@@ -73,14 +73,25 @@ export class FollowUpAutomationAgent extends Agent {
     return sequence;
   }
 
-  private determineSequenceType(data: any): FollowUpSequence['sequenceType'] {
+  private determineSequenceType(data: {
+    tier?: string;
+    urgency?: string;
+    practiceArea?: string;
+  }): FollowUpSequence['sequenceType'] {
     if (data.tier === 'hot') return 'hot_lead';
     if (data.tier === 'warm') return 'warm_lead';
     if (data.tier === 'cold') return 'cold_lead';
     return 'cold_lead';
   }
 
-  private generateFollowUpSteps(type: string, data: any): FollowUpSequence['steps'] {
+  private generateFollowUpSteps(type: string, data: {
+    languagePreference?: string;
+    firstName?: string;
+    practiceArea?: string;
+    phone?: string;
+    email?: string;
+    preferredContactTime?: string;
+  }): FollowUpSequence['steps'] {
     const isSpanish = data.languagePreference === 'es';
 
     switch (type) {
@@ -159,7 +170,16 @@ export class FollowUpAutomationAgent extends Agent {
     }
   }
 
-  private async generatePersonalizations(data: any): Promise<Record<string, string>> {
+  private async generatePersonalizations(data: {
+    contactId?: string;
+    email?: string;
+    firstName?: string;
+    lastName?: string;
+    phone?: string;
+    preferredLanguage?: string;
+    practiceArea?: string;
+    urgencyLevel?: string;
+  }): Promise<Record<string, string>> {
     const contact = await this.ghl.findContactByEmail(data.contactId); // TODO: Add findContactById method
 
     return {
@@ -253,7 +273,7 @@ export class FollowUpAutomationAgent extends Agent {
     return ctas[tier as keyof typeof ctas]?.[lang as 'en' | 'es'] || ctas.warm.en;
   }
 
-  private getHotLeadEmailTemplate(data: any): string {
+  private getHotLeadEmailTemplate(_data: unknown): string {
     return `
 Subject: URGENT: {{practiceArea}} Case - Immediate Action Required
 
@@ -279,7 +299,7 @@ P.S. I've handled hundreds of cases like yours. You're not alone, and we WILL fi
     `;
   }
 
-  private getWarmLeadEmailTemplate(data: any): string {
+  private getWarmLeadEmailTemplate(_data: unknown): string {
     return `
 Subject: {{firstName}}, About Your {{practiceArea}} Question
 
@@ -309,7 +329,7 @@ Vasquez Law Firm, PLLC
     `;
   }
 
-  private getColdLeadEmailTemplate(data: any): string {
+  private getColdLeadEmailTemplate(_data: unknown): string {
     return `
 Subject: {{firstName}}, Still Thinking About Your {{practiceArea}} Needs?
 
@@ -395,7 +415,7 @@ P.S. Immigration laws change frequently. Follow us for updates: [SOCIAL_LINKS]
     ); // Convert minutes to milliseconds
   }
 
-  private async checkStopConditions(sequence: FollowUpSequence): Promise<boolean> {
+  private async checkStopConditions(_sequence: FollowUpSequence): Promise<boolean> {
     // For now, we'll skip stop condition checks
     // In production, you'd check the contact's tags and status
     return false;

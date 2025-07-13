@@ -1,6 +1,5 @@
 import { logger } from '@/lib/logger';
 import { EventEmitter } from 'events';
-import { prisma } from '@/lib/prisma';
 
 export interface AgentMetrics {
   agentName: string;
@@ -56,6 +55,30 @@ export interface AgentInstance {
   currentLoad: number;
   lastActivity: Date;
   healthStatus: AgentHealthStatus;
+}
+
+// Event types
+export interface HealthChangeEvent {
+  agentName: string;
+  instanceId: string;
+  status: AgentHealthStatus;
+}
+
+export interface OverloadEvent {
+  agentName: string;
+  instanceId: string;
+  load: number;
+}
+
+export interface FailureEvent {
+  agentName: string;
+  instanceId: string;
+  error: Error;
+}
+
+export interface ScalingEvent {
+  agentName: string;
+  reason: string;
 }
 
 export class AgentMonitor extends EventEmitter {
@@ -338,8 +361,6 @@ export class AgentMonitor extends EventEmitter {
       if (activeInstances.length === 0) continue;
 
       const avgCpuUsage = this.calculateAverageCPU(agentName);
-      const avgLoad =
-        activeInstances.reduce((sum, i) => sum + i.currentLoad, 0) / activeInstances.length;
 
       // Scale up if needed
       if (avgCpuUsage > config.scaleUpThreshold && activeInstances.length < config.maxInstances) {
@@ -423,7 +444,7 @@ export class AgentMonitor extends EventEmitter {
   }
 
   private async balanceLoad(): Promise<void> {
-    for (const [agentName, instances] of this.agents) {
+    for (const [, instances] of this.agents) {
       const activeInstances = instances.filter(
         i => i.status === 'active' && i.healthStatus.isHealthy
       );
@@ -453,7 +474,7 @@ export class AgentMonitor extends EventEmitter {
     this.emit('error-recovery-configured', config);
   }
 
-  private async handleHealthChange(event: any): Promise<void> {
+  private async handleHealthChange(event: HealthChangeEvent): Promise<void> {
     const { agentName, instanceId, status } = event;
 
     if (!status.isHealthy) {
@@ -464,7 +485,7 @@ export class AgentMonitor extends EventEmitter {
     }
   }
 
-  private async handleOverload(event: any): Promise<void> {
+  private async handleOverload(event: OverloadEvent): Promise<void> {
     const { agentName, instanceId, load } = event;
     logger.warn(`Agent ${agentName} (${instanceId}) is overloaded: ${load}`);
 
@@ -474,7 +495,7 @@ export class AgentMonitor extends EventEmitter {
     }
   }
 
-  private async handleFailure(event: any): Promise<void> {
+  private async handleFailure(event: FailureEvent): Promise<void> {
     const { agentName, instanceId, error } = event;
     logger.error(`Agent ${agentName} (${instanceId}) failed:`, error);
 
@@ -490,7 +511,7 @@ export class AgentMonitor extends EventEmitter {
     }
   }
 
-  private async handleScalingEvent(event: any): Promise<void> {
+  private async handleScalingEvent(event: ScalingEvent): Promise<void> {
     const { agentName, reason } = event;
     logger.info(`Scaling event triggered for ${agentName}: ${reason}`);
 

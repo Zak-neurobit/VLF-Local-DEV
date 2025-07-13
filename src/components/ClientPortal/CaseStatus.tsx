@@ -15,6 +15,7 @@ import {
   Activity,
 } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Case {
   id: string;
@@ -56,29 +57,32 @@ interface ClientData {
 }
 
 export default function CaseStatus({ clientData }: { clientData: ClientData }) {
+  // Using clientData for future client-specific case queries
+  const clientId = clientData.id;
   const [cases, setCases] = useState<Case[]>([]);
   const [selectedCase, setSelectedCase] = useState<Case | null>(null);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
 
   useEffect(() => {
-    fetchCases();
-  }, []);
-
-  const fetchCases = async () => {
-    try {
-      const response = await fetch('/api/client/cases');
-      const data = await response.json();
-      setCases(data.cases || []);
-      if (data.cases.length > 0) {
-        setSelectedCase(data.cases[0]);
+    const fetchCases = async () => {
+      try {
+        const response = await fetch(`/api/client/cases?clientId=${clientId}`);
+        const data = await response.json();
+        setCases(data.cases || []);
+        if (data.cases.length > 0) {
+          setSelectedCase(data.cases[0]);
+        }
+      } catch (error) {
+        console.error('Error fetching cases:', error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error('Error fetching cases:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    fetchCases();
+  }, [clientId]);
+
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -219,9 +223,11 @@ export default function CaseStatus({ clientData }: { clientData: ClientData }) {
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
                     {selectedCase.attorney.photo ? (
-                      <img
+                      <Image
                         src={selectedCase.attorney.photo}
                         alt={selectedCase.attorney.name}
+                        width={48}
+                        height={48}
                         className="w-full h-full rounded-full object-cover"
                       />
                     ) : (

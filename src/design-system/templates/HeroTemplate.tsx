@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { SEMANTIC_COLORS, BRAND } from '../constants';
 
 interface HeroTemplateProps {
@@ -158,10 +159,13 @@ export const HeroTemplate: React.FC<HeroTemplateProps> = ({
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <img
+              <Image
                 src="/william-vasquez-hero.png"
                 alt="William Vasquez"
+                width={500}
+                height={600}
                 className="w-full h-auto rounded-lg shadow-2xl"
+                priority
               />
               <div className="absolute -bottom-6 -right-6 bg-primary text-secondary p-6 rounded-lg shadow-xl">
                 <p className="font-bold text-lg">William Vasquez</p>

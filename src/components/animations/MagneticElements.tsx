@@ -21,7 +21,7 @@ export function MagneticButton({
 
   return (
     <motion.button
-      ref={ref as any}
+      ref={ref as React.RefObject<HTMLButtonElement>}
       onClick={onClick}
       className={`relative overflow-hidden rounded-lg bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] px-8 py-4 font-semibold text-white ${className}`}
       style={{ x, y, scale }}
@@ -59,7 +59,7 @@ export function MagneticIcon({
 
   return (
     <motion.div
-      ref={ref as any}
+      ref={ref as React.RefObject<HTMLDivElement>}
       className={`inline-flex items-center justify-center rounded-full p-3 ${className}`}
       style={{ x, y, scale }}
       whileHover={{ rotate: 360 }}
@@ -82,7 +82,7 @@ export function MagneticCard({
 
   return (
     <motion.div
-      ref={ref as any}
+      ref={ref as React.RefObject<HTMLDivElement>}
       className={`relative overflow-hidden rounded-xl bg-white shadow-lg ${className}`}
       style={{ x, y, scale }}
     >
@@ -155,41 +155,48 @@ export function MagneticCursor() {
 }
 
 // Magnetic navigation menu
+function MagneticNavItem({
+  item,
+}: {
+  item: { label: string; href: string; icon?: React.ComponentType<{ className?: string }> };
+}) {
+  const { ref, x, y, isHovered } = useMagneticHover({ strength: 0.3 });
+
+  return (
+    <motion.a
+      ref={ref as React.RefObject<HTMLAnchorElement>}
+      href={item.href}
+      className="group relative flex items-center space-x-2 text-gray-700 transition-colors hover:text-[#6B1F2E]"
+      style={{ x, y }}
+    >
+      {item.icon && (
+        <motion.span animate={{ rotate: isHovered ? 360 : 0 }} transition={{ duration: 0.5 }}>
+          <item.icon className="h-5 w-5" />
+        </motion.span>
+      )}
+      <span className="font-medium">{item.label}</span>
+
+      {/* Underline effect */}
+      <motion.div
+        className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#6B1F2E] to-[#C9974D]"
+        initial={{ width: '0%' }}
+        animate={{ width: isHovered ? '100%' : '0%' }}
+        transition={{ duration: 0.3 }}
+      />
+    </motion.a>
+  );
+}
+
 export function MagneticNav({
   items,
 }: {
-  items: { label: string; href: string; icon?: React.ComponentType<any> }[];
+  items: { label: string; href: string; icon?: React.ComponentType<{ className?: string }> }[];
 }) {
   return (
     <nav className="flex space-x-8">
-      {items.map((item, index) => {
-        const { ref, x, y, isHovered } = useMagneticHover({ strength: 0.3 });
-
-        return (
-          <motion.a
-            key={index}
-            ref={ref as any}
-            href={item.href}
-            className="group relative flex items-center space-x-2 text-gray-700 transition-colors hover:text-[#6B1F2E]"
-            style={{ x, y }}
-          >
-            {item.icon && (
-              <motion.span animate={{ rotate: isHovered ? 360 : 0 }} transition={{ duration: 0.5 }}>
-                <item.icon className="h-5 w-5" />
-              </motion.span>
-            )}
-            <span className="font-medium">{item.label}</span>
-
-            {/* Underline effect */}
-            <motion.div
-              className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#6B1F2E] to-[#C9974D]"
-              initial={{ width: '0%' }}
-              animate={{ width: isHovered ? '100%' : '0%' }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.a>
-        );
-      })}
+      {items.map((item, index) => (
+        <MagneticNavItem key={index} item={item} />
+      ))}
     </nav>
   );
 }

@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { motion, useSpring, useTransform, useMotionValue } from 'framer-motion';
-import { useGestures } from '@/hooks/useGestures';
+import { motion, useSpring, useMotionValue } from 'framer-motion';
 
 // Spring physics ball
 export function SpringBall() {

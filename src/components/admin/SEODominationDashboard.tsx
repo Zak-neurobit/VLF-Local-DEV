@@ -11,7 +11,7 @@ interface AgentStatus {
   totalActions: number;
   successRate: number;
   lastActivity: string | null;
-  recentHighlights: any[];
+  recentHighlights: string[];
 }
 
 interface DashboardMetrics {
@@ -38,7 +38,7 @@ export function SEODominationDashboard() {
     }, 30000); // Update every 30 seconds
 
     return () => clearInterval(interval);
-  }, [isRunning]);
+  }, [isRunning, checkSystemStatus]);
 
   const checkSystemStatus = async () => {
     try {
@@ -298,7 +298,7 @@ export function SEODominationDashboard() {
             <span className="text-green-500">●</span>
             <span className="font-mono">12:34:56</span>
             <span>
-              📝 BlogContentDomination: Created viral post targeting "immigration lawyer NC"
+              📝 BlogContentDomination: Created viral post targeting &quot;immigration lawyer NC&quot;
             </span>
           </div>
           <div className="flex items-center gap-2 text-sm">

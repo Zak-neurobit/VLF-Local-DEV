@@ -6,7 +6,6 @@ import { cn } from '@/lib/utils';
 
 interface OptimizedImageProps extends Omit<ImageProps, 'onLoad' | 'onError'> {
   fallback?: string;
-  loading?: 'eager' | 'lazy';
   blurDataURL?: string;
   quality?: number;
   priority?: boolean;
@@ -15,8 +14,6 @@ interface OptimizedImageProps extends Omit<ImageProps, 'onLoad' | 'onError'> {
   className?: string;
   containerClassName?: string;
   enableLazyLoading?: boolean;
-  enableWebP?: boolean;
-  enableAVIF?: boolean;
   enableBlur?: boolean;
   sizes?: string;
   aspectRatio?: string;
@@ -28,7 +25,6 @@ export default function OptimizedImage({
   width,
   height,
   fallback = '/images/placeholder.svg',
-  loading = 'lazy',
   blurDataURL,
   quality = 85,
   priority = false,
@@ -37,14 +33,12 @@ export default function OptimizedImage({
   className,
   containerClassName,
   enableLazyLoading = true,
-  enableWebP = true,
-  enableAVIF = true,
   enableBlur = true,
   sizes,
   aspectRatio,
   ...props
 }: OptimizedImageProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoadedState, setIsLoadedState] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [isInView, setIsInView] = useState(!enableLazyLoading || priority);
   const imgRef = useRef<HTMLDivElement>(null);
@@ -109,7 +103,7 @@ export default function OptimizedImage({
   };
 
   const handleLoad = () => {
-    setIsLoaded(true);
+    setIsLoadedState(true);
     onLoad?.();
   };
 
@@ -125,7 +119,7 @@ export default function OptimizedImage({
       ref={imgRef}
       className={cn(
         'relative overflow-hidden',
-        !isLoaded && 'animate-pulse bg-gray-200',
+        !isLoadedState && 'animate-pulse bg-gray-200',
         containerClassName
       )}
       style={imageStyle}
@@ -146,7 +140,7 @@ export default function OptimizedImage({
           onError={handleError}
           className={cn(
             'transition-opacity duration-300',
-            isLoaded ? 'opacity-100' : 'opacity-0',
+            isLoadedState ? 'opacity-100' : 'opacity-0',
             className
           )}
           {...props}
@@ -154,7 +148,7 @@ export default function OptimizedImage({
       )}
 
       {/* Loading skeleton */}
-      {!isLoaded && !hasError && (
+      {!isLoadedState && !hasError && (
         <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse" />
       )}
 

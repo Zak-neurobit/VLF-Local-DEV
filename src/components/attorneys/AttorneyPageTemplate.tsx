@@ -1,12 +1,10 @@
 'use client';
 
-import Script from 'next/script';
 import Image from 'next/image';
 import {
   Phone,
   ArrowRight,
   Globe,
-  Award,
   Scale,
   GraduationCap,
   MapPin,

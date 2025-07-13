@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { useScrollReveal, useCascadeReveal } from '@/hooks/useScrollReveal';
+import Image from 'next/image';
 
 // Counter animation on scroll
 export function AnimatedCounter({
@@ -24,7 +25,6 @@ export function AnimatedCounter({
     if (!isInView) return;
 
     const startTime = Date.now();
-    const endTime = startTime + duration;
 
     const updateValue = () => {
       const now = Date.now();
@@ -103,7 +103,7 @@ export function Reveal({ children, className = '', effect = 'slide', delay = 0 }
   };
 
   return (
-    <div ref={ref as any} className={className} style={controls}>
+    <div ref={ref as React.RefObject<HTMLDivElement>} className={className} style={controls}>
       {children}
     </div>
   );
@@ -124,7 +124,7 @@ export function StaggeredList({
   const { containerRef, getItemProps } = useCascadeReveal(items.length, staggerDelay);
 
   return (
-    <div ref={containerRef as any} className={className}>
+    <div ref={containerRef as React.RefObject<HTMLDivElement>} className={className}>
       {items.map((item, index) => (
         <div key={index} className={itemClassName} {...getItemProps(index)}>
           {item}
@@ -199,10 +199,12 @@ export function StickyScrollSection({
                   viewport={{ once: false, amount: 0.5 }}
                   className="relative h-96 overflow-hidden rounded-xl"
                 >
-                  <img
+                  <Image
                     src={section.image}
                     alt={section.title}
-                    className="h-full w-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </motion.div>
               )}
@@ -222,7 +224,7 @@ export function ScrollMorphShape() {
     offset: ['start end', 'end start'],
   });
 
-  const morphProgress = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.5, 1]);
+  // const morphProgress = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.5, 1]);
 
   return (
     <div ref={ref} className="flex h-96 items-center justify-center">

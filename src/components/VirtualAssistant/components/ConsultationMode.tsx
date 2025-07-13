@@ -98,7 +98,7 @@ export default function ConsultationMode({
               <button
                 key={value}
                 type="button"
-                onClick={() => onDataChange({ ...consultationData, urgency: value as any })}
+                onClick={() => onDataChange({ ...consultationData, urgency: value as 'low' | 'medium' | 'high' })}
                 className={`flex-1 py-2 px-3 rounded-lg font-medium transition-colors ${
                   consultationData.urgency === value
                     ? `bg-${color}-500 text-white`

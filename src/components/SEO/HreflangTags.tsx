@@ -13,7 +13,6 @@ interface HreflangTagsProps {
 
 export function HreflangTags({
   currentPath,
-  currentLocale = 'en',
   availableLocales = [
     { locale: 'en', label: 'English' },
     { locale: 'es', label: 'Español' },

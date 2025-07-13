@@ -25,7 +25,7 @@ export default function AllOfficesMap({
   className = '',
 }: AllOfficesMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [, setMap] = useState<google.maps.Map | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -160,11 +160,7 @@ export default function AllOfficesMap({
 
     // Cleanup
     return () => {
-      if (map) {
-        if (mapRef.current) {
-          mapRef.current.innerHTML = '';
-        }
-      }
+      // No cleanup needed - React handles ref cleanup
     };
   }, [offices]);
 

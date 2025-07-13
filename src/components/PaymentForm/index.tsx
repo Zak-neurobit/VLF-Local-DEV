@@ -59,8 +59,6 @@ export default function PaymentForm({
     },
   });
 
-  const trustAccount = watch('trustAccount');
-
   const onSubmit = async (data: PaymentFormData) => {
     setIsProcessing(true);
 
@@ -99,13 +97,6 @@ export default function PaymentForm({
     } finally {
       setIsProcessing(false);
     }
-  };
-
-  const formatCardNumber = (value: string) => {
-    return value
-      .replace(/\s/g, '')
-      .replace(/(\d{4})/g, '$1 ')
-      .trim();
   };
 
   return (
