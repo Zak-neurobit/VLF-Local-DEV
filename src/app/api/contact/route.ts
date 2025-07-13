@@ -4,6 +4,7 @@ import { apiLogger } from '@/lib/logger';
 import { emailService } from '@/services/email.service';
 import { contactFormSchema } from '@/lib/validations/forms';
 import { contactFormLimiter } from '@/lib/rate-limiter';
+import { createGHLContact, getPracticeAreaTags } from '@/lib/ghl';
 
 export async function POST(req: NextRequest) {
   apiLogger.request(req.method, req.url, {});
@@ -82,11 +83,36 @@ export async function POST(req: NextRequest) {
     // Send email notifications
     await emailService.sendContactFormNotification(validatedData);
 
+    // Create contact in GoHighLevel
+    const ghlTags = getPracticeAreaTags(validatedData.caseType, validatedData.message);
+    ghlTags.push('Contact Form Lead');
+    if (validatedData.language === 'es') ghlTags.push('Spanish Speaker');
+
+    const ghlResult = await createGHLContact({
+      firstName: validatedData.name.split(' ')[0],
+      lastName: validatedData.name.split(' ').slice(1).join(' ') || '',
+      email: validatedData.email,
+      phone: validatedData.phone,
+      source: 'Website Contact Form',
+      tags: ghlTags,
+      customFields: {
+        practice_area: validatedData.caseType,
+        initial_message: validatedData.message,
+        preferred_contact: validatedData.preferredContact,
+        location: validatedData.location || 'Not specified',
+        language: validatedData.language || 'en',
+        lead_source: 'Contact Form',
+        website_user_id: user.id.toString(),
+      },
+    });
+
     // Log successful submission
     apiLogger.info('contact-form-success', {
       userId: user.id,
       taskId: task.id,
       caseType: validatedData.caseType,
+      ghlResult: ghlResult.success ? 'success' : 'failed',
+      ghlContactId: ghlResult.contactId,
     });
 
     return NextResponse.json({
