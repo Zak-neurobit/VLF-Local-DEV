@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { logger } from '@/lib/pino-logger';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FileText,
@@ -77,7 +78,7 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
         const data = await response.json();
         setDocuments(data.documents || []);
       } catch (error) {
-        console.error('Error fetching documents:', error);
+        logger.error('Error fetching documents:', error);
       } finally {
         setLoading(false);
       }
@@ -137,7 +138,7 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
         setUploadModalOpen(false);
       }
     } catch (error) {
-      console.error('Error uploading documents:', error);
+      logger.error('Error uploading documents:', error);
     }
   };
 
@@ -152,7 +153,7 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
       a.click();
       window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error('Error downloading document:', error);
+      logger.error('Error downloading document:', error);
     }
   };
 
@@ -171,7 +172,7 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
         setSelectedDocument(null);
       }
     } catch (error) {
-      console.error('Error deleting document:', error);
+      logger.error('Error deleting document:', error);
     }
   };
 

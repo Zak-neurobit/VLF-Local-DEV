@@ -15,7 +15,7 @@ export class AppointmentReminderService {
       logger.info(`Found ${appointments.length} appointments for reminder`);
 
       for (const appointment of appointments) {
-        await this.sendReminder(appointment);
+        await this.sendReminder(appointment as any);
       }
 
       // Get appointments for 1 week out
@@ -53,12 +53,20 @@ export class AppointmentReminderService {
     id: string;
     scheduledAt: Date | string;
     type: string;
+    location?: string | null;
+    notes?: string | null;
+    metadata?: unknown;
     user: {
       id: string;
       email: string;
       name?: string | null;
       phone?: string | null;
     };
+    case?: {
+      attorney?: {
+        name?: string | null;
+      } | null;
+    } | null;
   }) {
     try {
       const user = appointment.user;

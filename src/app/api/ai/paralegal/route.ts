@@ -1,4 +1,5 @@
 import { openai } from '@ai-sdk/openai';
+import { apiLogger } from '@/lib/pino-logger';
 import { streamText } from 'ai';
 
 export const runtime = 'edge';
@@ -39,7 +40,7 @@ export async function POST(req: Request) {
 
     return result.toDataStreamResponse();
   } catch (error) {
-    console.error('Paralegal API error:', error);
+    apiLogger.error('Paralegal API error:', error);
     return new Response('Error processing request', { status: 500 });
   }
 }

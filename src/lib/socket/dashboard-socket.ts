@@ -1,4 +1,5 @@
 import { Server as SocketIOServer } from 'socket.io';
+import { logger } from '@/lib/pino-logger';
 import { Server as HTTPServer } from 'http';
 
 interface DashboardData {
@@ -57,28 +58,28 @@ class DashboardSocketManager {
     });
 
     this.io.on('connection', socket => {
-      console.log(`Dashboard client connected: ${socket.id}`);
+      logger.info(`Dashboard client connected: ${socket.id}`);
       this.connectedClients.add(socket.id);
 
       // Send initial data
       socket.emit('dashboard:update', this.generateMockData());
 
       socket.on('dashboard:subscribe', () => {
-        console.log(`Client ${socket.id} subscribed to dashboard updates`);
+        logger.info(`Client ${socket.id} subscribed to dashboard updates`);
         socket.emit('dashboard:update', this.generateMockData());
       });
 
       socket.on('dashboard:unsubscribe', () => {
-        console.log(`Client ${socket.id} unsubscribed from dashboard updates`);
+        logger.info(`Client ${socket.id} unsubscribed from dashboard updates`);
       });
 
       socket.on('dashboard:refresh', () => {
-        console.log(`Client ${socket.id} requested data refresh`);
+        logger.info(`Client ${socket.id} requested data refresh`);
         socket.emit('dashboard:update', this.generateMockData());
       });
 
       socket.on('disconnect', () => {
-        console.log(`Dashboard client disconnected: ${socket.id}`);
+        logger.info(`Dashboard client disconnected: ${socket.id}`);
         this.connectedClients.delete(socket.id);
       });
     });

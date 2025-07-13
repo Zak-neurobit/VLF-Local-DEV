@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { apiLogger } from '@/lib/pino-logger';
 import { sendGHLSMS } from '@/lib/ghl';
 
 export async function POST(request: NextRequest) {
@@ -29,7 +30,7 @@ export async function POST(request: NextRequest) {
       result,
     });
   } catch (error) {
-    console.error('Error sending SMS:', error);
+    apiLogger.error('Error sending SMS:', error);
     return NextResponse.json(
       {
         success: false,

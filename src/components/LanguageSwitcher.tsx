@@ -12,6 +12,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ className = 
   const pathname = usePathname();
 
   const handleLanguageChange = (lang: string) => {
+    if (!pathname) return;
     const currentLang = pathname.startsWith('/es') ? 'es' : 'en';
     
     if (currentLang === lang) return;
@@ -33,7 +34,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ className = 
     router.push(newPath);
   };
 
-  const currentLang = pathname.startsWith('/es') ? 'es' : 'en';
+  const currentLang = pathname?.startsWith('/es') ? 'es' : 'en';
 
   return (
     <div className={`flex space-x-2 ${className}`}>

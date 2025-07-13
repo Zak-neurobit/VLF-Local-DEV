@@ -6,6 +6,19 @@
 import { logger } from '@/lib/logger';
 import * as Sentry from '@sentry/nextjs';
 
+// Import OpenTelemetry trace correlation
+let getTraceContext: (() => { traceId: string; spanId: string } | null) | null = null;
+
+if (typeof window === 'undefined') {
+  try {
+    const telemetryModule = require('./telemetry/custom-spans');
+    getTraceContext = () => telemetryModule.vlfTelemetry.getTraceContext();
+  } catch (error) {
+    // Telemetry not available, continue without trace correlation
+    getTraceContext = null;
+  }
+}
+
 interface ErrorContext {
   source?: string;
   userId?: string;
@@ -56,13 +69,27 @@ class GlobalErrorHandler {
       return;
     }
 
-    // Add common context
+    // Add common context including trace information
     const enrichedContext: ErrorContext = {
       ...context,
       url: typeof window !== 'undefined' ? window.location.href : undefined,
       userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : undefined,
       timestamp: new Date().toISOString(),
     };
+
+    // Add OpenTelemetry trace context if available
+    if (getTraceContext && typeof window === 'undefined') {
+      try {
+        const traceContext = getTraceContext();
+        if (traceContext) {
+          enrichedContext.traceId = traceContext.traceId;
+          enrichedContext.spanId = traceContext.spanId;
+          enrichedContext.traceUrl = `https://trace.vasquezlaw.com/trace/${traceContext.traceId}`;
+        }
+      } catch (traceError) {
+        // Silently continue if trace context unavailable
+      }
+    }
 
     // Log the error
     logger.error('Global error caught', {
@@ -74,11 +101,20 @@ class GlobalErrorHandler {
       context: enrichedContext,
     });
 
-    // Send to Sentry
+    // Send to Sentry with trace correlation
     Sentry.captureException(error, {
       extra: enrichedContext,
       tags: {
         source: context.source || 'unknown',
+        traceId: enrichedContext.traceId || 'unknown',
+        hasTrace: !!enrichedContext.traceId,
+      },
+      contexts: {
+        trace: enrichedContext.traceId ? {
+          trace_id: enrichedContext.traceId,
+          span_id: enrichedContext.spanId,
+          trace_url: enrichedContext.traceUrl,
+        } : undefined,
       },
     });
 

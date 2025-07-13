@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, memo } from 'react';
+import { logger } from '@/lib/pino-logger';
 import { useRouter } from 'next/navigation';
 import { MessageCircle, X, Phone } from 'lucide-react';
 import { ChatInterface } from './VirtualAssistant/ChatInterface';
@@ -59,7 +60,7 @@ const ChatWidgetComponent: React.FC<ChatWidgetProps> = ({
       // Navigate to appointment page using Next.js router
       router.push('/contact#appointment');
     } catch (error) {
-      console.error('Error navigating to appointment page:', error);
+      logger.error('Error navigating to appointment page:', error);
       // Fallback: open in new window
       if (isBrowser) {
         window.open('/contact#appointment', '_blank');
@@ -73,7 +74,7 @@ const ChatWidgetComponent: React.FC<ChatWidgetProps> = ({
         window.location.href = 'tel:18449673536';
       }
     } catch (error) {
-      console.error('Error initiating phone call:', error);
+      logger.error('Error initiating phone call:', error);
       // Fallback: show phone number for manual dialing
       alert('Please call us at 1-844-967-3536');
     }

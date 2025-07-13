@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { apiLogger } from '@/lib/pino-logger';
 import { triggerGHLCall } from '@/lib/ghl';
 
 export async function POST(request: NextRequest) {
@@ -29,7 +30,7 @@ export async function POST(request: NextRequest) {
       result,
     });
   } catch (error) {
-    console.error('Error triggering call:', error);
+    apiLogger.error('Error triggering call:', error);
     return NextResponse.json(
       {
         success: false,

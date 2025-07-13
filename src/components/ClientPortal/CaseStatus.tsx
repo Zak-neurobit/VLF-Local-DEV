@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { logger } from '@/lib/pino-logger';
 import { motion } from 'framer-motion';
 import {
   Briefcase,
@@ -74,7 +75,7 @@ export default function CaseStatus({ clientData }: { clientData: ClientData }) {
           setSelectedCase(data.cases[0]);
         }
       } catch (error) {
-        console.error('Error fetching cases:', error);
+        logger.error('Error fetching cases:', error);
       } finally {
         setLoading(false);
       }

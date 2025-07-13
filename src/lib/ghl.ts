@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import { logger } from '@/lib/pino-logger';
 // GHL API Configuration
 const GHL_API_KEY = process.env.GHL_API_KEY;
 const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID;
@@ -7,7 +8,7 @@ const GHL_API_URL = process.env.GHL_API_URL || 'https://rest.gohighlevel.com/v1'
 
 // Validate required environment variables
 if (!GHL_API_KEY || !GHL_LOCATION_ID) {
-  console.warn(
+  logger.warn(
     'GHL integration disabled: Missing GHL_API_KEY or GHL_LOCATION_ID environment variables'
   );
 }
@@ -63,7 +64,7 @@ export interface GHLCall {
  */
 export async function createGHLContact(data: GHLContact): Promise<any> {
   if (!GHL_API_KEY || !GHL_LOCATION_ID) {
-    console.warn('GHL API not configured, skipping contact creation');
+    logger.warn('GHL API not configured, skipping contact creation');
     return { success: false, error: 'GHL API not configured' };
   }
 
@@ -81,14 +82,14 @@ export async function createGHLContact(data: GHLContact): Promise<any> {
       timeout: 10000, // 10 seconds timeout
     });
 
-    console.log('Successfully created GHL contact:', response.data?.contact?.id);
+    logger.info('Successfully created GHL contact:', response.data?.contact?.id);
     return {
       success: true,
       contact: response.data,
       contactId: response.data?.contact?.id,
     };
   } catch (error: any) {
-    console.error('Error creating contact in GHL:', {
+    logger.error('Error creating contact in GHL:', {
       status: error.response?.status,
       data: error.response?.data,
       message: error.message,
@@ -107,7 +108,7 @@ export async function createGHLContact(data: GHLContact): Promise<any> {
  */
 export async function updateGHLContact(contactId: string, data: Partial<GHLContact>): Promise<any> {
   if (!GHL_API_KEY) {
-    console.warn('GHL API not configured, skipping contact update');
+    logger.warn('GHL API not configured, skipping contact update');
     return { success: false, error: 'GHL API not configured' };
   }
 
@@ -120,13 +121,13 @@ export async function updateGHLContact(contactId: string, data: Partial<GHLConta
       timeout: 10000,
     });
 
-    console.log('Successfully updated GHL contact:', contactId);
+    logger.info('Successfully updated GHL contact:', contactId);
     return {
       success: true,
       contact: response.data,
     };
   } catch (error: any) {
-    console.error('Error updating contact in GHL:', {
+    logger.error('Error updating contact in GHL:', {
       contactId,
       status: error.response?.status,
       data: error.response?.data,
@@ -146,7 +147,7 @@ export async function updateGHLContact(contactId: string, data: Partial<GHLConta
  */
 export async function searchGHLContacts(query: string): Promise<any> {
   if (!GHL_API_KEY) {
-    console.warn('GHL API not configured, skipping contact search');
+    logger.warn('GHL API not configured, skipping contact search');
     return { success: false, error: 'GHL API not configured' };
   }
 
@@ -168,7 +169,7 @@ export async function searchGHLContacts(query: string): Promise<any> {
       total: response.data.total || 0,
     };
   } catch (error: any) {
-    console.error('Error searching contacts in GHL:', {
+    logger.error('Error searching contacts in GHL:', {
       query,
       status: error.response?.status,
       data: error.response?.data,
@@ -188,7 +189,7 @@ export async function searchGHLContacts(query: string): Promise<any> {
  */
 export async function createGHLOpportunity(data: GHLOpportunity): Promise<any> {
   if (!GHL_API_KEY) {
-    console.warn('GHL API not configured, skipping opportunity creation');
+    logger.warn('GHL API not configured, skipping opportunity creation');
     return { success: false, error: 'GHL API not configured' };
   }
 
@@ -201,14 +202,14 @@ export async function createGHLOpportunity(data: GHLOpportunity): Promise<any> {
       timeout: 10000,
     });
 
-    console.log('Successfully created GHL opportunity:', response.data?.opportunity?.id);
+    logger.info('Successfully created GHL opportunity:', response.data?.opportunity?.id);
     return {
       success: true,
       opportunity: response.data,
       opportunityId: response.data?.opportunity?.id,
     };
   } catch (error: any) {
-    console.error('Error creating opportunity in GHL:', {
+    logger.error('Error creating opportunity in GHL:', {
       status: error.response?.status,
       data: error.response?.data,
       message: error.message,
@@ -227,7 +228,7 @@ export async function createGHLOpportunity(data: GHLOpportunity): Promise<any> {
  */
 export async function sendGHLSMS(data: GHLSMSMessage): Promise<any> {
   if (!GHL_API_KEY) {
-    console.warn('GHL API not configured, skipping SMS send');
+    logger.warn('GHL API not configured, skipping SMS send');
     return { success: false, error: 'GHL API not configured' };
   }
 
@@ -249,13 +250,13 @@ export async function sendGHLSMS(data: GHLSMSMessage): Promise<any> {
       }
     );
 
-    console.log('Successfully sent GHL SMS to contact:', data.contactId);
+    logger.info('Successfully sent GHL SMS to contact:', data.contactId);
     return {
       success: true,
       message: response.data,
     };
   } catch (error: any) {
-    console.error('Error sending SMS in GHL:', {
+    logger.error('Error sending SMS in GHL:', {
       contactId: data.contactId,
       status: error.response?.status,
       data: error.response?.data,
@@ -275,7 +276,7 @@ export async function sendGHLSMS(data: GHLSMSMessage): Promise<any> {
  */
 export async function triggerGHLCall(data: GHLCall): Promise<any> {
   if (!GHL_API_KEY) {
-    console.warn('GHL API not configured, skipping call trigger');
+    logger.warn('GHL API not configured, skipping call trigger');
     return { success: false, error: 'GHL API not configured' };
   }
 
@@ -297,13 +298,13 @@ export async function triggerGHLCall(data: GHLCall): Promise<any> {
       }
     );
 
-    console.log('Successfully triggered GHL call to contact:', data.contactId);
+    logger.info('Successfully triggered GHL call to contact:', data.contactId);
     return {
       success: true,
       call: response.data,
     };
   } catch (error: any) {
-    console.error('Error triggering call in GHL:', {
+    logger.error('Error triggering call in GHL:', {
       contactId: data.contactId,
       phoneNumber: data.phoneNumber,
       status: error.response?.status,
@@ -324,7 +325,7 @@ export async function triggerGHLCall(data: GHLCall): Promise<any> {
  */
 export async function getGHLContact(contactId: string): Promise<any> {
   if (!GHL_API_KEY) {
-    console.warn('GHL API not configured, skipping contact retrieval');
+    logger.warn('GHL API not configured, skipping contact retrieval');
     return { success: false, error: 'GHL API not configured' };
   }
 
@@ -341,7 +342,7 @@ export async function getGHLContact(contactId: string): Promise<any> {
       contact: response.data.contact,
     };
   } catch (error: any) {
-    console.error('Error getting contact from GHL:', {
+    logger.error('Error getting contact from GHL:', {
       contactId,
       status: error.response?.status,
       data: error.response?.data,
@@ -361,7 +362,7 @@ export async function getGHLContact(contactId: string): Promise<any> {
  */
 export async function addGHLContactTags(contactId: string, tags: string[]): Promise<any> {
   if (!GHL_API_KEY) {
-    console.warn('GHL API not configured, skipping tag addition');
+    logger.warn('GHL API not configured, skipping tag addition');
     return { success: false, error: 'GHL API not configured' };
   }
 
@@ -378,13 +379,13 @@ export async function addGHLContactTags(contactId: string, tags: string[]): Prom
       }
     );
 
-    console.log('Successfully added tags to GHL contact:', contactId);
+    logger.info('Successfully added tags to GHL contact:', contactId);
     return {
       success: true,
       result: response.data,
     };
   } catch (error: any) {
-    console.error('Error adding tags to contact in GHL:', {
+    logger.error('Error adding tags to contact in GHL:', {
       contactId,
       tags,
       status: error.response?.status,
@@ -462,7 +463,7 @@ export async function testGHLConnection(): Promise<any> {
       message: 'GHL connection successful',
     };
   } catch (error: any) {
-    console.error('Error testing GHL connection:', {
+    logger.error('Error testing GHL connection:', {
       status: error.response?.status,
       data: error.response?.data,
       message: error.message,

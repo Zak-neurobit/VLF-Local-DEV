@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/pino-logger';
 import { testGHLConnection, createGHLContact } from '@/lib/ghl';
 
 export async function GET() {
@@ -15,7 +16,7 @@ export async function GET() {
       },
     });
   } catch (error) {
-    console.error('Error testing GHL connection:', error);
+    logger.error('Error testing GHL connection:', error);
     return NextResponse.json(
       {
         success: false,
@@ -71,7 +72,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error creating test contact:', error);
+    logger.error('Error creating test contact:', error);
     return NextResponse.json(
       {
         success: false,

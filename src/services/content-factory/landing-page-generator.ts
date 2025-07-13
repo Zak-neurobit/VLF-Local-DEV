@@ -146,10 +146,11 @@ export class LandingPageGenerator {
 
       return {
         ...metadata,
-        content,
-        sections: content.sections,
+        content: content.content || '',
+        sections: content.sections || [],
         localSchema: null,
         conversionElements: trackingElements,
+        heroImage: await this.generateHeroImage('default', options.practiceArea),
       };
     } catch (error) {
       logger.error('Error generating practice area variation', { error, options });
@@ -250,7 +251,7 @@ Format as JSON with keys: headline, subheadline, benefits, cta, trustIndicators`
       max_tokens: 500,
     });
 
-    return JSON.parse(response.choices[0].message.content);
+    return JSON.parse(response.choices[0].message.content || '{}');
   }
 
   /**
@@ -260,7 +261,7 @@ Format as JSON with keys: headline, subheadline, benefits, cta, trustIndicators`
     const prompt = `Write a "Local ${options.city} Expertise" section for ${options.practiceArea} law.
 
 Include:
-1. Knowledge of local courts: ${localData.localCourts.map(c => c.name).join(', ')}
+1. Knowledge of local courts: ${localData.localCourts.map((c: any) => c.name).join(', ')}
 2. Understanding of local laws and procedures
 3. Relationships with local legal community
 4. Experience with ${options.city} specific cases
@@ -278,7 +279,7 @@ Make it specific and authentic, not generic. About 200-300 words.`;
     return {
       type: 'local-expertise',
       title: `Your Trusted ${options.city} ${this.formatPracticeArea(options.practiceArea)} Lawyers`,
-      content: response.choices[0].message.content,
+      content: response.choices[0].message.content || '',
     };
   }
 
@@ -311,7 +312,7 @@ About 300-400 words. Make it specific to ${options.city}.`;
     return {
       type: 'practice-area',
       title: `${this.formatPracticeArea(options.practiceArea)} Services in ${options.city}`,
-      content: response.choices[0].message.content,
+      content: response.choices[0].message.content || '',
     };
   }
 
@@ -342,7 +343,7 @@ Make it visual and impactful. Include 4-6 key statistics.`;
     return {
       type: 'statistics',
       title: `${options.city} by the Numbers`,
-      content: response.choices[0].message.content,
+      content: response.choices[0].message.content || '',
       visualData: stats,
     };
   }
@@ -372,7 +373,7 @@ Make them authentic, specific, and emotionally compelling. Vary the length and s
     return {
       type: 'testimonials',
       title: `What ${options.city} Clients Say About Us`,
-      content: response.choices[0].message.content,
+      content: response.choices[0].message.content || '',
     };
   }
 
@@ -403,7 +404,7 @@ Make it genuinely helpful, not just promotional.`;
     return {
       type: 'resources',
       title: `${options.city} Legal Resources`,
-      content: response.choices[0].message.content,
+      content: response.choices[0].message.content || '',
       resources,
     };
   }
@@ -435,7 +436,7 @@ Format as JSON array with 'question' and 'answer' keys. Answers should be detail
     return {
       type: 'faq',
       title: `${options.practiceArea} FAQs for ${options.city} Residents`,
-      questions: JSON.parse(response.choices[0].message.content),
+      questions: JSON.parse(response.choices[0].message.content || '[]'),
     };
   }
 
@@ -487,8 +488,8 @@ Write with empathy, understanding, and hope. About 800-1000 words total.`;
     });
 
     return {
-      content: response.choices[0].message.content,
-      sections: this.parseContentSections(response.choices[0].message.content),
+      content: response.choices[0].message.content || '',
+      sections: this.parseContentSections(response.choices[0].message.content || ''),
     };
   }
 
@@ -520,8 +521,8 @@ Use numbers, percentages, and concrete data throughout. About 800-1000 words.`;
     });
 
     return {
-      content: response.choices[0].message.content,
-      sections: this.parseContentSections(response.choices[0].message.content),
+      content: response.choices[0].message.content || '',
+      sections: this.parseContentSections(response.choices[0].message.content || ''),
     };
   }
 
@@ -550,8 +551,8 @@ Make testimonials specific, varied, and authentic. About 800-1000 words.`;
     });
 
     return {
-      content: response.choices[0].message.content,
-      sections: this.parseContentSections(response.choices[0].message.content),
+      content: response.choices[0].message.content || '',
+      sections: this.parseContentSections(response.choices[0].message.content || ''),
     };
   }
 
@@ -583,8 +584,8 @@ Answer questions thoroughly while building trust. About 800-1000 words.`;
     });
 
     return {
-      content: response.choices[0].message.content,
-      sections: this.parseContentSections(response.choices[0].message.content),
+      content: response.choices[0].message.content || '',
+      sections: this.parseContentSections(response.choices[0].message.content || ''),
     };
   }
 
@@ -613,8 +614,8 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     });
 
     return {
-      content: response.choices[0].message.content,
-      sections: this.parseContentSections(response.choices[0].message.content),
+      content: response.choices[0].message.content || '',
+      sections: this.parseContentSections(response.choices[0].message.content || ''),
     };
   }
 
@@ -674,7 +675,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     content += `## ${heroSection.subheadline}\n\n`;
 
     // Add benefits
-    content += heroSection.benefits.map(b => `- ${b}`).join('\n') + '\n\n';
+    content += heroSection.benefits?.map((b: string) => `- ${b}`).join('\n') + '\n\n';
 
     // Add sections
     sections.forEach(section => {
@@ -711,7 +712,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     };
 
     const title =
-      variationTitles[options.variationType] ||
+      (variationTitles as Record<string, string>)[options.variationType] ||
       `${this.formatPracticeArea(options.practiceArea)} Lawyers`;
     const slug = `${options.practiceArea}-${options.variationType}`;
 
@@ -771,7 +772,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       'traffic-violations': 'Traffic Violation',
     };
 
-    return formatted[practiceArea] || practiceArea;
+    return (formatted as Record<string, string>)[practiceArea] || practiceArea;
   }
 
   private getNearbyOffices(city: string): any[] {
@@ -835,7 +836,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     };
 
     const key = [city1, city2].sort().join('-');
-    return distances[key] || 30;
+    return (distances as Record<string, number>)[key] || 30;
   }
 
   private getDefaultLocalData(city: string): any {
@@ -874,7 +875,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       // Add more practice areas
     };
 
-    return specificData[practiceArea] || {};
+    return (specificData as Record<string, any>)[practiceArea] || {};
   }
 
   private getRelevantStats(practiceArea: string, localData: any): any {
@@ -894,7 +895,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       // Add more practice areas
     };
 
-    return statsMap[practiceArea] || [];
+    return (statsMap as Record<string, any[]>)[practiceArea] || [];
   }
 
   private getLocalResources(city: string, practiceArea: string, localData: any): any[] {
@@ -920,7 +921,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       // Add more practice areas
     };
 
-    return resources[practiceArea] || [];
+    return (resources as Record<string, any[]>)[practiceArea] || [];
   }
 
   private getEmotionalTriggers(practiceArea: string): string[] {
@@ -953,7 +954,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       'traffic-violations': ['license loss', 'insurance rates', 'job impact', 'driving record'],
     };
 
-    return triggers[practiceArea] || ['legal concerns', 'uncertainty', 'need for help'];
+    return (triggers as Record<string, string[]>)[practiceArea] || ['legal concerns', 'uncertainty', 'need for help'];
   }
 
   private async getRelevantStatistics(practiceArea: string): Promise<any[]> {
@@ -980,7 +981,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       // Add more practice areas
     };
 
-    return questions[practiceArea] || [];
+    return (questions as Record<string, string[]>)[practiceArea] || [];
   }
 
   private getVariationKeywords(options: PracticeAreaVariationOptions): string[] {
@@ -997,7 +998,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       'faq-focused': ['questions', 'answers', 'information', 'explained'],
     };
 
-    return [...baseKeywords, ...(variationKeywords[options.variationType] || [])];
+    return [...baseKeywords, ...((variationKeywords as Record<string, string[]>)[options.variationType] || [])];
   }
 
   private parseContentSections(content: string): any[] {

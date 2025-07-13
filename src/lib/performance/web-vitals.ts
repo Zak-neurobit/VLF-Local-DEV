@@ -1,7 +1,8 @@
 'use client';
 
-import { onCLS, onFCP, onINP, onLCP, onTTFB } from 'web-vitals';
+import { onCLS, onFCP, onINP, onLCP, onTTFB, type Metric } from 'web-vitals';
 
+import { logger } from '@/lib/pino-logger';
 export interface WebVitalsMetric {
   name: string;
   value: number;
@@ -46,9 +47,16 @@ export function sendToAnalytics(metric: WebVitalsMetric) {
     });
   }
 
+  // Send to our telemetry system for p99 tracking
+  if (typeof window !== 'undefined') {
+    import('../telemetry').then(({ sliTracker }) => {
+      sliTracker.trackWebVitals(metric);
+    }).catch(console.error);
+  }
+
   // Also log to console in development
   if (process.env.NODE_ENV === 'development') {
-    console.log('[Web Vitals]', metric);
+    logger.info('[Web Vitals]', metric);
   }
 }
 
@@ -84,7 +92,7 @@ export function observePerformance() {
     const longTaskObserver = new PerformanceObserver(list => {
       for (const entry of list.getEntries()) {
         if (entry.duration > 50) {
-          console.warn('[Performance] Long task detected:', {
+          logger.warn('[Performance] Long task detected:', {
             duration: entry.duration,
             startTime: entry.startTime,
             name: entry.name,
@@ -102,7 +110,7 @@ export function observePerformance() {
     const layoutShiftObserver = new PerformanceObserver(list => {
       for (const entry of list.getEntries()) {
         if ((entry as any).hadRecentInput) continue;
-        console.log('[Performance] Layout shift:', {
+        logger.info('[Performance] Layout shift:', {
           value: (entry as any).value,
           sources: (entry as any).sources,
         });

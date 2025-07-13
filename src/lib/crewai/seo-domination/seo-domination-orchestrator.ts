@@ -263,7 +263,8 @@ export class SEODominationOrchestrator {
     const quickWins = [];
 
     // Content opportunities
-    competitorData.contentGaps.forEach((gap: string) => {
+    const contentGaps = competitorData.contentGaps as string[] || [];
+    contentGaps.forEach((gap: string) => {
       quickWins.push({
         type: 'content',
         action: `Create comprehensive guide on ${gap}`,
@@ -273,7 +274,8 @@ export class SEODominationOrchestrator {
     });
 
     // Keyword opportunities
-    competitorData.keywordOpportunities.forEach((keyword: string) => {
+    const keywordOpportunities = competitorData.keywordOpportunities as string[] || [];
+    keywordOpportunities.forEach((keyword: string) => {
       quickWins.push({
         type: 'seo',
         action: `Target "${keyword}" with optimized content`,
@@ -585,7 +587,8 @@ export class SEODominationOrchestrator {
   private async adjustStrategies(analysis: Record<string, unknown>): Promise<void> {
     logger.warn('⚡ Adjusting strategies based on performance analysis...');
 
-    for (const adjustment of analysis.adjustments) {
+    const adjustments = (analysis.adjustments as any[]) || [];
+    for (const adjustment of adjustments) {
       logger.info(`Implementing adjustment: ${adjustment}`);
 
       // Trigger specific agent actions based on adjustment needed
@@ -632,14 +635,16 @@ export class SEODominationOrchestrator {
     logger.info(`  Opportunities Captured: ${metrics.competitorIntel.opportunitiesCaptured}`);
     logger.info(`  Market Share Gained: +${metrics.competitorIntel.marketShareGained}%`);
 
-    if (analysis.highlights.length > 0) {
+    const highlights = (analysis.highlights as string[]) || [];
+    if (highlights.length > 0) {
       logger.info('\n🌟 HIGHLIGHTS:');
-      analysis.highlights.forEach((highlight: string) => logger.info(`  ✅ ${highlight}`));
+      highlights.forEach((highlight: string) => logger.info(`  ✅ ${highlight}`));
     }
 
-    if (analysis.warnings.length > 0) {
+    const warnings = (analysis.warnings as string[]) || [];
+    if (warnings.length > 0) {
       logger.warn('\n⚠️ WARNINGS:');
-      analysis.warnings.forEach((warning: string) => logger.warn(`  ❗ ${warning}`));
+      warnings.forEach((warning: string) => logger.warn(`  ❗ ${warning}`));
     }
 
     logger.info('=====================================');

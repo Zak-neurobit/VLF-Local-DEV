@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { logger } from '@/lib/pino-logger';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCrewAI } from '@/hooks/useCrewAI';
 import { toast } from 'react-hot-toast';
@@ -78,17 +79,65 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
   // const audioContextRef = useRef<AudioContext | null>(null); // Currently unused
   const streamRef = useRef<MediaStream | null>(null);
 
+  // Message state
+  // Message type matching what we use internally
+  type InternalMessage = { id: string; text: string; sender: 'user' | 'assistant'; timestamp: Date };
+  const [messages, setMessages] = useState<InternalMessage[]>([]);
+  const [activeAgent, setActiveAgent] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
   // CrewAI Integration
   const { 
-    messages, 
-    sendMessage, 
     isLoading,
-    activeAgent,
-    error: crewError,
-    clearError,
-    // getAgentStatus, // Currently unused
-    executeTask
+    createLegalConsultationTask,
+    createAppointmentSchedulingTask,
+    createDocumentAnalysisTask,
+    createClientIntakeWorkflow,
+    getTaskStatus,
+    bookAppointment,
   } = useCrewAI();
+
+  // Message handling
+  const sendMessage = useCallback(async (text: string) => {
+    const newMessage = {
+      id: Date.now().toString(),
+      text,
+      sender: 'user' as const,
+      timestamp: new Date(),
+    };
+    setMessages(prev => [...prev, newMessage]);
+    
+    // Process message with AI
+    if (onMessage) {
+      onMessage(text);
+    }
+  }, [onMessage]);
+
+  const clearError = useCallback(() => {
+    setError(null);
+  }, []);
+
+  // Task execution wrapper
+  const executeTask = useCallback(async (task: any) => {
+    try {
+      if (task.type === 'consultation') {
+        return await createLegalConsultationTask(task.data);
+      } else if (task.type === 'appointment') {
+        return await createAppointmentSchedulingTask(task.data);
+      } else if (task.type === 'document') {
+        // Document analysis requires a file parameter
+        // Since we don't have a file in task.data, we need to handle this differently
+        // For now, we'll throw an error indicating a file is required
+        throw new Error('Document analysis requires a file to be uploaded');
+      } else if (task.type === 'intake') {
+        return await createClientIntakeWorkflow(task.data);
+      }
+      throw new Error('Unknown task type');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+      throw err;
+    }
+  }, [createLegalConsultationTask, createAppointmentSchedulingTask, createDocumentAnalysisTask, createClientIntakeWorkflow]);
 
   // Voice message handler
   const handleVoiceMessage = useCallback(async (transcript: string) => {
@@ -100,7 +149,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
       await sendMessage(transcript);
       onMessage?.(transcript);
     } catch (error) {
-      console.error('Error processing voice message:', error);
+      logger.error('Error processing voice message:', error);
       toast.error('Failed to process voice message');
     } finally {
       setConversationState(prev => ({ ...prev, isProcessing: false }));
@@ -267,8 +316,8 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
   useEffect(() => {
     if (voiceEnabled && messages.length > 0) {
       const lastMessage = messages[messages.length - 1];
-      if (lastMessage.role === 'assistant' && lastMessage.content) {
-        speak(lastMessage.content);
+      if (lastMessage.sender === 'assistant' && lastMessage.text) {
+        speak(lastMessage.text);
       }
     }
   }, [messages, voiceEnabled, speak]);
@@ -500,10 +549,10 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
             <div className="flex-1 overflow-hidden">
               {mode === 'chat' && (
                 <ChatInterface 
-                  messages={messages}
-                  onSendMessage={sendMessage}
-                  isLoading={isLoading}
                   language={language}
+                  userId={userId}
+                  onScheduleAppointment={() => setMode('appointment')}
+                  onCallRequest={() => window.location.href = 'tel:+1234567890'}
                 />
               )}
               
@@ -694,7 +743,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
                   {conversationState.error && (
                     <span className="text-red-500">Error</span>
                   )}
-                  {crewError && (
+                  {error && (
                     <button
                       onClick={clearError}
                       className="text-red-500 hover:text-red-700"

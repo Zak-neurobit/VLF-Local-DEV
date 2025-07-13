@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { securityLogger } from '@/lib/pino-logger';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -93,7 +94,7 @@ export default function PaymentForm({
       }
     } catch (error) {
       toast.error('An error occurred processing your payment');
-      console.error('Payment error:', error);
+      securityLogger.error('Payment error:', error);
     } finally {
       setIsProcessing(false);
     }

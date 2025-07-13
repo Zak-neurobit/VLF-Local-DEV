@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { apiLogger } from '@/lib/pino-logger';
 import { resourceCatalog } from '@/resources';
 import { ImmigrationProcessGuide } from '@/resources/guides/immigration-process-guide';
 // import { renderToStream } from '@react-pdf/renderer'; // TODO: Install package
@@ -64,7 +65,7 @@ export async function GET(_request: NextRequest, { params }: { params: { resourc
     responseHeaders.set('Content-Length', buffer.length.toString());
     
     // Log download for analytics (in production, this would go to a database)
-    console.log(`Resource downloaded: ${resourceId} at ${new Date().toISOString()}`);
+    apiLogger.info(`Resource downloaded: ${resourceId} at ${new Date().toISOString()}`);
     
     return new NextResponse(buffer, {
       status: 200,
@@ -72,7 +73,7 @@ export async function GET(_request: NextRequest, { params }: { params: { resourc
     });
     */
   } catch (error) {
-    console.error('Error generating resource PDF:', error);
+    apiLogger.error('Error generating resource PDF:', error);
 
     return NextResponse.json(
       {

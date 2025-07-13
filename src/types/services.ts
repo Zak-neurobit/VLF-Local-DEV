@@ -66,6 +66,7 @@ export interface LeadData {
   message?: string;
   preferredContactTime?: string;
   id?: string;
+  status?: string;
 }
 
 export interface EmailTemplateData {

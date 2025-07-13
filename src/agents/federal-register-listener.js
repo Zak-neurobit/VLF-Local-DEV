@@ -1,3 +1,5 @@
+import { securityLogger } from '@/lib/pino-logger';
+
 // Federal Register Listener
 const axios = require('axios');
 const fs = require('fs').promises;
@@ -10,7 +12,7 @@ class FederalRegisterListener {
   }
 
   async start() {
-    console.log('Federal Register Listener Started');
+    securityLogger.info('Federal Register Listener Started');
     this.check();
     setInterval(() => this.check(), this.checkInterval);
   }
@@ -23,7 +25,7 @@ class FederalRegisterListener {
           await this.processDocument(doc);
         }
       } catch (error) {
-        console.error(`Error checking ${agency}:`, error.message);
+        securityLogger.error(`Error checking ${agency}:`, error.message);
       }
     }
   }

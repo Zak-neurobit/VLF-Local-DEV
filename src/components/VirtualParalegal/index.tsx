@@ -18,15 +18,11 @@ function Avatar3D({ speaking }: { speaking: boolean }) {
   // For now, we'll use a fallback approach without the FBX model
   const fbxModel = null; // Disabled FBX loading to avoid conditional hook usage
 
-  const { actions } = useAnimations(fbxModel?.animations || [], groupRef);
-
+  // Since we don't have animations loaded, we'll handle the animation state differently
   useEffect(() => {
-    if (speaking && actions?.talking) {
-      actions.talking.play();
-    } else if (actions?.idle) {
-      actions.idle.play();
-    }
-  }, [speaking, actions]);
+    // Animation logic would go here if we had loaded animations
+    // For now, we'll just use the speaking prop to control visual feedback
+  }, [speaking]);
 
   // Use animated 3D shape as avatar
   return (

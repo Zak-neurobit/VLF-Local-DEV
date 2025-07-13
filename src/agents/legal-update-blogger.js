@@ -1,3 +1,5 @@
+import { logger } from '@/lib/pino-logger';
+
 // Legal Update Auto-Blogger
 const fs = require('fs').promises;
 const path = require('path');
@@ -8,7 +10,7 @@ class LegalUpdateBlogger {
   }
 
   async start() {
-    console.log('Legal Update Auto-Blogger Started');
+    logger.info('Legal Update Auto-Blogger Started');
     this.process();
     setInterval(() => this.process(), this.checkInterval);
   }

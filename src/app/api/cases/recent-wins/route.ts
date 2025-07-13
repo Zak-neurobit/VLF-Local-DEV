@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+import { apiLogger } from '@/lib/pino-logger';
 export const dynamic = 'force-dynamic';
 
 const mockRecentWins = [
@@ -71,7 +72,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(recentWins);
   } catch (error) {
-    console.error('Recent wins API error:', error);
+    apiLogger.error('Recent wins API error:', error);
     return NextResponse.json({ error: 'Failed to fetch recent wins' }, { status: 500 });
   }
 }

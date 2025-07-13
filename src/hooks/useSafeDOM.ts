@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useCallback } from 'react';
+import { logger } from '@/lib/pino-logger';
 import * as safeDom from '@/lib/dom/safe-dom';
 
 /**
@@ -166,7 +167,7 @@ export function useHydrationMismatch() {
         message.includes('Did not expect server HTML')
       ) {
         setHasMismatch(true);
-        console.error('Hydration mismatch detected:', message);
+        logger.error('Hydration mismatch detected:', message);
       }
     };
 

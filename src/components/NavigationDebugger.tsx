@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { logger } from '@/lib/pino-logger';
 import { usePathname, useSearchParams } from 'next/navigation';
 
 export function NavigationDebugger() {
@@ -9,7 +10,7 @@ export function NavigationDebugger() {
 
   useEffect(() => {
     // Log navigation events
-    console.log('[NavigationDebugger] Route changed:', {
+    logger.info('[NavigationDebugger] Route changed:', {
       pathname,
       searchParams: searchParams?.toString() || '',
       timestamp: new Date().toISOString(),
@@ -21,7 +22,7 @@ export function NavigationDebugger() {
         .querySelector('meta[name="server-path"]')
         ?.getAttribute('content');
       if (serverRenderedPath && serverRenderedPath !== pathname) {
-        console.error('[NavigationDebugger] Hydration mismatch detected:', {
+        logger.error('[NavigationDebugger] Hydration mismatch detected:', {
           serverPath: serverRenderedPath,
           clientPath: pathname,
         });
@@ -31,7 +32,7 @@ export function NavigationDebugger() {
     // Monitor for navigation errors
     const handleError = (event: ErrorEvent) => {
       if (event.message.includes('navigation') || event.message.includes('route')) {
-        console.error('[NavigationDebugger] Navigation error:', {
+        logger.error('[NavigationDebugger] Navigation error:', {
           message: event.message,
           source: event.filename,
           line: event.lineno,

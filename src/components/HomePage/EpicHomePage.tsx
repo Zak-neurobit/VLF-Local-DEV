@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { securityLogger } from '@/lib/pino-logger';
 import { motion } from 'framer-motion';
 import {
   ParallaxSection,
@@ -53,7 +54,7 @@ export function EpicHomePage() {
           setRecentActivity(data.recentActivity[0].message);
         }
       } catch (error) {
-        console.error('Error fetching live metrics:', error);
+        securityLogger.error('Error fetching live metrics:', error);
       }
     };
 

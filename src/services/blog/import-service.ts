@@ -1,4 +1,5 @@
 import fs from 'fs/promises';
+import { securityLogger } from '@/lib/pino-logger';
 import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
@@ -153,7 +154,7 @@ export class BlogImportService {
         return post;
       }
     } catch (error) {
-      console.error(`Error importing blog post ${filename}:`, error);
+      securityLogger.error(`Error importing blog post ${filename}:`, error);
     }
 
     return null;
@@ -174,7 +175,7 @@ export class BlogImportService {
 
       return validPosts;
     } catch (error) {
-      console.error('Error importing blog posts:', error);
+      securityLogger.error('Error importing blog posts:', error);
       // Return sample posts as fallback
       return this.generateSamplePosts();
     }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+import { securityLogger } from '@/lib/pino-logger';
 export const dynamic = 'force-dynamic';
 
 const mockLatestBlogPosts = [
@@ -73,7 +74,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(latestPosts);
   } catch (error) {
-    console.error('Latest blog posts API error:', error);
+    securityLogger.error('Latest blog posts API error:', error);
     return NextResponse.json({ error: 'Failed to fetch latest blog posts' }, { status: 500 });
   }
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { logger } from '@/lib/pino-logger';
 import { Star, Loader2, AlertCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -66,7 +67,7 @@ export default function ReviewWidget({
 
         setSummary(data.summary);
       } catch (err) {
-        console.error('Failed to fetch review summary:', err);
+        logger.error('Failed to fetch review summary:', err);
         setError(err instanceof Error ? err.message : 'Failed to load reviews');
       } finally {
         setLoading(false);

@@ -6,6 +6,7 @@
 
 import { z } from 'zod';
 
+import { securityLogger } from '@/lib/pino-logger';
 // Define the schema for our environment variables
 const envSchema = z.object({
   // Core Configuration
@@ -84,7 +85,7 @@ export type ValidatedEnv = z.infer<typeof envSchema>;
 function validateEnv(): ValidatedEnv {
   // Skip validation if explicitly disabled (use with caution)
   if (process.env.SKIP_ENV_VALIDATION === 'true') {
-    console.warn(
+    securityLogger.warn(
       '⚠️  Environment variable validation is skipped. This is not recommended for production.'
     );
     return process.env as any;
@@ -96,14 +97,14 @@ function validateEnv(): ValidatedEnv {
 
     // Log successful validation in development
     if (process.env.NODE_ENV === 'development') {
-      console.log('✅ Environment variables validated successfully');
+      securityLogger.info('✅ Environment variables validated successfully');
     }
 
     return validated;
   } catch (error) {
     if (error instanceof z.ZodError) {
       // Format error messages for better readability
-      console.error('\n❌ Environment Variable Validation Failed:\n');
+      securityLogger.error('\n❌ Environment Variable Validation Failed:\n');
 
       const missingVars: string[] = [];
       const invalidVars: string[] = [];
@@ -120,38 +121,38 @@ function validateEnv(): ValidatedEnv {
       });
 
       if (missingVars.length > 0) {
-        console.error('🚫 Missing Required Variables:');
-        missingVars.forEach(msg => console.error(msg));
+        securityLogger.error('🚫 Missing Required Variables:');
+        missingVars.forEach(msg => securityLogger.error(msg));
       }
 
       if (invalidVars.length > 0) {
-        console.error('\n⚠️  Invalid Variables:');
-        invalidVars.forEach(msg => console.error(msg));
+        securityLogger.error('\n⚠️  Invalid Variables:');
+        invalidVars.forEach(msg => securityLogger.error(msg));
       }
 
-      console.error('\n📋 Quick Setup Instructions:');
-      console.error('1. Copy .env.example to .env.local');
-      console.error('2. Fill in the required values');
-      console.error('3. See VERCEL-ENV-SETUP.md for production deployment\n');
+      securityLogger.error('\n📋 Quick Setup Instructions:');
+      securityLogger.error('1. Copy .env.example to .env.local');
+      securityLogger.error('2. Fill in the required values');
+      securityLogger.error('3. See VERCEL-ENV-SETUP.md for production deployment\n');
 
       // Provide specific setup help based on missing variables
       if (missingVars.some(v => v.includes('DATABASE_URL'))) {
-        console.error('💡 Database Setup:');
-        console.error('   - For local dev: Use Docker or install PostgreSQL');
-        console.error('   - For production: Use Vercel Postgres or Neon.tech');
-        console.error('   - Format: postgresql://user:password@host:5432/database\n');
+        securityLogger.error('💡 Database Setup:');
+        securityLogger.error('   - For local dev: Use Docker or install PostgreSQL');
+        securityLogger.error('   - For production: Use Vercel Postgres or Neon.tech');
+        securityLogger.error('   - Format: postgresql://user:password@host:5432/database\n');
       }
 
       if (missingVars.some(v => v.includes('NEXTAUTH_SECRET'))) {
-        console.error('💡 Generate NEXTAUTH_SECRET:');
-        console.error('   Run: openssl rand -base64 32\n');
+        securityLogger.error('💡 Generate NEXTAUTH_SECRET:');
+        securityLogger.error('   Run: openssl rand -base64 32\n');
       }
 
       if (missingVars.some(v => v.includes('OPENAI_API_KEY'))) {
-        console.error('💡 OpenAI Setup:');
-        console.error('   1. Go to https://platform.openai.com/api-keys');
-        console.error('   2. Create a new API key');
-        console.error('   3. Add it to your .env.local file\n');
+        securityLogger.error('💡 OpenAI Setup:');
+        securityLogger.error('   1. Go to https://platform.openai.com/api-keys');
+        securityLogger.error('   2. Create a new API key');
+        securityLogger.error('   3. Add it to your .env.local file\n');
       }
 
       // Exit with error code

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
+import { logger } from '@/lib/pino-logger';
 import type { Socket } from 'socket.io-client';
 
 interface AgentActivity {
@@ -17,7 +18,7 @@ interface AgentActivity {
   };
 }
 
-interface LiveMetrics {
+export interface LiveMetrics {
   visitorCount: number;
   conversationsActive: number;
   reviewsToday: number;
@@ -149,7 +150,7 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
         setSocket(newSocket);
       } catch (error) {
-        console.error('Failed to initialize dashboard socket:', error);
+        logger.error('Failed to initialize dashboard socket:', error);
       }
     };
 

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { apiLogger } from '@/lib/pino-logger';
 import { cache, redis } from '@/lib/cache';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -39,7 +40,7 @@ export async function GET(request: NextRequest) {
         });
     }
   } catch (error) {
-    console.error('Cache API error:', error);
+    apiLogger.error('Cache API error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -77,7 +78,7 @@ export async function DELETE(request: NextRequest) {
 
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
   } catch (error) {
-    console.error('Cache DELETE error:', error);
+    apiLogger.error('Cache DELETE error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

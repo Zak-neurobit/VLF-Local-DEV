@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
+import { logger } from '@/lib/pino-logger';
 import { useState } from 'react';
 import { ChevronDownIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import { HreflangGenerator } from '@/components/SEO/HreflangGenerator';
@@ -93,7 +94,7 @@ export function LanguageSwitcher({
         }
       }
     } catch (error) {
-      console.error('Error switching language:', error);
+      logger.error('Error switching language:', error);
       // Fallback to home page if there's an error
       router.push(targetLang === 'es' ? '/es' : '/');
     }

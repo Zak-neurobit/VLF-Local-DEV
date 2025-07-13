@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { logger } from '@/lib/pino-logger';
 import { motion } from 'framer-motion';
 import {
   MessageSquare,
@@ -79,7 +80,7 @@ export default function SecureMessaging() {
         setSelectedConversation(data.conversations[0]);
       }
     } catch (error) {
-      console.error('Error fetching conversations:', error);
+      logger.error('Error fetching conversations:', error);
     } finally {
       setLoading(false);
     }
@@ -107,7 +108,7 @@ export default function SecureMessaging() {
       const data = await response.json();
       setMessages(data.messages || []);
     } catch (error) {
-      console.error('Error fetching messages:', error);
+      logger.error('Error fetching messages:', error);
     }
   };
 
@@ -122,7 +123,7 @@ export default function SecureMessaging() {
         prev.map(conv => (conv.id === conversationId ? { ...conv, unreadCount: 0 } : conv))
       );
     } catch (error) {
-      console.error('Error marking as read:', error);
+      logger.error('Error marking as read:', error);
     }
   };
 
@@ -162,7 +163,7 @@ export default function SecureMessaging() {
         );
       }
     } catch (error) {
-      console.error('Error sending message:', error);
+      logger.error('Error sending message:', error);
     } finally {
       setSending(false);
     }

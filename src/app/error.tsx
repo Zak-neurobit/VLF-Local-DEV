@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { logger } from '@/lib/pino-logger';
 import { motion } from 'framer-motion';
 
 export default function Error({
@@ -14,7 +15,7 @@ export default function Error({
 
   useEffect(() => {
     // Log the error to error reporting service
-    console.error(error);
+    logger.error(error);
   }, [error]);
 
   const content = {

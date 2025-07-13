@@ -1,5 +1,6 @@
 import { performanceLogger } from '../logger';
 
+import { logger } from '@/lib/pino-logger';
 interface PerformanceMark {
   name: string;
   startTime: number;
@@ -23,7 +24,7 @@ class PerformanceMonitor {
   end(name: string): number | null {
     const mark = this.marks.get(name);
     if (!mark) {
-      console.warn(`Performance mark "${name}" not found`);
+      logger.warn(`Performance mark "${name}" not found`);
       return null;
     }
 

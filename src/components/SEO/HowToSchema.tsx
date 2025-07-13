@@ -1,5 +1,6 @@
 import React from 'react';
 import Script from 'next/script';
+import { WithContext, HowTo } from 'schema-dts';
 import {
   generateLegalProcessSchema,
   generatePracticeAreaHowToSchemas,
@@ -13,7 +14,7 @@ interface HowToSchemaProps {
 }
 
 export function HowToSchema({ processType, practiceArea, pageType = 'default' }: HowToSchemaProps) {
-  let schemas: Array<Record<string, unknown>> = [];
+  let schemas: Array<WithContext<HowTo>> = [];
 
   if (processType) {
     // Generate specific process schema

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { logger } from '@/lib/pino-logger';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Calendar,
@@ -97,7 +98,7 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
       const data = await response.json();
       setAppointments(data.appointments || []);
     } catch (error) {
-      console.error('Error fetching appointments:', error);
+      logger.error('Error fetching appointments:', error);
     } finally {
       setLoading(false);
     }
@@ -111,7 +112,7 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
       const data = await response.json();
       setAvailableSlots(data.slots || []);
     } catch (error) {
-      console.error('Error fetching available slots:', error);
+      logger.error('Error fetching available slots:', error);
     }
   }, [formData.attorneyId]);
 
@@ -139,7 +140,7 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
         resetForm();
       }
     } catch (error) {
-      console.error('Error scheduling appointment:', error);
+      logger.error('Error scheduling appointment:', error);
     }
   };
 
@@ -155,7 +156,7 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
         await fetchAppointments();
       }
     } catch (error) {
-      console.error('Error cancelling appointment:', error);
+      logger.error('Error cancelling appointment:', error);
     }
   };
 

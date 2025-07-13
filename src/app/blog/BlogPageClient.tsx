@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import { securityLogger } from '@/lib/pino-logger';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -143,12 +144,12 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
         setPosts(prevPosts => (page === 1 ? newPosts : [...prevPosts, ...newPosts]));
         setHasMore(data.hasMore);
       } else {
-        console.error('Error fetching posts:', data.error);
+        securityLogger.error('Error fetching posts:', data.error);
         setPosts([]);
         setHasMore(false);
       }
     } catch (error) {
-      console.error('Error fetching posts:', error);
+      securityLogger.error('Error fetching posts:', error);
       setPosts([]);
       setHasMore(false);
     } finally {
@@ -175,7 +176,7 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
         setPosts(posts);
       }
     } catch (error) {
-      console.error('Error fetching recent posts:', error);
+      securityLogger.error('Error fetching recent posts:', error);
     }
   };
 

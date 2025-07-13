@@ -74,9 +74,9 @@ export class FollowUpAutomationAgent extends Agent {
   }
 
   private determineSequenceType(data: {
-    tier?: string;
-    urgency?: string;
-    practiceArea?: string;
+    tier: string;
+    urgencyLevel: string;
+    practiceAreas: string[];
   }): FollowUpSequence['sequenceType'] {
     if (data.tier === 'hot') return 'hot_lead';
     if (data.tier === 'warm') return 'warm_lead';
@@ -85,12 +85,18 @@ export class FollowUpAutomationAgent extends Agent {
   }
 
   private generateFollowUpSteps(type: string, data: {
-    languagePreference?: string;
-    firstName?: string;
-    practiceArea?: string;
-    phone?: string;
-    email?: string;
-    preferredContactTime?: string;
+    contactId: string;
+    leadScore: number;
+    tier: string;
+    practiceAreas: string[];
+    urgencyLevel: string;
+    languagePreference: string;
+    previousInteractions?: Array<{
+      type: string;
+      date: string;
+      outcome?: string;
+      notes?: string;
+    }>;
   }): FollowUpSequence['steps'] {
     const isSpanish = data.languagePreference === 'es';
 
@@ -171,14 +177,18 @@ export class FollowUpAutomationAgent extends Agent {
   }
 
   private async generatePersonalizations(data: {
-    contactId?: string;
-    email?: string;
-    firstName?: string;
-    lastName?: string;
-    phone?: string;
-    preferredLanguage?: string;
-    practiceArea?: string;
-    urgencyLevel?: string;
+    contactId: string;
+    leadScore: number;
+    tier: string;
+    practiceAreas: string[];
+    urgencyLevel: string;
+    languagePreference: string;
+    previousInteractions?: Array<{
+      type: string;
+      date: string;
+      outcome?: string;
+      notes?: string;
+    }>;
   }): Promise<Record<string, string>> {
     const contact = await this.ghl.findContactByEmail(data.contactId); // TODO: Add findContactById method
 

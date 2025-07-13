@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { apiLogger } from '@/lib/pino-logger';
 import { getPrismaClient } from '@/lib/prisma';
 import { requestLogger } from '@/lib/logger';
 import { getChatSocketServer } from '@/lib/socket';
@@ -137,7 +138,7 @@ export async function GET(request: NextRequest) {
       activeChats = socketServer.getActiveSessionsCount();
     } catch (error) {
       // Socket server might not be initialized in this context
-      console.log('Socket server not available');
+      apiLogger.info('Socket server not available');
     }
 
     const metrics = {

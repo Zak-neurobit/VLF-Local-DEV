@@ -1,3 +1,5 @@
+import { logger } from '@/lib/pino-logger';
+
 /**
  * Environment Check Module
  * This module is imported at build time to validate environment variables
@@ -11,7 +13,7 @@ if (process.env.NODE_ENV !== 'test') {
 
   // Log validation success
   if (process.env.NODE_ENV === 'development') {
-    console.log('✅ Environment variables validated at build time');
+    logger.info('✅ Environment variables validated at build time');
   }
 }
 

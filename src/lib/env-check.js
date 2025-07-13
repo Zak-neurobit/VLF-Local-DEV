@@ -1,3 +1,5 @@
+import { logger } from '@/lib/pino-logger';
+
 // Simple env check for build
 const requiredEnvVars = [
   'NEXT_PUBLIC_APP_URL',
@@ -11,8 +13,8 @@ const requiredEnvVars = [
 if (process.env.NODE_ENV === 'production') {
   const missing = requiredEnvVars.filter(key => !process.env[key]);
   if (missing.length > 0) {
-    console.error(`Missing required environment variables: ${missing.join(', ')}`);
-    console.error('Please set these in your deployment environment');
+    logger.error(`Missing required environment variables: ${missing.join(', ')}`);
+    logger.error('Please set these in your deployment environment');
   }
 }
 

@@ -1,5 +1,6 @@
 import { getRetellService, RetellService } from './index';
 
+import { logger } from '@/lib/pino-logger';
 // Re-export the service as RetellClient for backward compatibility
 export class RetellClient {
   private service: RetellService;
@@ -9,7 +10,7 @@ export class RetellClient {
       this.service = getRetellService();
     } catch (error) {
       // If Retell is not configured, create a mock service
-      console.warn('Retell service not configured, using mock implementation');
+      logger.warn('Retell service not configured, using mock implementation');
       this.service = null as any;
     }
   }
@@ -35,7 +36,7 @@ export class RetellClient {
         success: true,
       };
     } catch (error) {
-      console.error('Failed to create call:', error);
+      logger.error('Failed to create call:', error);
       return {
         callId: null,
         success: false,
@@ -53,7 +54,7 @@ export class RetellClient {
       await this.service.endCall(callId);
       return { success: true };
     } catch (error) {
-      console.error('Failed to end call:', error);
+      logger.error('Failed to end call:', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Failed to end call',
@@ -76,7 +77,7 @@ export class RetellClient {
         recordingUrl: call?.recording_url,
       };
     } catch (error) {
-      console.error('Failed to get call details:', error);
+      logger.error('Failed to get call details:', error);
       return { callId, status: 'error' };
     }
   }

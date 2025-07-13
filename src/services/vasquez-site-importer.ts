@@ -1,11 +1,13 @@
+import { logger } from '@/lib/pino-logger';
+
 // Vasquez site importer temporarily disabled for launch
 export class VasquezSiteImporter {
   async initialize() {
-    console.log('Site importer initialized (stub)');
+    logger.info('Site importer initialized (stub)');
   }
 
   async importFullSite() {
-    console.log('Full site import skipped (stub)');
+    logger.info('Full site import skipped (stub)');
     return {
       pages: [],
       attorneys: [],
@@ -31,7 +33,7 @@ export class VasquezSiteImporter {
   }
 
   async close() {
-    console.log('Site importer closed');
+    logger.info('Site importer closed');
   }
 }
 

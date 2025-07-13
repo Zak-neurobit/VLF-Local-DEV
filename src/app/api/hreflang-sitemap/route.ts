@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { apiLogger } from '@/lib/pino-logger';
 import { SEOOptimizationService } from '@/services/seo-optimization';
 
 export const dynamic = 'force-dynamic';
@@ -15,7 +16,7 @@ export async function GET() {
       },
     });
   } catch (error) {
-    console.error('Error generating hreflang sitemap:', error);
+    apiLogger.error('Error generating hreflang sitemap:', error);
 
     // Return a basic sitemap
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.vasquezlawnc.com';

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, ReactNode, useState } from 'react';
 
+import { logger } from '@/lib/pino-logger';
 interface DOMSafeWrapperProps {
   children: ReactNode;
   fallback?: ReactNode;
@@ -28,7 +29,7 @@ export function DOMSafeWrapper({ children, fallback, onError }: DOMSafeWrapperPr
         // Prevent removal of nodes that don't have a parent
         mutation.removedNodes.forEach(node => {
           if (node.parentNode === null) {
-            console.warn('Prevented unsafe DOM operation: attempted to remove orphaned node');
+            logger.warn('Prevented unsafe DOM operation: attempted to remove orphaned node');
           }
         });
       });
@@ -62,7 +63,7 @@ export function DOMSafeWrapper({ children, fallback, onError }: DOMSafeWrapperPr
 
       if (isDOMError) {
         event.preventDefault();
-        console.error('DOM manipulation error caught and prevented:', event.error || event.message);
+        logger.error('DOM manipulation error caught and prevented:', event.error || event.message);
 
         // Call error handler if provided
         if (onError) {
@@ -107,7 +108,7 @@ export function DOMSafeWrapper({ children, fallback, onError }: DOMSafeWrapperPr
       }
 
       if (!child || !child.parentNode || child.parentNode !== this) {
-        console.warn('Prevented unsafe removeChild operation');
+        logger.warn('Prevented unsafe removeChild operation');
         return child;
       }
       return originalRemoveChild.call(this, child) as T;
@@ -116,7 +117,7 @@ export function DOMSafeWrapper({ children, fallback, onError }: DOMSafeWrapperPr
     // Override appendChild
     Node.prototype.appendChild = function <T extends Node>(child: T): T {
       if (!child || !this) {
-        console.warn('Prevented unsafe appendChild operation');
+        logger.warn('Prevented unsafe appendChild operation');
         return child;
       }
       return originalAppendChild.call(this, child) as T;
@@ -128,7 +129,7 @@ export function DOMSafeWrapper({ children, fallback, onError }: DOMSafeWrapperPr
       referenceNode: Node | null
     ): T {
       if (!newNode || !this) {
-        console.warn('Prevented unsafe insertBefore operation');
+        logger.warn('Prevented unsafe insertBefore operation');
         return newNode;
       }
       return originalInsertBefore.call(this, newNode, referenceNode) as T;
@@ -137,7 +138,7 @@ export function DOMSafeWrapper({ children, fallback, onError }: DOMSafeWrapperPr
     // Override replaceChild
     Node.prototype.replaceChild = function <T extends Node>(newChild: Node, oldChild: T): T {
       if (!newChild || !oldChild || !oldChild.parentNode || oldChild.parentNode !== this) {
-        console.warn('Prevented unsafe replaceChild operation');
+        logger.warn('Prevented unsafe replaceChild operation');
         return oldChild;
       }
       return originalReplaceChild.call(this, newChild, oldChild) as T;
@@ -155,7 +156,7 @@ export function DOMSafeWrapper({ children, fallback, onError }: DOMSafeWrapperPr
       }
 
       if (!this.parentNode) {
-        console.warn('Prevented unsafe remove operation on orphaned element');
+        logger.warn('Prevented unsafe remove operation on orphaned element');
         return;
       }
       return originalRemove.call(this);

@@ -1,10 +1,25 @@
 // Dynamic logger that uses Winston on server and console on client
+// Enhanced with OpenTelemetry trace correlation
 let logger: any;
 let apiLogger: any;
 let securityLogger: any;
 let performanceLogger: any;
 let wsLogger: any;
 let dbLogger: any;
+
+// Import OpenTelemetry trace correlation (conditional for server-side only)
+let getTraceContext: (() => { traceId: string; spanId: string } | null) | null = null;
+
+if (typeof window === 'undefined') {
+  try {
+    // Dynamic import to avoid client-side bundling issues
+    const telemetryModule = require('../telemetry/custom-spans');
+    getTraceContext = () => telemetryModule.vlfTelemetry.getTraceContext();
+  } catch (error) {
+    // Telemetry not available, continue without trace correlation
+    getTraceContext = null;
+  }
+}
 
 // Check if we're in Edge runtime (middleware)
 const isEdgeRuntime =
@@ -18,7 +33,7 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
   const isDevelopment = process.env.NODE_ENV === 'development';
   const isProduction = process.env.NODE_ENV === 'production';
 
-  // Winston logger configuration
+  // Winston logger configuration with OpenTelemetry trace correlation
   logger = winston.createLogger({
     level: isDevelopment ? 'debug' : 'info',
     format: winston.format.combine(
@@ -27,9 +42,13 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
       }),
       winston.format.errors({ stack: true }),
       winston.format.splat(),
+      // Add trace context to all log entries
+      winston.format((info) => {
+        return addTraceContext(info);
+      })(),
       winston.format.json()
     ),
-    defaultMeta: { service: 'vasquez-law-website' },
+    defaultMeta: { service: 'vasquez-law-website', component: 'winston' },
     transports: [
       new winston.transports.Console({
         format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
@@ -61,29 +80,31 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
   apiLogger = {
     request: (endpoint: string, method: string, payload?: unknown, headers?: any) => {
       const requestId = generateRequestId();
-      logger.info('API Request', {
+      logger.info('API Request', addTraceContext({
         requestId,
         endpoint,
         method,
         payload: sanitizePayload(payload),
         headers: sanitizeHeaders(headers),
         timestamp: new Date().toISOString(),
-      });
+        category: 'api_request',
+      }));
       return requestId;
     },
 
     response: (requestId: string, status: number, duration: number, data?: unknown) => {
-      logger.info('API Response', {
+      logger.info('API Response', addTraceContext({
         requestId,
         status,
         duration,
         responseSize: data ? JSON.stringify(data).length : 0,
         timestamp: new Date().toISOString(),
-      });
+        category: 'api_response',
+      }));
     },
 
     error: (requestId: string, error: any, retry?: number) => {
-      logger.error('API Error', {
+      logger.error('API Error', addTraceContext({
         requestId,
         error: {
           message: error.message,
@@ -92,7 +113,8 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
         },
         retry,
         timestamp: new Date().toISOString(),
-      });
+        category: 'api_error',
+      }));
     },
 
     info: (message: string, meta?: unknown) => {
@@ -409,6 +431,29 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
 // Helper functions
 function generateRequestId(): string {
   return `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
+function addTraceContext(metadata: any): any {
+  if (!getTraceContext || typeof window !== 'undefined') {
+    return metadata;
+  }
+
+  try {
+    const traceContext = getTraceContext();
+    if (traceContext) {
+      return {
+        ...metadata,
+        traceId: traceContext.traceId,
+        spanId: traceContext.spanId,
+        // Add full trace URL for easy access
+        traceUrl: `https://trace.vasquezlaw.com/trace/${traceContext.traceId}`,
+      };
+    }
+  } catch (error) {
+    // Silently continue if trace context unavailable
+  }
+
+  return metadata;
 }
 
 function sanitizePayload(payload: unknown): any {

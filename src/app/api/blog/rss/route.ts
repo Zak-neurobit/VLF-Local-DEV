@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { apiLogger } from '@/lib/pino-logger';
 import { blogImportService } from '@/services/blog/import-service';
 
 export const dynamic = 'force-dynamic';
@@ -69,7 +70,7 @@ export async function GET(request: Request) {
       },
     });
   } catch (error) {
-    console.error('Error generating RSS feed:', error);
+    apiLogger.error('Error generating RSS feed:', error);
     return NextResponse.json({ error: 'Failed to generate RSS feed' }, { status: 500 });
   }
 }

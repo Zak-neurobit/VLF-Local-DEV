@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { logger } from '@/lib/pino-logger';
 import Link from 'next/link';
 
 export default function Error({
@@ -11,7 +12,7 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error('Cutting edge page error:', error);
+    logger.error('Cutting edge page error:', error);
   }, [error]);
 
   return (

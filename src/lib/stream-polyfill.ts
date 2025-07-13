@@ -1,3 +1,5 @@
+import { logger } from '@/lib/pino-logger';
+
 /**
  * Polyfill for ReadableStream issues in some environments
  */
@@ -13,10 +15,10 @@ if (typeof window !== 'undefined') {
         if (this.desiredSize !== null && this.desiredSize >= 0) {
           originalEnqueue.call(this, chunk);
         } else {
-          console.warn('Attempted to enqueue chunk to closed or errored stream');
+          logger.warn('Attempted to enqueue chunk to closed or errored stream');
         }
       } catch (error) {
-        console.error('Stream enqueue error caught:', error);
+        logger.error('Stream enqueue error caught:', error);
       }
     };
   }

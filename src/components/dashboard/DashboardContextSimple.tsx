@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState } from 'react';
 
+import { logger } from '@/lib/pino-logger';
 interface AgentActivity {
   id: string;
   name: string;
@@ -84,7 +85,7 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   });
 
   const refreshData = () => {
-    console.log('Refresh data called');
+    logger.info('Refresh data called');
   };
 
   return (

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { paymentLogger } from '@/lib/pino-logger';
 // Removed unused framer-motion import
 import { useRouter } from 'next/navigation';
 import {
@@ -78,7 +79,7 @@ export default function BillingSection({ clientData }: { clientData: ClientData 
         setInvoices(invoicesData.invoices || []);
         setTrustAccount(trustData.trustAccount || null);
       } catch (error) {
-        console.error('Error fetching billing data:', error);
+        paymentLogger.error('Error fetching billing data:', error);
       } finally {
         setLoading(false);
       }
@@ -130,7 +131,7 @@ export default function BillingSection({ clientData }: { clientData: ClientData 
       a.click();
       window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error('Error downloading invoice:', error);
+      paymentLogger.error('Error downloading invoice:', error);
     }
   };
 

@@ -1,4 +1,5 @@
 import { NextAuthOptions } from 'next-auth';
+import { securityLogger } from '@/lib/pino-logger';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
@@ -9,9 +10,9 @@ import { env } from '@/lib/env';
 
 // Use a simple console logger in edge runtime
 const logger = {
-  info: (message: string, ...args: any[]) => console.log(`[INFO] ${message}`, ...args),
-  error: (message: string, ...args: any[]) => console.error(`[ERROR] ${message}`, ...args),
-  warn: (message: string, ...args: any[]) => console.warn(`[WARN] ${message}`, ...args),
+  info: (message: string, ...args: any[]) => securityLogger.info(`[INFO] ${message}`, ...args),
+  error: (message: string, ...args: any[]) => securityLogger.error(`[ERROR] ${message}`, ...args),
+  warn: (message: string, ...args: any[]) => securityLogger.warn(`[WARN] ${message}`, ...args),
 };
 
 // Helper function to get client IP from request headers

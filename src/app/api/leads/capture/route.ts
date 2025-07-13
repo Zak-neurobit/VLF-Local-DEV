@@ -3,6 +3,7 @@ import { leadCaptureService } from '@/services/lead-capture';
 import { logger } from '@/lib/logger';
 import { z } from 'zod';
 import { rateLimit } from '@/lib/rate-limiter';
+import { withLeadCaptureTracing, withDatabaseTracing } from '@/lib/telemetry/api-middleware';
 
 export const dynamic = 'force-dynamic';
 // Rate limiter for lead capture (prevent spam)
@@ -34,7 +35,8 @@ const LeadCaptureRequestSchema = z.object({
   recaptchaToken: z.string().optional(),
 });
 
-export async function POST(request: NextRequest) {
+// Wrap POST handler with lead capture tracing
+async function handlePOST(request: NextRequest) {
   try {
     // Get IP for rate limiting
     const ip =
@@ -136,8 +138,11 @@ export async function POST(request: NextRequest) {
   }
 }
 
+// Export POST handler with tracing
+export const POST = withLeadCaptureTracing(handlePOST);
+
 // Get lead analytics
-export async function GET(request: NextRequest) {
+async function handleGET(request: NextRequest) {
   try {
     // Check authentication (admin only)
     const authHeader = request.headers.get('authorization');
@@ -166,3 +171,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to retrieve analytics' }, { status: 500 });
   }
 }
+
+// Export GET handler with database tracing
+export const GET = withDatabaseTracing(handleGET);

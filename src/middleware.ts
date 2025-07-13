@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { securityLogger } from '@/lib/pino-logger';
 import type { NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
@@ -83,7 +84,7 @@ export async function middleware(request: NextRequest) {
       }
     } catch (error) {
       // Log error but don't block access if auth check fails
-      console.error('[Middleware] Auth check error:', error);
+      securityLogger.error('[Middleware] Auth check error:', error);
       // Continue to allow the app to work even if auth is broken
     }
   }

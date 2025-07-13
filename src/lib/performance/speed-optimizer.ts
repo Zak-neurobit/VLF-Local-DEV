@@ -1,5 +1,6 @@
 // Comprehensive speed optimization utilities
 import { useEffect, useState } from 'react';
+import { logger } from '@/lib/pino-logger';
 import {
   safeAppendChild,
   safeCreateElement,
@@ -182,7 +183,7 @@ export function createAdaptiveIntersectionObserver(
 // Service Worker registration with update handling
 export async function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) {
-    console.log('Service Worker not supported');
+    logger.info('Service Worker not supported');
     return;
   }
 
@@ -191,7 +192,7 @@ export async function registerServiceWorker() {
       scope: '/',
     });
 
-    console.log('Service Worker registered:', registration);
+    logger.info('Service Worker registered:', registration);
 
     // Handle updates
     registration.addEventListener('updatefound', () => {
@@ -210,7 +211,7 @@ export async function registerServiceWorker() {
 
     return registration;
   } catch (error) {
-    console.error('Service Worker registration failed:', error);
+    logger.error('Service Worker registration failed:', error);
   }
 }
 
@@ -271,12 +272,12 @@ export function monitorBundleSize() {
     return acc + (script.textContent?.length || 0);
   }, 0);
 
-  console.log(`Total JavaScript size: ~${(totalSize / 1024).toFixed(2)}KB`);
+  logger.info(`Total JavaScript size: ~${(totalSize / 1024).toFixed(2)}KB`);
 
   // Warn if bundle is too large
   if (totalSize > 500 * 1024) {
     // 500KB
-    console.warn('Bundle size exceeds recommended limit!');
+    logger.warn('Bundle size exceeds recommended limit!');
   }
 }
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
+import { logger } from '@/lib/pino-logger';
 import { useEffect, useState } from 'react';
 import { getTranslations } from '@/lib/i18n';
 
@@ -63,12 +64,13 @@ export function useTranslation() {
     // Helper function to get nested translations
     translate: (key: string) => {
       const keys = key.split('.');
-      let value: unknown = t;
+      let value: any = t;
 
       for (const k of keys) {
-        value = value?.[k];
-        if (value === undefined) {
-          console.warn(`Translation key not found: ${key}`);
+        if (value && typeof value === 'object' && k in value) {
+          value = value[k];
+        } else {
+          logger.warn(`Translation key not found: ${key}`);
           return key;
         }
       }

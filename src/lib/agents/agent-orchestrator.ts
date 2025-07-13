@@ -67,6 +67,187 @@ export interface BaseAgent {
   createFollowUpSequence?: (leadData: unknown) => Promise<unknown>;
 }
 
+// Adapter wrapper for CrewAI agents
+class CrewAIAgentAdapter implements BaseAgent {
+  constructor(private agent: any) {}
+
+  async process(input: string, context: AgentContext): Promise<AgentResponse> {
+    // Default implementation that calls the agent's primary method
+    if (this.agent.analyze) {
+      return this.handleAnalyze(input, context);
+    } else if (this.agent.findAvailableSlots) {
+      return this.handleAppointment(input, context);
+    } else if (this.agent.analyzeDocument) {
+      return this.handleDocument(input, context);
+    } else if (this.agent.processIntake) {
+      return this.handleIntake(input, context);
+    } else if (this.agent.assessCase) {
+      return this.handleAssessment(input, context);
+    }
+    
+    throw new Error('Agent does not have a recognized method');
+  }
+
+  private async handleAnalyze(input: string, context: AgentContext): Promise<AgentResponse> {
+    const result = await this.agent.analyze({
+      userId: context.userId || 'anonymous',
+      description: input,
+      caseType: 'general',
+      urgency: 'medium',
+      language: context.language as 'en' | 'es',
+      location: context.metadata?.location,
+    });
+
+    return {
+      agent: 'consultation',
+      response: result.recommendations?.join('\n\n') || 'Please provide more details about your case.',
+      suggestions: result.nextSteps || [],
+    };
+  }
+
+  private async handleAppointment(input: string, context: AgentContext): Promise<AgentResponse> {
+    // For appointment scheduling, we need to parse the input for appointment details
+    return {
+      agent: 'appointment',
+      response: 'I can help you schedule an appointment. Please provide your preferred date and time.',
+      actions: [
+        {
+          type: 'show-calendar',
+          data: { availableDates: [] },
+        },
+      ],
+    };
+  }
+
+  private async handleDocument(input: string, context: AgentContext): Promise<AgentResponse> {
+    if (!context.metadata?.documents) {
+      return {
+        agent: 'document',
+        response: 'Please upload the documents you would like me to analyze.',
+        actions: [
+          {
+            type: 'request-upload',
+            data: {
+              acceptedFormats: ['pdf', 'jpg', 'png', 'doc', 'docx'],
+              maxSize: '10MB',
+            },
+          },
+        ],
+      };
+    }
+
+    const documents = context.metadata.documents as string[];
+    const result = await this.agent.analyzeDocument({
+      documentPath: documents[0],
+      documentType: 'other',
+      analysisType: 'full-analysis',
+      language: context.language as 'en' | 'es',
+      urgency: 'medium',
+      clientId: context.userId || 'anonymous',
+    });
+
+    return {
+      agent: 'document',
+      response: result.summary || 'Document analysis complete.',
+      suggestions: result.recommendedActions || [],
+    };
+  }
+
+  private async handleIntake(input: string, context: AgentContext): Promise<AgentResponse> {
+    const result = await this.agent.processIntake({
+      clientInput: input,
+      preferredLanguage: context.language as 'en' | 'es',
+      isEmergency: false,
+      contactInfo: context.metadata?.contactInfo,
+    });
+
+    return {
+      agent: 'intake',
+      response: result.summary || 'Intake process initiated.',
+      suggestions: result.nextSteps || [],
+    };
+  }
+
+  private async handleAssessment(input: string, context: AgentContext): Promise<AgentResponse> {
+    const result = await this.agent.assessCase({
+      caseDetails: input,
+      clientId: context.userId || 'anonymous',
+      language: context.language as 'en' | 'es',
+    });
+
+    return {
+      agent: 'assessment',
+      response: result.analysis || 'Case assessment complete.',
+      suggestions: result.recommendations || [],
+    };
+  }
+}
+
+// Adapter for automation agents
+class AutomationAgentAdapter implements BaseAgent {
+  constructor(private agent: any) {}
+
+  async process(input: string, context: AgentContext): Promise<AgentResponse> {
+    if (this.agent.validateLead) {
+      return this.handleLeadValidation(input, context);
+    } else if (this.agent.createFollowUpSequence) {
+      return this.handleFollowUp(input, context);
+    }
+    
+    throw new Error('Automation agent does not have a recognized method');
+  }
+
+  private async handleLeadValidation(input: string, context: AgentContext): Promise<AgentResponse> {
+    // Parse lead data from input
+    const leadData = {
+      name: context.metadata?.name || 'Unknown',
+      email: context.metadata?.email || '',
+      phone: context.metadata?.phone || '',
+      message: input,
+      source: context.metadata?.source || 'chat',
+      language: context.language,
+    };
+
+    const result = await this.agent.validateLead(leadData);
+
+    return {
+      agent: 'lead-validation',
+      response: `Lead validation complete. Score: ${result.score}, Tier: ${result.tier}`,
+      suggestions: result.recommendations || [],
+      actions: [
+        {
+          type: 'lead-validated',
+          data: result,
+        },
+      ],
+    };
+  }
+
+  private async handleFollowUp(input: string, context: AgentContext): Promise<AgentResponse> {
+    const followUpData = {
+      contactId: context.userId || 'anonymous',
+      leadScore: context.metadata?.leadScore || 50,
+      tier: context.metadata?.tier || 'warm',
+      practiceAreas: context.metadata?.practiceAreas || ['general'],
+      urgencyLevel: context.metadata?.urgencyLevel || 'medium',
+      languagePreference: context.language,
+    };
+
+    const result = await this.agent.createFollowUpSequence(followUpData);
+
+    return {
+      agent: 'follow-up',
+      response: 'Follow-up sequence created successfully.',
+      actions: [
+        {
+          type: 'follow-up-created',
+          data: result,
+        },
+      ],
+    };
+  }
+}
+
 export class AgentOrchestrator extends EventEmitter {
   private agents: Map<string, BaseAgent>;
   private agentTypes: Map<string, string>;
@@ -116,19 +297,19 @@ export class AgentOrchestrator extends EventEmitter {
       }
     };
 
-    // Initialize all customer-facing agents
-    safeRegister('consultation', () => new LegalConsultationAgent(), 'crewai');
-    safeRegister('appointment', () => new AppointmentSchedulingAgent(), 'crewai');
-    safeRegister('document', () => new DocumentAnalysisAgent(), 'crewai');
-    safeRegister('intake', () => new EnhancedIntakeAgent(), 'crewai');
-    safeRegister('removal', () => new RemovalDefenseAgent(), 'crewai');
-    safeRegister('business', () => new BusinessImmigrationAgent(), 'crewai');
-    safeRegister('criminal', () => new CriminalDefenseAgent(), 'crewai');
-    safeRegister('aila', () => new AILATrainedRemovalDefenseAgent(), 'crewai');
+    // Initialize all customer-facing agents with adapters
+    safeRegister('consultation', () => new CrewAIAgentAdapter(new LegalConsultationAgent()), 'crewai');
+    safeRegister('appointment', () => new CrewAIAgentAdapter(new AppointmentSchedulingAgent()), 'crewai');
+    safeRegister('document', () => new CrewAIAgentAdapter(new DocumentAnalysisAgent()), 'crewai');
+    safeRegister('intake', () => new CrewAIAgentAdapter(new EnhancedIntakeAgent()), 'crewai');
+    safeRegister('removal', () => new CrewAIAgentAdapter(new RemovalDefenseAgent()), 'crewai');
+    safeRegister('business', () => new CrewAIAgentAdapter(new BusinessImmigrationAgent()), 'crewai');
+    safeRegister('criminal', () => new CrewAIAgentAdapter(new CriminalDefenseAgent()), 'crewai');
+    safeRegister('aila', () => new CrewAIAgentAdapter(new AILATrainedRemovalDefenseAgent()), 'crewai');
 
-    // Initialize automation agents
-    safeRegister('lead-validation', () => new LeadValidationAgent(), 'automation');
-    safeRegister('follow-up', () => new FollowUpAutomationAgent(), 'automation');
+    // Initialize automation agents with adapters
+    safeRegister('lead-validation', () => new AutomationAgentAdapter(new LeadValidationAgent()), 'automation');
+    safeRegister('follow-up', () => new AutomationAgentAdapter(new FollowUpAutomationAgent()), 'automation');
 
     // Log initialization results
     logger.info(`Agent Orchestrator initialization complete:`, {
@@ -460,7 +641,7 @@ export class AgentOrchestrator extends EventEmitter {
 
   private selectAgent(intent: string, context: AgentContext): string | null {
     // Check for specific routing in context
-    if (context.metadata?.preferredAgent) {
+    if (context.metadata?.preferredAgent && typeof context.metadata.preferredAgent === 'string') {
       return context.metadata.preferredAgent;
     }
 
@@ -492,218 +673,15 @@ export class AgentOrchestrator extends EventEmitter {
 
     logger.info(`Executing ${agentName} agent`, { sessionId: context.sessionId });
 
-    switch (agentName) {
-      case 'appointment':
-        return this.handleAppointmentAgent(agent, message, context);
-
-      case 'document':
-        return this.handleDocumentAgent(agent, message, context);
-
-      case 'intake':
-        return this.handleIntakeAgent(agent, message, context);
-
-      case 'consultation':
-      default:
-        return this.handleConsultationAgent(agent, message, context);
-    }
-  }
-
-  private async handleConsultationAgent(
-    agent: LegalConsultationAgent,
-    message: string,
-    context: AgentContext
-  ): Promise<AgentResponse> {
-    const result = await agent.analyze({
-      userId: context.userId || 'anonymous',
-      description: message,
-      caseType: 'general',
-      urgency: 'medium',
-      language: context.language as 'en' | 'es',
-      location: context.metadata?.location,
-    });
-
-    const response: AgentResponse = {
-      agent: 'consultation',
-      response: result.recommendations.join('\n\n'),
-      suggestions: result.nextSteps,
-    };
-
-    // Add handoff if needed
-    if (
-      result.estimatedCaseComplexity === 'complex' ||
-      result.nextSteps.some(step => step.toLowerCase().includes('appointment'))
-    ) {
-      response.handoff = 'appointment';
-      response.actions = [
-        {
-          type: 'suggest-appointment',
-          data: {
-            complexity: result.estimatedCaseComplexity,
-            practiceAreas: result.suggestedPracticeAreas,
-          },
-        },
-      ];
+    // Use the adapter's process method
+    if (agent.process) {
+      return agent.process(message, context);
     }
 
-    return response;
+    // Fallback for any legacy agents
+    throw new Error(`Agent ${agentName} does not have a process method`);
   }
 
-  private async handleAppointmentAgent(
-    agent: AppointmentSchedulingAgent,
-    message: string,
-    context: AgentContext
-  ): Promise<AgentResponse> {
-    // Extract appointment details from message
-    const appointmentData = await this.extractAppointmentData(message, context);
-
-    if (!appointmentData.complete) {
-      return {
-        agent: 'appointment',
-        response:
-          appointmentData.prompt ||
-          "I'd be happy to schedule a consultation for you. Could you please provide your preferred date and time?",
-        actions: [
-          {
-            type: 'show-calendar',
-            data: { availableDates: appointmentData.availableDates },
-          },
-        ],
-      };
-    }
-
-    // First find available slots
-    const slotsResponse = await agent.findAvailableSlots(appointmentData);
-
-    if (!slotsResponse.availableSlots?.length) {
-      return {
-        agent: 'appointment',
-        response: 'No available slots found',
-        actions: [
-          {
-            type: 'show-alternatives',
-            data: { slots: [] },
-          },
-        ],
-      };
-    }
-
-    // Book the first available slot (in real app, user would select)
-    const result = await agent.bookAppointment(
-      context.userId || 'anonymous',
-      slotsResponse.availableSlots[0],
-      appointmentData
-    );
-
-    return {
-      agent: 'appointment',
-      response: result.success
-        ? `Great! I've scheduled your consultation. Your confirmation number is ${result.confirmationNumber}. You'll receive a confirmation email shortly.`
-        : `I'm sorry, I couldn't book that appointment. ${result.error || 'Please try a different time slot.'}`,
-      actions: result.success
-        ? [
-            {
-              type: 'appointment-confirmed',
-              data: {
-                confirmationNumber: result.confirmationNumber,
-                slot: slotsResponse.availableSlots[0],
-              },
-            },
-          ]
-        : [
-            {
-              type: 'show-alternatives',
-              data: { slots: slotsResponse.availableSlots },
-            },
-          ],
-    };
-  }
-
-  private async handleDocumentAgent(
-    agent: DocumentAnalysisAgent,
-    message: string,
-    context: AgentContext
-  ): Promise<AgentResponse> {
-    // Check if documents are attached
-    if (!context.metadata?.documents) {
-      return {
-        agent: 'document',
-        response:
-          "I can help analyze your documents. Please upload the documents you'd like me to review.",
-        actions: [
-          {
-            type: 'request-upload',
-            data: {
-              acceptedFormats: ['pdf', 'jpg', 'png', 'doc', 'docx'],
-              maxSize: '10MB',
-            },
-          },
-        ],
-      };
-    }
-
-    const result = await agent.analyzeDocument({
-      documentPath: context.metadata.documents[0], // Analyze first document
-      documentType: 'other',
-      analysisType: 'full-analysis',
-      language: context.language as 'en' | 'es',
-      urgency: 'medium',
-      clientId: context.userId || 'anonymous',
-    });
-
-    return {
-      agent: 'document',
-      response: result.summary,
-      suggestions: result.recommendedActions,
-      actions:
-        result.complianceIssues && result.complianceIssues.length > 0
-          ? [
-              {
-                type: 'highlight-issues',
-                data: {
-                  issues: result.complianceIssues,
-                  missingDocuments: result.missingDocuments,
-                  requiresReview: result.requiresAttorneyReview,
-                },
-              },
-            ]
-          : undefined,
-    };
-  }
-
-  private async handleIntakeAgent(
-    agent: EnhancedIntakeAgent,
-    message: string,
-    context: AgentContext
-  ): Promise<AgentResponse> {
-
-    const result = await agent.processIntake({
-      clientInput: message,
-      preferredLanguage: context.language as 'en' | 'es',
-      isEmergency: false,
-      contactInfo: context.metadata?.contactInfo as {
-        name?: string;
-        email?: string;
-        phone?: string;
-      },
-    });
-
-    return {
-      agent: 'intake',
-      response: result.summary,
-      suggestions: result.nextSteps,
-      actions: [
-        {
-          type: 'intake-complete',
-          data: {
-            practiceArea: result.practiceArea,
-            urgencyLevel: result.urgencyLevel,
-            requiredDocuments: result.requiredDocuments,
-            estimatedResponseTime: result.estimatedResponseTime,
-          },
-        },
-      ],
-    };
-  }
 
   private async extractAppointmentData(_message: string, _context: AgentContext): Promise<{
     complete: boolean;

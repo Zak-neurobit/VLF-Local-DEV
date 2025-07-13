@@ -1,3 +1,5 @@
+import { logger } from '@/lib/pino-logger';
+
 /**
  * API Safety utilities to handle missing API keys gracefully
  */
@@ -33,7 +35,7 @@ export class APISafetyWrapper {
         throw new Error(`${this.config.serviceName} API key is required but not configured`);
       }
 
-      console.warn(`${this.config.serviceName} API is not configured - using fallback`);
+      logger.warn(`${this.config.serviceName} API is not configured - using fallback`);
 
       if (fallback !== undefined) {
         return fallback;
@@ -45,7 +47,7 @@ export class APISafetyWrapper {
     try {
       return await fn();
     } catch (error) {
-      console.error(`${this.config.serviceName} API error:`, error);
+      logger.error(`${this.config.serviceName} API error:`, error);
       throw error;
     }
   }
@@ -54,7 +56,7 @@ export class APISafetyWrapper {
    * Get a mock response for development/demo purposes
    */
   getMockResponse<T>(mockData: T): T {
-    console.info(`${this.config.serviceName}: Using mock data (API not configured)`);
+    logger.info(`${this.config.serviceName}: Using mock data (API not configured)`);
     return mockData;
   }
 }

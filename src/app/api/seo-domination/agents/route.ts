@@ -3,14 +3,6 @@ import { logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 import type { PrismaClient } from '@prisma/client';
 
-interface AgentLog {
-  success: boolean;
-  duration: number;
-  executionType: string;
-  createdAt: Date;
-  output?: string | null;
-  impactScore?: number | null;
-}
 
 export async function GET(request: NextRequest) {
   try {

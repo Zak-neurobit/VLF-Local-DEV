@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { logger } from '@/lib/pino-logger';
 import { motion } from 'framer-motion';
 import { useDashboard } from './DashboardContext';
 
@@ -53,11 +54,11 @@ const DynamicHomepage: React.FC<DynamicHomePageProps> = ({ language }) => {
             const locationData = await response.json();
             setUserLocation(locationData);
           } catch (error) {
-            console.error('Error getting location:', error);
+            logger.error('Error getting location:', error);
           }
         },
         error => {
-          console.error('Geolocation error:', error);
+          logger.error('Geolocation error:', error);
         }
       );
     }
@@ -90,7 +91,7 @@ const DynamicHomepage: React.FC<DynamicHomePageProps> = ({ language }) => {
         const wins = await response.json();
         setRecentWins(wins.slice(0, 3));
       } catch (error) {
-        console.error('Error fetching recent wins:', error);
+        logger.error('Error fetching recent wins:', error);
       }
     };
 
@@ -101,7 +102,7 @@ const DynamicHomepage: React.FC<DynamicHomePageProps> = ({ language }) => {
         const posts = await response.json();
         setLatestBlogPosts(posts.slice(0, 3));
       } catch (error) {
-        console.error('Error fetching blog posts:', error);
+        logger.error('Error fetching blog posts:', error);
       }
     };
 

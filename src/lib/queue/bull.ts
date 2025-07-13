@@ -1,4 +1,5 @@
 import Bull from 'bull';
+import { securityLogger } from '@/lib/pino-logger';
 import { performanceLogger, logger } from '@/lib/logger';
 import { bullRedis } from '@/lib/cache';
 import { PrismaClient } from '@prisma/client';
@@ -115,7 +116,7 @@ callAnalysisQueue.process(async job => {
 
     return analysis;
   } catch (error) {
-    console.error('Call analysis failed:', error);
+    securityLogger.error('Call analysis failed:', error);
     throw error;
   }
 });

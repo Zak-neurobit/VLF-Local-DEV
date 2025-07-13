@@ -1,3 +1,5 @@
+import { logger } from '@/lib/pino-logger';
+
 // Compliance module temporarily disabled for launch
 // TODO: Add AuditLog and Consent models to Prisma schema
 
@@ -7,7 +9,7 @@ export class ComplianceService {
   }
 
   static async logAuditEvent(event: Event) {
-    console.log('Audit log:', event);
+    logger.info('Audit log:', event);
   }
 
   static async checkConsent(userId: string, consentType: string): Promise<boolean> {
@@ -15,7 +17,7 @@ export class ComplianceService {
   }
 
   static async deleteUserData(userId: string) {
-    console.log('Data deletion requested for:', userId);
+    logger.info('Data deletion requested for:', userId);
   }
 
   static async exportUserData(userId: string) {
@@ -23,7 +25,7 @@ export class ComplianceService {
   }
 
   static async recordConsentChange(userId: string, consentType: string, granted: boolean) {
-    console.log('Consent change:', { userId, consentType, granted });
+    logger.info('Consent change:', { userId, consentType, granted });
   }
 
   static async getClientIP(): Promise<string> {

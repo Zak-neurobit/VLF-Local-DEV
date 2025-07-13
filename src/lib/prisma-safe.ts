@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
+import { logger } from '@/lib/pino-logger';
 // Mock Prisma client that returns safe defaults when database is unavailable
 class SafePrismaClient {
   private realClient: PrismaClient | null = null;
@@ -13,7 +14,7 @@ class SafePrismaClient {
     try {
       const dbUrl = process.env.DATABASE_URL || '';
       if (dbUrl.includes('localhost') || dbUrl.includes('127.0.0.1')) {
-        console.warn('⚠️  Local database URL detected - running without database');
+        logger.warn('⚠️  Local database URL detected - running without database');
         this.isAvailable = false;
         return;
       }
@@ -22,9 +23,9 @@ class SafePrismaClient {
       this.realClient = new PrismaClient();
       await this.realClient.$connect();
       this.isAvailable = true;
-      console.log('✅ Database connected successfully');
+      logger.info('✅ Database connected successfully');
     } catch (error) {
-      console.warn('⚠️  Database not available - running in mock mode');
+      logger.warn('⚠️  Database not available - running in mock mode');
       this.isAvailable = false;
     }
   }
@@ -73,9 +74,9 @@ class SafePrismaClient {
     }
   }
 
-  async $transaction(fn: (client: SafePrismaClient) => Promise<unknown>) {
+  async $transaction(fn: (client: any) => Promise<unknown>) {
     if (this.realClient) {
-      return this.realClient.$transaction(fn);
+      return this.realClient.$transaction(fn as any);
     }
     // Mock transaction
     return fn(this);

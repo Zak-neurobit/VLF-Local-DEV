@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { logger } from '@/lib/pino-logger';
 import { Metadata } from 'next';
 
 // Dynamic imports for each attorney page
@@ -102,7 +103,7 @@ export default async function AttorneyPage({ params }: PageProps) {
     const AttorneyComponent = await attorneyPages[slug as keyof typeof attorneyPages]();
     return <AttorneyComponent />;
   } catch (error) {
-    console.error(`Error loading attorney page for slug: ${slug}`, error);
+    logger.error(`Error loading attorney page for slug: ${slug}`, error);
     notFound();
   }
 }

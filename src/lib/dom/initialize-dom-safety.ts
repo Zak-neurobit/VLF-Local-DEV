@@ -1,3 +1,5 @@
+import { logger } from '@/lib/pino-logger';
+
 /**
  * Initialize global DOM safety measures
  * This should be called early in the application lifecycle
@@ -23,7 +25,7 @@ export function initializeDOMSafety(): (() => void) | undefined {
       errorMessage.includes('replaceChild');
 
     if (isDOMError) {
-      console.error('DOM Error intercepted:', {
+      logger.error('DOM Error intercepted:', {
         message: errorMessage,
         source,
         line: lineno,
@@ -55,7 +57,7 @@ export function initializeDOMSafety(): (() => void) | undefined {
         errorMessage.includes('parentNode') ||
         errorMessage.includes('removeChild')
       ) {
-        console.error('Unhandled DOM Promise rejection:', reason);
+        logger.error('Unhandled DOM Promise rejection:', reason);
         event.preventDefault();
       }
     }
@@ -95,7 +97,7 @@ export function initializeDOMSafety(): (() => void) | undefined {
         firstArg.includes('removeChild');
 
       if (isDOMError) {
-        console.warn('DOM error in console.error intercepted:', ...args);
+        logger.warn('DOM error in console.error intercepted:', ...args);
         // Still log it but as a warning
         return;
       }
@@ -111,7 +113,7 @@ export function initializeDOMSafety(): (() => void) | undefined {
       original: Node.prototype.removeChild,
       patch: function (this: Node, child: Node) {
         if (!child || !child.parentNode || child.parentNode !== this) {
-          console.warn('Prevented unsafe DOM operation: attempted to remove orphaned node');
+          logger.warn('Prevented unsafe DOM operation: attempted to remove orphaned node');
           return child;
         }
         return safetyPatches.removeChild.original.call(this, child);
@@ -121,7 +123,7 @@ export function initializeDOMSafety(): (() => void) | undefined {
       original: Node.prototype.appendChild,
       patch: function (this: Node, child: Node) {
         if (!child || !this) {
-          console.warn('Unsafe appendChild prevented:', { parent: this, child });
+          logger.warn('Unsafe appendChild prevented:', { parent: this, child });
           return child;
         }
         return safetyPatches.appendChild.original.call(this, child);
@@ -131,7 +133,7 @@ export function initializeDOMSafety(): (() => void) | undefined {
       original: Node.prototype.insertBefore,
       patch: function (this: Node, newNode: Node, referenceNode: Node | null) {
         if (!newNode || !this) {
-          console.warn('Unsafe insertBefore prevented:', { parent: this, newNode, referenceNode });
+          logger.warn('Unsafe insertBefore prevented:', { parent: this, newNode, referenceNode });
           return newNode;
         }
         return safetyPatches.insertBefore.original.call(this, newNode, referenceNode);
@@ -141,7 +143,7 @@ export function initializeDOMSafety(): (() => void) | undefined {
       original: Node.prototype.replaceChild,
       patch: function (this: Node, newChild: Node, oldChild: Node) {
         if (!newChild || !oldChild || !oldChild.parentNode || oldChild.parentNode !== this) {
-          console.warn('Unsafe replaceChild prevented:', { parent: this, newChild, oldChild });
+          logger.warn('Unsafe replaceChild prevented:', { parent: this, newChild, oldChild });
           return oldChild;
         }
         return safetyPatches.replaceChild.original.call(this, newChild, oldChild);
@@ -151,12 +153,12 @@ export function initializeDOMSafety(): (() => void) | undefined {
       original: Element.prototype.remove,
       patch: function (this: Element) {
         if (!this.parentNode) {
-          console.warn('Prevented unsafe DOM operation: attempted to remove orphaned node');
+          logger.warn('Prevented unsafe DOM operation: attempted to remove orphaned node');
           return;
         }
         // Check if element was already marked as removed
         if (this.hasAttribute('data-dom-removed')) {
-          console.warn('Prevented unsafe DOM operation: attempted to remove orphaned node');
+          logger.warn('Prevented unsafe DOM operation: attempted to remove orphaned node');
           return;
         }
         return safetyPatches.remove.original.call(this);

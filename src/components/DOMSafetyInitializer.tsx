@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { logger } from '@/lib/pino-logger';
 import { ensureDOMSafety } from '@/lib/dom/initialize-dom-safety';
 
 /**
@@ -13,7 +14,7 @@ export function DOMSafetyInitializer() {
     const cleanup = ensureDOMSafety();
 
     // Log that DOM safety is active
-    console.log('DOM safety measures initialized');
+    logger.info('DOM safety measures initialized');
 
     // Return cleanup function
     return () => {

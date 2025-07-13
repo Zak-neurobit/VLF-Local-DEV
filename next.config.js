@@ -44,6 +44,8 @@ const nextConfig = {
   },
   // Performance optimizations
   experimental: {
+    // Enable instrumentation for OpenTelemetry
+    instrumentationHook: true,
     serverComponentsExternalPackages: [
       'puppeteer',
       'pdf-parse',
@@ -51,6 +53,9 @@ const nextConfig = {
       'sharp',
       'bcryptjs',
       'socket.io-client',
+      '@opentelemetry/api',
+      '@opentelemetry/sdk-node',
+      '@opentelemetry/auto-instrumentations-node',
     ],
   },
   // Webpack optimizations

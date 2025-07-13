@@ -31,7 +31,7 @@ class CrewLogsService {
 
   async performAction(
     action: CrewLogAction
-  ): Promise<{ success: boolean; message: string; data?: any }> {
+  ): Promise<{ success: boolean; message: string; data: unknown }> {
     const response = await fetch(this.baseUrl, {
       method: 'POST',
       headers: {
@@ -58,7 +58,13 @@ class CrewLogsService {
 
   async cleanupOldLogs(): Promise<{ success: boolean; message: string; deletedCount: number }> {
     const result = await this.performAction({ action: 'cleanup' });
-    return result as { success: boolean; message: string; deletedCount: number };
+    return {
+      success: result.success,
+      message: result.message,
+      deletedCount: typeof result.data === 'object' && result.data !== null && 'deletedCount' in result.data 
+        ? (result.data as { deletedCount: number }).deletedCount 
+        : 0
+    };
   }
 
   // Helper method to download exported logs

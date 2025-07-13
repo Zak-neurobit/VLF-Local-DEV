@@ -1,3 +1,5 @@
+import { logger } from '@/lib/pino-logger';
+
 // Court Listener Agent
 const fs = require('fs').promises;
 const path = require('path');
@@ -13,7 +15,7 @@ class CourtListener {
   }
 
   async start() {
-    console.log('Court Listener Started');
+    logger.info('Court Listener Started');
     this.check();
     setInterval(() => this.check(), this.checkInterval);
   }

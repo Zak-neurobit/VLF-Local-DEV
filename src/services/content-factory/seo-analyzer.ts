@@ -38,8 +38,8 @@ export class SEOAnalyzer {
     let totalWeight = 0;
 
     for (const [metric, score] of Object.entries(scores)) {
-      totalScore += score * weights[metric];
-      totalWeight += weights[metric];
+      totalScore += score * (weights as Record<string, number>)[metric];
+      totalWeight += (weights as Record<string, number>)[metric];
     }
 
     const finalScore = Math.round(totalScore / totalWeight);
@@ -227,7 +227,7 @@ export class SEOAnalyzer {
     const lsiKeywords = keywords.slice(1, 5);
     let lsiFound = 0;
 
-    lsiKeywords.forEach(keyword => {
+    lsiKeywords.forEach((keyword: string) => {
       if (text.toLowerCase().includes(keyword.toLowerCase())) {
         lsiFound++;
       }
@@ -241,7 +241,7 @@ export class SEOAnalyzer {
     const sections = text.split(/\n\n+/);
     let sectionsWithKeyword = 0;
 
-    sections.forEach(section => {
+    sections.forEach((section: string) => {
       if (section.toLowerCase().includes(primaryKeyword.toLowerCase())) {
         sectionsWithKeyword++;
       }
@@ -263,8 +263,8 @@ export class SEOAnalyzer {
     const text = content.content || '';
 
     // Calculate average sentence length
-    const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
-    const words = text.split(/\s+/).filter(w => w.length > 0);
+    const sentences = text.split(/[.!?]+/).filter((s: string) => s.trim().length > 0);
+    const words = text.split(/\s+/).filter((w: string) => w.length > 0);
     const avgSentenceLength = words.length / sentences.length;
 
     // Optimal is 15-20 words per sentence
@@ -277,10 +277,10 @@ export class SEOAnalyzer {
     }
 
     // Check paragraph length
-    const paragraphs = text.split(/\n\n+/).filter(p => p.trim().length > 0);
+    const paragraphs = text.split(/\n\n+/).filter((p: string) => p.trim().length > 0);
     let longParagraphs = 0;
 
-    paragraphs.forEach(para => {
+    paragraphs.forEach((para: string) => {
       const paraWords = para.split(/\s+/).length;
       if (paraWords > 150) {
         longParagraphs++;
@@ -320,7 +320,7 @@ export class SEOAnalyzer {
     const passiveIndicators = ['was', 'were', 'been', 'being', 'be'];
     let passiveSentences = 0;
 
-    sentences.forEach(sentence => {
+    sentences.forEach((sentence: string) => {
       if (passiveIndicators.some(word => sentence.toLowerCase().includes(` ${word} `))) {
         passiveSentences++;
       }
@@ -376,7 +376,7 @@ export class SEOAnalyzer {
     }
 
     // Check anchor text diversity
-    const anchorTexts = internalLinks.map(link => {
+    const anchorTexts = internalLinks.map((link: string) => {
       const match = link.match(/\[([^\]]+)\]/);
       return match ? match[1].toLowerCase() : '';
     });
@@ -417,7 +417,7 @@ export class SEOAnalyzer {
     const primaryKeyword = content.keywords?.[0] || '';
     let keywordInHeading = false;
 
-    h2s.forEach(heading => {
+    h2s.forEach((heading: string) => {
       if (heading.toLowerCase().includes(primaryKeyword.toLowerCase())) {
         keywordInHeading = true;
       }
@@ -453,7 +453,7 @@ export class SEOAnalyzer {
 
     // Check alt text
     let missingAltText = 0;
-    imageReferences.forEach(ref => {
+    imageReferences.forEach((ref: string) => {
       const altMatch = ref.match(/!\[([^\]]*)\]/);
       if (!altMatch || !altMatch[1] || altMatch[1].trim().length === 0) {
         missingAltText++;
@@ -471,7 +471,7 @@ export class SEOAnalyzer {
 
     // Check image file names (should be descriptive)
     let poorFileNames = 0;
-    images.forEach(image => {
+    images.forEach((image: string) => {
       if (/IMG_\d+|image\d+|photo\d+/i.test(image)) {
         poorFileNames++;
       }
@@ -533,7 +533,7 @@ export class SEOAnalyzer {
 
     // Very long URLs can break mobile layouts
     const urls = text.match(/https?:\/\/[^\s]+/g) || [];
-    urls.forEach(url => {
+    urls.forEach((url: string) => {
       if (url.length > 50) {
         score -= 5;
       }
@@ -543,7 +543,7 @@ export class SEOAnalyzer {
     const paragraphs = text.split(/\n\n+/);
     let veryLongParagraphs = 0;
 
-    paragraphs.forEach(para => {
+    paragraphs.forEach((para: string) => {
       if (para.length > 500) {
         // Characters, not words
         veryLongParagraphs++;

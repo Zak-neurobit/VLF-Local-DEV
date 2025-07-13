@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { logger } from '@/lib/pino-logger';
 import { usePathname } from 'next/navigation';
 
 // Use global gtag and fbq types
@@ -60,7 +61,7 @@ export function BlogAnalytics({ postSlug, language, action, category }: BlogAnal
           userAgent: navigator.userAgent,
           referrer: document.referrer,
         }),
-      }).catch(err => console.error('Analytics error:', err));
+      }).catch(err => logger.error('Analytics error:', err));
     };
 
     // Track after component mounts

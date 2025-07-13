@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { securityLogger } from '@/lib/pino-logger';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { format } from 'date-fns';
@@ -128,12 +129,12 @@ export default function CategoryPageTemplate({
         setPosts(prevPosts => (page === 1 ? newPosts : [...prevPosts, ...newPosts]));
         setHasMore(data.hasMore);
       } else {
-        console.error('Error fetching posts:', data.error);
+        securityLogger.error('Error fetching posts:', data.error);
         setPosts([]);
         setHasMore(false);
       }
     } catch (error) {
-      console.error('Error fetching posts:', error);
+      securityLogger.error('Error fetching posts:', error);
       setPosts([]);
       setHasMore(false);
     } finally {

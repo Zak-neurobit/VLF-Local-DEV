@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { paymentLogger } from '@/lib/pino-logger';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Loader2, Bot, User, Phone, Calendar, Globe } from 'lucide-react';
 import { toast } from 'react-hot-toast';
@@ -193,7 +194,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
         }, 1000);
       }
     } catch (error) {
-      console.error('Error sending message:', error);
+      paymentLogger.error('Error sending message:', error);
 
       // Add error message
       const errorMessage: Message = {
@@ -325,7 +326,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
           <button
             onClick={() => {
               const newLang = language === 'en' ? 'es' : 'en';
-              const params = new URLSearchParams(searchParams.toString());
+              const params = new URLSearchParams(searchParams?.toString() || '');
               params.set('lang', newLang);
               router.push(`?${params.toString()}`);
             }}

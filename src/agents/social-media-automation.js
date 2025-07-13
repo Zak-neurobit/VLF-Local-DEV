@@ -1,3 +1,5 @@
+import { logger } from '@/lib/pino-logger';
+
 // Social Media Automation
 const fs = require('fs').promises;
 const path = require('path');
@@ -9,7 +11,7 @@ class SocialMediaAutomation {
   }
 
   async start() {
-    console.log('Social Media Automation Started');
+    logger.info('Social Media Automation Started');
     this.post();
     setInterval(() => this.post(), this.postInterval);
   }

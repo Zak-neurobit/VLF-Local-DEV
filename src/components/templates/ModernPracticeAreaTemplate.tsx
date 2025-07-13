@@ -460,7 +460,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                                   License Penalties
                                 </h4>
                                 <ul className="space-y-2">
-                                  {penalty.license.map((item, i) => (
+                                  {penalty.license.map((item: any, i: number) => (
                                     <li key={i} className="flex items-center gap-2 text-gray-300">
                                       <span className="text-red-400">•</span>
                                       {item}
@@ -482,7 +482,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                         {(content as any).stateComparison.title}
                       </h2>
                       <div className="grid md:grid-cols-2 gap-8">
-                        {(content as any).stateComparison.states.map((state, index) => (
+                        {(content as any).stateComparison.states.map((state: any, index: number) => (
                           <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 20 }}
@@ -493,7 +493,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                           >
                             <h3 className="text-xl font-bold text-primary mb-6">{state.name}</h3>
                             <ul className="space-y-3">
-                              {state.points.map((point, i) => (
+                              {state.points.map((point: any, i: number) => (
                                 <li key={i} className="flex items-start gap-2 text-gray-300">
                                   <span className="text-primary mt-1">•</span>
                                   {point}

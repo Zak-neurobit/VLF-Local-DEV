@@ -1,3 +1,5 @@
+import { logger } from '@/lib/pino-logger';
+
 // Competition Monitoring Agent
 const axios = require('axios');
 const cheerio = require('cheerio');
@@ -15,7 +17,7 @@ class CompetitionMonitor {
   }
 
   async start() {
-    console.log('Competition Monitor Started');
+    logger.info('Competition Monitor Started');
     this.monitor();
     setInterval(() => this.monitor(), this.checkInterval);
   }
@@ -28,7 +30,7 @@ class CompetitionMonitor {
           await this.analyzeBlog(blog);
         }
       } catch (error) {
-        console.error(`Error monitoring ${competitor}:`, error.message);
+        logger.error(`Error monitoring ${competitor}:`, error.message);
       }
     }
   }

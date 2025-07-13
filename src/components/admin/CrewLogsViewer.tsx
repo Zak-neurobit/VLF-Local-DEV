@@ -469,24 +469,28 @@ export const CrewLogsViewer: React.FC = () => {
                 </div>
               </div>
 
-              {showLogDetail.input && (
+              {showLogDetail.input !== null && showLogDetail.input !== undefined && (
                 <div>
                   <Label className="text-sm text-muted-foreground">Input</Label>
                   <pre className="mt-1 p-3 bg-muted rounded text-sm overflow-x-auto">
-                    {typeof showLogDetail.input === 'string' 
-                      ? showLogDetail.input 
-                      : JSON.stringify(showLogDetail.input, null, 2)}
+                    {String(
+                      typeof showLogDetail.input === 'string'
+                        ? showLogDetail.input
+                        : JSON.stringify(showLogDetail.input, null, 2) || ''
+                    )}
                   </pre>
                 </div>
               )}
 
-              {showLogDetail.output && (
+              {showLogDetail.output !== null && showLogDetail.output !== undefined && (
                 <div>
                   <Label className="text-sm text-muted-foreground">Output</Label>
                   <pre className="mt-1 p-3 bg-muted rounded text-sm overflow-x-auto">
-                    {typeof showLogDetail.output === 'string' 
-                      ? showLogDetail.output 
-                      : JSON.stringify(showLogDetail.output, null, 2)}
+                    {String(
+                      typeof showLogDetail.output === 'string'
+                        ? showLogDetail.output
+                        : JSON.stringify(showLogDetail.output, null, 2) || ''
+                    )}
                   </pre>
                 </div>
               )}

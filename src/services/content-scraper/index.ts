@@ -1,7 +1,7 @@
 import { componentLogger, performanceLogger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 import puppeteer from 'puppeteer';
-import { google } from 'googleapis';
+import { google, youtube_v3 } from 'googleapis';
 import axios from 'axios';
 
 export interface ScraperConfig {
@@ -43,7 +43,7 @@ export interface ScrapedContent {
 
 export class ContentScraper {
   private config: ScraperConfig;
-  private youtube: typeof import('googleapis').google.youtube_v3.Youtube | null = null;
+  private youtube: youtube_v3.Youtube | null = null;
   private browser: import('puppeteer').Browser | null = null;
 
   constructor(config: ScraperConfig) {
@@ -64,6 +64,10 @@ export class ContentScraper {
   async scrapeYouTube(query: string): Promise<ScrapedContent[]> {
     componentLogger.info('ContentScraper.scrapeYouTube', { query });
 
+    if (!this.youtube) {
+      throw new Error('YouTube service not initialized');
+    }
+
     try {
       // Search for videos
       const searchResponse = await this.youtube.search.list({
@@ -75,7 +79,11 @@ export class ContentScraper {
         publishedAfter: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // Last 7 days
       });
 
-      const videoIds = searchResponse.data.items.map(item => item.id?.videoId).filter(Boolean);
+      const videoIds = (searchResponse.data.items?.map((item: youtube_v3.Schema$SearchResult) => item.id?.videoId).filter(Boolean) as string[]) || [];
+
+      if (videoIds.length === 0) {
+        return [];
+      }
 
       // Get video statistics
       const statsResponse = await this.youtube.videos.list({
@@ -85,41 +93,44 @@ export class ContentScraper {
 
       const content: ScrapedContent[] = [];
 
-      for (const video of statsResponse.data.items) {
+      // Handle the response properly
+      for (const video of statsResponse.data.items || []) {
         const stats = video.statistics;
         const snippet = video.snippet;
 
-        // Calculate engagement rate
-        const views = parseInt(stats.viewCount || '0');
-        const likes = parseInt(stats.likeCount || '0');
-        const comments = parseInt(stats.commentCount || '0');
-        const engagementRate = views > 0 ? ((likes + comments) / views) * 100 : 0;
+        if (stats && snippet && snippet.title && snippet.description && snippet.publishedAt && snippet.channelTitle) {
+          // Calculate engagement rate
+          const views = parseInt(stats.viewCount || '0');
+          const likes = parseInt(stats.likeCount || '0');
+          const comments = parseInt(stats.commentCount || '0');
+          const engagementRate = views > 0 ? ((likes + comments) / views) * 100 : 0;
 
-        // Determine relevance
-        const relevanceScore = await this.calculateRelevance(
-          snippet.title,
-          snippet.description,
-          query
-        );
+          // Determine relevance
+          const relevanceScore = await this.calculateRelevance(
+            snippet.title,
+            snippet.description,
+            query
+          );
 
-        if (relevanceScore > 0.7 || engagementRate > 5) {
-          content.push({
-            platform: 'youtube',
-            url: `https://youtube.com/watch?v=${video.id}`,
-            title: snippet.title,
-            description: snippet.description,
-            engagement: {
-              views,
-              likes,
-              comments,
-              shares: 0, // YouTube doesn't provide share count
-            },
-            publishedAt: new Date(snippet.publishedAt),
-            author: snippet.channelTitle,
-            hashtags: this.extractHashtags(snippet.description),
-            relevanceScore,
-            practiceArea: await this.detectPracticeArea(snippet.title + ' ' + snippet.description),
-          });
+          if (relevanceScore > 0.7 || engagementRate > 5) {
+            content.push({
+              platform: 'youtube',
+              url: `https://youtube.com/watch?v=${video.id}`,
+              title: snippet.title,
+              description: snippet.description,
+              engagement: {
+                views,
+                likes,
+                comments,
+                shares: 0, // YouTube doesn't provide share count
+              },
+              publishedAt: new Date(snippet.publishedAt),
+              author: snippet.channelTitle,
+              hashtags: this.extractHashtags(snippet.description),
+              relevanceScore,
+              practiceArea: await this.detectPracticeArea(snippet.title + ' ' + snippet.description),
+            });
+          }
         }
       }
 
@@ -159,9 +170,15 @@ export class ContentScraper {
       await page.waitForSelector('[data-e2e="challenge-item"]', { timeout: 10000 });
 
       // Extract video data
-      const videos = await page.evaluate(() => {
+      interface TikTokVideoData {
+        url: string;
+        views: number;
+        likes: number;
+      }
+      
+      const videos = await page.evaluate((): { url: string; views: number; likes: number }[] => {
         const items = document.querySelectorAll('[data-e2e="challenge-item"]');
-        const data: Record<string, unknown>[] = [];
+        const data: { url: string; views: number; likes: number }[] = [];
 
         items.forEach(item => {
           const link = item.querySelector('a');
@@ -183,7 +200,7 @@ export class ContentScraper {
 
       // Get detailed information for top videos
       for (const video of videos.slice(0, 10)) {
-        await page.goto(video.url, { waitUntil: 'networkidle2' });
+        await page.goto(video.url as string, { waitUntil: 'networkidle2' });
 
         const details = await page.evaluate(() => {
           const title = document.querySelector('[data-e2e="browse-video-desc"]')?.textContent || '';
@@ -207,8 +224,8 @@ export class ContentScraper {
           title: details.title,
           description: '',
           engagement: {
-            views: video.views,
-            likes: video.likes,
+            views: video.views as number,
+            likes: video.likes as number,
             comments: details.comments,
             shares: details.shares,
           },
@@ -342,6 +359,7 @@ export class ContentScraper {
   }
 
   async scrapeCompetitorWebsite(url: string): Promise<{
+    url: string;
     title: string;
     description: string;
     keywords: string[];
@@ -349,6 +367,22 @@ export class ContentScraper {
     images: Array<{ src: string; alt: string }>;
     links: Array<{ href: string; text: string }>;
     structuredData: Record<string, unknown>;
+    blogPosts: Array<{
+      title: string;
+      url: string;
+      excerpt: string;
+      publishDate: string;
+    }>;
+    seoData: {
+      title?: string;
+      metaDescription?: string;
+      metaKeywords?: string;
+      canonical?: string;
+      ogTitle?: string;
+      ogDescription?: string;
+      schemas: unknown[];
+    };
+    totalPosts: number;
   }> {
     componentLogger.info('ContentScraper.scrapeCompetitorWebsite', { url });
 
@@ -361,8 +395,18 @@ export class ContentScraper {
       await page.goto(url, { waitUntil: 'networkidle2' });
 
       // Extract all blog posts
-      const blogPosts = await page.evaluate(() => {
-        const posts: unknown[] = [];
+      const blogPosts = await page.evaluate((): Array<{
+        title: string;
+        url: string;
+        excerpt: string;
+        publishDate: string;
+      }> => {
+        const posts: Array<{
+          title: string;
+          url: string;
+          excerpt: string;
+          publishDate: string;
+        }> = [];
 
         // Common blog selectors
         const selectors = [
@@ -383,7 +427,12 @@ export class ContentScraper {
             const date = element.querySelector('time, [class*="date"]')?.textContent?.trim();
 
             if (title && link) {
-              posts.push({ title, link, excerpt, date });
+              posts.push({ 
+                title, 
+                url: link, 
+                excerpt: excerpt || '', 
+                publishDate: date || '' 
+              });
             }
           });
 
@@ -422,13 +471,50 @@ export class ContentScraper {
           .filter(Boolean);
 
         return {
-          title,
-          metaDescription,
-          metaKeywords,
-          canonical,
-          ogTitle,
-          ogDescription,
+          title: title || undefined,
+          metaDescription: metaDescription || undefined,
+          metaKeywords: metaKeywords || undefined,
+          canonical: canonical || undefined,
+          ogTitle: ogTitle || undefined,
+          ogDescription: ogDescription || undefined,
           schemas,
+        };
+      });
+
+      // Extract general page data
+      const pageData = await page.evaluate(() => {
+        const title = document.querySelector('title')?.textContent || '';
+        const metaDescription = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+        const metaKeywords = document.querySelector('meta[name="keywords"]')?.getAttribute('content') || '';
+        
+        // Extract headings
+        const h1s = Array.from(document.querySelectorAll('h1')).map(h => h.textContent || '');
+        const h2s = Array.from(document.querySelectorAll('h2')).map(h => h.textContent || '');
+        const h3s = Array.from(document.querySelectorAll('h3')).map(h => h.textContent || '');
+        
+        // Extract images
+        const images = Array.from(document.querySelectorAll('img')).map(img => ({
+          src: img.src,
+          alt: img.alt || ''
+        }));
+        
+        // Extract links
+        const links = Array.from(document.querySelectorAll('a[href]')).map(link => {
+          const anchor = link as HTMLAnchorElement;
+          return {
+            href: anchor.href,
+            text: anchor.textContent || ''
+          };
+        });
+        
+        return {
+          title,
+          description: metaDescription,
+          keywords: metaKeywords ? metaKeywords.split(',').map(k => k.trim()) : [],
+          headings: { h1: h1s, h2: h2s, h3: h3s },
+          images,
+          links,
+          structuredData: {} as Record<string, unknown>
         };
       });
 
@@ -448,6 +534,13 @@ export class ContentScraper {
 
       return {
         url,
+        title: pageData.title,
+        description: pageData.description,
+        keywords: pageData.keywords,
+        headings: pageData.headings,
+        images: pageData.images,
+        links: pageData.links,
+        structuredData: pageData.structuredData,
         blogPosts,
         seoData,
         totalPosts: blogPosts.length,

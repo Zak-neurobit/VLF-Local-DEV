@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+import { apiLogger } from '@/lib/pino-logger';
 // Mock data for the live dashboard
 const mockDashboardData = {
   agents: [
@@ -148,7 +149,7 @@ export async function GET(_request: NextRequest) {
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Dashboard API error:', error);
+    apiLogger.error('Dashboard API error:', error);
     return NextResponse.json({ error: 'Failed to fetch dashboard data' }, { status: 500 });
   }
 }
@@ -173,7 +174,7 @@ export async function POST(_request: NextRequest) {
 
     return NextResponse.json({ error: 'Invalid request type' }, { status: 400 });
   } catch (error) {
-    console.error('Dashboard POST error:', error);
+    apiLogger.error('Dashboard POST error:', error);
     return NextResponse.json({ error: 'Failed to process request' }, { status: 500 });
   }
 }

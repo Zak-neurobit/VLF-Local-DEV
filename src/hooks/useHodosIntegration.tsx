@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { logger } from '@/lib/pino-logger';
 import { useHodos } from '@/hooks/useHodos';
 
 interface UseHodosIntegrationProps {
@@ -97,11 +98,11 @@ export const useHodosIntegration = ({ onAgentResponse, onError }: UseHodosIntegr
         source: 'chat-widget',
       });
 
-      if (response?.response) {
+      if (response && typeof response === 'object' && 'response' in response) {
         // Add disclaimer for legal advice
         const disclaimer =
           '\n\n*This information is for general guidance only and does not constitute legal advice. Please consult with one of our attorneys for advice specific to your situation.*';
-        return response.response + disclaimer;
+        return (response as any).response + disclaimer;
       }
 
       return null;
@@ -127,7 +128,7 @@ export const useHodosIntegration = ({ onAgentResponse, onError }: UseHodosIntegr
         agent: 'Sage', // Document analysis specialist
       });
 
-      return response?.response || 'Unable to analyze the document at this time.';
+      return (response && typeof response === 'object' && 'response' in response ? (response as any).response : null) || 'Unable to analyze the document at this time.';
     } catch (error) {
       onError?.(error as Error);
       return 'Error analyzing document. Please try again.';
@@ -151,7 +152,7 @@ export const useHodosIntegration = ({ onAgentResponse, onError }: UseHodosIntegr
  *     addMessage({ text: response, sender: 'agent' });
  *   },
  *   onError: (error) => {
- *     console.error('HODOS error:', error);
+ *     logger.error('HODOS error:', error);
  *   }
  * });
  *

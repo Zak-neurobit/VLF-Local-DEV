@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { logger } from '@/lib/pino-logger';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
@@ -125,7 +126,7 @@ export function ContactForm({ language = 'en', onSuccess }: ContactFormProps) {
   const onSubmit = async (data: ContactFormData) => {
     // Check honeypot
     if (data.website) {
-      console.warn('Honeypot triggered');
+      logger.warn('Honeypot triggered');
       return;
     }
 
@@ -165,7 +166,7 @@ export function ContactForm({ language = 'en', onSuccess }: ContactFormProps) {
         });
       }
     } catch (error) {
-      console.error('Form submission error:', error);
+      logger.error('Form submission error:', error);
       toast.error(t.error);
     }
   };

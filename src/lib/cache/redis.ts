@@ -1,4 +1,5 @@
 import Redis from 'ioredis';
+import { securityLogger } from '@/lib/pino-logger';
 import { performanceLogger, logger } from '@/lib/logger';
 
 // Redis connection configuration
@@ -182,7 +183,7 @@ class CacheManager {
 
       return value ? JSON.parse(value) : null;
     } catch (error) {
-      console.error('Cache get error:', error);
+      securityLogger.error('Cache get error:', error);
       return null;
     }
   }
@@ -193,7 +194,7 @@ class CacheManager {
       await this.redis.setex(key, ttl, JSON.stringify(value));
       performanceLogger.measure('cache-set', Date.now() - start, { key, ttl });
     } catch (error) {
-      console.error('Cache set error:', error);
+      securityLogger.error('Cache set error:', error);
     }
   }
 

@@ -16,6 +16,7 @@ export interface BlogPost {
   seoTitle?: string;
   seoDescription?: string;
   keywords?: string[];
+  views?: number;
 }
 
 export interface BlogAuthor {

@@ -8,6 +8,7 @@ import { logger } from '@/lib/logger';
 import { AgentOrchestrator } from '@/lib/agents/agent-orchestrator';
 import { ghlChatSync } from '@/services/gohighlevel/chat-sync';
 import { ghlService } from '@/services/gohighlevel';
+import { withAIAgentTracing, withDatabaseTracing } from '@/lib/telemetry/api-middleware';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -95,7 +96,7 @@ const COMMON_RESPONSES = {
   },
 };
 
-export async function POST(request: NextRequest) {
+async function handleChatPOST(request: NextRequest) {
   try {
     const { message, userId, language = 'en', sessionId, contactInfo } = await request.json();
 
@@ -478,8 +479,11 @@ export async function POST(request: NextRequest) {
   }
 }
 
+// Export POST handler with AI agent tracing
+export const POST = withAIAgentTracing(handleChatPOST);
+
 // GET endpoint to check health and optionally retrieve conversation history
-export async function GET(request: NextRequest) {
+async function handleChatGET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const conversationId = searchParams.get('conversationId');
@@ -551,8 +555,11 @@ export async function GET(request: NextRequest) {
   }
 }
 
+// Export GET handler with database tracing
+export const GET = withDatabaseTracing(handleChatGET);
+
 // DELETE endpoint to close/end a conversation
-export async function DELETE(request: NextRequest) {
+async function handleChatDELETE(request: NextRequest) {
   try {
     const { conversationId } = await request.json();
 
@@ -599,3 +606,6 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to close conversation' }, { status: 500 });
   }
 }
+
+// Export DELETE handler with database tracing
+export const DELETE = withDatabaseTracing(handleChatDELETE);

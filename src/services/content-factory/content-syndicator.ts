@@ -308,7 +308,7 @@ export class ContentSyndicator {
   /**
    * Helper methods for formatting content
    */
-  private async formatForDirectory(content: any, directory: string) {
+  private async formatForDirectory(content: any, directory: string): Promise<import('@/lib/external-apis/legal-directories').DirectorySubmission> {
     const formats = {
       avvo: {
         title: content.title,
@@ -337,13 +337,26 @@ export class ContentSyndicator {
       // Add more directory formats...
     };
 
-    return (
-      formats[directory as keyof typeof formats] || {
-        title: content.title,
-        content: content.content,
+    const formatMap = formats[directory as keyof typeof formats] as any;
+    
+    // Ensure we always return a DirectorySubmission compatible object
+    if (formatMap) {
+      return {
+        title: formatMap.title || formatMap.headline || content.title,
+        content: formatMap.content || formatMap.body || content.content,
+        category: formatMap.category || formatMap.practiceArea,
+        tags: formatMap.tags || formatMap.keywords,
+        author: formatMap.author,
         url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}`,
-      }
-    );
+      };
+    }
+    
+    // Default format
+    return {
+      title: content.title,
+      content: content.content,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}`,
+    };
   }
 
   private async convertToMediumFormat(content: any): Promise<string> {
@@ -372,7 +385,7 @@ export class ContentSyndicator {
       'traffic-violations': ['traffic-law', 'traffic-ticket', 'driving-violations'],
     };
 
-    const tags = practiceAreaTags[content.practiceArea] || [];
+    const tags = practiceAreaTags[content.practiceArea as keyof typeof practiceAreaTags] || [];
 
     // Medium allows max 5 tags
     return tags.slice(0, 5);
@@ -494,7 +507,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
       'traffic-violations': ['Legal Services', 'Transportation', 'Law Enforcement', 'Insurance'],
     };
 
-    return categories[practiceArea] || ['Legal Services', 'Law'];
+    return categories[practiceArea as keyof typeof categories] || ['Legal Services', 'Law'];
   }
 
   /**
@@ -680,7 +693,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
       'traffic-violations': 'Speeding / Traffic Ticket',
     };
 
-    return mapping[practiceArea] || 'General Practice';
+    return mapping[practiceArea as keyof typeof mapping] || 'General Practice';
   }
 
   private formatHashtag(text: string): string {
@@ -697,7 +710,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
       'traffic-violations': 'Traffic Violations',
     };
 
-    return formatted[practiceArea] || practiceArea;
+    return formatted[practiceArea as keyof typeof formatted] || practiceArea;
   }
 
   private extractKeyPoint(content: any, index: number): string {
@@ -714,7 +727,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
   }
 
   private extractKeyPoints(content: string, count: number): string[] {
-    const points = [];
+    const points: string[] = [];
 
     // Look for bullet points or numbered lists
     const bulletPoints = content.match(/^[\*\-]\s(.+)$/gm) || [];
@@ -749,7 +762,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     };
 
     return (
-      quotes[content.practiceArea] ||
+      quotes[content.practiceArea as keyof typeof quotes] ||
       'Legal knowledge empowers our clients to make informed decisions about their cases.'
     );
   }
@@ -769,7 +782,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     };
 
     return (
-      bios[author] ||
+      bios[author as keyof typeof bios] ||
       `${author} is an experienced attorney at Vasquez Law Firm, PLLC. Visit vasquezlawnc.com or call 1-844-YO-PELEO.`
     );
   }
@@ -785,7 +798,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
       // Add more practice areas...
     };
 
-    return sites[practiceArea] || ['legaltalk.com', 'lawyerist.com'];
+    return sites[practiceArea as keyof typeof sites] || ['legaltalk.com', 'lawyerist.com'];
   }
 
   private async formatAsGuestPost(content: any): Promise<string> {

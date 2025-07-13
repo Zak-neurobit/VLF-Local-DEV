@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import { logger } from '@/lib/pino-logger';
 import { Loader } from '@googlemaps/js-api-loader';
 
 /// <reference types="@types/google.maps" />
@@ -155,7 +156,7 @@ export default function GoogleMap({
         setLoading(false);
       })
       .catch(err => {
-        console.error('Error loading Google Maps:', err);
+        logger.error('Error loading Google Maps:', err);
         setError('Failed to load Google Maps');
         setLoading(false);
       });

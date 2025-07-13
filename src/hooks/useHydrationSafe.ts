@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+import { logger } from '@/lib/pino-logger';
 /**
  * Hook to handle hydration-safe rendering
  * Returns true only after the component has mounted on the client
@@ -62,7 +63,7 @@ export function useLocalStorage<T>(
         setStoredValue(JSON.parse(item));
       }
     } catch (error) {
-      console.error(`Error reading localStorage key "${key}":`, error);
+      logger.error(`Error reading localStorage key "${key}":`, error);
     }
   }, [key]);
 
@@ -75,7 +76,7 @@ export function useLocalStorage<T>(
         window.localStorage.setItem(key, JSON.stringify(valueToStore));
       }
     } catch (error) {
-      console.error(`Error setting localStorage key "${key}":`, error);
+      logger.error(`Error setting localStorage key "${key}":`, error);
     }
   };
 
@@ -98,7 +99,7 @@ export function useSessionStorage<T>(
         setStoredValue(JSON.parse(item));
       }
     } catch (error) {
-      console.error(`Error reading sessionStorage key "${key}":`, error);
+      logger.error(`Error reading sessionStorage key "${key}":`, error);
     }
   }, [key]);
 
@@ -111,7 +112,7 @@ export function useSessionStorage<T>(
         window.sessionStorage.setItem(key, JSON.stringify(valueToStore));
       }
     } catch (error) {
-      console.error(`Error setting sessionStorage key "${key}":`, error);
+      logger.error(`Error setting sessionStorage key "${key}":`, error);
     }
   };
 

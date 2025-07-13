@@ -1,26 +1,25 @@
 import { PrismaClient } from '@prisma/client';
+import { dbLogger } from './pino-logger';
 
-// Use console logging in edge runtime
-const dbLogger = {
+// Database logging helpers
+const dbLog = {
   query: (query: string, params?: unknown[], duration?: number) => {
     if (process.env.NODE_ENV === 'development') {
-      console.log(`[DB Query] ${duration}ms - ${query.substring(0, 100)}...`);
+      dbLogger.debug({ query: query.substring(0, 100), duration }, 'Database query');
     }
   },
   error: (operation: string, error: unknown) => {
-    console.error(`[DB Error] ${operation}:`, error);
+    dbLogger.error({ operation, error }, 'Database error');
   },
   transaction: (id: string, status: string) => {
-    console.log(`[DB Transaction] ${id}: ${status}`);
+    dbLogger.info({ transactionId: id, status }, 'Database transaction');
   },
 };
 
-declare global {
-  // eslint-disable-next-line no-var
-  var prisma: PrismaClient | null;
-  // eslint-disable-next-line no-var
-  var prismaConnectionChecked: boolean;
-}
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | null;
+  prismaConnectionChecked: boolean | undefined;
+};
 
 // Mock Prisma client for when database is unavailable
 class MockPrismaClient {
@@ -63,11 +62,11 @@ class MockPrismaClient {
   };
 
   async $connect() {
-    console.log('[MockPrisma] Connect called (no-op)');
+    dbLogger.debug('MockPrisma connect called (no-op)');
   }
 
   async $disconnect() {
-    console.log('[MockPrisma] Disconnect called (no-op)');
+    dbLogger.debug('MockPrisma disconnect called (no-op)');
   }
 
   async $transaction(fn: (client: MockPrismaClient) => Promise<unknown>) {
@@ -82,9 +81,9 @@ class MockPrismaClient {
 const prismaClientSingleton = () => {
   // Check if DATABASE_URL is available
   if (!process.env.DATABASE_URL) {
-    console.warn(
-      'DATABASE_URL not found, using mock Prisma client. Current DATABASE_URL:',
-      process.env.DATABASE_URL
+    dbLogger.warn(
+      { databaseUrl: process.env.DATABASE_URL },
+      'DATABASE_URL not found, using mock Prisma client'
     );
     return new MockPrismaClient() as unknown as PrismaClient;
   }
@@ -92,7 +91,7 @@ const prismaClientSingleton = () => {
   // Check if it's a local database URL that might not be available
   const dbUrl = process.env.DATABASE_URL;
   if (dbUrl.includes('localhost') || dbUrl.includes('127.0.0.1')) {
-    console.warn('Local database URL detected, using mock Prisma client for safety');
+    dbLogger.warn('Local database URL detected, using mock Prisma client for safety');
     return new MockPrismaClient() as unknown as PrismaClient;
   }
 
@@ -116,36 +115,36 @@ const prismaClientSingleton = () => {
 
     // Log queries
     prisma.$on('query', e => {
-      dbLogger.query(e.query, e.params.split(','), e.duration);
+      dbLog.query(e.query, e.params.split(','), e.duration);
     });
 
     // Log errors
     prisma.$on('error', e => {
-      dbLogger.error(e.message, e);
+      dbLog.error(e.message, e);
     });
 
     // Log warnings
     prisma.$on('warn', e => {
-      console.warn('Prisma warning:', e.message);
+      dbLogger.warn({ message: e.message }, 'Prisma warning');
     });
 
     return prisma;
   } catch (error) {
-    console.error('Failed to create Prisma client:', error);
+    dbLogger.error({ error }, 'Failed to create Prisma client');
     return new MockPrismaClient() as unknown as PrismaClient;
   }
 };
 
-export const prisma = global.prisma ?? prismaClientSingleton();
+export const prisma = globalForPrisma.prisma ?? prismaClientSingleton();
 
 if (process.env.NODE_ENV !== 'production') {
-  global.prisma = prisma;
+  globalForPrisma.prisma = prisma;
 }
 
 // Helper to ensure prisma is available with better error handling
 export function getPrismaClient(): PrismaClient {
   if (!prisma) {
-    console.warn('Prisma client not available, returning mock client');
+    dbLogger.warn('Prisma client not available, returning mock client');
     return new MockPrismaClient() as unknown as PrismaClient;
   }
   return prisma;
@@ -153,35 +152,35 @@ export function getPrismaClient(): PrismaClient {
 
 // Check if database is actually connected
 export async function isDatabaseConnected(): Promise<boolean> {
-  if (global.prismaConnectionChecked !== undefined) {
-    return global.prismaConnectionChecked;
+  if (globalForPrisma.prismaConnectionChecked !== undefined) {
+    return globalForPrisma.prismaConnectionChecked;
   }
 
   try {
     if (!process.env.DATABASE_URL) {
-      global.prismaConnectionChecked = false;
+      globalForPrisma.prismaConnectionChecked = false;
       return false;
     }
 
     // Skip connection check for local databases
     const dbUrl = process.env.DATABASE_URL;
     if (dbUrl.includes('localhost') || dbUrl.includes('127.0.0.1')) {
-      global.prismaConnectionChecked = false;
+      globalForPrisma.prismaConnectionChecked = false;
       return false;
     }
 
     // Try a simple query to check connection
     const client = getPrismaClient();
     if (client instanceof MockPrismaClient) {
-      global.prismaConnectionChecked = false;
+      globalForPrisma.prismaConnectionChecked = false;
       return false;
     }
 
     await client.$queryRaw`SELECT 1`;
-    global.prismaConnectionChecked = true;
+    globalForPrisma.prismaConnectionChecked = true;
     return true;
   } catch (error) {
-    console.warn('Database connection check failed:', error);
+    dbLogger.warn({ error }, 'Database connection check failed');
     global.prismaConnectionChecked = false;
     return false;
   }
@@ -193,13 +192,13 @@ export async function withTransaction<T>(fn: (tx: PrismaClient) => Promise<T>): 
 
   const transactionId = `tx_${Date.now()}`;
 
-  dbLogger.transaction(transactionId, 'start');
+  dbLog.transaction(transactionId, 'start');
 
   try {
     if (client instanceof MockPrismaClient) {
       // For mock client, just run the function directly
       const result = await fn(client as unknown as PrismaClient);
-      dbLogger.transaction(transactionId, 'commit (mock)');
+      dbLog.transaction(transactionId, 'commit (mock)');
       return result;
     }
 
@@ -207,10 +206,10 @@ export async function withTransaction<T>(fn: (tx: PrismaClient) => Promise<T>): 
       return await fn(tx as PrismaClient);
     });
 
-    dbLogger.transaction(transactionId, 'commit');
+    dbLog.transaction(transactionId, 'commit');
     return result;
   } catch (error) {
-    dbLogger.transaction(transactionId, 'rollback');
+    dbLog.transaction(transactionId, 'rollback');
     throw error;
   }
 }
@@ -224,12 +223,12 @@ export async function safeDbOperation<T>(
   try {
     const isConnected = await isDatabaseConnected();
     if (!isConnected) {
-      console.warn(`[${operationName}] Database not connected, returning fallback`);
+      dbLogger.warn({ operationName }, 'Database not connected, returning fallback');
       return fallback;
     }
     return await operation();
   } catch (error) {
-    console.error(`[${operationName}] Failed:`, error);
+    dbLogger.error({ operationName, error }, 'Database operation failed');
     return fallback;
   }
 }

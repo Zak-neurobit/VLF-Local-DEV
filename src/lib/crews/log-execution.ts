@@ -23,17 +23,18 @@ export async function logCrewExecution(params: LogExecutionParams) {
   try {
     const duration = params.endTime.getTime() - params.startTime.getTime();
 
-    const log = await prisma.crewExecutionLog.create({
+    // TODO: Implement crew execution logging when model is added to schema
+    // For now, use agentExecutionLog which exists in the schema
+    const log = await prisma.agentExecutionLog.create({
       data: {
         agentName: params.agentName,
         executionType: params.executionType,
-        status: params.status,
-        timestamp: params.startTime,
+        success: params.status === 'success',
         duration,
         input: params.input || {},
         output: params.output || {},
         error: params.error,
-        metadata: params.metadata || {},
+        metadata: params.metadata as any || {},
       },
     });
 

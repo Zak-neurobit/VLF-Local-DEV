@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { apiLogger } from '@/lib/pino-logger';
 import { apiLogger } from '@/lib/logger';
 
 export async function POST(request: Request) {
@@ -23,7 +24,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Blog reading analytics error:', error);
+    apiLogger.error('Blog reading analytics error:', error);
     return NextResponse.json({ error: 'Failed to track reading analytics' }, { status: 500 });
   }
 }

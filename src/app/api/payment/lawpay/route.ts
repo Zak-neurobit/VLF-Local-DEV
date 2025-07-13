@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+import { paymentLogger } from '@/lib/pino-logger';
 // LawPay API integration
 export async function POST(request: NextRequest) {
   try {
@@ -86,7 +87,7 @@ export async function POST(request: NextRequest) {
       );
     }
   } catch (error) {
-    console.error('LawPay error:', error);
+    paymentLogger.error('LawPay error:', error);
     return NextResponse.json({ error: 'Payment processing error' }, { status: 500 });
   }
 }
@@ -113,5 +114,5 @@ async function logTrustTransaction(charge: {
   };
 
   // In production, this would save to a trust accounting database
-  console.log('Trust transaction logged:', trustLog);
+  paymentLogger.info('Trust transaction logged:', trustLog);
 }

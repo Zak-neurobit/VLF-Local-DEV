@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { securityLogger } from '@/lib/pino-logger';
 import { toast } from 'react-hot-toast';
 
 export interface CrewAITaskStatus {
@@ -228,7 +229,7 @@ export const useCrewAI = () => {
           setTimeout(poll, 2000);
         }
       } catch (error) {
-        console.error('Failed to poll task status:', error);
+        securityLogger.error('Failed to poll task status:', error);
         setTimeout(poll, 5000); // Retry after longer delay
       }
     };

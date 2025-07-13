@@ -348,7 +348,7 @@ export class LeadCaptureService {
         phone: data.phone || contactInfo.phone || `000${Date.now()}`.slice(-10),
         practiceArea: mappedPracticeArea,
         source: 'website-chat',
-        language: contactInfo.language || 'en',
+        language: (contactInfo.language === 'es' ? 'es' : 'en') as 'en' | 'es',
         message: data.messages.map(m => `${m.role}: ${m.content}`).join('\n'),
         urgency: (contactInfo.urgency as 'immediate' | 'soon' | 'planning') || 'planning',
         metadata: {
@@ -628,7 +628,7 @@ export class LeadCaptureService {
           lastName: contact.name?.split(' ')[1] || 'Lead',
           email: contact.email || `phone-${contact.id}@lead.com`,
           phone: data.fromNumber,
-          practiceArea: practiceArea || 'immigration',
+          practiceArea: (practiceArea && ['immigration', 'personal_injury', 'workers_compensation', 'criminal_defense', 'family_law', 'traffic'].includes(practiceArea) ? practiceArea : 'immigration') as 'immigration' | 'personal_injury' | 'workers_compensation' | 'criminal_defense' | 'family_law' | 'traffic',
           source: 'phone',
           language: 'en',
           urgency: (data.urgency as 'immediate' | 'soon' | 'planning') || 'planning',

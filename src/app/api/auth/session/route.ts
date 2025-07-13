@@ -1,4 +1,5 @@
 import { getServerSession } from 'next-auth';
+import { securityLogger } from '@/lib/pino-logger';
 import { authOptions } from '@/lib/auth';
 import { NextResponse } from 'next/server';
 import { isDatabaseConnected } from '@/lib/prisma';
@@ -14,7 +15,7 @@ export async function GET() {
     const dbConnected = await isDatabaseConnected();
 
     if (!dbConnected) {
-      console.warn('[Session] Database not connected, returning empty session');
+      securityLogger.warn('[Session] Database not connected, returning empty session');
       // Return empty session when database is unavailable
       return NextResponse.json({
         user: null,
@@ -34,7 +35,7 @@ export async function GET() {
 
     return NextResponse.json(session);
   } catch (error) {
-    console.error('[Session] Endpoint error:', error);
+    securityLogger.error('[Session] Endpoint error:', error);
 
     // Check if it's a database connection error
     if (
@@ -43,7 +44,7 @@ export async function GET() {
         error.message.includes('ECONNREFUSED') ||
         error.message.includes('DATABASE_URL'))
     ) {
-      console.warn('[Session] Database connection error, returning empty session');
+      securityLogger.warn('[Session] Database connection error, returning empty session');
     }
 
     // Return a valid session structure even on error

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { apiLogger } from '@/lib/pino-logger';
 import { blogImportService } from '@/services/blog/import-service';
 
 export async function GET() {
@@ -37,7 +38,7 @@ export async function GET() {
       },
     });
   } catch (error) {
-    console.error('Error generating blog sitemap:', error);
+    apiLogger.error('Error generating blog sitemap:', error);
     return NextResponse.json({ error: 'Failed to generate sitemap' }, { status: 500 });
   }
 }

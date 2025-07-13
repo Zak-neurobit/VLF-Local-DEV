@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { apiLogger } from '@/lib/pino-logger';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
@@ -56,7 +57,7 @@ export async function POST(request: NextRequest) {
     const result = await executeAgent(agent, taskParams);
 
     // Log the execution
-    console.log(`Agent ${agent} executed successfully`, {
+    apiLogger.info(`Agent ${agent} executed successfully`, {
       agent,
       params: taskParams,
       result,
@@ -72,7 +73,7 @@ export async function POST(request: NextRequest) {
       executedBy: session.user.email,
     });
   } catch (error) {
-    console.error('Agent execution error:', error);
+    apiLogger.error('Agent execution error:', error);
     return NextResponse.json(
       {
         error: 'Agent execution failed',

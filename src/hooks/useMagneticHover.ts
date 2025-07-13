@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useMotionValue, useSpring, useTransform, MotionValue } from 'framer-motion';
 
 interface MagneticHoverOptions {
   strength?: number;

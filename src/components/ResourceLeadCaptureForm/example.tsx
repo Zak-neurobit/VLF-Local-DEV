@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { paymentLogger } from '@/lib/pino-logger';
 import ResourceLeadCaptureForm from './index';
 import { FileText, BookOpen, Video, Calculator, CheckCircle } from 'lucide-react';
 
@@ -13,7 +14,7 @@ export default function ResourceLeadCaptureExamples() {
   const handleLeadCapture =
     (resource: string) => (data: { email: string; resourceDelivered: boolean }) => {
       setCapturedLeads(prev => [...prev, { email: data.email, resource }]);
-      console.log(`Lead captured for ${resource}:`, data);
+      paymentLogger.info(`Lead captured for ${resource}:`, data);
     };
 
   return (

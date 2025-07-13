@@ -1,3 +1,5 @@
+import { logger } from '@/lib/pino-logger';
+
 // Immigration case tracker temporarily disabled for launch
 export class ImmigrationCaseTracker {
   async trackUSCISCase(receiptNumber: string) {
@@ -27,6 +29,6 @@ export class ImmigrationCaseTracker {
   }
 
   async setupAutomatedTracking(userId: string, preferences: unknown) {
-    console.log('Automated tracking setup for:', userId);
+    logger.info('Automated tracking setup for:', userId);
   }
 }

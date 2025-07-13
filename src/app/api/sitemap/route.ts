@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { apiLogger } from '@/lib/pino-logger';
 import { SEOOptimizationService } from '@/services/seo-optimization';
 
 export async function GET(_req: NextRequest) {
@@ -13,7 +14,7 @@ export async function GET(_req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error generating sitemap:', error);
+    apiLogger.error('Error generating sitemap:', error);
     return new NextResponse('Error generating sitemap', { status: 500 });
   }
 }

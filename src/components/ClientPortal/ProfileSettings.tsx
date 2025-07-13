@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { securityLogger } from '@/lib/pino-logger';
 import { motion } from 'framer-motion';
 import {
   User,
@@ -193,7 +194,7 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
         setTimeout(() => setSaveSuccess(false), 3000);
       }
     } catch (error) {
-      console.error('Error saving profile:', error);
+      securityLogger.error('Error saving profile:', error);
     } finally {
       setSaving(false);
     }
@@ -224,7 +225,7 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
         alert('Failed to change password. Please check your current password.');
       }
     } catch (error) {
-      console.error('Error changing password:', error);
+      securityLogger.error('Error changing password:', error);
     }
   };
 
@@ -243,7 +244,7 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
         setProfileData({ ...profileData, profileImage: imageUrl });
       }
     } catch (error) {
-      console.error('Error uploading image:', error);
+      securityLogger.error('Error uploading image:', error);
     }
   };
 
@@ -257,7 +258,7 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
         setProfileData({ ...profileData, twoFactorEnabled: !profileData.twoFactorEnabled });
       }
     } catch (error) {
-      console.error('Error toggling 2FA:', error);
+      securityLogger.error('Error toggling 2FA:', error);
     }
   };
 

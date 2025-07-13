@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import { logger } from '@/lib/pino-logger';
 import type { Socket } from 'socket.io-client';
 
 interface UseSocketReturn {
@@ -35,25 +36,25 @@ export function useSocket(): UseSocketReturn {
         });
 
         socket.on('connect', () => {
-          console.log('Socket connected:', socket.id);
+          logger.info('Socket connected:', socket.id);
           setConnected(true);
           setError(null);
         });
 
         socket.on('disconnect', () => {
-          console.log('Socket disconnected');
+          logger.info('Socket disconnected');
           setConnected(false);
         });
 
         socket.on('connect_error', err => {
-          console.error('Socket connection error:', err);
+          logger.error('Socket connection error:', err);
           setError(err.message);
           setConnected(false);
         });
 
         socketRef.current = socket;
       } catch (err) {
-        console.error('Failed to initialize socket:', err);
+        logger.error('Failed to initialize socket:', err);
         setError(err instanceof Error ? err.message : 'Failed to connect');
       }
     };

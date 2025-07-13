@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import { logger } from '@/lib/pino-logger';
 import { useEffect } from 'react';
 import { HreflangGenerator } from './HreflangGenerator';
 
@@ -30,7 +31,7 @@ export function DynamicHreflang({ customPath }: DynamicHreflangProps) {
         try {
           tag.parentNode.removeChild(tag);
         } catch (error) {
-          console.warn('Failed to remove hreflang tag:', error);
+          logger.warn('Failed to remove hreflang tag:', error);
         }
       }
     });
@@ -77,7 +78,7 @@ export function DynamicHreflang({ customPath }: DynamicHreflangProps) {
         try {
           tag.parentNode.removeChild(tag);
         } catch (error) {
-          console.warn('Failed to remove og:locale:alternate tag:', error);
+          logger.warn('Failed to remove og:locale:alternate tag:', error);
         }
       }
     });
@@ -101,7 +102,7 @@ export function DynamicHreflang({ customPath }: DynamicHreflangProps) {
           try {
             tag.parentNode.removeChild(tag);
           } catch (error) {
-            console.warn('Failed to remove hreflang tag during cleanup:', error);
+            logger.warn('Failed to remove hreflang tag during cleanup:', error);
           }
         }
       });

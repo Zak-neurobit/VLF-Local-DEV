@@ -1,3 +1,5 @@
+import { logger } from '@/lib/pino-logger';
+
 /**
  * Safe DOM manipulation utilities to prevent "null is not an object" errors
  * These functions wrap common DOM operations with null checks
@@ -8,7 +10,7 @@
  */
 export function safeRemoveChild(parent: Node | null, child: Node | null): boolean {
   if (!parent || !child || child.parentNode !== parent) {
-    console.warn('safeRemoveChild: Invalid parent or child node');
+    logger.warn('safeRemoveChild: Invalid parent or child node');
     return false;
   }
 
@@ -16,7 +18,7 @@ export function safeRemoveChild(parent: Node | null, child: Node | null): boolea
     parent.removeChild(child);
     return true;
   } catch (error) {
-    console.error('safeRemoveChild error:', error);
+    logger.error('safeRemoveChild error:', error);
     return false;
   }
 }
@@ -26,7 +28,7 @@ export function safeRemoveChild(parent: Node | null, child: Node | null): boolea
  */
 export function safeRemove(element: Element | null): boolean {
   if (!element || !element.parentNode) {
-    console.warn('safeRemove: Element has no parent');
+    logger.warn('safeRemove: Element has no parent');
     return false;
   }
 
@@ -34,7 +36,7 @@ export function safeRemove(element: Element | null): boolean {
     element.remove();
     return true;
   } catch (error) {
-    console.error('safeRemove error:', error);
+    logger.error('safeRemove error:', error);
     return false;
   }
 }
@@ -44,7 +46,7 @@ export function safeRemove(element: Element | null): boolean {
  */
 export function safeAppendChild(parent: Node | null, child: Node | null): boolean {
   if (!parent || !child) {
-    console.warn('safeAppendChild: Invalid parent or child node');
+    logger.warn('safeAppendChild: Invalid parent or child node');
     return false;
   }
 
@@ -52,7 +54,7 @@ export function safeAppendChild(parent: Node | null, child: Node | null): boolea
     parent.appendChild(child);
     return true;
   } catch (error) {
-    console.error('safeAppendChild error:', error);
+    logger.error('safeAppendChild error:', error);
     return false;
   }
 }
@@ -66,7 +68,7 @@ export function safeInsertBefore(
   referenceNode: Node | null
 ): boolean {
   if (!parent || !newNode) {
-    console.warn('safeInsertBefore: Invalid parent or new node');
+    logger.warn('safeInsertBefore: Invalid parent or new node');
     return false;
   }
 
@@ -74,7 +76,7 @@ export function safeInsertBefore(
     parent.insertBefore(newNode, referenceNode);
     return true;
   } catch (error) {
-    console.error('safeInsertBefore error:', error);
+    logger.error('safeInsertBefore error:', error);
     return false;
   }
 }
@@ -88,7 +90,7 @@ export function safeReplaceChild(
   oldChild: Node | null
 ): boolean {
   if (!parent || !newChild || !oldChild || oldChild.parentNode !== parent) {
-    console.warn('safeReplaceChild: Invalid nodes');
+    logger.warn('safeReplaceChild: Invalid nodes');
     return false;
   }
 
@@ -96,7 +98,7 @@ export function safeReplaceChild(
     parent.replaceChild(newChild, oldChild);
     return true;
   } catch (error) {
-    console.error('safeReplaceChild error:', error);
+    logger.error('safeReplaceChild error:', error);
     return false;
   }
 }
@@ -106,7 +108,7 @@ export function safeReplaceChild(
  */
 export function safeSetInnerHTML(element: Element | null, html: string): boolean {
   if (!element) {
-    console.warn('safeSetInnerHTML: Element is null');
+    logger.warn('safeSetInnerHTML: Element is null');
     return false;
   }
 
@@ -114,7 +116,7 @@ export function safeSetInnerHTML(element: Element | null, html: string): boolean
     element.innerHTML = html;
     return true;
   } catch (error) {
-    console.error('safeSetInnerHTML error:', error);
+    logger.error('safeSetInnerHTML error:', error);
     return false;
   }
 }
@@ -129,7 +131,7 @@ export function safeQuerySelector<T extends Element>(
   try {
     return parent.querySelector<T>(selector);
   } catch (error) {
-    console.error('safeQuerySelector error:', error);
+    logger.error('safeQuerySelector error:', error);
     return null;
   }
 }
@@ -144,7 +146,7 @@ export function safeQuerySelectorAll<T extends Element>(
   try {
     return parent.querySelectorAll<T>(selector);
   } catch (error) {
-    console.error('safeQuerySelectorAll error:', error);
+    logger.error('safeQuerySelectorAll error:', error);
     return [] as unknown as NodeListOf<T>;
   }
 }
@@ -161,7 +163,7 @@ export function batchDOMOperations(operations: (() => void)[]): void {
       try {
         operation();
       } catch (error) {
-        console.error('Batch DOM operation error:', error);
+        logger.error('Batch DOM operation error:', error);
       }
     });
   });
@@ -229,7 +231,7 @@ export function safeCreateElement<K extends keyof HTMLElementTagNameMap>(
   try {
     return document.createElement(tagName, options);
   } catch (error) {
-    console.error('safeCreateElement error:', error);
+    logger.error('safeCreateElement error:', error);
     return null;
   }
 }
@@ -239,14 +241,14 @@ export function safeCreateElement<K extends keyof HTMLElementTagNameMap>(
  */
 export function safeCloneNode<T extends Node>(node: T | null, deep: boolean = true): T | null {
   if (!node) {
-    console.warn('safeCloneNode: Node is null');
+    logger.warn('safeCloneNode: Node is null');
     return null;
   }
 
   try {
     return node.cloneNode(deep) as T;
   } catch (error) {
-    console.error('safeCloneNode error:', error);
+    logger.error('safeCloneNode error:', error);
     return null;
   }
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { securityLogger } from '@/lib/pino-logger';
 import { Star, MapPin, ExternalLink, RefreshCw, AlertCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
@@ -119,7 +120,7 @@ export default function ExternalReviews({
       setSummary(data.summary || null);
       setLastUpdated(data.requestedAt || (isHydrated ? new Date().toISOString() : null));
     } catch (err) {
-      console.error('Failed to fetch external reviews:', err);
+      securityLogger.error('Failed to fetch external reviews:', err);
       setError(err instanceof Error ? err.message : 'Failed to load reviews');
     } finally {
       setLoading(false);

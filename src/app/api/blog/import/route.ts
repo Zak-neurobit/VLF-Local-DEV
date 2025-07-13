@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { apiLogger } from '@/lib/pino-logger';
 import { blogImportService } from '@/services/blog/import-service';
 
 export const dynamic = 'force-dynamic';
@@ -58,7 +59,7 @@ export async function GET(request: Request) {
       hasMore: endIndex < posts.length,
     });
   } catch (error) {
-    console.error('Error fetching blog posts:', error);
+    apiLogger.error('Error fetching blog posts:', error);
     return NextResponse.json({ error: 'Failed to fetch blog posts' }, { status: 500 });
   }
 }
@@ -73,7 +74,7 @@ export async function POST(_request: Request) {
       count: posts.length,
     });
   } catch (error) {
-    console.error('Error importing blog posts:', error);
+    apiLogger.error('Error importing blog posts:', error);
     return NextResponse.json({ error: 'Failed to import blog posts' }, { status: 500 });
   }
 }

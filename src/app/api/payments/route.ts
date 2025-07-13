@@ -5,11 +5,6 @@ import { paymentService } from '@/services/payment';
 import { logger } from '@/lib/logger';
 import { z } from 'zod';
 
-interface PaymentPlan {
-  id: string;
-  monthlyAmount: number;
-  nextPaymentDate: Date;
-}
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';

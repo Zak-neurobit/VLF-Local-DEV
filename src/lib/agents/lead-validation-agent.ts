@@ -107,10 +107,20 @@ export class LeadValidationAgent extends Agent {
   }
 
   private calculateUrgencyScore(leadData: {
+    name: string;
+    email: string;
+    phone: string;
     message: string;
-    phone?: string;
-    contactedWithin?: string;
-    preferredContactTime?: string;
+    source: string;
+    language?: string;
+    practiceArea?: string;
+    urgencyIndicators?: string[];
+    previousInteractions?: Array<{
+      type: string;
+      date: string;
+      outcome?: string;
+      notes?: string;
+    }>;
   }): number {
     let score = 0;
     const message = leadData.message.toLowerCase();
@@ -145,7 +155,7 @@ export class LeadValidationAgent extends Agent {
     }
 
     // Previous urgency indicators
-    if (leadData.urgencyIndicators?.length > 0) {
+    if (leadData.urgencyIndicators && leadData.urgencyIndicators.length > 0) {
       score += 5;
     }
 
@@ -153,9 +163,20 @@ export class LeadValidationAgent extends Agent {
   }
 
   private calculateCaseValueScore(leadData: {
+    name: string;
+    email: string;
+    phone: string;
     message: string;
+    source: string;
+    language?: string;
     practiceArea?: string;
-    phone?: string;
+    urgencyIndicators?: string[];
+    previousInteractions?: Array<{
+      type: string;
+      date: string;
+      outcome?: string;
+      notes?: string;
+    }>;
   }): number {
     let score = 0;
     const message = leadData.message.toLowerCase();
@@ -192,7 +213,8 @@ export class LeadValidationAgent extends Agent {
     }
 
     // Multiple family members
-    if (message.match(/family|spouse|children|parents/gi)?.length > 1) {
+    const familyMatches = message.match(/family|spouse|children|parents/gi);
+    if (familyMatches && familyMatches.length > 1) {
       score += 5;
     }
 
@@ -200,10 +222,20 @@ export class LeadValidationAgent extends Agent {
   }
 
   private calculateReadinessScore(leadData: {
+    name: string;
+    email: string;
+    phone: string;
     message: string;
-    phone?: string;
-    preferredContactTime?: string;
-    contactedWithin?: string;
+    source: string;
+    language?: string;
+    practiceArea?: string;
+    urgencyIndicators?: string[];
+    previousInteractions?: Array<{
+      type: string;
+      date: string;
+      outcome?: string;
+      notes?: string;
+    }>;
   }): number {
     let score = 0;
     const message = leadData.message.toLowerCase();
@@ -238,10 +270,20 @@ export class LeadValidationAgent extends Agent {
   }
 
   private calculateContactQualityScore(leadData: {
-    phone?: string;
-    email?: string;
-    name?: string;
-    preferredContactTime?: string;
+    name: string;
+    email: string;
+    phone: string;
+    message: string;
+    source: string;
+    language?: string;
+    practiceArea?: string;
+    urgencyIndicators?: string[];
+    previousInteractions?: Array<{
+      type: string;
+      date: string;
+      outcome?: string;
+      notes?: string;
+    }>;
   }): number {
     let score = 0;
 
@@ -521,8 +563,20 @@ export class LeadValidationAgent extends Agent {
   }
 
   private async logValidation(leadData: {
-    contactId?: string;
-    source?: string;
+    name: string;
+    email: string;
+    phone: string;
+    message: string;
+    source: string;
+    language?: string;
+    practiceArea?: string;
+    urgencyIndicators?: string[];
+    previousInteractions?: Array<{
+      type: string;
+      date: string;
+      outcome?: string;
+      notes?: string;
+    }>;
   }, validation: LeadScore): Promise<void> {
     try {
       const prisma = getPrismaClient();

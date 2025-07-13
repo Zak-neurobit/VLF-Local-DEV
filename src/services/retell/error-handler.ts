@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { securityLogger } from '@/lib/pino-logger';
 import { ghlService } from '@/services/gohighlevel';
 import { getPrismaClient } from '@/lib/prisma';
 import type { TaskType } from '@prisma/client';
@@ -186,8 +187,8 @@ export class RetellErrorHandler {
       });
     } catch (error) {
       // If logging fails, at least log to console
-      console.error('Failed to log Retell error:', error);
-      console.error('Original Retell error:', retellError);
+      securityLogger.error('Failed to log Retell error:', error);
+      securityLogger.error('Original Retell error:', retellError);
     }
   }
 

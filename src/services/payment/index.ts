@@ -664,24 +664,27 @@ class PaymentService {
         case PaymentGateway.STRIPE:
           result = await this.processStripeRefund({
             id: payment.id,
-            transactionId: payment.transactionId,
+            transactionId: payment.gatewayTransactionId || payment.id,
             gateway: payment.gateway,
             amount: payment.amount,
-            gatewayChargeId: payment.gatewayTransactionId || payment.transactionId,
+            gatewayChargeId: payment.gatewayChargeId || payment.gatewayTransactionId || undefined,
             metadata: payment.metadata as Record<string, unknown>,
           }, refundAmount);
           break;
         case PaymentGateway.LAWPAY:
           result = await this.processLawPayRefund({
             id: payment.id,
-            transactionId: payment.transactionId,
+            transactionId: payment.gatewayTransactionId || payment.id,
+            gatewayChargeId: payment.gatewayChargeId || undefined,
             metadata: payment.metadata as Record<string, unknown>,
           }, refundAmount);
           break;
         case PaymentGateway.AUTHORIZE_NET:
           result = await this.processAuthorizeNetRefund({
             id: payment.id,
-            transactionId: payment.transactionId,
+            transactionId: payment.gatewayTransactionId || payment.id,
+            gatewayTransactionId: payment.gatewayTransactionId || undefined,
+            last4: payment.last4 || undefined,
             metadata: payment.metadata as Record<string, unknown>,
           }, refundAmount);
           break;
@@ -716,7 +719,7 @@ class PaymentService {
             clientEmail: payment.clientEmail,
             amount: payment.amount,
             caseId: payment.caseId,
-            gatewayTransactionId: payment.gatewayTransactionId,
+            gatewayTransactionId: payment.gatewayTransactionId || undefined,
           }, refundAmount);
         }
 
@@ -726,7 +729,8 @@ class PaymentService {
           clientName: payment.clientName,
           clientEmail: payment.clientEmail,
           amount: payment.amount,
-          transactionId: payment.transactionId,
+          transactionId: payment.gatewayTransactionId || payment.id,
+          gatewayTransactionId: payment.gatewayTransactionId,
         }, refundAmount);
       } else {
         await prisma.paymentRefund.update({
@@ -756,6 +760,7 @@ class PaymentService {
       transactionId: string;
       gateway: PaymentGateway;
       amount: number;
+      gatewayChargeId?: string;
       metadata?: Record<string, unknown>;
     },
     amount: number
@@ -794,6 +799,7 @@ class PaymentService {
     payment: {
       id: string;
       transactionId: string;
+      gatewayChargeId?: string;
       metadata?: Record<string, unknown>;
     },
     amount: number
@@ -841,6 +847,8 @@ class PaymentService {
     payment: {
       id: string;
       transactionId: string;
+      gatewayTransactionId?: string;
+      last4?: string;
       metadata?: Record<string, unknown>;
     },
     amount: number

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useDashboard } from './DashboardContext';
+import { useDashboard, type LiveMetrics } from './DashboardContext';
 
 interface MetricCardProps {
   title: string;

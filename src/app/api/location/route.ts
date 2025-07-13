@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+import { apiLogger } from '@/lib/pino-logger';
 export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -36,7 +37,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(mockLocationData);
   } catch (error) {
-    console.error('Location API error:', error);
+    apiLogger.error('Location API error:', error);
     return NextResponse.json({ error: 'Failed to fetch location data' }, { status: 500 });
   }
 }

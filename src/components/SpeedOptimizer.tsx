@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { logger } from '@/lib/pino-logger';
 import Script from 'next/script';
 import {
   initializeSpeedOptimizations,
@@ -57,7 +58,7 @@ export function SpeedOptimizer() {
       const lcpObserver = new PerformanceObserver(list => {
         const entries = list.getEntries();
         const lastEntry = entries[entries.length - 1];
-        console.log('LCP:', lastEntry.startTime);
+        logger.info('LCP:', lastEntry.startTime);
 
         // Send to analytics
         if (window.gtag) {
@@ -77,7 +78,7 @@ export function SpeedOptimizer() {
         const entries = list.getEntries();
         entries.forEach((entry: PerformanceEntry & { processingStart?: number; startTime: number }) => {
           if (entry.processingStart) {
-            console.log('FID:', entry.processingStart - entry.startTime);
+            logger.info('FID:', entry.processingStart - entry.startTime);
           }
         });
       });
@@ -91,7 +92,7 @@ export function SpeedOptimizer() {
         entries.forEach((entry: PerformanceEntry & { hadRecentInput?: boolean; value?: number }) => {
           if (!entry.hadRecentInput && entry.value) {
             clsValue += entry.value;
-            console.log('CLS:', clsValue);
+            logger.info('CLS:', clsValue);
           }
         });
       });
