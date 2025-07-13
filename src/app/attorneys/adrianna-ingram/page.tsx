@@ -84,13 +84,25 @@ export default function Page() {
                     <h2 className="text-3xl font-bold mb-6 text-primary">About Adrianna Ingram</h2>
                     <div className="prose prose-lg prose-invert max-w-none">
                       <p className="text-gray-300 leading-relaxed mb-6">
-                        Adrianna Ingram is a dedicated immigration attorney with a passion for helping individuals and families navigate the complex U.S. immigration system. Her commitment to immigrant rights and social justice drives her practice, where she provides compassionate and effective legal representation.
+                        Adrianna Ingram is a dedicated immigration attorney with a passion for
+                        helping individuals and families navigate the complex U.S. immigration
+                        system. Her commitment to immigrant rights and social justice drives her
+                        practice, where she provides compassionate and effective legal
+                        representation.
                       </p>
                       <p className="text-gray-300 leading-relaxed mb-6">
-                        With extensive experience in family-based immigration, deportation defense, and asylum cases, Adrianna has successfully helped countless clients achieve their American dream. She is known for her thorough approach to each case and her ability to find creative solutions to complex immigration challenges.
+                        With extensive experience in family-based immigration, deportation defense,
+                        and asylum cases, Adrianna has successfully helped countless clients achieve
+                        their American dream. She is known for her thorough approach to each case
+                        and her ability to find creative solutions to complex immigration
+                        challenges.
                       </p>
                       <p className="text-gray-300 leading-relaxed">
-                        As a graduate of North Carolina Central University School of Law, Adrianna brings both legal expertise and cultural understanding to her practice. Her bilingual abilities allow her to better serve North Carolina&apos;s diverse immigrant communities, ensuring that language is never a barrier to quality legal representation.
+                        As a graduate of North Carolina Central University School of Law, Adrianna
+                        brings both legal expertise and cultural understanding to her practice. Her
+                        bilingual abilities allow her to better serve North Carolina&apos;s diverse
+                        immigrant communities, ensuring that language is never a barrier to quality
+                        legal representation.
                       </p>
                     </div>
                   </motion.div>
@@ -183,7 +195,9 @@ export default function Page() {
                         <MapPin className="mr-3 h-5 w-5 text-primary mt-1 flex-shrink-0" />
                         <div>
                           <p>Charlotte Office</p>
-                          <p className="text-sm text-gray-400">5701 Executive Center Dr, Suite 103</p>
+                          <p className="text-sm text-gray-400">
+                            5701 Executive Center Dr, Suite 103
+                          </p>
                           <p className="text-sm text-gray-400">Charlotte, NC 28212</p>
                         </div>
                       </div>
@@ -210,7 +224,9 @@ export default function Page() {
                       Education
                     </h3>
                     <div>
-                      <h4 className="font-semibold text-white">North Carolina Central University School of Law</h4>
+                      <h4 className="font-semibold text-white">
+                        North Carolina Central University School of Law
+                      </h4>
                       <p className="text-gray-400">J.D. | Juris Doctor</p>
                     </div>
                   </motion.div>
@@ -273,7 +289,8 @@ export default function Page() {
                 Ready to Start Your Immigration Journey?
               </h2>
               <p className="text-xl mb-8 text-black/80">
-                Let Adrianna Ingram guide you through the immigration process with expertise and compassion.
+                Let Adrianna Ingram guide you through the immigration process with expertise and
+                compassion.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <motion.a
@@ -305,46 +322,47 @@ export default function Page() {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Adrianna Ingram",
-              jobTitle: "Immigration Attorney",
-              description: "Dedicated immigration attorney specializing in family-based immigration, deportation defense, and asylum cases in North Carolina.",
-              url: "https://www.vasquezlawfirm.com/attorneys/adrianna-ingram",
-              image: "https://www.vasquezlawfirm.com/images/attorneys/adrianna-ingram.jpg",
-              telephone: "+1-844-967-3536",
-              email: "leads@vasquezlawfirm.com",
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: 'Adrianna Ingram',
+              jobTitle: 'Immigration Attorney',
+              description:
+                'Dedicated immigration attorney specializing in family-based immigration, deportation defense, and asylum cases in North Carolina.',
+              url: 'https://www.vasquezlawfirm.com/attorneys/adrianna-ingram',
+              image: 'https://www.vasquezlawfirm.com/images/attorneys/adrianna-ingram.jpg',
+              telephone: '+1-844-967-3536',
+              email: 'leads@vasquezlawfirm.com',
               address: {
-                "@type": "PostalAddress",
-                streetAddress: "5701 Executive Center Dr, Suite 103",
-                addressLocality: "Charlotte",
-                addressRegion: "NC",
-                postalCode: "28212",
-                addressCountry: "US"
+                '@type': 'PostalAddress',
+                streetAddress: '5701 Executive Center Dr, Suite 103',
+                addressLocality: 'Charlotte',
+                addressRegion: 'NC',
+                postalCode: '28212',
+                addressCountry: 'US',
               },
               alumniOf: {
-                "@type": "EducationalOrganization",
-                name: "North Carolina Central University School of Law",
-                url: "https://law.nccu.edu/"
+                '@type': 'EducationalOrganization',
+                name: 'North Carolina Central University School of Law',
+                url: 'https://law.nccu.edu/',
               },
               memberOf: {
-                "@type": "Organization",
-                name: "North Carolina State Bar",
-                url: "https://www.ncbar.gov/"
+                '@type': 'Organization',
+                name: 'North Carolina State Bar',
+                url: 'https://www.ncbar.gov/',
               },
               worksFor: {
-                "@type": "LegalService",
-                name: "Vasquez Law Firm, PLLC",
-                url: "https://www.vasquezlawfirm.com"
+                '@type': 'LegalService',
+                name: 'Vasquez Law Firm, PLLC',
+                url: 'https://www.vasquezlawfirm.com',
               },
-              knowsLanguage: ["en", "es"],
+              knowsLanguage: ['en', 'es'],
               hasOccupation: {
-                "@type": "Occupation",
-                name: "Immigration Attorney",
-                educationRequirements: "Juris Doctor",
-                occupationalCategory: "23-1011.00"
-              }
-            })
+                '@type': 'Occupation',
+                name: 'Immigration Attorney',
+                educationRequirements: 'Juris Doctor',
+                occupationalCategory: '23-1011.00',
+              },
+            }),
           }}
         />
       </div>

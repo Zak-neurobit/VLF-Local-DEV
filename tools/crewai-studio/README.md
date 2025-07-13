@@ -15,6 +15,7 @@ This is a Gradio-based interface for managing and executing the VLF CrewAI agent
 ## Installation
 
 1. **Install dependencies** (already done):
+
    ```bash
    python3 setup.py
    ```
@@ -31,12 +32,14 @@ This is a Gradio-based interface for managing and executing the VLF CrewAI agent
 ### Quick Start
 
 1. **Start the main VLF website** (required for agent API endpoints):
+
    ```bash
    cd ../..  # Go to VLF Website root
    npm run dev
    ```
 
 2. **Launch CrewAI-Studio**:
+
    ```bash
    ./launch.sh
    ```
@@ -56,30 +59,35 @@ This is a Gradio-based interface for managing and executing the VLF CrewAI agent
 ### Features
 
 #### 1. Execute Agents Tab
+
 - Select an agent from the dropdown
 - Enter your query or document text
 - Configure advanced parameters (language, temperature, iterations)
 - Execute and view results in JSON format
 
 #### 2. Agent Configuration Tab
+
 - Customize agent roles, goals, and backstories
 - Select available tools for each agent
 - Choose LLM models (GPT-4, GPT-3.5, Claude, etc.)
 - Save configurations
 
 #### 3. Workflow Builder Tab
+
 - Create multi-agent workflows
 - Define agent execution sequences
 - Describe workflow purposes
 - Save and execute workflows
 
 #### 4. Analytics & Monitoring Tab
+
 - View agent performance metrics
 - Monitor success rates and response times
 - Track recent activities
 - Analyze usage patterns
 
 #### 5. Agent Training Tab
+
 - Upload training data (PDF, TXT, JSON, CSV)
 - Select training types (Supervised, Reinforcement, Few-Shot)
 - Train specific agents with legal documents
@@ -121,9 +129,11 @@ To modify the interface:
 ## Troubleshooting
 
 1. **"VLF website doesn't appear to be running"**
+
    - Start the main website: `npm run dev` in the VLF Website root
 
 2. **"Module not found" errors**
+
    - Activate the virtual environment: `source venv/bin/activate`
 
 3. **Agent execution fails**
@@ -140,6 +150,7 @@ To modify the interface:
 ## Support
 
 For issues or questions:
+
 - Check the logs in `../../logs/`
 - Review agent configurations
 - Ensure all services are running

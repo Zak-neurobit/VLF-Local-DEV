@@ -19,7 +19,9 @@ export default function MyPage() {
   return (
     <MasterLayout>
       <Section>
-        <Heading as="h1" size="5xl">Page Title</Heading>
+        <Heading as="h1" size="5xl">
+          Page Title
+        </Heading>
         <Button href="/contact">Get Started</Button>
       </Section>
     </MasterLayout>
@@ -32,10 +34,11 @@ export default function MyPage() {
 ### Layout Components
 
 #### MasterLayout
+
 The main wrapper for all pages. Includes header, footer, and breadcrumbs.
 
 ```tsx
-<MasterLayout 
+<MasterLayout
   variant="default" // or "hero", "minimal"
   showBreadcrumbs={true}
 >
@@ -44,6 +47,7 @@ The main wrapper for all pages. Includes header, footer, and breadcrumbs.
 ```
 
 #### PageTemplate
+
 Standard page layout with optional hero section.
 
 ```tsx
@@ -60,10 +64,11 @@ Standard page layout with optional hero section.
 ### UI Components
 
 #### Button
+
 Consistent button styles across the site.
 
 ```tsx
-<Button 
+<Button
   variant="primary" // or "secondary", "outline", "ghost"
   size="md" // or "sm", "lg", "xl"
   href="/link" // optional, makes it a link
@@ -76,6 +81,7 @@ Consistent button styles across the site.
 ```
 
 #### Typography
+
 Consistent text styling.
 
 ```tsx
@@ -93,6 +99,7 @@ Consistent text styling.
 ```
 
 #### Cards
+
 Consistent card layouts.
 
 ```tsx
@@ -100,9 +107,7 @@ Consistent card layouts.
   <CardHeader>
     <CardTitle>Card Title</CardTitle>
   </CardHeader>
-  <CardContent>
-    Card content goes here
-  </CardContent>
+  <CardContent>Card content goes here</CardContent>
   <CardFooter>
     <Button>Action</Button>
   </CardFooter>
@@ -112,11 +117,13 @@ Consistent card layouts.
 ## Color System
 
 ### Brand Colors
+
 - **Primary (Gold)**: `#C9974D` - Used for CTAs, highlights
 - **Secondary (Burgundy)**: `#6B1F2E` - Used for headers, important text
 - **Neutral**: Grays for text and backgrounds
 
 ### Usage Examples
+
 ```tsx
 // In Tailwind classes
 <div className="bg-primary text-secondary">
@@ -143,6 +150,7 @@ const primaryColor = SEMANTIC_COLORS.primary;
 ## Spacing System
 
 Uses a consistent 4px base unit:
+
 - `spacing-1`: 4px
 - `spacing-2`: 8px
 - `spacing-3`: 12px
@@ -173,28 +181,25 @@ To migrate existing pages to the design system:
 ## Example Page Structure
 
 ```tsx
-import { 
-  MasterLayout, 
-  HeroTemplate, 
-  Section, 
-  Container, 
+import {
+  MasterLayout,
+  HeroTemplate,
+  Section,
+  Container,
   SectionHeader,
   Card,
-  Button 
+  Button,
 } from '@/design-system';
 
 export default function ExamplePage() {
   return (
     <MasterLayout>
       <HeroTemplate variant="default" />
-      
+
       <Section variant="default" size="lg">
         <Container>
-          <SectionHeader 
-            title="Section Title"
-            subtitle="Optional description"
-          />
-          
+          <SectionHeader title="Section Title" subtitle="Optional description" />
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {items.map(item => (
               <Card key={item.id} variant="elevated" hover>
@@ -204,7 +209,7 @@ export default function ExamplePage() {
           </div>
         </Container>
       </Section>
-      
+
       <Section variant="gradient" size="md">
         <Container size="sm">
           <div className="text-center">

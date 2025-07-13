@@ -13,7 +13,13 @@ export interface ResourceMetadata {
   description: string;
   type: 'guide' | 'checklist' | 'calculator' | 'template' | 'form';
   category: string;
-  practiceArea: 'immigration' | 'personal-injury' | 'criminal-defense' | 'workers-compensation' | 'family-law' | 'traffic-violations';
+  practiceArea:
+    | 'immigration'
+    | 'personal-injury'
+    | 'criminal-defense'
+    | 'workers-compensation'
+    | 'family-law'
+    | 'traffic-violations';
   languages: ('en' | 'es')[];
   featured?: boolean;
   downloadUrl?: string;
@@ -28,7 +34,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'immigration-process-guide-2024',
     title: '2024 Immigration Process Guide',
-    description: 'Comprehensive guide covering all major visa types, timelines, document requirements, and step-by-step processes for U.S. immigration.',
+    description:
+      'Comprehensive guide covering all major visa types, timelines, document requirements, and step-by-step processes for U.S. immigration.',
     type: 'guide',
     category: 'General Immigration',
     practiceArea: 'immigration',
@@ -41,7 +48,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'family-visa-checklist',
     title: 'Family-Based Visa Document Checklist',
-    description: 'Complete checklist of all documents needed for family-based immigration petitions, including I-130 and adjustment of status.',
+    description:
+      'Complete checklist of all documents needed for family-based immigration petitions, including I-130 and adjustment of status.',
     type: 'checklist',
     category: 'Family Immigration',
     practiceArea: 'immigration',
@@ -53,7 +61,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'employment-visa-checklist',
     title: 'Employment-Based Visa Document Checklist',
-    description: 'Essential documents required for H-1B, L-1, EB categories, and other employment-based visa applications.',
+    description:
+      'Essential documents required for H-1B, L-1, EB categories, and other employment-based visa applications.',
     type: 'checklist',
     category: 'Employment Immigration',
     practiceArea: 'immigration',
@@ -65,7 +74,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'visa-processing-time-calculator',
     title: 'Visa Processing Time Calculator',
-    description: 'Interactive tool to estimate processing times for different visa categories based on current USCIS data.',
+    description:
+      'Interactive tool to estimate processing times for different visa categories based on current USCIS data.',
     type: 'calculator',
     category: 'Tools',
     practiceArea: 'immigration',
@@ -78,7 +88,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'asylum-application-guide',
     title: 'Asylum Application Guide',
-    description: 'Step-by-step guide for asylum seekers, including eligibility requirements, interview preparation, and timeline expectations.',
+    description:
+      'Step-by-step guide for asylum seekers, including eligibility requirements, interview preparation, and timeline expectations.',
     type: 'guide',
     category: 'Humanitarian',
     practiceArea: 'immigration',
@@ -90,7 +101,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'citizenship-test-prep',
     title: 'U.S. Citizenship Test Preparation Guide',
-    description: '100 civics questions with answers, English test tips, and interview preparation strategies.',
+    description:
+      '100 civics questions with answers, English test tips, and interview preparation strategies.',
     type: 'guide',
     category: 'Citizenship',
     practiceArea: 'immigration',
@@ -105,7 +117,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'nc-personal-injury-guide',
     title: 'NC Personal Injury Claim Guide',
-    description: 'Step-by-step guide on what to do after an accident, gathering evidence, dealing with insurance companies, and understanding your rights.',
+    description:
+      'Step-by-step guide on what to do after an accident, gathering evidence, dealing with insurance companies, and understanding your rights.',
     type: 'guide',
     category: 'Auto Accidents',
     practiceArea: 'personal-injury',
@@ -118,7 +131,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'accident-evidence-checklist',
     title: 'Accident Evidence Collection Checklist',
-    description: 'Comprehensive checklist for gathering crucial evidence after any type of accident to strengthen your personal injury claim.',
+    description:
+      'Comprehensive checklist for gathering crucial evidence after any type of accident to strengthen your personal injury claim.',
     type: 'checklist',
     category: 'Evidence Collection',
     practiceArea: 'personal-injury',
@@ -130,7 +144,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'settlement-calculator',
     title: 'Personal Injury Settlement Estimator',
-    description: 'Calculate potential settlement values based on medical costs, lost wages, pain and suffering, and other factors.',
+    description:
+      'Calculate potential settlement values based on medical costs, lost wages, pain and suffering, and other factors.',
     type: 'calculator',
     category: 'Tools',
     practiceArea: 'personal-injury',
@@ -145,7 +160,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'know-your-rights-guide',
     title: 'Know Your Rights Guide',
-    description: 'Essential information about your constitutional rights during police encounters, arrests, and criminal proceedings.',
+    description:
+      'Essential information about your constitutional rights during police encounters, arrests, and criminal proceedings.',
     type: 'guide',
     category: 'Rights & Procedures',
     practiceArea: 'criminal-defense',
@@ -158,7 +174,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'nc-court-process-guide',
     title: 'NC Criminal Court Process Guide',
-    description: 'Understanding the criminal court process in North Carolina from arrest to trial, including key deadlines and procedures.',
+    description:
+      'Understanding the criminal court process in North Carolina from arrest to trial, including key deadlines and procedures.',
     type: 'guide',
     category: 'Court Procedures',
     practiceArea: 'criminal-defense',
@@ -170,7 +187,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'expungement-eligibility-checklist',
     title: 'NC Expungement Eligibility Checklist',
-    description: 'Determine if you qualify for criminal record expungement in North Carolina with this comprehensive checklist.',
+    description:
+      'Determine if you qualify for criminal record expungement in North Carolina with this comprehensive checklist.',
     type: 'checklist',
     category: 'Expungement',
     practiceArea: 'criminal-defense',
@@ -183,8 +201,9 @@ export const resourceCatalog: ResourceMetadata[] = [
   // Workers' Compensation Resources
   {
     id: 'nc-workers-comp-guide',
-    title: 'NC Workers\' Comp Benefits Guide',
-    description: 'Complete guide to workers\' compensation benefits in North Carolina, including claim procedures and benefit calculations.',
+    title: "NC Workers' Comp Benefits Guide",
+    description:
+      "Complete guide to workers' compensation benefits in North Carolina, including claim procedures and benefit calculations.",
     type: 'guide',
     category: 'Benefits & Claims',
     practiceArea: 'workers-compensation',
@@ -197,7 +216,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'workplace-injury-checklist',
     title: 'Workplace Injury Reporting Checklist',
-    description: 'Step-by-step checklist for properly reporting workplace injuries and protecting your workers\' compensation rights.',
+    description:
+      "Step-by-step checklist for properly reporting workplace injuries and protecting your workers' compensation rights.",
     type: 'checklist',
     category: 'Injury Reporting',
     practiceArea: 'workers-compensation',
@@ -208,8 +228,9 @@ export const resourceCatalog: ResourceMetadata[] = [
   },
   {
     id: 'workers-comp-calculator',
-    title: 'Workers\' Comp Benefits Calculator',
-    description: 'Calculate your potential workers\' compensation benefits including temporary disability, permanent disability, and medical benefits.',
+    title: "Workers' Comp Benefits Calculator",
+    description:
+      "Calculate your potential workers' compensation benefits including temporary disability, permanent disability, and medical benefits.",
     type: 'calculator',
     category: 'Tools',
     practiceArea: 'workers-compensation',
@@ -224,7 +245,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'nc-divorce-custody-guide',
     title: 'NC Divorce & Custody Guide',
-    description: 'Comprehensive guide covering divorce procedures, property division, alimony, and child custody laws in North Carolina.',
+    description:
+      'Comprehensive guide covering divorce procedures, property division, alimony, and child custody laws in North Carolina.',
     type: 'guide',
     category: 'Divorce & Custody',
     practiceArea: 'family-law',
@@ -237,7 +259,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'child-support-calculator',
     title: 'NC Child Support Calculator',
-    description: 'Calculate estimated child support payments based on North Carolina guidelines, including income shares and additional expenses.',
+    description:
+      'Calculate estimated child support payments based on North Carolina guidelines, including income shares and additional expenses.',
     type: 'calculator',
     category: 'Child Support',
     practiceArea: 'family-law',
@@ -250,7 +273,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'custody-factors-checklist',
     title: 'Best Interest Factors Checklist',
-    description: 'Checklist of factors North Carolina courts consider when determining child custody arrangements.',
+    description:
+      'Checklist of factors North Carolina courts consider when determining child custody arrangements.',
     type: 'checklist',
     category: 'Child Custody',
     practiceArea: 'family-law',
@@ -264,7 +288,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'nc-traffic-court-guide',
     title: 'NC Traffic Court Guide',
-    description: 'Navigate traffic court in North Carolina with information on the point system, license implications, and court procedures.',
+    description:
+      'Navigate traffic court in North Carolina with information on the point system, license implications, and court procedures.',
     type: 'guide',
     category: 'Traffic Court',
     practiceArea: 'traffic-violations',
@@ -277,7 +302,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'dwi-penalty-calculator',
     title: 'DUI/DWI Penalty Calculator',
-    description: 'Calculate potential penalties for DUI/DWI offenses in North Carolina based on BAC level and prior offenses.',
+    description:
+      'Calculate potential penalties for DUI/DWI offenses in North Carolina based on BAC level and prior offenses.',
     type: 'calculator',
     category: 'DUI/DWI',
     practiceArea: 'traffic-violations',
@@ -289,7 +315,8 @@ export const resourceCatalog: ResourceMetadata[] = [
   {
     id: 'license-points-guide',
     title: 'NC License Points System Guide',
-    description: 'Understanding how traffic violations affect your license points and insurance rates in North Carolina.',
+    description:
+      'Understanding how traffic violations affect your license points and insurance rates in North Carolina.',
     type: 'guide',
     category: 'License Points',
     practiceArea: 'traffic-violations',

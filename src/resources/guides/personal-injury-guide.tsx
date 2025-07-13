@@ -148,23 +148,24 @@ const PersonalInjuryGuideDocument = () => (
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Introduction</Text>
         <Text style={styles.paragraph}>
-          If you&apos;ve been injured due to someone else&apos;s negligence in North Carolina, you may be entitled to 
-          compensation for your injuries, medical expenses, lost wages, and pain and suffering. This guide 
-          provides essential information about the personal injury claim process in North Carolina, including 
-          important deadlines, types of damages, and steps to protect your rights.
+          If you&apos;ve been injured due to someone else&apos;s negligence in North Carolina, you
+          may be entitled to compensation for your injuries, medical expenses, lost wages, and pain
+          and suffering. This guide provides essential information about the personal injury claim
+          process in North Carolina, including important deadlines, types of damages, and steps to
+          protect your rights.
         </Text>
       </View>
 
       {/* Immediate Steps After an Accident */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Immediate Steps After an Accident</Text>
-        
+
         <View style={styles.importantBox}>
           <Text style={[styles.importantText, { fontWeight: 'bold', marginBottom: 5 }]}>
             🚨 CRITICAL FIRST 24-48 HOURS
           </Text>
           <Text style={styles.importantText}>
-            The actions you take immediately after an accident can significantly impact your claim. 
+            The actions you take immediately after an accident can significantly impact your claim.
             Follow these steps to protect your health and legal rights.
           </Text>
         </View>
@@ -181,15 +182,21 @@ const PersonalInjuryGuideDocument = () => (
         <Text style={styles.subsectionTitle}>2. Report the Accident</Text>
         <View style={styles.list}>
           <Text style={styles.listItem}>• Car Accidents: Call police and get a report number</Text>
-          <Text style={styles.listItem}>• Slip and Fall: Report to property owner/manager immediately</Text>
+          <Text style={styles.listItem}>
+            • Slip and Fall: Report to property owner/manager immediately
+          </Text>
           <Text style={styles.listItem}>• Workplace Injury: Notify your supervisor in writing</Text>
           <Text style={styles.listItem}>• Dog Bite: Report to animal control and police</Text>
         </View>
 
         <Text style={styles.subsectionTitle}>3. Gather Evidence</Text>
         <View style={styles.list}>
-          <Text style={styles.listItem}>• Take photos of the accident scene from multiple angles</Text>
-          <Text style={styles.listItem}>• Photograph your injuries, property damage, and hazards</Text>
+          <Text style={styles.listItem}>
+            • Take photos of the accident scene from multiple angles
+          </Text>
+          <Text style={styles.listItem}>
+            • Photograph your injuries, property damage, and hazards
+          </Text>
           <Text style={styles.listItem}>• Get contact information from all witnesses</Text>
           <Text style={styles.listItem}>• Keep damaged property (clothes, equipment, etc.)</Text>
           <Text style={styles.listItem}>• Save all receipts related to the accident</Text>
@@ -198,7 +205,9 @@ const PersonalInjuryGuideDocument = () => (
         <Text style={styles.subsectionTitle}>4. What NOT to Do</Text>
         <View style={styles.warningBox}>
           <Text style={styles.warningText}>• Do NOT admit fault or apologize</Text>
-          <Text style={styles.warningText}>• Do NOT give recorded statements to insurance companies</Text>
+          <Text style={styles.warningText}>
+            • Do NOT give recorded statements to insurance companies
+          </Text>
           <Text style={styles.warningText}>• Do NOT sign any documents without legal review</Text>
           <Text style={styles.warningText}>• Do NOT post about the accident on social media</Text>
           <Text style={styles.warningText}>• Do NOT accept the first settlement offer</Text>
@@ -213,21 +222,27 @@ const PersonalInjuryGuideDocument = () => (
       {/* Evidence Collection Checklist */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Evidence Collection Checklist</Text>
-        
+
         <View style={styles.checklistBox}>
           <Text style={styles.subsectionTitle}>Accident Scene Evidence</Text>
-          <Text style={styles.checklistItem}>☐ Photos of accident location from multiple angles</Text>
+          <Text style={styles.checklistItem}>
+            ☐ Photos of accident location from multiple angles
+          </Text>
           <Text style={styles.checklistItem}>☐ Weather and lighting conditions</Text>
           <Text style={styles.checklistItem}>☐ Traffic signs, signals, or warnings</Text>
           <Text style={styles.checklistItem}>☐ Skid marks, debris, or other physical evidence</Text>
-          <Text style={styles.checklistItem}>☐ Security camera locations (request footage ASAP)</Text>
+          <Text style={styles.checklistItem}>
+            ☐ Security camera locations (request footage ASAP)
+          </Text>
         </View>
 
         <View style={styles.checklistBox}>
           <Text style={styles.subsectionTitle}>Medical Documentation</Text>
           <Text style={styles.checklistItem}>☐ Emergency room records</Text>
           <Text style={styles.checklistItem}>☐ Doctor&apos;s notes and treatment plans</Text>
-          <Text style={styles.checklistItem}>☐ Diagnostic test results (X-rays, MRIs, CT scans)</Text>
+          <Text style={styles.checklistItem}>
+            ☐ Diagnostic test results (X-rays, MRIs, CT scans)
+          </Text>
           <Text style={styles.checklistItem}>☐ Prescription receipts</Text>
           <Text style={styles.checklistItem}>☐ Physical therapy records</Text>
           <Text style={styles.checklistItem}>☐ Medical bills and insurance statements</Text>
@@ -255,7 +270,7 @@ const PersonalInjuryGuideDocument = () => (
       {/* North Carolina Specific Laws */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>North Carolina Personal Injury Laws</Text>
-        
+
         <Text style={styles.subsectionTitle}>Statute of Limitations</Text>
         <View style={styles.timelineBox}>
           <Text style={styles.listItem}>• Personal Injury: 3 years from date of injury</Text>
@@ -270,18 +285,24 @@ const PersonalInjuryGuideDocument = () => (
             ⚠️ CRITICAL: North Carolina Contributory Negligence
           </Text>
           <Text style={styles.warningText}>
-            North Carolina is one of only 5 states that follows the harsh contributory negligence rule. 
-            If you are found to be even 1% at fault for your accident, you may be barred from recovering 
-            ANY compensation. This makes it crucial to work with an experienced attorney who can protect 
-            your rights and counter any allegations of fault.
+            North Carolina is one of only 5 states that follows the harsh contributory negligence
+            rule. If you are found to be even 1% at fault for your accident, you may be barred from
+            recovering ANY compensation. This makes it crucial to work with an experienced attorney
+            who can protect your rights and counter any allegations of fault.
           </Text>
         </View>
 
         <Text style={styles.subsectionTitle}>Damage Caps</Text>
         <View style={styles.list}>
-          <Text style={styles.listItem}>• Medical Malpractice: $500,000 cap on non-economic damages</Text>
-          <Text style={styles.listItem}>• Punitive Damages: Greater of 3x compensatory damages or $250,000</Text>
-          <Text style={styles.listItem}>• No caps on economic damages in most personal injury cases</Text>
+          <Text style={styles.listItem}>
+            • Medical Malpractice: $500,000 cap on non-economic damages
+          </Text>
+          <Text style={styles.listItem}>
+            • Punitive Damages: Greater of 3x compensatory damages or $250,000
+          </Text>
+          <Text style={styles.listItem}>
+            • No caps on economic damages in most personal injury cases
+          </Text>
         </View>
       </View>
 
@@ -293,7 +314,7 @@ const PersonalInjuryGuideDocument = () => (
       {/* Types of Compensation */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Types of Compensation Available</Text>
-        
+
         <Text style={styles.subsectionTitle}>Economic Damages</Text>
         <View style={styles.list}>
           <Text style={styles.listItem}>• Medical expenses (past and future)</Text>
@@ -315,7 +336,7 @@ const PersonalInjuryGuideDocument = () => (
 
         <Text style={styles.subsectionTitle}>Punitive Damages</Text>
         <Text style={styles.paragraph}>
-          Available only in cases involving willful or wanton conduct, fraud, or malice. These are 
+          Available only in cases involving willful or wanton conduct, fraud, or malice. These are
           designed to punish the defendant and deter similar behavior.
         </Text>
       </View>
@@ -326,7 +347,9 @@ const PersonalInjuryGuideDocument = () => (
         <View style={styles.warningBox}>
           <Text style={styles.warningText}>• Offering quick, lowball settlements</Text>
           <Text style={styles.warningText}>• Requesting unnecessary medical authorizations</Text>
-          <Text style={styles.warningText}>• Claiming pre-existing conditions caused your injuries</Text>
+          <Text style={styles.warningText}>
+            • Claiming pre-existing conditions caused your injuries
+          </Text>
           <Text style={styles.warningText}>• Surveillance of your activities and social media</Text>
           <Text style={styles.warningText}>• Delaying claim processing to pressure settlement</Text>
           <Text style={styles.warningText}>• Misrepresenting policy coverage or NC law</Text>
@@ -340,19 +363,23 @@ const PersonalInjuryGuideDocument = () => (
         </Text>
         <Text style={styles.paragraph}>You should contact an attorney immediately if:</Text>
         <View style={styles.list}>
-          <Text style={styles.listItem}>• You have serious injuries requiring ongoing treatment</Text>
+          <Text style={styles.listItem}>
+            • You have serious injuries requiring ongoing treatment
+          </Text>
           <Text style={styles.listItem}>• The insurance company denies your claim</Text>
           <Text style={styles.listItem}>• Multiple parties may be liable</Text>
-          <Text style={styles.listItem}>• The accident involved a commercial vehicle or government entity</Text>
+          <Text style={styles.listItem}>
+            • The accident involved a commercial vehicle or government entity
+          </Text>
           <Text style={styles.listItem}>• You&apos;re being blamed for causing the accident</Text>
           <Text style={styles.listItem}>• The insurance offer seems too low</Text>
         </View>
-        
+
         <Text style={[styles.paragraph, { marginTop: 15, fontWeight: 'bold' }]}>
           Free Consultation Available
         </Text>
         <Text style={styles.paragraph}>
-          The Vasquez Law Firm offers free consultations for all personal injury cases. We work on a 
+          The Vasquez Law Firm offers free consultations for all personal injury cases. We work on a
           contingency fee basis, meaning you pay nothing unless we win your case.
         </Text>
         <Text style={styles.paragraph}>
@@ -365,10 +392,10 @@ const PersonalInjuryGuideDocument = () => (
       {/* Disclaimer */}
       <View style={[styles.warningBox, { position: 'absolute', bottom: 80, left: 40, right: 40 }]}>
         <Text style={[styles.warningText, { fontSize: 9 }]}>
-          DISCLAIMER: This guide is for informational purposes only and does not constitute legal advice. 
-          Each case is unique, and outcomes depend on specific facts and circumstances. Past results do not 
-          guarantee future outcomes. Please consult with a qualified personal injury attorney for advice 
-          specific to your situation.
+          DISCLAIMER: This guide is for informational purposes only and does not constitute legal
+          advice. Each case is unique, and outcomes depend on specific facts and circumstances. Past
+          results do not guarantee future outcomes. Please consult with a qualified personal injury
+          attorney for advice specific to your situation.
         </Text>
       </View>
 
@@ -380,8 +407,8 @@ const PersonalInjuryGuideDocument = () => (
 // Component to render the download link
 export const PersonalInjuryGuide = () => {
   return (
-    <PDFDownloadLink 
-      document={<PersonalInjuryGuideDocument />} 
+    <PDFDownloadLink
+      document={<PersonalInjuryGuideDocument />}
       fileName="NC-Personal-Injury-Claim-Guide-Vasquez-Law-Firm.pdf"
       className="inline-flex items-center gap-2 bg-[#6B1F2E] hover:bg-[#8B2635] text-white font-semibold py-3 px-6 rounded-lg transition-colors"
     >

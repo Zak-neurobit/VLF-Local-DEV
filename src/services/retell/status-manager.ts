@@ -5,7 +5,15 @@ import type { VoiceCallStatus } from '@prisma/client';
 
 interface CallStatus {
   callId: string;
-  status: 'queued' | 'ringing' | 'connected' | 'ended' | 'failed' | 'no_answer' | 'busy' | 'voicemail';
+  status:
+    | 'queued'
+    | 'ringing'
+    | 'connected'
+    | 'ended'
+    | 'failed'
+    | 'no_answer'
+    | 'busy'
+    | 'voicemail';
   timestamp: Date;
   metadata?: Record<string, any>;
 }
@@ -36,7 +44,7 @@ export class StatusManager {
     if (!this.statusSubscribers.has(callId)) {
       this.statusSubscribers.set(callId, []);
     }
-    
+
     this.statusSubscribers.get(callId)!.push(callback);
 
     // Send current status if available
@@ -59,8 +67,8 @@ export class StatusManager {
 
   // Update call status
   async updateCallStatus(
-    callId: string, 
-    status: CallStatus['status'], 
+    callId: string,
+    status: CallStatus['status'],
     metadata?: Record<string, any>
   ): Promise<void> {
     try {
@@ -93,7 +101,6 @@ export class StatusManager {
         newStatus: status,
         metadata,
       });
-
     } catch (error) {
       logger.error('Failed to update call status:', error, { callId, status });
     }
@@ -116,7 +123,7 @@ export class StatusManager {
           previousStatus,
           newStatus,
           timestamp: new Date(),
-          metadata: metadata || {} as any,
+          metadata: metadata || ({} as any),
         },
       });
 
@@ -136,7 +143,6 @@ export class StatusManager {
           } as any,
         },
       });
-
     } catch (error) {
       logger.error('Failed to persist status update:', error);
     }
@@ -158,10 +164,13 @@ export class StatusManager {
 
     // Cleanup old subscriptions if call is ended
     if (['ended', 'failed', 'no_answer', 'busy'].includes(status.status)) {
-      setTimeout(() => {
-        this.statusSubscribers.delete(callId);
-        this.callStatuses.delete(callId);
-      }, 5 * 60 * 1000); // 5 minutes
+      setTimeout(
+        () => {
+          this.statusSubscribers.delete(callId);
+          this.callStatuses.delete(callId);
+        },
+        5 * 60 * 1000
+      ); // 5 minutes
     }
   }
 
@@ -177,31 +186,31 @@ export class StatusManager {
         case 'queued':
           await this.handleCallQueued(callId, metadata);
           break;
-        
+
         case 'ringing':
           await this.handleCallRinging(callId, metadata);
           break;
-        
+
         case 'connected':
           await this.handleCallConnected(callId, metadata);
           break;
-        
+
         case 'ended':
           await this.handleCallEnded(callId, metadata);
           break;
-        
+
         case 'failed':
           await this.handleCallFailed(callId, metadata);
           break;
-        
+
         case 'no_answer':
           await this.handleNoAnswer(callId, metadata);
           break;
-        
+
         case 'busy':
           await this.handleBusy(callId, metadata);
           break;
-        
+
         case 'voicemail':
           await this.handleVoicemail(callId, metadata);
           break;
@@ -240,7 +249,6 @@ export class StatusManager {
         const statusMessage = this.getStatusMessage(status, metadata);
         await ghlService.addNote(call.ghlContactId, statusMessage);
       }
-
     } catch (error) {
       logger.error('Failed to update GHL status:', error);
     }
@@ -249,7 +257,7 @@ export class StatusManager {
   // Get human-readable status message
   private getStatusMessage(status: string, metadata?: Record<string, any>): string {
     const timestamp = new Date().toLocaleString();
-    
+
     switch (status) {
       case 'connected':
         return `Call connected at ${timestamp}`;
@@ -273,22 +281,25 @@ export class StatusManager {
   // Handle specific status changes
   private async handleCallQueued(callId: string, metadata?: Record<string, any>): Promise<void> {
     logger.info('Call queued', { callId });
-    
+
     // Set timeout to detect stuck calls
-    setTimeout(async () => {
-      const currentStatus = this.callStatuses.get(callId);
-      if (currentStatus?.status === 'queued') {
-        await this.updateCallStatus(callId, 'failed', {
-          reason: 'Call stuck in queue',
-          timeout: true,
-        });
-      }
-    }, 2 * 60 * 1000); // 2 minutes
+    setTimeout(
+      async () => {
+        const currentStatus = this.callStatuses.get(callId);
+        if (currentStatus?.status === 'queued') {
+          await this.updateCallStatus(callId, 'failed', {
+            reason: 'Call stuck in queue',
+            timeout: true,
+          });
+        }
+      },
+      2 * 60 * 1000
+    ); // 2 minutes
   }
 
   private async handleCallRinging(callId: string, metadata?: Record<string, any>): Promise<void> {
     logger.info('Call ringing', { callId });
-    
+
     // Set timeout for ringing calls
     setTimeout(async () => {
       const currentStatus = this.callStatuses.get(callId);
@@ -302,7 +313,7 @@ export class StatusManager {
 
   private async handleCallConnected(callId: string, metadata?: Record<string, any>): Promise<void> {
     logger.info('Call connected', { callId });
-    
+
     // Update database with connection time
     const prisma = getPrismaClient();
     await prisma.voiceCall.updateMany({
@@ -315,7 +326,7 @@ export class StatusManager {
 
   private async handleCallEnded(callId: string, metadata?: Record<string, any>): Promise<void> {
     logger.info('Call ended', { callId, metadata });
-    
+
     // Update database with end time
     const prisma = getPrismaClient();
     await prisma.voiceCall.updateMany({
@@ -332,7 +343,7 @@ export class StatusManager {
 
   private async handleCallFailed(callId: string, metadata?: Record<string, any>): Promise<void> {
     logger.warn('Call failed', { callId, reason: metadata?.reason });
-    
+
     // Update database with failure reason
     const prisma = getPrismaClient();
     await prisma.voiceCall.updateMany({
@@ -350,31 +361,34 @@ export class StatusManager {
 
   private async handleNoAnswer(callId: string, metadata?: Record<string, any>): Promise<void> {
     logger.info('No answer', { callId });
-    
+
     // Schedule follow-up call or SMS
     await this.scheduleNoAnswerFollowUp(callId, metadata);
   }
 
   private async handleBusy(callId: string, metadata?: Record<string, any>): Promise<void> {
     logger.info('Phone busy', { callId });
-    
+
     // Schedule retry after delay
     await this.scheduleBusyRetry(callId, metadata);
   }
 
   private async handleVoicemail(callId: string, metadata?: Record<string, any>): Promise<void> {
     logger.info('Voicemail detected', { callId });
-    
+
     // Trigger voicemail follow-up campaign
     await this.triggerVoicemailFollowUp(callId, metadata);
   }
 
   // Trigger post-call processing
-  private async triggerPostCallProcessing(callId: string, metadata?: Record<string, any>): Promise<void> {
+  private async triggerPostCallProcessing(
+    callId: string,
+    metadata?: Record<string, any>
+  ): Promise<void> {
     try {
       // Import recording manager to avoid circular dependency
       const { recordingManager } = await import('./recording-manager');
-      
+
       // Process recording if available
       setTimeout(async () => {
         try {
@@ -395,14 +409,16 @@ export class StatusManager {
           });
         }
       }
-
     } catch (error) {
       logger.error('Failed to trigger post-call processing:', error);
     }
   }
 
   // Create follow-up for failed calls
-  private async createFailureFollowUp(callId: string, metadata?: Record<string, any>): Promise<void> {
+  private async createFailureFollowUp(
+    callId: string,
+    metadata?: Record<string, any>
+  ): Promise<void> {
     try {
       const call = await this.getCallWithContact(callId);
       if (!call?.ghlContactId) return;
@@ -413,14 +429,16 @@ export class StatusManager {
         body: `Automated call failed: ${metadata?.reason || 'Unknown error'}. Please contact manually.`,
         dueDate: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
       });
-
     } catch (error) {
       logger.error('Failed to create failure follow-up:', error);
     }
   }
 
   // Schedule no-answer follow-up
-  private async scheduleNoAnswerFollowUp(callId: string, metadata?: Record<string, any>): Promise<void> {
+  private async scheduleNoAnswerFollowUp(
+    callId: string,
+    metadata?: Record<string, any>
+  ): Promise<void> {
     try {
       const call = await this.getCallWithContact(callId);
       if (!call?.ghlContactId) return;
@@ -441,7 +459,6 @@ export class StatusManager {
         body: 'No answer on automated call. Consider sending SMS or scheduling callback.',
         dueDate: new Date(Date.now() + 4 * 60 * 60 * 1000), // 4 hours
       });
-
     } catch (error) {
       logger.error('Failed to schedule no-answer follow-up:', error);
     }
@@ -454,31 +471,36 @@ export class StatusManager {
       if (!call?.ghlContactId) return;
 
       // Schedule retry after 15 minutes
-      setTimeout(async () => {
-        try {
-          // Import call router to avoid circular dependency
-          const { callRouter } = await import('./call-router');
-          
-          await callRouter.createRoutedCall({
-            phoneNumber: call.phoneNumber,
-            practiceArea: call.practiceArea || undefined,
-            metadata: {
-              retryReason: 'busy',
-              originalCallId: callId,
-            },
-          });
-        } catch (error) {
-          logger.error('Failed to retry busy call:', error);
-        }
-      }, 15 * 60 * 1000); // 15 minutes
+      setTimeout(
+        async () => {
+          try {
+            // Import call router to avoid circular dependency
+            const { callRouter } = await import('./call-router');
 
+            await callRouter.createRoutedCall({
+              phoneNumber: call.phoneNumber,
+              practiceArea: call.practiceArea || undefined,
+              metadata: {
+                retryReason: 'busy',
+                originalCallId: callId,
+              },
+            });
+          } catch (error) {
+            logger.error('Failed to retry busy call:', error);
+          }
+        },
+        15 * 60 * 1000
+      ); // 15 minutes
     } catch (error) {
       logger.error('Failed to schedule busy retry:', error);
     }
   }
 
   // Trigger voicemail follow-up
-  private async triggerVoicemailFollowUp(callId: string, metadata?: Record<string, any>): Promise<void> {
+  private async triggerVoicemailFollowUp(
+    callId: string,
+    metadata?: Record<string, any>
+  ): Promise<void> {
     try {
       const call = await this.getCallWithContact(callId);
       if (!call?.ghlContactId) return;
@@ -491,7 +513,6 @@ export class StatusManager {
           campaignId,
         });
       }
-
     } catch (error) {
       logger.error('Failed to trigger voicemail follow-up:', error);
     }
@@ -519,7 +540,7 @@ export class StatusManager {
   async getStatusHistory(callId: string) {
     try {
       const prisma = getPrismaClient();
-      
+
       const history = await prisma.callStatusHistory.findMany({
         where: { callId },
         orderBy: { timestamp: 'asc' },
@@ -543,7 +564,7 @@ export class StatusManager {
   async getStatusAnalytics(timeRange?: { start: Date; end: Date }) {
     try {
       const prisma = getPrismaClient();
-      
+
       const where: any = {};
       if (timeRange) {
         where.timestamp = {
@@ -567,7 +588,7 @@ export class StatusManager {
       };
 
       statusUpdates.forEach(update => {
-        analytics.statusDistribution[update.newStatus] = 
+        analytics.statusDistribution[update.newStatus] =
           (analytics.statusDistribution[update.newStatus] || 0) + 1;
       });
 
@@ -582,7 +603,7 @@ export class StatusManager {
   async cleanupOldStatuses(daysToKeep: number = 30) {
     try {
       const cutoffDate = new Date(Date.now() - daysToKeep * 24 * 60 * 60 * 1000);
-      
+
       const prisma = getPrismaClient();
       const deletedCount = await prisma.callStatusHistory.deleteMany({
         where: {

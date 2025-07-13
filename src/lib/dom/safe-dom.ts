@@ -11,7 +11,7 @@ export function safeRemoveChild(parent: Node | null, child: Node | null): boolea
     console.warn('safeRemoveChild: Invalid parent or child node');
     return false;
   }
-  
+
   try {
     parent.removeChild(child);
     return true;
@@ -29,7 +29,7 @@ export function safeRemove(element: Element | null): boolean {
     console.warn('safeRemove: Element has no parent');
     return false;
   }
-  
+
   try {
     element.remove();
     return true;
@@ -47,7 +47,7 @@ export function safeAppendChild(parent: Node | null, child: Node | null): boolea
     console.warn('safeAppendChild: Invalid parent or child node');
     return false;
   }
-  
+
   try {
     parent.appendChild(child);
     return true;
@@ -69,7 +69,7 @@ export function safeInsertBefore(
     console.warn('safeInsertBefore: Invalid parent or new node');
     return false;
   }
-  
+
   try {
     parent.insertBefore(newNode, referenceNode);
     return true;
@@ -91,7 +91,7 @@ export function safeReplaceChild(
     console.warn('safeReplaceChild: Invalid nodes');
     return false;
   }
-  
+
   try {
     parent.replaceChild(newChild, oldChild);
     return true;
@@ -109,7 +109,7 @@ export function safeSetInnerHTML(element: Element | null, html: string): boolean
     console.warn('safeSetInnerHTML: Element is null');
     return false;
   }
-  
+
   try {
     element.innerHTML = html;
     return true;
@@ -154,7 +154,7 @@ export function safeQuerySelectorAll<T extends Element>(
  */
 export function batchDOMOperations(operations: (() => void)[]): void {
   if (typeof window === 'undefined') return;
-  
+
   // Use requestAnimationFrame to batch operations
   requestAnimationFrame(() => {
     operations.forEach(operation => {
@@ -170,17 +170,14 @@ export function batchDOMOperations(operations: (() => void)[]): void {
 /**
  * Wait for element to be available in DOM
  */
-export function waitForElement(
-  selector: string,
-  timeout: number = 5000
-): Promise<Element> {
+export function waitForElement(selector: string, timeout: number = 5000): Promise<Element> {
   return new Promise((resolve, reject) => {
     const element = document.querySelector(selector);
     if (element) {
       resolve(element);
       return;
     }
-    
+
     const observer = new MutationObserver((mutations, obs) => {
       const element = document.querySelector(selector);
       if (element) {
@@ -188,12 +185,12 @@ export function waitForElement(
         resolve(element);
       }
     });
-    
+
     observer.observe(document.body, {
       childList: true,
-      subtree: true
+      subtree: true,
     });
-    
+
     setTimeout(() => {
       observer.disconnect();
       reject(new Error(`Element ${selector} not found within ${timeout}ms`));
@@ -240,15 +237,12 @@ export function safeCreateElement<K extends keyof HTMLElementTagNameMap>(
 /**
  * Clone node with error handling
  */
-export function safeCloneNode<T extends Node>(
-  node: T | null,
-  deep: boolean = true
-): T | null {
+export function safeCloneNode<T extends Node>(node: T | null, deep: boolean = true): T | null {
   if (!node) {
     console.warn('safeCloneNode: Node is null');
     return null;
   }
-  
+
   try {
     return node.cloneNode(deep) as T;
   } catch (error) {

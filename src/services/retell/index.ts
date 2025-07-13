@@ -143,9 +143,9 @@ export class RetellService {
       }
     }
     // Log the actual response for debugging
-    logger.error('Unexpected Retell createAgent response structure:', { 
+    logger.error('Unexpected Retell createAgent response structure:', {
       data: response.data,
-      status: response.status 
+      status: response.status,
     });
     throw new Error('Invalid response from Retell API when creating agent');
   }

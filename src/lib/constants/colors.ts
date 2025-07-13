@@ -14,8 +14,8 @@ export const colors = {
     800: '#614115',
     900: '#38250A',
   },
-  
-  // Secondary colors  
+
+  // Secondary colors
   secondary: {
     DEFAULT: '#6B1F2E', // Burgundy
     50: '#F9F2F3',
@@ -29,7 +29,7 @@ export const colors = {
     800: '#4A1520',
     900: '#290B11',
   },
-  
+
   // Neutral colors
   neutral: {
     50: '#fafafa',
@@ -44,27 +44,27 @@ export const colors = {
     900: '#171717',
     950: '#0a0a0a',
   },
-  
+
   // Semantic colors
   success: '#10B981',
   warning: '#F59E0B',
   error: '#EF4444',
   info: '#3B82F6',
-  
+
   // Background colors
   background: {
     primary: '#000000',
     secondary: '#0a0a0a',
     tertiary: '#171717',
   },
-  
+
   // Text colors
   text: {
     primary: '#FFFFFF',
     secondary: '#D4D4D4',
     tertiary: '#A3A3A3',
     inverse: '#000000',
-  }
+  },
 } as const;
 
 export type Colors = typeof colors;

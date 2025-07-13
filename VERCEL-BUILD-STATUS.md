@@ -10,7 +10,9 @@
 ## What's Deployed
 
 ### New AI Agents
+
 1. **Lead Validation Agent**
+
    - Endpoint: `/api/agents/lead-validation`
    - Scores leads 0-100
    - GHL CRM integration
@@ -21,6 +23,7 @@
    - Stop conditions
 
 ### Build Optimizations
+
 - Excluded "Old site Brand guidelines and Vision" folder
 - Reduced deployment size
 - Clean build configuration
@@ -30,11 +33,14 @@
 The deployment should trigger automatically from the GitHub push.
 
 ### Check Status
+
 1. Visit: https://vercel.com/[your-team]/vlf-website
 2. Or check: https://vasquez-law-website.vercel.app
 
 ### Manual Deploy (if needed)
+
 If auto-deploy doesn't trigger, you can:
+
 1. Go to Vercel dashboard
 2. Click "Redeploy" on the latest deployment
 3. Or use Vercel CLI: `vercel --prod`
@@ -42,6 +48,7 @@ If auto-deploy doesn't trigger, you can:
 ## Environment Variables to Verify
 
 Make sure these are set in Vercel:
+
 ```
 GHL_PIPELINE_ID
 GHL_HOT_LEAD_CAMPAIGN_ID

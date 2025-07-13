@@ -5,10 +5,10 @@ import { logger } from '../src/lib/logger';
 
 async function testTrainedAgents() {
   logger.info('Testing trained CrewAI agents...');
-  
+
   try {
     const coordinator = CrewCoordinator.getInstance();
-    
+
     // Test cases for each agent type
     const testCases = [
       {
@@ -20,7 +20,7 @@ async function testTrainedAgents() {
           relationship: 'spouse',
           petitionerStatus: 'USC' as const,
           beneficiaryLocation: 'abroad' as const,
-        }
+        },
       },
       {
         name: 'Business Immigration - H1B',
@@ -32,7 +32,7 @@ async function testTrainedAgents() {
           jobDuties: 'Design and develop software applications',
           employerType: 'Technology company',
           capSubject: true,
-        }
+        },
       },
       {
         name: 'Humanitarian - Asylum',
@@ -43,7 +43,7 @@ async function testTrainedAgents() {
           persecutionType: 'Political opinion',
           protectedGround: 'Political opinion',
           entryDate: '2024-01-15',
-        }
+        },
       },
       {
         name: 'PERM Labor Certification',
@@ -55,7 +55,7 @@ async function testTrainedAgents() {
           location: 'Charlotte, NC',
           foreignNational: 'Current H-1B employee',
           recruitmentReady: false,
-        }
+        },
       },
       {
         name: 'U Visa',
@@ -66,30 +66,30 @@ async function testTrainedAgents() {
           harmSuffered: 'Physical injuries requiring hospitalization',
           lawEnforcementCooperation: 'Testified in criminal trial',
           certificationStatus: 'Ready to request',
-        }
-      }
+        },
+      },
     ];
 
     // Run tests
     for (const testCase of testCases) {
       logger.info(`\n🧪 Testing: ${testCase.name}`);
       logger.info(`Query: ${testCase.query}`);
-      
+
       // Use executeTask instead of routeQuery
       const task = {
         type: 'legal_consultation' as const,
         data: {
           query: testCase.query,
-          context: testCase.context
+          context: testCase.context,
         },
         priority: 'high' as const,
         metadata: {
           source: 'test',
-          testName: testCase.name
-        }
+          testName: testCase.name,
+        },
       };
       const result = await coordinator.executeTask(task);
-      
+
       logger.info('Response received:', {
         summary: result.summary?.substring(0, 100) + '...',
         recommendations: result.recommendations?.length || 0,
@@ -98,9 +98,8 @@ async function testTrainedAgents() {
         hasNextSteps: !!result.nextSteps,
       });
     }
-    
+
     logger.info('\n✅ All agent tests completed!');
-    
   } catch (error) {
     logger.error('Agent testing failed:', error);
     process.exit(1);

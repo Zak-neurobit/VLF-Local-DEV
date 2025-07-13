@@ -1,11 +1,13 @@
 # Dynamic Server Usage Fix Implementation Plan
 
 ## Overview
+
 34 API routes need to be fixed by adding `export const dynamic = 'force-dynamic'` to handle dynamic server features properly.
 
 ## Grouped Routes by Directory
 
 ### Group 1: Admin & Monitoring Routes (5 routes)
+
 - `/api/admin/cache/route.ts`
 - `/api/agents/health/route.ts`
 - `/api/agents/lead-validation/route.ts`
@@ -13,11 +15,13 @@
 - `/api/dashboard/metrics/route.ts`
 
 ### Group 2: Analytics Routes (3 routes)
+
 - `/api/analytics/blog-reading/route.ts`
 - `/api/analytics/blog-share/route.ts`
 - `/api/analytics/blog/route.ts`
 
 ### Group 3: Blog Routes (6 routes)
+
 - `/api/blog/[slug]/route.ts`
 - `/api/blog/import/route.ts`
 - `/api/blog/latest/route.ts`
@@ -26,6 +30,7 @@
 - `/api/blog/sitemap/route.ts`
 
 ### Group 4: CrewAI Routes (8 routes)
+
 - `/api/crewai/appointment-scheduling/route.ts`
 - `/api/crewai/client-intake/route.ts`
 - `/api/crewai/competitive-analysis/route.ts`
@@ -36,12 +41,14 @@
 - `/api/crewai/social-media-monitoring/route.ts`
 
 ### Group 5: Crew Management Routes (4 routes)
+
 - `/api/crews/health/route.ts`
 - `/api/crews/logs/route.ts`
 - `/api/crews/metrics/route.ts`
 - `/api/crews/status/route.ts`
 
 ### Group 6: Payment & Integration Routes (6 routes)
+
 - `/api/payment/authorize-net/route.ts`
 - `/api/payment/lawpay/route.ts`
 - `/api/payments/route.ts`
@@ -51,6 +58,7 @@
 - `/api/retell/phone-numbers/route.ts`
 
 ### Group 7: Other Routes (11 routes)
+
 - `/api/auth/session/route.ts`
 - `/api/cases/[caseId]/route.ts`
 - `/api/cases/recent-wins/route.ts`
@@ -98,16 +106,16 @@ async function fixDynamicServerUsage() {
     try {
       const fullPath = path.join(process.cwd(), routePath);
       let content = readFileSync(fullPath, 'utf-8');
-      
+
       // Check if already has the export
-      if (content.includes("export const dynamic")) {
+      if (content.includes('export const dynamic')) {
         console.log(`✅ Already fixed: ${routePath}`);
         continue;
       }
 
       // Find the right place to insert (after imports)
       const importEndIndex = findLastImportIndex(content);
-      
+
       if (importEndIndex === -1) {
         // No imports, add at the beginning
         content = DYNAMIC_EXPORT + '\n' + content;
@@ -135,17 +143,21 @@ async function fixDynamicServerUsage() {
 function findLastImportIndex(content: string): number {
   const lines = content.split('\n');
   let lastImportIndex = -1;
-  
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
-    if (line.startsWith('import ') || line.startsWith('export * from') || line.startsWith('export { ')) {
+    if (
+      line.startsWith('import ') ||
+      line.startsWith('export * from') ||
+      line.startsWith('export { ')
+    ) {
       lastImportIndex = content.indexOf('\n', content.indexOf(lines[i])) + 1;
     } else if (line !== '' && !line.startsWith('//')) {
       // First non-import, non-comment, non-empty line
       break;
     }
   }
-  
+
   return lastImportIndex;
 }
 
@@ -164,6 +176,7 @@ export const dynamic = 'force-dynamic';
 Example transformation:
 
 **Before:**
+
 ```typescript
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
@@ -174,6 +187,7 @@ export async function GET(request: NextRequest) {
 ```
 
 **After:**
+
 ```typescript
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
@@ -188,10 +202,12 @@ export async function GET(request: NextRequest) {
 ### Step 3: Routes Requiring Special Handling
 
 1. **Authentication Routes** (`/api/auth/session/route.ts`)
+
    - Already has dynamic rendering configured
    - Verify it's working correctly
 
 2. **Webhook Routes** (stripe, retell, ghl)
+
    - These should remain dynamic for real-time processing
    - Ensure proper signature verification
 
@@ -202,6 +218,7 @@ export async function GET(request: NextRequest) {
 ### Step 4: Testing Strategy
 
 1. **Unit Testing**
+
    ```bash
    # Test each route group
    npm test -- --testPathPattern="api/admin"
@@ -210,16 +227,18 @@ export async function GET(request: NextRequest) {
    ```
 
 2. **Integration Testing**
+
    ```bash
    # Create test script to verify all routes
    npm run test:api-routes
    ```
 
 3. **Build Verification**
+
    ```bash
    # Full build to catch any issues
    npm run build
-   
+
    # Check for dynamic server usage warnings
    npm run build 2>&1 | grep -i "dynamic"
    ```
@@ -235,11 +254,13 @@ export async function GET(request: NextRequest) {
 ### Step 5: Deployment Strategy
 
 1. **Pre-deployment**
+
    - Run full test suite
    - Verify no build warnings
    - Check all routes locally
 
 2. **Staged Deployment**
+
    - Deploy to staging environment first
    - Run smoke tests
    - Monitor for errors
@@ -252,6 +273,7 @@ export async function GET(request: NextRequest) {
 ## Quick Reference
 
 ### Routes to Fix (Copy for script):
+
 ```javascript
 const routes = [
   'src/app/api/admin/cache/route.ts',
@@ -308,11 +330,12 @@ const routes = [
   'src/app/api/webhooks/ghl/route.ts',
   'src/app/api/webhooks/retell/route.ts',
   'src/app/api/webhooks/socket/route.ts',
-  'src/app/api/webhooks/stripe/route.ts'
+  'src/app/api/webhooks/stripe/route.ts',
 ];
 ```
 
 ### Fix Command (one-liner for each file):
+
 ```bash
 # Example for a single file
 sed -i '' '/^import.*from/a\

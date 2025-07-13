@@ -10,7 +10,7 @@ const mockRecentWins = [
     date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
     type: 'settlement' as const,
     category: 'Personal Injury',
-    description: 'Motor vehicle accident resulting in significant injuries'
+    description: 'Motor vehicle accident resulting in significant injuries',
   },
   {
     id: 'win-002',
@@ -19,7 +19,7 @@ const mockRecentWins = [
     date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days ago
     type: 'award' as const,
     category: 'Immigration',
-    description: 'Successful asylum application after appeal'
+    description: 'Successful asylum application after appeal',
   },
   {
     id: 'win-003',
@@ -28,7 +28,7 @@ const mockRecentWins = [
     date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days ago
     type: 'award' as const,
     category: 'Workers Compensation',
-    description: 'Construction site injury compensation'
+    description: 'Construction site injury compensation',
   },
   {
     id: 'win-004',
@@ -37,7 +37,7 @@ const mockRecentWins = [
     date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
     type: 'dismissal' as const,
     category: 'Criminal Defense',
-    description: 'DWI charges dismissed due to procedural errors'
+    description: 'DWI charges dismissed due to procedural errors',
   },
   {
     id: 'win-005',
@@ -46,8 +46,8 @@ const mockRecentWins = [
     date: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), // 10 days ago
     type: 'settlement' as const,
     category: 'Family Law',
-    description: 'Child custody agreement reached'
-  }
+    description: 'Child custody agreement reached',
+  },
 ];
 
 export async function GET(request: NextRequest) {
@@ -72,9 +72,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(recentWins);
   } catch (error) {
     console.error('Recent wins API error:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch recent wins' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch recent wins' }, { status: 500 });
   }
 }

@@ -4,15 +4,15 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Clock, 
-  ArrowRight, 
-  Scale, 
-  Shield, 
-  Heart, 
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  ArrowRight,
+  Scale,
+  Shield,
+  Heart,
   Briefcase,
   CheckCircle,
   Star,
@@ -22,7 +22,7 @@ import {
   Award,
   Building,
   ChevronDown,
-  MessageSquare
+  MessageSquare,
 } from 'lucide-react';
 import { Button } from '@/components/design-system/Button';
 import { Heading, Text } from '@/components/design-system/Typography';
@@ -34,7 +34,7 @@ interface ServiceLocationData {
   heroTitle: string;
   heroSubtitle: string;
   heroDescription: string;
-  
+
   localStats: {
     stat1: { value: string; label: string };
     stat2: { value: string; label: string };
@@ -116,9 +116,12 @@ interface ModernServiceLocationTemplateProps {
   language?: 'en' | 'es';
 }
 
-export default function ModernServiceLocationTemplate({ data, language = 'en' }: ModernServiceLocationTemplateProps) {
+export default function ModernServiceLocationTemplate({
+  data,
+  language = 'en',
+}: ModernServiceLocationTemplateProps) {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
-  
+
   return (
     <div className="min-h-screen bg-black">
       {/* Hero Section */}
@@ -196,7 +199,12 @@ export default function ModernServiceLocationTemplate({ data, language = 'en' }:
                   Get Free Case Evaluation
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
-                <Button href="tel:1-844-967-3536" variant="outline" size="lg" className="text-lg px-8 py-4">
+                <Button
+                  href="tel:1-844-967-3536"
+                  variant="outline"
+                  size="lg"
+                  className="text-lg px-8 py-4"
+                >
                   <Phone className="mr-2 h-5 w-5" />
                   Call Now: 1-844-YO-PELEO
                 </Button>
@@ -246,9 +254,7 @@ export default function ModernServiceLocationTemplate({ data, language = 'en' }:
                 <div className="text-4xl sm:text-5xl md:text-6xl font-black text-primary mb-2">
                   {stat.value}
                 </div>
-                <div className="text-sm sm:text-base text-gray-400 font-medium">
-                  {stat.label}
-                </div>
+                <div className="text-sm sm:text-base text-gray-400 font-medium">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -286,12 +292,8 @@ export default function ModernServiceLocationTemplate({ data, language = 'en' }:
                   <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary/20 group-hover:bg-primary/30 transition-colors">
                     <Scale className="h-7 w-7 text-primary" />
                   </div>
-                  <h3 className="mb-3 text-xl font-bold text-white">
-                    {service.name}
-                  </h3>
-                  <p className="text-gray-400 mb-4">
-                    {service.description}
-                  </p>
+                  <h3 className="mb-3 text-xl font-bold text-white">{service.name}</h3>
+                  <p className="text-gray-400 mb-4">{service.description}</p>
                   <div className="pt-4 border-t border-primary/10">
                     <p className="text-sm text-primary font-medium">
                       <MapPin className="inline h-4 w-4 mr-1" />
@@ -345,9 +347,7 @@ export default function ModernServiceLocationTemplate({ data, language = 'en' }:
                 <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary/20">
                   <Building className="h-7 w-7 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-6">
-                  {data.courtInfo.title}
-                </h3>
+                <h3 className="text-xl font-bold text-white mb-6">{data.courtInfo.title}</h3>
                 <div className="space-y-4">
                   <div>
                     <p className="font-semibold text-primary mb-1">{data.courtInfo.name}</p>
@@ -366,9 +366,7 @@ export default function ModernServiceLocationTemplate({ data, language = 'en' }:
                     </p>
                   </div>
                   <div className="pt-4 border-t border-primary/10">
-                    <p className="text-sm text-gray-400 italic">
-                      {data.courtInfo.additionalInfo}
-                    </p>
+                    <p className="text-sm text-gray-400 italic">{data.courtInfo.additionalInfo}</p>
                   </div>
                 </div>
               </motion.div>
@@ -495,9 +493,7 @@ export default function ModernServiceLocationTemplate({ data, language = 'en' }:
                   className="w-full bg-black/50 backdrop-blur-sm rounded-xl p-6 border border-primary/20 hover:border-primary/40 transition-all text-left"
                 >
                   <div className="flex justify-between items-center">
-                    <h3 className="text-lg font-semibold text-white pr-4">
-                      {faq.question}
-                    </h3>
+                    <h3 className="text-lg font-semibold text-white pr-4">{faq.question}</h3>
                     <ChevronDown
                       className={`h-5 w-5 text-primary flex-shrink-0 transition-transform ${
                         openFaqIndex === index ? 'rotate-180' : ''
@@ -513,9 +509,7 @@ export default function ModernServiceLocationTemplate({ data, language = 'en' }:
                         transition={{ duration: 0.3 }}
                         className="overflow-hidden"
                       >
-                        <p className="text-gray-400 mt-4">
-                          {faq.answer}
-                        </p>
+                        <p className="text-gray-400 mt-4">{faq.answer}</p>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -650,7 +644,11 @@ export default function ModernServiceLocationTemplate({ data, language = 'en' }:
                       </a>
                       {data.officeInfo.localPhone && (
                         <p className="text-gray-300 mt-1">
-                          Local: <a href={`tel:${data.officeInfo.localPhone}`} className="text-primary hover:text-primary-400">
+                          Local:{' '}
+                          <a
+                            href={`tel:${data.officeInfo.localPhone}`}
+                            className="text-primary hover:text-primary-400"
+                          >
                             {data.officeInfo.localPhone}
                           </a>
                         </p>
@@ -705,23 +703,27 @@ export default function ModernServiceLocationTemplate({ data, language = 'en' }:
                   Ready to Fight for Your Rights?
                 </Heading>
                 <Text size="lg" className="text-gray-300 mb-8">
-                  Don't wait. Every moment counts in {data.serviceName.toLowerCase()} cases. Contact us now for a free consultation.
+                  Don't wait. Every moment counts in {data.serviceName.toLowerCase()} cases. Contact
+                  us now for a free consultation.
                 </Text>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <Button href="/contact" size="lg" className="text-lg">
                     Schedule Free Consultation
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
-                  <Button href={`tel:${data.officeInfo.phone}`} variant="outline" size="lg" className="text-lg">
+                  <Button
+                    href={`tel:${data.officeInfo.phone}`}
+                    variant="outline"
+                    size="lg"
+                    className="text-lg"
+                  >
                     <Phone className="mr-2 h-5 w-5" />
                     Call Now
                   </Button>
                 </div>
                 <div className="mt-6 flex items-center justify-center lg:justify-start gap-2">
                   <MessageSquare className="h-5 w-5 text-primary" />
-                  <Text className="text-gray-400">
-                    Available 24/7 for emergencies
-                  </Text>
+                  <Text className="text-gray-400">Available 24/7 for emergencies</Text>
                 </div>
               </div>
             </div>

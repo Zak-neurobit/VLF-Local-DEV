@@ -26,39 +26,52 @@ class MockPrismaClient {
     findUnique: async () => null,
     findFirst: async () => null,
     findMany: async () => [],
-    create: async (args: any) => ({ id: 'mock-' + Date.now(), ...args.data, createdAt: new Date(), updatedAt: new Date() }),
-    update: async (args: any) => ({ id: args.where.id || 'mock', ...args.data, updatedAt: new Date() }),
+    create: async (args: any) => ({
+      id: 'mock-' + Date.now(),
+      ...args.data,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }),
+    update: async (args: any) => ({
+      id: args.where.id || 'mock',
+      ...args.data,
+      updatedAt: new Date(),
+    }),
     delete: async () => ({ id: 'deleted' }),
     count: async () => 0,
   };
-  
+
   userActivity = {
-    create: async (args: any) => ({ id: 'mock-' + Date.now(), ...args.data, createdAt: new Date() }),
+    create: async (args: any) => ({
+      id: 'mock-' + Date.now(),
+      ...args.data,
+      createdAt: new Date(),
+    }),
   };
-  
+
   account = {
     findUnique: async () => null,
     create: async (args: any) => ({ id: 'mock-' + Date.now(), ...args.data }),
   };
-  
+
   session = {
     findUnique: async () => null,
     create: async (args: any) => ({ id: 'mock-' + Date.now(), ...args.data }),
     delete: async () => ({ id: 'deleted' }),
   };
-  
+
   async $connect() {
     console.log('[MockPrisma] Connect called (no-op)');
   }
-  
+
   async $disconnect() {
     console.log('[MockPrisma] Disconnect called (no-op)');
   }
-  
+
   async $transaction(fn: any) {
     return fn(this);
   }
-  
+
   $on() {
     // No-op for mock
   }
@@ -67,7 +80,10 @@ class MockPrismaClient {
 const prismaClientSingleton = () => {
   // Check if DATABASE_URL is available
   if (!process.env.DATABASE_URL) {
-    console.warn('DATABASE_URL not found, using mock Prisma client. Current DATABASE_URL:', process.env.DATABASE_URL);
+    console.warn(
+      'DATABASE_URL not found, using mock Prisma client. Current DATABASE_URL:',
+      process.env.DATABASE_URL
+    );
     return new MockPrismaClient() as unknown as PrismaClient;
   }
 
@@ -138,27 +154,27 @@ export async function isDatabaseConnected(): Promise<boolean> {
   if (global.prismaConnectionChecked !== undefined) {
     return global.prismaConnectionChecked;
   }
-  
+
   try {
     if (!process.env.DATABASE_URL) {
       global.prismaConnectionChecked = false;
       return false;
     }
-    
+
     // Skip connection check for local databases
     const dbUrl = process.env.DATABASE_URL;
     if (dbUrl.includes('localhost') || dbUrl.includes('127.0.0.1')) {
       global.prismaConnectionChecked = false;
       return false;
     }
-    
+
     // Try a simple query to check connection
     const client = getPrismaClient();
     if (client instanceof MockPrismaClient) {
       global.prismaConnectionChecked = false;
       return false;
     }
-    
+
     await client.$queryRaw`SELECT 1`;
     global.prismaConnectionChecked = true;
     return true;
@@ -184,7 +200,7 @@ export async function withTransaction<T>(fn: (tx: PrismaClient) => Promise<T>): 
       dbLogger.transaction(transactionId, 'commit (mock)');
       return result;
     }
-    
+
     const result = await client.$transaction(async tx => {
       return await fn(tx as PrismaClient);
     });

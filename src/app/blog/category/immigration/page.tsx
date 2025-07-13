@@ -1,21 +1,67 @@
+import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
-import CategoryPageTemplate from '@/components/Blog/CategoryPageTemplate';
-import { getCategorySEOData } from '@/lib/blog/categories';
 
-export async function generateMetadata(): Promise<Metadata> {
-  const seoData = getCategorySEOData('immigration', 'en');
-  
-  return {
-    title: seoData?.title || 'Immigration Law Blog | Vasquez Law Firm, PLLC',
-    description: seoData?.description || 'Expert insights on immigration law, visa applications, deportation defense, and citizenship.',
-    keywords: seoData?.keywords,
-    alternates: {
-      canonical: seoData?.canonical,
+export const metadata: Metadata = {
+  title: 'Immigration - Vasquez Law Firm, PLLC',
+  description: 'Legal insights and information from Vasquez Law Firm',
+};
+
+export const runtime = 'nodejs';
+
+export default function ImmigrationPage() {
+  // TODO: Extract content from original file and format properly
+  const post = {
+    id: 'immigration',
+    title: 'Immigration',
+    slug: 'immigration',
+    excerpt: 'Blog post excerpt here - TODO: extract from content',
+    content: `
+      <div class="prose prose-lg max-w-none">
+        <!-- TODO: Migrate content from original file -->
+        <p>This content needs to be migrated from the original file.</p>
+      </div>
+    `,
+    practiceArea: 'general', // TODO: Determine correct practice area
+    language: 'en' as const,
+    publishedAt: new Date(),
+    readTime: 5,
+    author: {
+      name: 'Vasquez Law Firm',
     },
-    openGraph: seoData?.openGraph,
+    tags: [], // TODO: Add relevant tags
   };
-}
 
-export default function ImmigrationBlogCategory() {
-  return <CategoryPageTemplate categoryId="immigration" />;
+  const categories = [
+    {
+      id: 'immigration',
+      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
+      slug: { en: 'immigration', es: 'inmigracion' },
+      icon: '🌐',
+      postCount: 45,
+    },
+    {
+      id: 'personal-injury',
+      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
+      slug: { en: 'personal-injury', es: 'lesiones-personales' },
+      icon: '🏥',
+      postCount: 32,
+    },
+    {
+      id: 'criminal-defense',
+      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
+      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
+      icon: '⚖️',
+      postCount: 28,
+    },
+  ];
+
+  return (
+    <BlogPageTemplate
+      posts={[]}
+      categories={categories}
+      isArticlePage={true}
+      currentPost={post}
+      relatedPosts={[]} // TODO: Add related posts
+    />
+  );
 }

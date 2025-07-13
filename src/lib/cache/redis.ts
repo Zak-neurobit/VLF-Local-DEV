@@ -104,22 +104,26 @@ let _bullRedis: Redis | MockRedis | null = null;
 
 function getRedis() {
   if (!_redis) {
-    _redis = process.env.MOCK_REDIS === 'true' || process.env.NODE_ENV === 'production' && !process.env.REDIS_HOST
-      ? (new MockRedis() as any)
-      : new Redis(redisConfig);
-    
+    _redis =
+      process.env.MOCK_REDIS === 'true' ||
+      (process.env.NODE_ENV === 'production' && !process.env.REDIS_HOST)
+        ? (new MockRedis() as any)
+        : new Redis(redisConfig);
+
     // Only connect if not mock
     if (!(_redis instanceof MockRedis)) {
-      (_redis as Redis).connect().catch((err: Error) => logger.error('Redis connection failed:', err));
-      
+      (_redis as Redis)
+        .connect()
+        .catch((err: Error) => logger.error('Redis connection failed:', err));
+
       (_redis as Redis).on('connect', () => {
         logger.info('Redis connected successfully');
       });
-      
+
       (_redis as Redis).on('error', (error: Error) => {
         logger.error('Redis connection error:', error);
       });
-      
+
       (_redis as Redis).on('close', () => {
         logger.warn('Redis connection closed');
       });
@@ -130,13 +134,17 @@ function getRedis() {
 
 function getBullRedis() {
   if (!_bullRedis) {
-    _bullRedis = process.env.MOCK_REDIS === 'true' || process.env.NODE_ENV === 'production' && !process.env.REDIS_HOST
-      ? (new MockRedis() as any)
-      : new Redis(redisConfig);
-    
+    _bullRedis =
+      process.env.MOCK_REDIS === 'true' ||
+      (process.env.NODE_ENV === 'production' && !process.env.REDIS_HOST)
+        ? (new MockRedis() as any)
+        : new Redis(redisConfig);
+
     // Only connect if not mock
     if (!(_bullRedis instanceof MockRedis)) {
-      (_bullRedis as Redis).connect().catch((err: Error) => logger.error('Bull Redis connection failed:', err));
+      (_bullRedis as Redis)
+        .connect()
+        .catch((err: Error) => logger.error('Bull Redis connection failed:', err));
     }
   }
   return _bullRedis;

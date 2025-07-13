@@ -101,7 +101,10 @@ export function PageHero({
                     {index === breadcrumbs.length - 1 ? (
                       <span className="text-white">{crumb.label}</span>
                     ) : (
-                      <Link href={crumb.href} className="text-white/70 hover:text-white transition-colors">
+                      <Link
+                        href={crumb.href}
+                        className="text-white/70 hover:text-white transition-colors"
+                      >
                         {crumb.label}
                       </Link>
                     )}
@@ -120,22 +123,24 @@ export function PageHero({
           className="text-center max-w-4xl mx-auto"
         >
           {/* Title */}
-          <h1 className={`font-black text-white ${compact ? 'text-4xl md:text-5xl' : 'text-5xl md:text-7xl'} mb-6`}>
+          <h1
+            className={`font-black text-white ${compact ? 'text-4xl md:text-5xl' : 'text-5xl md:text-7xl'} mb-6`}
+          >
             {title}
           </h1>
 
           {/* Subtitle */}
           {subtitle && (
-            <p className={`font-bold text-[#FFF8E7] ${compact ? 'text-xl' : 'text-2xl md:text-3xl'} mb-4`}>
+            <p
+              className={`font-bold text-[#FFF8E7] ${compact ? 'text-xl' : 'text-2xl md:text-3xl'} mb-4`}
+            >
               {subtitle}
             </p>
           )}
 
           {/* Description */}
           {description && (
-            <p className="text-lg md:text-xl text-white/90 mb-8 max-w-3xl mx-auto">
-              {description}
-            </p>
+            <p className="text-lg md:text-xl text-white/90 mb-8 max-w-3xl mx-auto">{description}</p>
           )}
 
           {/* CTA Buttons */}

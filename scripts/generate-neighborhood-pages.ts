@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-import { 
-  CHARLOTTE_NEIGHBORHOODS, 
-  RALEIGH_NEIGHBORHOODS, 
-  DURHAM_NEIGHBORHOODS 
+import {
+  CHARLOTTE_NEIGHBORHOODS,
+  RALEIGH_NEIGHBORHOODS,
+  DURHAM_NEIGHBORHOODS,
 } from '../src/lib/seo/neighborhood-page-generator';
 
 const LOCATIONS_DIR = path.join(process.cwd(), 'src/app/locations/nc');
@@ -11,7 +11,7 @@ const LOCATIONS_DIR = path.join(process.cwd(), 'src/app/locations/nc');
 // Template for neighborhood page
 const neighborhoodPageTemplate = (neighborhood: any, city: string, citySlug: string) => {
   const componentName = `${neighborhood.name.replace(/[\s-]/g, '')}${city.replace(/[\s-]/g, '')}Page`;
-  
+
   return `import { Metadata } from 'next';
 import { NeighborhoodPageTemplate } from '@/components/templates/NeighborhoodPageTemplate';
 import { generateNeighborhoodMetadata, generateNeighborhoodPageContent } from '@/lib/seo/neighborhood-page-generator';
@@ -41,42 +41,42 @@ export default function ${componentName}() {
 // Generate pages for all neighborhoods
 async function generateNeighborhoodPages() {
   console.log('🏘️  Generating neighborhood pages...\n');
-  
+
   const cities = [
     { name: 'Charlotte', slug: 'charlotte', neighborhoods: CHARLOTTE_NEIGHBORHOODS },
     { name: 'Raleigh', slug: 'raleigh', neighborhoods: RALEIGH_NEIGHBORHOODS },
-    { name: 'Durham', slug: 'durham', neighborhoods: DURHAM_NEIGHBORHOODS }
+    { name: 'Durham', slug: 'durham', neighborhoods: DURHAM_NEIGHBORHOODS },
   ];
-  
+
   let totalCreated = 0;
-  
+
   for (const city of cities) {
     console.log(`\n📍 Processing ${city.name} neighborhoods...`);
-    
+
     const cityDir = path.join(LOCATIONS_DIR, city.slug);
     const neighborhoodsDir = path.join(cityDir, 'neighborhoods');
-    
+
     // Create neighborhoods directory if it doesn't exist
     if (!fs.existsSync(neighborhoodsDir)) {
       fs.mkdirSync(neighborhoodsDir, { recursive: true });
       console.log(`✅ Created neighborhoods directory for ${city.name}`);
     }
-    
+
     for (const neighborhood of city.neighborhoods) {
       const neighborhoodDir = path.join(neighborhoodsDir, neighborhood.slug);
       const pageFile = path.join(neighborhoodDir, 'page.tsx');
-      
+
       // Create neighborhood directory
       if (!fs.existsSync(neighborhoodDir)) {
         fs.mkdirSync(neighborhoodDir, { recursive: true });
       }
-      
+
       // Check if page already exists
       if (fs.existsSync(pageFile)) {
         console.log(`⏭️  Skipping ${neighborhood.name} - page already exists`);
         continue;
       }
-      
+
       // Generate and write the page
       const pageContent = neighborhoodPageTemplate(neighborhood, city.name, city.slug);
       fs.writeFileSync(pageFile, pageContent);
@@ -84,18 +84,18 @@ async function generateNeighborhoodPages() {
       totalCreated++;
     }
   }
-  
+
   // Create neighborhood hub pages for each city
   for (const city of cities) {
     const hubFile = path.join(LOCATIONS_DIR, city.slug, 'neighborhoods', 'page.tsx');
-    
+
     if (!fs.existsSync(hubFile)) {
       const hubContent = generateNeighborhoodHubPage(city);
       fs.writeFileSync(hubFile, hubContent);
       console.log(`\n✅ Generated neighborhood hub page for ${city.name}`);
     }
   }
-  
+
   console.log(`\n✨ Neighborhood page generation complete!`);
   console.log(`Total pages created: ${totalCreated}`);
   console.log(`- Charlotte: ${CHARLOTTE_NEIGHBORHOODS.length} neighborhoods`);

@@ -7,7 +7,6 @@ import { PaymentStatus, PaymentGateway, PaymentMethod } from '@prisma/client';
 import { emailQueue } from '@/lib/queue/bull';
 import type { PaymentPlanMetadata } from '@/types/api';
 
-
 export const dynamic = 'force-dynamic';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16',
@@ -586,11 +585,13 @@ export async function POST(request: NextRequest) {
             where: { id: planId },
             data: {
               status: isPaused ? 'PAUSED' : 'ACTIVE',
-              metadata: JSON.parse(JSON.stringify({
-                ...(((await prisma.paymentPlan.findUnique({ where: { id: planId } }))
-                  ?.metadata as Record<string, unknown>) || {}),
-                [isPaused ? 'pausedAt' : 'resumedAt']: new Date().toISOString(),
-              })),
+              metadata: JSON.parse(
+                JSON.stringify({
+                  ...(((await prisma.paymentPlan.findUnique({ where: { id: planId } }))
+                    ?.metadata as Record<string, unknown>) || {}),
+                  [isPaused ? 'pausedAt' : 'resumedAt']: new Date().toISOString(),
+                })
+              ),
               updatedAt: new Date(),
             },
           });

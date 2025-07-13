@@ -11,10 +11,10 @@ export function DOMSafetyInitializer() {
   useEffect(() => {
     // Initialize DOM safety measures
     const cleanup = ensureDOMSafety();
-    
+
     // Log that DOM safety is active
     console.log('DOM safety measures initialized');
-    
+
     // Return cleanup function
     return () => {
       if (cleanup) {
@@ -22,7 +22,7 @@ export function DOMSafetyInitializer() {
       }
     };
   }, []);
-  
+
   // This component doesn't render anything
   return null;
 }

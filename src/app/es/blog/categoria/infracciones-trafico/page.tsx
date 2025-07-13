@@ -1,37 +1,67 @@
+import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: `Infracciones de Tráfico - Blog Legal | Bufete de Abogados Vasquez`,
   description: `Artículos y noticias sobre infracciones de tráfico de nuestros abogados expertos.`,
 };
 
-export default function CategoryPage() {
-  return (
-    <div className="space-y-8">
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Categoría: Infracciones de Tráfico
-        </h1>
-        <p className="text-lg text-gray-600">
-          Todos los artículos relacionados con infracciones de tráfico
-        </p>
-      </header>
+export const runtime = 'nodejs';
 
-      {/* Aquí iría la lista de artículos filtrados por categoría */}
-      <div className="bg-white rounded-lg shadow-md p-8 text-center">
-        <p className="text-gray-600">
-          Los artículos de esta categoría se mostrarán aquí.
-        </p>
-        <Link
-          href="/es/blog"
-          className="mt-4 inline-flex items-center text-[#6B1F2E] font-semibold hover:text-[#8B2635] transition-colors"
-        >
-          Ver todos los artículos
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </Link>
+export default function InfraccionesTraficoPage() {
+  // TODO: Extract content from original file and format properly
+  const post = {
+    id: 'infracciones-trafico',
+    title: 'Categoría: Infracciones de Tráfico',
+    slug: 'infracciones-trafico',
+    excerpt: 'Blog post excerpt here - TODO: extract from content',
+    content: `
+      <div class="prose prose-lg max-w-none">
+        <!-- TODO: Migrate content from original file -->
+        <p>This content needs to be migrated from the original file.</p>
       </div>
-    </div>
+    `,
+    practiceArea: 'general', // TODO: Determine correct practice area
+    language: 'en' as const,
+    publishedAt: new Date(),
+    readTime: 5,
+    author: {
+      name: 'Vasquez Law Firm',
+    },
+    tags: [], // TODO: Add relevant tags
+  };
+
+  const categories = [
+    {
+      id: 'immigration',
+      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
+      slug: { en: 'immigration', es: 'inmigracion' },
+      icon: '🌐',
+      postCount: 45,
+    },
+    {
+      id: 'personal-injury',
+      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
+      slug: { en: 'personal-injury', es: 'lesiones-personales' },
+      icon: '🏥',
+      postCount: 32,
+    },
+    {
+      id: 'criminal-defense',
+      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
+      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
+      icon: '⚖️',
+      postCount: 28,
+    },
+  ];
+
+  return (
+    <BlogPageTemplate
+      posts={[]}
+      categories={categories}
+      isArticlePage={true}
+      currentPost={post}
+      relatedPosts={[]} // TODO: Add related posts
+    />
   );
 }

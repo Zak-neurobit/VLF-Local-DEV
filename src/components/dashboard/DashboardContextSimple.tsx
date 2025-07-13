@@ -72,15 +72,15 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       rankingChanges: 0,
       socialEngagement: 0,
       leadGeneration: 0,
-      conversionRate: 0
+      conversionRate: 0,
     },
     recentActivity: [],
     systemHealth: {
       uptime: 0,
       performance: 0,
       errors: 0,
-      lastUpdate: new Date()
-    }
+      lastUpdate: new Date(),
+    },
   });
 
   const refreshData = () => {

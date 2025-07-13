@@ -157,7 +157,6 @@ export class SecurityManager {
         riskLevel,
         shouldBlock: riskLevel === 'high',
       };
-
     } catch (error) {
       logger.error('Error validating API request:', error);
       return {
@@ -177,7 +176,7 @@ export class SecurityManager {
     try {
       const now = Date.now();
       const key = `${identifier}:${period}`;
-      
+
       // Determine period duration and limit
       let periodMs: number;
       let limit: number;
@@ -242,7 +241,6 @@ export class SecurityManager {
         resetTime: new Date(rateLimitData.resetTime),
         period,
       };
-
     } catch (error) {
       logger.error('Error checking rate limit:', error);
       // Default to allowing the request on error
@@ -305,7 +303,6 @@ export class SecurityManager {
         riskLevel: 'low',
         shouldBlock: false,
       };
-
     } catch (error) {
       logger.error('Error validating phone number:', error);
       return {
@@ -354,9 +351,9 @@ export class SecurityManager {
         sanitized[key] = value;
       } else if (Array.isArray(value)) {
         // Recursively sanitize arrays
-        sanitized[key] = value.slice(0, 100).map(item => 
-          typeof item === 'string' ? item.substring(0, 100) : item
-        );
+        sanitized[key] = value
+          .slice(0, 100)
+          .map(item => (typeof item === 'string' ? item.substring(0, 100) : item));
       } else if (value && typeof value === 'object') {
         // Recursively sanitize objects (limited depth)
         sanitized[key] = this.sanitizeMetadata(value);
@@ -396,7 +393,6 @@ export class SecurityManager {
       if (event.riskLevel === 'high') {
         await this.sendSecurityAlert(event);
       }
-
     } catch (error) {
       logger.error('Failed to log security event:', error);
     }
@@ -412,7 +408,7 @@ export class SecurityManager {
       // Send email alert if configured
       if (process.env.SECURITY_ALERT_EMAIL) {
         const { emailService } = await import('@/services/email');
-        
+
         await emailService.sendNotification({
           to: process.env.SECURITY_ALERT_EMAIL,
           subject: `High-Risk Security Event: ${event.type}`,
@@ -455,7 +451,6 @@ export class SecurityManager {
           },
         });
       }
-
     } catch (error) {
       logger.error('Failed to send security alert:', error);
     }
@@ -465,7 +460,7 @@ export class SecurityManager {
   async getSecurityStats(timeRange?: { start: Date; end: Date }) {
     try {
       const prisma = getPrismaClient();
-      
+
       const where: any = { service: 'retell' };
       if (timeRange) {
         where.timestamp = {
@@ -531,7 +526,8 @@ export class SecurityManager {
       // Check metadata size
       if (config.metadata) {
         const metadataString = JSON.stringify(config.metadata);
-        if (metadataString.length > 10000) { // 10KB limit
+        if (metadataString.length > 10000) {
+          // 10KB limit
           issues.push('Metadata too large');
           riskLevel = 'medium';
         }
@@ -543,7 +539,6 @@ export class SecurityManager {
         riskLevel,
         shouldBlock: riskLevel === 'high',
       };
-
     } catch (error) {
       logger.error('Error validating call config:', error);
       return {
@@ -559,7 +554,7 @@ export class SecurityManager {
   async cleanupSecurityData(daysToKeep: number = 90) {
     try {
       const cutoffDate = new Date(Date.now() - daysToKeep * 24 * 60 * 60 * 1000);
-      
+
       const prisma = getPrismaClient();
       const deletedCount = await prisma.securityEvent.deleteMany({
         where: {

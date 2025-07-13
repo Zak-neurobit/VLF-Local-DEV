@@ -4,7 +4,6 @@ import { logger } from '@/lib/logger';
 import { z } from 'zod';
 import { rateLimit } from '@/lib/rate-limiter';
 
-
 export const dynamic = 'force-dynamic';
 // Rate limiter for lead capture (prevent spam)
 const limiter = rateLimit({
@@ -87,7 +86,13 @@ export async function POST(request: NextRequest) {
     // Capture lead
     const result = await leadCaptureService.captureWebLead({
       ...validated,
-      practiceArea: practiceAreaMap[validated.practiceArea] as 'immigration' | 'personal_injury' | 'workers_compensation' | 'criminal_defense' | 'family_law' | 'traffic',
+      practiceArea: practiceAreaMap[validated.practiceArea] as
+        | 'immigration'
+        | 'personal_injury'
+        | 'workers_compensation'
+        | 'criminal_defense'
+        | 'family_law'
+        | 'traffic',
       ipAddress: ip,
       userAgent: request.headers.get('user-agent') || undefined,
     });

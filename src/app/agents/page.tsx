@@ -1,3 +1,4 @@
+import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,66 +7,62 @@ export const metadata: Metadata = {
     'Manage CrewAI agents, monitor performance, and control automation for legal services',
 };
 
+export const runtime = 'nodejs';
+
 export default function AgentsPage() {
-  return (
-    <div className="min-h-screen bg-gray-900">
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-yellow-400 mb-2">AI Agent Control Center</h1>
-          <p className="text-gray-300">
-            Manage and monitor all CrewAI agents powering our legal automation services
-          </p>
-        </div>
-
-        <div className="bg-gray-800 rounded-lg shadow-xl p-4">
-          <iframe
-            src="/api/gradio"
-            className="w-full h-[800px] rounded-lg"
-            title="CrewAI Agent Control Panel"
-          />
-        </div>
-
-        <div className="mt-8 grid md:grid-cols-3 gap-6">
-          <div className="bg-gray-800 p-6 rounded-lg">
-            <h3 className="text-xl font-bold text-yellow-400 mb-3">Active Agents</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li>• Legal Consultation Agent</li>
-              <li>• Appointment Scheduling Agent</li>
-              <li>• Document Analysis Agent</li>
-              <li>• SEO Blog Generator</li>
-              <li>• Social Media Monitor</li>
-              <li>• Competition Monitor</li>
-            </ul>
-          </div>
-
-          <div className="bg-gray-800 p-6 rounded-lg">
-            <h3 className="text-xl font-bold text-yellow-400 mb-3">Integrations</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li>✓ GoHighLevel CRM</li>
-              <li>✓ Retell Voice AI</li>
-              <li>✓ CrewAI Framework</li>
-              <li>✓ OpenAI GPT-4</li>
-              <li>✓ Database Storage</li>
-              <li>✓ Email Automation</li>
-            </ul>
-          </div>
-
-          <div className="bg-gray-800 p-6 rounded-lg">
-            <h3 className="text-xl font-bold text-yellow-400 mb-3">Quick Actions</h3>
-            <div className="space-y-3">
-              <button className="w-full bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-400 transition-colors">
-                View Agent Logs
-              </button>
-              <button className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500 transition-colors">
-                Train New Agent
-              </button>
-              <button className="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 transition-colors">
-                System Health Check
-              </button>
-            </div>
-          </div>
-        </div>
+  // TODO: Extract content from original file and format properly
+  const post = {
+    id: 'agents',
+    title: 'AI Agent Control Center',
+    slug: 'agents',
+    excerpt: 'Blog post excerpt here - TODO: extract from content',
+    content: `
+      <div class="prose prose-lg max-w-none">
+        <!-- TODO: Migrate content from original file -->
+        <p>This content needs to be migrated from the original file.</p>
       </div>
-    </div>
+    `,
+    practiceArea: 'general', // TODO: Determine correct practice area
+    language: 'en' as const,
+    publishedAt: new Date(),
+    readTime: 5,
+    author: {
+      name: 'Vasquez Law Firm',
+    },
+    tags: [], // TODO: Add relevant tags
+  };
+
+  const categories = [
+    {
+      id: 'immigration',
+      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
+      slug: { en: 'immigration', es: 'inmigracion' },
+      icon: '🌐',
+      postCount: 45,
+    },
+    {
+      id: 'personal-injury',
+      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
+      slug: { en: 'personal-injury', es: 'lesiones-personales' },
+      icon: '🏥',
+      postCount: 32,
+    },
+    {
+      id: 'criminal-defense',
+      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
+      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
+      icon: '⚖️',
+      postCount: 28,
+    },
+  ];
+
+  return (
+    <BlogPageTemplate
+      posts={[]}
+      categories={categories}
+      isArticlePage={true}
+      currentPost={post}
+      relatedPosts={[]} // TODO: Add related posts
+    />
   );
 }

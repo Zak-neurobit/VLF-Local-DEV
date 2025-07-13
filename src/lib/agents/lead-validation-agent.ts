@@ -40,7 +40,7 @@ export class LeadValidationAgent extends Agent {
                   for the firm's services. You prevent spam, low-quality leads, and time-wasters from entering the pipeline 
                   while ensuring legitimate clients receive appropriate priority and routing.`,
     });
-    
+
     this.ghl = new GoHighLevelService();
   }
 
@@ -87,7 +87,7 @@ export class LeadValidationAgent extends Agent {
 
       // Update lead in GHL with validation data
       const ghlContactId = await this.updateGHLContact(leadData, validationResult);
-      
+
       // Add GHL contact ID to validation result
       validationResult.ghlContactId = ghlContactId;
 
@@ -104,110 +104,144 @@ export class LeadValidationAgent extends Agent {
   private calculateUrgencyScore(leadData: any): number {
     let score = 0;
     const message = leadData.message.toLowerCase();
-    
+
     // Urgent keywords (max 25 points)
     const urgentKeywords = [
-      'urgent', 'emergency', 'immediately', 'asap', 'court date',
-      'deadline', 'detention', 'deportation', 'removal proceedings',
-      'ice', 'detained', 'arrested', 'hearing tomorrow', 'hearing next week',
-      'visa expiring', 'status expiring', 'out of status'
+      'urgent',
+      'emergency',
+      'immediately',
+      'asap',
+      'court date',
+      'deadline',
+      'detention',
+      'deportation',
+      'removal proceedings',
+      'ice',
+      'detained',
+      'arrested',
+      'hearing tomorrow',
+      'hearing next week',
+      'visa expiring',
+      'status expiring',
+      'out of status',
     ];
-    
+
     const urgencyMatches = urgentKeywords.filter(keyword => message.includes(keyword));
     score += Math.min(urgencyMatches.length * 5, 15);
-    
+
     // Time-sensitive indicators
     if (message.match(/\d+\s*(day|week|month)s?\s*(left|remaining|until)/)) {
       score += 5;
     }
-    
+
     // Previous urgency indicators
     if (leadData.urgencyIndicators?.length > 0) {
       score += 5;
     }
-    
+
     return Math.min(score, 25);
   }
 
   private calculateCaseValueScore(leadData: any): number {
     let score = 0;
     const message = leadData.message.toLowerCase();
-    
+
     // High-value case indicators (max 25 points)
     const highValueIndicators = [
-      'business immigration', 'investor visa', 'eb-5', 'l1', 'e2',
-      'company', 'startup', 'investment', 'multiple employees',
-      'family petition', 'citizenship', 'green card', 'permanent residence',
-      'adjustment of status', 'consular processing', 'waiver',
-      'appeal', 'motion to reopen', 'federal court'
+      'business immigration',
+      'investor visa',
+      'eb-5',
+      'l1',
+      'e2',
+      'company',
+      'startup',
+      'investment',
+      'multiple employees',
+      'family petition',
+      'citizenship',
+      'green card',
+      'permanent residence',
+      'adjustment of status',
+      'consular processing',
+      'waiver',
+      'appeal',
+      'motion to reopen',
+      'federal court',
     ];
-    
+
     const valueMatches = highValueIndicators.filter(indicator => message.includes(indicator));
     score += Math.min(valueMatches.length * 5, 15);
-    
+
     // Complex case indicators
     if (message.length > 500) {
       score += 5;
     }
-    
+
     // Multiple family members
     if (message.match(/family|spouse|children|parents/gi)?.length > 1) {
       score += 5;
     }
-    
+
     return Math.min(score, 25);
   }
 
   private calculateReadinessScore(leadData: any): number {
     let score = 0;
     const message = leadData.message.toLowerCase();
-    
+
     // Readiness indicators (max 25 points)
     if (leadData.phone && leadData.phone.length >= 10) {
       score += 10;
     }
-    
+
     if (leadData.email && leadData.email.includes('@') && !leadData.email.includes('test')) {
       score += 5;
     }
-    
+
     // Decision-making language
     const readyPhrases = [
-      'ready to hire', 'need attorney', 'looking for lawyer',
-      'want to schedule', 'consultation', 'how much', 'retainer',
-      'payment plan', 'when can we meet', 'available appointment'
+      'ready to hire',
+      'need attorney',
+      'looking for lawyer',
+      'want to schedule',
+      'consultation',
+      'how much',
+      'retainer',
+      'payment plan',
+      'when can we meet',
+      'available appointment',
     ];
-    
+
     const readyMatches = readyPhrases.filter(phrase => message.includes(phrase));
     score += Math.min(readyMatches.length * 3, 10);
-    
+
     return Math.min(score, 25);
   }
 
   private calculateContactQualityScore(leadData: any): number {
     let score = 0;
-    
+
     // Contact quality (max 25 points)
     // Valid phone format
     if (leadData.phone && leadData.phone.match(/^\+?1?\d{10,}$/)) {
       score += 8;
     }
-    
+
     // Professional email domain
     if (leadData.email && !leadData.email.match(/@(gmail|yahoo|hotmail|outlook)\.com$/)) {
       score += 5;
     }
-    
+
     // Complete name
     if (leadData.name && leadData.name.split(' ').length >= 2) {
       score += 7;
     }
-    
+
     // Message quality
     if (leadData.message.length > 50 && leadData.message.length < 2000) {
       score += 5;
     }
-    
+
     return Math.min(score, 25);
   }
 
@@ -218,7 +252,10 @@ export class LeadValidationAgent extends Agent {
     return 'invalid';
   }
 
-  private determinePriority(urgencyScore: number, totalScore: number): 'urgent' | 'high' | 'medium' | 'low' {
+  private determinePriority(
+    urgencyScore: number,
+    totalScore: number
+  ): 'urgent' | 'high' | 'medium' | 'low' {
     if (urgencyScore >= 20 || totalScore >= 80) return 'urgent';
     if (urgencyScore >= 15 || totalScore >= 60) return 'high';
     if (totalScore >= 40) return 'medium';
@@ -227,7 +264,7 @@ export class LeadValidationAgent extends Agent {
 
   private generateRecommendations(leadData: any, tier: string, score: number): string[] {
     const recommendations = [];
-    
+
     if (tier === 'hot') {
       recommendations.push('Schedule immediate consultation within 24 hours');
       recommendations.push('Assign to senior attorney for priority handling');
@@ -241,7 +278,7 @@ export class LeadValidationAgent extends Agent {
       recommendations.push('Send educational content about services');
       recommendations.push('Schedule follow-up in 30 days');
     }
-    
+
     // Specific recommendations based on practice area
     const practiceAreas = this.identifyPracticeAreas(leadData);
     if (practiceAreas.includes('removal-defense')) {
@@ -250,13 +287,13 @@ export class LeadValidationAgent extends Agent {
     if (practiceAreas.includes('business-immigration')) {
       recommendations.push('Schedule business immigration specialist consultation');
     }
-    
+
     return recommendations;
   }
 
   private getRejectionReasons(leadData: any): string[] {
     const reasons = [];
-    
+
     if (!leadData.phone || leadData.phone.length < 10) {
       reasons.push('Invalid or missing phone number');
     }
@@ -269,7 +306,7 @@ export class LeadValidationAgent extends Agent {
     if (leadData.message.match(/test|asdf|123/i)) {
       reasons.push('Appears to be test submission');
     }
-    
+
     return reasons;
   }
 
@@ -292,7 +329,7 @@ export class LeadValidationAgent extends Agent {
   private estimateCaseValue(leadData: any): number {
     const message = leadData.message.toLowerCase();
     let baseValue = 2500; // Minimum case value
-    
+
     // Business immigration multipliers
     if (message.includes('eb-5') || message.includes('investor')) {
       baseValue *= 10;
@@ -301,61 +338,70 @@ export class LeadValidationAgent extends Agent {
     } else if (message.includes('business') || message.includes('company')) {
       baseValue *= 3;
     }
-    
+
     // Family cases
     if (message.includes('family') && message.includes('multiple')) {
       baseValue *= 2.5;
     }
-    
+
     // Complex cases
     if (message.includes('appeal') || message.includes('federal court')) {
       baseValue *= 2;
     }
-    
+
     // Removal defense
     if (message.includes('removal') || message.includes('deportation')) {
       baseValue *= 1.8;
     }
-    
+
     return Math.round(baseValue);
   }
 
   private identifyPracticeAreas(leadData: any): string[] {
     const message = leadData.message.toLowerCase();
     const areas = [];
-    
+
     const practiceAreaKeywords = {
       'family-immigration': ['family', 'spouse', 'parent', 'child', 'petition', 'i-130'],
-      'business-immigration': ['business', 'company', 'investor', 'employment', 'h1b', 'l1', 'e2', 'eb'],
+      'business-immigration': [
+        'business',
+        'company',
+        'investor',
+        'employment',
+        'h1b',
+        'l1',
+        'e2',
+        'eb',
+      ],
       'removal-defense': ['removal', 'deportation', 'detained', 'ice', 'court', 'judge'],
-      'citizenship': ['citizenship', 'naturalization', 'n-400', 'citizen'],
-      'asylum': ['asylum', 'refugee', 'persecution', 'fear'],
+      citizenship: ['citizenship', 'naturalization', 'n-400', 'citizen'],
+      asylum: ['asylum', 'refugee', 'persecution', 'fear'],
       'criminal-immigration': ['criminal', 'conviction', 'arrest', 'plea'],
       'adjustment-status': ['adjustment', 'green card', 'permanent', 'i-485'],
       'visa-services': ['visa', 'tourist', 'student', 'temporary', 'b1', 'b2', 'f1'],
     };
-    
+
     for (const [area, keywords] of Object.entries(practiceAreaKeywords)) {
       if (keywords.some(keyword => message.includes(keyword))) {
         areas.push(area);
       }
     }
-    
+
     return areas.length > 0 ? areas : ['general-immigration'];
   }
 
   private detectLanguagePreference(leadData: any): 'en' | 'es' | 'bilingual' {
     const message = leadData.message;
-    
+
     // Spanish indicators
     const spanishPatterns = [
       /[áéíóúñ¿¡]/,
-      /\b(hola|gracias|por favor|necesito|ayuda|abogado|mi |para |con |esta?|son|tiene)\b/i
+      /\b(hola|gracias|por favor|necesito|ayuda|abogado|mi |para |con |esta?|son|tiene)\b/i,
     ];
-    
+
     const hasSpanish = spanishPatterns.some(pattern => pattern.test(message));
     const hasEnglish = /[a-zA-Z]{3,}/.test(message);
-    
+
     if (hasSpanish && hasEnglish) return 'bilingual';
     if (hasSpanish) return 'es';
     return 'en';
@@ -365,7 +411,7 @@ export class LeadValidationAgent extends Agent {
     try {
       // Find or create contact in GHL
       let contact = await this.ghl.findContactByEmail(leadData.email);
-      
+
       if (!contact) {
         contact = await this.ghl.upsertContact({
           firstName: leadData.name.split(' ')[0],
@@ -373,10 +419,14 @@ export class LeadValidationAgent extends Agent {
           email: leadData.email,
           phone: leadData.phone,
           source: leadData.source,
-          tags: ['lead-validation', `tier-${validation.tier}`, `priority-${validation.priorityLevel}`],
+          tags: [
+            'lead-validation',
+            `tier-${validation.tier}`,
+            `priority-${validation.priorityLevel}`,
+          ],
         });
       }
-      
+
       // Update contact with validation data
       contact = await this.ghl.upsertContact({
         firstName: contact.firstName || leadData.name.split(' ')[0],
@@ -402,7 +452,7 @@ export class LeadValidationAgent extends Agent {
           follow_up_strategy: validation.followUpStrategy,
         },
       });
-      
+
       // Add to appropriate pipeline stage based on tier
       const pipelineStages: Record<string, string> = {
         hot: process.env.GHL_HOT_LEADS_STAGE_ID || 'hot-leads-stage',
@@ -410,7 +460,7 @@ export class LeadValidationAgent extends Agent {
         cold: process.env.GHL_COLD_LEADS_STAGE_ID || 'cold-leads-stage',
         invalid: process.env.GHL_INVALID_LEADS_STAGE_ID || 'invalid-leads-stage',
       };
-      
+
       await this.ghl.createOpportunity({
         contactId: contact.id,
         name: `${leadData.name} - ${validation.practiceAreas[0]}`,
@@ -418,7 +468,7 @@ export class LeadValidationAgent extends Agent {
         stageId: pipelineStages[validation.tier],
         value: validation.estimatedCaseValue,
       });
-      
+
       // Trigger appropriate campaigns
       if (validation.tier === 'hot' && process.env.GHL_HOT_LEAD_CAMPAIGN_ID) {
         await this.ghl.triggerCampaign({
@@ -431,9 +481,8 @@ export class LeadValidationAgent extends Agent {
           campaignId: process.env.GHL_WARM_LEAD_CAMPAIGN_ID,
         });
       }
-      
+
       return contact.id;
-      
     } catch (error) {
       logger.error('Error updating GHL contact:', error);
       throw error;
@@ -447,7 +496,7 @@ export class LeadValidationAgent extends Agent {
         logger.error('Prisma client not available');
         return;
       }
-      
+
       // For now, log to console since leadValidation model needs to be added
       logger.info('Lead validation completed:', {
         email: leadData.email,

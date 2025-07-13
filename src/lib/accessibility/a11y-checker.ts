@@ -51,11 +51,11 @@ class AccessibilityChecker {
 
   private checkImages(): void {
     const images = document.querySelectorAll('img');
-    
+
     images.forEach((img, index) => {
       const alt = img.getAttribute('alt');
       const src = img.getAttribute('src');
-      
+
       if (!alt && alt !== '') {
         this.addIssue({
           type: 'error',
@@ -94,12 +94,12 @@ class AccessibilityChecker {
 
   private checkButtons(): void {
     const buttons = document.querySelectorAll('button, input[type="button"], input[type="submit"]');
-    
+
     buttons.forEach((button, index) => {
       const textContent = button.textContent?.trim();
       const ariaLabel = button.getAttribute('aria-label');
       const title = button.getAttribute('title');
-      
+
       if (!textContent && !ariaLabel && !title) {
         this.addIssue({
           type: 'error',
@@ -117,13 +117,13 @@ class AccessibilityChecker {
 
   private checkForms(): void {
     const inputs = document.querySelectorAll('input:not([type="hidden"]), textarea, select');
-    
+
     inputs.forEach((input, index) => {
       const id = input.getAttribute('id');
       const label = id ? document.querySelector(`label[for="${id}"]`) : null;
       const ariaLabel = input.getAttribute('aria-label');
       const ariaLabelledBy = input.getAttribute('aria-labelledby');
-      
+
       if (!label && !ariaLabel && !ariaLabelledBy) {
         this.addIssue({
           type: 'error',
@@ -154,11 +154,11 @@ class AccessibilityChecker {
   private checkHeadings(): void {
     const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
     const headingLevels: number[] = [];
-    
+
     headings.forEach((heading, index) => {
       const level = parseInt(heading.tagName.charAt(1));
       headingLevels.push(level);
-      
+
       if (!heading.textContent?.trim()) {
         this.addIssue({
           type: 'error',
@@ -175,7 +175,7 @@ class AccessibilityChecker {
     for (let i = 1; i < headingLevels.length; i++) {
       const current = headingLevels[i];
       const previous = headingLevels[i - 1];
-      
+
       if (current > previous + 1) {
         this.addIssue({
           type: 'warning',
@@ -210,12 +210,12 @@ class AccessibilityChecker {
 
   private checkLinks(): void {
     const links = document.querySelectorAll('a[href]');
-    
+
     links.forEach((link, index) => {
       const href = link.getAttribute('href');
       const textContent = link.textContent?.trim();
       const ariaLabel = link.getAttribute('aria-label');
-      
+
       if (!textContent && !ariaLabel) {
         this.addIssue({
           type: 'error',
@@ -228,7 +228,10 @@ class AccessibilityChecker {
       }
 
       // Check for generic link text
-      if (textContent && ['click here', 'read more', 'more', 'link'].includes(textContent.toLowerCase())) {
+      if (
+        textContent &&
+        ['click here', 'read more', 'more', 'link'].includes(textContent.toLowerCase())
+      ) {
         this.addIssue({
           type: 'warning',
           rule: 'link-text',
@@ -241,9 +244,10 @@ class AccessibilityChecker {
 
       // Check for external links
       if (href && href.startsWith('http') && !href.includes(window.location.hostname)) {
-        const hasExternalIndicator = link.querySelector('[aria-label*="external"]') || 
-                                   link.getAttribute('aria-label')?.includes('external');
-        
+        const hasExternalIndicator =
+          link.querySelector('[aria-label*="external"]') ||
+          link.getAttribute('aria-label')?.includes('external');
+
         if (!hasExternalIndicator) {
           this.addIssue({
             type: 'info',
@@ -261,14 +265,19 @@ class AccessibilityChecker {
   private checkColors(): void {
     // This is a simplified check - in practice, you'd use more sophisticated color contrast algorithms
     const elements = document.querySelectorAll('*');
-    
+
     elements.forEach((element, index) => {
       const styles = window.getComputedStyle(element);
       const color = styles.color;
       const backgroundColor = styles.backgroundColor;
-      
+
       // Check for sufficient contrast (simplified)
-      if (color && backgroundColor && color !== 'rgba(0, 0, 0, 0)' && backgroundColor !== 'rgba(0, 0, 0, 0)') {
+      if (
+        color &&
+        backgroundColor &&
+        color !== 'rgba(0, 0, 0, 0)' &&
+        backgroundColor !== 'rgba(0, 0, 0, 0)'
+      ) {
         // In a real implementation, you'd calculate the contrast ratio
         // For now, we'll just check for common low-contrast combinations
         if (color.includes('gray') && backgroundColor.includes('gray')) {
@@ -288,10 +297,10 @@ class AccessibilityChecker {
     const focusableElements = document.querySelectorAll(
       'a[href], button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
     );
-    
+
     focusableElements.forEach((element, index) => {
       const tabIndex = element.getAttribute('tabindex');
-      
+
       if (tabIndex && parseInt(tabIndex) > 0) {
         this.addIssue({
           type: 'warning',
@@ -308,12 +317,12 @@ class AccessibilityChecker {
     const focusableElements = document.querySelectorAll(
       'a[href], button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
     );
-    
+
     focusableElements.forEach((element, index) => {
       const styles = window.getComputedStyle(element, ':focus');
       const outline = styles.outline;
       const outlineStyle = styles.outlineStyle;
-      
+
       if (outline === 'none' || outlineStyle === 'none') {
         this.addIssue({
           type: 'warning',
@@ -328,11 +337,11 @@ class AccessibilityChecker {
 
   private checkAria(): void {
     const elementsWithAria = document.querySelectorAll('[aria-labelledby], [aria-describedby]');
-    
+
     elementsWithAria.forEach((element, index) => {
       const labelledBy = element.getAttribute('aria-labelledby');
       const describedBy = element.getAttribute('aria-describedby');
-      
+
       if (labelledBy) {
         const labelElement = document.getElementById(labelledBy);
         if (!labelElement) {
@@ -345,7 +354,7 @@ class AccessibilityChecker {
           });
         }
       }
-      
+
       if (describedBy) {
         const descElement = document.getElementById(describedBy);
         if (!descElement) {
@@ -362,8 +371,10 @@ class AccessibilityChecker {
   }
 
   private checkLandmarks(): void {
-    const landmarks = document.querySelectorAll('header, nav, main, aside, footer, [role="banner"], [role="navigation"], [role="main"], [role="complementary"], [role="contentinfo"]');
-    
+    const landmarks = document.querySelectorAll(
+      'header, nav, main, aside, footer, [role="banner"], [role="navigation"], [role="main"], [role="complementary"], [role="contentinfo"]'
+    );
+
     if (landmarks.length === 0) {
       this.addIssue({
         type: 'info',
@@ -378,11 +389,11 @@ class AccessibilityChecker {
 
   private checkTables(): void {
     const tables = document.querySelectorAll('table');
-    
+
     tables.forEach((table, index) => {
       const caption = table.querySelector('caption');
       const headers = table.querySelectorAll('th');
-      
+
       if (!caption) {
         this.addIssue({
           type: 'warning',
@@ -392,7 +403,7 @@ class AccessibilityChecker {
           impact: 'moderate',
         });
       }
-      
+
       if (headers.length === 0) {
         this.addIssue({
           type: 'error',
@@ -437,33 +448,44 @@ class AccessibilityChecker {
 
   public generateRecommendations(): string[] {
     const recommendations: string[] = [];
-    
-    const errorsByRule = this.issues.reduce((acc, issue) => {
-      acc[issue.rule] = (acc[issue.rule] || 0) + 1;
-      return acc;
-    }, {} as { [key: string]: number });
+
+    const errorsByRule = this.issues.reduce(
+      (acc, issue) => {
+        acc[issue.rule] = (acc[issue.rule] || 0) + 1;
+        return acc;
+      },
+      {} as { [key: string]: number }
+    );
 
     // Generate recommendations based on common issues
     if (errorsByRule['img-alt']) {
-      recommendations.push('Add alt attributes to all images. Use empty alt="" for decorative images.');
+      recommendations.push(
+        'Add alt attributes to all images. Use empty alt="" for decorative images.'
+      );
     }
-    
+
     if (errorsByRule['button-name']) {
-      recommendations.push('Ensure all buttons have accessible names via text content or aria-label.');
+      recommendations.push(
+        'Ensure all buttons have accessible names via text content or aria-label.'
+      );
     }
-    
+
     if (errorsByRule['form-label']) {
-      recommendations.push('Associate form controls with labels using for/id attributes or aria-labelledby.');
+      recommendations.push(
+        'Associate form controls with labels using for/id attributes or aria-labelledby.'
+      );
     }
-    
+
     if (errorsByRule['heading-hierarchy']) {
       recommendations.push('Use heading elements in proper hierarchical order (h1, h2, h3, etc.).');
     }
-    
+
     if (errorsByRule['color-contrast']) {
-      recommendations.push('Ensure sufficient color contrast between text and background (4.5:1 for normal text, 3:1 for large text).');
+      recommendations.push(
+        'Ensure sufficient color contrast between text and background (4.5:1 for normal text, 3:1 for large text).'
+      );
     }
-    
+
     if (errorsByRule['focus-visible']) {
       recommendations.push('Provide visible focus indicators for all focusable elements.');
     }
@@ -474,7 +496,7 @@ class AccessibilityChecker {
   public logReport(): void {
     const report = this.generateReport();
     const recommendations = this.generateRecommendations();
-    
+
     logger.info('Accessibility Report', {
       score: report.score,
       summary: report.summary,
@@ -498,7 +520,7 @@ export const a11yUtils = {
       '[tabindex]:not([tabindex="-1"])',
       '[contenteditable="true"]',
     ];
-    
+
     return focusableSelectors.some(selector => element.matches(selector));
   },
 
@@ -506,17 +528,17 @@ export const a11yUtils = {
   getAccessibleName: (element: Element): string => {
     const ariaLabel = element.getAttribute('aria-label');
     if (ariaLabel) return ariaLabel;
-    
+
     const ariaLabelledBy = element.getAttribute('aria-labelledby');
     if (ariaLabelledBy) {
       const labelElement = document.getElementById(ariaLabelledBy);
       if (labelElement) return labelElement.textContent || '';
     }
-    
+
     if (element.tagName === 'IMG') {
       return element.getAttribute('alt') || '';
     }
-    
+
     return element.textContent || '';
   },
 
@@ -527,9 +549,9 @@ export const a11yUtils = {
     announcement.setAttribute('aria-atomic', 'true');
     announcement.className = 'sr-only';
     announcement.textContent = message;
-    
+
     document.body.appendChild(announcement);
-    
+
     setTimeout(() => {
       if (announcement.parentNode) {
         announcement.parentNode.removeChild(announcement);
@@ -538,16 +560,16 @@ export const a11yUtils = {
   },
 
   // Trap focus within element
-  trapFocus: (element: Element): () => void => {
+  trapFocus: (element: Element): (() => void) => {
     const focusableElements = element.querySelectorAll(
       'a[href], button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
     );
-    
+
     if (focusableElements.length === 0) return () => {};
-    
+
     const firstElement = focusableElements[0] as HTMLElement;
     const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-    
+
     const handleTabKey = (e: KeyboardEvent) => {
       if (e.key === 'Tab') {
         if (e.shiftKey) {
@@ -563,10 +585,10 @@ export const a11yUtils = {
         }
       }
     };
-    
+
     element.addEventListener('keydown', handleTabKey as EventListener);
     firstElement.focus();
-    
+
     return () => {
       element.removeEventListener('keydown', handleTabKey as EventListener);
     };

@@ -1,14 +1,5 @@
+import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 import { Metadata } from 'next';
-import { NeighborhoodPageTemplate } from '@/components/templates/NeighborhoodPageTemplate';
-import { generateNeighborhoodMetadata, generateNeighborhoodPageContent } from '@/lib/seo/neighborhood-page-generator';
-
-const neighborhoodData = {
-  neighborhood: 'Uptown',
-  slug: 'uptown',
-  city: 'Charlotte',
-  citySlug: 'charlotte',
-  zipCodes: ['28202', '28280']
-};
 
 export const metadata: Metadata = generateNeighborhoodMetadata(neighborhoodData);
 
@@ -23,8 +14,23 @@ export default function UptownCharlottePage() {
         city: neighborhoodData.city,
         citySlug: neighborhoodData.citySlug,
         zipCodes: neighborhoodData.zipCodes
-      }}
-      content={content}
-    />
-  );
+      }
+
+export default function UptownPage() {
+  const locationData = {
+    city: 'Uptown',
+    state: 'NC',
+    heroTitle: 'Legal Services in Uptown',
+    heroSubtitle: 'Trusted attorneys serving the local community',
+    practiceAreas: [], // TODO: Add practice areas
+    attorneys: [], // TODO: Add attorneys
+    officeInfo: {
+      address: '',
+      phone: '1-844-YO-PELEO',
+      hours: 'Monday-Friday 9AM-5PM',
+    },
+    language: 'en' as const,
+  };
+
+  return <LocationPageTemplate {...locationData} />;
 }

@@ -22,7 +22,7 @@ interface ParallaxReturn {
 export function useParallax({
   offset = ['start end', 'end start'],
   speed = 0.5,
-  easing = (t) => t,
+  easing = t => t,
   clamp = true,
 }: ParallaxOptions = {}): ParallaxReturn {
   const ref = useRef<HTMLElement>(null);

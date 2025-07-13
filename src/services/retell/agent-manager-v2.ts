@@ -33,7 +33,7 @@ export class RetellAgentManager {
       }
 
       const service = getRetellService();
-      
+
       // Skip initialization if API key is not configured
       if (!process.env.RETELL_API_KEY) {
         logger.warn('Retell API key not configured, skipping agent initialization');
@@ -248,7 +248,7 @@ export class RetellAgentManager {
 
       // Check if agent already exists
       const cacheKey = `retell:agent:${config.practiceArea}`;
-      const cachedId = await cache.get(cacheKey) as string | null;
+      const cachedId = (await cache.get(cacheKey)) as string | null;
 
       if (cachedId) {
         // Update existing agent

@@ -42,7 +42,9 @@ export default function HeroTestimonials({ testimonials }: HeroTestimonialsProps
           transition={{ duration: 0.5 }}
           className="mx-auto max-w-2xl px-4 text-center"
         >
-          <p className="italic text-gray-300">&quot;{testimonials[currentTestimonial].text}&quot;</p>
+          <p className="italic text-gray-300">
+            &quot;{testimonials[currentTestimonial].text}&quot;
+          </p>
           <p className="mt-2 text-sm text-[#C9974D]">- {testimonials[currentTestimonial].author}</p>
         </motion.div>
       </AnimatePresence>

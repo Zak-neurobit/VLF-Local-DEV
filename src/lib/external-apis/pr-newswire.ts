@@ -39,7 +39,7 @@ export class PRNewsWireAPI {
 
   async distribute(release: PRRelease): Promise<DistributionResult> {
     logger.info('Distributing PR release', { headline: release.headline });
-    
+
     // Mock implementation
     return {
       id: `pr-${Date.now()}`,

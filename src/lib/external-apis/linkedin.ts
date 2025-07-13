@@ -26,7 +26,7 @@ export class LinkedInAPI {
 
   async createShare(post: LinkedInPost): Promise<ShareResult> {
     logger.info('Creating LinkedIn share', { author: post.author });
-    
+
     // Mock implementation
     return {
       id: `linkedin-${Date.now()}`,
@@ -36,7 +36,7 @@ export class LinkedInAPI {
 
   async createCompanyShare(post: LinkedInPost): Promise<ShareResult> {
     logger.info('Creating company page share', { author: post.author });
-    
+
     // Mock implementation
     return {
       id: `linkedin-company-${Date.now()}`,

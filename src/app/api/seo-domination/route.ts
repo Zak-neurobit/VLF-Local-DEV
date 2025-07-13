@@ -14,23 +14,26 @@ export async function GET(request: NextRequest) {
       case 'status':
         return NextResponse.json({
           running: orchestrator !== null,
-          message: orchestrator ? 'SEO Domination System is ACTIVE 🔥' : 'System is offline'
+          message: orchestrator ? 'SEO Domination System is ACTIVE 🔥' : 'System is offline',
         });
 
       case 'metrics':
         if (!orchestrator) {
           return NextResponse.json({ error: 'System not running' }, { status: 400 });
         }
-        
+
         // Get current metrics
         const summary = await orchestrator.generateExecutiveSummary();
         return NextResponse.json({ summary });
 
       default:
-        return NextResponse.json({ 
-          error: 'Invalid action',
-          availableActions: ['status', 'metrics']
-        }, { status: 400 });
+        return NextResponse.json(
+          {
+            error: 'Invalid action',
+            availableActions: ['status', 'metrics'],
+          },
+          { status: 400 }
+        );
     }
   } catch (error) {
     logger.error('SEO Domination API Error:', error);
@@ -46,32 +49,32 @@ export async function POST(request: NextRequest) {
     switch (action) {
       case 'start':
         if (orchestrator) {
-          return NextResponse.json({ 
-            message: 'SEO Domination System is already running!' 
+          return NextResponse.json({
+            message: 'SEO Domination System is already running!',
           });
         }
 
         orchestrator = new SEODominationOrchestrator();
         await orchestrator.startTotalDomination();
 
-        return NextResponse.json({ 
+        return NextResponse.json({
           success: true,
-          message: '🚀💥 SEO DOMINATION SYSTEM ACTIVATED! Competitors will tremble! 🔥'
+          message: '🚀💥 SEO DOMINATION SYSTEM ACTIVATED! Competitors will tremble! 🔥',
         });
 
       case 'stop':
         if (!orchestrator) {
-          return NextResponse.json({ 
-            message: 'System is not running' 
+          return NextResponse.json({
+            message: 'System is not running',
           });
         }
 
         await orchestrator.stopDomination();
         orchestrator = null;
 
-        return NextResponse.json({ 
+        return NextResponse.json({
           success: true,
-          message: 'SEO Domination System stopped'
+          message: 'SEO Domination System stopped',
         });
 
       case 'emergency':
@@ -82,16 +85,19 @@ export async function POST(request: NextRequest) {
         const { situation } = body;
         await orchestrator.triggerEmergencyResponse(situation);
 
-        return NextResponse.json({ 
+        return NextResponse.json({
           success: true,
-          message: `Emergency response activated for: ${situation}`
+          message: `Emergency response activated for: ${situation}`,
         });
 
       default:
-        return NextResponse.json({ 
-          error: 'Invalid action',
-          availableActions: ['start', 'stop', 'emergency']
-        }, { status: 400 });
+        return NextResponse.json(
+          {
+            error: 'Invalid action',
+            availableActions: ['start', 'stop', 'emergency'],
+          },
+          { status: 400 }
+        );
     }
   } catch (error) {
     logger.error('SEO Domination API Error:', error);

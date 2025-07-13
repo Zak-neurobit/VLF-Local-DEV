@@ -1,26 +1,67 @@
-export default function TestDeployment() {
+import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Test Deployment - Vasquez Law Firm, PLLC',
+  description: 'Legal insights and information from Vasquez Law Firm',
+};
+
+export const runtime = 'nodejs';
+
+export default function TestDeploymentPage() {
+  // TODO: Extract content from original file and format properly
+  const post = {
+    id: 'test-deployment',
+    title: 'Vasquez Law Website - Deployment Test',
+    slug: 'test-deployment',
+    excerpt: 'Blog post excerpt here - TODO: extract from content',
+    content: `
+      <div class="prose prose-lg max-w-none">
+        <!-- TODO: Migrate content from original file -->
+        <p>This content needs to be migrated from the original file.</p>
+      </div>
+    `,
+    practiceArea: 'general', // TODO: Determine correct practice area
+    language: 'en' as const,
+    publishedAt: new Date(),
+    readTime: 5,
+    author: {
+      name: 'Vasquez Law Firm',
+    },
+    tags: [], // TODO: Add relevant tags
+  };
+
+  const categories = [
+    {
+      id: 'immigration',
+      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
+      slug: { en: 'immigration', es: 'inmigracion' },
+      icon: '🌐',
+      postCount: 45,
+    },
+    {
+      id: 'personal-injury',
+      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
+      slug: { en: 'personal-injury', es: 'lesiones-personales' },
+      icon: '🏥',
+      postCount: 32,
+    },
+    {
+      id: 'criminal-defense',
+      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
+      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
+      icon: '⚖️',
+      postCount: 28,
+    },
+  ];
+
   return (
-    <div style={{ padding: '50px', textAlign: 'center', fontFamily: 'Arial' }}>
-      <h1>Vasquez Law Website - Deployment Test</h1>
-      <p>✅ If you can see this page, the deployment is working!</p>
-      <p>Build Date: {new Date().toISOString()}</p>
-      <p>Environment: {process.env.NODE_ENV}</p>
-      <hr style={{ margin: '20px 0' }} />
-      <h2>Quick Links:</h2>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        <li>
-          <a href="/">Homepage</a>
-        </li>
-        <li>
-          <a href="/attorneys">Attorneys</a>
-        </li>
-        <li>
-          <a href="/blog">Blog</a>
-        </li>
-        <li>
-          <a href="/contact">Contact</a>
-        </li>
-      </ul>
-    </div>
+    <BlogPageTemplate
+      posts={[]}
+      categories={categories}
+      isArticlePage={true}
+      currentPost={post}
+      relatedPosts={[]} // TODO: Add related posts
+    />
   );
 }

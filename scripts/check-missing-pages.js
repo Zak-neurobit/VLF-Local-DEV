@@ -10,7 +10,8 @@ const appDir = path.join(__dirname, '../src/app');
 console.log('Checking for missing pages based on imported content...\n');
 
 // Get all imported files
-const importedFiles = fs.readdirSync(importDir)
+const importedFiles = fs
+  .readdirSync(importDir)
   .filter(file => file.endsWith('.json'))
   .map(file => file.replace('.json', ''));
 
@@ -20,9 +21,9 @@ function pageExists(pagePath) {
     path.join(appDir, pagePath, 'page.tsx'),
     path.join(appDir, pagePath, 'page.jsx'),
     path.join(appDir, pagePath + '.tsx'),
-    path.join(appDir, pagePath + '.jsx')
+    path.join(appDir, pagePath + '.jsx'),
   ];
-  
+
   return possiblePaths.some(p => fs.existsSync(p));
 }
 
@@ -36,7 +37,7 @@ importedFiles.forEach(file => {
     .replace('homepage', '')
     .replace('www.vasquezlawnc.com', '')
     .replace(/-/g, '-');
-  
+
   // Special cases
   if (file === 'attorneys') {
     pagePath = 'attorneys';
@@ -47,11 +48,17 @@ importedFiles.forEach(file => {
   } else if (file.includes('-')) {
     // Convert practice area pages
     const parts = file.split('-');
-    if (parts[0] === 'immigration' || parts[0] === 'criminal' || parts[0] === 'personal' || parts[0] === 'family' || parts[0] === 'workers') {
+    if (
+      parts[0] === 'immigration' ||
+      parts[0] === 'criminal' ||
+      parts[0] === 'personal' ||
+      parts[0] === 'family' ||
+      parts[0] === 'workers'
+    ) {
       pagePath = 'practice-areas/' + file.replace(/-/g, '/');
     }
   }
-  
+
   if (pageExists(pagePath)) {
     existingPages.push({ file, pagePath });
   } else {
@@ -82,7 +89,7 @@ const report = {
   existing: existingPages.length,
   missing: missingPages.length,
   missingPages: missingPages,
-  existingPages: existingPages
+  existingPages: existingPages,
 };
 
 fs.writeFileSync(

@@ -18,20 +18,24 @@ export const safeWindow = {
     return isBrowser ? window.location : { href: '', pathname: '', search: '', hash: '' };
   },
   get localStorage() {
-    return isBrowser ? window.localStorage : {
-      getItem: () => null,
-      setItem: () => {},
-      removeItem: () => {},
-      clear: () => {},
-    };
+    return isBrowser
+      ? window.localStorage
+      : {
+          getItem: () => null,
+          setItem: () => {},
+          removeItem: () => {},
+          clear: () => {},
+        };
   },
   get sessionStorage() {
-    return isBrowser ? window.sessionStorage : {
-      getItem: () => null,
-      setItem: () => {},
-      removeItem: () => {},
-      clear: () => {},
-    };
+    return isBrowser
+      ? window.sessionStorage
+      : {
+          getItem: () => null,
+          setItem: () => {},
+          removeItem: () => {},
+          clear: () => {},
+        };
   },
 };
 

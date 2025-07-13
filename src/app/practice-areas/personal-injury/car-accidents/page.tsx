@@ -1,367 +1,422 @@
-import dynamic from 'next/dynamic';
 import { Metadata } from 'next';
-import Link from 'next/link';
-import { Phone, Mail, MapPin, Globe, Award, BookOpen } from 'lucide-react';
-// Dynamic import for client-side only rendering
-const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
-  ssr: false,
-});
-// Dynamic import for client-side only rendering
-const VoiceAssistant = dynamic(() => import('@/components/VirtualAssistant/VirtualAssistantWrapper').then(mod => mod.VirtualAssistantWrapper), {
-  ssr: false,
-});
+import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 
 export const metadata: Metadata = {
-  title: 'Raleigh, NC Car Accident Attorneys - Vasquez Law Firm, PLLC',
+  title: 'Car Accident Lawyers NC & FL | Auto Collision Attorneys | Vasquez Law Firm',
   description:
-    'Injured in a crash? Raleigh, NC car accident attorneys fight for maximum compensation. Get expert legal help for your claim. Free consultation available.',
+    'Expert car accident attorneys fighting for maximum compensation after auto collisions. We handle insurance companies, medical bills, and get you the settlement you deserve. Free consultation. Call 1-844-YO-PELEO',
+  keywords:
+    'car accident lawyer, auto accident attorney, car crash lawyer, vehicle collision attorney, auto injury lawyer, car accident compensation',
   openGraph: {
-    title: 'Raleigh, NC Car Accident Attorneys - Vasquez Law Firm, PLLC',
+    title: 'Car Accident Lawyers | Auto Collision Legal Experts - Vasquez Law Firm',
     description:
-      'Injured in a crash? Raleigh, NC car accident attorneys fight for maximum compensation. Get expert legal help for your claim. Free consultation available.',
-    images: [
-      {
-        url: '../../wp-content/uploads/2024/04/north-carolina-car-crash-injury-lawyers.jpg',
-      },
-    ],
+      'Experienced car accident attorneys securing maximum compensation for collision victims.',
+    images: [{ url: '/images/car-accident-lawyers.jpg' }],
   },
 };
 
 export default function CarAccidentsPage() {
+  const services = [
+    {
+      title: 'Rear-End Collision Claims',
+      description: 'Comprehensive representation for rear-end accidents caused by distracted, following too closely, or impaired drivers',
+      icon: '🚗',
+      features: [
+        'Distracted driving rear-end crashes',
+        'Tailgating and following too closely accidents',
+        'Impaired driver rear-end collisions',
+        'Weather-related rear-end accidents',
+        'Commercial vehicle rear-end crashes',
+        'Multi-vehicle rear-end chain reactions'
+      ]
+    },
+    {
+      title: 'Head-On Collision Representation',
+      description: 'Expert legal assistance for catastrophic head-on collisions with severe injuries and fatalities',
+      icon: '💥',
+      features: [
+        'Wrong-way driver accidents',
+        'Crossover median crashes',
+        'Impaired driver head-on collisions',
+        'Fatigue-related head-on accidents',
+        'Medical emergency head-on crashes',
+        'Construction zone head-on collisions'
+      ]
+    },
+    {
+      title: 'Side-Impact & T-Bone Accidents',
+      description: 'Legal representation for dangerous side-impact crashes at intersections and during lane changes',
+      icon: '🔄',
+      features: [
+        'Intersection T-bone accidents',
+        'Red light running collisions',
+        'Failure to yield crashes',
+        'Lane change side-swipe accidents',
+        'Blind spot collision cases',
+        'Side-impact rollover accidents'
+      ]
+    },
+    {
+      title: 'Rollover Accident Claims',
+      description: 'Specialized representation for rollover accidents involving vehicle defects and driver negligence',
+      icon: '🔄',
+      features: [
+        'SUV and truck rollover accidents',
+        'Tire blowout rollover crashes',
+        'Roof crush injury cases',
+        'Electronic stability control failures',
+        'Tripped rollover accidents',
+        'Single-vehicle rollover claims'
+      ]
+    },
+    {
+      title: 'Hit-and-Run Accident Recovery',
+      description: 'Legal assistance for hit-and-run victims through uninsured motorist claims and investigation',
+      icon: '🚨',
+      features: [
+        'Uninsured motorist claim filing',
+        'Hit-and-run driver investigation',
+        'Surveillance footage analysis',
+        'Witness testimony collection',
+        'Police report coordination',
+        'Maximum UM/UIM coverage recovery'
+      ]
+    },
+    {
+      title: 'Drunk Driving Accident Claims',
+      description: 'Aggressive representation against impaired drivers with enhanced damages and punitive awards',
+      icon: '🍺',
+      features: [
+        'DUI/DWI accident litigation',
+        'Punitive damages pursuit',
+        'Dram shop liability claims',
+        'Social host liability cases',
+        'Commercial alcohol liability',
+        'Criminal restitution coordination'
+      ]
+    },
+    {
+      title: 'Distracted Driving Accidents',
+      description: 'Cases involving texting, cell phone use, and other forms of distracted driving negligence',
+      icon: '📱',
+      features: [
+        'Texting while driving accidents',
+        'Cell phone use collision cases',
+        'Hands-free device accident claims',
+        'GPS navigation distraction crashes',
+        'Eating/drinking while driving accidents',
+        'Passenger distraction collision cases'
+      ]
+    },
+    {
+      title: 'Commercial Vehicle Accidents',
+      description: 'Complex litigation against trucking companies, delivery services, and commercial fleet operators',
+      icon: '🚛',
+      features: [
+        'Tractor-trailer accident claims',
+        'Delivery truck collision cases',
+        'Commercial van accident litigation',
+        'Fleet vehicle crash representation',
+        'FMCSA regulation violations',
+        'Commercial insurance negotiations'
+      ]
+    },
+    {
+      title: 'Insurance Bad Faith Claims',
+      description: 'Fighting insurance companies that wrongfully deny, delay, or undervalue legitimate car accident claims',
+      icon: '🛡️',
+      features: [
+        'Claim denial litigation',
+        'Delayed payment lawsuits',
+        'Lowball settlement disputes',
+        'Coverage dispute resolution',
+        'Bad faith damages recovery',
+        'Extra-contractual damages claims'
+      ]
+    }
+  ];
+
+  const faqs = [
+    {
+      question: 'What should I do immediately after a car accident?',
+      answer:
+        'Seek medical attention first, call police, document the scene with photos, exchange insurance information, get witness contacts, and avoid admitting fault. Contact us as soon as possible to protect your rights and preserve evidence.'
+    },
+    {
+      question: 'How long do I have to file a car accident lawsuit in North Carolina?',
+      answer:
+        'North Carolina has a 3-year statute of limitations for personal injury claims from car accidents. However, evidence can disappear quickly, so it\'s important to contact an attorney immediately after your accident.'
+    },
+    {
+      question: 'What if the other driver doesn\'t have insurance?',
+      answer:
+        'You can file an uninsured motorist claim with your own insurance company. North Carolina requires UM coverage, and we\'ll help you recover the maximum amount available under your policy.'
+    },
+    {
+      question: 'Can I still recover compensation if I was partially at fault?',
+      answer:
+        'North Carolina follows contributory negligence law, meaning if you\'re found even 1% at fault, you may recover nothing. However, we know how to prove the other driver was 100% responsible and protect your recovery.'
+    },
+    {
+      question: 'How much is my car accident case worth?',
+      answer:
+        'Case value depends on injury severity, medical costs, lost wages, pain and suffering, and other factors. We\'ve recovered millions for car accident victims, with settlements ranging from thousands to over $1 million.'
+    },
+    {
+      question: 'Will my case go to trial?',
+      answer:
+        'Most car accident cases settle out of court through negotiations. However, we\'re fully prepared to take your case to trial if the insurance company won\'t offer fair compensation. Our trial experience often leads to better settlements.'
+    }
+  ];
+
+  const content = {
+    introduction: `Car accidents can change your life in an instant, leaving you with serious injuries, mounting medical bills, and lost income. Our experienced car accident attorneys understand the physical, emotional, and financial toll of auto collisions. We fight aggressively against insurance companies to secure maximum compensation for your injuries, damages, and suffering while you focus on recovery.`,
+    
+    processTitle: 'Our Car Accident Case Process',
+    process: [
+      {
+        step: '1',
+        title: 'Immediate Response & Investigation',
+        description: 'Rapid accident scene investigation and evidence preservation'
+      },
+      {
+        step: '2',
+        title: 'Medical Treatment Coordination',
+        description: 'Ensuring you receive proper medical care and documentation'
+      },
+      {
+        step: '3',
+        title: 'Insurance Company Negotiations',
+        description: 'Aggressive negotiations for maximum settlement value'
+      },
+      {
+        step: '4',
+        title: 'Litigation & Trial Preparation',
+        description: 'Preparing for trial if fair settlement cannot be reached'
+      },
+      {
+        step: '5',
+        title: 'Recovery & Resolution',
+        description: 'Securing compensation and helping you move forward'
+      ]
+    ],
+
+    urgencyTitle: '⏰ Evidence Disappears Quickly!',
+    urgencyMessage: 'Skid marks fade, witnesses forget, and surveillance footage gets deleted. Contact us immediately after your accident to preserve crucial evidence and protect your rights.',
+
+    successStats: [
+      { number: '2,500+', label: 'Car Accident Cases' },
+      { number: '96%', label: 'Success Rate' },
+      { number: '$15M+', label: 'Total Recovered' },
+      { number: '24/7', label: 'Emergency Response' }
+    ],
+
+    whyChooseTitle: 'Why Choose Our Car Accident Team?',
+    whyChoosePoints: [
+      '96% success rate in car accident cases',
+      'Over $15 million recovered for auto accident victims',
+      'Immediate accident scene investigation and evidence preservation',
+      'Expert accident reconstruction and medical testimony',
+      'Aggressive negotiations with insurance companies',
+      'Proven trial experience with maximum verdicts',
+      'No fees unless we win your case',
+      'Bilingual legal team serving diverse communities'
+    ],
+
+    accidentTypes: {
+      title: 'Types of Car Accidents We Handle',
+      types: [
+        {
+          type: 'Rear-End Collisions',
+          description: 'Most common type of car accident',
+          percentage: '29%',
+          causes: [
+            'Distracted driving (texting, phone use)',
+            'Following too closely (tailgating)',
+            'Sudden stops or traffic changes',
+            'Weather conditions and reduced visibility'
+          ]
+        },
+        {
+          type: 'Side-Impact Crashes',
+          description: 'T-bone accidents at intersections',
+          percentage: '25%',
+          causes: [
+            'Running red lights or stop signs',
+            'Failure to yield right of way',
+            'Distracted driving at intersections',
+            'Aggressive driving and speeding'
+          ]
+        },
+        {
+          type: 'Head-On Collisions',
+          description: 'Most dangerous type of crash',
+          percentage: '11%',
+          causes: [
+            'Wrong-way driving (impairment, confusion)',
+            'Crossing center line or median',
+            'Falling asleep at the wheel',
+            'Medical emergencies while driving'
+          ]
+        },
+        {
+          type: 'Single Vehicle Accidents',
+          description: 'Vehicle hits object or rolls over',
+          percentage: '35%',
+          causes: [
+            'Road defects and poor maintenance',
+            'Weather conditions (ice, rain, snow)',
+            'Vehicle defects and tire blowouts',
+            'Driver impairment or medical emergency'
+          ]
+        }
+      ]
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-burgundy-900 to-burgundy-700 text-white py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Raleigh, NC Car Accident Attorneys
-            </h1>
-            <p className="text-xl mb-8">Experienced Attorney at Vasquez Law Firm</p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="/contact"
-                className="bg-gold-500 text-burgundy-900 px-8 py-3 rounded-md font-semibold hover:bg-gold-600 transition-colors"
-              >
-                Schedule Consultation
-              </Link>
-              <Link
-                href="tel:+18449673536"
-                className="border-2 border-white px-8 py-3 rounded-md font-semibold hover:bg-white hover:text-burgundy-900 transition-colors"
-              >
-                Call 1-844-YO-PELEO
-              </Link>
+    <ModernPracticeAreaTemplate
+      title="Car Accident Lawyers"
+      subtitle="Maximum Compensation for Auto Collision Victims"
+      description="Expert car accident attorneys fighting for maximum compensation after auto collisions. We handle all types of crashes, deal with insurance companies, and secure the settlement you deserve while you focus on recovery."
+      services={services}
+      faqs={faqs}
+      urgency="urgent"
+      content={
+        <div className="space-y-12">
+          {/* Accident Types Statistics */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">Types of Car Accidents We Handle</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {content.accidentTypes.types.map((accident, index) => (
+                <div key={index} className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl font-bold text-primary">{accident.type}</h3>
+                    <span className="text-2xl font-bold text-secondary">{accident.percentage}</span>
+                  </div>
+                  <p className="text-gray-300 mb-4">{accident.description}</p>
+                  <h4 className="font-semibold text-white mb-2">Common Causes:</h4>
+                  <ul className="space-y-1">
+                    {accident.causes.map((cause, cIndex) => (
+                      <li key={cIndex} className="text-sm text-gray-400 flex items-start gap-2">
+                        <span className="text-primary mt-1">•</span>
+                        {cause}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      {/* Attorney Info */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="md:col-span-2">
-              <div className="prose prose-lg max-w-none">
-                <div className="mb-8">
-                  <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                    Raleigh, NC Car Accident Attorneys - Vasquez Law Firm, PLLC
-                  </h2>
-                  <p className="text-gray-700">
-                    Our attorney brings extensive legal experience to every case. Licensed to
-                    practice in North Carolina and Florida, they has successfully represented
-                    hundreds of clients in immigration, personal injury, and criminal defense.
+          {/* North Carolina Laws */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">North Carolina Car Accident Laws</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">⚖️ Contributory Negligence</h3>
+                <div className="space-y-3">
+                  <p className="text-gray-300 text-sm">
+                    North Carolina follows pure contributory negligence - if you're found even 1% at fault, you may recover nothing.
                   </p>
-                </div>
-
-                <div className="mb-8">
-                  <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                    Raleigh, NC Car Accident Attorneys - Vasquez Law Firm, PLLC
-                  </h2>
-                  <p className="text-gray-700">
-                    Our attorney focuses on immigration, personal injury, and criminal defense,
-                    providing dedicated representation to clients throughout North Carolina and
-                    Florida.
-                  </p>
-                </div>
-
-                <div className="mb-8">
-                  <h2 className="text-2xl font-bold text-burgundy-900 mb-4">
-                    Raleigh, NC Car Accident Attorneys - Vasquez Law Firm, PLLC
-                  </h2>
-                  <p className="text-gray-700">
-                    Active member of American Immigration Lawyers Association (AILA), North Carolina
-                    Bar Association, staying current with the latest legal developments to better
-                    serve our clients.
-                  </p>
-                </div>
-              </div>
-
-              {/* Practice Areas */}
-              <div className="mt-12">
-                <h2 className="text-2xl font-bold text-burgundy-900 mb-6">Practice Areas</h2>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <Link
-                    href="/practice-areas/immigration"
-                    className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    <Globe className="w-8 h-8 text-burgundy-700 mr-3" />
-                    <span className="font-medium">Immigration Law</span>
-                  </Link>
-                  <Link
-                    href="/practice-areas/personal-injury"
-                    className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    <Award className="w-8 h-8 text-burgundy-700 mr-3" />
-                    <span className="font-medium">Personal Injury</span>
-                  </Link>
-                  <Link
-                    href="/practice-areas/criminal-defense"
-                    className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    <BookOpen className="w-8 h-8 text-burgundy-700 mr-3" />
-                    <span className="font-medium">Criminal Defense</span>
-                  </Link>
-                  <Link
-                    href="/practice-areas/family-law"
-                    className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    <Phone className="w-8 h-8 text-burgundy-700 mr-3" />
-                    <span className="font-medium">Family Law</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Contact Sidebar */}
-            <div className="md:col-span-1">
-              <div className="bg-gray-50 p-6 rounded-lg sticky top-4">
-                <h3 className="text-xl font-bold text-burgundy-900 mb-4">Contact Information</h3>
-                <div className="space-y-4">
-                  <a
-                    href="tel:+18449673536"
-                    className="flex items-start text-gray-700 hover:text-burgundy-700"
-                  >
-                    <Phone className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" />
-                    <span>1-844-YO-PELEO</span>
-                  </a>
-                  <a
-                    href="mailto:leads@vasquezlawfirm.com"
-                    className="flex items-start text-gray-700 hover:text-burgundy-700"
-                  >
-                    <Mail className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" />
-                    <span>leads@vasquezlawfirm.com</span>
-                  </a>
-                  <div className="flex items-start text-gray-700">
-                    <MapPin className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" />
-                    <span>
-                      6801 Glenwood Ave
-                      <br />
-                      Raleigh, NC 27612
-                    </span>
+                  <div className="bg-red-900/20 p-4 rounded-lg border border-red-500/30">
+                    <h4 className="font-bold text-red-400 mb-2">Why This Matters:</h4>
+                    <ul className="text-red-200 text-sm space-y-1">
+                      <li>• Insurance companies exploit this harsh law</li>
+                      <li>• Even minor violations can bar recovery</li>
+                      <li>• Expert legal representation is crucial</li>
+                      <li>• We prove 100% other driver fault</li>
+                    </ul>
                   </div>
                 </div>
-                <Link
-                  href="/contact"
-                  className="block w-full bg-burgundy-700 text-white text-center py-3 rounded-md mt-6 hover:bg-burgundy-800 transition-colors"
-                >
-                  Schedule Free Consultation
-                </Link>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">🚗 Insurance Requirements</h3>
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-white">Minimum Coverage Required:</h4>
+                  <ul className="text-gray-300 text-sm space-y-2">
+                    <li>• $30,000 bodily injury per person</li>
+                    <li>• $60,000 bodily injury per accident</li>
+                    <li>• $25,000 property damage</li>
+                    <li>• Uninsured motorist coverage (same limits)</li>
+                  </ul>
+                  <div className="mt-4 p-3 bg-primary/10 rounded-lg">
+                    <p className="text-primary text-sm font-medium">
+                      💡 These minimums are often inadequate for serious injuries. We help maximize all available coverage.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </section>
+
+          {/* Common Injuries */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">Common Car Accident Injuries</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">🧠 Head & Brain Injuries</h3>
+                <ul className="text-gray-300 text-sm space-y-2">
+                  <li>• Traumatic brain injuries (TBI)</li>
+                  <li>• Concussions and post-concussion syndrome</li>
+                  <li>• Skull fractures</li>
+                  <li>• Facial injuries and lacerations</li>
+                  <li>• Eye injuries and vision loss</li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">🦴 Bone & Spinal Injuries</h3>
+                <ul className="text-gray-300 text-sm space-y-2">
+                  <li>• Spinal cord injuries and paralysis</li>
+                  <li>• Herniated and bulging discs</li>
+                  <li>• Broken bones and fractures</li>
+                  <li>• Joint injuries and dislocations</li>
+                  <li>• Compression fractures</li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">💔 Soft Tissue & Other</h3>
+                <ul className="text-gray-300 text-sm space-y-2">
+                  <li>• Whiplash and neck injuries</li>
+                  <li>• Internal organ damage</li>
+                  <li>• Burns and lacerations</li>
+                  <li>• Psychological trauma (PTSD)</li>
+                  <li>• Wrongful death cases</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Compensation Types */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">Types of Compensation Available</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">💰 Economic Damages</h3>
+                <ul className="text-gray-300 space-y-2">
+                  <li>• Medical expenses (past and future)</li>
+                  <li>• Lost wages and earning capacity</li>
+                  <li>• Property damage and vehicle replacement</li>
+                  <li>• Rehabilitation and therapy costs</li>
+                  <li>• Medical equipment and home modifications</li>
+                  <li>• Transportation and lodging expenses</li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">❤️ Non-Economic Damages</h3>
+                <ul className="text-gray-300 space-y-2">
+                  <li>• Pain and suffering</li>
+                  <li>• Emotional distress and mental anguish</li>
+                  <li>• Loss of enjoyment of life</li>
+                  <li>• Permanent disability and disfigurement</li>
+                  <li>• Loss of consortium (spouse)</li>
+                  <li>• Punitive damages (in severe cases)</li>
+                </ul>
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
-
-      {/* AI-Enhanced Features */}
-      <ChatWidget userId="attorney-page" language="en" />
-      <VoiceAssistant language="en" />
-
-      {/* Schema Markup */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([
-            {
-              '@context': 'https://schema.org',
-              '@graph': [
-                {
-                  '@type': 'WebPage',
-                  '@id': 'https://www.vasquezlawnc.com/personal-injury/car-auto-accidents/',
-                  url: 'https://www.vasquezlawnc.com/personal-injury/car-auto-accidents/',
-                  name: 'Raleigh, NC Car Accident Attorneys - Vasquez Law Firm, PLLC',
-                  isPartOf: { '@id': 'https://www.vasquezlawnc.com/#website' },
-                  primaryImageOfPage: {
-                    '@id':
-                      'https://www.vasquezlawnc.com/personal-injury/car-auto-accidents/#primaryimage',
-                  },
-                  image: {
-                    '@id':
-                      'https://www.vasquezlawnc.com/personal-injury/car-auto-accidents/#primaryimage',
-                  },
-                  thumbnailUrl:
-                    '../../wp-content/uploads/2024/04/north-carolina-car-crash-injury-lawyers.jpg',
-                  datePublished: '2024-04-04T19:24:49+00:00',
-                  dateModified: '2025-02-19T12:08:36+00:00',
-                  description:
-                    'Injured in a crash? Raleigh, NC car accident attorneys fight for maximum compensation. Get expert legal help for your claim. Free consultation available.',
-                  breadcrumb: {
-                    '@id':
-                      'https://www.vasquezlawnc.com/personal-injury/car-auto-accidents/#breadcrumb',
-                  },
-                  inLanguage: 'en-US',
-                  potentialAction: [
-                    {
-                      '@type': 'ReadAction',
-                      target: ['https://www.vasquezlawnc.com/personal-injury/car-auto-accidents/'],
-                    },
-                  ],
-                },
-                {
-                  '@type': 'ImageObject',
-                  inLanguage: 'en-US',
-                  '@id':
-                    'https://www.vasquezlawnc.com/personal-injury/car-auto-accidents/#primaryimage',
-                  url: '../../wp-content/uploads/2024/04/north-carolina-car-crash-injury-lawyers.jpg',
-                  contentUrl:
-                    '../../wp-content/uploads/2024/04/north-carolina-car-crash-injury-lawyers.jpg',
-                  width: 1000,
-                  height: 400,
-                  caption: 'North Carolina Car Crash Injury Lawyers',
-                },
-                {
-                  '@type': 'BreadcrumbList',
-                  '@id':
-                    'https://www.vasquezlawnc.com/personal-injury/car-auto-accidents/#breadcrumb',
-                  itemListElement: [
-                    {
-                      '@type': 'ListItem',
-                      position: 1,
-                      name: 'Home',
-                      item: 'https://www.vasquezlawnc.com/',
-                    },
-                    {
-                      '@type': 'ListItem',
-                      position: 2,
-                      name: 'Raleigh, NC Personal Injury Attorneys',
-                      item: 'https://www.vasquezlawnc.com/personal-injury/',
-                    },
-                    {
-                      '@type': 'ListItem',
-                      position: 3,
-                      name: 'Raleigh, NC Car Accident Attorneys',
-                    },
-                  ],
-                },
-                {
-                  '@type': 'WebSite',
-                  '@id': 'https://www.vasquezlawnc.com/#website',
-                  url: 'https://www.vasquezlawnc.com/',
-                  name: 'Vasquez Law Firm, PLLC',
-                  description: 'Raleigh, NC Immigration Attorney',
-                  potentialAction: [
-                    {
-                      '@type': 'SearchAction',
-                      target: {
-                        '@type': 'EntryPoint',
-                        urlTemplate: 'https://www.vasquezlawnc.com/?s={search_term_string}',
-                      },
-                      'query-input': {
-                        '@type': 'PropertyValueSpecification',
-                        valueRequired: true,
-                        valueName: 'search_term_string',
-                      },
-                    },
-                  ],
-                  inLanguage: 'en-US',
-                },
-              ],
-            },
-            {
-              '@context': 'https://schema.org',
-              '@type': 'LegalService',
-              '@id': 'https://vasquezlawnc.com/#organization',
-              name: 'Vasquez Law Firm, PLLC',
-              alternateName: 'Vasquez Law',
-              url: 'https://vasquezlawnc.com',
-              logo: 'https://vasquezlawnc.com/images/logo.png',
-              sameAs: [
-                'https://www.facebook.com/vasquezlawfirm',
-                'https://twitter.com/vasquezlawfirm',
-                'https://www.linkedin.com/company/vasquez-law-firm',
-              ],
-              contactPoint: {
-                '@type': 'ContactPoint',
-                telephone: '+1-844-967-3536',
-                contactType: 'customer service',
-                availableLanguage: ['English', 'Spanish'],
-              },
-            },
-            {
-              '@context': 'https://schema.org',
-              '@type': 'Attorney',
-              name: 'Raleigh, NC Car Accident Attorneys',
-              image: '',
-              jobTitle: 'Attorney',
-              worksFor: {
-                '@type': 'LegalService',
-                name: 'Vasquez Law Firm, PLLC',
-                url: 'https://vasquezlawnc.com',
-              },
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: '6801 Glenwood Ave',
-                addressLocality: 'Raleigh',
-                addressRegion: 'NC',
-                postalCode: '27612',
-              },
-              telephone: '+1-844-967-3536',
-              email: 'leads@vasquezlawfirm.com',
-              url: 'https://vasquezlawnc.com/personal-injury/car-auto-accidents/index',
-              sameAs: [],
-              knowsLanguage: ['English', 'Spanish'],
-              alumniOf: {
-                '@type': 'CollegeOrUniversity',
-                name: 'NY. He served in the U.S. Air Force from 2000-2007. He is a veteran of Operation Enduring Freedom and received the Joint Service Achievement Medal for his work as a Spanish linguist for the Defense Intelligence Agency in 2005. William graduated from Campbell University in 2007 with a degree in computer science. He earned his J.D. in 2011 from the North Carolina Central University School of Law. His practice areas include immigration law and criminal defense cases. He is licensed and in good standing with the State Bar of North Carolina and a member of the American Immigration Lawyer Association (AILA.) He is a proud member of the Charlotte community and provides compassionate counsel for all his clients.</p>\n<h3>Education:</h3>\n<p><strong>North Carolina Central University</strong></p>\n<p>J.D. | Juris Doctorate</p>\n<p>2007 – 2011</p>\n<p><strong>Campbell University</strong></p>\n<p>B.S.</p>\n<h5>2007</h5>\n<h3>Bar Admissions:</h3>\n<p>North Carolina — Admitted in 2011</p>\n<p>4th',
-              },
-            },
-            {
-              '@context': 'https://schema.org',
-              '@type': 'BreadcrumbList',
-              itemListElement: [
-                {
-                  '@type': 'ListItem',
-                  position: 1,
-                  name: 'Home',
-                  item: 'https://vasquezlawnc.com',
-                },
-                {
-                  '@type': 'ListItem',
-                  position: 2,
-                  name: 'Personal injury',
-                  item: 'https://vasquezlawnc.com/personal-injury',
-                },
-                {
-                  '@type': 'ListItem',
-                  position: 3,
-                  name: 'Car auto accidents',
-                  item: 'https://vasquezlawnc.com/personal-injury/car-auto-accidents',
-                },
-              ],
-            },
-            {
-              '@context': 'https://schema.org',
-              '@type': 'LegalService',
-              name: 'Vasquez Law Firm',
-              aggregateRating: {
-                '@type': 'AggregateRating',
-                ratingValue: '4.8',
-                reviewCount: '127',
-                bestRating: '5',
-              },
-            },
-          ]),
-        }}
-      />
-    </div>
+      }
+    />
   );
 }

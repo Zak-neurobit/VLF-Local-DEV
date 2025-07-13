@@ -1,0 +1,67 @@
+'use client';
+
+import React from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { CrewLogsViewer } from '@/components/admin/CrewLogsViewer';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft, Activity } from 'lucide-react';
+
+export default function CrewLogsPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  // Check authentication
+  React.useEffect(() => {
+    if (status === 'loading') return;
+    if (!session || session.user.role !== 'ADMIN') {
+      router.push('/');
+    }
+  }, [session, status, router]);
+
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-8">
+        <div className="flex items-center justify-center h-96">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!session || session.user.role !== 'ADMIN') {
+    return null;
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <div className="flex items-center gap-4 mb-2">
+              <h1 className="text-4xl font-bold text-white flex items-center gap-3">
+                <Activity className="h-10 w-10 text-blue-500" />
+                Crew Execution Logs
+              </h1>
+            </div>
+            <p className="text-gray-400">Monitor and analyze all crew agent executions</p>
+          </div>
+          <div className="flex gap-4">
+            <Button
+              variant="outline"
+              onClick={() => router.push('/admin/agent-monitoring')}
+              className="flex items-center gap-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Monitoring
+            </Button>
+          </div>
+        </div>
+
+        {/* Logs Viewer Component */}
+        <CrewLogsViewer />
+      </div>
+    </div>
+  );
+}

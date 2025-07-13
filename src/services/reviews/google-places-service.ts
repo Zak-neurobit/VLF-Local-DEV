@@ -129,7 +129,7 @@ export class GooglePlacesService {
         placeId: 'ChIJLSZFB-ghVIgRYmWpO-tIjrk', // 5701 Executive Center Dr # 103
       },
       raleigh: {
-        query: 'Vasquez Law Firm Raleigh NC', 
+        query: 'Vasquez Law Firm Raleigh NC',
         placeId: 'ChIJ3R1JE6pZrIkR7We57Xn2rk8', // 4426 Louisburg Rd
       },
       orlando: {
@@ -152,7 +152,7 @@ export class GooglePlacesService {
     for (const [office, config] of Object.entries(officesWithPlaceIds)) {
       try {
         let placeId = config.placeId;
-        
+
         // If we don't have a place ID, try to find it
         if (!placeId) {
           const place = await this.findPlace(config.query);

@@ -59,10 +59,7 @@ if (layoutFile.includes('<Link') && layoutFile.includes('breadcrumb')) {
 
 // Test 4: Check middleware configuration
 console.log('\n4️⃣ Checking middleware configuration...');
-const middlewareFile = fs.readFileSync(
-  path.join(__dirname, '../src/middleware.ts'),
-  'utf8'
-);
+const middlewareFile = fs.readFileSync(path.join(__dirname, '../src/middleware.ts'), 'utf8');
 
 if (middlewareFile.includes("locales = ['en', 'es']")) {
   console.log('✅ Middleware supports both en and es locales');
@@ -72,12 +69,8 @@ if (middlewareFile.includes("locales = ['en', 'es']")) {
 
 // Test 5: Check for conflicting navigation components
 console.log('\n5️⃣ Checking for potential navigation conflicts...');
-const hasModernNav = fs.existsSync(
-  path.join(__dirname, '../src/components/ui/modern-nav.tsx')
-);
-const hasMainNav = fs.existsSync(
-  path.join(__dirname, '../src/components/Navigation/MainNav.tsx')
-);
+const hasModernNav = fs.existsSync(path.join(__dirname, '../src/components/ui/modern-nav.tsx'));
+const hasMainNav = fs.existsSync(path.join(__dirname, '../src/components/Navigation/MainNav.tsx'));
 
 if (hasModernNav || hasMainNav) {
   console.log('⚠️  Found additional navigation components that might conflict:');
@@ -100,7 +93,7 @@ const spanishPracticeAreas = [
 ];
 
 let missingPages = [];
-spanishPracticeAreas.forEach((pagePath) => {
+spanishPracticeAreas.forEach(pagePath => {
   const fullPath = path.join(__dirname, '..', pagePath);
   if (fs.existsSync(fullPath)) {
     console.log(`✅ ${pagePath} exists`);

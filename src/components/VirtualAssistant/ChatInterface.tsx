@@ -345,13 +345,13 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
             className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full"
           >
             <h3 className="text-lg font-semibold mb-4">
-              {language === 'es' 
+              {language === 'es'
                 ? 'Para brindarte mejor asistencia, necesitamos tu información de contacto'
                 : 'To better assist you, we need your contact information'}
             </h3>
-            
+
             <form
-              onSubmit={(e) => {
+              onSubmit={e => {
                 e.preventDefault();
                 if (contactInfo.phone || contactInfo.email) {
                   setHasProvidedContact(true);
@@ -374,7 +374,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                       pageUrl: window.location.href,
                     }),
                   }).catch(console.error);
-                  
+
                   // Send the pending message
                   sendMessage(inputMessage);
                 }
@@ -386,42 +386,42 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                   type="text"
                   placeholder={language === 'es' ? 'Nombre' : 'First Name'}
                   value={contactInfo.firstName}
-                  onChange={(e) => setContactInfo({ ...contactInfo, firstName: e.target.value })}
+                  onChange={e => setContactInfo({ ...contactInfo, firstName: e.target.value })}
                   className="px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E]"
                 />
                 <input
                   type="text"
                   placeholder={language === 'es' ? 'Apellido' : 'Last Name'}
                   value={contactInfo.lastName}
-                  onChange={(e) => setContactInfo({ ...contactInfo, lastName: e.target.value })}
+                  onChange={e => setContactInfo({ ...contactInfo, lastName: e.target.value })}
                   className="px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E]"
                 />
               </div>
-              
+
               <input
                 type="email"
                 placeholder={language === 'es' ? 'Correo electrónico' : 'Email'}
                 value={contactInfo.email}
-                onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
+                onChange={e => setContactInfo({ ...contactInfo, email: e.target.value })}
                 className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E]"
               />
-              
+
               <input
                 type="tel"
                 placeholder={language === 'es' ? 'Teléfono (requerido)' : 'Phone (required)'}
                 value={contactInfo.phone}
-                onChange={(e) => setContactInfo({ ...contactInfo, phone: e.target.value })}
+                onChange={e => setContactInfo({ ...contactInfo, phone: e.target.value })}
                 className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E]"
                 required
               />
-              
+
               <button
                 type="submit"
                 className="w-full py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"
               >
                 {language === 'es' ? 'Continuar' : 'Continue'}
               </button>
-              
+
               <button
                 type="button"
                 onClick={() => {

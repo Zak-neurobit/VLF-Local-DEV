@@ -9,7 +9,9 @@ const SendSMSPayloadSchema = z.object({
   contactId: z.string(),
   message: z.string(),
   templateId: z.string().optional(),
-  triggerType: z.enum(['post-call', 'appointment-reminder', 'follow-up', 'custom']).default('custom'),
+  triggerType: z
+    .enum(['post-call', 'appointment-reminder', 'follow-up', 'custom'])
+    .default('custom'),
   callId: z.string().optional(), // Retell call ID if this is post-call SMS
   metadata: z.record(z.any()).optional(),
 });
@@ -17,7 +19,7 @@ const SendSMSPayloadSchema = z.object({
 // SMS templates based on trigger type
 const SMS_TEMPLATES = {
   'post-call': {
-    en: 'Thank you for speaking with Vasquez Law Firm today. We\'re here to help with your {{practiceArea}} case. If you have any questions, reply to this message or call 1-844-YO-PELEO.',
+    en: "Thank you for speaking with Vasquez Law Firm today. We're here to help with your {{practiceArea}} case. If you have any questions, reply to this message or call 1-844-YO-PELEO.",
     es: 'Gracias por hablar con Vasquez Law Firm hoy. Estamos aquí para ayudarle con su caso de {{practiceArea}}. Si tiene preguntas, responda a este mensaje o llame al 1-844-YO-PELEO.',
   },
   'appointment-reminder': {
@@ -34,7 +36,7 @@ export async function POST(_request: NextRequest) {
   try {
     // Parse request body
     const body = await _request.json();
-    
+
     logger.info('GHL send SMS webhook received', {
       contactId: body.contactId,
       triggerType: body.triggerType,
@@ -44,12 +46,15 @@ export async function POST(_request: NextRequest) {
     const payload = SendSMSPayloadSchema.parse(body);
 
     // Get contact information from GHL
-    const contactResponse = await fetch(`${process.env.GHL_API_URL}/contacts/${payload.contactId}`, {
-      headers: {
-        'Authorization': `Bearer ${process.env.GHL_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-    });
+    const contactResponse = await fetch(
+      `${process.env.GHL_API_URL}/contacts/${payload.contactId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.GHL_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
 
     if (!contactResponse.ok) {
       throw new Error('Contact not found in GoHighLevel');
@@ -97,7 +102,7 @@ export async function POST(_request: NextRequest) {
 
       if (voiceCall) {
         // callData = voiceCall; // Unused variable - removed
-        
+
         // Update call record with SMS sent status
         await prisma.voiceCall.update({
           where: { id: voiceCall.id },
@@ -184,10 +189,9 @@ export async function POST(_request: NextRequest) {
       messageId: smsResult.messageId,
       message: 'SMS sent successfully',
     });
-
   } catch (error) {
     logger.error('Failed to send SMS from GHL:', error);
-    
+
     // If it's a validation error, return 400
     if (error instanceof z.ZodError) {
       return NextResponse.json(

@@ -5,15 +5,31 @@ import { logger } from '@/lib/logger';
 
 export const dynamic = 'force-dynamic';
 
+interface AgentMetric {
+  agentName: string;
+  totalExecutions: number;
+  successRate: number;
+  averageDuration: number;
+  errorRate: number;
+  lastExecution?: Date;
+}
+
+interface SystemMetric {
+  memoryUsage: number;
+  cpuUsage: number;
+  activeConnections: number;
+  queueSize: number;
+}
+
 export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
     const { searchParams } = new URL(request.url);
     const timeRange = searchParams.get('timeRange') || '24h';
     const agentName = searchParams.get('agent');
-    
+
     const prisma = getPrismaClient();
     const crewCoordinator = CrewCoordinator.getInstance();
-    
+
     // Calculate time filter
     const timeFilter = new Date();
     switch (timeRange) {
@@ -35,54 +51,45 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       default:
         timeFilter.setHours(timeFilter.getHours() - 24);
     }
-    
+
     // Build where clause
-    const whereClause: any = {
+    const whereClause: {
+      createdAt: { gte: Date };
+      agentName?: { contains: string; mode: 'insensitive' };
+    } = {
       createdAt: {
-        gte: timeFilter
-      }
+        gte: timeFilter,
+      },
     };
-    
+
     if (agentName) {
       whereClause.agentName = {
         contains: agentName,
-        mode: 'insensitive'
+        mode: 'insensitive',
       };
     }
-    
+
     // Get performance metrics
     const performanceData = await prisma.agentExecutionLog.groupBy({
       by: ['agentName'],
       where: whereClause,
       _count: {
-        _all: true
+        _all: true,
       },
       _avg: {
-        duration: true
-      }
+        duration: true,
+      },
     });
-    
+
     // Get success rate data
     const successData = await prisma.agentExecutionLog.groupBy({
       by: ['agentName', 'success'],
       where: whereClause,
       _count: {
-        _all: true
-      }
-    });
-    
-    // Get execution timeline data
-    const timelineData = await prisma.agentExecutionLog.groupBy({
-      by: ['agentName'],
-      where: whereClause,
-      _count: {
-        _all: true
+        _all: true,
       },
-      _avg: {
-        duration: true
-      }
     });
-    
+
     // Get hourly execution data for charts
     const hourlyData = await prisma.$queryRaw`
       SELECT 
@@ -96,13 +103,13 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       GROUP BY DATE_TRUNC('hour', "createdAt"), "agentName"
       ORDER BY hour DESC
     `;
-    
+
     // Process agent metrics
     const agentMetrics = performanceData.map(agent => {
       const successStats = successData.filter(s => s.agentName === agent.agentName);
       const totalExecutions = successStats.reduce((sum, s) => sum + s._count._all, 0);
       const successfulExecutions = successStats.find(s => s.success)?._count._all || 0;
-      
+
       return {
         agentName: agent.agentName,
         totalExecutions: totalExecutions,
@@ -110,13 +117,13 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         failedExecutions: totalExecutions - successfulExecutions,
         successRate: totalExecutions > 0 ? successfulExecutions / totalExecutions : 0,
         averageDuration: agent._avg.duration || 0,
-        lastActivity: new Date() // Would get from actual data
+        lastActivity: new Date(), // Would get from actual data
       };
     });
-    
+
     // Get system metrics
     const systemMetrics = crewCoordinator.getSystemStatus();
-    
+
     // Calculate trends
     const previousTimeFilter = new Date(timeFilter);
     switch (timeRange) {
@@ -136,63 +143,66 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         previousTimeFilter.setDate(previousTimeFilter.getDate() - 30);
         break;
     }
-    
+
     const previousPeriodData = await prisma.agentExecutionLog.groupBy({
       by: ['agentName'],
       where: {
         createdAt: {
           gte: previousTimeFilter,
-          lt: timeFilter
-        }
+          lt: timeFilter,
+        },
       },
       _count: {
-        _all: true
+        _all: true,
       },
       _avg: {
-        duration: true
-      }
+        duration: true,
+      },
     });
-    
+
     // Calculate performance trends
     const trends = agentMetrics.map(current => {
       const previous = previousPeriodData.find(p => p.agentName === current.agentName);
       const previousExecutions = previous?._count._all || 0;
       const previousDuration = previous?._avg.duration || 0;
-      
+
       return {
         agentName: current.agentName,
-        executionTrend: previousExecutions > 0 
-          ? ((current.totalExecutions - previousExecutions) / previousExecutions) * 100
-          : 0,
-        performanceTrend: previousDuration > 0 
-          ? ((previousDuration - current.averageDuration) / previousDuration) * 100
-          : 0
+        executionTrend:
+          previousExecutions > 0
+            ? ((current.totalExecutions - previousExecutions) / previousExecutions) * 100
+            : 0,
+        performanceTrend:
+          previousDuration > 0
+            ? ((previousDuration - current.averageDuration) / previousDuration) * 100
+            : 0,
       };
     });
-    
+
     // Get top performing agents
     const topPerformers = agentMetrics
       .filter(a => a.totalExecutions > 0)
       .sort((a, b) => b.successRate - a.successRate)
       .slice(0, 5);
-    
+
     // Get most active agents
     const mostActive = agentMetrics
       .sort((a, b) => b.totalExecutions - a.totalExecutions)
       .slice(0, 5);
-    
+
     // Calculate system health score
     const totalExecutions = agentMetrics.reduce((sum, a) => sum + a.totalExecutions, 0);
     const totalSuccessful = agentMetrics.reduce((sum, a) => sum + a.successfulExecutions, 0);
     const overallSuccessRate = totalExecutions > 0 ? totalSuccessful / totalExecutions : 0;
-    const averageResponseTime = agentMetrics.reduce((sum, a) => sum + a.averageDuration, 0) / agentMetrics.length;
-    
+    const averageResponseTime =
+      agentMetrics.reduce((sum, a) => sum + a.averageDuration, 0) / agentMetrics.length;
+
     const healthScore = Math.round(
-      (overallSuccessRate * 50) + // 50% weight for success rate
-      (Math.min(systemMetrics.totalAgents / 16, 1) * 25) + // 25% weight for agent availability
-      (Math.max(0, 1 - (averageResponseTime / 10000)) * 25) // 25% weight for response time
+      overallSuccessRate * 50 + // 50% weight for success rate
+        Math.min(systemMetrics.totalAgents / 16, 1) * 25 + // 25% weight for agent availability
+        Math.max(0, 1 - averageResponseTime / 10000) * 25 // 25% weight for response time
     );
-    
+
     // Get error distribution
     const errorData = await prisma.agentExecutionLog.groupBy({
       by: ['error'],
@@ -200,22 +210,29 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         ...whereClause,
         success: false,
         error: {
-          not: null
-        }
+          not: null,
+        },
       },
       _count: {
-        _all: true
-      }
+        _all: true,
+      },
     });
-    
+
     const response = {
       timeRange,
       timestamp: new Date().toISOString(),
       systemHealth: {
         healthScore,
-        status: healthScore > 80 ? 'excellent' : healthScore > 60 ? 'good' : healthScore > 40 ? 'warning' : 'critical',
+        status:
+          healthScore > 80
+            ? 'excellent'
+            : healthScore > 60
+              ? 'good'
+              : healthScore > 40
+                ? 'warning'
+                : 'critical',
         uptime: Math.round(process.uptime()),
-        ...systemMetrics
+        ...systemMetrics,
       },
       performance: {
         totalExecutions,
@@ -225,9 +242,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         averageResponseTime,
         activeAgents: agentMetrics.filter(a => a.totalExecutions > 0).length,
         trends: {
-          executionVolumeChange: trends.reduce((sum, t) => sum + t.executionTrend, 0) / trends.length,
-          performanceChange: trends.reduce((sum, t) => sum + t.performanceTrend, 0) / trends.length
-        }
+          executionVolumeChange:
+            trends.reduce((sum, t) => sum + t.executionTrend, 0) / trends.length,
+          performanceChange: trends.reduce((sum, t) => sum + t.performanceTrend, 0) / trends.length,
+        },
       },
       agents: agentMetrics,
       insights: {
@@ -237,75 +255,84 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         errorDistribution: errorData.map(e => ({
           error: e.error,
           count: e._count._all,
-          percentage: (e._count._all / (totalExecutions - totalSuccessful)) * 100
-        }))
+          percentage: (e._count._all / (totalExecutions - totalSuccessful)) * 100,
+        })),
       },
       charts: {
         hourlyExecutions: hourlyData,
         successRateByAgent: agentMetrics.map(a => ({
           agent: a.agentName,
           successRate: a.successRate,
-          totalExecutions: a.totalExecutions
+          totalExecutions: a.totalExecutions,
         })),
         responseTimeByAgent: agentMetrics.map(a => ({
           agent: a.agentName,
           averageResponseTime: a.averageDuration,
-          totalExecutions: a.totalExecutions
-        }))
+          totalExecutions: a.totalExecutions,
+        })),
       },
-      recommendations: generateRecommendations(agentMetrics, systemMetrics, healthScore)
+      recommendations: generateRecommendations(agentMetrics, systemMetrics, healthScore),
     };
-    
+
     return NextResponse.json(response);
   } catch (error) {
     logger.error('Failed to get crew metrics:', error);
     return NextResponse.json(
-      { error: 'Failed to get crew metrics', details: error instanceof Error ? error.message : 'Unknown error' },
+      {
+        error: 'Failed to get crew metrics',
+        details: error instanceof Error ? error.message : 'Unknown error',
+      },
       { status: 500 }
     );
   }
 }
 
 function generateRecommendations(
-  agentMetrics: any[], 
-  systemMetrics: any, 
+  agentMetrics: AgentMetric[],
+  systemMetrics: SystemMetric,
   healthScore: number
 ): string[] {
   const recommendations: string[] = [];
-  
+
   // Check for low-performing agents
   const lowPerformers = agentMetrics.filter(a => a.successRate < 0.8 && a.totalExecutions > 10);
   if (lowPerformers.length > 0) {
-    recommendations.push(`Consider investigating ${lowPerformers.length} agents with success rates below 80%`);
+    recommendations.push(
+      `Consider investigating ${lowPerformers.length} agents with success rates below 80%`
+    );
   }
-  
+
   // Check for slow agents
   const slowAgents = agentMetrics.filter(a => a.averageDuration > 5000); // 5 seconds
   if (slowAgents.length > 0) {
-    recommendations.push(`${slowAgents.length} agents have response times over 5 seconds - consider optimization`);
+    recommendations.push(
+      `${slowAgents.length} agents have response times over 5 seconds - consider optimization`
+    );
   }
-  
+
   // Check system health
   if (healthScore < 60) {
     recommendations.push('System health is below optimal - recommend immediate attention');
   }
-  
+
   // Check agent availability
   const activeAgents = agentMetrics.filter(a => a.totalExecutions > 0).length;
   if (activeAgents < systemMetrics.totalAgents * 0.8) {
-    recommendations.push('Less than 80% of agents are active - consider restarting inactive agents');
+    recommendations.push(
+      'Less than 80% of agents are active - consider restarting inactive agents'
+    );
   }
-  
+
   // Check for memory usage
   const memoryUsage = process.memoryUsage();
   if (memoryUsage.heapUsed / memoryUsage.heapTotal > 0.9) {
     recommendations.push('Memory usage is high - consider garbage collection or scaling');
   }
-  
+
   // If no issues found
   if (recommendations.length === 0) {
     recommendations.push('System is operating optimally - no immediate action required');
   }
-  
+
   return recommendations;
 }

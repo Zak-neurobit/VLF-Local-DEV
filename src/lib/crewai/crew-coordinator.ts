@@ -20,6 +20,7 @@ import {
   SEOBlogGenerationRequest,
 } from './agents/seo-blog-generation-agent';
 import { logger } from '@/lib/logger';
+import { logCrewExecution } from '@/lib/crews/log-execution';
 
 export interface CrewTask {
   id: string;
@@ -83,13 +84,16 @@ export class CrewCoordinator {
   }
 
   async executeTask(task: CrewTask): Promise<any> {
+    const startTime = new Date();
+    let status: 'success' | 'failure' = 'success';
+    let result: any;
+    let error: string | undefined;
+
     try {
       logger.info(`Starting task ${task.id} of type ${task.type}`);
 
       task.status = 'in-progress';
       this.activeTasks.set(task.id, task);
-
-      let result;
 
       switch (task.type) {
         case 'legal-consultation':
@@ -142,12 +146,36 @@ export class CrewCoordinator {
 
       logger.info(`Completed task ${task.id}`);
       return result;
-    } catch (error) {
+    } catch (err) {
+      status = 'failure';
+      error = err instanceof Error ? err.message : 'Unknown error';
       task.status = 'failed';
-      task.error = error instanceof Error ? error.message : 'Unknown error';
-      logger.error(`Task ${task.id} failed:`, error);
-      throw error;
+      task.error = error;
+      logger.error(`Task ${task.id} failed:`, err);
+      throw err;
     } finally {
+      const endTime = new Date();
+
+      // Log the execution to the database
+      await logCrewExecution({
+        agentName: `crew-coordinator-${task.type}`,
+        executionType: task.type,
+        status,
+        startTime,
+        endTime,
+        input: task.data,
+        output: result,
+        error,
+        metadata: {
+          taskId: task.id,
+          userId: task.userId,
+          priority: task.priority,
+          dependencies: task.dependencies,
+        },
+      }).catch(logError => {
+        logger.error('Failed to log crew execution:', logError);
+      });
+
       this.activeTasks.delete(task.id);
     }
   }

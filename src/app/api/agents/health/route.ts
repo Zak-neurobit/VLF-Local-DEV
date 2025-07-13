@@ -12,10 +12,10 @@ export async function GET(_request: NextRequest) {
     timestamp: new Date().toISOString(),
     agents: {
       'lead-validation': 'ready',
-      'appointment': 'ready',
-      'consultation': 'ready',
-      'deploy': 'ready',
-      'monitor': 'ready',
+      appointment: 'ready',
+      consultation: 'ready',
+      deploy: 'ready',
+      monitor: 'ready',
     },
     environment: process.env.NODE_ENV || 'development',
     vercel: process.env.VERCEL ? 'true' : 'false',
@@ -32,9 +32,6 @@ export async function POST(request: NextRequest) {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    return NextResponse.json(
-      { status: 'error', message: 'Invalid JSON body' },
-      { status: 400 }
-    );
+    return NextResponse.json({ status: 'error', message: 'Invalid JSON body' }, { status: 400 });
   }
 }

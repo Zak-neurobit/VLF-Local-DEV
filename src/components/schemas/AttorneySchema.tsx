@@ -39,8 +39,8 @@ export function AttorneySchema({
   knowsLanguage,
   worksFor = {
     name: 'Vasquez Law Firm, PLLC',
-    url: 'https://www.vasquezlawnc.com'
-  }
+    url: 'https://www.vasquezlawnc.com',
+  },
 }: AttorneySchemaProps) {
   const schema = {
     '@context': 'https://schema.org',
@@ -55,19 +55,19 @@ export function AttorneySchema({
     ...(address && {
       address: {
         '@type': 'PostalAddress',
-        ...address
-      }
+        ...address,
+      },
     }),
     ...(alumniOf && {
       alumniOf: alumniOf.map(school => ({
         '@type': 'EducationalOrganization',
-        ...school
-      }))
+        ...school,
+      })),
     }),
     ...(knowsLanguage && { knowsLanguage }),
     worksFor: {
       '@type': 'LegalService',
-      ...worksFor
+      ...worksFor,
     },
     '@graph': [
       {
@@ -75,9 +75,9 @@ export function AttorneySchema({
         name,
         url,
         areaServed: ['North Carolina', 'Florida'],
-        priceRange: '$$'
-      }
-    ]
+        priceRange: '$$',
+      },
+    ],
   };
 
   return (

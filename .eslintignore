@@ -37,15 +37,11 @@ scripts/
 
 # Individual files with parsing issues (will be fixed later)
 src/app/locations/**/*.tsx
-src/app/**/\[*\]/**/*.tsx
-src/app/blog/**/*.tsx
 src/app/es/**/*.tsx
 src/app/attorneys/**/*.tsx
 src/app/category/**/*.tsx
 src/app/author/**/*.tsx
 src/app/contact/**/*.tsx
-src/app/admin/**/*.tsx
-src/app/dashboard/**/*.tsx
 
 # Blog post pages with parsing issues
 src/app/*-*/*.tsx

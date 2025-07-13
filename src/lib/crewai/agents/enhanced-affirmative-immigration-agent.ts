@@ -62,7 +62,6 @@ When providing advice:
     }
   }
 
-
   async analyzeFamilyPetition(params: {
     petitioner: string;
     beneficiary: string;
@@ -248,7 +247,10 @@ Unlawful Presence: ${params.unlawfulPresence || 'None'}`;
   private extractListItems(text: string): string[] {
     return text
       .split('\n')
-      .filter(line => line.trim().startsWith('-') || line.trim().startsWith('•') || line.trim().match(/^\d+\./))
+      .filter(
+        line =>
+          line.trim().startsWith('-') || line.trim().startsWith('•') || line.trim().match(/^\d+\./)
+      )
       .map(line => line.replace(/^[-•\d.]\s*/, '').trim())
       .filter(item => item.length > 0);
   }

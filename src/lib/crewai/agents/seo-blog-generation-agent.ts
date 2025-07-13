@@ -3,6 +3,7 @@ import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
 import { WebFetch } from '@/lib/utils/web-fetch';
 import { getPrismaClient } from '@/lib/prisma';
+import { createCrewLogger } from '@/lib/crews/log-execution';
 
 export interface SEOBlogGenerationRequest {
   practiceArea: string;
@@ -93,6 +94,7 @@ export interface SEOBlogResult {
 export class SEOBlogGenerationAgent {
   private model: ChatOpenAI;
   private webFetch: WebFetch;
+  private crewLogger = createCrewLogger('seo-blog-generation-agent');
 
   constructor() {
     this.model = new ChatOpenAI({
@@ -104,59 +106,69 @@ export class SEOBlogGenerationAgent {
   }
 
   async generateSEOBlog(request: SEOBlogGenerationRequest): Promise<SEOBlogResult> {
-    try {
-      logger.info('Starting SEO blog generation', {
-        practiceArea: request.practiceArea,
-        contentType: request.contentType,
-        wordCount: request.wordCount,
-      });
+    return this.crewLogger.logExecution(
+      'generate-seo-blog',
+      async () => {
+        logger.info('Starting SEO blog generation', {
+          practiceArea: request.practiceArea,
+          contentType: request.contentType,
+          wordCount: request.wordCount,
+        });
 
-      // Step 1: Research and analyze competitors if requested
-      const competitiveAnalysis = request.competitorAnalysis
-        ? await this.analyzeCompetitorContent(request)
-        : undefined;
+        // Step 1: Research and analyze competitors if requested
+        const competitiveAnalysis = request.competitorAnalysis
+          ? await this.analyzeCompetitorContent(request)
+          : undefined;
 
-      // Step 2: Generate content structure and outline
-      const contentOutline = await this.generateContentOutline(request, competitiveAnalysis);
+        // Step 2: Generate content structure and outline
+        const contentOutline = await this.generateContentOutline(request, competitiveAnalysis);
 
-      // Step 3: Generate full content
-      const content = await this.generateContent(contentOutline, request);
+        // Step 3: Generate full content
+        const content = await this.generateContent(contentOutline, request);
 
-      // Step 4: Optimize for SEO
-      const seoOptimization = await this.optimizeForSEO(content, request);
+        // Step 4: Optimize for SEO
+        const seoOptimization = await this.optimizeForSEO(content, request);
 
-      // Step 5: Calculate scores and predictions
-      const readabilityScore = this.calculateReadabilityScore(content);
-      const seoScore = this.calculateSEOScore(content, seoOptimization, request);
-      const performancePredictions = await this.predictPerformance(
-        content,
-        seoOptimization,
-        request
-      );
+        // Step 5: Calculate scores and predictions
+        const readabilityScore = this.calculateReadabilityScore(content);
+        const seoScore = this.calculateSEOScore(content, seoOptimization, request);
+        const performancePredictions = await this.predictPerformance(
+          content,
+          seoOptimization,
+          request
+        );
 
-      // Step 6: Generate publishing recommendations
-      const publishingRecommendations = await this.generatePublishingRecommendations(
-        content,
-        request
-      );
+        // Step 6: Generate publishing recommendations
+        const publishingRecommendations = await this.generatePublishingRecommendations(
+          content,
+          request
+        );
 
-      // Step 7: Store the generated content
-      const blogResult = await this.storeBlogContent({
-        content,
-        seoOptimization,
-        readabilityScore,
-        seoScore,
-        competitiveAnalysis,
-        performancePredictions,
-        publishingRecommendations,
-        request,
-      });
+        // Step 7: Store the generated content
+        const blogResult = await this.storeBlogContent({
+          content,
+          seoOptimization,
+          readabilityScore,
+          seoScore,
+          competitiveAnalysis,
+          performancePredictions,
+          publishingRecommendations,
+          request,
+        });
 
-      return blogResult;
-    } catch (error) {
-      logger.error('SEO blog generation error:', error);
-      throw new Error('Failed to generate SEO blog content');
-    }
+        return blogResult;
+      },
+      {
+        input: request,
+        metadata: {
+          practiceArea: request.practiceArea,
+          contentType: request.contentType,
+          wordCount: request.wordCount,
+          language: request.language,
+          targetKeywords: request.targetKeywords,
+        },
+      }
+    );
   }
 
   private async analyzeCompetitorContent(request: SEOBlogGenerationRequest) {

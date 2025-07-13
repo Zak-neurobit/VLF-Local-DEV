@@ -6,12 +6,15 @@ import { FileText, BookOpen, Video, Calculator, CheckCircle } from 'lucide-react
 
 // Example implementation showing different use cases
 export default function ResourceLeadCaptureExamples() {
-  const [capturedLeads, setCapturedLeads] = useState<Array<{ email: string; resource: string }>>([]);
+  const [capturedLeads, setCapturedLeads] = useState<Array<{ email: string; resource: string }>>(
+    []
+  );
 
-  const handleLeadCapture = (resource: string) => (data: { email: string; resourceDelivered: boolean }) => {
-    setCapturedLeads(prev => [...prev, { email: data.email, resource }]);
-    console.log(`Lead captured for ${resource}:`, data);
-  };
+  const handleLeadCapture =
+    (resource: string) => (data: { email: string; resourceDelivered: boolean }) => {
+      setCapturedLeads(prev => [...prev, { email: data.email, resource }]);
+      console.log(`Lead captured for ${resource}:`, data);
+    };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
@@ -28,9 +31,14 @@ export default function ResourceLeadCaptureExamples() {
             </h2>
             <ul className="space-y-2">
               {capturedLeads.map((lead, index) => (
-                <li key={index} className="flex items-center gap-2 text-green-700 dark:text-green-300">
+                <li
+                  key={index}
+                  className="flex items-center gap-2 text-green-700 dark:text-green-300"
+                >
                   <CheckCircle className="w-4 h-4" />
-                  <span>{lead.email} - {lead.resource}</span>
+                  <span>
+                    {lead.email} - {lead.resource}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -87,9 +95,7 @@ export default function ResourceLeadCaptureExamples() {
             <div className="bg-gradient-to-r from-purple-500 to-purple-600 p-6 text-white">
               <Video className="w-12 h-12 mb-4" />
               <h2 className="text-2xl font-bold mb-2">DUI Defense Strategies</h2>
-              <p className="text-purple-100">
-                Video training on defending against DUI charges
-              </p>
+              <p className="text-purple-100">Video training on defending against DUI charges</p>
             </div>
             <div className="p-6">
               <ResourceLeadCaptureForm
@@ -109,9 +115,7 @@ export default function ResourceLeadCaptureExamples() {
             <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-6 text-white">
               <Calculator className="w-12 h-12 mb-4" />
               <h2 className="text-2xl font-bold mb-2">Settlement Calculator</h2>
-              <p className="text-orange-100">
-                Calculate your potential personal injury settlement
-              </p>
+              <p className="text-orange-100">Calculate your potential personal injury settlement</p>
             </div>
             <div className="p-6">
               <ResourceLeadCaptureForm
@@ -135,7 +139,9 @@ export default function ResourceLeadCaptureExamples() {
           </h2>
           <div className="space-y-4 text-gray-700 dark:text-gray-300">
             <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white">Features Demonstrated:</h3>
+              <h3 className="font-semibold text-gray-900 dark:text-white">
+                Features Demonstrated:
+              </h3>
               <ul className="list-disc list-inside mt-2 space-y-1">
                 <li>PDF download delivery (Immigration Guide)</li>
                 <li>Spanish language support (Workers Comp Guide)</li>
@@ -145,7 +151,7 @@ export default function ResourceLeadCaptureExamples() {
                 <li>Lead capture callback for tracking</li>
               </ul>
             </div>
-            
+
             <div>
               <h3 className="font-semibold text-gray-900 dark:text-white">Validation Includes:</h3>
               <ul className="list-disc list-inside mt-2 space-y-1">

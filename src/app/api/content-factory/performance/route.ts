@@ -10,18 +10,15 @@ export async function GET(request: NextRequest) {
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
-    
+
     if (!session || !['ADMIN', 'ATTORNEY'].includes(session.user.role)) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     // Get date range from query params
     const searchParams = request.nextUrl.searchParams;
     const range = searchParams.get('range') || '7days';
-    
+
     let daysAgo = 7;
     switch (range) {
       case '30days':
@@ -35,7 +32,7 @@ export async function GET(request: NextRequest) {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - daysAgo);
 
-    logger.info('Fetching content performance', { 
+    logger.info('Fetching content performance', {
       userId: session.user.id,
       range,
       startDate,
@@ -82,7 +79,7 @@ export async function GET(request: NextRequest) {
     const metrics = performanceData.map(perf => {
       const blogPost = blogPosts.find(bp => bp.id === perf.contentId);
       const schema = schemaPerformance.find(sp => sp.schemaMarkupId === perf.contentId);
-      
+
       return {
         contentId: perf.contentId,
         title: blogPost?.title || 'Unknown',
@@ -107,13 +104,12 @@ export async function GET(request: NextRequest) {
         end: new Date(),
       },
     });
-
   } catch (error) {
     logger.error('Failed to fetch performance data', { error });
-    
+
     return NextResponse.json(
-      { 
-        error: 'Failed to fetch performance data', 
+      {
+        error: 'Failed to fetch performance data',
         details: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 }

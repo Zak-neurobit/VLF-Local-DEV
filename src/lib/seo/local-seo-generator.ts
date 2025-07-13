@@ -33,16 +33,21 @@ export const ncCities: Record<string, LocalPageData> = {
     courtInfo: {
       superior: '26th Judicial District Court',
       district: 'Mecklenburg County District Court',
-      federal: 'Western District of North Carolina'
+      federal: 'Western District of North Carolina',
     },
     nearbyCity: ['Huntersville', 'Matthews', 'Mint Hill', 'Pineville', 'Cornelius', 'Davidson'],
-    practiceAreaFocus: ['Immigration Law', 'Personal Injury', 'Workers Compensation', 'Criminal Defense'],
+    practiceAreaFocus: [
+      'Immigration Law',
+      'Personal Injury',
+      'Workers Compensation',
+      'Criminal Defense',
+    ],
     localStats: {
       casesHandled: '2,500+',
       yearsServing: '20+',
       clientRating: '4.9',
-      responseTime: '< 1 hour'
-    }
+      responseTime: '< 1 hour',
+    },
   },
   raleigh: {
     city: 'Raleigh',
@@ -54,7 +59,7 @@ export const ncCities: Record<string, LocalPageData> = {
     courtInfo: {
       superior: '10th Judicial District Court',
       district: 'Wake County District Court',
-      federal: 'Eastern District of North Carolina'
+      federal: 'Eastern District of North Carolina',
     },
     nearbyCity: ['Cary', 'Apex', 'Holly Springs', 'Garner', 'Wake Forest', 'Morrisville'],
     practiceAreaFocus: ['Immigration Law', 'Criminal Defense', 'Personal Injury', 'Family Law'],
@@ -62,8 +67,8 @@ export const ncCities: Record<string, LocalPageData> = {
       casesHandled: '3,000+',
       yearsServing: '25+',
       clientRating: '4.9',
-      responseTime: '< 30 min'
-    }
+      responseTime: '< 30 min',
+    },
   },
   durham: {
     city: 'Durham',
@@ -75,16 +80,21 @@ export const ncCities: Record<string, LocalPageData> = {
     courtInfo: {
       superior: '14th Judicial District Court',
       district: 'Durham County District Court',
-      federal: 'Middle District of North Carolina'
+      federal: 'Middle District of North Carolina',
     },
     nearbyCity: ['Chapel Hill', 'Hillsborough', 'Morrisville', 'Research Triangle Park'],
-    practiceAreaFocus: ['Immigration Law', 'Workers Compensation', 'Criminal Defense', 'Personal Injury'],
+    practiceAreaFocus: [
+      'Immigration Law',
+      'Workers Compensation',
+      'Criminal Defense',
+      'Personal Injury',
+    ],
     localStats: {
       casesHandled: '1,500+',
       yearsServing: '15+',
       clientRating: '4.8',
-      responseTime: '< 45 min'
-    }
+      responseTime: '< 45 min',
+    },
   },
   greensboro: {
     city: 'Greensboro',
@@ -96,16 +106,21 @@ export const ncCities: Record<string, LocalPageData> = {
     courtInfo: {
       superior: '18th Judicial District Court',
       district: 'Guilford County District Court',
-      federal: 'Middle District of North Carolina'
+      federal: 'Middle District of North Carolina',
     },
     nearbyCity: ['High Point', 'Jamestown', 'Summerfield', 'Oak Ridge', 'Pleasant Garden'],
-    practiceAreaFocus: ['Immigration Law', 'Personal Injury', 'Criminal Defense', 'Traffic Violations'],
+    practiceAreaFocus: [
+      'Immigration Law',
+      'Personal Injury',
+      'Criminal Defense',
+      'Traffic Violations',
+    ],
     localStats: {
       casesHandled: '1,200+',
       yearsServing: '12+',
       clientRating: '4.8',
-      responseTime: '< 1 hour'
-    }
+      responseTime: '< 1 hour',
+    },
   },
   'winston-salem': {
     city: 'Winston-Salem',
@@ -117,7 +132,7 @@ export const ncCities: Record<string, LocalPageData> = {
     courtInfo: {
       superior: '21st Judicial District Court',
       district: 'Forsyth County District Court',
-      federal: 'Middle District of North Carolina'
+      federal: 'Middle District of North Carolina',
     },
     nearbyCity: ['Kernersville', 'Clemmons', 'Lewisville', 'Pfafftown', 'Bethania'],
     practiceAreaFocus: ['Immigration Law', 'Workers Compensation', 'Personal Injury', 'Family Law'],
@@ -125,8 +140,8 @@ export const ncCities: Record<string, LocalPageData> = {
       casesHandled: '1,000+',
       yearsServing: '10+',
       clientRating: '4.9',
-      responseTime: '< 45 min'
-    }
+      responseTime: '< 45 min',
+    },
   },
   smithfield: {
     city: 'Smithfield',
@@ -138,16 +153,21 @@ export const ncCities: Record<string, LocalPageData> = {
     courtInfo: {
       superior: '11th Judicial District Court',
       district: 'Johnston County District Court',
-      federal: 'Eastern District of North Carolina'
+      federal: 'Eastern District of North Carolina',
     },
     nearbyCity: ['Clayton', 'Selma', 'Four Oaks', 'Benson', 'Princeton', 'Pine Level'],
-    practiceAreaFocus: ['Immigration Law', 'Criminal Defense', 'Personal Injury', 'Workers Compensation'],
+    practiceAreaFocus: [
+      'Immigration Law',
+      'Criminal Defense',
+      'Personal Injury',
+      'Workers Compensation',
+    ],
     localStats: {
       casesHandled: '800+',
       yearsServing: '30+',
       clientRating: '5.0',
-      responseTime: '< 15 min'
-    }
+      responseTime: '< 15 min',
+    },
   },
   clayton: {
     city: 'Clayton',
@@ -159,7 +179,7 @@ export const ncCities: Record<string, LocalPageData> = {
     courtInfo: {
       superior: '11th Judicial District Court',
       district: 'Johnston County District Court',
-      federal: 'Eastern District of North Carolina'
+      federal: 'Eastern District of North Carolina',
     },
     nearbyCity: ['Smithfield', 'Garner', 'Archer Lodge', 'Willow Spring', 'Wendell'],
     practiceAreaFocus: ['Immigration Law', 'Personal Injury', 'Criminal Defense', 'Family Law'],
@@ -167,8 +187,8 @@ export const ncCities: Record<string, LocalPageData> = {
       casesHandled: '600+',
       yearsServing: '20+',
       clientRating: '4.9',
-      responseTime: '< 30 min'
-    }
+      responseTime: '< 30 min',
+    },
   },
   garner: {
     city: 'Garner',
@@ -180,16 +200,21 @@ export const ncCities: Record<string, LocalPageData> = {
     courtInfo: {
       superior: '10th Judicial District Court',
       district: 'Wake County District Court',
-      federal: 'Eastern District of North Carolina'
+      federal: 'Eastern District of North Carolina',
     },
     nearbyCity: ['Raleigh', 'Clayton', 'Fuquay-Varina', 'Holly Springs', 'Knightdale'],
-    practiceAreaFocus: ['Immigration Law', 'Workers Compensation', 'Personal Injury', 'Traffic Violations'],
+    practiceAreaFocus: [
+      'Immigration Law',
+      'Workers Compensation',
+      'Personal Injury',
+      'Traffic Violations',
+    ],
     localStats: {
       casesHandled: '500+',
       yearsServing: '15+',
       clientRating: '4.8',
-      responseTime: '< 30 min'
-    }
+      responseTime: '< 30 min',
+    },
   },
   cary: {
     city: 'Cary',
@@ -201,7 +226,7 @@ export const ncCities: Record<string, LocalPageData> = {
     courtInfo: {
       superior: '10th Judicial District Court',
       district: 'Wake County District Court',
-      federal: 'Eastern District of North Carolina'
+      federal: 'Eastern District of North Carolina',
     },
     nearbyCity: ['Apex', 'Morrisville', 'Raleigh', 'Holly Springs', 'Chapel Hill'],
     practiceAreaFocus: ['Immigration Law', 'Personal Injury', 'Family Law', 'Criminal Defense'],
@@ -209,8 +234,8 @@ export const ncCities: Record<string, LocalPageData> = {
       casesHandled: '1,000+',
       yearsServing: '18+',
       clientRating: '4.9',
-      responseTime: '< 45 min'
-    }
+      responseTime: '< 45 min',
+    },
   },
   apex: {
     city: 'Apex',
@@ -222,7 +247,7 @@ export const ncCities: Record<string, LocalPageData> = {
     courtInfo: {
       superior: '10th Judicial District Court',
       district: 'Wake County District Court',
-      federal: 'Eastern District of North Carolina'
+      federal: 'Eastern District of North Carolina',
     },
     nearbyCity: ['Cary', 'Holly Springs', 'Raleigh', 'Morrisville', 'New Hill'],
     practiceAreaFocus: ['Immigration Law', 'Personal Injury', 'Workers Compensation', 'Family Law'],
@@ -230,25 +255,25 @@ export const ncCities: Record<string, LocalPageData> = {
       casesHandled: '400+',
       yearsServing: '12+',
       clientRating: '4.9',
-      responseTime: '< 30 min'
-    }
-  }
+      responseTime: '< 30 min',
+    },
+  },
 };
 
 export function generateLocalMetadata(city: string, practiceArea?: string): Metadata {
   const data = ncCities[city.toLowerCase()];
   if (!data) return {};
 
-  const title = practiceArea 
-    ? `${practiceArea.replace(/'/g, '\'')} Lawyer ${data.city} NC | Vasquez Law Firm - #1 Rated`
+  const title = practiceArea
+    ? `${practiceArea.replace(/'/g, "'")} Lawyer ${data.city} NC | Vasquez Law Firm - #1 Rated`
     : `${data.city} ${data.stateAbbr} Immigration Lawyer & Personal Injury Attorney | Vasquez Law Firm`;
 
   const description = practiceArea
-    ? `Top-rated ${practiceArea.toLowerCase().replace(/'/g, '\'')} lawyer serving ${data.city}, ${data.county} County, NC. ${data.localStats.casesHandled} cases won. Available 24/7. Free consultation. Se habla español. Call 1-844-YO-PELEO.`
+    ? `Top-rated ${practiceArea.toLowerCase().replace(/'/g, "'")} lawyer serving ${data.city}, ${data.county} County, NC. ${data.localStats.casesHandled} cases won. Available 24/7. Free consultation. Se habla español. Call 1-844-YO-PELEO.`
     : `Experienced ${data.city} attorneys serving ${data.county} County. Immigration, personal injury, criminal defense, workers comp. ${data.localStats.casesHandled} cases won. Free consultation. Hablamos español.`;
 
   const keywords = practiceArea
-    ? `${practiceArea.toLowerCase().replace(/'/g, '\'')} lawyer ${data.city}, ${practiceArea.toLowerCase().replace(/'/g, '\'')} attorney ${data.city} NC, ${data.city} ${practiceArea.toLowerCase().replace(/'/g, '\'')} law firm, ${data.county} county ${practiceArea.toLowerCase().replace(/'/g, '\'')} attorney, best ${practiceArea.toLowerCase().replace(/'/g, '\'')} lawyer ${data.city}`
+    ? `${practiceArea.toLowerCase().replace(/'/g, "'")} lawyer ${data.city}, ${practiceArea.toLowerCase().replace(/'/g, "'")} attorney ${data.city} NC, ${data.city} ${practiceArea.toLowerCase().replace(/'/g, "'")} law firm, ${data.county} county ${practiceArea.toLowerCase().replace(/'/g, "'")} attorney, best ${practiceArea.toLowerCase().replace(/'/g, "'")} lawyer ${data.city}`
     : `${data.city} immigration lawyer, ${data.city} personal injury attorney, ${data.city} criminal defense lawyer, ${data.city} workers compensation attorney, ${data.city} abogado, ${data.county} county attorney`;
 
   return {
@@ -412,7 +437,7 @@ function getLatitude(city: string): number {
   const coords: Record<string, number> = {
     Charlotte: 35.2271,
     Raleigh: 35.7796,
-    Durham: 35.9940,
+    Durham: 35.994,
     Greensboro: 36.0726,
     'Winston-Salem': 36.0999,
     Smithfield: 35.5085,
@@ -429,7 +454,7 @@ function getLongitude(city: string): number {
     Charlotte: -80.8431,
     Raleigh: -78.6382,
     Durham: -78.8986,
-    Greensboro: -79.7920,
+    Greensboro: -79.792,
     'Winston-Salem': -80.2442,
     Smithfield: -78.3394,
     Clayton: -78.4572,

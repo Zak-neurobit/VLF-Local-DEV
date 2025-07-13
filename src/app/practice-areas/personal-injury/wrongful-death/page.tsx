@@ -1,33 +1,17 @@
 import { Metadata } from 'next';
-import Script from 'next/script';
-import Link from 'next/link';
-import { Phone, MapPin, ArrowRight, CheckCircle, Heart } from 'lucide-react';
+import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 
 export const metadata: Metadata = {
-  title: 'Wrongful Death Lawyers NC & FL | Compassionate Legal Help | Vasquez Law Firm',
+  title: 'Wrongful Death Lawyers NC & FL | Family Loss Attorneys | Vasquez Law Firm',
   description:
-    'Expert wrongful death attorneys in Raleigh, Charlotte, Smithfield & Orlando. Compassionate representation for families who have lost loved ones. Free consultation.',
-  keywords: [
-    'wrongful death lawyer',
-    'fatal accident attorney',
-    'death claim',
-    'loss of loved one',
-    'fatal car accident',
-    'medical malpractice death',
-    'Raleigh NC',
-    'Charlotte NC',
-    'Orlando FL',
-  ],
+    'Compassionate wrongful death attorneys fighting for families who lost loved ones to negligence. We pursue maximum compensation for fatal accidents and malpractice. Free consultation. Call 1-844-YO-PELEO',
+  keywords:
+    'wrongful death lawyer, fatal accident attorney, wrongful death compensation, family loss attorney, fatal injury lawyer, wrongful death damages',
   openGraph: {
-    title: 'Wrongful Death Lawyers | Compassionate Legal Help | Vasquez Law Firm',
+    title: 'Wrongful Death Lawyers | Compassionate Family Advocates - Vasquez Law Firm',
     description:
-      'Expert wrongful death attorneys providing compassionate representation for families seeking justice.',
-    type: 'website',
-    images: [
-      {
-        url: '/images/wrongful-death-lawyers.jpg',
-        width: 1200,
-        height: 630,
+      'Compassionate wrongful death attorneys fighting for justice and maximum compensation for grieving families.',
+    images: [{ url: '/images/wrongful-death-lawyers.jpg' }],
         alt: 'Wrongful Death Lawyers',
       },
     ],
@@ -35,526 +19,450 @@ export const metadata: Metadata = {
 };
 
 export default function WrongfulDeathPage() {
+  const services = [
+    {
+      title: 'Fatal Car Accident Claims',
+      description: 'Comprehensive representation for families who lost loved ones in motor vehicle crashes',
+      icon: '🚗',
+      features: [
+        'Head-on collision fatal accidents',
+        'Drunk driving death cases',
+        'Commercial vehicle fatal crashes',
+        'Hit-and-run fatality claims',
+        'Intersection collision deaths',
+        'Motorcycle and pedestrian fatalities'
+      ]
+    },
+    {
+      title: 'Medical Malpractice Deaths',
+      description: 'Legal action against healthcare providers whose negligence caused preventable deaths',
+      icon: '🏥',
+      features: [
+        'Surgical error fatalities',
+        'Medication error deaths',
+        'Misdiagnosis and delayed diagnosis',
+        'Hospital negligence cases',
+        'Nursing home wrongful deaths',
+        'Emergency room malpractice'
+      ]
+    },
+    {
+      title: 'Workplace Fatality Claims',
+      description: 'Representation for families after work-related deaths and industrial accidents',
+      icon: '🏗️',
+      features: [
+        'Construction site fatalities',
+        'Industrial accident deaths',
+        'Chemical exposure fatalities',
+        'Equipment malfunction deaths',
+        'Fall from height accidents',
+        'Third-party liability claims'
+      ]
+    },
+    {
+      title: 'Product Liability Deaths',
+      description: 'Claims against manufacturers of defective products that caused fatal injuries',
+      icon: '⚠️',
+      features: [
+        'Defective vehicle part deaths',
+        'Dangerous pharmaceutical fatalities',
+        'Defective medical device deaths',
+        'Consumer product fatalities',
+        'Toxic product exposure deaths',
+        'Failure to warn cases'
+      ]
+    },
+    {
+      title: 'Premises Liability Deaths',
+      description: 'Legal action for deaths caused by dangerous property conditions',
+      icon: '🏠',
+      features: [
+        'Slip and fall fatal accidents',
+        'Swimming pool drowning deaths',
+        'Building collapse fatalities',
+        'Inadequate security deaths',
+        'Fire and explosion fatalities',
+        'Toxic exposure deaths'
+      ]
+    },
+    {
+      title: 'Nursing Home Wrongful Deaths',
+      description: 'Specialized representation for families after nursing home neglect and abuse deaths',
+      icon: '👴',
+      features: [
+        'Neglect and abuse fatalities',
+        'Medication error deaths',
+        'Fall injury fatalities',
+        'Malnutrition and dehydration',
+        'Infection-related deaths',
+        'Inadequate medical care'
+      ]
+    },
+    {
+      title: 'Criminal Act Fatalities',
+      description: 'Civil claims for families after loved ones killed in violent crimes',
+      icon: '🚨',
+      features: [
+        'Assault and battery deaths',
+        'Negligent security fatalities',
+        'Bar and club violence deaths',
+        'Retail establishment crimes',
+        'Apartment complex violence',
+        'Third-party liability claims'
+      ]
+    },
+    {
+      title: 'Survival Action Claims',
+      description: 'Recovery for pain and suffering endured before death',
+      icon: '⏰',
+      features: [
+        'Pre-death pain and suffering',
+        'Medical expenses before death',
+        'Lost wages during final illness',
+        'Conscious suffering damages',
+        'Medical treatment costs',
+        'End-of-life care expenses'
+      ]
+    },
+    {
+      title: 'Estate Administration Support',
+      description: 'Assistance with estate matters and beneficiary representation',
+      icon: '📋',
+      features: [
+        'Estate representative appointment',
+        'Beneficiary rights protection',
+        'Asset distribution coordination',
+        'Insurance claim assistance',
+        'Probate court representation',
+        'Estate settlement support'
+      ]
+    }
+  ];
+
+  const faqs = [
+    {
+      question: 'Who can file a wrongful death claim in North Carolina?',
+      answer:
+        'In NC, only the personal representative of the deceased\'s estate can file a wrongful death claim. This is typically the spouse, parent, or adult child. The compensation recovered is distributed to beneficiaries according to state law.'
+    },
+    {
+      question: 'How long do I have to file a wrongful death lawsuit?',
+      answer:
+        'North Carolina has a 2-year statute of limitations for wrongful death claims from the date of death. However, certain circumstances may extend this deadline. It\'s crucial to contact an attorney immediately to protect your rights.'
+    },
+    {
+      question: 'What compensation can be recovered in a wrongful death case?',
+      answer:
+        'NC law allows recovery for the "pecuniary value" of the deceased\'s life to beneficiaries, including lost income, benefits, services, protection, care, and assistance. Medical expenses and funeral costs may also be recoverable.'
+    },
+    {
+      question: 'Can we file a wrongful death claim if there\'s also a criminal case?',
+      answer:
+        'Yes, criminal and civil cases are separate. A criminal conviction is not required for a successful wrongful death claim, and the burden of proof is lower in civil court (preponderance of evidence vs. beyond reasonable doubt).'
+    },
+    {
+      question: 'How much does it cost to hire a wrongful death attorney?',
+      answer:
+        'We work on a contingency fee basis, meaning you pay no attorney fees unless we recover compensation for your family. We advance all case expenses and only collect our fee from the settlement or verdict.'
+    },
+    {
+      question: 'What if my loved one was partially at fault for the accident?',
+      answer:
+        'North Carolina follows contributory negligence law, which can bar recovery if the deceased was even partially at fault. However, we know how to investigate thoroughly and prove the defendant was 100% responsible for the death.'
+    }
+  ];
+
+  const content = {
+    introduction: `Losing a loved one is devastating. When that loss is caused by someone else's negligence or wrongful actions, the pain is compounded by feelings of injustice. Our compassionate wrongful death attorneys understand the profound grief your family is experiencing while fighting aggressively to hold responsible parties accountable and secure the compensation your family needs for the future.`,
+    
+    processTitle: 'Our Compassionate Legal Process',
+    process: [
+      {
+        step: '1',
+        title: 'Compassionate Consultation',
+        description: 'Private, respectful meeting to understand your loss and legal options'
+      },
+      {
+        step: '2',
+        title: 'Thorough Investigation',
+        description: 'Comprehensive investigation to determine all liable parties and causes'
+      },
+      {
+        step: '3',
+        title: 'Evidence Preservation',
+        description: 'Securing crucial evidence before it disappears or is destroyed'
+      },
+      {
+        step: '4',
+        title: 'Expert Analysis',
+        description: 'Working with medical, accident, and economic experts to build your case'
+      },
+      {
+        step: '5',
+        title: 'Aggressive Advocacy',
+        description: 'Fighting for maximum compensation while you focus on healing'
+      }
+    ],
+
+    urgencyTitle: '⏰ Time is Critical for Evidence Preservation',
+    urgencyMessage: 'Important evidence can disappear quickly after a fatal accident. Contact us immediately to protect your family\'s rights and preserve crucial evidence for your case.',
+
+    successStats: [
+      { number: '150+', label: 'Wrongful Death Cases' },
+      { number: '89%', label: 'Success Rate' },
+      { number: '$3.2M', label: 'Largest Settlement' },
+      { number: '2 Years', label: 'Statute of Limitations' }
+    ],
+
+    whyChooseTitle: 'Why Choose Our Wrongful Death Team?',
+    whyChoosePoints: [
+      '89% success rate in wrongful death cases',
+      'Compassionate representation during your most difficult time',
+      'Thorough investigation with expert witnesses',
+      'No fees unless we recover compensation for your family',
+      'Proven track record with multi-million dollar settlements',
+      'Bilingual legal team providing culturally sensitive support',
+      'Comprehensive support through the entire legal process',
+      'Strong relationships with medical and economic experts'
+    ],
+
+    damageTypes: {
+      title: 'Types of Wrongful Death Compensation',
+      categories: [
+        {
+          category: 'Economic Damages',
+          description: 'Financial losses to the family',
+          damages: [
+            'Lost income and earning capacity',
+            'Lost benefits and pension contributions',
+            'Medical expenses before death',
+            'Funeral and burial expenses',
+            'Lost household services',
+            'Loss of inheritance'
+          ]
+        },
+        {
+          category: 'Survival Action Damages',
+          description: 'Compensation for deceased\'s suffering',
+          damages: [
+            'Pain and suffering before death',
+            'Medical treatment costs',
+            'Lost wages during final illness',
+            'Conscious suffering damages',
+            'Property damage',
+            'Other pre-death losses'
+          ]
+        },
+        {
+          category: 'Family Impact',
+          description: 'Non-economic losses to beneficiaries',
+          damages: [
+            'Loss of love and companionship',
+            'Loss of care and protection',
+            'Loss of guidance and counsel',
+            'Loss of training and education',
+            'Grief and mental anguish',
+            'Loss of consortium (spouse)'
+          ]
+        }
+      ]
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Breadcrumb */}
-      <div className="bg-gray-50 py-4">
-        <div className="container mx-auto px-4">
-          <nav className="text-sm">
-            <Link href="/" className="text-burgundy-700 hover:underline">
-              Home
-            </Link>
-            <span className="mx-2">/</span>
-            <Link href="/practice-areas" className="text-burgundy-700 hover:underline">
-              Practice Areas
-            </Link>
-            <span className="mx-2">/</span>
-            <Link
-              href="/practice-areas/personal-injury"
-              className="text-burgundy-700 hover:underline"
-            >
-              Personal Injury
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-gray-600">Wrongful Death</span>
-          </nav>
-        </div>
-      </div>
-
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-burgundy-700 to-burgundy-900 text-white py-20">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Wrongful Death Lawyers</h1>
-            <p className="text-xl md:text-2xl mb-8 text-gold-400 font-semibold">
-              YO PELEO POR TI™ - I FIGHT FOR YOU
-            </p>
-            <p className="text-lg mb-8 max-w-3xl mx-auto">
-              When you&apos;ve lost a loved one due to someone else&apos;s negligence, we provide
-              compassionate legal representation to help your family seek justice and fair
-              compensation during this difficult time.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 bg-gold-500 text-burgundy-900 font-bold rounded-full hover:bg-gold-400 transition-colors"
-              >
-                Free Compassionate Consultation
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <a
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 bg-white text-burgundy-900 font-bold rounded-full hover:bg-gray-100 transition-colors"
-              >
-                <Phone className="mr-2 w-5 h-5" />
-                1-844-YO-PELEO
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Compassionate Support Section */}
-      <section className="py-16 bg-purple-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-purple-100 border-l-4 border-purple-500 p-6 mb-8">
-              <div className="flex items-center mb-4">
-                <Heart className="w-8 h-8 text-purple-600 mr-3" />
-                <h2 className="text-2xl font-bold text-purple-800">We Understand Your Loss</h2>
+    <ModernPracticeAreaTemplate
+      title="Wrongful Death Lawyers"
+      subtitle="Compassionate Advocacy for Grieving Families"
+      description="Compassionate wrongful death attorneys fighting for justice and maximum compensation when negligence takes the life of your loved one. We handle your case with respect while pursuing aggressive legal action."
+      services={services}
+      faqs={faqs}
+      urgency="critical"
+      content={
+        <div className="space-y-12">
+          {/* Compassionate Support */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">We Understand Your Loss</h2>
+            <div className="bg-purple-900/20 backdrop-blur-sm rounded-lg p-8 border border-purple-500/30">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-xl font-bold text-purple-400 mb-4">❤️ Our Compassionate Approach</h3>
+                  <ul className="space-y-2 text-purple-200">
+                    <li>• Respectful handling of your loved one's memory</li>
+                    <li>• Minimal burden on grieving families</li>
+                    <li>• Clear communication at every step</li>
+                    <li>• Flexible meeting arrangements</li>
+                    <li>• Emotional support resources</li>
+                    <li>• Culturally sensitive representation</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-purple-400 mb-4">⚖️ Fighting for Justice</h3>
+                  <ul className="space-y-2 text-purple-200">
+                    <li>• Maximum compensation for your family</li>
+                    <li>• Holding negligent parties accountable</li>
+                    <li>• Thorough investigation and evidence preservation</li>
+                    <li>• Expert witness testimony</li>
+                    <li>• Aggressive negotiations and litigation</li>
+                    <li>• Contingency fee representation</li>
+                  </ul>
+                </div>
               </div>
-              <p className="text-purple-700 mb-4">
-                Losing a loved one is one of life&apos;s most difficult experiences. When that loss is
-                caused by someone else&apos;s negligence or wrongful actions, the pain is compounded by
-                feelings of injustice. At Vasquez Law Firm, we handle your case with the utmost
-                compassion and respect while fighting aggressively for your family&apos;s rights.
-              </p>
+            </div>
+          </section>
+
+          {/* Damage Types */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">Types of Wrongful Death Compensation</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {content.damageTypes.categories.map((category, index) => (
+                <div key={index} className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                  <h3 className="text-xl font-bold text-primary mb-3">{category.category}</h3>
+                  <p className="text-gray-300 mb-4">{category.description}</p>
+                  <ul className="space-y-2">
+                    {category.damages.map((damage, dIndex) => (
+                      <li key={dIndex} className="text-gray-300 text-sm flex items-start gap-2">
+                        <span className="text-primary mt-1">•</span>
+                        {damage}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* NC Wrongful Death Law */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">North Carolina Wrongful Death Law</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">Who Can File</h3>
+                <div className="space-y-3 text-gray-300">
+                  <p>In North Carolina, only the <strong>personal representative</strong> of the deceased's estate can file a wrongful death claim.</p>
+                  <h4 className="font-bold text-white">Priority Order:</h4>
+                  <ul className="space-y-1 text-sm">
+                    <li>1. Surviving spouse</li>
+                    <li>2. Children of deceased</li>
+                    <li>3. Parents of deceased</li>
+                    <li>4. Other relatives per state law</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">Compensation Distribution</h3>
+                <div className="space-y-3 text-gray-300">
+                  <p>Recovery is distributed to <strong>next of kin</strong> based on their financial dependency on the deceased.</p>
+                  <h4 className="font-bold text-white">Distribution Formula:</h4>
+                  <ul className="space-y-1 text-sm">
+                    <li>• Spouse and children (if both survive)</li>
+                    <li>• Spouse only (if no children)</li>
+                    <li>• Children only (if no spouse)</li>
+                    <li>• Parents (if no spouse/children)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Common Causes */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">Common Causes of Wrongful Death</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-lg font-bold text-primary mb-3">🚗 Motor Vehicle Accidents</h3>
+                <ul className="text-gray-300 text-sm space-y-1">
+                  <li>• Car, truck, and motorcycle crashes</li>
+                  <li>• Drunk driving fatalities</li>
+                  <li>• Pedestrian and bicycle deaths</li>
+                  <li>• Hit-and-run fatalities</li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-lg font-bold text-primary mb-3">🏥 Medical Malpractice</h3>
+                <ul className="text-gray-300 text-sm space-y-1">
+                  <li>• Surgical errors</li>
+                  <li>• Medication mistakes</li>
+                  <li>• Misdiagnosis/delayed diagnosis</li>
+                  <li>• Hospital negligence</li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-lg font-bold text-primary mb-3">🏗️ Workplace Accidents</h3>
+                <ul className="text-gray-300 text-sm space-y-1">
+                  <li>• Construction site fatalities</li>
+                  <li>• Industrial accidents</li>
+                  <li>• Equipment malfunctions</li>
+                  <li>• Chemical exposure deaths</li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-lg font-bold text-primary mb-3">⚠️ Product Defects</h3>
+                <ul className="text-gray-300 text-sm space-y-1">
+                  <li>• Defective vehicles/parts</li>
+                  <li>• Dangerous pharmaceuticals</li>
+                  <li>• Faulty medical devices</li>
+                  <li>• Consumer product failures</li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-lg font-bold text-primary mb-3">🏠 Premises Liability</h3>
+                <ul className="text-gray-300 text-sm space-y-1">
+                  <li>• Slip and fall fatalities</li>
+                  <li>• Swimming pool drownings</li>
+                  <li>• Building collapses</li>
+                  <li>• Inadequate security deaths</li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-lg font-bold text-primary mb-3">👴 Nursing Home Neglect</h3>
+                <ul className="text-gray-300 text-sm space-y-1">
+                  <li>• Neglect and abuse deaths</li>
+                  <li>• Medication errors</li>
+                  <li>• Fall injury fatalities</li>
+                  <li>• Malnutrition/dehydration</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Support During Difficult Time */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">Support During Your Difficult Time</h2>
+            <div className="bg-white/5 backdrop-blur-sm rounded-lg p-8 border border-primary/20">
+              <div className="text-center mb-6">
+                <h3 className="text-xl font-bold text-primary mb-4">💙 We're Here for Your Family</h3>
+                <p className="text-gray-300">
+                  We understand that no amount of money can bring back your loved one, but holding responsible parties accountable and securing your family's financial future is our mission.
+                </p>
+              </div>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <h3 className="text-lg font-bold text-purple-800 mb-2">
-                    Our Compassionate Approach:
-                  </h3>
-                  <ul className="text-purple-700 space-y-1">
-                    <li>✓ Respectful handling of your loved one&apos;s memory</li>
-                    <li>✓ Minimal burden on grieving families</li>
-                    <li>✓ Clear communication at every step</li>
-                    <li>✓ Flexible meeting arrangements</li>
-                    <li>✓ Emotional support resources</li>
+                  <h4 className="font-bold text-white mb-3">What We Handle:</h4>
+                  <ul className="space-y-2 text-gray-300 text-sm">
+                    <li>• All legal paperwork and court filings</li>
+                    <li>• Communication with insurance companies</li>
+                    <li>• Investigation and evidence gathering</li>
+                    <li>• Expert witness coordination</li>
+                    <li>• Settlement negotiations</li>
+                    <li>• Trial representation if needed</li>
                   </ul>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-purple-800 mb-2">
-                    Fighting for Your Family:
-                  </h3>
-                  <ul className="text-purple-700 space-y-1">
-                    <li>• Maximum compensation for your loss</li>
-                    <li>• Holding negligent parties accountable</li>
-                    <li>• Preventing similar tragedies</li>
-                    <li>• Honoring your loved one&apos;s legacy</li>
-                    <li>• Securing your family&apos;s future</li>
+                  <h4 className="font-bold text-white mb-3">What You Can Focus On:</h4>
+                  <ul className="space-y-2 text-gray-300 text-sm">
+                    <li>• Grieving and healing with family</li>
+                    <li>• Taking care of immediate needs</li>
+                    <li>• Making arrangements for the future</li>
+                    <li>• Seeking emotional support</li>
+                    <li>• Honoring your loved one's memory</li>
+                    <li>• Moving forward when you're ready</li>
                   </ul>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         </div>
-      </section>
-
-      {/* Main Content */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="prose prose-lg max-w-none">
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Understanding Wrongful Death Claims
-                </h2>
-                <p className="text-gray-700 mb-6">
-                  A wrongful death claim arises when someone dies due to the legal fault of another
-                  person or entity. These claims allow surviving family members to seek compensation
-                  for their losses, including the loss of love, companionship, income, and support.
-                </p>
-
-                <h3 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  Common Causes of Wrongful Death:
-                </h3>
-                <div className="grid md:grid-cols-2 gap-6 mb-8">
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h4 className="text-lg font-bold text-burgundy-900 mb-3">
-                      Accident-Related Deaths
-                    </h4>
-                    <ul className="text-gray-700 space-y-2">
-                      <li>• Motor vehicle accidents</li>
-                      <li>• Truck and commercial vehicle crashes</li>
-                      <li>• Motorcycle accidents</li>
-                      <li>• Pedestrian accidents</li>
-                      <li>• Workplace accidents</li>
-                      <li>• Construction site fatalities</li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h4 className="text-lg font-bold text-burgundy-900 mb-3">
-                      Negligence-Related Deaths
-                    </h4>
-                    <ul className="text-gray-700 space-y-2">
-                      <li>• Medical malpractice</li>
-                      <li>• Nursing home neglect</li>
-                      <li>• Defective products</li>
-                      <li>• Dangerous premises</li>
-                      <li>• Criminal acts</li>
-                      <li>• Drowning accidents</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Who Can File a Wrongful Death Claim?
-                </h2>
-                <p className="text-gray-700 mb-6">
-                  North Carolina and Florida laws specify who can file a wrongful death claim.
-                  Understanding these requirements is crucial for protecting your family&apos;s
-                  rights.
-                </p>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-blue-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-blue-800 mb-3">North Carolina Law</h3>
-                    <p className="text-blue-700 mb-3">
-                      The personal representative of the deceased&apos;s estate must file the claim on
-                      behalf of:
-                    </p>
-                    <ul className="text-blue-700 space-y-1">
-                      <li>• Surviving spouse</li>
-                      <li>• Children (including adopted)</li>
-                      <li>• Parents (if no spouse/children)</li>
-                      <li>• Next of kin (if no immediate family)</li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-green-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-green-800 mb-3">Florida Law</h3>
-                    <p className="text-green-700 mb-3">
-                      The personal representative files for the estate and survivors:
-                    </p>
-                    <ul className="text-green-700 space-y-1">
-                      <li>• Surviving spouse</li>
-                      <li>• Minor children</li>
-                      <li>• Adult children (in some cases)</li>
-                      <li>• Parents</li>
-                      <li>• Blood relatives or adoptive siblings</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 mt-6">
-                  <h3 className="text-xl font-bold text-yellow-800 mb-2">
-                    Time Limits Are Critical
-                  </h3>
-                  <p className="text-yellow-700">
-                    <strong>North Carolina:</strong> 2 years from the date of death
-                    <br />
-                    <strong>Florida:</strong> 2 years from the date of death
-                    <br />
-                    <strong>Important:</strong> Some exceptions may apply, but it&apos;s crucial to
-                    act quickly to preserve your rights.
-                  </p>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Types of Compensation Available
-                </h2>
-                <p className="text-gray-700 mb-6">
-                  While no amount of money can replace your loved one, compensation can help ease
-                  the financial burden and provide justice for your loss.
-                </p>
-
-                <div className="grid gap-6">
-                  <div className="bg-white border-2 border-burgundy-200 p-6 rounded-lg">
-                    <h3 className="text-xl font-bold text-burgundy-900 mb-3">Economic Damages</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <ul className="text-gray-700 space-y-2">
-                        <li className="flex items-start">
-                          <CheckCircle className="w-5 h-5 text-green-600 mr-2 mt-1" />
-                          <span>Medical expenses before death</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle className="w-5 h-5 text-green-600 mr-2 mt-1" />
-                          <span>Funeral and burial costs</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle className="w-5 h-5 text-green-600 mr-2 mt-1" />
-                          <span>Lost wages and benefits</span>
-                        </li>
-                      </ul>
-                      <ul className="text-gray-700 space-y-2">
-                        <li className="flex items-start">
-                          <CheckCircle className="w-5 h-5 text-green-600 mr-2 mt-1" />
-                          <span>Loss of future earnings</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle className="w-5 h-5 text-green-600 mr-2 mt-1" />
-                          <span>Loss of inheritance</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle className="w-5 h-5 text-green-600 mr-2 mt-1" />
-                          <span>Value of lost services</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="bg-white border-2 border-burgundy-200 p-6 rounded-lg">
-                    <h3 className="text-xl font-bold text-burgundy-900 mb-3">
-                      Non-Economic Damages
-                    </h3>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <ul className="text-gray-700 space-y-2">
-                        <li className="flex items-start">
-                          <Heart className="w-5 h-5 text-red-600 mr-2 mt-1" />
-                          <span>Loss of companionship</span>
-                        </li>
-                        <li className="flex items-start">
-                          <Heart className="w-5 h-5 text-red-600 mr-2 mt-1" />
-                          <span>Loss of guidance and care</span>
-                        </li>
-                        <li className="flex items-start">
-                          <Heart className="w-5 h-5 text-red-600 mr-2 mt-1" />
-                          <span>Mental anguish</span>
-                        </li>
-                      </ul>
-                      <ul className="text-gray-700 space-y-2">
-                        <li className="flex items-start">
-                          <Heart className="w-5 h-5 text-red-600 mr-2 mt-1" />
-                          <span>Loss of protection</span>
-                        </li>
-                        <li className="flex items-start">
-                          <Heart className="w-5 h-5 text-red-600 mr-2 mt-1" />
-                          <span>Loss of consortium</span>
-                        </li>
-                        <li className="flex items-start">
-                          <Heart className="w-5 h-5 text-red-600 mr-2 mt-1" />
-                          <span>Punitive damages (if applicable)</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Proving a Wrongful Death Claim
-                </h2>
-                <p className="text-gray-700 mb-6">
-                  To succeed in a wrongful death claim, we must prove several key elements:
-                </p>
-
-                <div className="space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      1
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">Duty of Care</h3>
-                      <p className="text-gray-700">
-                        The defendant owed a legal duty of care to the deceased person.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      2
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">Breach of Duty</h3>
-                      <p className="text-gray-700">
-                        The defendant breached that duty through negligence or intentional acts.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      3
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">Causation</h3>
-                      <p className="text-gray-700">
-                        The breach directly caused or contributed to the death.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      4
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">Damages</h3>
-                      <p className="text-gray-700">
-                        The death resulted in quantifiable damages to surviving family members.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  How We Help Your Family
-                </h2>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div>
-                    <h3 className="text-xl font-bold text-burgundy-900 mb-4">
-                      Investigation & Evidence
-                    </h3>
-                    <ul className="text-gray-700 space-y-2">
-                      <li>• Thorough accident investigation</li>
-                      <li>• Expert witness consultation</li>
-                      <li>• Medical record review</li>
-                      <li>• Evidence preservation</li>
-                      <li>• Witness interviews</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-bold text-burgundy-900 mb-4">
-                      Legal Representation
-                    </h3>
-                    <ul className="text-gray-700 space-y-2">
-                      <li>• Insurance company negotiations</li>
-                      <li>• Court representation</li>
-                      <li>• Settlement evaluation</li>
-                      <li>• Trial preparation if needed</li>
-                      <li>• Appeals if necessary</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Frequently Asked Questions
-                </h2>
-                <div className="space-y-6">
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      How much does it cost to hire a wrongful death attorney?
-                    </h3>
-                    <p className="text-gray-700">
-                      We work on a contingency fee basis, meaning you pay nothing unless we win your
-                      case. Our fee comes from the settlement or judgment, not your pocket. Initial
-                      consultations are always free.
-                    </p>
-                  </div>
-
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      How long do wrongful death cases take?
-                    </h3>
-                    <p className="text-gray-700">
-                      Each case is unique, but most wrongful death cases take 12-24 months to
-                      resolve. Complex cases may take longer. We work efficiently while ensuring we
-                      build the strongest possible case for your family.
-                    </p>
-                  </div>
-
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      Can we file a claim if there&apos;s a criminal case?
-                    </h3>
-                    <p className="text-gray-700">
-                      Yes. Criminal and civil cases are separate. You can pursue a wrongful death
-                      claim regardless of whether criminal charges are filed or the outcome of any
-                      criminal case.
-                    </p>
-                  </div>
-
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      What if my loved one was partially at fault?
-                    </h3>
-                    <p className="text-gray-700">
-                      North Carolina and Florida have different laws regarding comparative fault.
-                      We&apos;ll evaluate your case and explain how these laws may affect your claim and
-                      potential recovery.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-gray-100 py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-burgundy-900 mb-4">
-              Let Us Help You Seek Justice
-            </h2>
-            <p className="text-xl text-gray-700 mb-8">
-              While no legal action can bring back your loved one, holding responsible parties
-              accountable can provide closure and financial security for your family. Let our
-              compassionate attorneys guide you through this difficult time.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 bg-burgundy-700 text-white font-bold rounded-full hover:bg-burgundy-800 transition-colors"
-              >
-                Free Compassionate Consultation
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <a
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 bg-gold-500 text-burgundy-900 font-bold rounded-full hover:bg-gold-400 transition-colors"
-              >
-                <Phone className="mr-2 w-5 h-5" />
-                Call: 1-844-YO-PELEO
-              </a>
-            </div>
-
-            <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              <div>
-                <MapPin className="w-6 h-6 text-burgundy-700 mx-auto mb-2" />
-                <p className="text-sm font-medium">Raleigh, NC</p>
-                <p className="text-xs text-gray-600">(919) 246-8831</p>
-              </div>
-              <div>
-                <MapPin className="w-6 h-6 text-burgundy-700 mx-auto mb-2" />
-                <p className="text-sm font-medium">Charlotte, NC</p>
-                <p className="text-xs text-gray-600">(704) 266-2998</p>
-              </div>
-              <div>
-                <MapPin className="w-6 h-6 text-burgundy-700 mx-auto mb-2" />
-                <p className="text-sm font-medium">Smithfield, NC</p>
-                <p className="text-xs text-gray-600">(919) 209-8788</p>
-              </div>
-              <div>
-                <MapPin className="w-6 h-6 text-burgundy-700 mx-auto mb-2" />
-                <p className="text-sm font-medium">Orlando, FL</p>
-                <p className="text-xs text-gray-600">(407) 647-1900</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Structured Data for SEO */}
-      <Script
-        id="practice-structured-data"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Service',
-            serviceType: 'Personal Injury Wrongful Death Legal Services',
-            provider: {
-              '@type': 'LegalService',
-              name: 'Vasquez Law Firm, PLLC',
-              url: 'https://www.vasquezlawfirm.com',
-              telephone: '+1-919-537-8722',
-              priceRange: '$$',
-            },
-            areaServed: {
-              '@type': 'State',
-              name: 'North Carolina',
-            },
-            url: 'https://www.vasquezlawfirm.com/practice-areas/personal-injury/wrongful-death/page',
-            description:
-              'Personal Injury Wrongful Death legal services in North Carolina. Free consultation. Se habla español.',
-          }),
-        }}
-      />
-    </div>
+      }
+    />
   );
 }

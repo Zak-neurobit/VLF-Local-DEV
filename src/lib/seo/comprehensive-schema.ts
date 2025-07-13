@@ -74,11 +74,13 @@ export function generateEnhancedAttorneySchema(attorney: {
 }
 
 // Enhanced FAQ Schema for voice search optimization
-export function generateEnhancedFAQSchema(faqs: Array<{
-  question: string;
-  answer: string;
-  category?: string;
-}>) {
+export function generateEnhancedFAQSchema(
+  faqs: Array<{
+    question: string;
+    answer: string;
+    category?: string;
+  }>
+) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -102,14 +104,16 @@ export function generateEnhancedFAQSchema(faqs: Array<{
 }
 
 // Review Schema with AggregateRating
-export function generateReviewSchema(reviews: Array<{
-  author: string;
-  rating: number;
-  text: string;
-  date: string;
-  title?: string;
-  source?: string;
-}>) {
+export function generateReviewSchema(
+  reviews: Array<{
+    author: string;
+    rating: number;
+    text: string;
+    date: string;
+    title?: string;
+    source?: string;
+  }>
+) {
   const aggregateRating = {
     '@type': 'AggregateRating',
     ratingValue: (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1),
@@ -148,11 +152,13 @@ export function generateReviewSchema(reviews: Array<{
 }
 
 // Enhanced BreadcrumbList for better navigation
-export function generateEnhancedBreadcrumbSchema(items: Array<{
-  name: string;
-  url: string;
-  image?: string;
-}>) {
+export function generateEnhancedBreadcrumbSchema(
+  items: Array<{
+    name: string;
+    url: string;
+    image?: string;
+  }>
+) {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -193,21 +199,23 @@ export function generateEventSchema(event: {
     startDate: event.startDate,
     endDate: event.endDate || event.startDate,
     eventStatus: 'https://schema.org/EventScheduled',
-    eventAttendanceMode: event.isOnline 
+    eventAttendanceMode: event.isOnline
       ? 'https://schema.org/OnlineEventAttendanceMode'
       : 'https://schema.org/OfflineEventAttendanceMode',
-    location: event.location ? {
-      '@type': 'Place',
-      name: event.location,
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Charlotte',
-        addressRegion: 'NC',
-      },
-    } : {
-      '@type': 'VirtualLocation',
-      url: 'https://www.vasquezlawnc.com/contact',
-    },
+    location: event.location
+      ? {
+          '@type': 'Place',
+          name: event.location,
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Charlotte',
+            addressRegion: 'NC',
+          },
+        }
+      : {
+          '@type': 'VirtualLocation',
+          url: 'https://www.vasquezlawnc.com/contact',
+        },
     offers: {
       '@type': 'Offer',
       price: event.offers?.price || 0,

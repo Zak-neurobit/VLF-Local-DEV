@@ -65,22 +65,22 @@ export class ContentFactory {
     try {
       // 1. Generate blog posts
       const blogPosts = await this.generateDailyBlogs();
-      
+
       // 2. Generate location-based landing pages
       const landingPages = await this.generateLocationPages();
-      
+
       // 3. Update practice area variations
       const practiceAreaPages = await this.generatePracticeAreaVariations();
-      
+
       // 4. Generate schema markup for all new content
       await this.generateSchemaMarkup([...blogPosts, ...landingPages, ...practiceAreaPages]);
-      
+
       // 5. Schedule content publication
       await this.scheduleContent([...blogPosts, ...landingPages, ...practiceAreaPages]);
-      
+
       // 6. Syndicate published content
       await this.syndicateContent();
-      
+
       // 7. Analyze and track performance
       await this.analyzeContentPerformance();
 
@@ -133,7 +133,7 @@ export class ContentFactory {
 
       // Generate blog for the most relevant topic
       const topic = topics[0];
-      
+
       for (const language of this.config.languages) {
         const blogPost = await this.blogGenerator.generateBlogPost({
           topic: topic.title,
@@ -193,14 +193,12 @@ export class ContentFactory {
       select: { city: true, practiceArea: true },
     });
 
-    const existingCombos = new Set(
-      existingPages.map(p => `${p.city}-${p.practiceArea}`)
-    );
+    const existingCombos = new Set(existingPages.map(p => `${p.city}-${p.practiceArea}`));
 
     for (const city of this.config.targetCities) {
       for (const practiceArea of this.config.practiceAreas) {
         const combo = `${city}-${practiceArea}`;
-        
+
         if (existingCombos.has(combo)) continue;
 
         for (const language of this.config.languages) {
@@ -260,7 +258,7 @@ export class ContentFactory {
     for (const practiceArea of this.config.practiceAreas) {
       // Generate different variations for testing
       const variationTypes = ['emotional', 'statistical', 'testimonial', 'faq-focused'];
-      
+
       for (const type of variationTypes) {
         for (const language of this.config.languages) {
           const variation = await this.landingPageGenerator.generatePracticeAreaVariation({
@@ -330,7 +328,7 @@ export class ContentFactory {
     logger.info('Scheduling content publication', { count: content.length });
 
     const optimalTimes = await this.scheduler.getOptimalPublishingTimes();
-    
+
     for (let i = 0; i < content.length; i++) {
       const item = content[i];
       const timeSlot = optimalTimes[i % optimalTimes.length];
@@ -351,7 +349,7 @@ export class ContentFactory {
     logger.info('Syndicating published content');
 
     const prisma = getPrismaClient();
-    
+
     // Get recently published content not yet syndicated
     const recentContent = await prisma.blogPost.findMany({
       where: {
@@ -367,22 +365,22 @@ export class ContentFactory {
     for (const content of recentContent) {
       // Submit to legal directories
       await this.syndicator.submitToLegalDirectories(content);
-      
+
       // Post to Medium
       if (this.config.syndicationPlatforms.includes('medium')) {
         await this.syndicator.postToMedium(content);
       }
-      
+
       // Post to LinkedIn
       if (this.config.syndicationPlatforms.includes('linkedin')) {
         await this.syndicator.postToLinkedIn(content);
       }
-      
+
       // Create PR release for significant content
       if (content.seoScore >= 80) {
         await this.syndicator.createPRRelease(content);
       }
-      
+
       // Build citation network
       await this.syndicator.buildCitations(content);
 
@@ -401,7 +399,7 @@ export class ContentFactory {
     logger.info('Analyzing content performance');
 
     const prisma = getPrismaClient();
-    
+
     // Get performance data for recent content
     const recentContent = await prisma.blogPost.findMany({
       where: {
@@ -415,8 +413,8 @@ export class ContentFactory {
     });
 
     // Analyze what's working
-    const highPerformers = recentContent.filter(c => 
-      c.viewCount > 100 || c.seoAnalysis?.some(a => a.avgPosition < 10)
+    const highPerformers = recentContent.filter(
+      c => c.viewCount > 100 || c.seoAnalysis?.some(a => a.avgPosition < 10)
     );
 
     const insights = {
@@ -460,7 +458,7 @@ export class ContentFactory {
   private extractTopTopics(content: any[]): string[] {
     // Extract and rank topics by performance
     const topicCounts = new Map<string, number>();
-    
+
     content.forEach(item => {
       const topic = this.extractTopicFromTitle(item.title);
       topicCounts.set(topic, (topicCounts.get(topic) || 0) + item.viewCount);
@@ -479,11 +477,11 @@ export class ContentFactory {
 
   private extractBestKeywords(content: any[]): string[] {
     const keywordPerformance = new Map<string, number>();
-    
+
     content.forEach(item => {
       item.keywords?.forEach((keyword: string) => {
-        const score = item.seoAnalysis?.[0]?.avgPosition 
-          ? 100 - item.seoAnalysis[0].avgPosition 
+        const score = item.seoAnalysis?.[0]?.avgPosition
+          ? 100 - item.seoAnalysis[0].avgPosition
           : 0;
         keywordPerformance.set(keyword, (keywordPerformance.get(keyword) || 0) + score);
       });
@@ -503,7 +501,7 @@ export class ContentFactory {
   private identifyBestPublishTimes(content: any[]): string[] {
     // Analyze publish times vs performance
     const timePerformance = new Map<number, number>();
-    
+
     content.forEach(item => {
       if (item.publishedAt) {
         const hour = new Date(item.publishedAt).getHours();
@@ -527,7 +525,7 @@ export class ContentFactory {
     const positions = content
       .flatMap(c => c.seoAnalysis?.map((a: any) => a.avgPosition) || [])
       .filter(p => p > 0);
-    
+
     if (positions.length === 0) return 0;
     return Math.round(positions.reduce((a, b) => a + b, 0) / positions.length);
   }
@@ -538,7 +536,7 @@ export const contentFactory = new ContentFactory({
   dailyBlogTarget: 5,
   practiceAreas: [
     'immigration',
-    'personal-injury', 
+    'personal-injury',
     'workers-compensation',
     'criminal-defense',
     'family-law',

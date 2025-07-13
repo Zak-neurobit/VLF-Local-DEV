@@ -5,66 +5,67 @@
 
 :root {
   /* Brand Colors */
-  --color-burgundy-50: #FDF2F4;
-  --color-burgundy-100: #FCE7EA;
-  --color-burgundy-200: #FAC5CC;
-  --color-burgundy-300: #F693A0;
-  --color-burgundy-400: #EF476F;
-  --color-burgundy-500: #A53A47;
-  --color-burgundy-600: #8B2635;
-  --color-burgundy-700: #6B1F2E;
+  --color-burgundy-50: #fdf2f4;
+  --color-burgundy-100: #fce7ea;
+  --color-burgundy-200: #fac5cc;
+  --color-burgundy-300: #f693a0;
+  --color-burgundy-400: #ef476f;
+  --color-burgundy-500: #a53a47;
+  --color-burgundy-600: #8b2635;
+  --color-burgundy-700: #6b1f2e;
   --color-burgundy-800: #551825;
-  --color-burgundy-900: #4D1822;
-  --color-burgundy-950: #2A0C12;
+  --color-burgundy-900: #4d1822;
+  --color-burgundy-950: #2a0c12;
 
-  --color-gold-50: #FBF8F3;
-  --color-gold-100: #F8F1E4;
-  --color-gold-200: #F0DFC4;
-  --color-gold-300: #E5C199;
-  --color-gold-400: #D4A574;
-  --color-gold-500: #C9974D;
-  --color-gold-600: #B08740;
+  --color-gold-50: #fbf8f3;
+  --color-gold-100: #f8f1e4;
+  --color-gold-200: #f0dfc4;
+  --color-gold-300: #e5c199;
+  --color-gold-400: #d4a574;
+  --color-gold-500: #c9974d;
+  --color-gold-600: #b08740;
   --color-gold-700: #906431;
-  --color-gold-800: #79522C;
+  --color-gold-800: #79522c;
   --color-gold-900: #664428;
-  --color-gold-950: #3D2818;
+  --color-gold-950: #3d2818;
 
   /* Semantic Colors */
   --color-primary: var(--color-gold-500);
   --color-primary-dark: var(--color-gold-600);
   --color-primary-light: var(--color-gold-400);
-  
+
   --color-secondary: var(--color-burgundy-700);
   --color-secondary-dark: var(--color-burgundy-800);
   --color-secondary-light: var(--color-burgundy-600);
-  
-  --color-background: #FFFFFF;
-  --color-background-alt: #FAFAFA;
+
+  --color-background: #ffffff;
+  --color-background-alt: #fafafa;
   --color-text: #171717;
   --color-text-secondary: #525252;
   --color-text-muted: #737373;
-  --color-border: #D4D4D4;
-  
+  --color-border: #d4d4d4;
+
   /* Spacing */
   --spacing-unit: 0.25rem;
-  
+
   /* Typography */
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-display: "Playfair Display", Georgia, serif;
-  
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  
+
   /* Border Radius */
   --radius-sm: 0.125rem;
   --radius-md: 0.375rem;
   --radius-lg: 0.5rem;
   --radius-xl: 0.75rem;
   --radius-full: 9999px;
-  
+
   /* Transitions */
   --transition-fast: 150ms;
   --transition-base: 300ms;
@@ -72,19 +73,19 @@
 }
 
 /* Dark Mode Variables */
-[data-theme="dark"] {
-  --color-background: #0A0A0A;
+[data-theme='dark'] {
+  --color-background: #0a0a0a;
   --color-background-alt: #171717;
-  --color-text: #FFFFFF;
-  --color-text-secondary: #A3A3A3;
+  --color-text: #ffffff;
+  --color-text-secondary: #a3a3a3;
   --color-text-muted: #737373;
   --color-border: #404040;
-  
+
   /* Adjust brand colors for dark mode */
   --color-primary: var(--color-gold-400);
   --color-primary-dark: var(--color-gold-500);
   --color-primary-light: var(--color-gold-300);
-  
+
   --color-secondary: var(--color-burgundy-600);
   --color-secondary-dark: var(--color-burgundy-700);
   --color-secondary-light: var(--color-burgundy-500);

@@ -18,6 +18,7 @@ The audit found several categories of Spanish content in English pages:
 The following Spanish blog posts are in the main app directory instead of under `/es/`:
 
 ### Blog Posts to Move:
+
 - `/como-navegar-las-complejidades-de-la-junta-de/`
 - `/7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos/`
 - `/la-mejor-guia-para-navegar-en-la-junta-de-apelaciones-de-inmigracion/`
@@ -36,6 +37,7 @@ The following Spanish blog posts are in the main app directory instead of under 
 Found in the following English pages' metadata descriptions:
 
 ### Practice Area Pages:
+
 - `/practice-areas/page.tsx` - "Free consultation. Se habla español."
 - `/practice-areas/family-law/page.tsx` - "Free consultation. Se habla español. Available 24/7."
 - `/practice-areas/family-law/child-custody/page.tsx` - "Se habla español."
@@ -49,6 +51,7 @@ Found in the following English pages' metadata descriptions:
 ## 3. YO-PELEO Usage (NO ACTION NEEDED - Trademark)
 
 The phrase "YO-PELEO" appears in multiple English pages as part of:
+
 - Phone number branding: "1-844-YO-PELEO"
 - Core values: "I FIGHT (YO PELEO)"
 - Trademark usage
@@ -62,6 +65,7 @@ The phrase "YO-PELEO" appears in multiple English pages as part of:
 The following components have built-in language switching:
 
 ### Pages with Language Toggle:
+
 - `/not-found.tsx` - 404 page with EN/ES toggle
 - `/payment/page.tsx` - Payment page with language selector
 - `/practice-areas/PracticeAreasContent.tsx` - Practice areas with language detection
@@ -73,15 +77,18 @@ The following components have built-in language switching:
 ## Recommendations
 
 ### Immediate Actions:
+
 1. **Move Spanish blog posts** from root directory to `/es/` subdirectory
 2. **Set up redirects** from old Spanish URLs to new `/es/` URLs
 3. **Update any internal links** pointing to these Spanish pages
 
 ### Consider Reviewing:
+
 1. Whether "Se habla español" should remain in English page metadata (likely yes for SEO)
 2. Consistent use of language switching components across all key pages
 
 ### No Action Needed:
+
 1. YO-PELEO branding usage
 2. Bilingual 404 and payment pages
 3. Language detection in practice areas

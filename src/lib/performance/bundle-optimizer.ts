@@ -30,7 +30,7 @@ class BundleOptimizer {
   public analyzeBundleSize(): BundleAnalysis {
     // In a real implementation, this would analyze the webpack bundle
     // For now, we'll provide optimization recommendations based on common patterns
-    
+
     this.analysis.recommendations = [
       'Implement dynamic imports for large components',
       'Use React.lazy() for route-based code splitting',
@@ -49,7 +49,8 @@ class BundleOptimizer {
     const suggestions = [];
 
     // Large bundle suggestions
-    if (this.analysis.totalSize > 1000000) { // 1MB
+    if (this.analysis.totalSize > 1000000) {
+      // 1MB
       suggestions.push('Bundle size is large (>1MB). Consider code splitting.');
     }
 
@@ -255,7 +256,7 @@ export const optimizationUtils = {
   // Resource hints
   preloadResource: (href: string, as: string) => {
     if (typeof window === 'undefined') return;
-    
+
     const link = document.createElement('link');
     link.rel = 'preload';
     link.href = href;
@@ -266,7 +267,7 @@ export const optimizationUtils = {
   // Prefetch resource
   prefetchResource: (href: string) => {
     if (typeof window === 'undefined') return;
-    
+
     const link = document.createElement('link');
     link.rel = 'prefetch';
     link.href = href;
@@ -276,7 +277,7 @@ export const optimizationUtils = {
   // DNS prefetch
   dnsPrefetch: (domain: string) => {
     if (typeof window === 'undefined') return;
-    
+
     const link = document.createElement('link');
     link.rel = 'dns-prefetch';
     link.href = domain;

@@ -266,8 +266,8 @@ export function LocationPage({ city, state, customContent }: LocationPageProps) 
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Get Started?</h2>
             <p className="text-xl mb-8">
-              Contact our {city} office today for a free consultation. We&apos;re here to fight for you -
-              YO PELEO POR TI™!
+              Contact our {city} office today for a free consultation. We&apos;re here to fight for
+              you - YO PELEO POR TI™!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

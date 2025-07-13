@@ -9,7 +9,7 @@ async function fixPracticeAreaLinks() {
     // Find all location page files
     const locationFiles = await glob('src/app/locations/**/*.tsx', {
       cwd: process.cwd(),
-      absolute: false
+      absolute: false,
     });
 
     console.log(`Found ${locationFiles.length} location files to check...`);
@@ -24,14 +24,18 @@ async function fixPracticeAreaLinks() {
       // Check if file uses regular <a> tags for practice area links
       if (content.includes('<a href="/practice-areas/')) {
         // Add Link import if not present
-        if (!content.includes("import Link from 'next/link'") && !content.includes('import { Link }')) {
+        if (
+          !content.includes("import Link from 'next/link'") &&
+          !content.includes('import { Link }')
+        ) {
           // Find the last import statement
           const importMatch = content.match(/^import.*$/m);
           if (importMatch) {
             const lastImportIndex = content.lastIndexOf(importMatch[0]);
-            content = content.slice(0, lastImportIndex + importMatch[0].length) + 
-                     "\nimport Link from 'next/link';" + 
-                     content.slice(lastImportIndex + importMatch[0].length);
+            content =
+              content.slice(0, lastImportIndex + importMatch[0].length) +
+              "\nimport Link from 'next/link';" +
+              content.slice(lastImportIndex + importMatch[0].length);
           }
         }
 
@@ -71,7 +75,7 @@ async function fixPracticeAreaLinks() {
     // Also check for any other components that might have this issue
     const componentFiles = await glob('src/components/**/*.tsx', {
       cwd: process.cwd(),
-      absolute: false
+      absolute: false,
     });
 
     console.log(`\nChecking ${componentFiles.length} component files...`);
@@ -87,7 +91,6 @@ async function fixPracticeAreaLinks() {
         // as they might need more careful handling
       }
     }
-
   } catch (error) {
     console.error('Error fixing practice area links:', error);
     process.exit(1);

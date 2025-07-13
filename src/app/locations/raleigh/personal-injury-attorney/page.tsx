@@ -5,11 +5,14 @@ import { MasterLayout } from '@/design-system/templates/MasterLayout';
 
 export const metadata: Metadata = {
   title: 'Raleigh Personal Injury Attorney - Car Accidents & More | Vasquez Law',
-  description: 'Experienced Raleigh personal injury lawyers. Car accidents on I-40/I-440, truck crashes, slip & fall. No fee unless we win. Free consultation. Se habla español.',
-  keywords: 'Raleigh personal injury attorney, Raleigh personal injury lawyer, car accident lawyer Raleigh NC, truck accident attorney Raleigh, slip and fall lawyer Raleigh, wrongful death attorney Raleigh, Raleigh injury law firm, best personal injury lawyer Raleigh',
+  description:
+    'Experienced Raleigh personal injury lawyers. Car accidents on I-40/I-440, truck crashes, slip & fall. No fee unless we win. Free consultation. Se habla español.',
+  keywords:
+    'Raleigh personal injury attorney, Raleigh personal injury lawyer, car accident lawyer Raleigh NC, truck accident attorney Raleigh, slip and fall lawyer Raleigh, wrongful death attorney Raleigh, Raleigh injury law firm, best personal injury lawyer Raleigh',
   openGraph: {
     title: 'Raleigh Personal Injury Attorney - YO PELEO POR TI™ | Vasquez Law',
-    description: 'Raleigh\'s trusted personal injury law firm. We fight insurance companies to get you maximum compensation. No fee unless we win your case.',
+    description:
+      "Raleigh's trusted personal injury law firm. We fight insurance companies to get you maximum compensation. No fee unless we win your case.",
     images: [{ url: '/images/offices/raleigh-personal-injury-attorney.jpg' }],
     type: 'website',
     locale: 'en_US',
@@ -35,8 +38,9 @@ export default function RaleighPersonalInjuryAttorneyPage() {
     serviceName: 'Personal Injury',
     heroTitle: 'Raleigh Personal Injury Attorney',
     heroSubtitle: 'YO PELEO POR TI™',
-    heroDescription: 'Injured in North Carolina\'s capital? We fight insurance companies to get Wake County residents the compensation they deserve. No fee unless we win. Over $100 million recovered.',
-    
+    heroDescription:
+      "Injured in North Carolina's capital? We fight insurance companies to get Wake County residents the compensation they deserve. No fee unless we win. Over $100 million recovered.",
+
     localStats: {
       stat1: { value: '$75M+', label: 'Recovered in Wake County' },
       stat2: { value: '2,800+', label: 'Raleigh Cases Won' },
@@ -46,37 +50,47 @@ export default function RaleighPersonalInjuryAttorneyPage() {
 
     serviceDetails: {
       title: 'Raleigh Personal Injury Legal Services',
-      description: 'Comprehensive injury representation for accidents throughout Raleigh, Cary, and Wake County',
+      description:
+        'Comprehensive injury representation for accidents throughout Raleigh, Cary, and Wake County',
       services: [
         {
           name: 'Car & Truck Accidents',
-          description: 'Serious injuries from crashes on I-40, I-440, I-540, Capital Boulevard, and Raleigh streets.',
-          localInfo: 'Expert knowledge of Raleigh\'s most dangerous roads including Capital Blvd and Glenwood Ave',
+          description:
+            'Serious injuries from crashes on I-40, I-440, I-540, Capital Boulevard, and Raleigh streets.',
+          localInfo:
+            "Expert knowledge of Raleigh's most dangerous roads including Capital Blvd and Glenwood Ave",
         },
         {
           name: 'Motorcycle Accidents',
-          description: 'Protecting bikers\' rights after crashes on Raleigh roads. We fight insurance company bias.',
-          localInfo: 'Active in Raleigh\'s motorcycle community and Triangle rider safety advocacy',
+          description:
+            "Protecting bikers' rights after crashes on Raleigh roads. We fight insurance company bias.",
+          localInfo: "Active in Raleigh's motorcycle community and Triangle rider safety advocacy",
         },
         {
           name: 'Pedestrian & Bicycle Injuries',
-          description: 'Representing walkers and cyclists injured on Raleigh greenways, sidewalks, and streets.',
-          localInfo: 'Familiar with Raleigh\'s greenway system and pedestrian accident hotspots',
+          description:
+            'Representing walkers and cyclists injured on Raleigh greenways, sidewalks, and streets.',
+          localInfo: "Familiar with Raleigh's greenway system and pedestrian accident hotspots",
         },
         {
           name: 'Medical Malpractice',
-          description: 'Holding Raleigh hospitals and doctors accountable for medical errors and negligence.',
-          localInfo: 'Experience with WakeMed, Duke Raleigh, UNC Rex, and other Triangle medical facilities',
+          description:
+            'Holding Raleigh hospitals and doctors accountable for medical errors and negligence.',
+          localInfo:
+            'Experience with WakeMed, Duke Raleigh, UNC Rex, and other Triangle medical facilities',
         },
         {
           name: 'Premises Liability',
-          description: 'Slip and fall injuries at stores, restaurants, apartments, and government buildings.',
+          description:
+            'Slip and fall injuries at stores, restaurants, apartments, and government buildings.',
           localInfo: 'Knowledge of Wake County property codes and state capital safety standards',
         },
         {
           name: 'Wrongful Death',
-          description: 'Compassionate representation for families who\'ve lost loved ones due to negligence.',
-          localInfo: 'Understanding of North Carolina wrongful death laws with Wake County expertise',
+          description:
+            "Compassionate representation for families who've lost loved ones due to negligence.",
+          localInfo:
+            'Understanding of North Carolina wrongful death laws with Wake County expertise',
         },
       ],
     },
@@ -89,7 +103,7 @@ export default function RaleighPersonalInjuryAttorneyPage() {
         'Regular practice in Wake County Superior Court',
         'Understanding of Raleigh Police Department procedures',
         'Connections with local accident reconstruction experts',
-        'Bilingual team serving Raleigh\'s diverse communities',
+        "Bilingual team serving Raleigh's diverse communities",
       ],
     },
 
@@ -100,7 +114,8 @@ export default function RaleighPersonalInjuryAttorneyPage() {
       phone: '(919) 792-4000',
       hours: 'Monday-Friday: 8:00 AM - 5:00 PM',
       parkingInfo: 'Multiple parking decks available downtown',
-      additionalInfo: 'We regularly appear in Wake County courts and understand the local judges, procedures, and jury tendencies that can significantly impact your personal injury case outcome.',
+      additionalInfo:
+        'We regularly appear in Wake County courts and understand the local judges, procedures, and jury tendencies that can significantly impact your personal injury case outcome.',
     },
 
     testimonials: [
@@ -135,19 +150,23 @@ export default function RaleighPersonalInjuryAttorneyPage() {
     faqs: [
       {
         question: 'How much is my Raleigh injury case worth?',
-        answer: 'Case value depends on injury severity, medical costs, lost wages, and pain and suffering. Wake County juries tend to be fair but conservative. We offer free case evaluations to assess your claim\'s potential value based on similar Raleigh cases we\'ve won.',
+        answer:
+          "Case value depends on injury severity, medical costs, lost wages, and pain and suffering. Wake County juries tend to be fair but conservative. We offer free case evaluations to assess your claim's potential value based on similar Raleigh cases we've won.",
       },
       {
-        question: 'What\'s the deadline to file a personal injury lawsuit in Raleigh?',
-        answer: 'North Carolina has a 3-year statute of limitations for most personal injury cases. However, claims against the state, city of Raleigh, or government entities have much shorter deadlines. Contact us immediately to protect your rights.',
+        question: "What's the deadline to file a personal injury lawsuit in Raleigh?",
+        answer:
+          'North Carolina has a 3-year statute of limitations for most personal injury cases. However, claims against the state, city of Raleigh, or government entities have much shorter deadlines. Contact us immediately to protect your rights.',
       },
       {
         question: 'What if I was partially at fault for my Raleigh accident?',
-        answer: 'North Carolina\'s contributory negligence rule is harsh - even 1% fault can bar recovery. However, we\'ve successfully overcome this defense many times in Wake County courts. Don\'t assume you have no case without professional evaluation.',
+        answer:
+          "North Carolina's contributory negligence rule is harsh - even 1% fault can bar recovery. However, we've successfully overcome this defense many times in Wake County courts. Don't assume you have no case without professional evaluation.",
       },
       {
         question: 'Do you handle cases against the state government in Raleigh?',
-        answer: 'Yes. We have experience with claims against state agencies, NC State University, and other government entities. These cases have special rules and shorter deadlines, but we know how to navigate the complexities.',
+        answer:
+          'Yes. We have experience with claims against state agencies, NC State University, and other government entities. These cases have special rules and shorter deadlines, but we know how to navigate the complexities.',
       },
     ],
 
@@ -190,7 +209,8 @@ export default function RaleighPersonalInjuryAttorneyPage() {
       'All Wake County',
     ],
 
-    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3236.5661!2d-78.6382!3d35.7796!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDQ2JzQ2LjYiTiA3OMKwMzgnMTcuNSJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
+    mapEmbedUrl:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3236.5661!2d-78.6382!3d35.7796!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDQ2JzQ2LjYiTiA3OMKwMzgnMTcuNSJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
 
     // SEO-optimized content sections
     whyHireUs: {
@@ -209,7 +229,7 @@ export default function RaleighPersonalInjuryAttorneyPage() {
       <MasterLayout variant="default" showBreadcrumbs={true}>
         <ModernServiceLocationTemplate data={serviceLocationData} />
       </MasterLayout>
-      
+
       {/* Local Business Schema */}
       <Script
         id="raleigh-personal-injury-attorney-schema"
@@ -220,7 +240,8 @@ export default function RaleighPersonalInjuryAttorneyPage() {
             '@type': 'LegalService',
             '@id': 'https://www.vasquezlawfirm.com/locations/raleigh/personal-injury-attorney',
             name: 'Vasquez Law Firm - Raleigh Personal Injury Attorney',
-            description: 'Experienced Raleigh personal injury lawyers. Car accidents, truck crashes, slip & fall. No fee unless we win.',
+            description:
+              'Experienced Raleigh personal injury lawyers. Car accidents, truck crashes, slip & fall. No fee unless we win.',
             url: 'https://www.vasquezlawfirm.com/locations/raleigh/personal-injury-attorney',
             telephone: '+1-844-967-3536',
             address: {
@@ -268,7 +289,8 @@ export default function RaleighPersonalInjuryAttorneyPage() {
                   itemOffered: {
                     '@type': 'Service',
                     name: 'Car Accident Representation',
-                    description: 'Legal representation for car accident victims in Raleigh and Wake County',
+                    description:
+                      'Legal representation for car accident victims in Raleigh and Wake County',
                   },
                 },
                 {

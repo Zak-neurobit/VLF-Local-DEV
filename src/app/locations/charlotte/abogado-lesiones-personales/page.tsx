@@ -5,11 +5,14 @@ import { MasterLayout } from '@/design-system/templates/MasterLayout';
 
 export const metadata: Metadata = {
   title: 'Abogado de Lesiones Personales en Charlotte - Accidentes y Más | Vasquez Law',
-  description: 'Abogados expertos en lesiones personales en Charlotte. Accidentes de auto, camiones, caídas, muerte injusta. No cobramos si no ganamos. Consulta gratis. Hablamos español.',
-  keywords: 'abogado lesiones personales Charlotte, abogado accidentes Charlotte NC, abogado accidente auto Charlotte, abogado accidente camion Charlotte, abogado caidas Charlotte, abogado muerte injusta Charlotte',
+  description:
+    'Abogados expertos en lesiones personales en Charlotte. Accidentes de auto, camiones, caídas, muerte injusta. No cobramos si no ganamos. Consulta gratis. Hablamos español.',
+  keywords:
+    'abogado lesiones personales Charlotte, abogado accidentes Charlotte NC, abogado accidente auto Charlotte, abogado accidente camion Charlotte, abogado caidas Charlotte, abogado muerte injusta Charlotte',
   openGraph: {
     title: 'Abogado de Lesiones Personales en Charlotte - YO PELEO POR TI™',
-    description: 'El bufete de lesiones personales más confiable de Charlotte. Luchamos contra las aseguradoras para obtener la máxima compensación. No cobramos si no ganamos.',
+    description:
+      'El bufete de lesiones personales más confiable de Charlotte. Luchamos contra las aseguradoras para obtener la máxima compensación. No cobramos si no ganamos.',
     images: [{ url: '/images/offices/charlotte-abogado-lesiones-personales.jpg' }],
     type: 'website',
     locale: 'es_US',
@@ -35,8 +38,9 @@ export default function CharlotteAbogadoLesionesPersonalesPage() {
     serviceName: 'Lesiones Personales',
     heroTitle: 'Abogado de Lesiones Personales en Charlotte',
     heroSubtitle: 'YO PELEO POR TI™',
-    heroDescription: '¿Herido en Charlotte? Luchamos contra las compañías de seguros para obtener la compensación que mereces. No cobramos si no ganamos. Más de $100 millones recuperados para clientes.',
-    
+    heroDescription:
+      '¿Herido en Charlotte? Luchamos contra las compañías de seguros para obtener la compensación que mereces. No cobramos si no ganamos. Más de $100 millones recuperados para clientes.',
+
     localStats: {
       stat1: { value: '$100M+', label: 'Recuperados para Clientes' },
       stat2: { value: '3,500+', label: 'Casos Ganados en Charlotte' },
@@ -46,36 +50,46 @@ export default function CharlotteAbogadoLesionesPersonalesPage() {
 
     serviceDetails: {
       title: 'Servicios Legales de Lesiones Personales en Charlotte',
-      description: 'Representación completa para accidentes en todo Charlotte y el Condado de Mecklenburg',
+      description:
+        'Representación completa para accidentes en todo Charlotte y el Condado de Mecklenburg',
       services: [
         {
           name: 'Accidentes de Auto y Camión',
-          description: 'Lesiones graves en choques en I-77, I-85, I-485 y calles de Charlotte. Manejamos todas las negociaciones con seguros.',
-          localInfo: 'Conocimiento experto de las intersecciones y autopistas más peligrosas de Charlotte',
+          description:
+            'Lesiones graves en choques en I-77, I-85, I-485 y calles de Charlotte. Manejamos todas las negociaciones con seguros.',
+          localInfo:
+            'Conocimiento experto de las intersecciones y autopistas más peligrosas de Charlotte',
         },
         {
           name: 'Accidentes de Motocicleta',
-          description: 'Protegiendo los derechos de motociclistas después de accidentes. Entendemos el prejuicio que enfrentan de las aseguradoras.',
+          description:
+            'Protegiendo los derechos de motociclistas después de accidentes. Entendemos el prejuicio que enfrentan de las aseguradoras.',
           localInfo: 'Activos en la comunidad motociclista de Charlotte y defensa de seguridad',
         },
         {
           name: 'Caídas y Resbalones',
-          description: 'Casos de responsabilidad en tiendas, restaurantes, apartamentos y propiedad pública en Charlotte.',
-          localInfo: 'Familiarizados con códigos de propiedad y estándares de seguridad en Mecklenburg',
+          description:
+            'Casos de responsabilidad en tiendas, restaurantes, apartamentos y propiedad pública en Charlotte.',
+          localInfo:
+            'Familiarizados con códigos de propiedad y estándares de seguridad en Mecklenburg',
         },
         {
           name: 'Negligencia Médica',
-          description: 'Responsabilizando a hospitales y doctores de Charlotte por errores médicos y negligencia.',
-          localInfo: 'Experiencia con Atrium Health, Novant y otras instalaciones médicas de Charlotte',
+          description:
+            'Responsabilizando a hospitales y doctores de Charlotte por errores médicos y negligencia.',
+          localInfo:
+            'Experiencia con Atrium Health, Novant y otras instalaciones médicas de Charlotte',
         },
         {
           name: 'Muerte Injusta',
-          description: 'Representación compasiva para familias que han perdido seres queridos por negligencia.',
+          description:
+            'Representación compasiva para familias que han perdido seres queridos por negligencia.',
           localInfo: 'Comprensión de las leyes de Carolina del Norte y procedimientos locales',
         },
         {
           name: 'Compensación Laboral',
-          description: 'Luchando por los derechos de trabajadores lesionados a atención médica y beneficios salariales.',
+          description:
+            'Luchando por los derechos de trabajadores lesionados a atención médica y beneficios salariales.',
           localInfo: 'Conocimiento de empleadores principales de Charlotte y patrones de lesiones',
         },
       ],
@@ -100,7 +114,8 @@ export default function CharlotteAbogadoLesionesPersonalesPage() {
       phone: '(704) 686-0700',
       hours: 'Lunes-Viernes: 8:00 AM - 5:00 PM',
       parkingInfo: 'Estacionamiento pagado disponible en estructuras cercanas',
-      additionalInfo: 'Aparecemos regularmente en las cortes del Condado de Mecklenburg y conocemos a los jueces, procedimientos y reglas locales que pueden impactar el resultado de su caso.',
+      additionalInfo:
+        'Aparecemos regularmente en las cortes del Condado de Mecklenburg y conocemos a los jueces, procedimientos y reglas locales que pueden impactar el resultado de su caso.',
     },
 
     testimonials: [
@@ -135,19 +150,23 @@ export default function CharlotteAbogadoLesionesPersonalesPage() {
     faqs: [
       {
         question: '¿Cuánto vale mi caso de lesiones en Charlotte?',
-        answer: 'El valor del caso depende de la gravedad de lesiones, costos médicos, salarios perdidos y dolor y sufrimiento. Ofrecemos evaluaciones gratuitas para valorar el potencial de su reclamo. Nuestros abogados han recuperado millones para clientes con lesiones similares.',
+        answer:
+          'El valor del caso depende de la gravedad de lesiones, costos médicos, salarios perdidos y dolor y sufrimiento. Ofrecemos evaluaciones gratuitas para valorar el potencial de su reclamo. Nuestros abogados han recuperado millones para clientes con lesiones similares.',
       },
       {
         question: '¿Cuánto tiempo tengo para demandar por lesiones en Charlotte?',
-        answer: 'Carolina del Norte tiene 3 años de plazo para la mayoría de casos de lesiones personales. Sin embargo, algunos casos tienen plazos más cortos. Contáctenos inmediatamente para proteger sus derechos - esperar demasiado podría impedir su recuperación.',
+        answer:
+          'Carolina del Norte tiene 3 años de plazo para la mayoría de casos de lesiones personales. Sin embargo, algunos casos tienen plazos más cortos. Contáctenos inmediatamente para proteger sus derechos - esperar demasiado podría impedir su recuperación.',
       },
       {
         question: '¿Qué pasa si tuve parte de culpa en mi accidente en Charlotte?',
-        answer: 'Carolina del Norte sigue reglas de negligencia contributiva - si tiene incluso 1% de culpa, podría no recuperar nada. Sin embargo, hemos superado esta defensa muchas veces. No asuma que no tiene caso - permítanos evaluarlo gratis.',
+        answer:
+          'Carolina del Norte sigue reglas de negligencia contributiva - si tiene incluso 1% de culpa, podría no recuperar nada. Sin embargo, hemos superado esta defensa muchas veces. No asuma que no tiene caso - permítanos evaluarlo gratis.',
       },
       {
         question: '¿Cuánto cobra un abogado de lesiones personales en Charlotte?',
-        answer: 'Trabajamos por contingencia - SIN COSTO si no ganamos su caso. Adelantamos todos los gastos y solo cobramos de su arreglo o veredicto. Las consultas iniciales son siempre gratis sin obligación.',
+        answer:
+          'Trabajamos por contingencia - SIN COSTO si no ganamos su caso. Adelantamos todos los gastos y solo cobramos de su arreglo o veredicto. Las consultas iniciales son siempre gratis sin obligación.',
       },
     ],
 
@@ -194,7 +213,8 @@ export default function CharlotteAbogadoLesionesPersonalesPage() {
       'Waxhaw',
     ],
 
-    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3259.8651648937!2d-80.8433!3d35.2271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDEzJzM3LjYiTiA4MMKwNTAnMzUuOSJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
+    mapEmbedUrl:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3259.8651648937!2d-80.8433!3d35.2271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDEzJzM3LjYiTiA4MMKwNTAnMzUuOSJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
 
     // SEO-optimized content sections
     whyHireUs: {
@@ -213,7 +233,7 @@ export default function CharlotteAbogadoLesionesPersonalesPage() {
       <MasterLayout variant="default" showBreadcrumbs={true}>
         <ModernServiceLocationTemplate data={serviceLocationData} language="es" />
       </MasterLayout>
-      
+
       {/* Local Business Schema in Spanish */}
       <Script
         id="charlotte-abogado-lesiones-schema"
@@ -224,7 +244,8 @@ export default function CharlotteAbogadoLesionesPersonalesPage() {
             '@type': 'LegalService',
             '@id': 'https://www.vasquezlawfirm.com/locations/charlotte/abogado-lesiones-personales',
             name: 'Vasquez Law Firm - Abogado de Lesiones Personales en Charlotte',
-            description: 'Abogados expertos en lesiones personales en Charlotte. Accidentes de auto, camiones, caídas. No cobramos si no ganamos.',
+            description:
+              'Abogados expertos en lesiones personales en Charlotte. Accidentes de auto, camiones, caídas. No cobramos si no ganamos.',
             url: 'https://www.vasquezlawfirm.com/locations/charlotte/abogado-lesiones-personales',
             telephone: '+1-844-967-3536',
             address: {

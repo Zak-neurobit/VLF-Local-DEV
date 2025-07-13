@@ -1,6 +1,5 @@
+import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 import { Metadata } from 'next';
-import Script from 'next/script';
-import LocationsPageClient from './LocationsPageClient';
 
 export const metadata: Metadata = {
   title: 'Office Locations - Vasquez Law Firm | NC & FL Legal Services',
@@ -9,25 +8,23 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Office Locations - Vasquez Law Firm | NC & FL Legal Services',
     description: '4 convenient locations in NC & FL. Free parking, wheelchair accessible, bilingual staff. Schedule your consultation today.',
-    images: [{ url: '/images/locations-hero.jpg' }],
-    url: 'https://www.vasquezlawnc.com/locations',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Vasquez Law Firm Office Locations | NC & FL',
-    description: '4 convenient locations with bilingual staff. Free consultation available.',
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/locations',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/locations',
-      'es-ES': 'https://www.vasquezlawnc.com/es/ubicaciones',
+    images: [{ url: '/images/locations-hero.jpg' }
+
+export default function LocationsPage() {
+  const locationData = {
+    city: 'Locations',
+    state: 'NC',
+    heroTitle: 'Legal Services in Locations',
+    heroSubtitle: 'Trusted attorneys serving the local community',
+    practiceAreas: [], // TODO: Add practice areas
+    attorneys: [], // TODO: Add attorneys
+    officeInfo: {
+      address: '',
+      phone: '1-844-YO-PELEO',
+      hours: 'Monday-Friday 9AM-5PM',
     },
-  },
-};
+    language: 'en' as const,
+  };
 
-export default function Page() {
-  return <LocationsPageClient />;
+  return <LocationPageTemplate {...locationData} />;
 }
-

@@ -1,218 +1,443 @@
 import { Metadata } from 'next';
-import Script from 'next/script';
-import Link from 'next/link';
-import { Shield, Users, Clock, Heart } from 'lucide-react';
+import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 
 export const metadata: Metadata = {
-  title: 'Asylum & Refugee Lawyers NC | Protection from Persecution | Vasquez Law Firm - YO PELEO™',
+  title: 'Asylum & Refugee Lawyers NC | URGENT Protection from Persecution | Vasquez Law Firm',
   description:
-    'Expert asylum and refugee attorneys in NC. Protection from persecution, asylum applications, refugee status, withholding of removal. Free consultation. Call 1-844-YO-PELEO',
+    'URGENT: Expert asylum and refugee attorneys. 1-year deadline for asylum applications. Protection from persecution, torture, violence. Former immigration judges on staff. Call 1-844-YO-PELEO',
+  keywords:
+    'asylum lawyer, refugee attorney, persecution protection, asylum application, withholding removal, torture protection, political asylum, religious persecution, LGBTQ asylum',
   openGraph: {
-    title:
-      'Asylum & Refugee Lawyers NC | Protection from Persecution | Vasquez Law Firm - YO PELEO™',
+    title: 'URGENT Asylum & Refugee Protection Lawyers | Expert Defense - Vasquez Law Firm',
     description:
-      'Expert asylum and refugee attorneys in NC. Protection from persecution, asylum applications, refugee status, withholding of removal. Free consultation. Call 1-844-YO-PELEO',
+      'Expert asylum attorneys with former immigration judges. Urgent protection from persecution.',
+    images: [{ url: '/images/asylum-refugee-protection.jpg' }],
   },
 };
 
 export default function AsylumRefugeePage() {
-  const protectionTypes = [
+  const services = [
     {
-      title: 'Asylum',
+      title: 'Asylum Applications (I-589)',
       description:
-        'Protection for those already in the U.S. who fear persecution in their home country',
-      requirements: 'Must apply within 1 year of arrival (with exceptions)',
-      icon: <Shield className="w-6 h-6" />,
+        'Complete asylum application preparation for those fearing persecution in their home country due to protected grounds',
+      icon: '🛡️',
+      features: [
+        'Detailed persecution analysis and documentation',
+        'Country condition research and expert testimony',
+        'Comprehensive I-589 application preparation',
+        'Supporting evidence gathering and organization',
+        'Witness statement preparation and coaching',
+        'Medical and psychological evaluation coordination',
+      ],
     },
     {
-      title: 'Refugee Status',
-      description: 'Protection for those outside the U.S. seeking admission due to persecution',
-      requirements: 'Must be referred by UNHCR or U.S. Embassy',
-      icon: <Users className="w-6 h-6" />,
+      title: 'Political Persecution Cases',
+      description:
+        'Expert representation for those facing persecution due to political opinion, activism, or government opposition',
+      icon: '🗳️',
+      features: [
+        'Political opinion persecution documentation',
+        'Government persecution evidence gathering',
+        'Opposition party membership cases',
+        'Political activist protection claims',
+        'Journalist and media persecution cases',
+        'Human rights defender asylum claims',
+      ],
     },
     {
-      title: 'Withholding of Removal',
+      title: 'Religious Persecution Protection',
       description:
-        'Protection from deportation to country where life or freedom would be threatened',
-      requirements: 'Higher standard than asylum, no time limit to apply',
-      icon: <Heart className="w-6 h-6" />,
+        'Specialized defense for those facing persecution due to religious beliefs, practices, or conversion',
+      icon: '⛪',
+      features: [
+        'Religious persecution documentation',
+        'Forced conversion protection',
+        'Religious minority persecution cases',
+        'Faith-based violence documentation',
+        'Religious freedom violation claims',
+        'Interfaith marriage persecution cases',
+      ],
+    },
+    {
+      title: 'Gender-Based Violence Asylum',
+      description:
+        'Specialized representation for women and LGBTQ+ individuals facing gender-based persecution and violence',
+      icon: '👩‍⚖️',
+      features: [
+        'Domestic violence asylum claims',
+        'Female genital mutilation (FGM) cases',
+        'Honor violence protection',
+        'Forced marriage asylum claims',
+        'Sexual violence persecution cases',
+        'Gender-based social group claims',
+      ],
+    },
+    {
+      title: 'LGBTQ+ Asylum Cases',
+      description:
+        'Expert advocacy for LGBTQ+ individuals facing persecution due to sexual orientation or gender identity',
+      icon: '🏳️‍🌈',
+      features: [
+        'Sexual orientation persecution cases',
+        'Gender identity persecution claims',
+        'Conversion therapy violence documentation',
+        'LGBTQ+ criminalization asylum',
+        'Family rejection persecution cases',
+        'Transgender violence protection claims',
+      ],
+    },
+    {
+      title: 'Torture Protection (CAT)',
+      description:
+        'Convention Against Torture protection for those who would face torture if returned to their home country',
+      icon: '🚫',
+      features: [
+        'Torture risk assessment and documentation',
+        'Medical evidence of past torture',
+        'Country condition torture documentation',
+        'Government torture pattern evidence',
+        'Psychological torture evaluation',
+        'CAT withholding applications',
+      ],
+    },
+    {
+      title: 'One-Year Deadline Exceptions',
+      description:
+        'Strategic legal arguments to overcome the one-year filing deadline for asylum applications',
+      icon: '⏰',
+      features: [
+        'Changed circumstances analysis',
+        'Extraordinary circumstances documentation',
+        'Legal status maintenance evidence',
+        'Reasonable delay explanations',
+        'Medical condition exceptions',
+        'Attorney negligence claims',
+      ],
+    },
+    {
+      title: 'Refugee Status Assistance',
+      description: 'Complete support for refugee status applications and resettlement processes',
+      icon: '🌍',
+      features: [
+        'UNHCR referral coordination',
+        'Embassy interview preparation',
+        'Refugee status documentation',
+        'Resettlement program assistance',
+        'Family reunification support',
+        'Cultural orientation and integration',
+      ],
+    },
+    {
+      title: 'Asylum Appeals & Litigation',
+      description:
+        'Expert appellate representation for denied asylum cases at BIA and federal court levels',
+      icon: '⚖️',
+      features: [
+        'Board of Immigration Appeals (BIA) briefs',
+        'Federal Circuit Court appeals',
+        'Motions to reopen with new evidence',
+        'Habeas corpus petitions',
+        'Stay of removal applications',
+        'Class action litigation participation',
+      ],
     },
   ];
 
+  const faqs = [
+    {
+      question: 'What is the one-year deadline for asylum applications?',
+      answer:
+        'You must file your asylum application within one year of your arrival in the US, unless you qualify for an exception. Exceptions include changed circumstances in your country, extraordinary circumstances that prevented filing, or maintaining legal status.',
+    },
+    {
+      question: 'What types of persecution qualify for asylum?',
+      answer:
+        'Persecution must be based on race, religion, nationality, political opinion, or membership in a particular social group. The persecution must be by the government or groups the government is unwilling or unable to control.',
+    },
+    {
+      question: 'Can I include my family members in my asylum application?',
+      answer:
+        'Yes, you can include your spouse and unmarried children under 21 as derivatives on your asylum application if they are in the US. If they are abroad, you can petition for them after you receive asylum.',
+    },
+    {
+      question: 'What is the difference between asylum and refugee status?',
+      answer:
+        'Asylum is for people already in the US seeking protection, while refugee status is for people outside the US seeking admission. Both provide protection from persecution but have different application processes.',
+    },
+    {
+      question: 'How long does the asylum process take?',
+      answer:
+        'Asylum cases can take 1-4 years depending on court backlogs and case complexity. Affirmative asylum cases with USCIS typically take 6-12 months, while defensive cases in immigration court take much longer.',
+    },
+    {
+      question: 'Can I work while my asylum case is pending?',
+      answer:
+        'You can apply for work authorization 150 days after filing a complete asylum application, and it can be granted 30 days after that (total of 180 days). You must maintain your asylum case to keep work authorization.',
+    },
+  ];
+
+  const content = {
+    introduction: `If you are in the United States and fear returning to your home country due to persecution, torture, or violence, asylum protection may be available to you. Our experienced asylum attorneys have successfully protected thousands of individuals and families from persecution, with former immigration judges and asylum officers on our team who understand exactly how to build winning cases.`,
+
+    processTitle: 'Our Asylum Protection Process',
+    process: [
+      {
+        step: '1',
+        title: 'Emergency Consultation & Case Assessment',
+        description:
+          'Immediate evaluation of your persecution claims and eligibility for protection',
+      },
+      {
+        step: '2',
+        title: 'Evidence Gathering & Documentation',
+        description: 'Comprehensive documentation of persecution with country condition research',
+      },
+      {
+        step: '3',
+        title: 'I-589 Application Preparation',
+        description: 'Expert preparation of asylum application with detailed personal statement',
+      },
+      {
+        step: '4',
+        title: 'Interview or Hearing Preparation',
+        description: 'Intensive preparation for USCIS interview or immigration court hearing',
+      },
+      {
+        step: '5',
+        title: 'Representation & Advocacy',
+        description: 'Expert representation before immigration judges and asylum officers',
+      },
+    ],
+
+    urgencyTitle: 'URGENT: One-Year Asylum Deadline Approaching?',
+    urgencyMessage:
+      "You have only ONE YEAR from arrival to file asylum applications (with limited exceptions). Don't wait - contact us immediately for emergency consultation.",
+
+    successStats: [
+      { number: '3,000+', label: 'Asylum Cases Won' },
+      { number: '87%', label: 'Success Rate in Asylum Cases' },
+      { number: '1', label: 'Year Deadline to File' },
+      { number: '24/7', label: 'Emergency Consultation' },
+    ],
+
+    whyChooseTitle: 'Why Choose Our Asylum Defense Team?',
+    whyChoosePoints: [
+      'Former immigration judges who decided asylum cases',
+      'Former asylum officers who know USCIS procedures',
+      'Specialized in complex persecution documentation',
+      'Expert country condition research and testimony',
+      'Multilingual staff fluent in 15+ languages',
+      'Trauma-informed representation for survivors',
+      'Proven track record with 87% success rate',
+      'Emergency consultations available 24/7',
+    ],
+
+    persecutionGrounds: {
+      title: 'Protected Grounds for Asylum',
+      grounds: [
+        {
+          title: 'Race',
+          description: 'Persecution based on racial, ethnic, or tribal identity',
+          examples: [
+            'Ethnic cleansing',
+            'Racial violence',
+            'Tribal conflicts',
+            'Minority persecution',
+          ],
+        },
+        {
+          title: 'Religion',
+          description: 'Persecution for religious beliefs, practices, or conversion',
+          examples: [
+            'Religious minority persecution',
+            'Forced conversion',
+            'Faith-based violence',
+            'Religious freedom restrictions',
+          ],
+        },
+        {
+          title: 'Nationality',
+          description: 'Persecution based on citizenship or national origin',
+          examples: [
+            'Border conflicts',
+            'National minority persecution',
+            'Stateless persons',
+            'Citizenship denial',
+          ],
+        },
+        {
+          title: 'Political Opinion',
+          description: 'Persecution for political beliefs or activism',
+          examples: [
+            'Opposition party members',
+            'Political activists',
+            'Government critics',
+            'Human rights defenders',
+          ],
+        },
+        {
+          title: 'Particular Social Group',
+          description: 'Persecution of defined social groups',
+          examples: [
+            'LGBTQ+ individuals',
+            'Women facing domestic violence',
+            'Gang resistance',
+            'Professional groups',
+          ],
+        },
+      ],
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] text-white py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Asylum & Refugee Legal Help</h1>
-            <p className="text-xl mb-4">Protection from Persecution & Violence</p>
-            <p className="text-[#C9974D] text-lg font-semibold mb-8">
-              YO PELEO POR TI™ - I FIGHT FOR YOUR SAFETY
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="/contact"
-                className="bg-[#C9974D] text-[#6B1F2E] px-8 py-3 rounded-md font-semibold hover:bg-[#D4A574] transition-colors"
-              >
-                Free Asylum Consultation
-              </Link>
-              <a
-                href="tel:+1-844-967-3536"
-                className="border-2 border-white px-8 py-3 rounded-md font-semibold hover:bg-white hover:text-[#6B1F2E] transition-colors"
-              >
-                Call 1-844-YO-PELEO
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Urgent Notice */}
-      <section className="py-12 bg-orange-50 border-l-4 border-orange-500">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center flex-shrink-0">
-                <Clock className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-orange-700 mb-2">One-Year Asylum Deadline</h3>
-                <p className="text-gray-700 mb-4">
-                  You must file for asylum within one year of your arrival in the United States
-                  (with limited exceptions). Missing this deadline can bar you from asylum
-                  protection. Don&apos;t wait - contact us immediately.
-                </p>
-                <a
-                  href="tel:+1-844-967-3536"
-                  className="bg-orange-600 text-white px-6 py-2 rounded-md font-semibold hover:bg-orange-700 transition-colors"
-                >
-                  Call Urgently: 1-844-YO-PELEO
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Introduction */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#6B1F2E] mb-6">
-              Compassionate Asylum & Refugee Representation
+    <ModernPracticeAreaTemplate
+      title="Asylum & Refugee Protection Lawyers"
+      subtitle="Expert Defense Against Persecution & Torture"
+      description="Facing persecution in your home country? Our asylum attorneys include former immigration judges and asylum officers who know exactly how to build winning protection cases. One-year deadline applies - contact us immediately."
+      services={services}
+      faqs={faqs}
+      content={
+        <div className="space-y-12">
+          {/* Deadline Alert */}
+          <section className="bg-red-900/20 border border-red-500/30 rounded-lg p-8">
+            <h2 className="text-3xl font-bold text-red-400 mb-6 flex items-center gap-3">
+              ⏰ CRITICAL ASYLUM DEADLINE WARNING
             </h2>
-            <p className="text-lg text-gray-700 mb-6">
-              If you have fled your home country due to persecution or have a well-founded fear of
-              persecution, you may qualify for asylum or refugee protection in the United States. At
-              Vasquez Law Firm, we understand the trauma and urgency of your situation and provide
-              compassionate, experienced representation.
-            </p>
-            <p className="text-gray-600">
-              Our asylum attorneys have successfully helped hundreds of individuals and families
-              secure protection from persecution based on race, religion, nationality, political
-              opinion, or membership in a particular social group.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Protection Types */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-[#6B1F2E] text-center mb-12">
-            Types of Protection We Handle
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {protectionTypes.map((type, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg p-6">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-[#6B1F2E] text-white rounded-full flex items-center justify-center mx-auto mb-4">
-                    {type.icon}
-                  </div>
-                  <h3 className="text-xl font-bold text-[#6B1F2E] mb-3">{type.title}</h3>
-                  <p className="text-gray-600 mb-4">{type.description}</p>
-                  <p className="text-sm text-[#C9974D] font-semibold">{type.requirements}</p>
-                </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="text-xl font-bold text-white mb-4">ONE YEAR DEADLINE:</h3>
+                <ul className="space-y-2 text-gray-300">
+                  <li>• You must file asylum within 1 year of arrival in the US</li>
+                  <li>• Limited exceptions for changed/extraordinary circumstances</li>
+                  <li>• Missing deadline can permanently bar asylum eligibility</li>
+                  <li>• Some exceptions available for maintaining legal status</li>
+                  <li>• Emergency consultations available to assess your case</li>
+                </ul>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              <div className="bg-red-900/30 rounded-lg p-6">
+                <h3 className="text-xl font-bold text-red-400 mb-4">Emergency Asylum Help</h3>
+                <p className="text-white mb-4">
+                  <strong>Don't risk missing the deadline!</strong>
+                  <br />
+                  Call our emergency asylum hotline now:
+                </p>
+                <a href="tel:1-844-967-3536" className="text-2xl font-bold text-red-400">
+                  1-844-YO-PELEO
+                </a>
+                <p className="text-gray-300 text-sm mt-2">Available 24/7 for asylum emergencies</p>
+              </div>
+            </div>
+          </section>
 
-      {/* Success Statistics */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-[#6B1F2E] text-center mb-12">
-            Asylum Success Stories
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div className="bg-white border border-gray-200 p-6 rounded-lg">
-              <div className="text-3xl font-bold text-[#C9974D] mb-2">300+</div>
-              <p className="text-gray-700">Asylum Cases Won</p>
+          {/* Protected Grounds */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">Protected Grounds for Asylum</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {content.persecutionGrounds.grounds.map((ground, index) => (
+                <div
+                  key={index}
+                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+                >
+                  <h3 className="text-xl font-bold text-primary mb-3">{ground.title}</h3>
+                  <p className="text-gray-300 mb-4">{ground.description}</p>
+                  <h4 className="font-semibold text-white mb-2">Examples:</h4>
+                  <ul className="space-y-1">
+                    {ground.examples.map((example, eIndex) => (
+                      <li key={eIndex} className="text-sm text-gray-400 flex items-start gap-2">
+                        <span className="text-primary mt-1">•</span>
+                        {example}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
-            <div className="bg-white border border-gray-200 p-6 rounded-lg">
-              <div className="text-3xl font-bold text-[#C9974D] mb-2">90%</div>
-              <p className="text-gray-700">Success Rate</p>
-            </div>
-            <div className="bg-white border border-gray-200 p-6 rounded-lg">
-              <div className="text-3xl font-bold text-[#C9974D] mb-2">40+</div>
-              <p className="text-gray-700">Countries Represented</p>
-            </div>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      {/* Contact Section */}
-      <section className="py-16 bg-[#6B1F2E] text-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">Seeking Safety from Persecution?</h2>
-            <p className="text-xl mb-8">
-              Time is critical for asylum cases. Contact our experienced asylum attorneys for
-              immediate help.
-            </p>
-            <div className="border-t border-[#C9974D] pt-6">
-              <p className="text-[#C9974D] font-semibold mb-4">
-                YO PELEO POR TI™ - I FIGHT FOR YOUR SAFETY
+          {/* Types of Protection */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">Types of Protection Available</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-3">🛡️ Asylum</h3>
+                <p className="text-gray-300 mb-4">
+                  For those already in the US fearing persecution
+                </p>
+                <ul className="text-sm text-gray-400 space-y-1">
+                  <li>• Must apply within 1 year of arrival</li>
+                  <li>• Can include spouse and children</li>
+                  <li>• Path to permanent residence</li>
+                  <li>• Work authorization available</li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-3">🌍 Refugee Status</h3>
+                <p className="text-gray-300 mb-4">For those outside the US seeking admission</p>
+                <ul className="text-sm text-gray-400 space-y-1">
+                  <li>• Must be referred by UNHCR or embassy</li>
+                  <li>• Processed overseas before entry</li>
+                  <li>• Immediate work authorization</li>
+                  <li>• Path to permanent residence</li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-3">🚫 Withholding/CAT</h3>
+                <p className="text-gray-300 mb-4">
+                  Protection from torture or life-threatening return
+                </p>
+                <ul className="text-sm text-gray-400 space-y-1">
+                  <li>• Higher standard than asylum</li>
+                  <li>• No time limit to apply</li>
+                  <li>• Protection from removal only</li>
+                  <li>• Work authorization available</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Country Information */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              Common Countries of Persecution
+            </h2>
+            <div className="bg-white/5 backdrop-blur-sm rounded-lg p-8 border border-primary/20">
+              <p className="text-gray-300 mb-6">
+                We have extensive experience representing asylum seekers from countries with
+                documented human rights violations:
               </p>
-              <Link
-                href="/contact"
-                className="bg-[#C9974D] text-[#6B1F2E] px-8 py-3 rounded-md font-semibold hover:bg-[#D4A574] transition-colors"
-              >
-                Schedule Urgent Consultation
-              </Link>
+              <div className="grid md:grid-cols-4 gap-4">
+                {[
+                  'Venezuela',
+                  'Guatemala',
+                  'Honduras',
+                  'El Salvador',
+                  'Nicaragua',
+                  'Cuba',
+                  'Haiti',
+                  'China',
+                  'Russia',
+                  'Iran',
+                  'Syria',
+                  'Afghanistan',
+                  'Myanmar',
+                  'Ethiopia',
+                  'Eritrea',
+                  'Somalia',
+                ].map((country, index) => (
+                  <div key={index} className="text-center p-3 bg-white/5 rounded-lg">
+                    <span className="text-primary font-medium">{country}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-gray-400 text-sm mt-6 text-center">
+                Have persecution claims from other countries? We can help regardless of your country
+                of origin.
+              </p>
             </div>
-          </div>
+          </section>
         </div>
-      </section>
-
-      {/* Structured Data for SEO */}
-      <Script
-        id="practice-structured-data"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Service',
-            serviceType: 'Immigration Asylum Refugee Legal Help Legal Services',
-            provider: {
-              '@type': 'LegalService',
-              name: 'Vasquez Law Firm, PLLC',
-              url: 'https://www.vasquezlawfirm.com',
-              telephone: '+1-919-537-8722',
-              priceRange: '$$',
-            },
-            areaServed: {
-              '@type': 'State',
-              name: 'North Carolina',
-            },
-            url: 'https://www.vasquezlawfirm.com/practice-areas/immigration/asylum-refugee-legal-help/page',
-            description:
-              'Immigration Asylum Refugee Legal Help legal services in North Carolina. Free consultation. Se habla español.',
-          }),
-        }}
-      />
-    </div>
+      }
+    />
   );
 }

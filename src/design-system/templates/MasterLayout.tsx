@@ -13,14 +13,14 @@ interface MasterLayoutProps {
   showBreadcrumbs?: boolean;
 }
 
-export const MasterLayout: React.FC<MasterLayoutProps> = ({ 
-  children, 
+export const MasterLayout: React.FC<MasterLayoutProps> = ({
+  children,
   variant = 'default',
-  showBreadcrumbs = true 
+  showBreadcrumbs = true,
 }) => {
   const pathname = usePathname();
   const safePathname = pathname || '/';
-  
+
   // Determine current language from pathname
   const currentLanguage: 'en' | 'es' = safePathname.startsWith('/es') ? 'es' : 'en';
 
@@ -33,7 +33,7 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
   const getBreadcrumbs = () => {
     const paths = safePathname.split('/').filter(Boolean);
     const breadcrumbs = [{ name: currentLanguage === 'es' ? 'Inicio' : 'Home', href: '/' }];
-    
+
     let currentPath = '';
     paths.forEach((path, _index) => {
       currentPath += `/${path}`;
@@ -43,18 +43,18 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
         .join(' ');
       breadcrumbs.push({ name, href: currentPath });
     });
-    
+
     return breadcrumbs;
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-black">
-      <ConsistentHeader 
-        language={currentLanguage} 
+      <ConsistentHeader
+        language={currentLanguage}
         setLanguage={handleLanguageChange}
         variant={variant === 'hero' ? 'transparent' : 'solid'}
       />
-      
+
       {/* Breadcrumbs */}
       {showBreadcrumbs && safePathname !== '/' && variant !== 'hero' && (
         <div className="bg-black/50 border-b border-primary/20 backdrop-blur-sm">
@@ -93,7 +93,7 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
           </div>
         </div>
       )}
-      
+
       <main className="flex-grow relative">
         <motion.div
           initial={{ opacity: 0 }}
@@ -103,9 +103,9 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
           {children}
         </motion.div>
       </main>
-      
+
       <ConsistentFooter language={currentLanguage} />
-      
+
       {/* Background Effects */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />

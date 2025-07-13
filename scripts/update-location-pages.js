@@ -4,51 +4,132 @@ const path = require('path');
 
 // Location data for NC cities
 const ncCityData = {
-  'apex': {
+  apex: {
     cityName: 'Apex',
-    servingAreas: ['Downtown Apex', 'Cary', 'Holly Springs', 'Morrisville', 'Research Triangle Park', 'Fuquay-Varina', 'Garner', 'Raleigh'],
-    highways: ['US-1, US-64, NC-540']
+    servingAreas: [
+      'Downtown Apex',
+      'Cary',
+      'Holly Springs',
+      'Morrisville',
+      'Research Triangle Park',
+      'Fuquay-Varina',
+      'Garner',
+      'Raleigh',
+    ],
+    highways: ['US-1, US-64, NC-540'],
   },
-  'cary': {
+  cary: {
     cityName: 'Cary',
-    servingAreas: ['Downtown Cary', 'Morrisville', 'Apex', 'Research Triangle Park', 'Holly Springs', 'Raleigh', 'Durham', 'Chapel Hill'],
-    highways: ['I-40, US-1, NC-540']
+    servingAreas: [
+      'Downtown Cary',
+      'Morrisville',
+      'Apex',
+      'Research Triangle Park',
+      'Holly Springs',
+      'Raleigh',
+      'Durham',
+      'Chapel Hill',
+    ],
+    highways: ['I-40, US-1, NC-540'],
   },
-  'clayton': {
+  clayton: {
     cityName: 'Clayton',
-    servingAreas: ['Downtown Clayton', 'Garner', 'Smithfield', 'Four Oaks', 'Archer Lodge', 'Wendell', 'Knightdale', 'Raleigh'],
-    highways: ['US-70, NC-42, I-40']
+    servingAreas: [
+      'Downtown Clayton',
+      'Garner',
+      'Smithfield',
+      'Four Oaks',
+      'Archer Lodge',
+      'Wendell',
+      'Knightdale',
+      'Raleigh',
+    ],
+    highways: ['US-70, NC-42, I-40'],
   },
-  'durham': {
+  durham: {
     cityName: 'Durham',
-    servingAreas: ['Downtown Durham', 'Chapel Hill', 'Research Triangle Park', 'Hillsborough', 'Roxboro', 'Oxford', 'Creedmoor', 'Raleigh'],
-    highways: ['I-85, I-147, NC-55']
+    servingAreas: [
+      'Downtown Durham',
+      'Chapel Hill',
+      'Research Triangle Park',
+      'Hillsborough',
+      'Roxboro',
+      'Oxford',
+      'Creedmoor',
+      'Raleigh',
+    ],
+    highways: ['I-85, I-147, NC-55'],
   },
-  'garner': {
+  garner: {
     cityName: 'Garner',
-    servingAreas: ['Downtown Garner', 'Clayton', 'Raleigh', 'Fuquay-Varina', 'Apex', 'Cary', 'Wendell', 'Knightdale'],
-    highways: ['US-70, NC-50, I-40']
+    servingAreas: [
+      'Downtown Garner',
+      'Clayton',
+      'Raleigh',
+      'Fuquay-Varina',
+      'Apex',
+      'Cary',
+      'Wendell',
+      'Knightdale',
+    ],
+    highways: ['US-70, NC-50, I-40'],
   },
-  'greensboro': {
+  greensboro: {
     cityName: 'Greensboro',
-    servingAreas: ['Downtown Greensboro', 'High Point', 'Winston-Salem', 'Burlington', 'Kernersville', 'Jamestown', 'Summerfield', 'Pleasant Garden'],
-    highways: ['I-85, I-40, US-29']
+    servingAreas: [
+      'Downtown Greensboro',
+      'High Point',
+      'Winston-Salem',
+      'Burlington',
+      'Kernersville',
+      'Jamestown',
+      'Summerfield',
+      'Pleasant Garden',
+    ],
+    highways: ['I-85, I-40, US-29'],
   },
-  'raleigh': {
+  raleigh: {
     cityName: 'Raleigh',
-    servingAreas: ['Downtown Raleigh', 'Cary', 'Apex', 'Garner', 'Clayton', 'Wake Forest', 'Knightdale', 'Morrisville'],
-    highways: ['I-40, I-440, I-540']
+    servingAreas: [
+      'Downtown Raleigh',
+      'Cary',
+      'Apex',
+      'Garner',
+      'Clayton',
+      'Wake Forest',
+      'Knightdale',
+      'Morrisville',
+    ],
+    highways: ['I-40, I-440, I-540'],
   },
-  'smithfield': {
+  smithfield: {
     cityName: 'Smithfield',
-    servingAreas: ['Downtown Smithfield', 'Clayton', 'Four Oaks', 'Pine Level', 'Princeton', 'Benson', 'Selma', 'Kenly'],
-    highways: ['I-95, US-70, NC-42']
+    servingAreas: [
+      'Downtown Smithfield',
+      'Clayton',
+      'Four Oaks',
+      'Pine Level',
+      'Princeton',
+      'Benson',
+      'Selma',
+      'Kenly',
+    ],
+    highways: ['I-95, US-70, NC-42'],
   },
   'winston-salem': {
     cityName: 'Winston-Salem',
-    servingAreas: ['Downtown Winston-Salem', 'Kernersville', 'Clemmons', 'Lewisville', 'Rural Hall', 'King', 'Walkertown', 'Tobaccoville'],
-    highways: ['I-40, US-52, I-74']
-  }
+    servingAreas: [
+      'Downtown Winston-Salem',
+      'Kernersville',
+      'Clemmons',
+      'Lewisville',
+      'Rural Hall',
+      'King',
+      'Walkertown',
+      'Tobaccoville',
+    ],
+    highways: ['I-40, US-52, I-74'],
+  },
 };
 
 // Generate template for a city
@@ -174,5 +255,7 @@ export default function ${data.cityName}Page() {
   return template;
 }
 
-console.log('Location page template generator ready. Use generateLocationTemplate(cityKey) to create templates.');
+console.log(
+  'Location page template generator ready. Use generateLocationTemplate(cityKey) to create templates.'
+);
 module.exports = { generateLocationTemplate, ncCityData };

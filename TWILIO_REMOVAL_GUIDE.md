@@ -5,6 +5,7 @@ This document outlines the changes made to remove Twilio from the project and th
 ## Changes Made
 
 ### 1. Deleted Files
+
 - `/src/services/twilio/` - Entire Twilio service directory
 - `/src/app/api/webhooks/twilio/` - All Twilio webhook routes:
   - `/voice/route.ts`
@@ -13,10 +14,12 @@ This document outlines the changes made to remove Twilio from the project and th
   - `/call-status/route.ts`
 
 ### 2. Updated Dependencies
+
 - Removed `twilio` package from package.json
 - Removed `@types/twilio` package from package.json
 
 ### 3. Configuration Updates
+
 - Removed `TWILIO` configuration from `/src/lib/env-config.ts`
 - Updated all script files to remove Twilio references
 - Updated Prisma schema:
@@ -25,6 +28,7 @@ This document outlines the changes made to remove Twilio from the project and th
   - Updated Contact source comments
 
 ### 4. Script Updates
+
 - `scripts/deploy-all-agents.ts` - Removed Twilio webhook endpoint
 - `scripts/setup-apis.js` - Replaced Twilio with Retell for voice
 - `scripts/generate-env-vars.js` - Replaced Twilio env vars with Retell/GHL
@@ -33,6 +37,7 @@ This document outlines the changes made to remove Twilio from the project and th
 ## Functionality Replacement Guide
 
 ### Voice Calls
+
 **Previously**: Handled by Twilio
 **Now**: Use **Retell AI**
 
@@ -43,6 +48,7 @@ This document outlines the changes made to remove Twilio from the project and th
 ```
 
 ### SMS Messaging
+
 **Previously**: Handled by Twilio
 **Now**: Use **GoHighLevel (GHL)**
 
@@ -54,24 +60,26 @@ This document outlines the changes made to remove Twilio from the project and th
 
 ### Key Functionality Mappings
 
-| Twilio Function | Replacement | Notes |
-|----------------|-------------|-------|
-| `twilioService.sendSMS()` | `ghlNotificationService.sendSMS()` | Use GoHighLevel for SMS |
-| `twilioService.makeCall()` | Retell API | Voice calls handled by Retell agents |
-| `twilioService.sendAppointmentReminder()` | `ghlNotificationService.sendAppointmentReminder()` | SMS reminders via GHL |
-| `twilioService.sendBulkSMS()` | `ghlNotificationService.sendBulkSMS()` | Bulk SMS via GHL |
-| `twilioService.verifyPhoneNumber()` | GHL or third-party service | Phone verification |
-| Inbound SMS webhooks | GHL webhooks | Configure in GoHighLevel |
-| Inbound call webhooks | Retell webhooks | Configure in Retell dashboard |
+| Twilio Function                           | Replacement                                        | Notes                                |
+| ----------------------------------------- | -------------------------------------------------- | ------------------------------------ |
+| `twilioService.sendSMS()`                 | `ghlNotificationService.sendSMS()`                 | Use GoHighLevel for SMS              |
+| `twilioService.makeCall()`                | Retell API                                         | Voice calls handled by Retell agents |
+| `twilioService.sendAppointmentReminder()` | `ghlNotificationService.sendAppointmentReminder()` | SMS reminders via GHL                |
+| `twilioService.sendBulkSMS()`             | `ghlNotificationService.sendBulkSMS()`             | Bulk SMS via GHL                     |
+| `twilioService.verifyPhoneNumber()`       | GHL or third-party service                         | Phone verification                   |
+| Inbound SMS webhooks                      | GHL webhooks                                       | Configure in GoHighLevel             |
+| Inbound call webhooks                     | Retell webhooks                                    | Configure in Retell dashboard        |
 
 ## Environment Variables
 
 Remove these Twilio variables:
+
 - `TWILIO_ACCOUNT_SID`
 - `TWILIO_AUTH_TOKEN`
 - `TWILIO_PHONE_NUMBER`
 
 Add/verify these replacements:
+
 - `RETELL_API_KEY` - For voice calls
 - `GHL_API_KEY` - For SMS and CRM
 - `GHL_LOCATION_ID` - For SMS and CRM
@@ -79,11 +87,13 @@ Add/verify these replacements:
 ## Database Migration
 
 Run Prisma migration to update schema:
+
 ```bash
 npx prisma migrate dev --name remove-twilio-fields
 ```
 
 This will update:
+
 - `twilioSid` → `externalId` in SmsLog and CallLog tables
 - PhoneProvider enum values
 

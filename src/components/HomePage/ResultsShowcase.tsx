@@ -90,11 +90,19 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
           },
         },
         {
-          name: 'Workers\' Compensation',
+          name: "Workers' Compensation",
           icon: '🏗️',
           results: [
-            { amount: '$1.2M', label: 'Largest Settlement', description: 'Construction injury case' },
-            { amount: '2,500+', label: 'Injured Workers Helped', description: 'Getting benefits they deserve' },
+            {
+              amount: '$1.2M',
+              label: 'Largest Settlement',
+              description: 'Construction injury case',
+            },
+            {
+              amount: '2,500+',
+              label: 'Injured Workers Helped',
+              description: 'Getting benefits they deserve',
+            },
             {
               amount: '95%',
               label: 'Approval Rate',
@@ -107,7 +115,8 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
             },
           ],
           testimonial: {
-            quote: 'After my workplace injury, they secured my medical care and lost wages. I could focus on healing.',
+            quote:
+              'After my workplace injury, they secured my medical care and lost wages. I could focus on healing.',
             author: 'Roberto Martinez',
             case: 'Construction Site Accident',
           },
@@ -117,7 +126,11 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
           icon: '👨‍👩‍👧‍👦',
           results: [
             { amount: '1,000+', label: 'Families Helped', description: 'Through difficult times' },
-            { amount: '90%', label: 'Custody Success', description: 'Favorable custody arrangements' },
+            {
+              amount: '90%',
+              label: 'Custody Success',
+              description: 'Favorable custody arrangements',
+            },
             {
               amount: '30 days',
               label: 'Average Resolution',
@@ -130,7 +143,8 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
             },
           ],
           testimonial: {
-            quote: 'They helped me protect my children and secure a fair settlement. Professional and compassionate.',
+            quote:
+              'They helped me protect my children and secure a fair settlement. Professional and compassionate.',
             author: 'Sarah Johnson',
             case: 'Divorce & Custody',
           },
@@ -224,8 +238,16 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
           name: 'Compensación Laboral',
           icon: '🏗️',
           results: [
-            { amount: '$1.2M', label: 'Mayor Acuerdo', description: 'Caso de lesión en construcción' },
-            { amount: '2,500+', label: 'Trabajadores Ayudados', description: 'Obteniendo beneficios merecidos' },
+            {
+              amount: '$1.2M',
+              label: 'Mayor Acuerdo',
+              description: 'Caso de lesión en construcción',
+            },
+            {
+              amount: '2,500+',
+              label: 'Trabajadores Ayudados',
+              description: 'Obteniendo beneficios merecidos',
+            },
             {
               amount: '95%',
               label: 'Tasa de Aprobación',
@@ -238,7 +260,8 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
             },
           ],
           testimonial: {
-            quote: 'Después de mi lesión laboral, aseguraron mi atención médica y salarios perdidos. Pude enfocarme en sanar.',
+            quote:
+              'Después de mi lesión laboral, aseguraron mi atención médica y salarios perdidos. Pude enfocarme en sanar.',
             author: 'Roberto Martinez',
             case: 'Accidente en Construcción',
           },
@@ -261,7 +284,8 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
             },
           ],
           testimonial: {
-            quote: 'Me ayudaron a proteger a mis hijos y asegurar un acuerdo justo. Profesionales y compasivos.',
+            quote:
+              'Me ayudaron a proteger a mis hijos y asegurar un acuerdo justo. Profesionales y compasivos.',
             author: 'Sarah Johnson',
             case: 'Divorcio y Custodia',
           },

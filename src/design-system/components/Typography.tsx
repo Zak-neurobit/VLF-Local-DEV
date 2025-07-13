@@ -117,11 +117,7 @@ interface TaglineProps {
   className?: string;
 }
 
-export const Tagline: React.FC<TaglineProps> = ({
-  children,
-  size = 'md',
-  className = '',
-}) => {
+export const Tagline: React.FC<TaglineProps> = ({ children, size = 'md', className = '' }) => {
   const sizeClasses = {
     sm: 'text-sm',
     md: 'text-base md:text-lg',

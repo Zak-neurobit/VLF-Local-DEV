@@ -1402,7 +1402,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.config.apiKey}`,
+          Authorization: `Bearer ${this.config.apiKey}`,
         },
         body: JSON.stringify({
           contactId: options.contactId,
@@ -1416,7 +1416,8 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
           },
           practiceArea: options.practiceArea || contact.customFields?.practiceArea,
           callType: options.callType || 'general',
-          preferredLanguage: options.preferredLanguage || contact.customFields?.preferredLanguage || 'en',
+          preferredLanguage:
+            options.preferredLanguage || contact.customFields?.preferredLanguage || 'en',
           metadata: options.metadata,
         }),
       });
@@ -1451,7 +1452,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.config.apiKey}`,
+          Authorization: `Bearer ${this.config.apiKey}`,
         },
         body: JSON.stringify({
           contactId: options.contactId,
@@ -1481,15 +1482,18 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
   }
 
   // Update contact with call outcome
-  async updateContactCallOutcome(contactId: string, callData: {
-    callId: string;
-    duration: number;
-    outcome: 'connected' | 'voicemail' | 'no_answer' | 'busy' | 'failed';
-    summary?: string;
-    sentiment?: 'positive' | 'neutral' | 'negative';
-    nextSteps?: string;
-    appointmentScheduled?: boolean;
-  }) {
+  async updateContactCallOutcome(
+    contactId: string,
+    callData: {
+      callId: string;
+      duration: number;
+      outcome: 'connected' | 'voicemail' | 'no_answer' | 'busy' | 'failed';
+      summary?: string;
+      sentiment?: 'positive' | 'neutral' | 'negative';
+      nextSteps?: string;
+      appointmentScheduled?: boolean;
+    }
+  ) {
     try {
       const updateData: any = {
         customFields: {
@@ -1558,7 +1562,6 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         callId: callData.callId,
         outcome: callData.outcome,
       });
-
     } catch (error) {
       logger.error('Failed to update contact with call outcome:', error);
       throw error;
@@ -1566,12 +1569,15 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
   }
 
   // Create voice call campaign
-  async createVoiceCallCampaign(contacts: string[], options: {
-    practiceArea?: string;
-    callType?: 'consultation' | 'follow-up' | 'appointment-reminder' | 'general';
-    scheduledTime?: Date;
-    campaignName: string;
-  }) {
+  async createVoiceCallCampaign(
+    contacts: string[],
+    options: {
+      practiceArea?: string;
+      callType?: 'consultation' | 'follow-up' | 'appointment-reminder' | 'general';
+      scheduledTime?: Date;
+      campaignName: string;
+    }
+  ) {
     const results = [];
     const errors = [];
 
@@ -1632,11 +1638,11 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       // Get activities for more detailed history
       const activities = await this.getContactActivities(contactId);
-      
+
       // Filter call-related activities
-      const callActivities = activities.filter((activity: any) => 
-        activity.type === 'call' || 
-        activity.type === 'note' && activity.body?.includes('Call')
+      const callActivities = activities.filter(
+        (activity: any) =>
+          activity.type === 'call' || (activity.type === 'note' && activity.body?.includes('Call'))
       );
 
       return {
@@ -1650,8 +1656,10 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         metrics: {
           avgCallDuration: callHistory.lastCallDuration || 0,
           conversionRate: callHistory.appointmentsScheduled > 0 ? 100 : 0,
-          lastContactDays: callHistory.lastCallDate 
-            ? Math.floor((Date.now() - new Date(callHistory.lastCallDate).getTime()) / (1000 * 60 * 60 * 24))
+          lastContactDays: callHistory.lastCallDate
+            ? Math.floor(
+                (Date.now() - new Date(callHistory.lastCallDate).getTime()) / (1000 * 60 * 60 * 24)
+              )
             : null,
         },
       };
@@ -1662,7 +1670,12 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
   }
 
   // Sync call recording and transcript
-  async syncCallRecording(contactId: string, callId: string, recordingUrl: string, transcript?: string) {
+  async syncCallRecording(
+    contactId: string,
+    callId: string,
+    recordingUrl: string,
+    transcript?: string
+  ) {
     try {
       const updateData: any = {
         customFields: {
@@ -1689,7 +1702,6 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         contactId,
         callId,
       });
-
     } catch (error) {
       logger.error('Failed to sync call recording:', error);
       throw error;

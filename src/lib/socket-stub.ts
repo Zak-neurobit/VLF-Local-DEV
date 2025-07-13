@@ -9,13 +9,17 @@ export enum RoomType {
 }
 
 class ChatSocketServerStub {
-  getActiveSessionsCount() { return 0; }
-  getRoomParticipantCount() { return 0; }
-  broadcastToAll() { }
-  broadcastToUser() { }
-  broadcastToRoom() { }
-  async sendNotification() { }
-  async sendCaseUpdate() { }
+  getActiveSessionsCount() {
+    return 0;
+  }
+  getRoomParticipantCount() {
+    return 0;
+  }
+  broadcastToAll() {}
+  broadcastToUser() {}
+  broadcastToRoom() {}
+  async sendNotification() {}
+  async sendCaseUpdate() {}
 }
 
 export function getChatSocketServer(): ChatSocketServerStub {

@@ -44,7 +44,7 @@ export class SEOAnalyzer {
 
     const finalScore = Math.round(totalScore / totalWeight);
 
-    logger.info('SEO score calculated', { 
+    logger.info('SEO score calculated', {
       finalScore,
       breakdown: scores,
     });
@@ -160,8 +160,8 @@ export class SEOAnalyzer {
     // Check for unique content (simplified check)
     const sentences = text.split(/[.!?]+/);
     const uniqueSentences = new Set(sentences).size;
-    const duplicateRatio = 1 - (uniqueSentences / sentences.length);
-    
+    const duplicateRatio = 1 - uniqueSentences / sentences.length;
+
     if (duplicateRatio > 0.2) {
       score -= 20;
     }
@@ -169,7 +169,7 @@ export class SEOAnalyzer {
     // Check content depth (presence of subheadings)
     const h2Count = (text.match(/^##\s/gm) || []).length;
     const h3Count = (text.match(/^###\s/gm) || []).length;
-    
+
     if (h2Count < 3) {
       score -= 10;
     }
@@ -185,7 +185,7 @@ export class SEOAnalyzer {
     // Check for lists
     const bulletLists = (text.match(/^\s*[-*]\s/gm) || []).length;
     const numberedLists = (text.match(/^\s*\d+\.\s/gm) || []).length;
-    
+
     if (bulletLists + numberedLists < 1) {
       score -= 5;
     }
@@ -208,7 +208,9 @@ export class SEOAnalyzer {
 
     // Check primary keyword density (1-2% optimal)
     const primaryKeyword = keywords[0];
-    const primaryCount = (text.toLowerCase().match(new RegExp(primaryKeyword.toLowerCase(), 'g')) || []).length;
+    const primaryCount = (
+      text.toLowerCase().match(new RegExp(primaryKeyword.toLowerCase(), 'g')) || []
+    ).length;
     const primaryDensity = (primaryCount / wordCount) * 100;
 
     if (primaryDensity < 0.5) {
@@ -224,7 +226,7 @@ export class SEOAnalyzer {
     // Check LSI keywords (related terms)
     const lsiKeywords = keywords.slice(1, 5);
     let lsiFound = 0;
-    
+
     lsiKeywords.forEach(keyword => {
       if (text.toLowerCase().includes(keyword.toLowerCase())) {
         lsiFound++;
@@ -238,7 +240,7 @@ export class SEOAnalyzer {
     // Check keyword distribution (should appear throughout)
     const sections = text.split(/\n\n+/);
     let sectionsWithKeyword = 0;
-    
+
     sections.forEach(section => {
       if (section.toLowerCase().includes(primaryKeyword.toLowerCase())) {
         sectionsWithKeyword++;
@@ -277,7 +279,7 @@ export class SEOAnalyzer {
     // Check paragraph length
     const paragraphs = text.split(/\n\n+/).filter(p => p.trim().length > 0);
     let longParagraphs = 0;
-    
+
     paragraphs.forEach(para => {
       const paraWords = para.split(/\s+/).length;
       if (paraWords > 150) {
@@ -291,10 +293,18 @@ export class SEOAnalyzer {
 
     // Check for transition words
     const transitionWords = [
-      'however', 'therefore', 'moreover', 'furthermore', 'additionally',
-      'consequently', 'meanwhile', 'subsequently', 'finally', 'indeed',
+      'however',
+      'therefore',
+      'moreover',
+      'furthermore',
+      'additionally',
+      'consequently',
+      'meanwhile',
+      'subsequently',
+      'finally',
+      'indeed',
     ];
-    
+
     let transitionsFound = 0;
     transitionWords.forEach(word => {
       if (text.toLowerCase().includes(word)) {
@@ -309,7 +319,7 @@ export class SEOAnalyzer {
     // Check passive voice (simplified)
     const passiveIndicators = ['was', 'were', 'been', 'being', 'be'];
     let passiveSentences = 0;
-    
+
     sentences.forEach(sentence => {
       if (passiveIndicators.some(word => sentence.toLowerCase().includes(` ${word} `))) {
         passiveSentences++;
@@ -335,12 +345,12 @@ export class SEOAnalyzer {
     const wordCount = text.split(/\s+/).length;
 
     // Extract internal links
-    const internalLinks = (text.match(/\[([^\]]+)\]\(\/[^)]+\)/g) || []);
+    const internalLinks = text.match(/\[([^\]]+)\]\(\/[^)]+\)/g) || [];
     const linkCount = internalLinks.length;
 
     // Optimal is 2-5 internal links per 1000 words
     const expectedLinks = Math.floor(wordCount / 1000) * 3;
-    
+
     if (linkCount === 0) {
       score -= 40;
     } else if (linkCount < expectedLinks - 2) {
@@ -354,7 +364,7 @@ export class SEOAnalyzer {
     // Check for important page links
     const importantPages = ['/free-consultation', '/contact', '/practice-areas'];
     let importantLinksFound = 0;
-    
+
     importantPages.forEach(page => {
       if (text.includes(`](${page}`)) {
         importantLinksFound++;
@@ -373,7 +383,7 @@ export class SEOAnalyzer {
 
     const uniqueAnchors = new Set(anchorTexts).size;
     const diversityRatio = uniqueAnchors / anchorTexts.length;
-    
+
     if (diversityRatio < 0.5) {
       score -= 10;
     }
@@ -389,9 +399,9 @@ export class SEOAnalyzer {
     const text = content.content || '';
 
     // Extract headings
-    const h1s = (text.match(/^#\s[^#]/gm) || []);
-    const h2s = (text.match(/^##\s/gm) || []);
-    const h3s = (text.match(/^###\s/gm) || []);
+    const h1s = text.match(/^#\s[^#]/gm) || [];
+    const h2s = text.match(/^##\s/gm) || [];
+    const h3s = text.match(/^###\s/gm) || [];
 
     // Should have exactly one H1 (title)
     if (h1s.length > 1) {
@@ -406,7 +416,7 @@ export class SEOAnalyzer {
     // Check if primary keyword is in at least one H2
     const primaryKeyword = content.keywords?.[0] || '';
     let keywordInHeading = false;
-    
+
     h2s.forEach(heading => {
       if (heading.toLowerCase().includes(primaryKeyword.toLowerCase())) {
         keywordInHeading = true;
@@ -420,7 +430,7 @@ export class SEOAnalyzer {
     // Check heading distribution
     const wordCount = text.split(/\s+/).length;
     const headingsPerWords = (h2s.length + h3s.length) / (wordCount / 300);
-    
+
     if (headingsPerWords < 0.5) {
       score -= 10;
     }
@@ -434,7 +444,7 @@ export class SEOAnalyzer {
   private analyzeImageOptimization(content: any): number {
     let score = 100;
     const images = content.images || [];
-    const imageReferences = (content.content.match(/!\[[^\]]*\]/g) || []);
+    const imageReferences = content.content.match(/!\[[^\]]*\]/g) || [];
 
     // Check if content has images
     if (images.length === 0 && imageReferences.length === 0) {
@@ -451,7 +461,7 @@ export class SEOAnalyzer {
     });
 
     if (missingAltText > 0) {
-      score -= (missingAltText * 10);
+      score -= missingAltText * 10;
     }
 
     // Check for featured image
@@ -468,7 +478,7 @@ export class SEOAnalyzer {
     });
 
     if (poorFileNames > 0) {
-      score -= (poorFileNames * 5);
+      score -= poorFileNames * 5;
     }
 
     return Math.max(0, Math.min(100, score));
@@ -495,14 +505,14 @@ export class SEOAnalyzer {
     // Check for complete schema data
     const requiredFields = ['title', 'description', 'author', 'datePublished'];
     let missingFields = 0;
-    
+
     requiredFields.forEach(field => {
       if (!content[field] && !content.publishedAt && field === 'datePublished') {
         missingFields++;
       }
     });
 
-    score -= (missingFields * 10);
+    score -= missingFields * 10;
 
     return Math.max(0, Math.min(100, score));
   }
@@ -515,7 +525,7 @@ export class SEOAnalyzer {
     const text = content.content || '';
 
     // Check for mobile-unfriendly elements
-    
+
     // Tables are hard to read on mobile
     if (text.includes('<table>') || text.includes('|---|')) {
       score -= 15;
@@ -532,9 +542,10 @@ export class SEOAnalyzer {
     // Check paragraph length for mobile readability
     const paragraphs = text.split(/\n\n+/);
     let veryLongParagraphs = 0;
-    
+
     paragraphs.forEach(para => {
-      if (para.length > 500) { // Characters, not words
+      if (para.length > 500) {
+        // Characters, not words
         veryLongParagraphs++;
       }
     });

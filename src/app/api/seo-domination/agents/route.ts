@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
       '1h': 1,
       '24h': 24,
       '7d': 168,
-      '30d': 720
+      '30d': 720,
     };
     const hours = hoursMap[timeframe] || 24;
     const since = new Date(Date.now() - hours * 60 * 60 * 1000);
@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
       'GoogleMyBusinessKillerAgent',
       'SocialMediaDestroyerAgent',
       'ReviewHarvestingAgent',
-      'CompetitorSpyAgent'
+      'CompetitorSpyAgent',
     ];
 
     const allMetrics = await Promise.all(
@@ -42,11 +42,11 @@ export async function GET(request: NextRequest) {
       agents: allMetrics,
       summary: {
         totalActions: allMetrics.reduce((sum, m) => sum + m.totalActions, 0),
-        averageSuccessRate: allMetrics.reduce((sum, m) => sum + m.successRate, 0) / allMetrics.length,
-        mostActive: allMetrics.sort((a, b) => b.totalActions - a.totalActions)[0]?.name
-      }
+        averageSuccessRate:
+          allMetrics.reduce((sum, m) => sum + m.successRate, 0) / allMetrics.length,
+        mostActive: allMetrics.sort((a, b) => b.totalActions - a.totalActions)[0]?.name,
+      },
     });
-
   } catch (error) {
     logger.error('Agent metrics API error:', error);
     return NextResponse.json({ error: 'Failed to fetch agent metrics' }, { status: 500 });
@@ -57,16 +57,18 @@ async function getAgentMetrics(prisma: any, agentName: string, since: Date) {
   const logs = await prisma.agentExecutionLog.findMany({
     where: {
       agentName,
-      createdAt: { gte: since }
-    }
+      createdAt: { gte: since },
+    },
   });
 
   const totalActions = logs.length;
   const successfulActions = logs.filter((log: { success: boolean }) => log.success).length;
   const successRate = totalActions > 0 ? successfulActions / totalActions : 0;
-  const averageDuration = totalActions > 0 
-    ? logs.reduce((sum: number, log: { duration: number }) => sum + log.duration, 0) / totalActions 
-    : 0;
+  const averageDuration =
+    totalActions > 0
+      ? logs.reduce((sum: number, log: { duration: number }) => sum + log.duration, 0) /
+        totalActions
+      : 0;
 
   // Get recent highlights
   const recentHighlights = logs
@@ -75,7 +77,7 @@ async function getAgentMetrics(prisma: any, agentName: string, since: Date) {
     .map((log: { executionType: string; createdAt: Date; impactScore?: number | null }) => ({
       type: log.executionType,
       timestamp: log.createdAt,
-      impact: log.impactScore || 0
+      impact: log.impactScore || 0,
     }));
 
   return {
@@ -85,10 +87,10 @@ async function getAgentMetrics(prisma: any, agentName: string, since: Date) {
     averageDuration,
     lastActivity: logs[0]?.createdAt || null,
     recentHighlights,
-    status: logs.length > 0 && 
-      (Date.now() - new Date(logs[0].createdAt).getTime()) < 60 * 60 * 1000 
-      ? 'active' 
-      : 'idle'
+    status:
+      logs.length > 0 && Date.now() - new Date(logs[0].createdAt).getTime() < 60 * 60 * 1000
+        ? 'active'
+        : 'idle',
   };
 }
 
@@ -107,7 +109,7 @@ export async function POST(request: NextRequest) {
         analyzeCompetitors: async () => {
           // Analyze competitor content
           return { message: 'Competitor analysis started' };
-        }
+        },
       },
       GoogleMyBusinessKillerAgent: {
         postNow: async () => {
@@ -117,7 +119,7 @@ export async function POST(request: NextRequest) {
         checkReviews: async () => {
           // Check and respond to reviews
           return { message: 'Review check initiated' };
-        }
+        },
       },
       SocialMediaDestroyerAgent: {
         createViral: async () => {
@@ -127,7 +129,7 @@ export async function POST(request: NextRequest) {
         engageAudience: async () => {
           // Engage with audience
           return { message: 'Audience engagement initiated' };
-        }
+        },
       },
       ReviewHarvestingAgent: {
         sendRequests: async () => {
@@ -137,7 +139,7 @@ export async function POST(request: NextRequest) {
         followUp: async () => {
           // Follow up on pending requests
           return { message: 'Follow-up sequence started' };
-        }
+        },
       },
       CompetitorSpyAgent: {
         deepAnalysis: async () => {
@@ -147,16 +149,19 @@ export async function POST(request: NextRequest) {
         checkRankings: async () => {
           // Check keyword rankings
           return { message: 'Ranking check started' };
-        }
-      }
+        },
+      },
     };
 
     if (!agentActions[agent] || !agentActions[agent][action]) {
-      return NextResponse.json({ 
-        error: 'Invalid agent or action',
-        availableAgents: Object.keys(agentActions),
-        availableActions: agent ? Object.keys(agentActions[agent] || {}) : []
-      }, { status: 400 });
+      return NextResponse.json(
+        {
+          error: 'Invalid agent or action',
+          availableAgents: Object.keys(agentActions),
+          availableActions: agent ? Object.keys(agentActions[agent] || {}) : [],
+        },
+        { status: 400 }
+      );
     }
 
     const result = await agentActions[agent][action]();
@@ -171,17 +176,16 @@ export async function POST(request: NextRequest) {
         output: result,
         duration: 1000,
         success: true,
-        impactScore: Math.floor(Math.random() * 10) + 1
-      }
+        impactScore: Math.floor(Math.random() * 10) + 1,
+      },
     });
 
     return NextResponse.json({
       success: true,
       agent,
       action,
-      result
+      result,
     });
-
   } catch (error) {
     logger.error('Agent action API error:', error);
     return NextResponse.json({ error: 'Failed to execute agent action' }, { status: 500 });

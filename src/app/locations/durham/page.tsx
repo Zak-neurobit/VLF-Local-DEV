@@ -9,7 +9,8 @@ export const metadata: Metadata = {
     'Durham NC immigration lawyers and personal injury attorneys. Serving Durham County with deportation defense, green cards, work visas & accident claims. Free consultation.',
   openGraph: {
     title: 'Durham Immigration Lawyers | Personal Injury Attorneys - Vasquez Law Firm',
-    description: 'Expert legal representation in Durham NC. Immigration, personal injury, workers comp & criminal defense. Free consultation. Se habla español.',
+    description:
+      'Expert legal representation in Durham NC. Immigration, personal injury, workers comp & criminal defense. Free consultation. Se habla español.',
     images: [{ url: '/images/offices/durham-office.jpg' }],
   },
 };
@@ -100,7 +101,8 @@ export default function DurhamPage() {
         'Paternity Cases',
       ],
     },
-    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3247.987654321!2d-78.9234!3d35.9876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDU5JzE1LjQiTiA3OMKwNTUnMjQuMyJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
+    mapEmbedUrl:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3247.987654321!2d-78.9234!3d35.9876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDU5JzE1LjQiTiA3OMKwNTUnMjQuMyJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
   };
 
   return (

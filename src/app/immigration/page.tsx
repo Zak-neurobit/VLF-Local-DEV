@@ -1,5 +1,5 @@
-import type { Metadata } from 'next';
-import { PracticeAreaTemplate } from '@/components/templates/PracticeAreaTemplate';
+import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Raleigh, NC Family-Based Immigration Law... | Vasquez Law Firm',
@@ -14,70 +14,64 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     siteName: 'Vasquez Law Firm',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Raleigh, NC Family-Based Immigration Law... | Vasquez Law Firm',
-    description:
-      'immigration lawyer Charlotte NC services in Charlotte NC. Call 1-844-YO-PELEO for a free consultation with experienced attorneys at Vasquez Law Firm.',
-  },
-  alternates: {
-    canonical: 'https://vasquezlawnc.com/immigration',
-  },
-};
+  }
+
+export const runtime = 'nodejs';
 
 export default function ImmigrationPage() {
+  // TODO: Extract content from original file and format properly
+  const post = {
+    id: 'immigration',
+    title: 'Immigration',
+    slug: 'immigration',
+    excerpt: 'Blog post excerpt here - TODO: extract from content',
+    content: `
+      <div class="prose prose-lg max-w-none">
+        <!-- TODO: Migrate content from original file -->
+        <p>This content needs to be migrated from the original file.</p>
+      </div>
+    `,
+    practiceArea: 'general', // TODO: Determine correct practice area
+    language: 'en' as const,
+    publishedAt: new Date(),
+    readTime: 5,
+    author: {
+      name: 'Vasquez Law Firm',
+    },
+    tags: [], // TODO: Add relevant tags
+  };
+
+  const categories = [
+    {
+      id: 'immigration',
+      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
+      slug: { en: 'immigration', es: 'inmigracion' },
+      icon: '🌐',
+      postCount: 45,
+    },
+    {
+      id: 'personal-injury',
+      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
+      slug: { en: 'personal-injury', es: 'lesiones-personales' },
+      icon: '🏥',
+      postCount: 32,
+    },
+    {
+      id: 'criminal-defense',
+      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
+      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
+      icon: '⚖️',
+      postCount: 28,
+    },
+  ];
+
   return (
-    <PracticeAreaTemplate
-      title="Raleigh, NC Family-Based Immigration Lawyers"
-      description="Need a trusted family-based immigration lawyer in Raleigh, NC? Our experienced attorneys help reunite families with reliable legal guidance. Contact us today!"
-      content={
-        <>
-          <p>
-            At Vasquez Law Firm, we understand that immigration law can be complex and overwhelming. 
-            Our experienced team of immigration attorneys is dedicated to helping individuals and 
-            families navigate the U.S. immigration system with confidence and peace of mind.
-          </p>
-          
-          <h2>Our Immigration Services</h2>
-          <ul>
-            <li>Family-Based Immigration</li>
-            <li>Employment-Based Visas</li>
-            <li>Green Cards and Permanent Residency</li>
-            <li>Citizenship and Naturalization</li>
-            <li>Deportation Defense</li>
-            <li>DACA Applications and Renewals</li>
-            <li>Asylum and Refugee Protection</li>
-            <li>U-Visas and T-Visas</li>
-          </ul>
-
-          <h2>Why Choose Vasquez Law Firm?</h2>
-          <p>
-            With over 30 years of combined experience, our immigration attorneys have successfully 
-            represented thousands of clients throughout North Carolina and Florida. We provide 
-            personalized attention to each case and offer services in both English and Spanish.
-          </p>
-
-          <h3>Our Approach</h3>
-          <p>
-            We believe in building strong relationships with our clients based on trust, 
-            communication, and results. Our team stays current with the ever-changing immigration 
-            laws to provide you with the most effective legal strategies.
-          </p>
-
-          <h3>Free Consultation</h3>
-          <p>
-            We offer free initial consultations to discuss your immigration needs and explore 
-            your options. Our attorneys will evaluate your case and provide honest, straightforward 
-            advice about the best path forward.
-          </p>
-
-          <p>
-            Contact us today to schedule your free consultation and take the first step toward 
-            achieving your immigration goals.
-          </p>
-        </>
-      }
+    <BlogPageTemplate
+      posts={[]}
+      categories={categories}
+      isArticlePage={true}
+      currentPost={post}
+      relatedPosts={[]} // TODO: Add related posts
     />
   );
 }

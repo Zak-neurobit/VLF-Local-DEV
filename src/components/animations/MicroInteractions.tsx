@@ -5,11 +5,11 @@ import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import confetti from 'canvas-confetti';
 
 // Ripple effect button
-export function RippleButton({ 
-  children, 
+export function RippleButton({
+  children,
   onClick,
   className = '',
-  color = 'rgba(255, 255, 255, 0.5)'
+  color = 'rgba(255, 255, 255, 0.5)',
 }: {
   children: React.ReactNode;
   onClick?: () => void;
@@ -26,19 +26,16 @@ export function RippleButton({
 
     setRipples([...ripples, { x, y, id }]);
     setTimeout(() => {
-      setRipples((prev) => prev.filter((ripple) => ripple.id !== id));
+      setRipples(prev => prev.filter(ripple => ripple.id !== id));
     }, 1000);
 
     onClick?.();
   };
 
   return (
-    <button
-      onClick={handleClick}
-      className={`relative overflow-hidden ${className}`}
-    >
+    <button onClick={handleClick} className={`relative overflow-hidden ${className}`}>
       <AnimatePresence>
-        {ripples.map((ripple) => (
+        {ripples.map(ripple => (
           <motion.span
             key={ripple.id}
             className="absolute rounded-full"
@@ -60,10 +57,10 @@ export function RippleButton({
 }
 
 // Success animation with confetti
-export function SuccessAnimation({ 
-  trigger, 
+export function SuccessAnimation({
+  trigger,
   message = 'Success!',
-  onComplete
+  onComplete,
 }: {
   trigger: boolean;
   message?: string;
@@ -109,7 +106,12 @@ export function SuccessAnimation({
               transition={{ delay: 0.3 }}
             >
               <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
             </motion.div>
             <h3 className="text-2xl font-bold text-gray-800">{message}</h3>
@@ -124,7 +126,7 @@ export function SuccessAnimation({
 export function MorphingLoader() {
   return (
     <div className="flex space-x-2">
-      {[0, 1, 2].map((index) => (
+      {[0, 1, 2].map(index => (
         <motion.div
           key={index}
           className="h-3 w-3 bg-gradient-to-br from-[#6B1F2E] to-[#C9974D]"
@@ -145,10 +147,10 @@ export function MorphingLoader() {
 }
 
 // Elastic input field
-export function ElasticInput({ 
+export function ElasticInput({
   placeholder = '',
   type = 'text',
-  className = ''
+  className = '',
 }: {
   placeholder?: string;
   type?: string;
@@ -187,10 +189,10 @@ export function ElasticInput({
 }
 
 // Toggle switch with smooth animation
-export function AnimatedToggle({ 
-  checked = false, 
+export function AnimatedToggle({
+  checked = false,
   onChange,
-  label = ''
+  label = '',
 }: {
   checked?: boolean;
   onChange?: (checked: boolean) => void;
@@ -213,7 +215,7 @@ export function AnimatedToggle({
         <input
           type="checkbox"
           checked={checked}
-          onChange={(e) => onChange?.(e.target.checked)}
+          onChange={e => onChange?.(e.target.checked)}
           className="absolute inset-0 opacity-0"
         />
       </div>
@@ -223,9 +225,9 @@ export function AnimatedToggle({
 }
 
 // Hover card with 3D tilt
-export function HoverCard({ 
+export function HoverCard({
   children,
-  className = ''
+  className = '',
 }: {
   children: React.ReactNode;
   className?: string;
@@ -269,10 +271,10 @@ export function HoverCard({
 }
 
 // Skeleton loader with shimmer effect
-export function SkeletonLoader({ 
-  width = '100%', 
+export function SkeletonLoader({
+  width = '100%',
   height = 20,
-  className = ''
+  className = '',
 }: {
   width?: string | number;
   height?: number;
@@ -293,11 +295,11 @@ export function SkeletonLoader({
 }
 
 // Notification toast with slide and fade
-export function NotificationToast({ 
-  message, 
+export function NotificationToast({
+  message,
   type = 'info',
   isVisible,
-  onClose
+  onClose,
 }: {
   message: string;
   type?: 'success' | 'error' | 'warning' | 'info';
@@ -323,10 +325,7 @@ export function NotificationToast({
         >
           <div className="flex items-center justify-between">
             <span>{message}</span>
-            <button
-              onClick={onClose}
-              className="ml-4 text-white/80 hover:text-white"
-            >
+            <button onClick={onClose} className="ml-4 text-white/80 hover:text-white">
               ×
             </button>
           </div>

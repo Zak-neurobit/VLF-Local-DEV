@@ -60,28 +60,28 @@ export class LandingPageGenerator {
     try {
       // Get local data for the city
       const localData = await this.getLocalData(options.city);
-      
+
       // Get local keywords
       const localKeywords = await this.localSEOService.getLocalKeywords(
         options.city,
         options.practiceArea
       );
-      
+
       // Generate page sections
       const sections = await this.generateCityPageSections(options, localData, localKeywords);
-      
+
       // Generate hero section
       const heroSection = await this.generateHeroSection(options, localData);
-      
+
       // Generate local schema
       const localSchema = await this.generateLocalBusinessSchema(options, localData);
-      
+
       // Compile full page content
       const content = this.compileCityPageContent(heroSection, sections);
-      
+
       // Generate metadata
       const metadata = await this.generateCityPageMetadata(options, localKeywords);
-      
+
       // Translate if needed
       if (options.language === 'es') {
         return await this.translateLandingPage({ content, ...metadata, sections, localSchema });
@@ -140,7 +140,7 @@ export class LandingPageGenerator {
 
       // Generate metadata
       const metadata = await this.generateVariationMetadata(options);
-      
+
       // Add conversion tracking elements
       const trackingElements = this.addConversionTracking(conversionElements);
 
@@ -287,7 +287,7 @@ Make it specific and authentic, not generic. About 200-300 words.`;
    */
   private async generatePracticeAreaSection(options: CityPageOptions, localData: any) {
     const specificData = this.getPracticeAreaSpecificData(options.practiceArea, localData);
-    
+
     const prompt = `Write a section about ${options.practiceArea} law services in ${options.city}, NC.
 
 Include:
@@ -320,7 +320,7 @@ About 300-400 words. Make it specific to ${options.city}.`;
    */
   private async generateLocalStatsSection(options: CityPageOptions, localData: any) {
     const stats = this.getRelevantStats(options.practiceArea, localData);
-    
+
     const prompt = `Create a statistics section showing why ${options.practiceArea} legal services are needed in ${options.city}.
 
 Use these stats: ${JSON.stringify(stats)}
@@ -381,7 +381,7 @@ Make them authentic, specific, and emotionally compelling. Vary the length and s
    */
   private async generateLocalResourcesSection(options: CityPageOptions, localData: any) {
     const resources = this.getLocalResources(options.city, options.practiceArea, localData);
-    
+
     const prompt = `Create a helpful local resources section for ${options.city} residents dealing with ${options.practiceArea} issues.
 
 Include these resources: ${JSON.stringify(resources)}
@@ -444,7 +444,7 @@ Format as JSON array with 'question' and 'answer' keys. Answers should be detail
    */
   private async generateMapSection(options: CityPageOptions, localData: any) {
     const nearestOffice = this.getNearestOffice(options.city);
-    
+
     return {
       type: 'map',
       title: `Visit Our Office Near ${options.city}`,
@@ -464,7 +464,7 @@ Format as JSON array with 'question' and 'answer' keys. Answers should be detail
    */
   private async generateEmotionalContent(options: PracticeAreaVariationOptions) {
     const emotionalTriggers = this.getEmotionalTriggers(options.practiceArea);
-    
+
     const prompt = `Create an emotionally compelling landing page for ${options.practiceArea} law.
 
 Target audience: ${options.targetAudience}
@@ -497,7 +497,7 @@ Write with empathy, understanding, and hope. About 800-1000 words total.`;
    */
   private async generateStatisticalContent(options: PracticeAreaVariationOptions) {
     const statistics = await this.getRelevantStatistics(options.practiceArea);
-    
+
     const prompt = `Create a data-driven landing page for ${options.practiceArea} law.
 
 Target audience: ${options.targetAudience}
@@ -560,7 +560,7 @@ Make testimonials specific, varied, and authentic. About 800-1000 words.`;
    */
   private async generateFAQFocusedContent(options: PracticeAreaVariationOptions) {
     const commonQuestions = await this.getCommonQuestions(options.practiceArea);
-    
+
     const prompt = `Create an FAQ-driven landing page for ${options.practiceArea} law.
 
 Target audience: ${options.targetAudience}
@@ -625,8 +625,8 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     return {
       primary: 'Get the Compassionate Help You Deserve',
       secondary: 'Talk to Someone Who Understands',
-      sticky: 'We\'re Here for You 24/7',
-      exit: 'Don\'t Face This Alone',
+      sticky: "We're Here for You 24/7",
+      exit: "Don't Face This Alone",
     };
   }
 
@@ -662,7 +662,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       primary: 'Schedule Your Free Consultation',
       secondary: 'Call Now: 1-844-YO-PELEO',
       sticky: 'Get Legal Help Today',
-      exit: 'Don\'t Wait - Contact Us Now',
+      exit: "Don't Wait - Contact Us Now",
     };
   }
 
@@ -672,16 +672,16 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
   private compileCityPageContent(heroSection: any, sections: any[]): string {
     let content = `# ${heroSection.headline}\n\n`;
     content += `## ${heroSection.subheadline}\n\n`;
-    
+
     // Add benefits
     content += heroSection.benefits.map(b => `- ${b}`).join('\n') + '\n\n';
-    
+
     // Add sections
     sections.forEach(section => {
       content += `## ${section.title}\n\n`;
       content += `${section.content}\n\n`;
     });
-    
+
     return content;
   }
 
@@ -689,7 +689,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     const title = `${options.city} ${this.formatPracticeArea(options.practiceArea)} Lawyer | Vasquez Law Firm`;
     const slug = `${options.city.toLowerCase().replace(/\s+/g, '-')}-${options.practiceArea}-lawyer`;
     const metaDescription = `Expert ${options.practiceArea} attorney serving ${options.city}, NC. Free consultation. Se habla español. Call 1-844-YO-PELEO.`;
-    
+
     return {
       title,
       slug,
@@ -709,10 +709,12 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       testimonial: `Trusted ${this.formatPracticeArea(options.practiceArea)} Lawyers - Client Success Stories`,
       'faq-focused': `${this.formatPracticeArea(options.practiceArea)} Law Questions Answered`,
     };
-    
-    const title = variationTitles[options.variationType] || `${this.formatPracticeArea(options.practiceArea)} Lawyers`;
+
+    const title =
+      variationTitles[options.variationType] ||
+      `${this.formatPracticeArea(options.practiceArea)} Lawyers`;
     const slug = `${options.practiceArea}-${options.variationType}`;
-    
+
     return {
       title,
       slug,
@@ -723,7 +725,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
 
   private async generateLocalBusinessSchema(options: CityPageOptions, localData: any) {
     const nearestOffice = this.getNearestOffice(options.city);
-    
+
     return {
       '@context': 'https://schema.org',
       '@type': 'LegalService',
@@ -761,14 +763,14 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
 
   private formatPracticeArea(practiceArea: string): string {
     const formatted = {
-      'immigration': 'Immigration',
+      immigration: 'Immigration',
       'personal-injury': 'Personal Injury',
-      'workers-compensation': 'Workers\' Compensation',
+      'workers-compensation': "Workers' Compensation",
       'criminal-defense': 'Criminal Defense',
       'family-law': 'Family Law',
       'traffic-violations': 'Traffic Violation',
     };
-    
+
     return formatted[practiceArea] || practiceArea;
   }
 
@@ -831,7 +833,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       'Charlotte-Gastonia': 23,
       // Add more city pairs
     };
-    
+
     const key = [city1, city2].sort().join('-');
     return distances[key] || 30;
   }
@@ -859,7 +861,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
   private getPracticeAreaSpecificData(practiceArea: string, localData: any): any {
     // Return practice area specific local data
     const specificData = {
-      'immigration': {
+      immigration: {
         immigrantPopulation: localData.demographics.immigrantPopulation || '15%',
         commonCountries: ['Mexico', 'India', 'China', 'Philippines'],
         uscisOffice: 'Charlotte USCIS Field Office',
@@ -871,13 +873,13 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       },
       // Add more practice areas
     };
-    
+
     return specificData[practiceArea] || {};
   }
 
   private getRelevantStats(practiceArea: string, localData: any): any {
     const statsMap = {
-      'immigration': [
+      immigration: [
         { label: 'Immigrant Population', value: '125,000+', context: 'in the Triangle area' },
         { label: 'Visa Applications', value: '15,000/year', context: 'processed in NC' },
         { label: 'Average Wait Time', value: '8-12 months', context: 'for green cards' },
@@ -891,16 +893,24 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       ],
       // Add more practice areas
     };
-    
+
     return statsMap[practiceArea] || [];
   }
 
   private getLocalResources(city: string, practiceArea: string, localData: any): any[] {
     const resources = {
-      'immigration': [
-        { name: 'USCIS Charlotte Field Office', type: 'Government', description: 'Immigration services' },
+      immigration: [
+        {
+          name: 'USCIS Charlotte Field Office',
+          type: 'Government',
+          description: 'Immigration services',
+        },
         { name: 'NC Justice Center', type: 'Non-profit', description: 'Immigration advocacy' },
-        { name: `${city} Immigrant Resource Center`, type: 'Community', description: 'Local support' },
+        {
+          name: `${city} Immigrant Resource Center`,
+          type: 'Community',
+          description: 'Local support',
+        },
       ],
       'personal-injury': [
         { name: `${city} Police Department`, type: 'Government', description: 'Accident reports' },
@@ -909,20 +919,40 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       ],
       // Add more practice areas
     };
-    
+
     return resources[practiceArea] || [];
   }
 
   private getEmotionalTriggers(practiceArea: string): string[] {
     const triggers = {
-      'immigration': ['fear of deportation', 'family separation', 'uncertain future', 'hope for better life'],
+      immigration: [
+        'fear of deportation',
+        'family separation',
+        'uncertain future',
+        'hope for better life',
+      ],
       'personal-injury': ['pain and suffering', 'medical bills', 'lost wages', 'life disruption'],
-      'workers-compensation': ['injury pain', 'job security fears', 'financial stress', 'employer retaliation'],
-      'criminal-defense': ['fear of jail', 'reputation damage', 'family impact', 'future consequences'],
-      'family-law': ['children\'s wellbeing', 'financial security', 'emotional trauma', 'new beginning'],
+      'workers-compensation': [
+        'injury pain',
+        'job security fears',
+        'financial stress',
+        'employer retaliation',
+      ],
+      'criminal-defense': [
+        'fear of jail',
+        'reputation damage',
+        'family impact',
+        'future consequences',
+      ],
+      'family-law': [
+        "children's wellbeing",
+        'financial security',
+        'emotional trauma',
+        'new beginning',
+      ],
       'traffic-violations': ['license loss', 'insurance rates', 'job impact', 'driving record'],
     };
-    
+
     return triggers[practiceArea] || ['legal concerns', 'uncertainty', 'need for help'];
   }
 
@@ -933,7 +963,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
 
   private async getCommonQuestions(practiceArea: string): Promise<string[]> {
     const questions = {
-      'immigration': [
+      immigration: [
         'How long does it take to get a green card?',
         'Can I work while waiting for my visa?',
         'What happens if my visa expires?',
@@ -949,7 +979,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       ],
       // Add more practice areas
     };
-    
+
     return questions[practiceArea] || [];
   }
 
@@ -959,26 +989,26 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       `${options.practiceArea} attorney`,
       `${options.practiceArea} law firm`,
     ];
-    
+
     const variationKeywords = {
       emotional: ['compassionate', 'understanding', 'caring', 'supportive'],
       statistical: ['results', 'success rate', 'case wins', 'proven'],
       testimonial: ['reviews', 'testimonials', 'client stories', 'trusted'],
       'faq-focused': ['questions', 'answers', 'information', 'explained'],
     };
-    
+
     return [...baseKeywords, ...(variationKeywords[options.variationType] || [])];
   }
 
   private parseContentSections(content: string): any[] {
     // Parse markdown content into sections
     const sections = content.split(/^##\s+/m).filter(s => s.trim());
-    
+
     return sections.map((section, index) => {
       const lines = section.split('\n');
       const title = lines[0].trim();
       const sectionContent = lines.slice(1).join('\n').trim();
-      
+
       return {
         id: `section-${index}`,
         title,

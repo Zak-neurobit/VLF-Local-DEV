@@ -11,24 +11,24 @@ interface InteractiveLinkProps {
   hoverStyle?: CSSProperties;
 }
 
-export function InteractiveLink({ 
-  href, 
-  children, 
-  className, 
-  style, 
-  hoverStyle 
+export function InteractiveLink({
+  href,
+  children,
+  className,
+  style,
+  hoverStyle,
 }: InteractiveLinkProps) {
   return (
     <Link
       href={href}
       className={className}
       style={style}
-      onMouseEnter={(e) => {
+      onMouseEnter={e => {
         if (hoverStyle) {
           Object.assign(e.currentTarget.style, hoverStyle);
         }
       }}
-      onMouseLeave={(e) => {
+      onMouseLeave={e => {
         if (style) {
           Object.assign(e.currentTarget.style, style);
         }
@@ -49,14 +49,14 @@ interface InteractiveButtonProps {
   rel?: string;
 }
 
-export function InteractiveButton({ 
-  href, 
-  children, 
-  className, 
-  style, 
+export function InteractiveButton({
+  href,
+  children,
+  className,
+  style,
   hoverStyle,
   target,
-  rel
+  rel,
 }: InteractiveButtonProps) {
   return (
     <a
@@ -65,12 +65,12 @@ export function InteractiveButton({
       style={style}
       target={target}
       rel={rel}
-      onMouseEnter={(e) => {
+      onMouseEnter={e => {
         if (hoverStyle) {
           Object.assign(e.currentTarget.style, hoverStyle);
         }
       }}
-      onMouseLeave={(e) => {
+      onMouseLeave={e => {
         if (style) {
           Object.assign(e.currentTarget.style, style);
         }

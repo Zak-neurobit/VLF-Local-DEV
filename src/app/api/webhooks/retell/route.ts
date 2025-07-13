@@ -8,7 +8,6 @@ import { recordingManager } from '@/services/retell/recording-manager';
 import { retellErrorHandler } from '@/services/retell/error-handler';
 import type { RetellCallAnalysis, RetellCallMetadata } from '@/types/api';
 
-
 export const dynamic = 'force-dynamic';
 interface RetellWebhookEvent {
   event: string;
@@ -82,7 +81,7 @@ export async function POST(request: NextRequest) {
       operation: 'webhook_processing',
       metadata: { event: event?.event, callId: event?.call?.call_id },
     });
-    
+
     logger.error('Retell webhook error:', error);
     return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 });
   }

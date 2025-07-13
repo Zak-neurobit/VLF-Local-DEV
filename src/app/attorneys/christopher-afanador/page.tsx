@@ -36,7 +36,9 @@ export default function Page() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h1 className="text-5xl md:text-7xl font-black mb-6 text-white">Christopher Afanador</h1>
+                <h1 className="text-5xl md:text-7xl font-black mb-6 text-white">
+                  Christopher Afanador
+                </h1>
                 <p className="text-xl md:text-2xl mb-8 font-semibold text-primary">
                   Attorney, Immigration Department - {TRADEMARK.YO_PELEO_POR_TI}
                 </p>
@@ -104,17 +106,17 @@ export default function Page() {
                     Immigration Law Expert
                   </h2>
                   <p className="text-lg mb-6 text-gray-300">
-                    Christopher Afanador is a dedicated immigration attorney who helps clients navigate 
-                    the complex USCIS immigration process with expertise and compassion. With years of 
-                    experience in immigration law, he has successfully helped numerous clients achieve 
-                    their American dream.
+                    Christopher Afanador is a dedicated immigration attorney who helps clients
+                    navigate the complex USCIS immigration process with expertise and compassion.
+                    With years of experience in immigration law, he has successfully helped numerous
+                    clients achieve their American dream.
                   </p>
                   <p className="text-lg mb-8 text-gray-300">
-                    His practice focuses on family-based immigration, citizenship applications, green 
-                    cards, and deportation defense. Christopher understands the challenges immigrants 
-                    face and is committed to providing personalized legal solutions.
+                    His practice focuses on family-based immigration, citizenship applications,
+                    green cards, and deportation defense. Christopher understands the challenges
+                    immigrants face and is committed to providing personalized legal solutions.
                   </p>
-                  
+
                   {/* Quick Info */}
                   <div className="grid grid-cols-2 gap-6">
                     <div className="bg-neutral-900/50 p-4 rounded-xl border border-primary/20">
@@ -146,15 +148,11 @@ export default function Page() {
                   <ul className="space-y-4">
                     <li className="border-l-2 border-primary pl-4">
                       <p className="font-semibold text-white">J.D., Law</p>
-                      <p className="text-gray-400 text-sm">
-                        Charlotte School of Law, 2013
-                      </p>
+                      <p className="text-gray-400 text-sm">Charlotte School of Law, 2013</p>
                     </li>
                     <li className="border-l-2 border-primary pl-4">
                       <p className="font-semibold text-white">B.S., Criminal Justice</p>
-                      <p className="text-gray-400 text-sm">
-                        University of Central Florida, 2010
-                      </p>
+                      <p className="text-gray-400 text-sm">University of Central Florida, 2010</p>
                     </li>
                   </ul>
                 </motion.div>
@@ -203,7 +201,7 @@ export default function Page() {
                       'Family Immigration',
                       'Deportation Defense',
                       'Citizenship',
-                    ].map((area) => (
+                    ].map(area => (
                       <span
                         key={area}
                         className="px-3 py-1 bg-primary/10 text-xs text-primary rounded-full border border-primary/20"
@@ -222,7 +220,9 @@ export default function Page() {
                 viewport={{ once: true }}
                 className="bg-gradient-to-r from-primary/10 to-secondary/10 p-12 rounded-3xl border border-primary/20 mb-20"
               >
-                <h3 className="text-3xl font-black mb-8 text-white text-center">Immigration Law Services</h3>
+                <h3 className="text-3xl font-black mb-8 text-white text-center">
+                  Immigration Law Services
+                </h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   {[
                     'VAWA (Violence Against Women Act) Applications',

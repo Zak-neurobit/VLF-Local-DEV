@@ -14,6 +14,7 @@
 The project includes automated quality checks:
 
 1. **Pre-commit Hooks**:
+
    - ESLint auto-fixing
    - Prettier formatting
    - Jest tests for changed files
@@ -29,11 +30,13 @@ The project includes automated quality checks:
 This marker indicates a deployment has been triggered to Vercel with the latest changes.
 
 ### Commit Information
+
 - Commit: `docs: add git hooks documentation guide`
 - Branch: `main`
 - Timestamp: 2025-07-10
 
 ### Expected Deployment Behavior
+
 - Vercel will automatically detect the push to main
 - Build process will run on Vercel's infrastructure
 - If build succeeds, deployment will go live
@@ -42,8 +45,10 @@ This marker indicates a deployment has been triggered to Vercel with the latest 
 ## Monitoring
 
 Check deployment status at:
+
 - Vercel Dashboard: https://vercel.com/dashboard
 - Project deployments: Check your specific project URL
 
 ---
-*This file serves as a marker for deployment tracking and can be referenced for deployment history.*
+
+_This file serves as a marker for deployment tracking and can be referenced for deployment history._

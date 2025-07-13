@@ -27,7 +27,7 @@ export class MediumAPI {
 
   async createPost(post: MediumPost): Promise<PostResult> {
     logger.info('Creating Medium post', { title: post.title });
-    
+
     // Mock implementation
     return {
       id: `medium-${Date.now()}`,

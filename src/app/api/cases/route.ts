@@ -5,7 +5,6 @@ import { caseManagement } from '@/services/case-management';
 import { logger } from '@/lib/logger';
 import { UserRole, PracticeArea, CaseStatus } from '@prisma/client';
 
-
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export async function GET(req: NextRequest) {

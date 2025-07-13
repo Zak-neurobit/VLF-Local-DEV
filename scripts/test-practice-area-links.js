@@ -11,7 +11,7 @@ function checkPracticeAreaPages() {
     '/practice-areas/workers-compensation',
     '/practice-areas/criminal-defense',
     '/practice-areas/family-law',
-    '/practice-areas/traffic-violations'
+    '/practice-areas/traffic-violations',
   ];
 
   console.log('Checking practice area pages...\n');
@@ -21,16 +21,16 @@ function checkPracticeAreaPages() {
   practiceAreaPaths.forEach(pagePath => {
     const filePath = path.join(process.cwd(), 'src/app', pagePath, 'page.tsx');
     const exists = fs.existsSync(filePath);
-    
+
     console.log(`${exists ? '✅' : '❌'} ${pagePath} - ${exists ? 'EXISTS' : 'MISSING'}`);
-    
+
     if (!exists) {
       allPagesExist = false;
     }
   });
 
   console.log('\n' + '='.repeat(50));
-  
+
   if (allPagesExist) {
     console.log('✨ All practice area pages exist!');
   } else {

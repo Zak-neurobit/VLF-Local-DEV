@@ -5,9 +5,9 @@
 if (typeof window !== 'undefined') {
   // Wrap the original enqueue method to prevent errors
   const originalEnqueue = window.ReadableStreamDefaultController?.prototype?.enqueue;
-  
+
   if (originalEnqueue) {
-    window.ReadableStreamDefaultController.prototype.enqueue = function(chunk: any) {
+    window.ReadableStreamDefaultController.prototype.enqueue = function (chunk: any) {
       try {
         // Check if the controller is in a valid state
         if (this.desiredSize !== null && this.desiredSize >= 0) {

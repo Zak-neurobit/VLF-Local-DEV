@@ -48,13 +48,7 @@ export function Button({
     xl: 'px-10 py-5 text-xl',
   };
 
-  const classes = cn(
-    baseStyles,
-    variants[variant],
-    sizes[size],
-    'rounded-md',
-    className
-  );
+  const classes = cn(baseStyles, variants[variant], sizes[size], 'rounded-md', className);
 
   if (href) {
     return (
@@ -65,12 +59,7 @@ export function Button({
   }
 
   return (
-    <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-      className={classes}
-    >
+    <button type={type} onClick={onClick} disabled={disabled} className={classes}>
       {children}
     </button>
   );

@@ -75,44 +75,40 @@ const ActivityMonitor: React.FC = () => {
         <h2 className="text-xl font-bold text-gray-900">Live Activity Monitor</h2>
         <div className="flex items-center space-x-2">
           <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} />
-          <span className="text-sm text-gray-600">
-            {isConnected ? 'Live' : 'Disconnected'}
-          </span>
+          <span className="text-sm text-gray-600">{isConnected ? 'Live' : 'Disconnected'}</span>
         </div>
       </div>
 
       <div className="space-y-3 max-h-96 overflow-y-auto">
-        {data.recentActivity.map((activity) => (
+        {data.recentActivity.map(activity => (
           <div
             key={activity.id}
             className={`flex items-start space-x-3 p-3 rounded-lg border transition-all duration-500 ${
-              animatingItems.has(activity.id) 
-                ? 'scale-105 border-blue-300 bg-blue-50' 
+              animatingItems.has(activity.id)
+                ? 'scale-105 border-blue-300 bg-blue-50'
                 : 'border-gray-200 hover:border-gray-300'
             }`}
           >
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm ${getActivityColor(activity.type)}`}>
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm ${getActivityColor(activity.type)}`}
+            >
               {getActivityIcon(activity.type)}
             </div>
-            
+
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between">
-                <p className="text-sm font-medium text-gray-900">
-                  {activity.message}
-                </p>
+                <p className="text-sm font-medium text-gray-900">{activity.message}</p>
                 <span className="text-xs text-gray-500">
                   {new Date(activity.timestamp).toLocaleTimeString()}
                 </span>
               </div>
-              
-              {activity.details && (
-                <p className="text-xs text-gray-600 mt-1">
-                  {activity.details}
-                </p>
-              )}
+
+              {activity.details && <p className="text-xs text-gray-600 mt-1">{activity.details}</p>}
             </div>
 
-            <div className={`w-2 h-2 rounded-full ${activity.success ? 'bg-green-500' : 'bg-red-500'}`} />
+            <div
+              className={`w-2 h-2 rounded-full ${activity.success ? 'bg-green-500' : 'bg-red-500'}`}
+            />
           </div>
         ))}
       </div>

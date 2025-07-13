@@ -48,14 +48,15 @@ class DashboardSocketManager {
   initialize(server: HTTPServer) {
     this.io = new SocketIOServer(server, {
       cors: {
-        origin: process.env.NODE_ENV === 'production' 
-          ? ['https://vasquezlawnc.com', 'https://www.vasquezlawnc.com']
-          : ['http://localhost:3000'],
-        methods: ['GET', 'POST']
-      }
+        origin:
+          process.env.NODE_ENV === 'production'
+            ? ['https://vasquezlawnc.com', 'https://www.vasquezlawnc.com']
+            : ['http://localhost:3000'],
+        methods: ['GET', 'POST'],
+      },
     });
 
-    this.io.on('connection', (socket) => {
+    this.io.on('connection', socket => {
       console.log(`Dashboard client connected: ${socket.id}`);
       this.connectedClients.add(socket.id);
 
@@ -129,8 +130,8 @@ class DashboardSocketManager {
           performance: {
             success: 124 + Math.floor(Math.random() * 10),
             errors: Math.floor(Math.random() * 3),
-            efficiency: 95 + Math.floor(Math.random() * 5)
-          }
+            efficiency: 95 + Math.floor(Math.random() * 5),
+          },
         },
         {
           id: 'social-agent-002',
@@ -142,8 +143,8 @@ class DashboardSocketManager {
           performance: {
             success: 89 + Math.floor(Math.random() * 10),
             errors: Math.floor(Math.random() * 2),
-            efficiency: 93 + Math.floor(Math.random() * 7)
-          }
+            efficiency: 93 + Math.floor(Math.random() * 7),
+          },
         },
         {
           id: 'review-agent-003',
@@ -155,8 +156,8 @@ class DashboardSocketManager {
           performance: {
             success: 67 + Math.floor(Math.random() * 5),
             errors: Math.floor(Math.random() * 1),
-            efficiency: 98 + Math.floor(Math.random() * 2)
-          }
+            efficiency: 98 + Math.floor(Math.random() * 2),
+          },
         },
         {
           id: 'lead-agent-004',
@@ -168,9 +169,9 @@ class DashboardSocketManager {
           performance: {
             success: 156 + Math.floor(Math.random() * 15),
             errors: Math.floor(Math.random() * 4),
-            efficiency: 96 + Math.floor(Math.random() * 4)
-          }
-        }
+            efficiency: 96 + Math.floor(Math.random() * 4),
+          },
+        },
       ],
       metrics: {
         visitorCount: 20 + Math.floor(Math.random() * 50),
@@ -180,15 +181,15 @@ class DashboardSocketManager {
         rankingChanges: 2 + Math.floor(Math.random() * 5),
         socialEngagement: 100 + Math.floor(Math.random() * 150),
         leadGeneration: 18 + Math.floor(Math.random() * 25),
-        conversionRate: 12 + Math.floor(Math.random() * 15)
+        conversionRate: 12 + Math.floor(Math.random() * 15),
       },
       recentActivity: this.generateRecentActivity(),
       systemHealth: {
         uptime: 99.8 + Math.random() * 0.2,
         performance: 95 + Math.floor(Math.random() * 5),
         errors: Math.floor(Math.random() * 3),
-        lastUpdate: new Date()
-      }
+        lastUpdate: new Date(),
+      },
     };
   }
 
@@ -199,29 +200,29 @@ class DashboardSocketManager {
         'Creating meta descriptions for practice area pages',
         'Building backlinks from legal directories',
         'Analyzing competitor SEO strategies',
-        'Generating local SEO content'
+        'Generating local SEO content',
       ],
       social: [
         'Posting client testimonial to Facebook',
         'Sharing legal tip on LinkedIn',
         'Responding to Instagram comments',
         'Scheduling Twitter content for the week',
-        'Creating social media graphics'
+        'Creating social media graphics',
       ],
       review: [
         'Responding to 5-star Google review',
         'Addressing client feedback on Google',
         'Monitoring review platforms for new reviews',
         'Sending review request to satisfied client',
-        'Analyzing review sentiment trends'
+        'Analyzing review sentiment trends',
       ],
       lead: [
         'Qualifying new contact form submission',
         'Following up with potential client',
         'Scoring lead based on case potential',
         'Routing lead to appropriate attorney',
-        'Updating CRM with lead information'
-      ]
+        'Updating CRM with lead information',
+      ],
     };
 
     const taskList = tasks[type as keyof typeof tasks] || tasks.seo;
@@ -229,19 +230,24 @@ class DashboardSocketManager {
   }
 
   private getRandomStatus(): 'idle' | 'working' | 'completed' | 'error' {
-    const statuses: Array<'idle' | 'working' | 'completed' | 'error'> = ['idle', 'working', 'completed', 'error'];
+    const statuses: Array<'idle' | 'working' | 'completed' | 'error'> = [
+      'idle',
+      'working',
+      'completed',
+      'error',
+    ];
     const weights = [0.2, 0.4, 0.35, 0.05]; // weighted probability
-    
+
     const random = Math.random();
     let sum = 0;
-    
+
     for (let i = 0; i < weights.length; i++) {
       sum += weights[i];
       if (random <= sum) {
         return statuses[i];
       }
     }
-    
+
     return 'idle';
   }
 
@@ -251,17 +257,17 @@ class DashboardSocketManager {
       { type: 'review', message: 'Responded to positive Google review' },
       { type: 'lead', message: 'New qualified lead from immigration landing page' },
       { type: 'social', message: 'Posted case result to LinkedIn' },
-      { type: 'seo', message: 'Improved ranking for "Charlotte personal injury lawyer"' }
+      { type: 'seo', message: 'Improved ranking for "Charlotte personal injury lawyer"' },
     ];
 
     const activity = activities[Math.floor(Math.random() * activities.length)];
-    
+
     return {
       id: `activity-${Date.now()}-${Math.random()}`,
       type: activity.type as 'content' | 'review' | 'lead' | 'call' | 'social',
       message: activity.message,
       timestamp: new Date(),
-      success: Math.random() > 0.1 // 90% success rate
+      success: Math.random() > 0.1, // 90% success rate
     };
   }
 

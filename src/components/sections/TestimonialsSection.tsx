@@ -20,7 +20,8 @@ const testimonials: Testimonial[] = [
     id: '1',
     name: 'Maria Rodriguez',
     role: 'Personal Injury Client',
-    content: 'The Vasquez Law Firm fought tirelessly for my case. They treated me like family and got me the compensation I deserved. I couldn\'t have asked for better representation.',
+    content:
+      "The Vasquez Law Firm fought tirelessly for my case. They treated me like family and got me the compensation I deserved. I couldn't have asked for better representation.",
     rating: 5,
     caseType: 'Personal Injury',
   },
@@ -28,7 +29,8 @@ const testimonials: Testimonial[] = [
     id: '2',
     name: 'John Smith',
     role: 'Criminal Defense Client',
-    content: 'When I was facing serious charges, the team at Vasquez Law Firm stood by me every step of the way. Their expertise and dedication made all the difference in my case.',
+    content:
+      'When I was facing serious charges, the team at Vasquez Law Firm stood by me every step of the way. Their expertise and dedication made all the difference in my case.',
     rating: 5,
     caseType: 'Criminal Defense',
   },
@@ -36,7 +38,8 @@ const testimonials: Testimonial[] = [
     id: '3',
     name: 'Ana Garcia',
     role: 'Family Law Client',
-    content: 'Durante mi divorcio, el equipo de Vasquez Law Firm me brindó el apoyo que necesitaba. Son verdaderos profesionales que se preocupan por sus clientes.',
+    content:
+      'Durante mi divorcio, el equipo de Vasquez Law Firm me brindó el apoyo que necesitaba. Son verdaderos profesionales que se preocupan por sus clientes.',
     rating: 5,
     caseType: 'Family Law',
   },
@@ -44,7 +47,8 @@ const testimonials: Testimonial[] = [
     id: '4',
     name: 'Robert Johnson',
     role: 'Traffic Violation Client',
-    content: 'I thought I had no chance with my traffic case, but Vasquez Law Firm proved me wrong. They saved my license and kept my record clean. Highly recommend!',
+    content:
+      'I thought I had no chance with my traffic case, but Vasquez Law Firm proved me wrong. They saved my license and kept my record clean. Highly recommend!',
     rating: 5,
     caseType: 'Traffic Law',
   },
@@ -59,21 +63,23 @@ interface TestimonialsSectionProps {
 
 export function TestimonialsSection({
   title = 'What Our Clients Say',
-  subtitle = 'Real stories from real people we\'ve helped',
+  subtitle = "Real stories from real people we've helped",
   showCaseTypes = true,
   maxTestimonials,
 }: TestimonialsSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const displayTestimonials = maxTestimonials ? testimonials.slice(0, maxTestimonials) : testimonials;
+  const displayTestimonials = maxTestimonials
+    ? testimonials.slice(0, maxTestimonials)
+    : testimonials;
   const itemsPerPage = 3;
   const totalPages = Math.ceil(displayTestimonials.length / itemsPerPage);
 
   const handlePrevious = () => {
-    setCurrentIndex((prev) => (prev - 1 + totalPages) % totalPages);
+    setCurrentIndex(prev => (prev - 1 + totalPages) % totalPages);
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % totalPages);
+    setCurrentIndex(prev => (prev + 1) % totalPages);
   };
 
   const visibleTestimonials = displayTestimonials.slice(

@@ -10,12 +10,12 @@ export function checkGoogleMapsConfig(): boolean {
 
 export function getGoogleMapsApiKey(): string | undefined {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  
+
   // Check if the API key is valid (not empty and not a placeholder)
   if (apiKey && apiKey !== '' && !apiKey.includes('your-google-maps-api-key')) {
     return apiKey;
   }
-  
+
   return undefined;
 }
 

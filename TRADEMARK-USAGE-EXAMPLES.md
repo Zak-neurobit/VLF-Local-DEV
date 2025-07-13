@@ -1,11 +1,13 @@
 # Trademark Usage Examples
 
 ## Import the constants
+
 ```typescript
 import { TRADEMARK, BRAND } from '@/lib/constants/trademark';
 ```
 
 ## Usage in components
+
 ```tsx
 // In a React component
 <h1>{TRADEMARK.FULL}</h1>
@@ -19,6 +21,7 @@ import { TRADEMARK, BRAND } from '@/lib/constants/trademark';
 ```
 
 ## Usage in JSON files
+
 ```json
 {
   "hero": {

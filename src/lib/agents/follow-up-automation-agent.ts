@@ -6,13 +6,21 @@ import { z } from 'zod';
 
 const FollowUpSequenceSchema = z.object({
   contactId: z.string(),
-  sequenceType: z.enum(['hot_lead', 'warm_lead', 'cold_lead', 'post_consultation', 'client_onboarding']),
-  steps: z.array(z.object({
-    delay: z.number(), // minutes from previous step
-    action: z.enum(['email', 'sms', 'call', 'task', 'campaign']),
-    content: z.string(),
-    priority: z.enum(['high', 'medium', 'low']),
-  })),
+  sequenceType: z.enum([
+    'hot_lead',
+    'warm_lead',
+    'cold_lead',
+    'post_consultation',
+    'client_onboarding',
+  ]),
+  steps: z.array(
+    z.object({
+      delay: z.number(), // minutes from previous step
+      action: z.enum(['email', 'sms', 'call', 'task', 'campaign']),
+      content: z.string(),
+      priority: z.enum(['high', 'medium', 'low']),
+    })
+  ),
   personalizations: z.record(z.string()),
   stopConditions: z.array(z.string()),
 });
@@ -31,7 +39,7 @@ export class FollowUpAutomationAgent extends Agent {
                   You design personalized follow-up sequences that nurture leads at the perfect pace, never letting 
                   valuable prospects slip through the cracks while respecting their communication preferences.`,
     });
-    
+
     this.ghl = new GoHighLevelService();
   }
 
@@ -53,12 +61,7 @@ export class FollowUpAutomationAgent extends Agent {
       sequenceType,
       steps,
       personalizations,
-      stopConditions: [
-        'appointment_scheduled',
-        'became_client',
-        'explicit_opt_out',
-        'marked_lost',
-      ],
+      stopConditions: ['appointment_scheduled', 'became_client', 'explicit_opt_out', 'marked_lost'],
     };
 
     await this.deploySequence(sequence);
@@ -74,14 +77,14 @@ export class FollowUpAutomationAgent extends Agent {
 
   private generateFollowUpSteps(type: string, data: any): FollowUpSequence['steps'] {
     const isSpanish = data.languagePreference === 'es';
-    
+
     switch (type) {
       case 'hot_lead':
         return [
           {
             delay: 5, // 5 minutes
             action: 'sms',
-            content: isSpanish 
+            content: isSpanish
               ? `Hola {{firstName}}, soy del equipo legal de Vasquez Law. Vi su consulta sobre {{practiceArea}}. ¿Podemos hablar ahora? Es urgente.`
               : `Hi {{firstName}}, this is the Vasquez Law team. I saw your urgent {{practiceArea}} inquiry. Can we talk now?`,
             priority: 'high',
@@ -105,7 +108,7 @@ export class FollowUpAutomationAgent extends Agent {
             priority: 'high',
           },
         ];
-      
+
       case 'warm_lead':
         return [
           {
@@ -129,7 +132,7 @@ export class FollowUpAutomationAgent extends Agent {
             priority: 'medium',
           },
         ];
-      
+
       case 'cold_lead':
         return [
           {
@@ -145,7 +148,7 @@ export class FollowUpAutomationAgent extends Agent {
             priority: 'low',
           },
         ];
-      
+
       default:
         return [];
     }
@@ -153,7 +156,7 @@ export class FollowUpAutomationAgent extends Agent {
 
   private async generatePersonalizations(data: any): Promise<Record<string, string>> {
     const contact = await this.ghl.findContactByEmail(data.contactId); // TODO: Add findContactById method
-    
+
     return {
       firstName: contact?.firstName || 'Friend',
       practiceArea: this.formatPracticeArea(data.practiceAreas[0]),
@@ -169,13 +172,13 @@ export class FollowUpAutomationAgent extends Agent {
       'family-immigration': 'Family Immigration',
       'business-immigration': 'Business Immigration',
       'removal-defense': 'Removal Defense',
-      'citizenship': 'Citizenship & Naturalization',
-      'asylum': 'Asylum Protection',
+      citizenship: 'Citizenship & Naturalization',
+      asylum: 'Asylum Protection',
       'criminal-immigration': 'Criminal Immigration',
       'adjustment-status': 'Green Card / Adjustment of Status',
       'visa-services': 'Visa Services',
     };
-    
+
     return formatted[area as keyof typeof formatted] || 'Immigration';
   }
 
@@ -198,7 +201,7 @@ export class FollowUpAutomationAgent extends Agent {
         es: 'puede ser planificado',
       },
     };
-    
+
     return texts[level as keyof typeof texts]?.[lang as 'en' | 'es'] || texts.medium.en;
   }
 
@@ -219,8 +222,11 @@ export class FollowUpAutomationAgent extends Agent {
       'family-immigration': 'Attorney Sarah Williams',
       'criminal-immigration': 'Attorney Michael Davis',
     };
-    
-    return attorneyAssignments[practiceArea as keyof typeof attorneyAssignments] || 'Attorney William Vasquez';
+
+    return (
+      attorneyAssignments[practiceArea as keyof typeof attorneyAssignments] ||
+      'Attorney William Vasquez'
+    );
   }
 
   private getNextStepCTA(tier: string, lang: string): string {
@@ -238,7 +244,7 @@ export class FollowUpAutomationAgent extends Agent {
         es: 'Conozca Más Sobre Nuestros Servicios',
       },
     };
-    
+
     return ctas[tier as keyof typeof ctas]?.[lang as 'en' | 'es'] || ctas.warm.en;
   }
 
@@ -334,7 +340,7 @@ P.S. Immigration laws change frequently. Follow us for updates: [SOCIAL_LINKS]
         logger.error('Prisma client not available');
         return;
       }
-      
+
       // Log the sequence (model needs to be added to schema)
       logger.info('Follow-up sequence deployed:', {
         contactId: sequence.contactId,
@@ -347,7 +353,7 @@ P.S. Immigration laws change frequently. Follow us for updates: [SOCIAL_LINKS]
 
       // Schedule the first step
       await this.scheduleNextStep(sequence, 0);
-      
+
       logger.info(`Follow-up sequence deployed for contact ${sequence.contactId}`);
     } catch (error) {
       logger.error('Error deploying follow-up sequence:', error);
@@ -359,26 +365,29 @@ P.S. Immigration laws change frequently. Follow us for updates: [SOCIAL_LINKS]
     if (stepIndex >= sequence.steps.length) return;
 
     const step = sequence.steps[stepIndex];
-    
+
     // Schedule the action based on the delay
-    setTimeout(async () => {
-      try {
-        // Check stop conditions
-        const shouldStop = await this.checkStopConditions(sequence);
-        if (shouldStop) {
-          logger.info(`Stopping sequence for ${sequence.contactId} due to stop condition`);
-          return;
+    setTimeout(
+      async () => {
+        try {
+          // Check stop conditions
+          const shouldStop = await this.checkStopConditions(sequence);
+          if (shouldStop) {
+            logger.info(`Stopping sequence for ${sequence.contactId} due to stop condition`);
+            return;
+          }
+
+          // Execute the step
+          await this.executeStep(sequence, step);
+
+          // Schedule next step
+          await this.scheduleNextStep(sequence, stepIndex + 1);
+        } catch (error) {
+          logger.error(`Error executing step ${stepIndex}:`, error);
         }
-
-        // Execute the step
-        await this.executeStep(sequence, step);
-
-        // Schedule next step
-        await this.scheduleNextStep(sequence, stepIndex + 1);
-      } catch (error) {
-        logger.error(`Error executing step ${stepIndex}:`, error);
-      }
-    }, step.delay * 60 * 1000); // Convert minutes to milliseconds
+      },
+      step.delay * 60 * 1000
+    ); // Convert minutes to milliseconds
   }
 
   private async checkStopConditions(sequence: FollowUpSequence): Promise<boolean> {
@@ -387,7 +396,10 @@ P.S. Immigration laws change frequently. Follow us for updates: [SOCIAL_LINKS]
     return false;
   }
 
-  private async executeStep(sequence: FollowUpSequence, step: FollowUpSequence['steps'][0]): Promise<void> {
+  private async executeStep(
+    sequence: FollowUpSequence,
+    step: FollowUpSequence['steps'][0]
+  ): Promise<void> {
     const content = this.replacePersonalizations(step.content, sequence.personalizations);
 
     switch (step.action) {
@@ -438,13 +450,16 @@ P.S. Immigration laws change frequently. Follow us for updates: [SOCIAL_LINKS]
     logger.info(`Executed ${step.action} for contact ${sequence.contactId}`);
   }
 
-  private replacePersonalizations(content: string, personalizations: Record<string, string>): string {
+  private replacePersonalizations(
+    content: string,
+    personalizations: Record<string, string>
+  ): string {
     let result = content;
-    
+
     for (const [key, value] of Object.entries(personalizations)) {
       result = result.replace(new RegExp(`{{${key}}}`, 'g'), value);
     }
-    
+
     return result;
   }
 

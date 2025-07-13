@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  ParallaxSection, 
-  MorphingText, 
+import {
+  ParallaxSection,
+  MorphingText,
   FloatingParticles,
   LiquidReveal,
   MagneticButton,
@@ -14,7 +14,7 @@ import {
   StaggeredList,
   BlobAnimation,
   GradientText,
-  SplitText
+  SplitText,
 } from '@/components/animations';
 import { useScrollReveal, useCascadeReveal } from '@/hooks/useScrollReveal';
 import { useAnimationPerformance } from '@/hooks/useAnimationPerformance';
@@ -34,7 +34,7 @@ export function EpicHomePage() {
     visitorCount: 0,
     conversationsActive: 0,
     reviewsToday: 0,
-    contentCreated: 0
+    contentCreated: 0,
   });
   const [recentActivity, setRecentActivity] = useState<string>('');
 
@@ -75,24 +75,36 @@ export function EpicHomePage() {
   };
 
   const stats = [
-    { icon: Users, value: 50000, label: "Clients Served", color: "from-[#6B1F2E] to-[#8B2635]" },
-    { icon: Trophy, value: 95, label: "Success Rate", suffix: "%", color: "from-[#C9974D] to-[#D4A574]" },
-    { icon: Clock, value: 30, label: "Years Experience", suffix: "+", color: "from-[#6B1F2E] to-[#8B2635]" },
-    { icon: Star, value: 4.9, label: "Average Rating", color: "from-[#C9974D] to-[#D4A574]" },
+    { icon: Users, value: 50000, label: 'Clients Served', color: 'from-[#6B1F2E] to-[#8B2635]' },
+    {
+      icon: Trophy,
+      value: 95,
+      label: 'Success Rate',
+      suffix: '%',
+      color: 'from-[#C9974D] to-[#D4A574]',
+    },
+    {
+      icon: Clock,
+      value: 30,
+      label: 'Years Experience',
+      suffix: '+',
+      color: 'from-[#6B1F2E] to-[#8B2635]',
+    },
+    { icon: Star, value: 4.9, label: 'Average Rating', color: 'from-[#C9974D] to-[#D4A574]' },
   ];
 
   const practiceAreas = [
-    { icon: Shield, title: "Personal Injury", description: "Fighting for maximum compensation" },
-    { icon: Scale, title: "Immigration Law", description: "Your path to citizenship" },
-    { icon: Heart, title: "Family Law", description: "Protecting what matters most" },
-    { icon: Brain, title: "Criminal Defense", description: "Defending your rights" },
+    { icon: Shield, title: 'Personal Injury', description: 'Fighting for maximum compensation' },
+    { icon: Scale, title: 'Immigration Law', description: 'Your path to citizenship' },
+    { icon: Heart, title: 'Family Law', description: 'Protecting what matters most' },
+    { icon: Brain, title: 'Criminal Defense', description: 'Defending your rights' },
   ];
 
   const testimonials = [
-    { text: "They saved my family's future. Forever grateful!", author: "Maria G." },
-    { text: "Professional, caring, and truly exceptional service.", author: "John D." },
-    { text: "Won my case against all odds. Highly recommend!", author: "Sarah L." },
-    { text: "The best legal team in North Carolina, hands down.", author: "Robert M." },
+    { text: "They saved my family's future. Forever grateful!", author: 'Maria G.' },
+    { text: 'Professional, caring, and truly exceptional service.', author: 'John D.' },
+    { text: 'Won my case against all odds. Highly recommend!', author: 'Sarah L.' },
+    { text: 'The best legal team in North Carolina, hands down.', author: 'Robert M.' },
   ];
 
   return (
@@ -131,7 +143,7 @@ export function EpicHomePage() {
       {/* Epic Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center">
         <BlobAnimation />
-        
+
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -152,13 +164,13 @@ export function EpicHomePage() {
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
               <SplitText text="Fighting For " />
               <div className="text-6xl md:text-8xl mt-4">
-                <MorphingText 
-                  texts={["Justice", "Your Rights", "Your Future", "Excellence"]}
+                <MorphingText
+                  texts={['Justice', 'Your Rights', 'Your Future', 'Excellence']}
                   type="scramble"
                 />
               </div>
             </h1>
-            
+
             <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
               <GradientText text="North Carolina's Premier Law Firm - Where Experience Meets Innovation" />
             </p>
@@ -170,7 +182,9 @@ export function EpicHomePage() {
                 <div className="text-sm text-gray-600">Active Visitors</div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
-                <div className="text-2xl font-bold text-green-600">{liveMetrics.conversationsActive}</div>
+                <div className="text-2xl font-bold text-green-600">
+                  {liveMetrics.conversationsActive}
+                </div>
                 <div className="text-sm text-gray-600">Live Chats</div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
@@ -178,15 +192,15 @@ export function EpicHomePage() {
                 <div className="text-sm text-gray-600">Reviews Today</div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
-                <div className="text-2xl font-bold text-purple-600">{liveMetrics.contentCreated}</div>
+                <div className="text-2xl font-bold text-purple-600">
+                  {liveMetrics.contentCreated}
+                </div>
                 <div className="text-sm text-gray-600">Content Created</div>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <MagneticButton className="text-lg">
-                Get Free Consultation
-              </MagneticButton>
+              <MagneticButton className="text-lg">Get Free Consultation</MagneticButton>
               <motion.button
                 {...getAnimationProps()}
                 className="px-8 py-4 border-2 border-[#6B1F2E] text-[#6B1F2E] rounded-lg font-semibold hover:bg-[#6B1F2E] hover:text-white transition-colors"
@@ -219,7 +233,7 @@ export function EpicHomePage() {
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
             <GradientText text="Results That Speak Volumes" />
           </h2>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <motion.div
@@ -237,11 +251,11 @@ export function EpicHomePage() {
                 >
                   <stat.icon className="w-8 h-8 text-white" />
                 </motion.div>
-                
+
                 <div className="text-4xl md:text-5xl font-bold text-[#6B1F2E] mb-2">
-                  <AnimatedCounter value={stat.value} suffix={stat.suffix || ""} />
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix || ''} />
                 </div>
-                
+
                 <p className="text-gray-600 font-medium">{stat.label}</p>
               </motion.div>
             ))}
@@ -255,7 +269,7 @@ export function EpicHomePage() {
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
             <SplitText text="Areas of Practice" delay={0.5} />
           </h2>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {practiceAreas.map((area, index) => (
               <Card3D key={index} className="h-full">
@@ -285,7 +299,7 @@ export function EpicHomePage() {
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
             <GradientText text="Client Success Stories" />
           </h2>
-          
+
           <StaggeredList
             items={testimonials.map((testimonial, index) => (
               <motion.div
@@ -311,7 +325,7 @@ export function EpicHomePage() {
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#6B1F2E] to-[#8B2635]" />
         <FloatingParticles density={10} />
-        
+
         <div className="container mx-auto px-4 relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}

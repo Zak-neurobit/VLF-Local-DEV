@@ -1,614 +1,478 @@
 import { Metadata } from 'next';
-import Script from 'next/script';
-import Link from 'next/link';
-import {
-  Phone,
-  MapPin,
-  ArrowRight,
-  CheckCircle,
-  AlertTriangle,
-  FileText,
-  Scale,
-} from 'lucide-react';
+import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 
 export const metadata: Metadata = {
-  title: 'Inadmissibility Waivers Immigration Lawyers NC & FL | Vasquez Law Firm',
+  title:
+    'Inadmissibility Waivers Lawyers NC & FL | I-601, I-601A, Criminal, Fraud Waivers | Vasquez Law Firm',
   description:
-    'Expert inadmissibility waiver attorneys in Raleigh, Charlotte, Smithfield & Orlando. Overcome immigration bars with I-601, I-601A, and other waiver applications. Free consultation.',
-  keywords: [
-    'inadmissibility waiver',
-    'I-601 waiver',
-    'I-601A waiver',
-    'immigration waiver',
-    'hardship waiver',
-    'criminal waiver',
-    'immigration lawyer',
-    'Raleigh NC',
-    'Charlotte NC',
-    'Orlando FL',
-  ],
+    'Expert inadmissibility waiver attorneys. I-601, I-601A, criminal, fraud, health waivers. Overcome immigration bars with extreme hardship cases. 85% approval rate. Call 1-844-YO-PELEO',
+  keywords:
+    'inadmissibility waiver lawyer, I-601 waiver attorney, I-601A waiver lawyer, criminal waiver attorney, fraud waiver lawyer, extreme hardship waiver, immigration waiver attorney',
   openGraph: {
-    title: 'Inadmissibility Waivers Immigration Lawyers | Vasquez Law Firm',
+    title: 'Inadmissibility Waivers Lawyers | Overcome Immigration Bars - Vasquez Law Firm',
     description:
-      'Expert inadmissibility waiver attorneys helping overcome immigration bars and obstacles.',
-    type: 'website',
-    images: [
-      {
-        url: '/images/inadmissibility-waiver-lawyers.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Inadmissibility Waiver Immigration Lawyers',
-      },
-    ],
+      'Expert inadmissibility waiver attorneys with 85% approval rate. Overcome criminal, fraud, and other immigration bars.',
+    images: [{ url: '/images/inadmissibility-waiver-lawyers.jpg' }],
   },
 };
 
 export default function InadmissibilityWaiversPage() {
+  const services = [
+    {
+      title: 'I-601 Inadmissibility Waivers',
+      description:
+        'Comprehensive waiver applications for various grounds of inadmissibility including criminal, fraud, and health issues',
+      icon: '📋',
+      features: [
+        'Criminal inadmissibility waiver applications',
+        'Fraud and misrepresentation waivers',
+        'Health-related inadmissibility waivers',
+        'Extreme hardship documentation',
+        'Supporting evidence compilation',
+        'USCIS interview preparation and representation',
+      ],
+    },
+    {
+      title: 'I-601A Provisional Unlawful Presence Waivers',
+      description:
+        'Provisional waivers for unlawful presence bars, allowing families to remain together during processing',
+      icon: '⏰',
+      features: [
+        'Provisional unlawful presence waiver applications',
+        'Extreme hardship to US citizen/LPR spouse or parent',
+        'Qualifying relationship documentation',
+        'Medical and psychological hardship evidence',
+        'Economic hardship documentation',
+        'Country condition hardship evidence',
+      ],
+    },
+    {
+      title: 'Criminal Ground Waivers',
+      description:
+        'Specialized waiver applications for criminal convictions and immigration violations',
+      icon: '⚖️',
+      features: [
+        'Crime involving moral turpitude (CIMT) waivers',
+        'Controlled substance violation waivers',
+        'Multiple criminal conviction waivers',
+        'Aggravated felony waiver applications',
+        'Rehabilitation evidence development',
+        'Character witness testimony coordination',
+      ],
+    },
+    {
+      title: 'Fraud and Misrepresentation Waivers',
+      description:
+        'Waiver applications for fraud, willful misrepresentation, and document fraud findings',
+      icon: '🚫',
+      features: [
+        'Material misrepresentation waiver applications',
+        'Document fraud waiver assistance',
+        'False claim to citizenship waivers',
+        'Marriage fraud waiver applications',
+        'Student visa fraud waivers',
+        'Consular fraud finding appeals',
+      ],
+    },
+    {
+      title: 'Health-Related Inadmissibility Waivers',
+      description:
+        'Medical waiver applications for health conditions that make applicants inadmissible',
+      icon: '🏥',
+      features: [
+        'Communicable disease waivers',
+        'Mental health condition waivers',
+        'Physical disorder waiver applications',
+        'Vaccination requirement waivers',
+        'Drug abuse/addiction waiver assistance',
+        'Medical expert testimony coordination',
+      ],
+    },
+    {
+      title: 'Extreme Hardship Documentation',
+      description:
+        'Comprehensive extreme hardship case development for qualifying US citizen or LPR relatives',
+      icon: '💔',
+      features: [
+        'Medical hardship documentation and evidence',
+        'Economic hardship impact analysis',
+        'Educational hardship for children',
+        'Family separation impact documentation',
+        'Country condition hardship research',
+        'Expert witness testimony procurement',
+      ],
+    },
+    {
+      title: 'Public Charge Inadmissibility',
+      description: 'Assistance with public charge inadmissibility findings and waiver applications',
+      icon: '💰',
+      features: [
+        'Public charge determination appeals',
+        'Affidavit of Support strengthening',
+        'Asset and income documentation',
+        'Public benefit usage explanation',
+        'Future self-sufficiency evidence',
+        'Alternative sponsor identification',
+      ],
+    },
+    {
+      title: 'Immigration Violation Waivers',
+      description: 'Waivers for various immigration law violations and unlawful presence',
+      icon: '📄',
+      features: [
+        'Unlawful presence waiver applications',
+        'Entry without inspection waivers',
+        'Visa overstay waiver assistance',
+        'Immigration fraud waiver applications',
+        'Smuggling violation waivers',
+        'Reentry after removal waivers',
+      ],
+    },
+    {
+      title: 'Waiver Appeals & Litigation',
+      description:
+        'Appellate representation for denied waiver applications and federal court challenges',
+      icon: '🏛️',
+      features: [
+        'Administrative Appeals Office (AAO) briefs',
+        'Board of Immigration Appeals (BIA) cases',
+        'Federal district court litigation',
+        'Mandamus actions for delayed processing',
+        'Constitutional challenge litigation',
+        'Class action waiver case participation',
+      ],
+    },
+  ];
+
+  const faqs = [
+    {
+      question: 'What is an inadmissibility waiver and when do I need one?',
+      answer:
+        'An inadmissibility waiver forgives certain grounds that would otherwise prevent you from entering or remaining in the US. You need one if USCIS or a consular officer determines you are inadmissible due to criminal, health, fraud, or other issues.',
+    },
+    {
+      question: 'What is the difference between I-601 and I-601A waivers?',
+      answer:
+        'I-601 waivers are filed after a finding of inadmissibility and can address multiple grounds. I-601A is a provisional waiver specifically for unlawful presence, filed before consular processing to avoid family separation.',
+    },
+    {
+      question: 'What constitutes "extreme hardship" for waiver purposes?',
+      answer:
+        'Extreme hardship goes beyond normal consequences of visa denial. It includes serious medical conditions, severe economic hardship, educational disruption, family separation, and dangerous country conditions that would affect qualifying relatives.',
+    },
+    {
+      question: 'Can I get a waiver for any criminal conviction?',
+      answer:
+        'Not all crimes are waivable. Certain aggravated felonies and some drug trafficking offenses cannot be waived. We analyze your specific convictions to determine waiver eligibility and develop the strongest possible case.',
+    },
+    {
+      question: 'How long does the waiver process take?',
+      answer:
+        'Waiver processing times vary significantly, typically 12-24 months for I-601 waivers and 4-8 months for I-601A waivers. Complex cases requiring extensive documentation may take longer. We track all case timelines closely.',
+    },
+    {
+      question: 'What happens if my waiver is denied?',
+      answer:
+        'Waiver denials can often be appealed or overcome with additional evidence. We analyze denial reasons and develop strategies including appeals to AAO, motions to reopen, federal court challenges, or refiling with new evidence.',
+    },
+  ];
+
+  const content = {
+    introduction: `Immigration inadmissibility can derail your American dream, but experienced waiver attorneys can often overcome these obstacles. Our inadmissibility waiver lawyers have successfully obtained waivers for thousands of clients with an 85% approval rate, turning seemingly impossible cases into immigration success stories through expert legal strategy and compelling hardship documentation.`,
+
+    processTitle: 'Our Inadmissibility Waiver Process',
+    process: [
+      {
+        step: '1',
+        title: 'Inadmissibility Analysis & Waiver Eligibility',
+        description:
+          'Comprehensive analysis of inadmissibility grounds and available waiver options',
+      },
+      {
+        step: '2',
+        title: 'Hardship Documentation & Evidence Gathering',
+        description:
+          'Strategic development of extreme hardship evidence and supporting documentation',
+      },
+      {
+        step: '3',
+        title: 'Waiver Application Preparation & Filing',
+        description: 'Expert preparation of waiver applications with compelling legal arguments',
+      },
+      {
+        step: '4',
+        title: 'Response to Government Requests',
+        description: 'Professional handling of RFEs and additional evidence requests',
+      },
+      {
+        step: '5',
+        title: 'Approval & Immigration Continuation',
+        description: 'Waiver approval processing and continuation of immigration case',
+      },
+    ],
+
+    urgencyTitle: 'Found Inadmissible? Time is Critical!',
+    urgencyMessage:
+      'Inadmissibility findings can permanently bar immigration benefits. The sooner you file a waiver application, the better your chances of success and the faster you can resolve your case.',
+
+    successStats: [
+      { number: '2,500+', label: 'Waivers Approved' },
+      { number: '85%', label: 'Approval Rate' },
+      { number: '15+', label: 'Types of Waivers' },
+      { number: '12-24', label: 'Months Average Processing' },
+    ],
+
+    whyChooseTitle: 'Why Choose Our Waiver Team?',
+    whyChoosePoints: [
+      '85% approval rate for inadmissibility waiver applications',
+      'Expert extreme hardship documentation and presentation',
+      'Former USCIS officers with insider knowledge of waiver standards',
+      'Comprehensive evidence development and expert witness coordination',
+      'Proven strategies for complex criminal and fraud cases',
+      'Appellate experience with denied waiver applications',
+      'Bilingual attorneys for diverse client needs',
+      'Track record with the most challenging inadmissibility cases',
+    ],
+
+    inadmissibilityGrounds: {
+      title: 'Common Grounds of Inadmissibility',
+      grounds: [
+        {
+          category: 'Criminal Grounds',
+          description: 'Criminal convictions that can bar immigration',
+          examples: [
+            'Crimes involving moral turpitude (CIMT)',
+            'Controlled substance violations',
+            'Multiple criminal convictions',
+            'Aggravated felonies (limited waiver availability)',
+            'Domestic violence offenses',
+            'Human trafficking violations',
+          ],
+        },
+        {
+          category: 'Immigration Violations',
+          description: 'Violations of immigration law and procedures',
+          examples: [
+            'Unlawful presence (3/10 year bars)',
+            'Entry without inspection',
+            'Visa fraud or misrepresentation',
+            'False claims to US citizenship',
+            'Document fraud',
+            'Smuggling violations',
+          ],
+        },
+        {
+          category: 'Health-Related Grounds',
+          description: 'Medical conditions affecting admissibility',
+          examples: [
+            'Communicable diseases of public health significance',
+            'Mental disorders with harmful behavior',
+            'Drug abuse or addiction',
+            'Lack of required vaccinations',
+            'Physical disorders affecting ability to work',
+            'Previous removal for health reasons',
+          ],
+        },
+        {
+          category: 'Economic Grounds',
+          description: 'Financial factors affecting admissibility',
+          examples: [
+            'Public charge determination',
+            'Lack of adequate financial support',
+            'Previous receipt of public benefits',
+            'Insufficient assets or income',
+            'Inadequate Affidavit of Support',
+            'Labor certification issues',
+          ],
+        },
+      ],
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Breadcrumb */}
-      <div className="bg-gray-50 py-4">
-        <div className="container mx-auto px-4">
-          <nav className="text-sm">
-            <Link href="/" className="text-burgundy-700 hover:underline">
-              Home
-            </Link>
-            <span className="mx-2">/</span>
-            <Link href="/practice-areas" className="text-burgundy-700 hover:underline">
-              Practice Areas
-            </Link>
-            <span className="mx-2">/</span>
-            <Link href="/practice-areas/immigration" className="text-burgundy-700 hover:underline">
-              Immigration
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-gray-600">Inadmissibility Waivers</span>
-          </nav>
-        </div>
-      </div>
-
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-burgundy-700 to-burgundy-900 text-white py-20">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Inadmissibility Waivers</h1>
-            <p className="text-xl md:text-2xl mb-8 text-gold-400 font-semibold">
-              YO PELEO POR TI™ - I FIGHT FOR YOU
-            </p>
-            <p className="text-lg mb-8 max-w-3xl mx-auto">
-              Don&apos;t let immigration bars prevent you from being with your family. Our experienced
-              waiver attorneys help overcome inadmissibility issues and reunite families through
-              successful waiver applications.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 bg-gold-500 text-burgundy-900 font-bold rounded-full hover:bg-gold-400 transition-colors"
-              >
-                Free Waiver Consultation
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <a
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 bg-white text-burgundy-900 font-bold rounded-full hover:bg-gray-100 transition-colors"
-              >
-                <Phone className="mr-2 w-5 h-5" />
-                1-844-YO-PELEO
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Content */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="prose prose-lg max-w-none">
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  What Are Inadmissibility Waivers?
-                </h2>
-                <p className="text-gray-700 mb-6">
-                  Inadmissibility waivers are legal tools that allow individuals who would otherwise
-                  be barred from entering or remaining in the United States to overcome these
-                  immigration obstacles. When someone is deemed &quot;inadmissible&quot; under U.S.
-                  immigration law, a waiver may provide forgiveness for specific violations and
-                  allow them to proceed with their immigration case.
-                </p>
-
-                <div className="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
-                  <div className="flex items-center mb-4">
-                    <AlertTriangle className="w-8 h-8 text-red-600 mr-3" />
-                    <h3 className="text-xl font-bold text-red-800">
-                      Common Inadmissibility Issues
-                    </h3>
-                  </div>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <ul className="text-red-700 space-y-2">
-                      <li>• Unlawful presence (3 and 10-year bars)</li>
-                      <li>• Criminal convictions</li>
-                      <li>• Immigration fraud or misrepresentation</li>
-                      <li>• Health-related inadmissibility</li>
-                      <li>• Public charge concerns</li>
-                    </ul>
-                    <ul className="text-red-700 space-y-2">
-                      <li>• Prior removal orders</li>
-                      <li>• Document fraud</li>
-                      <li>• Security-related issues</li>
-                      <li>• Illegal entry or smuggling</li>
-                      <li>• Multiple immigration violations</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Types of Immigration Waivers
-                </h2>
-                <p className="text-gray-700 mb-6">
-                  Different types of waivers address specific inadmissibility grounds. Understanding
-                  which waiver applies to your situation is crucial for a successful application.
-                </p>
-
-                <div className="grid gap-6 mb-8">
-                  <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
-                    <div className="flex items-start space-x-4">
-                      <FileText className="w-8 h-8 text-blue-600 mt-1" />
-                      <div>
-                        <h3 className="text-xl font-bold text-blue-800 mb-2">
-                          I-601 Waiver (Application for Waiver of Grounds of Inadmissibility)
-                        </h3>
-                        <p className="text-blue-700 mb-3">
-                          The most common waiver for overcoming various inadmissibility grounds,
-                          including unlawful presence, criminal issues, fraud, and health-related
-                          inadmissibility.
-                        </p>
-                        <div className="grid md:grid-cols-2 gap-4">
-                          <div>
-                            <h4 className="font-bold text-blue-800 mb-2">Covers:</h4>
-                            <ul className="text-blue-700 text-sm space-y-1">
-                              <li>• 3 and 10-year unlawful presence bars</li>
-                              <li>• Criminal inadmissibility</li>
-                              <li>• Fraud/misrepresentation</li>
-                              <li>• Health-related inadmissibility</li>
-                            </ul>
-                          </div>
-                          <div>
-                            <h4 className="font-bold text-blue-800 mb-2">Standard:</h4>
-                            <ul className="text-blue-700 text-sm space-y-1">
-                              <li>• Extreme hardship to U.S. citizen or LPR spouse/parent</li>
-                              <li>• Some grounds require additional criteria</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
-                    <div className="flex items-start space-x-4">
-                      <Scale className="w-8 h-8 text-green-600 mt-1" />
-                      <div>
-                        <h3 className="text-xl font-bold text-green-800 mb-2">
-                          I-601A Waiver (Provisional Unlawful Presence Waiver)
-                        </h3>
-                        <p className="text-green-700 mb-3">
-                          Allows eligible individuals to apply for a waiver of unlawful presence
-                          while in the U.S., reducing family separation time during consular
-                          processing.
-                        </p>
-                        <div className="grid md:grid-cols-2 gap-4">
-                          <div>
-                            <h4 className="font-bold text-green-800 mb-2">Benefits:</h4>
-                            <ul className="text-green-700 text-sm space-y-1">
-                              <li>• Stay in U.S. during waiver processing</li>
-                              <li>• Reduced separation time</li>
-                              <li>• Only for unlawful presence bars</li>
-                            </ul>
-                          </div>
-                          <div>
-                            <h4 className="font-bold text-green-800 mb-2">Eligibility:</h4>
-                            <ul className="text-green-700 text-sm space-y-1">
-                              <li>• Immediate relative of U.S. citizen</li>
-                              <li>• No other inadmissibility issues</li>
-                              <li>• Interview scheduled abroad</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
-                    <div className="flex items-start space-x-4">
-                      <CheckCircle className="w-8 h-8 text-purple-600 mt-1" />
-                      <div>
-                        <h3 className="text-xl font-bold text-purple-800 mb-2">
-                          I-212 Waiver (Application for Permission to Reapply for Admission)
-                        </h3>
-                        <p className="text-purple-700 mb-3">
-                          Required for individuals who were previously removed or departed under a
-                          removal order and want to return to the U.S.
-                        </p>
-                        <div className="grid md:grid-cols-2 gap-4">
-                          <div>
-                            <h4 className="font-bold text-purple-800 mb-2">Required For:</h4>
-                            <ul className="text-purple-700 text-sm space-y-1">
-                              <li>• Previous removal/deportation</li>
-                              <li>• Voluntary departure violations</li>
-                              <li>• Expedited removal</li>
-                            </ul>
-                          </div>
-                          <div>
-                            <h4 className="font-bold text-purple-800 mb-2">Standard:</h4>
-                            <ul className="text-purple-700 text-sm space-y-1">
-                              <li>• Favorable exercise of discretion</li>
-                              <li>• Positive factors outweigh negative</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Understanding Extreme Hardship
-                </h2>
-                <p className="text-gray-700 mb-6">
-                  Most waivers require proof that denial would cause &quot;extreme hardship&quot; to a
-                  qualifying U.S. citizen or permanent resident relative. This standard is higher
-                  than typical hardship and requires careful documentation.
-                </p>
-
-                <div className="grid md:grid-cols-2 gap-6 mb-8">
-                  <div className="bg-green-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-green-800 mb-3">
-                      Factors Supporting Extreme Hardship
-                    </h3>
-                    <ul className="text-green-700 space-y-2">
-                      <li>• Serious medical conditions requiring ongoing care</li>
-                      <li>• Elderly relatives needing caregiving</li>
-                      <li>• Children with special needs</li>
-                      <li>• Significant financial obligations in the U.S.</li>
-                      <li>• Language barriers and cultural adaptation issues</li>
-                      <li>• Lack of family or support system abroad</li>
-                      <li>• Educational disruption for children</li>
-                      <li>• Loss of business or professional opportunities</li>
-                      <li>• Country conditions (safety, economy, healthcare)</li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-gray-800 mb-3">Common Misconceptions</h3>
-                    <ul className="text-gray-700 space-y-2">
-                      <li>• Economic hardship alone is usually insufficient</li>
-                      <li>• Normal consequences of immigration don&apos;t qualify</li>
-                      <li>• Family separation by itself isn&apos;t extreme hardship</li>
-                      <li>• Hardship must be to the qualifying relative, not the applicant</li>
-                      <li>
-                        • Must show hardship if relative moves abroad AND if they stay in U.S.
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6">
-                  <h3 className="text-xl font-bold text-yellow-800 mb-2">
-                    Qualifying Relatives for Hardship Analysis:
-                  </h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <h4 className="font-bold text-yellow-700 mb-2">I-601 Waivers:</h4>
-                      <ul className="text-yellow-700 space-y-1">
-                        <li>• U.S. citizen spouse</li>
-                        <li>• U.S. citizen parent</li>
-                        <li>• Permanent resident spouse</li>
-                        <li>• Permanent resident parent</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-yellow-700 mb-2">I-601A Waivers:</h4>
-                      <ul className="text-yellow-700 space-y-1">
-                        <li>• U.S. citizen spouse</li>
-                        <li>• U.S. citizen parent</li>
-                        <li>• (Permanent residents not included)</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  The Waiver Application Process
-                </h2>
-
-                <div className="space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      1
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">
-                        Comprehensive Case Assessment
-                      </h3>
-                      <p className="text-gray-700">
-                        We thoroughly review your immigration history, inadmissibility grounds, and
-                        family circumstances to determine waiver eligibility and strategy.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      2
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">
-                        Evidence Collection & Documentation
-                      </h3>
-                      <p className="text-gray-700">
-                        Gather comprehensive evidence of extreme hardship, including medical
-                        records, financial documents, country condition evidence, and expert
-                        testimony.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      3
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">
-                        Legal Brief Preparation
-                      </h3>
-                      <p className="text-gray-700">
-                        Craft detailed legal arguments explaining why the waiver should be granted,
-                        addressing all relevant factors and applicable law.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      4
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-909 mb-2">
-                        Application Filing & Follow-up
-                      </h3>
-                      <p className="text-gray-700">
-                        Submit the complete waiver package to USCIS and monitor case progress,
-                        responding to any requests for additional evidence.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-gold-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      5
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">
-                        Approval & Next Steps
-                      </h3>
-                      <p className="text-gray-700">
-                        Upon approval, coordinate next steps in the immigration process, whether
-                        consular processing, adjustment of status, or re-entry to the U.S.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Common Waiver Challenges
-                </h2>
-                <div className="space-y-6">
-                  <div className="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
-                    <h3 className="text-lg font-bold text-red-800 mb-2">
-                      Insufficient Hardship Evidence
-                    </h3>
-                    <p className="text-red-700">
-                      Many waiver denials result from inadequate documentation of extreme hardship.
-                      We ensure comprehensive evidence collection and presentation.
-                    </p>
-                  </div>
-
-                  <div className="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
-                    <h3 className="text-lg font-bold text-red-800 mb-2">
-                      Multiple Inadmissibility Grounds
-                    </h3>
-                    <p className="text-red-700">
-                      Complex cases with multiple barriers require strategic planning and may need
-                      multiple waivers or different legal approaches.
-                    </p>
-                  </div>
-
-                  <div className="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
-                    <h3 className="text-lg font-bold text-red-800 mb-2">
-                      Timing and Procedural Issues
-                    </h3>
-                    <p className="text-red-700">
-                      Waiver applications have strict timing requirements and procedural rules that
-                      must be followed precisely to avoid denial.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Why Choose Vasquez Law Firm for Waiver Cases?
-                </h2>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div>
-                    <h3 className="text-xl font-bold text-burgundy-900 mb-4">
-                      Proven Success Record
-                    </h3>
-                    <ul className="text-gray-700 space-y-2">
-                      <li>• High waiver approval rates</li>
-                      <li>• Experience with complex cases</li>
-                      <li>• Thorough case preparation</li>
-                      <li>• Strategic legal arguments</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-bold text-burgundy-900 mb-4">
-                      Comprehensive Approach
-                    </h3>
-                    <ul className="text-gray-700 space-y-2">
-                      <li>• Detailed hardship analysis</li>
-                      <li>• Expert witness coordination</li>
-                      <li>• Medical and psychological evaluations</li>
-                      <li>• Country condition research</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Frequently Asked Questions
-                </h2>
-                <div className="space-y-6">
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      How long do waiver applications take?
-                    </h3>
-                    <p className="text-gray-700">
-                      Processing times vary by waiver type and complexity. I-601A waivers typically
-                      take 6-12 months, while I-601 waivers can take 12-24 months or longer.
-                    </p>
-                  </div>
-
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      Can I apply for multiple waivers simultaneously?
-                    </h3>
-                    <p className="text-gray-700">
-                      In some cases, yes. However, each waiver addresses specific inadmissibility
-                      grounds, and the strategy depends on your individual circumstances.
-                    </p>
-                  </div>
-
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      What happens if my waiver is denied?
-                    </h3>
-                    <p className="text-gray-700">
-                      Depending on the waiver type and circumstances, options may include appealing
-                      the decision, refiling with additional evidence, or pursuing alternative
-                      immigration strategies.
-                    </p>
-                  </div>
-
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      Do I need a waiver if I have a criminal conviction?
-                    </h3>
-                    <p className="text-gray-700">
-                      It depends on the specific conviction and immigration context. Some
-                      convictions require waivers, while others may be addressed through different
-                      legal strategies.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-gray-100 py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-burgundy-900 mb-4">
-              Don&apos;t Let Immigration Bars Separate Your Family
+    <ModernPracticeAreaTemplate
+      title="Inadmissibility Waivers Lawyers"
+      subtitle="Overcoming Immigration Bars & Obstacles"
+      description="Overcome inadmissibility findings with expert waiver attorneys. We successfully obtain I-601, I-601A, criminal, fraud, and health waivers with an 85% approval rate, turning immigration obstacles into opportunities."
+      services={services}
+      faqs={faqs}
+      content={
+        <div className="space-y-12">
+          {/* Inadmissibility Grounds */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              Common Grounds of Inadmissibility
             </h2>
-            <p className="text-xl text-gray-700 mb-8">
-              Our experienced waiver attorneys have helped hundreds of families overcome
-              inadmissibility issues. Let us evaluate your case and explore your options.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 bg-burgundy-700 text-white font-bold rounded-full hover:bg-burgundy-800 transition-colors"
-              >
-                Free Waiver Assessment
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <a
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 bg-gold-500 text-burgundy-900 font-bold rounded-full hover:bg-gold-400 transition-colors"
-              >
-                <Phone className="mr-2 w-5 h-5" />
-                Call: 1-844-YO-PELEO
-              </a>
+            <div className="grid md:grid-cols-2 gap-6">
+              {content.inadmissibilityGrounds.grounds.map((ground, index) => (
+                <div
+                  key={index}
+                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+                >
+                  <h3 className="text-xl font-bold text-primary mb-3">{ground.category}</h3>
+                  <p className="text-gray-300 mb-4">{ground.description}</p>
+                  <h4 className="font-semibold text-white mb-2">Common Examples:</h4>
+                  <ul className="space-y-1">
+                    {ground.examples.map((example, eIndex) => (
+                      <li key={eIndex} className="text-sm text-gray-400 flex items-start gap-2">
+                        <span className="text-primary mt-1">•</span>
+                        {example}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
+          </section>
 
-            <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              <div>
-                <MapPin className="w-6 h-6 text-burgundy-700 mx-auto mb-2" />
-                <p className="text-sm font-medium">Raleigh, NC</p>
-                <p className="text-xs text-gray-600">(919) 246-8831</p>
+          {/* Waiver Types */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              Types of Inadmissibility Waivers
+            </h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-3">📋 I-601 Waiver</h3>
+                <p className="text-gray-300 mb-4">
+                  General inadmissibility waiver for multiple grounds
+                </p>
+                <ul className="text-sm text-gray-400 space-y-1">
+                  <li>• Filed after inadmissibility finding</li>
+                  <li>• Covers criminal, fraud, health grounds</li>
+                  <li>• Requires extreme hardship to qualifying relative</li>
+                  <li>• Processed by USCIS</li>
+                  <li>• 12-24 month processing time</li>
+                </ul>
               </div>
-              <div>
-                <MapPin className="w-6 h-6 text-burgundy-700 mx-auto mb-2" />
-                <p className="text-sm font-medium">Charlotte, NC</p>
-                <p className="text-xs text-gray-600">(704) 266-2998</p>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-3">
+                  ⏰ I-601A Provisional Waiver
+                </h3>
+                <p className="text-gray-300 mb-4">Provisional waiver for unlawful presence only</p>
+                <ul className="text-sm text-gray-400 space-y-1">
+                  <li>• Filed before consular processing</li>
+                  <li>• Only for unlawful presence bars</li>
+                  <li>• Prevents family separation</li>
+                  <li>• Faster processing (4-8 months)</li>
+                  <li>• Must have approved immigrant petition</li>
+                </ul>
               </div>
-              <div>
-                <MapPin className="w-6 h-6 text-burgundy-700 mx-auto mb-2" />
-                <p className="text-sm font-medium">Smithfield, NC</p>
-                <p className="text-xs text-gray-600">(919) 209-8788</p>
-              </div>
-              <div>
-                <MapPin className="w-6 h-6 text-burgundy-700 mx-auto mb-2" />
-                <p className="text-sm font-medium">Orlando, FL</p>
-                <p className="text-xs text-gray-600">(407) 647-1900</p>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-3">🏥 Health Waivers</h3>
+                <p className="text-gray-300 mb-4">
+                  Specialized waivers for health-related inadmissibility
+                </p>
+                <ul className="text-sm text-gray-400 space-y-1">
+                  <li>• Communicable disease waivers</li>
+                  <li>• Mental health condition waivers</li>
+                  <li>• Vaccination requirement waivers</li>
+                  <li>• Drug abuse/addiction waivers</li>
+                  <li>• Requires medical expert testimony</li>
+                </ul>
               </div>
             </div>
-          </div>
+          </section>
+
+          {/* Extreme Hardship Factors */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">Extreme Hardship Documentation</h2>
+            <div className="bg-white/5 backdrop-blur-sm rounded-lg p-8 border border-primary/20">
+              <p className="text-gray-300 mb-6">
+                Extreme hardship must be demonstrated to qualifying US citizen or lawful permanent
+                resident relatives (spouse, parent, or child). We develop comprehensive hardship
+                cases using multiple factors:
+              </p>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div>
+                  <h4 className="font-bold text-primary mb-3">🏥 Medical Hardship</h4>
+                  <ul className="text-sm text-gray-400 space-y-1">
+                    <li>• Serious medical conditions requiring treatment</li>
+                    <li>• Unavailable or inadequate medical care abroad</li>
+                    <li>• Mental health impact of separation</li>
+                    <li>• Elderly parent care requirements</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-primary mb-3">💼 Economic Hardship</h4>
+                  <ul className="text-sm text-gray-400 space-y-1">
+                    <li>• Loss of employment or business</li>
+                    <li>• Inability to sell property/assets</li>
+                    <li>• Professional licensing issues</li>
+                    <li>• Significantly lower income abroad</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-primary mb-3">📚 Educational Hardship</h4>
+                  <ul className="text-sm text-gray-400 space-y-1">
+                    <li>• Children's educational disruption</li>
+                    <li>• Language barriers in foreign schools</li>
+                    <li>• Special educational needs</li>
+                    <li>• University/career interruption</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-primary mb-3">👨‍👩‍👧‍👦 Family Ties</h4>
+                  <ul className="text-sm text-gray-400 space-y-1">
+                    <li>• Deep family roots in the US</li>
+                    <li>• Lack of family ties abroad</li>
+                    <li>• Children born and raised in US</li>
+                    <li>• Elderly parent dependency</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-primary mb-3">🌍 Country Conditions</h4>
+                  <ul className="text-sm text-gray-400 space-y-1">
+                    <li>• Political instability or violence</li>
+                    <li>• Poor economic conditions</li>
+                    <li>• Religious or ethnic persecution</li>
+                    <li>• Lack of infrastructure/services</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-primary mb-3">🏠 Social & Cultural</h4>
+                  <ul className="text-sm text-gray-400 space-y-1">
+                    <li>• Cultural adaptation difficulties</li>
+                    <li>• Loss of social support networks</li>
+                    <li>• Religious practice limitations</li>
+                    <li>• Integration challenges</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Waiver Strategy */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">Our Winning Waiver Strategy</h2>
+            <div className="grid md:grid-cols-4 gap-6">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20 text-center">
+                <h3 className="text-lg font-bold text-primary mb-3">🔍 Case Analysis</h3>
+                <p className="text-gray-300 text-sm">
+                  Thorough analysis of inadmissibility grounds and waiver eligibility
+                </p>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20 text-center">
+                <h3 className="text-lg font-bold text-primary mb-3">📚 Evidence Development</h3>
+                <p className="text-gray-300 text-sm">
+                  Comprehensive hardship documentation with expert witnesses
+                </p>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20 text-center">
+                <h3 className="text-lg font-bold text-primary mb-3">📝 Legal Arguments</h3>
+                <p className="text-gray-300 text-sm">
+                  Compelling legal briefs addressing statutory requirements
+                </p>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20 text-center">
+                <h3 className="text-lg font-bold text-primary mb-3">🎯 Outcome Focus</h3>
+                <p className="text-gray-300 text-sm">
+                  Strategic approach maximizing approval chances
+                </p>
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
-
-      {/* Structured Data for SEO */}
-      <Script
-        id="practice-structured-data"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Service',
-            serviceType: 'Immigration Inadmissibility Waivers Legal Services',
-            provider: {
-              '@type': 'LegalService',
-              name: 'Vasquez Law Firm, PLLC',
-              url: 'https://www.vasquezlawfirm.com',
-              telephone: '+1-919-537-8722',
-              priceRange: '$$',
-            },
-            areaServed: {
-              '@type': 'State',
-              name: 'North Carolina',
-            },
-            url: 'https://www.vasquezlawfirm.com/practice-areas/immigration/inadmissibility-waivers/page',
-            description:
-              'Immigration Inadmissibility Waivers legal services in North Carolina. Free consultation. Se habla español.',
-          }),
-        }}
-      />
-    </div>
+      }
+    />
   );
 }

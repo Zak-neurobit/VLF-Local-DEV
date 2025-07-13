@@ -115,27 +115,62 @@ export const ConsistentFooter: React.FC<ConsistentFooterProps> = ({ language }) 
             <h4 className="text-lg font-semibold mb-4">{t.practiceAreas}</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href={language === 'es' ? '/es/areas-de-practica/inmigracion' : '/practice-areas/immigration'} className="text-neutral-300 hover:text-primary transition-colors">
+                <Link
+                  href={
+                    language === 'es'
+                      ? '/es/areas-de-practica/inmigracion'
+                      : '/practice-areas/immigration'
+                  }
+                  className="text-neutral-300 hover:text-primary transition-colors"
+                >
                   {t.immigration}
                 </Link>
               </li>
               <li>
-                <Link href={language === 'es' ? '/es/areas-de-practica/lesiones-personales' : '/practice-areas/personal-injury'} className="text-neutral-300 hover:text-primary transition-colors">
+                <Link
+                  href={
+                    language === 'es'
+                      ? '/es/areas-de-practica/lesiones-personales'
+                      : '/practice-areas/personal-injury'
+                  }
+                  className="text-neutral-300 hover:text-primary transition-colors"
+                >
                   {t.personalInjury}
                 </Link>
               </li>
               <li>
-                <Link href={language === 'es' ? '/es/areas-de-practica/compensacion-laboral' : '/practice-areas/workers-compensation'} className="text-neutral-300 hover:text-primary transition-colors">
+                <Link
+                  href={
+                    language === 'es'
+                      ? '/es/areas-de-practica/compensacion-laboral'
+                      : '/practice-areas/workers-compensation'
+                  }
+                  className="text-neutral-300 hover:text-primary transition-colors"
+                >
                   {t.workersComp}
                 </Link>
               </li>
               <li>
-                <Link href={language === 'es' ? '/es/areas-de-practica/defensa-criminal' : '/practice-areas/criminal-defense'} className="text-neutral-300 hover:text-primary transition-colors">
+                <Link
+                  href={
+                    language === 'es'
+                      ? '/es/areas-de-practica/defensa-criminal'
+                      : '/practice-areas/criminal-defense'
+                  }
+                  className="text-neutral-300 hover:text-primary transition-colors"
+                >
                   {t.criminalDefense}
                 </Link>
               </li>
               <li>
-                <Link href={language === 'es' ? '/es/areas-de-practica/derecho-familia' : '/practice-areas/family-law'} className="text-neutral-300 hover:text-primary transition-colors">
+                <Link
+                  href={
+                    language === 'es'
+                      ? '/es/areas-de-practica/derecho-familia'
+                      : '/practice-areas/family-law'
+                  }
+                  className="text-neutral-300 hover:text-primary transition-colors"
+                >
                   {t.familyLaw}
                 </Link>
               </li>
@@ -147,32 +182,50 @@ export const ConsistentFooter: React.FC<ConsistentFooterProps> = ({ language }) 
             <h4 className="text-lg font-semibold mb-4">{t.quickLinks}</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href={language === 'es' ? '/es/acerca-de' : '/about'} className="text-neutral-300 hover:text-primary transition-colors">
+                <Link
+                  href={language === 'es' ? '/es/acerca-de' : '/about'}
+                  className="text-neutral-300 hover:text-primary transition-colors"
+                >
                   {t.about}
                 </Link>
               </li>
               <li>
-                <Link href={language === 'es' ? '/es/abogados' : '/attorneys'} className="text-neutral-300 hover:text-primary transition-colors">
+                <Link
+                  href={language === 'es' ? '/es/abogados' : '/attorneys'}
+                  className="text-neutral-300 hover:text-primary transition-colors"
+                >
                   {t.attorneys}
                 </Link>
               </li>
               <li>
-                <Link href={language === 'es' ? '/es/blog' : '/blog'} className="text-neutral-300 hover:text-primary transition-colors">
+                <Link
+                  href={language === 'es' ? '/es/blog' : '/blog'}
+                  className="text-neutral-300 hover:text-primary transition-colors"
+                >
                   {t.blog}
                 </Link>
               </li>
               <li>
-                <Link href={language === 'es' ? '/es/contacto' : '/contact'} className="text-neutral-300 hover:text-primary transition-colors">
+                <Link
+                  href={language === 'es' ? '/es/contacto' : '/contact'}
+                  className="text-neutral-300 hover:text-primary transition-colors"
+                >
                   {t.contact}
                 </Link>
               </li>
               <li>
-                <Link href={language === 'es' ? '/es/testimonios' : '/testimonials'} className="text-neutral-300 hover:text-primary transition-colors">
+                <Link
+                  href={language === 'es' ? '/es/testimonios' : '/testimonials'}
+                  className="text-neutral-300 hover:text-primary transition-colors"
+                >
                   {t.testimonials}
                 </Link>
               </li>
               <li>
-                <Link href={language === 'es' ? '/es/preguntas-frecuentes' : '/faqs'} className="text-neutral-300 hover:text-primary transition-colors">
+                <Link
+                  href={language === 'es' ? '/es/preguntas-frecuentes' : '/faqs'}
+                  className="text-neutral-300 hover:text-primary transition-colors"
+                >
                   {t.faq}
                 </Link>
               </li>
@@ -185,7 +238,9 @@ export const ConsistentFooter: React.FC<ConsistentFooterProps> = ({ language }) 
             <ul className="space-y-3 text-sm">
               {offices.map((office, index) => (
                 <li key={index} className="text-neutral-300">
-                  <span className="font-medium">{office.city}, {office.state}</span>
+                  <span className="font-medium">
+                    {office.city}, {office.state}
+                  </span>
                   <br />
                   <a href={`tel:${office.phone}`} className="hover:text-primary transition-colors">
                     {office.phone}
@@ -224,13 +279,22 @@ export const ConsistentFooter: React.FC<ConsistentFooterProps> = ({ language }) 
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-neutral-400">
             <p>{t.copyright}</p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link href={language === 'es' ? '/es/politica-privacidad' : '/privacy-policy'} className="hover:text-primary transition-colors">
+              <Link
+                href={language === 'es' ? '/es/politica-privacidad' : '/privacy-policy'}
+                className="hover:text-primary transition-colors"
+              >
                 {t.privacy}
               </Link>
-              <Link href={language === 'es' ? '/es/terminos-servicio' : '/terms-of-service'} className="hover:text-primary transition-colors">
+              <Link
+                href={language === 'es' ? '/es/terminos-servicio' : '/terms-of-service'}
+                className="hover:text-primary transition-colors"
+              >
                 {t.terms}
               </Link>
-              <Link href={language === 'es' ? '/es/mapa-del-sitio' : '/sitemap'} className="hover:text-primary transition-colors">
+              <Link
+                href={language === 'es' ? '/es/mapa-del-sitio' : '/sitemap'}
+                className="hover:text-primary transition-colors"
+              >
                 {t.sitemap}
               </Link>
             </div>

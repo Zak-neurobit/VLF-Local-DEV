@@ -142,13 +142,14 @@ class EnhancedSEO {
       telephone: phone,
       url: website,
       ...(email && { email }),
-      ...(latitude && longitude && {
-        geo: {
-          '@type': 'GeoCoordinates',
-          latitude,
-          longitude,
-        },
-      }),
+      ...(latitude &&
+        longitude && {
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude,
+            longitude,
+          },
+        }),
       ...(hours.length > 0 && {
         openingHours: hours.map(hour => `${hour.day} ${hour.open}-${hour.close}`),
       }),
@@ -192,14 +193,15 @@ class EnhancedSEO {
         postalCode: config.address.zipCode,
         addressCountry: config.address.country,
       },
-      attorney: config.attorneys?.map((attorney: any) => ({
-        '@type': 'Person',
-        name: attorney.name,
-        jobTitle: attorney.title,
-        description: attorney.description,
-        image: attorney.image,
-        url: attorney.url,
-      })) || [],
+      attorney:
+        config.attorneys?.map((attorney: any) => ({
+          '@type': 'Person',
+          name: attorney.name,
+          jobTitle: attorney.title,
+          description: attorney.description,
+          image: attorney.image,
+          url: attorney.url,
+        })) || [],
       practiceArea: config.practiceAreas || [],
       priceRange: config.priceRange || '$$$',
       openingHours: config.hours || [],
@@ -263,15 +265,21 @@ class EnhancedSEO {
     };
   }
 
-  public generateSitemapXML(urls: Array<{ loc: string; lastmod?: string; changefreq?: string; priority?: number }>): string {
-    const urlElements = urls.map(url => `
+  public generateSitemapXML(
+    urls: Array<{ loc: string; lastmod?: string; changefreq?: string; priority?: number }>
+  ): string {
+    const urlElements = urls
+      .map(
+        url => `
     <url>
       <loc>${url.loc}</loc>
       ${url.lastmod ? `<lastmod>${url.lastmod}</lastmod>` : ''}
       ${url.changefreq ? `<changefreq>${url.changefreq}</changefreq>` : ''}
       ${url.priority ? `<priority>${url.priority}</priority>` : ''}
     </url>
-    `).join('');
+    `
+      )
+      .join('');
 
     return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -279,24 +287,24 @@ class EnhancedSEO {
 </urlset>`;
   }
 
-  public generateRobotsTxt(config: { userAgent?: string; disallow?: string[]; allow?: string[]; sitemap?: string }): string {
-    const {
-      userAgent = '*',
-      disallow = [],
-      allow = [],
-      sitemap,
-    } = config;
+  public generateRobotsTxt(config: {
+    userAgent?: string;
+    disallow?: string[];
+    allow?: string[];
+    sitemap?: string;
+  }): string {
+    const { userAgent = '*', disallow = [], allow = [], sitemap } = config;
 
     let robotsTxt = `User-agent: ${userAgent}\n`;
-    
+
     allow.forEach(path => {
       robotsTxt += `Allow: ${path}\n`;
     });
-    
+
     disallow.forEach(path => {
       robotsTxt += `Disallow: ${path}\n`;
     });
-    
+
     if (sitemap) {
       robotsTxt += `\nSitemap: ${sitemap}`;
     }

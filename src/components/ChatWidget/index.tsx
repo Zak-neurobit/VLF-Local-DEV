@@ -61,7 +61,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
       try {
         // Dynamically import socket.io-client to prevent SSR issues
         const { io } = await import('socket.io-client');
-        
+
         // Use the same origin for WebSocket connection
         const socketUrl = window.location.origin;
         const socket = io(socketUrl, {

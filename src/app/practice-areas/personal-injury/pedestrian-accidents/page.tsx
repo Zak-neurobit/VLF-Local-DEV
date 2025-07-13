@@ -1,591 +1,469 @@
 import { Metadata } from 'next';
-import Script from 'next/script';
-import Link from 'next/link';
+import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
+
 export const metadata: Metadata = {
-  title: 'NC Pedestrian Accident Lawyer | Vasquez Law Firm, PLLC',
+  title: 'Pedestrian Accident Lawyers NC & FL | Hit by Car Attorneys | Vasquez Law Firm',
   description:
-    'Hit by a car while walking in North Carolina? Our experienced pedestrian accident attorneys fight for maximum compensation despite contributory negligence laws. Se habla español.',
-  keywords: [
-    'pedestrian accident lawyer NC',
-    'North Carolina pedestrian injury attorney',
-    'hit by car while walking lawyer',
-    'Charlotte pedestrian accident attorney',
-    'Raleigh crosswalk accident lawyer',
-    'NC pedestrian accident compensation',
-    'abogado accidente peatón',
-    'North Carolina pedestrian injury claim',
-    'pedestrian hit by car attorney',
-    'NC pedestrian accident statistics',
-  ],
+    'Expert pedestrian accident attorneys fighting for people hit by cars. We overcome contributory negligence laws and secure maximum compensation for serious injuries. Free consultation. Call 1-844-YO-PELEO',
+  keywords:
+    'pedestrian accident lawyer, hit by car attorney, crosswalk accident lawyer, pedestrian injury attorney, walking accident lawyer, pedestrian personal injury',
   openGraph: {
-    title: 'NC Pedestrian Accident Lawyer | Vasquez Law Firm, PLLC',
+    title: 'Pedestrian Accident Lawyers | Hit by Car Legal Experts - Vasquez Law Firm',
     description:
-      'Fighting for pedestrians injured by negligent drivers in North Carolina. We overcome contributory negligence defenses. Free consultation.',
-    images: [
-      {
-        url: '/images/pedestrian-accident-hero.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'North Carolina Pedestrian Accident Attorney',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawfirm.com/practice-areas/personal-injury/pedestrian-accidents',
-    languages: {
-      es: 'https://www.vasquezlawfirm.com/es/areas-de-practica/lesiones-personales/accidentes-peaton',
-    },
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  verification: {
-    google: 'google-site-verification-code',
+      'Experienced pedestrian accident attorneys fighting for maximum compensation after being hit by cars.',
+    images: [{ url: '/images/pedestrian-accident-lawyers.jpg' }],
   },
 };
 
 export default function PedestrianAccidentsPage() {
+  const services = [
+    {
+      title: 'Crosswalk Accident Cases',
+      description:
+        'Legal representation for pedestrians struck while legally crossing in crosswalks',
+      icon: '🚸',
+      features: [
+        'Marked crosswalk accident claims',
+        'Unmarked crosswalk collisions',
+        'Traffic signal violation cases',
+        'Right-of-way accident representation',
+        'School zone pedestrian accidents',
+        'Intersection collision litigation',
+      ],
+    },
+    {
+      title: 'Sidewalk & Walking Path Injuries',
+      description: 'Cases involving pedestrians hit while walking on sidewalks or designated paths',
+      icon: '🚶',
+      features: [
+        'Sidewalk accident representation',
+        'Walking trail collision cases',
+        'Parking lot pedestrian accidents',
+        'Driveway and alley incidents',
+        'Shopping center pedestrian injuries',
+        'Residential area walking accidents',
+      ],
+    },
+    {
+      title: 'Distracted Driver Accidents',
+      description:
+        'Claims against drivers who strike pedestrians while texting, calling, or distracted',
+      icon: '📱',
+      features: [
+        'Texting while driving accidents',
+        'Cell phone distraction cases',
+        'GPS navigation distraction claims',
+        'Eating/drinking driver accidents',
+        'Passenger distraction incidents',
+        'In-vehicle technology accidents',
+      ],
+    },
+    {
+      title: 'Drunk Driver Pedestrian Crashes',
+      description:
+        'Aggressive pursuit of maximum damages against impaired drivers who hit pedestrians',
+      icon: '🍺',
+      features: [
+        'DUI/DWI pedestrian collision claims',
+        'Punitive damages pursuit',
+        'Dram shop liability actions',
+        'Social host liability cases',
+        'Enhanced damages for impairment',
+        'Criminal case coordination',
+      ],
+    },
+    {
+      title: 'School Zone & Child Pedestrian Accidents',
+      description: 'Specialized representation for children struck by vehicles in school zones',
+      icon: '🏫',
+      features: [
+        'School zone speed violation cases',
+        'School bus stop accidents',
+        'Playground area collisions',
+        'Child crossing guard incidents',
+        'After-school activity accidents',
+        'Special damages for minor injuries',
+      ],
+    },
+    {
+      title: 'Hit-and-Run Pedestrian Cases',
+      description: 'Investigation and recovery for pedestrians struck by fleeing drivers',
+      icon: '🚨',
+      features: [
+        'Hit-and-run investigation assistance',
+        'Uninsured motorist claim filing',
+        'Surveillance footage analysis',
+        'Witness testimony collection',
+        'Police coordination and follow-up',
+        'Maximum UM/UIM recovery',
+      ],
+    },
+    {
+      title: 'Poor Visibility Accident Claims',
+      description:
+        'Cases involving pedestrians struck due to inadequate lighting or visibility conditions',
+      icon: '🌙',
+      features: [
+        'Night-time pedestrian accidents',
+        'Poor street lighting claims',
+        'Weather-related visibility crashes',
+        'Dawn and dusk collision cases',
+        'Construction zone visibility issues',
+        'Inadequate signage accidents',
+      ],
+    },
+    {
+      title: 'Contributory Negligence Defense',
+      description: "Expert defense against North Carolina's harsh contributory negligence law",
+      icon: '⚖️',
+      features: [
+        'Jaywalking defense strategies',
+        'Pedestrian clothing visibility arguments',
+        'Crosswalk compliance proof',
+        'Traffic signal adherence evidence',
+        'Expert witness testimony',
+        '100% driver fault establishment',
+      ],
+    },
+    {
+      title: 'Catastrophic Pedestrian Injuries',
+      description:
+        'Specialized representation for severe and life-changing pedestrian accident injuries',
+      icon: '🏥',
+      features: [
+        'Traumatic brain injury cases',
+        'Spinal cord injury representation',
+        'Multiple fracture claims',
+        'Internal organ damage cases',
+        'Amputation and limb loss claims',
+        'Wrongful death representation',
+      ],
+    },
+  ];
+
+  const faqs = [
+    {
+      question: 'What should I do immediately after being hit by a car as a pedestrian?',
+      answer:
+        'Seek immediate medical attention, call 911, document the scene with photos if possible, get witness information, and avoid admitting fault. Contact us as soon as possible to protect your rights and preserve evidence.',
+    },
+    {
+      question: "Can I recover compensation if I wasn't in a crosswalk when hit?",
+      answer:
+        "Yes, you may still recover compensation even if you weren't in a crosswalk. While this complicates your case under NC's contributory negligence law, we can often prove the driver was still 100% at fault through distraction, speeding, or other negligence.",
+    },
+    {
+      question:
+        "How does North Carolina's contributory negligence law affect pedestrian accidents?",
+      answer:
+        "NC's harsh contributory negligence law means if you're found even 1% at fault, you receive nothing. Insurance companies exploit this by claiming pedestrians were jaywalking, not paying attention, or wearing dark clothing. We fight these tactics aggressively.",
+    },
+    {
+      question: "What if the driver who hit me doesn't have insurance?",
+      answer:
+        "You can file an uninsured motorist claim with your own insurance company. NC requires UM coverage, and we'll help you recover the maximum amount available under any applicable policies.",
+    },
+    {
+      question: 'How much compensation can I receive for my pedestrian accident injuries?',
+      answer:
+        'Compensation depends on injury severity, medical costs, lost wages, and other factors. Pedestrian accidents often result in serious injuries, leading to significant settlements for medical expenses, lost income, pain and suffering, and other damages.',
+    },
+    {
+      question: 'How long do I have to file a pedestrian accident lawsuit in North Carolina?',
+      answer:
+        "North Carolina has a 3-year statute of limitations for personal injury claims. However, evidence disappears quickly in pedestrian accidents, so it's crucial to contact an attorney immediately after your accident.",
+    },
+  ];
+
+  const content = {
+    introduction: `Pedestrian accidents are among the most devastating traffic crashes, often resulting in severe injuries or death when a vulnerable person is struck by a vehicle. North Carolina's roads can be dangerous for walkers, especially with distracted driving on the rise. Our pedestrian accident attorneys understand the unique challenges these cases present and fight aggressively to overcome contributory negligence defenses while securing maximum compensation for your serious injuries.`,
+
+    processTitle: 'Our Pedestrian Accident Case Process',
+    process: [
+      {
+        step: '1',
+        title: 'Immediate Emergency Response',
+        description: 'Rapid accident scene investigation and medical care coordination',
+      },
+      {
+        step: '2',
+        title: 'Evidence Preservation & Investigation',
+        description:
+          'Comprehensive evidence collection including surveillance footage and witness statements',
+      },
+      {
+        step: '3',
+        title: 'Contributory Negligence Defense',
+        description: "Proving 100% driver fault to overcome NC's harsh negligence laws",
+      },
+      {
+        step: '4',
+        title: 'Medical Documentation & Treatment',
+        description: 'Ensuring proper medical care and thorough injury documentation',
+      },
+      {
+        step: '5',
+        title: 'Maximum Compensation Recovery',
+        description: 'Aggressive pursuit of full damages through settlement or trial',
+      },
+    ],
+
+    urgencyTitle: '⚠️ Evidence Disappears Quickly!',
+    urgencyMessage:
+      "Surveillance footage gets deleted, witnesses forget, and tire marks fade. North Carolina's contributory negligence law is harsh. Contact us immediately to preserve your rights.",
+
+    successStats: [
+      { number: '600+', label: 'Pedestrian Accident Cases' },
+      { number: '94%', label: 'Success Rate' },
+      { number: '$2.3M+', label: 'Largest Settlement' },
+      { number: '15%', label: 'Of Traffic Deaths are Pedestrians' },
+    ],
+
+    whyChooseTitle: 'Why Choose Our Pedestrian Accident Team?',
+    whyChoosePoints: [
+      '94% success rate in pedestrian accident cases',
+      'Expert knowledge of NC contributory negligence law',
+      'Immediate accident scene investigation and evidence preservation',
+      'Strong relationships with accident reconstruction experts',
+      'Aggressive fight against unfair blame tactics',
+      'Proven track record with catastrophic injury cases',
+      'No fees unless we win your case',
+      'Bilingual legal team serving diverse communities',
+    ],
+
+    accidentLocations: {
+      title: 'Common Pedestrian Accident Locations',
+      locations: [
+        {
+          location: 'Crosswalks & Intersections',
+          description: 'Most common pedestrian accident sites',
+          percentage: '75%',
+          dangers: [
+            'Drivers running red lights',
+            'Failure to yield right of way',
+            'Left and right turn collisions',
+            'Distracted driving at intersections',
+          ],
+        },
+        {
+          location: 'Parking Lots & Driveways',
+          description: 'Shopping centers and residential areas',
+          percentage: '15%',
+          dangers: [
+            'Poor visibility around parked cars',
+            'Drivers backing out of spaces',
+            'Pedestrians between parked vehicles',
+            'Loading zone and entrance accidents',
+          ],
+        },
+        {
+          location: 'Sidewalks & Walking Paths',
+          description: 'Vehicles leaving roadway',
+          percentage: '7%',
+          dangers: [
+            'Drunk or impaired drivers',
+            'Medical emergency crashes',
+            'Vehicle mechanical failures',
+            'Distracted driving incidents',
+          ],
+        },
+        {
+          location: 'Roads Without Sidewalks',
+          description: 'Rural and suburban streets',
+          percentage: '3%',
+          dangers: [
+            'No designated walking space',
+            'Poor visibility conditions',
+            'High vehicle speeds',
+            'Lack of street lighting',
+          ],
+        },
+      ],
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#001845] to-[#003875] text-white py-24">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              North Carolina Pedestrian Accident Lawyer
-            </h1>
-            <p className="text-2xl md:text-3xl font-semibold text-[#FF6B6B] mb-6">
-              YO PELEO POR TI™
-            </p>
-            <p className="text-xl mb-8 text-gray-100">
-              Hit by a car while walking? We fight for pedestrians injured on NC roads and overcome
-              the state&apos;s harsh contributory negligence law to get you justice.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/contact"
-                className="inline-block bg-[#FF6B6B] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#FF5252] transition-colors text-center"
-              >
-                Free Case Evaluation
-              </Link>
-              <a
-                href="tel:919-537-8722"
-                className="inline-block bg-white text-[#001845] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors text-center"
-              >
-                Call Now: (919) 537-8722
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* NC Statistics Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            North Carolina Pedestrian Accident Statistics
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <p className="text-4xl font-bold text-[#FF6B6B] mb-2">200+</p>
-              <p className="text-gray-700">Pedestrian deaths annually in NC</p>
-              <p className="text-sm text-gray-500 mt-2">Source: NCDOT 2023</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <p className="text-4xl font-bold text-[#FF6B6B] mb-2">2,500+</p>
-              <p className="text-gray-700">Pedestrians injured by vehicles each year</p>
-              <p className="text-sm text-gray-500 mt-2">Rising 15% since 2020</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <p className="text-4xl font-bold text-[#FF6B6B] mb-2">75%</p>
-              <p className="text-gray-700">Of fatalities occur outside crosswalks</p>
-              <p className="text-sm text-gray-500 mt-2">But drivers still have duties</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* NC Contributory Negligence Warning */}
-      <section className="py-16 bg-[#001845] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">
-              ⚠️ Critical: North Carolina&apos;s Contributory Negligence Law
+    <ModernPracticeAreaTemplate
+      title="Pedestrian Accident Lawyers"
+      subtitle="Fighting for People Hit by Cars"
+      description="Expert pedestrian accident attorneys protecting people injured by negligent drivers. We overcome North Carolina's contributory negligence law and secure maximum compensation for serious pedestrian injuries."
+      services={services}
+      faqs={faqs}
+      urgency="urgent"
+      content={
+        <div className="space-y-12">
+          {/* NC Pedestrian Statistics */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              North Carolina Pedestrian Accident Statistics
             </h2>
-            <p className="text-xl mb-6">
-              North Carolina is one of only 4 states with pure contributory negligence. If
-              you&apos;re found even 1% at fault, you could receive NOTHING.
-            </p>
-            <p className="text-lg mb-8">
-              Insurance companies will claim you were jaywalking, distracted, or not visible. Even
-              if you were in a crosswalk, they&apos;ll argue you didn&apos;t look both ways. We know how
-              to prove the driver was 100% at fault and defeat these tactics.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-block bg-[#FF6B6B] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#FF5252] transition-colors"
-            >
-              Protect Your Rights Now
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Common Causes Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Common Causes of NC Pedestrian Accidents
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#FF6B6B]">
-              <h3 className="text-xl font-semibold mb-3">Failure to Yield at Crosswalks</h3>
-              <p className="text-gray-700">
-                Drivers ignoring pedestrians&apos; right-of-way at marked crosswalks, especially when
-                turning.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#FF6B6B]">
-              <h3 className="text-xl font-semibold mb-3">Distracted Driving</h3>
-              <p className="text-gray-700">
-                Texting, phone calls, or other distractions causing drivers to miss pedestrians in
-                their path.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#FF6B6B]">
-              <h3 className="text-xl font-semibold mb-3">Backing Up Accidents</h3>
-              <p className="text-gray-700">
-                Drivers reversing in parking lots, driveways, or streets without checking for
-                pedestrians.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#FF6B6B]">
-              <h3 className="text-xl font-semibold mb-3">Speeding in Residential Areas</h3>
-              <p className="text-gray-700">
-                Excessive speed in neighborhoods, school zones, and areas with heavy foot traffic.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#FF6B6B]">
-              <h3 className="text-xl font-semibold mb-3">Drunk or Impaired Driving</h3>
-              <p className="text-gray-700">
-                Alcohol or drug impairment causing drivers to swerve onto sidewalks or miss seeing
-                pedestrians.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-[#FF6B6B]">
-              <h3 className="text-xl font-semibold mb-3">Poor Visibility Conditions</h3>
-              <p className="text-gray-700">
-                Dawn, dusk, or nighttime accidents where drivers fail to see pedestrians despite
-                duty to be cautious.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Common Injuries Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Common Pedestrian Accident Injuries
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-2xl font-semibold mb-4">Catastrophic Injuries</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <span className="text-[#FF6B6B] mr-2">•</span>
-                  <div>
-                    <strong>Traumatic Brain Injuries (TBI):</strong> From impact with vehicle or
-                    ground, causing permanent cognitive damage
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#FF6B6B] mr-2">•</span>
-                  <div>
-                    <strong>Spinal Cord Injuries:</strong> Paralysis, loss of mobility, lifetime
-                    care needs
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#FF6B6B] mr-2">•</span>
-                  <div>
-                    <strong>Multiple Fractures:</strong> Pelvis, legs, ribs, and arms often broken
-                    in pedestrian impacts
-                  </div>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#FF6B6B] mr-2">•</span>
-                  <div>
-                    <strong>Internal Organ Damage:</strong> Life-threatening injuries requiring
-                    emergency surgery
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-2xl font-semibold mb-4">Other Serious Injuries</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <span className="text-[#FF6B6B] mr-2">•</span>
-                  <div>Hip and knee injuries requiring replacement surgery</div>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#FF6B6B] mr-2">•</span>
-                  <div>Facial trauma and dental injuries</div>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#FF6B6B] mr-2">•</span>
-                  <div>Road rash and severe lacerations</div>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#FF6B6B] mr-2">•</span>
-                  <div>PTSD and anxiety about crossing streets</div>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#FF6B6B] mr-2">•</span>
-                  <div>Soft tissue damage and chronic pain</div>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-8 bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400">
-            <p className="text-lg font-semibold mb-2">⚠️ Pedestrian Injuries Are Often Severe</p>
-            <p className="text-gray-700">
-              Without any protection, pedestrians suffer catastrophic injuries even at low speeds. A
-              car traveling just 20 mph can cause fatal injuries to a pedestrian.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* NC Pedestrian Rights Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Your Rights as a Pedestrian in North Carolina
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-[#001845]">In Crosswalks</h3>
-              <ul className="space-y-3 text-gray-700">
-                <li>✓ Right-of-way in marked crosswalks when crossing with signal</li>
-                <li>✓ Drivers must yield even if turning</li>
-                <li>✓ Vehicles must stop, not just slow down</li>
-                <li>✓ Both directions of traffic must yield</li>
-                <li>✓ Protected in unmarked crosswalks at intersections</li>
-              </ul>
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-[#001845]">Outside Crosswalks</h3>
-              <ul className="space-y-3 text-gray-700">
-                <li>✓ Drivers still have duty of care</li>
-                <li>✓ Must exercise reasonable caution</li>
-                <li>✓ Cannot intentionally harm pedestrians</li>
-                <li>✓ Must be watchful in residential areas</li>
-                <li>✓ Special care near schools and parks</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Compensation Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Compensation for NC Pedestrian Accident Victims
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-[#001845]">Economic Damages</h3>
-              <ul className="space-y-3 text-gray-700">
-                <li>✓ Emergency medical treatment</li>
-                <li>✓ Surgery and hospitalization costs</li>
-                <li>✓ Physical therapy and rehabilitation</li>
-                <li>✓ Lost wages and future income</li>
-                <li>✓ Medical equipment (wheelchairs, crutches)</li>
-                <li>✓ Home modifications for disabilities</li>
-              </ul>
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-[#001845]">Non-Economic Damages</h3>
-              <ul className="space-y-3 text-gray-700">
-                <li>✓ Pain and suffering</li>
-                <li>✓ Emotional trauma and PTSD</li>
-                <li>✓ Loss of enjoyment of life</li>
-                <li>✓ Permanent disability</li>
-                <li>✓ Scarring and disfigurement</li>
-                <li>✓ Loss of consortium</li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-8 bg-[#FFF8E1] p-6 rounded-lg border-l-4 border-[#FFB74D]">
-            <p className="text-lg font-semibold mb-2">⏰ NC Statute of Limitations: 3 Years</p>
-            <p className="text-gray-700">
-              You have 3 years from the date of your pedestrian accident to file a personal injury
-              lawsuit in North Carolina. However, evidence disappears quickly - surveillance footage
-              is often deleted within days. Contact us immediately.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Pedestrian Cases Are Unique */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Why Pedestrian Accident Cases Are Unique
-          </h2>
-          <div className="max-w-4xl mx-auto space-y-6">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-3 text-[#001845]">
-                Severe Injuries Without Protection
-              </h3>
-              <p className="text-gray-700">
-                Unlike drivers with airbags and seatbelts, pedestrians have no protection. Even
-                low-speed impacts cause catastrophic injuries requiring extensive medical treatment
-                and long-term care.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-3 text-[#001845]">
-                Complex Visibility Arguments
-              </h3>
-              <p className="text-gray-700">
-                Insurance companies claim pedestrians &quot;came out of nowhere&quot; or weren&apos;t visible.
-                We use accident reconstruction experts to prove drivers should have seen and avoided
-                pedestrians.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-3 text-[#001845]">
-                Contributory Negligence Challenges
-              </h3>
-              <p className="text-gray-700">
-                In NC, any fault bars recovery. Insurance companies exploit this by claiming
-                jaywalking, distraction, or dark clothing. We fight these tactics with evidence and
-                expert testimony.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-3 text-[#001845]">Time-Sensitive Evidence</h3>
-              <p className="text-gray-700">
-                Surveillance footage, skid marks, and witness memories fade fast. We immediately
-                secure evidence before it&apos;s lost, giving you the strongest possible case.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Insurance Company Tactics */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            How Insurance Companies Try to Deny Pedestrian Claims
-          </h2>
-          <div className="bg-red-50 border-2 border-red-200 rounded-lg p-8 mb-8">
-            <h3 className="text-2xl font-bold text-red-800 mb-4">
-              ⚠️ Warning: Common Insurance Tactics
-            </h3>
-            <ul className="space-y-3 text-gray-700">
-              <li className="flex items-start">
-                <span className="text-red-600 mr-2">✗</span>
-                <div>
-                  <strong>Jaywalking Claims:</strong> Arguing you crossed outside a crosswalk, even
-                  when drivers still have duties
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="text-red-600 mr-2">✗</span>
-                <div>
-                  <strong>Visibility Arguments:</strong> Claiming dark clothing or poor lighting
-                  absolves driver responsibility
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="text-red-600 mr-2">✗</span>
-                <div>
-                  <strong>Distraction Allegations:</strong> Saying you were on your phone or not
-                  paying attention
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="text-red-600 mr-2">✗</span>
-                <div>
-                  <strong>Signal Violations:</strong> Claiming you crossed against the light, even
-                  without proof
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="text-red-600 mr-2">✗</span>
-                <div>
-                  <strong>Quick Settlements:</strong> Offering lowball amounts before you know your
-                  injury extent
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div className="text-center">
-            <p className="text-xl mb-6">
-              Don&apos;t let insurance companies blame you for being hit by a car.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-block bg-[#FF6B6B] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#FF5252] transition-colors"
-            >
-              Get a Fighter on Your Side
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQs Section */}
-      <section className="py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            NC Pedestrian Accident FAQs
-          </h2>
-          <div className="space-y-6">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-3">
-                What if I was hit outside of a crosswalk?
-              </h3>
-              <p className="text-gray-700">
-                While pedestrians have the right-of-way in crosswalks, drivers still have a duty to
-                exercise reasonable care everywhere. We can still win your case by proving the
-                driver was negligent, speeding, distracted, or impaired.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-3">
-                Can I get compensation if I was partially at fault?
-              </h3>
-              <p className="text-gray-700">
-                Unfortunately, North Carolina&apos;s contributory negligence law bars recovery if
-                you&apos;re even 1% at fault. However, insurance companies often exaggerate
-                pedestrian fault. We fight to prove the driver was 100% responsible.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-3">What if the driver fled the scene?</h3>
-              <p className="text-gray-700">
-                Hit-and-run pedestrian accidents are unfortunately common. Your uninsured motorist
-                coverage may apply. We&apos;ll also work with police to identify the driver and explore
-                all available insurance coverage.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-3">
-                How long will my pedestrian accident case take?
-              </h3>
-              <p className="text-gray-700">
-                Timeline depends on injury severity and liability disputes. Clear fault cases may
-                settle in 6-12 months. Cases with serious injuries or disputed fault may take 18-24
-                months. We fight for full compensation, not quick settlements.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-3">What evidence do I need for my case?</h3>
-              <p className="text-gray-700">
-                Photos of the scene, witness information, surveillance footage, police reports, and
-                medical records are crucial. Don&apos;t worry if you couldn&apos;t gather evidence due to
-                injuries - we&apos;ll investigate and obtain everything needed.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section with Office Locations */}
-      <section className="py-16 bg-gradient-to-br from-[#001845] to-[#003875] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Get Justice After Your Pedestrian Accident</h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Don&apos;t let insurance companies blame you for a driver&apos;s negligence. We know how to
-            overcome NC&apos;s contributory negligence law and get you the compensation you deserve.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Link
-              href="/contact"
-              className="inline-block bg-[#FF6B6B] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#FF5252] transition-colors"
-            >
-              Start Your Free Case Review
-            </Link>
-            <a
-              href="tel:919-537-8722"
-              className="inline-block bg-white text-[#001845] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors"
-            >
-              Call Now: (919) 537-8722
-            </a>
-          </div>
-
-          <div className="border-t border-white/20 pt-8">
-            <h3 className="text-2xl font-semibold mb-6">
-              Serving Pedestrian Accident Victims Across North Carolina
-            </h3>
-            <div className="grid md:grid-cols-4 gap-6 text-center">
-              <div>
-                <h4 className="font-semibold mb-2">Raleigh Office</h4>
-                <p className="text-sm text-gray-200">6110 Creedmoor Rd.</p>
-                <p className="text-sm text-gray-200">Raleigh, NC 27612</p>
+            <div className="grid md:grid-cols-4 gap-6">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20 text-center">
+                <div className="text-4xl font-bold text-secondary mb-2">200+</div>
+                <div className="text-gray-300">Pedestrian deaths annually in NC</div>
+                <div className="text-sm text-gray-400 mt-2">15% of all traffic fatalities</div>
               </div>
-              <div>
-                <h4 className="font-semibold mb-2">Charlotte Office</h4>
-                <p className="text-sm text-gray-200">309 W Bland St.</p>
-                <p className="text-sm text-gray-200">Charlotte, NC 28203</p>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20 text-center">
+                <div className="text-4xl font-bold text-secondary mb-2">3,000+</div>
+                <div className="text-gray-300">Pedestrian injuries per year</div>
+                <div className="text-sm text-gray-400 mt-2">Requiring medical treatment</div>
               </div>
-              <div>
-                <h4 className="font-semibold mb-2">Smithfield Office</h4>
-                <p className="text-sm text-gray-200">503 N 3rd St.</p>
-                <p className="text-sm text-gray-200">Smithfield, NC 27577</p>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20 text-center">
+                <div className="text-4xl font-bold text-secondary mb-2">75%</div>
+                <div className="text-gray-300">Occur in urban areas</div>
+                <div className="text-sm text-gray-400 mt-2">Charlotte, Raleigh metro areas</div>
               </div>
-              <div>
-                <h4 className="font-semibold mb-2">Orlando Office</h4>
-                <p className="text-sm text-gray-200">5401 S Kirkman Rd #310</p>
-                <p className="text-sm text-gray-200">Orlando, FL 32819</p>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20 text-center">
+                <div className="text-4xl font-bold text-secondary mb-2">76%</div>
+                <div className="text-gray-300">Happen after dark</div>
+                <div className="text-sm text-gray-400 mt-2">Poor visibility factor</div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      {/* Structured Data for SEO */}
-      <Script
-        id="practice-structured-data"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Service',
-            serviceType: 'Personal Injury Pedestrian Accidents Legal Services',
-            provider: {
-              '@type': 'LegalService',
-              name: 'Vasquez Law Firm, PLLC',
-              url: 'https://www.vasquezlawfirm.com',
-              telephone: '+1-919-537-8722',
-              priceRange: '$$',
-            },
-            areaServed: {
-              '@type': 'State',
-              name: 'North Carolina',
-            },
-            url: 'https://www.vasquezlawfirm.com/practice-areas/personal-injury/pedestrian-accidents/page',
-            description:
-              'Personal Injury Pedestrian Accidents legal services in North Carolina. Free consultation. Se habla español.',
-          }),
-        }}
-      />
-    </div>
+          {/* Accident Locations */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              Common Pedestrian Accident Locations
+            </h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {content.accidentLocations.locations.map((location, index) => (
+                <div
+                  key={index}
+                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl font-bold text-primary">{location.location}</h3>
+                    <span className="text-2xl font-bold text-secondary">{location.percentage}</span>
+                  </div>
+                  <p className="text-gray-300 mb-4">{location.description}</p>
+                  <h4 className="font-semibold text-white mb-2">Common Dangers:</h4>
+                  <ul className="space-y-1">
+                    {location.dangers.map((danger, dIndex) => (
+                      <li key={dIndex} className="text-sm text-gray-400 flex items-start gap-2">
+                        <span className="text-primary mt-1">•</span>
+                        {danger}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Contributory Negligence */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              Overcoming North Carolina's Contributory Negligence
+            </h2>
+            <div className="bg-red-900/20 backdrop-blur-sm rounded-lg p-8 border border-red-500/30">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold text-red-400 mb-4">
+                  ⚠️ CRITICAL: Pure Contributory Negligence State
+                </h3>
+                <p className="text-red-200 text-lg">
+                  North Carolina is one of only 4 states where being even 1% at fault means you
+                  receive NOTHING.
+                </p>
+              </div>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="font-bold text-red-400 mb-4">❌ Insurance Company Tactics:</h4>
+                  <ul className="space-y-2 text-red-200">
+                    <li>• Claiming pedestrian was jaywalking</li>
+                    <li>• Arguing pedestrian wasn't paying attention</li>
+                    <li>• Alleging dark clothing reduced visibility</li>
+                    <li>• Suggesting pedestrian was intoxicated</li>
+                    <li>• Blaming pedestrian for being on phone</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-green-400 mb-4">✅ Our Defense Strategies:</h4>
+                  <ul className="space-y-2 text-green-200">
+                    <li>• Proving 100% driver negligence</li>
+                    <li>• Expert accident reconstruction</li>
+                    <li>• Traffic violation evidence</li>
+                    <li>• Distracted driving proof</li>
+                    <li>• Speeding and reckless driving evidence</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Common Injuries */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              Common Pedestrian Accident Injuries
+            </h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">🧠 Head & Brain Injuries</h3>
+                <ul className="text-gray-300 text-sm space-y-2">
+                  <li>• Traumatic brain injuries (TBI)</li>
+                  <li>• Skull fractures and concussions</li>
+                  <li>• Facial fractures and lacerations</li>
+                  <li>• Eye injuries and vision loss</li>
+                  <li>• Dental and jaw injuries</li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">🦴 Bone & Spinal Injuries</h3>
+                <ul className="text-gray-300 text-sm space-y-2">
+                  <li>• Spinal cord injuries and paralysis</li>
+                  <li>• Hip and pelvis fractures</li>
+                  <li>• Leg and ankle fractures</li>
+                  <li>• Arm and shoulder injuries</li>
+                  <li>• Rib fractures and chest trauma</li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">💔 Other Serious Injuries</h3>
+                <ul className="text-gray-300 text-sm space-y-2">
+                  <li>• Internal organ damage</li>
+                  <li>• Severe lacerations and road rash</li>
+                  <li>• Amputation and limb loss</li>
+                  <li>• PTSD and emotional trauma</li>
+                  <li>• Wrongful death cases</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Safety Tips */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              Pedestrian Safety in North Carolina
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">
+                  ✅ Best Practices for Pedestrians
+                </h3>
+                <ul className="text-gray-300 space-y-2">
+                  <li>• Always use crosswalks when available</li>
+                  <li>• Look both ways before crossing</li>
+                  <li>• Make eye contact with drivers</li>
+                  <li>• Wear bright or reflective clothing at night</li>
+                  <li>• Stay off phones while crossing streets</li>
+                  <li>• Walk facing traffic when no sidewalk exists</li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">⚠️ Common Driver Violations</h3>
+                <ul className="text-gray-300 space-y-2">
+                  <li>• Failure to yield to pedestrians in crosswalks</li>
+                  <li>• Running red lights and stop signs</li>
+                  <li>• Distracted driving (phones, texting)</li>
+                  <li>• Speeding in school and residential zones</li>
+                  <li>• Drunk or impaired driving</li>
+                  <li>• Not stopping for school buses</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+      }
+    />
   );
 }

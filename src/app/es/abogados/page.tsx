@@ -4,11 +4,14 @@ import AttorneysPageContent from '@/components/AttorneysPageContent';
 
 export const metadata: Metadata = {
   title: 'Nuestros Abogados - Bufete de Abogados Vasquez - YO PELEO POR TI™',
-  description: 'Conozca a nuestro equipo de abogados experimentados en inmigración, lesiones personales, compensación laboral, defensa criminal y derecho familiar. Más de 100 años de experiencia combinada.',
-  keywords: 'abogados, equipo legal, abogado inmigración, abogado lesiones personales, abogado defensa criminal, abogado derecho familiar, William Vasquez',
+  description:
+    'Conozca a nuestro equipo de abogados experimentados en inmigración, lesiones personales, compensación laboral, defensa criminal y derecho familiar. Más de 100 años de experiencia combinada.',
+  keywords:
+    'abogados, equipo legal, abogado inmigración, abogado lesiones personales, abogado defensa criminal, abogado derecho familiar, William Vasquez',
   openGraph: {
     title: 'Nuestros Abogados - Bufete de Abogados Vasquez',
-    description: 'Equipo legal experimentado luchando por sus derechos. Más de 100 años de experiencia combinada.',
+    description:
+      'Equipo legal experimentado luchando por sus derechos. Más de 100 años de experiencia combinada.',
     images: [{ url: '/images/BANNER_TRANS.PNG' }],
   },
   alternates: {

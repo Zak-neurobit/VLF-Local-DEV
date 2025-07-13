@@ -3,17 +3,20 @@
 ## Pre-Deployment Checklist
 
 ### 1. Repository Setup
+
 - [ ] Code is pushed to GitHub/GitLab/Bitbucket
 - [ ] `.env.local` is in `.gitignore` (never commit secrets!)
 - [ ] `CLAUDE.md` files are committed (project instructions)
 
 ### 2. Vercel Account
+
 - [ ] Created Vercel account at https://vercel.com
 - [ ] Connected GitHub/GitLab/Bitbucket account
 
 ## Deployment Steps
 
 ### Step 1: Import Project
+
 - [ ] Click "Add New Project" in Vercel dashboard
 - [ ] Select your repository
 - [ ] Framework Preset: **Next.js** (auto-detected)
@@ -26,6 +29,7 @@
 ### Step 2: Configure Environment Variables
 
 #### Minimal Setup (Copy & Paste)
+
 - [ ] Click "Environment Variables" section
 - [ ] Add these variables ONE BY ONE:
 
@@ -50,6 +54,7 @@ SKIP_ENV_VALIDATION = true
 ### Step 3: Database Setup (Choose One)
 
 #### Option A: Vercel Postgres
+
 - [ ] Go to Storage tab in Vercel
 - [ ] Click "Create Database"
 - [ ] Select "Postgres"
@@ -58,6 +63,7 @@ SKIP_ENV_VALIDATION = true
 - [ ] DATABASE_URL is automatically added ✅
 
 #### Option B: Supabase (Free)
+
 - [ ] Sign up at https://supabase.com
 - [ ] Create new project
 - [ ] Settings → Database → Connection string
@@ -65,17 +71,20 @@ SKIP_ENV_VALIDATION = true
 - [ ] Add to Vercel as DATABASE_URL
 
 #### Option C: Neon (Free)
+
 - [ ] Sign up at https://neon.tech
 - [ ] Create database
 - [ ] Copy connection string
 - [ ] Add to Vercel as DATABASE_URL
 
 ### Step 4: Deploy
+
 - [ ] Click "Deploy" button
 - [ ] Wait for deployment (3-5 minutes)
 - [ ] Check build logs for errors
 
 ### Step 5: Post-Deployment
+
 - [ ] Copy your deployment URL (e.g., `vasquez-law-abc123.vercel.app`)
 - [ ] Update these environment variables with your actual URL:
   - [ ] NEXT_PUBLIC_APP_URL
@@ -85,6 +94,7 @@ SKIP_ENV_VALIDATION = true
 ## Verification Checklist
 
 ### Basic Functionality
+
 - [ ] Homepage loads without errors
 - [ ] Navigation menu works
 - [ ] Footer displays correctly
@@ -92,11 +102,13 @@ SKIP_ENV_VALIDATION = true
 - [ ] No console errors in browser
 
 ### Check Deployment Logs
+
 - [ ] Go to Functions tab
 - [ ] Check for any runtime errors
 - [ ] Verify API routes are working
 
 ### Domain Setup (Optional)
+
 - [ ] Go to Settings → Domains
 - [ ] Add custom domain
 - [ ] Update DNS records
@@ -105,52 +117,66 @@ SKIP_ENV_VALIDATION = true
 ## Progressive Enhancement
 
 ### Phase 1: AI Features
+
 - [ ] Get OpenAI API key from https://platform.openai.com
 - [ ] Add OPENAI_API_KEY to Vercel
 - [ ] Test AI chat functionality
 
 ### Phase 2: Maps
+
 - [ ] Get Google Maps API key
 - [ ] Add NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
 - [ ] Verify maps display on contact page
 
 ### Phase 3: Real Services
+
 - [ ] Set up Redis (Upstash recommended)
 - [ ] Configure email service
 - [ ] Add Sentry for error tracking
-- [ ] Set MOCK_* variables to false
+- [ ] Set MOCK\_\* variables to false
 
 ## Troubleshooting Guide
 
 ### Build Failures
+
 ```
 Error: Missing required environment variables
 ```
+
 **Solution**: Ensure all Phase 1 variables are added
 
 ### Database Connection Failed
+
 ```
 Error: Can't reach database server
 ```
-**Solution**: 
+
+**Solution**:
+
 - Check DATABASE_URL format
 - Ensure it includes `?sslmode=require` for production
 - Verify database is accessible from Vercel's IPs
 
 ### 500 Errors on API Routes
+
 ```
 Error: Internal Server Error
 ```
+
 **Solution**:
+
 - Check Functions logs in Vercel
 - Ensure NEXTAUTH_SECRET is set
 - Verify DATABASE_URL is correct
 
 ### Styles Not Loading
+
 ```
 Error: Styles appear broken
 ```
+
 **Solution**:
+
 - Clear browser cache
 - Check build logs for CSS errors
 - Ensure Tailwind CSS is building properly
@@ -158,6 +184,7 @@ Error: Styles appear broken
 ## Quick Commands
 
 ### Generate Secrets
+
 ```bash
 # NextAuth Secret
 openssl rand -base64 32
@@ -173,6 +200,7 @@ node scripts/generate-env-secrets.js
 ```
 
 ### Vercel CLI (Optional)
+
 ```bash
 # Install Vercel CLI
 npm i -g vercel
@@ -190,6 +218,7 @@ vercel env pull .env.local
 ## Success Criteria
 
 ### Minimum Viable Deployment
+
 - [x] Site loads without errors
 - [x] All pages are accessible
 - [x] No build warnings
@@ -197,6 +226,7 @@ vercel env pull .env.local
 - [x] Authentication working
 
 ### Full Feature Deployment
+
 - [ ] AI chat responding
 - [ ] Maps displaying
 - [ ] Forms sending emails

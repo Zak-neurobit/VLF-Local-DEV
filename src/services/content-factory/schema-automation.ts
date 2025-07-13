@@ -294,7 +294,7 @@ export class SchemaMarkupAutomation {
       startDate: event.startDate,
       endDate: event.endDate,
       eventStatus: 'https://schema.org/EventScheduled',
-      eventAttendanceMode: event.isOnline 
+      eventAttendanceMode: event.isOnline
         ? 'https://schema.org/OnlineEventAttendanceMode'
         : 'https://schema.org/OfflineEventAttendanceMode',
       location: event.isOnline
@@ -379,9 +379,7 @@ export class SchemaMarkupAutomation {
         title: 'Managing Attorney',
         bio: 'Founder of Vasquez Law Firm with over 30 years of experience',
         image: '/images/attorneys/william-vasquez.jpg',
-        education: [
-          { school: 'Campbell University School of Law', degree: 'J.D.' },
-        ],
+        education: [{ school: 'Campbell University School of Law', degree: 'J.D.' }],
         languages: ['English', 'Spanish'],
         practiceAreas: ['Immigration', 'Personal Injury'],
         barAssociations: ['North Carolina State Bar', 'American Immigration Lawyers Association'],
@@ -429,12 +427,9 @@ export class SchemaMarkupAutomation {
     for (const item of content) {
       if (item.performance?.hasRichSnippet) {
         results.withRichSnippets++;
-        
+
         const snippetType = item.performance.snippetType || 'unknown';
-        results.snippetTypes.set(
-          snippetType,
-          (results.snippetTypes.get(snippetType) || 0) + 1
-        );
+        results.snippetTypes.set(snippetType, (results.snippetTypes.get(snippetType) || 0) + 1);
       } else {
         // Suggest improvements
         results.improvements.push({
@@ -447,7 +442,7 @@ export class SchemaMarkupAutomation {
 
     // Log results
     logger.info('Rich snippet performance', {
-      successRate: (results.withRichSnippets / results.total * 100).toFixed(2) + '%',
+      successRate: ((results.withRichSnippets / results.total) * 100).toFixed(2) + '%',
       snippetTypes: Object.fromEntries(results.snippetTypes),
       improvementsNeeded: results.improvements.length,
     });
@@ -460,11 +455,11 @@ export class SchemaMarkupAutomation {
    */
   private generateImageSchema(featuredImage?: string, additionalImages?: string[]) {
     const images = [featuredImage, ...(additionalImages || [])].filter(Boolean);
-    
+
     if (images.length === 0) {
       return `${this.baseUrl}/images/default-legal.jpg`;
     }
-    
+
     if (images.length === 1) {
       return {
         '@type': 'ImageObject',
@@ -473,7 +468,7 @@ export class SchemaMarkupAutomation {
         height: 630,
       };
     }
-    
+
     return images.map(img => ({
       '@type': 'ImageObject',
       url: img,
@@ -501,11 +496,13 @@ export class SchemaMarkupAutomation {
       // Add more attorneys...
     };
 
-    return authors[authorName] || {
-      '@type': 'Organization',
-      '@id': `${this.baseUrl}/#organization`,
-      name: 'Vasquez Law Team',
-    };
+    return (
+      authors[authorName] || {
+        '@type': 'Organization',
+        '@id': `${this.baseUrl}/#organization`,
+        name: 'Vasquez Law Team',
+      }
+    );
   }
 
   private generatePublisherSchema() {
@@ -555,7 +552,7 @@ export class SchemaMarkupAutomation {
 
   private generateServiceOffers(practiceArea: string) {
     const offers = {
-      'immigration': [
+      immigration: [
         { name: 'Visa Applications', description: 'All visa types' },
         { name: 'Green Card Services', description: 'Family and employment based' },
         { name: 'Citizenship & Naturalization', description: 'Become a US citizen' },
@@ -624,14 +621,14 @@ export class SchemaMarkupAutomation {
 
   private formatPracticeArea(practiceArea: string): string {
     const formatted = {
-      'immigration': 'Immigration Law',
+      immigration: 'Immigration Law',
       'personal-injury': 'Personal Injury Law',
-      'workers-compensation': 'Workers\' Compensation Law',
+      'workers-compensation': "Workers' Compensation Law",
       'criminal-defense': 'Criminal Defense Law',
       'family-law': 'Family Law',
       'traffic-violations': 'Traffic Law',
     };
-    
+
     return formatted[practiceArea] || 'Legal Services';
   }
 
@@ -641,31 +638,31 @@ export class SchemaMarkupAutomation {
 
   private getCityZipCode(city: string): string {
     const zipCodes = {
-      'Raleigh': '27601',
-      'Charlotte': '28202',
-      'Durham': '27701',
-      'Greensboro': '27401',
+      Raleigh: '27601',
+      Charlotte: '28202',
+      Durham: '27701',
+      Greensboro: '27401',
       'Winston-Salem': '27101',
-      'Fayetteville': '28301',
-      'Cary': '27511',
-      'Wilmington': '28401',
+      Fayetteville: '28301',
+      Cary: '27511',
+      Wilmington: '28401',
       // Add more cities...
     };
-    
+
     return zipCodes[city] || '27601';
   }
 
   private getCityCoordinates(city: string) {
     const coordinates = {
-      'Raleigh': { lat: 35.7796, lng: -78.6382 },
-      'Charlotte': { lat: 35.2271, lng: -80.8431 },
-      'Durham': { lat: 35.9940, lng: -78.8986 },
-      'Greensboro': { lat: 36.0726, lng: -79.7920 },
+      Raleigh: { lat: 35.7796, lng: -78.6382 },
+      Charlotte: { lat: 35.2271, lng: -80.8431 },
+      Durham: { lat: 35.994, lng: -78.8986 },
+      Greensboro: { lat: 36.0726, lng: -79.792 },
       // Add more cities...
     };
-    
+
     const coords = coordinates[city] || coordinates['Raleigh'];
-    
+
     return {
       '@type': 'GeoCoordinates',
       latitude: coords.lat,
@@ -675,7 +672,7 @@ export class SchemaMarkupAutomation {
 
   private getPracticeAreaTopics(practiceArea: string): string[] {
     const topics = {
-      'immigration': [
+      immigration: [
         'Visa Applications',
         'Green Cards',
         'Citizenship',
@@ -693,53 +690,53 @@ export class SchemaMarkupAutomation {
       ],
       // Add more practice areas...
     };
-    
+
     return topics[practiceArea] || ['Legal Services'];
   }
 
   private getServiceType(practiceArea: string): string {
     const types = {
-      'immigration': 'Immigration Legal Services',
+      immigration: 'Immigration Legal Services',
       'personal-injury': 'Personal Injury Legal Services',
-      'workers-compensation': 'Workers\' Compensation Legal Services',
+      'workers-compensation': "Workers' Compensation Legal Services",
       'criminal-defense': 'Criminal Defense Legal Services',
       'family-law': 'Family Law Legal Services',
       'traffic-violations': 'Traffic Violation Legal Services',
     };
-    
+
     return types[practiceArea] || 'Legal Services';
   }
 
   private getServiceOptions(practiceArea: string) {
     const options = {
-      'immigration': [
+      immigration: [
         { name: 'Express Service', price: 'Premium', description: 'Expedited processing' },
         { name: 'Standard Service', price: 'Standard', description: 'Regular processing' },
         { name: 'Consultation Only', price: 'Hourly', description: 'Legal advice only' },
       ],
       // Add more practice areas...
     };
-    
+
     return options[practiceArea] || [];
   }
 
   private getServiceReviewCount(practiceArea: string): string {
     const counts = {
-      'immigration': '187',
+      immigration: '187',
       'personal-injury': '156',
       'workers-compensation': '89',
       'criminal-defense': '72',
       'family-law': '64',
       'traffic-violations': '55',
     };
-    
+
     return counts[practiceArea] || '50';
   }
 
   private extractHowToSteps(content: string): Array<{ name: string; text: string }> {
     const steps = [];
     const stepPattern = /(?:Step\s+\d+:|^\d+\.)\s*([^\n]+)\n([^]*?)(?=(?:Step\s+\d+:|^\d+\.|$))/gim;
-    
+
     let match;
     while ((match = stepPattern.exec(content)) !== null) {
       steps.push({
@@ -747,37 +744,37 @@ export class SchemaMarkupAutomation {
         text: match[2].trim(),
       });
     }
-    
+
     return steps;
   }
 
   private generateSchemaImprovements(schemaItem: any): string[] {
     const improvements = [];
     const schema = JSON.parse(schemaItem.schema);
-    
+
     // Check for missing required fields
     if (!schema.image) {
       improvements.push('Add featured image to content');
     }
-    
+
     if (!schema.author || schema.author['@type'] === 'Organization') {
       improvements.push('Add specific author attribution');
     }
-    
+
     if (!schema.aggregateRating && ['Service', 'LegalService'].includes(schema['@type'])) {
       improvements.push('Add review/rating data');
     }
-    
+
     if (!schema.hasPart && schemaItem.schemaType === 'BlogPost') {
       improvements.push('Add FAQ section to enable FAQ rich snippets');
     }
-    
+
     return improvements;
   }
 
   private async saveSchema(contentId: string, contentType: string, schema: any) {
     const prisma = getPrismaClient();
-    
+
     try {
       await prisma.schemaMarkup.upsert({
         where: {

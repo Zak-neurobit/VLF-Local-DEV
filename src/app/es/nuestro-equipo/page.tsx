@@ -11,37 +11,43 @@ const staffMembers = [
     name: 'Carmen Vitela',
     role: 'Gerente de Oficina Principal',
     image: '/images/staff/carmen-vitela.png',
-    quote: 'Trabajar en Vasquez Law Firm significa ser parte de un equipo que brinda apoyo. Disfruto mucho de la cultura de la firma y la oportunidad de crecer profesionalmente mientras ayudo a nuestros clientes.',
+    quote:
+      'Trabajar en Vasquez Law Firm significa ser parte de un equipo que brinda apoyo. Disfruto mucho de la cultura de la firma y la oportunidad de crecer profesionalmente mientras ayudo a nuestros clientes.',
   },
   {
     name: 'Daniela Patiño',
     role: 'Asistente Legal',
     image: '/images/staff/daniela-patino.png',
-    quote: 'He formado parte de Vasquez Law Firm durante dos años, y ha sido una de las experiencias más gratificantes de mi carrera. El ambiente de trabajo es excelente y me encanta poder ayudar a las familias.',
+    quote:
+      'He formado parte de Vasquez Law Firm durante dos años, y ha sido una de las experiencias más gratificantes de mi carrera. El ambiente de trabajo es excelente y me encanta poder ayudar a las familias.',
   },
   {
     name: 'Flor Velásquez',
     role: 'Especialista en Relaciones con Clientes',
     image: '/images/staff/flor-velasquez.png',
-    quote: 'Primero, doy gracias a Dios por la gran oportunidad que se me brindó hace 8 años. Ha sido un viaje increíble ser parte del crecimiento de esta firma y ayudar a tantas personas.',
+    quote:
+      'Primero, doy gracias a Dios por la gran oportunidad que se me brindó hace 8 años. Ha sido un viaje increíble ser parte del crecimiento de esta firma y ayudar a tantas personas.',
   },
   {
     name: 'Gabys Rios',
     role: 'Paralegal',
     image: '/images/staff/gabys-rios.png',
-    quote: 'Ser paralegal en una firma de inmigración como VLF ha sido una de las experiencias más humanas y enriquecedoras. Cada caso es una oportunidad de cambiar vidas.',
+    quote:
+      'Ser paralegal en una firma de inmigración como VLF ha sido una de las experiencias más humanas y enriquecedoras. Cada caso es una oportunidad de cambiar vidas.',
   },
   {
     name: 'Jimmy Cárdenas',
     role: 'Líder del Equipo de Nuevas Contrataciones',
     image: '/images/staff/jimmy-cardenas.png',
-    quote: 'Para mí, formar parte de Vasquez Law Firm ha sido una experiencia transformadora. Me encanta poder desarrollar nuevos talentos y ver crecer a nuestro equipo.',
+    quote:
+      'Para mí, formar parte de Vasquez Law Firm ha sido una experiencia transformadora. Me encanta poder desarrollar nuevos talentos y ver crecer a nuestro equipo.',
   },
   {
     name: 'Samantha Ortegón',
     role: 'Especialista de Admisión',
     image: '/images/staff/samantha-ortegon.png',
-    quote: 'Mi experiencia dentro de la firma Vasquez ha sido grandiosa, ha sido de los mejores trabajos que he tenido. El apoyo del equipo y la satisfacción de ayudar a los clientes es incomparable.',
+    quote:
+      'Mi experiencia dentro de la firma Vasquez ha sido grandiosa, ha sido de los mejores trabajos que he tenido. El apoyo del equipo y la satisfacción de ayudar a los clientes es incomparable.',
   },
 ];
 
@@ -81,8 +87,9 @@ export default function Page() {
                   El Corazón de Vasquez Law Firm
                 </p>
                 <p className="text-lg mb-8 max-w-3xl mx-auto text-gray-300">
-                  Conozca a los profesionales dedicados que hacen que nuestra firma sea excepcional. 
-                  Su pasión, experiencia y compromiso con nuestros clientes impulsan nuestro éxito todos los días.
+                  Conozca a los profesionales dedicados que hacen que nuestra firma sea excepcional.
+                  Su pasión, experiencia y compromiso con nuestros clientes impulsan nuestro éxito
+                  todos los días.
                 </p>
               </motion.div>
             </div>
@@ -102,17 +109,38 @@ export default function Page() {
                 Nuestros <span className="text-primary">Valores Fundamentales</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Estos valores guían todo lo que hacemos y dan forma a cómo servimos a nuestros clientes
+                Estos valores guían todo lo que hacemos y dan forma a cómo servimos a nuestros
+                clientes
               </p>
             </motion.div>
 
             <div className="grid md:grid-cols-5 gap-8 mb-20">
               {[
-                { icon: <Heart className="w-8 h-8" />, title: 'MI FAMILIA, TU FAMILIA', desc: 'Tratamos a clientes y equipo como familia' },
-                { icon: <Award className="w-8 h-8" />, title: 'HONESTIDAD', desc: 'Directos y transparentes siempre' },
-                { icon: <Star className="w-8 h-8" />, title: 'DEDICACIÓN', desc: 'Comprometidos con el crecimiento de todos' },
-                { icon: <Users className="w-8 h-8" />, title: 'EXPERIENCIA DE CALIDAD', desc: 'Creando un espacio productivo' },
-                { icon: <Award className="w-8 h-8" />, title: 'YO PELEO', desc: 'Luchando con pasión por todos' },
+                {
+                  icon: <Heart className="w-8 h-8" />,
+                  title: 'MI FAMILIA, TU FAMILIA',
+                  desc: 'Tratamos a clientes y equipo como familia',
+                },
+                {
+                  icon: <Award className="w-8 h-8" />,
+                  title: 'HONESTIDAD',
+                  desc: 'Directos y transparentes siempre',
+                },
+                {
+                  icon: <Star className="w-8 h-8" />,
+                  title: 'DEDICACIÓN',
+                  desc: 'Comprometidos con el crecimiento de todos',
+                },
+                {
+                  icon: <Users className="w-8 h-8" />,
+                  title: 'EXPERIENCIA DE CALIDAD',
+                  desc: 'Creando un espacio productivo',
+                },
+                {
+                  icon: <Award className="w-8 h-8" />,
+                  title: 'YO PELEO',
+                  desc: 'Luchando con pasión por todos',
+                },
               ].map((value, index) => (
                 <motion.div
                   key={index}
@@ -170,7 +198,7 @@ export default function Page() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                   </div>
-                  
+
                   <div className="p-8">
                     <h3 className="text-2xl font-bold text-white mb-2">{member.name}</h3>
                     <p className="text-primary font-semibold mb-4">{member.role}</p>
@@ -195,9 +223,9 @@ export default function Page() {
                 Únete a Nuestro <span className="text-primary">Equipo en Crecimiento</span>
               </h2>
               <p className="text-xl text-gray-300 mb-8">
-                Siempre estamos buscando personas talentosas que compartan nuestra pasión por ayudar a otros 
-                y nuestro compromiso con la excelencia. Si quieres ser parte de un equipo que hace una 
-                diferencia real en la vida de las personas, nos encantaría conocerte.
+                Siempre estamos buscando personas talentosas que compartan nuestra pasión por ayudar
+                a otros y nuestro compromiso con la excelencia. Si quieres ser parte de un equipo
+                que hace una diferencia real en la vida de las personas, nos encantaría conocerte.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <motion.a
@@ -258,7 +286,8 @@ export default function Page() {
               '@context': 'https://schema.org',
               '@type': 'AboutPage',
               name: 'Nuestro Equipo - Vasquez Law Firm',
-              description: 'Conozca a los profesionales dedicados en Vasquez Law Firm que hacen que nuestra firma sea excepcional.',
+              description:
+                'Conozca a los profesionales dedicados en Vasquez Law Firm que hacen que nuestra firma sea excepcional.',
               url: 'https://www.vasquezlawfirm.com/es/nuestro-equipo',
               mainEntity: {
                 '@type': 'LegalService',

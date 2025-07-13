@@ -8,7 +8,7 @@ const https = require('https');
 const http = require('http');
 
 // Test configuration
-const BASE_URL = process.env.VERCEL_URL 
+const BASE_URL = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : 'http://localhost:3000';
 
@@ -68,30 +68,32 @@ const NAVIGATION_LINKS = {
 
 // Function to test a single URL
 function testUrl(url) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const protocol = url.startsWith('https') ? https : http;
-    
-    protocol.get(url, (res) => {
-      const { statusCode, headers } = res;
-      const redirectLocation = headers.location || null;
-      
-      // Consume response data to free up memory
-      res.resume();
-      
-      resolve({
-        url,
-        statusCode,
-        redirectLocation,
-        success: statusCode >= 200 && statusCode < 400,
+
+    protocol
+      .get(url, res => {
+        const { statusCode, headers } = res;
+        const redirectLocation = headers.location || null;
+
+        // Consume response data to free up memory
+        res.resume();
+
+        resolve({
+          url,
+          statusCode,
+          redirectLocation,
+          success: statusCode >= 200 && statusCode < 400,
+        });
+      })
+      .on('error', err => {
+        resolve({
+          url,
+          statusCode: 0,
+          error: err.message,
+          success: false,
+        });
       });
-    }).on('error', (err) => {
-      resolve({
-        url,
-        statusCode: 0,
-        error: err.message,
-        success: false,
-      });
-    });
   });
 }
 
@@ -112,11 +114,18 @@ async function testNavigationLinks() {
   for (const link of NAVIGATION_LINKS.en) {
     const url = `${BASE_URL}${link}`;
     const result = await testUrl(url);
-    
+
     if (result.success) {
-      if (result.statusCode === 301 || result.statusCode === 302 || result.statusCode === 307 || result.statusCode === 308) {
+      if (
+        result.statusCode === 301 ||
+        result.statusCode === 302 ||
+        result.statusCode === 307 ||
+        result.statusCode === 308
+      ) {
         results.redirected.push(result);
-        console.log(`⚠️  ${link} -> Redirected (${result.statusCode}) to ${result.redirectLocation}`);
+        console.log(
+          `⚠️  ${link} -> Redirected (${result.statusCode}) to ${result.redirectLocation}`
+        );
       } else {
         results.passed.push(result);
         console.log(`✅ ${link} -> OK (${result.statusCode})`);
@@ -131,11 +140,18 @@ async function testNavigationLinks() {
   for (const link of NAVIGATION_LINKS.es) {
     const url = `${BASE_URL}${link}`;
     const result = await testUrl(url);
-    
+
     if (result.success) {
-      if (result.statusCode === 301 || result.statusCode === 302 || result.statusCode === 307 || result.statusCode === 308) {
+      if (
+        result.statusCode === 301 ||
+        result.statusCode === 302 ||
+        result.statusCode === 307 ||
+        result.statusCode === 308
+      ) {
         results.redirected.push(result);
-        console.log(`⚠️  ${link} -> Redirected (${result.statusCode}) to ${result.redirectLocation}`);
+        console.log(
+          `⚠️  ${link} -> Redirected (${result.statusCode}) to ${result.redirectLocation}`
+        );
       } else {
         results.passed.push(result);
         console.log(`✅ ${link} -> OK (${result.statusCode})`);
@@ -150,21 +166,23 @@ async function testNavigationLinks() {
   console.log('\n========================================');
   console.log('TEST SUMMARY');
   console.log('========================================');
-  console.log(`Total Links Tested: ${results.passed.length + results.failed.length + results.redirected.length}`);
+  console.log(
+    `Total Links Tested: ${results.passed.length + results.failed.length + results.redirected.length}`
+  );
   console.log(`✅ Passed: ${results.passed.length}`);
   console.log(`⚠️  Redirected: ${results.redirected.length}`);
   console.log(`❌ Failed: ${results.failed.length}`);
 
   if (results.failed.length > 0) {
     console.log('\nFailed Links:');
-    results.failed.forEach((result) => {
+    results.failed.forEach(result => {
       console.log(`  - ${result.url} (${result.error || `Status: ${result.statusCode}`})`);
     });
   }
 
   if (results.redirected.length > 0) {
     console.log('\nRedirected Links:');
-    results.redirected.forEach((result) => {
+    results.redirected.forEach(result => {
       console.log(`  - ${result.url} -> ${result.redirectLocation}`);
     });
   }
@@ -173,7 +191,7 @@ async function testNavigationLinks() {
 }
 
 // Run the tests
-testNavigationLinks().catch((error) => {
+testNavigationLinks().catch(error => {
   console.error('Test failed:', error);
   process.exit(1);
 });

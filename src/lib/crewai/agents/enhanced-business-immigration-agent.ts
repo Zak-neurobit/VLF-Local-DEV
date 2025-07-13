@@ -62,7 +62,6 @@ When providing advice:
     }
   }
 
-
   async analyzeH1B(params: {
     position: string;
     degree: string;
@@ -202,7 +201,7 @@ Corporate Relationship: ${params.relationship}`;
           'Consider premium processing',
         ],
         requirements: [
-          'Bachelor\'s degree or equivalent in related field',
+          "Bachelor's degree or equivalent in related field",
           'Specialty occupation position',
           'LCA filed and certified',
           'Employer-employee relationship',
@@ -321,7 +320,10 @@ Corporate Relationship: ${params.relationship}`;
   private extractListItems(text: string): string[] {
     return text
       .split('\n')
-      .filter(line => line.trim().startsWith('-') || line.trim().startsWith('•') || line.trim().match(/^\d+\./))
+      .filter(
+        line =>
+          line.trim().startsWith('-') || line.trim().startsWith('•') || line.trim().match(/^\d+\./)
+      )
       .map(line => line.replace(/^[-•\d.]\s*/, '').trim())
       .filter(item => item.length > 0);
   }

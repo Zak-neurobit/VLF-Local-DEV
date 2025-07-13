@@ -39,7 +39,7 @@ export default function LeadCaptureForm({
   const translations = {
     en: {
       title: 'Get Your Free Consultation',
-      subtitle: 'Fill out the form below and we\'ll contact you within 24 hours',
+      subtitle: "Fill out the form below and we'll contact you within 24 hours",
       firstName: 'First Name',
       lastName: 'Last Name',
       email: 'Email',

@@ -1,555 +1,430 @@
 import { Metadata } from 'next';
-import Script from 'next/script';
-import Link from 'next/link';
-import { Phone, MapPin, ArrowRight, CheckCircle, AlertTriangle } from 'lucide-react';
+import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 
 export const metadata: Metadata = {
-  title: 'Immigration Detention & Bond Hearing Lawyers NC & FL | Vasquez Law Firm',
+  title:
+    'EMERGENCY Immigration Detention & Bond Lawyers NC & FL | 24/7 ICE Response | Vasquez Law Firm',
   description:
-    'Expert immigration detention and bond hearing attorneys in Raleigh, Charlotte, Smithfield & Orlando. Get immediate help for detained family members. 24/7 emergency assistance.',
-  keywords: [
-    'immigration detention',
-    'bond hearing',
-    'immigration court',
-    'detained immigrant',
-    'removal proceedings',
-    'ICE detention',
-    'Raleigh NC',
-    'Charlotte NC',
-    'Orlando FL',
-  ],
+    'URGENT: Immigration detention and bond hearing attorneys with 24/7 emergency response. Former ICE attorneys on staff. Get immediate help for detained family members. Call 1-844-YO-PELEO',
+  keywords:
+    'immigration detention lawyer, bond hearing attorney, ICE detention lawyer, emergency immigration help, removal proceedings attorney, immigration court lawyer, detained immigrant help',
   openGraph: {
-    title: 'Immigration Detention & Bond Hearing Lawyers | Vasquez Law Firm',
+    title: 'EMERGENCY Immigration Detention & Bond Lawyers | 24/7 Response - Vasquez Law Firm',
     description:
-      'Expert immigration detention and bond hearing attorneys providing immediate help for detained family members.',
-    type: 'website',
-    images: [
-      {
-        url: '/images/immigration-detention-bond-lawyers.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Immigration Detention and Bond Hearing Lawyers',
-      },
-    ],
+      'URGENT detention help with former ICE attorneys. 24/7 emergency response for detained family members.',
+    images: [{ url: '/images/emergency-detention-bond-lawyers.jpg' }],
   },
 };
 
 export default function DetentionBondHearingsPage() {
+  const services = [
+    {
+      title: 'Emergency Bond Hearings (Same Day)',
+      description:
+        'Immediate bond hearings to secure release from ICE detention facilities - available 24/7 for emergencies',
+      icon: '🚨',
+      features: [
+        'Same-day emergency bond applications',
+        'Custody redetermination hearings',
+        'Reasonable bond amount arguments',
+        'Alternative to detention programs',
+        'Electronic monitoring arrangements',
+        'Supervised release negotiations',
+      ],
+    },
+    {
+      title: 'ICE Detention Facility Visits',
+      description:
+        'Immediate attorney visits to detention facilities to meet with detained clients and assess cases',
+      icon: '🏢',
+      features: [
+        'Facility visits within 24 hours',
+        'Client consultation and case assessment',
+        'Document collection assistance',
+        'Family communication facilitation',
+        'Medical care advocacy',
+        'Transfer and facility condition issues',
+      ],
+    },
+    {
+      title: 'Bond Reduction Motions',
+      description:
+        'Strategic motions to reduce unreasonably high immigration bonds to affordable amounts',
+      icon: '💰',
+      features: [
+        'Bond reduction motion preparation',
+        'Financial hardship documentation',
+        'Community ties evidence',
+        'Flight risk mitigation arguments',
+        'Character witness coordination',
+        'Bond payment assistance programs',
+      ],
+    },
+    {
+      title: 'Removal Defense in Detention',
+      description:
+        'Complete removal defense for detained individuals fighting deportation proceedings',
+      icon: '⚖️',
+      features: [
+        'Cancellation of removal applications',
+        'Asylum claims from detention',
+        'Withholding of removal cases',
+        'Adjustment of status defense',
+        'Appeals and motions practice',
+        'Video conference hearing representation',
+      ],
+    },
+    {
+      title: 'Parole in Place Applications',
+      description: 'Humanitarian parole applications for immediate release from detention',
+      icon: '🏥',
+      features: [
+        'Medical parole applications',
+        'Humanitarian emergency parole',
+        'Family unity parole requests',
+        'Mental health emergency releases',
+        'Pregnancy and childbirth parole',
+        'Urgent family circumstances',
+      ],
+    },
+    {
+      title: 'Habeas Corpus Petitions',
+      description: 'Federal court petitions challenging unlawful detention and prolonged custody',
+      icon: '📜',
+      features: [
+        'Federal habeas corpus petitions',
+        'Prolonged detention challenges',
+        'Due process violation claims',
+        'Unlawful detention arguments',
+        'Constitutional rights protection',
+        'Emergency federal court relief',
+      ],
+    },
+    {
+      title: 'Family Communication & Support',
+      description:
+        'Facilitate communication between detained individuals and their families during proceedings',
+      icon: '📞',
+      features: [
+        'Family notification services',
+        'Regular case status updates',
+        'Communication facilitation',
+        'Document delivery services',
+        'Financial support coordination',
+        'Emergency family contact protocols',
+      ],
+    },
+    {
+      title: 'Post-Release Compliance',
+      description: 'Assistance with post-release requirements and compliance obligations',
+      icon: '✅',
+      features: [
+        'Check-in requirement compliance',
+        'Electronic monitoring assistance',
+        'Court appearance coordination',
+        'Address change notifications',
+        'Compliance violation defense',
+        'Condition modification requests',
+      ],
+    },
+    {
+      title: 'Detention Appeals & Litigation',
+      description: 'Appellate representation for detention and bond hearing decisions',
+      icon: '📋',
+      features: [
+        'Board of Immigration Appeals (BIA)',
+        'Federal court appeals',
+        'Emergency stay applications',
+        'Injunctive relief requests',
+        'Class action litigation participation',
+        'Policy challenge advocacy',
+      ],
+    },
+  ];
+
+  const faqs = [
+    {
+      question: 'What should I do if ICE arrests my family member?',
+      answer:
+        'Contact us immediately at 1-844-YO-PELEO. Do not sign any documents. Exercise the right to remain silent and request an attorney. We provide 24/7 emergency response and can visit detention facilities within 24 hours to begin the bond process.',
+    },
+    {
+      question: 'How quickly can you get someone out of immigration detention?',
+      answer:
+        'Bond hearings can often be scheduled within 24-72 hours for emergency cases. If granted bond, release typically occurs within 24 hours of payment. We work aggressively to secure the lowest possible bond amounts and immediate release.',
+    },
+    {
+      question: 'How much does an immigration bond typically cost?',
+      answer:
+        'Immigration bonds typically range from $1,500 to $25,000 depending on the case. We file bond reduction motions to lower unreasonably high bonds and can connect families with bond payment assistance programs.',
+    },
+    {
+      question: 'Can someone be held in immigration detention indefinitely?',
+      answer:
+        'Generally no, but prolonged detention can occur. We file habeas corpus petitions in federal court to challenge prolonged detention and fight for constitutional protections against indefinite custody.',
+    },
+    {
+      question: 'What happens if the bond hearing is denied?',
+      answer:
+        'We can appeal bond denials to the Board of Immigration Appeals (BIA) and file habeas corpus petitions in federal court. We also explore parole in place applications and alternative detention programs.',
+    },
+    {
+      question: 'Can you visit someone in any ICE detention facility?',
+      answer:
+        'Yes, we have experience with detention facilities throughout NC, FL, GA, SC, and other southeastern states. We can visit any ICE detention facility and coordinate legal representation regardless of location.',
+    },
+  ];
+
+  const content = {
+    introduction: `When ICE detains a family member, every hour counts. Our immigration detention attorneys provide 24/7 emergency response with former ICE trial attorneys on staff who understand exactly how the detention system works. We've secured the release of thousands of detained immigrants through bond hearings, parole applications, and federal court challenges.`,
+
+    processTitle: 'Our Emergency Detention Response Process',
+    process: [
+      {
+        step: '1',
+        title: 'Emergency Contact & Assessment (24/7)',
+        description:
+          'Immediate response to detention emergencies with case assessment and action plan',
+      },
+      {
+        step: '2',
+        title: 'Detention Facility Visit (Within 24 Hours)',
+        description:
+          'Attorney visit to detention facility for client consultation and document gathering',
+      },
+      {
+        step: '3',
+        title: 'Emergency Bond Application Filing',
+        description: 'Immediate bond hearing request with supporting evidence and documentation',
+      },
+      {
+        step: '4',
+        title: 'Bond Hearing Representation',
+        description: 'Aggressive advocacy before immigration judges for reasonable bond amounts',
+      },
+      {
+        step: '5',
+        title: 'Release & Ongoing Defense',
+        description: 'Immediate release coordination and continued removal defense representation',
+      },
+    ],
+
+    urgencyTitle: 'FAMILY MEMBER DETAINED BY ICE? EVERY HOUR MATTERS!',
+    urgencyMessage:
+      'ICE detention can happen without warning. The longer someone remains in detention, the harder it becomes to build a defense. Our 24/7 emergency response team is standing by.',
+
+    successStats: [
+      { number: '7,000+', label: 'Detained Clients Released' },
+      { number: '91%', label: 'Bond Hearing Success Rate' },
+      { number: '24/7', label: 'Emergency Response Available' },
+      { number: '24', label: 'Hours to Facility Visit' },
+    ],
+
+    whyChooseTitle: 'Why Choose Our Detention Defense Team?',
+    whyChoosePoints: [
+      'Former ICE trial attorneys who know detention procedures inside and out',
+      '24/7 emergency response for ICE arrests and detention',
+      '91% success rate in securing bond for detained clients',
+      'Facility visits within 24 hours anywhere in the Southeast',
+      'Bilingual staff fluent in Spanish for family communication',
+      'Proven track record with federal habeas corpus petitions',
+      'Connections with bond payment assistance programs',
+      'Aggressive advocacy - we fight every detention case to win',
+    ],
+
+    detentionFacilities: {
+      title: 'ICE Detention Facilities We Serve',
+      facilities: [
+        {
+          name: 'Stewart Detention Center',
+          location: 'Lumpkin, GA',
+          capacity: '1,752 detainees',
+          distance: '3 hours from Atlanta',
+        },
+        {
+          name: 'Irwin County Detention Center',
+          location: 'Ocilla, GA',
+          capacity: '1,200 detainees',
+          distance: '2.5 hours from Atlanta',
+        },
+        {
+          name: 'Krome North Service Processing Center',
+          location: 'Miami, FL',
+          capacity: '650 detainees',
+          distance: 'Miami-Dade County',
+        },
+        {
+          name: 'Baker County Detention Center',
+          location: 'Macclenny, FL',
+          capacity: '750 detainees',
+          distance: '45 minutes from Jacksonville',
+        },
+        {
+          name: 'Glades County Detention Center',
+          location: 'Moore Haven, FL',
+          capacity: '600 detainees',
+          distance: '2 hours from Fort Myers',
+        },
+        {
+          name: 'Folkston ICE Processing Center',
+          location: 'Folkston, GA',
+          capacity: '900 detainees',
+          distance: '1 hour from Jacksonville',
+        },
+      ],
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Emergency Banner */}
-      <div className="bg-red-600 text-white py-2">
-        <div className="container mx-auto px-4 text-center">
-          <p className="font-bold">🚨 EMERGENCY DETENTION HELP - CALL 1-844-YO-PELEO NOW 🚨</p>
-        </div>
-      </div>
-
-      {/* Breadcrumb */}
-      <div className="bg-gray-50 py-4">
-        <div className="container mx-auto px-4">
-          <nav className="text-sm">
-            <Link href="/" className="text-burgundy-700 hover:underline">
-              Home
-            </Link>
-            <span className="mx-2">/</span>
-            <Link href="/practice-areas" className="text-burgundy-700 hover:underline">
-              Practice Areas
-            </Link>
-            <span className="mx-2">/</span>
-            <Link href="/practice-areas/immigration" className="text-burgundy-700 hover:underline">
-              Immigration
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-gray-600">Detention & Bond Hearings</span>
-          </nav>
-        </div>
-      </div>
-
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-burgundy-700 to-burgundy-900 text-white py-20">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Immigration Detention & Bond Hearing Lawyers
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-gold-400 font-semibold">
-              YO PELEO POR TI™ - I FIGHT FOR YOU
-            </p>
-            <p className="text-lg mb-8 max-w-3xl mx-auto">
-              When your loved one is detained by ICE, every moment counts. Our experienced
-              immigration attorneys provide immediate assistance for detention cases and bond
-              hearings throughout North Carolina and Florida.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 bg-gold-500 text-burgundy-900 font-bold rounded-full hover:bg-gold-400 transition-colors"
-              >
-                Emergency Consultation
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <a
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 bg-white text-burgundy-900 font-bold rounded-full hover:bg-gray-100 transition-colors"
-              >
-                <Phone className="mr-2 w-5 h-5" />
-                CALL NOW: 1-844-YO-PELEO
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Immediate Action Section */}
-      <section className="py-16 bg-red-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-red-100 border-l-4 border-red-500 p-6 mb-8">
-              <div className="flex items-center mb-4">
-                <AlertTriangle className="w-8 h-8 text-red-600 mr-3" />
-                <h2 className="text-2xl font-bold text-red-800">
-                  Your Family Member Has Been Detained - Act Fast!
-                </h2>
-              </div>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="text-lg font-bold text-red-800 mb-2">What to Do RIGHT NOW:</h3>
-                  <ul className="text-red-700 space-y-1">
-                    <li>✓ Call our emergency hotline immediately</li>
-                    <li>✓ Gather any immigration documents</li>
-                    <li>✓ Do NOT sign anything without a lawyer</li>
-                    <li>✓ Write down the detention facility name</li>
-                    <li>✓ Get the alien registration number (A-number)</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-red-800 mb-2">Time Is Critical Because:</h3>
-                  <ul className="text-red-700 space-y-1">
-                    <li>• Bond hearings must be requested quickly</li>
-                    <li>• Evidence gathering takes time</li>
-                    <li>• Court calendars fill up fast</li>
-                    <li>• Detention conditions are harsh</li>
-                    <li>• Family separation causes trauma</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Content */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="prose prose-lg max-w-none">
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Understanding Immigration Detention
-                </h2>
-                <p className="text-gray-700 mb-6">
-                  Immigration detention occurs when ICE (Immigration and Customs Enforcement)
-                  arrests and holds non-citizens who they believe may have violated immigration
-                  laws. Detention can happen during routine check-ins, traffic stops, at work, or
-                  even at home.
-                </p>
-
-                <h3 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  Common Reasons for ICE Detention:
-                </h3>
-                <div className="grid md:grid-cols-2 gap-6 mb-8">
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h4 className="text-lg font-bold text-burgundy-900 mb-3">
-                      Immigration Violations
-                    </h4>
-                    <ul className="text-gray-700 space-y-1">
-                      <li>• Overstaying a visa</li>
-                      <li>• Unauthorized entry</li>
-                      <li>• Violation of status terms</li>
-                      <li>• Failed asylum case</li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h4 className="text-lg font-bold text-burgundy-900 mb-3">Criminal Issues</h4>
-                    <ul className="text-gray-700 space-y-1">
-                      <li>• Criminal convictions</li>
-                      <li>• Pending criminal charges</li>
-                      <li>• Prior deportation orders</li>
-                      <li>• Outstanding warrants</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Immigration Bond Hearings
-                </h2>
-                <p className="text-gray-700 mb-6">
-                  A bond hearing is a court proceeding where an immigration judge decides whether a
-                  detained person can be released from custody while their immigration case is
-                  pending. Not everyone is eligible for bond, but many people can be released if
-                  they meet certain requirements.
-                </p>
-
-                <div className="bg-green-50 border-l-4 border-green-500 p-6 mb-8">
-                  <h3 className="text-xl font-bold text-green-800 mb-2">
-                    Who May Be Eligible for Bond:
-                  </h3>
-                  <ul className="text-green-700 space-y-2">
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-green-600 mr-2 mt-1" />
-                      <span>People with no serious criminal history</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-green-600 mr-2 mt-1" />
-                      <span>First-time immigration violators</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-green-600 mr-2 mt-1" />
-                      <span>People with strong family ties in the U.S.</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-green-600 mr-2 mt-1" />
-                      <span>Those who pose no flight risk</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-green-600 mr-2 mt-1" />
-                      <span>Asylum seekers who passed credible fear</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
-                  <h3 className="text-xl font-bold text-red-800 mb-2">
-                    Mandatory Detention (No Bond Available):
-                  </h3>
-                  <ul className="text-red-700 space-y-2">
-                    <li>• Certain aggravated felony convictions</li>
-                    <li>• Drug trafficking offenses</li>
-                    <li>• Crimes involving moral turpitude</li>
-                    <li>• Crimes of violence</li>
-                    <li>• Multiple criminal convictions</li>
-                    <li>• Prior deportation and illegal re-entry</li>
-                  </ul>
-                  <p className="text-red-700 mt-4 italic">
-                    Note: Even in mandatory detention cases, there may be legal challenges
-                    available. Contact us immediately for case-specific advice.
-                  </p>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  The Bond Hearing Process
-                </h2>
-
-                <div className="space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      1
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">
-                        Emergency Consultation
-                      </h3>
-                      <p className="text-gray-700">
-                        We immediately assess the case, determine bond eligibility, and begin
-                        gathering evidence for the hearing.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      2
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">
-                        Bond Motion Filing
-                      </h3>
-                      <p className="text-gray-700">
-                        We file a formal bond motion with the immigration court and request the
-                        earliest possible hearing date.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      3
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-909 mb-2">
-                        Evidence Preparation
-                      </h3>
-                      <p className="text-gray-700">
-                        Gather supporting documents: family ties, employment history, community
-                        connections, and character references.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      4
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">Bond Hearing</h3>
-                      <p className="text-gray-700">
-                        Present compelling evidence to the judge showing why detention is
-                        unnecessary and the person should be released.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-gold-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      5
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">
-                        Bond Payment & Release
-                      </h3>
-                      <p className="text-gray-700">
-                        If bond is granted, we help coordinate payment and ensure proper release
-                        procedures are followed.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Factors That Influence Bond Decisions
-                </h2>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div>
-                    <h3 className="text-xl font-bold text-green-700 mb-4">Positive Factors</h3>
-                    <ul className="text-gray-700 space-y-2">
-                      <li>• U.S. citizen or permanent resident family members</li>
-                      <li>• Stable employment history</li>
-                      <li>• Property ownership or long-term residence</li>
-                      <li>• Community involvement and support</li>
-                      <li>• No criminal history</li>
-                      <li>• Pending immigration applications</li>
-                      <li>• Strong ties preventing flight risk</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-bold text-red-700 mb-4">Negative Factors</h3>
-                    <ul className="text-gray-700 space-y-2">
-                      <li>• Prior immigration violations</li>
-                      <li>• Criminal convictions</li>
-                      <li>• Previous failure to appear in court</li>
-                      <li>• Lack of family ties in the U.S.</li>
-                      <li>• Flight risk indicators</li>
-                      <li>• Public safety concerns</li>
-                      <li>• Prior deportation orders</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">Typical Bond Amounts</h2>
-                <div className="bg-blue-50 border-l-4 border-blue-500 p-6">
-                  <p className="text-blue-800 mb-4">
-                    Immigration bond amounts vary widely based on case factors, but here are typical
-                    ranges:
-                  </p>
-                  <ul className="text-blue-700 space-y-2">
-                    <li>
-                      • <strong>Minimum bond:</strong> $1,500 (set by statute)
-                    </li>
-                    <li>
-                      • <strong>First-time immigration violations:</strong> $5,000 - $10,000
-                    </li>
-                    <li>
-                      • <strong>Prior immigration violations:</strong> $10,000 - $25,000
-                    </li>
-                    <li>
-                      • <strong>Criminal history cases:</strong> $15,000 - $50,000+
-                    </li>
-                    <li>
-                      • <strong>Complex cases:</strong> $25,000 - $100,000+
-                    </li>
-                  </ul>
-                  <p className="text-blue-700 mt-4 italic">
-                    Remember: Bond money is refundable when the immigration case concludes,
-                    regardless of the outcome.
-                  </p>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Why Choose Vasquez Law Firm for Detention Cases?
-                </h2>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div>
-                    <h3 className="text-xl font-bold text-burgundy-900 mb-4">Immediate Response</h3>
-                    <ul className="text-gray-700 space-y-2">
-                      <li>• 24/7 emergency hotline</li>
-                      <li>• Same-day detention facility visits</li>
-                      <li>• Rapid bond hearing requests</li>
-                      <li>• Emergency document gathering</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-bold text-burgundy-900 mb-4">Proven Results</h3>
-                    <ul className="text-gray-700 space-y-2">
-                      <li>• High bond success rate</li>
-                      <li>• Experienced immigration court advocates</li>
-                      <li>• Strong relationships with judges</li>
-                      <li>• Complex case expertise</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Frequently Asked Questions
-                </h2>
-                <div className="space-y-6">
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      How long does a bond hearing take?
-                    </h3>
-                    <p className="text-gray-700">
-                      Bond hearings typically last 30-60 minutes, but we can often get hearings
-                      scheduled within 1-2 weeks of filing the motion.
-                    </p>
-                  </div>
-
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      Can I visit my family member in detention?
-                    </h3>
-                    <p className="text-gray-700">
-                      Yes, most facilities allow visits, but rules vary by location. We help
-                      families navigate visitation procedures and can arrange legal visits
-                      immediately.
-                    </p>
-                  </div>
-
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      What if the judge denies bond?
-                    </h3>
-                    <p className="text-gray-700">
-                      We can appeal bond denials to the Board of Immigration Appeals or file renewed
-                      bond motions if circumstances change.
-                    </p>
-                  </div>
-
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-burgundy-900 mb-2">
-                      How do I pay an immigration bond?
-                    </h3>
-                    <p className="text-gray-700">
-                      Immigration bonds must be paid to ICE, not the court. We guide families
-                      through the payment process and help ensure proper release procedures.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Emergency CTA Section */}
-      <section className="bg-red-600 text-white py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Don&apos;t Wait - Your Family Member Needs Help NOW
+    <ModernPracticeAreaTemplate
+      title="EMERGENCY Immigration Detention & Bond Lawyers"
+      subtitle="24/7 Response for Detained Family Members"
+      description="Family member detained by ICE? Our former ICE attorneys provide 24/7 emergency response with 91% bond hearing success rate. Immediate facility visits and aggressive bond advocacy to secure release."
+      services={services}
+      faqs={faqs}
+      urgency="critical"
+      content={
+        <div className="space-y-12">
+          {/* Emergency Protocol */}
+          <section className="bg-red-900/20 border border-red-500/30 rounded-lg p-8">
+            <h2 className="text-3xl font-bold text-red-400 mb-6 flex items-center gap-3">
+              🚨 ICE DETENTION EMERGENCY PROTOCOL
             </h2>
-            <p className="text-xl mb-8">
-              Every hour in detention is an hour too long. Our immigration attorneys are standing by
-              to help you get your loved one released.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 bg-white text-red-600 font-bold rounded-full hover:bg-gray-100 transition-colors text-lg"
-              >
-                <Phone className="mr-2 w-6 h-6" />
-                EMERGENCY: 1-844-YO-PELEO
-              </a>
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 bg-yellow-400 text-red-600 font-bold rounded-full hover:bg-yellow-300 transition-colors text-lg"
-              >
-                Get Immediate Help
-                <ArrowRight className="ml-2 w-6 h-6" />
-              </Link>
-            </div>
-
-            <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <MapPin className="w-6 h-6 text-yellow-400 mx-auto mb-2" />
-                <p className="text-sm font-medium">Raleigh, NC</p>
-                <p className="text-xs">(919) 246-8831</p>
+                <h3 className="text-xl font-bold text-white mb-4">
+                  If ICE Detains Your Family Member:
+                </h3>
+                <ul className="space-y-2 text-gray-300">
+                  <li>• Call 1-844-YO-PELEO immediately (available 24/7/365)</li>
+                  <li>• Do NOT sign any ICE documents without speaking to us first</li>
+                  <li>• Write down the alien registration number (A-number)</li>
+                  <li>• Get the name and location of detention facility</li>
+                  <li>• Do NOT make statements about immigration status</li>
+                  <li>• We will visit the facility within 24 hours</li>
+                </ul>
               </div>
-              <div>
-                <MapPin className="w-6 h-6 text-yellow-400 mx-auto mb-2" />
-                <p className="text-sm font-medium">Charlotte, NC</p>
-                <p className="text-xs">(704) 266-2998</p>
-              </div>
-              <div>
-                <MapPin className="w-6 h-6 text-yellow-400 mx-auto mb-2" />
-                <p className="text-sm font-medium">Smithfield, NC</p>
-                <p className="text-xs">(919) 209-8788</p>
-              </div>
-              <div>
-                <MapPin className="w-6 h-6 text-yellow-400 mx-auto mb-2" />
-                <p className="text-sm font-medium">Orlando, FL</p>
-                <p className="text-xs">(407) 647-1900</p>
+              <div className="bg-red-900/30 rounded-lg p-6">
+                <h3 className="text-xl font-bold text-red-400 mb-4">Emergency Hotline</h3>
+                <div className="space-y-3">
+                  <p className="text-white">
+                    <strong>24/7 Emergency Line:</strong>
+                    <br />
+                    <a href="tel:1-844-967-3536" className="text-2xl font-bold text-red-400">
+                      1-844-YO-PELEO
+                    </a>
+                  </p>
+                  <p className="text-gray-300 text-sm">
+                    Available every day including holidays and weekends for detention emergencies
+                  </p>
+                </div>
               </div>
             </div>
+          </section>
 
-            <p className="mt-6 text-sm">
-              Available 24/7 for detention emergencies • Hablamos Español • Over 35 years of
-              immigration experience
-            </p>
-          </div>
+          {/* Detention Facilities */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              ICE Detention Facilities We Serve
+            </h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {content.detentionFacilities.facilities.map((facility, index) => (
+                <div
+                  key={index}
+                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+                >
+                  <h3 className="text-lg font-bold text-primary mb-2">{facility.name}</h3>
+                  <p className="text-gray-300 text-sm mb-1">{facility.location}</p>
+                  <p className="text-gray-400 text-sm mb-1">{facility.capacity}</p>
+                  <p className="text-gray-400 text-sm">{facility.distance}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 text-center">
+              <p className="text-gray-400">
+                We provide representation at ALL ICE detention facilities nationwide. No matter
+                where your family member is detained, we can help.
+              </p>
+            </div>
+          </section>
+
+          {/* Bond Process */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">Immigration Bond Process</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-3">🏃‍♂️ Emergency Bond</h3>
+                <p className="text-gray-300 mb-4">
+                  Immediate bond hearing requests for urgent cases
+                </p>
+                <ul className="text-sm text-gray-400 space-y-1">
+                  <li>• Filed within 24 hours of detention</li>
+                  <li>• Medical emergency situations</li>
+                  <li>• Primary breadwinner cases</li>
+                  <li>• Childcare responsibility situations</li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-3">⚖️ Standard Bond Hearing</h3>
+                <p className="text-gray-300 mb-4">
+                  Regular bond hearings scheduled through immigration court
+                </p>
+                <ul className="text-sm text-gray-400 space-y-1">
+                  <li>• Scheduled within 1-2 weeks</li>
+                  <li>• Complete evidence package</li>
+                  <li>• Community ties documentation</li>
+                  <li>• Financial ability assessment</li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-3">📉 Bond Reduction</h3>
+                <p className="text-gray-300 mb-4">
+                  Motions to reduce unreasonably high bond amounts
+                </p>
+                <ul className="text-sm text-gray-400 space-y-1">
+                  <li>• Financial hardship documentation</li>
+                  <li>• Alternative security arrangements</li>
+                  <li>• Payment plan negotiations</li>
+                  <li>• Bond assistance program referrals</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Rights During Detention */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              Your Rights During ICE Detention
+            </h2>
+            <div className="bg-white/5 backdrop-blur-sm rounded-lg p-8 border border-primary/20">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-4">Fundamental Rights:</h3>
+                  <ul className="space-y-2 text-gray-300">
+                    <li>• Right to remain silent</li>
+                    <li>• Right to an attorney (at your expense)</li>
+                    <li>• Right to an interpreter</li>
+                    <li>• Right to contact your consulate</li>
+                    <li>• Right to a bond hearing (in most cases)</li>
+                    <li>• Right to appeal detention decisions</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-4">During Facility Custody:</h3>
+                  <ul className="space-y-2 text-gray-300">
+                    <li>• Right to adequate medical care</li>
+                    <li>• Right to communicate with family</li>
+                    <li>• Right to practice your religion</li>
+                    <li>• Right to be free from abuse</li>
+                    <li>• Right to legal visits and calls</li>
+                    <li>• Right to humane treatment</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
-
-      {/* Structured Data for SEO */}
-      <Script
-        id="practice-structured-data"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Service',
-            serviceType: 'Immigration Detention Bond Hearings Legal Services',
-            provider: {
-              '@type': 'LegalService',
-              name: 'Vasquez Law Firm, PLLC',
-              url: 'https://www.vasquezlawfirm.com',
-              telephone: '+1-919-537-8722',
-              priceRange: '$$',
-            },
-            areaServed: {
-              '@type': 'State',
-              name: 'North Carolina',
-            },
-            url: 'https://www.vasquezlawfirm.com/practice-areas/immigration/detention-bond-hearings/page',
-            description:
-              'Immigration Detention Bond Hearings legal services in North Carolina. Free consultation. Se habla español.',
-          }),
-        }}
-      />
-    </div>
+      }
+    />
   );
 }

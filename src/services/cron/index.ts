@@ -72,16 +72,18 @@ export class CronJobService {
       // Process scheduled content - Every 30 minutes
       this.scheduleJob('content-publishing', '*/30 * * * *', async () => {
         logger.info('Processing scheduled content publications');
-        const scheduler = await import('@/services/content-factory/content-scheduler')
-          .then(m => new m.ContentScheduler());
+        const scheduler = await import('@/services/content-factory/content-scheduler').then(
+          m => new m.ContentScheduler()
+        );
         await scheduler.processScheduledPublications();
       });
 
       // Monitor rich snippets - Daily at 11 PM EST
       this.scheduleJob('rich-snippet-monitoring', '0 23 * * *', async () => {
         logger.info('Monitoring rich snippet performance');
-        const schemaAutomation = await import('@/services/content-factory/schema-automation')
-          .then(m => new m.SchemaMarkupAutomation());
+        const schemaAutomation = await import('@/services/content-factory/schema-automation').then(
+          m => new m.SchemaMarkupAutomation()
+        );
         await schemaAutomation.monitorRichSnippets();
       });
 

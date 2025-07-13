@@ -1,4 +1,3 @@
-
 import { logger } from '@/lib/logger';
 
 export interface RegionalAgent {
@@ -19,7 +18,17 @@ export const regionalAgents: RegionalAgent[] = [
     type: 'chat',
     specializations: ['local-courts', 'regional-laws', 'community-resources'],
     languages: ['en', 'es'],
-    coverage: ["Wake","Durham","Orange","Chatham","Johnston","Franklin","Granville","Vance","Warren"]
+    coverage: [
+      'Wake',
+      'Durham',
+      'Orange',
+      'Chatham',
+      'Johnston',
+      'Franklin',
+      'Granville',
+      'Vance',
+      'Warren',
+    ],
   },
   {
     id: 'agent-charlotte-metro',
@@ -28,7 +37,17 @@ export const regionalAgents: RegionalAgent[] = [
     type: 'chat',
     specializations: ['local-courts', 'regional-laws', 'community-resources'],
     languages: ['en', 'es'],
-    coverage: ["Mecklenburg","Union","Cabarrus","Gaston","Lincoln","Iredell","Rowan","Cleveland","Catawba"]
+    coverage: [
+      'Mecklenburg',
+      'Union',
+      'Cabarrus',
+      'Gaston',
+      'Lincoln',
+      'Iredell',
+      'Rowan',
+      'Cleveland',
+      'Catawba',
+    ],
   },
   {
     id: 'agent-triad',
@@ -37,7 +56,17 @@ export const regionalAgents: RegionalAgent[] = [
     type: 'chat',
     specializations: ['local-courts', 'regional-laws', 'community-resources'],
     languages: ['en', 'es'],
-    coverage: ["Guilford","Forsyth","Davidson","Randolph","Alamance","Rockingham","Stokes","Surry","Yadkin"]
+    coverage: [
+      'Guilford',
+      'Forsyth',
+      'Davidson',
+      'Randolph',
+      'Alamance',
+      'Rockingham',
+      'Stokes',
+      'Surry',
+      'Yadkin',
+    ],
   },
   {
     id: 'agent-eastern-nc',
@@ -46,7 +75,17 @@ export const regionalAgents: RegionalAgent[] = [
     type: 'chat',
     specializations: ['local-courts', 'regional-laws', 'community-resources'],
     languages: ['en', 'es'],
-    coverage: ["New Hanover","Brunswick","Pender","Onslow","Carteret","Craven","Pitt","Wayne","Lenoir"]
+    coverage: [
+      'New Hanover',
+      'Brunswick',
+      'Pender',
+      'Onslow',
+      'Carteret',
+      'Craven',
+      'Pitt',
+      'Wayne',
+      'Lenoir',
+    ],
   },
   {
     id: 'agent-western-nc',
@@ -55,7 +94,17 @@ export const regionalAgents: RegionalAgent[] = [
     type: 'chat',
     specializations: ['local-courts', 'regional-laws', 'community-resources'],
     languages: ['en', 'es'],
-    coverage: ["Buncombe","Henderson","Haywood","Jackson","Transylvania","Madison","Yancey","Mitchell","Avery"]
+    coverage: [
+      'Buncombe',
+      'Henderson',
+      'Haywood',
+      'Jackson',
+      'Transylvania',
+      'Madison',
+      'Yancey',
+      'Mitchell',
+      'Avery',
+    ],
   },
   {
     id: 'agent-piedmont',
@@ -64,25 +113,35 @@ export const regionalAgents: RegionalAgent[] = [
     type: 'chat',
     specializations: ['local-courts', 'regional-laws', 'community-resources'],
     languages: ['en', 'es'],
-    coverage: ["Cumberland","Harnett","Lee","Moore","Hoke","Robeson","Scotland","Richmond","Anson"]
-  }
+    coverage: [
+      'Cumberland',
+      'Harnett',
+      'Lee',
+      'Moore',
+      'Hoke',
+      'Robeson',
+      'Scotland',
+      'Richmond',
+      'Anson',
+    ],
+  },
 ];
 
 export async function deployRegionalAgents() {
   logger.info('Deploying regional AI agents for NC coverage');
-  
+
   for (const agent of regionalAgents) {
     try {
       // Initialize agent with regional knowledge base
       logger.info(`Deploying ${agent.name} for ${agent.region}`);
-      
+
       // Agent would be configured with:
       // - Local court procedures
       // - Regional judge preferences
       // - County-specific forms
       // - Local legal resources
       // - Community connections
-      
+
       logger.info(`✅ ${agent.name} deployed successfully`);
     } catch (error) {
       logger.error(`Failed to deploy ${agent.name}`, error);

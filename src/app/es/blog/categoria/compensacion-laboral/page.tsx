@@ -1,10 +1,67 @@
-export default function CompensaciónLaboralCategoryPage() {
-  return (
-    <div className="min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">Blog de Compensación Laboral</h1>
-        <p className="text-lg text-gray-700">Artículos y recursos sobre compensación laboral.</p>
+import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Compensacion Laboral - Vasquez Law Firm, PLLC',
+  description: 'Legal insights and information from Vasquez Law Firm',
+};
+
+export const runtime = 'nodejs';
+
+export default function CompensacionLaboralPage() {
+  // TODO: Extract content from original file and format properly
+  const post = {
+    id: 'compensacion-laboral',
+    title: 'Blog de Compensación Laboral',
+    slug: 'compensacion-laboral',
+    excerpt: 'Blog post excerpt here - TODO: extract from content',
+    content: `
+      <div class="prose prose-lg max-w-none">
+        <!-- TODO: Migrate content from original file -->
+        <p>This content needs to be migrated from the original file.</p>
       </div>
-    </div>
+    `,
+    practiceArea: 'general', // TODO: Determine correct practice area
+    language: 'en' as const,
+    publishedAt: new Date(),
+    readTime: 5,
+    author: {
+      name: 'Vasquez Law Firm',
+    },
+    tags: [], // TODO: Add relevant tags
+  };
+
+  const categories = [
+    {
+      id: 'immigration',
+      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
+      slug: { en: 'immigration', es: 'inmigracion' },
+      icon: '🌐',
+      postCount: 45,
+    },
+    {
+      id: 'personal-injury',
+      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
+      slug: { en: 'personal-injury', es: 'lesiones-personales' },
+      icon: '🏥',
+      postCount: 32,
+    },
+    {
+      id: 'criminal-defense',
+      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
+      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
+      icon: '⚖️',
+      postCount: 28,
+    },
+  ];
+
+  return (
+    <BlogPageTemplate
+      posts={[]}
+      categories={categories}
+      isArticlePage={true}
+      currentPost={post}
+      relatedPosts={[]} // TODO: Add related posts
+    />
   );
 }

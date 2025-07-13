@@ -3,16 +3,19 @@
 ## 🚨 CRITICAL ISSUES FOUND
 
 ### 1. **JavaScript Bundle Size Crisis**
+
 - **Current First Load JS**: 932 KB+ (Target: <200 KB)
 - **Vendors Bundle**: 2.7 MB (MASSIVE!)
 - **Multiple Large Chunks**: 672K, 489K, 243K
 
 ### 2. **Image Optimization Issues**
+
 - Background images used in CSS (not optimized)
 - Missing responsive image sizes
 - No WebP/AVIF format serving
 
 ### 3. **Render-Blocking Resources**
+
 - Large vendor bundles loading upfront
 - No code splitting for routes
 - Dynamic imports not properly configured
@@ -22,12 +25,14 @@
 ### Phase 1: Bundle Size Reduction (Priority: CRITICAL)
 
 #### 1.1 Analyze and Split Vendor Bundle
+
 ```bash
 # Run bundle analyzer
 npm run build -- --analyze
 ```
 
 #### 1.2 Implement Dynamic Imports
+
 ```typescript
 // Before
 import { HeavyComponent } from '@/components/HeavyComponent';
@@ -40,6 +45,7 @@ const HeavyComponent = dynamic(() => import('@/components/HeavyComponent'), {
 ```
 
 #### 1.3 Remove Unused Dependencies
+
 - Audit package.json for unused packages
 - Use tree-shaking for lodash, moment, etc.
 - Replace heavy libraries with lighter alternatives
@@ -47,6 +53,7 @@ const HeavyComponent = dynamic(() => import('@/components/HeavyComponent'), {
 ### Phase 2: Image Optimization (Priority: HIGH)
 
 #### 2.1 Convert Background Images to Next/Image
+
 ```typescript
 // Instead of CSS background-image
 <div className="relative">
@@ -64,6 +71,7 @@ const HeavyComponent = dynamic(() => import('@/components/HeavyComponent'), {
 ```
 
 #### 2.2 Implement Responsive Images
+
 ```typescript
 <Image
   src="/attorney.jpg"
@@ -76,12 +84,14 @@ const HeavyComponent = dynamic(() => import('@/components/HeavyComponent'), {
 ```
 
 #### 2.3 Enable Modern Formats
+
 - Already configured in next.config.js
 - Ensure all images have WebP/AVIF versions
 
 ### Phase 3: Critical Rendering Path (Priority: HIGH)
 
 #### 3.1 Implement Resource Hints
+
 ```typescript
 // In _document.tsx or layout.tsx
 <Head>
@@ -92,6 +102,7 @@ const HeavyComponent = dynamic(() => import('@/components/HeavyComponent'), {
 ```
 
 #### 3.2 Lazy Load Below-Fold Content
+
 ```typescript
 const LazySection = dynamic(() => import('./Section'), {
   loading: () => <div className="h-96 animate-pulse bg-gray-200" />,
@@ -108,6 +119,7 @@ const { ref, inView } = useInView({
 ### Phase 4: Font Optimization (Priority: MEDIUM)
 
 #### 4.1 Optimize Font Loading
+
 ```css
 /* Add to globals.css */
 @font-face {
@@ -121,18 +133,21 @@ const { ref, inView } = useInView({
 ```
 
 #### 4.2 Subset Fonts
+
 - Use only required character sets
 - Split by language (English/Spanish)
 
 ### Phase 5: CSS Optimization (Priority: MEDIUM)
 
 #### 5.1 Remove Unused CSS
+
 ```bash
 # Install PurgeCSS
 npm install --save-dev @fullhuman/postcss-purgecss
 ```
 
 #### 5.2 Critical CSS Inline
+
 ```typescript
 // Extract critical CSS for above-fold content
 const criticalCSS = `
@@ -144,25 +159,27 @@ const criticalCSS = `
 ### Phase 6: Server Optimization (Priority: MEDIUM)
 
 #### 6.1 Enable Compression
+
 ```typescript
 // Already enabled in next.config.js
 compress: true,
 ```
 
 #### 6.2 Implement Caching Headers
+
 - Already configured in next.config.js
 - Verify with deployment
 
 ## 📊 PERFORMANCE TARGETS
 
-| Metric | Current | Target | Impact |
-|--------|---------|---------|---------|
-| First Load JS | 932 KB | <200 KB | 🔴 Critical |
-| Largest Contentful Paint | TBD | <2.5s | 🔴 Critical |
-| First Input Delay | TBD | <100ms | 🟡 Important |
-| Cumulative Layout Shift | TBD | <0.1 | 🟡 Important |
-| Time to Interactive | TBD | <3.8s | 🔴 Critical |
-| Lighthouse Score | TBD | 95+ | 🔴 Critical |
+| Metric                   | Current | Target  | Impact       |
+| ------------------------ | ------- | ------- | ------------ |
+| First Load JS            | 932 KB  | <200 KB | 🔴 Critical  |
+| Largest Contentful Paint | TBD     | <2.5s   | 🔴 Critical  |
+| First Input Delay        | TBD     | <100ms  | 🟡 Important |
+| Cumulative Layout Shift  | TBD     | <0.1    | 🟡 Important |
+| Time to Interactive      | TBD     | <3.8s   | 🔴 Critical  |
+| Lighthouse Score         | TBD     | 95+     | 🔴 Critical  |
 
 ## 🛠️ IMPLEMENTATION CHECKLIST
 

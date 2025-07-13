@@ -1,12 +1,12 @@
 import React from 'react';
 import Script from 'next/script';
 import Link from 'next/link';
-import { 
+import {
   generateEnhancedLocalBusinessSchema,
   generateServiceSchema,
   generateEnhancedFAQSchema,
   generateEnhancedBreadcrumbSchema,
-  generateReviewSchema
+  generateReviewSchema,
 } from '@/lib/seo/comprehensive-schema';
 
 interface NearMeLandingPageProps {
@@ -43,13 +43,24 @@ interface NearMeLandingPageProps {
   };
 }
 
-export function NearMeLandingPageTemplate({ service, location, state, content }: NearMeLandingPageProps) {
+export function NearMeLandingPageTemplate({
+  service,
+  location,
+  state,
+  content,
+}: NearMeLandingPageProps) {
   // Generate all schemas
   const breadcrumbSchema = generateEnhancedBreadcrumbSchema([
     { name: 'Home', url: 'https://www.vasquezlawnc.com' },
     { name: 'Locations', url: 'https://www.vasquezlawnc.com/locations' },
-    { name: `${location}, ${state}`, url: `https://www.vasquezlawnc.com/locations/${state.toLowerCase()}/${location.toLowerCase()}` },
-    { name: `${service} Near Me`, url: `https://www.vasquezlawnc.com/near-me/${location.toLowerCase()}-${service.toLowerCase().replace(/ /g, '-')}` }
+    {
+      name: `${location}, ${state}`,
+      url: `https://www.vasquezlawnc.com/locations/${state.toLowerCase()}/${location.toLowerCase()}`,
+    },
+    {
+      name: `${service} Near Me`,
+      url: `https://www.vasquezlawnc.com/near-me/${location.toLowerCase()}-${service.toLowerCase().replace(/ /g, '-')}`,
+    },
   ]);
 
   const localBusinessSchema = generateEnhancedLocalBusinessSchema({
@@ -58,7 +69,7 @@ export function NearMeLandingPageTemplate({ service, location, state, content }:
       street: 'Serving all of',
       city: location,
       state: state,
-      zip: ''
+      zip: '',
     },
     phone: content.emergencyContact,
     amenities: [
@@ -66,7 +77,7 @@ export function NearMeLandingPageTemplate({ service, location, state, content }:
       'Spanish Speaking Staff',
       '24/7 Emergency Service',
       'Virtual Consultations',
-      'Payment Plans Available'
+      'Payment Plans Available',
     ],
     paymentAccepted: ['Cash', 'Check', 'Credit Card', 'Payment Plans'],
   });
@@ -81,14 +92,14 @@ export function NearMeLandingPageTemplate({ service, location, state, content }:
     priceRange: '$$',
     hasOfferCatalog: content.services.map(s => ({
       name: s.title,
-      description: s.description
-    }))
+      description: s.description,
+    })),
   });
 
   const faqSchema = generateEnhancedFAQSchema(
     content.faqs.map(faq => ({
       ...faq,
-      category: `${service} in ${location}`
+      category: `${service} in ${location}`,
     }))
   );
 
@@ -99,7 +110,7 @@ export function NearMeLandingPageTemplate({ service, location, state, content }:
     localBusinessSchema,
     serviceSchema,
     faqSchema,
-    reviewSchema
+    reviewSchema,
   ];
 
   return (
@@ -108,13 +119,9 @@ export function NearMeLandingPageTemplate({ service, location, state, content }:
         {/* Hero Section with Local Intent */}
         <section className="bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] text-white py-16 px-4">
           <div className="container mx-auto max-w-6xl">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              {content.heroTitle}
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 opacity-95">
-              {content.heroDescription}
-            </p>
-            
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">{content.heroTitle}</h1>
+            <p className="text-xl md:text-2xl mb-8 opacity-95">{content.heroDescription}</p>
+
             {/* Immediate CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <a
@@ -175,10 +182,13 @@ export function NearMeLandingPageTemplate({ service, location, state, content }:
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {content.services.map((service, index) => (
-                <div key={index} className="bg-white border-2 border-gray-200 hover:border-[#C9974D] rounded-lg p-6 transition-colors">
+                <div
+                  key={index}
+                  className="bg-white border-2 border-gray-200 hover:border-[#C9974D] rounded-lg p-6 transition-colors"
+                >
                   <h3 className="text-xl font-bold text-[#6B1F2E] mb-3">{service.title}</h3>
                   <p className="text-gray-600 mb-4">{service.description}</p>
-                  <Link 
+                  <Link
                     href={service.link}
                     className="text-[#C9974D] font-semibold hover:text-[#D4A574] inline-flex items-center"
                   >
@@ -200,9 +210,7 @@ export function NearMeLandingPageTemplate({ service, location, state, content }:
               {content.testimonials.map((testimonial, index) => (
                 <div key={index} className="bg-white/10 backdrop-blur rounded-lg p-6">
                   <div className="flex items-center mb-4">
-                    <div className="text-[#C9974D]">
-                      {'★'.repeat(testimonial.rating)}
-                    </div>
+                    <div className="text-[#C9974D]">{'★'.repeat(testimonial.rating)}</div>
                     <span className="ml-2 text-sm opacity-75">{testimonial.date}</span>
                   </div>
                   <p className="mb-4 italic">"{testimonial.text}"</p>
@@ -259,8 +267,8 @@ export function NearMeLandingPageTemplate({ service, location, state, content }:
               Need a {service} Near You in {location}?
             </h2>
             <p className="text-xl mb-8">
-              Don't wait - North Carolina law has strict deadlines. 
-              Get your FREE consultation today!
+              Don't wait - North Carolina law has strict deadlines. Get your FREE consultation
+              today!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -285,7 +293,7 @@ export function NearMeLandingPageTemplate({ service, location, state, content }:
         id="near-me-schemas"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(allSchemas)
+          __html: JSON.stringify(allSchemas),
         }}
       />
     </>

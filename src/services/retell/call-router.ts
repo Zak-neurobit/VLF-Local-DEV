@@ -44,19 +44,19 @@ export class CallRoutingService {
 
       // 1. Check if it's an existing contact
       const existingContact = await this.getExistingContactInfo(options.phoneNumber);
-      
+
       // 2. Determine practice area
       const practiceArea = await this.determinePracticeArea(options, existingContact);
-      
+
       // 3. Determine language preference
       const language = await this.determineLanguage(options, existingContact);
-      
+
       // 4. Check for emergency or high-priority cases
       const urgency = await this.assessUrgency(options, existingContact);
-      
+
       // 5. Select appropriate agent
       const agentId = await this.selectAgent(practiceArea, language, urgency);
-      
+
       // 6. Check agent availability and business hours
       const routeDecision = await this.finalizeRouting({
         agentId,
@@ -77,10 +77,10 @@ export class CallRoutingService {
       return routeDecision;
     } catch (error) {
       logger.error('Call routing failed:', error);
-      
+
       // Fallback to general agent
       const fallbackAgentId = await RetellAgentManager.getAgentForPracticeArea('general');
-      
+
       if (!fallbackAgentId) {
         throw new Error('No agents available for routing');
       }
@@ -101,7 +101,7 @@ export class CallRoutingService {
   private async getExistingContactInfo(phoneNumber: string) {
     try {
       const contact = await ghlService.findContactByPhone(phoneNumber);
-      
+
       if (contact) {
         return {
           id: contact.id,
@@ -117,7 +117,7 @@ export class CallRoutingService {
           clientStatus: contact.customFields?.clientStatus || 'prospect',
         };
       }
-      
+
       return null;
     } catch (error) {
       logger.error('Failed to get existing contact info:', error);
@@ -143,7 +143,7 @@ export class CallRoutingService {
     // 3. Analyze tags for practice area hints
     if (existingContact?.tags) {
       const tags = existingContact.tags;
-      
+
       if (tags.some((tag: string) => tag.includes('immigration') || tag.includes('visa'))) {
         return 'immigration';
       }
@@ -223,7 +223,7 @@ export class CallRoutingService {
     if (existingContact?.lastCallDate) {
       const lastCall = new Date(existingContact.lastCallDate);
       const hoursSinceLastCall = (Date.now() - lastCall.getTime()) / (1000 * 60 * 60);
-      
+
       if (hoursSinceLastCall < 1) {
         return 'high'; // Multiple calls within an hour
       }
@@ -258,7 +258,7 @@ export class CallRoutingService {
       if (spanishAgentId) {
         return spanishAgentId;
       }
-      
+
       // Fallback to general Spanish agent
       const generalSpanishId = await RetellAgentManager.getAgentForPracticeArea('immigration_es');
       if (generalSpanishId) {
@@ -302,7 +302,7 @@ export class CallRoutingService {
 
     // Calculate priority (higher number = higher priority)
     let priority = 1;
-    
+
     switch (urgency) {
       case 'emergency':
         priority = 10;
@@ -388,12 +388,14 @@ export class CallRoutingService {
 
     // Existing client instructions
     if (existingContact) {
-      instructions.push(`Existing contact: ${existingContact.firstName} ${existingContact.lastName}`);
-      
+      instructions.push(
+        `Existing contact: ${existingContact.firstName} ${existingContact.lastName}`
+      );
+
       if (existingContact.clientStatus === 'active') {
         instructions.push('ACTIVE CLIENT - Provide premium service');
       }
-      
+
       if (existingContact.lastCallDate) {
         const daysSinceLastCall = Math.floor(
           (Date.now() - new Date(existingContact.lastCallDate).getTime()) / (1000 * 60 * 60 * 24)
@@ -410,16 +412,24 @@ export class CallRoutingService {
     // Practice area specific instructions
     switch (practiceArea) {
       case 'criminal_defense':
-        instructions.push('Criminal case - Be sensitive about legal situation, emphasize confidentiality');
+        instructions.push(
+          'Criminal case - Be sensitive about legal situation, emphasize confidentiality'
+        );
         break;
       case 'immigration':
-        instructions.push('Immigration case - Be culturally sensitive, check documentation status carefully');
+        instructions.push(
+          'Immigration case - Be culturally sensitive, check documentation status carefully'
+        );
         break;
       case 'personal_injury':
-        instructions.push('Personal injury - Ask about injuries and medical treatment, express sympathy');
+        instructions.push(
+          'Personal injury - Ask about injuries and medical treatment, express sympathy'
+        );
         break;
       case 'workers_compensation':
-        instructions.push('Workers comp - Ask about workplace injury details and employer information');
+        instructions.push(
+          'Workers comp - Ask about workplace injury details and employer information'
+        );
         break;
     }
 
@@ -528,7 +538,7 @@ export class CallRoutingService {
   async getRoutingAnalytics(timeRange?: { start: Date; end: Date }) {
     try {
       const prisma = getPrismaClient();
-      
+
       const where: any = {};
       if (timeRange) {
         where.createdAt = {
@@ -555,19 +565,19 @@ export class CallRoutingService {
 
       routings.forEach(routing => {
         // Practice area distribution
-        analytics.practiceAreaDistribution[routing.practiceArea] = 
+        analytics.practiceAreaDistribution[routing.practiceArea] =
           (analytics.practiceAreaDistribution[routing.practiceArea] || 0) + 1;
 
         // Language distribution
-        analytics.languageDistribution[routing.language] = 
+        analytics.languageDistribution[routing.language] =
           (analytics.languageDistribution[routing.language] || 0) + 1;
 
         // Urgency distribution
-        analytics.urgencyDistribution[routing.urgency] = 
+        analytics.urgencyDistribution[routing.urgency] =
           (analytics.urgencyDistribution[routing.urgency] || 0) + 1;
 
         // Agent utilization
-        analytics.agentUtilization[routing.agentId] = 
+        analytics.agentUtilization[routing.agentId] =
           (analytics.agentUtilization[routing.agentId] || 0) + 1;
 
         totalPriority += routing.priority;

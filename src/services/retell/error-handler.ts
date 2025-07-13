@@ -38,12 +38,15 @@ export class RetellErrorHandler {
   }
 
   // Main error handling method
-  async handleError(error: any, context?: {
-    callId?: string;
-    contactId?: string;
-    operation?: string;
-    metadata?: Record<string, any>;
-  }): Promise<RetellError> {
+  async handleError(
+    error: any,
+    context?: {
+      callId?: string;
+      contactId?: string;
+      operation?: string;
+      metadata?: Record<string, any>;
+    }
+  ): Promise<RetellError> {
     const retellError = this.classifyError(error, context);
 
     // Log the error
@@ -67,7 +70,7 @@ export class RetellErrorHandler {
     // Check HTTP status codes
     if (error.response?.status) {
       const status = error.response.status;
-      
+
       switch (status) {
         case 401:
         case 403:
@@ -109,7 +112,7 @@ export class RetellErrorHandler {
     // Check error messages for specific patterns
     if (error.message) {
       const message = error.message.toLowerCase();
-      
+
       if (message.includes('call failed') || message.includes('call ended')) {
         type = RetellErrorType.CALL_FAILED;
         recoverable = true;
@@ -181,7 +184,6 @@ export class RetellErrorHandler {
           },
         },
       });
-
     } catch (error) {
       // If logging fails, at least log to console
       console.error('Failed to log Retell error:', error);
@@ -196,27 +198,27 @@ export class RetellErrorHandler {
         case RetellErrorType.AUTHENTICATION:
           await this.handleAuthenticationError(retellError, context);
           break;
-        
+
         case RetellErrorType.RATE_LIMIT:
           await this.handleRateLimitError(retellError, context);
           break;
-        
+
         case RetellErrorType.AGENT_UNAVAILABLE:
           await this.handleAgentUnavailableError(retellError, context);
           break;
-        
+
         case RetellErrorType.CALL_FAILED:
           await this.handleCallFailedError(retellError, context);
           break;
-        
+
         case RetellErrorType.INVALID_PHONE:
           await this.handleInvalidPhoneError(retellError, context);
           break;
-        
+
         case RetellErrorType.INSUFFICIENT_BALANCE:
           await this.handleInsufficientBalanceError(retellError, context);
           break;
-        
+
         default:
           // Generic error handling
           await this.handleGenericError(retellError, context);
@@ -281,10 +283,10 @@ export class RetellErrorHandler {
 
     // Try to find alternative agent
     const alternativeAgent = await this.findAlternativeAgent(context);
-    
+
     if (alternativeAgent) {
       logger.info('Found alternative agent', { agentId: alternativeAgent });
-      
+
       // Schedule retry with alternative agent
       await this.scheduleRetry(
         context?.operation || 'create-call',
@@ -377,7 +379,8 @@ export class RetellErrorHandler {
     // Create high-priority admin task
     await this.createAdminTask({
       title: 'Retell Account Balance Low',
-      description: 'Retell account has insufficient balance for calls. Please add funds immediately.',
+      description:
+        'Retell account has insufficient balance for calls. Please add funds immediately.',
       priority: 'urgent',
       type: 'billing_issue',
     });
@@ -393,7 +396,8 @@ export class RetellErrorHandler {
       try {
         await ghlService.sendSMS({
           contactId: retellError.contactId,
-          message: 'We apologize, but our voice service is temporarily unavailable. Please call us directly at 1-844-YO-PELEO or reply to this message.',
+          message:
+            'We apologize, but our voice service is temporarily unavailable. Please call us directly at 1-844-YO-PELEO or reply to this message.',
         });
       } catch (smsError) {
         logger.error('Failed to send SMS after balance error:', smsError);
@@ -411,11 +415,7 @@ export class RetellErrorHandler {
 
     // If recoverable, schedule retry
     if (retellError.recoverable && context?.operation) {
-      await this.scheduleRetry(
-        context.operation,
-        retellError.retryAfter || 30,
-        context
-      );
+      await this.scheduleRetry(context.operation, retellError.retryAfter || 30, context);
     } else if (retellError.contactId) {
       // Create manual follow-up task
       await this.createCallbackTask(retellError, context);
@@ -432,10 +432,9 @@ export class RetellErrorHandler {
             ...contact.customFields,
             lastCallError: errorInfo.error,
             lastCallErrorTime: errorInfo.timestamp.toISOString(),
-            callErrors: JSON.stringify([
-              ...(JSON.parse(contact.customFields?.callErrors || '[]')),
-              errorInfo,
-            ].slice(-5)), // Keep last 5 errors
+            callErrors: JSON.stringify(
+              [...JSON.parse(contact.customFields?.callErrors || '[]'), errorInfo].slice(-5)
+            ), // Keep last 5 errors
           },
         });
 
@@ -459,7 +458,7 @@ export class RetellErrorHandler {
   }) {
     try {
       const prisma = getPrismaClient();
-      
+
       // Find admin user
       const adminUser = await prisma.user.findFirst({
         where: { role: 'ADMIN' },
@@ -501,7 +500,10 @@ export class RetellErrorHandler {
       });
 
       // Add urgent tag if high priority
-      if (context?.priority === 'high' || retellError.type === RetellErrorType.INSUFFICIENT_BALANCE) {
+      if (
+        context?.priority === 'high' ||
+        retellError.type === RetellErrorType.INSUFFICIENT_BALANCE
+      ) {
         const contact = await ghlService.getContact(retellError.contactId);
         if (contact) {
           await ghlService.updateContact(retellError.contactId, {
@@ -556,7 +558,7 @@ export class RetellErrorHandler {
   async getErrorStats(timeRange?: { start: Date; end: Date }) {
     try {
       const prisma = getPrismaClient();
-      
+
       const where: any = { service: 'retell' };
       if (timeRange) {
         where.createdAt = {
@@ -581,7 +583,7 @@ export class RetellErrorHandler {
 
       errors.forEach(error => {
         stats.byType[error.errorType] = (stats.byType[error.errorType] || 0) + 1;
-        
+
         if (error.recoverable) {
           stats.recoverable++;
         } else {
@@ -603,10 +605,7 @@ export class RetellErrorHandler {
   // Notify stakeholders of critical errors
   private async notifyIfRequired(retellError: RetellError, context?: any) {
     // Only notify for critical, non-recoverable errors
-    const criticalErrors = [
-      RetellErrorType.AUTHENTICATION,
-      RetellErrorType.INSUFFICIENT_BALANCE,
-    ];
+    const criticalErrors = [RetellErrorType.AUTHENTICATION, RetellErrorType.INSUFFICIENT_BALANCE];
 
     if (criticalErrors.includes(retellError.type)) {
       try {
@@ -614,7 +613,7 @@ export class RetellErrorHandler {
         if (process.env.ADMIN_EMAIL) {
           // Import email service dynamically to avoid circular dependencies
           const { emailService } = await import('@/services/email.service');
-          
+
           await emailService.sendEmail({
             to: process.env.ADMIN_EMAIL,
             subject: `Critical Retell Error: ${retellError.type}`,

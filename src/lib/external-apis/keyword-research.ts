@@ -17,7 +17,7 @@ export class KeywordResearchAPI {
 
   async getKeywordData(keyword: string): Promise<KeywordData> {
     logger.info('Getting keyword data', { keyword });
-    
+
     // Mock implementation
     return {
       keyword,
@@ -30,7 +30,7 @@ export class KeywordResearchAPI {
 
   async getRelatedKeywords(keyword: string): Promise<KeywordData[]> {
     logger.info('Getting related keywords', { keyword });
-    
+
     // Mock implementation
     const relatedTerms = [
       `${keyword} lawyer`,
@@ -50,7 +50,7 @@ export class KeywordResearchAPI {
 
   async getLongTailKeywords(keyword: string): Promise<KeywordData[]> {
     logger.info('Getting long-tail keywords', { keyword });
-    
+
     // Mock implementation
     const longTailTerms = [
       `how to find ${keyword} lawyer near me`,
@@ -70,7 +70,7 @@ export class KeywordResearchAPI {
 
   async getCompetitorKeywords(keyword: string, practiceArea: string): Promise<KeywordData[]> {
     logger.info('Getting competitor keywords', { keyword, practiceArea });
-    
+
     // Mock implementation
     return [
       {
@@ -90,7 +90,7 @@ export class KeywordResearchAPI {
 
   async getSearchVolume(query: string): Promise<number> {
     logger.info('Getting search volume', { query });
-    
+
     // Mock implementation
     return Math.floor(Math.random() * 5000) + 50;
   }

@@ -17,14 +17,16 @@ interface MockCache {
 }
 
 const mockCache: MockCache = {
-  async get() { return null; },
-  async set() { },
-  async del() { },
-  async clear() { },
-  async delete() { },
-  async deletePattern() { },
-  async flush() { },
-  async info() { 
+  async get() {
+    return null;
+  },
+  async set() {},
+  async del() {},
+  async clear() {},
+  async delete() {},
+  async deletePattern() {},
+  async flush() {},
+  async info() {
     return {
       used_memory: '0',
       used_memory_human: '0B',
@@ -33,13 +35,19 @@ const mockCache: MockCache = {
       total_commands_processed: '0',
     };
   },
-  async keys() { return []; },
-  async dbsize() { return 0; },
-  async memory() { return 0; },
+  async keys() {
+    return [];
+  },
+  async dbsize() {
+    return 0;
+  },
+  async memory() {
+    return 0;
+  },
   async remember<T>(key: string, factory: () => Promise<T>, ttl?: number): Promise<T> {
     // Simple implementation: always call factory since this is a stub
     return await factory();
-  }
+  },
 };
 
 export const cache = mockCache;
@@ -53,18 +61,18 @@ export const cacheKeys = {
   agents: () => 'agents:status',
   paymentSession: (key: string) => `payment:session:${key}`,
   call: (id: string) => `call:${id}`,
-  callTranscript: (id: string) => `call:transcript:${id}`
+  callTranscript: (id: string) => `call:transcript:${id}`,
 };
 
 export const CacheTTL = {
   SHORT: 300,
   MEDIUM: 3600,
   LONG: 86400,
-  EXTRA_LONG: 604800
+  EXTRA_LONG: 604800,
 };
 
 export function Cacheable(ttl = 300) {
-  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     return descriptor;
   };
 }
@@ -74,7 +82,7 @@ export async function withCache(key: string, fn: () => Promise<any>, ttl = 300) 
 }
 
 export class CacheInvalidator {
-  static async invalidate() { }
+  static async invalidate() {}
 }
 
 export async function checkRateLimit() {

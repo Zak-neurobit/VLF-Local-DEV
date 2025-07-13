@@ -35,7 +35,7 @@ export class GHLChatSyncService {
 
       // Format message for GHL note
       const formattedMessage = this.formatChatMessage(message, isUserMessage, language);
-      
+
       // Add message as note to contact
       await ghlService.addNote(ghlContactId, formattedMessage);
 
@@ -54,10 +54,10 @@ export class GHLChatSyncService {
       // Check for triggers (appointment request, urgent help, etc.)
       await this.checkChatTriggers(ghlContactId, message, language);
 
-      logger.info('Chat message synced to GHL', { 
-        userId, 
-        ghlContactId, 
-        isUserMessage 
+      logger.info('Chat message synced to GHL', {
+        userId,
+        ghlContactId,
+        isUserMessage,
       });
     } catch (error) {
       logger.error('Failed to sync chat message to GHL:', error);
@@ -68,16 +68,16 @@ export class GHLChatSyncService {
   async syncConversationTranscript(conversationId: string) {
     try {
       const prisma = getPrismaClient();
-      
+
       // Get conversation with messages
       const conversation = await prisma.conversation.findUnique({
         where: { id: conversationId },
         include: {
           messages: {
-            orderBy: { createdAt: 'asc' }
+            orderBy: { createdAt: 'asc' },
           },
-          user: true
-        }
+          user: true,
+        },
       });
 
       if (!conversation) {
@@ -86,19 +86,16 @@ export class GHLChatSyncService {
       }
 
       // Get or create GHL contact
-      const ghlContactId = await this.getOrCreateGHLContact(
-        conversation.userId,
-        {
-          email: conversation.user.email,
-          name: conversation.user.name
-        }
-      );
+      const ghlContactId = await this.getOrCreateGHLContact(conversation.userId, {
+        email: conversation.user.email,
+        name: conversation.user.name,
+      });
 
       if (!ghlContactId) return;
 
       // Format full transcript
       const transcript = this.formatTranscript(conversation);
-      
+
       // Add transcript as note
       await ghlService.addNote(ghlContactId, transcript);
 
@@ -115,10 +112,10 @@ export class GHLChatSyncService {
         await this.triggerFollowUpCampaign(ghlContactId, conversation);
       }
 
-      logger.info('Conversation transcript synced to GHL', { 
-        conversationId, 
+      logger.info('Conversation transcript synced to GHL', {
+        conversationId,
         ghlContactId,
-        messageCount: conversation.messages.length
+        messageCount: conversation.messages.length,
       });
     } catch (error) {
       logger.error('Failed to sync conversation transcript:', error);
@@ -141,8 +138,8 @@ export class GHLChatSyncService {
         customFields: {
           firstMessage: message,
           chatLanguage: language,
-          chatStartDate: new Date().toISOString()
-        }
+          chatStartDate: new Date().toISOString(),
+        },
       });
 
       // Trigger new lead campaign if configured
@@ -150,14 +147,14 @@ export class GHLChatSyncService {
       if (campaignId && contact.id) {
         await ghlService.triggerCampaign({
           contactId: contact.id,
-          campaignId
+          campaignId,
         });
       }
 
-      logger.info('Chat lead created in GHL', { 
+      logger.info('Chat lead created in GHL', {
         contactId: contact.id,
         email,
-        phone 
+        phone,
       });
 
       return contact;
@@ -176,21 +173,21 @@ export class GHLChatSyncService {
       }
 
       const prisma = getPrismaClient();
-      
+
       // Get user details
       const user = await prisma.user.findUnique({
-        where: { id: userId }
+        where: { id: userId },
       });
 
       if (!user) return null;
 
       // Find or create GHL contact
       let ghlContact = null;
-      
+
       if (user.phone) {
         ghlContact = await ghlService.findContactByPhone(user.phone);
       }
-      
+
       if (!ghlContact && user.email) {
         ghlContact = await ghlService.findContactByEmail(user.email);
       }
@@ -209,8 +206,8 @@ export class GHLChatSyncService {
           source: 'Website Chat',
           customFields: {
             userId: userId,
-            ...metadata
-          }
+            ...metadata,
+          },
         });
       }
 
@@ -227,20 +224,20 @@ export class GHLChatSyncService {
   }
 
   private formatChatMessage(message: string, isUserMessage: boolean, language: string): string {
-    const timestamp = new Date().toLocaleString('en-US', { 
-      timeZone: 'America/New_York' 
+    const timestamp = new Date().toLocaleString('en-US', {
+      timeZone: 'America/New_York',
     });
     const sender = isUserMessage ? 'User' : 'Assistant';
     const langLabel = language === 'es' ? '(Español)' : '(English)';
-    
+
     return `[Chat Message ${langLabel}] ${timestamp}\n${sender}: ${message}\n---`;
   }
 
   private formatTranscript(conversation: any): string {
-    const startTime = new Date(conversation.startedAt).toLocaleString('en-US', { 
-      timeZone: 'America/New_York' 
+    const startTime = new Date(conversation.startedAt).toLocaleString('en-US', {
+      timeZone: 'America/New_York',
     });
-    
+
     let transcript = `=== CHAT TRANSCRIPT ===\n`;
     transcript += `Session ID: ${conversation.id}\n`;
     transcript += `Started: ${startTime}\n`;
@@ -249,15 +246,15 @@ export class GHLChatSyncService {
     transcript += `\n--- MESSAGES ---\n\n`;
 
     for (const msg of conversation.messages) {
-      const msgTime = new Date(msg.createdAt).toLocaleString('en-US', { 
-        timeZone: 'America/New_York' 
+      const msgTime = new Date(msg.createdAt).toLocaleString('en-US', {
+        timeZone: 'America/New_York',
       });
       const role = msg.role === 'user' ? 'User' : 'Assistant';
       transcript += `[${msgTime}] ${role}:\n${msg.content}\n\n`;
     }
 
     transcript += `\n=== END TRANSCRIPT ===`;
-    
+
     return transcript;
   }
 
@@ -269,32 +266,56 @@ export class GHLChatSyncService {
     if (lowerMessage.includes('immigration') || lowerMessage.includes('inmigración')) {
       tags.push('chat-immigration');
     }
-    if (lowerMessage.includes('injury') || lowerMessage.includes('accident') || 
-        lowerMessage.includes('lesion') || lowerMessage.includes('accidente')) {
+    if (
+      lowerMessage.includes('injury') ||
+      lowerMessage.includes('accident') ||
+      lowerMessage.includes('lesion') ||
+      lowerMessage.includes('accidente')
+    ) {
       tags.push('chat-personal-injury');
     }
-    if (lowerMessage.includes('criminal') || lowerMessage.includes('arrest') ||
-        lowerMessage.includes('criminal') || lowerMessage.includes('arresto')) {
+    if (
+      lowerMessage.includes('criminal') ||
+      lowerMessage.includes('arrest') ||
+      lowerMessage.includes('criminal') ||
+      lowerMessage.includes('arresto')
+    ) {
       tags.push('chat-criminal-defense');
     }
-    if (lowerMessage.includes('divorce') || lowerMessage.includes('custody') ||
-        lowerMessage.includes('divorcio') || lowerMessage.includes('custodia')) {
+    if (
+      lowerMessage.includes('divorce') ||
+      lowerMessage.includes('custody') ||
+      lowerMessage.includes('divorcio') ||
+      lowerMessage.includes('custodia')
+    ) {
       tags.push('chat-family-law');
     }
-    if (lowerMessage.includes('work') && (lowerMessage.includes('injury') || lowerMessage.includes('compensation')) ||
-        lowerMessage.includes('trabajo') && (lowerMessage.includes('lesión') || lowerMessage.includes('compensación'))) {
+    if (
+      (lowerMessage.includes('work') &&
+        (lowerMessage.includes('injury') || lowerMessage.includes('compensation'))) ||
+      (lowerMessage.includes('trabajo') &&
+        (lowerMessage.includes('lesión') || lowerMessage.includes('compensación')))
+    ) {
       tags.push('chat-workers-comp');
     }
 
     // Check for urgency
-    if (lowerMessage.includes('urgent') || lowerMessage.includes('emergency') ||
-        lowerMessage.includes('urgente') || lowerMessage.includes('emergencia')) {
+    if (
+      lowerMessage.includes('urgent') ||
+      lowerMessage.includes('emergency') ||
+      lowerMessage.includes('urgente') ||
+      lowerMessage.includes('emergencia')
+    ) {
       tags.push('chat-urgent');
     }
 
     // Check for appointment interest
-    if (lowerMessage.includes('appointment') || lowerMessage.includes('consultation') ||
-        lowerMessage.includes('cita') || lowerMessage.includes('consulta')) {
+    if (
+      lowerMessage.includes('appointment') ||
+      lowerMessage.includes('consultation') ||
+      lowerMessage.includes('cita') ||
+      lowerMessage.includes('consulta')
+    ) {
       tags.push('chat-appointment-interest');
     }
 
@@ -305,9 +326,14 @@ export class GHLChatSyncService {
     const lowerMessage = message.toLowerCase();
 
     // Appointment request trigger
-    if (lowerMessage.includes('appointment') || lowerMessage.includes('consultation') ||
-        lowerMessage.includes('schedule') || lowerMessage.includes('cita') || 
-        lowerMessage.includes('consulta') || lowerMessage.includes('agendar')) {
+    if (
+      lowerMessage.includes('appointment') ||
+      lowerMessage.includes('consultation') ||
+      lowerMessage.includes('schedule') ||
+      lowerMessage.includes('cita') ||
+      lowerMessage.includes('consulta') ||
+      lowerMessage.includes('agendar')
+    ) {
       const campaignId = process.env.GHL_APPOINTMENT_REQUEST_CAMPAIGN_ID;
       if (campaignId) {
         await ghlService.triggerCampaign({ contactId, campaignId });
@@ -315,31 +341,35 @@ export class GHLChatSyncService {
     }
 
     // Urgent/Emergency trigger
-    if (lowerMessage.includes('urgent') || lowerMessage.includes('emergency') ||
-        lowerMessage.includes('asap') || lowerMessage.includes('urgente') || 
-        lowerMessage.includes('emergencia')) {
+    if (
+      lowerMessage.includes('urgent') ||
+      lowerMessage.includes('emergency') ||
+      lowerMessage.includes('asap') ||
+      lowerMessage.includes('urgente') ||
+      lowerMessage.includes('emergencia')
+    ) {
       const campaignId = process.env.GHL_URGENT_INQUIRY_CAMPAIGN_ID;
       if (campaignId) {
         await ghlService.triggerCampaign({ contactId, campaignId });
       }
-      
+
       // Also create a task for immediate follow-up
       await ghlService.createTask({
         contactId,
         title: 'URGENT: Chat inquiry requires immediate attention',
         body: `User expressed urgency in chat. Message: "${message}"`,
         dueDate: new Date(),
-        assignedTo: process.env.GHL_DEFAULT_USER_ID
+        assignedTo: process.env.GHL_DEFAULT_USER_ID,
       });
     }
 
     // Practice area specific campaigns
     const practiceAreaCampaigns: Record<string, string | undefined> = {
-      'immigration': process.env.GHL_IMMIGRATION_CHAT_CAMPAIGN_ID,
-      'injury': process.env.GHL_PERSONAL_INJURY_CHAT_CAMPAIGN_ID,
-      'criminal': process.env.GHL_CRIMINAL_DEFENSE_CHAT_CAMPAIGN_ID,
-      'divorce': process.env.GHL_FAMILY_LAW_CHAT_CAMPAIGN_ID,
-      'workers': process.env.GHL_WORKERS_COMP_CHAT_CAMPAIGN_ID
+      immigration: process.env.GHL_IMMIGRATION_CHAT_CAMPAIGN_ID,
+      injury: process.env.GHL_PERSONAL_INJURY_CHAT_CAMPAIGN_ID,
+      criminal: process.env.GHL_CRIMINAL_DEFENSE_CHAT_CAMPAIGN_ID,
+      divorce: process.env.GHL_FAMILY_LAW_CHAT_CAMPAIGN_ID,
+      workers: process.env.GHL_WORKERS_COMP_CHAT_CAMPAIGN_ID,
     };
 
     for (const [keyword, campaignId] of Object.entries(practiceAreaCampaigns)) {
@@ -356,25 +386,28 @@ export class GHLChatSyncService {
     if (!lastMessage) return false;
 
     const lastMessageLower = lastMessage.content.toLowerCase();
-    
+
     // Check for unresolved questions
-    if (lastMessage.role === 'user' && 
-        (lastMessageLower.includes('?') || 
-         lastMessageLower.includes('help') ||
-         lastMessageLower.includes('ayuda'))) {
+    if (
+      lastMessage.role === 'user' &&
+      (lastMessageLower.includes('?') ||
+        lastMessageLower.includes('help') ||
+        lastMessageLower.includes('ayuda'))
+    ) {
       return true;
     }
 
     // Check for appointment interest without booking
-    const hasAppointmentInterest = conversation.messages.some((msg: any) => 
-      msg.content.toLowerCase().includes('appointment') ||
-      msg.content.toLowerCase().includes('consultation') ||
-      msg.content.toLowerCase().includes('cita') ||
-      msg.content.toLowerCase().includes('consulta')
+    const hasAppointmentInterest = conversation.messages.some(
+      (msg: any) =>
+        msg.content.toLowerCase().includes('appointment') ||
+        msg.content.toLowerCase().includes('consultation') ||
+        msg.content.toLowerCase().includes('cita') ||
+        msg.content.toLowerCase().includes('consulta')
     );
 
     const hasContactInfo = conversation.user.phone || conversation.user.email;
-    
+
     return hasAppointmentInterest && hasContactInfo;
   }
 
@@ -384,14 +417,14 @@ export class GHLChatSyncService {
 
     try {
       await ghlService.triggerCampaign({ contactId, campaignId });
-      
+
       // Also create a follow-up task
       await ghlService.createTask({
         contactId,
         title: 'Follow up on incomplete chat conversation',
         body: `User had ${conversation.messages.length} messages but conversation ended without resolution. Review transcript and follow up.`,
         dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from now
-        assignedTo: process.env.GHL_DEFAULT_USER_ID
+        assignedTo: process.env.GHL_DEFAULT_USER_ID,
       });
     } catch (error) {
       logger.error('Failed to trigger follow-up campaign:', error);

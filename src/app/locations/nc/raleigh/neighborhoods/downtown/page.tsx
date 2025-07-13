@@ -1,14 +1,5 @@
+import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 import { Metadata } from 'next';
-import { NeighborhoodPageTemplate } from '@/components/templates/NeighborhoodPageTemplate';
-import { generateNeighborhoodMetadata, generateNeighborhoodPageContent } from '@/lib/seo/neighborhood-page-generator';
-
-const neighborhoodData = {
-  neighborhood: 'Downtown',
-  slug: 'downtown',
-  city: 'Raleigh',
-  citySlug: 'raleigh',
-  zipCodes: ['27601', '27605']
-};
 
 export const metadata: Metadata = generateNeighborhoodMetadata(neighborhoodData);
 
@@ -23,8 +14,23 @@ export default function DowntownRaleighPage() {
         city: neighborhoodData.city,
         citySlug: neighborhoodData.citySlug,
         zipCodes: neighborhoodData.zipCodes
-      }}
-      content={content}
-    />
-  );
+      }
+
+export default function DowntownPage() {
+  const locationData = {
+    city: 'Downtown',
+    state: 'NC',
+    heroTitle: 'Legal Services in Downtown',
+    heroSubtitle: 'Trusted attorneys serving the local community',
+    practiceAreas: [], // TODO: Add practice areas
+    attorneys: [], // TODO: Add attorneys
+    officeInfo: {
+      address: '',
+      phone: '1-844-YO-PELEO',
+      hours: 'Monday-Friday 9AM-5PM',
+    },
+    language: 'en' as const,
+  };
+
+  return <LocationPageTemplate {...locationData} />;
 }

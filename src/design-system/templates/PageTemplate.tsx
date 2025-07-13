@@ -38,7 +38,7 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
     <>
       {/* Hero Section */}
       {showHero && (
-        <section 
+        <section
           className="relative bg-gradient-to-b from-neutral-50 to-white py-16 lg:py-24"
           style={{
             backgroundImage: heroImage ? `url(${heroImage})` : undefined,
@@ -46,10 +46,8 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
             backgroundPosition: 'center',
           }}
         >
-          {heroImage && heroOverlay && (
-            <div className="absolute inset-0 bg-black/50" />
-          )}
-          
+          {heroImage && heroOverlay && <div className="absolute inset-0 bg-black/50" />}
+
           <div className={`relative ${getMaxWidth()} mx-auto px-4 sm:px-6 lg:px-8`}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -57,15 +55,19 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4 ${
-                heroImage ? 'text-white' : 'text-neutral-900'
-              }`}>
+              <h1
+                className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4 ${
+                  heroImage ? 'text-white' : 'text-neutral-900'
+                }`}
+              >
                 {title}
               </h1>
               {subtitle && (
-                <p className={`text-lg md:text-xl ${
-                  heroImage ? 'text-white/90' : 'text-neutral-600'
-                } max-w-3xl mx-auto`}>
+                <p
+                  className={`text-lg md:text-xl ${
+                    heroImage ? 'text-white/90' : 'text-neutral-600'
+                  } max-w-3xl mx-auto`}
+                >
                   {subtitle}
                 </p>
               )}
@@ -76,9 +78,7 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
 
       {/* Main Content */}
       <section className="py-12 lg:py-16">
-        <div className={`${getMaxWidth()} mx-auto px-4 sm:px-6 lg:px-8`}>
-          {children}
-        </div>
+        <div className={`${getMaxWidth()} mx-auto px-4 sm:px-6 lg:px-8`}>{children}</div>
       </section>
     </>
   );

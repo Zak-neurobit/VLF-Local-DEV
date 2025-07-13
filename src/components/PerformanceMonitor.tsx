@@ -28,13 +28,13 @@ export default function PerformanceMonitor() {
     // Initialize Accessibility Checker (only in development)
     if (process.env.NODE_ENV === 'development') {
       accessibilityCheckerRef.current = new AccessibilityChecker();
-      
+
       // Run accessibility check after page load
       const runA11yCheck = () => {
         if (accessibilityCheckerRef.current) {
           const report = accessibilityCheckerRef.current.checkDocument();
           accessibilityCheckerRef.current.logReport();
-          
+
           if (report.summary.errors > 0) {
             logger.warn('Accessibility issues detected', {
               errors: report.summary.errors,
@@ -47,13 +47,13 @@ export default function PerformanceMonitor() {
 
       // Run check after initial load and on route changes
       setTimeout(runA11yCheck, 2000);
-      
+
       // Monitor for dynamic content changes
       const observer = new MutationObserver(() => {
         clearTimeout((window as any).a11yCheckTimeout);
         (window as any).a11yCheckTimeout = setTimeout(runA11yCheck, 1000);
       });
-      
+
       observer.observe(document.body, {
         childList: true,
         subtree: true,
@@ -66,7 +66,7 @@ export default function PerformanceMonitor() {
       if (webVitalsOptimizerRef.current) {
         const score = webVitalsOptimizerRef.current.getPerformanceScore();
         const recommendations = webVitalsOptimizerRef.current.getOptimizationRecommendations();
-        
+
         if (score < 80) {
           logger.warn('Performance optimization needed', {
             score,
@@ -84,7 +84,7 @@ export default function PerformanceMonitor() {
       if ('memory' in performance) {
         const memory = (performance as any).memory;
         const memoryUsage = (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100;
-        
+
         if (memoryUsage > 80) {
           logger.warn('High memory usage detected', {
             usedHeapSize: Math.round(memory.usedJSHeapSize / 1024 / 1024),
@@ -101,7 +101,7 @@ export default function PerformanceMonitor() {
     // Monitor network conditions
     if ('connection' in navigator) {
       const connection = (navigator as any).connection;
-      
+
       const logNetworkInfo = () => {
         logger.info('Network conditions', {
           effectiveType: connection.effectiveType,
@@ -109,7 +109,7 @@ export default function PerformanceMonitor() {
           rtt: connection.rtt,
           saveData: connection.saveData,
         });
-        
+
         // Adapt loading strategy based on connection
         if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
           logger.info('Slow connection detected, implementing optimizations');
@@ -128,11 +128,11 @@ export default function PerformanceMonitor() {
       stopWebVitalsMonitoring();
       clearInterval(performanceInterval);
       clearInterval(memoryInterval);
-      
+
       if (performanceMonitorRef.current) {
         performanceMonitorRef.current.cleanup();
       }
-      
+
       if (webVitalsOptimizerRef.current) {
         webVitalsOptimizerRef.current.cleanup();
       }
@@ -145,7 +145,7 @@ export default function PerformanceMonitor() {
       if (performanceMonitorRef.current) {
         performanceMonitorRef.current.logMetrics();
       }
-      
+
       if (webVitalsOptimizerRef.current) {
         const report = webVitalsOptimizerRef.current.generateReport();
         logger.info('Final Performance Report', { report });
@@ -153,7 +153,7 @@ export default function PerformanceMonitor() {
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
-    
+
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };

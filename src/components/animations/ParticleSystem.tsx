@@ -96,7 +96,7 @@ export function ParticleSystem({
           const dx = mouseRef.current.x - particle.x;
           const dy = mouseRef.current.y - particle.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
-          
+
           if (distance < 100) {
             const force = (100 - distance) / 100;
             particle.velocity.x -= (dx / distance) * force * 0.5;
@@ -133,11 +133,11 @@ export function ParticleSystem({
 
         // Draw connections
         if (connect) {
-          particlesRef.current.slice(index + 1).forEach((other) => {
+          particlesRef.current.slice(index + 1).forEach(other => {
             const dx = particle.x - other.x;
             const dy = particle.y - other.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
-            
+
             if (distance < 100) {
               ctx.beginPath();
               ctx.strokeStyle = `rgba(107, 31, 46, ${(1 - distance / 100) * 0.3})`;
@@ -182,11 +182,11 @@ export function ParticleSystem({
 }
 
 // Confetti explosion component
-export function ConfettiExplosion({ 
+export function ConfettiExplosion({
   trigger = false,
   particleCount = 100,
   spread = 70,
-  origin = { x: 0.5, y: 0.5 }
+  origin = { x: 0.5, y: 0.5 },
 }: {
   trigger?: boolean;
   particleCount?: number;
@@ -225,7 +225,7 @@ export function FloatingParticles({ density = 30 }: { density?: number }) {
 
   return (
     <div className="pointer-events-none fixed inset-0 overflow-hidden">
-      {particles.map((particle) => (
+      {particles.map(particle => (
         <motion.div
           key={particle.id}
           className="absolute rounded-full bg-gradient-to-br from-[#6B1F2E] to-[#C9974D]"

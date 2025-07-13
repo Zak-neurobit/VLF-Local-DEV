@@ -5,11 +5,14 @@ import { MasterLayout } from '@/design-system/templates/MasterLayout';
 
 export const metadata: Metadata = {
   title: 'Charlotte Criminal Defense Lawyer - DWI, Drug Charges & More | Vasquez Law',
-  description: 'Aggressive Charlotte criminal defense attorneys. DWI/DUI, drug crimes, assault, theft charges. Former prosecutors fighting for you. 24/7 availability. Free consultation.',
-  keywords: 'Charlotte criminal defense lawyer, Charlotte criminal defense attorney, DWI lawyer Charlotte NC, drug charge attorney Charlotte, assault lawyer Charlotte, theft attorney Charlotte, Charlotte criminal law firm, best criminal lawyer Charlotte',
+  description:
+    'Aggressive Charlotte criminal defense attorneys. DWI/DUI, drug crimes, assault, theft charges. Former prosecutors fighting for you. 24/7 availability. Free consultation.',
+  keywords:
+    'Charlotte criminal defense lawyer, Charlotte criminal defense attorney, DWI lawyer Charlotte NC, drug charge attorney Charlotte, assault lawyer Charlotte, theft attorney Charlotte, Charlotte criminal law firm, best criminal lawyer Charlotte',
   openGraph: {
     title: 'Charlotte Criminal Defense Lawyer - YO PELEO POR TI™ | Vasquez Law',
-    description: 'Facing criminal charges in Charlotte? Former prosecutors now defending your freedom. Available 24/7. Aggressive defense for all criminal charges.',
+    description:
+      'Facing criminal charges in Charlotte? Former prosecutors now defending your freedom. Available 24/7. Aggressive defense for all criminal charges.',
     images: [{ url: '/images/offices/charlotte-criminal-defense-lawyer.jpg' }],
     type: 'website',
     locale: 'en_US',
@@ -18,7 +21,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Charlotte Criminal Defense Lawyer - YO PELEO POR TI™',
-    description: 'Arrested in Charlotte? We fight for your freedom. 24/7 availability. Free consultation.',
+    description:
+      'Arrested in Charlotte? We fight for your freedom. 24/7 availability. Free consultation.',
   },
   alternates: {
     canonical: 'https://www.vasquezlawfirm.com/locations/charlotte/criminal-defense-lawyer',
@@ -35,8 +39,9 @@ export default function CharlotteCriminalDefenseLawyerPage() {
     serviceName: 'Criminal Defense',
     heroTitle: 'Charlotte Criminal Defense Lawyer',
     heroSubtitle: 'YO PELEO POR TI™',
-    heroDescription: 'Arrested in Charlotte? Don\'t face the system alone. Former prosecutors now fighting for YOUR freedom. Available 24/7. Military discipline meets courtroom excellence.',
-    
+    heroDescription:
+      "Arrested in Charlotte? Don't face the system alone. Former prosecutors now fighting for YOUR freedom. Available 24/7. Military discipline meets courtroom excellence.",
+
     localStats: {
       stat1: { value: '2,000+', label: 'Charlotte Cases Defended' },
       stat2: { value: '24/7', label: 'Emergency Response' },
@@ -50,32 +55,38 @@ export default function CharlotteCriminalDefenseLawyerPage() {
       services: [
         {
           name: 'DWI/DUI Defense',
-          description: 'Challenging breathalyzers, field sobriety tests, and traffic stops. Protecting your license and freedom.',
+          description:
+            'Challenging breathalyzers, field sobriety tests, and traffic stops. Protecting your license and freedom.',
           localInfo: 'Expert knowledge of CMPD DWI checkpoints and procedures',
         },
         {
           name: 'Drug Crime Defense',
-          description: 'Possession, trafficking, manufacturing charges. We challenge searches and protect your rights.',
+          description:
+            'Possession, trafficking, manufacturing charges. We challenge searches and protect your rights.',
           localInfo: 'Familiar with Charlotte drug enforcement tactics and local court attitudes',
         },
         {
           name: 'Assault & Violent Crimes',
-          description: 'Defending assault, battery, domestic violence charges. We fight for self-defense and dismissals.',
+          description:
+            'Defending assault, battery, domestic violence charges. We fight for self-defense and dismissals.',
           localInfo: 'Regular practice in Mecklenburg County violent crime courts',
         },
         {
           name: 'Theft & Property Crimes',
-          description: 'Shoplifting, larceny, burglary, robbery charges. Protecting your record and future.',
+          description:
+            'Shoplifting, larceny, burglary, robbery charges. Protecting your record and future.',
           localInfo: 'Relationships with local prosecutors for favorable plea negotiations',
         },
         {
           name: 'Traffic Violations',
-          description: 'Speeding, reckless driving, license issues. Keep your record clean and insurance low.',
+          description:
+            'Speeding, reckless driving, license issues. Keep your record clean and insurance low.',
           localInfo: 'Knowledge of Charlotte traffic court procedures and officers',
         },
         {
           name: 'Federal Crimes',
-          description: 'White collar, conspiracy, federal drug charges. Experience in Western District of NC.',
+          description:
+            'White collar, conspiracy, federal drug charges. Experience in Western District of NC.',
           localInfo: 'Regular practice in Charlotte federal courthouse',
         },
       ],
@@ -89,7 +100,7 @@ export default function CharlotteCriminalDefenseLawyerPage() {
         'Relationships with local judges and prosecutors',
         'Understanding of CMPD arrest procedures and tactics',
         '24/7 availability for arrests and emergencies',
-        'Bilingual defense for Charlotte\'s Hispanic community',
+        "Bilingual defense for Charlotte's Hispanic community",
       ],
     },
 
@@ -100,7 +111,8 @@ export default function CharlotteCriminalDefenseLawyerPage() {
       phone: '(704) 686-0700',
       hours: 'Monday-Friday: 8:00 AM - 5:00 PM',
       parkingInfo: 'Multiple parking decks nearby, arrive early for court',
-      additionalInfo: 'We appear daily in Charlotte criminal courts. Our familiarity with local judges, prosecutors, and procedures gives our clients a significant advantage in their defense.',
+      additionalInfo:
+        'We appear daily in Charlotte criminal courts. Our familiarity with local judges, prosecutors, and procedures gives our clients a significant advantage in their defense.',
     },
 
     testimonials: [
@@ -135,19 +147,23 @@ export default function CharlotteCriminalDefenseLawyerPage() {
     faqs: [
       {
         question: 'What should I do if arrested in Charlotte?',
-        answer: 'Stay silent! Don\'t answer questions without a lawyer. Be polite but firm: "I want my attorney." Call us immediately at 1-844-YO-PELEO. We\'re available 24/7 and can often get to the jail quickly to protect your rights.',
+        answer:
+          'Stay silent! Don\'t answer questions without a lawyer. Be polite but firm: "I want my attorney." Call us immediately at 1-844-YO-PELEO. We\'re available 24/7 and can often get to the jail quickly to protect your rights.',
       },
       {
         question: 'How much does a Charlotte criminal defense lawyer cost?',
-        answer: 'We offer flat fees for most cases with payment plans available. Costs vary by charge severity and complexity. Initial consultations are always free. Don\'t let cost concerns prevent you from getting quality defense - your freedom is priceless.',
+        answer:
+          "We offer flat fees for most cases with payment plans available. Costs vary by charge severity and complexity. Initial consultations are always free. Don't let cost concerns prevent you from getting quality defense - your freedom is priceless.",
       },
       {
         question: 'Can you get my Charlotte charges dismissed?',
-        answer: 'Every case is different, but we have a 95% success rate in reducing or dismissing charges. We examine every detail - was the stop legal? Was evidence properly handled? Were your rights violated? We find ways to win.',
+        answer:
+          'Every case is different, but we have a 95% success rate in reducing or dismissing charges. We examine every detail - was the stop legal? Was evidence properly handled? Were your rights violated? We find ways to win.',
       },
       {
         question: 'Do I need a lawyer for Charlotte traffic court?',
-        answer: 'Yes! Even "minor" violations can impact your license, insurance, and CDL. We often get tickets dismissed or reduced to non-moving violations. The cost of representation is usually less than increased insurance premiums.',
+        answer:
+          'Yes! Even "minor" violations can impact your license, insurance, and CDL. We often get tickets dismissed or reduced to non-moving violations. The cost of representation is usually less than increased insurance premiums.',
       },
     ],
 
@@ -192,7 +208,8 @@ export default function CharlotteCriminalDefenseLawyerPage() {
       'Federal Detention Center',
     ],
 
-    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3259.8651648937!2d-80.8433!3d35.2271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDEzJzM3LjYiTiA4MMKwNTAnMzUuOSJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
+    mapEmbedUrl:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3259.8651648937!2d-80.8433!3d35.2271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDEzJzM3LjYiTiA4MMKwNTAnMzUuOSJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
 
     // SEO-optimized content sections
     whyHireUs: {
@@ -211,7 +228,7 @@ export default function CharlotteCriminalDefenseLawyerPage() {
       <MasterLayout variant="default" showBreadcrumbs={true}>
         <ModernServiceLocationTemplate data={serviceLocationData} />
       </MasterLayout>
-      
+
       {/* Local Business Schema */}
       <Script
         id="charlotte-criminal-defense-lawyer-schema"
@@ -222,7 +239,8 @@ export default function CharlotteCriminalDefenseLawyerPage() {
             '@type': 'LegalService',
             '@id': 'https://www.vasquezlawfirm.com/locations/charlotte/criminal-defense-lawyer',
             name: 'Vasquez Law Firm - Charlotte Criminal Defense Lawyer',
-            description: 'Aggressive Charlotte criminal defense attorneys. DWI/DUI, drug crimes, assault, theft charges. Former prosecutors fighting for you.',
+            description:
+              'Aggressive Charlotte criminal defense attorneys. DWI/DUI, drug crimes, assault, theft charges. Former prosecutors fighting for you.',
             url: 'https://www.vasquezlawfirm.com/locations/charlotte/criminal-defense-lawyer',
             telephone: '+1-844-967-3536',
             address: {
@@ -324,7 +342,13 @@ export default function CharlotteCriminalDefenseLawyerPage() {
               postalCode: '28212',
               addressCountry: 'US',
             },
-            knowsAbout: ['Criminal Defense', 'DWI Defense', 'Drug Crimes', 'Assault Defense', 'Federal Crimes'],
+            knowsAbout: [
+              'Criminal Defense',
+              'DWI Defense',
+              'Drug Crimes',
+              'Assault Defense',
+              'Federal Crimes',
+            ],
           }),
         }}
       />

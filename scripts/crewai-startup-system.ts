@@ -1,7 +1,7 @@
 #!/usr/bin/env tsx
 /**
  * CrewAI Startup System - IMMEDIATE AUTONOMOUS OPERATION
- * 
+ *
  * This script starts all CrewAI agents and begins autonomous operation
  * with continuous monitoring, real-time tasks, and background workers.
  */
@@ -61,34 +61,33 @@ class CrewAIStartupSystem {
    */
   async startSystem(): Promise<void> {
     logger.info('🚀 CREWAI STARTUP SYSTEM INITIATED - BEGINNING TOTAL DOMINATION');
-    
+
     try {
       // 1. System Health Check
       await this.performSystemHealthCheck();
-      
+
       // 2. Initialize All Agents
       await this.initializeAllAgents();
-      
+
       // 3. Start Autonomous Operation
       await this.activateAutonomousMode();
-      
+
       // 4. Begin Immediate Tasks
       await this.executeImmediateTasks();
-      
+
       // 5. Start Continuous Monitoring
       this.startContinuousMonitoring();
-      
+
       // 6. Setup Cron Jobs
       this.setupCronJobs();
-      
+
       // 7. Start Background Workers
       this.startBackgroundWorkers();
-      
+
       logger.info('✅ CREWAI SYSTEM FULLY OPERATIONAL - AUTONOMOUS DOMINATION ACTIVATED');
-      
+
       // Keep the system running
       this.maintainSystemExecution();
-      
     } catch (error) {
       logger.error('❌ SYSTEM STARTUP FAILED:', error);
       throw error;
@@ -100,24 +99,24 @@ class CrewAIStartupSystem {
    */
   private async performSystemHealthCheck(): Promise<void> {
     logger.info('🔍 Performing system health check...');
-    
+
     const checks = [
       this.checkDatabaseConnection(),
       this.checkEnvironmentVariables(),
       this.checkDiskSpace(),
       this.checkMemoryUsage(),
       this.checkAPIConnections(),
-      this.checkFilePermissions()
+      this.checkFilePermissions(),
     ];
-    
+
     const results = await Promise.allSettled(checks);
-    
+
     results.forEach((result, index) => {
       if (result.status === 'rejected') {
         logger.error(`Health check ${index + 1} failed:`, result.reason);
       }
     });
-    
+
     logger.info('✅ System health check completed');
   }
 
@@ -126,7 +125,7 @@ class CrewAIStartupSystem {
    */
   private async initializeAllAgents(): Promise<void> {
     logger.info('🤖 Initializing all CrewAI agents...');
-    
+
     const agents = [
       'legal-consultation',
       'appointment-scheduling',
@@ -143,62 +142,62 @@ class CrewAIStartupSystem {
       'google-my-business-killer',
       'social-media-destroyer',
       'review-harvesting',
-      'competitor-spy'
+      'competitor-spy',
     ];
-    
+
     for (const agentName of agents) {
       try {
         await this.crewCoordinator.initializeAgent(agentName);
-        
+
         this.agentStatuses.set(agentName, {
           name: agentName,
           status: 'running',
           lastActivity: new Date(),
           tasksCompleted: 0,
           successRate: 1.0,
-          nextTask: 'Awaiting autonomous assignment'
+          nextTask: 'Awaiting autonomous assignment',
         });
-        
+
         logger.info(`✅ Agent ${agentName} initialized and ready`);
       } catch (error) {
         logger.error(`❌ Failed to initialize agent ${agentName}:`, error);
-        
+
         this.agentStatuses.set(agentName, {
           name: agentName,
           status: 'error',
           lastActivity: new Date(),
           tasksCompleted: 0,
           successRate: 0,
-          nextTask: 'Initialization failed'
+          nextTask: 'Initialization failed',
         });
       }
     }
-    
+
     // Enable parallel processing
     await this.crewCoordinator.enableParallelProcessing({
       maxConcurrentTasks: 10,
       taskQueueSize: 100,
       workerThreads: 4,
-      priorityQueues: true
+      priorityQueues: true,
     });
-    
+
     // Setup communication channels
     await this.crewCoordinator.setupCommunicationChannels({
       messageQueue: 'memory',
       enableDirectMessaging: true,
       messageRetention: 3600,
-      maxMessageSize: 1024 * 1024
+      maxMessageSize: 1024 * 1024,
     });
-    
+
     // Initialize memory system
     await this.crewCoordinator.initializeMemorySystem({
       type: 'local',
       provider: 'memory',
       maxMemoryPerAgent: '256MB',
       ttl: 3600,
-      compressionEnabled: true
+      compressionEnabled: true,
     });
-    
+
     logger.info('🎯 All agents initialized - Ready for autonomous operation');
   }
 
@@ -207,15 +206,15 @@ class CrewAIStartupSystem {
    */
   private async activateAutonomousMode(): Promise<void> {
     logger.info('🚀 ACTIVATING AUTONOMOUS MODE - AGENTS BEGIN SELF-DIRECTED OPERATION');
-    
+
     this.autonomousMode = true;
-    
+
     // Start SEO Domination System
     await this.seoOrchestrator.startTotalDomination();
-    
+
     // Create initial autonomous workflows
     await this.createAutonomousWorkflows();
-    
+
     logger.info('✅ Autonomous mode activated - Agents are now self-directing');
   }
 
@@ -224,7 +223,7 @@ class CrewAIStartupSystem {
    */
   private async executeImmediateTasks(): Promise<void> {
     logger.info('⚡ EXECUTING IMMEDIATE TASKS - SHOWING INSTANT RESULTS');
-    
+
     const immediateTasks = [
       {
         name: 'Generate NC Legal Blog Post',
@@ -234,18 +233,19 @@ class CrewAIStartupSystem {
           topic: 'Recent North Carolina Legal News Updates',
           keywords: ['North Carolina lawyer', 'legal news', 'immigration law'],
           wordCount: 1500,
-          urgency: 'immediate'
-        }
+          urgency: 'immediate',
+        },
       },
       {
         name: 'Create Google My Business Post',
         type: 'gmb-posting',
         priority: 'high',
         data: {
-          content: 'Expert legal representation for immigration, DWI, and workers compensation cases in Charlotte, NC',
+          content:
+            'Expert legal representation for immigration, DWI, and workers compensation cases in Charlotte, NC',
           keywords: ['Charlotte lawyer', 'immigration attorney'],
-          callToAction: 'Call now for free consultation'
-        }
+          callToAction: 'Call now for free consultation',
+        },
       },
       {
         name: 'Monitor Recent Reviews',
@@ -254,8 +254,8 @@ class CrewAIStartupSystem {
         data: {
           platforms: ['Google', 'Yelp', 'Avvo'],
           responseRequired: true,
-          sentiment: 'all'
-        }
+          sentiment: 'all',
+        },
       },
       {
         name: 'Update Homepage Content',
@@ -263,8 +263,8 @@ class CrewAIStartupSystem {
         priority: 'medium',
         data: {
           sections: ['hero', 'services', 'testimonials'],
-          focusKeywords: ['Charlotte immigration lawyer', 'DWI attorney']
-        }
+          focusKeywords: ['Charlotte immigration lawyer', 'DWI attorney'],
+        },
       },
       {
         name: 'Competitor Analysis Scan',
@@ -272,15 +272,15 @@ class CrewAIStartupSystem {
         priority: 'medium',
         data: {
           competitors: ['Brent Adams Law', 'Hardwick Law'],
-          metrics: ['rankings', 'content', 'reviews']
-        }
-      }
+          metrics: ['rankings', 'content', 'reviews'],
+        },
+      },
     ];
-    
+
     // Execute all immediate tasks in parallel
     const taskPromises = immediateTasks.map(task => this.executeTask(task));
     const results = await Promise.allSettled(taskPromises);
-    
+
     results.forEach((result, index) => {
       if (result.status === 'fulfilled') {
         logger.info(`✅ Immediate task completed: ${immediateTasks[index].name}`);
@@ -288,7 +288,7 @@ class CrewAIStartupSystem {
         logger.error(`❌ Immediate task failed: ${immediateTasks[index].name}`, result.reason);
       }
     });
-    
+
     logger.info('🎉 All immediate tasks completed - System showing instant results');
   }
 
@@ -297,7 +297,7 @@ class CrewAIStartupSystem {
    */
   private startContinuousMonitoring(): void {
     logger.info('📊 Starting continuous monitoring system...');
-    
+
     this.monitoringInterval = setInterval(async () => {
       try {
         await this.monitorSystemHealth();
@@ -308,7 +308,7 @@ class CrewAIStartupSystem {
         logger.error('Monitoring error:', error);
       }
     }, 30000); // Monitor every 30 seconds
-    
+
     logger.info('✅ Continuous monitoring activated');
   }
 
@@ -317,42 +317,42 @@ class CrewAIStartupSystem {
    */
   private setupCronJobs(): void {
     logger.info('⏰ Setting up cron jobs for autonomous operation...');
-    
+
     // Blog content generation - every 2 hours
     cron.schedule('0 */2 * * *', async () => {
       await this.generateBlogContent();
     });
-    
+
     // Google My Business posts - every 6 hours
     cron.schedule('0 */6 * * *', async () => {
       await this.createGMBPost();
     });
-    
+
     // Review monitoring - every hour
     cron.schedule('0 * * * *', async () => {
       await this.monitorAndRespondToReviews();
     });
-    
+
     // Competitor analysis - every 4 hours
     cron.schedule('0 */4 * * *', async () => {
       await this.analyzeCompetitors();
     });
-    
+
     // Social media content - every 3 hours
     cron.schedule('0 */3 * * *', async () => {
       await this.createSocialContent();
     });
-    
+
     // Homepage optimization - daily at 2 AM
     cron.schedule('0 2 * * *', async () => {
       await this.optimizeHomepage();
     });
-    
+
     // System health report - every 15 minutes
     cron.schedule('*/15 * * * *', async () => {
       await this.generateHealthReport();
     });
-    
+
     logger.info('✅ Cron jobs scheduled - Autonomous tasks will run continuously');
   }
 
@@ -361,12 +361,12 @@ class CrewAIStartupSystem {
    */
   private startBackgroundWorkers(): void {
     logger.info('⚙️ Starting background workers for heavy processing...');
-    
+
     // Start multiple workers
     for (let i = 0; i < this.maxWorkers; i++) {
       this.startWorker(i);
     }
-    
+
     logger.info(`✅ ${this.maxWorkers} background workers started`);
   }
 
@@ -375,15 +375,15 @@ class CrewAIStartupSystem {
    */
   private async startWorker(workerId: number): Promise<void> {
     logger.info(`🔧 Starting worker ${workerId}...`);
-    
+
     const processTask = async () => {
       if (this.taskQueue.length === 0) return;
-      
+
       const task = this.taskQueue.shift();
       if (!task) return;
-      
+
       this.activeWorkers++;
-      
+
       try {
         await this.executeTask(task);
         logger.info(`✅ Worker ${workerId} completed task: ${task.name}`);
@@ -393,7 +393,7 @@ class CrewAIStartupSystem {
         this.activeWorkers--;
       }
     };
-    
+
     // Worker loop
     setInterval(processTask, 5000); // Check for tasks every 5 seconds
   }
@@ -403,7 +403,7 @@ class CrewAIStartupSystem {
    */
   private async executeTask(task: any): Promise<any> {
     const taskId = `task_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    
+
     const crewTask = {
       id: taskId,
       type: task.type,
@@ -413,7 +413,7 @@ class CrewAIStartupSystem {
       status: 'pending' as const,
       createdAt: new Date(),
     };
-    
+
     return await this.crewCoordinator.executeTask(crewTask);
   }
 
@@ -422,7 +422,7 @@ class CrewAIStartupSystem {
    */
   private async createAutonomousWorkflows(): Promise<void> {
     logger.info('🔄 Creating autonomous workflows...');
-    
+
     // Content dominance workflow
     await this.crewCoordinator.createWorkflow('Content Dominance Pipeline', [
       {
@@ -452,9 +452,9 @@ class CrewAIStartupSystem {
         input: {},
         dependencies: ['step-1'],
         maxRetries: 2,
-      }
+      },
     ]);
-    
+
     // Lead generation workflow
     await this.crewCoordinator.createWorkflow('Lead Generation Machine', [
       {
@@ -477,9 +477,9 @@ class CrewAIStartupSystem {
         input: {},
         dependencies: ['step-1'],
         maxRetries: 3,
-      }
+      },
     ]);
-    
+
     logger.info('✅ Autonomous workflows created');
   }
 
@@ -488,20 +488,21 @@ class CrewAIStartupSystem {
    */
   private async monitorSystemHealth(): Promise<void> {
     const metrics = await this.getSystemMetrics();
-    
+
     // Check for issues
     if (metrics.memoryUsage > 80) {
       logger.warn('🚨 High memory usage detected:', metrics.memoryUsage);
       await this.optimizeMemoryUsage();
     }
-    
+
     if (metrics.activeAgents < metrics.totalAgents * 0.8) {
       logger.warn('🚨 Low agent availability:', metrics.activeAgents, '/', metrics.totalAgents);
       await this.restartFailedAgents();
     }
-    
+
     // Log metrics periodically
-    if (Date.now() % 300000 < 30000) { // Every 5 minutes
+    if (Date.now() % 300000 < 30000) {
+      // Every 5 minutes
       logger.info('📊 System Metrics:', metrics);
     }
   }
@@ -513,12 +514,13 @@ class CrewAIStartupSystem {
     for (const [agentName, status] of Array.from(this.agentStatuses.entries())) {
       // Check if agent is responsive
       const timeSinceLastActivity = Date.now() - status.lastActivity.getTime();
-      
-      if (timeSinceLastActivity > 300000) { // 5 minutes
+
+      if (timeSinceLastActivity > 300000) {
+        // 5 minutes
         logger.warn(`🚨 Agent ${agentName} unresponsive for ${timeSinceLastActivity / 1000}s`);
         await this.restartAgent(agentName);
       }
-      
+
       // Check success rate
       if (status.successRate < 0.8) {
         logger.warn(`🚨 Agent ${agentName} low success rate: ${status.successRate}`);
@@ -535,7 +537,7 @@ class CrewAIStartupSystem {
     if (this.taskQueue.length < 5) {
       await this.generateAutonomousTasks();
     }
-    
+
     // Prioritize urgent tasks
     this.taskQueue.sort((a, b) => {
       const priorityOrder = { urgent: 0, high: 1, medium: 2, low: 3 };
@@ -549,53 +551,53 @@ class CrewAIStartupSystem {
   private async generateAutonomousTasks(): Promise<void> {
     const currentHour = new Date().getHours();
     const currentDay = new Date().getDay();
-    
+
     // Generate tasks based on time and context
     const autonomousTasks = [];
-    
+
     // Morning tasks (6-12)
     if (currentHour >= 6 && currentHour <= 12) {
       autonomousTasks.push({
         name: 'Morning Content Push',
         type: 'content-generation',
         priority: 'high',
-        data: { theme: 'morning-legal-news', urgent: true }
+        data: { theme: 'morning-legal-news', urgent: true },
       });
     }
-    
+
     // Afternoon tasks (12-18)
     if (currentHour >= 12 && currentHour <= 18) {
       autonomousTasks.push({
         name: 'Afternoon Social Engagement',
         type: 'social-media-posting',
         priority: 'medium',
-        data: { engagement: 'high', timing: 'peak' }
+        data: { engagement: 'high', timing: 'peak' },
       });
     }
-    
+
     // Evening tasks (18-24)
     if (currentHour >= 18 && currentHour <= 24) {
       autonomousTasks.push({
         name: 'Evening Review Response',
         type: 'review-management',
         priority: 'high',
-        data: { response_time: 'immediate' }
+        data: { response_time: 'immediate' },
       });
     }
-    
+
     // Weekend tasks
     if (currentDay === 0 || currentDay === 6) {
       autonomousTasks.push({
         name: 'Weekend Content Planning',
         type: 'content-planning',
         priority: 'medium',
-        data: { planning_horizon: '7_days' }
+        data: { planning_horizon: '7_days' },
       });
     }
-    
+
     // Add generated tasks to queue
     this.taskQueue.push(...autonomousTasks);
-    
+
     logger.info(`🎯 Generated ${autonomousTasks.length} autonomous tasks`);
   }
 
@@ -604,17 +606,17 @@ class CrewAIStartupSystem {
    */
   private async generateBlogContent(): Promise<void> {
     logger.info('📝 AUTO-GENERATING BLOG CONTENT...');
-    
+
     const topics = [
       'Recent Changes in North Carolina Immigration Law',
       'DWI Defense Strategies That Work in Charlotte',
       'Workers Compensation Claims: Your Rights in NC',
       'Criminal Defense: When to Hire a Lawyer',
-      'Immigration Success Stories from Charlotte'
+      'Immigration Success Stories from Charlotte',
     ];
-    
+
     const randomTopic = topics[Math.floor(Math.random() * topics.length)];
-    
+
     await this.executeTask({
       name: 'Autonomous Blog Generation',
       type: 'seo-blog-generation',
@@ -624,24 +626,24 @@ class CrewAIStartupSystem {
         keywords: ['Charlotte lawyer', 'North Carolina attorney'],
         wordCount: 2000,
         includeImages: true,
-        optimizeForSEO: true
-      }
+        optimizeForSEO: true,
+      },
     });
   }
 
   private async createGMBPost(): Promise<void> {
     logger.info('📍 AUTO-CREATING GOOGLE MY BUSINESS POST...');
-    
+
     const posts = [
       'Successfully resolved another immigration case! We help families stay together in Charlotte.',
-      'DWI charges? Don\'t face them alone. Expert defense available 24/7.',
+      "DWI charges? Don't face them alone. Expert defense available 24/7.",
       'Injured at work? You deserve compensation. Free consultation available.',
       'Criminal charges can change your life. Get experienced defense now.',
-      'Proud to serve the Charlotte community with expert legal representation.'
+      'Proud to serve the Charlotte community with expert legal representation.',
     ];
-    
+
     const randomPost = posts[Math.floor(Math.random() * posts.length)];
-    
+
     await this.executeTask({
       name: 'Autonomous GMB Posting',
       type: 'gmb-posting',
@@ -650,14 +652,14 @@ class CrewAIStartupSystem {
         content: randomPost,
         includeImage: true,
         callToAction: 'Call Now',
-        location: 'Charlotte, NC'
-      }
+        location: 'Charlotte, NC',
+      },
     });
   }
 
   private async monitorAndRespondToReviews(): Promise<void> {
     logger.info('⭐ AUTO-MONITORING AND RESPONDING TO REVIEWS...');
-    
+
     await this.executeTask({
       name: 'Autonomous Review Management',
       type: 'review-monitoring',
@@ -666,14 +668,14 @@ class CrewAIStartupSystem {
         platforms: ['Google', 'Yelp', 'Avvo', 'Facebook'],
         autoRespond: true,
         sentiment: 'all',
-        responseTemplate: 'professional'
-      }
+        responseTemplate: 'professional',
+      },
     });
   }
 
   private async analyzeCompetitors(): Promise<void> {
     logger.info('🕵️ AUTO-ANALYZING COMPETITORS...');
-    
+
     await this.executeTask({
       name: 'Autonomous Competitor Analysis',
       type: 'competitive-analysis',
@@ -681,14 +683,14 @@ class CrewAIStartupSystem {
       data: {
         competitors: ['Brent Adams Law', 'Hardwick Law', 'Charlotte Immigration Lawyer'],
         metrics: ['rankings', 'content', 'reviews', 'social', 'backlinks'],
-        actionable: true
-      }
+        actionable: true,
+      },
     });
   }
 
   private async createSocialContent(): Promise<void> {
     logger.info('📱 AUTO-CREATING SOCIAL MEDIA CONTENT...');
-    
+
     await this.executeTask({
       name: 'Autonomous Social Media',
       type: 'social-media-posting',
@@ -697,14 +699,14 @@ class CrewAIStartupSystem {
         platforms: ['Facebook', 'Twitter', 'LinkedIn', 'Instagram'],
         contentType: 'mixed',
         engagement: 'high',
-        localFocus: true
-      }
+        localFocus: true,
+      },
     });
   }
 
   private async optimizeHomepage(): Promise<void> {
     logger.info('🏠 AUTO-OPTIMIZING HOMEPAGE...');
-    
+
     await this.executeTask({
       name: 'Autonomous Homepage Optimization',
       type: 'homepage-optimization',
@@ -712,8 +714,8 @@ class CrewAIStartupSystem {
       data: {
         sections: ['hero', 'services', 'testimonials', 'contact'],
         keywords: ['Charlotte immigration lawyer', 'DWI attorney', 'workers compensation'],
-        conversion: 'maximize'
-      }
+        conversion: 'maximize',
+      },
     });
   }
 
@@ -725,9 +727,10 @@ class CrewAIStartupSystem {
     if (this.taskQueue.length > 100) {
       this.taskQueue = this.taskQueue.slice(0, 50);
     }
-    
+
     // Optimize memory usage
-    if (process.memoryUsage().heapUsed > 500 * 1024 * 1024) { // 500MB
+    if (process.memoryUsage().heapUsed > 500 * 1024 * 1024) {
+      // 500MB
       if (global.gc) {
         global.gc();
       }
@@ -744,16 +747,16 @@ class CrewAIStartupSystem {
 
   private async restartAgent(agentName: string): Promise<void> {
     logger.info(`🔄 Restarting agent: ${agentName}`);
-    
+
     try {
       await this.crewCoordinator.initializeAgent(agentName);
-      
+
       const status = this.agentStatuses.get(agentName);
       if (status) {
         status.status = 'running';
         status.lastActivity = new Date();
       }
-      
+
       logger.info(`✅ Agent ${agentName} restarted successfully`);
     } catch (error) {
       logger.error(`❌ Failed to restart agent ${agentName}:`, error);
@@ -762,13 +765,13 @@ class CrewAIStartupSystem {
 
   private async optimizeAgent(agentName: string): Promise<void> {
     logger.info(`⚡ Optimizing agent: ${agentName}`);
-    
+
     // Implementation would include:
     // - Adjusting agent parameters
     // - Clearing agent memory
     // - Resetting agent state
     // - Updating agent configuration
-    
+
     const status = this.agentStatuses.get(agentName);
     if (status) {
       status.successRate = 1.0; // Reset success rate
@@ -778,10 +781,10 @@ class CrewAIStartupSystem {
 
   private async optimizeMemoryUsage(): Promise<void> {
     logger.info('🧹 Optimizing memory usage...');
-    
+
     // Clear expired memory entries
     await this.crewCoordinator.getFromDistributedMemory('system', 'cleanup');
-    
+
     // Force garbage collection if available
     if (global.gc) {
       global.gc();
@@ -793,7 +796,7 @@ class CrewAIStartupSystem {
    */
   private async generateHealthReport(): Promise<void> {
     const metrics = await this.getSystemMetrics();
-    
+
     logger.info('📊 SYSTEM HEALTH REPORT');
     logger.info('========================');
     logger.info(`Total Agents: ${metrics.totalAgents}`);
@@ -813,15 +816,19 @@ class CrewAIStartupSystem {
   private async getSystemMetrics(): Promise<SystemMetrics> {
     const memoryUsage = process.memoryUsage();
     const uptime = Date.now() - this.systemStartTime.getTime();
-    
+
     return {
       totalAgents: this.agentStatuses.size,
-      activeAgents: Array.from(this.agentStatuses.values()).filter(s => s.status === 'running').length,
-      tasksCompleted: Array.from(this.agentStatuses.values()).reduce((sum, s) => sum + s.tasksCompleted, 0),
+      activeAgents: Array.from(this.agentStatuses.values()).filter(s => s.status === 'running')
+        .length,
+      tasksCompleted: Array.from(this.agentStatuses.values()).reduce(
+        (sum, s) => sum + s.tasksCompleted,
+        0
+      ),
       tasksInProgress: this.taskQueue.length,
       systemUptime: Math.floor(uptime / 1000),
       memoryUsage: Math.round((memoryUsage.heapUsed / memoryUsage.heapTotal) * 100),
-      cpuUsage: process.cpuUsage().user / 1000000 // Convert to seconds
+      cpuUsage: process.cpuUsage().user / 1000000, // Convert to seconds
     };
   }
 
@@ -834,18 +841,14 @@ class CrewAIStartupSystem {
   }
 
   private async checkEnvironmentVariables(): Promise<void> {
-    const required = [
-      'DATABASE_URL',
-      'OPENAI_API_KEY',
-      'NEXT_PUBLIC_GOOGLE_PLACES_API_KEY'
-    ];
-    
+    const required = ['DATABASE_URL', 'OPENAI_API_KEY', 'NEXT_PUBLIC_GOOGLE_PLACES_API_KEY'];
+
     for (const envVar of required) {
       if (!process.env[envVar]) {
         throw new Error(`Missing required environment variable: ${envVar}`);
       }
     }
-    
+
     logger.info('✅ Environment variables verified');
   }
 
@@ -853,7 +856,7 @@ class CrewAIStartupSystem {
     const { stdout } = await execAsync('df -h /');
     const usage = stdout.split('\n')[1].split(/\s+/)[4];
     const usagePercent = parseInt(usage.replace('%', ''));
-    
+
     if (usagePercent > 90) {
       logger.warn('⚠️ Low disk space:', usage);
     } else {
@@ -864,7 +867,7 @@ class CrewAIStartupSystem {
   private async checkMemoryUsage(): Promise<void> {
     const memoryUsage = process.memoryUsage();
     const usagePercent = (memoryUsage.heapUsed / memoryUsage.heapTotal) * 100;
-    
+
     if (usagePercent > 80) {
       logger.warn('⚠️ High memory usage:', usagePercent.toFixed(2) + '%');
     } else {
@@ -880,7 +883,7 @@ class CrewAIStartupSystem {
     } catch (error) {
       logger.error('❌ OpenAI API connection failed:', error);
     }
-    
+
     // Check Google Places API
     try {
       // Simple test call would go here
@@ -892,7 +895,7 @@ class CrewAIStartupSystem {
 
   private async checkFilePermissions(): Promise<void> {
     const testFile = path.join(process.cwd(), 'temp_test_file');
-    
+
     try {
       await fs.writeFile(testFile, 'test');
       await fs.unlink(testFile);
@@ -909,27 +912,27 @@ class CrewAIStartupSystem {
     // Keep the process alive
     process.on('SIGINT', async () => {
       logger.info('🛑 Gracefully shutting down CrewAI system...');
-      
+
       if (this.monitoringInterval) {
         clearTimeout(this.monitoringInterval);
       }
-      
+
       await this.seoOrchestrator.stopDomination();
-      
+
       process.exit(0);
     });
-    
+
     // Handle uncaught exceptions
-    process.on('uncaughtException', (error) => {
+    process.on('uncaughtException', error => {
       logger.error('🚨 Uncaught exception:', error);
       // Don't exit - log and continue
     });
-    
+
     process.on('unhandledRejection', (reason, promise) => {
       logger.error('🚨 Unhandled rejection at:', promise, 'reason:', reason);
       // Don't exit - log and continue
     });
-    
+
     logger.info('🔄 System maintenance active - Continuous operation ensured');
   }
 }

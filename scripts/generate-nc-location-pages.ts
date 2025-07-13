@@ -12,9 +12,10 @@ const practiceAreas = [
 
 // Generate practice area page content
 const generatePracticeAreaPage = (citySlug: string, practiceArea: any) => {
-  const cityName = citySlug.split('-').map(word => 
-    word.charAt(0).toUpperCase() + word.slice(1)
-  ).join(' ');
+  const cityName = citySlug
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 
   return `import { Metadata } from 'next';
 import { LocationPageTemplate } from '@/components/locations/LocationPageTemplate';
@@ -108,9 +109,10 @@ export default function ${cityName.replace(/[^a-zA-Z]/g, '')}${practiceArea.name
 
 // Generate main city page content (updated version)
 const generateMainCityPage = (citySlug: string) => {
-  const cityName = citySlug.split('-').map(word => 
-    word.charAt(0).toUpperCase() + word.slice(1)
-  ).join(' ');
+  const cityName = citySlug
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 
   return `import { Metadata } from 'next';
 import { LocationPageTemplate } from '@/components/locations/LocationPageTemplate';
@@ -209,11 +211,11 @@ async function generatePages() {
 
   for (const [citySlug, cityData] of cityEntries) {
     const cityDir = path.join(baseDir, citySlug);
-    
+
     // Update main city page (overwrite existing)
     const mainPagePath = path.join(cityDir, 'page.tsx');
     const mainPageContent = generateMainCityPage(citySlug);
-    
+
     try {
       fs.writeFileSync(mainPagePath, mainPageContent);
       console.log(`✅ Updated main page: ${citySlug}/page.tsx`);
@@ -226,15 +228,15 @@ async function generatePages() {
     for (const practiceArea of practiceAreas) {
       const practiceDir = path.join(cityDir, practiceArea.slug);
       const practicePagePath = path.join(practiceDir, 'page.tsx');
-      
+
       // Check if directory exists, create if not
       if (!fs.existsSync(practiceDir)) {
         fs.mkdirSync(practiceDir, { recursive: true });
       }
-      
+
       // Generate the page
       const pageContent = generatePracticeAreaPage(citySlug, practiceArea);
-      
+
       try {
         fs.writeFileSync(practicePagePath, pageContent);
         console.log(`✅ Generated: ${citySlug}/${practiceArea.slug}/page.tsx`);
@@ -243,7 +245,7 @@ async function generatePages() {
         console.error(`❌ Error generating ${citySlug}/${practiceArea.slug}/page.tsx:`, error);
       }
     }
-    
+
     console.log(''); // Empty line between cities
   }
 

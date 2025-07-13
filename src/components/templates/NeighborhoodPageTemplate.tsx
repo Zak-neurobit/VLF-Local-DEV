@@ -4,9 +4,21 @@ import React from 'react';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Button } from '@/design-system/components/Button';
 import { motion } from 'framer-motion';
-import { Phone, MapPin, Clock, MessageCircle, CheckCircle, Globe, Users, Shield } from 'lucide-react';
+import {
+  Phone,
+  MapPin,
+  Clock,
+  MessageCircle,
+  CheckCircle,
+  Globe,
+  Users,
+  Shield,
+} from 'lucide-react';
 import Link from 'next/link';
-import { generateEnhancedLocalBusinessSchema, generateEnhancedBreadcrumbSchema } from '@/lib/seo/comprehensive-schema';
+import {
+  generateEnhancedLocalBusinessSchema,
+  generateEnhancedBreadcrumbSchema,
+} from '@/lib/seo/comprehensive-schema';
 import Script from 'next/script';
 
 interface NeighborhoodPageTemplateProps {
@@ -64,7 +76,7 @@ const IconMap = {
   Users,
   Globe,
   Shield,
-  CheckCircle
+  CheckCircle,
 };
 
 // Practice area slug mapping
@@ -81,9 +93,18 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
   const breadcrumbSchema = generateEnhancedBreadcrumbSchema([
     { name: 'Home', url: 'https://www.vasquezlawnc.com' },
     { name: 'Locations', url: 'https://www.vasquezlawnc.com/locations' },
-    { name: neighborhood.city, url: `https://www.vasquezlawnc.com/locations/nc/${neighborhood.citySlug}` },
-    { name: 'Neighborhoods', url: `https://www.vasquezlawnc.com/locations/nc/${neighborhood.citySlug}/neighborhoods` },
-    { name: neighborhood.name, url: `https://www.vasquezlawnc.com/locations/nc/${neighborhood.citySlug}/neighborhoods/${neighborhood.slug}` }
+    {
+      name: neighborhood.city,
+      url: `https://www.vasquezlawnc.com/locations/nc/${neighborhood.citySlug}`,
+    },
+    {
+      name: 'Neighborhoods',
+      url: `https://www.vasquezlawnc.com/locations/nc/${neighborhood.citySlug}/neighborhoods`,
+    },
+    {
+      name: neighborhood.name,
+      url: `https://www.vasquezlawnc.com/locations/nc/${neighborhood.citySlug}/neighborhoods/${neighborhood.slug}`,
+    },
   ]);
 
   // Generate local business schema
@@ -93,11 +114,16 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
       street: `Serving ${neighborhood.name} area`,
       city: neighborhood.city,
       state: 'NC',
-      zip: neighborhood.zipCodes[0]
+      zip: neighborhood.zipCodes[0],
     },
     phone: '+1-844-967-3536',
-    amenities: ['Free Parking', 'Wheelchair Accessible', 'Spanish Speaking Staff', '24/7 Availability'],
-    paymentAccepted: ['Cash', 'Check', 'Credit Card', 'Payment Plans']
+    amenities: [
+      'Free Parking',
+      'Wheelchair Accessible',
+      'Spanish Speaking Staff',
+      '24/7 Availability',
+    ],
+    paymentAccepted: ['Cash', 'Check', 'Credit Card', 'Payment Plans'],
   });
 
   return (
@@ -106,7 +132,7 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
         {/* Hero Section */}
         <section className="relative overflow-hidden py-20">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-black to-secondary/10" />
-          
+
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-5xl mx-auto text-center">
               <motion.div
@@ -123,13 +149,16 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                 <p className="text-lg mb-8 max-w-3xl mx-auto text-gray-300">
                   {content.heroDescription}
                 </p>
-                
+
                 {/* ZIP Codes */}
                 <div className="mb-8">
                   <p className="text-sm text-gray-400 mb-2">Proudly Serving ZIP Codes:</p>
                   <div className="flex flex-wrap justify-center gap-2">
-                    {neighborhood.zipCodes.map((zip) => (
-                      <span key={zip} className="px-3 py-1 bg-white/10 rounded-full text-white text-sm">
+                    {neighborhood.zipCodes.map(zip => (
+                      <span
+                        key={zip}
+                        className="px-3 py-1 bg-white/10 rounded-full text-white text-sm"
+                      >
                         {zip}
                       </span>
                     ))}
@@ -223,7 +252,7 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                     <h3 className="text-2xl font-bold text-primary mb-4">{area.name}</h3>
                     <p className="text-gray-300 mb-4">{area.description}</p>
                     <p className="text-sm text-gray-400 italic">{area.localNote}</p>
-                    <Link 
+                    <Link
                       href={`/practice-areas/${practiceAreaSlugs[area.name] || area.name.toLowerCase().replace(/['\s]+/g, '-')}`}
                       className="inline-flex items-center text-primary hover:text-primary-300 mt-4 font-semibold"
                     >
@@ -280,15 +309,21 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                   <dl className="space-y-3">
                     <div>
                       <dt className="text-gray-400 text-sm">Population</dt>
-                      <dd className="text-white font-semibold">{content.localKnowledge.demographics.population}</dd>
+                      <dd className="text-white font-semibold">
+                        {content.localKnowledge.demographics.population}
+                      </dd>
                     </div>
                     <div>
                       <dt className="text-gray-400 text-sm">Median Income</dt>
-                      <dd className="text-white font-semibold">{content.localKnowledge.demographics.medianIncome}</dd>
+                      <dd className="text-white font-semibold">
+                        {content.localKnowledge.demographics.medianIncome}
+                      </dd>
                     </div>
                     <div>
                       <dt className="text-gray-400 text-sm">Community</dt>
-                      <dd className="text-white font-semibold">{content.localKnowledge.demographics.diversity}</dd>
+                      <dd className="text-white font-semibold">
+                        {content.localKnowledge.demographics.diversity}
+                      </dd>
                     </div>
                   </dl>
                 </motion.div>
@@ -306,7 +341,9 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                     {content.localKnowledge.nearbyServices.map((service, index) => (
                       <div key={index}>
                         <h4 className="font-semibold text-white">{service.name}</h4>
-                        <p className="text-sm text-gray-400">{service.type} • {service.distance}</p>
+                        <p className="text-sm text-gray-400">
+                          {service.type} • {service.distance}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -321,7 +358,9 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                 transition={{ delay: 0.3 }}
                 className="mt-8 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10"
               >
-                <h3 className="text-xl font-bold text-primary mb-4">Common Legal Issues in {neighborhood.name}</h3>
+                <h3 className="text-xl font-bold text-primary mb-4">
+                  Common Legal Issues in {neighborhood.name}
+                </h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   {content.localKnowledge.commonIssues.map((issue, index) => (
                     <div key={index} className="flex items-start">
@@ -360,7 +399,9 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                   >
                     <div className="flex mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <span key={i} className="text-primary text-xl">★</span>
+                        <span key={i} className="text-primary text-xl">
+                          ★
+                        </span>
                       ))}
                     </div>
                     <p className="text-gray-300 mb-4 italic">"{testimonial.text}"</p>
@@ -415,7 +456,8 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                 {neighborhood.name} Residents: Get Help Today
               </h2>
               <p className="text-xl text-black/80 mb-8">
-                Don't wait to get the legal help you need. We're here for our {neighborhood.name} neighbors 24/7.
+                Don't wait to get the legal help you need. We're here for our {neighborhood.name}{' '}
+                neighbors 24/7.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
@@ -446,7 +488,9 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
         <section className="py-12 bg-black">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto text-center">
-              <h3 className="text-xl font-bold text-white mb-6">Also Serving Nearby {neighborhood.city} Neighborhoods</h3>
+              <h3 className="text-xl font-bold text-white mb-6">
+                Also Serving Nearby {neighborhood.city} Neighborhoods
+              </h3>
               <div className="flex flex-wrap justify-center gap-3">
                 <Link
                   href={`/locations/nc/${neighborhood.citySlug}`}
@@ -466,9 +510,9 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@graph": [breadcrumbSchema, localBusinessSchema]
-            })
+              '@context': 'https://schema.org',
+              '@graph': [breadcrumbSchema, localBusinessSchema],
+            }),
           }}
         />
       </div>

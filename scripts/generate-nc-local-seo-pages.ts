@@ -25,7 +25,7 @@ const ncLocations: NCLocation[] = [
     population: '500,000+',
     zipCodes: ['27601', '27603', '27605', '27607', '27609', '27612', '27615', '27616'],
     nearbyAreas: ['Cary', 'Apex', 'Garner', 'Knightdale', 'Wake Forest'],
-    courtAddress: '316 Fayetteville St, Raleigh, NC 27601'
+    courtAddress: '316 Fayetteville St, Raleigh, NC 27601',
   },
   {
     city: 'Charlotte',
@@ -34,7 +34,7 @@ const ncLocations: NCLocation[] = [
     population: '900,000+',
     zipCodes: ['28202', '28203', '28204', '28205', '28207', '28208', '28209', '28210'],
     nearbyAreas: ['Concord', 'Gastonia', 'Rock Hill', 'Matthews', 'Huntersville'],
-    courtAddress: '832 E 4th St, Charlotte, NC 28202'
+    courtAddress: '832 E 4th St, Charlotte, NC 28202',
   },
   {
     city: 'Durham',
@@ -43,7 +43,7 @@ const ncLocations: NCLocation[] = [
     population: '300,000+',
     zipCodes: ['27701', '27703', '27704', '27705', '27707', '27709', '27712', '27713'],
     nearbyAreas: ['Chapel Hill', 'Morrisville', 'Research Triangle Park', 'Hillsborough'],
-    courtAddress: '510 S Dillard St, Durham, NC 27701'
+    courtAddress: '510 S Dillard St, Durham, NC 27701',
   },
   {
     city: 'Greensboro',
@@ -52,7 +52,7 @@ const ncLocations: NCLocation[] = [
     population: '300,000+',
     zipCodes: ['27401', '27403', '27405', '27406', '27407', '27408', '27409', '27410'],
     nearbyAreas: ['High Point', 'Burlington', 'Jamestown', 'Summerfield'],
-    courtAddress: '201 S Eugene St, Greensboro, NC 27401'
+    courtAddress: '201 S Eugene St, Greensboro, NC 27401',
   },
   {
     city: 'Winston-Salem',
@@ -61,8 +61,8 @@ const ncLocations: NCLocation[] = [
     population: '250,000+',
     zipCodes: ['27101', '27103', '27104', '27105', '27106', '27107', '27109', '27110'],
     nearbyAreas: ['Kernersville', 'Clemmons', 'Lewisville', 'Walkertown'],
-    courtAddress: '200 N Main St, Winston-Salem, NC 27101'
-  }
+    courtAddress: '200 N Main St, Winston-Salem, NC 27101',
+  },
 ];
 
 const practiceAreas = [
@@ -70,32 +70,37 @@ const practiceAreas = [
     slug: 'immigration-lawyer',
     title: 'Immigration Lawyer',
     spanish: 'Abogado de Inmigración',
-    keywords: ['immigration attorney', 'visa lawyer', 'deportation defense', 'green card lawyer']
+    keywords: ['immigration attorney', 'visa lawyer', 'deportation defense', 'green card lawyer'],
   },
   {
     slug: 'personal-injury-attorney',
     title: 'Personal Injury Attorney',
     spanish: 'Abogado de Lesiones Personales',
-    keywords: ['accident lawyer', 'injury attorney', 'car accident lawyer', 'slip and fall attorney']
+    keywords: [
+      'accident lawyer',
+      'injury attorney',
+      'car accident lawyer',
+      'slip and fall attorney',
+    ],
   },
   {
     slug: 'workers-compensation-lawyer',
-    title: 'Workers\' Compensation Lawyer',
+    title: "Workers' Compensation Lawyer",
     spanish: 'Abogado de Compensación Laboral',
-    keywords: ['work injury lawyer', 'workers comp attorney', 'workplace accident lawyer']
+    keywords: ['work injury lawyer', 'workers comp attorney', 'workplace accident lawyer'],
   },
   {
     slug: 'criminal-defense-attorney',
     title: 'Criminal Defense Attorney',
     spanish: 'Abogado de Defensa Criminal',
-    keywords: ['criminal lawyer', 'DWI attorney', 'drug crime lawyer', 'assault defense attorney']
+    keywords: ['criminal lawyer', 'DWI attorney', 'drug crime lawyer', 'assault defense attorney'],
   },
   {
     slug: 'car-accident-lawyer',
     title: 'Car Accident Lawyer',
     spanish: 'Abogado de Accidentes de Auto',
-    keywords: ['auto accident attorney', 'vehicle accident lawyer', 'crash attorney']
-  }
+    keywords: ['auto accident attorney', 'vehicle accident lawyer', 'crash attorney'],
+  },
 ];
 
 async function generateLocalSEOPages() {
@@ -103,8 +108,18 @@ async function generateLocalSEOPages() {
 
   for (const location of ncLocations) {
     for (const area of practiceAreas) {
-      const pagePath = path.join(__dirname, '..', 'src', 'app', 'locations', 'nc', location.slug, area.slug, 'page.tsx');
-      
+      const pagePath = path.join(
+        __dirname,
+        '..',
+        'src',
+        'app',
+        'locations',
+        'nc',
+        location.slug,
+        area.slug,
+        'page.tsx'
+      );
+
       const content = `import { Metadata } from 'next';
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 import Script from 'next/script';
@@ -215,7 +230,9 @@ export default function ${location.city.replace(/[^a-zA-Z]/g, '')}${area.title.r
             </section>
 
             {/* Court Information */}
-            ${location.courtAddress ? `
+            ${
+              location.courtAddress
+                ? `
             <section>
               <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">
                 ${location.county} Court Information
@@ -228,7 +245,9 @@ export default function ${location.city.replace(/[^a-zA-Z]/g, '')}${area.title.r
                 </p>
               </div>
             </section>
-            ` : ''}
+            `
+                : ''
+            }
 
             {/* CTA Section */}
             <section className="bg-[#6B1F2E] text-white p-8 rounded-lg text-center">
@@ -274,10 +293,14 @@ export default function ${location.city.replace(/[^a-zA-Z]/g, '')}${area.title.r
                 '@type': 'City',
                 name: '${location.city}'
               },
-              ${location.nearbyAreas.map(area => `{
+              ${location.nearbyAreas
+                .map(
+                  area => `{
                 '@type': 'City',
                 name: '${area}'
-              }`).join(',\n              ')}
+              }`
+                )
+                .join(',\n              ')}
             ],
             priceRange: '$$'
           })
@@ -339,7 +362,16 @@ export default function ${location.city.replace(/[^a-zA-Z]/g, '')}${area.title.r
 
   // Generate location hub pages
   for (const location of ncLocations) {
-    const hubPath = path.join(__dirname, '..', 'src', 'app', 'locations', 'nc', location.slug, 'page.tsx');
+    const hubPath = path.join(
+      __dirname,
+      '..',
+      'src',
+      'app',
+      'locations',
+      'nc',
+      location.slug,
+      'page.tsx'
+    );
     const hubContent = `import { Metadata } from 'next';
 import Link from 'next/link';
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';

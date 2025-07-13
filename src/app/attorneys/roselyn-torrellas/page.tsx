@@ -36,12 +36,15 @@ export default function Page() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h1 className="text-5xl md:text-7xl font-black mb-6 text-white">Roselyn V. Torrellas</h1>
+                <h1 className="text-5xl md:text-7xl font-black mb-6 text-white">
+                  Roselyn V. Torrellas
+                </h1>
                 <p className="text-xl md:text-2xl mb-8 font-semibold text-primary">
                   Immigration Attorney - {TRADEMARK.YO_PELEO_POR_TI}
                 </p>
                 <p className="text-lg mb-8 max-w-3xl mx-auto text-gray-300">
-                  Dedicated immigration attorney with personal experience and deep empathy for clients navigating the immigration process
+                  Dedicated immigration attorney with personal experience and deep empathy for
+                  clients navigating the immigration process
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.a
@@ -104,21 +107,24 @@ export default function Page() {
                     A Personal Journey in Immigration Law
                   </h2>
                   <p className="text-lg mb-6 text-gray-300">
-                    Roselyn Torrellas was born in Barquisimeto, Venezuela, and immigrated to the United States 
-                    as a teenager with her family. Her personal experience with immigration challenges drives 
-                    her passionate advocacy for clients navigating the complex immigration system.
+                    Roselyn Torrellas was born in Barquisimeto, Venezuela, and immigrated to the
+                    United States as a teenager with her family. Her personal experience with
+                    immigration challenges drives her passionate advocacy for clients navigating the
+                    complex immigration system.
                   </p>
                   <p className="text-lg mb-6 text-gray-300">
-                    After graduating high school, she couldn&apos;t immediately attend college due to her family&apos;s 
-                    ongoing immigration process. This experience sparked her determination to become an immigration 
-                    attorney and help others overcome similar obstacles.
+                    After graduating high school, she couldn&apos;t immediately attend college due
+                    to her family&apos;s ongoing immigration process. This experience sparked her
+                    determination to become an immigration attorney and help others overcome similar
+                    obstacles.
                   </p>
                   <p className="text-lg mb-8 text-gray-300">
-                    Roselyn has helped thousands of clients across multiple states, offering compassionate and 
-                    effective legal representation in all areas of immigration law, including citizenship, 
-                    adjustment of status, family petitions, DACA, and asylum.
+                    Roselyn has helped thousands of clients across multiple states, offering
+                    compassionate and effective legal representation in all areas of immigration
+                    law, including citizenship, adjustment of status, family petitions, DACA, and
+                    asylum.
                   </p>
-                  
+
                   {/* Quick Info */}
                   <div className="grid grid-cols-2 gap-6">
                     <div className="bg-neutral-900/50 p-4 rounded-xl border border-primary/20">
@@ -150,15 +156,11 @@ export default function Page() {
                   <ul className="space-y-4">
                     <li className="border-l-2 border-primary pl-4">
                       <p className="font-semibold text-white">Juris Doctorate</p>
-                      <p className="text-gray-400 text-sm">
-                        NCCU School of Law, Durham, NC - 2009
-                      </p>
+                      <p className="text-gray-400 text-sm">NCCU School of Law, Durham, NC - 2009</p>
                     </li>
                     <li className="border-l-2 border-primary pl-4">
                       <p className="font-semibold text-white">B.A., Political Science</p>
-                      <p className="text-gray-400 text-sm">
-                        UNC Greensboro - Minor in Sociology
-                      </p>
+                      <p className="text-gray-400 text-sm">UNC Greensboro - Minor in Sociology</p>
                     </li>
                   </ul>
                 </motion.div>
@@ -207,7 +209,7 @@ export default function Page() {
                       'Family Petitions',
                       'Asylum',
                       'Adjustment of Status',
-                    ].map((area) => (
+                    ].map(area => (
                       <span
                         key={area}
                         className="px-3 py-1 bg-primary/10 text-xs text-primary rounded-full border border-primary/20"
@@ -226,7 +228,9 @@ export default function Page() {
                 viewport={{ once: true }}
                 className="bg-gradient-to-r from-primary/10 to-secondary/10 p-12 rounded-3xl border border-primary/20 mb-20"
               >
-                <h3 className="text-3xl font-black mb-8 text-white text-center">Immigration Law Services</h3>
+                <h3 className="text-3xl font-black mb-8 text-white text-center">
+                  Immigration Law Services
+                </h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   {[
                     'Citizenship and Naturalization',
@@ -262,9 +266,10 @@ export default function Page() {
               >
                 <h3 className="text-2xl font-bold mb-4 text-white">Beyond the Law Office</h3>
                 <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-                  In her free time, Roselyn enjoys the outdoors - hiking, swimming, or spending relaxing days 
-                  at the park with her daughter. She&apos;s an avid reader and makes it a priority to travel outside 
-                  the United States at least once a year, staying connected to her roots and exploring new cultures.
+                  In her free time, Roselyn enjoys the outdoors - hiking, swimming, or spending
+                  relaxing days at the park with her daughter. She&apos;s an avid reader and makes
+                  it a priority to travel outside the United States at least once a year, staying
+                  connected to her roots and exploring new cultures.
                 </p>
               </motion.div>
             </div>
@@ -294,10 +299,12 @@ export default function Page() {
                   ¿Necesita Ayuda con Inmigración?
                 </h2>
                 <p className="text-xl mb-8 text-gray-300">
-                  Contact Roselyn Torrellas today for compassionate and experienced immigration legal assistance.
+                  Contact Roselyn Torrellas today for compassionate and experienced immigration
+                  legal assistance.
                 </p>
                 <p className="text-lg mb-8 text-gray-400 italic">
-                  &ldquo;Puede estar seguro de que Roselyn es y será honesta, profesional y organizada al trabajar con usted.&rdquo;
+                  &ldquo;Puede estar seguro de que Roselyn es y será honesta, profesional y
+                  organizada al trabajar con usted.&rdquo;
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.a

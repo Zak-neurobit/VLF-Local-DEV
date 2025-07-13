@@ -7,7 +7,9 @@ Based on my analysis of the VLF website codebase, I've documented the complete d
 ## 🎨 Brand Identity & Core Colors
 
 ### Primary Brand Colors
+
 - **Primary Gold**: `#C9974D` (RGB: 201, 151, 77)
+
   - Used for: CTAs, highlights, accent elements, hover states
   - Represents: Success, achievement, prestige
   - Variants: 50-950 shade palette available
@@ -18,6 +20,7 @@ Based on my analysis of the VLF website codebase, I've documented the complete d
   - Variants: 50-950 shade palette available
 
 ### Supporting Colors
+
 - **Neutral Palette**: White to Black (0-1000 scale)
   - Primary text: `#171717` (neutral-900)
   - Secondary text: `#525252` (neutral-600)
@@ -25,6 +28,7 @@ Based on my analysis of the VLF website codebase, I've documented the complete d
   - Backgrounds: `#FFFFFF`, `#FAFAFA`, `#F5F5F5`
 
 ### Semantic Colors
+
 - **Success**: `#22C55E` (green)
 - **Warning**: `#F59E0B` (amber)
 - **Error**: `#EF4444` (red)
@@ -33,6 +37,7 @@ Based on my analysis of the VLF website codebase, I've documented the complete d
 ## 📝 Typography System
 
 ### Font Stack
+
 ```css
 Primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif
 Display: "Playfair Display", Georgia, serif (for special headings)
@@ -41,6 +46,7 @@ Mono: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
 ```
 
 ### Type Scale
+
 - **9xl**: 128px - Massive hero text
 - **8xl**: 96px - Large hero text
 - **7xl**: 72px - Hero headlines
@@ -56,6 +62,7 @@ Mono: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
 - **xs**: 12px - Fine print
 
 ### Font Weights
+
 - **Thin**: 100
 - **Extra Light**: 200
 - **Light**: 300
@@ -69,6 +76,7 @@ Mono: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
 ## 🏗️ Layout Structure
 
 ### Header Design
+
 ```tsx
 // Two-tier header system
 1. Top Contact Bar (bg-secondary)
@@ -84,6 +92,7 @@ Mono: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
 ```
 
 ### Hero Section Design
+
 ```tsx
 // Modern hero with animation
 - Dark background: bg-black
@@ -100,6 +109,7 @@ Mono: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
 ```
 
 ### Section Layouts
+
 ```tsx
 // Standard section pattern
 - Padding: py-24 (96px top/bottom)
@@ -111,6 +121,7 @@ Mono: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
 ```
 
 ### Footer Structure
+
 ```tsx
 // Four-column footer layout
 1. Company Info
@@ -146,6 +157,7 @@ Bottom bar: Copyright and legal links
 ## 🎯 Component Design Patterns
 
 ### Button System
+
 ```tsx
 // Primary button (gold)
 bg-gradient-to-r from-primary to-primary-600
@@ -162,6 +174,7 @@ hover:bg-primary hover:text-secondary
 ```
 
 ### Card Patterns
+
 ```tsx
 // Standard card
 rounded-xl border border-neutral-200
@@ -175,6 +188,7 @@ hover:border-primary/50
 ```
 
 ### Animation Patterns
+
 ```tsx
 // Page entrance
 initial={{ opacity: 0, y: 20 }}
@@ -192,6 +206,7 @@ hover:shadow-xl
 ## 📱 Responsive Design System
 
 ### Breakpoints
+
 - **xs**: 320px - Mobile portrait
 - **sm**: 640px - Mobile landscape
 - **md**: 768px - Tablet
@@ -200,6 +215,7 @@ hover:shadow-xl
 - **2xl**: 1536px - Extra large
 
 ### Grid System
+
 ```tsx
 // Standard grid patterns
 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3
@@ -215,12 +231,14 @@ grid grid-cols-2 md:grid-cols-4 gap-6
 ## 🎭 Visual Effects & Animations
 
 ### Background Effects
+
 - Gradient overlays with brand colors
 - Particle systems for visual interest
 - Blur effects: `blur-3xl` for ambient lighting
 - Animated gradients with `motion.div`
 
 ### Shadows
+
 ```css
 /* Custom brand shadows */
 burgundy: '0 4px 14px 0 rgba(107, 31, 46, 0.15)'
@@ -230,6 +248,7 @@ glow-burgundy: '0 0 20px rgba(107, 31, 46, 0.3)'
 ```
 
 ### Animations
+
 - Smooth page transitions
 - Scroll-triggered animations
 - Hover micro-interactions
@@ -238,18 +257,21 @@ glow-burgundy: '0 0 20px rgba(107, 31, 46, 0.3)'
 ## 🏷️ Brand Elements
 
 ### Trademark Usage
+
 - Primary: "YO PELEO POR TI™"
 - Abbreviated: "YO PELEO™"
 - Always include trademark symbol
 - Use gold color for emphasis
 
 ### Logo Treatment
+
 - Company name: "Vasquez Law Firm, PLLC"
 - Font weight: Bold (700)
 - Color: Secondary (burgundy) on light backgrounds
 - Color: White on dark backgrounds
 
 ### Badge Elements
+
 - "U.S. Air Force Veteran Attorney"
 - Military service highlights
 - Professional credentials
@@ -258,27 +280,30 @@ glow-burgundy: '0 0 20px rgba(107, 31, 46, 0.3)'
 ## 🔧 Implementation Guidelines
 
 ### Component Usage
+
 ```tsx
 // Always use MasterLayout wrapper
 <MasterLayout variant="hero" showBreadcrumbs={false}>
   <HomePage />
-</MasterLayout>
+</MasterLayout>;
 
 // Use design system components
 import { Button, Heading, Text, Section } from '@/design-system';
 
 // Follow semantic color naming
-className="bg-primary text-secondary"
-className="border-primary/20 hover:border-primary/50"
+className = 'bg-primary text-secondary';
+className = 'border-primary/20 hover:border-primary/50';
 ```
 
 ### Performance Patterns
+
 - Dynamic imports for heavy components
 - Image optimization with Next.js Image
 - Lazy loading for below-fold content
 - Resource hints for critical assets
 
 ### Accessibility Standards
+
 - WCAG 2.1 AA compliance
 - Semantic HTML structure
 - Proper heading hierarchy
@@ -288,6 +313,7 @@ className="border-primary/20 hover:border-primary/50"
 ## 📋 Page Templates
 
 ### Standard Page Structure
+
 ```tsx
 1. MasterLayout wrapper
 2. Breadcrumbs (if not hero variant)
@@ -298,23 +324,25 @@ className="border-primary/20 hover:border-primary/50"
 ```
 
 ### Section Patterns
+
 ```tsx
 // Hero section
-className="relative min-h-screen bg-black"
+className = 'relative min-h-screen bg-black';
 
 // Content section
-className="py-24 bg-white"
+className = 'py-24 bg-white';
 
 // Gradient section
-className="py-24 bg-gradient-to-b from-black to-neutral-950"
+className = 'py-24 bg-gradient-to-b from-black to-neutral-950';
 
 // CTA section
-className="py-16 bg-secondary text-white"
+className = 'py-16 bg-secondary text-white';
 ```
 
 ## 🎨 Design Philosophy
 
 ### Core Principles
+
 1. **Military Precision**: Clean, structured layouts
 2. **Professional Authority**: Strong typography and colors
 3. **Approachable Expertise**: Warm gold accents
@@ -322,6 +350,7 @@ className="py-16 bg-secondary text-white"
 5. **Mobile-First**: Responsive by default
 
 ### Visual Hierarchy
+
 1. **Hero**: YO PELEO POR TI™ trademark
 2. **Primary**: Section headings and CTAs
 3. **Secondary**: Body content and navigation

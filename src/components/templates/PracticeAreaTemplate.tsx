@@ -51,18 +51,12 @@ export const PracticeAreaTemplate: React.FC<PracticeAreaTemplateProps> = ({
       {/* Main Content */}
       <Section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="prose prose-lg max-w-none">
-            {content}
-          </div>
+          <div className="prose prose-lg max-w-none">{content}</div>
         </div>
       </Section>
 
       {/* CTA Section with Consistent Design */}
-      <Section 
-        variant="default"
-        className="py-16"
-        style={{ backgroundColor: COLORS.gold[500] }}
-      >
+      <Section variant="default" className="py-16" style={{ backgroundColor: COLORS.gold[500] }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Heading as="h2" size="4xl" weight="bold" color="white" className="mb-4">
             Need Legal Help?

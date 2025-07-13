@@ -20,7 +20,7 @@ const LeadValidationRequestSchema = z.object({
 export async function POST(request: NextRequest) {
   const startTime = Date.now();
   let body: unknown = {};
-  
+
   try {
     // Parse and validate request body
     body = await request.json();
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
-    
+
     // Check for existing lead interactions
     const previousInteractions = await prisma.conversation.findMany({
       where: {
@@ -92,12 +92,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       validation: validationResult,
-      message: validationResult.tier === 'invalid' 
-        ? 'Lead did not meet quality criteria' 
-        : `Lead validated successfully - ${validationResult.tier} tier`,
+      message:
+        validationResult.tier === 'invalid'
+          ? 'Lead did not meet quality criteria'
+          : `Lead validated successfully - ${validationResult.tier} tier`,
       executionTime: Date.now() - startTime,
     });
-
   } catch (error) {
     logger.error('Lead validation error:', error);
 
@@ -144,7 +144,7 @@ export async function GET(_request: NextRequest) {
         { status: 500 }
       );
     }
-    
+
     // Get recent execution stats (would come from logs/metrics)
     const stats = {
       totalExecutions: 156,
@@ -170,7 +170,6 @@ export async function GET(_request: NextRequest) {
       stats,
       leadDistribution,
     });
-
   } catch (error) {
     logger.error('Agent health check error:', error);
     return NextResponse.json(

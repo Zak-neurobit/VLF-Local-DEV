@@ -1,4 +1,5 @@
 # VLF Website Audit Report
+
 ## Comparison of Old Site vs New Next.js Site
 
 Generated on: January 3, 2025
@@ -8,6 +9,7 @@ Generated on: January 3, 2025
 ## Executive Summary
 
 This audit compares the old VLF website structure with the current Next.js implementation to identify:
+
 - Missing pages that need to be created
 - Pages that need SEO optimization
 - Missing Spanish translations
@@ -16,9 +18,11 @@ This audit compares the old VLF website structure with the current Next.js imple
 ## Old Site Structure Analysis
 
 ### Total Pages in Old Site
+
 The old site contains approximately 200+ pages including:
+
 - Main service pages
-- Attorney profiles  
+- Attorney profiles
 - Blog posts
 - Location pages
 - Spanish translations
@@ -26,6 +30,7 @@ The old site contains approximately 200+ pages including:
 ### Key Page Categories in Old Site:
 
 1. **Practice Areas**
+
    - Immigration (main + 20+ sub-pages)
    - Personal Injury (main + 12 sub-pages)
    - Criminal Defense (main + 11 sub-pages)
@@ -33,6 +38,7 @@ The old site contains approximately 200+ pages including:
    - Workers Compensation (main + 7 sub-pages)
 
 2. **Attorney Pages**
+
    - William Vasquez
    - Judith Parkes
    - Christopher Afanador
@@ -44,6 +50,7 @@ The old site contains approximately 200+ pages including:
    - Rania Arwani (found in imports)
 
 3. **Location Pages**
+
    - Charlotte, NC
    - Raleigh, NC
    - Durham, NC
@@ -53,6 +60,7 @@ The old site contains approximately 200+ pages including:
    - Plus specialized pages (e.g., charlotte-nc-workers-comp-lawyers)
 
 4. **Blog Posts** (Examples)
+
    - 7 Proven Strategies Immigration Lawyers Use
    - Best Guide on Navigating Board of Immigration Appeals
    - Workers Compensation Quote Guide
@@ -60,6 +68,7 @@ The old site contains approximately 200+ pages including:
    - And many more...
 
 5. **Spanish Pages (es/ directory)**
+
    - es/abogados
    - es/areas-de-practica (+ sub-pages)
    - es/blog
@@ -87,6 +96,7 @@ The old site contains approximately 200+ pages including:
 ### Successfully Migrated Pages ✅
 
 1. **Main Pages**
+
    - Homepage
    - Contact (with office locations)
    - Attorneys (main + individual profiles)
@@ -98,11 +108,13 @@ The old site contains approximately 200+ pages including:
    - Site Map
 
 2. **Practice Area Pages**
+
    - All main practice area pages exist
    - Most sub-pages have been created
    - Some are using simplified URLs (e.g., /dui-dwi instead of /dwi-drunk-driving)
 
 3. **Location Pages**
+
    - All main city pages exist
    - Extensive NC city coverage (100+ cities)
    - Regional pages created
@@ -115,15 +127,18 @@ The old site contains approximately 200+ pages including:
 ### Missing or Incomplete Pages ❌
 
 1. **Missing Attorney Profiles**
+
    - Malcom Rodriguez (imported but no page)
    - Rania Arwani (imported but no page)
 
 2. **Missing Spanish Attorney Pages**
+
    - Only partial Spanish attorney pages exist
    - Missing: Adriana Ingram (Spanish)
    - Missing: Roselyn Torrellas (Spanish)
 
 3. **Missing Utility Pages**
+
    - About Us page (imported but not created)
    - Resources page (neither English nor Spanish)
    - Media Info page exists but Spanish version missing
@@ -131,6 +146,7 @@ The old site contains approximately 200+ pages including:
    - Disclaimer page (imported but not created)
 
 4. **Missing Practice Area Sub-pages**
+
    - Criminal Defense:
      - Probation Violation
      - Theft/Larceny/Shoplifting
@@ -168,12 +184,14 @@ The old site contains approximately 200+ pages including:
 ### SEO Optimization Needs 🔍
 
 1. **Pages Needing Enhanced SEO:**
+
    - Attorney profile pages (need schema markup)
    - Practice area hub pages (need more content)
    - Some location pages (need unique content)
    - Blog category pages (thin content)
 
 2. **Missing Meta Descriptions:**
+
    - Several newer pages lack optimized meta descriptions
    - Spanish pages need Spanish meta tags
 
@@ -185,30 +203,35 @@ The old site contains approximately 200+ pages including:
 ## Recommendations
 
 ### Priority 1 - Critical Missing Pages
+
 1. Create About Us page (content exists in imports)
 2. Create Disclaimer page (content exists in imports)
 3. Create missing attorney pages (Malcom Rodriguez, Rania Arwani)
 4. Create Resources page for both English and Spanish
 
 ### Priority 2 - Complete Spanish Site
+
 1. Add missing Spanish attorney profiles
 2. Create Spanish practice area sub-pages
 3. Translate missing utility pages
 4. Add Spanish blog content
 
 ### Priority 3 - Practice Area Completeness
+
 1. Add all missing criminal defense sub-pages
 2. Complete family law sub-pages
 3. Add employment-based immigration pages
 4. Complete workers compensation sub-pages
 
 ### Priority 4 - SEO Enhancement
+
 1. Add schema markup to all attorney pages
 2. Enhance practice area hub pages with more content
 3. Create unique content for location pages
 4. Optimize meta descriptions site-wide
 
 ### Priority 5 - Content Migration
+
 1. Import remaining blog posts from old site
 2. Ensure all testimonials are migrated
 3. Verify all case results are included
@@ -216,11 +239,13 @@ The old site contains approximately 200+ pages including:
 ## Technical Observations
 
 1. **URL Structure Changes:**
+
    - Old: /immigration/adjustment-of-status.html
    - New: /practice-areas/immigration/adjustment-of-status/
    - Need redirects for old URLs
 
 2. **Spanish URL Pattern:**
+
    - Old: /es/areas-de-practica/
    - New: /es/areas-de-practica/
    - Consistent, which is good
@@ -233,11 +258,13 @@ The old site contains approximately 200+ pages including:
 ## Next Steps
 
 1. **Immediate Actions:**
+
    - Run script to create missing pages from imports
    - Set up 301 redirects for old URLs
    - Create missing attorney pages
 
 2. **Short-term (1-2 weeks):**
+
    - Complete Spanish translations
    - Add missing practice area sub-pages
    - Enhance SEO on existing pages
@@ -250,6 +277,7 @@ The old site contains approximately 200+ pages including:
 ## Conclusion
 
 The new Next.js site has successfully migrated most core content and has even expanded beyond the old site with 100+ NC city pages. However, there are still significant gaps in:
+
 - Spanish content
 - Practice area sub-pages
 - Some attorney profiles
@@ -268,6 +296,7 @@ Addressing these gaps will ensure feature parity with the old site while leverag
 ## Import Command
 
 To quickly create missing pages from existing imports:
+
 ```bash
 node scripts/create-pages-from-import.js
 ```

@@ -223,7 +223,7 @@ export default function PracticeAreasContent() {
         subtitle: 'Free consultation available in English and Spanish',
         button1: 'Call 1-844-YO-PELEO',
         button2: 'Start Live Chat',
-      }
+      },
     },
     es: {
       title: 'Áreas de Práctica',
@@ -242,7 +242,7 @@ export default function PracticeAreasContent() {
         subtitle: 'Consulta gratuita disponible en inglés y español',
         button1: 'Llamar 1-844-YO-PELEO',
         button2: 'Iniciar Chat en Vivo',
-      }
+      },
     },
   };
 
@@ -283,18 +283,12 @@ export default function PracticeAreasContent() {
             transition={{ duration: 0.6 }}
             className="mx-auto max-w-2xl text-center"
           >
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-              {t.title}
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-primary">
-              {t.subtitle}
-            </p>
-            <p className="mt-6 text-lg leading-8 text-gray-300">
-              {t.description}
-            </p>
+            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">{t.title}</h1>
+            <p className="mt-6 text-lg leading-8 text-primary">{t.subtitle}</p>
+            <p className="mt-6 text-lg leading-8 text-gray-300">{t.description}</p>
           </motion.div>
         </div>
-        
+
         {/* Background gradient */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]">
@@ -335,9 +329,7 @@ export default function PracticeAreasContent() {
                   </div>
 
                   <div className="rounded-lg bg-primary/10 p-4 mb-6 border border-primary/20">
-                    <p className="text-sm font-semibold text-primary">
-                      {area.aiFeature[language]}
-                    </p>
+                    <p className="text-sm font-semibold text-primary">{area.aiFeature[language]}</p>
                   </div>
 
                   <div className="flex gap-3">
@@ -421,9 +413,7 @@ export default function PracticeAreasContent() {
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               {t.cta.title}
             </h2>
-            <p className="mt-4 text-lg text-gray-300">
-              {t.cta.subtitle}
-            </p>
+            <p className="mt-4 text-lg text-gray-300">{t.cta.subtitle}</p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="tel:18449673536"

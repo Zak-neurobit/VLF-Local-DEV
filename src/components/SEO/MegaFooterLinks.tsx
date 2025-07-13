@@ -11,9 +11,7 @@ export function MegaFooterLinks() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {megaLinkSections.map((section, sectionIndex) => (
             <div key={sectionIndex}>
-              <h3 className="text-lg font-bold mb-4 text-primary">
-                {section.title}
-              </h3>
+              <h3 className="text-lg font-bold mb-4 text-primary">{section.title}</h3>
               <ul className="space-y-2">
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
@@ -21,9 +19,10 @@ export function MegaFooterLinks() {
                       href={link.href}
                       className={`
                         text-sm transition-colors
-                        ${link.priority 
-                          ? 'text-white hover:text-primary font-medium' 
-                          : 'text-gray-400 hover:text-white'
+                        ${
+                          link.priority
+                            ? 'text-white hover:text-primary font-medium'
+                            : 'text-gray-400 hover:text-white'
                         }
                         ${link.href.startsWith('tel:') ? 'inline-flex items-center' : ''}
                       `}
@@ -36,7 +35,7 @@ export function MegaFooterLinks() {
             </div>
           ))}
         </div>
-        
+
         {/* SEO Text Block */}
         <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="max-w-4xl mx-auto text-center">
@@ -45,17 +44,64 @@ export function MegaFooterLinks() {
             </h2>
             <p className="text-gray-400 text-sm leading-relaxed">
               Vasquez Law Firm dominates the legal landscape across North Carolina with offices in{' '}
-              <Link href="/locations/nc/charlotte" className="text-white hover:text-primary underline">Charlotte</Link>,{' '}
-              <Link href="/locations/nc/raleigh" className="text-white hover:text-primary underline">Raleigh</Link>,{' '}
-              <Link href="/locations/nc/greensboro" className="text-white hover:text-primary underline">Greensboro</Link>, and{' '}
-              <Link href="/locations/nc/smithfield" className="text-white hover:text-primary underline">Smithfield</Link>.{' '}
-              Our elite team of{' '}
-              <Link href="/practice-areas/immigration" className="text-white hover:text-primary underline">immigration lawyers</Link>,{' '}
-              <Link href="/practice-areas/personal-injury" className="text-white hover:text-primary underline">personal injury attorneys</Link>,{' '}
-              <Link href="/practice-areas/criminal-defense" className="text-white hover:text-primary underline">criminal defense lawyers</Link>, and{' '}
-              <Link href="/practice-areas/workers-compensation" className="text-white hover:text-primary underline">workers comp attorneys</Link>{' '}
-              deliver record-breaking results. Available 24/7 for emergencies. Over 30,000 cases won. 
-              $100M+ recovered for clients. When you need the best lawyers in NC, call 1-844-YO-PELEO.
+              <Link
+                href="/locations/nc/charlotte"
+                className="text-white hover:text-primary underline"
+              >
+                Charlotte
+              </Link>
+              ,{' '}
+              <Link
+                href="/locations/nc/raleigh"
+                className="text-white hover:text-primary underline"
+              >
+                Raleigh
+              </Link>
+              ,{' '}
+              <Link
+                href="/locations/nc/greensboro"
+                className="text-white hover:text-primary underline"
+              >
+                Greensboro
+              </Link>
+              , and{' '}
+              <Link
+                href="/locations/nc/smithfield"
+                className="text-white hover:text-primary underline"
+              >
+                Smithfield
+              </Link>
+              . Our elite team of{' '}
+              <Link
+                href="/practice-areas/immigration"
+                className="text-white hover:text-primary underline"
+              >
+                immigration lawyers
+              </Link>
+              ,{' '}
+              <Link
+                href="/practice-areas/personal-injury"
+                className="text-white hover:text-primary underline"
+              >
+                personal injury attorneys
+              </Link>
+              ,{' '}
+              <Link
+                href="/practice-areas/criminal-defense"
+                className="text-white hover:text-primary underline"
+              >
+                criminal defense lawyers
+              </Link>
+              , and{' '}
+              <Link
+                href="/practice-areas/workers-compensation"
+                className="text-white hover:text-primary underline"
+              >
+                workers comp attorneys
+              </Link>{' '}
+              deliver record-breaking results. Available 24/7 for emergencies. Over 30,000 cases
+              won. $100M+ recovered for clients. When you need the best lawyers in NC, call
+              1-844-YO-PELEO.
             </p>
           </div>
         </div>
@@ -65,29 +111,29 @@ export function MegaFooterLinks() {
           <div>
             <h4 className="font-semibold text-gray-400 mb-2">Charlotte Metro</h4>
             <p>
-              Serving Uptown, South End, NoDa, Plaza Midwood, Myers Park, Ballantyne, 
-              Matthews, Mint Hill, Huntersville, Cornelius
+              Serving Uptown, South End, NoDa, Plaza Midwood, Myers Park, Ballantyne, Matthews, Mint
+              Hill, Huntersville, Cornelius
             </p>
           </div>
           <div>
             <h4 className="font-semibold text-gray-400 mb-2">Triangle Region</h4>
             <p>
-              Serving Raleigh, Durham, Chapel Hill, Cary, Apex, Holly Springs, 
-              Wake Forest, Garner, Morrisville, Carrboro
+              Serving Raleigh, Durham, Chapel Hill, Cary, Apex, Holly Springs, Wake Forest, Garner,
+              Morrisville, Carrboro
             </p>
           </div>
           <div>
             <h4 className="font-semibold text-gray-400 mb-2">Triad Area</h4>
             <p>
-              Serving Greensboro, Winston-Salem, High Point, Burlington, 
-              Kernersville, Thomasville, Asheboro
+              Serving Greensboro, Winston-Salem, High Point, Burlington, Kernersville, Thomasville,
+              Asheboro
             </p>
           </div>
           <div>
             <h4 className="font-semibold text-gray-400 mb-2">Eastern NC</h4>
             <p>
-              Serving Fayetteville, Wilmington, Jacksonville, New Bern, 
-              Greenville, Rocky Mount, Wilson, Goldsboro
+              Serving Fayetteville, Wilmington, Jacksonville, New Bern, Greenville, Rocky Mount,
+              Wilson, Goldsboro
             </p>
           </div>
         </div>

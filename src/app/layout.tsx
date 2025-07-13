@@ -6,7 +6,6 @@ import type { Metadata } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { performanceMonitor } from '@/lib/monitoring/performance';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { organizationSchema } from '@/lib/schema';
 import SessionProvider from '@/components/providers/SessionProvider';

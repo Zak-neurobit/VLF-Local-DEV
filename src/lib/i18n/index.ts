@@ -34,10 +34,7 @@ const initOptions = {
   },
 };
 
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init(initOptions);
+i18n.use(LanguageDetector).use(initReactI18next).init(initOptions);
 
 export default i18n;
 

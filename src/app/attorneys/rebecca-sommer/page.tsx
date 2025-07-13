@@ -41,7 +41,8 @@ export default function Page() {
                   Criminal Defense Attorney - {TRADEMARK.YO_PELEO_POR_TI}
                 </p>
                 <p className="text-lg mb-8 max-w-3xl mx-auto text-gray-300">
-                  Dedicated criminal defense attorney providing aggressive representation and protecting your rights in the justice system
+                  Dedicated criminal defense attorney providing aggressive representation and
+                  protecting your rights in the justice system
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.a
@@ -104,18 +105,19 @@ export default function Page() {
                     Protecting Your Rights, Fighting for Your Freedom
                   </h2>
                   <p className="text-lg mb-6 text-gray-300">
-                    Rebecca Sommer is a skilled criminal defense attorney at Vasquez Law Firm, 
-                    dedicated to providing aggressive and effective representation for clients 
-                    facing criminal charges. With extensive experience in North Carolina criminal law, 
-                    she fights tirelessly to protect her clients&apos; rights and achieve the best possible outcomes.
+                    Rebecca Sommer is a skilled criminal defense attorney at Vasquez Law Firm,
+                    dedicated to providing aggressive and effective representation for clients
+                    facing criminal charges. With extensive experience in North Carolina criminal
+                    law, she fights tirelessly to protect her clients&apos; rights and achieve the
+                    best possible outcomes.
                   </p>
                   <p className="text-lg mb-8 text-gray-300">
-                    Her practice covers all aspects of criminal defense, including DUI/DWI charges, 
-                    drug offenses, assault and battery, theft crimes, traffic violations, and more. 
-                    Rebecca understands that facing criminal charges can be overwhelming, and she 
+                    Her practice covers all aspects of criminal defense, including DUI/DWI charges,
+                    drug offenses, assault and battery, theft crimes, traffic violations, and more.
+                    Rebecca understands that facing criminal charges can be overwhelming, and she
                     provides compassionate support while mounting a strong defense.
                   </p>
-                  
+
                   {/* Quick Info */}
                   <div className="grid grid-cols-2 gap-6">
                     <div className="bg-neutral-900/50 p-4 rounded-xl border border-primary/20">
@@ -147,15 +149,11 @@ export default function Page() {
                   <ul className="space-y-4">
                     <li className="border-l-2 border-primary pl-4">
                       <p className="font-semibold text-white">Juris Doctorate</p>
-                      <p className="text-gray-400 text-sm">
-                        Law School
-                      </p>
+                      <p className="text-gray-400 text-sm">Law School</p>
                     </li>
                     <li className="border-l-2 border-primary pl-4">
                       <p className="font-semibold text-white">Bachelor&apos;s Degree</p>
-                      <p className="text-gray-400 text-sm">
-                        University
-                      </p>
+                      <p className="text-gray-400 text-sm">University</p>
                     </li>
                   </ul>
                 </motion.div>
@@ -204,7 +202,7 @@ export default function Page() {
                       'Assault',
                       'Theft Crimes',
                       'Traffic Violations',
-                    ].map((area) => (
+                    ].map(area => (
                       <span
                         key={area}
                         className="px-3 py-1 bg-primary/10 text-xs text-primary rounded-full border border-primary/20"
@@ -223,7 +221,9 @@ export default function Page() {
                 viewport={{ once: true }}
                 className="bg-gradient-to-r from-primary/10 to-secondary/10 p-12 rounded-3xl border border-primary/20 mb-20"
               >
-                <h3 className="text-3xl font-black mb-8 text-white text-center">Criminal Defense Services</h3>
+                <h3 className="text-3xl font-black mb-8 text-white text-center">
+                  Criminal Defense Services
+                </h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   {[
                     'DUI/DWI Defense',
@@ -276,7 +276,8 @@ export default function Page() {
                   Facing Criminal Charges?
                 </h2>
                 <p className="text-xl mb-8 text-gray-300">
-                  Don&apos;t face the justice system alone. Contact Rebecca Sommer today for aggressive criminal defense representation.
+                  Don&apos;t face the justice system alone. Contact Rebecca Sommer today for
+                  aggressive criminal defense representation.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.a

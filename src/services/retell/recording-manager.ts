@@ -92,7 +92,6 @@ export class RecordingManager {
         sentiment: analysis.sentiment,
         followUpRequired: analysis.followUpRequired,
       });
-
     } catch (error) {
       logger.error('Failed to process recording:', error, { callId });
       throw error;
@@ -118,9 +117,25 @@ export class RecordingManager {
       const lowerTranscript = transcript.toLowerCase();
 
       // Sentiment analysis
-      const positiveWords = ['great', 'excellent', 'wonderful', 'helpful', 'satisfied', 'thank you', 'appreciate'];
-      const negativeWords = ['terrible', 'awful', 'disappointed', 'frustrated', 'angry', 'worst', 'horrible'];
-      
+      const positiveWords = [
+        'great',
+        'excellent',
+        'wonderful',
+        'helpful',
+        'satisfied',
+        'thank you',
+        'appreciate',
+      ];
+      const negativeWords = [
+        'terrible',
+        'awful',
+        'disappointed',
+        'frustrated',
+        'angry',
+        'worst',
+        'horrible',
+      ];
+
       let positiveScore = 0;
       let negativeScore = 0;
 
@@ -185,9 +200,7 @@ export class RecordingManager {
         /confirmed.*meeting/i,
       ];
 
-      analysis.appointmentScheduled = appointmentPatterns.some(pattern => 
-        pattern.test(transcript)
-      );
+      analysis.appointmentScheduled = appointmentPatterns.some(pattern => pattern.test(transcript));
 
       // Check for follow-up requirements
       const followUpPatterns = [
@@ -198,18 +211,22 @@ export class RecordingManager {
         /send.*documents/i,
       ];
 
-      analysis.followUpRequired = followUpPatterns.some(pattern => 
-        pattern.test(transcript)
-      ) || analysis.keywords.includes('callback');
+      analysis.followUpRequired =
+        followUpPatterns.some(pattern => pattern.test(transcript)) ||
+        analysis.keywords.includes('callback');
 
       // Determine urgency
-      if (analysis.keywords.includes('urgent') || 
-          lowerTranscript.includes('emergency') ||
-          lowerTranscript.includes('deadline')) {
+      if (
+        analysis.keywords.includes('urgent') ||
+        lowerTranscript.includes('emergency') ||
+        lowerTranscript.includes('deadline')
+      ) {
         analysis.urgencyLevel = 'high';
-      } else if (analysis.followUpRequired || 
-                 analysis.appointmentScheduled ||
-                 analysis.keywords.includes('appointment')) {
+      } else if (
+        analysis.followUpRequired ||
+        analysis.appointmentScheduled ||
+        analysis.keywords.includes('appointment')
+      ) {
         analysis.urgencyLevel = 'medium';
       }
 
@@ -234,10 +251,9 @@ export class RecordingManager {
       analysis.summary = this.generateSummary(transcript, analysis);
 
       return analysis;
-
     } catch (error) {
       logger.error('Failed to analyze transcript:', error);
-      
+
       // Return basic analysis on error
       return {
         sentiment: 'neutral',
@@ -256,7 +272,7 @@ export class RecordingManager {
   // Generate call summary
   private generateSummary(transcript: string, analysis: TranscriptAnalysis): string {
     const duration = Math.ceil(transcript.length / 150); // Rough estimate: 150 chars per minute
-    
+
     let summary = `${duration}-minute call completed. `;
 
     if (analysis.practiceAreaDetected) {
@@ -343,7 +359,6 @@ export class RecordingManager {
         transcriptLength: data.transcript.length,
         duration: data.duration,
       });
-
     } catch (error) {
       logger.error('Failed to store recording data:', error);
       throw error;
@@ -351,28 +366,26 @@ export class RecordingManager {
   }
 
   // Sync recording data to GoHighLevel
-  private async syncToGHL(callId: string, data: {
-    recordingUrl: string;
-    transcript: string;
-    analysis: TranscriptAnalysis;
-    call: any;
-  }): Promise<void> {
+  private async syncToGHL(
+    callId: string,
+    data: {
+      recordingUrl: string;
+      transcript: string;
+      analysis: TranscriptAnalysis;
+      call: any;
+    }
+  ): Promise<void> {
     try {
       // Get GHL contact ID from call metadata
       const ghlContactId = data.call.metadata?.ghlContactId;
-      
+
       if (!ghlContactId) {
         logger.warn('No GHL contact ID found for call', { callId });
         return;
       }
 
       // Sync recording and transcript
-      await ghlService.syncCallRecording(
-        ghlContactId,
-        callId,
-        data.recordingUrl,
-        data.transcript
-      );
+      await ghlService.syncCallRecording(ghlContactId, callId, data.recordingUrl, data.transcript);
 
       // Update contact with call outcome
       await ghlService.updateContactCallOutcome(ghlContactId, {
@@ -405,28 +418,26 @@ export class RecordingManager {
         ghlContactId,
         tagsAdded: tags.length,
       });
-
     } catch (error) {
       logger.error('Failed to sync recording to GHL:', error);
     }
   }
 
   // Determine call outcome from analysis
-  private determineCallOutcome(analysis: TranscriptAnalysis): 'connected' | 'voicemail' | 'no_answer' | 'busy' | 'failed' {
+  private determineCallOutcome(
+    analysis: TranscriptAnalysis
+  ): 'connected' | 'voicemail' | 'no_answer' | 'busy' | 'failed' {
     // Since we have a transcript, the call was connected
     return 'connected';
   }
 
   // Format call note for GHL
-  private formatCallNote(data: {
-    analysis: TranscriptAnalysis;
-    call: any;
-  }): string {
+  private formatCallNote(data: { analysis: TranscriptAnalysis; call: any }): string {
     const { analysis } = data;
     const duration = Math.round((data.call.duration_ms || 0) / 1000);
-    
+
     let note = `CALL SUMMARY (${Math.floor(duration / 60)}:${(duration % 60).toString().padStart(2, '0')})\n\n`;
-    
+
     note += `Sentiment: ${analysis.sentiment.toUpperCase()}`;
     if (analysis.confidence > 0.7) {
       note += ` (${Math.round(analysis.confidence * 100)}% confidence)`;
@@ -499,7 +510,11 @@ export class RecordingManager {
   }
 
   // Create follow-up tasks based on analysis
-  private async createFollowUpTasks(callId: string, analysis: TranscriptAnalysis, call: any): Promise<void> {
+  private async createFollowUpTasks(
+    callId: string,
+    analysis: TranscriptAnalysis,
+    call: any
+  ): Promise<void> {
     try {
       const ghlContactId = call.metadata?.ghlContactId;
       if (!ghlContactId) return;
@@ -545,7 +560,6 @@ export class RecordingManager {
         callId,
         taskCount: tasks.length,
       });
-
     } catch (error) {
       logger.error('Failed to create follow-up tasks:', error);
     }
@@ -555,7 +569,7 @@ export class RecordingManager {
   async getRecording(callId: string) {
     try {
       const prisma = getPrismaClient();
-      
+
       const recording = await prisma.callRecording.findUnique({
         where: { callId },
         include: {
@@ -574,7 +588,7 @@ export class RecordingManager {
   async getContactRecordings(ghlContactId: string) {
     try {
       const prisma = getPrismaClient();
-      
+
       const recordings = await prisma.callRecording.findMany({
         where: {
           voiceCall: {
@@ -600,7 +614,7 @@ export class RecordingManager {
   async getRecordingAnalytics(timeRange?: { start: Date; end: Date }) {
     try {
       const prisma = getPrismaClient();
-      
+
       const where: any = {};
       if (timeRange) {
         where.createdAt = {
@@ -644,7 +658,9 @@ export class RecordingManager {
         totalDuration += recording.duration;
 
         // Sentiment
-        analytics.sentimentDistribution[recording.sentiment as keyof typeof analytics.sentimentDistribution]++;
+        analytics.sentimentDistribution[
+          recording.sentiment as keyof typeof analytics.sentimentDistribution
+        ]++;
 
         // Appointments
         if (recording.appointmentScheduled) appointmentCount++;
@@ -659,8 +675,10 @@ export class RecordingManager {
       });
 
       analytics.avgDuration = recordings.length > 0 ? totalDuration / recordings.length : 0;
-      analytics.appointmentRate = recordings.length > 0 ? (appointmentCount / recordings.length) * 100 : 0;
-      analytics.followUpRate = recordings.length > 0 ? (followUpCount / recordings.length) * 100 : 0;
+      analytics.appointmentRate =
+        recordings.length > 0 ? (appointmentCount / recordings.length) * 100 : 0;
+      analytics.followUpRate =
+        recordings.length > 0 ? (followUpCount / recordings.length) * 100 : 0;
 
       return analytics;
     } catch (error) {
@@ -673,7 +691,7 @@ export class RecordingManager {
   async cleanupOldRecordings(daysToKeep: number = 90) {
     try {
       const cutoffDate = new Date(Date.now() - daysToKeep * 24 * 60 * 60 * 1000);
-      
+
       const prisma = getPrismaClient();
       const deletedCount = await prisma.callRecording.deleteMany({
         where: {

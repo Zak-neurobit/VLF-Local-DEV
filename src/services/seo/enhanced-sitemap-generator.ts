@@ -24,19 +24,19 @@ export class EnhancedSitemapGenerator {
         priority: 1.0,
         lastmod: new Date().toISOString(),
       },
-      
+
       // Main practice areas
       ...this.getPracticeAreaEntries(),
-      
+
       // Location pages
       ...this.getLocationEntries(),
-      
+
       // Location + Practice Area combination pages
       ...this.getLocationPracticeAreaEntries(),
-      
+
       // Static pages
       ...this.getStaticPageEntries(),
-      
+
       // Blog entries
       ...(await this.getBlogEntries()),
     ];
@@ -104,12 +104,7 @@ export class EnhancedSitemapGenerator {
         'mental-health-claims',
         'third-party-injury-claims',
       ],
-      'family-law': [
-        'divorce',
-        'child-custody',
-        'alimony-spousal-support',
-        'property-division',
-      ],
+      'family-law': ['divorce', 'child-custody', 'alimony-spousal-support', 'property-division'],
     };
 
     const entries: SitemapEntry[] = [];
@@ -260,21 +255,21 @@ export class EnhancedSitemapGenerator {
     entries.forEach(entry => {
       xml += '  <url>\n';
       xml += `    <loc>${this.baseUrl}${entry.url}</loc>\n`;
-      
+
       if (entry.lastmod) {
         xml += `    <lastmod>${entry.lastmod}</lastmod>\n`;
       }
-      
+
       xml += `    <changefreq>${entry.changefreq}</changefreq>\n`;
       xml += `    <priority>${entry.priority}</priority>\n`;
-      
+
       // Add hreflang alternates
       if (entry.alternates) {
         entry.alternates.forEach(alt => {
           xml += `    <xhtml:link rel="alternate" hreflang="${alt.hreflang}" href="${alt.href}"/>\n`;
         });
       }
-      
+
       // Add images if available
       if (entry.images) {
         entry.images.forEach(image => {
@@ -283,7 +278,7 @@ export class EnhancedSitemapGenerator {
           xml += '    </image:image>\n';
         });
       }
-      
+
       xml += '  </url>\n';
     });
 

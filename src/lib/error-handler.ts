@@ -24,7 +24,7 @@ class GlobalErrorHandler {
     this.initialized = true;
 
     // Handle unhandled errors
-    window.addEventListener('error', (event) => {
+    window.addEventListener('error', event => {
       this.handleError(event.error || new Error(event.message), {
         source: 'window.error',
         filename: event.filename,
@@ -34,16 +34,14 @@ class GlobalErrorHandler {
     });
 
     // Handle unhandled promise rejections
-    window.addEventListener('unhandledrejection', (event) => {
-      const error = event.reason instanceof Error 
-        ? event.reason 
-        : new Error(String(event.reason));
-      
+    window.addEventListener('unhandledrejection', event => {
+      const error = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
+
       this.handleError(error, {
         source: 'unhandledrejection',
         promise: event.promise,
       });
-      
+
       // Prevent default browser handling
       event.preventDefault();
     });
@@ -90,7 +88,7 @@ class GlobalErrorHandler {
 
   private shouldIgnoreError(error: Error): boolean {
     const message = error.message.toLowerCase();
-    
+
     // Ignore known non-critical errors
     const ignoredPatterns = [
       'resizeobserver loop limit exceeded',
@@ -113,7 +111,7 @@ class GlobalErrorHandler {
     if (this.errorQueue.length >= this.MAX_QUEUE_SIZE) {
       this.errorQueue.shift(); // Remove oldest error
     }
-    
+
     this.errorQueue.push({ error, context });
   }
 
@@ -124,14 +122,14 @@ class GlobalErrorHandler {
       if (this.errorQueue.length > 0) {
         // Group similar errors
         const errorGroups = this.groupSimilarErrors();
-        
+
         // Log grouped errors
         errorGroups.forEach((group, key) => {
           if (group.length > 5) {
             logger.warn(`Repeated error detected: ${key} (${group.length} occurrences)`);
           }
         });
-        
+
         // Clear processed errors
         this.errorQueue = [];
       }
@@ -140,7 +138,7 @@ class GlobalErrorHandler {
 
   private groupSimilarErrors() {
     const groups = new Map<string, Array<{ error: Error; context: ErrorContext }>>();
-    
+
     this.errorQueue.forEach(item => {
       const key = `${item.error.name}:${item.error.message}`;
       if (!groups.has(key)) {
@@ -148,7 +146,7 @@ class GlobalErrorHandler {
       }
       groups.get(key)!.push(item);
     });
-    
+
     return groups;
   }
 
@@ -160,7 +158,7 @@ class GlobalErrorHandler {
       count: items.length,
       lastOccurred: items[items.length - 1].context.timestamp,
     }));
-    
+
     return stats.sort((a, b) => b.count - a.count);
   }
 }

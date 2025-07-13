@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import { 
-  generateContextualLinks, 
+import {
+  generateContextualLinks,
   generateRelatedLinks,
-  generateAnchorText 
+  generateAnchorText,
 } from '@/lib/seo/internal-linking-mesh';
 
 interface InternalLinkingSectionProps {
@@ -18,18 +18,17 @@ interface InternalLinkingSectionProps {
   className?: string;
 }
 
-export function InternalLinkingSection({ 
-  currentPage, 
+export function InternalLinkingSection({
+  currentPage,
   variant = 'inline',
   maxLinks = 5,
-  className = ''
+  className = '',
 }: InternalLinkingSectionProps) {
-  
   // Generate contextual links based on current page
   const contextualLinks = generateContextualLinks(currentPage, maxLinks);
-  
+
   // Generate related links if on practice area or location page
-  const relatedLinks = currentPage.slug 
+  const relatedLinks = currentPage.slug
     ? generateRelatedLinks(currentPage.type, currentPage.slug, 6)
     : [];
 
@@ -58,9 +57,7 @@ export function InternalLinkingSection({
   if (variant === 'sidebar') {
     return (
       <div className={`internal-links-sidebar bg-gray-50 p-6 rounded-lg ${className}`}>
-        <h3 className="text-lg font-bold text-gray-900 mb-4">
-          🔥 Popular Services
-        </h3>
+        <h3 className="text-lg font-bold text-gray-900 mb-4">🔥 Popular Services</h3>
         <ul className="space-y-3">
           {contextualLinks.map((link, index) => (
             <li key={index}>
@@ -89,12 +86,10 @@ export function InternalLinkingSection({
 
   if (variant === 'related') {
     if (relatedLinks.length === 0) return null;
-    
+
     return (
       <div className={`internal-links-related ${className}`}>
-        <h3 className="text-2xl font-bold text-gray-900 mb-6">
-          Related Legal Services
-        </h3>
+        <h3 className="text-2xl font-bold text-gray-900 mb-6">Related Legal Services</h3>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {relatedLinks.map((link, index) => (
             <Link
@@ -102,12 +97,8 @@ export function InternalLinkingSection({
               href={link.href}
               className="block bg-white border border-gray-200 rounded-lg p-4 hover:border-primary hover:shadow-lg transition-all"
             >
-              <h4 className="font-semibold text-gray-900 mb-2">
-                {link.text}
-              </h4>
-              <p className="text-sm text-gray-600">
-                {link.description}
-              </p>
+              <h4 className="font-semibold text-gray-900 mb-2">{link.text}</h4>
+              <p className="text-sm text-gray-600">{link.description}</p>
               <span className="text-primary text-sm font-medium mt-2 inline-flex items-center">
                 Learn More →
               </span>

@@ -57,9 +57,10 @@ export default function Page() {
                   Empowering Dreams Through Education
                 </p>
                 <p className="text-lg mb-8 max-w-3xl mx-auto text-gray-300">
-                  At Vasquez Law Firm, we believe in the power of education to transform lives. 
-                  Our DACA Dreamer Scholarship provides financial support to exceptional DACA recipients 
-                  pursuing higher education, helping them achieve their dreams and build brighter futures.
+                  At Vasquez Law Firm, we believe in the power of education to transform lives. Our
+                  DACA Dreamer Scholarship provides financial support to exceptional DACA recipients
+                  pursuing higher education, helping them achieve their dreams and build brighter
+                  futures.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -109,20 +110,21 @@ export default function Page() {
                   icon: <Award className="w-12 h-12" />,
                   title: 'Award Amount',
                   description: '$1,000 per semester',
-                  details: 'Two scholarships awarded each semester to help cover educational expenses'
+                  details:
+                    'Two scholarships awarded each semester to help cover educational expenses',
                 },
                 {
                   icon: <Calendar className="w-12 h-12" />,
                   title: 'Application Deadline',
                   description: 'November 27, 2024',
-                  details: 'Winners will be notified by January 8, 2025'
+                  details: 'Winners will be notified by January 8, 2025',
                 },
                 {
                   icon: <GraduationCap className="w-12 h-12" />,
                   title: 'Eligibility',
                   description: 'DACA Recipients',
-                  details: 'Must be enrolled or planning to enroll in an accredited university'
-                }
+                  details: 'Must be enrolled or planning to enroll in an accredited university',
+                },
               ].map((item, index) => (
                 <motion.div
                   key={index}
@@ -155,7 +157,8 @@ export default function Page() {
                 Eligibility <span className="text-primary">Requirements</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                To qualify for the Vasquez Law Firm DACA Dreamer Scholarship, applicants must meet the following criteria
+                To qualify for the Vasquez Law Firm DACA Dreamer Scholarship, applicants must meet
+                the following criteria
               </p>
             </motion.div>
 
@@ -205,28 +208,32 @@ export default function Page() {
               {[
                 {
                   title: 'Online Application',
-                  description: 'Complete the comprehensive online application form with all required information'
+                  description:
+                    'Complete the comprehensive online application form with all required information',
                 },
                 {
                   title: 'Academic Transcript',
-                  description: 'Submit unofficial academic transcript showing GPA of 3.5 or higher'
+                  description: 'Submit unofficial academic transcript showing GPA of 3.5 or higher',
                 },
                 {
                   title: 'Proof of Enrollment',
-                  description: 'Documentation confirming enrollment or acceptance to an accredited university'
+                  description:
+                    'Documentation confirming enrollment or acceptance to an accredited university',
                 },
                 {
                   title: 'DACA Status',
-                  description: 'Documentation proving current DACA recipient status'
+                  description: 'Documentation proving current DACA recipient status',
                 },
                 {
                   title: 'Original Artwork',
-                  description: 'Submit original artwork depicting your immigration experience (painting, sculpture, poetry, etc.)'
+                  description:
+                    'Submit original artwork depicting your immigration experience (painting, sculpture, poetry, etc.)',
                 },
                 {
                   title: 'Personal Statement',
-                  description: 'Share your story and how this scholarship will help achieve your educational goals'
-                }
+                  description:
+                    'Share your story and how this scholarship will help achieve your educational goals',
+                },
               ].map((item, index) => (
                 <motion.div
                   key={index}
@@ -259,8 +266,8 @@ export default function Page() {
                     Application <span className="text-primary">Coming Soon</span>
                   </h2>
                   <p className="text-xl text-gray-300 mb-8">
-                    The scholarship application form is not yet open. Sign up below to receive 
-                    an email notification when applications become available.
+                    The scholarship application form is not yet open. Sign up below to receive an
+                    email notification when applications become available.
                   </p>
                 </div>
 
@@ -269,7 +276,7 @@ export default function Page() {
                     <input
                       type="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={e => setEmail(e.target.value)}
                       placeholder="Enter your email"
                       required
                       className="flex-1 px-6 py-4 bg-black border border-primary/30 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-colors"
@@ -331,16 +338,18 @@ export default function Page() {
                 {[
                   {
                     title: 'Comprehensive Documentation',
-                    description: 'Complete and accurate submission of all required documents and materials'
+                    description:
+                      'Complete and accurate submission of all required documents and materials',
                   },
                   {
                     title: 'Thorough Application Responses',
-                    description: 'Detailed and thoughtful answers to all application questions'
+                    description: 'Detailed and thoughtful answers to all application questions',
                   },
                   {
                     title: 'Original Ideas & Personal Experience',
-                    description: 'Creative artwork that authentically reflects your immigration journey and experiences'
-                  }
+                    description:
+                      'Creative artwork that authentically reflects your immigration journey and experiences',
+                  },
                 ].map((criteria, index) => (
                   <motion.div
                     key={index}

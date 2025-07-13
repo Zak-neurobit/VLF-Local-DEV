@@ -44,7 +44,7 @@ export function CurtainTransition({ children }: { children: React.ReactNode }) {
           transition={{ duration: 0.6, ease: 'easeInOut' }}
           style={{ originY: 0 }}
         />
-        
+
         {/* Content */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -119,12 +119,7 @@ export function MorphTransition({ children }: { children: React.ReactNode }) {
               />
             </mask>
           </defs>
-          <rect
-            width="100%"
-            height="100%"
-            fill="url(#gradient)"
-            mask="url(#morph-mask)"
-          />
+          <rect width="100%" height="100%" fill="url(#gradient)" mask="url(#morph-mask)" />
           <defs>
             <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#6B1F2E" />
@@ -153,11 +148,7 @@ export function FlipTransition({ children }: { children: React.ReactNode }) {
 
   return (
     <AnimatePresence mode="wait">
-      <motion.div
-        key={pathname}
-        className="relative"
-        style={{ perspective: 1000 }}
-      >
+      <motion.div key={pathname} className="relative" style={{ perspective: 1000 }}>
         <motion.div
           initial={{ rotateY: -90, opacity: 0 }}
           animate={{ rotateY: 0, opacity: 1 }}
@@ -186,7 +177,10 @@ export function LiquidTransition({ children }: { children: React.ReactNode }) {
               <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="5" seed="2" />
               <feColorMatrix values="0 0 0 0 0.42 0 0 0 0 0.12 0 0 0 0 0.18 0 0 0 1 0" />
               <feComponentTransfer>
-                <feFuncA type="discrete" tableValues="0 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 1" />
+                <feFuncA
+                  type="discrete"
+                  tableValues="0 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 .5 1"
+                />
               </feComponentTransfer>
               <feGaussianBlur stdDeviation="1" />
             </filter>

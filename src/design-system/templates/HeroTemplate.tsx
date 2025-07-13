@@ -24,7 +24,8 @@ export const HeroTemplate: React.FC<HeroTemplateProps> = ({
     en: {
       headline: 'Fighting For Your Rights',
       subheadline: 'Since 1989',
-      description: 'Experienced immigration and personal injury attorneys serving North Carolina and Florida. Available 24/7 with AI-powered assistance.',
+      description:
+        'Experienced immigration and personal injury attorneys serving North Carolina and Florida. Available 24/7 with AI-powered assistance.',
       cta1: 'Get Free Consultation',
       cta2: 'Chat with AI Assistant',
       stats: [
@@ -37,7 +38,8 @@ export const HeroTemplate: React.FC<HeroTemplateProps> = ({
     es: {
       headline: 'Luchando Por Tus Derechos',
       subheadline: 'Desde 1989',
-      description: 'Abogados experimentados de inmigración y lesiones personales sirviendo Carolina del Norte y Florida. Disponible 24/7 con asistencia impulsada por IA.',
+      description:
+        'Abogados experimentados de inmigración y lesiones personales sirviendo Carolina del Norte y Florida. Disponible 24/7 con asistencia impulsada por IA.',
       cta1: 'Consulta Gratis',
       cta2: 'Chatear con Asistente IA',
       stats: [
@@ -66,7 +68,9 @@ export const HeroTemplate: React.FC<HeroTemplateProps> = ({
 
   if (variant === 'video' && videoUrl) {
     return (
-      <section className={`relative ${getHeight()} flex items-center justify-center overflow-hidden`}>
+      <section
+        className={`relative ${getHeight()} flex items-center justify-center overflow-hidden`}
+      >
         <video
           autoPlay
           loop
@@ -77,22 +81,16 @@ export const HeroTemplate: React.FC<HeroTemplateProps> = ({
           <source src={videoUrl} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
-        
+
         <div className="relative z-10 text-center text-white px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
-              {t.headline}
-            </h1>
-            <p className="text-primary text-2xl md:text-3xl font-bold mb-2">
-              {BRAND.tagline}
-            </p>
-            <p className="text-xl md:text-2xl mb-8 text-white/90">
-              {t.subheadline}
-            </p>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4">{t.headline}</h1>
+            <p className="text-primary text-2xl md:text-3xl font-bold mb-2">{BRAND.tagline}</p>
+            <p className="text-xl md:text-2xl mb-8 text-white/90">{t.subheadline}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
@@ -123,12 +121,8 @@ export const HeroTemplate: React.FC<HeroTemplateProps> = ({
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 mb-4">
                 {t.headline}
               </h1>
-              <p className="text-primary text-xl md:text-2xl font-bold mb-2">
-                {BRAND.tagline}
-              </p>
-              <p className="text-lg md:text-xl text-neutral-600 mb-8">
-                {t.description}
-              </p>
+              <p className="text-primary text-xl md:text-2xl font-bold mb-2">{BRAND.tagline}</p>
+              <p className="text-lg md:text-xl text-neutral-600 mb-8">{t.description}</p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="/contact"
@@ -140,7 +134,7 @@ export const HeroTemplate: React.FC<HeroTemplateProps> = ({
                   {t.cta2}
                 </button>
               </div>
-              
+
               {/* Stats */}
               <div className="grid grid-cols-2 gap-4 mt-12">
                 {t.stats.map((stat, index) => (
@@ -182,28 +176,22 @@ export const HeroTemplate: React.FC<HeroTemplateProps> = ({
 
   // Default variant
   return (
-    <section 
+    <section
       className={`relative ${getHeight()} flex items-center justify-center bg-cover bg-center`}
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
-      
+
       <div className="relative z-10 text-center text-white px-4 max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-            {t.headline}
-          </h1>
-          <p className="text-primary text-xl md:text-2xl font-bold mb-2">
-            {BRAND.tagline}
-          </p>
-          <p className="text-lg md:text-xl mb-8 text-white/90 max-w-3xl mx-auto">
-            {t.description}
-          </p>
-          
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">{t.headline}</h1>
+          <p className="text-primary text-xl md:text-2xl font-bold mb-2">{BRAND.tagline}</p>
+          <p className="text-lg md:text-xl mb-8 text-white/90 max-w-3xl mx-auto">{t.description}</p>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link
               href="/contact"

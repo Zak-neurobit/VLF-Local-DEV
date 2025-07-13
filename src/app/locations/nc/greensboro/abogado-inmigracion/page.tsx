@@ -5,11 +5,14 @@ import { MasterLayout } from '@/design-system/templates/MasterLayout';
 
 export const metadata: Metadata = {
   title: 'Abogado de Inmigración en Greensboro - YO PELEO POR TI™ | Vasquez Law',
-  description: 'Abogados de inmigración en Greensboro NC. Defensa contra deportación, green cards, visas de trabajo, ciudadanía. 98% casos ganados. Consulta gratis. Hablamos español.',
-  keywords: 'abogado inmigración Greensboro, abogado inmigracion Greensboro NC, abogado deportacion Greensboro, abogado green card Greensboro, abogado visa trabajo Greensboro, abogado ciudadania Greensboro, bufete inmigracion Greensboro',
+  description:
+    'Abogados de inmigración en Greensboro NC. Defensa contra deportación, green cards, visas de trabajo, ciudadanía. 98% casos ganados. Consulta gratis. Hablamos español.',
+  keywords:
+    'abogado inmigración Greensboro, abogado inmigracion Greensboro NC, abogado deportacion Greensboro, abogado green card Greensboro, abogado visa trabajo Greensboro, abogado ciudadania Greensboro, bufete inmigracion Greensboro',
   openGraph: {
     title: 'Abogado de Inmigración en Greensboro - YO PELEO POR TI™',
-    description: 'El bufete de inmigración más confiable de Greensboro en el Triad. Representación experta para green cards, defensa contra deportación, visas de trabajo y ciudadanía.',
+    description:
+      'El bufete de inmigración más confiable de Greensboro en el Triad. Representación experta para green cards, defensa contra deportación, visas de trabajo y ciudadanía.',
     images: [{ url: '/images/offices/greensboro-abogado-inmigracion.jpg' }],
     type: 'website',
     locale: 'es_US',
@@ -18,7 +21,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Abogado de Inmigración en Greensboro - YO PELEO POR TI™',
-    description: 'Servicios legales de inmigración en Greensboro, NC. 98% de éxito. Consulta gratis.',
+    description:
+      'Servicios legales de inmigración en Greensboro, NC. 98% de éxito. Consulta gratis.',
   },
   alternates: {
     canonical: 'https://www.vasquezlawfirm.com/locations/nc/greensboro/abogado-inmigracion',
@@ -35,8 +39,9 @@ export default function GreensboroAbogadoInmigracionPage() {
     serviceName: 'Inmigración',
     heroTitle: 'Abogado de Inmigración en Greensboro',
     heroSubtitle: 'YO PELEO POR TI™',
-    heroDescription: 'Expertos en inmigración del Triad de Carolina del Norte. Disciplina militar combinada con excelencia legal para proteger tu sueño americano. 98% de casos ganados con más de 2,500 familias de Greensboro ayudadas.',
-    
+    heroDescription:
+      'Expertos en inmigración del Triad de Carolina del Norte. Disciplina militar combinada con excelencia legal para proteger tu sueño americano. 98% de casos ganados con más de 2,500 familias de Greensboro ayudadas.',
+
     localStats: {
       stat1: { value: '2,500+', label: 'Familias de Greensboro Ayudadas' },
       stat2: { value: '98%', label: 'Tasa de Éxito' },
@@ -46,36 +51,46 @@ export default function GreensboroAbogadoInmigracionPage() {
 
     serviceDetails: {
       title: 'Servicios Legales de Inmigración en Greensboro',
-      description: 'Representación completa de inmigración para residentes de Greensboro y el Condado de Guilford',
+      description:
+        'Representación completa de inmigración para residentes de Greensboro y el Condado de Guilford',
       services: [
         {
           name: 'Defensa Contra Deportación',
-          description: 'Defensa de emergencia en la Corte de Inmigración de Charlotte. Luchamos contra detención y procedimientos de remoción para clientes de Greensboro.',
-          localInfo: 'Representación regular en la Corte de Inmigración de Charlotte para residentes del área de Greensboro',
+          description:
+            'Defensa de emergencia en la Corte de Inmigración de Charlotte. Luchamos contra detención y procedimientos de remoción para clientes de Greensboro.',
+          localInfo:
+            'Representación regular en la Corte de Inmigración de Charlotte para residentes del área de Greensboro',
         },
         {
           name: 'Green Cards y Residencia Permanente',
-          description: 'Aplicaciones familiares y por empleo. Ajuste de estatus y procesamiento consular.',
-          localInfo: 'Procesamiento rápido a través de oficinas locales de USCIS que sirven la región del Triad',
+          description:
+            'Aplicaciones familiares y por empleo. Ajuste de estatus y procesamiento consular.',
+          localInfo:
+            'Procesamiento rápido a través de oficinas locales de USCIS que sirven la región del Triad',
         },
         {
           name: 'Visas de Trabajo y Permisos',
-          description: 'H-1B, L-1, E-2 y otras visas para los sectores manufacturero, de salud y educación de Greensboro.',
-          localInfo: 'Servimos a Honda Aircraft, Cone Health, UNCG y otros empleadores principales de Greensboro',
+          description:
+            'H-1B, L-1, E-2 y otras visas para los sectores manufacturero, de salud y educación de Greensboro.',
+          localInfo:
+            'Servimos a Honda Aircraft, Cone Health, UNCG y otros empleadores principales de Greensboro',
         },
         {
           name: 'Ciudadanía y Naturalización',
-          description: 'Asistencia completa con aplicaciones, preparación para entrevistas y apelaciones.',
+          description:
+            'Asistencia completa con aplicaciones, preparación para entrevistas y apelaciones.',
           localInfo: 'Clínicas mensuales de ciudadanía en el área de Greensboro',
         },
         {
           name: 'DACA y Dreamers',
-          description: 'Aplicaciones iniciales y renovaciones de DACA para jóvenes inmigrantes en Greensboro.',
+          description:
+            'Aplicaciones iniciales y renovaciones de DACA para jóvenes inmigrantes en Greensboro.',
           localInfo: 'Asociación con escuelas del área de Greensboro incluyendo NC A&T y UNCG',
         },
         {
           name: 'Asilo y Protección de Refugiados',
-          description: 'Aplicaciones de asilo, entrevistas y apelaciones para quienes huyen de persecución.',
+          description:
+            'Aplicaciones de asilo, entrevistas y apelaciones para quienes huyen de persecución.',
           localInfo: 'Experiencia con casos de asilo en Carolina del Norte y apelaciones',
         },
       ],
@@ -100,7 +115,8 @@ export default function GreensboroAbogadoInmigracionPage() {
       phone: '(704) 535-6000',
       hours: 'Lunes-Viernes: 8:00 AM - 4:30 PM',
       parkingInfo: 'Estacionamiento gratuito disponible',
-      additionalInfo: 'Los casos de inmigración de Greensboro se escuchan en la Corte de Inmigración de Charlotte. Representamos regularmente a clientes del Triad y entendemos la logística de viaje para las audiencias.',
+      additionalInfo:
+        'Los casos de inmigración de Greensboro se escuchan en la Corte de Inmigración de Charlotte. Representamos regularmente a clientes del Triad y entendemos la logística de viaje para las audiencias.',
     },
 
     testimonials: [
@@ -135,19 +151,23 @@ export default function GreensboroAbogadoInmigracionPage() {
     faqs: [
       {
         question: '¿Cuánto cobra un abogado de inmigración en Greensboro?',
-        answer: 'Ofrecemos tarifas fijas transparentes para la mayoría de casos de inmigración. Planes de pago disponibles. Las consultas iniciales son siempre gratis. Creemos que la representación legal de calidad debe ser accesible para la comunidad inmigrante trabajadora de Greensboro.',
+        answer:
+          'Ofrecemos tarifas fijas transparentes para la mayoría de casos de inmigración. Planes de pago disponibles. Las consultas iniciales son siempre gratis. Creemos que la representación legal de calidad debe ser accesible para la comunidad inmigrante trabajadora de Greensboro.',
       },
       {
         question: '¿Manejan casos de deportación de emergencia en Greensboro?',
-        answer: '¡Sí! Ofrecemos defensa contra deportación 24/7. Si usted o un ser querido está detenido por ICE en Greensboro o el área del Triad, llámenos inmediatamente al 1-844-YO-PELEO.',
+        answer:
+          '¡Sí! Ofrecemos defensa contra deportación 24/7. Si usted o un ser querido está detenido por ICE en Greensboro o el área del Triad, llámenos inmediatamente al 1-844-YO-PELEO.',
       },
       {
         question: '¿Dónde se escuchan los casos de inmigración de Greensboro?',
-        answer: 'Los casos de inmigración del área de Greensboro se escuchan en la Corte de Inmigración de Charlotte. Manejamos toda la logística de viaje y representamos regularmente a clientes del Triad en esta corte.',
+        answer:
+          'Los casos de inmigración del área de Greensboro se escuchan en la Corte de Inmigración de Charlotte. Manejamos toda la logística de viaje y representamos regularmente a clientes del Triad en esta corte.',
       },
       {
         question: '¿Trabajan con empleadores de Greensboro para visas de trabajo?',
-        answer: '¡Sí! Trabajamos con empleadores principales de Greensboro incluyendo Honda Aircraft, Cone Health, UNCG, NC A&T y muchas empresas manufactureras para obtener visas de trabajo para sus empleados.',
+        answer:
+          '¡Sí! Trabajamos con empleadores principales de Greensboro incluyendo Honda Aircraft, Cone Health, UNCG, NC A&T y muchas empresas manufactureras para obtener visas de trabajo para sus empleados.',
       },
     ],
 
@@ -192,7 +212,8 @@ export default function GreensboroAbogadoInmigracionPage() {
       'Burlington (Condado de Alamance)',
     ],
 
-    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3248.8!2d-79.7920!3d36.0726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDA0JzIxLjQiTiA3OcKwNDcnMzEuMiJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
+    mapEmbedUrl:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3248.8!2d-79.7920!3d36.0726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDA0JzIxLjQiTiA3OcKwNDcnMzEuMiJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
 
     // SEO-optimized content sections
     whyHireUs: {
@@ -211,7 +232,7 @@ export default function GreensboroAbogadoInmigracionPage() {
       <MasterLayout variant="default" showBreadcrumbs={true}>
         <ModernServiceLocationTemplate data={serviceLocationData} language="es" />
       </MasterLayout>
-      
+
       {/* Local Business Schema in Spanish */}
       <Script
         id="greensboro-abogado-inmigracion-schema"
@@ -222,7 +243,8 @@ export default function GreensboroAbogadoInmigracionPage() {
             '@type': 'LegalService',
             '@id': 'https://www.vasquezlawfirm.com/locations/nc/greensboro/abogado-inmigracion',
             name: 'Vasquez Law Firm - Abogado de Inmigración en Greensboro',
-            description: 'Abogados de inmigración en Greensboro NC. Defensa contra deportación, green cards, visas de trabajo, ciudadanía.',
+            description:
+              'Abogados de inmigración en Greensboro NC. Defensa contra deportación, green cards, visas de trabajo, ciudadanía.',
             url: 'https://www.vasquezlawfirm.com/locations/nc/greensboro/abogado-inmigracion',
             telephone: '+1-844-967-3536',
             address: {
@@ -234,7 +256,7 @@ export default function GreensboroAbogadoInmigracionPage() {
             geo: {
               '@type': 'GeoCoordinates',
               latitude: 36.0726,
-              longitude: -79.7920,
+              longitude: -79.792,
             },
             openingHoursSpecification: [
               {

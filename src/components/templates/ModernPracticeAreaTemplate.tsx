@@ -52,8 +52,16 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
   }, []);
 
   const stats = [
-    { icon: Shield, value: '60+', label: language === 'en' ? 'Years Experience' : 'Años de Experiencia' },
-    { icon: Users, value: '30K+', label: language === 'en' ? 'Clients Helped' : 'Clientes Ayudados' },
+    {
+      icon: Shield,
+      value: '60+',
+      label: language === 'en' ? 'Years Experience' : 'Años de Experiencia',
+    },
+    {
+      icon: Users,
+      value: '30K+',
+      label: language === 'en' ? 'Clients Helped' : 'Clientes Ayudados',
+    },
     { icon: Award, value: '98%', label: language === 'en' ? 'Success Rate' : 'Tasa de Éxito' },
     { icon: Clock, value: '24/7', label: language === 'en' ? 'Available' : 'Disponible' },
   ];
@@ -113,27 +121,21 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
               <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
                 {title}
               </h1>
-              {subtitle && (
-                <h2 className="text-2xl md:text-3xl text-primary mb-6">
-                  {subtitle}
-                </h2>
-              )}
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
-                {description}
-              </p>
+              {subtitle && <h2 className="text-2xl md:text-3xl text-primary mb-6">{subtitle}</h2>}
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">{description}</p>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  href="/contact" 
+                <Button
+                  href="/contact"
                   size="lg"
                   className="bg-primary text-black hover:bg-primary-300 transition-all transform hover:scale-105"
                 >
                   {language === 'en' ? 'Free Case Evaluation' : 'Evaluación Gratuita'}
                 </Button>
-                <Button 
-                  href="tel:1-844-967-3536" 
-                  variant="outline" 
+                <Button
+                  href="tel:1-844-967-3536"
+                  variant="outline"
                   size="lg"
                   className="border-primary text-primary hover:bg-primary hover:text-black transition-all"
                 >
@@ -198,11 +200,13 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                   >
                     <div className="flex items-center justify-between mb-3">
                       <h3 className="text-lg font-semibold text-white">{service.title}</h3>
-                      <ChevronRight className={`w-5 h-5 transition-transform ${
-                        activeService === index ? 'rotate-90 text-primary' : 'text-gray-400'
-                      }`} />
+                      <ChevronRight
+                        className={`w-5 h-5 transition-transform ${
+                          activeService === index ? 'rotate-90 text-primary' : 'text-gray-400'
+                        }`}
+                      />
                     </div>
-                    
+
                     <AnimatePresence>
                       {activeService === index && (
                         <motion.div
@@ -239,23 +243,28 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                     exit={{ opacity: 0, y: -20 }}
                     className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-8 border border-primary/20"
                   >
-                    <h3 className="text-2xl font-bold text-primary mb-4">{services[activeService].title}</h3>
-                    <p className="text-lg text-gray-300 mb-6">{services[activeService].description}</p>
-                    {services[activeService].features && services[activeService].features.length > 0 && (
-                      <div>
-                        <h4 className="text-lg font-semibold text-white mb-3">
-                          {language === 'en' ? 'What We Handle:' : 'Lo Que Manejamos:'}
-                        </h4>
-                        <div className="grid md:grid-cols-2 gap-3">
-                          {services[activeService].features.map((feature, index) => (
-                            <div key={index} className="flex items-center">
-                              <Shield className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
-                              <span className="text-gray-300">{feature}</span>
-                            </div>
-                          ))}
+                    <h3 className="text-2xl font-bold text-primary mb-4">
+                      {services[activeService].title}
+                    </h3>
+                    <p className="text-lg text-gray-300 mb-6">
+                      {services[activeService].description}
+                    </p>
+                    {services[activeService].features &&
+                      services[activeService].features.length > 0 && (
+                        <div>
+                          <h4 className="text-lg font-semibold text-white mb-3">
+                            {language === 'en' ? 'What We Handle:' : 'Lo Que Manejamos:'}
+                          </h4>
+                          <div className="grid md:grid-cols-2 gap-3">
+                            {services[activeService].features.map((feature, index) => (
+                              <div key={index} className="flex items-center">
+                                <Shield className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
+                                <span className="text-gray-300">{feature}</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
                     <div className="mt-6 flex gap-4">
                       <Button
                         href="/contact"
@@ -336,8 +345,8 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
               viewport={{ once: true }}
             >
               <h2 className="text-3xl md:text-4xl font-black text-black mb-6">
-                {language === 'en' 
-                  ? 'Get Your FREE Consultation Today' 
+                {language === 'en'
+                  ? 'Get Your FREE Consultation Today'
                   : 'Obtenga Su Consulta GRATIS Hoy'}
               </h2>
               <p className="text-xl text-black/80 mb-8">
@@ -375,7 +384,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
         </div>
 
         {/* Comprehensive Practice Area Schema for SEO */}
-        <PracticeAreaSchema 
+        <PracticeAreaSchema
           title={title}
           description={description}
           services={services}

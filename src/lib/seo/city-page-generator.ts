@@ -13,7 +13,7 @@ export const NC_CITIES = [
   { name: 'Wilmington', slug: 'wilmington', county: 'New Hanover', population: 123744 },
   { name: 'High Point', slug: 'high-point', county: 'Guilford', population: 112791 },
   { name: 'Concord', slug: 'concord', county: 'Cabarrus', population: 96341 },
-  
+
   // Medium cities
   { name: 'Gastonia', slug: 'gastonia', county: 'Gaston', population: 77273 },
   { name: 'Jacksonville', slug: 'jacksonville', county: 'Onslow', population: 72876 },
@@ -25,7 +25,7 @@ export const NC_CITIES = [
   { name: 'Apex', slug: 'apex', county: 'Wake', population: 58780 },
   { name: 'Greenville', slug: 'greenville', county: 'Pitt', population: 87521 },
   { name: 'Hickory', slug: 'hickory', county: 'Catawba', population: 43490 },
-  
+
   // Growth cities
   { name: 'Indian Trail', slug: 'indian-trail', county: 'Union', population: 39997 },
   { name: 'Mooresville', slug: 'mooresville', county: 'Iredell', population: 50193 },
@@ -37,7 +37,7 @@ export const NC_CITIES = [
   { name: 'New Bern', slug: 'new-bern', county: 'Craven', population: 31291 },
   { name: 'Sanford', slug: 'sanford', county: 'Lee', population: 30261 },
   { name: 'Cornelius', slug: 'cornelius', county: 'Mecklenburg', population: 31412 },
-  
+
   // Strategic smaller cities
   { name: 'Thomasville', slug: 'thomasville', county: 'Davidson', population: 26757 },
   { name: 'Garner', slug: 'garner', county: 'Wake', population: 31159 },
@@ -49,7 +49,7 @@ export const NC_CITIES = [
   { name: 'Wilson', slug: 'wilson', county: 'Wilson', population: 47851 },
   { name: 'Shelby', slug: 'shelby', county: 'Cleveland', population: 21918 },
   { name: 'Carrboro', slug: 'carrboro', county: 'Orange', population: 21295 },
-  
+
   // Additional strategic cities
   { name: 'Clayton', slug: 'clayton', county: 'Johnston', population: 26307 },
   { name: 'Mint Hill', slug: 'mint-hill', county: 'Mecklenburg', population: 27258 },
@@ -60,7 +60,7 @@ export const NC_CITIES = [
   { name: 'Clemmons', slug: 'clemmons', county: 'Forsyth', population: 21177 },
   { name: 'Waxhaw', slug: 'waxhaw', county: 'Union', population: 20534 },
   { name: 'Elizabeth City', slug: 'elizabeth-city', county: 'Pasquotank', population: 17725 },
-  { name: 'Smithfield', slug: 'smithfield', county: 'Johnston', population: 12697 }
+  { name: 'Smithfield', slug: 'smithfield', county: 'Johnston', population: 12697 },
 ];
 
 export interface CityPageData {
@@ -86,153 +86,184 @@ export function generateCityMetadata(city: CityPageData): Metadata {
           url: '/images/vasquez-law-firm-office.jpg',
           width: 1200,
           height: 630,
-          alt: `Vasquez Law Firm - ${city.city} Office`
-        }
-      ]
+          alt: `Vasquez Law Firm - ${city.city} Office`,
+        },
+      ],
     },
     alternates: {
       canonical: `https://www.vasquezlawnc.com/locations/nc/${city.slug}`,
       languages: {
         'en-US': `https://www.vasquezlawnc.com/locations/nc/${city.slug}`,
-        'es-ES': `https://www.vasquezlawnc.com/es/ubicaciones/nc/${city.slug}`
-      }
-    }
+        'es-ES': `https://www.vasquezlawnc.com/es/ubicaciones/nc/${city.slug}`,
+      },
+    },
   };
 }
 
 export function getNearbyOffice(cityName: string): string {
   const officeAssignments: Record<string, string> = {
     // Charlotte area
-    'Charlotte': 'Charlotte',
-    'Huntersville': 'Charlotte',
-    'Matthews': 'Charlotte',
+    Charlotte: 'Charlotte',
+    Huntersville: 'Charlotte',
+    Matthews: 'Charlotte',
     'Mint Hill': 'Charlotte',
-    'Cornelius': 'Charlotte',
-    'Concord': 'Charlotte',
-    'Gastonia': 'Charlotte',
-    'Monroe': 'Charlotte',
+    Cornelius: 'Charlotte',
+    Concord: 'Charlotte',
+    Gastonia: 'Charlotte',
+    Monroe: 'Charlotte',
     'Indian Trail': 'Charlotte',
-    'Kannapolis': 'Charlotte',
-    'Mooresville': 'Charlotte',
-    'Waxhaw': 'Charlotte',
-    
+    Kannapolis: 'Charlotte',
+    Mooresville: 'Charlotte',
+    Waxhaw: 'Charlotte',
+
     // Raleigh area
-    'Raleigh': 'Raleigh',
-    'Cary': 'Raleigh',
-    'Apex': 'Raleigh',
+    Raleigh: 'Raleigh',
+    Cary: 'Raleigh',
+    Apex: 'Raleigh',
     'Holly Springs': 'Raleigh',
     'Fuquay-Varina': 'Raleigh',
     'Wake Forest': 'Raleigh',
-    'Garner': 'Raleigh',
-    'Morrisville': 'Raleigh',
-    'Knightdale': 'Raleigh',
-    'Wendell': 'Raleigh',
-    'Zebulon': 'Raleigh',
-    
+    Garner: 'Raleigh',
+    Morrisville: 'Raleigh',
+    Knightdale: 'Raleigh',
+    Wendell: 'Raleigh',
+    Zebulon: 'Raleigh',
+
     // Durham/Chapel Hill area
-    'Durham': 'Raleigh',
+    Durham: 'Raleigh',
     'Chapel Hill': 'Raleigh',
-    'Carrboro': 'Raleigh',
-    'Hillsborough': 'Raleigh',
-    
+    Carrboro: 'Raleigh',
+    Hillsborough: 'Raleigh',
+
     // Smithfield area
-    'Smithfield': 'Smithfield',
-    'Clayton': 'Smithfield',
-    'Benson': 'Smithfield',
-    'Princeton': 'Smithfield',
-    'Selma': 'Smithfield',
-    'Wilson': 'Smithfield',
-    
+    Smithfield: 'Smithfield',
+    Clayton: 'Smithfield',
+    Benson: 'Smithfield',
+    Princeton: 'Smithfield',
+    Selma: 'Smithfield',
+    Wilson: 'Smithfield',
+
     // Greensboro/Winston-Salem area
-    'Greensboro': 'Greensboro',
+    Greensboro: 'Greensboro',
     'Winston-Salem': 'Greensboro',
     'High Point': 'Greensboro',
-    'Burlington': 'Greensboro',
-    'Kernersville': 'Greensboro',
-    'Clemmons': 'Greensboro',
-    'Thomasville': 'Greensboro',
-    'Asheboro': 'Greensboro',
-    
+    Burlington: 'Greensboro',
+    Kernersville: 'Greensboro',
+    Clemmons: 'Greensboro',
+    Thomasville: 'Greensboro',
+    Asheboro: 'Greensboro',
+
     // Eastern NC
-    'Wilmington': 'Raleigh',
-    'Jacksonville': 'Raleigh',
-    'Greenville': 'Raleigh',
+    Wilmington: 'Raleigh',
+    Jacksonville: 'Raleigh',
+    Greenville: 'Raleigh',
     'New Bern': 'Raleigh',
     'Rocky Mount': 'Raleigh',
-    'Goldsboro': 'Raleigh',
+    Goldsboro: 'Raleigh',
     'Elizabeth City': 'Raleigh',
-    'Leland': 'Raleigh',
-    
+    Leland: 'Raleigh',
+
     // Western NC
-    'Asheville': 'Charlotte',
-    'Hickory': 'Charlotte',
-    'Hendersonville': 'Charlotte',
-    'Shelby': 'Charlotte',
-    'Statesville': 'Charlotte',
-    
+    Asheville: 'Charlotte',
+    Hickory: 'Charlotte',
+    Hendersonville: 'Charlotte',
+    Shelby: 'Charlotte',
+    Statesville: 'Charlotte',
+
     // Fayetteville area
-    'Fayetteville': 'Raleigh',
-    'Sanford': 'Raleigh'
+    Fayetteville: 'Raleigh',
+    Sanford: 'Raleigh',
   };
-  
+
   return officeAssignments[cityName] || 'Raleigh'; // Default to Raleigh
 }
 
 export function generateCityPageContent(city: CityPageData) {
   const nearbyOffice = getNearbyOffice(city.city);
-  
+
   return {
     heroTitle: `${city.city}'s #1 Immigration & Personal Injury Law Firm`,
     heroSubtitle: `Serving ${city.city} and all of ${city.county} County with 60+ Years of Legal Excellence`,
     heroDescription: `Get the legal representation you deserve from North Carolina's most trusted law firm. Our ${nearbyOffice} office serves ${city.city} with comprehensive legal services in immigration, personal injury, workers' compensation, and criminal defense.`,
-    
+
     whyChooseUs: [
       {
         title: '60+ Years Combined Experience',
-        description: `Our attorneys bring decades of experience to ${city.city} residents, handling complex cases with proven success.`
+        description: `Our attorneys bring decades of experience to ${city.city} residents, handling complex cases with proven success.`,
       },
       {
         title: '24/7 Availability',
-        description: 'Legal emergencies don\'t wait. Our AI-powered system and on-call attorneys are available round the clock.'
+        description:
+          "Legal emergencies don't wait. Our AI-powered system and on-call attorneys are available round the clock.",
       },
       {
         title: 'Bilingual Services',
-        description: 'Full legal services in English and Spanish. Every ${city.city} client gets service in their preferred language.'
+        description:
+          'Full legal services in English and Spanish. Every ${city.city} client gets service in their preferred language.',
       },
       {
         title: 'No Win, No Fee',
-        description: 'For personal injury and workers\' comp cases, you pay nothing unless we win your case.'
-      }
+        description:
+          "For personal injury and workers' comp cases, you pay nothing unless we win your case.",
+      },
     ],
-    
+
     practiceAreas: [
       {
         name: 'Immigration Law',
         description: `Help for ${city.city} families with green cards, visas, deportation defense, and citizenship.`,
-        features: ['Family Petitions', 'Work Visas', 'Deportation Defense', 'Citizenship', 'DACA', 'Asylum']
+        features: [
+          'Family Petitions',
+          'Work Visas',
+          'Deportation Defense',
+          'Citizenship',
+          'DACA',
+          'Asylum',
+        ],
       },
       {
         name: 'Personal Injury',
         description: `Fighting for ${city.city} accident victims to get maximum compensation for their injuries.`,
-        features: ['Car Accidents', 'Truck Accidents', 'Motorcycle Accidents', 'Slip & Fall', 'Medical Malpractice', 'Wrongful Death']
+        features: [
+          'Car Accidents',
+          'Truck Accidents',
+          'Motorcycle Accidents',
+          'Slip & Fall',
+          'Medical Malpractice',
+          'Wrongful Death',
+        ],
       },
       {
-        name: 'Workers\' Compensation',
+        name: "Workers' Compensation",
         description: `Protecting ${city.city} workers\' rights and securing benefits for workplace injuries.`,
-        features: ['Workplace Injuries', 'Denied Claims', 'Disability Benefits', 'Medical Treatment', 'Lost Wages', 'Appeals']
+        features: [
+          'Workplace Injuries',
+          'Denied Claims',
+          'Disability Benefits',
+          'Medical Treatment',
+          'Lost Wages',
+          'Appeals',
+        ],
       },
       {
         name: 'Criminal Defense',
         description: `Aggressive defense for ${city.city} residents facing criminal charges.`,
-        features: ['DWI/DUI', 'Drug Charges', 'Assault', 'Theft', 'Traffic Violations', 'Federal Crimes']
-      }
+        features: [
+          'DWI/DUI',
+          'Drug Charges',
+          'Assault',
+          'Theft',
+          'Traffic Violations',
+          'Federal Crimes',
+        ],
+      },
     ],
-    
+
     localContent: {
       courthouses: getCityCourthouses(city.city, city.county),
       statistics: getCityStatistics(city),
-      testimonials: generateLocalTestimonials(city.city)
-    }
+      testimonials: generateLocalTestimonials(city.city),
+    },
   };
 }
 
@@ -242,13 +273,14 @@ function getCityCourthouses(city: string, county: string) {
     {
       name: `${county} County Courthouse`,
       type: 'County Court',
-      description: `We represent clients at the ${county} County Courthouse for all civil and criminal matters.`
+      description: `We represent clients at the ${county} County Courthouse for all civil and criminal matters.`,
     },
     {
       name: `${city} Immigration Court`,
       type: 'Federal Court',
-      description: 'Our immigration attorneys handle cases at the Charlotte Immigration Court, serving all of NC.'
-    }
+      description:
+        'Our immigration attorneys handle cases at the Charlotte Immigration Court, serving all of NC.',
+    },
   ];
 }
 
@@ -258,7 +290,7 @@ function getCityStatistics(city: CityPageData) {
     hispanicPopulation: Math.round(city.population * 0.15).toLocaleString(), // Estimate
     averageSettlement: '$127,000',
     casesWon: '2,500+',
-    clientsSatisfied: '98%'
+    clientsSatisfied: '98%',
   };
 }
 
@@ -268,19 +300,19 @@ function generateLocalTestimonials(cityName: string) {
       author: 'Maria G.',
       location: cityName,
       text: `Vasquez Law Firm helped me get my green card after years of waiting. They speak Spanish perfectly and made me feel comfortable. Best lawyers in ${cityName}!`,
-      rating: 5
+      rating: 5,
     },
     {
       author: 'John D.',
       location: cityName,
       text: `After my car accident in ${cityName}, Vasquez Law Firm got me a settlement that covered all my medical bills. They truly fight for their clients!`,
-      rating: 5
+      rating: 5,
     },
     {
       author: 'Carlos M.',
       location: cityName,
       text: `Facing deportation was terrifying, but Vasquez Law Firm saved my family. Now I can stay in ${cityName} with my children. Forever grateful!`,
-      rating: 5
-    }
+      rating: 5,
+    },
   ];
 }

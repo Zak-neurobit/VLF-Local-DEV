@@ -57,7 +57,6 @@ export class ReviewAggregatorService {
     };
   }
 
-
   /**
    * Calculate review summary statistics
    */
@@ -98,7 +97,7 @@ export class ReviewAggregatorService {
     // Try to get from cache first
     if (useCache) {
       try {
-        const cached = await cache.get(this.cacheKey) as AggregatedReviews | null;
+        const cached = (await cache.get(this.cacheKey)) as AggregatedReviews | null;
         if (cached) {
           logger.info('Returning cached external reviews');
           return cached;
@@ -131,7 +130,6 @@ export class ReviewAggregatorService {
     } else {
       logger.warn('Google Places API not available');
     }
-
 
     // Sort reviews by date (newest first)
     allReviews.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());

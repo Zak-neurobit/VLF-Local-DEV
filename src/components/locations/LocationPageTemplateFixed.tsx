@@ -17,8 +17,10 @@ interface LocationPageProps {
 const content = {
   en: {
     hero: {
-      title: (city: string, state: string) => `${city} ${state} Immigration & Personal Injury Lawyers`,
-      subtitle: (city: string) => `Serving ${city} and surrounding areas with experienced legal representation.`,
+      title: (city: string, state: string) =>
+        `${city} ${state} Immigration & Personal Injury Lawyers`,
+      subtitle: (city: string) =>
+        `Serving ${city} and surrounding areas with experienced legal representation.`,
       cta1: 'Get Free Consultation',
       cta2: 'Call Now',
     },
@@ -26,7 +28,7 @@ const content = {
       title: 'Legal Services We Offer',
       immigration: 'Immigration Law',
       personalInjury: 'Personal Injury',
-      workersComp: 'Workers\' Compensation',
+      workersComp: "Workers' Compensation",
       criminalDefense: 'Criminal Defense',
     },
     whyChoose: {
@@ -51,18 +53,20 @@ const content = {
     faq: {
       title: 'Frequently Asked Questions',
       q1: (city: string) => `Do you have a physical office in ${city}?`,
-      a1: (city: string, nearbyOffice: string) => 
+      a1: (city: string, nearbyOffice: string) =>
         `While our main offices are in Raleigh, Charlotte, Smithfield, and Orlando, we regularly meet with clients throughout ${city}. Our nearest office in ${nearbyOffice} serves the entire region, and we offer virtual consultations for your convenience.`,
       q2: 'How much do your services cost?',
-      a2: 'We offer free consultations and work on a contingency fee basis for personal injury cases - meaning you don\'t pay unless we win. For other services, we provide transparent flat fees and payment plans.',
+      a2: "We offer free consultations and work on a contingency fee basis for personal injury cases - meaning you don't pay unless we win. For other services, we provide transparent flat fees and payment plans.",
       q3: 'What languages do you speak?',
       a3: 'Our team is fully bilingual in English and Spanish. We can also arrange for interpreters in other languages as needed.',
     },
   },
   es: {
     hero: {
-      title: (city: string, state: string) => `Abogados de Inmigración y Lesiones Personales en ${city} ${state}`,
-      subtitle: (city: string) => `Sirviendo a ${city} y áreas circundantes con representación legal experimentada.`,
+      title: (city: string, state: string) =>
+        `Abogados de Inmigración y Lesiones Personales en ${city} ${state}`,
+      subtitle: (city: string) =>
+        `Sirviendo a ${city} y áreas circundantes con representación legal experimentada.`,
       cta1: 'Consulta Gratuita',
       cta2: 'Llame Ahora',
     },
@@ -95,7 +99,7 @@ const content = {
     faq: {
       title: 'Preguntas Frecuentes',
       q1: (city: string) => `¿Tienen una oficina física en ${city}?`,
-      a1: (city: string, nearbyOffice: string) => 
+      a1: (city: string, nearbyOffice: string) =>
         `Aunque nuestras oficinas principales están en Raleigh, Charlotte, Smithfield y Orlando, regularmente nos reunimos con clientes en ${city}. Nuestra oficina más cercana en ${nearbyOffice} sirve a toda la región, y ofrecemos consultas virtuales para su conveniencia.`,
       q2: '¿Cuánto cuestan sus servicios?',
       a2: 'Ofrecemos consultas gratuitas y trabajamos con honorarios de contingencia para casos de lesiones personales - lo que significa que no paga a menos que ganemos. Para otros servicios, proporcionamos tarifas fijas transparentes y planes de pago.',
@@ -119,12 +123,8 @@ export const LocationPageTemplateFixed: React.FC<LocationPageProps> = ({
       <section className="bg-gradient-to-br from-[#6B1F2E] to-[#8B2635] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              {t.hero.title(city, state)}
-            </h1>
-            <p className="text-xl mb-8 max-w-3xl mx-auto">
-              {t.hero.subtitle(city)}
-            </p>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">{t.hero.title(city, state)}</h1>
+            <p className="text-xl mb-8 max-w-3xl mx-auto">{t.hero.subtitle(city)}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href={language === 'es' ? '/es/contacto' : '/contact'}
@@ -152,7 +152,10 @@ export const LocationPageTemplateFixed: React.FC<LocationPageProps> = ({
             {Object.entries(t.services).map(([key, value]) => {
               if (key === 'title') return null;
               return (
-                <div key={key} className="text-center p-6 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+                <div
+                  key={key}
+                  className="text-center p-6 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
+                >
                   <h3 className="font-semibold text-lg mb-2">{value}</h3>
                 </div>
               );
@@ -196,7 +199,10 @@ export const LocationPageTemplateFixed: React.FC<LocationPageProps> = ({
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="h-5 w-5 text-[#6B1F2E]" />
-                  <a href={`tel:${nearbyOffice.phone.replace(/[^0-9]/g, '')}`} className="text-[#6B1F2E] font-semibold hover:underline">
+                  <a
+                    href={`tel:${nearbyOffice.phone.replace(/[^0-9]/g, '')}`}
+                    className="text-[#6B1F2E] font-semibold hover:underline"
+                  >
                     {nearbyOffice.phone}
                   </a>
                 </div>
@@ -225,7 +231,9 @@ export const LocationPageTemplateFixed: React.FC<LocationPageProps> = ({
           <div className="max-w-3xl mx-auto space-y-6">
             <div className="bg-white rounded-lg p-6 shadow-md">
               <h3 className="font-semibold text-lg mb-2">{t.faq.q1(city)}</h3>
-              <p className="text-gray-600">{t.faq.a1(city, nearbyOffice?.name || 'our main office')}</p>
+              <p className="text-gray-600">
+                {t.faq.a1(city, nearbyOffice?.name || 'our main office')}
+              </p>
             </div>
             <div className="bg-white rounded-lg p-6 shadow-md">
               <h3 className="font-semibold text-lg mb-2">{t.faq.q2}</h3>

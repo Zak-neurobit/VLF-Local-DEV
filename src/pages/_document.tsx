@@ -7,7 +7,7 @@ export default function Document() {
         {/* Preconnect to font providers */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
+
         {/* Preload critical fonts */}
         <link
           rel="preload"
@@ -19,7 +19,7 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
           as="style"
         />
-        
+
         {/* Load fonts with font-display: swap */}
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
@@ -29,17 +29,17 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
           rel="stylesheet"
         />
-        
+
         {/* DNS prefetch for external resources */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://maps.googleapis.com" />
         <link rel="dns-prefetch" href="https://maps.gstatic.com" />
-        
+
         {/* Resource hints for critical resources */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
-        
+
         {/* Inline critical CSS */}
         <style
           dangerouslySetInnerHTML={{
@@ -91,7 +91,7 @@ export default function Document() {
             `,
           }}
         />
-        
+
         {/* Optimize font loading with JavaScript */}
         <script
           dangerouslySetInnerHTML={{
@@ -125,7 +125,7 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        
+
         {/* Lazy load non-critical scripts */}
         <script
           dangerouslySetInnerHTML={{

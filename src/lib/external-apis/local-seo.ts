@@ -11,7 +11,7 @@ export interface CompetitorData {
 export class LocalSEOService {
   async getLocalKeywords(city: string, practiceArea: string): Promise<string[]> {
     logger.info('Getting local keywords', { city, practiceArea });
-    
+
     // Mock implementation
     const baseKeywords = [
       `${practiceArea} lawyer ${city}`,
@@ -23,13 +23,13 @@ export class LocalSEOService {
       `${practiceArea} consultation ${city}`,
       `emergency ${practiceArea} lawyer ${city}`,
     ];
-    
+
     return baseKeywords;
   }
 
   async getLocalCompetitors(city: string): Promise<CompetitorData[]> {
     logger.info('Getting local competitors', { city });
-    
+
     // Mock implementation
     return [
       {

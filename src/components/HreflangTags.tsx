@@ -34,13 +34,10 @@ export const HreflangTags: React.FC<HreflangTagsProps> = ({
       <link rel="alternate" hrefLang="en" href={enUrl} />
       {spanishPageExists && <link rel="alternate" hrefLang="es" href={esUrl} />}
       <link rel="alternate" hrefLang="x-default" href={enUrl} />
-      
+
       {/* Canonical URL */}
-      <link 
-        rel="canonical" 
-        href={currentLanguage === 'es' ? esUrl : enUrl} 
-      />
-      
+      <link rel="canonical" href={currentLanguage === 'es' ? esUrl : enUrl} />
+
       {/* Language meta tag */}
       <meta httpEquiv="content-language" content={currentLanguage} />
       <meta property="og:locale" content={currentLanguage === 'es' ? 'es_ES' : 'en_US'} />

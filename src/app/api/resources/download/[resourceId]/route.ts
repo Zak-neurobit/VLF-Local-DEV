@@ -10,41 +10,38 @@ const resourceComponents: Record<string, React.ComponentType> = {
   // Add more PDF components as they are created
 };
 
-export async function GET(
-  _request: NextRequest,
-  { params }: { params: { resourceId: string } }
-) {
+export async function GET(_request: NextRequest, { params }: { params: { resourceId: string } }) {
   try {
     const { resourceId } = params;
-    
+
     // Find the resource metadata
     const resource = resourceCatalog.find(r => r.downloadUrl?.includes(resourceId));
-    
+
     if (!resource) {
-      return NextResponse.json(
-        { error: 'Resource not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Resource not found' }, { status: 404 });
     }
-    
+
     // Get the PDF component for this resource
     const PDFComponent = resourceComponents[resourceId];
-    
+
     if (!PDFComponent) {
       // For resources without PDF components yet, return a placeholder
       return NextResponse.json(
-        { 
+        {
           error: 'Resource PDF not yet available',
-          message: 'This resource is being prepared. Please check back soon or contact us for assistance.'
+          message:
+            'This resource is being prepared. Please check back soon or contact us for assistance.',
         },
         { status: 503 }
       );
     }
-    
+
     // Generate the PDF
     // TODO: Implement when @react-pdf/renderer is installed
-    throw new Error('PDF generation not yet implemented - @react-pdf/renderer needs to be installed');
-    
+    throw new Error(
+      'PDF generation not yet implemented - @react-pdf/renderer needs to be installed'
+    );
+
     /* TODO: Uncomment when @react-pdf/renderer is installed
     const stream = await renderToStream(React.createElement(PDFComponent));
     
@@ -74,14 +71,13 @@ export async function GET(
       headers: responseHeaders,
     });
     */
-    
   } catch (error) {
     console.error('Error generating resource PDF:', error);
-    
+
     return NextResponse.json(
-      { 
+      {
         error: 'Failed to generate resource',
-        message: 'An error occurred while generating the PDF. Please try again or contact support.'
+        message: 'An error occurred while generating the PDF. Please try again or contact support.',
       },
       { status: 500 }
     );

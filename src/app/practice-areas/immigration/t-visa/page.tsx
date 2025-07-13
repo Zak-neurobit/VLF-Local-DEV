@@ -1,629 +1,511 @@
 import { Metadata } from 'next';
-import Script from 'next/script';
-import Link from 'next/link';
-import { Phone, MapPin, ArrowRight, CheckCircle, Shield, Heart, Users } from 'lucide-react';
+import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 
 export const metadata: Metadata = {
-  title: 'T Visa Immigration Attorneys NC & FL | Human Trafficking Victims | Vasquez Law',
+  title:
+    'T Visa Lawyers NC & FL | Human Trafficking Victim Immigration Attorneys | Vasquez Law Firm',
   description:
-    'Expert T visa attorneys helping human trafficking victims in Raleigh, Charlotte, Smithfield & Orlando. Confidential consultation for trafficking survivors seeking legal status.',
-  keywords: [
-    'T visa',
-    'human trafficking',
-    'trafficking victims',
-    'immigration attorney',
-    'trafficking survivor',
-    'Raleigh NC',
-    'Charlotte NC',
-    'Orlando FL',
-    'victim of crime',
-  ],
+    'Compassionate T visa attorneys for human trafficking survivors. Confidential, trauma-informed legal representation. Work authorization, protection from removal. Call 1-844-YO-PELEO',
+  keywords:
+    'T visa lawyer, human trafficking attorney, trafficking victim lawyer, T visa immigration attorney, trafficking survivor legal help, victim of trafficking, trafficking protection',
   openGraph: {
-    title: 'T Visa Immigration Attorneys - Human Trafficking Victims | Vasquez Law',
+    title: 'T Visa Lawyers | Human Trafficking Victim Protection - Vasquez Law Firm',
     description:
-      'Compassionate legal representation for human trafficking survivors seeking T visa protection.',
-    type: 'website',
-    images: [
-      {
-        url: '/images/t-visa-trafficking-attorneys.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'T Visa Immigration Attorneys for Human Trafficking Victims',
-      },
-    ],
+      'Compassionate T visa attorneys providing confidential legal representation for trafficking survivors.',
+    images: [{ url: '/images/t-visa-trafficking-attorneys.jpg' }],
   },
 };
 
-export default function TVisa() {
+export default function TVisaPage() {
+  const services = [
+    {
+      title: 'T Visa Application Assistance',
+      description:
+        'Complete T visa applications for survivors of human trafficking with trauma-informed legal representation',
+      icon: '🛡️',
+      features: [
+        'Form I-914 application preparation and filing',
+        'Victim eligibility assessment and documentation',
+        'Trafficking evidence compilation and presentation',
+        'Law enforcement cooperation coordination',
+        'Supporting declaration and witness statements',
+        'USCIS interview preparation and representation',
+      ],
+    },
+    {
+      title: 'Derivative T Visa Petitions',
+      description: 'T visa protection for qualifying family members of trafficking victims',
+      icon: '👨‍👩‍👧‍👦',
+      features: [
+        'Spouse and children derivative petitions',
+        'Parent and sibling petitions (if under 21)',
+        'Family member eligibility assessment',
+        'Relationship documentation compilation',
+        'Family unity preservation strategies',
+        'Concurrent family petition filing',
+      ],
+    },
+    {
+      title: 'Labor Trafficking Protection',
+      description:
+        'Specialized representation for victims of forced labor, debt bondage, and workplace exploitation',
+      icon: '⛏️',
+      features: [
+        'Forced labor trafficking case development',
+        'Domestic servitude victim representation',
+        'Agricultural worker trafficking cases',
+        'Construction industry exploitation cases',
+        'Debt bondage documentation and proof',
+        'Workplace coercion evidence gathering',
+      ],
+    },
+    {
+      title: 'Sex Trafficking Victim Services',
+      description: 'Compassionate legal assistance for survivors of commercial sexual exploitation',
+      icon: '💝',
+      features: [
+        'Commercial sexual exploitation cases',
+        'Forced prostitution victim representation',
+        'Online trafficking victim assistance',
+        'Minor sex trafficking specialized care',
+        'Trauma-informed interview techniques',
+        'Confidential evidence gathering processes',
+      ],
+    },
+    {
+      title: 'Law Enforcement Cooperation',
+      description: 'Strategic coordination with federal and local law enforcement agencies',
+      icon: '🤝',
+      features: [
+        'FBI and ICE coordination assistance',
+        'Local police cooperation documentation',
+        'Prosecution assistance and testimony prep',
+        'Continued presence application support',
+        'Law enforcement endorsement procurement',
+        'Investigation cooperation strategy',
+      ],
+    },
+    {
+      title: 'T Visa to Green Card Transition',
+      description:
+        'Permanent residence applications for T visa holders after 3 years of continuous presence',
+      icon: '🏠',
+      features: [
+        'I-485 adjustment of status applications',
+        'Continuous presence documentation',
+        'Good moral character evidence',
+        'Extreme hardship demonstration',
+        'Early filing eligibility assessment',
+        'Family member adjustment assistance',
+      ],
+    },
+    {
+      title: 'Trauma-Informed Legal Services',
+      description:
+        'Specialized legal care designed for trafficking survivors with consideration for trauma responses',
+      icon: '❤️',
+      features: [
+        'Trauma-informed consultation approaches',
+        'Safe and confidential meeting environments',
+        'Cultural competency and language services',
+        'Flexible scheduling for client comfort',
+        'Coordination with mental health professionals',
+        'Crisis intervention legal support',
+      ],
+    },
+    {
+      title: 'Work Authorization & Benefits',
+      description: 'Employment authorization and federal benefit access for T visa holders',
+      icon: '💼',
+      features: [
+        'I-765 work authorization applications',
+        'Federal benefits eligibility guidance',
+        'Social services connection assistance',
+        'Victim compensation program access',
+        'Healthcare benefit enrollment support',
+        'Educational assistance coordination',
+      ],
+    },
+    {
+      title: 'T Visa Denial Appeals & Motions',
+      description: 'Appellate representation for denied T visa applications and complex cases',
+      icon: '⚖️',
+      features: [
+        'Motion to reopen denied applications',
+        'Motion to reconsider with new evidence',
+        'Administrative Appeals Office (AAO) briefs',
+        'Federal court litigation when appropriate',
+        'Case strategy revision and refiling',
+        'Alternative relief pathway exploration',
+      ],
+    },
+  ];
+
+  const faqs = [
+    {
+      question: 'What is a T visa and who qualifies for it?',
+      answer:
+        'A T visa is for victims of severe forms of human trafficking who are physically present in the US due to trafficking. You must cooperate with law enforcement (unless under 18 or unable due to trauma) and would suffer extreme hardship if removed.',
+    },
+    {
+      question: 'How long does the T visa application process take?',
+      answer:
+        'T visa processing typically takes 12-18 months, though complex cases may take longer. We track all case progress and provide regular updates throughout the process.',
+    },
+    {
+      question: 'Can my family members get T visas too?',
+      answer:
+        "Yes, certain family members can receive derivative T visas. If you're under 21: spouse, children, parents, and unmarried siblings under 18. If you're 21+: spouse and unmarried children under 21.",
+    },
+    {
+      question: 'Do I need to testify against my traffickers?',
+      answer:
+        "You must cooperate with reasonable law enforcement requests, but this doesn't always mean testifying in court. Cooperation can include providing information, attending interviews, or other assistance as requested.",
+    },
+    {
+      question: 'What benefits do T visa holders receive?',
+      answer:
+        'T visa holders receive work authorization, protection from removal, access to certain federal benefits, and after 3 years can apply for permanent residence (green card).',
+    },
+    {
+      question: 'Is everything I tell my attorney confidential?',
+      answer:
+        'Yes, attorney-client privilege protects all communications. We maintain strict confidentiality and provide trauma-informed representation in a safe, judgment-free environment.',
+    },
+  ];
+
+  const content = {
+    introduction: `Human trafficking survivors deserve protection, not punishment. Our T visa attorneys provide compassionate, trauma-informed legal representation for trafficking victims seeking safety and legal status in the United States. With specialized experience in both labor and sex trafficking cases, we understand your trauma and fight for the protection and justice you deserve.`,
+
+    processTitle: 'Our T Visa Process',
+    process: [
+      {
+        step: '1',
+        title: 'Confidential Consultation & Safety Assessment',
+        description:
+          'Trauma-informed evaluation in a safe environment with complete confidentiality',
+      },
+      {
+        step: '2',
+        title: 'Trafficking Evidence Development',
+        description: 'Careful documentation of trafficking experience and supporting evidence',
+      },
+      {
+        step: '3',
+        title: 'Law Enforcement Coordination',
+        description:
+          'Strategic cooperation with agencies while protecting your safety and wellbeing',
+      },
+      {
+        step: '4',
+        title: 'T Visa Application Filing',
+        description: 'Comprehensive I-914 preparation and filing with USCIS',
+      },
+      {
+        step: '5',
+        title: 'Status Approval & Protection',
+        description: 'T visa approval processing and continued legal support',
+      },
+    ],
+
+    urgencyTitle: '🚨 CONFIDENTIAL HELP FOR TRAFFICKING VICTIMS',
+    urgencyMessage:
+      'You are safe here. Our trauma-informed attorneys provide confidential legal assistance to trafficking survivors. Your safety and privacy are our absolute priority.',
+
+    successStats: [
+      { number: '200+', label: 'Trafficking Survivors Helped' },
+      { number: '88%', label: 'T Visa Approval Rate' },
+      { number: '4', label: 'Years Max T Visa Duration' },
+      { number: '100%', label: 'Confidentiality Guaranteed' },
+    ],
+
+    whyChooseTitle: 'Why Choose Our T Visa Team?',
+    whyChoosePoints: [
+      '88% approval rate for T visa applications',
+      'Specialized trauma-informed legal representation',
+      'Extensive experience with trafficking survivor cases',
+      'Strong relationships with law enforcement agencies',
+      'Bilingual attorneys and culturally competent staff',
+      'Complete confidentiality and safe environment guaranteed',
+      'Comprehensive family protection services',
+      'Long-term support through green card process',
+    ],
+
+    traffickingTypes: {
+      title: 'Types of Human Trafficking We Handle',
+      types: [
+        {
+          category: 'Labor Trafficking',
+          description: 'Forced labor through force, fraud, or coercion',
+          examples: [
+            'Forced agricultural work',
+            'Domestic servitude',
+            'Construction site exploitation',
+            'Factory and warehouse forced labor',
+            'Restaurant and hospitality abuse',
+            'Debt bondage situations',
+          ],
+        },
+        {
+          category: 'Sex Trafficking',
+          description: 'Commercial sexual exploitation of adults and minors',
+          examples: [
+            'Forced prostitution',
+            'Commercial sexual exploitation',
+            'Escort service coercion',
+            'Massage parlor exploitation',
+            'Online trafficking',
+            'Pornography production',
+          ],
+        },
+        {
+          category: 'Methods of Control',
+          description: 'How traffickers maintain control over victims',
+          examples: [
+            'Physical violence and threats',
+            'Debt manipulation',
+            'Document confiscation',
+            'Isolation from support systems',
+            'Deportation threats',
+            'Threats to family members',
+          ],
+        },
+      ],
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Confidential Help Banner */}
-      <div className="bg-purple-600 text-white py-2">
-        <div className="container mx-auto px-4 text-center">
-          <p className="font-bold">
-            🔒 CONFIDENTIAL HELP FOR TRAFFICKING VICTIMS - CALL 1-844-YO-PELEO 🔒
-          </p>
-        </div>
-      </div>
-
-      {/* Breadcrumb */}
-      <div className="bg-gray-50 py-4">
-        <div className="container mx-auto px-4">
-          <nav className="text-sm">
-            <Link href="/" className="text-burgundy-700 hover:underline">
-              Home
-            </Link>
-            <span className="mx-2">/</span>
-            <Link href="/practice-areas" className="text-burgundy-700 hover:underline">
-              Practice Areas
-            </Link>
-            <span className="mx-2">/</span>
-            <Link href="/practice-areas/immigration" className="text-burgundy-700 hover:underline">
-              Immigration
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-gray-600">T Visa</span>
-          </nav>
-        </div>
-      </div>
-
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-burgundy-700 to-burgundy-900 text-white py-20">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">T Visa Immigration Attorneys</h1>
-            <p className="text-xl md:text-2xl mb-8 text-gold-400 font-semibold">
-              YO PELEO POR TI™ - I FIGHT FOR YOU
-            </p>
-            <p className="text-lg mb-8 max-w-3xl mx-auto">
-              Compassionate legal representation for survivors of human trafficking. We understand
-              your trauma and provide confidential, supportive guidance through the T visa process.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 bg-gold-500 text-burgundy-900 font-bold rounded-full hover:bg-gold-400 transition-colors"
-              >
-                Confidential Consultation
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <a
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 bg-white text-burgundy-900 font-bold rounded-full hover:bg-gray-100 transition-colors"
-              >
-                <Phone className="mr-2 w-5 h-5" />
-                1-844-YO-PELEO
-              </a>
+    <ModernPracticeAreaTemplate
+      title="T Visa Lawyers"
+      subtitle="Protecting Human Trafficking Survivors"
+      description="Compassionate T visa attorneys providing confidential, trauma-informed legal representation for trafficking survivors. We fight for your protection, safety, and legal status with specialized experience in both labor and sex trafficking cases."
+      services={services}
+      faqs={faqs}
+      urgency="critical"
+      content={
+        <div className="space-y-12">
+          {/* Types of Trafficking */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">Types of Human Trafficking</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {content.traffickingTypes.types.map((type, index) => (
+                <div
+                  key={index}
+                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+                >
+                  <h3 className="text-xl font-bold text-primary mb-3">{type.category}</h3>
+                  <p className="text-gray-300 mb-4">{type.description}</p>
+                  <h4 className="font-semibold text-white mb-2">Common Examples:</h4>
+                  <ul className="space-y-1">
+                    {type.examples.map((example, eIndex) => (
+                      <li key={eIndex} className="text-sm text-gray-400 flex items-start gap-2">
+                        <span className="text-primary mt-1">•</span>
+                        {example}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      {/* Safety & Support Section */}
-      <section className="py-16 bg-purple-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-purple-100 border-l-4 border-purple-500 p-6 mb-8">
-              <div className="flex items-center mb-4">
-                <Shield className="w-8 h-8 text-purple-600 mr-3" />
-                <h2 className="text-2xl font-bold text-purple-800">
-                  Your Safety & Privacy Are Our Priority
-                </h2>
-              </div>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="text-lg font-bold text-purple-800 mb-2">You Are Safe Here:</h3>
-                  <ul className="text-purple-700 space-y-1">
-                    <li>✓ Complete confidentiality guaranteed</li>
-                    <li>✓ Trauma-informed legal representation</li>
-                    <li>✓ Safe office environment</li>
-                    <li>✓ Bilingual support available</li>
-                    <li>✓ No judgment, only support</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-purple-800 mb-2">We Understand:</h3>
-                  <ul className="text-purple-700 space-y-1">
-                    <li>• The trauma you&apos;ve experienced</li>
-                    <li>• Your fear and uncertainty</li>
-                    <li>• The courage it takes to seek help</li>
-                    <li>• Your need for protection</li>
-                    <li>• Your desire to rebuild your life</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Content */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="prose prose-lg max-w-none">
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">What Is a T Visa?</h2>
-                <p className="text-gray-700 mb-6">
-                  The T visa is a special immigration status for victims of severe forms of human
-                  trafficking who are physically present in the United States due to trafficking.
-                  This humanitarian visa recognizes that trafficking victims should be protected,
-                  not punished, and provides a pathway to legal status and eventual permanent
-                  residence.
-                </p>
-
-                <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
-                  <h3 className="text-xl font-bold text-blue-800 mb-2">T Visa Benefits:</h3>
-                  <ul className="text-blue-700 space-y-2">
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-600 mr-2 mt-1" />
-                      <span>Legal status for up to 4 years</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-600 mr-2 mt-1" />
-                      <span>Work authorization</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-600 mr-2 mt-1" />
-                      <span>Protection from removal/deportation</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-600 mr-2 mt-1" />
-                      <span>Access to certain federal benefits</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-600 mr-2 mt-1" />
-                      <span>Pathway to permanent residence (green card)</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-600 mr-2 mt-1" />
-                      <span>Ability to include certain family members</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Understanding Human Trafficking
-                </h2>
-                <p className="text-gray-700 mb-6">
-                  Human trafficking involves the use of force, fraud, or coercion to obtain some
-                  type of labor or commercial sex act. Trafficking can happen to anyone, regardless
-                  of age, gender, nationality, or background.
-                </p>
-
-                <h3 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  Types of Human Trafficking:
-                </h3>
-                <div className="grid md:grid-cols-2 gap-6 mb-8">
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h4 className="text-lg font-bold text-burgundy-900 mb-3">Labor Trafficking</h4>
-                    <ul className="text-gray-700 space-y-1">
-                      <li>• Forced labor in agriculture</li>
-                      <li>• Domestic servitude</li>
-                      <li>• Construction work</li>
-                      <li>• Factory or warehouse work</li>
-                      <li>• Restaurant/hospitality work</li>
-                      <li>• Debt bondage</li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h4 className="text-lg font-bold text-burgundy-900 mb-3">Sex Trafficking</h4>
-                    <ul className="text-gray-700 space-y-1">
-                      <li>• Commercial sexual exploitation</li>
-                      <li>• Forced prostitution</li>
-                      <li>• Escort services</li>
-                      <li>• Massage parlors</li>
-                      <li>• Online exploitation</li>
-                      <li>• Pornography production</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
-                  <h3 className="text-xl font-bold text-red-800 mb-2">
-                    Common Trafficking Methods:
-                  </h3>
-                  <div className="grid md:grid-cols-3 gap-4">
-                    <div>
-                      <h4 className="font-bold text-red-700 mb-2">Force</h4>
-                      <ul className="text-red-600 text-sm space-y-1">
-                        <li>• Physical violence</li>
-                        <li>• Sexual assault</li>
-                        <li>• Physical restraint</li>
-                        <li>• Confinement</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-red-700 mb-2">Fraud</h4>
-                      <ul className="text-red-600 text-sm space-y-1">
-                        <li>• False promises</li>
-                        <li>• Fake job offers</li>
-                        <li>• Document fraud</li>
-                        <li>• Lying about conditions</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-red-700 mb-2">Coercion</h4>
-                      <ul className="text-red-600 text-sm space-y-1">
-                        <li>• Threats of harm</li>
-                        <li>• Deportation threats</li>
-                        <li>• Debt manipulation</li>
-                        <li>• Isolation</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  T Visa Eligibility Requirements
-                </h2>
-                <p className="text-gray-700 mb-6">
-                  To qualify for a T visa, you must meet specific requirements established by
-                  federal law. Our attorneys will carefully evaluate your situation to determine
-                  eligibility.
-                </p>
-
-                <div className="space-y-6">
-                  <div className="bg-green-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-green-800 mb-3">
-                      1. Victim of Severe Trafficking
-                    </h3>
-                    <p className="text-green-700">
-                      You must be or have been a victim of severe forms of trafficking in persons,
-                      including both sex trafficking and labor trafficking.
-                    </p>
-                  </div>
-
-                  <div className="bg-green-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-green-800 mb-3">2. Physical Presence</h3>
-                    <p className="text-green-700">
-                      You must be physically present in the United States on account of trafficking.
-                      This includes situations where you were brought to the U.S. for trafficking or
-                      trafficked after arriving.
-                    </p>
-                  </div>
-
-                  <div className="bg-green-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-green-800 mb-3">
-                      3. Cooperation with Law Enforcement
-                    </h3>
-                    <p className="text-green-700">
-                      You must comply with reasonable requests from law enforcement to assist in the
-                      investigation or prosecution of trafficking (unless under 18 or unable due to
-                      trauma).
-                    </p>
-                  </div>
-
-                  <div className="bg-green-50 p-6 rounded-lg">
-                    <h3 className="text-lg font-bold text-green-800 mb-3">4. Extreme Hardship</h3>
-                    <p className="text-green-700">
-                      You would suffer extreme hardship involving unusual and severe harm if removed
-                      from the United States.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 mt-8">
-                  <h3 className="text-xl font-bold text-yellow-800 mb-2">
-                    Special Considerations:
-                  </h3>
-                  <ul className="text-yellow-700 space-y-2">
-                    <li>• Minor victims (under 18) have modified requirements</li>
-                    <li>• Victims too traumatized to cooperate may qualify</li>
-                    <li>• Family members may be included in the application</li>
-                    <li>• Past cooperation with law enforcement may qualify</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  The T Visa Application Process
-                </h2>
-
-                <div className="space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      1
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">
-                        Safe Consultation
-                      </h3>
-                      <p className="text-gray-700">
-                        We provide a confidential, trauma-informed consultation to understand your
-                        situation and assess T visa eligibility.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      2
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">
-                        Evidence Gathering
-                      </h3>
-                      <p className="text-gray-700">
-                        Carefully collect evidence of trafficking, including documentation, witness
-                        statements, and expert testimony when needed.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      3
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">
-                        Law Enforcement Coordination
-                      </h3>
-                      <p className="text-gray-700">
-                        Work with law enforcement agencies to obtain necessary cooperation
-                        documentation while protecting your safety.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-burgundy-700 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      4
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">
-                        Application Filing
-                      </h3>
-                      <p className="text-gray-700">
-                        Prepare and file Form I-914 with comprehensive supporting documentation to
-                        USCIS.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-gold-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                      5
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-burgundy-900 mb-2">
-                        Status & Protection
-                      </h3>
-                      <p className="text-gray-700">
-                        Upon approval, receive T visa status, work authorization, and protection
-                        from removal.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Family Members & Derivative T Visas
-                </h2>
-                <p className="text-gray-700 mb-6">
-                  T visa holders can include certain family members in their application or petition
-                  for them later. Family protection is an important aspect of T visa relief.
-                </p>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-blue-50 p-6 rounded-lg">
-                    <Users className="w-8 h-8 text-blue-600 mb-4" />
-                    <h3 className="text-lg font-bold text-blue-800 mb-3">If You&apos;re Under 21</h3>
-                    <ul className="text-blue-700 space-y-1">
-                      <li>• Spouse</li>
-                      <li>• Children</li>
-                      <li>• Parents</li>
-                      <li>• Unmarried siblings under 18</li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-blue-50 p-6 rounded-lg">
-                    <Users className="w-8 h-8 text-blue-600 mb-4" />
-                    <h3 className="text-lg font-bold text-blue-800 mb-3">If You&apos;re 21 or Older</h3>
-                    <ul className="text-blue-700 space-y-1">
-                      <li>• Spouse</li>
-                      <li>• Unmarried children under 21</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="bg-purple-50 border-l-4 border-purple-500 p-6 mt-6">
-                  <h3 className="text-xl font-bold text-purple-800 mb-2">
-                    Special Family Protections:
-                  </h3>
-                  <ul className="text-purple-700 space-y-2">
-                    <li>• Family members may also be trafficking victims</li>
-                    <li>• Protection available even if family is overseas</li>
-                    <li>• No income requirements for family petitions</li>
-                    <li>• Family members get same benefits as principal applicant</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Path to Permanent Residence
-                </h2>
-                <p className="text-gray-700 mb-6">
-                  T visa holders can apply for permanent residence (green card) after three years of
-                  continuous physical presence in the United States, or earlier in certain
-                  circumstances.
-                </p>
-
-                <div className="bg-green-50 border-l-4 border-green-500 p-6">
-                  <h3 className="text-xl font-bold text-green-800 mb-2">
-                    Green Card Eligibility Requirements:
-                  </h3>
-                  <ul className="text-green-700 space-y-2">
-                    <li>• 3 years of continuous physical presence (may be reduced)</li>
-                    <li>• Good moral character</li>
-                    <li>• Compliance with reasonable law enforcement requests</li>
-                    <li>• Would suffer extreme hardship if removed</li>
-                  </ul>
-                  <p className="text-green-700 mt-4">
-                    <strong>Note:</strong> The 3-year requirement may be reduced if law enforcement
-                    certifies the investigation/prosecution is complete, you were under 18 when
-                    trafficking occurred, or exceptional circumstances exist.
-                  </p>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Why Choose Vasquez Law Firm for T Visa Cases?
-                </h2>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div>
-                    <Heart className="w-8 h-8 text-burgundy-700 mb-4" />
-                    <h3 className="text-xl font-bold text-burgundy-900 mb-4">
-                      Compassionate Representation
-                    </h3>
-                    <ul className="text-gray-700 space-y-2">
-                      <li>• Trauma-informed approach</li>
-                      <li>• Cultural sensitivity</li>
-                      <li>• Patient, understanding attorneys</li>
-                      <li>• Safe, confidential environment</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <Shield className="w-8 h-8 text-burgundy-700 mb-4" />
-                    <h3 className="text-xl font-bold text-burgundy-900 mb-4">Proven Expertise</h3>
-                    <ul className="text-gray-700 space-y-2">
-                      <li>• Specialized trafficking victim experience</li>
-                      <li>• Strong law enforcement relationships</li>
-                      <li>• Comprehensive case preparation</li>
-                      <li>• High approval success rate</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-6">
-                  Resources for Trafficking Survivors
-                </h2>
-                <div className="bg-blue-50 border-l-4 border-blue-500 p-6">
-                  <h3 className="text-xl font-bold text-blue-800 mb-4">Crisis Resources:</h3>
-                  <ul className="text-blue-700 space-y-2">
-                    <li>
-                      • <strong>National Human Trafficking Hotline:</strong> 1-888-373-7888
-                    </li>
-                    <li>
-                      • <strong>Crisis Text Line:</strong> Text 233733
-                    </li>
-                    <li>
-                      • <strong>National Domestic Violence Hotline:</strong> 1-800-799-7233
-                    </li>
-                    <li>
-                      • <strong>National Sexual Assault Hotline:</strong> 1-800-656-4673
-                    </li>
-                  </ul>
-                  <p className="text-blue-700 mt-4 italic">
-                    These resources provide immediate crisis support and can connect you with local
-                    services and legal assistance.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Confidential CTA Section */}
-      <section className="bg-purple-600 text-white py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              You Deserve Protection and Justice
+          {/* T Visa Eligibility */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              T Visa Eligibility Requirements
             </h2>
-            <p className="text-xl mb-8">
-              Your safety and privacy are our priority. Contact us for confidential legal
-              consultation about your T visa options.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 bg-white text-purple-600 font-bold rounded-full hover:bg-gray-100 transition-colors text-lg"
-              >
-                <Phone className="mr-2 w-6 h-6" />
-                CONFIDENTIAL: 1-844-YO-PELEO
-              </a>
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 bg-yellow-400 text-purple-600 font-bold rounded-full hover:bg-yellow-300 transition-colors text-lg"
-              >
-                Safe Consultation
-                <ArrowRight className="ml-2 w-6 h-6" />
-              </Link>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">Primary Requirements</h3>
+                <ul className="space-y-3 text-gray-300">
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary text-xl">✓</span>
+                    <span>Victim of severe forms of trafficking in persons</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary text-xl">✓</span>
+                    <span>Physically present in the US on account of trafficking</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary text-xl">✓</span>
+                    <span>Cooperation with law enforcement (with exceptions)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-primary text-xl">✓</span>
+                    <span>Would suffer extreme hardship if removed</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">Special Protections</h3>
+                <ul className="space-y-3 text-gray-300">
+                  <li className="flex items-start gap-3">
+                    <span className="text-secondary text-xl">🛡️</span>
+                    <span>Minors (under 18) have modified requirements</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-secondary text-xl">❤️</span>
+                    <span>Trauma may excuse inability to cooperate</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-secondary text-xl">👨‍👩‍👧‍👦</span>
+                    <span>Family members may qualify for derivative status</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-secondary text-xl">⏰</span>
+                    <span>Past cooperation may satisfy requirements</span>
+                  </li>
+                </ul>
+              </div>
             </div>
+          </section>
 
-            <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              <div>
-                <MapPin className="w-6 h-6 text-yellow-400 mx-auto mb-2" />
-                <p className="text-sm font-medium">Raleigh, NC</p>
-                <p className="text-xs">(919) 246-8831</p>
+          {/* Family Protection */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">Family Member Protection</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">If Applicant is Under 21</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-primary text-2xl">💑</span>
+                    <span className="text-gray-300">Spouse</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-primary text-2xl">👶</span>
+                    <span className="text-gray-300">Children</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-primary text-2xl">👨‍👩</span>
+                    <span className="text-gray-300">Parents</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-primary text-2xl">👫</span>
+                    <span className="text-gray-300">Unmarried siblings under 18</span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <MapPin className="w-6 h-6 text-yellow-400 mx-auto mb-2" />
-                <p className="text-sm font-medium">Charlotte, NC</p>
-                <p className="text-xs">(704) 266-2998</p>
-              </div>
-              <div>
-                <MapPin className="w-6 h-6 text-yellow-400 mx-auto mb-2" />
-                <p className="text-sm font-medium">Smithfield, NC</p>
-                <p className="text-xs">(919) 209-8788</p>
-              </div>
-              <div>
-                <MapPin className="w-6 h-6 text-yellow-400 mx-auto mb-2" />
-                <p className="text-sm font-medium">Orlando, FL</p>
-                <p className="text-xs">(407) 647-1900</p>
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <h3 className="text-xl font-bold text-primary mb-4">If Applicant is 21 or Older</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-primary text-2xl">💑</span>
+                    <span className="text-gray-300">Spouse</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-primary text-2xl">👶</span>
+                    <span className="text-gray-300">Unmarried children under 21</span>
+                  </div>
+                </div>
+                <div className="mt-6 p-4 bg-primary/10 rounded-lg">
+                  <p className="text-gray-300 text-sm">
+                    <strong className="text-primary">Note:</strong> Family members receive the same
+                    protections and benefits as the principal T visa holder.
+                  </p>
+                </div>
               </div>
             </div>
+          </section>
 
-            <p className="mt-6 text-sm">
-              Complete confidentiality • Trauma-informed representation • Hablamos Español • Over 35
-              years of immigration experience
-            </p>
-          </div>
+          {/* Path to Green Card */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">Path to Permanent Residence</h2>
+            <div className="bg-white/5 backdrop-blur-sm rounded-lg p-8 border border-primary/20">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-4">
+                    Green Card Eligibility Timeline
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-primary text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
+                        3
+                      </div>
+                      <span className="text-gray-300">
+                        Years of continuous physical presence (standard)
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="bg-secondary text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
+                        ⚡
+                      </div>
+                      <span className="text-gray-300">
+                        Earlier filing if investigation/prosecution complete
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="bg-secondary text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
+                        👶
+                      </div>
+                      <span className="text-gray-300">Reduced time if victim was under 18</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-4">Additional Requirements</h3>
+                  <ul className="space-y-2 text-gray-300">
+                    <li>• Good moral character demonstration</li>
+                    <li>• Continued cooperation with law enforcement</li>
+                    <li>• Extreme hardship if removed from US</li>
+                    <li>• Admissibility requirements or waiver</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Crisis Resources */}
+          <section>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              Crisis Resources for Trafficking Survivors
+            </h2>
+            <div className="bg-red-900/20 backdrop-blur-sm rounded-lg p-8 border border-red-500/30">
+              <h3 className="text-xl font-bold text-red-400 mb-6">24/7 Crisis Support</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-red-400 text-xl">📞</span>
+                    <div>
+                      <div className="text-white font-bold">National Human Trafficking Hotline</div>
+                      <div className="text-red-300">1-888-373-7888</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-red-400 text-xl">💬</span>
+                    <div>
+                      <div className="text-white font-bold">Crisis Text Line</div>
+                      <div className="text-red-300">Text 233733</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-red-400 text-xl">🆘</span>
+                    <div>
+                      <div className="text-white font-bold">National Domestic Violence Hotline</div>
+                      <div className="text-red-300">1-800-799-7233</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-red-400 text-xl">🔒</span>
+                    <div>
+                      <div className="text-white font-bold">Confidential Legal Help</div>
+                      <div className="text-red-300">1-844-YO-PELEO</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-6 p-4 bg-red-800/30 rounded-lg">
+                <p className="text-red-200 text-sm italic">
+                  All resources provide immediate crisis support and can connect you with local
+                  services and legal assistance. Your safety is the priority - you deserve
+                  protection and justice.
+                </p>
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
-
-      {/* Structured Data for SEO */}
-      <Script
-        id="practice-structured-data"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Service',
-            serviceType: 'Immigration T Visa Legal Services',
-            provider: {
-              '@type': 'LegalService',
-              name: 'Vasquez Law Firm, PLLC',
-              url: 'https://www.vasquezlawfirm.com',
-              telephone: '+1-919-537-8722',
-              priceRange: '$$',
-            },
-            areaServed: {
-              '@type': 'State',
-              name: 'North Carolina',
-            },
-            url: 'https://www.vasquezlawfirm.com/practice-areas/immigration/t-visa/page',
-            description:
-              'Immigration T Visa legal services in North Carolina. Free consultation. Se habla español.',
-          }),
-        }}
-      />
-    </div>
+      }
+    />
   );
 }

@@ -33,7 +33,7 @@ export class GoogleNewsAPI {
 
   async searchNews(options: NewsSearchOptions): Promise<NewsItem[]> {
     logger.info('Searching news', options);
-    
+
     // Mock implementation - replace with actual API call
     return [
       {
@@ -55,7 +55,7 @@ export class GoogleNewsAPI {
 
   async getTrendingNews(options: TrendingNewsOptions): Promise<NewsItem[]> {
     logger.info('Getting trending news', options);
-    
+
     // Mock implementation
     return [
       {

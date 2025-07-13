@@ -59,7 +59,7 @@ export function SEODominationDashboard() {
     try {
       const [agentsResponse, summaryResponse] = await Promise.all([
         fetch('/api/seo-domination/agents'),
-        fetch('/api/seo-domination?action=metrics')
+        fetch('/api/seo-domination?action=metrics'),
       ]);
 
       const agentsData = await agentsResponse.json();
@@ -79,7 +79,7 @@ export function SEODominationDashboard() {
       const response = await fetch('/api/seo-domination', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action })
+        body: JSON.stringify({ action }),
       });
 
       const data = await response.json();
@@ -102,7 +102,7 @@ export function SEODominationDashboard() {
       await fetch('/api/seo-domination', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'emergency', situation })
+        body: JSON.stringify({ action: 'emergency', situation }),
       });
     } catch (error) {
       logger.error('Failed to trigger emergency response:', error);
@@ -111,10 +111,14 @@ export function SEODominationDashboard() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'text-green-500';
-      case 'idle': return 'text-yellow-500';
-      case 'error': return 'text-red-500';
-      default: return 'text-gray-500';
+      case 'active':
+        return 'text-green-500';
+      case 'idle':
+        return 'text-yellow-500';
+      case 'error':
+        return 'text-red-500';
+      default:
+        return 'text-gray-500';
     }
   };
 
@@ -124,7 +128,7 @@ export function SEODominationDashboard() {
       GoogleMyBusinessKillerAgent: '📍',
       SocialMediaDestroyerAgent: '📱',
       ReviewHarvestingAgent: '⭐',
-      CompetitorSpyAgent: '🕵️'
+      CompetitorSpyAgent: '🕵️',
     };
     return icons[name] || '🤖';
   };
@@ -159,9 +163,7 @@ export function SEODominationDashboard() {
             onClick={handleStartStop}
             disabled={loading}
             className={`text-lg px-8 py-4 ${
-              isRunning 
-                ? 'bg-red-600 hover:bg-red-700' 
-                : 'bg-green-600 hover:bg-green-700'
+              isRunning ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'
             }`}
           >
             {isRunning ? 'STOP DOMINATION' : 'START DOMINATION 🚀'}
@@ -195,7 +197,7 @@ export function SEODominationDashboard() {
       {/* Agent Status Grid */}
       {metrics && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {metrics.agents.map((agent) => (
+          {metrics.agents.map(agent => (
             <Card key={agent.name} className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-bold flex items-center gap-2">
@@ -214,14 +216,12 @@ export function SEODominationDashboard() {
                 </div>
                 <div className="flex justify-between">
                   <span>Success Rate:</span>
-                  <span className="font-bold">
-                    {(agent.successRate * 100).toFixed(1)}%
-                  </span>
+                  <span className="font-bold">{(agent.successRate * 100).toFixed(1)}%</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Last Activity:</span>
                   <span className="text-sm">
-                    {agent.lastActivity 
+                    {agent.lastActivity
                       ? new Date(agent.lastActivity).toLocaleTimeString()
                       : 'Never'}
                   </span>
@@ -297,7 +297,9 @@ export function SEODominationDashboard() {
           <div className="flex items-center gap-2 text-sm">
             <span className="text-green-500">●</span>
             <span className="font-mono">12:34:56</span>
-            <span>📝 BlogContentDomination: Created viral post targeting "immigration lawyer NC"</span>
+            <span>
+              📝 BlogContentDomination: Created viral post targeting "immigration lawyer NC"
+            </span>
           </div>
           <div className="flex items-center gap-2 text-sm">
             <span className="text-green-500">●</span>

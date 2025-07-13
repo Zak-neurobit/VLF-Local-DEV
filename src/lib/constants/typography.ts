@@ -6,7 +6,7 @@ export const typography = {
     serif: ['Georgia', 'serif'],
     mono: ['Menlo', 'Monaco', 'Courier New', 'monospace'],
   },
-  
+
   // Font sizes with line heights
   fontSize: {
     xs: ['0.75rem', { lineHeight: '1rem' }],
@@ -21,7 +21,7 @@ export const typography = {
     '6xl': ['3.75rem', { lineHeight: '1.1' }],
     '7xl': ['4.5rem', { lineHeight: '1.1' }],
   },
-  
+
   // Font weights
   fontWeight: {
     thin: '100',
@@ -33,7 +33,7 @@ export const typography = {
     extrabold: '800',
     black: '900',
   },
-  
+
   // Letter spacing
   letterSpacing: {
     tighter: '-0.05em',

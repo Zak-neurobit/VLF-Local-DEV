@@ -18,7 +18,13 @@ interface SocialPost {
 }
 
 interface ViralContentStrategy {
-  contentType: 'educational' | 'emotional' | 'controversial' | 'trending' | 'interactive' | 'humorous';
+  contentType:
+    | 'educational'
+    | 'emotional'
+    | 'controversial'
+    | 'trending'
+    | 'interactive'
+    | 'humorous';
   hook: string;
   structure: string[];
   expectedEngagement: number;
@@ -49,34 +55,34 @@ export class SocialMediaDestroyerAgent {
     facebook: {
       pageId: process.env.FACEBOOK_PAGE_ID,
       accessToken: process.env.FACEBOOK_ACCESS_TOKEN,
-      apiUrl: 'https://graph.facebook.com/v18.0'
+      apiUrl: 'https://graph.facebook.com/v18.0',
     },
     twitter: {
       apiKey: process.env.TWITTER_API_KEY,
       apiSecret: process.env.TWITTER_API_SECRET,
       accessToken: process.env.TWITTER_ACCESS_TOKEN,
       accessTokenSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
-      apiUrl: 'https://api.twitter.com/2'
+      apiUrl: 'https://api.twitter.com/2',
     },
     linkedin: {
       companyId: process.env.LINKEDIN_COMPANY_ID,
       accessToken: process.env.LINKEDIN_ACCESS_TOKEN,
-      apiUrl: 'https://api.linkedin.com/v2'
+      apiUrl: 'https://api.linkedin.com/v2',
     },
     instagram: {
       businessAccountId: process.env.INSTAGRAM_BUSINESS_ID,
       accessToken: process.env.INSTAGRAM_ACCESS_TOKEN,
-      apiUrl: 'https://graph.facebook.com/v18.0'
+      apiUrl: 'https://graph.facebook.com/v18.0',
     },
     tiktok: {
       accessToken: process.env.TIKTOK_ACCESS_TOKEN,
-      apiUrl: 'https://open-api.tiktok.com'
+      apiUrl: 'https://open-api.tiktok.com',
     },
     youtube: {
       channelId: process.env.YOUTUBE_CHANNEL_ID,
       apiKey: process.env.YOUTUBE_API_KEY,
-      apiUrl: 'https://www.googleapis.com/youtube/v3'
-    }
+      apiUrl: 'https://www.googleapis.com/youtube/v3',
+    },
   };
 
   // Viral Content Templates
@@ -84,39 +90,39 @@ export class SocialMediaDestroyerAgent {
     educational: {
       hooks: [
         '⚠️ This could save your life...',
-        '🚨 What they don\'t want you to know about...',
+        "🚨 What they don't want you to know about...",
         '📚 Lawyers HATE this one simple trick...',
-        '💡 The truth about [TOPIC] that nobody talks about'
+        '💡 The truth about [TOPIC] that nobody talks about',
       ],
-      formats: ['listicle', 'myth_busting', 'step_by_step', 'case_study']
+      formats: ['listicle', 'myth_busting', 'step_by_step', 'case_study'],
     },
     emotional: {
       hooks: [
         '😭 After 10 years of fighting, we finally...',
-        '❤️ This family\'s story will restore your faith...',
+        "❤️ This family's story will restore your faith...",
         '🙏 Against all odds, our client...',
-        '💪 They said it was impossible, but...'
+        '💪 They said it was impossible, but...',
       ],
-      formats: ['client_story', 'transformation', 'victory', 'reunion']
+      formats: ['client_story', 'transformation', 'victory', 'reunion'],
     },
     controversial: {
       hooks: [
         '🔥 Unpopular opinion: [CONTROVERSIAL_TAKE]',
         '⚖️ Why the system is broken (and how to fix it)',
         '🤔 Is [COMMON_BELIEF] actually wrong?',
-        '💣 The legal loophole nobody wants to discuss'
+        '💣 The legal loophole nobody wants to discuss',
       ],
-      formats: ['debate', 'expose', 'challenge', 'revelation']
+      formats: ['debate', 'expose', 'challenge', 'revelation'],
     },
     trending: {
       hooks: [
         '📈 Breaking: New law changes everything',
         '🗞️ In response to [TRENDING_NEWS]...',
         '🔄 How [VIRAL_TREND] affects your legal rights',
-        '⏰ URGENT: [TIME_SENSITIVE_INFO]'
+        '⏰ URGENT: [TIME_SENSITIVE_INFO]',
       ],
-      formats: ['news_hijack', 'trend_response', 'real_time', 'breaking']
-    }
+      formats: ['news_hijack', 'trend_response', 'real_time', 'breaking'],
+    },
   };
 
   // Engagement Boosting Strategies
@@ -125,33 +131,33 @@ export class SocialMediaDestroyerAgent {
       'What would you do?',
       'Tag someone who needs to see this',
       'Have you experienced this?',
-      'Drop a ❤️ if you agree'
+      'Drop a ❤️ if you agree',
     ],
     urgency: [
       'Only valid for the next 24 hours',
       'Limited spots available',
       'Deadline approaching fast',
-      'Act now before it\'s too late'
+      "Act now before it's too late",
     ],
     social_proof: [
       '10,000+ people have already...',
       'Join thousands who...',
       'As seen on [MAJOR_OUTLET]',
-      'Trusted by families across NC'
+      'Trusted by families across NC',
     ],
     incentives: [
       'FREE consultation for the first 10 comments',
       'Share for a chance to win',
       'Comment your story below',
-      'Save this post for later'
-    ]
+      'Save this post for later',
+    ],
   };
 
   // Competitor Monitoring List
   private readonly COMPETITORS = [
     { name: 'Brent Adams', handles: { facebook: 'brentadamslaw', twitter: '@brentadamslaw' } },
     { name: 'Hardwick Law', handles: { facebook: 'hardwicklaw', twitter: '@hardwicklaw' } },
-    { name: 'Whitley Law', handles: { facebook: 'whitleylaw', twitter: '@whitleylaw' } }
+    { name: 'Whitley Law', handles: { facebook: 'whitleylaw', twitter: '@whitleylaw' } },
   ];
 
   constructor() {
@@ -255,7 +261,7 @@ export class SocialMediaDestroyerAgent {
       // Generate content for each opportunity
       for (const opportunity of opportunities) {
         const content = await this.generateViralContent(opportunity);
-        
+
         // Optimize for each platform
         const platformPosts = await this.optimizeForPlatforms(content);
 
@@ -277,7 +283,7 @@ export class SocialMediaDestroyerAgent {
 
     // Check trending topics
     const trending = await this.fetchTrendingTopics();
-    
+
     // Check recent news
     const news = await this.fetchRelevantNews();
 
@@ -289,7 +295,7 @@ export class SocialMediaDestroyerAgent {
       const opportunity = await this.evaluateOpportunity(type, {
         trending,
         news,
-        competitorHits
+        competitorHits,
       });
 
       if (opportunity.expectedEngagement > 1000) {
@@ -341,8 +347,10 @@ Format as JSON with:
 `;
 
     const response = await this.model.invoke([
-      new SystemMessage('You are a viral content expert who creates posts that dominate social media and drive massive engagement.'),
-      new HumanMessage(prompt)
+      new SystemMessage(
+        'You are a viral content expert who creates posts that dominate social media and drive massive engagement.'
+      ),
+      new HumanMessage(prompt),
     ]);
 
     return JSON.parse(response.content.toString());
@@ -359,10 +367,10 @@ Format as JSON with:
         // Monitor each platform
         for (const [platform, handle] of Object.entries(competitor.handles)) {
           const activity = await this.fetchCompetitorPosts(platform, handle);
-          
+
           for (const post of activity) {
             const analysis = await this.analyzeCompetitorPost(post);
-            
+
             if (analysis.viralPotential > 0.7) {
               // High viral potential - create counter-content
               await this.createCounterContent(analysis);
@@ -464,7 +472,8 @@ Format as JSON with:
       for (const post of recentPosts) {
         const engagement = await this.fetchPostEngagement(post);
 
-        if (engagement.rate < 0.05) { // Less than 5% engagement
+        if (engagement.rate < 0.05) {
+          // Less than 5% engagement
           // Boost the post
           await this.boostPost(post);
         }
@@ -485,14 +494,11 @@ Format as JSON with:
     const { pageId, accessToken, apiUrl } = this.PLATFORM_APIS.facebook;
 
     try {
-      const response = await axios.post(
-        `${apiUrl}/${pageId}/feed`,
-        {
-          message: post.content,
-          link: post.mediaUrls?.[0],
-          access_token: accessToken
-        }
-      );
+      const response = await axios.post(`${apiUrl}/${pageId}/feed`, {
+        message: post.content,
+        link: post.mediaUrls?.[0],
+        access_token: accessToken,
+      });
 
       logger.info(`✅ Posted to Facebook: ${response.data.id}`);
     } catch (error) {
@@ -503,7 +509,7 @@ Format as JSON with:
   private async postToTwitter(post: SocialPost): Promise<void> {
     // Twitter API v2 implementation
     const content = `${post.content.substring(0, 250)} ${post.hashtags.map(h => `#${h}`).join(' ')}`;
-    
+
     try {
       // Would use Twitter API client here
       logger.info(`✅ Posted to Twitter: ${content.substring(0, 50)}...`);
@@ -524,20 +530,20 @@ Format as JSON with:
           specificContent: {
             'com.linkedin.ugc.ShareContent': {
               shareCommentary: {
-                text: post.content
+                text: post.content,
               },
-              shareMediaCategory: 'NONE'
-            }
+              shareMediaCategory: 'NONE',
+            },
           },
           visibility: {
-            'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC'
-          }
+            'com.linkedin.ugc.MemberNetworkVisibility': 'PUBLIC',
+          },
         },
         {
           headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-          }
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
         }
       );
 
@@ -558,23 +564,17 @@ Format as JSON with:
       }
 
       // Create media container
-      const containerResponse = await axios.post(
-        `${apiUrl}/${businessAccountId}/media`,
-        {
-          image_url: post.mediaUrls[0],
-          caption: `${post.content}\n\n${post.hashtags.map(h => `#${h}`).join(' ')}`,
-          access_token: accessToken
-        }
-      );
+      const containerResponse = await axios.post(`${apiUrl}/${businessAccountId}/media`, {
+        image_url: post.mediaUrls[0],
+        caption: `${post.content}\n\n${post.hashtags.map(h => `#${h}`).join(' ')}`,
+        access_token: accessToken,
+      });
 
       // Publish the container
-      const publishResponse = await axios.post(
-        `${apiUrl}/${businessAccountId}/media_publish`,
-        {
-          creation_id: containerResponse.data.id,
-          access_token: accessToken
-        }
-      );
+      const publishResponse = await axios.post(`${apiUrl}/${businessAccountId}/media_publish`, {
+        creation_id: containerResponse.data.id,
+        access_token: accessToken,
+      });
 
       logger.info(`✅ Posted to Instagram: ${publishResponse.data.id}`);
     } catch (error) {
@@ -591,7 +591,7 @@ Format as JSON with:
       'workers rights',
       'legal advice',
       'know your rights',
-      'NC laws'
+      'NC laws',
     ];
   }
 
@@ -599,10 +599,10 @@ Format as JSON with:
     // Fetch recent legal news
     const news = await this.prisma.newsAlert.findMany({
       where: {
-        publishedAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) }
+        publishedAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) },
       },
       orderBy: { relevanceScore: 'desc' },
-      take: 10
+      take: 10,
     });
 
     return news;
@@ -617,7 +617,7 @@ Format as JSON with:
       competitor: 'Brent Adams',
       content: 'Client wins $1M settlement',
       engagement: { likes: 500, shares: 100, comments: 50 },
-      format: 'success_story'
+      format: 'success_story',
     });
 
     return viralPosts;
@@ -625,16 +625,16 @@ Format as JSON with:
 
   private async evaluateOpportunity(
     contentType: string,
-    data: { trending: string[], news: any[], competitorHits: any[] }
+    data: { trending: string[]; news: any[]; competitorHits: any[] }
   ): Promise<ViralContentStrategy> {
     const template = this.VIRAL_TEMPLATES[contentType as keyof typeof this.VIRAL_TEMPLATES];
-    
+
     return {
       contentType: contentType as any,
       hook: template.hooks[0],
       structure: this.generateContentStructure(contentType),
       expectedEngagement: this.predictEngagement(contentType, data),
-      targetAudience: this.identifyTargetAudience(contentType)
+      targetAudience: this.identifyTargetAudience(contentType),
     };
   }
 
@@ -642,8 +642,15 @@ Format as JSON with:
     const structures = {
       educational: ['Hook', 'Problem', 'Solution', 'Example', 'CTA'],
       emotional: ['Hook', 'Story Setup', 'Conflict', 'Resolution', 'Impact', 'CTA'],
-      controversial: ['Hook', 'Conventional Wisdom', 'Challenge', 'Evidence', 'New Perspective', 'CTA'],
-      trending: ['Hook', 'Context', 'Legal Angle', 'What It Means', 'Action Steps', 'CTA']
+      controversial: [
+        'Hook',
+        'Conventional Wisdom',
+        'Challenge',
+        'Evidence',
+        'New Perspective',
+        'CTA',
+      ],
+      trending: ['Hook', 'Context', 'Legal Angle', 'What It Means', 'Action Steps', 'CTA'],
     };
 
     return structures[contentType as keyof typeof structures] || ['Hook', 'Body', 'CTA'];
@@ -655,14 +662,14 @@ Format as JSON with:
       educational: 1500,
       emotional: 3000,
       controversial: 2500,
-      trending: 2000
+      trending: 2000,
     };
 
     let engagement = baseEngagement[contentType as keyof typeof baseEngagement] || 1000;
 
     // Boost for trending topics
     if (data.trending.length > 3) engagement *= 1.5;
-    
+
     // Boost for news relevance
     if (data.news.length > 0) engagement *= 1.3;
 
@@ -674,7 +681,7 @@ Format as JSON with:
       educational: ['information seekers', 'potential clients', 'students'],
       emotional: ['past clients', 'supporters', 'community members'],
       controversial: ['engaged citizens', 'activists', 'thought leaders'],
-      trending: ['news followers', 'local community', 'affected individuals']
+      trending: ['news followers', 'local community', 'affected individuals'],
     };
 
     return audienceMap[contentType as keyof typeof audienceMap] || ['general public'];
@@ -689,7 +696,7 @@ Format as JSON with:
       content: content.mainContent,
       mediaUrls: [content.visualConcept],
       hashtags: content.hashtags.slice(0, 5),
-      mentions: ['@charlottenc', '@raleighnc']
+      mentions: ['@charlottenc', '@raleighnc'],
     };
 
     // Twitter - concise, news-jacking
@@ -697,7 +704,7 @@ Format as JSON with:
       platform: 'twitter',
       content: content.mainContent.substring(0, 250) + '... [THREAD]',
       hashtags: content.hashtags.slice(0, 3),
-      mentions: ['@NCBar', '@USCIS']
+      mentions: ['@NCBar', '@USCIS'],
     };
 
     // LinkedIn - professional, educational
@@ -705,7 +712,7 @@ Format as JSON with:
       platform: 'linkedin',
       content: `🎯 ${content.mainContent}\n\n#LegalAdvice #NorthCarolina #VasquezLawFirm`,
       hashtags: ['legal', 'immigration', 'personalinjury', 'workerscomp'],
-      mentions: []
+      mentions: [],
     };
 
     // Instagram - visual, inspirational
@@ -713,7 +720,7 @@ Format as JSON with:
       platform: 'instagram',
       content: content.mainContent.substring(0, 500),
       mediaUrls: [content.visualConcept],
-      hashtags: content.hashtags.concat(['lawyersofinstagram', 'nclaw', 'legalhelp'])
+      hashtags: content.hashtags.concat(['lawyersofinstagram', 'nclaw', 'legalhelp']),
     };
 
     return optimized;
@@ -740,8 +747,8 @@ Format as JSON with:
           blogPostId: campaignId,
           platform,
           scheduledFor: post.scheduledTime,
-          status: 'scheduled'
-        }
+          status: 'scheduled',
+        },
       });
     }
   }
@@ -760,23 +767,25 @@ Format as JSON with:
       engagement: {
         likes: post.likes || 0,
         comments: post.comments || 0,
-        shares: post.shares || 0
+        shares: post.shares || 0,
       },
       timestamp: new Date(post.created_at || Date.now()),
-      viralPotential: Math.random() // Would calculate based on engagement rate
+      viralPotential: Math.random(), // Would calculate based on engagement rate
     };
   }
 
   private async createCounterContent(competitorPost: CompetitorActivity): Promise<void> {
-    logger.info(`Creating counter-content for competitor viral: ${competitorPost.postContent.substring(0, 50)}...`);
-    
+    logger.info(
+      `Creating counter-content for competitor viral: ${competitorPost.postContent.substring(0, 50)}...`
+    );
+
     // Generate better content on the same topic
     const counterContent = await this.generateViralContent({
       contentType: 'trending',
-      hook: 'Here\'s what they didn\'t tell you...',
+      hook: "Here's what they didn't tell you...",
       structure: ['Hook', 'Truth', 'Evidence', 'CTA'],
       expectedEngagement: competitorPost.engagement.likes * 2,
-      targetAudience: ['competitor followers']
+      targetAudience: ['competitor followers'],
     });
 
     // Fast-track publishing
@@ -786,14 +795,14 @@ Format as JSON with:
   private async publishImmediately(content: any): Promise<void> {
     // Publish across all platforms immediately
     const platforms = ['facebook', 'twitter', 'linkedin', 'instagram'];
-    
+
     for (const platform of platforms) {
       try {
         await this.postToPlatform(platform as SocialPost['platform'], {
           platform: platform as SocialPost['platform'],
           content: content.mainContent,
           hashtags: content.hashtags,
-          mediaUrls: content.visualConcept ? [content.visualConcept] : undefined
+          mediaUrls: content.visualConcept ? [content.visualConcept] : undefined,
         });
       } catch (error) {
         logger.error(`Failed to publish to ${platform}:`, error);
@@ -810,8 +819,8 @@ Format as JSON with:
           domain: activity.competitorName,
           blogPosts: [activity],
           seoData: {},
-          analyzedAt: new Date()
-        }
+          analyzedAt: new Date(),
+        },
       });
     }
   }
@@ -835,9 +844,10 @@ Format as JSON with:
     // Create polls, Q&As, and interactive content
     const interactivePost = {
       platform: 'facebook' as const,
-      content: '🤔 POLL: What\'s your biggest legal concern?\n\nA) Immigration status\nB) Workplace injury\nC) Traffic violation\nD) Other (comment below)\n\nVote now and get a FREE consultation tip! 👇',
+      content:
+        "🤔 POLL: What's your biggest legal concern?\n\nA) Immigration status\nB) Workplace injury\nC) Traffic violation\nD) Other (comment below)\n\nVote now and get a FREE consultation tip! 👇",
       hashtags: ['legalhelp', 'freeconsultation', 'knowyourrights'],
-      mediaUrls: ['/images/interactive-poll.jpg']
+      mediaUrls: ['/images/interactive-poll.jpg'],
     };
 
     await this.postToFacebook(interactivePost);
@@ -848,7 +858,7 @@ Format as JSON with:
     return {
       title: 'Ultimate Guide to NC Legal Rights 2024',
       url: 'https://vasquezlawfirm.com/ultimate-guide-nc-legal-rights',
-      description: 'Comprehensive guide covering all legal rights in North Carolina'
+      description: 'Comprehensive guide covering all legal rights in North Carolina',
     };
   }
 
@@ -872,9 +882,9 @@ Format as JSON with:
     const scheduled = await this.prisma.contentSchedule.findMany({
       where: {
         status: 'scheduled',
-        scheduledFor: { lte: new Date() }
+        scheduledFor: { lte: new Date() },
       },
-      take: 10
+      take: 10,
     });
 
     return scheduled;
@@ -886,7 +896,7 @@ Format as JSON with:
       facebook: { ...post, content: post.content },
       twitter: { ...post, content: post.content.substring(0, 280) },
       linkedin: { ...post, content: `🎯 ${post.content}` },
-      instagram: { ...post, content: post.content, requiresImage: true }
+      instagram: { ...post, content: post.content, requiresImage: true },
     };
   }
 
@@ -920,8 +930,8 @@ Format as JSON with:
     return await this.prisma.contentSchedule.findMany({
       where: {
         status: 'published',
-        scheduledFor: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) }
-      }
+        scheduledFor: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) },
+      },
     });
   }
 
@@ -931,17 +941,17 @@ Format as JSON with:
       rate: Math.random() * 0.1, // 0-10% engagement rate
       likes: Math.floor(Math.random() * 1000),
       comments: Math.floor(Math.random() * 100),
-      shares: Math.floor(Math.random() * 50)
+      shares: Math.floor(Math.random() * 50),
     };
   }
 
   private async boostPost(post: any): Promise<void> {
     // Boost underperforming posts
     logger.info(`Boosting post: ${post.blogPostId}`);
-    
+
     // Add engagement prompt
     const boostComment = 'Have you or someone you know experienced this? Share your story below 👇';
-    
+
     // Would post comment on actual platform
   }
 
@@ -957,7 +967,7 @@ Format as JSON with:
       avgEngagement: Math.random() * 1000,
       topPerformingType: 'emotional',
       optimalPostTime: '9:00 AM',
-      bestPlatform: 'facebook'
+      bestPlatform: 'facebook',
     };
 
     logger.info('📊 Social Media Analytics:', analytics);

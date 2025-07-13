@@ -103,7 +103,7 @@ class WebVitalsOptimizer {
 
   private observeFCP() {
     try {
-      const observer = new PerformanceObserver((list) => {
+      const observer = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           if (entry.name === 'first-contentful-paint') {
             this.metrics.fcp = entry.startTime;
@@ -120,7 +120,7 @@ class WebVitalsOptimizer {
 
   private observeLCP() {
     try {
-      const observer = new PerformanceObserver((list) => {
+      const observer = new PerformanceObserver(list => {
         const entries = list.getEntries();
         const lastEntry = entries[entries.length - 1];
         this.metrics.lcp = lastEntry.startTime;
@@ -135,7 +135,7 @@ class WebVitalsOptimizer {
 
   private observeFID() {
     try {
-      const observer = new PerformanceObserver((list) => {
+      const observer = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           if (entry.name === 'first-input') {
             const fid = (entry as any).processingStart - entry.startTime;
@@ -154,7 +154,7 @@ class WebVitalsOptimizer {
   private observeCLS() {
     try {
       let clsValue = 0;
-      const observer = new PerformanceObserver((list) => {
+      const observer = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           if (!(entry as any).hadRecentInput) {
             clsValue += (entry as any).value;
@@ -172,7 +172,7 @@ class WebVitalsOptimizer {
 
   private observeTTFB() {
     try {
-      const observer = new PerformanceObserver((list) => {
+      const observer = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           const nav = entry as PerformanceNavigationTiming;
           const ttfb = nav.responseStart - nav.requestStart;
@@ -190,7 +190,7 @@ class WebVitalsOptimizer {
   private observeINP() {
     try {
       // INP is newer and may not be supported in all browsers
-      const observer = new PerformanceObserver((list) => {
+      const observer = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           if (entry.name === 'interaction') {
             this.metrics.inp = entry.duration;
@@ -214,7 +214,10 @@ class WebVitalsOptimizer {
     });
   }
 
-  private getRating(metric: keyof WebVitalsMetrics, value: number): 'good' | 'needs-improvement' | 'poor' {
+  private getRating(
+    metric: keyof WebVitalsMetrics,
+    value: number
+  ): 'good' | 'needs-improvement' | 'poor' {
     const thresholds = {
       fcp: { good: 1800, poor: 3000 },
       lcp: { good: 2500, poor: 4000 },
@@ -239,7 +242,7 @@ class WebVitalsOptimizer {
   public getOptimizationRecommendations(): string[] {
     const recommendations: string[] = [];
 
-    this.strategies.forEach((strategy) => {
+    this.strategies.forEach(strategy => {
       const value = this.metrics[strategy.metric];
       if (value && value > strategy.threshold) {
         recommendations.push(...strategy.actions);
@@ -417,9 +420,11 @@ ${recommendations.length > 0 ? recommendations.map(rec => `- ${rec}`).join('\n')
 
   private static addResourceHints() {
     // Add DNS prefetch for external domains
-    const externalLinks = document.querySelectorAll('a[href^="http"]:not([href*="' + window.location.hostname + '"])');
+    const externalLinks = document.querySelectorAll(
+      'a[href^="http"]:not([href*="' + window.location.hostname + '"])'
+    );
     const domains = new Set<string>();
-    
+
     externalLinks.forEach(link => {
       try {
         const url = new URL(link.getAttribute('href') || '');

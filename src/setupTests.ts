@@ -81,21 +81,21 @@ if (typeof document !== 'undefined') {
 
   document.createElement = jest.fn((tagName: string) => {
     const element = originalCreateElement(tagName);
-    
+
     if (tagName === 'a') {
       // Override click method for anchor elements
       element.click = jest.fn();
     }
-    
+
     return element;
   }) as any;
 
   // Mock document.body.appendChild and removeChild
-  document.body.appendChild = jest.fn((element) => {
+  document.body.appendChild = jest.fn(element => {
     return element;
   });
 
-  document.body.removeChild = jest.fn((element) => {
+  document.body.removeChild = jest.fn(element => {
     return element;
   });
 }

@@ -5,11 +5,14 @@ import { MasterLayout } from '@/design-system/templates/MasterLayout';
 
 export const metadata: Metadata = {
   title: 'Charlotte Immigration Lawyer - YO PELEO POR TI™ | Vasquez Law Firm',
-  description: 'Top-rated Charlotte immigration lawyer serving Mecklenburg County. Green cards, deportation defense, work visas, citizenship. 98% success rate. Free consultation. Se habla español.',
-  keywords: 'Charlotte immigration lawyer, Charlotte immigration attorney, immigration lawyer Charlotte NC, deportation defense Charlotte, green card lawyer Charlotte, work visa attorney Charlotte, citizenship lawyer Charlotte, Charlotte immigration law firm, best immigration lawyer Charlotte',
+  description:
+    'Top-rated Charlotte immigration lawyer serving Mecklenburg County. Green cards, deportation defense, work visas, citizenship. 98% success rate. Free consultation. Se habla español.',
+  keywords:
+    'Charlotte immigration lawyer, Charlotte immigration attorney, immigration lawyer Charlotte NC, deportation defense Charlotte, green card lawyer Charlotte, work visa attorney Charlotte, citizenship lawyer Charlotte, Charlotte immigration law firm, best immigration lawyer Charlotte',
   openGraph: {
     title: 'Charlotte Immigration Lawyer - YO PELEO POR TI™ | Vasquez Law Firm',
-    description: 'Charlotte\'s most trusted immigration law firm. Expert representation for green cards, deportation defense, work visas & citizenship. Military discipline meets legal excellence.',
+    description:
+      "Charlotte's most trusted immigration law firm. Expert representation for green cards, deportation defense, work visas & citizenship. Military discipline meets legal excellence.",
     images: [{ url: '/images/offices/charlotte-immigration-lawyer.jpg' }],
     type: 'website',
     locale: 'en_US',
@@ -18,7 +21,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Charlotte Immigration Lawyer - YO PELEO POR TI™',
-    description: 'Expert immigration legal services in Charlotte, NC. 98% success rate. Free consultation.',
+    description:
+      'Expert immigration legal services in Charlotte, NC. 98% success rate. Free consultation.',
   },
   alternates: {
     canonical: 'https://www.vasquezlawfirm.com/locations/charlotte/immigration-lawyer',
@@ -35,8 +39,9 @@ export default function CharlotteImmigrationLawyerPage() {
     serviceName: 'Immigration Law',
     heroTitle: 'Charlotte Immigration Lawyer',
     heroSubtitle: 'YO PELEO POR TI™',
-    heroDescription: 'Charlotte\'s most trusted immigration law firm. Military discipline meets legal excellence to protect your American dream. 98% success rate with over 30,000 cases won.',
-    
+    heroDescription:
+      "Charlotte's most trusted immigration law firm. Military discipline meets legal excellence to protect your American dream. 98% success rate with over 30,000 cases won.",
+
     localStats: {
       stat1: { value: '5,000+', label: 'Charlotte Families Helped' },
       stat2: { value: '98%', label: 'Success Rate' },
@@ -46,26 +51,32 @@ export default function CharlotteImmigrationLawyerPage() {
 
     serviceDetails: {
       title: 'Charlotte Immigration Legal Services',
-      description: 'Comprehensive immigration representation for Charlotte and Mecklenburg County residents',
+      description:
+        'Comprehensive immigration representation for Charlotte and Mecklenburg County residents',
       services: [
         {
           name: 'Deportation Defense',
-          description: 'Emergency deportation defense at Charlotte Immigration Court. We fight detention and removal proceedings.',
+          description:
+            'Emergency deportation defense at Charlotte Immigration Court. We fight detention and removal proceedings.',
           localInfo: 'Regular representation at Charlotte Immigration Court on Central Avenue',
         },
         {
           name: 'Green Cards & Permanent Residency',
-          description: 'Family-based and employment-based green card applications. Adjustment of status and consular processing.',
+          description:
+            'Family-based and employment-based green card applications. Adjustment of status and consular processing.',
           localInfo: 'Fast processing through USCIS Charlotte Field Office',
         },
         {
           name: 'Work Visas & Employment Authorization',
-          description: 'H-1B, L-1, E-2, and other work visas for Charlotte\'s banking, tech, and healthcare sectors.',
-          localInfo: 'Serving Bank of America, Wells Fargo, Atrium Health, and other major Charlotte employers',
+          description:
+            "H-1B, L-1, E-2, and other work visas for Charlotte's banking, tech, and healthcare sectors.",
+          localInfo:
+            'Serving Bank of America, Wells Fargo, Atrium Health, and other major Charlotte employers',
         },
         {
           name: 'Citizenship & Naturalization',
-          description: 'Complete citizenship application assistance, interview preparation, and appeals.',
+          description:
+            'Complete citizenship application assistance, interview preparation, and appeals.',
           localInfo: 'Weekly citizenship clinics at our Charlotte office',
         },
         {
@@ -75,7 +86,8 @@ export default function CharlotteImmigrationLawyerPage() {
         },
         {
           name: 'Asylum & Refugee Protection',
-          description: 'Asylum applications, interviews, and appeals for those fleeing persecution.',
+          description:
+            'Asylum applications, interviews, and appeals for those fleeing persecution.',
           localInfo: 'Experienced with Charlotte Immigration Court asylum proceedings',
         },
       ],
@@ -87,7 +99,7 @@ export default function CharlotteImmigrationLawyerPage() {
         'Regular practice at Charlotte Immigration Court on Central Avenue',
         'Deep relationships with USCIS Charlotte Field Office',
         'Understanding of local employment sectors: banking, healthcare, energy',
-        'Active in Charlotte\'s Hispanic and immigrant communities',
+        "Active in Charlotte's Hispanic and immigrant communities",
         'Convenient location off I-85 with free parking',
         'Bilingual staff fluent in Spanish and English',
       ],
@@ -100,12 +112,13 @@ export default function CharlotteImmigrationLawyerPage() {
       phone: '(704) 535-6000',
       hours: 'Monday-Friday: 8:00 AM - 4:30 PM',
       parkingInfo: 'Free parking available on-site',
-      additionalInfo: 'We appear regularly at Charlotte Immigration Court and know the judges and procedures. Our office is just 10 minutes away for convenient meetings before and after hearings.',
+      additionalInfo:
+        'We appear regularly at Charlotte Immigration Court and know the judges and procedures. Our office is just 10 minutes away for convenient meetings before and after hearings.',
     },
 
     testimonials: [
       {
-        text: 'Attorney Vasquez saved my family from deportation. His team fought for us when no one else would. Now we\'re permanent residents!',
+        text: "Attorney Vasquez saved my family from deportation. His team fought for us when no one else would. Now we're permanent residents!",
         author: 'Maria G.',
         location: 'South Charlotte',
         rating: 5,
@@ -135,19 +148,23 @@ export default function CharlotteImmigrationLawyerPage() {
     faqs: [
       {
         question: 'How much does a Charlotte immigration lawyer cost?',
-        answer: 'We offer transparent flat fees for most immigration cases. Payment plans available. Initial consultations are always free. We believe everyone deserves quality legal representation regardless of their financial situation.',
+        answer:
+          'We offer transparent flat fees for most immigration cases. Payment plans available. Initial consultations are always free. We believe everyone deserves quality legal representation regardless of their financial situation.',
       },
       {
         question: 'Do you handle emergency deportation cases in Charlotte?',
-        answer: 'Yes! We offer 24/7 emergency deportation defense. If you or a loved one is detained by ICE in Charlotte or surrounding areas, call us immediately at 1-844-YO-PELEO.',
+        answer:
+          'Yes! We offer 24/7 emergency deportation defense. If you or a loved one is detained by ICE in Charlotte or surrounding areas, call us immediately at 1-844-YO-PELEO.',
       },
       {
         question: 'How long do immigration cases take in Charlotte?',
-        answer: 'Timeline varies by case type. Charlotte Immigration Court cases can take 2-4 years. USCIS applications typically take 6-12 months. We work to expedite your case whenever possible.',
+        answer:
+          'Timeline varies by case type. Charlotte Immigration Court cases can take 2-4 years. USCIS applications typically take 6-12 months. We work to expedite your case whenever possible.',
       },
       {
         question: 'Do you speak Spanish?',
-        answer: 'Yes! Our entire Charlotte team is bilingual. We conduct consultations, prepare documents, and represent clients in both English and Spanish.',
+        answer:
+          'Yes! Our entire Charlotte team is bilingual. We conduct consultations, prepare documents, and represent clients in both English and Spanish.',
       },
     ],
 
@@ -193,7 +210,8 @@ export default function CharlotteImmigrationLawyerPage() {
       'Fort Mill, SC',
     ],
 
-    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3259.8651648937!2d-80.8433!3d35.2271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDEzJzM3LjYiTiA4MMKwNTAnMzUuOSJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
+    mapEmbedUrl:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3259.8651648937!2d-80.8433!3d35.2271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDEzJzM3LjYiTiA4MMKwNTAnMzUuOSJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
 
     // SEO-optimized content sections
     whyHireUs: {
@@ -212,7 +230,7 @@ export default function CharlotteImmigrationLawyerPage() {
       <MasterLayout variant="default" showBreadcrumbs={true}>
         <ModernServiceLocationTemplate data={serviceLocationData} />
       </MasterLayout>
-      
+
       {/* Local Business Schema */}
       <Script
         id="charlotte-immigration-lawyer-local-business-schema"
@@ -223,7 +241,8 @@ export default function CharlotteImmigrationLawyerPage() {
             '@type': 'LegalService',
             '@id': 'https://www.vasquezlawfirm.com/locations/charlotte/immigration-lawyer',
             name: 'Vasquez Law Firm - Charlotte Immigration Lawyer',
-            description: 'Top-rated Charlotte immigration lawyer serving Mecklenburg County. Green cards, deportation defense, work visas, citizenship.',
+            description:
+              'Top-rated Charlotte immigration lawyer serving Mecklenburg County. Green cards, deportation defense, work visas, citizenship.',
             url: 'https://www.vasquezlawfirm.com/locations/charlotte/immigration-lawyer',
             telephone: '+1-844-967-3536',
             address: {
@@ -315,7 +334,8 @@ export default function CharlotteImmigrationLawyerPage() {
                   '@type': 'Person',
                   name: 'Maria G.',
                 },
-                reviewBody: 'Attorney Vasquez saved my family from deportation. His team fought for us when no one else would.',
+                reviewBody:
+                  'Attorney Vasquez saved my family from deportation. His team fought for us when no one else would.',
               },
             ],
             aggregateRating: {
@@ -349,7 +369,13 @@ export default function CharlotteImmigrationLawyerPage() {
               postalCode: '28212',
               addressCountry: 'US',
             },
-            knowsAbout: ['Immigration Law', 'Deportation Defense', 'Green Cards', 'Work Visas', 'Citizenship'],
+            knowsAbout: [
+              'Immigration Law',
+              'Deportation Defense',
+              'Green Cards',
+              'Work Visas',
+              'Citizenship',
+            ],
             alumniOf: {
               '@type': 'EducationalOrganization',
               name: 'Law School Name',

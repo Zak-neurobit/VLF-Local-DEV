@@ -75,7 +75,7 @@ const AGENT_REGISTRY: AgentDeploymentStatus[] = [
     capabilities: ['Advanced removal defense', 'AILA procedures', 'Federal court'],
     integrations: ['AILA Database', 'Federal Systems'],
   },
-  
+
   // Automation Agents
   {
     name: 'Lead Validation Agent',
@@ -116,7 +116,7 @@ const AGENT_REGISTRY: AgentDeploymentStatus[] = [
 
 async function deployAgentArmy() {
   console.log('🚀 Deploying AI Agent Army...\n');
-  
+
   const prisma = getPrismaClient();
   if (!prisma) {
     console.error('❌ Database connection failed');
@@ -124,14 +124,14 @@ async function deployAgentArmy() {
   }
 
   const ghl = new GoHighLevelService();
-  
+
   console.log('📊 Agent Deployment Status:');
-  console.log('=' .repeat(80));
-  
+  console.log('='.repeat(80));
+
   let totalActive = 0;
   let totalPending = 0;
   let totalError = 0;
-  
+
   // Display agent status
   for (const agent of AGENT_REGISTRY) {
     const statusEmoji = {
@@ -139,27 +139,27 @@ async function deployAgentArmy() {
       pending: '⏳',
       error: '❌',
     }[agent.status];
-    
+
     console.log(`\n${statusEmoji} ${agent.name}`);
     console.log(`   Type: ${agent.type}`);
     console.log(`   Capabilities: ${agent.capabilities.join(', ')}`);
     console.log(`   Integrations: ${agent.integrations.join(', ')}`);
-    
+
     if (agent.status === 'active') totalActive++;
     if (agent.status === 'pending') totalPending++;
     if (agent.status === 'error') totalError++;
   }
-  
-  console.log('\n' + '=' .repeat(80));
+
+  console.log('\n' + '='.repeat(80));
   console.log('\n📈 Deployment Summary:');
   console.log(`   Total Agents: ${AGENT_REGISTRY.length}`);
   console.log(`   ✅ Active: ${totalActive}`);
   console.log(`   ⏳ Pending: ${totalPending}`);
   console.log(`   ❌ Errors: ${totalError}`);
-  
+
   // Test critical integrations
   console.log('\n🔌 Testing Integrations:');
-  
+
   // Test GHL
   try {
     const ghlTest = await ghl.testConnection();
@@ -167,7 +167,7 @@ async function deployAgentArmy() {
   } catch (error) {
     console.log('   ❌ GoHighLevel: Failed');
   }
-  
+
   // Test Database
   try {
     await prisma.$queryRaw`SELECT 1`;
@@ -175,7 +175,7 @@ async function deployAgentArmy() {
   } catch (error) {
     console.log('   ❌ Database: Failed');
   }
-  
+
   // Test Redis (if available)
   try {
     const { redis } = await import('../src/lib/cache/redis');
@@ -184,13 +184,13 @@ async function deployAgentArmy() {
   } catch (error) {
     console.log('   ⚠️  Redis: Using Mock (OK for production)');
   }
-  
+
   console.log('\n🎯 Agent Capabilities Summary:');
   console.log('   • Customer Service: 8 agents');
   console.log('   • Lead Management: 2 agents');
   console.log('   • Content & SEO: 2 agents');
   console.log('   • Specialized: 1 agent');
-  
+
   console.log('\n✨ Key Features:');
   console.log('   • 24/7 Automated lead validation and scoring');
   console.log('   • Multi-language support (English/Spanish)');
@@ -198,7 +198,7 @@ async function deployAgentArmy() {
   console.log('   • Real-time GHL CRM synchronization');
   console.log('   • Advanced legal case analysis');
   console.log('   • Automated content generation');
-  
+
   console.log('\n🚀 Agent Army Deployment Complete!');
   console.log('   All systems operational and ready to serve clients.\n');
 }

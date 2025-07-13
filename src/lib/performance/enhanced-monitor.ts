@@ -51,7 +51,7 @@ class EnhancedPerformanceMonitor {
   private setupWebVitalsObserver() {
     try {
       // Paint timing (FCP, LCP)
-      const paintObserver = new PerformanceObserver((list) => {
+      const paintObserver = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           if (entry.name === 'first-contentful-paint') {
             this.metrics.fcp = entry.startTime;
@@ -62,7 +62,7 @@ class EnhancedPerformanceMonitor {
       this.observers.push(paintObserver);
 
       // LCP Observer
-      const lcpObserver = new PerformanceObserver((list) => {
+      const lcpObserver = new PerformanceObserver(list => {
         const entries = list.getEntries();
         const lastEntry = entries[entries.length - 1];
         this.metrics.lcp = lastEntry.startTime;
@@ -71,7 +71,7 @@ class EnhancedPerformanceMonitor {
       this.observers.push(lcpObserver);
 
       // FID Observer
-      const fidObserver = new PerformanceObserver((list) => {
+      const fidObserver = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           if (entry.name === 'first-input') {
             this.metrics.fid = (entry as any).processingStart - entry.startTime;
@@ -82,7 +82,7 @@ class EnhancedPerformanceMonitor {
       this.observers.push(fidObserver);
 
       // CLS Observer
-      const clsObserver = new PerformanceObserver((list) => {
+      const clsObserver = new PerformanceObserver(list => {
         let clsValue = 0;
         for (const entry of list.getEntries()) {
           if (!(entry as any).hadRecentInput) {
@@ -93,7 +93,6 @@ class EnhancedPerformanceMonitor {
       });
       clsObserver.observe({ entryTypes: ['layout-shift'] });
       this.observers.push(clsObserver);
-
     } catch (error) {
       logger.warn('Web Vitals observer setup failed', { error });
     }
@@ -101,10 +100,10 @@ class EnhancedPerformanceMonitor {
 
   private setupResourceObserver() {
     try {
-      const resourceObserver = new PerformanceObserver((list) => {
+      const resourceObserver = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           const resource = entry as PerformanceResourceTiming;
-          
+
           this.resourceTimings.push({
             name: resource.name,
             startTime: resource.startTime,
@@ -134,7 +133,7 @@ class EnhancedPerformanceMonitor {
 
   private setupNavigationObserver() {
     try {
-      const navigationObserver = new PerformanceObserver((list) => {
+      const navigationObserver = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           const nav = entry as PerformanceNavigationTiming;
           this.metrics.ttfb = nav.responseStart - nav.requestStart;
@@ -188,36 +187,36 @@ class EnhancedPerformanceMonitor {
 
   public getPerformanceScore(): number {
     const { fcp, lcp, fid, cls, ttfb } = this.metrics;
-    
+
     let score = 100;
-    
+
     // FCP scoring (good < 1800ms)
     if (fcp && fcp > 1800) score -= 10;
     if (fcp && fcp > 3000) score -= 10;
-    
+
     // LCP scoring (good < 2500ms)
     if (lcp && lcp > 2500) score -= 15;
     if (lcp && lcp > 4000) score -= 15;
-    
+
     // FID scoring (good < 100ms)
     if (fid && fid > 100) score -= 10;
     if (fid && fid > 300) score -= 10;
-    
+
     // CLS scoring (good < 0.1)
     if (cls && cls > 0.1) score -= 15;
     if (cls && cls > 0.25) score -= 15;
-    
+
     // TTFB scoring (good < 600ms)
     if (ttfb && ttfb > 600) score -= 10;
     if (ttfb && ttfb > 1000) score -= 10;
-    
+
     return Math.max(0, score);
   }
 
   public generateReport(): string {
     const score = this.getPerformanceScore();
     const { fcp, lcp, fid, cls, ttfb } = this.metrics;
-    
+
     return `
 Performance Report:
 - Score: ${score}/100
@@ -246,7 +245,7 @@ Performance Report:
         logger.warn('Failed to disconnect observer', { error });
       }
     });
-    
+
     if ((this as any).memoryInterval) {
       clearInterval((this as any).memoryInterval);
     }
@@ -256,7 +255,7 @@ Performance Report:
   public startRealTimeMonitoring() {
     const interval = setInterval(() => {
       this.logMetrics();
-      
+
       // Alert for performance issues
       const score = this.getPerformanceScore();
       if (score < 70) {

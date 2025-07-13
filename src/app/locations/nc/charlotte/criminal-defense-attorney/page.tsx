@@ -1,14 +1,21 @@
-export default function CharlotteCriminalDefenseAttorneyPage() {
-  return (
-    <div className="min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">
-          Criminal Defense Attorney in Charlotte
-        </h1>
-        <p className="text-lg text-gray-700">
-          Find experienced criminal defense attorney services in Charlotte, NC.
-        </p>
-      </div>
-    </div>
-  );
+import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
+import { Metadata } from 'next';
+
+export default function CriminalDefenseAttorneyPage() {
+  const locationData = {
+    city: 'Criminal Defense Attorney',
+    state: 'NC',
+    heroTitle: 'Legal Services in Criminal Defense Attorney',
+    heroSubtitle: 'Trusted attorneys serving the local community',
+    practiceAreas: [], // TODO: Add practice areas
+    attorneys: [], // TODO: Add attorneys
+    officeInfo: {
+      address: '',
+      phone: '1-844-YO-PELEO',
+      hours: 'Monday-Friday 9AM-5PM',
+    },
+    language: 'en' as const,
+  };
+
+  return <LocationPageTemplate {...locationData} />;
 }

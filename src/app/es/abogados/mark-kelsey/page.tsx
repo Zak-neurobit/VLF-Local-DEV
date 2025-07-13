@@ -1,116 +1,67 @@
+import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
-import Link from 'next/link';
-import { Phone, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Mark Kelsey - Abogado - Vasquez Law Firm, PLLC',
   description: '',
 };
 
-export default function Page() {
+export const runtime = 'nodejs';
+
+export default function MarkKelseyPage() {
+  // TODO: Extract content from original file and format properly
+  const post = {
+    id: 'mark-kelsey',
+    title: 'Mark Kelsey - Abogado',
+    slug: 'mark-kelsey',
+    excerpt: 'Blog post excerpt here - TODO: extract from content',
+    content: `
+      <div class="prose prose-lg max-w-none">
+        <!-- TODO: Migrate content from original file -->
+        <p>This content needs to be migrated from the original file.</p>
+      </div>
+    `,
+    practiceArea: 'general', // TODO: Determine correct practice area
+    language: 'en' as const,
+    publishedAt: new Date(),
+    readTime: 5,
+    author: {
+      name: 'Vasquez Law Firm',
+    },
+    tags: [], // TODO: Add relevant tags
+  };
+
+  const categories = [
+    {
+      id: 'immigration',
+      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
+      slug: { en: 'immigration', es: 'inmigracion' },
+      icon: '🌐',
+      postCount: 45,
+    },
+    {
+      id: 'personal-injury',
+      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
+      slug: { en: 'personal-injury', es: 'lesiones-personales' },
+      icon: '🏥',
+      postCount: 32,
+    },
+    {
+      id: 'criminal-defense',
+      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
+      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
+      icon: '⚖️',
+      postCount: 28,
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-burgundy-700 to-burgundy-900 text-white py-20">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Mark Kelsey - Abogado</h1>
-            <p className="text-xl md:text-2xl mb-8 text-gold-400 font-semibold">
-              YO PELEO POR TI™ - I FIGHT FOR YOU
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 bg-gold-500 text-burgundy-900 font-bold rounded-full hover:bg-gold-400 transition-colors"
-              >
-                Consulta Gratis
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <a
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 bg-white text-burgundy-900 font-bold rounded-full hover:bg-gray-100 transition-colors"
-              >
-                <Phone className="mr-2 w-5 h-5" />
-                1-844-YO-PELEO
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Content */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="prose prose-lg max-w-none">
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-burgundy-900 mb-4">
-                  Abogado de Lesiones Personales
-                </h2>
-                <p className="text-gray-700">
-                  Mark Kelsey se enfoca en casos de lesiones personales y compensación laboral,
-                  luchando para obtener la máxima compensación para clientes lesionados.
-                </p>
-              </div>
-
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold text-burgundy-900 mb-4">Educación</h3>
-                <ul className="list-disc pl-6 space-y-2">
-                  <li>Doctorado en Derecho, Wake Forest University School of Law</li>
-                </ul>
-              </div>
-
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold text-burgundy-900 mb-4">
-                  Admisiones al Colegio de Abogados
-                </h3>
-                <ul className="list-disc pl-6 space-y-2">
-                  <li>Carolina del Norte</li>
-                </ul>
-              </div>
-
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold text-burgundy-900 mb-4">Áreas de Práctica</h3>
-                <ul className="list-disc pl-6 space-y-2">
-                  <li>Lesiones Personales</li>
-                  <li>Compensación Laboral</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-gray-100 py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-burgundy-900 mb-4">
-              ¿Listo para Comenzar?
-            </h2>
-            <p className="text-xl text-gray-700 mb-8">
-              Contacte a nuestros abogados experimentados hoy para una consulta gratuita.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-8 py-4 bg-burgundy-700 text-white font-bold rounded-full hover:bg-burgundy-800 transition-colors"
-              >
-                Programar Consulta
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <a
-                href="tel:1-844-967-3536"
-                className="inline-flex items-center px-8 py-4 bg-gold-500 text-burgundy-900 font-bold rounded-full hover:bg-gold-400 transition-colors"
-              >
-                <Phone className="mr-2 w-5 h-5" />
-                Llamar Ahora
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+    <BlogPageTemplate
+      posts={[]}
+      categories={categories}
+      isArticlePage={true}
+      currentPost={post}
+      relatedPosts={[]} // TODO: Add related posts
+    />
   );
 }

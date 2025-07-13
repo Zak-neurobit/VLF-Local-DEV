@@ -6,14 +6,7 @@ const defaultLocale = 'en';
 
 // Pages that should not be redirected
 const publicFiles = /\.(.*)$/;
-const excludedPaths = [
-  '/api',
-  '/_next',
-  '/images',
-  '/favicon.ico',
-  '/robots.txt',
-  '/sitemap.xml',
-];
+const excludedPaths = ['/api', '/_next', '/images', '/favicon.ico', '/robots.txt', '/sitemap.xml'];
 
 function getLocale(request: NextRequest): string {
   // 1. Check if locale is in URL
@@ -41,10 +34,7 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Skip excluded paths
-  if (
-    publicFiles.test(pathname) ||
-    excludedPaths.some(path => pathname.startsWith(path))
-  ) {
+  if (publicFiles.test(pathname) || excludedPaths.some(path => pathname.startsWith(path))) {
     return addSecurityHeaders(NextResponse.next(), startTime);
   }
 
@@ -59,9 +49,7 @@ export function middleware(request: NextRequest) {
     // For root path, redirect based on detected locale
     if (pathname === '/') {
       if (locale !== defaultLocale) {
-        return NextResponse.redirect(
-          new URL(`/${locale}`, request.url)
-        );
+        return NextResponse.redirect(new URL(`/${locale}`, request.url));
       }
       // For default locale (en), keep clean URLs without /en prefix
       return addSecurityHeaders(NextResponse.next(), startTime);
@@ -69,16 +57,14 @@ export function middleware(request: NextRequest) {
 
     // For other paths, add locale prefix only for non-default languages
     if (locale !== defaultLocale) {
-      return NextResponse.redirect(
-        new URL(`/${locale}${pathname}`, request.url)
-      );
+      return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
     }
   }
 
   // Handle locale in pathname
   if (pathnameHasLocale) {
     const pathLocale = pathname.split('/')[1];
-    
+
     // Remove /en prefix to keep clean URLs for English
     if (pathLocale === defaultLocale) {
       const newPathname = pathname.slice(3) || '/';

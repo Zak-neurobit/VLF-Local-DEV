@@ -3,17 +3,20 @@
 ## Official Trademarks
 
 ### Primary Trademarks
+
 - **YO PELEO™** - Must always include ™ symbol
 - **YO PELEO POR TI™** - Must always include ™ symbol
 
 ### Usage Rules
 
 1. **Always Include Trademark Symbol (™)**
+
    - Every instance of "YO PELEO™" or "YO PELEO POR TI™" must include the ™ symbol
    - This applies to all digital and print materials
    - No exceptions for headers, meta tags, or alt text
 
 2. **Proper Formatting**
+
    - Correct: YO PELEO™
    - Correct: YO PELEO POR TI™
    - Incorrect: YO PELEO™
@@ -28,6 +31,7 @@
 ## Implementation Checklist
 
 ### Website Components
+
 - [ ] Header/Navigation
 - [ ] Hero sections
 - [ ] Footer
@@ -38,6 +42,7 @@
 - [ ] Email templates
 
 ### Content Areas
+
 - [ ] Homepage
 - [ ] Practice area pages
 - [ ] Attorney profiles
@@ -47,6 +52,7 @@
 - [ ] Contact page
 
 ### Marketing Materials
+
 - [ ] Social media profiles
 - [ ] Email signatures
 - [ ] Business cards
@@ -56,10 +62,12 @@
 ## Common Mistakes to Avoid
 
 1. **Missing Trademark Symbol**
+
    - Wrong: "YO PELEO POR TI™"
    - Right: "YO PELEO POR TI™"
 
 2. **Incorrect Capitalization**
+
    - Wrong: "Yo Peleo Por Ti™"
    - Right: "YO PELEO POR TI™"
 
@@ -70,6 +78,7 @@
 ## Code Examples
 
 ### React/TypeScript
+
 ```typescript
 // Constants file
 export const TRADEMARK = {
@@ -84,14 +93,16 @@ export const TRADEMARK = {
 ```
 
 ### HTML
+
 ```html
 <!-- Correct usage in HTML -->
 <title>Vasquez Law Firm - YO PELEO POR TI™</title>
 <h1>YO PELEO POR TI™</h1>
-<img alt="Vasquez Law Firm - YO PELEO POR TI™" src="/logo.png">
+<img alt="Vasquez Law Firm - YO PELEO POR TI™" src="/logo.png" />
 ```
 
 ### JSON (for translations)
+
 ```json
 {
   "common": {
@@ -104,11 +115,13 @@ export const TRADEMARK = {
 ## Enforcement Strategy
 
 1. **Regular Audits**
+
    - Monthly review of all website content
    - Quarterly review of marketing materials
    - Annual comprehensive trademark audit
 
 2. **Development Process**
+
    - Include trademark check in code review
    - Add linting rules for trademark usage
    - Create reusable constants for trademarks
@@ -128,11 +141,12 @@ export const TRADEMARK = {
 ## Contact for Questions
 
 For any questions about trademark usage:
+
 - Legal Department: [Contact info]
 - Marketing Team: [Contact info]
 - Web Development: [Contact info]
 
 ---
 
-*Last Updated: [Current Date]*
-*Version: 1.0*
+_Last Updated: [Current Date]_
+_Version: 1.0_

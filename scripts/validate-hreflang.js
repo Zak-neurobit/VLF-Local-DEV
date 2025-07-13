@@ -2,7 +2,7 @@
 
 /**
  * Hreflang Implementation Validation Script
- * 
+ *
  * This script validates the hreflang implementation by testing various URL patterns
  * and ensuring they generate the correct hreflang tags.
  */
@@ -75,15 +75,15 @@ console.log('📝 To run actual tests, use: npm test\n');
 
 testCases.forEach((testCase, index) => {
   console.log(`${index + 1}. Testing: ${testCase.name} (${testCase.url})`);
-  
+
   // Simulate the expected behavior
   console.log(`   ✅ Expected languages: ${testCase.expectedLanguages.join(', ')}`);
   console.log(`   ✅ English URL: ${testCase.expectedEnUrl}`);
   console.log(`   ✅ Spanish URL: ${testCase.expectedEsUrl}`);
-  
+
   totalTests++;
   passedTests++; // Assuming tests would pass with proper implementation
-  
+
   console.log('');
 });
 

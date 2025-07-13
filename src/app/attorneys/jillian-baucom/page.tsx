@@ -41,7 +41,8 @@ export default function Page() {
                   Immigration Attorney - {TRADEMARK.YO_PELEO_POR_TI}
                 </p>
                 <p className="text-lg mb-8 max-w-3xl mx-auto text-gray-300">
-                  Specializing in removal defense and helping clients navigate the immigration process with dedication and expertise
+                  Specializing in removal defense and helping clients navigate the immigration
+                  process with dedication and expertise
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.a
@@ -104,17 +105,18 @@ export default function Page() {
                     Removal Defense Specialist
                   </h2>
                   <p className="text-lg mb-6 text-gray-300">
-                    Jillian Baucom is an experienced immigration attorney specializing in removal defense, 
-                    dedicated to helping clients navigate the immigration process smoothly. She brings 
-                    compassion and expertise to every case, fighting tirelessly for her clients&apos; rights.
+                    Jillian Baucom is an experienced immigration attorney specializing in removal
+                    defense, dedicated to helping clients navigate the immigration process smoothly.
+                    She brings compassion and expertise to every case, fighting tirelessly for her
+                    clients&apos; rights.
                   </p>
                   <p className="text-lg mb-8 text-gray-300">
-                    With extensive experience in immigration court proceedings and deportation defense, 
-                    Jillian has successfully helped numerous clients avoid deportation and secure their 
-                    legal status in the United States. Her practice focuses on removal defense, asylum 
-                    cases, and complex immigration matters.
+                    With extensive experience in immigration court proceedings and deportation
+                    defense, Jillian has successfully helped numerous clients avoid deportation and
+                    secure their legal status in the United States. Her practice focuses on removal
+                    defense, asylum cases, and complex immigration matters.
                   </p>
-                  
+
                   {/* Quick Info */}
                   <div className="grid grid-cols-2 gap-6">
                     <div className="bg-neutral-900/50 p-4 rounded-xl border border-primary/20">
@@ -152,9 +154,7 @@ export default function Page() {
                     </li>
                     <li className="border-l-2 border-primary pl-4">
                       <p className="font-semibold text-white">B.A., International Studies</p>
-                      <p className="text-gray-400 text-sm">
-                        Duke University, 2013
-                      </p>
+                      <p className="text-gray-400 text-sm">Duke University, 2013</p>
                     </li>
                   </ul>
                 </motion.div>
@@ -203,7 +203,7 @@ export default function Page() {
                       'Asylum Cases',
                       'Cancellation of Removal',
                       'Bond Hearings',
-                    ].map((area) => (
+                    ].map(area => (
                       <span
                         key={area}
                         className="px-3 py-1 bg-primary/10 text-xs text-primary rounded-full border border-primary/20"
@@ -222,7 +222,9 @@ export default function Page() {
                 viewport={{ once: true }}
                 className="bg-gradient-to-r from-primary/10 to-secondary/10 p-12 rounded-3xl border border-primary/20 mb-20"
               >
-                <h3 className="text-3xl font-black mb-8 text-white text-center">Removal Defense Services</h3>
+                <h3 className="text-3xl font-black mb-8 text-white text-center">
+                  Removal Defense Services
+                </h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   {[
                     'Deportation Defense in Immigration Court',

@@ -81,7 +81,7 @@ export default function OptimizedImage({
   // Generate optimized sizes attribute
   const getSizes = () => {
     if (sizes) return sizes;
-    
+
     // Default responsive sizes
     return '(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw';
   };
@@ -89,7 +89,7 @@ export default function OptimizedImage({
   // Generate blur data URL for better loading experience
   const getBlurDataURL = () => {
     if (blurDataURL) return blurDataURL;
-    
+
     if (enableBlur) {
       // Generate a simple blur placeholder
       return `data:image/svg+xml;base64,${Buffer.from(
@@ -104,7 +104,7 @@ export default function OptimizedImage({
         </svg>`
       ).toString('base64')}`;
     }
-    
+
     return undefined;
   };
 
@@ -152,21 +152,16 @@ export default function OptimizedImage({
           {...props}
         />
       )}
-      
+
       {/* Loading skeleton */}
       {!isLoaded && !hasError && (
         <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse" />
       )}
-      
+
       {/* Error state */}
       {hasError && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-400">
-          <svg
-            className="w-8 h-8"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"

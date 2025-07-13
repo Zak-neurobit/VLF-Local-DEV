@@ -26,7 +26,7 @@ export function BlogPostStructuredData({
   const category = getCategoryById(categoryId);
   const baseUrl = 'https://www.vasquezlawnc.com';
   const langPrefix = language === 'es' ? '/es' : '';
-  
+
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -74,13 +74,16 @@ interface BlogCategoryStructuredDataProps {
   language: 'en' | 'es';
 }
 
-export function BlogCategoryStructuredData({ categoryId, language }: BlogCategoryStructuredDataProps) {
+export function BlogCategoryStructuredData({
+  categoryId,
+  language,
+}: BlogCategoryStructuredDataProps) {
   const category = getCategoryById(categoryId);
   if (!category) return null;
-  
+
   const baseUrl = 'https://www.vasquezlawnc.com';
   const langPrefix = language === 'es' ? '/es' : '';
-  
+
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -136,14 +139,15 @@ interface BlogListStructuredDataProps {
 export function BlogListStructuredData({ language }: BlogListStructuredDataProps) {
   const baseUrl = 'https://www.vasquezlawnc.com';
   const langPrefix = language === 'es' ? '/es' : '';
-  
+
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Blog',
     name: language === 'es' ? 'Blog Legal de Vasquez Law Firm' : 'Vasquez Law Firm Legal Blog',
-    description: language === 'es' 
-      ? 'Perspectivas legales expertas y actualizaciones sobre inmigración, lesiones personales, defensa criminal y más en Carolina del Norte y Florida'
-      : 'Expert legal insights and updates on immigration, personal injury, criminal defense, and more in North Carolina and Florida',
+    description:
+      language === 'es'
+        ? 'Perspectivas legales expertas y actualizaciones sobre inmigración, lesiones personales, defensa criminal y más en Carolina del Norte y Florida'
+        : 'Expert legal insights and updates on immigration, personal injury, criminal defense, and more in North Carolina and Florida',
     url: `${baseUrl}${langPrefix}/blog`,
     inLanguage: language === 'es' ? 'es-US' : 'en-US',
     publisher: {

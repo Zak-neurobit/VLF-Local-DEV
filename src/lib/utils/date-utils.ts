@@ -12,7 +12,7 @@ export function formatDateTime(date: string | Date, options?: Intl.DateTimeForma
     const dateObj = typeof date === 'string' ? new Date(date) : date;
     return dateObj.toISOString();
   }
-  
+
   // Client-side: format with locale
   const dateObj = typeof date === 'string' ? new Date(date) : date;
   return dateObj.toLocaleString(undefined, options);
@@ -27,7 +27,7 @@ export function formatDate(date: string | Date, options?: Intl.DateTimeFormatOpt
     const dateObj = typeof date === 'string' ? new Date(date) : date;
     return dateObj.toISOString().split('T')[0];
   }
-  
+
   // Client-side: format with locale
   const dateObj = typeof date === 'string' ? new Date(date) : date;
   return dateObj.toLocaleDateString(undefined, options);
@@ -42,7 +42,7 @@ export function formatTime(date: string | Date, options?: Intl.DateTimeFormatOpt
     const dateObj = typeof date === 'string' ? new Date(date) : date;
     return dateObj.toISOString().split('T')[1].split('.')[0];
   }
-  
+
   // Client-side: format with locale
   const dateObj = typeof date === 'string' ? new Date(date) : date;
   return dateObj.toLocaleTimeString(undefined, options);
@@ -57,7 +57,7 @@ export function getTimestamp(): number {
     // Server-side: return a fixed timestamp
     return 0;
   }
-  
+
   // Client-side: return actual timestamp
   return Date.now();
 }
@@ -70,7 +70,7 @@ export function generateId(prefix: string = 'id'): string {
     // Server-side: return a predictable ID
     return `${prefix}_server`;
   }
-  
+
   // Client-side: return a unique ID
   return `${prefix}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 }
@@ -97,11 +97,11 @@ export function clientOnly<T>(clientValue: () => T, serverFallback: T): T {
  */
 export function useClientOnly<T>(getValue: () => T, fallback: T): T {
   const [value, setValue] = React.useState<T>(fallback);
-  
+
   React.useEffect(() => {
     setValue(getValue());
   }, []);
-  
+
   return value;
 }
 

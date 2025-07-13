@@ -62,7 +62,6 @@ When providing advice:
     }
   }
 
-
   async analyzeAsylumClaim(params: {
     clientName: string;
     countryOfOrigin: string;
@@ -307,7 +306,10 @@ Current Safety: ${params.currentSafety}`;
   private extractListItems(text: string): string[] {
     return text
       .split('\n')
-      .filter(line => line.trim().startsWith('-') || line.trim().startsWith('•') || line.trim().match(/^\d+\./))
+      .filter(
+        line =>
+          line.trim().startsWith('-') || line.trim().startsWith('•') || line.trim().match(/^\d+\./)
+      )
       .map(line => line.replace(/^[-•\d.]\s*/, '').trim())
       .filter(item => item.length > 0);
   }

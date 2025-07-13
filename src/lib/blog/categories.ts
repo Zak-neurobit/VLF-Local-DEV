@@ -37,7 +37,14 @@ export const BLOG_CATEGORIES = {
     lightColor: 'bg-red-100',
     textColor: 'text-red-600',
     icon: '🚑',
-    keywords: ['personal injury', 'accident', 'car accident', 'slip and fall', 'medical malpractice', 'compensation'],
+    keywords: [
+      'personal injury',
+      'accident',
+      'car accident',
+      'slip and fall',
+      'medical malpractice',
+      'compensation',
+    ],
   },
   'criminal-defense': {
     id: 'criminal-defense',
@@ -57,12 +64,20 @@ export const BLOG_CATEGORIES = {
     lightColor: 'bg-purple-100',
     textColor: 'text-purple-600',
     icon: '⚖️',
-    keywords: ['criminal defense', 'DWI', 'DUI', 'drug charges', 'assault', 'expungement', 'federal crimes'],
+    keywords: [
+      'criminal defense',
+      'DWI',
+      'DUI',
+      'drug charges',
+      'assault',
+      'expungement',
+      'federal crimes',
+    ],
   },
   'workers-compensation': {
     id: 'workers-compensation',
     name: {
-      en: 'Workers\' Compensation',
+      en: "Workers' Compensation",
       es: 'Compensación Laboral',
     },
     slug: {
@@ -77,7 +92,14 @@ export const BLOG_CATEGORIES = {
     lightColor: 'bg-green-100',
     textColor: 'text-green-600',
     icon: '👷',
-    keywords: ['workers compensation', 'workplace injury', 'disability', 'job injury', 'OSHA', 'construction accident'],
+    keywords: [
+      'workers compensation',
+      'workplace injury',
+      'disability',
+      'job injury',
+      'OSHA',
+      'construction accident',
+    ],
   },
   'family-law': {
     id: 'family-law',
@@ -97,7 +119,15 @@ export const BLOG_CATEGORIES = {
     lightColor: 'bg-orange-100',
     textColor: 'text-orange-600',
     icon: '👨‍👩‍👧‍👦',
-    keywords: ['family law', 'divorce', 'custody', 'alimony', 'child support', 'domestic violence', 'separation'],
+    keywords: [
+      'family law',
+      'divorce',
+      'custody',
+      'alimony',
+      'child support',
+      'domestic violence',
+      'separation',
+    ],
   },
   'traffic-violations': {
     id: 'traffic-violations',
@@ -123,7 +153,7 @@ export const BLOG_CATEGORIES = {
 
 export type BlogCategoryId = keyof typeof BLOG_CATEGORIES;
 
-export const getCategoryById = (id: string): typeof BLOG_CATEGORIES[BlogCategoryId] | null => {
+export const getCategoryById = (id: string): (typeof BLOG_CATEGORIES)[BlogCategoryId] | null => {
   return BLOG_CATEGORIES[id as BlogCategoryId] || null;
 };
 
@@ -167,18 +197,19 @@ export const getCategorySEOData = (categoryId: string, language: 'en' | 'es' = '
 export const getCategoryUrl = (categoryId: string, language: 'en' | 'es' = 'en'): string => {
   const category = getCategoryById(categoryId);
   if (!category) return '/blog';
-  
+
   const langPrefix = language === 'es' ? '/es' : '';
   const categoryPath = language === 'es' ? 'categoria' : 'category';
   const slug = category.slug[language];
-  
+
   return `${langPrefix}/blog/${categoryPath}/${slug}`;
 };
 
 // Helper to get related categories
-export const getRelatedCategories = (currentCategoryId: string, limit: number = 3): BlogCategoryId[] => {
+export const getRelatedCategories = (
+  currentCategoryId: string,
+  limit: number = 3
+): BlogCategoryId[] => {
   const allCategories = Object.keys(BLOG_CATEGORIES) as BlogCategoryId[];
-  return allCategories
-    .filter(id => id !== currentCategoryId)
-    .slice(0, limit);
+  return allCategories.filter(id => id !== currentCategoryId).slice(0, limit);
 };

@@ -50,7 +50,7 @@ describe('ResourceLeadCaptureForm', () => {
   describe('Rendering', () => {
     it('renders all required form fields', () => {
       const { container } = render(<ResourceLeadCaptureForm {...defaultProps} />);
-      
+
       expect(within(container).getByLabelText(/full name/i)).toBeTruthy();
       expect(within(container).getByLabelText(/email address/i)).toBeTruthy();
       expect(within(container).getByLabelText(/phone number/i)).toBeTruthy();
@@ -61,7 +61,7 @@ describe('ResourceLeadCaptureForm', () => {
 
     it('renders in Spanish when language prop is "es"', () => {
       const { container } = render(<ResourceLeadCaptureForm {...defaultProps} language="es" />);
-      
+
       expect(within(container).getByText('Obtenga Su Recurso Gratuito')).toBeTruthy();
       expect(within(container).getByLabelText(/nombre completo/i)).toBeTruthy();
       expect(within(container).getByLabelText(/correo electrónico/i)).toBeTruthy();
@@ -69,7 +69,7 @@ describe('ResourceLeadCaptureForm', () => {
 
     it('displays custom resource title', () => {
       const { container } = render(<ResourceLeadCaptureForm {...defaultProps} />);
-      
+
       expect(within(container).getByText(/download "test resource guide"/i)).toBeTruthy();
     });
   });
@@ -77,10 +77,10 @@ describe('ResourceLeadCaptureForm', () => {
   describe('Validation', () => {
     it('validates required fields', async () => {
       render(<ResourceLeadCaptureForm {...defaultProps} />);
-      
+
       const submitButton = screen.getByRole('button', { name: /get my free resource/i });
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         expect(screen.getByText(/please enter your name/i)).toBeInTheDocument();
         expect(screen.getByText(/please enter your email address/i)).toBeInTheDocument();
@@ -91,13 +91,13 @@ describe('ResourceLeadCaptureForm', () => {
 
     it('validates email format', async () => {
       render(<ResourceLeadCaptureForm {...defaultProps} />);
-      
+
       const emailInput = screen.getByLabelText(/email address/i);
       await userEvent.type(emailInput, 'invalid-email');
-      
+
       const submitButton = screen.getByRole('button', { name: /get my free resource/i });
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         expect(screen.getByText(/please enter a valid email address/i)).toBeInTheDocument();
       });
@@ -105,13 +105,13 @@ describe('ResourceLeadCaptureForm', () => {
 
     it('validates ZIP code format', async () => {
       render(<ResourceLeadCaptureForm {...defaultProps} />);
-      
+
       const zipInput = screen.getByLabelText(/zip code/i);
       await userEvent.type(zipInput, '123'); // Invalid ZIP
-      
+
       const submitButton = screen.getByRole('button', { name: /get my free resource/i });
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         expect(screen.getByText(/please enter a valid zip code/i)).toBeInTheDocument();
       });
@@ -119,26 +119,26 @@ describe('ResourceLeadCaptureForm', () => {
 
     it('accepts valid ZIP formats', async () => {
       render(<ResourceLeadCaptureForm {...defaultProps} />);
-      
+
       const zipInput = screen.getByLabelText(/zip code/i);
-      
+
       // Test 5-digit ZIP
       await userEvent.clear(zipInput);
       await userEvent.type(zipInput, '12345');
-      
+
       const submitButton = screen.getByRole('button', { name: /get my free resource/i });
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         expect(screen.queryByText(/please enter a valid zip code/i)).not.toBeInTheDocument();
       });
-      
+
       // Test ZIP+4 format
       await userEvent.clear(zipInput);
       await userEvent.type(zipInput, '12345-6789');
-      
+
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         expect(screen.queryByText(/please enter a valid zip code/i)).not.toBeInTheDocument();
       });
@@ -153,15 +153,14 @@ describe('ResourceLeadCaptureForm', () => {
       });
     });
 
-
     it('submits form with correct data', async () => {
       render(<ResourceLeadCaptureForm {...defaultProps} />);
-      
+
       await fillForm();
-      
+
       const submitButton = screen.getByRole('button', { name: /get my free resource/i });
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         expect(global.fetch).toHaveBeenCalledWith('/api/leads/capture', {
           method: 'POST',
@@ -191,15 +190,15 @@ describe('ResourceLeadCaptureForm', () => {
 
     it('handles optional phone field', async () => {
       render(<ResourceLeadCaptureForm {...defaultProps} />);
-      
+
       await userEvent.type(screen.getByLabelText(/full name/i), 'Jane Smith');
       await userEvent.type(screen.getByLabelText(/email address/i), 'jane@example.com');
       await userEvent.type(screen.getByLabelText(/zip code/i), '27601');
       await userEvent.click(screen.getByLabelText(/i agree to the privacy policy/i));
-      
+
       const submitButton = screen.getByRole('button', { name: /get my free resource/i });
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         const callArgs = JSON.parse((global.fetch as jest.Mock).mock.calls[0][1].body);
         expect(callArgs.phone).toBe('not-provided');
@@ -208,15 +207,17 @@ describe('ResourceLeadCaptureForm', () => {
 
     it('shows success message after submission', async () => {
       render(<ResourceLeadCaptureForm {...defaultProps} />);
-      
+
       await fillForm();
-      
+
       const submitButton = screen.getByRole('button', { name: /get my free resource/i });
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         expect(screen.getByText(/success! check your email/i)).toBeInTheDocument();
-        expect(screen.getByText(/we've sent "test resource guide" to your email/i)).toBeInTheDocument();
+        expect(
+          screen.getByText(/we've sent "test resource guide" to your email/i)
+        ).toBeInTheDocument();
       });
     });
 
@@ -225,24 +226,24 @@ describe('ResourceLeadCaptureForm', () => {
       const mockClick = jest.fn();
       const mockAppendChild = jest.fn();
       const mockRemoveChild = jest.fn();
-      const mockLink = { 
-        click: mockClick, 
-        href: '', 
+      const mockLink = {
+        click: mockClick,
+        href: '',
         download: '',
-        style: {} as CSSStyleDeclaration
+        style: {} as CSSStyleDeclaration,
       };
-      
+
       jest.spyOn(document, 'createElement').mockReturnValue(mockLink as any);
       jest.spyOn(document.body, 'appendChild').mockImplementation(mockAppendChild);
       jest.spyOn(document.body, 'removeChild').mockImplementation(mockRemoveChild);
-      
+
       render(<ResourceLeadCaptureForm {...defaultProps} />);
-      
+
       await fillForm();
-      
+
       const submitButton = screen.getByRole('button', { name: /get my free resource/i });
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         expect(mockLink.href).toBe('/downloads/test-guide.pdf');
         expect(mockLink.download).toBe('Test Resource Guide');
@@ -255,12 +256,12 @@ describe('ResourceLeadCaptureForm', () => {
     it('calls onSuccess callback', async () => {
       const onSuccess = jest.fn();
       render(<ResourceLeadCaptureForm {...defaultProps} onSuccess={onSuccess} />);
-      
+
       await fillForm();
-      
+
       const submitButton = screen.getByRole('button', { name: /get my free resource/i });
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         expect(onSuccess).toHaveBeenCalledWith({
           email: 'john@example.com',
@@ -276,14 +277,14 @@ describe('ResourceLeadCaptureForm', () => {
         ok: false,
         json: async () => ({ error: 'Server error occurred' }),
       });
-      
+
       render(<ResourceLeadCaptureForm {...defaultProps} />);
-      
+
       await fillForm();
-      
+
       const submitButton = screen.getByRole('button', { name: /get my free resource/i });
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         expect(screen.getByText('Server error occurred')).toBeInTheDocument();
       });
@@ -291,14 +292,14 @@ describe('ResourceLeadCaptureForm', () => {
 
     it('displays generic error on network failure', async () => {
       (global.fetch as jest.Mock).mockRejectedValue(new Error('Network error'));
-      
+
       render(<ResourceLeadCaptureForm {...defaultProps} />);
-      
+
       await fillForm();
-      
+
       const submitButton = screen.getByRole('button', { name: /get my free resource/i });
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         expect(screen.getByText(/something went wrong/i)).toBeInTheDocument();
       });
@@ -308,12 +309,12 @@ describe('ResourceLeadCaptureForm', () => {
   describe('Resource Types', () => {
     it('handles email delivery type', async () => {
       render(<ResourceLeadCaptureForm {...defaultProps} resourceType="email" />);
-      
+
       await fillForm();
-      
+
       const submitButton = screen.getByRole('button', { name: /get my free resource/i });
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         expect(screen.getByText(/check your email for more details/i)).toBeInTheDocument();
         expect(screen.queryByText(/download resource now/i)).not.toBeInTheDocument();
@@ -322,28 +323,28 @@ describe('ResourceLeadCaptureForm', () => {
 
     it('handles redirect type', async () => {
       jest.useFakeTimers();
-      
+
       render(
-        <ResourceLeadCaptureForm 
-          {...defaultProps} 
+        <ResourceLeadCaptureForm
+          {...defaultProps}
           resourceType="redirect"
           resourceUrl="/protected/resource"
         />
       );
-      
+
       await fillForm();
-      
+
       const submitButton = screen.getByRole('button', { name: /get my free resource/i });
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         expect(screen.getByText(/success! check your email/i)).toBeInTheDocument();
       });
-      
+
       // Since we can't easily mock window.location.href in jsdom,
       // we'll just verify the success state was shown
       expect(screen.getByText(/success! check your email/i)).toBeInTheDocument();
-      
+
       jest.useRealTimers();
     });
   });

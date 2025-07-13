@@ -1,6 +1,11 @@
 // Comprehensive speed optimization utilities
 import { useEffect, useState } from 'react';
-import { safeAppendChild, safeCreateElement, safeQuerySelectorAll, safeReplaceChild } from '@/lib/dom/safe-dom';
+import {
+  safeAppendChild,
+  safeCreateElement,
+  safeQuerySelectorAll,
+  safeReplaceChild,
+} from '@/lib/dom/safe-dom';
 
 // Network status detection for adaptive loading
 export type ConnectionType = '4g' | '3g' | '2g' | 'slow-2g' | 'offline';
@@ -13,11 +18,11 @@ export function useNetworkStatus() {
   useEffect(() => {
     if ('connection' in navigator) {
       const connection = (navigator as any).connection;
-      
+
       const updateConnectionStatus = () => {
         setEffectiveType(connection.effectiveType || '4g');
         setSaveData(connection.saveData || false);
-        
+
         // Map effective type to our connection types
         switch (connection.effectiveType) {
           case 'slow-2g':
@@ -36,7 +41,7 @@ export function useNetworkStatus() {
 
       updateConnectionStatus();
       connection.addEventListener('change', updateConnectionStatus);
-      
+
       return () => {
         connection.removeEventListener('change', updateConnectionStatus);
       };
@@ -47,7 +52,8 @@ export function useNetworkStatus() {
     connectionType,
     effectiveType,
     saveData,
-    isSlowNetwork: connectionType === '2g' || connectionType === '3g' || connectionType === 'slow-2g',
+    isSlowNetwork:
+      connectionType === '2g' || connectionType === '3g' || connectionType === 'slow-2g',
     isFastNetwork: connectionType === '4g',
   };
 }
@@ -55,10 +61,10 @@ export function useNetworkStatus() {
 // Resource hints manager
 export class ResourceHints {
   private static hints = new Set<string>();
-  
+
   static addPreconnect(origin: string) {
     if (this.hints.has(origin)) return;
-    
+
     const link = safeCreateElement('link');
     if (link) {
       link.rel = 'preconnect';
@@ -68,10 +74,10 @@ export class ResourceHints {
       this.hints.add(origin);
     }
   }
-  
+
   static addDnsPrefetch(origin: string) {
     if (this.hints.has(origin)) return;
-    
+
     const link = safeCreateElement('link');
     if (link) {
       link.rel = 'dns-prefetch';
@@ -80,7 +86,7 @@ export class ResourceHints {
       this.hints.add(origin);
     }
   }
-  
+
   static preloadResource(href: string, as: string, type?: string) {
     const link = safeCreateElement('link');
     if (link) {
@@ -92,7 +98,7 @@ export class ResourceHints {
       safeAppendChild(document.head, link);
     }
   }
-  
+
   static prefetchRoute(href: string) {
     const link = safeCreateElement('link');
     if (link) {
@@ -111,26 +117,26 @@ export function lazyLoadScript(src: string, attributes?: Record<string, string>)
       resolve();
       return;
     }
-    
+
     const script = safeCreateElement('script');
     if (!script) {
       reject(new Error(`Failed to create script element for: ${src}`));
       return;
     }
-    
+
     script.src = src;
     script.async = true;
-    
+
     // Add custom attributes
     if (attributes) {
       Object.entries(attributes).forEach(([key, value]) => {
         script.setAttribute(key, value);
       });
     }
-    
+
     script.onload = () => resolve();
     script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
-    
+
     safeAppendChild(document.body, script);
   });
 }
@@ -139,18 +145,22 @@ export function lazyLoadScript(src: string, attributes?: Record<string, string>)
 export function extractCriticalCSS(css: string, viewport: { width: number; height: number }) {
   // This is a placeholder - in production, use a tool like critical or penthouse
   // For now, return CSS that affects above-the-fold content
-  return css
-    .split('}')
-    .filter(rule => {
-      // Keep rules that likely affect above-the-fold content
-      return rule.includes('body') || 
-             rule.includes('header') || 
-             rule.includes('nav') || 
-             rule.includes('hero') ||
-             rule.includes('.above-fold') ||
-             rule.includes('#root');
-    })
-    .join('}') + '}';
+  return (
+    css
+      .split('}')
+      .filter(rule => {
+        // Keep rules that likely affect above-the-fold content
+        return (
+          rule.includes('body') ||
+          rule.includes('header') ||
+          rule.includes('nav') ||
+          rule.includes('hero') ||
+          rule.includes('.above-fold') ||
+          rule.includes('#root')
+        );
+      })
+      .join('}') + '}'
+  );
 }
 
 // Intersection Observer for lazy loading with network awareness
@@ -159,13 +169,13 @@ export function createAdaptiveIntersectionObserver(
   options?: IntersectionObserverInit
 ) {
   const { isSlowNetwork } = useNetworkStatus();
-  
+
   // Adjust root margin based on network speed
   const adaptiveOptions: IntersectionObserverInit = {
     ...options,
     rootMargin: isSlowNetwork ? '50px' : '200px', // Load earlier on fast networks
   };
-  
+
   return new IntersectionObserver(callback, adaptiveOptions);
 }
 
@@ -175,14 +185,14 @@ export async function registerServiceWorker() {
     console.log('Service Worker not supported');
     return;
   }
-  
+
   try {
     const registration = await navigator.serviceWorker.register('/sw.js', {
       scope: '/',
     });
-    
+
     console.log('Service Worker registered:', registration);
-    
+
     // Handle updates
     registration.addEventListener('updatefound', () => {
       const newWorker = registration.installing;
@@ -197,7 +207,7 @@ export async function registerServiceWorker() {
         });
       }
     });
-    
+
     return registration;
   } catch (error) {
     console.error('Service Worker registration failed:', error);
@@ -207,7 +217,9 @@ export async function registerServiceWorker() {
 // Defer non-critical JavaScript
 export function deferNonCriticalJS() {
   // Move non-critical inline scripts to defer
-  const scripts = safeQuerySelectorAll<HTMLScriptElement>('script:not([src]):not([type="application/ld+json"])');
+  const scripts = safeQuerySelectorAll<HTMLScriptElement>(
+    'script:not([src]):not([type="application/ld+json"])'
+  );
   scripts.forEach(script => {
     const newScript = safeCreateElement('script');
     if (newScript && script.textContent) {
@@ -224,16 +236,16 @@ export function deferNonCriticalJS() {
 export function progressiveImageLoading(imgElement: HTMLImageElement) {
   const lowQualitySrc = imgElement.dataset.lowSrc;
   const highQualitySrc = imgElement.dataset.src || imgElement.src;
-  
+
   if (!lowQualitySrc) return;
-  
+
   // Load low quality first
   const lowQualityImg = new Image();
   lowQualityImg.src = lowQualitySrc;
   lowQualityImg.onload = () => {
     imgElement.src = lowQualitySrc;
     imgElement.classList.add('loaded-low');
-    
+
     // Load high quality
     const highQualityImg = new Image();
     highQualityImg.src = highQualitySrc;
@@ -248,21 +260,22 @@ export function progressiveImageLoading(imgElement: HTMLImageElement) {
 // Bundle size monitoring
 export function monitorBundleSize() {
   if (typeof window === 'undefined') return;
-  
+
   // Get all script tags
   const scripts = Array.from(document.getElementsByTagName('script'));
   const totalSize = scripts.reduce((acc, script) => {
     if (script.src) {
       // This is approximate - in production, use actual file sizes
-      return acc + (script.src.length * 10); // Rough estimate
+      return acc + script.src.length * 10; // Rough estimate
     }
     return acc + (script.textContent?.length || 0);
   }, 0);
-  
+
   console.log(`Total JavaScript size: ~${(totalSize / 1024).toFixed(2)}KB`);
-  
+
   // Warn if bundle is too large
-  if (totalSize > 500 * 1024) { // 500KB
+  if (totalSize > 500 * 1024) {
+    // 500KB
     console.warn('Bundle size exceeds recommended limit!');
   }
 }
@@ -271,17 +284,17 @@ export function monitorBundleSize() {
 export class RoutePrefetcher {
   private static prefetchedRoutes = new Set<string>();
   private static observer: IntersectionObserver;
-  
+
   static init() {
     if (this.observer) return;
-    
+
     this.observer = new IntersectionObserver(
-      (entries) => {
+      entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const link = entry.target as HTMLAnchorElement;
             const href = link.href;
-            
+
             if (!this.prefetchedRoutes.has(href) && this.shouldPrefetch(href)) {
               ResourceHints.prefetchRoute(href);
               this.prefetchedRoutes.add(href);
@@ -291,19 +304,21 @@ export class RoutePrefetcher {
       },
       { rootMargin: '50px' }
     );
-    
+
     // Observe all internal links
     document.querySelectorAll('a[href^="/"]').forEach(link => {
       this.observer.observe(link);
     });
   }
-  
+
   private static shouldPrefetch(href: string): boolean {
     // Don't prefetch external links, downloads, or already visited
-    return !href.includes('http') && 
-           !href.includes('.pdf') && 
-           !href.includes('#') &&
-           !this.prefetchedRoutes.has(href);
+    return (
+      !href.includes('http') &&
+      !href.includes('.pdf') &&
+      !href.includes('#') &&
+      !this.prefetchedRoutes.has(href)
+    );
   }
 }
 
@@ -314,15 +329,15 @@ export function initializeSpeedOptimizations() {
   ResourceHints.addPreconnect('https://fonts.gstatic.com');
   ResourceHints.addDnsPrefetch('https://www.google-analytics.com');
   ResourceHints.addDnsPrefetch('https://www.googletagmanager.com');
-  
+
   // Font preloading is handled by Next.js font optimization
   // No need to manually preload fonts when using next/font/google
-  
+
   // Register service worker
   if (process.env.NODE_ENV === 'production') {
     registerServiceWorker();
   }
-  
+
   // Initialize route prefetching
   if (typeof window !== 'undefined') {
     window.addEventListener('load', () => {

@@ -75,7 +75,8 @@ export class AgentMonitor extends EventEmitter {
     circuitBreakerThreshold: 5,
     recoveryTimeout: 60000,
   };
-  private circuitBreakers: Map<string, { failures: number; lastFailure: Date; isOpen: boolean }> = new Map();
+  private circuitBreakers: Map<string, { failures: number; lastFailure: Date; isOpen: boolean }> =
+    new Map();
   private monitoringEnabled: boolean = false;
   private monitoringInterval?: NodeJS.Timeout;
 
@@ -105,7 +106,7 @@ export class AgentMonitor extends EventEmitter {
     metrics: string[];
   }): Promise<void> {
     this.monitoringEnabled = true;
-    
+
     logger.info('Starting agent monitoring...', {
       agents: config.agents,
       interval: config.interval,
@@ -117,7 +118,7 @@ export class AgentMonitor extends EventEmitter {
       if (!this.agents.has(agentName)) {
         this.agents.set(agentName, []);
       }
-      
+
       // Create initial instance
       const instance: AgentInstance = {
         id: `${agentName}-${Date.now()}`,
@@ -136,7 +137,7 @@ export class AgentMonitor extends EventEmitter {
           consecutiveFailures: 0,
         },
       };
-      
+
       this.agents.get(agentName)!.push(instance);
       this.healthStatus.set(agentName, instance.healthStatus);
     }
@@ -154,7 +155,7 @@ export class AgentMonitor extends EventEmitter {
 
   async stopMonitoring(): Promise<void> {
     this.monitoringEnabled = false;
-    
+
     if (this.monitoringInterval) {
       clearInterval(this.monitoringInterval);
       this.monitoringInterval = undefined;
@@ -167,23 +168,23 @@ export class AgentMonitor extends EventEmitter {
   private async collectMetrics(agents: string[]): Promise<void> {
     for (const agentName of agents) {
       const instances = this.agents.get(agentName) || [];
-      
+
       for (const instance of instances) {
         const metrics = await this.gatherInstanceMetrics(instance);
-        
+
         // Store metrics
         if (!this.metrics.has(agentName)) {
           this.metrics.set(agentName, []);
         }
-        
+
         this.metrics.get(agentName)!.push(metrics);
-        
+
         // Keep only last 1000 metrics per agent
         const agentMetrics = this.metrics.get(agentName)!;
         if (agentMetrics.length > 1000) {
           agentMetrics.splice(0, agentMetrics.length - 1000);
         }
-        
+
         // Update instance load
         instance.currentLoad = this.calculateInstanceLoad(metrics);
         instance.lastActivity = new Date();
@@ -235,12 +236,12 @@ export class AgentMonitor extends EventEmitter {
   private async performHealthChecks(agents: string[]): Promise<void> {
     for (const agentName of agents) {
       const instances = this.agents.get(agentName) || [];
-      
+
       for (const instance of instances) {
         const healthStatus = await this.checkInstanceHealth(instance);
         instance.healthStatus = healthStatus;
         this.healthStatus.set(agentName, healthStatus);
-        
+
         if (!healthStatus.isHealthy) {
           this.emit('agent-health-changed', {
             agentName,
@@ -261,12 +262,12 @@ export class AgentMonitor extends EventEmitter {
 
   private async checkInstanceHealth(instance: AgentInstance): Promise<AgentHealthStatus> {
     const startTime = Date.now();
-    
+
     try {
       // Simulate health check (in production, this would be an actual health check)
       const isHealthy = Math.random() > 0.05; // 95% health rate
       const responseTime = Date.now() - startTime;
-      
+
       const healthStatus: AgentHealthStatus = {
         agentName: instance.agentName,
         isHealthy,
@@ -283,7 +284,7 @@ export class AgentMonitor extends EventEmitter {
       return healthStatus;
     } catch (error) {
       logger.error(`Health check failed for ${instance.agentName}:`, error);
-      
+
       return {
         agentName: instance.agentName,
         isHealthy: false,
@@ -298,7 +299,7 @@ export class AgentMonitor extends EventEmitter {
 
   private updateCircuitBreaker(agentName: string, hasFailed: boolean): void {
     let breaker = this.circuitBreakers.get(agentName);
-    
+
     if (!breaker) {
       breaker = { failures: 0, lastFailure: new Date(), isOpen: false };
       this.circuitBreakers.set(agentName, breaker);
@@ -307,7 +308,7 @@ export class AgentMonitor extends EventEmitter {
     if (hasFailed) {
       breaker.failures++;
       breaker.lastFailure = new Date();
-      
+
       if (breaker.failures >= this.errorRecoveryConfig.circuitBreakerThreshold) {
         breaker.isOpen = true;
         this.emit('circuit-breaker-opened', { agentName, failures: breaker.failures });
@@ -333,17 +334,18 @@ export class AgentMonitor extends EventEmitter {
     for (const [agentName, config] of this.autoScalingConfigs) {
       const instances = this.agents.get(agentName) || [];
       const activeInstances = instances.filter(i => i.status === 'active');
-      
+
       if (activeInstances.length === 0) continue;
 
       const avgCpuUsage = this.calculateAverageCPU(agentName);
-      const avgLoad = activeInstances.reduce((sum, i) => sum + i.currentLoad, 0) / activeInstances.length;
+      const avgLoad =
+        activeInstances.reduce((sum, i) => sum + i.currentLoad, 0) / activeInstances.length;
 
       // Scale up if needed
       if (avgCpuUsage > config.scaleUpThreshold && activeInstances.length < config.maxInstances) {
         await this.scaleUp(agentName);
       }
-      
+
       // Scale down if needed
       if (avgCpuUsage < config.scaleDownThreshold && activeInstances.length > config.minInstances) {
         await this.scaleDown(agentName);
@@ -372,7 +374,7 @@ export class AgentMonitor extends EventEmitter {
     };
 
     instances.push(newInstance);
-    
+
     // Simulate scaling process
     setTimeout(() => {
       newInstance.status = 'active';
@@ -385,16 +387,16 @@ export class AgentMonitor extends EventEmitter {
   private async scaleDown(agentName: string): Promise<void> {
     const instances = this.agents.get(agentName) || [];
     const activeInstances = instances.filter(i => i.status === 'active');
-    
+
     if (activeInstances.length <= 1) return;
 
     // Remove instance with lowest load
-    const instanceToRemove = activeInstances.reduce((min, instance) => 
+    const instanceToRemove = activeInstances.reduce((min, instance) =>
       instance.currentLoad < min.currentLoad ? instance : min
     );
 
     instanceToRemove.status = 'inactive';
-    
+
     setTimeout(() => {
       const index = instances.indexOf(instanceToRemove);
       if (index > -1) {
@@ -409,7 +411,7 @@ export class AgentMonitor extends EventEmitter {
   private calculateAverageCPU(agentName: string): number {
     const recentMetrics = this.metrics.get(agentName)?.slice(-10) || [];
     if (recentMetrics.length === 0) return 0;
-    
+
     return recentMetrics.reduce((sum, m) => sum + m.cpuUsage, 0) / recentMetrics.length;
   }
 
@@ -422,8 +424,10 @@ export class AgentMonitor extends EventEmitter {
 
   private async balanceLoad(): Promise<void> {
     for (const [agentName, instances] of this.agents) {
-      const activeInstances = instances.filter(i => i.status === 'active' && i.healthStatus.isHealthy);
-      
+      const activeInstances = instances.filter(
+        i => i.status === 'active' && i.healthStatus.isHealthy
+      );
+
       if (activeInstances.length <= 1) continue;
 
       // Update weights based on performance
@@ -433,12 +437,12 @@ export class AgentMonitor extends EventEmitter {
 
   private updateInstanceWeights(instances: AgentInstance[]): void {
     const totalLoad = instances.reduce((sum, i) => sum + i.currentLoad, 0);
-    
+
     if (totalLoad === 0) return;
 
     instances.forEach(instance => {
       // Higher weight for lower load (inverse relationship)
-      instance.weight = Math.max(0.1, 1 - (instance.currentLoad / totalLoad));
+      instance.weight = Math.max(0.1, 1 - instance.currentLoad / totalLoad);
     });
   }
 
@@ -451,10 +455,10 @@ export class AgentMonitor extends EventEmitter {
 
   private async handleHealthChange(event: any): Promise<void> {
     const { agentName, instanceId, status } = event;
-    
+
     if (!status.isHealthy) {
       logger.warn(`Agent ${agentName} (${instanceId}) is unhealthy:`, status.issues);
-      
+
       // Attempt recovery
       await this.attemptRecovery(agentName, instanceId);
     }
@@ -463,7 +467,7 @@ export class AgentMonitor extends EventEmitter {
   private async handleOverload(event: any): Promise<void> {
     const { agentName, instanceId, load } = event;
     logger.warn(`Agent ${agentName} (${instanceId}) is overloaded: ${load}`);
-    
+
     // Trigger scaling if configured
     if (this.autoScalingConfigs.has(agentName)) {
       this.emit('scaling-needed', { agentName, reason: 'overload' });
@@ -473,14 +477,14 @@ export class AgentMonitor extends EventEmitter {
   private async handleFailure(event: any): Promise<void> {
     const { agentName, instanceId, error } = event;
     logger.error(`Agent ${agentName} (${instanceId}) failed:`, error);
-    
+
     // Mark instance as failed
     const instances = this.agents.get(agentName) || [];
     const failedInstance = instances.find(i => i.id === instanceId);
-    
+
     if (failedInstance) {
       failedInstance.status = 'failed';
-      
+
       // Attempt recovery
       await this.attemptRecovery(agentName, instanceId);
     }
@@ -489,7 +493,7 @@ export class AgentMonitor extends EventEmitter {
   private async handleScalingEvent(event: any): Promise<void> {
     const { agentName, reason } = event;
     logger.info(`Scaling event triggered for ${agentName}: ${reason}`);
-    
+
     // Trigger appropriate scaling action
     if (reason === 'overload') {
       await this.scaleUp(agentName);
@@ -499,18 +503,18 @@ export class AgentMonitor extends EventEmitter {
   private async attemptRecovery(agentName: string, instanceId: string): Promise<void> {
     const instances = this.agents.get(agentName) || [];
     const instance = instances.find(i => i.id === instanceId);
-    
+
     if (!instance) return;
 
     logger.info(`Attempting recovery for ${agentName} (${instanceId})`);
-    
+
     // Simulate recovery process
     setTimeout(() => {
       instance.status = 'active';
       instance.healthStatus.isHealthy = true;
       instance.healthStatus.consecutiveFailures = 0;
       instance.healthStatus.issues = [];
-      
+
       this.emit('agent-recovered', { agentName, instanceId });
       logger.info(`Agent ${agentName} (${instanceId}) recovered successfully`);
     }, this.errorRecoveryConfig.recoveryTimeout);
@@ -522,13 +526,13 @@ export class AgentMonitor extends EventEmitter {
     instances.forEach(instance => {
       instance.status = 'inactive';
     });
-    
+
     this.agents.delete(agentName);
     this.metrics.delete(agentName);
     this.healthStatus.delete(agentName);
     this.autoScalingConfigs.delete(agentName);
     this.circuitBreakers.delete(agentName);
-    
+
     logger.info(`Stopped monitoring agent: ${agentName}`);
     this.emit('agent-monitoring-stopped', { agentName });
   }
@@ -547,11 +551,11 @@ export class AgentMonitor extends EventEmitter {
 
   async getAllAgentStatuses(): Promise<Record<string, AgentHealthStatus | null>> {
     const statuses: Record<string, AgentHealthStatus | null> = {};
-    
+
     for (const [agentName, status] of this.healthStatus) {
       statuses[agentName] = status;
     }
-    
+
     return statuses;
   }
 
@@ -567,7 +571,7 @@ export class AgentMonitor extends EventEmitter {
     const allInstances = Array.from(this.agents.values()).flat();
     const activeInstances = allInstances.filter(i => i.status === 'active');
     const healthyAgents = Array.from(this.healthStatus.values()).filter(s => s.isHealthy);
-    
+
     const recentMetrics = Array.from(this.metrics.values())
       .flat()
       .filter(m => Date.now() - m.timestamp.getTime() < 300000); // Last 5 minutes
@@ -577,9 +581,10 @@ export class AgentMonitor extends EventEmitter {
       activeInstances: activeInstances.length,
       healthyAgents: healthyAgents.length,
       overallHealth: this.agents.size > 0 ? (healthyAgents.length / this.agents.size) * 100 : 0,
-      averageResponseTime: recentMetrics.length > 0 
-        ? recentMetrics.reduce((sum, m) => sum + m.averageResponseTime, 0) / recentMetrics.length 
-        : 0,
+      averageResponseTime:
+        recentMetrics.length > 0
+          ? recentMetrics.reduce((sum, m) => sum + m.averageResponseTime, 0) / recentMetrics.length
+          : 0,
       totalRequests: recentMetrics.reduce((sum, m) => sum + m.requestCount, 0),
       totalErrors: recentMetrics.reduce((sum, m) => sum + m.errorCount, 0),
     };
@@ -595,11 +600,11 @@ export class AgentMonitor extends EventEmitter {
     };
   }): Promise<void> {
     logger.info('Performance tracking enabled:', config);
-    
+
     // Start performance monitoring
     setInterval(async () => {
       const metrics = await this.getSystemMetrics();
-      
+
       // Check thresholds and emit alerts
       if (metrics.averageResponseTime > config.alertThresholds.responseTime) {
         this.emit('performance-alert', {
@@ -608,7 +613,7 @@ export class AgentMonitor extends EventEmitter {
           threshold: config.alertThresholds.responseTime,
         });
       }
-      
+
       if (metrics.totalRequests > 0) {
         const errorRate = metrics.totalErrors / metrics.totalRequests;
         if (errorRate > config.alertThresholds.errorRate) {
@@ -620,7 +625,7 @@ export class AgentMonitor extends EventEmitter {
         }
       }
     }, config.metricsInterval * 1000);
-    
+
     this.emit('performance-tracking-enabled', config);
   }
 }

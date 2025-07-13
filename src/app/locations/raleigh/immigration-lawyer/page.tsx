@@ -5,11 +5,14 @@ import { MasterLayout } from '@/design-system/templates/MasterLayout';
 
 export const metadata: Metadata = {
   title: 'Raleigh Immigration Lawyer - YO PELEO POR TI™ | Vasquez Law Firm',
-  description: 'Top Raleigh immigration attorney serving Wake County. Green cards, deportation defense, work visas, citizenship. State capital expertise. Free consultation. Se habla español.',
-  keywords: 'Raleigh immigration lawyer, Raleigh immigration attorney, immigration lawyer Raleigh NC, deportation defense Raleigh, green card lawyer Raleigh, work visa attorney Raleigh, citizenship lawyer Raleigh, Raleigh immigration law firm, best immigration lawyer Raleigh',
+  description:
+    'Top Raleigh immigration attorney serving Wake County. Green cards, deportation defense, work visas, citizenship. State capital expertise. Free consultation. Se habla español.',
+  keywords:
+    'Raleigh immigration lawyer, Raleigh immigration attorney, immigration lawyer Raleigh NC, deportation defense Raleigh, green card lawyer Raleigh, work visa attorney Raleigh, citizenship lawyer Raleigh, Raleigh immigration law firm, best immigration lawyer Raleigh',
   openGraph: {
     title: 'Raleigh Immigration Lawyer - YO PELEO POR TI™ | Vasquez Law Firm',
-    description: 'Raleigh\'s trusted immigration law firm in the state capital. Expert representation for all immigration matters. Military discipline meets legal excellence.',
+    description:
+      "Raleigh's trusted immigration law firm in the state capital. Expert representation for all immigration matters. Military discipline meets legal excellence.",
     images: [{ url: '/images/offices/raleigh-immigration-lawyer.jpg' }],
     type: 'website',
     locale: 'en_US',
@@ -18,7 +21,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Raleigh Immigration Lawyer - YO PELEO POR TI™',
-    description: 'Expert immigration legal services in Raleigh, NC. 98% success rate. Free consultation.',
+    description:
+      'Expert immigration legal services in Raleigh, NC. 98% success rate. Free consultation.',
   },
   alternates: {
     canonical: 'https://www.vasquezlawfirm.com/locations/raleigh/immigration-lawyer',
@@ -35,8 +39,9 @@ export default function RaleighImmigrationLawyerPage() {
     serviceName: 'Immigration Law',
     heroTitle: 'Raleigh Immigration Lawyer',
     heroSubtitle: 'YO PELEO POR TI™',
-    heroDescription: 'North Carolina\'s capital city deserves capital representation. Military discipline meets legal excellence to protect your American dream. Serving Raleigh, Cary, and all of Wake County.',
-    
+    heroDescription:
+      "North Carolina's capital city deserves capital representation. Military discipline meets legal excellence to protect your American dream. Serving Raleigh, Cary, and all of Wake County.",
+
     localStats: {
       stat1: { value: '4,000+', label: 'Wake County Families Helped' },
       stat2: { value: '98%', label: 'Success Rate' },
@@ -46,37 +51,45 @@ export default function RaleighImmigrationLawyerPage() {
 
     serviceDetails: {
       title: 'Raleigh Immigration Legal Services',
-      description: 'Comprehensive immigration representation for Raleigh, Cary, and Wake County residents',
+      description:
+        'Comprehensive immigration representation for Raleigh, Cary, and Wake County residents',
       services: [
         {
           name: 'Deportation Defense',
-          description: 'Emergency deportation defense and bond hearings. We fight detention and removal proceedings aggressively.',
+          description:
+            'Emergency deportation defense and bond hearings. We fight detention and removal proceedings aggressively.',
           localInfo: 'Regular representation at Charlotte Immigration Court (serving Raleigh area)',
         },
         {
           name: 'Green Cards & Permanent Residency',
-          description: 'Family-based and employment-based green card applications for Raleigh\'s diverse community.',
-          localInfo: 'Processing through USCIS Raleigh-Durham office with expert knowledge of local procedures',
+          description:
+            "Family-based and employment-based green card applications for Raleigh's diverse community.",
+          localInfo:
+            'Processing through USCIS Raleigh-Durham office with expert knowledge of local procedures',
         },
         {
           name: 'Work Visas for Tech & Research',
-          description: 'H-1B, L-1, O-1 visas for Research Triangle Park professionals, universities, and tech companies.',
+          description:
+            'H-1B, L-1, O-1 visas for Research Triangle Park professionals, universities, and tech companies.',
           localInfo: 'Serving RTP companies, NC State, Duke, UNC, and major Raleigh employers',
         },
         {
           name: 'Citizenship & Naturalization',
-          description: 'Complete citizenship application assistance, interview preparation, and oath ceremony guidance.',
+          description:
+            'Complete citizenship application assistance, interview preparation, and oath ceremony guidance.',
           localInfo: 'Regular citizenship workshops at our Raleigh office location',
         },
         {
           name: 'Student & Scholar Visas',
-          description: 'F-1, J-1, and related visas for international students and researchers in the Triangle.',
+          description:
+            'F-1, J-1, and related visas for international students and researchers in the Triangle.',
           localInfo: 'Expertise with Triangle universities and research institutions',
         },
         {
           name: 'Business Immigration',
-          description: 'E-2 investor visas, L-1 transfers, and business immigration for Raleigh entrepreneurs.',
-          localInfo: 'Supporting Raleigh\'s growing international business community',
+          description:
+            'E-2 investor visas, L-1 transfers, and business immigration for Raleigh entrepreneurs.',
+          localInfo: "Supporting Raleigh's growing international business community",
         },
       ],
     },
@@ -87,7 +100,7 @@ export default function RaleighImmigrationLawyerPage() {
         'Deep understanding of Research Triangle immigration needs',
         'Relationships with Triangle universities and tech employers',
         'Knowledge of state government employment requirements',
-        'Active in Raleigh\'s Latino and international communities',
+        "Active in Raleigh's Latino and international communities",
         'Convenient downtown Raleigh location near government offices',
         'Entire team fluent in Spanish and English',
       ],
@@ -100,7 +113,8 @@ export default function RaleighImmigrationLawyerPage() {
       phone: '(704) 535-6000',
       hours: 'Monday-Friday: 8:00 AM - 4:30 PM',
       parkingInfo: 'Cases from Raleigh heard in Charlotte',
-      additionalInfo: 'While Raleigh cases are heard in Charlotte Immigration Court, we handle all preparation at our Raleigh office. We accompany clients to Charlotte for hearings and know the judges and procedures thoroughly.',
+      additionalInfo:
+        'While Raleigh cases are heard in Charlotte Immigration Court, we handle all preparation at our Raleigh office. We accompany clients to Charlotte for hearings and know the judges and procedures thoroughly.',
     },
 
     testimonials: [
@@ -135,19 +149,23 @@ export default function RaleighImmigrationLawyerPage() {
     faqs: [
       {
         question: 'How much does a Raleigh immigration lawyer cost?',
-        answer: 'We offer transparent flat fees for most immigration cases with flexible payment plans. Initial consultations are always free. We believe quality legal representation should be accessible to everyone in the Triangle area, regardless of financial situation.',
+        answer:
+          'We offer transparent flat fees for most immigration cases with flexible payment plans. Initial consultations are always free. We believe quality legal representation should be accessible to everyone in the Triangle area, regardless of financial situation.',
       },
       {
         question: 'Do you handle immigration cases for RTP companies?',
-        answer: 'Yes! We regularly work with Research Triangle Park companies, startups, and established corporations on H-1B, L-1, O-1, and other employment-based visas. We understand the unique needs of tech and research professionals.',
+        answer:
+          'Yes! We regularly work with Research Triangle Park companies, startups, and established corporations on H-1B, L-1, O-1, and other employment-based visas. We understand the unique needs of tech and research professionals.',
       },
       {
         question: 'Can you help international students in Raleigh?',
-        answer: 'Absolutely. We assist F-1 students at NC State, Duke, UNC, and other Triangle schools with visa issues, OPT/CPT, status changes, and paths to permanent residency after graduation.',
+        answer:
+          'Absolutely. We assist F-1 students at NC State, Duke, UNC, and other Triangle schools with visa issues, OPT/CPT, status changes, and paths to permanent residency after graduation.',
       },
       {
         question: 'Where are immigration hearings held for Raleigh residents?',
-        answer: 'Immigration Court hearings for Raleigh residents are held in Charlotte. However, we handle all preparation at our Raleigh office and accompany clients to Charlotte for hearings. USCIS interviews are often conducted at the Raleigh-Durham office.',
+        answer:
+          'Immigration Court hearings for Raleigh residents are held in Charlotte. However, we handle all preparation at our Raleigh office and accompany clients to Charlotte for hearings. USCIS interviews are often conducted at the Raleigh-Durham office.',
       },
     ],
 
@@ -191,7 +209,8 @@ export default function RaleighImmigrationLawyerPage() {
       'All Wake County',
     ],
 
-    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3236.5661!2d-78.6382!3d35.7796!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDQ2JzQ2LjYiTiA3OMKwMzgnMTcuNSJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
+    mapEmbedUrl:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3236.5661!2d-78.6382!3d35.7796!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDQ2JzQ2LjYiTiA3OMKwMzgnMTcuNSJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
 
     // SEO-optimized content sections
     whyHireUs: {
@@ -200,7 +219,7 @@ export default function RaleighImmigrationLawyerPage() {
     },
 
     localChallenges: {
-      title: 'Immigration in North Carolina\'s Capital',
+      title: "Immigration in North Carolina's Capital",
       content: `Raleigh\'s position as state capital and tech hub creates specific immigration opportunities and challenges. The Research Triangle Park attracts global talent needing H-1B and O-1 visas. Universities bring international students requiring F-1 support. Growing Latino communities face family separation fears. State government employment adds extra immigration complexities. Our Raleigh immigration attorneys navigate these unique aspects daily, providing tailored solutions whether you\'re a tech professional, student, or long-time resident facing deportation.`,
     },
   };
@@ -210,7 +229,7 @@ export default function RaleighImmigrationLawyerPage() {
       <MasterLayout variant="default" showBreadcrumbs={true}>
         <ModernServiceLocationTemplate data={serviceLocationData} />
       </MasterLayout>
-      
+
       {/* Local Business Schema */}
       <Script
         id="raleigh-immigration-lawyer-local-business-schema"
@@ -221,7 +240,8 @@ export default function RaleighImmigrationLawyerPage() {
             '@type': 'LegalService',
             '@id': 'https://www.vasquezlawfirm.com/locations/raleigh/immigration-lawyer',
             name: 'Vasquez Law Firm - Raleigh Immigration Lawyer',
-            description: 'Top Raleigh immigration attorney serving Wake County. Green cards, deportation defense, work visas, citizenship.',
+            description:
+              'Top Raleigh immigration attorney serving Wake County. Green cards, deportation defense, work visas, citizenship.',
             url: 'https://www.vasquezlawfirm.com/locations/raleigh/immigration-lawyer',
             telephone: '+1-844-967-3536',
             address: {
@@ -328,7 +348,13 @@ export default function RaleighImmigrationLawyerPage() {
               postalCode: '27601',
               addressCountry: 'US',
             },
-            knowsAbout: ['Immigration Law', 'Deportation Defense', 'Work Visas', 'Student Visas', 'Green Cards'],
+            knowsAbout: [
+              'Immigration Law',
+              'Deportation Defense',
+              'Work Visas',
+              'Student Visas',
+              'Green Cards',
+            ],
           }),
         }}
       />

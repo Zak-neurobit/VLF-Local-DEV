@@ -14,12 +14,14 @@ async function testPage(url) {
       port: 3000,
       path: url,
       method: 'GET',
-      timeout: 10000
+      timeout: 10000,
     };
 
-    const req = http.request(options, (res) => {
+    const req = http.request(options, res => {
       let data = '';
-      res.on('data', (chunk) => { data += chunk; });
+      res.on('data', chunk => {
+        data += chunk;
+      });
       res.on('end', () => {
         if (res.statusCode === 200) {
           resolve({ success: true, url, status: res.statusCode });
@@ -29,7 +31,7 @@ async function testPage(url) {
       });
     });
 
-    req.on('error', (err) => {
+    req.on('error', err => {
       resolve({ success: false, url, error: err.message });
     });
 
@@ -47,17 +49,17 @@ async function runTests() {
 
   const pages = [
     '/attorneys/william-vasquez',
-    '/attorneys/christopher-afanador', 
-    '/attorneys/jillian-baucom'
+    '/attorneys/christopher-afanador',
+    '/attorneys/jillian-baucom',
   ];
 
   const results = [];
-  
+
   for (const page of pages) {
     console.log(`Testing ${page}...`);
     const result = await testPage(page);
     results.push(result);
-    
+
     if (result.success) {
       console.log(`✓ ${page} - OK`);
     } else {
@@ -68,7 +70,7 @@ async function runTests() {
   console.log('\nTest Summary:');
   const successful = results.filter(r => r.success).length;
   console.log(`${successful}/${results.length} pages loaded successfully`);
-  
+
   if (successful === results.length) {
     console.log('\n✓ All attorney pages are working correctly!');
   } else {

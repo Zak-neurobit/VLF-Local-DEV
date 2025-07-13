@@ -69,9 +69,7 @@ export const PracticeAreaCard: React.FC<PracticeAreaCardProps> = ({
                 </li>
               ))}
               {services.length > 4 && (
-                <li className="text-sm text-primary font-medium">
-                  +{services.length - 4} more...
-                </li>
+                <li className="text-sm text-primary font-medium">+{services.length - 4} more...</li>
               )}
             </ul>
           </div>

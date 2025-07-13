@@ -45,7 +45,6 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
   const [categorizedPosts, setCategorizedPosts] = useState<Record<string, BlogPost[]>>({});
 
   const content = {

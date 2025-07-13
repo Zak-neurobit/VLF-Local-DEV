@@ -88,11 +88,11 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
   useEffect(() => {
     const initSocket = async () => {
       if (!isOpen || socket) return;
-      
+
       try {
         // Dynamically import socket.io-client to prevent SSR issues
         const { io } = await import('socket.io-client');
-        
+
         const socketUrl =
           process.env.NEXT_PUBLIC_WEBSOCKET_URL ||
           (isBrowser
@@ -108,26 +108,26 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
           },
         });
 
-      newSocket.on('connect', () => {
-        // Virtual Assistant connected
-        setIsConnected(true);
-      });
+        newSocket.on('connect', () => {
+          // Virtual Assistant connected
+          setIsConnected(true);
+        });
 
-      newSocket.on('disconnect', () => {
-        // Virtual Assistant disconnected
-        setIsConnected(false);
-      });
+        newSocket.on('disconnect', () => {
+          // Virtual Assistant disconnected
+          setIsConnected(false);
+        });
 
-      newSocket.on('assistant:response', data => {
-        if (data.text && isVoiceEnabled && mode === 'voice') {
-          handleSpeakText(data.text);
-        }
-      });
+        newSocket.on('assistant:response', data => {
+          if (data.text && isVoiceEnabled && mode === 'voice') {
+            handleSpeakText(data.text);
+          }
+        });
 
-      newSocket.on('error', error => {
-        console.error('Socket error:', error);
-        toast.error(language === 'es' ? 'Error de conexión' : 'Connection error');
-      });
+        newSocket.on('error', error => {
+          console.error('Socket error:', error);
+          toast.error(language === 'es' ? 'Error de conexión' : 'Connection error');
+        });
 
         setSocket(newSocket);
       } catch (error) {
@@ -135,7 +135,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
         setIsConnected(false);
       }
     };
-    
+
     initSocket();
 
     return () => {

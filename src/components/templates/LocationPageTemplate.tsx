@@ -40,14 +40,25 @@ interface LocationPageTemplateProps {
   children?: React.ReactNode;
 }
 
-export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data, location, content, children }) => {
+export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({
+  data,
+  location,
+  content,
+  children,
+}) => {
   // Handle legacy props (location/content pattern)
   if (!data && location && content) {
     return (
       <MasterLayout>
         <Section className="py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Heading as="h1" size="4xl" weight="bold" className="text-center mb-8" style={{ color: COLORS.burgundy[700] }}>
+            <Heading
+              as="h1"
+              size="4xl"
+              weight="bold"
+              className="text-center mb-8"
+              style={{ color: COLORS.burgundy[700] }}
+            >
               {location} Legal Services
             </Heading>
             {content}
@@ -66,7 +77,7 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data
     practiceAreas = [],
     localInfo = { courts: [], commonIssues: [] },
     testimonials = [],
-    nearbyLocations = []
+    nearbyLocations = [],
   } = data || {};
 
   return (
@@ -85,7 +96,8 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data
               {city} Immigration & Criminal Defense Lawyers
             </Heading>
             <Text size="xl" color="white" className="mb-8 max-w-3xl mx-auto opacity-90">
-              Serving {city}, {state} and the surrounding area with experienced legal representation. Se habla español.
+              Serving {city}, {state} and the surrounding area with experienced legal
+              representation. Se habla español.
             </Text>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -124,29 +136,40 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data
       </Section>
 
       {/* Statistics Bar */}
-      <Section
-        className="py-8"
-        style={{ backgroundColor: COLORS.gold[500] }}
-      >
+      <Section className="py-8" style={{ backgroundColor: COLORS.gold[500] }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
             <div>
-              <Heading as="h3" size="3xl" weight="bold" color="white">{population || '100K+'}
+              <Heading as="h3" size="3xl" weight="bold" color="white">
+                {population || '100K+'}
               </Heading>
-              <Text size="sm" color="white">Population Served</Text>
+              <Text size="sm" color="white">
+                Population Served
+              </Text>
             </div>
             <div>
-              <Heading as="h3" size="3xl" weight="bold" color="white">{caseCount || '500+'}
+              <Heading as="h3" size="3xl" weight="bold" color="white">
+                {caseCount || '500+'}
               </Heading>
-              <Text size="sm" color="white">Local Cases Won</Text>
+              <Text size="sm" color="white">
+                Local Cases Won
+              </Text>
             </div>
             <div>
-              <Heading as="h3" size="3xl" weight="bold" color="white">15+</Heading>
-              <Text size="sm" color="white">Years Experience</Text>
+              <Heading as="h3" size="3xl" weight="bold" color="white">
+                15+
+              </Heading>
+              <Text size="sm" color="white">
+                Years Experience
+              </Text>
             </div>
             <div>
-              <Heading as="h3" size="3xl" weight="bold" color="white">4.9★</Heading>
-              <Text size="sm" color="white">Client Rating</Text>
+              <Heading as="h3" size="3xl" weight="bold" color="white">
+                4.9★
+              </Heading>
+              <Text size="sm" color="white">
+                Client Rating
+              </Text>
             </div>
           </div>
         </div>
@@ -155,15 +178,31 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data
       {/* Practice Areas Grid */}
       <Section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Heading as="h2" size="3xl" weight="bold" className="text-center mb-12" style={{ color: COLORS.burgundy[700] }}>
+          <Heading
+            as="h2"
+            size="3xl"
+            weight="bold"
+            className="text-center mb-12"
+            style={{ color: COLORS.burgundy[700] }}
+          >
             Legal Services for {city} Residents
           </Heading>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {practiceAreas.map((area, index) => (
-              <Card key={index} className="p-6" style={{ borderTopColor: COLORS.burgundy[700], borderTopWidth: '4px' }}>
+              <Card
+                key={index}
+                className="p-6"
+                style={{ borderTopColor: COLORS.burgundy[700], borderTopWidth: '4px' }}
+              >
                 <div className="text-4xl mb-4">{area.icon}</div>
-                <Heading as="h3" size="xl" weight="bold" className="mb-3" style={{ color: COLORS.burgundy[700] }}>
+                <Heading
+                  as="h3"
+                  size="xl"
+                  weight="bold"
+                  className="mb-3"
+                  style={{ color: COLORS.burgundy[700] }}
+                >
                   {area.title}
                 </Heading>
                 <ul className="space-y-2 mb-4" style={{ color: COLORS.neutral[700] }}>
@@ -189,14 +228,28 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
-              <Heading as="h2" size="3xl" weight="bold" className="mb-6" style={{ color: COLORS.burgundy[700] }}>
+              <Heading
+                as="h2"
+                size="3xl"
+                weight="bold"
+                className="mb-6"
+                style={{ color: COLORS.burgundy[700] }}
+              >
                 Why {city} Residents Choose Vasquez Law Firm
               </Heading>
               <div className="space-y-4">
                 <div className="flex items-start">
-                  <MapPin className="w-6 h-6 mr-4 flex-shrink-0" style={{ color: COLORS.gold[500] }} />
+                  <MapPin
+                    className="w-6 h-6 mr-4 flex-shrink-0"
+                    style={{ color: COLORS.gold[500] }}
+                  />
                   <div>
-                    <Heading as="h4" size="lg" weight="bold" style={{ color: COLORS.burgundy[700] }}>
+                    <Heading
+                      as="h4"
+                      size="lg"
+                      weight="bold"
+                      style={{ color: COLORS.burgundy[700] }}
+                    >
                       Local Knowledge
                     </Heading>
                     <Text size="base" style={{ color: COLORS.neutral[700] }}>
@@ -207,7 +260,12 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data
                 <div className="flex items-start">
                   <span className="text-2xl mr-4">🗣️</span>
                   <div>
-                    <Heading as="h4" size="lg" weight="bold" style={{ color: COLORS.burgundy[700] }}>
+                    <Heading
+                      as="h4"
+                      size="lg"
+                      weight="bold"
+                      style={{ color: COLORS.burgundy[700] }}
+                    >
                       Bilingual Services
                     </Heading>
                     <Text size="base" style={{ color: COLORS.neutral[700] }}>
@@ -216,9 +274,17 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <Clock className="w-6 h-6 mr-4 flex-shrink-0" style={{ color: COLORS.gold[500] }} />
+                  <Clock
+                    className="w-6 h-6 mr-4 flex-shrink-0"
+                    style={{ color: COLORS.gold[500] }}
+                  />
                   <div>
-                    <Heading as="h4" size="lg" weight="bold" style={{ color: COLORS.burgundy[700] }}>
+                    <Heading
+                      as="h4"
+                      size="lg"
+                      weight="bold"
+                      style={{ color: COLORS.burgundy[700] }}
+                    >
                       24/7 Availability
                     </Heading>
                     <Text size="base" style={{ color: COLORS.neutral[700] }}>
@@ -227,9 +293,17 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <DollarSign className="w-6 h-6 mr-4 flex-shrink-0" style={{ color: COLORS.gold[500] }} />
+                  <DollarSign
+                    className="w-6 h-6 mr-4 flex-shrink-0"
+                    style={{ color: COLORS.gold[500] }}
+                  />
                   <div>
-                    <Heading as="h4" size="lg" weight="bold" style={{ color: COLORS.burgundy[700] }}>
+                    <Heading
+                      as="h4"
+                      size="lg"
+                      weight="bold"
+                      style={{ color: COLORS.burgundy[700] }}
+                    >
                       Affordable Representation
                     </Heading>
                     <Text size="base" style={{ color: COLORS.neutral[700] }}>
@@ -241,11 +315,23 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data
             </div>
 
             <div>
-              <Heading as="h3" size="2xl" weight="bold" className="mb-6" style={{ color: COLORS.burgundy[700] }}>
+              <Heading
+                as="h3"
+                size="2xl"
+                weight="bold"
+                className="mb-6"
+                style={{ color: COLORS.burgundy[700] }}
+              >
                 {state} Legal Information
               </Heading>
               <Card className="p-6">
-                <Heading as="h4" size="lg" weight="bold" className="mb-3" style={{ color: COLORS.burgundy[700] }}>
+                <Heading
+                  as="h4"
+                  size="lg"
+                  weight="bold"
+                  className="mb-3"
+                  style={{ color: COLORS.burgundy[700] }}
+                >
                   Court Locations
                 </Heading>
                 <ul className="space-y-2 mb-4" style={{ color: COLORS.neutral[700] }}>
@@ -256,7 +342,13 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data
                   ))}
                 </ul>
 
-                <Heading as="h4" size="lg" weight="bold" className="mb-3 mt-6" style={{ color: COLORS.burgundy[700] }}>
+                <Heading
+                  as="h4"
+                  size="lg"
+                  weight="bold"
+                  className="mb-3 mt-6"
+                  style={{ color: COLORS.burgundy[700] }}
+                >
                   Common Legal Issues in {city}
                 </Heading>
                 <ul className="space-y-2" style={{ color: COLORS.neutral[700] }}>
@@ -273,7 +365,13 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data
       {/* Testimonials */}
       <Section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Heading as="h2" size="3xl" weight="bold" className="text-center mb-12" style={{ color: COLORS.burgundy[700] }}>
+          <Heading
+            as="h2"
+            size="3xl"
+            weight="bold"
+            className="text-center mb-12"
+            style={{ color: COLORS.burgundy[700] }}
+          >
             What {city} Clients Say About Us
           </Heading>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -297,7 +395,13 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data
       {/* Nearby Cities */}
       <Section className="py-16" style={{ backgroundColor: COLORS.neutral[50] }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Heading as="h3" size="2xl" weight="bold" className="text-center mb-8" style={{ color: COLORS.burgundy[700] }}>
+          <Heading
+            as="h3"
+            size="2xl"
+            weight="bold"
+            className="text-center mb-8"
+            style={{ color: COLORS.burgundy[700] }}
+          >
             Also Serving Nearby Communities
           </Heading>
           <div className="flex flex-wrap justify-center gap-3">
@@ -322,17 +426,14 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({ data
       </Section>
 
       {/* CTA Section */}
-      <Section 
-        className="py-20 text-white"
-        style={{ backgroundColor: COLORS.burgundy[700] }}
-      >
+      <Section className="py-20 text-white" style={{ backgroundColor: COLORS.burgundy[700] }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Heading as="h2" size="4xl" weight="bold" color="white" className="mb-6">
             Get Legal Help in {city} Today
           </Heading>
           <Text size="xl" color="white" className="mb-8 opacity-90">
-            Don&apos;t face your legal challenges alone. Our experienced attorneys are ready to fight
-            for you. Free consultation • Se habla español • Payment plans available
+            Don&apos;t face your legal challenges alone. Our experienced attorneys are ready to
+            fight for you. Free consultation • Se habla español • Payment plans available
           </Text>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button

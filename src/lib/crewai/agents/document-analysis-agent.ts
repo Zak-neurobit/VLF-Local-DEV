@@ -141,7 +141,7 @@ Your role is to provide accurate, thorough analysis while identifying potential 
 
   private buildAnalysisPrompt(request: DocumentAnalysisRequest, documentText: string): string {
     const analysisInstructions = {
-      summary: 'Provide a concise summary of the document\'s main content and purpose',
+      summary: "Provide a concise summary of the document's main content and purpose",
       'risk-assessment': 'Focus on identifying potential legal risks and liability issues',
       'compliance-check': 'Verify compliance with relevant legal requirements and regulations',
       'key-extraction': 'Extract key information like dates, names, amounts, and critical details',

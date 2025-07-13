@@ -75,7 +75,7 @@ export class ContentScraper {
         publishedAfter: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // Last 7 days
       });
 
-      const videoIds = searchResponse.data.items.map((item) => item.id?.videoId).filter(Boolean);
+      const videoIds = searchResponse.data.items.map(item => item.id?.videoId).filter(Boolean);
 
       // Get video statistics
       const statsResponse = await this.youtube.videos.list({

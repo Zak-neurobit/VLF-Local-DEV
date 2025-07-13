@@ -54,14 +54,14 @@ const serviceSchema = generateServiceSchema({
     { name: 'Green Card Applications', description: '...' },
     { name: 'Deportation Defense', description: '...' },
     // etc.
-  ]
+  ],
 });
 
 const faqSchema = generateEnhancedFAQSchema([
   {
-    question: "How long does it take to get a green card?",
-    answer: "The processing time for a green card varies...",
-    category: "Immigration Law"
+    question: 'How long does it take to get a green card?',
+    answer: 'The processing time for a green card varies...',
+    category: 'Immigration Law',
   },
   // Add 5-10 FAQs per practice area
 ]);
@@ -80,17 +80,17 @@ const locationSchema = generateEnhancedLocalBusinessSchema({
     street: '4801 E Independence Blvd Suite 714',
     city: 'Charlotte',
     state: 'NC',
-    zip: '28212'
+    zip: '28212',
   },
   phone: '+1-844-967-3536',
   geo: { lat: 35.2271, lng: -80.8431 },
   placeId: 'ChIJ_____', // Add real Google Place ID
   departments: [
     { name: 'Immigration Department', telephone: '+1-844-967-3536' },
-    { name: 'Personal Injury Department', telephone: '+1-844-967-3536' }
+    { name: 'Personal Injury Department', telephone: '+1-844-967-3536' },
   ],
   amenities: ['Wheelchair Accessible', 'Free Parking', 'Spanish Speaking Staff'],
-  paymentAccepted: ['Cash', 'Check', 'Credit Card', 'Payment Plans']
+  paymentAccepted: ['Cash', 'Check', 'Credit Card', 'Payment Plans'],
 });
 ```
 
@@ -99,10 +99,10 @@ const locationSchema = generateEnhancedLocalBusinessSchema({
 **File**: `/src/app/page.tsx`
 
 ```typescript
-import { 
-  generateWebSiteSchema, 
+import {
+  generateWebSiteSchema,
   organizationSchema,
-  generateReviewSchema 
+  generateReviewSchema,
 } from '@/lib/seo/comprehensive-schema';
 
 const websiteSchema = generateWebSiteSchema();
@@ -114,17 +114,13 @@ const reviewsSchema = generateReviewSchema([
     text: 'Best immigration lawyer in Charlotte! They helped me get my green card...',
     date: '2024-01-15',
     title: 'Life-changing legal help',
-    source: 'Google Reviews'
+    source: 'Google Reviews',
   },
   // Add 10+ real reviews
 ]);
 
 // Combine all homepage schemas
-const homepageSchemas = [
-  websiteSchema,
-  organizationSchema,
-  reviewsSchema
-];
+const homepageSchemas = [websiteSchema, organizationSchema, reviewsSchema];
 ```
 
 ### 5. CONTACT PAGE - Add ContactPage Schema
@@ -147,7 +143,7 @@ import { generateEnhancedBreadcrumbSchema } from '@/lib/seo/comprehensive-schema
 
 export function BreadcrumbSchema({ items }: { items: Array<{name: string, url: string}> }) {
   const schema = generateEnhancedBreadcrumbSchema(items);
-  
+
   return (
     <Script
       id="breadcrumb-schema"
@@ -161,14 +157,16 @@ export function BreadcrumbSchema({ items }: { items: Array<{name: string, url: s
 ## 📊 SCHEMA VALIDATION CHECKLIST
 
 ### Week 1 Implementation Priority:
+
 - [ ] All 7 attorney pages have Attorney schema
-- [ ] All 6 main practice areas have Service + FAQ schema  
+- [ ] All 6 main practice areas have Service + FAQ schema
 - [ ] Homepage has Organization + Review + WebSite schema
 - [ ] All location pages have LocalBusiness schema
 - [ ] BreadcrumbList on every page
 - [ ] Contact page has ContactPage schema
 
 ### Week 2 Advanced Schemas:
+
 - [ ] HowTo schema for "How to Apply for Green Card" page
 - [ ] Event schema for free consultation events
 - [ ] VideoObject schema for attorney introduction videos
@@ -178,11 +176,13 @@ export function BreadcrumbSchema({ items }: { items: Array<{name: string, url: s
 
 ## 🔍 TESTING YOUR SCHEMAS
 
-1. **Google Rich Results Test**: 
+1. **Google Rich Results Test**:
+
    - https://search.google.com/test/rich-results
    - Test each page type
 
 2. **Schema Markup Validator**:
+
    - https://validator.schema.org/
    - Validate JSON-LD syntax
 
@@ -193,6 +193,7 @@ export function BreadcrumbSchema({ items }: { items: Array<{name: string, url: s
 ## 💡 PRO TIPS FOR MAXIMUM IMPACT
 
 1. **Use @id connections** - Link related schemas together:
+
    ```json
    "@id": "https://www.vasquezlawnc.com/#organization"
    ```
@@ -200,6 +201,7 @@ export function BreadcrumbSchema({ items }: { items: Array<{name: string, url: s
 2. **Include images** in all schemas where possible
 
 3. **Add Spanish language variants**:
+
    ```json
    "availableLanguage": ["English", "Spanish"]
    ```

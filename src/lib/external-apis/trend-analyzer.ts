@@ -10,23 +10,19 @@ export interface TrendingTopic {
 export class TrendAnalyzer {
   async getTrendingSearches(topics: string[]): Promise<TrendingTopic[]> {
     logger.info('Getting trending searches', { topics });
-    
+
     // Mock implementation
     return topics.map(topic => ({
       title: `${topic} trends 2024`,
       score: Math.floor(Math.random() * 100),
       category: topic,
-      relatedQueries: [
-        `${topic} near me`,
-        `best ${topic}`,
-        `${topic} cost`,
-      ],
+      relatedQueries: [`${topic} near me`, `best ${topic}`, `${topic} cost`],
     }));
   }
 
   async getVoiceSearchTrends(): Promise<TrendingTopic[]> {
     logger.info('Getting voice search trends');
-    
+
     // Mock implementation
     return [
       {

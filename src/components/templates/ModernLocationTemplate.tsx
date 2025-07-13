@@ -4,19 +4,19 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Clock, 
-  ArrowRight, 
-  Scale, 
-  Shield, 
-  Heart, 
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  ArrowRight,
+  Scale,
+  Shield,
+  Heart,
   Briefcase,
   CheckCircle,
   Star,
-  Globe
+  Globe,
 } from 'lucide-react';
 import { Button } from '@/components/design-system/Button';
 import { Heading, Text } from '@/components/design-system/Typography';
@@ -58,17 +58,22 @@ interface ModernLocationTemplateProps {
   language?: 'en' | 'es';
 }
 
-export default function ModernLocationTemplate({ data, language = 'en' }: ModernLocationTemplateProps) {
-  const [activeTab, setActiveTab] = useState<'immigration' | 'personalInjury' | 'workersComp' | 'criminalDefense'>('immigration');
-  
+export default function ModernLocationTemplate({
+  data,
+  language = 'en',
+}: ModernLocationTemplateProps) {
+  const [activeTab, setActiveTab] = useState<
+    'immigration' | 'personalInjury' | 'workersComp' | 'criminalDefense'
+  >('immigration');
+
   // Map tab keys to data structure keys
   const practiceAreaMap: Record<string, keyof typeof data.practiceAreas> = {
     immigration: 'immigration',
-    personalInjury: 'personalInjury', 
+    personalInjury: 'personalInjury',
     workersComp: 'workersComp',
-    criminalDefense: 'criminalDefense'
+    criminalDefense: 'criminalDefense',
   };
-  
+
   const content = {
     en: {
       hero: {
@@ -189,7 +194,8 @@ export default function ModernLocationTemplate({ data, language = 'en' }: Modern
       },
       serving: {
         title: `Sirviendo a Todo el Gran ${data.cityName}`,
-        description: 'Nuestra oficina orgullosamente sirve a clientes en toda la región, incluyendo:',
+        description:
+          'Nuestra oficina orgullosamente sirve a clientes en toda la región, incluyendo:',
       },
     },
   };
@@ -372,7 +378,11 @@ export default function ModernLocationTemplate({ data, language = 'en' }: Modern
                 return (
                   <motion.button
                     key={key}
-                    onClick={() => setActiveTab(key as 'immigration' | 'personalInjury' | 'workersComp' | 'criminalDefense')}
+                    onClick={() =>
+                      setActiveTab(
+                        key as 'immigration' | 'personalInjury' | 'workersComp' | 'criminalDefense'
+                      )
+                    }
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all ${
@@ -476,29 +486,31 @@ export default function ModernLocationTemplate({ data, language = 'en' }: Modern
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {data.servingAreas.reduce((cols: string[][], area, index) => {
-              const colIndex = index % 3;
-              if (!cols[colIndex]) cols[colIndex] = [];
-              cols[colIndex].push(area);
-              return cols;
-            }, []).map((col, colIndex) => (
-              <motion.div
-                key={colIndex}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: colIndex * 0.1 }}
-              >
-                <ul className="space-y-3">
-                  {col.map((area, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <Star className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-300">{area}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
+            {data.servingAreas
+              .reduce((cols: string[][], area, index) => {
+                const colIndex = index % 3;
+                if (!cols[colIndex]) cols[colIndex] = [];
+                cols[colIndex].push(area);
+                return cols;
+              }, [])
+              .map((col, colIndex) => (
+                <motion.div
+                  key={colIndex}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: colIndex * 0.1 }}
+                >
+                  <ul className="space-y-3">
+                    {col.map((area, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <Star className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                        <span className="text-gray-300">{area}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
           </div>
         </div>
       </section>

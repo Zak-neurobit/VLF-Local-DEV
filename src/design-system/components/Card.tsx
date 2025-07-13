@@ -22,7 +22,7 @@ export const Card: React.FC<CardProps> = ({
   className = '',
 }) => {
   const baseClasses = 'rounded-xl overflow-hidden transition-all duration-300';
-  
+
   const variantClasses = {
     default: 'bg-white',
     bordered: 'bg-white border border-neutral-200',
@@ -77,14 +77,12 @@ interface CardTitleProps {
   className?: string;
 }
 
-export const CardTitle: React.FC<CardTitleProps> = ({ 
-  children, 
+export const CardTitle: React.FC<CardTitleProps> = ({
+  children,
   as: Component = 'h3',
-  className = '' 
+  className = '',
 }) => (
-  <Component className={`text-xl font-bold text-neutral-900 ${className}`}>
-    {children}
-  </Component>
+  <Component className={`text-xl font-bold text-neutral-900 ${className}`}>{children}</Component>
 );
 
 interface CardContentProps {

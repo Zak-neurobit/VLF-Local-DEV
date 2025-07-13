@@ -1,7 +1,7 @@
 /**
  * Vasquez Law Firm Design System
- * 
- * This is the main export file for all design system components, 
+ *
+ * This is the main export file for all design system components,
  * templates, and constants. Import everything from here to ensure
  * consistency across the application.
  */
@@ -27,12 +27,12 @@ export { PracticeAreaCard } from './components/PracticeAreaCard';
 export const getColorValue = (path: string) => {
   const parts = path.split('.');
   let value: any = require('./constants').COLORS;
-  
+
   for (const part of parts) {
     value = value[part];
     if (!value) return undefined;
   }
-  
+
   return value;
 };
 

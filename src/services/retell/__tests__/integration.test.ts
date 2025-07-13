@@ -188,7 +188,7 @@ describe('Retell-GHL Integration Tests', () => {
   describe('Status Management', () => {
     it('should update call status correctly', async () => {
       const callId = 'test-call-123';
-      
+
       await statusManager.updateCallStatus(callId, 'connected', {
         timestamp: new Date(),
         agent_id: 'test-agent',
@@ -201,7 +201,7 @@ describe('Retell-GHL Integration Tests', () => {
 
     it('should trigger appropriate follow-up actions on call end', async () => {
       const callId = 'test-call-123';
-      
+
       // Mock database call record
       jest.doMock('@/lib/prisma', () => ({
         getPrismaClient: () => ({
@@ -227,7 +227,7 @@ describe('Retell-GHL Integration Tests', () => {
 
     it('should handle call failures appropriately', async () => {
       const callId = 'failed-call-123';
-      
+
       await statusManager.updateCallStatus(callId, 'failed', {
         reason: 'Network error',
       });
@@ -243,7 +243,8 @@ describe('Retell-GHL Integration Tests', () => {
   describe('Recording and Transcription', () => {
     it('should process recording with transcript analysis', async () => {
       const callId = 'recording-test-123';
-      const mockTranscript = 'Hello, I need help with my immigration case. I am very satisfied with the service.';
+      const mockTranscript =
+        'Hello, I need help with my immigration case. I am very satisfied with the service.';
 
       // Mock Retell service responses
       const mockRetellService = {
@@ -274,10 +275,10 @@ describe('Retell-GHL Integration Tests', () => {
 
     it('should detect positive sentiment from transcript', async () => {
       const transcript = 'Thank you so much! This service is excellent and very helpful.';
-      
+
       // Test sentiment analysis (we'd need to expose the private method or test through public interface)
       const callId = 'sentiment-test-123';
-      
+
       const mockRetellService = {
         getCallRecording: jest.fn().mockResolvedValue({
           recording_url: 'https://recordings.retellai.com/test.mp3',
@@ -324,8 +325,8 @@ describe('Retell-GHL Integration Tests', () => {
 
     it('should handle rate limit errors with retry', async () => {
       const rateLimitError = {
-        response: { 
-          status: 429, 
+        response: {
+          status: 429,
           headers: { 'retry-after': '60' },
           data: { message: 'Rate limit exceeded' },
         },
@@ -363,7 +364,7 @@ describe('Retell-GHL Integration Tests', () => {
     it('should verify webhook signatures correctly', () => {
       const payload = JSON.stringify({ test: 'data' });
       const secret = '2996bc9f-ca4e-422a-b64e-a09a3eaa9bc0';
-      
+
       // Create valid signature
       const crypto = require('crypto');
       const signature = crypto.createHmac('sha256', secret).update(payload).digest('hex');
@@ -402,7 +403,7 @@ describe('Retell-GHL Integration Tests', () => {
 
     it('should enforce rate limits', async () => {
       const identifier = 'test-user';
-      
+
       // First call should succeed
       const firstResult = await securityManager.checkRateLimit(identifier, 'minute');
       expect(firstResult.isLimited).toBe(false);
@@ -486,9 +487,11 @@ describe('Retell-GHL Integration Tests', () => {
         getCallRecording: jest.fn().mockResolvedValue({
           recording_url: 'https://recordings.retellai.com/test.mp3',
         }),
-        getCallTranscript: jest.fn().mockResolvedValue(
-          'Hello, I need help with my immigration case. The service was very helpful.'
-        ),
+        getCallTranscript: jest
+          .fn()
+          .mockResolvedValue(
+            'Hello, I need help with my immigration case. The service was very helpful.'
+          ),
         getCall: jest.fn().mockResolvedValue({
           call_id: callId,
           duration_ms: 180000,
@@ -625,16 +628,16 @@ describe('Performance Tests', () => {
 
   it('should process recordings efficiently', async () => {
     const recordingPromises = [];
-    
+
     for (let i = 0; i < 3; i++) {
       // Mock different call scenarios
       const mockRetellService = {
         getCallRecording: jest.fn().mockResolvedValue({
           recording_url: `https://recordings.retellai.com/test-${i}.mp3`,
         }),
-        getCallTranscript: jest.fn().mockResolvedValue(
-          `Test transcript ${i} with various content for analysis.`
-        ),
+        getCallTranscript: jest
+          .fn()
+          .mockResolvedValue(`Test transcript ${i} with various content for analysis.`),
         getCall: jest.fn().mockResolvedValue({
           call_id: `test-call-${i}`,
           duration_ms: 120000,

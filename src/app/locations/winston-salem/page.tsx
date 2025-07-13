@@ -9,7 +9,8 @@ export const metadata: Metadata = {
     'Winston-Salem NC immigration lawyers and personal injury attorneys. Serving Forsyth County with deportation defense, green cards, work visas & accident claims. Free consultation.',
   openGraph: {
     title: 'Winston-Salem Immigration Lawyers | Personal Injury Attorneys - Vasquez Law Firm',
-    description: 'Expert legal representation in Winston-Salem NC. Immigration, personal injury, workers comp & criminal defense. Free consultation. Se habla español.',
+    description:
+      'Expert legal representation in Winston-Salem NC. Immigration, personal injury, workers comp & criminal defense. Free consultation. Se habla español.',
     images: [{ url: '/images/offices/winston-salem-office.jpg' }],
   },
 };
@@ -100,7 +101,8 @@ export default function WinstonSalemPage() {
         'Paternity Cases',
       ],
     },
-    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3287.654321098!2d-80.2569!3d36.0986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDU5JzE4LjkiTiA4MMKwMTUnMjQuOSJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
+    mapEmbedUrl:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3287.654321098!2d-80.2569!3d36.0986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDU5JzE4LjkiTiA4MMKwMTUnMjQuOSJX!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus',
   };
 
   return (

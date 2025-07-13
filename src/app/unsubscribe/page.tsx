@@ -1,3 +1,4 @@
+import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -5,22 +6,62 @@ export const metadata: Metadata = {
   description: 'Manage your email preferences',
 };
 
+export const runtime = 'nodejs';
+
 export default function UnsubscribePage() {
-  return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">Unsubscribe</h1>
-        <p className="text-gray-600 mb-6">
-          You have been successfully unsubscribed from our mailing list.
-        </p>
-        <p className="text-sm text-gray-500">
-          If this was a mistake, you can{' '}
-          <a href="/contact" className="text-primary hover:underline">
-            contact us
-          </a>{' '}
-          to re-subscribe.
-        </p>
+  // TODO: Extract content from original file and format properly
+  const post = {
+    id: 'unsubscribe',
+    title: 'Unsubscribe',
+    slug: 'unsubscribe',
+    excerpt: 'Blog post excerpt here - TODO: extract from content',
+    content: `
+      <div class="prose prose-lg max-w-none">
+        <!-- TODO: Migrate content from original file -->
+        <p>This content needs to be migrated from the original file.</p>
       </div>
-    </div>
+    `,
+    practiceArea: 'general', // TODO: Determine correct practice area
+    language: 'en' as const,
+    publishedAt: new Date(),
+    readTime: 5,
+    author: {
+      name: 'Vasquez Law Firm',
+    },
+    tags: [], // TODO: Add relevant tags
+  };
+
+  const categories = [
+    {
+      id: 'immigration',
+      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
+      slug: { en: 'immigration', es: 'inmigracion' },
+      icon: '🌐',
+      postCount: 45,
+    },
+    {
+      id: 'personal-injury',
+      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
+      slug: { en: 'personal-injury', es: 'lesiones-personales' },
+      icon: '🏥',
+      postCount: 32,
+    },
+    {
+      id: 'criminal-defense',
+      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
+      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
+      icon: '⚖️',
+      postCount: 28,
+    },
+  ];
+
+  return (
+    <BlogPageTemplate
+      posts={[]}
+      categories={categories}
+      isArticlePage={true}
+      currentPost={post}
+      relatedPosts={[]} // TODO: Add related posts
+    />
   );
 }

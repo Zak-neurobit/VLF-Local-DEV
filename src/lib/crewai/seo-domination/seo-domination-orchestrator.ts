@@ -55,7 +55,7 @@ export class SEODominationOrchestrator {
     reviews: ReviewHarvestingAgent;
     competitor: CompetitorSpyAgent;
   };
-  
+
   private prisma: any;
   private isRunning: boolean = false;
   private monitoringJob: cron.ScheduledTask | null = null;
@@ -63,14 +63,14 @@ export class SEODominationOrchestrator {
 
   constructor() {
     this.prisma = getPrismaClient();
-    
+
     // Initialize all agents
     this.agents = {
       blogContent: new BlogContentDominationAgent(),
       gmb: new GoogleMyBusinessKillerAgent(),
       socialMedia: new SocialMediaDestroyerAgent(),
       reviews: new ReviewHarvestingAgent(),
-      competitor: new CompetitorSpyAgent()
+      competitor: new CompetitorSpyAgent(),
     };
   }
 
@@ -148,7 +148,7 @@ export class SEODominationOrchestrator {
       this.agents.gmb.startDomination(),
       this.agents.socialMedia.startDomination(),
       this.agents.reviews.startHarvesting(),
-      this.agents.competitor.startSpying()
+      this.agents.competitor.startSpying(),
     ];
 
     await Promise.all(startPromises);
@@ -227,7 +227,6 @@ export class SEODominationOrchestrator {
 
       // Store metrics for tracking
       await this.storePerformanceMetrics(metrics);
-
     } catch (error) {
       logger.error('Performance monitoring failed:', error);
     }
@@ -242,12 +241,16 @@ export class SEODominationOrchestrator {
     // This would integrate with the competitor spy agent
     const intelligence = {
       topCompetitors: [
-        { name: 'Brent Adams', weaknesses: ['slow site', 'poor mobile'], strengths: ['many reviews'] },
-        { name: 'Hardwick Law', weaknesses: ['few blog posts'], strengths: ['good rankings'] }
+        {
+          name: 'Brent Adams',
+          weaknesses: ['slow site', 'poor mobile'],
+          strengths: ['many reviews'],
+        },
+        { name: 'Hardwick Law', weaknesses: ['few blog posts'], strengths: ['good rankings'] },
       ],
       marketGaps: ['Spanish content', 'video content', 'interactive tools'],
       keywordOpportunities: ['immigration lawyer charlotte', 'abogado de inmigracion'],
-      contentGaps: ['DACA updates', 'workers comp calculator', 'DWI consequences guide']
+      contentGaps: ['DACA updates', 'workers comp calculator', 'DWI consequences guide'],
     };
 
     return intelligence;
@@ -265,7 +268,7 @@ export class SEODominationOrchestrator {
         type: 'content',
         action: `Create comprehensive guide on ${gap}`,
         priority: 'high',
-        assignTo: 'blogContent'
+        assignTo: 'blogContent',
       });
     });
 
@@ -275,7 +278,7 @@ export class SEODominationOrchestrator {
         type: 'seo',
         action: `Target "${keyword}" with optimized content`,
         priority: 'high',
-        assignTo: 'blogContent'
+        assignTo: 'blogContent',
       });
     });
 
@@ -284,7 +287,7 @@ export class SEODominationOrchestrator {
       type: 'gmb',
       action: 'Post 3x daily with local keywords',
       priority: 'high',
-      assignTo: 'gmb'
+      assignTo: 'gmb',
     });
 
     // Social opportunities
@@ -292,7 +295,7 @@ export class SEODominationOrchestrator {
       type: 'social',
       action: 'Create viral "Know Your Rights" series',
       priority: 'medium',
-      assignTo: 'socialMedia'
+      assignTo: 'socialMedia',
     });
 
     return quickWins;
@@ -311,12 +314,12 @@ export class SEODominationOrchestrator {
             // Trigger blog content creation
             logger.info(`📝 Creating content: ${opp.action}`);
             break;
-          
+
           case 'gmb':
             // Trigger GMB posting
             logger.info(`📍 GMB action: ${opp.action}`);
             break;
-          
+
           case 'socialMedia':
             // Trigger social campaign
             logger.info(`📱 Social campaign: ${opp.action}`);
@@ -338,7 +341,7 @@ export class SEODominationOrchestrator {
       'GMB views',
       'review count',
       'social engagement',
-      'lead generation'
+      'lead generation',
     ];
 
     logger.info(`📊 Monitoring setup for: ${keyMetrics.join(', ')}`);
@@ -354,7 +357,7 @@ export class SEODominationOrchestrator {
     const campaigns = [
       { name: 'Recent Wins', target: 'closed_cases_30_days' },
       { name: 'Long Term Clients', target: 'clients_over_6_months' },
-      { name: 'High Value Cases', target: 'cases_over_10k' }
+      { name: 'High Value Cases', target: 'cases_over_10k' },
     ];
 
     logger.info(`Started ${campaigns.length} review campaigns`);
@@ -372,8 +375,8 @@ export class SEODominationOrchestrator {
         metrics: {
           totalActions: await this.getAgentActionCount('blog'),
           successRate: 0.95,
-          impact: 85
-        }
+          impact: 85,
+        },
       },
       {
         name: 'GoogleMyBusinessKiller',
@@ -382,8 +385,8 @@ export class SEODominationOrchestrator {
         metrics: {
           totalActions: await this.getAgentActionCount('gmb'),
           successRate: 0.98,
-          impact: 90
-        }
+          impact: 90,
+        },
       },
       {
         name: 'SocialMediaDestroyer',
@@ -392,8 +395,8 @@ export class SEODominationOrchestrator {
         metrics: {
           totalActions: await this.getAgentActionCount('social'),
           successRate: 0.92,
-          impact: 75
-        }
+          impact: 75,
+        },
       },
       {
         name: 'ReviewHarvesting',
@@ -402,8 +405,8 @@ export class SEODominationOrchestrator {
         metrics: {
           totalActions: await this.getAgentActionCount('review'),
           successRate: 0.88,
-          impact: 95
-        }
+          impact: 95,
+        },
       },
       {
         name: 'CompetitorSpy',
@@ -412,9 +415,9 @@ export class SEODominationOrchestrator {
         metrics: {
           totalActions: await this.getAgentActionCount('competitor'),
           successRate: 1.0,
-          impact: 80
-        }
-      }
+          impact: 80,
+        },
+      },
     ];
 
     return statuses;
@@ -430,28 +433,28 @@ export class SEODominationOrchestrator {
     synergies.push({
       agents: ['blogContent', 'socialMedia'],
       action: 'Cross-promote new blog posts on all social channels',
-      expectedImpact: 'high'
+      expectedImpact: 'high',
     });
 
     // GMB + Reviews synergy
     synergies.push({
       agents: ['gmb', 'reviews'],
       action: 'Feature 5-star reviews in GMB posts',
-      expectedImpact: 'high'
+      expectedImpact: 'high',
     });
 
     // Competitor + Content synergy
     synergies.push({
       agents: ['competitor', 'blogContent'],
       action: 'Create counter-content for competitor victories',
-      expectedImpact: 'critical'
+      expectedImpact: 'critical',
     });
 
     // Social + Reviews synergy
     synergies.push({
       agents: ['socialMedia', 'reviews'],
       action: 'Share review testimonials as social proof',
-      expectedImpact: 'medium'
+      expectedImpact: 'medium',
     });
 
     return synergies;
@@ -463,7 +466,7 @@ export class SEODominationOrchestrator {
   private async executeCoordinatedActions(synergyActions: any[]): Promise<void> {
     for (const synergy of synergyActions) {
       logger.info(`🤝 Executing synergy: ${synergy.action}`);
-      
+
       // In production, this would trigger actual cross-agent actions
       await this.logAgentCollaboration(synergy);
     }
@@ -496,36 +499,36 @@ export class SEODominationOrchestrator {
   private async collectDominationMetrics(): Promise<DominationMetrics> {
     const metrics: DominationMetrics = {
       overallProgress: 75, // Would calculate based on goals
-      
+
       keywordRankings: {
         top3: await this.countRankings(3),
         top10: await this.countRankings(10),
-        total: await this.getTotalTrackedKeywords()
+        total: await this.getTotalTrackedKeywords(),
       },
-      
+
       contentPublished: {
         today: await this.getContentCount(1),
         thisWeek: await this.getContentCount(7),
-        thisMonth: await this.getContentCount(30)
+        thisMonth: await this.getContentCount(30),
       },
-      
+
       reviewStats: {
         averageRating: await this.getAverageRating(),
         totalReviews: await this.getTotalReviews(),
-        newThisWeek: await this.getNewReviews(7)
+        newThisWeek: await this.getNewReviews(7),
       },
-      
+
       socialEngagement: {
         totalFollowers: await this.getTotalFollowers(),
         engagementRate: await this.getEngagementRate(),
-        viralPosts: await this.countViralPosts()
+        viralPosts: await this.countViralPosts(),
       },
-      
+
       competitorIntel: {
         weaknessesIdentified: await this.countWeaknesses(),
         opportunitiesCaptured: await this.countCapturedOpportunities(),
-        marketShareGained: await this.calculateMarketShareGain()
-      }
+        marketShareGained: await this.calculateMarketShareGain(),
+      },
     };
 
     return metrics;
@@ -539,7 +542,7 @@ export class SEODominationOrchestrator {
       needsAdjustment: false,
       adjustments: [] as string[],
       highlights: [] as string[],
-      warnings: [] as string[]
+      warnings: [] as string[],
     };
 
     // Check content velocity
@@ -557,7 +560,9 @@ export class SEODominationOrchestrator {
     const rankingProgress = (metrics.keywordRankings.top10 / metrics.keywordRankings.total) * 100;
     if (rankingProgress < 50) {
       analysis.needsAdjustment = true;
-      analysis.adjustments.push('Intensify SEO efforts - only ' + rankingProgress.toFixed(1) + '% in top 10');
+      analysis.adjustments.push(
+        'Intensify SEO efforts - only ' + rankingProgress.toFixed(1) + '% in top 10'
+      );
     }
 
     // Identify successes
@@ -566,7 +571,9 @@ export class SEODominationOrchestrator {
     }
 
     if (metrics.competitorIntel.marketShareGained > 0) {
-      analysis.highlights.push(`Gained ${metrics.competitorIntel.marketShareGained}% market share from competitors`);
+      analysis.highlights.push(
+        `Gained ${metrics.competitorIntel.marketShareGained}% market share from competitors`
+      );
     }
 
     return analysis;
@@ -580,7 +587,7 @@ export class SEODominationOrchestrator {
 
     for (const adjustment of analysis.adjustments) {
       logger.info(`Implementing adjustment: ${adjustment}`);
-      
+
       // Trigger specific agent actions based on adjustment needed
       if (adjustment.includes('content production')) {
         // Increase blog agent frequency
@@ -596,43 +603,45 @@ export class SEODominationOrchestrator {
   private logPerformanceReport(metrics: DominationMetrics, analysis: any): void {
     logger.info('📈 SEO DOMINATION PERFORMANCE REPORT 📈');
     logger.info('=====================================');
-    
+
     logger.info(`Overall Progress: ${metrics.overallProgress}%`);
-    
+
     logger.info('\n📊 KEYWORD RANKINGS:');
     logger.info(`  Top 3: ${metrics.keywordRankings.top3}/${metrics.keywordRankings.total}`);
     logger.info(`  Top 10: ${metrics.keywordRankings.top10}/${metrics.keywordRankings.total}`);
-    
+
     logger.info('\n📝 CONTENT PRODUCTION:');
     logger.info(`  Today: ${metrics.contentPublished.today} posts`);
     logger.info(`  This Week: ${metrics.contentPublished.thisWeek} posts`);
     logger.info(`  This Month: ${metrics.contentPublished.thisMonth} posts`);
-    
+
     logger.info('\n⭐ REVIEW METRICS:');
     logger.info(`  Average Rating: ${metrics.reviewStats.averageRating}/5`);
     logger.info(`  Total Reviews: ${metrics.reviewStats.totalReviews}`);
     logger.info(`  New This Week: ${metrics.reviewStats.newThisWeek}`);
-    
+
     logger.info('\n📱 SOCIAL MEDIA:');
     logger.info(`  Total Followers: ${metrics.socialEngagement.totalFollowers}`);
-    logger.info(`  Engagement Rate: ${(metrics.socialEngagement.engagementRate * 100).toFixed(2)}%`);
+    logger.info(
+      `  Engagement Rate: ${(metrics.socialEngagement.engagementRate * 100).toFixed(2)}%`
+    );
     logger.info(`  Viral Posts: ${metrics.socialEngagement.viralPosts}`);
-    
+
     logger.info('\n🎯 COMPETITIVE ADVANTAGE:');
     logger.info(`  Weaknesses Exploited: ${metrics.competitorIntel.weaknessesIdentified}`);
     logger.info(`  Opportunities Captured: ${metrics.competitorIntel.opportunitiesCaptured}`);
     logger.info(`  Market Share Gained: +${metrics.competitorIntel.marketShareGained}%`);
-    
+
     if (analysis.highlights.length > 0) {
       logger.info('\n🌟 HIGHLIGHTS:');
       analysis.highlights.forEach((highlight: string) => logger.info(`  ✅ ${highlight}`));
     }
-    
+
     if (analysis.warnings.length > 0) {
       logger.warn('\n⚠️ WARNINGS:');
       analysis.warnings.forEach((warning: string) => logger.warn(`  ❗ ${warning}`));
     }
-    
+
     logger.info('=====================================');
   }
 
@@ -651,9 +660,9 @@ export class SEODominationOrchestrator {
           success: true,
           metadata: {
             timestamp: new Date(),
-            overallProgress: metrics.overallProgress
-          }
-        }
+            overallProgress: metrics.overallProgress,
+          },
+        },
       });
     } catch (error) {
       logger.error('Failed to store performance metrics:', error);
@@ -666,8 +675,8 @@ export class SEODominationOrchestrator {
     const count = await this.prisma.agentExecutionLog.count({
       where: {
         agentName: { contains: agentType },
-        createdAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) }
-      }
+        createdAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) },
+      },
     });
     return count;
   }
@@ -685,8 +694,8 @@ export class SEODominationOrchestrator {
   private async getContentCount(days: number): Promise<number> {
     const count = await this.prisma.blogPost.count({
       where: {
-        publishedAt: { gte: new Date(Date.now() - days * 24 * 60 * 60 * 1000) }
-      }
+        publishedAt: { gte: new Date(Date.now() - days * 24 * 60 * 60 * 1000) },
+      },
     });
     return count;
   }
@@ -724,8 +733,8 @@ export class SEODominationOrchestrator {
   private async countWeaknesses(): Promise<number> {
     const count = await this.prisma.competitorAnalysis.count({
       where: {
-        contentGaps: { not: {} }
-      }
+        contentGaps: { not: {} },
+      },
     });
     return count;
   }
@@ -748,15 +757,15 @@ export class SEODominationOrchestrator {
         input: synergy,
         output: { status: 'executed' },
         duration: 1000,
-        success: true
-      }
+        success: true,
+      },
     });
   }
 
   private async getCompetitorInsights(): Promise<any> {
     const insights = await this.prisma.competitorAnalysis.findMany({
       orderBy: { analyzedAt: 'desc' },
-      take: 10
+      take: 10,
     });
     return insights;
   }
@@ -765,7 +774,7 @@ export class SEODominationOrchestrator {
     const content = await this.prisma.blogPost.findMany({
       where: { seoScore: { gte: 80 } },
       orderBy: { viewCount: 'desc' },
-      take: 10
+      take: 10,
     });
     return content;
   }
@@ -786,12 +795,12 @@ export class SEODominationOrchestrator {
         // All agents focus on recovery
         logger.info('Activating ranking recovery protocol...');
         break;
-      
+
       case 'negative_review_spike':
         // Review and social agents respond
         logger.info('Activating reputation management protocol...');
         break;
-      
+
       case 'competitor_attack':
         // All agents counter-attack
         logger.info('Activating defensive counter-measures...');
@@ -804,7 +813,7 @@ export class SEODominationOrchestrator {
    */
   async generateExecutiveSummary(): Promise<string> {
     const metrics = await this.collectDominationMetrics();
-    
+
     const summary = `
 SEO DOMINATION EXECUTIVE SUMMARY
 ================================

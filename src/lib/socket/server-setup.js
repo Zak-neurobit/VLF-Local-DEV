@@ -4,7 +4,7 @@ const path = require('path');
 
 // Register path aliases
 moduleAlias.addAliases({
-  '@': path.resolve(__dirname, '../../')
+  '@': path.resolve(__dirname, '../../'),
 });
 
 // Export the socket server after aliases are set up

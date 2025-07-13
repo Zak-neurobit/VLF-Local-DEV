@@ -20,7 +20,9 @@ const TriggerCallPayloadSchema = z.object({
   campaignId: z.string().optional(),
   practiceArea: z.string().optional(),
   preferredLanguage: z.enum(['en', 'es']).default('en'),
-  callType: z.enum(['consultation', 'follow-up', 'appointment-reminder', 'general']).default('general'),
+  callType: z
+    .enum(['consultation', 'follow-up', 'appointment-reminder', 'general'])
+    .default('general'),
   metadata: z.record(z.any()).optional(),
 });
 
@@ -46,7 +48,7 @@ export async function POST(_request: NextRequest) {
   try {
     // Parse request body
     body = await _request.json();
-    
+
     logger.info('GHL trigger call webhook received', {
       contactId: body?.contactId,
       campaignId: body?.campaignId,
@@ -110,7 +112,9 @@ export async function POST(_request: NextRequest) {
     if (payload.callType === 'consultation' || routeDecision.callbackRequired) {
       await ghlService.createTask({
         contactId: payload.contactId,
-        title: routeDecision.callbackRequired ? 'Priority follow-up required' : 'Follow up on consultation call',
+        title: routeDecision.callbackRequired
+          ? 'Priority follow-up required'
+          : 'Follow up on consultation call',
         body: `Follow up on ${payload.callType} call made on ${new Date().toLocaleDateString()}. ${routeDecision.specialInstructions || 'Review call transcript and schedule appointment if needed.'}`,
         dueDate: new Date(Date.now() + (routeDecision.callbackRequired ? 2 : 24) * 60 * 60 * 1000),
       });
@@ -137,7 +141,6 @@ export async function POST(_request: NextRequest) {
       callbackRequired: routeDecision.callbackRequired,
       message: 'Call initiated successfully with enhanced routing',
     });
-
   } catch (error) {
     // Use enhanced error handler
     await retellErrorHandler.handleError(error, {
@@ -145,9 +148,9 @@ export async function POST(_request: NextRequest) {
       contactId: body?.contactId,
       metadata: { campaignId: body?.campaignId, callType: body?.callType },
     });
-    
+
     logger.error('Failed to trigger Retell call from GHL:', error);
-    
+
     // If it's a validation error, return 400
     if (error instanceof z.ZodError) {
       return NextResponse.json(

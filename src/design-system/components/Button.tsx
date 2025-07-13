@@ -34,12 +34,16 @@ export const Button: React.FC<ButtonProps> = ({
   style,
   ...rest
 }) => {
-  const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-full transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2';
-  
+  const baseClasses =
+    'inline-flex items-center justify-center font-semibold rounded-full transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2';
+
   const variantClasses = {
-    primary: 'bg-primary text-secondary hover:bg-primary-600 focus:ring-primary shadow-md hover:shadow-lg',
-    secondary: 'bg-secondary text-white hover:bg-secondary-700 focus:ring-secondary shadow-md hover:shadow-lg',
-    outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-secondary focus:ring-primary',
+    primary:
+      'bg-primary text-secondary hover:bg-primary-600 focus:ring-primary shadow-md hover:shadow-lg',
+    secondary:
+      'bg-secondary text-white hover:bg-secondary-700 focus:ring-secondary shadow-md hover:shadow-lg',
+    outline:
+      'border-2 border-primary text-primary hover:bg-primary hover:text-secondary focus:ring-primary',
     ghost: 'text-primary hover:bg-primary/10 focus:ring-primary',
   };
 
@@ -64,7 +68,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   // Determine component to render
   const Component = as || (href ? Link : motion.button);
-  
+
   // Prepare props based on component type
   const componentProps = {
     className: classes,
