@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Preguntas Frecuentes Sobre Inmigración - Vasquez Law Firm, PLLC',
     description:
       'Abogados de Inmigración de Carolina del Norte En Vasquez Law Firm, PLLC, nuestros abogados expertos manejan una amplia variedad de asuntos de inmigración. Entendemos que las leyes de inmigración en los Estados Unidos pueden ser increíblemente complejas y confusas. Sin embargo, también nos damos cuenta de que cualquier descuido o error en una solicitud de visa o una petición de tarjeta verde puede causar muchos meses o más de demoras innecesarias. Con esto en mente, ofrecemos orientación sobre algunas de las preguntas más comunes que escuchamos en nuestra práctica. P. ¿Qué es una Visa? R. En el ámbito de la inmigración, una visa de los EE. UU. es un documento que permite a un ciudadano extranjero solicitar la entrada legal a los Estados Unidos. Hay muchos tipos diferentes de visas, pero generalmente se dividen en dos categorías principales: visas de no inmigrante y visas de inmigrante. Las visas de no inmigrante permiten que un ciudadano extranjero viva y / o trabaje en los EE. UU. temporalmente, mientras que las visas de inmigrante son para aquellos que tienen la intención de permanecer en los Estados Unidos de forma permanente. P. ¿Qué Tipo de Visa Necesito? R. El tipo de visa que […]',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

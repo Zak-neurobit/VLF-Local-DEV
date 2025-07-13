@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Charlotte, NC Office Location - Vasquez Law Firm, PLLC',
     description:
       'Visit our Charlotte, NC office for expert legal services in family and criminal law. Convenient location, dedicated support—schedule a consultation today!',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

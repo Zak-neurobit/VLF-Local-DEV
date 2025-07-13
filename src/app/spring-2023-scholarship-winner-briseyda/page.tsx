@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Spring 2023 Scholarship Winner Briseyda - Vasquez Law Firm, PLLC',
     description:
       'Briseyda Bautista Gonzalez is the Spring 2023 DACA Dreamer Scholarship winner from Vasquez Law Firm, recognized for her educational aspirations and dedication.',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

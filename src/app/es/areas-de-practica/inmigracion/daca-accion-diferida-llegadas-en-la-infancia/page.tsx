@@ -10,7 +10,10 @@ export const metadata: Metadata = {
     description:
       'Abogados en el Condado de Wake para Aquellos que Buscan Acción Diferida para los Llegados en la Infancia Estados Unidos es una tierra de enormes oportunidades para los extranjeros de todo el mundo. Sin embargo, seguir siendo elegible para vivir y trabajar en los Estados Unidos sin el peligro de ser deportado es una de las principales preocupaciones que enfrentan muchos inmigrantes en el país. En Vasquez Law Firm, PLLC, nuestros abogados de inmigración calificados comprenden este tipo de preocupaciones y la ansiedad que a menudo causan a los inmigrantes y sus familias. También nos damos cuenta de que muchos inmigrantes indocumentados llegaron a los Estados Unidos a una edad temprana y han vivido aquí desde entonces. A medida que envejecen, estas personas a menudo luchan por mantenerse a sí mismas y corren el riesgo de ser deportadas. Si esto describe su situación, puede ser elegible para recibir ayuda a través de la Acción Diferida para los Llegados en la Infancia, también conocida como DACA. ¿Qué es DACA? En 2012, el presidente Barack Obama firmó la orden ejecutiva que creó un programa llamado Acción Diferida para los Llegados en la Infancia (DACA). La intención de DACA es ofrecer protección a […]',
     images: [
-      { url: '../../../../wp-content/uploads/2024/04/smithfield-daca-relief-lawyers-1-1.jpg' }
+      { url: '../../../../wp-content/uploads/2024/04/smithfield-daca-relief-lawyers-1-1.jpg' },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

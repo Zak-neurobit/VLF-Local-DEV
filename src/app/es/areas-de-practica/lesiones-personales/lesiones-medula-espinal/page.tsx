@@ -3,17 +3,24 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Abogados de Lesiones de Médula Espinal en NC | Parálisis | YO PELEO POR TI™',
-  description: '¿Sufrió lesión de médula espinal? Abogados expertos en parálisis y lesiones espinales en Carolina del Norte. Luchamos por compensación máxima. Consulta GRATIS.',
-  keywords: 'abogado lesiones médula espinal Carolina Norte, parálisis paraplejia tetraplejia, lesión espinal Raleigh, daño columna vertebral Charlotte, compensación parálisis NC',
+  description:
+    '¿Sufrió lesión de médula espinal? Abogados expertos en parálisis y lesiones espinales en Carolina del Norte. Luchamos por compensación máxima. Consulta GRATIS.',
+  keywords:
+    'abogado lesiones médula espinal Carolina Norte, parálisis paraplejia tetraplejia, lesión espinal Raleigh, daño columna vertebral Charlotte, compensación parálisis NC',
   openGraph: {
     title: 'Abogados de Lesiones de Médula Espinal - Vasquez Law Firm | NC',
-    description: 'Las lesiones de médula espinal requieren cuidado de por vida. Obtenga compensación completa para tratamiento, rehabilitación y adaptaciones. Llame 1-844-YO-PELEO',
-    images: [{
-      url: '/images/spinal-cord-injury-attorney.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Abogados de Lesiones de Médula Espinal en Carolina del Norte'
-    }
+    description:
+      'Las lesiones de médula espinal requieren cuidado de por vida. Obtenga compensación completa para tratamiento, rehabilitación y adaptaciones. Llame 1-844-YO-PELEO',
+    images: [
+      {
+        url: '/images/spinal-cord-injury-attorney.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Abogados de Lesiones de Médula Espinal en Carolina del Norte',
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

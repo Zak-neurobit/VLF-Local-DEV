@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Orlando, FL Lawyer Vasquez Law Firm, PLLC',
     description:
       'Trusted lawyers in Orlando, FL. Vasquez Law Firm provides skilled legal assistance for personal injury and immigration.',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

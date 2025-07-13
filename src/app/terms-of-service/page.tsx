@@ -6,7 +6,8 @@ export const metadata: Metadata = {
   description: 'Terms of Service for Vasquez Law Firm website and legal services.',
   alternates: {
     canonical: 'https://www.vasquezlawnc.com/terms-of-service',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

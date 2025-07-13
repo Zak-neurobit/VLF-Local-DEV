@@ -13,7 +13,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/Expert-Tips-to-Navigate-a-Delayed-Immigration-Court-Case-Status.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 
@@ -21,8 +24,8 @@ export default function ExpertTipsToNavigateADelayedImmigrationCourtCaseStatusPa
   // TODO: Extract content from original file and format properly
   const post = {
     id: 'expert-tips-to-navigate-a-delayed-immigration-court-case-status',
-    title: 'Expert Tips to Navigate a Delayed Immigration Court Case Status - Vasquez Law Firm,
-              PLLC',
+    title:
+      'Expert Tips to Navigate a Delayed Immigration Court Case Status - Vasquez Law Firm, PLLC',
     slug: 'expert-tips-to-navigate-a-delayed-immigration-court-case-status',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

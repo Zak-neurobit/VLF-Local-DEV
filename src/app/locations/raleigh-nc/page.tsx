@@ -11,7 +11,9 @@ export const metadata: Metadata = {
     title: 'Raleigh NC Office - Vasquez Law Firm',
     description:
       'Experienced immigration & injury lawyers in Raleigh NC. Free consultations available. Serving Wake County and surrounding areas.',
-    images: [{ url: '/images/offices/raleigh-office.jpg' }
+    images: [{ url: '/images/offices/raleigh-office.jpg' }],
+  },
+};
 
 export default function RaleighNcPage() {
   const locationData = {

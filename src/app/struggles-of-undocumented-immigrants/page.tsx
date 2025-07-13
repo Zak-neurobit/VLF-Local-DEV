@@ -12,7 +12,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/Whats-Really-Behind-the-Mental-Health-Struggles.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

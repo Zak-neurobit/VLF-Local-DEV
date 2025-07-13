@@ -7,7 +7,9 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Traffic Tickets, NC - Vasquez Law Firm, PLLC',
     description: '',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

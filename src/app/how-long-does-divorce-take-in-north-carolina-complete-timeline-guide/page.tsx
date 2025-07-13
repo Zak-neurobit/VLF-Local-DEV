@@ -8,7 +8,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical:
       'https://www.vasquezlawnc.com/how-long-does-divorce-take-in-north-carolina-complete-timeline-guide',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

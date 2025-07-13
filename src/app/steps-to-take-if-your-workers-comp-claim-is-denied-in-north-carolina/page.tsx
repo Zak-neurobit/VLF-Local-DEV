@@ -11,7 +11,9 @@ export const metadata: Metadata = {
       'Steps To Take If Your Workers’ Comp Claim Is Denied In North Carolina | Vasquez Law Firm, PLLC',
     description:
       "Learn the essential steps to take if your workers' comp claim is denied in North Carolina, including appeals, gathering evidence, and protecting your rights.",
-    images: [{ url: '../wp-content/uploads/2024/10/steps-to-take-scaled.jpg' }
+    images: [{ url: '../wp-content/uploads/2024/10/steps-to-take-scaled.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 
@@ -19,8 +21,8 @@ export default function StepsToTakeIfYourWorkersCompClaimIsDeniedInNorthCarolina
   // TODO: Extract content from original file and format properly
   const post = {
     id: 'steps-to-take-if-your-workers-comp-claim-is-denied-in-north-carolina',
-    title: 'Steps To Take If Your Workers’ Comp Claim Is Denied In North Carolina | Vasquez Law
-              Firm, PLLC',
+    title:
+      'Steps To Take If Your Workers’ Comp Claim Is Denied In North Carolina | Vasquez Law Firm, PLLC',
     slug: 'steps-to-take-if-your-workers-comp-claim-is-denied-in-north-carolina',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

@@ -9,7 +9,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical:
       'https://www.vasquezlawnc.com/how-can-i-get-compensation-for-a-construction-site-injury-in-north-carolina',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

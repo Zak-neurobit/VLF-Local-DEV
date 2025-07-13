@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Christopher Afanador Abogado - Vasquez Law Firm, PLLC',
     description:
       "Meet Christopher Afanador - Experienced immigration and personal injury attorney at Vasquez Law Firm. 10+ years fighting for clients' rights. Free consultation.",
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

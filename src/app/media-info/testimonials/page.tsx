@@ -8,7 +8,10 @@ export const metadata: Metadata = {
     title: 'Testimonials - Vasquez Law Firm, PLLC',
     description: '',
     images: [
-      { url: 'https://d3tkrgzulioaer.cloudfront.net/assets/backend/images/logos/google_ic.png' }
+      { url: 'https://d3tkrgzulioaer.cloudfront.net/assets/backend/images/logos/google_ic.png' },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

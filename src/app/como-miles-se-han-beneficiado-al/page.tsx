@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Cómo Miles se Han Beneficiado al - Vasquez Law Firm, PLLC',
     description:
       'Descubre cómo miles se han beneficiado al entender la diferencia entre emigrar e inmigrar. ¡Toma una decisión informada sobre tu futuro hoy mismo!',
-    images: [{ url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/02/12-1.jpg' }
+    images: [{ url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/02/12-1.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

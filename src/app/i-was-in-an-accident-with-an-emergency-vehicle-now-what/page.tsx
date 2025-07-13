@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'I Was in an Accident with an Emergency Vehicle. Now What? - Vasquez Law Firm, PLLC',
     description:
       'Navigating the rules of the road can be challenging, especially when encountering emergency vehicles like police cars, fire trucks, and ambulances. Understanding your obligations as a private motorist when you get into an accident with an emergency vehicle and whether these vehicles are exempt from traffic laws can help you handle these situations more effectively. If you live in North Carolina and were in an accident with an emergency vehicle, contact an attorney to ensure you understand your rights completely. What to Do If You Get into An Accident with an Emergency Vehicle Getting into an accident with an emergency vehicle can be a stressful and confusing experience. Some tips to recovering from such an accident include: Stay calm and safe – First and foremost, ensure everyone’s safety. If possible, move to a safe location and check for injuries. Call 911 immediately to report the accident and request medical assistance. Exchange information – Just like any other accident, exchange information with the driver of the emergency vehicle. This includes names, contact details, insurance information, and vehicle registration. Cooperate, but avoid discussing or admitting fault at the scene. Document the scene – Take pictures and videos of the accident scene, vehicle damages, and any relevant […]',
-    images: [{ url: '../wp-content/uploads/2024/09/shutterstock-421915948-2-min.jpg' }
+    images: [{ url: '../wp-content/uploads/2024/09/shutterstock-421915948-2-min.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

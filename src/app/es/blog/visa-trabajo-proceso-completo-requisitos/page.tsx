@@ -3,14 +3,18 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Visa de Trabajo: Proceso Completo y Requisitos 2024 | YO PELEO POR TI™',
-  description: 'Guía completa visas de trabajo 2024: H-1B, L-1, EB-2, EB-3. Abogado veterano en NC/FL. YO PELEO POR TI™. Consulta gratuita 1-844-YO-PELEO',
-  keywords: 'visa trabajo, H-1B, L-1, EB-2, EB-3, inmigración empleo, abogado visa trabajo NC FL, YO PELEO POR TI',
+  description:
+    'Guía completa visas de trabajo 2024: H-1B, L-1, EB-2, EB-3. Abogado veterano en NC/FL. YO PELEO POR TI™. Consulta gratuita 1-844-YO-PELEO',
+  keywords:
+    'visa trabajo, H-1B, L-1, EB-2, EB-3, inmigración empleo, abogado visa trabajo NC FL, YO PELEO POR TI',
   openGraph: {
     title: 'Visa de Trabajo: Proceso Completo y Requisitos 2024',
-    description: 'Domina el proceso de visa de trabajo con estrategias militares del veterano abogado.',
+    description:
+      'Domina el proceso de visa de trabajo con estrategias militares del veterano abogado.',
     type: 'article',
     locale: 'es_US',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

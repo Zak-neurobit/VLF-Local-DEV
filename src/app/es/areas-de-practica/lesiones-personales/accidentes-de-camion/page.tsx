@@ -3,17 +3,24 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Abogados de Accidentes de Camión en NC | Lesiones Graves | YO PELEO POR TI™',
-  description: 'Accidentes de camiones comerciales causan lesiones devastadoras. Abogados expertos en Raleigh y Charlotte luchan contra grandes empresas. Consulta GRATIS 24/7.',
-  keywords: 'abogado accidentes camión Carolina Norte, accidente tráiler Raleigh, choque camión comercial Charlotte, demanda accidente camión NC, compensación lesiones graves',
+  description:
+    'Accidentes de camiones comerciales causan lesiones devastadoras. Abogados expertos en Raleigh y Charlotte luchan contra grandes empresas. Consulta GRATIS 24/7.',
+  keywords:
+    'abogado accidentes camión Carolina Norte, accidente tráiler Raleigh, choque camión comercial Charlotte, demanda accidente camión NC, compensación lesiones graves',
   openGraph: {
     title: 'Abogados de Accidentes de Camión - Vasquez Law Firm | Carolina del Norte',
-    description: 'Lesiones por accidentes de camión? Enfrentamos a las grandes empresas de transporte. Más de 35 años de experiencia. Llame 1-844-YO-PELEO',
-    images: [{
-      url: '/images/truck-accident-attorney.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Abogados de Accidentes de Camión en Carolina del Norte'
-    }
+    description:
+      'Lesiones por accidentes de camión? Enfrentamos a las grandes empresas de transporte. Más de 35 años de experiencia. Llame 1-844-YO-PELEO',
+    images: [
+      {
+        url: '/images/truck-accident-attorney.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Abogados de Accidentes de Camión en Carolina del Norte',
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

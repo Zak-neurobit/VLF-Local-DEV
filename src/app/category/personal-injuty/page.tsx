@@ -7,7 +7,9 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Personal Injuty Archives - Vasquez Law Firm, PLLC',
     description: '',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

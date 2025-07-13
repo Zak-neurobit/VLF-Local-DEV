@@ -10,7 +10,10 @@ export const metadata: Metadata = {
     description:
       'Descubre la impactante verdad sobre los inmigrantes ilegales, su impacto y lo que necesita cambiar. Obtén perspectivas expertas y entiende las complejidades de este tema.',
     images: [
-      { url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/illegal-immigrants.jpg' }
+      { url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/illegal-immigrants.jpg' },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

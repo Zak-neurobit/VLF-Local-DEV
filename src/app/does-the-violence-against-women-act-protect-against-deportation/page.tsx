@@ -14,7 +14,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/09/Untitled-2023-10-17T105430.440.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 
@@ -22,8 +25,8 @@ export default function DoesTheViolenceAgainstWomenActProtectAgainstDeportationP
   // TODO: Extract content from original file and format properly
   const post = {
     id: 'does-the-violence-against-women-act-protect-against-deportation',
-    title: 'Does the Violence Against Women Act Protect Against Deportation? - Vasquez Law Firm,
-              PLLC',
+    title:
+      'Does the Violence Against Women Act Protect Against Deportation? - Vasquez Law Firm, PLLC',
     slug: 'does-the-violence-against-women-act-protect-against-deportation',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

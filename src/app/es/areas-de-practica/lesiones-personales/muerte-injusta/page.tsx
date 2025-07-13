@@ -3,17 +3,24 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Abogados de Muerte Injusta en NC | Justicia para Familias | YO PELEO POR TI™',
-  description: '¿Perdió un ser querido por negligencia? Abogados compasivos de muerte injusta en Carolina del Norte. Buscamos justicia y compensación para su familia. Consulta GRATIS.',
-  keywords: 'abogado muerte injusta Carolina Norte, wrongful death español, compensación familiar Raleigh, demanda muerte negligencia Charlotte, pérdida ser querido NC',
+  description:
+    '¿Perdió un ser querido por negligencia? Abogados compasivos de muerte injusta en Carolina del Norte. Buscamos justicia y compensación para su familia. Consulta GRATIS.',
+  keywords:
+    'abogado muerte injusta Carolina Norte, wrongful death español, compensación familiar Raleigh, demanda muerte negligencia Charlotte, pérdida ser querido NC',
   openGraph: {
     title: 'Abogados de Muerte Injusta - Vasquez Law Firm | Carolina del Norte',
-    description: 'En su momento más difícil, estamos aquí para buscar justicia. Representamos familias que perdieron seres queridos por negligencia. Llame 1-844-YO-PELEO',
-    images: [{
-      url: '/images/wrongful-death-attorney.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Abogados de Muerte Injusta en Carolina del Norte'
-    }
+    description:
+      'En su momento más difícil, estamos aquí para buscar justicia. Representamos familias que perdieron seres queridos por negligencia. Llame 1-844-YO-PELEO',
+    images: [
+      {
+        url: '/images/wrongful-death-attorney.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Abogados de Muerte Injusta en Carolina del Norte',
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

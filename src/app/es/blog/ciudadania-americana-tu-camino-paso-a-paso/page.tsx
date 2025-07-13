@@ -3,14 +3,18 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Ciudadanía Americana: Tu Camino Paso a Paso 2024 | YO PELEO POR TI™',
-  description: 'Guía completa ciudadanía americana 2024: naturalización, requisitos, examen. Abogado veterano en NC/FL. YO PELEO POR TI™. Consulta gratuita 1-844-YO-PELEO',
-  keywords: 'ciudadanía americana, naturalización, examen ciudadanía, abogado naturalización NC FL, YO PELEO POR TI',
+  description:
+    'Guía completa ciudadanía americana 2024: naturalización, requisitos, examen. Abogado veterano en NC/FL. YO PELEO POR TI™. Consulta gratuita 1-844-YO-PELEO',
+  keywords:
+    'ciudadanía americana, naturalización, examen ciudadanía, abogado naturalización NC FL, YO PELEO POR TI',
   openGraph: {
     title: 'Ciudadanía Americana: Tu Camino Paso a Paso 2024',
-    description: 'Conviértete en ciudadano americano con disciplina militar. Veterano abogado te guía al juramento.',
+    description:
+      'Conviértete en ciudadano americano con disciplina militar. Veterano abogado te guía al juramento.',
     type: 'article',
     locale: 'es_US',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

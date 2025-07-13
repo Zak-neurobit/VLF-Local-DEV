@@ -11,7 +11,8 @@ export const metadata: Metadata = {
     images: ['/og-spring-lake.jpg'],
     locale: 'en_US',
     alternateLocale: 'es_ES',
-  }
+  },
+};
 
 export default function SpringLakePage() {
   const locationData = {

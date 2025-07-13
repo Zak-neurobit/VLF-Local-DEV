@@ -11,7 +11,8 @@ export const metadata: Metadata = {
     images: ['/og-elizabeth-city.jpg'],
     locale: 'en_US',
     alternateLocale: 'es_ES',
-  }
+  },
+};
 
 export default function ElizabethCityPage() {
   const locationData = {

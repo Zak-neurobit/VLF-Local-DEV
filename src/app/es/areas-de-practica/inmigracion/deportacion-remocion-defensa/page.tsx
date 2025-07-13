@@ -10,7 +10,10 @@ export const metadata: Metadata = {
     description:
       'Abogados que Ayudan a los Clientes de Charlotte que Enfrentan la Deportación de los Estados Unidos Durante la última década más o menos, el término “deportación” se ha vuelto bastante controvertido como un tema político candente, lo que hace que sea bastante difícil discutirlo sin una batalla por ideologías en competencia. Sin embargo, la palabra “remoción” a menudo genera una reacción mucho menos emocional, aunque los dos términos significan exactamente lo mismo. Cuando los funcionarios de inmigración ordenan a un ciudadano no estadounidense que abandone el país, el proceso de obligarlo a irse se conoce como procedimiento de expulsión. Un ciudadano extranjero podría estar sujeto a deportación o remoción por una variedad de razones, pero el proceso generalmente es impulsado por el no ciudadano que comete algún tipo de violación de las leyes estadounidenses. En Vasquez Law Firm, PLLC, sabemos que cualquier persona que se encuentre en los Estados Unidos y que no sea ciudadano estadounidense de pleno derecho siempre corre el riesgo de ser deportada. Una vez expulsado, un inmigrante puede necesitar esperar hasta diez años antes de poder regresar a los Estados Unidos, si su regreso está permitido. Nuestros abogados de inmigración con experiencia comprenden el efecto que […]',
     images: [
-      { url: '../../../../wp-content/uploads/2024/04/smithfield-removal-defense-lawyers-1.jpg' }
+      { url: '../../../../wp-content/uploads/2024/04/smithfield-removal-defense-lawyers-1.jpg' },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

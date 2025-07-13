@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: "Raleigh, NC Workers' Comp Lawyers - Vasquez Law Firm, PLLC",
     description:
       "Looking for experienced workers' comp lawyers in Raleigh, NC? Get the benefits you deserve with trusted legal help. Contact us today for a free consultation!",
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

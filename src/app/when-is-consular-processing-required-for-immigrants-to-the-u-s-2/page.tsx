@@ -13,7 +13,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/09/shutterstock-1812113506-1-2.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 
@@ -21,8 +24,8 @@ export default function WhenIsConsularProcessingRequiredForImmigrantsToTheUS2Pag
   // TODO: Extract content from original file and format properly
   const post = {
     id: 'when-is-consular-processing-required-for-immigrants-to-the-u-s-2',
-    title: 'When Is Consular Processing Required for Immigrants to the U.S.? - Vasquez Law Firm,
-              PLLC',
+    title:
+      'When Is Consular Processing Required for Immigrants to the U.S.? - Vasquez Law Firm, PLLC',
     slug: 'when-is-consular-processing-required-for-immigrants-to-the-u-s-2',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

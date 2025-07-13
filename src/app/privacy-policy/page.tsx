@@ -7,7 +7,8 @@ export const metadata: Metadata = {
     'Privacy Policy for Vasquez Law Firm. Learn how we collect, use, and protect your personal information.',
   alternates: {
     canonical: 'https://www.vasquezlawnc.com/privacy-policy',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

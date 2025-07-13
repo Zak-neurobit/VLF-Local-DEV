@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Raleigh, NC Office Location - Vasquez Law Firm, PLLC',
     description:
       'Find the best route to our Raleigh, NC office. Get accurate maps and directions to visit our workers’ comp lawyers. Contact us for assistance today!',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

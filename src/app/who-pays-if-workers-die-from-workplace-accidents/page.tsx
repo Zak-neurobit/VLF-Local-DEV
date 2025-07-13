@@ -10,7 +10,10 @@ export const metadata: Metadata = {
     description:
       'A tragic accident claimed the life of an amphibious excavator operator in the Cape Fear River in August. The North Carolina Department of Labor’s Occupational Safety and Health Division is investigating this accident because it happened on federally-owned property. As the investigation into this death is ongoing, the cause of the accident has not yet been established. If a fatal workplace incident takes the life of your family member, are you eligible to receive compensation through a workers’ comp claim? Who is responsible for paying you? The compassionate lawyers at Vasquez Law Firm, PLLC can answer those questions during your free consultation, so call us today. What Does North Carolina’s Workers’ Comp Cover? Most employers in North Carolina are required by law to purchase workers’ compensation insurance. These policies pay specific benefits to workers who become ill or injured on the job, including: Medical expenses A portion of lost wages Temporary or permanent disability benefits If an employee dies because of a work-related injury or illness, eligible survivors can receive workers’ comp death benefits. When workers or their families accept workers’ comp benefits, they usually enter a tacit agreement not to pursue personal injury or wrongful death claims against the employer. However, depending on the circumstances, you […]',
     images: [
-      { url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/09/blog_20240917171743.jpg' }
+      { url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/09/blog_20240917171743.jpg' },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

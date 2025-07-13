@@ -12,7 +12,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: '../../../../wp-content/uploads/2024/04/charlotte-nc-citizenship-through-naturalization-lawyers-1.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Ubicacion Oficina Raleigh, NC - Vasquez Law Firm, PLLC',
     description:
       'Encuentre la mejor ruta a nuestra oficina en Raleigh, NC. Obtenga mapas e indicaciones precisas para visitarnos. ¡Contáctenos para más información!',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

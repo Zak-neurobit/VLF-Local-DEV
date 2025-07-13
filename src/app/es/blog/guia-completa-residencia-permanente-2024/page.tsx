@@ -3,14 +3,18 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Guía Completa: Cómo Obtener la Residencia Permanente en 2024 | YO PELEO POR TI™',
-  description: 'Guía completa para obtener la residencia permanente en 2024. Abogado veterano de inmigración en NC/FL. ¡YO PELEO POR TI™! Consulta gratuita 1-844-YO-PELEO',
-  keywords: 'residencia permanente, green card, inmigración, abogado inmigración NC FL, YO PELEO POR TI',
+  description:
+    'Guía completa para obtener la residencia permanente en 2024. Abogado veterano de inmigración en NC/FL. ¡YO PELEO POR TI™! Consulta gratuita 1-844-YO-PELEO',
+  keywords:
+    'residencia permanente, green card, inmigración, abogado inmigración NC FL, YO PELEO POR TI',
   openGraph: {
     title: 'Guía Completa: Cómo Obtener la Residencia Permanente en 2024',
-    description: 'Todo lo que necesitas saber sobre la residencia permanente. Abogado veterano te guía paso a paso.',
+    description:
+      'Todo lo que necesitas saber sobre la residencia permanente. Abogado veterano te guía paso a paso.',
     type: 'article',
     locale: 'es_US',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

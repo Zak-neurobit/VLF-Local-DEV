@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Page not found - Vasquez Law Firm, PLLC',
     description:
       'Expert immigration attorneys handling no results found. 60+ years experience. Free consultation in English/Spanish. Call 1-844-YO-PELEO.',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Mark kelsey - Vasquez Law Firm, PLLC',
     description:
       'Mark Kelsey is a dedicated professional providing expert services with a focus on quality and client satisfaction. Learn more about his expertise today.',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

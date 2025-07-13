@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Orlando, FL Immigration Lawyers | Vasquez Law Firm, PLLC',
     description:
       'Experienced immigration lawyers in Orlando, FL. Providing legal assistance for visas, green cards, citizenship, deportation defense, and more.',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

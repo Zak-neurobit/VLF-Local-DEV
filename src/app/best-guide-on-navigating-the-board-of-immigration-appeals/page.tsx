@@ -12,7 +12,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/How-to-Navigate-the-Complexities-of-the-Board-of-Immigration-Appeals.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

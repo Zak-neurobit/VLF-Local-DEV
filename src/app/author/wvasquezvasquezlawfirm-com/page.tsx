@@ -10,7 +10,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://secure.gravatar.com/avatar/3ffe54679303fa3618cce95dfbfbfb41e698dfeba8e2eeae67ca5cfd8c1ecdbc?s=500&d=mm&r=g',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

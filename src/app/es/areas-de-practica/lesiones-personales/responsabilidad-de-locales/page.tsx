@@ -3,17 +3,24 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Abogados de Responsabilidad de Locales en NC | Propiedad Insegura | YO PELEO POR TI™',
-  description: '¿Herido en propiedad ajena? Abogados expertos en responsabilidad de locales en Carolina del Norte. Resbalones, seguridad inadecuada, piscinas. Consulta GRATIS.',
-  keywords: 'abogado responsabilidad locales Carolina Norte, premises liability español, propiedad insegura Raleigh, demanda dueño negligente Charlotte, compensación accidente local NC',
+  description:
+    '¿Herido en propiedad ajena? Abogados expertos en responsabilidad de locales en Carolina del Norte. Resbalones, seguridad inadecuada, piscinas. Consulta GRATIS.',
+  keywords:
+    'abogado responsabilidad locales Carolina Norte, premises liability español, propiedad insegura Raleigh, demanda dueño negligente Charlotte, compensación accidente local NC',
   openGraph: {
     title: 'Abogados de Responsabilidad de Locales - Vasquez Law Firm | NC',
-    description: 'Los dueños de propiedades deben mantener locales seguros. Si se lesionó por negligencia, podemos ayudar. Sin costo inicial. Llame 1-844-YO-PELEO',
-    images: [{
-      url: '/images/premises-liability-attorney.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Abogados de Responsabilidad de Locales en Carolina del Norte'
-    }
+    description:
+      'Los dueños de propiedades deben mantener locales seguros. Si se lesionó por negligencia, podemos ayudar. Sin costo inicial. Llame 1-844-YO-PELEO',
+    images: [
+      {
+        url: '/images/premises-liability-attorney.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Abogados de Responsabilidad de Locales en Carolina del Norte',
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

@@ -11,7 +11,9 @@ export const metadata: Metadata = {
     title: 'Áreas de Práctica - Bufete de Abogados Vasquez',
     description:
       'Servicios legales integrales mejorados con tecnología IA. 60+ años de experiencia.',
-    images: [{ url: '/images/BANNER_TRANS.PNG' }
+    images: [{ url: '/images/BANNER_TRANS.PNG' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

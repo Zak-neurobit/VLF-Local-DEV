@@ -11,7 +11,8 @@ export const metadata: Metadata = {
     images: ['/og-youngsville.jpg'],
     locale: 'en_US',
     alternateLocale: 'es_ES',
-  }
+  },
+};
 
 export default function YoungsvillePage() {
   const locationData = {

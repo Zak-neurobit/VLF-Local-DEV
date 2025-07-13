@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Smithfield, NC - Vasquez Law Firm, PLLC',
     description:
       'Discover Smithfield, NC – a charming town with rich history, great dining, and a welcoming community. Explore local attractions and small-town charm today!',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

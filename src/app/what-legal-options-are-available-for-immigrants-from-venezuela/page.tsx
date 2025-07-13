@@ -12,7 +12,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/02/Untitled-2023-11-16T140341.659.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 
@@ -20,8 +23,8 @@ export default function WhatLegalOptionsAreAvailableForImmigrantsFromVenezuelaPa
   // TODO: Extract content from original file and format properly
   const post = {
     id: 'what-legal-options-are-available-for-immigrants-from-venezuela',
-    title: 'What Legal Options Are Available for Immigrants From Venezuela? - Vasquez Law Firm,
-              PLLC',
+    title:
+      'What Legal Options Are Available for Immigrants From Venezuela? - Vasquez Law Firm, PLLC',
     slug: 'what-legal-options-are-available-for-immigrants-from-venezuela',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

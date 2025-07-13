@@ -11,7 +11,8 @@ export const metadata: Metadata = {
     images: ['/og-rolesville.jpg'],
     locale: 'en_US',
     alternateLocale: 'es_ES',
-  }
+  },
+};
 
 export default function RolesvillePage() {
   const locationData = {

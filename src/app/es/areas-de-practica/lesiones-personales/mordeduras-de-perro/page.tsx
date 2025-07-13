@@ -3,17 +3,24 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Abogados de Mordeduras de Perro en NC | Lesiones Graves | YO PELEO POR TI™',
-  description: '¿Atacado por un perro? Abogados expertos en mordeduras de perro en Carolina del Norte. Obtenga compensación por lesiones, trauma y cicatrices. Consulta GRATIS.',
-  keywords: 'abogado mordeduras perro Carolina Norte, ataque perro Raleigh, lesiones mordida animal Charlotte, compensación ataque canino, demanda dueño perro NC',
+  description:
+    '¿Atacado por un perro? Abogados expertos en mordeduras de perro en Carolina del Norte. Obtenga compensación por lesiones, trauma y cicatrices. Consulta GRATIS.',
+  keywords:
+    'abogado mordeduras perro Carolina Norte, ataque perro Raleigh, lesiones mordida animal Charlotte, compensación ataque canino, demanda dueño perro NC',
   openGraph: {
     title: 'Abogados de Mordeduras de Perro - Vasquez Law Firm | Carolina del Norte',
-    description: 'Víctima de ataque de perro? El dueño es responsable. Luchamos por compensación justa para víctimas y familias. Llame 1-844-YO-PELEO',
-    images: [{
-      url: '/images/dog-bite-attorney.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Abogados de Mordeduras de Perro en Carolina del Norte'
-    }
+    description:
+      'Víctima de ataque de perro? El dueño es responsable. Luchamos por compensación justa para víctimas y familias. Llame 1-844-YO-PELEO',
+    images: [
+      {
+        url: '/images/dog-bite-attorney.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Abogados de Mordeduras de Perro en Carolina del Norte',
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

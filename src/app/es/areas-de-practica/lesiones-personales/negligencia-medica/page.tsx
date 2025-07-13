@@ -3,17 +3,24 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Abogados de Negligencia Médica en NC | Errores Médicos | YO PELEO POR TI™',
-  description: '¿Víctima de error médico? Abogados expertos en negligencia médica en Carolina del Norte. Diagnósticos erróneos, errores quirúrgicos, lesiones de parto. Consulta GRATIS.',
-  keywords: 'abogado negligencia médica Carolina Norte, mala práctica médica Raleigh, error médico Charlotte, demanda hospital NC, compensación error diagnóstico',
+  description:
+    '¿Víctima de error médico? Abogados expertos en negligencia médica en Carolina del Norte. Diagnósticos erróneos, errores quirúrgicos, lesiones de parto. Consulta GRATIS.',
+  keywords:
+    'abogado negligencia médica Carolina Norte, mala práctica médica Raleigh, error médico Charlotte, demanda hospital NC, compensación error diagnóstico',
   openGraph: {
     title: 'Abogados de Negligencia Médica - Vasquez Law Firm | Carolina del Norte',
-    description: 'Los errores médicos son la tercera causa de muerte en USA. Si sufrió por negligencia médica, podemos ayudar. Consulta gratuita. Llame 1-844-YO-PELEO',
-    images: [{
-      url: '/images/medical-malpractice-attorney.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Abogados de Negligencia Médica en Carolina del Norte'
-    }
+    description:
+      'Los errores médicos son la tercera causa de muerte en USA. Si sufrió por negligencia médica, podemos ayudar. Consulta gratuita. Llame 1-844-YO-PELEO',
+    images: [
+      {
+        url: '/images/medical-malpractice-attorney.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Abogados de Negligencia Médica en Carolina del Norte',
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

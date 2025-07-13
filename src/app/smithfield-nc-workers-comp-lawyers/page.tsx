@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: "Smithfield, NC Workers' Comp Lawyers | Vasquez Law Firm, PLLC",
     description:
       "Trusted workers' comp lawyers in Smithfield, NC. Vasquez Law Firm, PLLC provides legal guidance for workers seeking compensation for workplace injuries.",
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

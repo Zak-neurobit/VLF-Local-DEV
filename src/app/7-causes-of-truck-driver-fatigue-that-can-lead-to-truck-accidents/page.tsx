@@ -14,16 +14,19 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/09/Untitled-2023-09-15T123706.530.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 
-export default function 7CausesOfTruckDriverFatigueThatCanLeadToTruckAccidentsPage() {
+export default function CausesOfTruckDriverFatigueThatCanLeadToTruckAccidentsPage() {
   // TODO: Extract content from original file and format properly
   const post = {
     id: '7-causes-of-truck-driver-fatigue-that-can-lead-to-truck-accidents',
-    title: '7 Causes of Truck Driver Fatigue That Can Lead to Truck Accidents - Vasquez Law Firm,
-              PLLC',
+    title:
+      '7 Causes of Truck Driver Fatigue That Can Lead to Truck Accidents - Vasquez Law Firm, PLLC',
     slug: '7-causes-of-truck-driver-fatigue-that-can-lead-to-truck-accidents',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

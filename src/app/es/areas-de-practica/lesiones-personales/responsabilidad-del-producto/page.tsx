@@ -2,18 +2,26 @@ import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Abogados de Responsabilidad del Producto en NC | Productos Defectuosos | YO PELEO POR TI™',
-  description: '¿Herido por producto defectuoso? Abogados expertos en demandas contra fabricantes en Carolina del Norte. Autos, medicamentos, juguetes peligrosos. Consulta GRATIS.',
-  keywords: 'abogado productos defectuosos Carolina Norte, responsabilidad fabricante Raleigh, demanda producto peligroso Charlotte, recall productos NC, compensación defectos diseño',
+  title:
+    'Abogados de Responsabilidad del Producto en NC | Productos Defectuosos | YO PELEO POR TI™',
+  description:
+    '¿Herido por producto defectuoso? Abogados expertos en demandas contra fabricantes en Carolina del Norte. Autos, medicamentos, juguetes peligrosos. Consulta GRATIS.',
+  keywords:
+    'abogado productos defectuosos Carolina Norte, responsabilidad fabricante Raleigh, demanda producto peligroso Charlotte, recall productos NC, compensación defectos diseño',
   openGraph: {
     title: 'Abogados de Responsabilidad del Producto - Vasquez Law Firm | NC',
-    description: 'Los productos defectuosos causan miles de lesiones. Hacemos responsables a fabricantes negligentes. Sin costo inicial. Llame 1-844-YO-PELEO',
-    images: [{
-      url: '/images/product-liability-attorney.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Abogados de Responsabilidad del Producto en Carolina del Norte'
-    }
+    description:
+      'Los productos defectuosos causan miles de lesiones. Hacemos responsables a fabricantes negligentes. Sin costo inicial. Llame 1-844-YO-PELEO',
+    images: [
+      {
+        url: '/images/product-liability-attorney.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Abogados de Responsabilidad del Producto en Carolina del Norte',
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

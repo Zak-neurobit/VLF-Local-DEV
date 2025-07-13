@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Home - Vasquez Law Firm, PLLC',
     description:
       'Find experienced Raleigh, NC immigration lawyers to help with visas, green cards, citizenship, and more. Get expert legal guidance for your immigration needs today.',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

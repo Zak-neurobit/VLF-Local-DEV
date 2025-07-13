@@ -3,17 +3,24 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Abogados de Lesiones Cerebrales en NC | TBI Traumático | YO PELEO POR TI™',
-  description: '¿Sufrió lesión cerebral traumática? Abogados expertos en TBI en Carolina del Norte. Luchamos por compensación completa para cuidado de por vida. Consulta GRATIS.',
-  keywords: 'abogado lesiones cerebrales Carolina Norte, TBI traumatic brain injury español, conmoción cerebral Raleigh, daño cerebral Charlotte, compensación lesión cabeza NC',
+  description:
+    '¿Sufrió lesión cerebral traumática? Abogados expertos en TBI en Carolina del Norte. Luchamos por compensación completa para cuidado de por vida. Consulta GRATIS.',
+  keywords:
+    'abogado lesiones cerebrales Carolina Norte, TBI traumatic brain injury español, conmoción cerebral Raleigh, daño cerebral Charlotte, compensación lesión cabeza NC',
   openGraph: {
     title: 'Abogados de Lesiones Cerebrales Traumáticas - Vasquez Law Firm | NC',
-    description: 'Las lesiones cerebrales cambian vidas para siempre. Obtenga compensación para tratamiento médico, rehabilitación y cuidado futuro. Llame 1-844-YO-PELEO',
-    images: [{
-      url: '/images/brain-injury-attorney.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Abogados de Lesiones Cerebrales en Carolina del Norte'
-    }
+    description:
+      'Las lesiones cerebrales cambian vidas para siempre. Obtenga compensación para tratamiento médico, rehabilitación y cuidado futuro. Llame 1-844-YO-PELEO',
+    images: [
+      {
+        url: '/images/brain-injury-attorney.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Abogados de Lesiones Cerebrales en Carolina del Norte',
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

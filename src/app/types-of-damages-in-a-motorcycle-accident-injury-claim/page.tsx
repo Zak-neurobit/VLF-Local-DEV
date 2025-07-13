@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Types of Damages in a Motorcycle Accident Injury Claim - Vasquez Law Firm, PLLC',
     description:
       'Motorcycle accidents can have a devastating effect on someone’s life due to the severity of their injuries. The medical expenses, loss of income, and emotional trauma caused by an accident can quickly add up, leaving the victim with substantial financial burdens. If the accident was caused by someone else’s negligence or intentional actions, the victim might be eligible to pursue a personal injury claim and seek compensation for their damages. In North Carolina, a victim can recover several types of damages in a motorcycle accident injury claim. These damages fall into two broad categories: compensatory and punitive damages. Compensatory Damages Compensatory damages are intended to repay the victim for the losses caused by the motorcycle accident. These damages can be categorized into various subsections, such as: Economic Damages – The economic impact of the accident is expressed in quantifiable financial losses, such as medical costs, lost wages, diminished career opportunities, and motorcycle repairs or replacement. Non-Economic Damages – Non-monetary damage, such as psychological pain, emotional anguish, and the inability to enjoy life at its fullest capacity, can all be the results of a motorcycle accident. Such non-economic losses are known as non-economic damages. Punitive Damages Punitive damages are designed to punish […]',
-    images: [{ url: '../wp-content/uploads/2024/09/shutterstock_2074316275-min.jpg' }
+    images: [{ url: '../wp-content/uploads/2024/09/shutterstock_2074316275-min.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

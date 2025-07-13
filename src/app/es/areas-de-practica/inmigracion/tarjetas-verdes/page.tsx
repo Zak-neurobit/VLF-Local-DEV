@@ -10,7 +10,10 @@ export const metadata: Metadata = {
     description:
       'Abogados en el Condado de Wake que Ayudan a los Inmigrantes a Obtener el Estatus de Residente Permanente Legal Si vive en los Estados Unidos, pero tiene familiares cercanos en otro país, es posible que desee traerlos a los Estados Unidos para que todos puedan estar juntos. Cuando ayuda a los miembros de su familia a venir a los Estados Unidos legalmente, les brinda la oportunidad de buscar oportunidades casi ilimitadas de empleo y educación. Sin embargo, el proceso de inmigración puede ser extremadamente complicado y los requisitos para obtener la entrada legal a los EE. UU. pueden ser difíciles de cumplir. En la mayoría de los casos, deberá obtener las visas adecuadas para permitir que los miembros de su familia ingresen al país, pero también querrá iniciarlos en el camino hacia la obtención del estatus de residente permanente legal (LPR), comúnmente conocido como obtener un tarjeta.” En Vasquez Law Firm, PLLC, nuestros abogados de inmigración expertos comprenden los desafíos que los inmigrantes y sus familias a menudo enfrentan para obtener el estatus de LPR. También reconocemos los beneficios que se obtienen al completar con éxito el proceso. Nuestros abogados tienen más de 35 años de experiencia en la práctica […]',
     images: [
-      { url: '../../../../wp-content/uploads/2024/04/wake-county-green-card-lawyers-1.jpg' }
+      { url: '../../../../wp-content/uploads/2024/04/wake-county-green-card-lawyers-1.jpg' },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

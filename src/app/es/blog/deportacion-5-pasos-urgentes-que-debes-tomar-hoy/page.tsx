@@ -3,14 +3,18 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Deportación: 5 Pasos Urgentes que Debes Tomar HOY | YO PELEO POR TI™',
-  description: 'EMERGENCIA: Pasos urgentes contra deportación. Abogado veterano en NC/FL con estrategias militares. YO PELEO POR TI™. Llama 1-844-YO-PELEO',
-  keywords: 'deportación, inmigración emergencia, ICE, abogado deportación NC FL, YO PELEO POR TI, defensa inmigración',
+  description:
+    'EMERGENCIA: Pasos urgentes contra deportación. Abogado veterano en NC/FL con estrategias militares. YO PELEO POR TI™. Llama 1-844-YO-PELEO',
+  keywords:
+    'deportación, inmigración emergencia, ICE, abogado deportación NC FL, YO PELEO POR TI, defensa inmigración',
   openGraph: {
     title: 'Deportación: 5 Pasos Urgentes que Debes Tomar HOY',
-    description: 'Estrategias militares de emergencia contra deportación. Veterano abogado te defiende ahora.',
+    description:
+      'Estrategias militares de emergencia contra deportación. Veterano abogado te defiende ahora.',
     type: 'article',
     locale: 'es_US',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

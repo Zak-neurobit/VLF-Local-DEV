@@ -11,7 +11,9 @@ export const metadata: Metadata = {
       'La Mejor Guía para Navegar en la Junta de Apelaciones de Inmigración - Vasquez Law Firm, PLLC',
     description:
       'Navega el proceso de la Junta de Apelaciones de Inmigración con nuestra guía experta. Descubre estrategias clave para mejorar tus posibilidades de éxito.',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

@@ -14,7 +14,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/09/shutterstock_1303104493-min.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 
@@ -22,8 +25,8 @@ export default function DoesWorkersCompensationInsuranceAutomaticallyCoverEveryW
   // TODO: Extract content from original file and format properly
   const post = {
     id: 'does-workers-compensation-insurance-automatically-cover-every-workplace-injury',
-    title: 'Does Workers’ Compensation Insurance Automatically Cover Every Workplace Injury? -
-              Vasquez Law Firm, PLLC',
+    title:
+      'Does Workers’ Compensation Insurance Automatically Cover Every Workplace Injury? - Vasquez Law Firm, PLLC',
     slug: 'does-workers-compensation-insurance-automatically-cover-every-workplace-injury',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

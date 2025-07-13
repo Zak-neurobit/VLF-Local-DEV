@@ -3,17 +3,24 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Abogados de Accidentes de Construcción en NC | OSHA | YO PELEO POR TI™',
-  description: '¿Herido en obra de construcción? Abogados expertos en accidentes laborales y OSHA en Carolina del Norte. Compensación más allá de workers comp. Consulta GRATIS.',
-  keywords: 'abogado accidentes construcción Carolina Norte, caídas andamios Raleigh, lesiones obra Charlotte, violaciones OSHA NC, compensación trabajadores construcción',
+  description:
+    '¿Herido en obra de construcción? Abogados expertos en accidentes laborales y OSHA en Carolina del Norte. Compensación más allá de workers comp. Consulta GRATIS.',
+  keywords:
+    'abogado accidentes construcción Carolina Norte, caídas andamios Raleigh, lesiones obra Charlotte, violaciones OSHA NC, compensación trabajadores construcción',
   openGraph: {
     title: 'Abogados de Accidentes de Construcción - Vasquez Law Firm | NC',
-    description: 'Los sitios de construcción son peligrosos. Si se lesionó, merece más que compensación laboral. Luchamos por justicia completa. Llame 1-844-YO-PELEO',
-    images: [{
-      url: '/images/construction-accident-attorney.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Abogados de Accidentes de Construcción en Carolina del Norte'
-    }
+    description:
+      'Los sitios de construcción son peligrosos. Si se lesionó, merece más que compensación laboral. Luchamos por justicia completa. Llame 1-844-YO-PELEO',
+    images: [
+      {
+        url: '/images/construction-accident-attorney.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Abogados de Accidentes de Construcción en Carolina del Norte',
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

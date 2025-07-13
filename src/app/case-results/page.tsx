@@ -7,7 +7,8 @@ export const metadata: Metadata = {
     'View our successful case results in immigration, personal injury, criminal defense, and workers compensation. Real victories for real clients.',
   alternates: {
     canonical: 'https://www.vasquezlawnc.com/case-results',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

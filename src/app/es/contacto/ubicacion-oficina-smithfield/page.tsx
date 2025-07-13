@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Ubicacion Oficina Smithfield - Vasquez Law Firm, PLLC',
     description:
       'Encuentre la mejor ruta a nuestra oficina en Smithfield, NC. Obtenga mapas e indicaciones precisas para visitarnos. ¡Contáctenos para más información!',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

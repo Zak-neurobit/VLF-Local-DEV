@@ -12,7 +12,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: '../wp-content/uploads/2024/12/what-factors-will-affect-my-workers-comp-settlement-scaled.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

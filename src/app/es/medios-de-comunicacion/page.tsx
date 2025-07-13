@@ -7,7 +7,9 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Page not found - Vasquez Law Firm, PLLC',
     description: '',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

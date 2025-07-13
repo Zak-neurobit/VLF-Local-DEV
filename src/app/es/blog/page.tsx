@@ -19,7 +19,10 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Blog Legal del Bufete de Abogados Vasquez',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

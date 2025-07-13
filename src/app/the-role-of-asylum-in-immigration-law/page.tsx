@@ -10,7 +10,10 @@ export const metadata: Metadata = {
     description:
       'The Statue of Liberty proclaims: Give me your tired, your poor, your huddled masses yearning to breathe free. When there is turmoil in other nations, persecuted citizens of the world turn to the United States for salvation. The U.S. was founded on the basis of freedom, and here oppressed individuals can find the safety that would otherwise elude them.  People come to the U.S. to seek asylum as we are a country that values security and liberty–however, seeking asylum is also a complicated legal process that requires a lot of time, paperwork, and legal understanding. The lawyers of Vasquez Law Firm, PLLC, endeavor to help people accomplish their goals for immigrating to the U.S. so that they can establish better lives for themselves and their families.  Asylum seekers are among some of the most vulnerable people immigrating to the U.S., which is why Vasquez Law Firm has created this blog to outline the broad strokes of the process of seeking asylum so that you can better understand what’s in store for yourself or your loved ones.  Read on to find out more about asylum seekers in America and the circumstances in which one would qualify.  What Is Asylum? Asylum is […]',
     images: [
-      { url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/08/blog-vasquez-7-24.webp' }
+      { url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/08/blog-vasquez-7-24.webp' },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

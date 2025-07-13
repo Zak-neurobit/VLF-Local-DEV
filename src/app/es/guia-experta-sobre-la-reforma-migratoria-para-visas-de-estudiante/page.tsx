@@ -14,7 +14,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/Guia-Experta-sobre-la-Reforma-Migratoria-para-Visas-de-Estudiante-2.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

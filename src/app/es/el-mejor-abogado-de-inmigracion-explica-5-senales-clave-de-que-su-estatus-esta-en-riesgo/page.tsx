@@ -14,7 +14,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/El-Mejor-Abogado-de-Inmigracion-2.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 
@@ -22,8 +25,8 @@ export default function ElMejorAbogadoDeInmigracionExplica5SenalesClaveDeQueSuEs
   // TODO: Extract content from original file and format properly
   const post = {
     id: 'el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo',
-    title: 'El Mejor Abogado de Inmigración Explica 5 Señales Clave de Que Su Estatus Está en
-              Riesgo',
+    title:
+      'El Mejor Abogado de Inmigración Explica 5 Señales Clave de Que Su Estatus Está en Riesgo',
     slug: 'el-mejor-abogado-de-inmigracion-explica-5-senales-clave-de-que-su-estatus-esta-en-riesgo',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

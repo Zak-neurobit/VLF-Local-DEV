@@ -13,7 +13,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/09/shutterstock_1575922960-1.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 
@@ -21,8 +24,8 @@ export default function WhatAreTheRequirementsForAdjustmentOfStatusForImmigrants
   // TODO: Extract content from original file and format properly
   const post = {
     id: 'what-are-the-requirements-for-adjustment-of-status-for-immigrants',
-    title: 'What Are the Requirements for Adjustment of Status for Immigrants? - Vasquez Law Firm,
-              PLLC',
+    title:
+      'What Are the Requirements for Adjustment of Status for Immigrants? - Vasquez Law Firm, PLLC',
     slug: 'what-are-the-requirements-for-adjustment-of-status-for-immigrants',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

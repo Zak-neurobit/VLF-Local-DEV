@@ -3,14 +3,18 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'TPS Cancelado para Honduras y Nicaragua: Qué Hacer AHORA | YO PELEO POR TI™',
-  description: 'ALERTA: TPS cancelado para hondureños y nicaragüenses. Veterano abogado con estrategias militares urgentes. YO PELEO POR TI™. Llama 1-844-YO-PELEO',
-  keywords: 'TPS cancelado, Honduras Nicaragua, inmigración emergencia, abogado TPS NC FL, YO PELEO POR TI, defensa inmigración',
+  description:
+    'ALERTA: TPS cancelado para hondureños y nicaragüenses. Veterano abogado con estrategias militares urgentes. YO PELEO POR TI™. Llama 1-844-YO-PELEO',
+  keywords:
+    'TPS cancelado, Honduras Nicaragua, inmigración emergencia, abogado TPS NC FL, YO PELEO POR TI, defensa inmigración',
   openGraph: {
     title: 'TPS Cancelado para Honduras y Nicaragua: Qué Hacer AHORA',
-    description: 'Estrategias militares urgentes para hondureños y nicaragüenses afectados por cancelación TPS. Veterano abogado te defiende.',
+    description:
+      'Estrategias militares urgentes para hondureños y nicaragüenses afectados por cancelación TPS. Veterano abogado te defiende.',
     type: 'article',
     locale: 'es_US',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

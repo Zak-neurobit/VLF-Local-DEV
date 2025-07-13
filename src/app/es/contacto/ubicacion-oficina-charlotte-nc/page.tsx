@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Ubicacion Oficina Charlotte, NC - Vasquez Law Firm, PLLC',
     description:
       'Vasquez Law Firm in [City], [State] - Immigration, personal injury, criminal defense & family law. Local attorneys who understand your needs. Walk-ins welcome.',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

@@ -14,7 +14,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: '../../../../wp-content/uploads/2024/04/smithfield-consular-processing-lawyers-1.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

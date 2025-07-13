@@ -11,7 +11,8 @@ export const metadata: Metadata = {
     images: ['/og-roxboro.jpg'],
     locale: 'en_US',
     alternateLocale: 'es_ES',
-  }
+  },
+};
 
 export default function RoxboroPage() {
   const locationData = {

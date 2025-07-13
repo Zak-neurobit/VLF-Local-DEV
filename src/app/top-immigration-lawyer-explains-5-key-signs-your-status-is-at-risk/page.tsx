@@ -14,7 +14,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/Is-Your-Immigration-Status-at-Risk-5-Warning-Signs-You-Cant-Ignore.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 
@@ -22,8 +25,8 @@ export default function TopImmigrationLawyerExplains5KeySignsYourStatusIsAtRiskP
   // TODO: Extract content from original file and format properly
   const post = {
     id: 'top-immigration-lawyer-explains-5-key-signs-your-status-is-at-risk',
-    title: 'Is Your Immigration Status at Risk 5 Warning Signs You Can’t Ignore - Vasquez Law
-              Firm, PLLC',
+    title:
+      'Is Your Immigration Status at Risk 5 Warning Signs You Can’t Ignore - Vasquez Law Firm, PLLC',
     slug: 'top-immigration-lawyer-explains-5-key-signs-your-status-is-at-risk',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

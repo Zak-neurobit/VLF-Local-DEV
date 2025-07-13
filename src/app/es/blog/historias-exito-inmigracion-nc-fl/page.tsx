@@ -3,14 +3,18 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Historias de Éxito en Inmigración NC/FL: Victorias Reales | YO PELEO POR TI™',
-  description: 'Casos reales ganados: Residencias, asilos, deportaciones detenidas en NC/FL. Veterano abogado con victorias comprobadas. YO PELEO POR TI™. Llama 1-844-YO-PELEO',
-  keywords: 'historias éxito inmigración, casos ganados NC FL, abogado inmigración exitoso, YO PELEO POR TI, veterano abogado',
+  description:
+    'Casos reales ganados: Residencias, asilos, deportaciones detenidas en NC/FL. Veterano abogado con victorias comprobadas. YO PELEO POR TI™. Llama 1-844-YO-PELEO',
+  keywords:
+    'historias éxito inmigración, casos ganados NC FL, abogado inmigración exitoso, YO PELEO POR TI, veterano abogado',
   openGraph: {
     title: 'Historias de Éxito en Inmigración NC/FL: Victorias Reales',
-    description: 'Casos reales de inmigración ganados en Carolina del Norte y Florida. Veterano abogado con historial comprobado de victorias.',
+    description:
+      'Casos reales de inmigración ganados en Carolina del Norte y Florida. Veterano abogado con historial comprobado de victorias.',
     type: 'article',
     locale: 'es_US',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

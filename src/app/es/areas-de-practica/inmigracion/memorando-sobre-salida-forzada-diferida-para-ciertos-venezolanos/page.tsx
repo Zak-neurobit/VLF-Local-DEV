@@ -14,7 +14,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: '../../../../wp-content/uploads/2024/04/venezuela-immigration-deportation-protection-1.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

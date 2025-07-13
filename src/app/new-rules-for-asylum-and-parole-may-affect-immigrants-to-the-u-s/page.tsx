@@ -14,7 +14,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/09/shutterstock_611066249-min.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 
@@ -22,8 +25,8 @@ export default function NewRulesForAsylumAndParoleMayAffectImmigrantsToTheUSPage
   // TODO: Extract content from original file and format properly
   const post = {
     id: 'new-rules-for-asylum-and-parole-may-affect-immigrants-to-the-u-s',
-    title: 'New Rules for Asylum and Parole May Affect Immigrants to the U.S. - Vasquez Law Firm,
-              PLLC',
+    title:
+      'New Rules for Asylum and Parole May Affect Immigrants to the U.S. - Vasquez Law Firm, PLLC',
     slug: 'new-rules-for-asylum-and-parole-may-affect-immigrants-to-the-u-s',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

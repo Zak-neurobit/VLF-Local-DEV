@@ -3,17 +3,24 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Abogados de Resbalones y Caídas en NC | Responsabilidad de Locales | YO PELEO POR TI™',
-  description: '¿Se cayó en una tienda, restaurante o propiedad privada? Abogados expertos en resbalones y caídas en Raleigh, Charlotte. Consulta GRATIS. Hablamos español.',
-  keywords: 'abogado resbalones caídas Carolina Norte, slip and fall español, accidente tienda Walmart, caída restaurante, lesiones local comercial, demanda resbalón NC',
+  description:
+    '¿Se cayó en una tienda, restaurante o propiedad privada? Abogados expertos en resbalones y caídas en Raleigh, Charlotte. Consulta GRATIS. Hablamos español.',
+  keywords:
+    'abogado resbalones caídas Carolina Norte, slip and fall español, accidente tienda Walmart, caída restaurante, lesiones local comercial, demanda resbalón NC',
   openGraph: {
     title: 'Abogados de Resbalones y Caídas - Vasquez Law Firm | Carolina del Norte',
-    description: 'Lesionado por condiciones peligrosas en una propiedad? Hacemos responsables a los dueños negligentes. Sin costo inicial. Llame 1-844-YO-PELEO',
-    images: [{
-      url: '/images/slip-fall-attorney.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Abogados de Resbalones y Caídas en Carolina del Norte'
-    }
+    description:
+      'Lesionado por condiciones peligrosas en una propiedad? Hacemos responsables a los dueños negligentes. Sin costo inicial. Llame 1-844-YO-PELEO',
+    images: [
+      {
+        url: '/images/slip-fall-attorney.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Abogados de Resbalones y Caídas en Carolina del Norte',
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

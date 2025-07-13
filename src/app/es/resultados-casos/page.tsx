@@ -10,7 +10,9 @@ export const metadata: Metadata = {
     languages: {
       en: '/case-results',
       es: '/es/resultados-casos',
-    }
+    },
+  },
+};
 
 export const runtime = 'nodejs';
 

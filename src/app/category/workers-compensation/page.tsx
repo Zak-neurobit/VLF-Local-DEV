@@ -2,14 +2,16 @@ import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Workers\' Compensation Archives - Page 2 of 2 - Vasquez Law Firm, PLLC',
+  title: "Workers' Compensation Archives - Page 2 of 2 - Vasquez Law Firm, PLLC",
   description:
     'Injured? Our [specific injury] lawyers fight for maximum compensation. No fee unless we win. Free case evaluation. Call 1-844-YO-PELEO.',
   openGraph: {
-    title: 'Workers\' Compensation Archives - Page 2 of 2 - Vasquez Law Firm, PLLC',
+    title: "Workers' Compensation Archives - Page 2 of 2 - Vasquez Law Firm, PLLC",
     description:
       'Injured? Our [specific injury] lawyers fight for maximum compensation. No fee unless we win. Free case evaluation. Call 1-844-YO-PELEO.',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

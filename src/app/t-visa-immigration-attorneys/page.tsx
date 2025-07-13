@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'T Visa Immigration Attorneys - Vasquez Law Firm, PLLC',
     description:
       'At Vasquez Law Firm, we understand how challenging it can be to face situations of labor exploitation or human trafficking. The T Visa is a vital resource for victims of these crimes, offering protection and the opportunity to rebuild their lives in the United States.',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

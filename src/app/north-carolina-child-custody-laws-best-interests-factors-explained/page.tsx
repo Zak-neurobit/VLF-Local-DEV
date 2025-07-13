@@ -8,7 +8,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical:
       'https://www.vasquezlawnc.com/north-carolina-child-custody-laws-best-interests-factors-explained',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

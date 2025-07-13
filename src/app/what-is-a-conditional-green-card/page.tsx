@@ -10,7 +10,10 @@ export const metadata: Metadata = {
     description:
       'When a person from another country immigrates to the United States, their goal will usually be to receive a Green Card, which will give them lawful permanent resident status. This will ensure that they can continue living in the country and earning an income, while also allowing them to travel freely and potentially even sponsor other family members for immigration. In some cases, a person may receive a conditional Green Card that will only be valid for a limited amount of time Conditional Green Cards are typically issued to foreign nationals who have been married to U.S. citizens for less than two years at the time they are granted lawful permanent resident status. Before a conditional Green Card expires, an immigrant and their spouse will need to take steps to receive a permanent Green Card. For those who need to address issues related to conditional or permanent Green Cards, an experienced immigration attorney can provide invaluable guidance and legal assistance. Why Are There Conditional Green Cards? The purpose of issuing conditional Green Cards is to help prevent immigration fraud. The U.S. government wants to ensure that people do not get married solely for immigration purposes and as a means to obtain lawful permanent resident […]',
     images: [
-      { url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/09/immigrant-marriage.jpg' }
+      { url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/09/immigrant-marriage.jpg' },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

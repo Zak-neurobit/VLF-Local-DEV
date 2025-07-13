@@ -11,7 +11,8 @@ export const metadata: Metadata = {
     images: ['/og-southern-pines.jpg'],
     locale: 'en_US',
     alternateLocale: 'es_ES',
-  }
+  },
+};
 
 export default function SouthernPinesPage() {
   const locationData = {

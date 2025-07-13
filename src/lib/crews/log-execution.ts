@@ -1,4 +1,4 @@
-import { getPrismaClient } from '@/lib/database/client';
+import { getPrismaClient } from '@/lib/prisma';
 import logger from '@/lib/logger';
 
 interface LogExecutionParams {
@@ -60,7 +60,11 @@ export async function logCrewExecution(params: LogExecutionParams) {
  */
 export function createCrewLogger(agentName: string) {
   return {
-    async logExecution<T>(executionType: string, fn: () => Promise<T>, metadata?: Record<string, unknown>): Promise<T> {
+    async logExecution<T>(
+      executionType: string,
+      fn: () => Promise<T>,
+      metadata?: Record<string, unknown>
+    ): Promise<T> {
       const startTime = new Date();
       let status: 'success' | 'failure' = 'success';
       let output: T | undefined;

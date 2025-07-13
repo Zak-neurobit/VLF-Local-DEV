@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Smithfield Office Location - Vasquez Law Firm, PLLC',
     description:
       'Find our Smithfield office with our easy-to-follow map and directions. Get convenient access to expert legal assistance. Visit us or call for more details!',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

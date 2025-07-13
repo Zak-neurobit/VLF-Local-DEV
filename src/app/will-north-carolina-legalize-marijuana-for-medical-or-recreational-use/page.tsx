@@ -13,7 +13,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/09/shutterstock_1161207328-min.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 
@@ -21,8 +24,8 @@ export default function WillNorthCarolinaLegalizeMarijuanaForMedicalOrRecreation
   // TODO: Extract content from original file and format properly
   const post = {
     id: 'will-north-carolina-legalize-marijuana-for-medical-or-recreational-use',
-    title: 'Will North Carolina Legalize Marijuana for Medical or Recreational Use - Vasquez Law
-              Firm, PLLC',
+    title:
+      'Will North Carolina Legalize Marijuana for Medical or Recreational Use - Vasquez Law Firm, PLLC',
     slug: 'will-north-carolina-legalize-marijuana-for-medical-or-recreational-use',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

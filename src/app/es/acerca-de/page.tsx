@@ -18,7 +18,10 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Equipo de Vasquez Law Firm',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

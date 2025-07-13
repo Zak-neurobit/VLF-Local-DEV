@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Smithfield, NC Auto Accident Lawyers | Vasquez Law Firm, PLLC',
     description:
       'Experienced auto accident lawyers in Smithfield, providing legal assistance for injury claims, compensation, and navigating the aftermath of a car accident.',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

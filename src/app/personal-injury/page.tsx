@@ -14,7 +14,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     siteName: 'Vasquez Law Firm',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

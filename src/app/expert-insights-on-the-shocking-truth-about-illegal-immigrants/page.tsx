@@ -13,7 +13,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/The-Shocking-Truth-About-Illegal-Immigration-You-Cant-Afford-to-Miss.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

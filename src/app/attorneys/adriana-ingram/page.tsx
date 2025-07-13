@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Adriana ingram - Vasquez Law Firm, PLLC',
     description:
       'Adrianna Ingram, experienced family and criminal attorney, provides dedicated legal representation to protect your rights and family in every case. Contact now!',
-    images: [{ url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/03/att-adrianna.webp' }
+    images: [{ url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/03/att-adrianna.webp' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

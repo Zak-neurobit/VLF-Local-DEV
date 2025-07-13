@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Goldsboro, NC Office Location - Vasquez Law Firm, PLLC',
     description:
       'Find our Goldsboro, NC office location for expert services. Conveniently located with easy access, we offer top solutions to meet your needs. Visit us today!',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

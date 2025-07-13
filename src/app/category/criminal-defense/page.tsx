@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Criminal Defense Archives - Vasquez Law Firm, PLLC',
     description:
       'Facing [specific charge]? Experienced defense attorneys protecting your rights. 24/7 availability. Free consultation.',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

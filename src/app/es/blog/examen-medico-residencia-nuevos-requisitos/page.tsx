@@ -3,14 +3,18 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Nuevos Requisitos Examen Médico para Residencia 2025 | YO PELEO POR TI™',
-  description: 'ALERTA: Nuevos requisitos médicos para residencia. Veterano abogado con estrategias para navegar cambios I-693. YO PELEO POR TI™. Llama 1-844-YO-PELEO',
-  keywords: 'examen médico I-693, residencia permanente, inmigración médica, abogado inmigración NC FL, YO PELEO POR TI',
+  description:
+    'ALERTA: Nuevos requisitos médicos para residencia. Veterano abogado con estrategias para navegar cambios I-693. YO PELEO POR TI™. Llama 1-844-YO-PELEO',
+  keywords:
+    'examen médico I-693, residencia permanente, inmigración médica, abogado inmigración NC FL, YO PELEO POR TI',
   openGraph: {
     title: 'Nuevos Requisitos Examen Médico para Residencia 2025',
-    description: 'Cambios críticos en examen médico I-693. Veterano abogado con estrategias militares para cumplir nuevos requisitos.',
+    description:
+      'Cambios críticos en examen médico I-693. Veterano abogado con estrategias militares para cumplir nuevos requisitos.',
     type: 'article',
     locale: 'es_US',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

@@ -11,7 +11,8 @@ export const metadata: Metadata = {
     images: ['/og-four-oaks.jpg'],
     locale: 'en_US',
     alternateLocale: 'es_ES',
-  }
+  },
+};
 
 export default function FourOaksPage() {
   const locationData = {

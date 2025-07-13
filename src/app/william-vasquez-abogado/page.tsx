@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'William Vasquez Abogado - Vasquez Law Firm, PLLC',
     description:
       'William Vasquez, abogado y fundador, brinda representación legal experta en inmigración. ¡Contáctenos hoy para una consulta y asesoría profesional!',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

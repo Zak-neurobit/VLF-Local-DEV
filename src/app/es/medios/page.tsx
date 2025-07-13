@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Medios - Vasquez Law Firm, PLLC',
     description:
       'Explore nuestras apariciones en los medios de comunicación y manténgase informado sobre las últimas noticias y actualizaciones legales. ¡Contáctenos hoy!',
-    images: [{ url: 'https://i.ytimg.com/vi/R9QzOQ72bJw/mqdefault.jpg' }
+    images: [{ url: 'https://i.ytimg.com/vi/R9QzOQ72bJw/mqdefault.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

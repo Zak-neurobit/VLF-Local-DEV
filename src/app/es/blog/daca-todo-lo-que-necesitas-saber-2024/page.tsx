@@ -3,14 +3,18 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'DACA 2024: Todo lo que Necesitas Saber Ahora | YO PELEO POR TI™',
-  description: 'Guía completa DACA 2024: renovaciones, nuevas aplicaciones, derechos. Abogado veterano en NC/FL. YO PELEO POR TI™. Consulta gratuita 1-844-YO-PELEO',
-  keywords: 'DACA 2024, renovación DACA, dreamers, inmigración, abogado DACA NC FL, YO PELEO POR TI',
+  description:
+    'Guía completa DACA 2024: renovaciones, nuevas aplicaciones, derechos. Abogado veterano en NC/FL. YO PELEO POR TI™. Consulta gratuita 1-844-YO-PELEO',
+  keywords:
+    'DACA 2024, renovación DACA, dreamers, inmigración, abogado DACA NC FL, YO PELEO POR TI',
   openGraph: {
     title: 'DACA 2024: Todo lo que Necesitas Saber Ahora',
-    description: 'Protege tu estatus DACA con el veterano abogado. Estrategias militares para la victoria total.',
+    description:
+      'Protege tu estatus DACA con el veterano abogado. Estrategias militares para la victoria total.',
     type: 'article',
     locale: 'es_US',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Immigration Archives - Page 5 of 5 - Vasquez Law Firm, PLLC',
     description:
       'Expert immigration attorneys handling immigration. 60+ years experience. Free consultation in English/Spanish. Call 1-844-YO-PELEO.',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

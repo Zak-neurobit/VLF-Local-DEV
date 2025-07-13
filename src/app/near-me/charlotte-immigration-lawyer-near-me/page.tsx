@@ -3,18 +3,25 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Immigration Lawyer Near Me Charlotte NC | 24/7 Available | Free Consultation',
-  description: 'Looking for an immigration lawyer near you in Charlotte? ⭐ 5-Star Rated • 60+ Years Experience • Se Habla Español • Same Day Appointments • Call 1-844-YO-PELEO',
-  keywords: 'immigration lawyer near me, immigration attorney near me charlotte, abogado de inmigracion cerca de mi, immigration lawyer charlotte nc near me, best immigration lawyer near me, spanish speaking immigration lawyer near me, emergency immigration lawyer near me, deportation lawyer near me charlotte, green card lawyer near me, citizenship attorney near me',
+  description:
+    'Looking for an immigration lawyer near you in Charlotte? ⭐ 5-Star Rated • 60+ Years Experience • Se Habla Español • Same Day Appointments • Call 1-844-YO-PELEO',
+  keywords:
+    'immigration lawyer near me, immigration attorney near me charlotte, abogado de inmigracion cerca de mi, immigration lawyer charlotte nc near me, best immigration lawyer near me, spanish speaking immigration lawyer near me, emergency immigration lawyer near me, deportation lawyer near me charlotte, green card lawyer near me, citizenship attorney near me',
   openGraph: {
     title: 'Immigration Lawyer Near Me in Charlotte | Vasquez Law Firm',
-    description: '24/7 Emergency Immigration Help in Charlotte. Free Consultation. 30,000+ Cases Won. Se Habla Español.',
+    description:
+      '24/7 Emergency Immigration Help in Charlotte. Free Consultation. 30,000+ Cases Won. Se Habla Español.',
     url: 'https://www.vasquezlawnc.com/near-me/charlotte-immigration-lawyer-near-me',
-    images: [{
-      url: '/images/charlotte-office-hero.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Vasquez Law Firm Charlotte Office - Immigration Lawyers Near You'
-    }
+    images: [
+      {
+        url: '/images/charlotte-office-hero.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Vasquez Law Firm Charlotte Office - Immigration Lawyers Near You',
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

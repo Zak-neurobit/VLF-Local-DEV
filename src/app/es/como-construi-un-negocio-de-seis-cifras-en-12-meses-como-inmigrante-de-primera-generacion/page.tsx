@@ -11,7 +11,9 @@ export const metadata: Metadata = {
       'Cómo Construí un Negocio de Seis Cifras en 12 Meses como Inmigrante de Primera Generación - Vasquez Law Firm, PLLC',
     description:
       'Descubre cómo construí un negocio de seis cifras en 12 meses como inmigrante de primera generación. Consejos y estrategias de expertos para lograr el éxito empresarial en un nuevo país.',
-    images: [{ url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/10-1.jpg' }
+    images: [{ url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/10-1.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 
@@ -19,8 +21,8 @@ export default function ComoConstruiUnNegocioDeSeisCifrasEn12MesesComoInmigrante
   // TODO: Extract content from original file and format properly
   const post = {
     id: 'como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion',
-    title: 'Cómo Construí un Negocio de Seis Cifras en 12 Meses como Inmigrante de Primera
-              Generación',
+    title:
+      'Cómo Construí un Negocio de Seis Cifras en 12 Meses como Inmigrante de Primera Generación',
     slug: 'como-construi-un-negocio-de-seis-cifras-en-12-meses-como-inmigrante-de-primera-generacion',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

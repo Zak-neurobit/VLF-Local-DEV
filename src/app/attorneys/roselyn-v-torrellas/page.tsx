@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Roselyn v. Torrellas - Vasquez Law Firm, PLLC',
     description:
       'Roselyn V. Torrellas is a dedicated attorney providing expert legal counsel in immigration and personal injury law. Trusted representation you can count on.',
-    images: [{ url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/03/attn-torrellas.jpg' }
+    images: [{ url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/03/attn-torrellas.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

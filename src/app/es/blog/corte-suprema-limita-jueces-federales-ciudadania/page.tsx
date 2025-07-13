@@ -3,14 +3,18 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Corte Suprema Limita Jueces Federales: Impacto en Inmigración | YO PELEO POR TI™',
-  description: 'ALERTA: Corte Suprema limita poder judicial. Veterano abogado analiza impacto en inmigración y ciudadanía. YO PELEO POR TI™. Llama 1-844-YO-PELEO',
-  keywords: 'Corte Suprema, jueces federales, inmigración, ciudadanía, abogado inmigración NC FL, YO PELEO POR TI',
+  description:
+    'ALERTA: Corte Suprema limita poder judicial. Veterano abogado analiza impacto en inmigración y ciudadanía. YO PELEO POR TI™. Llama 1-844-YO-PELEO',
+  keywords:
+    'Corte Suprema, jueces federales, inmigración, ciudadanía, abogado inmigración NC FL, YO PELEO POR TI',
   openGraph: {
     title: 'Corte Suprema Limita Jueces Federales: Impacto en Inmigración',
-    description: 'Análisis militar del fallo de Corte Suprema sobre jueces federales. Veterano abogado explica impacto en inmigración.',
+    description:
+      'Análisis militar del fallo de Corte Suprema sobre jueces federales. Veterano abogado explica impacto en inmigración.',
     type: 'article',
     locale: 'es_US',
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

@@ -14,7 +14,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/09/shutterstock-1487364161-1.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 
@@ -22,8 +25,8 @@ export default function UnderstandingTheDifferentKindsOfFamilyVisasInNorthCaroli
   // TODO: Extract content from original file and format properly
   const post = {
     id: 'understanding-the-different-kinds-of-family-visas-in-north-carolina',
-    title: 'Understanding the Different Kinds of Family Visas in North Carolina - Vasquez Law
-              Firm, PLLC',
+    title:
+      'Understanding the Different Kinds of Family Visas in North Carolina - Vasquez Law Firm, PLLC',
     slug: 'understanding-the-different-kinds-of-family-visas-in-north-carolina',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

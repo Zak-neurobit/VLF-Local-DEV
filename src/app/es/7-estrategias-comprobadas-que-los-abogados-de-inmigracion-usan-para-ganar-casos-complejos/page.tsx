@@ -11,16 +11,18 @@ export const metadata: Metadata = {
       '7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos Complejos - Vasquez Law Firm, PLLC',
     description:
       'Descubre cómo los abogados de inmigración expertos pueden simplificar tu proceso, evitar errores costosos y ayudarte a reunirte con tus seres queridos. ¡Obtén apoyo profesional hoy!',
-    images: [{ url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/9.jpg' }
+    images: [{ url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/9.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 
-export default function 7EstrategiasComprobadasQueLosAbogadosDeInmigracionUsanParaGanarCasosComplejosPage() {
+export default function EstrategiasComprobadasQueLosAbogadosDeInmigracionUsanParaGanarCasosComplejosPage() {
   // TODO: Extract content from original file and format properly
   const post = {
     id: '7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos',
-    title: '7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos
-              Complejos',
+    title:
+      '7 Estrategias Comprobadas que los Abogados de Inmigración Usan para Ganar Casos Complejos',
     slug: '7-estrategias-comprobadas-que-los-abogados-de-inmigracion-usan-para-ganar-casos-complejos',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

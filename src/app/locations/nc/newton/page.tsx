@@ -11,7 +11,8 @@ export const metadata: Metadata = {
     images: ['/og-newton.jpg'],
     locale: 'en_US',
     alternateLocale: 'es_ES',
-  }
+  },
+};
 
 export default function NewtonPage() {
   const locationData = {

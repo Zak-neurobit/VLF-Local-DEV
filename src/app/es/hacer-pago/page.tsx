@@ -3,13 +3,15 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Hacer un Pago | Bufete de Abogados Vasquez - YO PELEO POR TI™',
-  description: 'Realice pagos seguros a Vasquez Law Firm a través de nuestro socio de pago de confianza, LawPay. Procesamiento seguro para honorarios legales y anticipos.',
+  description:
+    'Realice pagos seguros a Vasquez Law Firm a través de nuestro socio de pago de confianza, LawPay. Procesamiento seguro para honorarios legales y anticipos.',
   keywords: 'hacer pago, pagar abogado, LawPay, pago seguro, honorarios legales, Vasquez Law Firm',
   openGraph: {
     title: 'Hacer un Pago | Bufete de Abogados Vasquez',
     description: 'Portal de pago seguro para clientes de Vasquez Law Firm',
     images: ['/images/og-payment.jpg'],
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

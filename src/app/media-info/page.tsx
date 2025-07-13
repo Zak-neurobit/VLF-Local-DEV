@@ -7,7 +7,9 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Media - Vasquez Law Firm, PLLC',
     description: '',
-    images: [{ url: 'https://i.ytimg.com/vi/R9QzOQ72bJw/mqdefault.jpg' }
+    images: [{ url: 'https://i.ytimg.com/vi/R9QzOQ72bJw/mqdefault.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

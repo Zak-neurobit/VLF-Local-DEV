@@ -10,7 +10,10 @@ export const metadata: Metadata = {
     description:
       'Abogados del Condado de Wake Para Visas de No Inmigrantes y Relacionadas con el Trabajo El sistema económico mundial continúa estando cada vez más conectado a través de las fronteras internacionales. Con esto en mente, no sorprende que muchas empresas y corporaciones estadounidenses hayan desarrollado un mayor interés en patrocinar a ciudadanos extranjeros para que vengan a trabajar a los Estados Unidos. En Vasquez Law Firm, PLLC, nuestros hábiles abogados de inmigración trabajan en estrecha colaboración con empresas de todos los tamaños y tipos para ayudar a obtener las visas adecuadas para sus trabajadores no ciudadanos. El gobierno de los Estados Unidos ofrece una amplia gama de visas relacionadas con el trabajo y el empleo, y lo ayudaremos a determinar la opción que mejor se adapte a las necesidades de su negocio. También lo ayudaremos a preparar y enviar la documentación necesaria mientras cumplimos con todas las leyes y regulaciones aplicables. Visas de Trabajo Temporal Las leyes de inmigración en los Estados Unidos ofrecen visas temporales para que los ciudadanos extranjeros trabajen en este país por un período de tiempo relativamente corto. Estas visas se clasifican como visas de “no inmigrante” porque, en general, no están destinadas a ser utilizadas […]',
     images: [
-      { url: '../../../../wp-content/uploads/2024/04/Employment-Based-Immigration-Lawyers.jpg' }
+      { url: '../../../../wp-content/uploads/2024/04/Employment-Based-Immigration-Lawyers.jpg' },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

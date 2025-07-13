@@ -12,7 +12,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: '../../../../../wp-content/uploads/2024/04/Raleigh-PERM-Labor-Certification-Lawyers-1.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

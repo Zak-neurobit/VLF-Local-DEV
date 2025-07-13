@@ -11,7 +11,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/How-I-Built-a-6-Figure-Business-in-12-Months-as-a-First-Generation-Immigrant.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

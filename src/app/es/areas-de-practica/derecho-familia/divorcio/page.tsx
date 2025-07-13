@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Page not found - Vasquez Law Firm, PLLC',
     description:
       "Compassionate [specific service] attorneys. Protecting your family's future. Bilingual services. Free consultation.",
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

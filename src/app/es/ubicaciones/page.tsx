@@ -11,7 +11,9 @@ export const metadata: Metadata = {
     title: 'Ubicaciones - Bufete de Abogados Vasquez | Servicios Legales en NC y FL',
     description:
       '4 ubicaciones convenientes en NC y FL. Estacionamiento gratuito, accesible para sillas de ruedas, personal bilingüe. Programe su consulta hoy.',
-    images: [{ url: '/images/locations-hero.jpg' }
+    images: [{ url: '/images/locations-hero.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

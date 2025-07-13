@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'William Vasquez - Vasquez Law Firm, PLLC',
     description:
       'William Vasquez, attorney & founder, is a U.S. Air Force veteran and immigration lawyer in NC, providing expert legal counsel in immigration and criminal defense.',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Jillian baucom - Vasquez Law Firm, PLLC',
     description:
       'Jillian Baucom, experienced immigration attorney in Raleigh, NC. Dedicated to helping clients navigate the immigration process smoothly. Contact us today!',
-    images: [{ url: 'https://www.vasquezlawnc.com/images/attorneys/jillian-baucom.jpg' }
+    images: [{ url: 'https://www.vasquezlawnc.com/images/attorneys/jillian-baucom.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

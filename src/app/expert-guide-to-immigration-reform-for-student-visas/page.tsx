@@ -14,7 +14,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/Everything-You-Need-to-Know-About-Immigration-Reform-for-Student-Visas.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 
@@ -22,8 +25,8 @@ export default function ExpertGuideToImmigrationReformForStudentVisasPage() {
   // TODO: Extract content from original file and format properly
   const post = {
     id: 'expert-guide-to-immigration-reform-for-student-visas',
-    title: 'Everything You Need to Know About Immigration Reform for Student Visas - Vasquez Law
-              Firm, PLLC',
+    title:
+      'Everything You Need to Know About Immigration Reform for Student Visas - Vasquez Law Firm, PLLC',
     slug: 'expert-guide-to-immigration-reform-for-student-visas',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `

@@ -3,17 +3,24 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Abogados de Accidentes de Auto en Carolina del Norte | YO PELEO POR TI™',
-  description: '¿Herido en un accidente de auto? Nuestros abogados en Raleigh, Charlotte y Smithfield luchan por compensación máxima. Sin honorarios si no ganamos. Consulta GRATIS.',
-  keywords: 'abogado accidentes auto Carolina Norte, accidente carro Raleigh, abogado choques Charlotte, compensación accidentes vehiculares, demanda accidente auto NC',
+  description:
+    '¿Herido en un accidente de auto? Nuestros abogados en Raleigh, Charlotte y Smithfield luchan por compensación máxima. Sin honorarios si no ganamos. Consulta GRATIS.',
+  keywords:
+    'abogado accidentes auto Carolina Norte, accidente carro Raleigh, abogado choques Charlotte, compensación accidentes vehiculares, demanda accidente auto NC',
   openGraph: {
     title: 'Abogados de Accidentes de Auto en Carolina del Norte | Vasquez Law Firm',
-    description: '¿Herido en un accidente de auto? Obtenga la compensación que merece. Más de 35 años de experiencia. Hablamos español. Llame al 1-844-YO-PELEO',
-    images: [{
-      url: '/images/car-accident-attorney.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Abogados de Accidentes de Auto en Carolina del Norte'
-    }
+    description:
+      '¿Herido en un accidente de auto? Obtenga la compensación que merece. Más de 35 años de experiencia. Hablamos español. Llame al 1-844-YO-PELEO',
+    images: [
+      {
+        url: '/images/car-accident-attorney.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Abogados de Accidentes de Auto en Carolina del Norte',
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 
