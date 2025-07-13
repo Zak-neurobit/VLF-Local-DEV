@@ -46,10 +46,20 @@ export async function POST(request: NextRequest) {
       take: 5,
     });
 
+    // Transform previous interactions to match expected format
+    const formattedInteractions = previousInteractions.map(interaction => ({
+      type: interaction.channel || 'unknown',
+      date: interaction.startedAt.toISOString(),
+      outcome: interaction.status,
+      notes: typeof interaction.metadata === 'object' && interaction.metadata !== null 
+        ? JSON.stringify(interaction.metadata) 
+        : undefined,
+    }));
+
     // Validate the lead
     const validationResult = await leadValidationAgent.validateLead({
       ...validatedData,
-      previousInteractions,
+      previousInteractions: formattedInteractions,
     });
 
     // Log agent execution (model needs to be added to schema)
@@ -71,7 +81,7 @@ export async function POST(request: NextRequest) {
         practiceAreas: validationResult.practiceAreas,
         urgencyLevel: validationResult.priorityLevel,
         languagePreference: validationResult.languagePreference,
-        previousInteractions,
+        previousInteractions: formattedInteractions,
       });
 
       // Log follow-up agent execution

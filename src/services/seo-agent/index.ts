@@ -6,7 +6,7 @@ import * as cheerio from 'cheerio';
 import { CronJob } from 'cron';
 import axios from 'axios';
 import { URL } from 'url';
-import type { SchemaOrgOrganization, SchemaOrgPerson, SchemaOrgFAQ } from '@/types/services';
+import type { SchemaOrgFAQ, SchemaMarkup } from '@/types/services';
 
 export interface SEOAgentConfig {
   openAIKey: string;
@@ -44,7 +44,7 @@ interface ContentGap {
   };
 }
 
-type SchemaMarkup = SchemaOrgFAQ;
+// Remove local type definition to use the one from services.ts
 
 export class SEOAgent {
   private openai: OpenAI;
@@ -693,7 +693,7 @@ export class SEOAgent {
         '@id': `${this.baseUrl}/blog/${data.slug}`,
       },
       articleSection: this.formatPracticeAreaName(data.practiceArea as string),
-      ...(data.faqSection && {
+      ...(data.faqSection && Array.isArray(data.faqSection) && data.faqSection.length > 0 ? {
         hasPart: {
           '@type': 'FAQPage',
           mainEntity: (data.faqSection as Array<{ question: string; answer: string }>).map(faq => ({
@@ -705,11 +705,11 @@ export class SEOAgent {
             },
           })),
         },
-      }),
+      } : {})
     };
   }
 
-  private generateFAQSchema(data: Record<string, unknown>): SchemaMarkup {
+  private generateFAQSchema(data: Record<string, unknown>): SchemaOrgFAQ & { '@context': string } {
     return {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
@@ -1107,8 +1107,8 @@ export class SEOAgent {
       // Content gap analysis
       const contentGaps = await this.findContentGaps({
         competitors: topPages.map(page => ({ url: page.url, keywords: page.keywords || [] })),
-        currentKeywords: contentStrategy.keywords || [],
-        practiceAreas: contentStrategy.practiceAreas || [],
+        currentKeywords: contentStrategy.topKeywords || [],
+        practiceAreas: this.config.practiceAreas,
       });
 
       return {

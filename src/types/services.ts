@@ -231,6 +231,17 @@ export interface SchemaOrgFAQ {
   }>;
 }
 
+// Generic Schema.org markup type
+export type SchemaMarkup = 
+  | SchemaOrgFAQ
+  | SchemaOrgOrganization
+  | SchemaOrgPerson
+  | {
+      '@context'?: string;
+      '@type': 'WebPage' | 'LegalService' | 'Attorney' | 'LocalBusiness' | 'Review' | 'Service' | 'HowTo' | 'BlogPosting' | 'Article' | 'NewsArticle';
+      [key: string]: unknown;
+    };
+
 // Document Generator Types
 export interface DocumentTemplateData {
   clientName: string;

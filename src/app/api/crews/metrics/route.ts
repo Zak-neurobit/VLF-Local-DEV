@@ -116,6 +116,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         successfulExecutions: successfulExecutions,
         failedExecutions: totalExecutions - successfulExecutions,
         successRate: totalExecutions > 0 ? successfulExecutions / totalExecutions : 0,
+        errorRate: totalExecutions > 0 ? (totalExecutions - successfulExecutions) / totalExecutions : 0,
         averageDuration: agent._avg.duration || 0,
         lastActivity: new Date(), // Would get from actual data
       };
@@ -317,7 +318,8 @@ function generateRecommendations(
 
   // Check agent availability
   const activeAgents = agentMetrics.filter(a => a.totalExecutions > 0).length;
-  if (activeAgents < systemMetrics.totalAgents * 0.8) {
+  const totalAgents = agentMetrics.length;
+  if (activeAgents < totalAgents * 0.8) {
     recommendations.push(
       'Less than 80% of agents are active - consider restarting inactive agents'
     );

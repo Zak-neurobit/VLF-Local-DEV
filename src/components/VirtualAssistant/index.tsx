@@ -1,25 +1,24 @@
 'use client';
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCrewAI } from '@/hooks/useCrewAI';
-import { useVoiceRecognition } from '@/hooks/useVoiceRecognition';
-import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis';
 import { toast } from 'react-hot-toast';
 import { ChatInterface } from './ChatInterface';
-import type { Socket } from 'socket.io-client';
-import { isBrowser } from '@/lib/utils/browser';
-
-// Import all the new components
-import FloatingAssistantButton from './components/FloatingAssistantButton';
-import AssistantHeader from './components/AssistantHeader';
-import ConnectionStatus from './components/ConnectionStatus';
-import LoadingOverlay from './components/LoadingOverlay';
-import ActiveTasksIndicator from './components/ActiveTasksIndicator';
-import VoiceMode from './components/VoiceMode';
-import ConsultationMode from './components/ConsultationMode';
-import DocumentMode from './components/DocumentMode';
-import AppointmentMode from './components/AppointmentMode';
+import { io, Socket } from 'socket.io-client';
+import { 
+  Mic, 
+  MicOff, 
+  MessageCircle, 
+  X, 
+  Volume2, 
+  VolumeX,
+  Loader2,
+  Phone,
+  FileText,
+  Calendar,
+  Globe
+} from 'lucide-react';
 
 declare global {
   interface Window {
@@ -49,410 +48,668 @@ interface ConversationState {
 
 export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
   onMessage,
-  language,
-  userId = 'anonymous',
+  language = 'en',
+  userId
 }) => {
-  // State management
+  // Chat state
   const [isOpen, setIsOpen] = useState(false);
-  const [mode, setMode] = useState<'chat' | 'voice' | 'consultation' | 'appointment' | 'document'>(
-    'chat'
-  );
+  const [mode, setMode] = useState<'chat' | 'voice' | 'consultation' | 'document' | 'appointment'>('chat');
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [connectionStatus, setConnectionStatus] = useState<'connecting' | 'connected' | 'disconnected'>('disconnected');
+  
+  // Voice & Audio state
   const [conversationState, setConversationState] = useState<ConversationState>({
     isListening: false,
     isSpeaking: false,
     isProcessing: false,
     transcript: '',
     interimTranscript: '',
-    error: null,
+    error: null
   });
-  const [isVoiceEnabled, setIsVoiceEnabled] = useState(true);
-  const [socket, setSocket] = useState<Socket | null>(null);
-  const [isConnected, setIsConnected] = useState(false);
-  const [consultationData, setConsultationData] = useState({
-    caseType: '',
-    description: '',
-    urgency: 'medium' as 'low' | 'medium' | 'high',
-  });
+  
+  const [isMuted] = useState(false);
+  const [volume] = useState(0.8);
+  const [voiceEnabled, setVoiceEnabled] = useState(false);
+  
+  // Refs
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const synthRef = useRef<SpeechSynthesis | null>(null);
+  const socketRef = useRef<Socket | null>(null);
+  // const audioContextRef = useRef<AudioContext | null>(null); // Currently unused
+  const streamRef = useRef<MediaStream | null>(null);
 
-  const {
+  // CrewAI Integration
+  const { 
+    messages, 
+    sendMessage, 
     isLoading,
-    activeTasks,
-    createDocumentAnalysisTask,
-    createClientIntakeWorkflow,
+    activeAgent,
+    error: crewError,
+    clearError,
+    // getAgentStatus, // Currently unused
+    executeTask
   } = useCrewAI();
 
-  // Initialize WebSocket connection
-  useEffect(() => {
-    const initSocket = async () => {
-      if (!isOpen || socket) return;
+  // Voice message handler
+  const handleVoiceMessage = useCallback(async (transcript: string) => {
+    if (!transcript.trim()) return;
 
-      try {
-        // Dynamically import socket.io-client to prevent SSR issues
-        const { io } = await import('socket.io-client');
+    setConversationState(prev => ({ ...prev, isProcessing: true }));
+    
+    try {
+      await sendMessage(transcript);
+      onMessage?.(transcript);
+    } catch (error) {
+      console.error('Error processing voice message:', error);
+      toast.error('Failed to process voice message');
+    } finally {
+      setConversationState(prev => ({ ...prev, isProcessing: false }));
+    }
+  }, [sendMessage, onMessage]);
 
-        const socketUrl =
-          process.env.NEXT_PUBLIC_WEBSOCKET_URL ||
-          (isBrowser
-            ? `${window.location.protocol}//${window.location.host}`
-            : 'http://localhost:3000');
+  // Initialize Speech Recognition
+  const initializeSpeechRecognition = useCallback(() => {
+    if (typeof window === 'undefined') return;
+    
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    
+    if (!SpeechRecognition) {
+      setConversationState(prev => ({
+        ...prev,
+        error: 'Speech recognition not supported in this browser'
+      }));
+      return;
+    }
 
-        const newSocket = io(socketUrl, {
-          transports: ['websocket', 'polling'],
-          auth: {
-            sessionId: `session_${Date.now()}`,
-            language,
-            userId,
-          },
-        });
+    const recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = language === 'es' ? 'es-US' : 'en-US';
+    recognition.maxAlternatives = 1;
 
-        newSocket.on('connect', () => {
-          // Virtual Assistant connected
-          setIsConnected(true);
-        });
-
-        newSocket.on('disconnect', () => {
-          // Virtual Assistant disconnected
-          setIsConnected(false);
-        });
-
-        newSocket.on('assistant:response', data => {
-          if (data.text && isVoiceEnabled && mode === 'voice') {
-            handleSpeakText(data.text);
-          }
-        });
-
-        newSocket.on('error', error => {
-          console.error('Socket error:', error);
-          toast.error(language === 'es' ? 'Error de conexión' : 'Connection error');
-        });
-
-        setSocket(newSocket);
-      } catch (error) {
-        console.error('Failed to initialize socket:', error);
-        setIsConnected(false);
-      }
+    recognition.onstart = () => {
+      setConversationState(prev => ({ ...prev, isListening: true, error: null }));
     };
 
-    initSocket();
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
+      let interimTranscript = '';
+      let finalTranscript = '';
 
-    return () => {
-      if (socket) {
-        socket.disconnect();
-        setSocket(null);
-      }
-    };
-  }, [isOpen, language, userId, mode, isVoiceEnabled, handleSpeakText, socket]);
-
-  // State for managing voice message sending
-  const [pendingVoiceMessage, setPendingVoiceMessage] = useState<string | null>(null);
-
-  // Voice recognition hooks
-  const {
-    start: startListening,
-    stop: stopListening,
-    isSupported: isVoiceSupported,
-  } = useVoiceRecognition({
-    language,
-    onResult: (transcript, isFinal) => {
-      if (isFinal) {
-        setConversationState(prev => ({
-          ...prev,
-          transcript: prev.transcript + transcript + ' ',
-          interimTranscript: '',
-        }));
-        // Auto-send on sentence completion
-        if (transcript.includes('.') || transcript.includes('?') || transcript.includes('!')) {
-          setPendingVoiceMessage(conversationState.transcript + transcript);
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const transcript = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+          finalTranscript += transcript;
+        } else {
+          interimTranscript += transcript;
         }
-      } else {
-        setConversationState(prev => ({
-          ...prev,
-          interimTranscript: transcript,
-        }));
       }
-    },
-    onError: error => {
-      console.error('Speech recognition error:', error);
+
+      setConversationState(prev => ({
+        ...prev,
+        transcript: prev.transcript + finalTranscript,
+        interimTranscript
+      }));
+
+      if (finalTranscript) {
+        handleVoiceMessage(finalTranscript);
+      }
+    };
+
+    recognition.onerror = (event) => {
       setConversationState(prev => ({
         ...prev,
         isListening: false,
-        error: getErrorMessage(error, language),
+        error: `Recognition error: ${event.error}`
       }));
-    },
-    onEnd: () => {
-      setConversationState(prev => ({ ...prev, isListening: false }));
-    },
-  });
-
-  // Handle voice message
-  const handleVoiceMessage = useCallback(
-    (transcript: string) => {
-      if (!transcript.trim() || !socket) return;
-
-      setConversationState(prev => ({
-        ...prev,
-        isProcessing: true,
-        transcript: '',
-        interimTranscript: '',
-      }));
-
-      // Send via WebSocket
-      socket.emit('user:message', {
-        text: transcript,
-        language,
-        timestamp: new Date().toISOString(),
-      });
-
-      // Stop listening while processing
-      stopListening();
-
-      onMessage?.(transcript);
-
-      setTimeout(() => {
-        setConversationState(prev => ({ ...prev, isProcessing: false }));
-      }, 500);
-    },
-    [socket, language, onMessage, stopListening]
-  );
-
-  // Handle pending voice messages
-  useEffect(() => {
-    if (pendingVoiceMessage) {
-      handleVoiceMessage(pendingVoiceMessage);
-      setPendingVoiceMessage(null);
-    }
-  }, [pendingVoiceMessage, handleVoiceMessage]);
-
-  // Speech synthesis hooks
-  const { speak: speakText, cancel: cancelSpeech } = useSpeechSynthesis({
-    language,
-    onStart: () => {
-      setConversationState(prev => ({ ...prev, isSpeaking: true }));
-    },
-    onEnd: () => {
-      setConversationState(prev => ({ ...prev, isSpeaking: false }));
-      // Resume listening if it was active
-      if (mode === 'voice' && conversationState.isListening) {
-        setTimeout(() => {
-          startListening();
-        }, 500);
-      }
-    },
-    onError: error => {
-      console.error('Speech synthesis error:', error);
-      setConversationState(prev => ({ ...prev, isSpeaking: false }));
-    },
-  });
-
-  // Voice control functions
-  const toggleListening = useCallback(() => {
-    if (!isVoiceSupported) {
-      toast.error(
-        language === 'es'
-          ? 'Tu navegador no soporta reconocimiento de voz'
-          : 'Your browser does not support speech recognition'
-      );
-      return;
-    }
-
-    if (conversationState.isListening) {
-      stopListening();
-    } else {
-      // Stop any ongoing speech
-      cancelSpeech();
-      startListening();
-      setConversationState(prev => ({ ...prev, isListening: true, error: null }));
-    }
-  }, [
-    conversationState.isListening,
-    language,
-    isVoiceSupported,
-    startListening,
-    stopListening,
-    cancelSpeech,
-  ]);
-
-  const handleSpeakText = useCallback(
-    (text: string) => {
-      if (!isVoiceEnabled) return;
-      speakText(text);
-    },
-    [isVoiceEnabled, speakText]
-  );
-
-  // Consultation submission
-  const handleConsultationSubmit = async () => {
-    if (!consultationData.caseType || !consultationData.description) {
-      toast.error(
-        language === 'es'
-          ? 'Por favor completa todos los campos requeridos'
-          : 'Please fill in all required fields'
-      );
-      return;
-    }
-
-    try {
-      await createClientIntakeWorkflow({
-        userId,
-        caseType: consultationData.caseType,
-        description: consultationData.description,
-        urgency: consultationData.urgency,
-        language,
-      });
-
-      toast.success(
-        language === 'es' ? 'Consulta iniciada exitosamente' : 'Consultation started successfully'
-      );
-      setMode('voice');
-      setConsultationData({ caseType: '', description: '', urgency: 'medium' });
-    } catch (error) {
-      console.error('Failed to start consultation:', error);
-      toast.error(
-        language === 'es' ? 'Error al iniciar la consulta' : 'Failed to start consultation'
-      );
-    }
-  };
-
-  // Document upload
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    try {
-      await createDocumentAnalysisTask(file, {
-        userId,
-        documentType: 'other',
-        analysisType: 'full-analysis',
-        language,
-        urgency: 'medium',
-      });
-
-      toast.success(
-        language === 'es' ? 'Documento cargado exitosamente' : 'Document uploaded successfully'
-      );
-      setMode('voice');
-    } catch (error) {
-      console.error('Failed to start document analysis:', error);
-      toast.error(language === 'es' ? 'Error al cargar el documento' : 'Failed to upload document');
-    }
-  };
-
-  // Clean up on unmount
-  useEffect(() => {
-    return () => {
-      stopListening();
-      cancelSpeech();
     };
-  }, [stopListening, cancelSpeech]);
+
+    recognition.onend = () => {
+      setConversationState(prev => ({ ...prev, isListening: false }));
+    };
+
+    recognitionRef.current = recognition;
+  }, [language, handleVoiceMessage]);
+
+  // Initialize Speech Synthesis
+  const initializeSpeechSynthesis = useCallback(() => {
+    if (typeof window === 'undefined') return;
+    
+    synthRef.current = window.speechSynthesis;
+  }, []);
+
+  // Text-to-Speech
+  const speak = useCallback((text: string) => {
+    if (!synthRef.current || isMuted) return;
+
+    // Cancel any ongoing speech
+    synthRef.current.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = language === 'es' ? 'es-US' : 'en-US';
+    utterance.volume = volume;
+    utterance.rate = 1;
+    utterance.pitch = 1;
+
+    utterance.onstart = () => {
+      setConversationState(prev => ({ ...prev, isSpeaking: true }));
+    };
+
+    utterance.onend = () => {
+      setConversationState(prev => ({ ...prev, isSpeaking: false }));
+    };
+
+    utterance.onerror = () => {
+      setConversationState(prev => ({ ...prev, isSpeaking: false }));
+    };
+
+    synthRef.current.speak(utterance);
+  }, [language, volume, isMuted]);
+
+  // Voice controls
+  const startListening = useCallback(() => {
+    if (recognitionRef.current && !conversationState.isListening) {
+      recognitionRef.current.start();
+    }
+  }, [conversationState.isListening]);
+
+  const stopListening = useCallback(() => {
+    if (recognitionRef.current && conversationState.isListening) {
+      recognitionRef.current.stop();
+    }
+  }, [conversationState.isListening]);
+
+  const stopSpeaking = useCallback(() => {
+    if (synthRef.current) {
+      synthRef.current.cancel();
+      setConversationState(prev => ({ ...prev, isSpeaking: false }));
+    }
+  }, []);
+
+  // Socket connection
+  const initializeSocket = useCallback(() => {
+    if (socketRef.current) return;
+
+    setConnectionStatus('connecting');
+    const socket = io('/virtual-assistant', {
+      transports: ['websocket'],
+      upgrade: true,
+      query: { userId, language }
+    });
+
+    socket.on('connect', () => {
+      setConnectionStatus('connected');
+      toast.success('Virtual Assistant connected');
+    });
+
+    socket.on('disconnect', () => {
+      setConnectionStatus('disconnected');
+      toast.error('Virtual Assistant disconnected');
+    });
+
+    socket.on('agent_response', (data) => {
+      if (voiceEnabled && data.response) {
+        speak(data.response);
+      }
+    });
+
+    socket.on('task_update', (data) => {
+      toast.success(`Task ${data.task} updated: ${data.status}`);
+    });
+
+    socket.on('error', (error) => {
+      toast.error(`Assistant error: ${error.message}`);
+    });
+
+    socketRef.current = socket;
+  }, [userId, language, voiceEnabled, speak]);
+
+  // Effect to auto-respond to new messages with voice
+  useEffect(() => {
+    if (voiceEnabled && messages.length > 0) {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage.role === 'assistant' && lastMessage.content) {
+        speak(lastMessage.content);
+      }
+    }
+  }, [messages, voiceEnabled, speak]);
+
+  // Initialize everything on mount
+  useEffect(() => {
+    initializeSpeechRecognition();
+    initializeSpeechSynthesis();
+    
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      if (synthRef.current) {
+        synthRef.current.cancel();
+      }
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+      }
+      const stream = streamRef.current;
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, [initializeSpeechRecognition, initializeSpeechSynthesis]);
+
+  // Handle mode changes
+  const handleModeChange = useCallback((newMode: typeof mode) => {
+    setMode(newMode);
+    
+    if (newMode === 'voice') {
+      setVoiceEnabled(true);
+      initializeSocket();
+    } else {
+      setVoiceEnabled(false);
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+        socketRef.current = null;
+      }
+    }
+  }, [initializeSocket]);
+
+  // Execute specialized tasks
+  const executeConsultation = useCallback(async (type: string, data: Record<string, unknown>) => {
+    try {
+      setConversationState(prev => ({ ...prev, isProcessing: true }));
+      
+      const result = await executeTask({
+        agent: 'legal-consultation',
+        task: type,
+        data: {
+          ...data,
+          language,
+          userId
+        }
+      });
+
+      toast.success('Consultation completed');
+      return result;
+    } catch (error) {
+      toast.error('Consultation failed');
+      throw error;
+    } finally {
+      setConversationState(prev => ({ ...prev, isProcessing: false }));
+    }
+  }, [executeTask, language, userId]);
+
+  const analyzeDocument = useCallback(async (file: File, analysisType: string) => {
+    try {
+      setConversationState(prev => ({ ...prev, isProcessing: true }));
+      
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('analysisType', analysisType);
+      formData.append('language', language);
+
+      const result = await executeTask({
+        agent: 'document-analysis',
+        task: 'analyze',
+        data: formData
+      });
+
+      toast.success('Document analysis completed');
+      return result;
+    } catch (error) {
+      toast.error('Document analysis failed');
+      throw error;
+    } finally {
+      setConversationState(prev => ({ ...prev, isProcessing: false }));
+    }
+  }, [executeTask, language]);
+
+  const scheduleAppointment = useCallback(async (appointmentData: Record<string, unknown>) => {
+    try {
+      setConversationState(prev => ({ ...prev, isProcessing: true }));
+      
+      const result = await executeTask({
+        agent: 'appointment-scheduling',
+        task: 'schedule',
+        data: {
+          ...appointmentData,
+          language,
+          userId
+        }
+      });
+
+      toast.success('Appointment scheduled');
+      return result;
+    } catch (error) {
+      toast.error('Appointment scheduling failed');
+      throw error;
+    } finally {
+      setConversationState(prev => ({ ...prev, isProcessing: false }));
+    }
+  }, [executeTask, language, userId]);
+
+  if (!isOpen) {
+    return (
+      <motion.button
+        onClick={() => setIsOpen(true)}
+        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
+      >
+        <MessageCircle size={24} />
+        <motion.div
+          className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full"
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        />
+      </motion.button>
+    );
+  }
 
   return (
-    <>
-      {/* Floating Assistant Button */}
-      <FloatingAssistantButton
-        isOpen={isOpen}
-        onClick={() => setIsOpen(!isOpen)}
-        language={language}
-      />
+    <AnimatePresence>
+      <motion.div
+        className={`fixed z-50 bg-white rounded-lg shadow-2xl border border-gray-200 ${
+          isMinimized 
+            ? 'bottom-6 right-6 w-80 h-16'
+            : 'bottom-6 right-6 w-96 h-[600px]'
+        }`}
+        initial={{ opacity: 0, scale: 0.8, y: 100 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.8, y: 100 }}
+        transition={{ duration: 0.3 }}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-purple-50">
+          <div className="flex items-center space-x-3">
+            <div className="relative">
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                <MessageCircle size={16} className="text-white" />
+              </div>
+              <div className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full ${
+                connectionStatus === 'connected' ? 'bg-green-400' :
+                connectionStatus === 'connecting' ? 'bg-yellow-400' : 'bg-red-400'
+              }`} />
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-800">Vasquez Law Assistant</h3>
+              <p className="text-xs text-gray-500">
+                {connectionStatus === 'connected' ? 'Online' : 
+                 connectionStatus === 'connecting' ? 'Connecting...' : 'Offline'}
+              </p>
+            </div>
+          </div>
+          
+          <div className="flex items-center space-x-2">
+            {/* Voice toggle */}
+            <button
+              onClick={() => setVoiceEnabled(!voiceEnabled)}
+              className={`p-2 rounded-full transition-colors ${
+                voiceEnabled ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-400'
+              }`}
+              title="Toggle voice mode"
+            >
+              {voiceEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
+            </button>
+            
+            {/* Minimize/Maximize */}
+            <button
+              onClick={() => setIsMinimized(!isMinimized)}
+              className="p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+            >
+              {isMinimized ? <Globe size={16} /> : <Calendar size={16} />}
+            </button>
+            
+            {/* Close */}
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+            >
+              <X size={16} />
+            </button>
+          </div>
+        </div>
 
-      {/* Assistant Interface */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed bottom-44 right-8 w-96 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl z-50 overflow-hidden"
-          >
-            {/* Header */}
-            <AssistantHeader
-              language={language}
-              mode={mode}
-              onModeChange={setMode}
-              onClose={() => setIsOpen(false)}
-            />
+        {!isMinimized && (
+          <>
+            {/* Mode Selector */}
+            <div className="flex border-b border-gray-200">
+              {[
+                { id: 'chat', icon: MessageCircle, label: 'Chat' },
+                { id: 'voice', icon: Mic, label: 'Voice' },
+                { id: 'consultation', icon: Phone, label: 'Consult' },
+                { id: 'document', icon: FileText, label: 'Document' },
+                { id: 'appointment', icon: Calendar, label: 'Schedule' }
+              ].map((modeOption) => (
+                <button
+                  key={modeOption.id}
+                  onClick={() => handleModeChange(modeOption.id as typeof mode)}
+                  className={`flex-1 p-3 text-xs font-medium transition-colors ${
+                    mode === modeOption.id
+                      ? 'bg-blue-50 text-blue-600 border-b-2 border-blue-600'
+                      : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+                >
+                  <modeOption.icon size={14} className="mx-auto mb-1" />
+                  {modeOption.label}
+                </button>
+              ))}
+            </div>
 
-            {/* Connection status */}
-            <ConnectionStatus
-              isConnected={isConnected}
-              isVoiceEnabled={isVoiceEnabled}
-              mode={mode}
-              language={language}
-              onToggleVoice={() => setIsVoiceEnabled(!isVoiceEnabled)}
-            />
-
-            {/* Content area */}
-            <div className="h-[400px] overflow-hidden relative">
-              {/* Loading overlay */}
-              <LoadingOverlay isLoading={isLoading} language={language} />
-
-              {/* Active tasks indicator */}
-              <ActiveTasksIndicator activeTasks={activeTasks} language={language} />
-
-              {/* Mode-specific content */}
+            {/* Content Area */}
+            <div className="flex-1 overflow-hidden">
               {mode === 'chat' && (
-                <ChatInterface
+                <ChatInterface 
+                  messages={messages}
+                  onSendMessage={sendMessage}
+                  isLoading={isLoading}
                   language={language}
-                  userId={userId}
-                  onScheduleAppointment={() => setMode('appointment')}
-                  onCallRequest={() => (window.location.href = 'tel:18449673536')}
                 />
               )}
-
+              
               {mode === 'voice' && (
-                <VoiceMode
-                  conversationState={conversationState}
-                  language={language}
-                  onToggleListening={toggleListening}
-                />
+                <div className="p-6 h-full flex flex-col items-center justify-center space-y-4">
+                  <div className={`w-20 h-20 rounded-full flex items-center justify-center transition-colors ${
+                    conversationState.isListening ? 'bg-red-100 text-red-600' :
+                    conversationState.isSpeaking ? 'bg-blue-100 text-blue-600' :
+                    'bg-gray-100 text-gray-400'
+                  }`}>
+                    {conversationState.isProcessing ? (
+                      <Loader2 size={32} className="animate-spin" />
+                    ) : conversationState.isListening ? (
+                      <Mic size={32} />
+                    ) : (
+                      <MicOff size={32} />
+                    )}
+                  </div>
+                  
+                  <div className="text-center">
+                    <p className="font-medium text-gray-800">
+                      {conversationState.isListening ? 'Listening...' :
+                       conversationState.isSpeaking ? 'Speaking...' :
+                       conversationState.isProcessing ? 'Processing...' :
+                       'Click to start voice conversation'}
+                    </p>
+                    {conversationState.transcript && (
+                      <p className="text-sm text-gray-600 mt-2">
+                        &ldquo;{conversationState.transcript}&rdquo;
+                      </p>
+                    )}
+                    {conversationState.interimTranscript && (
+                      <p className="text-sm text-gray-400 mt-1 italic">
+                        {conversationState.interimTranscript}
+                      </p>
+                    )}
+                  </div>
+                  
+                  <div className="flex space-x-3">
+                    <button
+                      onClick={conversationState.isListening ? stopListening : startListening}
+                      disabled={conversationState.isProcessing}
+                      className={`px-4 py-2 rounded-full font-medium transition-colors ${
+                        conversationState.isListening
+                          ? 'bg-red-600 text-white hover:bg-red-700'
+                          : 'bg-blue-600 text-white hover:bg-blue-700'
+                      } disabled:opacity-50 disabled:cursor-not-allowed`}
+                    >
+                      {conversationState.isListening ? 'Stop' : 'Start'}
+                    </button>
+                    
+                    {conversationState.isSpeaking && (
+                      <button
+                        onClick={stopSpeaking}
+                        className="px-4 py-2 rounded-full bg-gray-600 text-white hover:bg-gray-700"
+                      >
+                        Stop Speaking
+                      </button>
+                    )}
+                  </div>
+                </div>
               )}
-
+              
               {mode === 'consultation' && (
-                <ConsultationMode
-                  consultationData={consultationData}
-                  language={language}
-                  onDataChange={setConsultationData}
-                  onSubmit={handleConsultationSubmit}
-                />
+                <div className="p-4 space-y-4">
+                  <h4 className="font-semibold text-gray-800">Legal Consultation</h4>
+                  
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      'Immigration Case Review',
+                      'Criminal Defense Analysis',
+                      'Personal Injury Assessment',
+                      'Family Law Consultation'
+                    ].map((consultationType) => (
+                      <button
+                        key={consultationType}
+                        onClick={() => executeConsultation('quick-consultation', { type: consultationType })}
+                        disabled={conversationState.isProcessing}
+                        className="p-3 text-sm bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors disabled:opacity-50"
+                      >
+                        {consultationType}
+                      </button>
+                    ))}
+                  </div>
+                  
+                  {activeAgent === 'legal-consultation' && (
+                    <div className="mt-4 p-3 bg-yellow-50 text-yellow-800 rounded-lg text-sm">
+                      Consultation in progress...
+                    </div>
+                  )}
+                </div>
               )}
-
-              {mode === 'appointment' && <AppointmentMode language={language} />}
-
+              
               {mode === 'document' && (
-                <DocumentMode language={language} onFileUpload={handleFileUpload} />
+                <div className="p-4 space-y-4">
+                  <h4 className="font-semibold text-gray-800">Document Analysis</h4>
+                  
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                    <input
+                      type="file"
+                      id="document-upload"
+                      className="hidden"
+                      accept=".pdf,.doc,.docx,.txt"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          analyzeDocument(file, 'legal-review');
+                        }
+                      }}
+                    />
+                    <label
+                      htmlFor="document-upload"
+                      className="cursor-pointer flex flex-col items-center space-y-2"
+                    >
+                      <FileText size={32} className="text-gray-400" />
+                      <span className="text-sm text-gray-600">
+                        Upload document for analysis
+                      </span>
+                    </label>
+                  </div>
+                  
+                  {activeAgent === 'document-analysis' && (
+                    <div className="mt-4 p-3 bg-yellow-50 text-yellow-800 rounded-lg text-sm">
+                      Analyzing document...
+                    </div>
+                  )}
+                </div>
+              )}
+              
+              {mode === 'appointment' && (
+                <div className="p-4 space-y-4">
+                  <h4 className="font-semibold text-gray-800">Schedule Appointment</h4>
+                  
+                  <div className="space-y-3">
+                    <select className="w-full p-2 border border-gray-300 rounded-lg text-sm">
+                      <option>Select consultation type</option>
+                      <option>Immigration Consultation</option>
+                      <option>Criminal Defense Consultation</option>
+                      <option>Personal Injury Consultation</option>
+                      <option>Family Law Consultation</option>
+                    </select>
+                    
+                    <input
+                      type="date"
+                      className="w-full p-2 border border-gray-300 rounded-lg text-sm"
+                      min={new Date().toISOString().split('T')[0]}
+                    />
+                    
+                    <select className="w-full p-2 border border-gray-300 rounded-lg text-sm">
+                      <option>Preferred time</option>
+                      <option>9:00 AM</option>
+                      <option>10:00 AM</option>
+                      <option>11:00 AM</option>
+                      <option>2:00 PM</option>
+                      <option>3:00 PM</option>
+                      <option>4:00 PM</option>
+                    </select>
+                    
+                    <button
+                      onClick={() => scheduleAppointment({
+                        type: 'consultation',
+                        date: new Date(),
+                        time: '10:00 AM'
+                      })}
+                      disabled={conversationState.isProcessing}
+                      className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+                    >
+                      Schedule Appointment
+                    </button>
+                  </div>
+                  
+                  {activeAgent === 'appointment-scheduling' && (
+                    <div className="mt-4 p-3 bg-yellow-50 text-yellow-800 rounded-lg text-sm">
+                      Scheduling appointment...
+                    </div>
+                  )}
+                </div>
               )}
             </div>
-          </motion.div>
+
+            {/* Status bar */}
+            <div className="px-4 py-2 bg-gray-50 border-t border-gray-200 text-xs text-gray-500">
+              <div className="flex items-center justify-between">
+                <span>
+                  {activeAgent ? `Active: ${activeAgent}` : 'Ready'}
+                </span>
+                <span className="flex items-center space-x-2">
+                  {conversationState.error && (
+                    <span className="text-red-500">Error</span>
+                  )}
+                  {crewError && (
+                    <button
+                      onClick={clearError}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      Clear Error
+                    </button>
+                  )}
+                </span>
+              </div>
+            </div>
+          </>
         )}
-      </AnimatePresence>
-    </>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
-function getErrorMessage(error: string, language: 'en' | 'es'): string {
-  const errorMessages: Record<string, { en: string; es: string }> = {
-    network: {
-      en: 'Network error. Please check your connection.',
-      es: 'Error de red. Por favor verifica tu conexión.',
-    },
-    'not-allowed': {
-      en: 'Microphone access denied. Please allow microphone access.',
-      es: 'Acceso al micrófono denegado. Por favor permite el acceso al micrófono.',
-    },
-    'no-speech': {
-      en: 'No speech detected. Please try again.',
-      es: 'No se detectó voz. Por favor intenta de nuevo.',
-    },
-    aborted: {
-      en: 'Speech recognition aborted.',
-      es: 'Reconocimiento de voz cancelado.',
-    },
-  };
-
-  return (
-    errorMessages[error]?.[language] || (language === 'es' ? 'Error desconocido' : 'Unknown error')
-  );
-}
-
-// Default export for dynamic import
 export default VirtualAssistant;
