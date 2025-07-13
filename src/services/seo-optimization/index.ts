@@ -134,32 +134,14 @@ export class SEOOptimizationService {
           priceRange: '$$$',
           telephone: '+1-844-967-3536',
           email: 'leads@vasquezlawfirm.com',
-          address: [
-            {
-              '@type': 'PostalAddress' as const,
-              streetAddress: '123 Main St, Suite 100',
-              addressLocality: 'Raleigh',
-              addressRegion: 'NC',
-              postalCode: '27601',
-              addressCountry: 'US',
-            },
-            {
-              '@type': 'PostalAddress' as const,
-              streetAddress: '456 Trade St, Suite 200',
-              addressLocality: 'Charlotte',
-              addressRegion: 'NC',
-              postalCode: '28202',
-              addressCountry: 'US',
-            },
-            {
-              '@type': 'PostalAddress' as const,
-              streetAddress: '321 Orange Ave, Suite 400',
-              addressLocality: 'Orlando',
-              addressRegion: 'FL',
-              postalCode: '32801',
-              addressCountry: 'US',
-            },
-          ],
+          address: {
+            '@type': 'PostalAddress' as const,
+            streetAddress: '123 Main St, Suite 100',
+            addressLocality: 'Raleigh',
+            addressRegion: 'NC',
+            postalCode: '27601',
+            addressCountry: 'US',
+          },
           geo: [
             {
               '@type': 'GeoCoordinates',
@@ -228,17 +210,17 @@ export class SEOOptimizationService {
         return {
           '@context': 'https://schema.org',
           '@type': 'Attorney',
-          '@id': `${baseUrl}/attorneys/${data.slug}#person`,
-          name: data.name,
-          image: data.image,
-          jobTitle: data.title,
+          '@id': `${baseUrl}/attorneys/${data.slug as string}#person`,
+          name: data.name as string,
+          image: data.image as string,
+          jobTitle: data.title as string,
           worksFor: {
             '@id': `${baseUrl}/#organization`,
           },
-          description: data.bio,
+          description: data.bio as string,
           alumniOf: (data.education as Array<{ name: string }>)?.map(edu => ({
             '@type': 'EducationalOrganization',
-            name: edu.school,
+            name: edu.name,
           })),
           knowsLanguage: data.languages,
           hasOccupation: {
@@ -252,30 +234,30 @@ export class SEOOptimizationService {
         return {
           '@context': 'https://schema.org',
           '@type': 'BlogPosting',
-          '@id': `${baseUrl}/blog/${data.slug}#article`,
-          headline: data.title,
-          alternativeHeadline: data.metaDescription,
-          image: data.featuredImage,
+          '@id': `${baseUrl}/blog/${data.slug as string}#article`,
+          headline: data.title as string,
+          alternativeHeadline: data.metaDescription as string,
+          image: data.featuredImage as string,
           author: {
             '@type': 'Person',
-            name: data.author || 'Vasquez Law Team',
+            name: (data.author as string) || 'Vasquez Law Team',
             url: `${baseUrl}/attorneys`,
           },
           publisher: {
             '@id': `${baseUrl}/#organization`,
           },
           datePublished: data.publishedAt,
-          dateModified: data.updatedAt,
-          description: data.excerpt,
-          articleBody: data.content,
-          keywords: data.keywords.join(', '),
-          wordCount: data.content.split(' ').length,
+          dateModified: data.updatedAt as string,
+          description: data.excerpt as string,
+          articleBody: data.content as string,
+          keywords: (data.keywords as string[]).join(', '),
+          wordCount: (data.content as string).split(' ').length,
           inLanguage: data.language === 'es' ? 'es-US' : 'en-US',
           mainEntityOfPage: {
             '@type': 'WebPage',
-            '@id': `${baseUrl}/blog/${data.slug}`,
+            '@id': `${baseUrl}/blog/${data.slug as string}`,
           },
-          ...(data.faqSection && {
+          ...((data.faqSection as Array<{ question: string; answer: string }>) && {
             hasPart: {
               '@type': 'FAQPage',
               mainEntity: (data.faqSection as Array<{ question: string; answer: string }>).map(
@@ -320,10 +302,10 @@ export class SEOOptimizationService {
           },
           address: {
             '@type': 'PostalAddress',
-            streetAddress: data.address,
-            addressLocality: data.city,
-            addressRegion: data.state,
-            postalCode: data.zip,
+            streetAddress: data.address as string,
+            addressLocality: data.city as string,
+            addressRegion: data.state as string,
+            postalCode: data.zip as string,
             addressCountry: 'US',
           },
           telephone: data.phone,

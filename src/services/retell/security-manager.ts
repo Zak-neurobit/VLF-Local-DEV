@@ -409,7 +409,7 @@ export class SecurityManager {
       if (process.env.SECURITY_ALERT_EMAIL) {
         const { emailService } = await import('@/services/email');
 
-        await emailService.sendNotification({
+        await emailService.send({
           to: process.env.SECURITY_ALERT_EMAIL,
           subject: `High-Risk Security Event: ${event.type}`,
           body: `

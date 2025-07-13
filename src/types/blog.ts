@@ -6,17 +6,16 @@ export interface BlogPost {
   slug: string;
   excerpt: string;
   content: string;
-  author: BlogAuthor;
-  publishedAt: string | Date;
-  updatedAt: string | Date;
-  tags: string[];
-  categories: string[];
   featuredImage?: BlogImage;
-  seo: BlogSEO;
-  status: 'draft' | 'published' | 'archived';
+  practiceArea: string;
   language: 'en' | 'es';
-  readingTime?: number;
-  views?: number;
+  publishedAt: Date;
+  readTime: number;
+  author: BlogAuthor;
+  tags: string[];
+  seoTitle?: string;
+  seoDescription?: string;
+  keywords?: string[];
 }
 
 export interface BlogAuthor {
