@@ -25,10 +25,13 @@ import { Suspense } from 'react';
 
 // Removed SiteLayout import - will handle navigation directly
 
-// Dynamically import Chat Widget to avoid SSR issues
-const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
-  ssr: false,
-});
+// Dynamically import VirtualAssistant to avoid SSR issues
+const VirtualAssistant = dynamic(
+  () => import('@/components/VirtualAssistant').then(mod => ({ default: mod.VirtualAssistant })),
+  {
+    ssr: false,
+  }
+);
 
 // Dynamically import Performance Monitor
 const PerformanceMonitor = dynamic(() => import('@/components/PerformanceMonitor'), { ssr: false });
@@ -181,7 +184,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <DOMSafeWrapper>
               <DynamicHreflang />
               {children}
-              <ChatWidget />
+              <VirtualAssistant language="en" />
               <PerformanceMonitor />
             </DOMSafeWrapper>
           </ErrorBoundary>
