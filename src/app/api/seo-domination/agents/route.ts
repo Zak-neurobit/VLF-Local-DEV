@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
+import type { PrismaClient } from '@prisma/client';
 
 interface AgentLog {
   success: boolean;
@@ -9,13 +10,6 @@ interface AgentLog {
   createdAt: Date;
   output?: string | null;
   impactScore?: number | null;
-}
-
-interface PrismaClient {
-  agentExecutionLog: {
-    findMany: (options: unknown) => Promise<AgentLog[]>;
-    create: (options: unknown) => Promise<unknown>;
-  };
 }
 
 export async function GET(request: NextRequest) {
@@ -78,19 +72,16 @@ async function getAgentMetrics(prisma: PrismaClient, agentName: string, since: D
   });
 
   const totalActions = logs.length;
-  const successfulActions = logs.filter((log) => log.success).length;
+  const successfulActions = logs.filter(log => log.success).length;
   const successRate = totalActions > 0 ? successfulActions / totalActions : 0;
   const averageDuration =
-    totalActions > 0
-      ? logs.reduce((sum: number, log) => sum + log.duration, 0) /
-        totalActions
-      : 0;
+    totalActions > 0 ? logs.reduce((sum: number, log) => sum + log.duration, 0) / totalActions : 0;
 
   // Get recent highlights
   const recentHighlights = logs
-    .filter((log) => log.success && log.output)
+    .filter(log => log.success && log.output)
     .slice(0, 5)
-    .map((log) => ({
+    .map(log => ({
       type: log.executionType,
       timestamp: log.createdAt,
       impact: log.impactScore || 0,

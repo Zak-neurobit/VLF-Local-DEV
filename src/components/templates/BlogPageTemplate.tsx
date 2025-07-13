@@ -21,25 +21,7 @@ import Link from 'next/link';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from '@/lib/utils';
-
-interface BlogPost {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  content?: string;
-  featuredImage?: string;
-  practiceArea: string;
-  language: 'en' | 'es';
-  publishedAt: Date;
-  readTime: number;
-  author: {
-    name: string;
-    image?: string;
-  };
-  tags: string[];
-  views?: number;
-}
+import type { BlogPost } from '@/types/blog';
 
 interface BlogPageTemplateProps {
   posts: BlogPost[];

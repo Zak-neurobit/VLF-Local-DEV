@@ -171,7 +171,7 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
           ...post,
           publishedAt: new Date(post.publishedAt as string),
         }));
-        setRecentPosts(posts);
+        setPosts(posts);
       }
     } catch (error) {
       console.error('Error fetching recent posts:', error);
