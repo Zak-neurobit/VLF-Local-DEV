@@ -9,7 +9,8 @@ export const metadata: Metadata = {
     title: 'Legal Resources | Vasquez Law Firm',
     description: 'Access helpful legal resources and guides for your legal needs.',
     images: ['/images/resources-hero.jpg'],
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

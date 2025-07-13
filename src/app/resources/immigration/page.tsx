@@ -9,7 +9,8 @@ export const metadata: Metadata = {
     title: 'Free Immigration Resources & Guides',
     description: 'Download comprehensive guides and tools to help navigate your immigration process.',
     images: ['/images/immigration-resources.jpg'],
-  }
+  },
+};
 
 export const runtime = 'nodejs';
 

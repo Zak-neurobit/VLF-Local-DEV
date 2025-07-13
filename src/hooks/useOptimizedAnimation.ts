@@ -13,7 +13,7 @@ interface OptimizedAnimationOptions {
 export function useOptimizedAnimation(
   props: MotionProps,
   options: OptimizedAnimationOptions = {}
-): MotionProps | {} {
+): MotionProps | Record<string, never> {
   const { disableOnLowEnd = true, respectReducedMotion = true, delayUntilInView = false } = options;
 
   const capabilities = useDeviceCapabilities();

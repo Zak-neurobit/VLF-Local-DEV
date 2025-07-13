@@ -1,17 +1,16 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { useState } from 'react';
 import { LocalPageData } from '@/lib/seo/local-seo-generator';
 
 interface LocationPageProps {
   data: LocalPageData;
   schemas: {
-    localBusiness: any;
-    breadcrumbs: any;
-    faqs: any;
-    reviews: any[];
+    localBusiness: Record<string, unknown>;
+    breadcrumbs: Record<string, unknown>;
+    faqs: Record<string, unknown>;
+    reviews: Array<Record<string, unknown>>;
   };
 }
 
@@ -57,7 +56,7 @@ export function LocationPageTemplate({ data, schemas }: LocationPageProps) {
                 {data.localStats.casesHandled} Cases Won • Available 24/7
               </p>
               <p className="text-lg mb-8 font-semibold">
-                "YO PELEO POR TI™" - Serving {data.city} for {data.localStats.yearsServing} Years
+                &ldquo;YO PELEO POR TI™&rdquo; - Serving {data.city} for {data.localStats.yearsServing} Years
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
@@ -195,7 +194,7 @@ export function LocationPageTemplate({ data, schemas }: LocationPageProps) {
                         <div>
                           <h4 className="font-bold text-[#6B1F2E]">Bilingual Services</h4>
                           <p className="text-gray-700">
-                            Full legal services in English and Spanish for {data.city}'s diverse
+                            Full legal services in English and Spanish for {data.city}&apos;s diverse
                             community. All documents translated, interpreters available for all
                             meetings.
                           </p>
@@ -247,7 +246,7 @@ export function LocationPageTemplate({ data, schemas }: LocationPageProps) {
                     <div className="mt-6 bg-[#6B1F2E] text-white rounded-lg p-6">
                       <h4 className="font-bold text-xl mb-3">Emergency Legal Help</h4>
                       <p className="mb-4">
-                        Arrested? In an accident? Facing deportation? We're available 24/7 for{' '}
+                        Arrested? In an accident? Facing deportation? We&apos;re available 24/7 for{' '}
                         {data.city} residents.
                       </p>
                       <a
@@ -294,7 +293,7 @@ export function LocationPageTemplate({ data, schemas }: LocationPageProps) {
                         <li>• Immigration cases and ICE enforcement</li>
                         <li>• DWI/DUI arrests and traffic violations</li>
                         <li>• Personal injury from I-40/I-85 accidents</li>
-                        <li>• Workers' compensation claims</li>
+                        <li>• Workers&apos; compensation claims</li>
                         <li>• Family law and custody disputes</li>
                         <li>• Criminal charges and arrests</li>
                       </ul>
@@ -337,7 +336,7 @@ export function LocationPageTemplate({ data, schemas }: LocationPageProps) {
                     {getLocalTestimonials(data.city).map((testimonial, index) => (
                       <div key={index} className="bg-white rounded-lg shadow-lg p-6">
                         <div className="text-yellow-400 text-xl mb-3">★★★★★</div>
-                        <p className="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
+                        <p className="text-gray-700 mb-4 italic">&ldquo;{testimonial.text}&rdquo;</p>
                         <p className="font-semibold text-[#6B1F2E]">- {testimonial.author}</p>
                         <p className="text-sm text-gray-500">{testimonial.case}</p>
                       </div>
@@ -359,18 +358,18 @@ export function LocationPageTemplate({ data, schemas }: LocationPageProps) {
               <p>
                 When you need a lawyer in {data.city}, North Carolina, Vasquez Law Firm stands ready
                 to fight for you. With over {data.localStats.yearsServing} years serving{' '}
-                {data.county} County, we've built a reputation as the go-to law firm for
-                immigration, personal injury, workers' compensation, and criminal defense cases.
+                {data.county} County, we&apos;ve built a reputation as the go-to law firm for
+                immigration, personal injury, workers&apos; compensation, and criminal defense cases.
               </p>
               <p>
                 Our {data.city} legal team understands the unique challenges facing our community.
-                Whether you're dealing with immigration issues, recovering from an accident, or
+                Whether you&apos;re dealing with immigration issues, recovering from an accident, or
                 facing criminal charges, we provide aggressive representation with a personal touch.
-                We've successfully handled {data.localStats.casesHandled} cases for {data.city} area
+                We&apos;ve successfully handled {data.localStats.casesHandled} cases for {data.city} area
                 residents.
               </p>
               <h3 className="text-2xl font-bold text-[#6B1F2E] mt-8 mb-4">
-                Why We're {data.city}'s Top Choice for Legal Representation
+                Why We&apos;re {data.city}&apos;s Top Choice for Legal Representation
               </h3>
               <ul>
                 <li>
@@ -403,7 +402,7 @@ export function LocationPageTemplate({ data, schemas }: LocationPageProps) {
               Get the Legal Help You Deserve in {data.city}
             </h2>
             <p className="text-xl mb-8">
-              Don't wait to get the representation you need. Our {data.city} attorneys are ready to
+              Don&apos;t wait to get the representation you need. Our {data.city} attorneys are ready to
               fight for your rights. Free consultation • Se habla español • Payment plans available
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -435,9 +434,9 @@ function getAreaDescription(area: string, city: string): string {
     'Immigration Law': `Comprehensive immigration services for ${city} residents including green cards, citizenship, work visas, and deportation defense. Our bilingual team guides you through every step.`,
     'Personal Injury': `Injured in ${city}? We fight insurance companies to get you maximum compensation for car accidents, slip and falls, and other injuries. No fees unless we win.`,
     'Criminal Defense': `Facing criminal charges in ${city}? Our experienced defense attorneys protect your rights and freedom. Available 24/7 for arrests and emergencies.`,
-    'Workers Compensation': `Hurt at work in ${city}? We ensure you get the medical care and compensation you deserve. Don't let employers deny your rightful benefits.`,
+    'Workers Compensation': `Hurt at work in ${city}? We ensure you get the medical care and compensation you deserve. Don&apos;t let employers deny your rightful benefits.`,
     'Family Law': `Compassionate family law representation for ${city} residents. Divorce, custody, support, and protection orders handled with care and expertise.`,
-    'Traffic Violations': `Don't just pay that ticket! Our ${city} traffic attorneys can reduce or dismiss charges, saving your license and insurance rates.`,
+    'Traffic Violations': `Don&apos;t just pay that ticket! Our ${city} traffic attorneys can reduce or dismiss charges, saving your license and insurance rates.`,
   };
   return (
     descriptions[area] || `Expert ${area.toLowerCase()} services for ${city} and surrounding areas.`

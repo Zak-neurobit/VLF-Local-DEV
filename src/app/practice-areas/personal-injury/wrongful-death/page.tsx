@@ -11,10 +11,10 @@ export const metadata: Metadata = {
     title: 'Wrongful Death Lawyers | Compassionate Family Advocates - Vasquez Law Firm',
     description:
       'Compassionate wrongful death attorneys fighting for justice and maximum compensation for grieving families.',
-    images: [{ url: '/images/wrongful-death-lawyers.jpg' }],
-        alt: 'Wrongful Death Lawyers',
-      },
-    ],
+    images: [{ 
+      url: '/images/wrongful-death-lawyers.jpg',
+      alt: 'Wrongful Death Lawyers'
+    }],
   },
 };
 
@@ -287,7 +287,7 @@ export default function WrongfulDeathPage() {
                 <div>
                   <h3 className="text-xl font-bold text-purple-400 mb-4">❤️ Our Compassionate Approach</h3>
                   <ul className="space-y-2 text-purple-200">
-                    <li>• Respectful handling of your loved one's memory</li>
+                    <li>• Respectful handling of your loved one&apos;s memory</li>
                     <li>• Minimal burden on grieving families</li>
                     <li>• Clear communication at every step</li>
                     <li>• Flexible meeting arrangements</li>
@@ -338,7 +338,7 @@ export default function WrongfulDeathPage() {
               <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                 <h3 className="text-xl font-bold text-primary mb-4">Who Can File</h3>
                 <div className="space-y-3 text-gray-300">
-                  <p>In North Carolina, only the <strong>personal representative</strong> of the deceased's estate can file a wrongful death claim.</p>
+                  <p>In North Carolina, only the <strong>personal representative</strong> of the deceased&apos;s estate can file a wrongful death claim.</p>
                   <h4 className="font-bold text-white">Priority Order:</h4>
                   <ul className="space-y-1 text-sm">
                     <li>1. Surviving spouse</li>
@@ -430,9 +430,9 @@ export default function WrongfulDeathPage() {
             <h2 className="text-3xl font-bold text-primary mb-8">Support During Your Difficult Time</h2>
             <div className="bg-white/5 backdrop-blur-sm rounded-lg p-8 border border-primary/20">
               <div className="text-center mb-6">
-                <h3 className="text-xl font-bold text-primary mb-4">💙 We're Here for Your Family</h3>
+                <h3 className="text-xl font-bold text-primary mb-4">💙 We&apos;re Here for Your Family</h3>
                 <p className="text-gray-300">
-                  We understand that no amount of money can bring back your loved one, but holding responsible parties accountable and securing your family's financial future is our mission.
+                  We understand that no amount of money can bring back your loved one, but holding responsible parties accountable and securing your family&apos;s financial future is our mission.
                 </p>
               </div>
               <div className="grid md:grid-cols-2 gap-6">
@@ -454,8 +454,8 @@ export default function WrongfulDeathPage() {
                     <li>• Taking care of immediate needs</li>
                     <li>• Making arrangements for the future</li>
                     <li>• Seeking emotional support</li>
-                    <li>• Honoring your loved one's memory</li>
-                    <li>• Moving forward when you're ready</li>
+                    <li>• Honoring your loved one&apos;s memory</li>
+                    <li>• Moving forward when you&apos;re ready</li>
                   </ul>
                 </div>
               </div>

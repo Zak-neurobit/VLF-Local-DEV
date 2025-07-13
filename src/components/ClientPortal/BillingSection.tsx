@@ -56,7 +56,14 @@ interface TrustAccount {
   }>;
 }
 
-export default function BillingSection({ clientData }: { clientData: any }) {
+interface ClientData {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+}
+
+export default function BillingSection({ clientData }: { clientData: ClientData }) {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [payments, setPayments] = useState<Payment[]>([]);
   const [trustAccount, setTrustAccount] = useState<TrustAccount | null>(null);

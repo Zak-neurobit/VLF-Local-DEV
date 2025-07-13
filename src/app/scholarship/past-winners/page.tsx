@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Past Winners - Vasquez Law Firm, PLLC',
     description:
       'Vasquez Law Firm has proudly awarded as the Fall 2023 recipient of our DACA Dreamer Scholarship. Ahiram is completing her undergraduate studies at Arizona State University.',
-    images: [{ url: '/images/og-default.jpg' }
+    images: [{ url: '/images/og-default.jpg' }],
+  },
+};
 
 export const runtime = 'nodejs';
 

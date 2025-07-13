@@ -28,7 +28,10 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Medical Malpractice Lawyers',
-      }
+      },
+    ],
+  },
+};
 
 export default function MedicalMalpracticePage() {
   const pageData = {

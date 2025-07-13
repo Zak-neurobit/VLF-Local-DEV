@@ -347,7 +347,7 @@ export default function MotorcycleAccidentsPage() {
           {/* Contributory Negligence */}
           <section>
             <h2 className="text-3xl font-bold text-primary mb-8">
-              Overcoming North Carolina's Contributory Negligence
+              Overcoming North Carolina&apos;s Contributory Negligence
             </h2>
             <div className="bg-red-900/20 backdrop-blur-sm rounded-lg p-8 border border-red-500/30">
               <div className="text-center mb-6">
@@ -436,25 +436,25 @@ export default function MotorcycleAccidentsPage() {
                 <div>
                   <h4 className="font-bold text-white mb-3">Speed and Recklessness Claims:</h4>
                   <ul className="text-gray-300 text-sm space-y-1">
-                    <li>• "Motorcyclists always speed"</li>
-                    <li>• "Reckless riding caused the crash"</li>
-                    <li>• "Excessive speed without evidence"</li>
+                    <li>• &ldquo;Motorcyclists always speed&rdquo;</li>
+                    <li>• &ldquo;Reckless riding caused the crash&rdquo;</li>
+                    <li>• &ldquo;Excessive speed without evidence&rdquo;</li>
                   </ul>
                 </div>
                 <div>
                   <h4 className="font-bold text-white mb-3">Safety Equipment Arguments:</h4>
                   <ul className="text-gray-300 text-sm space-y-1">
-                    <li>• "Inadequate protective gear"</li>
-                    <li>• "Helmet didn't meet standards"</li>
-                    <li>• "Rider wasn't visible enough"</li>
+                    <li>• &ldquo;Inadequate protective gear&rdquo;</li>
+                    <li>• &ldquo;Helmet didn&apos;t meet standards&rdquo;</li>
+                    <li>• &ldquo;Rider wasn&apos;t visible enough&rdquo;</li>
                   </ul>
                 </div>
                 <div>
                   <h4 className="font-bold text-white mb-3">Lane Position Claims:</h4>
                   <ul className="text-gray-300 text-sm space-y-1">
-                    <li>• "Improper lane positioning"</li>
-                    <li>• "Lane splitting violations"</li>
-                    <li>• "Following too closely"</li>
+                    <li>• &ldquo;Improper lane positioning&rdquo;</li>
+                    <li>• &ldquo;Lane splitting violations&rdquo;</li>
+                    <li>• &ldquo;Following too closely&rdquo;</li>
                   </ul>
                 </div>
                 <div>

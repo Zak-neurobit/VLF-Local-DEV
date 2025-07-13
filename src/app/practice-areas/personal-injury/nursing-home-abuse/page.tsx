@@ -27,7 +27,10 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Nursing Home Abuse Lawyers',
-      }
+      },
+    ],
+  },
+};
 
 export default function NursingHomeAbusePage() {
   const pageData = {

@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { CrewCoordinator } from '@/lib/crewai/enhanced-crew-coordinator';
 import { logger } from '@/lib/logger';
 
+interface ProcessWithLoadAvg extends NodeJS.Process {
+  loadavg?: () => [number, number, number];
+}
+
 export const dynamic = 'force-dynamic';
 export async function GET(_request: NextRequest): Promise<NextResponse> {
   try {
@@ -101,7 +105,7 @@ export async function GET(_request: NextRequest): Promise<NextResponse> {
         averageExecutionTime:
           agentStatuses.reduce((sum, a) => sum + (a.metrics?.averageExecutionTime || 0), 0) /
           agentStatuses.length,
-        systemLoad: (process as any).loadavg ? (process as any).loadavg()[0] : 0,
+        systemLoad: (process as ProcessWithLoadAvg).loadavg ? (process as ProcessWithLoadAvg).loadavg()![0] : 0,
       },
     };
 

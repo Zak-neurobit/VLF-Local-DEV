@@ -235,7 +235,7 @@ export class SEODominationOrchestrator {
   /**
    * Gather initial competitor intelligence
    */
-  private async gatherInitialIntelligence(): Promise<any> {
+  private async gatherInitialIntelligence(): Promise<Record<string, unknown>> {
     logger.info('🕵️ Gathering initial competitor intelligence...');
 
     // This would integrate with the competitor spy agent
@@ -259,7 +259,7 @@ export class SEODominationOrchestrator {
   /**
    * Identify quick win opportunities
    */
-  private async identifyQuickWins(competitorData: any): Promise<any[]> {
+  private async identifyQuickWins(competitorData: Record<string, unknown>): Promise<Array<Record<string, unknown>>> {
     const quickWins = [];
 
     // Content opportunities
@@ -304,7 +304,7 @@ export class SEODominationOrchestrator {
   /**
    * Deploy rapid response to opportunities
    */
-  private async deployRapidResponse(opportunities: any[]): Promise<void> {
+  private async deployRapidResponse(opportunities: Array<Record<string, unknown>>): Promise<void> {
     logger.info(`🚀 Deploying rapid response to ${opportunities.length} opportunities...`);
 
     for (const opp of opportunities) {
@@ -426,7 +426,7 @@ export class SEODominationOrchestrator {
   /**
    * Identify opportunities for agent synergy
    */
-  private async identifySynergyOpportunities(statuses: AgentStatus[]): Promise<any[]> {
+  private async identifySynergyOpportunities(statuses: AgentStatus[]): Promise<Array<Record<string, unknown>>> {
     const synergies = [];
 
     // Blog + Social synergy
@@ -463,7 +463,7 @@ export class SEODominationOrchestrator {
   /**
    * Execute coordinated actions between agents
    */
-  private async executeCoordinatedActions(synergyActions: any[]): Promise<void> {
+  private async executeCoordinatedActions(synergyActions: Array<Record<string, unknown>>): Promise<void> {
     for (const synergy of synergyActions) {
       logger.info(`🤝 Executing synergy: ${synergy.action}`);
 
@@ -537,7 +537,7 @@ export class SEODominationOrchestrator {
   /**
    * Analyze performance and identify issues
    */
-  private async analyzePerformance(metrics: DominationMetrics): Promise<any> {
+  private async analyzePerformance(metrics: DominationMetrics): Promise<Record<string, unknown>> {
     const analysis = {
       needsAdjustment: false,
       adjustments: [] as string[],
@@ -582,7 +582,7 @@ export class SEODominationOrchestrator {
   /**
    * Adjust strategies based on performance
    */
-  private async adjustStrategies(analysis: any): Promise<void> {
+  private async adjustStrategies(analysis: Record<string, unknown>): Promise<void> {
     logger.warn('⚡ Adjusting strategies based on performance analysis...');
 
     for (const adjustment of analysis.adjustments) {
@@ -600,7 +600,7 @@ export class SEODominationOrchestrator {
   /**
    * Log comprehensive performance report
    */
-  private logPerformanceReport(metrics: DominationMetrics, analysis: any): void {
+  private logPerformanceReport(metrics: DominationMetrics, analysis: Record<string, unknown>): void {
     logger.info('📈 SEO DOMINATION PERFORMANCE REPORT 📈');
     logger.info('=====================================');
 
@@ -749,7 +749,7 @@ export class SEODominationOrchestrator {
     return Math.random() * 5;
   }
 
-  private async logAgentCollaboration(synergy: any): Promise<void> {
+  private async logAgentCollaboration(synergy: Record<string, unknown>): Promise<void> {
     await this.prisma.agentExecutionLog.create({
       data: {
         agentName: 'SEODominationOrchestrator',
@@ -762,7 +762,7 @@ export class SEODominationOrchestrator {
     });
   }
 
-  private async getCompetitorInsights(): Promise<any> {
+  private async getCompetitorInsights(): Promise<unknown[]> {
     const insights = await this.prisma.competitorAnalysis.findMany({
       orderBy: { analyzedAt: 'desc' },
       take: 10,
@@ -770,7 +770,7 @@ export class SEODominationOrchestrator {
     return insights;
   }
 
-  private async getTopPerformingContent(): Promise<any> {
+  private async getTopPerformingContent(): Promise<unknown[]> {
     const content = await this.prisma.blogPost.findMany({
       where: { seoScore: { gte: 80 } },
       orderBy: { viewCount: 'desc' },
@@ -779,7 +779,7 @@ export class SEODominationOrchestrator {
     return content;
   }
 
-  private async getPositiveReviews(): Promise<any> {
+  private async getPositiveReviews(): Promise<unknown[]> {
     // In production, would fetch actual positive reviews
     return [];
   }

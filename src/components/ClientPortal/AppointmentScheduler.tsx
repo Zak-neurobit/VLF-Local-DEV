@@ -53,7 +53,19 @@ interface TimeSlot {
   available: boolean;
 }
 
-export default function AppointmentScheduler({ clientData }: { clientData: any }) {
+interface ClientData {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  attorneys?: {
+    id: string;
+    name: string;
+    specialty: string;
+  }[];
+}
+
+export default function AppointmentScheduler({ clientData }: { clientData: ClientData }) {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date());

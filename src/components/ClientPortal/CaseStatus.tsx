@@ -48,7 +48,14 @@ interface Case {
   }>;
 }
 
-export default function CaseStatus({ clientData }: { clientData: any }) {
+interface ClientData {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+}
+
+export default function CaseStatus({ clientData }: { clientData: ClientData }) {
   const [cases, setCases] = useState<Case[]>([]);
   const [selectedCase, setSelectedCase] = useState<Case | null>(null);
   const [loading, setLoading] = useState(true);

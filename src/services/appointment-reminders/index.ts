@@ -49,7 +49,17 @@ export class AppointmentReminderService {
   }
 
   // Send 24-hour reminder
-  private async sendReminder(appointment: any) {
+  private async sendReminder(appointment: {
+    id: string;
+    scheduledAt: Date | string;
+    type: string;
+    user: {
+      id: string;
+      email: string;
+      name?: string | null;
+      phone?: string | null;
+    };
+  }) {
     try {
       const user = appointment.user;
       const appointmentDate = new Date(appointment.scheduledAt);

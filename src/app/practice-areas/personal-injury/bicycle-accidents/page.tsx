@@ -279,7 +279,7 @@ export default function BicycleAccidentsPage() {
   return (
     <ModernPracticeAreaTemplate
       title="Bicycle Accident Lawyers"
-      subtitle="Fighting for Cyclists' Rights on the Road"
+      subtitle="Fighting for Cyclists&apos; Rights on the Road"
       description="Expert bicycle accident attorneys protecting cyclists injured by negligent drivers. We overcome North Carolina's contributory negligence law and secure maximum compensation for serious bicycle injuries."
       services={services}
       faqs={faqs}
@@ -321,7 +321,7 @@ export default function BicycleAccidentsPage() {
             <h2 className="text-3xl font-bold text-primary mb-8">North Carolina Bicycle Laws</h2>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
-                <h3 className="text-xl font-bold text-primary mb-4">🚴 Cyclists' Rights</h3>
+                <h3 className="text-xl font-bold text-primary mb-4">🚴 Cyclists&apos; Rights</h3>
                 <ul className="space-y-3 text-gray-300">
                   <li className="flex items-start gap-3">
                     <span className="text-primary text-xl">✓</span>
@@ -376,7 +376,7 @@ export default function BicycleAccidentsPage() {
           {/* Contributory Negligence */}
           <section>
             <h2 className="text-3xl font-bold text-primary mb-8">
-              Overcoming North Carolina's Contributory Negligence
+              Overcoming North Carolina&apos;s Contributory Negligence
             </h2>
             <div className="bg-red-900/20 backdrop-blur-sm rounded-lg p-8 border border-red-500/30">
               <div className="text-center mb-6">

@@ -9,7 +9,8 @@ export const metadata: Metadata = {
     title: 'Probation Violation Defense Attorney | Vasquez Law Firm',
     description: 'Protect your freedom with experienced probation violation defense. Available 24/7.',
     images: ['/images/practice-areas/probation-violation.jpg'],
-  }
+  },
+};
 
 export default function ProbationViolationPage() {
   const pageData = {

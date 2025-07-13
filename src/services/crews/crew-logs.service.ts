@@ -52,17 +52,17 @@ class CrewLogsService {
     return this.performAction({ action: 'delete', logIds });
   }
 
-  async exportLogs(logIds?: string[]): Promise<{ success: boolean; message: string; data: any }> {
+  async exportLogs(logIds?: string[]): Promise<{ success: boolean; message: string; data: unknown }> {
     return this.performAction({ action: 'export', logIds });
   }
 
   async cleanupOldLogs(): Promise<{ success: boolean; message: string; deletedCount: number }> {
     const result = await this.performAction({ action: 'cleanup' });
-    return result as any;
+    return result as { success: boolean; message: string; deletedCount: number };
   }
 
   // Helper method to download exported logs
-  downloadExport(data: any, filename: string = 'crew-logs-export.json') {
+  downloadExport(data: unknown, filename: string = 'crew-logs-export.json') {
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');

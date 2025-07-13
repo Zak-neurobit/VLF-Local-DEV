@@ -49,7 +49,7 @@ export function withCache(
     try {
       // Try to get from cache
       const cached = await cache.get<{
-        body: any;
+        body: unknown;
         headers: Record<string, string>;
         status: number;
       }>(cacheKey);

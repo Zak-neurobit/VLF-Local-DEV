@@ -52,7 +52,41 @@ interface ProfileData {
   profileImage?: string;
 }
 
-export default function ProfileSettings({ clientData }: { clientData: any }) {
+interface ExtendedClientData extends ClientData {
+  firstName?: string;
+  lastName?: string;
+  address?: {
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+  };
+  emergencyContact?: {
+    name: string;
+    phone: string;
+    relationship: string;
+  };
+  preferences?: {
+    language: string;
+    communicationMethod: string;
+    emailNotifications: boolean;
+    smsNotifications: boolean;
+    appointmentReminders: boolean;
+    caseUpdates: boolean;
+    newsletterSubscribed: boolean;
+  };
+  twoFactorEnabled?: boolean;
+  profileImage?: string;
+}
+
+interface ClientData {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+}
+
+export default function ProfileSettings({ clientData }: { clientData: ExtendedClientData }) {
   const { data: session, update } = useSession();
   const [profileData, setProfileData] = useState<ProfileData>({
     firstName: '',

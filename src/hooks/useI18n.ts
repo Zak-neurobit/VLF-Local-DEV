@@ -63,7 +63,7 @@ export function useTranslation() {
     // Helper function to get nested translations
     translate: (key: string) => {
       const keys = key.split('.');
-      let value: any = t;
+      let value: unknown = t;
 
       for (const k of keys) {
         value = value?.[k];

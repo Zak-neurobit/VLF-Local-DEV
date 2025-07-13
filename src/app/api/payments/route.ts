@@ -5,6 +5,12 @@ import { paymentService } from '@/services/payment';
 import { logger } from '@/lib/logger';
 import { z } from 'zod';
 
+interface PaymentPlan {
+  id: string;
+  monthlyAmount: number;
+  nextPaymentDate: Date;
+}
+
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 // Validation schemas
@@ -36,7 +42,7 @@ const processPaymentSchema = z.object({
       trustAccount: z.boolean().optional(),
     })
     .optional(),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.unknown()).optional(),
 });
 
 const refundPaymentSchema = z.object({
@@ -190,8 +196,8 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({
           success: true,
           planId: plan.id,
-          monthlyAmount: (plan as any).monthlyAmount,
-          nextPaymentDate: (plan as any).nextPaymentDate,
+          monthlyAmount: (plan as PaymentPlan).monthlyAmount,
+          nextPaymentDate: (plan as PaymentPlan).nextPaymentDate,
         });
       }
 

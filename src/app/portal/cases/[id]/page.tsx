@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export const runtime = 'nodejs';
 
-export default function [id]Page() {
+export default function CaseDetailPage() {
   // TODO: Extract content from original file and format properly
   const post = {
     id: '[id]',

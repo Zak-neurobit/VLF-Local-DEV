@@ -325,7 +325,7 @@ export default function EmploymentBasedImmigrationPage() {
                 <div>
                   <h3 className="text-xl font-bold text-primary mb-3">Current vs. Retrogressed</h3>
                   <p className="text-gray-300 text-sm">
-                    When your priority date is "current," you can file for adjustment of status.
+                    When your priority date is &ldquo;current,&rdquo; you can file for adjustment of status.
                     When retrogressed, you must wait for your date to become current again.
                   </p>
                 </div>
@@ -391,7 +391,7 @@ export default function EmploymentBasedImmigrationPage() {
                     <span className="text-white font-bold">65,000</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-300">Master's Cap:</span>
+                    <span className="text-gray-300">Master&apos;s Cap:</span>
                     <span className="text-white font-bold">20,000</span>
                   </div>
                   <div className="flex justify-between items-center border-t border-primary/20 pt-3">

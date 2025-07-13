@@ -55,7 +55,7 @@ export class SEOAnalyzer {
   /**
    * Analyze title optimization
    */
-  private analyzeTitleOptimization(content: any): number {
+  private analyzeTitleOptimization(content: { title?: string; keywords?: string[] }): number {
     let score = 100;
     const title = content.title || '';
     const primaryKeyword = content.keywords?.[0] || '';

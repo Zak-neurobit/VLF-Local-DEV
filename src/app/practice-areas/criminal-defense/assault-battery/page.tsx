@@ -14,7 +14,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Assault & Battery Defense | Vasquez Law Firm',
     description: 'Expert assault and battery defense in North Carolina.',
-  }
+  },
+};
 
 export default function AssaultBatteryPage() {
   const pageData = {

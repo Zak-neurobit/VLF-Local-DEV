@@ -50,7 +50,12 @@ export class FollowUpAutomationAgent extends Agent {
     practiceAreas: string[];
     urgencyLevel: string;
     languagePreference: string;
-    previousInteractions?: any[];
+    previousInteractions?: Array<{
+      type: string;
+      date: string;
+      outcome?: string;
+      notes?: string;
+    }>;
   }): Promise<FollowUpSequence> {
     const sequenceType = this.determineSequenceType(data);
     const steps = this.generateFollowUpSteps(sequenceType, data);

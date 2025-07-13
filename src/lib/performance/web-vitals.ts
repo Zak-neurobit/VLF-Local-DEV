@@ -53,7 +53,7 @@ export function sendToAnalytics(metric: WebVitalsMetric) {
 }
 
 export function reportWebVitals(onReport?: (metric: WebVitalsMetric) => void) {
-  const handleReport = (metric: any) => {
+  const handleReport = (metric: Metric) => {
     const enhancedMetric: WebVitalsMetric = {
       ...metric,
       rating: getRating(metric.name, metric.value),

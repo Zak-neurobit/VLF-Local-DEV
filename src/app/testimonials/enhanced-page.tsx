@@ -3,7 +3,6 @@ import PageLayout from '@/components/Layout/PageLayout';
 import Section from '@/components/ui/Section';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Script from 'next/script';
-import { reviewSchema } from '@/lib/schema';
 import GoogleReviewsWidget from '@/components/testimonials/GoogleReviewsWidget';
 import VideoTestimonials from '@/components/testimonials/VideoTestimonials';
 import CaseResults from '@/components/testimonials/CaseResults';

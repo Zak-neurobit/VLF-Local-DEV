@@ -404,7 +404,7 @@ export default function InadmissibilityWaiversPage() {
                 <div>
                   <h4 className="font-bold text-primary mb-3">📚 Educational Hardship</h4>
                   <ul className="text-sm text-gray-400 space-y-1">
-                    <li>• Children's educational disruption</li>
+                    <li>• Children&apos;s educational disruption</li>
                     <li>• Language barriers in foreign schools</li>
                     <li>• Special educational needs</li>
                     <li>• University/career interruption</li>

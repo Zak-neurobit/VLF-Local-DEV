@@ -388,7 +388,7 @@ export default function FamilyPreferenceVisasPage() {
                 <div>
                   <h3 className="text-xl font-bold text-white mb-4">CSPA Protection Benefits:</h3>
                   <ul className="space-y-2 text-gray-300">
-                    <li>• Protects children from "aging out" at 21</li>
+                    <li>• Protects children from &ldquo;aging out&rdquo; at 21</li>
                     <li>• Allows age calculation reduction</li>
                     <li>• Enables automatic category conversion</li>
                     <li>• Preserves priority dates in many cases</li>

@@ -7,10 +7,10 @@ interface LogExecutionParams {
   status: 'success' | 'failure';
   startTime: Date;
   endTime: Date;
-  input?: any;
-  output?: any;
+  input?: unknown;
+  output?: unknown;
   error?: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }
 
 /**
@@ -60,10 +60,10 @@ export async function logCrewExecution(params: LogExecutionParams) {
  */
 export function createCrewLogger(agentName: string) {
   return {
-    async logExecution(executionType: string, fn: () => Promise<any>, metadata?: any) {
+    async logExecution<T>(executionType: string, fn: () => Promise<T>, metadata?: Record<string, unknown>): Promise<T> {
       const startTime = new Date();
       let status: 'success' | 'failure' = 'success';
-      let output: any;
+      let output: T | undefined;
       let error: string | undefined;
 
       try {

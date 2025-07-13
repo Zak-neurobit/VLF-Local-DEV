@@ -24,7 +24,7 @@ export function useVoiceRecognition({
       recognition.interimResults = true;
       recognition.lang = language === 'es' ? 'es-ES' : 'en-US';
 
-      recognition.onresult = (event: any) => {
+      recognition.onresult = (event: SpeechRecognitionEvent) => {
         let interimTranscript = '';
         let finalTranscript = '';
 
@@ -44,7 +44,7 @@ export function useVoiceRecognition({
         }
       };
 
-      recognition.onerror = (event: any) => {
+      recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
         onError(event.error);
       };
 

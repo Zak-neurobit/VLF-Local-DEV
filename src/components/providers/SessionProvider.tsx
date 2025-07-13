@@ -10,8 +10,9 @@ interface Props {
 export default function SessionProvider({ children }: Props) {
   useEffect(() => {
     // Monitor session errors
-    const handleError = (event: any) => {
-      if (event.error?.message?.includes('session') || event.reason?.message?.includes('session')) {
+    const handleError = (event: ErrorEvent | PromiseRejectionEvent) => {
+      const errorMessage = 'error' in event ? event.error?.message : (event as PromiseRejectionEvent).reason?.message;
+      if (errorMessage?.includes('session')) {
         console.warn('[SessionProvider] Session error detected:', event);
         // Don't show error to user, just log it
       }

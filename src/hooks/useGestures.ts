@@ -18,7 +18,7 @@ export function useSwipeGesture({
   onSwipeUp,
   onSwipeDown,
 }: SwipeOptions = {}) {
-  const handleDragEnd = (event: any, info: PanInfo) => {
+  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const { offset, velocity } = info;
 
     if (Math.abs(offset.x) > Math.abs(offset.y)) {
@@ -196,7 +196,7 @@ export function useDoubleTap(callback: () => void, delay = 300) {
 
 // Drag to reorder hook
 export function useDragToReorder<T>(items: T[], onReorder: (newItems: T[]) => void) {
-  const handleDragEnd = (result: any) => {
+  const handleDragEnd = (result: { source: { index: number }; destination?: { index: number } }) => {
     if (!result.destination) return;
 
     const newItems = Array.from(items);

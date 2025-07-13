@@ -28,7 +28,10 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Premises Liability and Slip and Fall Lawyers',
-      }
+      },
+    ],
+  },
+};
 
 export default function PremisesLiabilityPage() {
   const pageData = {

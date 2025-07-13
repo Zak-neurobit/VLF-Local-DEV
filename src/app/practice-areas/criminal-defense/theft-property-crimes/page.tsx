@@ -30,7 +30,10 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Theft and Property Crime Defense Lawyers',
-      }
+      },
+    ],
+  },
+};
 
 export default function TheftPropertyCrimesPage() {
   const pageData = {

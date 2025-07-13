@@ -23,7 +23,13 @@ interface EventSchemaProps {
     description: string;
     startDate: string;
     endDate: string;
-    location: any;
+    location: {
+      name: string;
+      address?: string;
+      city?: string;
+      state?: string;
+      zipCode?: string;
+    };
     isVirtual?: boolean;
   };
   includeEmergency?: boolean;

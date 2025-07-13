@@ -40,7 +40,7 @@ export function MegaFooterLinks() {
         <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-2xl font-bold mb-4 text-primary">
-              North Carolina's Most Aggressive Law Firm
+              North Carolina&apos;s Most Aggressive Law Firm
             </h2>
             <p className="text-gray-400 text-sm leading-relaxed">
               Vasquez Law Firm dominates the legal landscape across North Carolina with offices in{' '}

@@ -347,7 +347,7 @@ export default function TruckAccidentsPage() {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-secondary text-xl">👁️</span>
-                    <span>Massive blind spots ("No-Zones")</span>
+                    <span>Massive blind spots (&ldquo;No-Zones&rdquo;)</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-secondary text-xl">🌀</span>
@@ -418,7 +418,7 @@ export default function TruckAccidentsPage() {
               </div>
               <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                 <h3 className="text-lg font-bold text-primary mb-3">👁️ Blind Spot Accidents</h3>
-                <p className="text-gray-300 text-sm mb-3">Collisions in truck "No-Zones"</p>
+                <p className="text-gray-300 text-sm mb-3">Collisions in truck &ldquo;No-Zones&rdquo;</p>
                 <ul className="text-gray-400 text-sm space-y-1">
                   <li>• Large blind spots</li>
                   <li>• Lane change collisions</li>

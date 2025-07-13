@@ -12,7 +12,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/04/mecklenburg-county-personal-injury-accident-lawyers.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

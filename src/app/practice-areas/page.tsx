@@ -11,7 +11,9 @@ export const metadata: Metadata = {
     title: 'Practice Areas - Vasquez Law Firm',
     description:
       'Full-service legal representation enhanced with AI technology. 60+ years combined experience.',
-    images: [{ url: '/images/BANNER_TRANS.PNG' }
+    images: [{ url: '/images/BANNER_TRANS.PNG' }],
+  },
+};
 
 export default function PracticeAreasPage() {
   const pageData = {

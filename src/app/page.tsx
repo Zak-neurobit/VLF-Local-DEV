@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import HomePage from '@/components/HomePage';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import ResourceHintsLite from '@/components/ResourceHintsLite';
-import { optimizeMetadata } from '@/lib/seo/metadata-optimizer';
 
 // Power-packed metadata with urgency and trust signals
 const powerTitle = 'Elite Immigration & Injury Lawyers NC/FL | 24/7 Help';

@@ -2,6 +2,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import { logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 
+interface AgentLog {
+  success: boolean;
+  duration: number;
+  executionType: string;
+  createdAt: Date;
+  output?: string | null;
+  impactScore?: number | null;
+}
+
+interface PrismaClient {
+  agentExecutionLog: {
+    findMany: (options: unknown) => Promise<AgentLog[]>;
+    create: (options: unknown) => Promise<unknown>;
+  };
+}
+
 export async function GET(request: NextRequest) {
   try {
     const prisma = getPrismaClient();
@@ -53,7 +69,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-async function getAgentMetrics(prisma: any, agentName: string, since: Date) {
+async function getAgentMetrics(prisma: PrismaClient, agentName: string, since: Date) {
   const logs = await prisma.agentExecutionLog.findMany({
     where: {
       agentName,
@@ -62,19 +78,19 @@ async function getAgentMetrics(prisma: any, agentName: string, since: Date) {
   });
 
   const totalActions = logs.length;
-  const successfulActions = logs.filter((log: { success: boolean }) => log.success).length;
+  const successfulActions = logs.filter((log) => log.success).length;
   const successRate = totalActions > 0 ? successfulActions / totalActions : 0;
   const averageDuration =
     totalActions > 0
-      ? logs.reduce((sum: number, log: { duration: number }) => sum + log.duration, 0) /
+      ? logs.reduce((sum: number, log) => sum + log.duration, 0) /
         totalActions
       : 0;
 
   // Get recent highlights
   const recentHighlights = logs
-    .filter((log: { success: boolean; output: string | null }) => log.success && log.output)
+    .filter((log) => log.success && log.output)
     .slice(0, 5)
-    .map((log: { executionType: string; createdAt: Date; impactScore?: number | null }) => ({
+    .map((log) => ({
       type: log.executionType,
       timestamp: log.createdAt,
       impact: log.impactScore || 0,
@@ -100,7 +116,7 @@ export async function POST(request: NextRequest) {
     const { agent, action, params } = body;
 
     // Agent-specific actions
-    const agentActions: Record<string, Record<string, () => Promise<any>>> = {
+    const agentActions: Record<string, Record<string, () => Promise<{ message: string }>>> = {
       BlogContentDominationAgent: {
         createContent: async () => {
           // Trigger content creation

@@ -41,7 +41,14 @@ interface Document {
   expiryDate?: string;
 }
 
-export default function DocumentManager({ clientData }: { clientData: any }) {
+interface ClientData {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+}
+
+export default function DocumentManager({ clientData }: { clientData: ClientData }) {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [filteredDocuments, setFilteredDocuments] = useState<Document[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('all');

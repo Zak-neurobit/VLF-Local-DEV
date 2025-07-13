@@ -10,7 +10,7 @@ interface ConsultationModeProps {
     urgency: 'low' | 'medium' | 'high';
   };
   language: 'en' | 'es';
-  onDataChange: (data: any) => void;
+  onDataChange: (data: Partial<ConsultationModeProps['consultationData']>) => void;
   onSubmit: () => void;
 }
 

@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next';
 import { ncCities } from '@/lib/seo/local-seo-generator';
-import { HreflangGenerator } from '@/components/SEO/HreflangGenerator';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.vasquezlawnc.com';

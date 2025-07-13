@@ -13,7 +13,7 @@ interface HowToSchemaProps {
 }
 
 export function HowToSchema({ processType, practiceArea, pageType = 'default' }: HowToSchemaProps) {
-  let schemas: any[] = [];
+  let schemas: Array<Record<string, unknown>> = [];
 
   if (processType) {
     // Generate specific process schema

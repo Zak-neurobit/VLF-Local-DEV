@@ -7,12 +7,6 @@ import { promisify } from 'util';
 
 const execAsync = promisify(exec);
 
-interface HealthCheckResult {
-  name: string;
-  status: 'healthy' | 'unhealthy';
-  details: string | Record<string, unknown>;
-  timestamp: string;
-}
 
 interface DatabaseHealthResult {
   connected: boolean;
@@ -22,17 +16,21 @@ interface DatabaseHealthResult {
 }
 
 interface SystemResourceResult {
-  cpu: number;
   memory: {
-    used: number;
-    total: number;
-    percentage: number;
+    heapUsed: number;
+    heapTotal: number;
+    usagePercent: number;
+    healthy: boolean;
   };
-  disk: {
-    used: number;
-    total: number;
-    percentage: number;
+  cpu: {
+    user: number;
+    system: number;
+    usagePercent: number;
+    healthy: boolean;
   };
+  uptime: number;
+  loadAverage: [number, number, number];
+  status: string;
 }
 
 interface ProcessLoadAverage {
@@ -151,7 +149,7 @@ async function checkDatabaseHealth(): Promise<DatabaseHealthResult> {
   }
 }
 
-async function checkSystemResources(): Promise<Record<string, any>> {
+async function checkSystemResources(): Promise<SystemResourceResult> {
   const memoryUsage = process.memoryUsage();
   const cpuUsage = process.cpuUsage();
 
@@ -182,12 +180,25 @@ async function checkSystemResources(): Promise<Record<string, any>> {
       healthy: cpuHealthy,
     },
     uptime: Math.round(process.uptime()),
-    loadAverage: (process as any).loadavg ? (process as any).loadavg() : [0, 0, 0],
+    loadAverage: (process as ProcessLoadAverage).loadavg ? (process as ProcessLoadAverage).loadavg() : [0, 0, 0],
     status: 'healthy',
   };
 }
 
-async function checkAgentHealth(): Promise<Record<string, any>> {
+interface AgentHealthResult {
+  totalAgents: number;
+  healthyAgents: number;
+  unhealthyAgents: number;
+  systemStatus: Record<string, unknown>;
+  agentDetails: Array<{
+    name: string;
+    healthy: boolean;
+    metrics: Record<string, unknown> | null;
+  }>;
+  status: string;
+}
+
+async function checkAgentHealth(): Promise<AgentHealthResult> {
   const crewCoordinator = CrewCoordinator.getInstance();
   const systemStatus = crewCoordinator.getSystemStatus();
 
@@ -236,7 +247,20 @@ async function checkAgentHealth(): Promise<Record<string, any>> {
   };
 }
 
-async function checkAPIConnections(): Promise<Record<string, any>> {
+interface APIConnectionResult {
+  connections: Array<{
+    name: string;
+    status: string;
+    latency?: number;
+    error?: string;
+  }>;
+  totalConnections: number;
+  healthyConnections: number;
+  averageLatency: number;
+  status: string;
+}
+
+async function checkAPIConnections(): Promise<APIConnectionResult> {
   const connections = [];
 
   // Check OpenAI API
@@ -286,7 +310,19 @@ async function checkAPIConnections(): Promise<Record<string, any>> {
   };
 }
 
-async function checkCronJobs(): Promise<Record<string, any>> {
+interface CronJobResult {
+  cronJobs: Array<{
+    name: string;
+    nextRun: Date;
+    status: string;
+  }>;
+  totalJobs: number;
+  activeJobs: number;
+  inactiveJobs: number;
+  status: string;
+}
+
+async function checkCronJobs(): Promise<CronJobResult> {
   // In a real implementation, you'd check if cron jobs are running
   // For now, we'll simulate the check
 
@@ -314,7 +350,19 @@ async function checkCronJobs(): Promise<Record<string, any>> {
   };
 }
 
-async function checkMemoryUsage(): Promise<Record<string, any>> {
+interface MemoryUsageResult {
+  heapUsed: number;
+  heapTotal: number;
+  external: number;
+  arrayBuffers: number;
+  usagePercent: number;
+  heapUsedMB: number;
+  heapTotalMB: number;
+  externalMB: number;
+  status: string;
+}
+
+async function checkMemoryUsage(): Promise<MemoryUsageResult> {
   const memoryUsage = process.memoryUsage();
 
   const metrics = {
@@ -343,7 +391,17 @@ async function checkMemoryUsage(): Promise<Record<string, any>> {
   };
 }
 
-async function checkDiskSpace(): Promise<Record<string, any>> {
+interface DiskSpaceResult {
+  filesystem: string;
+  size: string;
+  used: string;
+  available: string;
+  usagePercent: number;
+  mountPoint: string;
+  status: string;
+}
+
+async function checkDiskSpace(): Promise<DiskSpaceResult> {
   try {
     const { stdout } = await execAsync('df -h /');
     const lines = stdout.trim().split('\n');
@@ -372,7 +430,7 @@ async function checkDiskSpace(): Promise<Record<string, any>> {
 }
 
 function generateHealthRecommendations(
-  checks: Array<{ name: string; status: string; details?: any }>
+  checks: Array<{ name: string; status: string; details?: Record<string, unknown> }>
 ): string[] {
   const recommendations: string[] = [];
 

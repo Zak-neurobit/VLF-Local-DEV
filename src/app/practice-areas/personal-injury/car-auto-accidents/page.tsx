@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     title: 'Car Accident Lawyers North Carolina | Auto Accident Attorneys - Vasquez Law Firm',
     description:
       'Top car accident attorneys in NC. Maximum compensation for auto accident victims. Free consultation. No fee unless we win. Call 1-844-YO-PELEO today!',
-    images: [{ url: '../wp-content/uploads/2024/04/charlotte-nc-car-accident-lawyers.jpg' }
+    images: [{ url: '../wp-content/uploads/2024/04/charlotte-nc-car-accident-lawyers.jpg' }],
+  },
+};
 
 export default function CarAutoAccidentsPage() {
   const pageData = {

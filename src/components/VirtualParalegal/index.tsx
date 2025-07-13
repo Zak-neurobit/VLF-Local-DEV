@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
-import { useGLTF, OrbitControls, useFBX, useAnimations } from '@react-three/drei';
+import { OrbitControls, useAnimations } from '@react-three/drei';
 import * as THREE from 'three';
 import { useChat } from 'ai/react';
 
@@ -12,13 +12,11 @@ function Avatar3D({ speaking }: { speaking: boolean }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
 
-  // For FBX models, we need to use a try-catch as the model might not exist
-  let fbxModel = null;
-  try {
-    fbxModel = useFBX('/models/paralegal-avatar.fbx');
-  } catch (error) {
-    console.log('FBX model not found, using fallback');
-  }
+  // Use suspense boundary or null fallback for FBX model
+  // Note: useFBX hook must be called unconditionally at component top level
+  // If the model doesn't exist, it will throw an error that should be caught by a Suspense boundary
+  // For now, we'll use a fallback approach without the FBX model
+  const fbxModel = null; // Disabled FBX loading to avoid conditional hook usage
 
   const { actions } = useAnimations(fbxModel?.animations || [], groupRef);
 
@@ -90,12 +88,12 @@ export default function VirtualParalegal({ language, onClose }: VirtualParalegal
 
   const content = {
     en: {
-      greeting: "Hello! I\'m your AI paralegal assistant. How can I help you today?",
-      listening: "I'm listening...",
+      greeting: "Hello! I&apos;m your AI paralegal assistant. How can I help you today?",
+      listening: "I&apos;m listening...",
       thinking: 'Let me think about that...',
       askName: 'May I have your name?',
-      askEmail: "What's your email address?",
-      askPhone: "What's the best phone number to reach you?",
+      askEmail: "What&apos;s your email address?",
+      askPhone: "What&apos;s the best phone number to reach you?",
       askIssue: 'Please briefly describe your legal issue.',
       schedule: 'Schedule Consultation',
       speak: 'Speak',
@@ -248,7 +246,7 @@ export default function VirtualParalegal({ language, onClose }: VirtualParalegal
               {/* Messages */}
               <div className="flex-1 overflow-y-auto p-6">
                 <AnimatePresence initial={false}>
-                  {messages.map((message, index) => (
+                  {messages.map((message) => (
                     <motion.div
                       key={message.id}
                       initial={{ opacity: 0, y: 20 }}

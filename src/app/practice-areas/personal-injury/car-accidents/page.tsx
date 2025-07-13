@@ -198,7 +198,7 @@ export default function CarAccidentsPage() {
         step: '5',
         title: 'Recovery & Resolution',
         description: 'Securing compensation and helping you move forward'
-      ]
+      },
     ],
 
     urgencyTitle: '⏰ Evidence Disappears Quickly!',
@@ -317,7 +317,7 @@ export default function CarAccidentsPage() {
                 <h3 className="text-xl font-bold text-primary mb-4">⚖️ Contributory Negligence</h3>
                 <div className="space-y-3">
                   <p className="text-gray-300 text-sm">
-                    North Carolina follows pure contributory negligence - if you're found even 1% at fault, you may recover nothing.
+                    North Carolina follows pure contributory negligence - if you&apos;re found even 1% at fault, you may recover nothing.
                   </p>
                   <div className="bg-red-900/20 p-4 rounded-lg border border-red-500/30">
                     <h4 className="font-bold text-red-400 mb-2">Why This Matters:</h4>

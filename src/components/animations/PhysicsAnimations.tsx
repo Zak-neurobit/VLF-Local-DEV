@@ -49,7 +49,17 @@ export function GravitySimulation() {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
-    const particles: any[] = [];
+    interface Particle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      size: number;
+      color: string;
+      life: number;
+    }
+
+    const particles: Particle[] = [];
     const gravity = 0.5;
     const friction = 0.99;
     const colors = ['#6B1F2E', '#C9974D', '#8B2635'];

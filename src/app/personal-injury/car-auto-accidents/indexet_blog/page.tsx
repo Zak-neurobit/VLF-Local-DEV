@@ -12,7 +12,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/04/north-carolina-car-crash-injury-lawyers.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

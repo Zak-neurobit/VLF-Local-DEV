@@ -6,10 +6,10 @@ export interface CrewLog {
   status: 'success' | 'failure';
   timestamp: Date;
   duration: number;
-  input: any;
-  output: any;
+  input: unknown;
+  output: unknown;
   error?: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
   createdAt: Date;
 }
 

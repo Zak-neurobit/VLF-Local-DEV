@@ -2,8 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
+interface AgentTask {
+  [key: string]: unknown;
+}
+
 // Agent execution logic
-const executeAgent = async (agent: string, task: any) => {
+const executeAgent = async (agent: string, task: AgentTask) => {
   // Map agent names to their specific endpoints
   const agentEndpoints: Record<string, string> = {
     'Legal Consultation': '/api/crewai/legal-consultation',

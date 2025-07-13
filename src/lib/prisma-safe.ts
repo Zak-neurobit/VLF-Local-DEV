@@ -38,8 +38,8 @@ class SafePrismaClient {
       findUnique: async () => null,
       findFirst: async () => null,
       findMany: async () => [],
-      create: async (args: any) => ({ id: 'mock-id', ...args.data }),
-      update: async (args: any) => ({ id: args.where.id, ...args.data }),
+      create: async (args: { data: Record<string, unknown> }) => ({ id: 'mock-id', ...args.data }),
+      update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({ id: args.where.id, ...args.data }),
       delete: async () => ({ id: 'deleted' }),
       count: async () => 0,
     };
@@ -53,8 +53,8 @@ class SafePrismaClient {
       findUnique: async () => null,
       findFirst: async () => null,
       findMany: async () => [],
-      create: async (args: any) => ({ id: 'mock-id', ...args.data }),
-      update: async (args: any) => ({ id: args.where.id, ...args.data }),
+      create: async (args: { data: Record<string, unknown> }) => ({ id: 'mock-id', ...args.data }),
+      update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({ id: args.where.id, ...args.data }),
       delete: async () => ({ id: 'deleted' }),
       count: async () => 0,
     };
@@ -73,7 +73,7 @@ class SafePrismaClient {
     }
   }
 
-  async $transaction(fn: any) {
+  async $transaction(fn: (client: SafePrismaClient) => Promise<unknown>) {
     if (this.realClient) {
       return this.realClient.$transaction(fn);
     }

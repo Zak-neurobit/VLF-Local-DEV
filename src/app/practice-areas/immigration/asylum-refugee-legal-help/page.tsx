@@ -212,7 +212,7 @@ export default function AsylumRefugeePage() {
 
     urgencyTitle: 'URGENT: One-Year Asylum Deadline Approaching?',
     urgencyMessage:
-      "You have only ONE YEAR from arrival to file asylum applications (with limited exceptions). Don't wait - contact us immediately for emergency consultation.",
+      "You have only ONE YEAR from arrival to file asylum applications (with limited exceptions). Don&apos;t wait - contact us immediately for emergency consultation.",
 
     successStats: [
       { number: '3,000+', label: 'Asylum Cases Won' },
@@ -318,7 +318,7 @@ export default function AsylumRefugeePage() {
               <div className="bg-red-900/30 rounded-lg p-6">
                 <h3 className="text-xl font-bold text-red-400 mb-4">Emergency Asylum Help</h3>
                 <p className="text-white mb-4">
-                  <strong>Don't risk missing the deadline!</strong>
+                  <strong>Don&apos;t risk missing the deadline!</strong>
                   <br />
                   Call our emergency asylum hotline now:
                 </p>

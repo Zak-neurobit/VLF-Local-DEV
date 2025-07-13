@@ -5,6 +5,10 @@ import * as cheerio from 'cheerio';
 import axios from 'axios';
 import { OpenAI } from 'openai';
 
+interface CheerioElement {
+  attribs?: Record<string, string>;
+}
+
 const openai = process.env.OPENAI_API_KEY
   ? new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
@@ -192,7 +196,7 @@ async function cleanAndStructureContent(
     const $elem = $content(elem);
     // Keep only essential attributes
     const allowedAttrs = ['href', 'src', 'alt', 'title'];
-    const attrs = (elem as any).attribs || {};
+    const attrs = (elem as CheerioElement).attribs || {};
     for (const attr in attrs) {
       if (!allowedAttrs.includes(attr)) {
         $elem.removeAttr(attr);

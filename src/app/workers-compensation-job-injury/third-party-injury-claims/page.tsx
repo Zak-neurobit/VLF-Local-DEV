@@ -10,7 +10,10 @@ export const metadata: Metadata = {
     description:
       'Lawyers in Wake County Helping With Personal Injury Lawsuits for Workplace Accidents According to information from the Bureau of Labor Statistics, more than 73,000 North Carolina private-industry workers suffer non-fatal workplace injuries and illnesses each year. This number does not include the thousands of other injuries suffered by public-sector—or government—workers annually. In an average year, well over 40,000 cases required the workers in question to miss work, be transferred to a different job, or be placed on restricted duty. At Vasquez Law Firm, PLLC, we know the effects that a workplace injury can have on your life. In most such cases, you are likely to be eligible for workers’ compensation benefits under the North Carolina Workers’ Compensation Act. However, workers’ comp benefits are not always sufficient to restore your life to where it once was. If a party other than your employer is responsible for the injuries that you have suffered—even in part—it may be in your best interest to pursue a third-party personal injury claim in addition to your claim with the state’s work comp system. A personal injury lawsuit might also be necessary if you are not eligible for workers’ compensation benefits. Skilled Counsel for North Carolina Workplace […]',
     images: [
-      { url: '../../wp-content/uploads/2024/04/charlotte-nc-third-party-lawsuit-attorneys.jpg' }
+      { url: '../../wp-content/uploads/2024/04/charlotte-nc-third-party-lawsuit-attorneys.jpg' },
+    ],
+  },
+};
 
 export const runtime = 'nodejs';
 

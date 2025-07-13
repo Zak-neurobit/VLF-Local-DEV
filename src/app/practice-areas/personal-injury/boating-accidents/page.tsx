@@ -27,7 +27,10 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'North Carolina Boating Accident Attorney',
-      }
+      },
+    ],
+  },
+};
 
 export default function BoatingAccidentsPage() {
   const pageData = {

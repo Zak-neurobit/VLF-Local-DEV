@@ -13,9 +13,9 @@ interface MagneticHoverOptions {
 
 interface MagneticHoverReturn {
   ref: React.RefObject<HTMLElement>;
-  x: any;
-  y: any;
-  scale: any;
+  x: MotionValue<number>;
+  y: MotionValue<number>;
+  scale: MotionValue<number>;
   isHovered: boolean;
 }
 

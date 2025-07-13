@@ -15,7 +15,7 @@ interface ReviewRequest {
   lastContactDate: Date;
   requestMethod: 'email' | 'sms' | 'both';
   urgency: 'immediate' | 'standard' | 'gentle';
-  personalizationData: Record<string, any>;
+  personalizationData: Record<string, unknown>;
 }
 
 interface ReviewPlatform {
@@ -48,7 +48,7 @@ interface ReviewCampaign {
 
 export class ReviewHarvestingAgent {
   private model: ChatOpenAI;
-  private prisma: any;
+  private prisma: typeof import('@prisma/client').PrismaClient;
   private emailTransporter!: nodemailer.Transporter;
   private isRunning: boolean = false;
   private scheduledJobs: cron.ScheduledTask[] = [];
@@ -422,7 +422,7 @@ The Vasquez Law Firm Team`,
   /**
    * Generate personalized review request message
    */
-  private async generatePersonalizedMessage(request: ReviewRequest): Promise<any> {
+  private async generatePersonalizedMessage(request: ReviewRequest): Promise<{ email: { subject: string; body: string }; sms: { text: string } }> {
     const templateKey = `${request.urgency}_${request.caseOutcome === 'won' ? 'win' : ''}`.replace(
       /_$/,
       ''
@@ -467,7 +467,7 @@ The Vasquez Law Firm Team`,
   /**
    * Enhance messages with AI personalization
    */
-  private async enhanceWithAI(request: ReviewRequest, email: any, sms: any): Promise<any> {
+  private async enhanceWithAI(request: ReviewRequest, email: { subject: string; body: string }, sms: { text: string }): Promise<{ email: { subject: string; body: string }; sms: { text: string } }> {
     const prompt = `
 Enhance these review request messages for maximum effectiveness:
 
@@ -631,7 +631,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
 
   // Helper methods
 
-  private async shouldRequestReview(client: any): Promise<boolean> {
+  private async shouldRequestReview(client: { id: string; metadata?: { reviewOptOut?: boolean } }): Promise<boolean> {
     // Check if already requested recently
     const recentRequest = await this.prisma.agentExecutionLog.findFirst({
       where: {
@@ -665,7 +665,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     return formatted[practiceArea as keyof typeof formatted] || practiceArea;
   }
 
-  private determineRequestMethod(client: any): ReviewRequest['requestMethod'] {
+  private determineRequestMethod(client: { email?: string; phone?: string }): ReviewRequest['requestMethod'] {
     if (client.email && client.phone) return 'both';
     if (client.email) return 'email';
     if (client.phone) return 'sms';
@@ -709,7 +709,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     return { email: emailLinks, sms: smsLink };
   }
 
-  private personalizText(template: string, data: any): string {
+  private personalizText(template: string, data: Record<string, unknown>): string {
     let personalized = template;
 
     Object.keys(data).forEach(key => {
@@ -720,7 +720,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     return personalized;
   }
 
-  private async sendEmailRequest(request: ReviewRequest, message: any): Promise<void> {
+  private async sendEmailRequest(request: ReviewRequest, message: { subject: string; body: string }): Promise<void> {
     if (!request.clientEmail) return;
 
     try {
@@ -736,7 +736,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     }
   }
 
-  private async sendSMSRequest(request: ReviewRequest, message: any): Promise<void> {
+  private async sendSMSRequest(request: ReviewRequest, message: { text: string }): Promise<void> {
     // SMS functionality has been removed
     // Consider using email-only communication or integrating with GoHighLevel
     logger.info(`SMS request skipped for ${request.clientName} - SMS service not configured`);
@@ -787,7 +787,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     });
   }
 
-  private async fetchNewReviews(platform: ReviewPlatform): Promise<any[]> {
+  private async fetchNewReviews(platform: ReviewPlatform): Promise<ReviewResponse[]> {
     // In production, would use platform APIs
     logger.info(`Fetching new reviews from ${platform.name}`);
 
@@ -795,13 +795,13 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     return [];
   }
 
-  private async analyzeSentiment(review: any): Promise<'positive' | 'negative' | 'neutral'> {
+  private async analyzeSentiment(review: { rating: number }): Promise<'positive' | 'negative' | 'neutral'> {
     if (review.rating >= 4) return 'positive';
     if (review.rating <= 2) return 'negative';
     return 'neutral';
   }
 
-  private async generateReviewResponse(review: any, sentiment: string): Promise<string> {
+  private async generateReviewResponse(review: { rating: number; reviewerName?: string }, sentiment: string): Promise<string> {
     const templates = this.RESPONSE_TEMPLATES[sentiment as keyof typeof this.RESPONSE_TEMPLATES];
     let templateArray: string[] = [];
 
@@ -824,7 +824,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
 
   private async postReviewResponse(
     platform: ReviewPlatform,
-    review: any,
+    review: ReviewResponse,
     response: string
   ): Promise<void> {
     // In production, would use platform APIs to post response
@@ -832,7 +832,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
   }
 
   private async trackReviewResponse(
-    review: any,
+    review: ReviewResponse,
     response: string,
     sentiment: string
   ): Promise<void> {
@@ -840,7 +840,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     logger.info(`Tracked ${sentiment} review response`);
   }
 
-  private async escalateNegativeReview(review: any): Promise<void> {
+  private async escalateNegativeReview(review: ReviewResponse): Promise<void> {
     // Create urgent task for management
     await this.prisma.task.create({
       data: {
@@ -855,12 +855,12 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     });
   }
 
-  private async amplifyPositiveReview(review: any): Promise<void> {
+  private async amplifyPositiveReview(review: ReviewResponse): Promise<void> {
     // Share on social media
     logger.info(`Amplifying positive review from ${review.reviewerName}`);
   }
 
-  private async getPendingFollowUps(): Promise<any[]> {
+  private async getPendingFollowUps(): Promise<Array<{ clientId: string; clientName: string; attemptNumber: number }>> {
     // Get follow-ups due for sending
     return [];
   }
@@ -870,44 +870,44 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     return false;
   }
 
-  private async markFollowUpComplete(followUp: any): Promise<void> {
+  private async markFollowUpComplete(followUp: { clientName: string }): Promise<void> {
     logger.info(`Marked follow-up complete for ${followUp.clientName}`);
   }
 
-  private async generateFollowUpMessage(followUp: any): Promise<any> {
+  private async generateFollowUpMessage(followUp: { clientName: string }): Promise<{ email: { subject: string; body: string }; sms: { text: string } }> {
     return {
       email: this.REQUEST_TEMPLATES.email.gentle_reminder,
       sms: this.REQUEST_TEMPLATES.sms.gentle_reminder,
     };
   }
 
-  private async sendFollowUp(followUp: any, message: any): Promise<void> {
+  private async sendFollowUp(followUp: { clientName: string }, message: { email: { subject: string; body: string }; sms: { text: string } }): Promise<void> {
     // Send follow-up message
     logger.info(`Sent follow-up to ${followUp.clientName}`);
   }
 
-  private async respondToNegativeReview(review: any): Promise<void> {
+  private async respondToNegativeReview(review: { reviewerName?: string }): Promise<void> {
     const response = this.RESPONSE_TEMPLATES.negative.general[0];
     logger.info(`Responded to negative review: ${response.substring(0, 50)}...`);
   }
 
-  private async createInternalTask(review: any): Promise<void> {
+  private async createInternalTask(review: { reviewerName?: string }): Promise<void> {
     logger.info(`Created internal task for negative review from ${review.reviewerName}`);
   }
 
-  private async createServiceRecoveryPlan(review: any): Promise<void> {
+  private async createServiceRecoveryPlan(review: { reviewerName?: string }): Promise<void> {
     logger.info(`Created service recovery plan for ${review.reviewerName}`);
   }
 
-  private async createSocialContentFromReview(review: any): Promise<void> {
+  private async createSocialContentFromReview(review: { reviewerName?: string }): Promise<void> {
     logger.info(`Created social content from review by ${review.reviewerName}`);
   }
 
-  private async addToWebsiteTestimonials(review: any): Promise<void> {
+  private async addToWebsiteTestimonials(review: { reviewerName?: string }): Promise<void> {
     logger.info(`Added review to website testimonials: ${review.reviewerName}`);
   }
 
-  private async updateEmailSignatures(review: any): Promise<void> {
+  private async updateEmailSignatures(review: { reviewerName?: string }): Promise<void> {
     logger.info(`Updated email signatures with review from ${review.reviewerName}`);
   }
 
@@ -967,7 +967,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     }
   }
 
-  private async getEligibleClients(): Promise<any[]> {
+  private async getEligibleClients(): Promise<Array<{ id: string; name: string; email?: string; phone?: string; preferredContact?: string; caseType?: string }>> {
     // In production, would query database for clients who:
     // - Had successful case outcomes
     // - Haven't been asked for review in 90 days
@@ -975,22 +975,42 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     return [];
   }
 
-  private async trackCampaign(data: any): Promise<void> {
+  private async trackCampaign(data: { clientId: string; campaignType: string; sentAt: Date }): Promise<void> {
     // Track campaign data for analytics
     logger.info('Tracking campaign:', data);
   }
 
-  private async sendReviewRequest(client: any): Promise<void> {
+  private async sendReviewRequest(client: { id: string; name: string; email?: string; phone?: string; preferredContact?: string; caseType?: string }): Promise<void> {
     logger.info(`Sending review request to ${client.name}`);
 
+    // Create a ReviewRequest object for this client
+    const reviewRequest: ReviewRequest = {
+      clientId: client.id,
+      clientName: client.name,
+      clientEmail: client.email,
+      clientPhone: client.phone,
+      caseType: client.caseType || 'legal matter',
+      caseOutcome: 'resolved',
+      lastContactDate: new Date(),
+      requestMethod: client.preferredContact === 'sms' ? 'sms' : 'email',
+      urgency: 'standard',
+      personalizationData: {
+        attorneyName: 'The Vasquez Law Firm Team',
+        timeSince: 'recently',
+      },
+    };
+
+    // Generate personalized message
+    const message = await this.generatePersonalizedMessage(reviewRequest);
+
     // Choose communication method based on client preferences
-    if (client.preferredContact === 'email') {
-      await this.sendEmailRequest(client.email, client.name);
-    } else if (client.preferredContact === 'sms') {
-      await this.sendSMSRequest(client.phone, client.name);
-    } else {
+    if (client.preferredContact === 'email' && client.email) {
+      await this.sendEmailRequest(reviewRequest, message.email);
+    } else if (client.preferredContact === 'sms' && client.phone) {
+      await this.sendSMSRequest(reviewRequest, message.sms);
+    } else if (client.email) {
       // Default to email
-      await this.sendEmailRequest(client.email, client.name);
+      await this.sendEmailRequest(reviewRequest, message.email);
     }
   }
 }

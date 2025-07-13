@@ -12,7 +12,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: '../../wp-content/uploads/2024/04/charlotte-immigrant-visa-application-attorneys.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export default function VisaProcessPage() {
   const pageData = {

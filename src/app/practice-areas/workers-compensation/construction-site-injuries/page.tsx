@@ -27,7 +27,10 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Construction Site Injury Lawyers',
-      }
+      },
+    ],
+  },
+};
 
 export default function ConstructionSiteInjuriesPage() {
   const pageData = {

@@ -23,7 +23,10 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Uninsured Motorist Claims Attorney North Carolina',
-      }
+      },
+    ],
+  },
+};
 
 export default function UninsuredMotoristPage() {
   const pageData = {

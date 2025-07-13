@@ -27,7 +27,10 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'North Carolina Traffic Violations Attorney',
-      }
+      },
+    ],
+  },
+};
 
 export default function TrafficOffensesPage() {
   const pageData = {

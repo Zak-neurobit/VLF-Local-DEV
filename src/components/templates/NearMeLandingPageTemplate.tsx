@@ -213,7 +213,7 @@ export function NearMeLandingPageTemplate({
                     <div className="text-[#C9974D]">{'★'.repeat(testimonial.rating)}</div>
                     <span className="ml-2 text-sm opacity-75">{testimonial.date}</span>
                   </div>
-                  <p className="mb-4 italic">"{testimonial.text}"</p>
+                  <p className="mb-4 italic">&ldquo;{testimonial.text}&rdquo;</p>
                   <p className="font-semibold">- {testimonial.author}</p>
                 </div>
               ))}
@@ -267,7 +267,7 @@ export function NearMeLandingPageTemplate({
               Need a {service} Near You in {location}?
             </h2>
             <p className="text-xl mb-8">
-              Don't wait - North Carolina law has strict deadlines. Get your FREE consultation
+              Don&apos;t wait - North Carolina law has strict deadlines. Get your FREE consultation
               today!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

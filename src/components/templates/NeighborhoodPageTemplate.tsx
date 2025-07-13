@@ -404,7 +404,7 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                         </span>
                       ))}
                     </div>
-                    <p className="text-gray-300 mb-4 italic">"{testimonial.text}"</p>
+                    <p className="text-gray-300 mb-4 italic">&ldquo;{testimonial.text}&rdquo;</p>
                     <div className="text-sm">
                       <p className="font-semibold text-white">{testimonial.author}</p>
                       <p className="text-gray-400">{testimonial.location}</p>
@@ -456,7 +456,7 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                 {neighborhood.name} Residents: Get Help Today
               </h2>
               <p className="text-xl text-black/80 mb-8">
-                Don't wait to get the legal help you need. We're here for our {neighborhood.name}{' '}
+                Don&apos;t wait to get the legal help you need. We&apos;re here for our {neighborhood.name}{' '}
                 neighbors 24/7.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

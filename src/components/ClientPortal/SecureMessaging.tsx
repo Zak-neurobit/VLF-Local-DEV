@@ -58,7 +58,14 @@ interface Conversation {
   starred: boolean;
 }
 
-export default function SecureMessaging({ clientData }: { clientData: any }) {
+interface ClientData {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+}
+
+export default function SecureMessaging({ clientData }: { clientData: ClientData }) {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);

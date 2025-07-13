@@ -354,7 +354,7 @@ export default function PedestrianAccidentsPage() {
           {/* Contributory Negligence */}
           <section>
             <h2 className="text-3xl font-bold text-primary mb-8">
-              Overcoming North Carolina's Contributory Negligence
+              Overcoming North Carolina&apos;s Contributory Negligence
             </h2>
             <div className="bg-red-900/20 backdrop-blur-sm rounded-lg p-8 border border-red-500/30">
               <div className="text-center mb-6">
@@ -371,7 +371,7 @@ export default function PedestrianAccidentsPage() {
                   <h4 className="font-bold text-red-400 mb-4">❌ Insurance Company Tactics:</h4>
                   <ul className="space-y-2 text-red-200">
                     <li>• Claiming pedestrian was jaywalking</li>
-                    <li>• Arguing pedestrian wasn't paying attention</li>
+                    <li>• Arguing pedestrian wasn&apos;t paying attention</li>
                     <li>• Alleging dark clothing reduced visibility</li>
                     <li>• Suggesting pedestrian was intoxicated</li>
                     <li>• Blaming pedestrian for being on phone</li>

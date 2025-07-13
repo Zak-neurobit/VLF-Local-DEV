@@ -376,7 +376,5 @@ export default function DacaPage() {
         </div>
       }
     />
-
-  );
   );
 }

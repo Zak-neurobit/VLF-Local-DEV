@@ -21,7 +21,10 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/images/dwi-defense.jpg',
-      }
+      },
+    ],
+  },
+};
 
 export default function DwiDrunkDrivingPage() {
   const pageData = {

@@ -23,7 +23,10 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Emergency Vehicle Accident Attorney North Carolina',
-      }
+      },
+    ],
+  },
+};
 
 export default function EmergencyVehicleAccidentsPage() {
   const pageData = {

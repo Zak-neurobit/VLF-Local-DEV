@@ -18,7 +18,10 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Domestic Violence Defense Lawyers',
-      }
+      },
+    ],
+  },
+};
 
 export default function DomesticViolencePage() {
   const pageData = {

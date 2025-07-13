@@ -20,6 +20,11 @@ export function MorphingText({
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentText = texts[currentIndex];
 
+  // Call all hooks unconditionally at the top level
+  const scrambleResult = useTextScramble(currentText);
+  const glitchResult = useGlitchText(currentText);
+  const typewriterResult = useTypewriter(currentText);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex(prev => (prev + 1) % texts.length);
@@ -29,27 +34,27 @@ export function MorphingText({
   }, [texts.length, interval]);
 
   if (type === 'scramble') {
-    const { ref, displayText } = useTextScramble(currentText);
+    const { ref, displayText } = scrambleResult;
     return (
-      <span ref={ref as any} className={className}>
+      <span ref={ref as React.RefObject<HTMLSpanElement>} className={className}>
         {displayText}
       </span>
     );
   }
 
   if (type === 'glitch') {
-    const { ref, glitchedText } = useGlitchText(currentText);
+    const { ref, glitchedText } = glitchResult;
     return (
-      <span ref={ref as any} className={className}>
+      <span ref={ref as React.RefObject<HTMLSpanElement>} className={className}>
         {glitchedText}
       </span>
     );
   }
 
   if (type === 'typewriter') {
-    const { ref, displayText } = useTypewriter(currentText);
+    const { ref, displayText } = typewriterResult;
     return (
-      <span ref={ref as any} className={className}>
+      <span ref={ref as React.RefObject<HTMLSpanElement>} className={className}>
         {displayText}
       </span>
     );

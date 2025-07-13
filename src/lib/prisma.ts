@@ -2,12 +2,12 @@ import { PrismaClient } from '@prisma/client';
 
 // Use console logging in edge runtime
 const dbLogger = {
-  query: (query: string, params?: any[], duration?: number) => {
+  query: (query: string, params?: unknown[], duration?: number) => {
     if (process.env.NODE_ENV === 'development') {
       console.log(`[DB Query] ${duration}ms - ${query.substring(0, 100)}...`);
     }
   },
-  error: (operation: string, error: any) => {
+  error: (operation: string, error: unknown) => {
     console.error(`[DB Error] ${operation}:`, error);
   },
   transaction: (id: string, status: string) => {
@@ -16,7 +16,9 @@ const dbLogger = {
 };
 
 declare global {
+  // eslint-disable-next-line no-var
   var prisma: PrismaClient | null;
+  // eslint-disable-next-line no-var
   var prismaConnectionChecked: boolean;
 }
 
@@ -26,13 +28,13 @@ class MockPrismaClient {
     findUnique: async () => null,
     findFirst: async () => null,
     findMany: async () => [],
-    create: async (args: any) => ({
+    create: async (args: { data: Record<string, unknown> }) => ({
       id: 'mock-' + Date.now(),
       ...args.data,
       createdAt: new Date(),
       updatedAt: new Date(),
     }),
-    update: async (args: any) => ({
+    update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({
       id: args.where.id || 'mock',
       ...args.data,
       updatedAt: new Date(),
@@ -42,7 +44,7 @@ class MockPrismaClient {
   };
 
   userActivity = {
-    create: async (args: any) => ({
+    create: async (args: { data: Record<string, unknown> }) => ({
       id: 'mock-' + Date.now(),
       ...args.data,
       createdAt: new Date(),
@@ -51,12 +53,12 @@ class MockPrismaClient {
 
   account = {
     findUnique: async () => null,
-    create: async (args: any) => ({ id: 'mock-' + Date.now(), ...args.data }),
+    create: async (args: { data: Record<string, unknown> }) => ({ id: 'mock-' + Date.now(), ...args.data }),
   };
 
   session = {
     findUnique: async () => null,
-    create: async (args: any) => ({ id: 'mock-' + Date.now(), ...args.data }),
+    create: async (args: { data: Record<string, unknown> }) => ({ id: 'mock-' + Date.now(), ...args.data }),
     delete: async () => ({ id: 'deleted' }),
   };
 
@@ -68,7 +70,7 @@ class MockPrismaClient {
     console.log('[MockPrisma] Disconnect called (no-op)');
   }
 
-  async $transaction(fn: any) {
+  async $transaction(fn: (client: MockPrismaClient) => Promise<unknown>) {
     return fn(this);
   }
 

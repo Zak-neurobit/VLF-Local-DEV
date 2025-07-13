@@ -7,7 +7,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: '',
     description: '',
-  }
+  },
+};
 
 export default function PedestrianHitByCarPage() {
   const pageData = {

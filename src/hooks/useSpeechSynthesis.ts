@@ -4,7 +4,7 @@ interface UseSpeechSynthesisOptions {
   language: 'en' | 'es';
   onStart?: () => void;
   onEnd?: () => void;
-  onError?: (error: any) => void;
+  onError?: (error: SpeechSynthesisErrorEvent) => void;
 }
 
 export function useSpeechSynthesis({

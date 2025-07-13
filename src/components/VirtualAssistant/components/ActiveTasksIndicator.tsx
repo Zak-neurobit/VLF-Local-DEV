@@ -2,8 +2,14 @@
 
 import React from 'react';
 
+interface Task {
+  id: string;
+  name: string;
+  status: string;
+}
+
 interface ActiveTasksIndicatorProps {
-  activeTasks: any[];
+  activeTasks: Task[];
   language: 'en' | 'es';
 }
 

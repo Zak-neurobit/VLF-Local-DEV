@@ -53,7 +53,12 @@ export class LeadValidationAgent extends Agent {
     language?: string;
     practiceArea?: string;
     urgencyIndicators?: string[];
-    previousInteractions?: any[];
+    previousInteractions?: Array<{
+      type: string;
+      date: string;
+      outcome?: string;
+      notes?: string;
+    }>;
   }): Promise<LeadScore> {
     try {
       // Analyze lead quality factors

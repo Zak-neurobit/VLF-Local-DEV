@@ -75,8 +75,10 @@ export function SpeedOptimizer() {
       // First Input Delay
       const fidObserver = new PerformanceObserver(list => {
         const entries = list.getEntries();
-        entries.forEach((entry: any) => {
-          console.log('FID:', entry.processingStart - entry.startTime);
+        entries.forEach((entry: PerformanceEntry & { processingStart?: number; startTime: number }) => {
+          if (entry.processingStart) {
+            console.log('FID:', entry.processingStart - entry.startTime);
+          }
         });
       });
 
@@ -86,8 +88,8 @@ export function SpeedOptimizer() {
       let clsValue = 0;
       const clsObserver = new PerformanceObserver(list => {
         const entries = list.getEntries();
-        entries.forEach((entry: any) => {
-          if (!entry.hadRecentInput) {
+        entries.forEach((entry: PerformanceEntry & { hadRecentInput?: boolean; value?: number }) => {
+          if (!entry.hadRecentInput && entry.value) {
             clsValue += entry.value;
             console.log('CLS:', clsValue);
           }

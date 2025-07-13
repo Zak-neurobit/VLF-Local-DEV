@@ -9,7 +9,8 @@ export const metadata: Metadata = {
     title: 'Theft, Larceny & Shoplifting Defense Attorney | Vasquez Law Firm',
     description: 'Protect your future with experienced theft crime defense. Free consultation available.',
     images: ['/images/practice-areas/theft-defense.jpg'],
-  }
+  },
+};
 
 export default function TheftLarcenyShopliftingPage() {
   const pageData = {

@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 export interface CrewAITaskStatus {
   taskId: string;
   status: 'pending' | 'in-progress' | 'completed' | 'failed';
-  result?: any;
+  result?: unknown;
   error?: string;
   progress?: {
     totalSteps: number;
@@ -244,7 +244,7 @@ export const useCrewAI = () => {
   );
 
   const bookAppointment = useCallback(
-    async (userId: string, slot: any, appointmentRequest: any) => {
+    async (userId: string, slot: { date: string; time: string; duration: number }, appointmentRequest: { type: string; notes?: string }) => {
       setIsLoading(true);
       try {
         const response = await fetch('/api/crewai/appointment-scheduling', {

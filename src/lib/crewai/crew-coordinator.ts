@@ -34,10 +34,10 @@ export interface CrewTask {
     | 'multi-step';
   priority: 'low' | 'medium' | 'high' | 'urgent';
   userId: string;
-  data: any; // Can be any request type
+  data: unknown; // Can be any request type
   dependencies?: string[];
   status: 'pending' | 'in-progress' | 'completed' | 'failed';
-  result?: any;
+  result?: unknown;
   error?: string;
   createdAt: Date;
   completedAt?: Date;
@@ -47,7 +47,7 @@ export interface MultiStepWorkflow {
   steps: {
     agent: string;
     action: string;
-    data: any;
+    data: unknown;
   }[];
   currentStep: number;
   results: unknown[];
@@ -83,10 +83,10 @@ export class CrewCoordinator {
     return CrewCoordinator.instance;
   }
 
-  async executeTask(task: CrewTask): Promise<any> {
+  async executeTask(task: CrewTask): Promise<unknown> {
     const startTime = new Date();
     let status: 'success' | 'failure' = 'success';
-    let result: any;
+    let result: unknown;
     let error: string | undefined;
 
     try {
@@ -366,7 +366,7 @@ export class CrewCoordinator {
   }
 
   private async executeMultiStepWorkflow(workflow: MultiStepWorkflow) {
-    const results = [];
+    const results: unknown[] = [];
 
     for (let i = workflow.currentStep; i < workflow.steps.length; i++) {
       const step = workflow.steps[i];
@@ -374,27 +374,27 @@ export class CrewCoordinator {
 
       switch (step.agent) {
         case 'legal-consultation':
-          stepResult = await this.legalConsultationAgent.analyze(step.data);
+          stepResult = await this.legalConsultationAgent.analyze(step.data as LegalConsultationRequest);
           break;
 
         case 'appointment-scheduling':
-          stepResult = await this.appointmentSchedulingAgent.findAvailableSlots(step.data);
+          stepResult = await this.appointmentSchedulingAgent.findAvailableSlots(step.data as AppointmentRequest);
           break;
 
         case 'document-analysis':
-          stepResult = await this.documentAnalysisAgent.analyzeDocument(step.data);
+          stepResult = await this.documentAnalysisAgent.analyzeDocument(step.data as DocumentAnalysisRequest);
           break;
 
         case 'competitive-analysis':
-          stepResult = await this.competitiveAnalysisAgent.analyzeCompetition(step.data);
+          stepResult = await this.competitiveAnalysisAgent.analyzeCompetition(step.data as CompetitorAnalysisRequest);
           break;
 
         case 'social-media-monitoring':
-          stepResult = await this.socialMediaMonitoringAgent.monitorTrendingTopics(step.data);
+          stepResult = await this.socialMediaMonitoringAgent.monitorTrendingTopics(step.data as SocialMediaMonitoringRequest);
           break;
 
         case 'seo-blog-generation':
-          stepResult = await this.seoBlogGenerationAgent.generateSEOBlog(step.data);
+          stepResult = await this.seoBlogGenerationAgent.generateSEOBlog(step.data as SEOBlogGenerationRequest);
           break;
 
         default:

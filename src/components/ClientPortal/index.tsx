@@ -155,7 +155,16 @@ export const ClientPortal: React.FC = () => {
 };
 
 // Case Overview Component
-const CaseOverview: React.FC<{ metrics: any }> = ({ metrics }) => {
+interface CaseMetrics {
+  status: string;
+  nextDeadline: Date;
+  completedTasks: number;
+  totalTasks: number;
+  messages: number;
+  documents: number;
+}
+
+const CaseOverview: React.FC<{ metrics: CaseMetrics }> = ({ metrics }) => {
   return (
     <div className="space-y-6">
       {/* Status Card */}
@@ -552,7 +561,13 @@ const NotificationBell: React.FC<{ unread: number }> = ({ unread }) => (
   </button>
 );
 
-const MessageBubble: React.FC<{ message: any }> = ({ message }) => (
+interface Message {
+  sender: 'client' | 'attorney';
+  content: string;
+  timestamp: Date;
+}
+
+const MessageBubble: React.FC<{ message: Message }> = ({ message }) => (
   <div className={`flex ${message.sender === 'client' ? 'justify-end' : 'justify-start'}`}>
     <div
       className={`max-w-xs p-3 rounded-lg ${
@@ -565,7 +580,14 @@ const MessageBubble: React.FC<{ message: any }> = ({ message }) => (
   </div>
 );
 
-const TimelineEvent: React.FC<{ event: any; isLast: boolean }> = ({ event, isLast }) => (
+interface TimelineEventData {
+  status: 'completed' | 'in-progress' | 'pending';
+  title: string;
+  description: string;
+  date: Date;
+}
+
+const TimelineEvent: React.FC<{ event: TimelineEventData; isLast: boolean }> = ({ event, isLast }) => (
   <div className="relative flex items-start">
     <div
       className={`absolute left-8 w-4 h-4 rounded-full -translate-x-1/2 ${
