@@ -196,8 +196,8 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({
           success: true,
           planId: plan.id,
-          monthlyAmount: (plan as PaymentPlan).monthlyAmount,
-          nextPaymentDate: (plan as PaymentPlan).nextPaymentDate,
+          monthlyAmount: plan.monthlyAmount,
+          nextPaymentDate: plan.nextPaymentDate,
         });
       }
 

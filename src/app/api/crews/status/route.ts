@@ -105,7 +105,14 @@ export async function GET(_request: NextRequest): Promise<NextResponse> {
         averageExecutionTime:
           agentStatuses.reduce((sum, a) => sum + (a.metrics?.averageExecutionTime || 0), 0) /
           agentStatuses.length,
-        systemLoad: (process as ProcessWithLoadAvg).loadavg ? (process as ProcessWithLoadAvg).loadavg()![0] : 0,
+        systemLoad: (() => {
+          const processWithLoadAvg = process as ProcessWithLoadAvg;
+          if (processWithLoadAvg.loadavg && typeof processWithLoadAvg.loadavg === 'function') {
+            const loadAvgResult = processWithLoadAvg.loadavg();
+            return loadAvgResult?.[0] || 0;
+          }
+          return 0;
+        })(),
       },
     };
 

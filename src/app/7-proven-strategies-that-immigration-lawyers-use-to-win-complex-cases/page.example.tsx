@@ -78,15 +78,22 @@ export default function SevenProvenStrategiesThatImmigrationLawyersUseToWinCompl
         </div>
       </div>
     `,
-    featuredImage:
-      'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/7-Proven-Strategies-That-Immigration-Lawyers-Use-to-Win-Complex-Cases.jpg',
+    featuredImage: {
+      url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/7-Proven-Strategies-That-Immigration-Lawyers-Use-to-Win-Complex-Cases.jpg',
+      alt: '7 Proven Strategies That Immigration Lawyers Use to Win Complex Cases',
+      width: 1200,
+      height: 630,
+    },
     practiceArea: 'immigration',
     language: 'en',
     publishedAt: new Date('2025-01-15'),
     readTime: 7,
     author: {
+      id: 'vasquez-law-firm',
       name: 'Vasquez Law Firm',
-      image: '/images/authors/vasquez-law-firm.jpg',
+      email: 'info@vasquezlawnc.com',
+      bio: 'Expert immigration and personal injury attorneys serving North Carolina and Florida',
+      avatar: '/images/authors/vasquez-law-firm.jpg',
     },
     tags: [
       'immigration law',
@@ -96,7 +103,17 @@ export default function SevenProvenStrategiesThatImmigrationLawyersUseToWinCompl
       'green card',
       'deportation defense',
     ],
-    views: 1250,
+    seoTitle: '7 Proven Strategies That Immigration Lawyers Use to Win Complex Cases',
+    seoDescription:
+      'Discover the expert strategies immigration lawyers use to navigate complex cases successfully. Learn how professional legal support can make the difference in your immigration journey.',
+    keywords: [
+      'immigration law',
+      'legal strategy',
+      'immigration lawyer',
+      'USCIS',
+      'green card',
+      'deportation defense',
+    ],
   };
 
   // Related posts would typically be fetched based on tags/category
@@ -106,11 +123,18 @@ export default function SevenProvenStrategiesThatImmigrationLawyersUseToWinCompl
       title: 'Understanding the Immigration Court Process',
       slug: 'understanding-immigration-court-process',
       excerpt: 'A comprehensive guide to navigating immigration court proceedings.',
+      content: '',
       practiceArea: 'immigration',
       language: 'en',
       publishedAt: new Date('2025-01-10'),
       readTime: 5,
-      author: { name: 'Vasquez Law Firm' },
+      author: {
+        id: 'vasquez-law-firm',
+        name: 'Vasquez Law Firm',
+        email: 'info@vasquezlawnc.com',
+        bio: 'Expert immigration and personal injury attorneys',
+        avatar: '/images/authors/vasquez-law-firm.jpg',
+      },
       tags: ['immigration court', 'deportation defense'],
     },
     {
@@ -119,11 +143,18 @@ export default function SevenProvenStrategiesThatImmigrationLawyersUseToWinCompl
       slug: 'common-immigration-application-mistakes',
       excerpt:
         'Learn about the most frequent errors in immigration applications and how to prevent them.',
+      content: '',
       practiceArea: 'immigration',
       language: 'en',
       publishedAt: new Date('2025-01-08'),
       readTime: 6,
-      author: { name: 'Vasquez Law Firm' },
+      author: {
+        id: 'vasquez-law-firm',
+        name: 'Vasquez Law Firm',
+        email: 'info@vasquezlawnc.com',
+        bio: 'Expert immigration and personal injury attorneys',
+        avatar: '/images/authors/vasquez-law-firm.jpg',
+      },
       tags: ['immigration', 'USCIS', 'application tips'],
     },
     {
@@ -131,11 +162,18 @@ export default function SevenProvenStrategiesThatImmigrationLawyersUseToWinCompl
       title: 'Family-Based Immigration: A Complete Guide',
       slug: 'family-based-immigration-guide',
       excerpt: 'Everything you need to know about bringing family members to the United States.',
+      content: '',
       practiceArea: 'immigration',
       language: 'en',
       publishedAt: new Date('2025-01-05'),
       readTime: 8,
-      author: { name: 'Vasquez Law Firm' },
+      author: {
+        id: 'vasquez-law-firm',
+        name: 'Vasquez Law Firm',
+        email: 'info@vasquezlawnc.com',
+        bio: 'Expert immigration and personal injury attorneys',
+        avatar: '/images/authors/vasquez-law-firm.jpg',
+      },
       tags: ['family immigration', 'green card', 'visa'],
     },
   ];

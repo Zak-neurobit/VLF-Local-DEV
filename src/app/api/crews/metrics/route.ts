@@ -15,10 +15,11 @@ interface AgentMetric {
 }
 
 interface SystemMetric {
-  memoryUsage: number;
-  cpuUsage: number;
-  activeConnections: number;
-  queueSize: number;
+  parallelProcessing: boolean;
+  communicationChannels: number;
+  memoryEntries: number;
+  activeWorkflows: number;
+  totalAgents: number;
 }
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
@@ -116,7 +117,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         successfulExecutions: successfulExecutions,
         failedExecutions: totalExecutions - successfulExecutions,
         successRate: totalExecutions > 0 ? successfulExecutions / totalExecutions : 0,
-        errorRate: totalExecutions > 0 ? (totalExecutions - successfulExecutions) / totalExecutions : 0,
+        errorRate:
+          totalExecutions > 0 ? (totalExecutions - successfulExecutions) / totalExecutions : 0,
         averageDuration: agent._avg.duration || 0,
         lastActivity: new Date(), // Would get from actual data
       };

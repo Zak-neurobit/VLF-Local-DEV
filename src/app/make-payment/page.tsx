@@ -71,16 +71,7 @@ export default function MakePaymentPage() {
 
           {/* Payment Form */}
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-            <PaymentForm
-              onSuccess={paymentId => {
-                // Handle successful payment
-                console.log('Payment successful:', paymentId);
-              }}
-              onError={error => {
-                // Handle payment error
-                console.error('Payment error:', error);
-              }}
-            />
+            <PaymentForm />
           </div>
 
           {/* Trust Account Notice */}

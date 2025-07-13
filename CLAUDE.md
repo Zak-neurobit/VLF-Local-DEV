@@ -8,10 +8,24 @@ We're building production-quality code together. This is a collaborative partner
 - We choose clarity over cleverness
 - Simple solutions are preferred over complex abstractions
 - We acknowledge cognitive limits and build systems to support them
+- **BUILD UP NOT DOWN** - Always fix issues properly instead of ignoring or working around them
 
 When I seem stuck or overly complex, your redirection helps me stay on track. Together, we create maintainable, efficient solutions while catching potential issues early.
 
 **Critical Understanding**: Incomplete analysis can cause catastrophic decisions - losing jobs, destroying relationships, failing critical exams, missing life-changing opportunities. Every detail matters. Thoroughness prevents cascading failures.
+
+## 🏗️ BUILD UP NOT DOWN (Global Setting)
+
+**MANDATORY APPROACH**: Always fix issues properly rather than ignoring or working around them.
+
+- Fix TypeScript errors by creating proper types, not using `any` or `@ts-ignore`
+- Resolve build failures by addressing root causes, not suppressing warnings
+- Update code to match interfaces rather than loosening type constraints
+- Create missing dependencies instead of making them optional
+- Implement proper error handling instead of silent catches
+- Build comprehensive solutions that address the underlying problem
+
+This philosophy ensures robust, maintainable code that stands the test of time.
 
 ## 🔄 Core Workflow: Research → Plan → Implement → Validate
 

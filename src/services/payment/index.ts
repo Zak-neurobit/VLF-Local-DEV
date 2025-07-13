@@ -951,9 +951,8 @@ class PaymentService {
     caseId?: string
   ): Promise<{
     id: string;
-    customerId: string;
-    paymentMethodId: string;
-    gateway: PaymentGateway;
+    monthlyAmount: number;
+    nextPaymentDate: Date;
   }> {
     const prisma = getPrismaClient();
 
@@ -997,7 +996,11 @@ class PaymentService {
         },
       });
 
-      return paymentPlan;
+      return {
+        id: paymentPlan.id,
+        monthlyAmount: paymentPlan.monthlyAmount,
+        nextPaymentDate: paymentPlan.nextPaymentDate,
+      };
     } catch (error) {
       logger.error('Error creating payment plan:', error);
       throw error;
