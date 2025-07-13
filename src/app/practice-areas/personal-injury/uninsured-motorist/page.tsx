@@ -31,6 +31,8 @@ export const metadata: Metadata = {
 export default function UninsuredMotoristPage() {
   const pageData = {
     practiceArea: 'Uninsured Motorist',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
     heroTitle: 'Uninsured Motorist Attorneys',
     heroSubtitle: 'Experienced legal representation',
     urgencyLevel: 'medium' as const,

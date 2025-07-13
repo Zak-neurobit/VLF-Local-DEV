@@ -53,7 +53,7 @@ export function GravitySimulation() {
       y: number;
       vx: number;
       vy: number;
-      size: number;
+      radius: number;
       color: string;
       life: number;
     }

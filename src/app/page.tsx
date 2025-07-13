@@ -55,23 +55,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <ResourceHintsLite
-        criticalImages={[
-          '/images/BANNER_TRANS.PNG',
-          '/william-vasquez-cutout.png',
-          '/images/LOGO_TRANS.PNG',
-        ]}
-        preconnectDomains={[
-          'https://fonts.gstatic.com',
-          'https://www.googletagmanager.com',
-          'https://www.google-analytics.com',
-        ]}
-        prefetchResources={[
-          '/contact',
-          '/practice-areas/immigration',
-          '/practice-areas/personal-injury',
-        ]}
-      />
+      <ResourceHintsLite />
       <MasterLayout variant="hero" showBreadcrumbs={false}>
         <HomePage />
       </MasterLayout>

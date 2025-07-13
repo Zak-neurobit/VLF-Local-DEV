@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
+import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
 
 export const metadata: Metadata = {
   title:
@@ -275,13 +275,13 @@ export default function TVisaPage() {
   };
 
   return (
-    <ModernPracticeAreaTemplate
+    <ModernPracticeAreaTemplateV2
       title="T Visa Lawyers"
       subtitle="Protecting Human Trafficking Survivors"
       description="Compassionate T visa attorneys providing confidential, trauma-informed legal representation for trafficking survivors. We fight for your protection, safety, and legal status with specialized experience in both labor and sex trafficking cases."
       services={services}
       faqs={faqs}
-      urgency="critical"
+      urgencyLevel="critical"
       content={
         <div className="space-y-12">
           {/* Types of Trafficking */}

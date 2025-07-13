@@ -24,3 +24,19 @@ export { ModernHero } from './modern-hero';
 export { ModernNav } from './modern-nav';
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
 export { TestimonialCarousel } from './testimonial-carousel';
+export { Alert, AlertTitle, AlertDescription } from './alert';
+export { Badge, badgeVariants, type BadgeProps } from './badge';
+export { Select, SelectOption, type SelectProps } from './select';
+export {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from './dialog';
+export { Progress, type ProgressProps } from './progress';
+export { Switch, type SwitchProps } from './switch';
+export { Label, type LabelProps } from './label';

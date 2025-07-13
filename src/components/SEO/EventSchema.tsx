@@ -5,6 +5,7 @@ import {
   generateEmergencyConsultationEvent,
   generateOfficeConsultationEvents,
   CONSULTATION_EVENT_TYPES,
+  type ConsultationEventData,
 } from '@/lib/seo/event-schema-generator';
 
 interface EventSchemaProps {
@@ -84,7 +85,23 @@ export function EventSchema({
 
   // Add custom event if provided
   if (customEvent) {
-    schemas.push(generateConsultationEventSchema(customEvent));
+    const transformedEvent: ConsultationEventData = {
+      name: customEvent.name,
+      description: customEvent.description,
+      startDate: customEvent.startDate,
+      endDate: customEvent.endDate,
+      location: {
+        name: customEvent.location.name,
+        address: {
+          street: customEvent.location.address || '',
+          city: customEvent.location.city || '',
+          state: customEvent.location.state || '',
+          zip: customEvent.location.zipCode || '',
+        },
+      },
+      isVirtual: customEvent.isVirtual,
+    };
+    schemas.push(generateConsultationEventSchema(transformedEvent));
   }
 
   return (

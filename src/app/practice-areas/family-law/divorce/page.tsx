@@ -35,6 +35,8 @@ export const metadata: Metadata = {
 export default function DivorcePage() {
   const pageData = {
     practiceArea: 'Divorce',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
     heroTitle: 'Divorce Attorneys',
     heroSubtitle: 'Experienced legal representation',
     urgencyLevel: 'medium' as const,

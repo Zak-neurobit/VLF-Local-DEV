@@ -35,6 +35,8 @@ export const metadata: Metadata = {
 export default function DrunkDriverAccidentsPage() {
   const pageData = {
     practiceArea: 'Drunk Driver Accidents',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
     heroTitle: 'Drunk Driver Accidents Attorneys',
     heroSubtitle: 'Experienced legal representation',
     urgencyLevel: 'medium' as const,

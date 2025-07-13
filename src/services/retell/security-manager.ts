@@ -412,7 +412,7 @@ export class SecurityManager {
         await emailService.send({
           to: process.env.SECURITY_ALERT_EMAIL,
           subject: `High-Risk Security Event: ${event.type}`,
-          body: `
+          text: `
             High-risk security event detected in Retell integration:
             
             Type: ${event.type}

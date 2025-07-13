@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
+import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
 
 export const metadata: Metadata = {
   title: 'VAWA & U Visa Lawyers NC & FL | Crime Victim Immigration Protection | Vasquez Law Firm',
@@ -271,13 +271,13 @@ export default function VawaUVisaPage() {
   };
 
   return (
-    <ModernPracticeAreaTemplate
+    <ModernPracticeAreaTemplateV2
       title="VAWA & U Visa Lawyers"
       subtitle="Protection for Crime Victims & Survivors"
       description="Confidential VAWA self-petition and U visa assistance for domestic violence survivors and crime victims. Our trauma-informed attorneys provide safe, private legal representation while protecting your safety and securing your immigration status."
       services={services}
       faqs={faqs}
-      urgency="critical"
+      urgencyLevel="critical"
       content={
         <div className="space-y-12">
           {/* Qualifying Crimes */}

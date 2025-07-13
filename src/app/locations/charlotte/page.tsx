@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Script from 'next/script';
 import ModernLocationTemplate from '@/components/templates/ModernLocationTemplate';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
+import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
 export const metadata: Metadata = {
   title: 'Charlotte Immigration Lawyers | Personal Injury Attorneys - Vasquez Law Firm',

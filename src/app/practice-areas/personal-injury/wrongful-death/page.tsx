@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
+import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
 
 export const metadata: Metadata = {
   title: 'Wrongful Death Lawyers NC & FL | Family Loss Attorneys | Vasquez Law Firm',
@@ -270,13 +270,13 @@ export default function WrongfulDeathPage() {
   };
 
   return (
-    <ModernPracticeAreaTemplate
+    <ModernPracticeAreaTemplateV2
       title="Wrongful Death Lawyers"
       subtitle="Compassionate Advocacy for Grieving Families"
       description="Compassionate wrongful death attorneys fighting for justice and maximum compensation when negligence takes the life of your loved one. We handle your case with respect while pursuing aggressive legal action."
       services={services}
       faqs={faqs}
-      urgency="critical"
+      urgencyLevel="critical"
       content={
         <div className="space-y-12">
           {/* Compassionate Support */}

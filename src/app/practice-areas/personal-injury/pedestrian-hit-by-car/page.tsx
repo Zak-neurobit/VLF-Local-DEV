@@ -13,6 +13,8 @@ export const metadata: Metadata = {
 export default function PedestrianHitByCarPage() {
   const pageData = {
     practiceArea: 'Pedestrian Hit By Car',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
     heroTitle: 'Pedestrian Hit By Car Attorneys',
     heroSubtitle: 'Experienced legal representation',
     urgencyLevel: 'medium' as const,

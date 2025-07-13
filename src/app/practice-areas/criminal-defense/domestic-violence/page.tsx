@@ -26,6 +26,8 @@ export const metadata: Metadata = {
 export default function DomesticViolencePage() {
   const pageData = {
     practiceArea: 'Domestic Violence',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
     heroTitle: 'Domestic Violence Attorneys',
     heroSubtitle: 'Experienced legal representation',
     urgencyLevel: 'medium' as const,

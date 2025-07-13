@@ -3,42 +3,7 @@
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
-// Global type declarations for external analytics libraries
-declare global {
-  interface Window {
-    gtag?: (
-      command: string,
-      action: string,
-      params: {
-        event_category?: string;
-        event_label?: string;
-        language?: string;
-        page_location?: string;
-        page_title?: string;
-        practice_area?: string;
-        custom_map?: Record<string, string>;
-        value?: number;
-        name?: string;
-        method?: string;
-        content_type?: string;
-        content_id?: string;
-      }
-    ) => void;
-    fbq?: (
-      command: string,
-      action: string,
-      params: {
-        content_type?: string;
-        content_ids?: string[];
-        content_name?: string;
-        content_category?: string;
-        language?: string;
-        content_id?: string;
-        method?: string;
-      }
-    ) => void;
-  }
-}
+// Use global gtag and fbq types
 
 interface BlogAnalyticsProps {
   postSlug?: string;

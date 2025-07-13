@@ -13,6 +13,8 @@ export const metadata: Metadata = {
 export default function AlimonySpousalSupportPage() {
   const pageData = {
     practiceArea: 'Alimony Spousal Support',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
     heroTitle: 'Alimony Spousal Support Attorneys',
     heroSubtitle: 'Experienced legal representation',
     urgencyLevel: 'medium' as const,

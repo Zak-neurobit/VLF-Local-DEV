@@ -26,6 +26,8 @@ export const metadata: Metadata = {
 export default function DrugCrimesPage() {
   const pageData = {
     practiceArea: 'Drug Crimes',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
     heroTitle: 'Drug Crimes Attorneys',
     heroSubtitle: 'Experienced legal representation',
     urgencyLevel: 'medium' as const,

@@ -36,6 +36,8 @@ export const metadata: Metadata = {
 export default function PremisesLiabilityPage() {
   const pageData = {
     practiceArea: 'Premises Liability',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
     heroTitle: 'Premises Liability Attorneys',
     heroSubtitle: 'Experienced legal representation',
     urgencyLevel: 'medium' as const,

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
+import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
 export const metadata: Metadata = {
   title: 'Bicycle Accident Lawyers NC & FL | Cyclist Injury Attorneys | Vasquez Law Firm',
   description:
@@ -277,13 +277,13 @@ export default function BicycleAccidentsPage() {
   };
 
   return (
-    <ModernPracticeAreaTemplate
+    <ModernPracticeAreaTemplateV2
       title="Bicycle Accident Lawyers"
       subtitle="Fighting for Cyclists&apos; Rights on the Road"
       description="Expert bicycle accident attorneys protecting cyclists injured by negligent drivers. We overcome North Carolina's contributory negligence law and secure maximum compensation for serious bicycle injuries."
       services={services}
       faqs={faqs}
-      urgency="urgent"
+      urgencyLevel="high"
       content={
         <div className="space-y-12">
           {/* Common Accident Types */}

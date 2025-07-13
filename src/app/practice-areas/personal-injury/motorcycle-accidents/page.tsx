@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
+import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
 
 export const metadata: Metadata = {
   title: 'Motorcycle Accident Lawyers NC & FL | Biker Injury Attorneys | Vasquez Law Firm',
@@ -281,13 +281,13 @@ export default function MotorcycleAccidentsPage() {
   };
 
   return (
-    <ModernPracticeAreaTemplate
+    <ModernPracticeAreaTemplateV2
       title="Motorcycle Accident Lawyers"
       subtitle="Fighting for Bikers Against Unfair Bias"
       description="Expert motorcycle accident attorneys protecting bikers injured by negligent drivers. We overcome North Carolina's contributory negligence law and fight anti-motorcycle bias to secure maximum compensation."
       services={services}
       faqs={faqs}
-      urgency="critical"
+      urgencyLevel="critical"
       content={
         <div className="space-y-12">
           {/* NC Statistics */}

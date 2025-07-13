@@ -55,6 +55,7 @@ export default function ModernHero({ language }: ModernHeroProps) {
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const content = {
     en: {

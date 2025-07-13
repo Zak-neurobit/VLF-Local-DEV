@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Script from 'next/script';
 import ModernServiceLocationTemplate from '@/components/templates/ModernServiceLocationTemplate';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
+import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
 export const metadata: Metadata = {
   title: 'Charlotte Immigration Lawyer - YO PELEO POR TI™ | Vasquez Law Firm',

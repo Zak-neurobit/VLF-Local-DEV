@@ -1,6 +1,7 @@
 import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
 import type { BlogPost } from '@/types/blog';
+import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
 export const metadata: Metadata = {
   title:
@@ -88,13 +89,7 @@ export default function SevenProvenStrategiesThatImmigrationLawyersUseToWinCompl
     language: 'en',
     publishedAt: new Date('2025-01-15'),
     readTime: 7,
-    author: {
-      id: 'vasquez-law-firm',
-      name: 'Vasquez Law Firm',
-      email: 'info@vasquezlawnc.com',
-      bio: 'Expert immigration and personal injury attorneys serving North Carolina and Florida',
-      avatar: '/images/authors/vasquez-law-firm.jpg',
-    },
+    author: DEFAULT_BLOG_AUTHOR,
     tags: [
       'immigration law',
       'legal strategy',
@@ -128,13 +123,7 @@ export default function SevenProvenStrategiesThatImmigrationLawyersUseToWinCompl
       language: 'en',
       publishedAt: new Date('2025-01-10'),
       readTime: 5,
-      author: {
-        id: 'vasquez-law-firm',
-        name: 'Vasquez Law Firm',
-        email: 'info@vasquezlawnc.com',
-        bio: 'Expert immigration and personal injury attorneys',
-        avatar: '/images/authors/vasquez-law-firm.jpg',
-      },
+      author: DEFAULT_BLOG_AUTHOR,
       tags: ['immigration court', 'deportation defense'],
     },
     {
@@ -148,13 +137,7 @@ export default function SevenProvenStrategiesThatImmigrationLawyersUseToWinCompl
       language: 'en',
       publishedAt: new Date('2025-01-08'),
       readTime: 6,
-      author: {
-        id: 'vasquez-law-firm',
-        name: 'Vasquez Law Firm',
-        email: 'info@vasquezlawnc.com',
-        bio: 'Expert immigration and personal injury attorneys',
-        avatar: '/images/authors/vasquez-law-firm.jpg',
-      },
+      author: DEFAULT_BLOG_AUTHOR,
       tags: ['immigration', 'USCIS', 'application tips'],
     },
     {
@@ -167,13 +150,7 @@ export default function SevenProvenStrategiesThatImmigrationLawyersUseToWinCompl
       language: 'en',
       publishedAt: new Date('2025-01-05'),
       readTime: 8,
-      author: {
-        id: 'vasquez-law-firm',
-        name: 'Vasquez Law Firm',
-        email: 'info@vasquezlawnc.com',
-        bio: 'Expert immigration and personal injury attorneys',
-        avatar: '/images/authors/vasquez-law-firm.jpg',
-      },
+      author: DEFAULT_BLOG_AUTHOR,
       tags: ['family immigration', 'green card', 'visa'],
     },
   ];

@@ -36,6 +36,8 @@ export const metadata: Metadata = {
 export default function MedicalMalpracticePage() {
   const pageData = {
     practiceArea: 'Medical Malpractice',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
     heroTitle: 'Medical Malpractice Attorneys',
     heroSubtitle: 'Experienced legal representation',
     urgencyLevel: 'medium' as const,

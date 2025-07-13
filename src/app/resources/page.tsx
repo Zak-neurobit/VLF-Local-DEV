@@ -1,10 +1,13 @@
 import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
+import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
 export const metadata: Metadata = {
   title: 'Legal Resources | Vasquez Law Firm',
-  description: 'Access helpful legal resources, guides, forms, and information about immigration, personal injury, workers compensation, criminal defense, and family law in North Carolina and Florida.',
-  keywords: 'legal resources, immigration forms, legal guides, North Carolina law, Florida law, legal help, free consultation',
+  description:
+    'Access helpful legal resources, guides, forms, and information about immigration, personal injury, workers compensation, criminal defense, and family law in North Carolina and Florida.',
+  keywords:
+    'legal resources, immigration forms, legal guides, North Carolina law, Florida law, legal help, free consultation',
   openGraph: {
     title: 'Legal Resources | Vasquez Law Firm',
     description: 'Access helpful legal resources and guides for your legal needs.',
@@ -31,9 +34,7 @@ export default function ResourcesPage() {
     language: 'en' as const,
     publishedAt: new Date(),
     readTime: 5,
-    author: {
-      name: 'Vasquez Law Firm',
-    },
+    author: DEFAULT_BLOG_AUTHOR,
     tags: [], // TODO: Add relevant tags
   };
 

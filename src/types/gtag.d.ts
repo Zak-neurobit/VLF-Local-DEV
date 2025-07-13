@@ -6,6 +6,20 @@ declare global {
       config?: Gtag.ControlParams | Gtag.EventParams | Gtag.ConfigParams | Date
     ) => void;
     dataLayer?: Array<unknown>;
+    fbq?: (
+      command: string,
+      action: string,
+      params?: {
+        content_type?: string;
+        content_ids?: string[];
+        content_name?: string;
+        content_category?: string;
+        language?: string;
+        content_id?: string;
+        method?: string;
+        [key: string]: any;
+      }
+    ) => void;
   }
 }
 

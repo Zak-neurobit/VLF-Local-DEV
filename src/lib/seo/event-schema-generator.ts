@@ -1,7 +1,7 @@
 // Event schema generator for free consultations and legal events
 import { Event, WithContext } from 'schema-dts';
 
-interface ConsultationEventData {
+export interface ConsultationEventData {
   name: string;
   description: string;
   startDate: string;

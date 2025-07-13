@@ -329,7 +329,7 @@ const SecureMessaging: React.FC = () => {
     const encrypted = isEncrypted ? await encryptMessage(newMessage) : newMessage;
 
     // Send via secure channel
-    const message = {
+    const message: SecureMessage = {
       id: Date.now().toString(),
       content: encrypted,
       sender: 'client',
@@ -391,7 +391,7 @@ const SecureMessaging: React.FC = () => {
 
 // Case Timeline Component
 const CaseTimeline: React.FC = () => {
-  const events = [
+  const events: TimelineEventData[] = [
     {
       id: '1',
       date: new Date('2024-01-15'),

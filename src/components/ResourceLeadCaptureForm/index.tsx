@@ -190,9 +190,9 @@ export default function ResourceLeadCaptureForm({
       // Track conversion
       if (
         typeof window !== 'undefined' &&
-        (window as Window & { gtag?: (...args: unknown[]) => void }).gtag
+        window.gtag
       ) {
-        (window as Window & { gtag?: (...args: unknown[]) => void }).gtag(
+        window.gtag(
           'event',
           'generate_lead',
           {

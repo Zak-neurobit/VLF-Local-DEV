@@ -130,7 +130,7 @@ describe('Retell-GHL Integration Tests', () => {
       const mockCreateCall = jest.fn().mockResolvedValue({
         call_id: 'test-call-123',
         agent_id: 'immigration-es-agent',
-      });
+      } as any);
 
       // Mock Retell service
       jest.doMock('../index', () => ({
@@ -210,7 +210,7 @@ describe('Retell-GHL Integration Tests', () => {
               retellCallId: callId,
               ghlContactId: 'contact-123',
               phoneNumber: '+15551234567',
-            }),
+            } as any),
             updateMany: jest.fn(),
           },
         }),
@@ -250,15 +250,15 @@ describe('Retell-GHL Integration Tests', () => {
       const mockRetellService = {
         getCallRecording: jest.fn().mockResolvedValue({
           recording_url: 'https://recordings.retellai.com/test-recording.mp3',
-        }),
-        getCallTranscript: jest.fn().mockResolvedValue(mockTranscript),
+        } as any),
+        getCallTranscript: jest.fn().mockResolvedValue(mockTranscript as any),
         getCall: jest.fn().mockResolvedValue({
           call_id: callId,
           duration_ms: 120000,
           metadata: {
             ghlContactId: 'contact-123',
           },
-        }),
+        } as any),
       };
 
       jest.doMock('../index', () => ({
@@ -282,13 +282,13 @@ describe('Retell-GHL Integration Tests', () => {
       const mockRetellService = {
         getCallRecording: jest.fn().mockResolvedValue({
           recording_url: 'https://recordings.retellai.com/test.mp3',
-        }),
-        getCallTranscript: jest.fn().mockResolvedValue(transcript),
+        } as any),
+        getCallTranscript: jest.fn().mockResolvedValue(transcript as any),
         getCall: jest.fn().mockResolvedValue({
           call_id: callId,
           duration_ms: 120000,
           metadata: { ghlContactId: 'contact-123' },
-        }),
+        } as any),
       };
 
       jest.doMock('../index', () => ({
@@ -486,17 +486,17 @@ describe('Retell-GHL Integration Tests', () => {
       const mockRetellService = {
         getCallRecording: jest.fn().mockResolvedValue({
           recording_url: 'https://recordings.retellai.com/test.mp3',
-        }),
+        } as any),
         getCallTranscript: jest
           .fn()
           .mockResolvedValue(
-            'Hello, I need help with my immigration case. The service was very helpful.'
+            'Hello, I need help with my immigration case. The service was very helpful.' as any
           ),
         getCall: jest.fn().mockResolvedValue({
           call_id: callId,
           duration_ms: 180000,
           metadata: { ghlContactId: contactId },
-        }),
+        } as any),
       };
 
       jest.doMock('../index', () => ({
@@ -634,15 +634,15 @@ describe('Performance Tests', () => {
       const mockRetellService = {
         getCallRecording: jest.fn().mockResolvedValue({
           recording_url: `https://recordings.retellai.com/test-${i}.mp3`,
-        }),
+        } as any),
         getCallTranscript: jest
           .fn()
-          .mockResolvedValue(`Test transcript ${i} with various content for analysis.`),
+          .mockResolvedValue(`Test transcript ${i} with various content for analysis.` as any),
         getCall: jest.fn().mockResolvedValue({
           call_id: `test-call-${i}`,
           duration_ms: 120000,
           metadata: { ghlContactId: `contact-${i}` },
-        }),
+        } as any),
       };
 
       jest.doMock('../index', () => ({

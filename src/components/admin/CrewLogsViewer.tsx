@@ -26,7 +26,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/ui/custom-select';
 import {
   Dialog,
   DialogContent,
@@ -172,7 +172,7 @@ export const CrewLogsViewer: React.FC = () => {
               {autoRefresh && (
                 <Select
                   value={refreshInterval.toString()}
-                  onValueChange={value => setRefreshInterval(parseInt(value))}
+                  onValueChange={(value: string) => setRefreshInterval(parseInt(value))}
                 >
                   <SelectTrigger className="w-24">
                     <SelectValue />
@@ -194,7 +194,7 @@ export const CrewLogsViewer: React.FC = () => {
             <div className="flex flex-wrap gap-2">
               <Select
                 value={filters.agent || 'all'}
-                onValueChange={value =>
+                onValueChange={(value: string) =>
                   updateFilters({ agent: value === 'all' ? undefined : value })
                 }
               >
@@ -213,7 +213,7 @@ export const CrewLogsViewer: React.FC = () => {
 
               <Select
                 value={filters.timeRange || '24h'}
-                onValueChange={value => updateFilters({ timeRange: value as '1h' | '6h' | '24h' | '7d' | '30d' })}
+                onValueChange={(value: string) => updateFilters({ timeRange: value as '1h' | '6h' | '24h' | '7d' | '30d' })}
               >
                 <SelectTrigger className="w-32">
                   <SelectValue />
@@ -229,7 +229,7 @@ export const CrewLogsViewer: React.FC = () => {
 
               <Select
                 value={filters.status || 'all'}
-                onValueChange={value =>
+                onValueChange={(value: string) =>
                   updateFilters({ status: value === 'all' ? undefined : (value as 'success' | 'failure') })
                 }
               >
@@ -402,7 +402,7 @@ export const CrewLogsViewer: React.FC = () => {
               <div className="flex items-center gap-2">
                 <Select
                   value={pagination.pageSize.toString()}
-                  onValueChange={value => setPageSize(parseInt(value))}
+                  onValueChange={(value: string) => setPageSize(parseInt(value))}
                 >
                   <SelectTrigger className="w-20">
                     <SelectValue />
@@ -473,7 +473,9 @@ export const CrewLogsViewer: React.FC = () => {
                 <div>
                   <Label className="text-sm text-muted-foreground">Input</Label>
                   <pre className="mt-1 p-3 bg-muted rounded text-sm overflow-x-auto">
-                    {JSON.stringify(showLogDetail.input, null, 2)}
+                    {typeof showLogDetail.input === 'string' 
+                      ? showLogDetail.input 
+                      : JSON.stringify(showLogDetail.input, null, 2)}
                   </pre>
                 </div>
               )}
@@ -482,7 +484,9 @@ export const CrewLogsViewer: React.FC = () => {
                 <div>
                   <Label className="text-sm text-muted-foreground">Output</Label>
                   <pre className="mt-1 p-3 bg-muted rounded text-sm overflow-x-auto">
-                    {JSON.stringify(showLogDetail.output, null, 2)}
+                    {typeof showLogDetail.output === 'string' 
+                      ? showLogDetail.output 
+                      : JSON.stringify(showLogDetail.output, null, 2)}
                   </pre>
                 </div>
               )}

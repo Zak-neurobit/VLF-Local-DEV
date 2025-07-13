@@ -122,7 +122,7 @@ class PaymentService {
           caseId: intent.caseId,
           status: PaymentStatus.PENDING,
           paymentMethod: this.mapPaymentMethodToEnum(method.type),
-          metadata: intent.metadata || {},
+          metadata: intent.metadata as Prisma.InputJsonValue || {},
         },
       });
 
@@ -262,7 +262,7 @@ class PaymentService {
           clientEmail: intent.clientEmail,
           clientName: intent.clientName,
           caseId: intent.caseId || '',
-          ...intent.metadata,
+          ...(intent.metadata ? this.flattenMetadataForStripe(intent.metadata) : {}),
         },
       });
 
@@ -662,13 +662,28 @@ class PaymentService {
 
       switch (payment.gateway) {
         case PaymentGateway.STRIPE:
-          result = await this.processStripeRefund(payment, refundAmount);
+          result = await this.processStripeRefund({
+            id: payment.id,
+            transactionId: payment.transactionId,
+            gateway: payment.gateway,
+            amount: payment.amount,
+            gatewayChargeId: payment.gatewayTransactionId || payment.transactionId,
+            metadata: payment.metadata as Record<string, unknown>,
+          }, refundAmount);
           break;
         case PaymentGateway.LAWPAY:
-          result = await this.processLawPayRefund(payment, refundAmount);
+          result = await this.processLawPayRefund({
+            id: payment.id,
+            transactionId: payment.transactionId,
+            metadata: payment.metadata as Record<string, unknown>,
+          }, refundAmount);
           break;
         case PaymentGateway.AUTHORIZE_NET:
-          result = await this.processAuthorizeNetRefund(payment, refundAmount);
+          result = await this.processAuthorizeNetRefund({
+            id: payment.id,
+            transactionId: payment.transactionId,
+            metadata: payment.metadata as Record<string, unknown>,
+          }, refundAmount);
           break;
       }
 
@@ -695,11 +710,24 @@ class PaymentService {
 
         // Record trust transaction if applicable
         if (payment.accountType === AccountType.TRUST) {
-          await this.recordTrustRefund(payment, refundAmount);
+          await this.recordTrustRefund({
+            id: payment.id,
+            clientName: payment.clientName,
+            clientEmail: payment.clientEmail,
+            amount: payment.amount,
+            caseId: payment.caseId,
+            gatewayTransactionId: payment.gatewayTransactionId,
+          }, refundAmount);
         }
 
         // Send refund notification
-        await this.sendRefundNotification(payment, refundAmount);
+        await this.sendRefundNotification({
+          id: payment.id,
+          clientName: payment.clientName,
+          clientEmail: payment.clientEmail,
+          amount: payment.amount,
+          transactionId: payment.transactionId,
+        }, refundAmount);
       } else {
         await prisma.paymentRefund.update({
           where: { id: refund.id },
@@ -876,9 +904,11 @@ class PaymentService {
   private async recordTrustRefund(
     payment: {
       id: string;
-      clientId?: string | null;
+      clientName?: string | null;
       clientEmail?: string | null;
       amount: number;
+      caseId?: string | null;
+      gatewayTransactionId?: string | null;
     },
     amount: number
   ): Promise<void> {
@@ -887,8 +917,8 @@ class PaymentService {
     // Get current balance
     const lastLedgerEntry = await prisma.trustLedger.findFirst({
       where: {
-        clientEmail: payment.clientEmail,
-        caseId: payment.caseId,
+        clientEmail: payment.clientEmail || undefined,
+        caseId: payment.caseId || undefined,
       },
       orderBy: { createdAt: 'desc' },
     });
@@ -901,9 +931,9 @@ class PaymentService {
         transactionType: TrustTransactionType.WITHDRAWAL,
         amount: amount,
         balance: newBalance,
-        clientName: payment.clientName,
-        clientEmail: payment.clientEmail,
-        caseId: payment.caseId,
+        clientName: payment.clientName || '',
+        clientEmail: payment.clientEmail || '',
+        caseId: payment.caseId || undefined,
         paymentId: payment.id,
         reference: `REFUND-${payment.gatewayTransactionId}`,
         description: `Refund for payment ${payment.id}`,
@@ -922,6 +952,7 @@ class PaymentService {
       clientEmail?: string | null;
       amount: number;
       transactionId: string;
+      gatewayTransactionId?: string | null;
     },
     amount: number
   ): Promise<void> {
@@ -933,7 +964,7 @@ class PaymentService {
         clientName: payment.clientName,
         amount: amount,
         originalAmount: payment.amount,
-        transactionId: payment.gatewayTransactionId,
+        transactionId: payment.gatewayTransactionId || payment.transactionId,
         date: new Date().toLocaleDateString(),
       },
     });
@@ -999,7 +1030,7 @@ class PaymentService {
       return {
         id: paymentPlan.id,
         monthlyAmount: paymentPlan.monthlyAmount,
-        nextPaymentDate: paymentPlan.nextPaymentDate,
+        nextPaymentDate: paymentPlan.nextPaymentDate || new Date(),
       };
     } catch (error) {
       logger.error('Error creating payment plan:', error);
@@ -1131,6 +1162,37 @@ class PaymentService {
     });
 
     return transactions;
+  }
+
+  /**
+   * Helper to flatten metadata for Stripe
+   */
+  private flattenMetadataForStripe(metadata: PaymentMetadata): Record<string, string> {
+    const flattened: Record<string, string> = {};
+    
+    if (metadata.invoiceNumber) {
+      flattened.invoiceNumber = metadata.invoiceNumber;
+    }
+    if (metadata.description) {
+      flattened.description = metadata.description;
+    }
+    if (metadata.tax !== undefined) {
+      flattened.tax = metadata.tax.toString();
+    }
+    if (metadata.discount !== undefined) {
+      flattened.discount = metadata.discount.toString();
+    }
+    if (metadata.items) {
+      flattened.itemsCount = metadata.items.length.toString();
+      flattened.itemsTotal = metadata.items.reduce((sum, item) => sum + item.amount, 0).toString();
+    }
+    if (metadata.customFields) {
+      Object.entries(metadata.customFields).forEach(([key, value]) => {
+        flattened[`custom_${key}`] = String(value);
+      });
+    }
+    
+    return flattened;
   }
 
   /**

@@ -229,7 +229,7 @@ const LivingMetrics: React.FC = () => {
             key={config.title}
             title={config.title}
             value={config.value}
-            previousValue={previousMetrics[Object.keys(data.metrics)[index] as keyof DashboardMetrics]}
+            previousValue={previousMetrics[Object.keys(data.metrics)[index] as keyof LiveMetrics]}
             format={config.format}
             icon={config.icon}
             color={config.color}

@@ -1,5 +1,6 @@
 import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
+import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
 export const metadata: Metadata = {
   title: 'Raleigh Family Law Attorneys  Charlotte ... | Vasquez Law Firm',
@@ -36,9 +37,7 @@ export default function FamilyLawPage() {
     language: 'en' as const,
     publishedAt: new Date(),
     readTime: 5,
-    author: {
-      name: 'Vasquez Law Firm',
-    },
+    author: DEFAULT_BLOG_AUTHOR,
     tags: [], // TODO: Add relevant tags
   };
 

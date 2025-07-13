@@ -1,5 +1,6 @@
 import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
+import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
 export const metadata: Metadata = {
   title: '[slug] - Vasquez Law Firm, PLLC',
@@ -25,9 +26,7 @@ export default function BlogSlugPage({ params }: { params: { slug: string } }) {
     language: 'en' as const,
     publishedAt: new Date(),
     readTime: 5,
-    author: {
-      name: 'Vasquez Law Firm',
-    },
+    author: DEFAULT_BLOG_AUTHOR,
     tags: [], // TODO: Add relevant tags
   };
 

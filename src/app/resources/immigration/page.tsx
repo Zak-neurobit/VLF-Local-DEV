@@ -1,13 +1,17 @@
 import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
+import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
 export const metadata: Metadata = {
   title: 'Immigration Resources & Guides | Vasquez Law Firm',
-  description: 'Free immigration resources including guides on visa processes, document checklists, timeline calculators, and more. Download helpful tools for your immigration journey.',
-  keywords: 'immigration resources, visa guides, immigration checklists, USCIS forms, immigration timeline, free immigration help',
+  description:
+    'Free immigration resources including guides on visa processes, document checklists, timeline calculators, and more. Download helpful tools for your immigration journey.',
+  keywords:
+    'immigration resources, visa guides, immigration checklists, USCIS forms, immigration timeline, free immigration help',
   openGraph: {
     title: 'Free Immigration Resources & Guides',
-    description: 'Download comprehensive guides and tools to help navigate your immigration process.',
+    description:
+      'Download comprehensive guides and tools to help navigate your immigration process.',
     images: ['/images/immigration-resources.jpg'],
   },
 };
@@ -31,9 +35,7 @@ export default function ImmigrationPage() {
     language: 'en' as const,
     publishedAt: new Date(),
     readTime: 5,
-    author: {
-      name: 'Vasquez Law Firm',
-    },
+    author: DEFAULT_BLOG_AUTHOR,
     tags: [], // TODO: Add relevant tags
   };
 

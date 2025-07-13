@@ -351,7 +351,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                         {(content as any).processTitle}
                       </h2>
                       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {(content as any).process.map((step, index) => (
+                        {(content as any).process.map((step: any, index: number) => (
                           <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 20 }}
@@ -382,7 +382,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                   {/* Success Stats */}
                   {(content as any).successStats && (
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                      {(content as any).successStats.map((stat, index) => (
+                      {(content as any).successStats.map((stat: any, index: number) => (
                         <motion.div
                           key={index}
                           initial={{ opacity: 0, scale: 0.8 }}
@@ -407,7 +407,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                         {(content as any).whyChooseTitle}
                       </h2>
                       <div className="grid md:grid-cols-2 gap-4">
-                        {(content as any).whyChoosePoints.map((point, index) => (
+                        {(content as any).whyChoosePoints.map((point: any, index: number) => (
                           <motion.div
                             key={index}
                             initial={{ opacity: 0, x: -20 }}
@@ -431,7 +431,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                         {(content as any).penaltiesTitle}
                       </h2>
                       <div className="grid md:grid-cols-2 gap-8">
-                        {(content as any).penalties.map((penalty, index) => (
+                        {(content as any).penalties.map((penalty: any, index: number) => (
                           <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 20 }}
@@ -447,7 +447,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                                   Criminal Penalties
                                 </h4>
                                 <ul className="space-y-2">
-                                  {penalty.criminal.map((item, i) => (
+                                  {penalty.criminal.map((item: any, i: number) => (
                                     <li key={i} className="flex items-center gap-2 text-gray-300">
                                       <span className="text-red-400">•</span>
                                       {item}

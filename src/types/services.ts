@@ -45,6 +45,9 @@ export interface PaymentMetadata {
   }>;
   tax?: number;
   discount?: number;
+  legalService?: boolean;
+  paymentPlanId?: string;
+  installmentNumber?: number;
   customFields?: Record<string, string | number | boolean>;
 }
 

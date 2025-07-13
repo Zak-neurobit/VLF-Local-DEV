@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
+import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
 
 export const metadata: Metadata = {
   title: 'Car Accident Lawyers NC & FL | Auto Collision Attorneys | Vasquez Law Firm',
@@ -275,13 +275,13 @@ export default function CarAccidentsPage() {
   };
 
   return (
-    <ModernPracticeAreaTemplate
+    <ModernPracticeAreaTemplateV2
       title="Car Accident Lawyers"
       subtitle="Maximum Compensation for Auto Collision Victims"
       description="Expert car accident attorneys fighting for maximum compensation after auto collisions. We handle all types of crashes, deal with insurance companies, and secure the settlement you deserve while you focus on recovery."
       services={services}
       faqs={faqs}
-      urgency="urgent"
+      urgencyLevel="high"
       content={
         <div className="space-y-12">
           {/* Accident Types Statistics */}

@@ -29,6 +29,8 @@ export const metadata: Metadata = {
 export default function DwiDrunkDrivingPage() {
   const pageData = {
     practiceArea: 'Dwi Drunk Driving',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
     heroTitle: 'Dwi Drunk Driving Attorneys',
     heroSubtitle: 'Experienced legal representation',
     urgencyLevel: 'medium' as const,

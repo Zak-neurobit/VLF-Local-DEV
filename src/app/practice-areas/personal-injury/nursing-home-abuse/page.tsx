@@ -35,6 +35,8 @@ export const metadata: Metadata = {
 export default function NursingHomeAbusePage() {
   const pageData = {
     practiceArea: 'Nursing Home Abuse',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
     heroTitle: 'Nursing Home Abuse Attorneys',
     heroSubtitle: 'Experienced legal representation',
     urgencyLevel: 'medium' as const,

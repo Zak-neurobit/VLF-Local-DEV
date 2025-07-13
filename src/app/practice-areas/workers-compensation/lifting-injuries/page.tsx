@@ -18,6 +18,8 @@ export const metadata: Metadata = {
 export default function LiftingInjuriesPage() {
   const pageData = {
     practiceArea: 'Lifting Injuries',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
     heroTitle: 'Lifting Injuries Attorneys',
     heroSubtitle: 'Experienced legal representation',
     urgencyLevel: 'medium' as const,

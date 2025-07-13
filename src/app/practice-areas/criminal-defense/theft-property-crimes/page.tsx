@@ -38,6 +38,8 @@ export const metadata: Metadata = {
 export default function TheftPropertyCrimesPage() {
   const pageData = {
     practiceArea: 'Theft Property Crimes',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
     heroTitle: 'Theft Property Crimes Attorneys',
     heroSubtitle: 'Experienced legal representation',
     urgencyLevel: 'medium' as const,

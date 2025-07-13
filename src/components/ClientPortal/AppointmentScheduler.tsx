@@ -91,16 +91,6 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
     { value: 'video', label: 'Video Conference', icon: Video },
   ];
 
-  useEffect(() => {
-    fetchAppointments();
-  }, []);
-
-  useEffect(() => {
-    if (showScheduleModal && formData.date) {
-      fetchAvailableSlots(formData.date);
-    }
-  }, [formData.date, showScheduleModal, fetchAvailableSlots]);
-
   const fetchAppointments = async () => {
     try {
       const response = await fetch('/api/client/appointments');
@@ -124,6 +114,16 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
       console.error('Error fetching available slots:', error);
     }
   }, [formData.attorneyId]);
+
+  useEffect(() => {
+    fetchAppointments();
+  }, []);
+
+  useEffect(() => {
+    if (showScheduleModal && formData.date) {
+      fetchAvailableSlots(formData.date);
+    }
+  }, [formData.date, showScheduleModal, fetchAvailableSlots]);
 
   const handleScheduleAppointment = async () => {
     try {

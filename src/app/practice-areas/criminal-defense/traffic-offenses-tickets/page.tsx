@@ -13,6 +13,8 @@ export const metadata: Metadata = {
 export default function TrafficOffensesTicketsPage() {
   const pageData = {
     practiceArea: 'Traffic Offenses Tickets',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
     heroTitle: 'Traffic Offenses Tickets Attorneys',
     heroSubtitle: 'Experienced legal representation',
     urgencyLevel: 'medium' as const,

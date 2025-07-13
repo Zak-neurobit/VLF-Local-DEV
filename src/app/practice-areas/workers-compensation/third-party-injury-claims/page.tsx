@@ -13,6 +13,8 @@ export const metadata: Metadata = {
 export default function ThirdPartyInjuryClaimsPage() {
   const pageData = {
     practiceArea: 'Third Party Injury Claims',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
     heroTitle: 'Third Party Injury Claims Attorneys',
     heroSubtitle: 'Experienced legal representation',
     urgencyLevel: 'medium' as const,

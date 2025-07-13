@@ -11,7 +11,10 @@ interface AgentStatus {
   totalActions: number;
   successRate: number;
   lastActivity: string | null;
-  recentHighlights: string[];
+  recentHighlights: Array<{
+    type: string;
+    impact: number;
+  }>;
 }
 
 interface DashboardMetrics {
@@ -28,17 +31,6 @@ export function SEODominationDashboard() {
   const [loading, setLoading] = useState(true);
   const [metrics, setMetrics] = useState<DashboardMetrics | null>(null);
   const [executiveSummary, setExecutiveSummary] = useState<string>('');
-
-  useEffect(() => {
-    checkSystemStatus();
-    const interval = setInterval(() => {
-      if (isRunning) {
-        fetchMetrics();
-      }
-    }, 30000); // Update every 30 seconds
-
-    return () => clearInterval(interval);
-  }, [isRunning, checkSystemStatus]);
 
   const checkSystemStatus = async () => {
     try {
@@ -71,6 +63,19 @@ export function SEODominationDashboard() {
       logger.error('Failed to fetch metrics:', error);
     }
   };
+
+  useEffect(() => {
+    checkSystemStatus();
+    const interval = setInterval(() => {
+      if (isRunning) {
+        fetchMetrics();
+      }
+    }, 30000); // Update every 30 seconds
+
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isRunning]);
+
 
   const handleStartStop = async () => {
     setLoading(true);

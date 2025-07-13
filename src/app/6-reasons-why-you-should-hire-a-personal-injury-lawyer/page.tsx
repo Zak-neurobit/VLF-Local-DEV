@@ -1,5 +1,6 @@
 import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
+import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
 export const metadata: Metadata = {
   title: '6 Reasons Why You Should Hire a Personal Injury Lawyer - Vasquez Law Firm, PLLC',
@@ -34,9 +35,7 @@ export default function ReasonsWhyYouShouldHireAPersonalInjuryLawyerPage() {
     language: 'en' as const,
     publishedAt: new Date(),
     readTime: 5,
-    author: {
-      name: 'Vasquez Law Firm',
-    },
+    author: DEFAULT_BLOG_AUTHOR,
     tags: [], // TODO: Add relevant tags
   };
 
