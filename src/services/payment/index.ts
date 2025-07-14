@@ -122,7 +122,7 @@ class PaymentService {
           caseId: intent.caseId,
           status: PaymentStatus.PENDING,
           paymentMethod: this.mapPaymentMethodToEnum(method.type),
-          metadata: intent.metadata as Prisma.InputJsonValue || {},
+          metadata: (intent.metadata as Prisma.InputJsonValue) || {},
         },
       });
 
@@ -662,31 +662,40 @@ class PaymentService {
 
       switch (payment.gateway) {
         case PaymentGateway.STRIPE:
-          result = await this.processStripeRefund({
-            id: payment.id,
-            transactionId: payment.gatewayTransactionId || payment.id,
-            gateway: payment.gateway,
-            amount: payment.amount,
-            gatewayChargeId: payment.gatewayChargeId || payment.gatewayTransactionId || undefined,
-            metadata: payment.metadata as Record<string, unknown>,
-          }, refundAmount);
+          result = await this.processStripeRefund(
+            {
+              id: payment.id,
+              transactionId: payment.gatewayTransactionId || payment.id,
+              gateway: payment.gateway,
+              amount: payment.amount,
+              gatewayChargeId: payment.gatewayChargeId || payment.gatewayTransactionId || undefined,
+              metadata: payment.metadata as Record<string, unknown>,
+            },
+            refundAmount
+          );
           break;
         case PaymentGateway.LAWPAY:
-          result = await this.processLawPayRefund({
-            id: payment.id,
-            transactionId: payment.gatewayTransactionId || payment.id,
-            gatewayChargeId: payment.gatewayChargeId || undefined,
-            metadata: payment.metadata as Record<string, unknown>,
-          }, refundAmount);
+          result = await this.processLawPayRefund(
+            {
+              id: payment.id,
+              transactionId: payment.gatewayTransactionId || payment.id,
+              gatewayChargeId: payment.gatewayChargeId || undefined,
+              metadata: payment.metadata as Record<string, unknown>,
+            },
+            refundAmount
+          );
           break;
         case PaymentGateway.AUTHORIZE_NET:
-          result = await this.processAuthorizeNetRefund({
-            id: payment.id,
-            transactionId: payment.gatewayTransactionId || payment.id,
-            gatewayTransactionId: payment.gatewayTransactionId || undefined,
-            last4: payment.last4 || undefined,
-            metadata: payment.metadata as Record<string, unknown>,
-          }, refundAmount);
+          result = await this.processAuthorizeNetRefund(
+            {
+              id: payment.id,
+              transactionId: payment.gatewayTransactionId || payment.id,
+              gatewayTransactionId: payment.gatewayTransactionId || undefined,
+              last4: payment.last4 || undefined,
+              metadata: payment.metadata as Record<string, unknown>,
+            },
+            refundAmount
+          );
           break;
       }
 
@@ -713,25 +722,31 @@ class PaymentService {
 
         // Record trust transaction if applicable
         if (payment.accountType === AccountType.TRUST) {
-          await this.recordTrustRefund({
+          await this.recordTrustRefund(
+            {
+              id: payment.id,
+              clientName: payment.clientName,
+              clientEmail: payment.clientEmail,
+              amount: payment.amount,
+              caseId: payment.caseId,
+              gatewayTransactionId: payment.gatewayTransactionId || undefined,
+            },
+            refundAmount
+          );
+        }
+
+        // Send refund notification
+        await this.sendRefundNotification(
+          {
             id: payment.id,
             clientName: payment.clientName,
             clientEmail: payment.clientEmail,
             amount: payment.amount,
-            caseId: payment.caseId,
-            gatewayTransactionId: payment.gatewayTransactionId || undefined,
-          }, refundAmount);
-        }
-
-        // Send refund notification
-        await this.sendRefundNotification({
-          id: payment.id,
-          clientName: payment.clientName,
-          clientEmail: payment.clientEmail,
-          amount: payment.amount,
-          transactionId: payment.gatewayTransactionId || payment.id,
-          gatewayTransactionId: payment.gatewayTransactionId,
-        }, refundAmount);
+            transactionId: payment.gatewayTransactionId || payment.id,
+            gatewayTransactionId: payment.gatewayTransactionId,
+          },
+          refundAmount
+        );
       } else {
         await prisma.paymentRefund.update({
           where: { id: refund.id },
@@ -1100,7 +1115,9 @@ class PaymentService {
             remainingAmount: Math.max(0, newRemainingAmount),
             nextPaymentDate: isComplete
               ? null
-              : new Date(plan.nextPaymentDate!.getTime() + 30 * 24 * 60 * 60 * 1000),
+              : plan.nextPaymentDate
+                ? new Date(plan.nextPaymentDate.getTime() + 30 * 24 * 60 * 60 * 1000)
+                : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
             status: isComplete ? PaymentPlanStatus.COMPLETED : PaymentPlanStatus.ACTIVE,
           },
         });
@@ -1177,7 +1194,7 @@ class PaymentService {
    */
   private flattenMetadataForStripe(metadata: PaymentMetadata): Record<string, string> {
     const flattened: Record<string, string> = {};
-    
+
     if (metadata.invoiceNumber) {
       flattened.invoiceNumber = metadata.invoiceNumber;
     }
@@ -1199,7 +1216,7 @@ class PaymentService {
         flattened[`custom_${key}`] = String(value);
       });
     }
-    
+
     return flattened;
   }
 

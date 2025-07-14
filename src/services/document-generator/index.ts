@@ -261,7 +261,9 @@ export class LegalDocumentGenerator {
         break;
 
       case 'personalInjury':
-        enhancements.statuteOfLimitations = this.calculateStatuteOfLimitations(data.incidentDate);
+        enhancements.statuteOfLimitations = this.calculateStatuteOfLimitations(
+          data.incidentDate as string | undefined
+        );
         enhancements.damagesEstimate = this.estimateDamages(data);
         break;
 

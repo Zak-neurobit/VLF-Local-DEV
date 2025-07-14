@@ -18,6 +18,7 @@ import {
   Case,
   Document,
   Appointment,
+  Prisma,
 } from '@prisma/client';
 
 const ghl = new GoHighLevelService();
@@ -95,7 +96,7 @@ export class CaseManagementService {
           practiceArea: validated.practiceArea,
           status: CaseStatus.open,
           description: validated.description,
-          metadata: validated.metadata || {},
+          metadata: (validated.metadata || {}) as Prisma.InputJsonValue,
         },
         include: {
           client: true,
@@ -121,7 +122,23 @@ export class CaseManagementService {
       await this.createInitialTasks(newCase.id, validated.practiceArea, validated.attorneyId);
 
       // Send notifications
-      await this.notifyNewCase(newCase);
+      await this.notifyNewCase({
+        id: newCase.id,
+        caseNumber: newCase.caseNumber,
+        clientId: newCase.clientId,
+        practiceArea: newCase.practiceArea,
+        client: {
+          email: newCase.client.email,
+          firstName: newCase.client.name?.split(' ')[0] || null,
+          lastName: newCase.client.name?.split(' ').slice(1).join(' ') || null,
+        },
+        attorney: newCase.attorney
+          ? {
+              email: newCase.attorney.email,
+              name: newCase.attorney.name,
+            }
+          : null,
+      });
 
       // Update CRM
       if (newCase.client.email) {
@@ -162,7 +179,7 @@ export class CaseManagementService {
 
       const updatedCase = await getPrismaClient().case.update({
         where: { id: caseId },
-        data: validated,
+        data: validated as any,
         include: {
           client: true,
           attorney: true,
@@ -176,7 +193,20 @@ export class CaseManagementService {
 
       // If status changed, create notification
       if (validated.status && validated.status !== existingCase.status) {
-        await this.notifyStatusChange(updatedCase, existingCase.status);
+        await this.notifyStatusChange(
+          {
+            id: updatedCase.id,
+            caseNumber: updatedCase.caseNumber,
+            status: updatedCase.status,
+            client: {
+              email: (updatedCase.client as any).email,
+              firstName: updatedCase.client.name?.split(' ')[0] || null,
+              lastName: updatedCase.client.name?.split(' ').slice(1).join(' ') || null,
+              phone: updatedCase.client.phone || null,
+            },
+          },
+          existingCase.status
+        );
       }
 
       // Update CRM
@@ -329,7 +359,7 @@ export class CaseManagementService {
         content: validated.content,
         createdAt: new Date(),
         createdBy: 'current-user', // Get from auth context
-      });
+      } as CaseNote);
 
       await getPrismaClient().case.update({
         where: { id: validated.caseId },
@@ -337,7 +367,7 @@ export class CaseManagementService {
           metadata: {
             ...metadata,
             notes,
-          } as unknown,
+          } as Prisma.InputJsonValue,
         },
       });
 

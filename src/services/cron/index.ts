@@ -7,6 +7,15 @@ import { contentFactory } from '@/services/content-factory';
 import { getPrismaClient } from '@/lib/prisma';
 import { Prisma, Lead, LeadStatus, PracticeArea, LeadUrgency } from '@prisma/client';
 
+interface ContactInfo {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  source?: string;
+  customFields?: Record<string, unknown>;
+}
+
 export class CronJobService {
   private jobs: Map<string, cron.ScheduledTask> = new Map();
 
@@ -114,7 +123,12 @@ export class CronJobService {
           logger.error(`Failed cron job: ${name}`, { error, duration });
 
           // Log job failure
-          await this.logJobExecution(name, 'failed', duration, error);
+          await this.logJobExecution(
+            name,
+            'failed',
+            duration,
+            error instanceof Error ? error : new Error(String(error))
+          );
         }
       });
 
@@ -184,7 +198,7 @@ export class CronJobService {
   }
 
   // Calculate lead score based on various factors
-  private calculateLeadScore(lead: Lead & { contact: any }): number {
+  private calculateLeadScore(lead: any): number {
     let score = 0;
 
     // Time factor - newer leads score higher
@@ -222,7 +236,7 @@ export class CronJobService {
     if (lead.contact) {
       if (lead.contact.phone) score += 10;
       if (lead.contact.email) score += 5;
-      if (lead.contact.name) score += 5;
+      if ('name' in lead.contact && lead.contact.name) score += 5;
     }
 
     // Urgency factor
@@ -232,7 +246,7 @@ export class CronJobService {
       medium: 10,
       low: 5,
     };
-    score += urgencyScores[lead.urgency] || 0;
+    score += urgencyScores[lead.urgency as LeadUrgency] || 0;
 
     // Engagement factor (if they've been contacted)
     if (lead.status === 'contacted') {
@@ -535,7 +549,7 @@ export class CronJobService {
       for (const area of practiceAreas) {
         const areaLeads = await prisma.lead.count({
           where: {
-            practiceArea: area as unknown,
+            practiceArea: area as any,
             createdAt: {
               gte: startOfDay,
               lte: endOfDay,
@@ -545,7 +559,7 @@ export class CronJobService {
 
         const areaConversions = await prisma.lead.count({
           where: {
-            practiceArea: area as unknown,
+            practiceArea: area as any,
             status: 'won',
             convertedAt: {
               gte: startOfDay,
@@ -629,12 +643,12 @@ export class CronJobService {
           totalAppointments,
           completedAppointments,
           noShowAppointments,
-          practiceAreaMetrics,
-          sourceMetrics,
+          practiceAreaMetrics: practiceAreaMetrics as any,
+          sourceMetrics: sourceMetrics as any,
           metadata: {
             lastUpdated: new Date().toISOString(),
             aggregationRun: new Date().toISOString(),
-          },
+          } as any,
         },
         create: {
           date: snapshotDate,
@@ -649,8 +663,8 @@ export class CronJobService {
           totalAppointments,
           completedAppointments,
           noShowAppointments,
-          practiceAreaMetrics,
-          sourceMetrics,
+          practiceAreaMetrics: practiceAreaMetrics as any,
+          sourceMetrics: sourceMetrics as any,
           metadata: {
             createdAt: new Date().toISOString(),
           },
@@ -719,7 +733,7 @@ export class CronJobService {
     jobName: string,
     status: 'success' | 'failed',
     duration: number,
-    error?: any
+    error?: Error | string
   ) {
     // TODO: Store job logs when cronJobLog model is added to schema
     // For now, just log to console
@@ -727,7 +741,7 @@ export class CronJobService {
       jobName,
       status,
       duration,
-      error: error ? error.message || JSON.stringify(error) : null,
+      error: error ? (typeof error === 'string' ? error : error.message) : null,
       executedAt: new Date(),
     };
 
@@ -753,7 +767,7 @@ export class CronJobService {
 
     for (const [name, job] of this.jobs) {
       status[name] = {
-        running: (job as unknown).running || false,
+        running: (job as any).running || false,
       };
     }
 
@@ -769,7 +783,7 @@ export class CronJobService {
     }
 
     logger.info(`Manually triggering job: ${jobName}`);
-    await (job as unknown).task();
+    await (job as any).task();
   }
 }
 

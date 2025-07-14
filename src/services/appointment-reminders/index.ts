@@ -4,6 +4,27 @@ import { emailService } from '@/services/email';
 import { logger } from '@/lib/logger';
 import { addDays, subDays, startOfDay, endOfDay } from 'date-fns';
 
+interface AppointmentWithUser {
+  id: string;
+  scheduledAt: Date;
+  type: string;
+  practiceArea?: string;
+  location?: string | null;
+  notes?: string | null;
+  user: {
+    id: string;
+    email: string;
+    name?: string | null;
+    phone?: string | null;
+  };
+  case?: {
+    attorney?: {
+      name?: string | null;
+    } | null;
+  } | null;
+  metadata?: Record<string, unknown>;
+}
+
 export class AppointmentReminderService {
   // Send reminders for appointments
   async sendUpcomingReminders() {
@@ -15,7 +36,7 @@ export class AppointmentReminderService {
       logger.info(`Found ${appointments.length} appointments for reminder`);
 
       for (const appointment of appointments) {
-        await this.sendReminder(appointment as unknown);
+        await this.sendReminder(appointment as AppointmentWithUser);
       }
 
       // Get appointments for 1 week out
@@ -23,7 +44,7 @@ export class AppointmentReminderService {
       const weeklyAppointments = await this.getAppointmentsForDate(nextWeek);
 
       for (const appointment of weeklyAppointments) {
-        await this.sendWeeklyReminder(appointment);
+        await this.sendWeeklyReminder(appointment as AppointmentWithUser);
       }
     } catch (error) {
       logger.error('Failed to send appointment reminders:', error);
@@ -101,7 +122,7 @@ export class AppointmentReminderService {
             clientName: user.name || user.email,
             appointmentDate: dateStr,
             appointmentTime: timeStr,
-            attorneyName: appointment.case?.attorney?.name || 'Your Attorney',
+            attorneyName: (appointment as any).case?.attorney?.name || 'Your Attorney',
             appointmentType: appointment.type,
             location: appointment.location || 'Phone consultation',
             notes: appointment.notes,
@@ -131,7 +152,7 @@ export class AppointmentReminderService {
   }
 
   // Send 1-week reminder
-  private async sendWeeklyReminder(appointment: any) {
+  private async sendWeeklyReminder(appointment: AppointmentWithUser) {
     try {
       const user = appointment.user;
       const appointmentDate = new Date(appointment.scheduledAt);
@@ -151,7 +172,7 @@ export class AppointmentReminderService {
             clientName: user.name || user.email,
             appointmentDate: dateStr,
             appointmentTime: timeStr,
-            attorneyName: appointment.case?.attorney?.name || 'Your Attorney',
+            attorneyName: (appointment as any).case?.attorney?.name || 'Your Attorney',
             appointmentType: appointment.type,
             documentsNeeded: this.getRequiredDocuments(appointment.type),
           },

@@ -400,15 +400,31 @@ export class GoHighLevelService {
       switch (event.type) {
         case 'ContactCreate':
         case 'ContactUpdate':
-          await this.syncContactToDatabase(event.contact);
+          if (event.data && event.contactId) {
+            await this.syncContactToDatabase(event.data as unknown as GHLContact);
+          }
           break;
 
         case 'InboundMessage':
-          await this.handleInboundMessage(event);
+          if (event.data && event.contactId) {
+            await this.handleInboundMessage({
+              contactId: event.contactId,
+              message: (event.data as any).message || '',
+              type: (event.data as any).type || 'SMS',
+              direction: 'inbound',
+              timestamp: event.timestamp,
+            });
+          }
           break;
 
         case 'CampaignCompleted':
-          await this.handleCampaignCompleted(event);
+          if (event.data && event.campaignId && event.contactId) {
+            await this.handleCampaignCompleted({
+              campaignId: event.campaignId,
+              contactId: event.contactId,
+              status: 'completed',
+            });
+          }
           break;
 
         default:
@@ -423,7 +439,7 @@ export class GoHighLevelService {
   // Handle inbound message
   private async handleInboundMessage(event: GHLInboundMessage) {
     try {
-      const { contactId, message, phone } = event;
+      const { contactId, message } = event;
 
       // Log inbound message
       await this.logSMS({
@@ -431,7 +447,7 @@ export class GoHighLevelService {
         message,
         direction: 'inbound',
         status: 'received',
-        ghlMessageId: event.messageId,
+        ghlMessageId: (event as any).messageId,
       });
 
       // Process keywords
@@ -520,12 +536,12 @@ export class GoHighLevelService {
   // Handle campaign completed
   private async handleCampaignCompleted(event: GHLCampaignEvent) {
     try {
-      const { contactId, campaignId, campaignName } = event;
+      const { contactId, campaignId } = event;
 
       logger.info('Campaign completed', {
         contactId,
         campaignId,
-        campaignName,
+        campaignName: (event as any).campaignName,
       });
 
       // Update contact tags
@@ -636,8 +652,17 @@ export class GoHighLevelService {
   }
 
   // Format appointment reminder
-  private formatAppointmentReminder(appointment: GHLAppointment): string {
-    const date = new Date(appointment.date);
+  private formatAppointmentReminder(appointment: {
+    id: string;
+    clientPhone: string;
+    clientName: string;
+    date: Date;
+    time: string;
+    attorneyName: string;
+    type: string;
+    location?: string;
+  }): string {
+    const date = appointment.date;
     const formattedDate = date.toLocaleDateString('en-US', {
       weekday: 'long',
       month: 'long',
@@ -1119,15 +1144,16 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       // Filter by tags if specified
       if (filters?.tags && filters.tags.length > 0) {
-        results.contacts = results.contacts.filter(contact =>
-          filters.tags!.some(tag => contact.tags?.includes(tag))
+        results.contacts = results.contacts.filter(
+          (contact: any) => filters.tags?.some(tag => contact.tags?.includes(tag)) ?? false
         );
       }
 
       // Filter by custom field if specified
       if (filters?.customField) {
         results.contacts = results.contacts.filter(
-          contact => contact.customFields?.[filters.customField!.key] === filters.customField!.value
+          (contact: any) =>
+            contact.customFields?.[filters.customField?.key || ''] === filters.customField?.value
         );
       }
 
@@ -1358,14 +1384,14 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
     };
   }
 
-  private getMockAppointmentResponse(data: Partial<GHLAppointment>) {
+  private getMockAppointmentResponse(data: any) {
     logger.info('Using mock GoHighLevel appointment response');
     return {
       id: 'mock-appointment-' + Date.now(),
       contactId: data.contactId,
       title: data.title,
-      startTime: data.startTime,
-      endTime: data.endTime,
+      startTime: data.startTime instanceof Date ? data.startTime.toISOString() : data.startTime,
+      endTime: data.endTime instanceof Date ? data.endTime.toISOString() : data.endTime,
       status: data.appointmentStatus || 'new',
       location: data.meetingLocation || 'TBD',
     };
@@ -1375,11 +1401,11 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
     logger.info('Using mock GoHighLevel opportunity response');
     return {
       id: 'mock-opportunity-' + Date.now(),
-      contactId: data.contactId,
-      name: data.name,
-      pipelineId: data.pipelineId,
-      stageId: data.stageId,
-      value: data.value || 0,
+      contactId: data.contactId || '',
+      name: data.name || '',
+      pipelineId: data.pipelineId || '',
+      stageId: data.pipelineStageId || '',
+      value: data.monetaryValue || 0,
       status: 'open',
     };
   }
@@ -1514,11 +1540,11 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
       };
 
       if (callData.summary) {
-        updateData.customFields.lastCallSummary = callData.summary;
+        (updateData.customFields as any).lastCallSummary = callData.summary;
       }
 
       if (callData.sentiment) {
-        updateData.customFields.lastCallSentiment = callData.sentiment;
+        (updateData.customFields as any).lastCallSentiment = callData.sentiment;
       }
 
       if (callData.appointmentScheduled) {
@@ -1650,7 +1676,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       // Filter call-related activities
       const callActivities = activities.filter(
-        activity =>
+        (activity: any) =>
           activity.type === 'call' || (activity.type === 'note' && activity.body?.includes('Call'))
       );
 
@@ -1694,7 +1720,10 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
       };
 
       if (transcript) {
-        updateData.customFields[`call_${callId}_transcript`] = transcript.substring(0, 2000); // Limit transcript length
+        (updateData.customFields as any)[`call_${callId}_transcript`] = transcript.substring(
+          0,
+          2000
+        ); // Limit transcript length
       }
 
       await this.updateContact(contactId, updateData);
