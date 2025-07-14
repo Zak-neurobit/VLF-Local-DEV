@@ -259,6 +259,7 @@ export interface FAQ {
 export interface Education {
   '@type': string;
   name: string;
+  school?: string;
   degree?: string;
   year?: string;
 }
@@ -272,13 +273,17 @@ export interface Award {
 export interface Speaker {
   name: string;
   role?: string;
+  title?: string;
   organization?: string;
 }
 
 export interface Event {
   name: string;
+  title: string;
   description: string;
   location: string;
+  locationName?: string;
+  address?: string;
   startDate: string;
   endDate?: string;
   speakers?: Speaker[];
@@ -288,12 +293,19 @@ export interface Event {
     priceCurrency: string;
     url: string;
   }>;
+  slug: string;
+  isOnline?: boolean;
+  url?: string;
+  registrationUrl?: string;
+  capacity?: number;
 }
 
 export interface Attorney {
   name: string;
   image?: string;
   jobTitle: string;
+  title?: string;
+  bio?: string;
   description?: string;
   telephone?: string;
   email?: string;
@@ -301,6 +313,8 @@ export interface Attorney {
   awards?: Award[];
   languages?: string[];
   practiceAreas?: string[];
+  slug?: string;
+  barAssociations?: string[];
 }
 
 export interface ServiceVariation {
@@ -311,6 +325,7 @@ export interface ServiceVariation {
   practiceArea: string;
   slug: string;
   url: string;
+  variationType?: string;
 }
 
 export interface SchemaContent {
@@ -318,8 +333,11 @@ export interface SchemaContent {
   title?: string;
   content?: string;
   faqSection?: FAQ[];
+  questions?: FAQ[];
   name?: string;
   description?: string;
+  metaDescription?: string;
+  featuredImage?: string;
   practiceArea?: string;
   city?: string;
   slug?: string;
@@ -343,4 +361,8 @@ export interface SEOContent extends BlogContent {
   schema?: Record<string, unknown>;
   mobileOptimized?: boolean;
   wordCount?: number;
+  faqSection?: FAQ[];
+  schemaType?: string;
+  // Additional properties for flexibility
+  additionalProperties?: Record<string, unknown>;
 }

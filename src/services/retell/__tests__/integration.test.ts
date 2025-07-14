@@ -438,8 +438,8 @@ describe('Retell-GHL Integration Tests', () => {
       expect(sanitized.note).toBe('Safe content'); // Script tags removed
       expect(sanitized.password).toBeUndefined(); // Sensitive key filtered
       expect(sanitized.email).toBe('john@example.com');
-      expect(sanitized.nested.safe).toBe('value');
-      expect(sanitized.nested.secret).toBeUndefined(); // Nested sensitive key filtered
+      expect((sanitized.nested as any).safe).toBe('value');
+      expect((sanitized.nested as any).secret).toBeUndefined(); // Nested sensitive key filtered
     });
   });
 

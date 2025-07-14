@@ -31,6 +31,8 @@ export interface GHLAppointment {
   calendarId?: string;
   createdAt?: string;
   updatedAt?: string;
+  appointmentStatus?: 'new' | 'confirmed' | 'cancelled' | 'showed' | 'noshow';
+  meetingLocation?: string;
 }
 
 export interface GHLOpportunity {
@@ -138,6 +140,8 @@ export interface RetellContext {
   direction?: 'inbound' | 'outbound';
   duration?: number;
   timestamp?: string;
+  operation?: string;
+  priority?: 'low' | 'medium' | 'high' | 'urgent';
   metadata?: Record<string, unknown>;
 }
 
@@ -146,4 +150,8 @@ export interface RetellErrorInfo {
   timestamp: Date;
   retryCount: number;
   nextRetry?: Date;
+  error?: unknown;
+  reason?: string;
+  retryAfter?: number;
+  phoneNumber?: string;
 }

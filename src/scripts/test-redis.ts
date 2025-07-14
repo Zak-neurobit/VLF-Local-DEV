@@ -26,7 +26,7 @@ async function testRedisConnection() {
     logger.info(`✅ Set value for key: ${testKey}`);
 
     const retrievedValue = await cache.get(testKey);
-    if (retrievedValue && (retrievedValue as unknown).message === testValue.message) {
+    if (retrievedValue && (retrievedValue as any).message === testValue.message) {
       logger.info('✅ Retrieved value matches what was set');
       logger.info(`   Value: ${JSON.stringify(retrievedValue)}`);
     } else {

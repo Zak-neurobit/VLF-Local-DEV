@@ -21,9 +21,9 @@ interface AgentDeploymentConfig {
   healthCheckEndpoint?: string;
   rollbackEnabled: boolean;
   autoScaling?: {
-    minInstances: number;
-    maxInstances: number;
-    targetCPU: number;
+    minReplicas: number;
+    maxReplicas: number;
+    targetCpuUtilization: number;
   };
 }
 
@@ -77,21 +77,21 @@ class EnhancedAgentDeployer {
           type: 'crewai',
           priority: 1,
           rollbackEnabled: true,
-          autoScaling: { minInstances: 2, maxInstances: 10, targetCPU: 70 },
+          autoScaling: { minReplicas: 2, maxReplicas: 10, targetCpuUtilization: 70 },
         },
         {
           name: 'Document Analysis Agent',
           type: 'crewai',
           priority: 1,
           rollbackEnabled: true,
-          autoScaling: { minInstances: 1, maxInstances: 5, targetCPU: 75 },
+          autoScaling: { minReplicas: 1, maxReplicas: 5, targetCpuUtilization: 75 },
         },
         {
           name: 'Appointment Scheduling Agent',
           type: 'crewai',
           priority: 2,
           rollbackEnabled: true,
-          autoScaling: { minInstances: 1, maxInstances: 3, targetCPU: 60 },
+          autoScaling: { minReplicas: 1, maxReplicas: 3, targetCpuUtilization: 60 },
         },
         {
           name: 'Enhanced Intake Agent',
@@ -99,28 +99,28 @@ class EnhancedAgentDeployer {
           priority: 1,
           dependencies: ['Legal Consultation Agent'],
           rollbackEnabled: true,
-          autoScaling: { minInstances: 2, maxInstances: 8, targetCPU: 65 },
+          autoScaling: { minReplicas: 2, maxReplicas: 8, targetCpuUtilization: 65 },
         },
         {
           name: 'Removal Defense Agent',
           type: 'crewai',
           priority: 2,
           rollbackEnabled: true,
-          autoScaling: { minInstances: 1, maxInstances: 4, targetCPU: 70 },
+          autoScaling: { minReplicas: 1, maxReplicas: 4, targetCpuUtilization: 70 },
         },
         {
           name: 'Business Immigration Agent',
           type: 'crewai',
           priority: 2,
           rollbackEnabled: true,
-          autoScaling: { minInstances: 1, maxInstances: 4, targetCPU: 70 },
+          autoScaling: { minReplicas: 1, maxReplicas: 4, targetCpuUtilization: 70 },
         },
         {
           name: 'Criminal Defense Agent',
           type: 'crewai',
           priority: 2,
           rollbackEnabled: true,
-          autoScaling: { minInstances: 1, maxInstances: 4, targetCPU: 70 },
+          autoScaling: { minReplicas: 1, maxReplicas: 4, targetCpuUtilization: 70 },
         },
         {
           name: 'AILA Trained Removal Agent',
@@ -128,28 +128,28 @@ class EnhancedAgentDeployer {
           priority: 3,
           dependencies: ['Removal Defense Agent'],
           rollbackEnabled: true,
-          autoScaling: { minInstances: 1, maxInstances: 3, targetCPU: 75 },
+          autoScaling: { minReplicas: 1, maxReplicas: 3, targetCpuUtilization: 75 },
         },
         {
           name: 'SEO Blog Generation Agent',
           type: 'crewai',
           priority: 4,
           rollbackEnabled: false,
-          autoScaling: { minInstances: 1, maxInstances: 2, targetCPU: 80 },
+          autoScaling: { minReplicas: 1, maxReplicas: 2, targetCpuUtilization: 80 },
         },
         {
           name: 'Social Media Monitoring Agent',
           type: 'crewai',
           priority: 4,
           rollbackEnabled: false,
-          autoScaling: { minInstances: 1, maxInstances: 2, targetCPU: 80 },
+          autoScaling: { minReplicas: 1, maxReplicas: 2, targetCpuUtilization: 80 },
         },
         {
           name: 'Competitive Analysis Agent',
           type: 'crewai',
           priority: 4,
           rollbackEnabled: false,
-          autoScaling: { minInstances: 1, maxInstances: 2, targetCPU: 80 },
+          autoScaling: { minReplicas: 1, maxReplicas: 2, targetCpuUtilization: 80 },
         },
         // Automation Agents
         {
@@ -157,7 +157,7 @@ class EnhancedAgentDeployer {
           type: 'automation',
           priority: 1,
           rollbackEnabled: true,
-          autoScaling: { minInstances: 2, maxInstances: 5, targetCPU: 60 },
+          autoScaling: { minReplicas: 2, maxReplicas: 5, targetCpuUtilization: 60 },
         },
         {
           name: 'Follow-Up Automation Agent',
@@ -165,7 +165,7 @@ class EnhancedAgentDeployer {
           priority: 2,
           dependencies: ['Lead Validation Agent'],
           rollbackEnabled: true,
-          autoScaling: { minInstances: 1, maxInstances: 3, targetCPU: 65 },
+          autoScaling: { minReplicas: 1, maxReplicas: 3, targetCpuUtilization: 65 },
         },
         // Voice Agents
         {
@@ -210,7 +210,7 @@ class EnhancedAgentDeployer {
           priority: 1,
           healthCheckEndpoint: '/api/agents/health/chat',
           rollbackEnabled: true,
-          autoScaling: { minInstances: 3, maxInstances: 20, targetCPU: 65 },
+          autoScaling: { minReplicas: 3, maxReplicas: 20, targetCpuUtilization: 65 },
         },
       ];
 
@@ -390,11 +390,11 @@ class EnhancedAgentDeployer {
 
     // Register scaling configuration with monitor
     await this.monitor.configureAutoScaling(agentName, {
-      minInstances: config.minInstances,
-      maxInstances: config.maxInstances,
-      targetCPU: config.targetCPU,
-      scaleUpThreshold: config.targetCPU + 10,
-      scaleDownThreshold: config.targetCPU - 20,
+      minInstances: config.minReplicas,
+      maxInstances: config.maxReplicas,
+      targetCPU: config.targetCpuUtilization,
+      scaleUpThreshold: config.targetCpuUtilization + 10,
+      scaleDownThreshold: config.targetCpuUtilization - 20,
       cooldownPeriod: 300, // 5 minutes
     });
   }

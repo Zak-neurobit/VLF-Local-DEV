@@ -158,11 +158,11 @@ export default function TestGHLPage() {
           </div>
         </div>
 
-        {testResult && (
+        {testResult !== null && (
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-xl font-semibold mb-4">Test Results</h2>
             <pre className="bg-gray-100 p-4 rounded-md overflow-auto text-sm">
-              {JSON.stringify(testResult, null, 2)}
+              {typeof testResult === 'string' ? testResult : JSON.stringify(testResult, null, 2)}
             </pre>
           </div>
         )}

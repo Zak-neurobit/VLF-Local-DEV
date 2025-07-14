@@ -61,7 +61,7 @@ export async function GET(_request: NextRequest, { params }: { params: { resourc
     // Set appropriate headers for PDF download
     const responseHeaders = new Headers();
     responseHeaders.set('Content-Type', 'application/pdf');
-    responseHeaders.set('Content-Disposition', `attachment; filename="${resource!.title.replace(/[^a-z0-9]/gi, '-').toLowerCase()}.pdf"`);
+    responseHeaders.set('Content-Disposition', `attachment; filename="${(resource?.title || 'resource').replace(/[^a-z0-9]/gi, '-').toLowerCase()}.pdf"`);
     responseHeaders.set('Content-Length', buffer.length.toString());
     
     // Log download for analytics (in production, this would go to a database)
