@@ -670,7 +670,7 @@ export class SEODominationOrchestrator {
           agentName: 'SEODominationOrchestrator',
           executionType: 'performance_report',
           input: {},
-          output: metrics as any,
+          output: metrics as Prisma.JsonObject,
           duration: 0,
           success: true,
           metadata: {
@@ -769,7 +769,7 @@ export class SEODominationOrchestrator {
       data: {
         agentName: 'SEODominationOrchestrator',
         executionType: 'agent_collaboration',
-        input: synergy as any,
+        input: synergy as Prisma.JsonObject,
         output: { status: 'executed' },
         duration: 1000,
         success: true,

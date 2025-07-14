@@ -290,7 +290,7 @@ export class SEOAgent {
         title: original.title,
         content: original.content,
         metaDescription: original.metaDescription,
-        faqSection: (original as any).faqSection,
+        faqSection: (original as { faqSection?: Array<{ question: string; answer: string }> }).faqSection,
       })}
       
       Return JSON with translated: title, content, metaDescription, faqSection, keywords`;
@@ -312,8 +312,8 @@ export class SEOAgent {
         language: targetLanguage,
         status: 'draft',
         seoScore: await this.calculateSEOScore(translatedData),
-        readTime: (original as any).readTime,
-        originalId: (original as any).id,
+        readTime: (original as { readTime?: number }).readTime || 5,
+        originalId: (original as { id?: string }).id || '',
       },
     });
   }
@@ -580,10 +580,10 @@ export class SEOAgent {
       address: [
         {
           '@type': 'PostalAddress',
-          streetAddress: (data.addresses as any)?.[0]?.street || '123 Main St, Suite 100',
-          addressLocality: (data.addresses as any)?.[0]?.city || 'Raleigh',
-          addressRegion: (data.addresses as any)?.[0]?.state || 'NC',
-          postalCode: (data.addresses as any)?.[0]?.zip || '27601',
+          streetAddress: (data.addresses as Array<{ street?: string; city?: string; state?: string; zip?: string }>)?.[0]?.street || '123 Main St, Suite 100',
+          addressLocality: (data.addresses as Array<{ street?: string; city?: string; state?: string; zip?: string }>)?.[0]?.city || 'Raleigh',
+          addressRegion: (data.addresses as Array<{ street?: string; city?: string; state?: string; zip?: string }>)?.[0]?.state || 'NC',
+          postalCode: (data.addresses as Array<{ street?: string; city?: string; state?: string; zip?: string }>)?.[0]?.zip || '27601',
           addressCountry: 'US',
         },
       ],
@@ -1148,7 +1148,13 @@ export class SEOAgent {
     }
   }
 
-  private async identifyTopPages(url: string): Promise<any[]> {
+  private async identifyTopPages(url: string): Promise<Array<{
+    url: string;
+    title: string;
+    metaDescription?: string;
+    h1: string;
+    wordCount: number;
+  }>> {
     // In production, this would use SEO tools API
     // For now, we'll analyze the homepage and key pages
     const pagesToAnalyze = [url, `${url}/practice-areas`, `${url}/about`, `${url}/blog`];
@@ -1210,7 +1216,13 @@ export class SEOAgent {
     return JSON.parse(response.choices[0].message.content || '{}');
   }
 
-  private async analyzeBacklinks(data: { domain: string }): Promise<any> {
+  private async analyzeBacklinks(data: { domain: string }): Promise<{
+    totalBacklinks: number;
+    referringDomains: number;
+    domainAuthority: number;
+    topReferrers: string[];
+    anchorTextDistribution: Record<string, number>;
+  }> {
     // In production, use Ahrefs, Moz, or SEMrush API
     // For now, return mock data structure
     return {
@@ -1222,7 +1234,11 @@ export class SEOAgent {
     };
   }
 
-  private async auditTechnicalSEO(url: string): Promise<any> {
+  private async auditTechnicalSEO(url: string): Promise<{
+    score: number;
+    issues: string[];
+    suggestions: string[];
+  }> {
     try {
       const response = await axios.get(url);
       const $ = cheerio.load(response.data);
@@ -1314,7 +1330,7 @@ export class SEOAgent {
 
     // Analyze missing topics
     const ourPracticeAreas = this.config.practiceAreas;
-    const theirTopics = (analysis as any).contentStrategy?.topics || [];
+    const theirTopics = (analysis as { contentStrategy?: { topics?: string[] } }).contentStrategy?.topics || [];
 
     for (const area of ourPracticeAreas) {
       const relatedTopics = await this.suggestTopics(area, theirTopics);
@@ -1411,7 +1427,13 @@ export class SEOAgent {
     }
   }
 
-  private async fetchGoogleNews(query: string): Promise<any[]> {
+  private async fetchGoogleNews(query: string): Promise<Array<{
+    title: string;
+    url: string;
+    summary: string;
+    publishedAt: Date;
+    source: string;
+  }>> {
     // In production, use Google News API or web scraping
     // This is a placeholder that would fetch real news
     const mockNews = [
@@ -1438,7 +1460,7 @@ export class SEOAgent {
   ): Promise<boolean> {
     const prompt = `Analyze if this news article is relevant for a law firm's ${practiceArea} practice area blog:
       Title: ${article.title}
-      Summary: ${(article as any).summary || article.description || ''}
+      Summary: ${(article as { summary?: string; description?: string }).summary || article.description || ''}
       
       Consider:
       1. Direct relevance to legal practice
@@ -1458,7 +1480,22 @@ export class SEOAgent {
     return analysis.relevant && analysis.score > 7;
   }
 
-  private async scrapeSocialPlatform(platform: string, practiceArea: string): Promise<any[]> {
+  private async scrapeSocialPlatform(platform: string, practiceArea: string): Promise<Array<{
+    url: string;
+    title: string;
+    description: string;
+    engagement: {
+      likes: number;
+      comments: number;
+      shares: number;
+      views?: number;
+    };
+    publishedAt: Date;
+    author: string;
+    hashtags: string[];
+    relevanceScore: number;
+    views?: number;
+  }>> {
     // In production, use platform APIs or scraping tools
     // This is a placeholder
     return [];
@@ -1476,7 +1513,16 @@ export class SEOAgent {
     return engagementRate > 0.05 || (post.views || 0) > 10000;
   }
 
-  private async generateSocialResponse(data: any): Promise<any> {
+  private async generateSocialResponse(data: {
+    platform: string;
+    post: unknown;
+    practiceArea: string;
+  }): Promise<{
+    blogPostIdea: string;
+    socialResponse: string;
+    keywords: string[];
+    angle: string;
+  }> {
     const { platform, post, practiceArea } = data;
 
     const prompt = `Create a response strategy for this viral ${platform} content:
@@ -1500,7 +1546,10 @@ export class SEOAgent {
     return JSON.parse(response.choices[0].message.content || '{}');
   }
 
-  private async analyzeAndCreateContent(data: any): Promise<any> {
+  private async analyzeAndCreateContent(data: {
+    article: { title: string; summary?: string };
+    practiceArea: string;
+  }): Promise<unknown> {
     const { article, practiceArea } = data;
 
     // Generate rapid response content
@@ -1532,7 +1581,17 @@ export class SEOAgent {
     return plainText.length > maxLength ? plainText.substring(0, maxLength - 3) + '...' : plainText;
   }
 
-  private async calculateSEOScore(blogData: any): Promise<number> {
+  private async calculateSEOScore(blogData: {
+    title: string;
+    keywords: string[];
+    metaDescription: string;
+    content: string;
+    headings: string[];
+    images: unknown[];
+    structuredData?: unknown;
+    internalLinks?: unknown[];
+    faqSection?: unknown[];
+  }): Promise<number> {
     let score = 0;
 
     // Title optimization (20 points)
@@ -1577,7 +1636,7 @@ export class SEOAgent {
   }
 
   private generateNewsQueries(practiceArea: string): string[] {
-    const baseQueries: { [key: string]: string[] } = {
+    const baseQueries: Record<string, string[]> = {
       immigration: ['immigration law changes', 'USCIS updates', 'visa news', 'immigration reform'],
       'personal-injury': [
         'accident settlements',
@@ -1622,7 +1681,7 @@ export class SEOAgent {
   }
 
   private getSeedKeywords(practiceArea: string, language: string): string[] {
-    const keywords: { [key: string]: { [lang: string]: string[] } } = {
+    const keywords: Record<string, Record<string, string[]>> = {
       immigration: {
         en: [
           'immigration lawyer',
@@ -1728,7 +1787,22 @@ export class SEOAgent {
     }
   }
 
-  private async generateAndSaveSchemaMarkup(blog: any) {
+  private async generateAndSaveSchemaMarkup(blog: {
+    id: string;
+    title: string;
+    slug: string;
+    content: string;
+    excerpt?: string;
+    metaDescription?: string;
+    keywords?: string[];
+    faqSection?: Array<{ question: string; answer: string }>;
+    language?: string;
+    practiceArea?: string;
+    author?: string;
+    featuredImage?: string;
+    publishedAt?: Date;
+    updatedAt?: Date;
+  }) {
     const schema = await this.generateSchemaMarkup('BlogPosting', blog);
 
     // In production, you might want to save this to a separate field
@@ -1737,7 +1811,7 @@ export class SEOAgent {
   }
 
   private formatPracticeAreaName(area: string): string {
-    const names: { [key: string]: string } = {
+    const names: Record<string, string> = {
       immigration: 'Immigration Law',
       'personal-injury': 'Personal Injury',
       'workers-compensation': "Workers' Compensation",
@@ -1750,7 +1824,7 @@ export class SEOAgent {
   }
 
   private getPracticeAreaDescription(area: string): string {
-    const descriptions: { [key: string]: string } = {
+    const descriptions: Record<string, string> = {
       immigration:
         'Comprehensive immigration services including visas, green cards, citizenship, and deportation defense.',
       'personal-injury':
@@ -1801,7 +1875,10 @@ export class SEOAgent {
     return JSON.parse(response.choices[0].message.content || '[]');
   }
 
-  private async extractNewsKeywords(article: any): Promise<string[]> {
+  private async extractNewsKeywords(article: {
+    title: string;
+    summary?: string;
+  }): Promise<string[]> {
     const prompt = `Extract 5-7 SEO keywords from this news article:
       Title: ${article.title}
       Summary: ${article.summary}

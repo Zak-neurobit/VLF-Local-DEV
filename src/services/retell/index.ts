@@ -183,7 +183,8 @@ export class RetellService {
           data: config.data,
         });
 
-        (config as any).metadata = { requestId, startTime: Date.now() };
+        const configWithMetadata = config as typeof config & { metadata?: { requestId: string; startTime: number } };
+        configWithMetadata.metadata = { requestId, startTime: Date.now() };
         return config;
       },
       error => {
@@ -195,10 +196,11 @@ export class RetellService {
     // Response interceptor
     this.client.interceptors.response.use(
       response => {
-        if ((response.config as any).metadata) {
-          const duration = Date.now() - (response.config as any).metadata.startTime;
+        const configWithMetadata = response.config as typeof response.config & { metadata?: { requestId: string; startTime: number } };
+        if (configWithMetadata.metadata) {
+          const duration = Date.now() - configWithMetadata.metadata.startTime;
           logger.info('Retell API response', {
-            requestId: (response.config as any).metadata.requestId,
+            requestId: configWithMetadata.metadata.requestId,
             status: response.status,
             duration,
           });
@@ -206,10 +208,11 @@ export class RetellService {
         return response;
       },
       error => {
-        if ((error.config as any)?.metadata) {
-          const duration = Date.now() - (error.config as any).metadata.startTime;
+        const errorConfig = error.config as typeof error.config & { metadata?: { requestId: string; startTime: number } };
+        if (errorConfig?.metadata) {
+          const duration = Date.now() - errorConfig.metadata.startTime;
           logger.error('Retell API error', {
-            requestId: (error.config as any).metadata.requestId,
+            requestId: errorConfig.metadata.requestId,
             status: error.response?.status,
             duration,
             error: error.response?.data || error.message,
@@ -252,7 +255,7 @@ export class RetellService {
           const response = await this.client.get(`/api/get-agent/${agentId}`);
           return response.data;
         } catch (error) {
-          if (error instanceof Error && (error as any).response?.status === 404) {
+          if (error instanceof Error && 'response' in error && (error as Error & { response?: { status: number } }).response?.status === 404) {
             return null;
           }
           throw error;
@@ -332,7 +335,7 @@ export class RetellService {
           const response = await this.client.get(`/api/get-call/${callId}`);
           return response.data;
         } catch (error) {
-          if (error instanceof Error && (error as any).response?.status === 404) {
+          if (error instanceof Error && 'response' in error && (error as Error & { response?: { status: number } }).response?.status === 404) {
             return null;
           }
           throw error;

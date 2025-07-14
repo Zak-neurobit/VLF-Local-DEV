@@ -275,7 +275,14 @@ Se habla español`;
   }
 
   // Format appointment reminder message
-  private formatAppointmentReminder(appointment: any): string {
+  private formatAppointmentReminder(appointment: {
+    clientName: string;
+    type: string;
+    attorneyName: string;
+    date: Date;
+    time: string;
+    location?: string;
+  }): string {
     const date = new Date(appointment.date);
     const formattedDate = date.toLocaleDateString('en-US', {
       weekday: 'long',

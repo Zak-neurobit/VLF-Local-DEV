@@ -691,7 +691,7 @@ This is an automated security email. If you didn't request a password reset, ple
               ? `
           <h3>Next Steps</h3>
           <ol>
-            ${data.nextSteps.map((step: string) => `<li>${step}</li>`).join('')}
+            ${(data.nextSteps as string[]).map((step: string) => `<li>${step}</li>`).join('')}
           </ol>
           `
               : ''
@@ -702,7 +702,7 @@ This is an automated security email. If you didn't request a password reset, ple
               ? `
           <h3>Documents Needed</h3>
           <ul>
-            ${data.documentsNeeded.map((doc: string) => `<li>${doc}</li>`).join('')}
+            ${(data.documentsNeeded as string[]).map((doc: string) => `<li>${doc}</li>`).join('')}
           </ul>
           `
               : ''
@@ -735,9 +735,9 @@ Attorney: ${data.attorneyName}
 UPDATE DETAILS
 ${data.updateContent}
 
-${data.nextSteps && data.nextSteps.length > 0 ? `NEXT STEPS\n${data.nextSteps.map((step: string, i: number) => `${i + 1}. ${step}`).join('\n')}\n` : ''}
+${data.nextSteps && data.nextSteps.length > 0 ? `NEXT STEPS\n${(data.nextSteps as string[]).map((step: string, i: number) => `${i + 1}. ${step}`).join('\n')}\n` : ''}
 
-${data.documentsNeeded && data.documentsNeeded.length > 0 ? `DOCUMENTS NEEDED\n${data.documentsNeeded.map((doc: string) => `- ${doc}`).join('\n')}\n` : ''}
+${data.documentsNeeded && data.documentsNeeded.length > 0 ? `DOCUMENTS NEEDED\n${(data.documentsNeeded as string[]).map((doc: string) => `- ${doc}`).join('\n')}\n` : ''}
 
 If you have any questions about this update, please don't hesitate to contact us at 1-844-YO-PELEO (967-3536) or reply to this email.
 
@@ -928,7 +928,7 @@ YO PELEO POR TI™
               ? `
           <h4>Our Recommendations:</h4>
           <ul>
-            ${data.recommendations.map((rec: string) => `<li>${rec}</li>`).join('')}
+            ${(data.recommendations as string[]).map((rec: string) => `<li>${rec}</li>`).join('')}
           </ul>
           `
               : ''
@@ -981,7 +981,7 @@ Attorney: ${data.attorneyName}
 Practice Area: ${data.practiceArea}
 ${data.summary ? `\n${data.summary}` : ''}
 
-${data.recommendations && data.recommendations.length > 0 ? `\nOUR RECOMMENDATIONS:\n${data.recommendations.map((rec: string) => `- ${rec}`).join('\n')}` : ''}
+${data.recommendations && data.recommendations.length > 0 ? `\nOUR RECOMMENDATIONS:\n${(data.recommendations as string[]).map((rec: string) => `- ${rec}`).join('\n')}` : ''}
 
 ${data.quote ? `\nFEE ESTIMATE\n${data.quote}\nThis estimate is valid for 30 days from the consultation date.` : ''}
 
@@ -1039,6 +1039,10 @@ class EmailService {
 
   // Verify SMTP connection
   private async verifyConnection(): Promise<void> {
+    if (!this.isConfigured) {
+      logger.info('Email service not configured, skipping verification');
+      return;
+    }
     try {
       if (!transporter) {
         logger.warn('SMTP not configured, skipping verification');
@@ -1047,7 +1051,7 @@ class EmailService {
       await transporter.verify();
       logger.info('SMTP connection verified successfully');
     } catch (error) {
-      logger.error('SMTP connection verification failed', error as Error);
+      logger.error('SMTP connection verification failed', error);
     }
   }
 
@@ -1117,10 +1121,10 @@ class EmailService {
         html: this.wrapInEmailLayout(html, subject),
         attachments: attachments?.map(att => ({
           filename: att.filename,
-          content: att.content,
+          content: att.content as Buffer,
           path: att.path,
           contentType: att.contentType,
-          encoding: att.encoding,
+          encoding: att.encoding as 'base64' | '7bit' | 'quoted-printable' | undefined,
           cid: att.cid,
         })),
         replyTo,
@@ -1173,7 +1177,7 @@ class EmailService {
     } catch (error) {
       const duration = performance.now() - startTime;
 
-      logger.error('Failed to send email', error as Error, {
+      logger.error('Failed to send email', error, {
         to: options.to,
         subject: options.subject,
         template: options.template,
@@ -1190,6 +1194,11 @@ class EmailService {
 
   // Queue email for asynchronous sending
   async queueEmail(options: EmailOptions): Promise<void> {
+    if (!emailQueue) {
+      logger.warn('Email queue not available, sending directly');
+      await this.sendEmail(options);
+      return;
+    }
     const { queueOptions, ...emailOptions } = options;
 
     await emailQueue.add('send-email', emailOptions, {
@@ -1482,6 +1491,11 @@ class EmailService {
   }
 
   async sendUrgentLeadNotification(data: EmailTemplateData): Promise<EmailResult> {
+    const leadData = data.lead as {
+      practiceArea?: string;
+      score?: number;
+      id?: string;
+    } | undefined;
     // Send to multiple attorneys for urgent leads
     const attorneyEmails = process.env.URGENT_LEAD_EMAILS?.split(',') || [
       'attorneys@vasquezlawnc.com',
@@ -1489,7 +1503,7 @@ class EmailService {
 
     return this.sendEmail({
       to: attorneyEmails,
-      subject: `🚨 URGENT: New ${data.lead?.practiceArea?.replace(/_/g, ' ') || 'Unknown'} Lead - Score: ${data.lead?.score || 0}`,
+      subject: `🚨 URGENT: New ${leadData?.practiceArea?.replace(/_/g, ' ') || 'Unknown'} Lead - Score: ${leadData?.score || 0}`,
       template: 'urgent-lead-notification',
       data,
       priority: 'high',

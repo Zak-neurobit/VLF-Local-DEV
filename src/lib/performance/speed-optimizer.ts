@@ -18,7 +18,7 @@ export function useNetworkStatus() {
 
   useEffect(() => {
     if ('connection' in navigator) {
-      const connection = (navigator as any).connection;
+      const connection = (navigator as Navigator & { connection?: NetworkInformation }).connection;
 
       const updateConnectionStatus = () => {
         setEffectiveType(connection.effectiveType || '4g');

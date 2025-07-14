@@ -69,7 +69,7 @@ When providing advice:
     petitionerStatus: 'USC' | 'LPR';
     beneficiaryLocation: 'US' | 'abroad';
     priorityCategory?: string;
-  }): Promise<any> {
+  }): Promise<AffirmativeAnalysis> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('family', params);
@@ -101,7 +101,7 @@ Priority Category: ${params.priorityCategory || 'To be determined'}`;
     continuousResidence: string;
     criminalHistory?: string;
     englishAbility: string;
-  }): Promise<any> {
+  }): Promise<AffirmativeAnalysis> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('naturalization', params);
@@ -133,7 +133,7 @@ English Ability: ${params.englishAbility}`;
     documentReadiness: string;
     previousDenials?: string;
     unlawfulPresence?: string;
-  }): Promise<any> {
+  }): Promise<AffirmativeAnalysis> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('consular', params);
@@ -158,7 +158,7 @@ Unlawful Presence: ${params.unlawfulPresence || 'None'}`;
     }
   }
 
-  private getMockAnalysis(type: string, params: any): unknown {
+  private getMockAnalysis(type: string, params: Record<string, unknown>): AffirmativeAnalysis {
     const mockData = {
       family: {
         summary: 'Family-based petition analysis complete',

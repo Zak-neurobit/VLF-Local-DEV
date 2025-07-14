@@ -317,16 +317,17 @@ export class RetellAgentManager {
       }
     } catch (error) {
       // Log detailed error information
-      if (error instanceof Error && (error as any).response?.status === 404) {
+      const axiosError = error as Error & { response?: { status: number; data?: unknown }; config?: { url?: string; method?: string } };
+      if (error instanceof Error && axiosError.response?.status === 404) {
         logger.error('Retell API endpoint not found. Please check API version and endpoints.', {
-          endpoint: (error as any).config?.url,
-          method: (error as any).config?.method,
+          endpoint: axiosError.config?.url,
+          method: axiosError.config?.method,
         });
       } else {
         logger.error('Failed to create/update agent:', {
           error: error instanceof Error ? error.message : String(error),
-          status: error instanceof Error ? (error as any).response?.status : undefined,
-          data: error instanceof Error ? (error as any).response?.data : undefined,
+          status: error instanceof Error ? axiosError.response?.status : undefined,
+          data: error instanceof Error ? axiosError.response?.data : undefined,
         });
       }
       return null;
@@ -341,7 +342,7 @@ export class RetellAgentManager {
     return this.agents.get(practiceArea) || this.agents.get('general') || null;
   }
 
-  static async createAgent(config: any) {
+  static async createAgent(config: Partial<RetellAgent>) {
     try {
       const service = getRetellService();
       const agent = await service.createAgent(config);
@@ -352,7 +353,7 @@ export class RetellAgentManager {
     }
   }
 
-  static async updateAgent(agentId: string, config: any) {
+  static async updateAgent(agentId: string, config: Partial<RetellAgent>) {
     try {
       const service = getRetellService();
       await service.updateAgent(agentId, config);

@@ -382,7 +382,14 @@ export class ContentScheduler {
     logger.info('Scheduling Medium post', { contentId, publishAt });
   }
 
-  private async publishContent(publication: any) {
+  private async publishContent(publication: {
+    id: string;
+    contentId: string;
+    contentType: string;
+    platforms: string[];
+    scheduledFor: Date;
+    status: string;
+  }) {
     logger.info('Publishing scheduled content', {
       contentId: publication.contentId,
       platforms: publication.platforms,
@@ -476,12 +483,23 @@ export class ContentScheduler {
     }
   }
 
-  private async publishToFacebook(content: any) {
+  private async publishToFacebook(content: {
+    id: string;
+    title?: string;
+    content?: string;
+    excerpt?: string;
+    featuredImage?: string | null;
+  }) {
     // Facebook publishing logic
     logger.info('Publishing to Facebook', { contentId: content.id });
   }
 
-  private async publishToTwitter(content: any) {
+  private async publishToTwitter(content: {
+    id: string;
+    title?: string;
+    content?: string;
+    excerpt?: string;
+  }) {
     // Twitter publishing logic
     logger.info('Publishing to Twitter', { contentId: content.id });
   }
@@ -502,7 +520,12 @@ export class ContentScheduler {
     return null;
   }
 
-  private async trackPublication(publication: any) {
+  private async trackPublication(publication: {
+    id: string;
+    contentId: string;
+    contentType: string;
+    platforms: string[];
+  }) {
     const prisma = getPrismaClient();
 
     await prisma.contentPublicationLog.create({

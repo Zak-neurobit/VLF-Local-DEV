@@ -1,12 +1,13 @@
 import { componentLogger as logger } from '@/lib/logger';
 
 export class AnalyticsService {
-  async trackEvent(eventName: string, properties: any) {
+  async trackEvent(eventName: string, properties: Record<string, unknown>) {
     logger.info('Tracking event', { eventName, properties });
 
     // Mock implementation - integrate with Google Analytics, Mixpanel, etc.
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', eventName, properties);
+    const windowWithGtag = window as Window & { gtag?: (command: string, eventName: string, properties: Record<string, unknown>) => void };
+    if (typeof window !== 'undefined' && windowWithGtag.gtag) {
+      windowWithGtag.gtag('event', eventName, properties);
     }
   }
 

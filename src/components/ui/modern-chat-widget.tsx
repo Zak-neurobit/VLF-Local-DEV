@@ -30,31 +30,80 @@ export function ModernChatWidget() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
-    const newMessage: Message = {
+    const userMessage: Message = {
       id: Date.now().toString(),
       text: inputValue,
       sender: 'user',
       timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, newMessage]);
+    setMessages(prev => [...prev, userMessage]);
+    const messageText = inputValue;
     setInputValue('');
     setIsTyping(true);
 
-    // Simulate bot response
-    setTimeout(() => {
+    try {
+      // Detect language from current page or message
+      const isSpanish = window.location.pathname.startsWith('/es') || 
+                        /[ñáéíóúü]/i.test(messageText);
+      const language = isSpanish ? 'es' : 'en';
+
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: messageText,
+          language,
+          sessionId: localStorage.getItem('chatSessionId') || undefined,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      // Store session ID for conversation continuity
+      if (data.sessionId) {
+        localStorage.setItem('chatSessionId', data.sessionId);
+      }
+
       const botResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: 'Gracias por tu mensaje. Un abogado se pondrá en contacto contigo pronto. Mientras tanto, ¿puedo ayudarte con información sobre nuestros servicios?',
+        text: data.response || (language === 'es' 
+          ? 'Lo siento, no pude procesar tu mensaje. Por favor, intenta de nuevo.'
+          : 'Sorry, I couldn\'t process your message. Please try again.'),
         sender: 'bot',
         timestamp: new Date(),
       };
+
       setMessages(prev => [...prev, botResponse]);
+    } catch (error) {
+      console.error('Chat API error:', error);
+      
+      // Fallback response
+      const isSpanish = window.location.pathname.startsWith('/es') || 
+                        /[ñáéíóúü]/i.test(messageText);
+      
+      const errorResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        text: isSpanish 
+          ? 'Disculpa, tuve un problema al procesar tu mensaje. Por favor, intenta de nuevo o llámanos al 1-844-967-3536.'
+          : 'I apologize, I had trouble processing your message. Please try again or call us at 1-844-967-3536.',
+        sender: 'bot',
+        timestamp: new Date(),
+      };
+
+      setMessages(prev => [...prev, errorResponse]);
+    } finally {
       setIsTyping(false);
-    }, 2000);
+    }
   };
 
   return (

@@ -86,8 +86,9 @@ export class NotificationService {
       // await getPrismaClient().notification.create({ data: notification });
 
       // Emit real-time event if socket.io is available
-      if ((global as any).io) {
-        (global as any).io.to(userId).emit('notification', notification);
+      const globalWithIo = global as typeof globalThis & { io?: { to: (userId: string) => { emit: (event: string, data: unknown) => void } } };
+      if (globalWithIo.io) {
+        globalWithIo.io.to(userId).emit('notification', notification);
       }
 
       logger.info('In-app notification created', { userId });
@@ -201,7 +202,7 @@ export const createNotification = async (options: {
   type: string;
   title: string;
   message: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }) => {
   await notificationService.sendInApp(options.userId, options.message);
 };

@@ -142,7 +142,7 @@ export class ContentFactory {
           language,
           targetKeywords: topic.keywords,
           includeLocalCaseStudy: true,
-          optimizeForVoiceSearch: Boolean((topic as any).isVoiceSearch),
+          optimizeForVoiceSearch: Boolean((topic as { isVoiceSearch?: boolean }).isVoiceSearch),
         });
 
         // Save to database
@@ -167,7 +167,7 @@ export class ContentFactory {
               ...blogPost,
               id: Date.now().toString(),
               practiceArea,
-            } as any),
+            }),
             readTime: blogPost.readTime,
           },
         });
@@ -229,8 +229,8 @@ export class ContentFactory {
               practiceArea,
               language,
               heroImage: page.heroImage,
-              sections: page.sections as any,
-              localSchema: page.localSchema as any,
+              sections: page.sections as Record<string, unknown>,
+              localSchema: page.localSchema as Record<string, unknown>,
               status: 'published',
               publishedAt: new Date(),
               viewCount: 0,
@@ -281,7 +281,7 @@ export class ContentFactory {
               practiceArea,
               variationType: type,
               content: variation.content,
-              conversionElements: variation.conversionElements as any,
+              conversionElements: variation.conversionElements as Record<string, unknown>,
               language,
               status: 'testing',
               trafficPercentage: 25, // Split traffic evenly
@@ -306,7 +306,12 @@ export class ContentFactory {
     logger.info('Generating schema markup for content', { count: content.length });
 
     for (const item of content) {
-      const contentItem = item as any;
+      const contentItem = item as {
+        model?: string;
+        faqSection?: unknown;
+        content?: string;
+        id?: string;
+      };
       if (contentItem.model === 'BlogPost') {
         await this.schemaAutomation.generateBlogSchema(contentItem);
       } else if (contentItem.model === 'LandingPage') {
@@ -336,7 +341,10 @@ export class ContentFactory {
     const optimalTimes = await this.scheduler.getOptimalPublishingTimes();
 
     for (let i = 0; i < content.length; i++) {
-      const item = content[i] as any;
+      const item = content[i] as {
+        id: string;
+        model?: string;
+      };
       const timeSlot = optimalTimes[i % optimalTimes.length];
 
       await this.scheduler.schedulePublication({
@@ -426,7 +434,7 @@ export class ContentFactory {
 
     // Analyze what's working
     const highPerformers = recentContent.filter(
-      c => c.viewCount > 100 || c.seoAnalysis?.some((a: any) => a.avgPosition && a.avgPosition < 10)
+      c => c.viewCount > 100 || c.seoAnalysis?.some((a: { avgPosition?: number }) => a.avgPosition && a.avgPosition < 10)
     );
 
     const insights = {
@@ -472,7 +480,10 @@ export class ContentFactory {
     const topicCounts = new Map<string, number>();
 
     content.forEach(item => {
-      const contentItem = item as any;
+      const contentItem = item as {
+        title: string;
+        viewCount: number;
+      };
       const topic = this.extractTopicFromTitle(contentItem.title);
       topicCounts.set(topic, (topicCounts.get(topic) || 0) + contentItem.viewCount);
     });
@@ -492,7 +503,10 @@ export class ContentFactory {
     const keywordPerformance = new Map<string, number>();
 
     content.forEach(item => {
-      const contentItem = item as any;
+      const contentItem = item as {
+        keywords?: string[];
+        seoAnalysis?: Array<{ avgPosition?: number }>;
+      };
       contentItem.keywords?.forEach((keyword: string) => {
         const score = contentItem.seoAnalysis?.[0]?.avgPosition
           ? 100 - contentItem.seoAnalysis[0].avgPosition
@@ -508,7 +522,7 @@ export class ContentFactory {
   }
 
   private calculateOptimalLength(content: unknown[]): number {
-    const lengths = content.map(item => (item as any).content.length);
+    const lengths = content.map(item => (item as { content: string }).content.length);
     return Math.round(lengths.reduce((a, b) => a + b, 0) / lengths.length);
   }
 
@@ -517,7 +531,10 @@ export class ContentFactory {
     const timePerformance = new Map<number, number>();
 
     content.forEach(item => {
-      const contentItem = item as any;
+      const contentItem = item as {
+        publishedAt?: Date | string;
+        viewCount: number;
+      };
       if (contentItem.publishedAt) {
         const hour = new Date(contentItem.publishedAt).getHours();
         timePerformance.set(hour, (timePerformance.get(hour) || 0) + contentItem.viewCount);
@@ -532,13 +549,13 @@ export class ContentFactory {
 
   private calculateAverage(items: unknown[], field: string): number {
     if (items.length === 0) return 0;
-    const sum = items.reduce((acc: number, item) => acc + ((item as any)[field] || 0), 0);
+    const sum = items.reduce((acc: number, item) => acc + ((item as Record<string, number>)[field] || 0), 0);
     return Math.round(sum / items.length);
   }
 
   private calculateAvgPosition(content: unknown[]): number {
     const positions = content
-      .flatMap(c => (c as any).seoAnalysis?.map((a: any) => a.avgPosition) || [])
+      .flatMap(c => (c as { seoAnalysis?: Array<{ avgPosition?: number }> }).seoAnalysis?.map(a => a.avgPosition) || [])
       .filter(p => p > 0);
 
     if (positions.length === 0) return 0;

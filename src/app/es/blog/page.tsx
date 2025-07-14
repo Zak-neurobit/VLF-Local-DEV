@@ -28,25 +28,68 @@ export const metadata: Metadata = {
 export const runtime = 'nodejs';
 
 export default function BlogPage() {
-  // TODO: Extract content from original file and format properly
-  const post = {
-    id: 'blog',
-    title: 'Blog',
-    slug: 'blog',
-    excerpt: 'Blog post excerpt here - TODO: extract from content',
-    content: `
-      <div class="prose prose-lg max-w-none">
-        <!-- TODO: Migrate content from original file -->
-        <p>This content needs to be migrated from the original file.</p>
-      </div>
-    `,
-    practiceArea: 'general', // TODO: Determine correct practice area
-    language: 'en' as const,
-    publishedAt: new Date(),
-    readTime: 5,
-    author: DEFAULT_BLOG_AUTHOR,
-    tags: [], // TODO: Add relevant tags
-  };
+  const posts = [
+    {
+      id: 'deportacion-5-pasos-urgentes-que-debes-tomar-hoy',
+      title: 'Deportación: 5 Pasos Urgentes que Debes Tomar HOY',
+      slug: 'deportacion-5-pasos-urgentes-que-debes-tomar-hoy',
+      excerpt: 'Guía de emergencia militar para enfrentar la deportación. Cada minuto cuenta. Estrategias probadas de abogado veterano que YO PELEO POR TI™.',
+      practiceArea: 'immigration' as const,
+      language: 'es' as const,
+      publishedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      readTime: 12,
+      author: DEFAULT_BLOG_AUTHOR,
+      tags: ['deportación', 'inmigración', 'ICE', 'emergencia'],
+    },
+    {
+      id: 'guia-completa-residencia-permanente-2024',
+      title: 'Guía Completa de Residencia Permanente 2024',
+      slug: 'guia-completa-residencia-permanente-2024',
+      excerpt: 'La guía definitiva para obtener tu Green Card en 2024. Requisitos actualizados, tiempos de espera reales y estrategias probadas de abogado veterano.',
+      practiceArea: 'immigration' as const,
+      language: 'es' as const,
+      publishedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+      readTime: 20,
+      author: DEFAULT_BLOG_AUTHOR,
+      tags: ['residencia permanente', 'green card', 'inmigración'],
+    },
+    {
+      id: 'ciudadania-americana-tu-camino-paso-a-paso',
+      title: 'Ciudadanía Americana: Tu Camino Paso a Paso',
+      slug: 'ciudadania-americana-tu-camino-paso-a-paso',
+      excerpt: 'La guía definitiva para convertirte en ciudadano americano en 2024. Requisitos actualizados, preparación para el examen y estrategias de éxito garantizado.',
+      practiceArea: 'immigration' as const,
+      language: 'es' as const,
+      publishedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+      readTime: 18,
+      author: DEFAULT_BLOG_AUTHOR,
+      tags: ['ciudadanía', 'naturalización', 'examen ciudadanía'],
+    },
+    {
+      id: 'daca-todo-lo-que-necesitas-saber-2024',
+      title: 'DACA: Todo lo que Necesitas Saber en 2024',
+      slug: 'daca-todo-lo-que-necesitas-saber-2024',
+      excerpt: 'La guía definitiva sobre DACA en 2024. Renovaciones, requisitos actualizados, derechos laborales y estrategias de protección de un abogado veterano.',
+      practiceArea: 'immigration' as const,
+      language: 'es' as const,
+      publishedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+      readTime: 15,
+      author: DEFAULT_BLOG_AUTHOR,
+      tags: ['DACA', 'dreamers', 'renovación DACA'],
+    },
+    {
+      id: 'accidentes-auto-que-hacer-inmediatamente-despues',
+      title: 'Accidentes de Auto: Qué Hacer Inmediatamente Después',
+      slug: 'accidentes-auto-que-hacer-inmediatamente-despues',
+      excerpt: 'Guía completa de emergencia con los pasos críticos que debes tomar inmediatamente después de un accidente automovilístico para proteger tu salud, tus derechos y tu compensación.',
+      practiceArea: 'personal-injury' as const,
+      language: 'es' as const,
+      publishedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      readTime: 15,
+      author: DEFAULT_BLOG_AUTHOR,
+      tags: ['accidentes de auto', 'lesiones personales', 'compensación'],
+    },
+  ];
 
   const categories = [
     {
@@ -70,15 +113,29 @@ export default function BlogPage() {
       icon: '⚖️',
       postCount: 28,
     },
+    {
+      id: 'family-law',
+      name: { en: 'Family Law', es: 'Derecho Familiar' },
+      slug: { en: 'family-law', es: 'derecho-familiar' },
+      icon: '👨‍👩‍👧‍👦',
+      postCount: 22,
+    },
+    {
+      id: 'workers-compensation',
+      name: { en: 'Workers Compensation', es: 'Compensación Laboral' },
+      slug: { en: 'workers-compensation', es: 'compensacion-laboral' },
+      icon: '🏭',
+      postCount: 18,
+    },
   ];
 
   return (
     <BlogPageTemplate
-      posts={[]}
+      posts={posts}
       categories={categories}
-      isArticlePage={true}
-      currentPost={post}
-      relatedPosts={[]} // TODO: Add related posts
+      isArticlePage={false}
+      currentPost={undefined}
+      relatedPosts={[]}
     />
   );
 }

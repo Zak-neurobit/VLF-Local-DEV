@@ -158,7 +158,15 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
     }
   }
 
-  private parseVisaAnalysis(content: string, params: any): VisaAnalysis {
+  private parseVisaAnalysis(content: string, params: {
+    companyName: string;
+    position: string;
+    education: string;
+    experience: string;
+    currentStatus?: string;
+    salary?: string;
+    companySize?: string;
+  }): VisaAnalysis {
     const sections = content.split('\n\n');
 
     return {
@@ -231,7 +239,12 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
     return timelines[visaType] || '3-6 months';
   }
 
-  private calculateEligibilityScore(params: any): number {
+  private calculateEligibilityScore(params: {
+    education: string;
+    experience: string;
+    position: string;
+    salary?: string;
+  }): number {
     let score = 70; // Base score
 
     if (params.education.includes('Master') || params.education.includes('PhD')) score += 10;
@@ -246,7 +259,11 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
     return text || 'Processing time varies by visa type: 2-6 months typically';
   }
 
-  private estimateCosts(params: any): string {
+  private estimateCosts(params: {
+    position: string;
+    salary?: string;
+    companySize?: string;
+  }): string {
     const baseCosts = {
       'H-1B': '$6,000-$10,000',
       'L-1': '$5,000-$8,000',
@@ -256,7 +273,11 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
     return 'Estimated total costs: $5,000-$15,000 depending on visa type and premium processing';
   }
 
-  private assessSuccessProbability(params: any): 'high' | 'medium' | 'low' {
+  private assessSuccessProbability(params: {
+    education: string;
+    experience: string;
+    currentStatus?: string;
+  }): 'high' | 'medium' | 'low' {
     const score = this.calculateEligibilityScore(params);
     if (score >= 85) return 'high';
     if (score >= 70) return 'medium';
@@ -281,7 +302,10 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
       .filter(item => item.length > 0);
   }
 
-  private getMockVisaAnalysis(params: any): VisaAnalysis {
+  private getMockVisaAnalysis(params: {
+    companyName: string;
+    position: string;
+  }): VisaAnalysis {
     return {
       recommendedVisas: [
         { type: 'H-1B', priority: 'primary', timeline: '4-6 months' },
@@ -309,7 +333,10 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
     };
   }
 
-  private getMockPERMStrategy(params: any): PERMStrategy {
+  private getMockPERMStrategy(params: {
+    companyName: string;
+    position: string;
+  }): PERMStrategy {
     return {
       jobRequirements: [
         "Bachelor's degree in Computer Science or related field",
@@ -341,7 +368,10 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
     };
   }
 
-  private getMockH1BAssessment(params: any): H1BAssessment {
+  private getMockH1BAssessment(params: {
+    companyName: string;
+    position: string;
+  }): H1BAssessment {
     return {
       specialtyOccupation: true,
       degreeRelated: true,

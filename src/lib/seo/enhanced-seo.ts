@@ -8,7 +8,7 @@ interface SEOConfig {
   canonical?: string;
   ogImage?: string;
   ogType?: string;
-  structuredData?: any;
+  structuredData?: Record<string, unknown>;
   noindex?: boolean;
   nofollow?: boolean;
   locale?: string;
@@ -98,7 +98,7 @@ class EnhancedSEO {
           },
         ],
         locale,
-        type: ogType as any,
+        type: ogType as string,
       },
       twitter: {
         card: 'summary_large_image',
@@ -177,7 +177,21 @@ class EnhancedSEO {
     return schema;
   }
 
-  public generateLawFirmSchema(config: any): object {
+  public generateLawFirmSchema(config: {
+    name: string;
+    description: string;
+    url: string;
+    phone: string;
+    address: {
+      street: string;
+      city: string;
+      state: string;
+      zipCode: string;
+      country: string;
+    };
+    attorneys?: Array<{ name: string; role: string; url?: string }>;
+    areasOfPractice?: string[];
+  }): object {
     return {
       '@context': 'https://schema.org',
       '@type': 'LegalService',
@@ -194,7 +208,7 @@ class EnhancedSEO {
         addressCountry: config.address.country,
       },
       attorney:
-        config.attorneys?.map((attorney: any) => ({
+        config.attorneys?.map((attorney) => ({
           '@type': 'Person',
           name: attorney.name,
           jobTitle: attorney.title,
@@ -208,7 +222,16 @@ class EnhancedSEO {
     };
   }
 
-  public generateArticleSchema(config: any): object {
+  public generateArticleSchema(config: {
+    headline: string;
+    description: string;
+    author: { name: string; url?: string };
+    datePublished: string;
+    dateModified?: string;
+    image?: string;
+    url: string;
+    keywords?: string[];
+  }): object {
     return {
       '@context': 'https://schema.org',
       '@type': 'Article',
@@ -376,12 +399,12 @@ export default EnhancedSEO;
 // Utility functions
 export const seoUtils = {
   // Generate meta tags for dynamic content
-  generateDynamicMeta: (template: string, data: any): string => {
+  generateDynamicMeta: (template: string, data: Record<string, unknown>): string => {
     return template.replace(/\{\{(\w+)\}\}/g, (match, key) => data[key] || match);
   },
 
   // Validate structured data
-  validateStructuredData: (data: any): boolean => {
+  validateStructuredData: (data: unknown): boolean => {
     try {
       JSON.stringify(data);
       return true;

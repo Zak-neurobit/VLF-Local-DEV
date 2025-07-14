@@ -20,6 +20,44 @@ interface InterAgentMessage {
   data?: unknown;
 }
 
+// Event types for the event system
+interface TaskEvent {
+  taskId: string;
+  agentName: string;
+  executionTime?: number;
+}
+
+interface TaskStartedEvent extends TaskEvent {}
+
+interface TaskCompletedEvent extends TaskEvent {
+  result: unknown;
+}
+
+interface TaskFailedEvent extends TaskEvent {
+  error: Error | string;
+}
+
+interface WorkflowStepCompletedEvent {
+  workflowId: string;
+  stepId: string;
+  result: unknown;
+}
+
+interface AgentMessageEvent {
+  from: string;
+  to: string;
+  type: string;
+  payload: unknown;
+}
+
+interface MemoryAccessEvent {
+  operation: 'store' | 'retrieve';
+  agent: string;
+  key: string;
+  size?: number;
+  hit?: boolean;
+}
+
 export interface ParallelProcessingConfig {
   maxConcurrentTasks: number;
   taskQueueSize: number;
@@ -72,7 +110,7 @@ export interface AgentCommunicationChannel {
   agentName: string;
   messageQueue: unknown[];
   subscribers: Set<string>;
-  messageHandlers: Map<string, (...args: unknown[]) => any>;
+  messageHandlers: Map<string, (...args: unknown[]) => Promise<unknown>>;
   lastActivity: Date;
 }
 
@@ -363,7 +401,7 @@ export class CrewCoordinator {
     fromAgent: string,
     toAgent: string,
     messageType: string,
-    payload: any
+    payload: unknown
   ): Promise<void> {
     const channel = this.communicationChannels.get(toAgent);
     if (!channel) {
@@ -397,7 +435,7 @@ export class CrewCoordinator {
     this.eventEmitter.emit('agent-message', message);
   }
 
-  async broadcastMessage(fromAgent: string, messageType: string, payload: any): Promise<void> {
+  async broadcastMessage(fromAgent: string, messageType: string, payload: unknown): Promise<void> {
     logger.info(`Broadcasting message from ${fromAgent}: ${messageType}`);
 
     const broadcastPromises = Array.from(this.communicationChannels.keys())
@@ -424,7 +462,7 @@ export class CrewCoordinator {
   async storeInDistributedMemory(
     agent: string,
     key: string,
-    value: any,
+    value: unknown,
     ttl?: number
   ): Promise<void> {
     const memoryKey = `${agent}:${key}`;
@@ -449,7 +487,7 @@ export class CrewCoordinator {
     });
   }
 
-  async getFromDistributedMemory(agent: string, key: string): Promise<any> {
+  async getFromDistributedMemory(agent: string, key: string): Promise<unknown> {
     const memoryKey = `${agent}:${key}`;
     const memoryStore = this.distributedMemory.get(memoryKey);
 
@@ -498,7 +536,7 @@ export class CrewCoordinator {
     }
   }
 
-  private compressData(data: any): string {
+  private compressData(data: unknown): string {
     // Simple compression simulation (in production, use actual compression library)
     return JSON.stringify(data);
   }
@@ -536,7 +574,7 @@ export class CrewCoordinator {
     return workflowId;
   }
 
-  async executeWorkflow(workflowId: string): Promise<any> {
+  async executeWorkflow(workflowId: string): Promise<unknown[]> {
     const workflow = this.workflowManager.get(workflowId);
     if (!workflow) {
       throw new Error(`Workflow ${workflowId} not found`);
@@ -611,7 +649,7 @@ export class CrewCoordinator {
   private async executeWorkflowStep(
     step: WorkflowStep,
     context: Record<string, unknown>
-  ): Promise<any> {
+  ): Promise<unknown> {
     step.status = 'running';
     step.startTime = new Date();
 
@@ -621,13 +659,13 @@ export class CrewCoordinator {
 
       switch (step.agentName) {
         case 'legal-consultation':
-          result = await this.legalConsultationAgent.analyze(step.input as any);
+          result = await this.legalConsultationAgent.analyze(step.input as LegalConsultationRequest);
           break;
         case 'appointment-scheduling':
-          result = await this.appointmentSchedulingAgent.findAvailableSlots(step.input as any);
+          result = await this.appointmentSchedulingAgent.findAvailableSlots(step.input as AppointmentRequest);
           break;
         case 'document-analysis':
-          result = await this.documentAnalysisAgent.analyzeDocument(step.input as any);
+          result = await this.documentAnalysisAgent.analyzeDocument(step.input as DocumentAnalysisRequest);
           break;
         // Add more agent handlers as needed
         default:
@@ -740,12 +778,12 @@ export class CrewCoordinator {
   }
 
   // Event handlers
-  private handleTaskStarted(event: any): void {
+  private handleTaskStarted(event: TaskStartedEvent): void {
     const { taskId, agentName } = event;
     logger.info(`Task ${taskId} started by ${agentName}`);
   }
 
-  private handleTaskCompleted(event: any): void {
+  private handleTaskCompleted(event: TaskCompletedEvent): void {
     const { taskId, agentName, result, executionTime } = event;
     logger.info(`Task ${taskId} completed by ${agentName} in ${executionTime}ms`);
 
@@ -753,7 +791,7 @@ export class CrewCoordinator {
     this.updateAgentPerformanceMetrics(agentName, true, executionTime);
   }
 
-  private handleTaskFailed(event: any): void {
+  private handleTaskFailed(event: TaskFailedEvent): void {
     const { taskId, agentName, error, executionTime } = event;
     logger.error(`Task ${taskId} failed by ${agentName}:`, error);
 
@@ -761,17 +799,17 @@ export class CrewCoordinator {
     this.updateAgentPerformanceMetrics(agentName, false, executionTime);
   }
 
-  private handleWorkflowStepCompleted(event: any): void {
+  private handleWorkflowStepCompleted(event: WorkflowStepCompletedEvent): void {
     const { workflowId, stepId, result } = event;
     logger.info(`Workflow step ${stepId} completed in workflow ${workflowId}`);
   }
 
-  private handleAgentMessage(event: any): void {
+  private handleAgentMessage(event: AgentMessageEvent): void {
     const { from, to, type, payload } = event;
     logger.info(`Agent message: ${from} -> ${to} (${type})`);
   }
 
-  private handleMemoryAccess(event: any): void {
+  private handleMemoryAccess(event: MemoryAccessEvent): void {
     const { operation, agent, key, size, hit } = event;
     if (operation === 'store') {
       logger.debug(`Memory stored: ${agent}:${key} (${size} bytes)`);

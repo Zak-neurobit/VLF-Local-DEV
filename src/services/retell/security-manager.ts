@@ -462,7 +462,7 @@ export class SecurityManager {
     try {
       const prisma = getPrismaClient();
 
-      const where: any = { service: 'retell' };
+      const where: Prisma.SecurityEventWhereInput = { service: 'retell' };
       if (timeRange) {
         where.timestamp = {
           gte: timeRange.start,

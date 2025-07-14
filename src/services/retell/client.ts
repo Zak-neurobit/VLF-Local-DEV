@@ -3,7 +3,7 @@ import { getRetellService, RetellService } from './index';
 import { logger } from '@/lib/pino-logger';
 // Re-export the service as RetellClient for backward compatibility
 export class RetellClient {
-  private service: RetellService;
+  private service: RetellService | null;
 
   constructor() {
     try {
@@ -11,7 +11,7 @@ export class RetellClient {
     } catch (error) {
       // If Retell is not configured, create a mock service
       logger.warn('Retell service not configured, using mock implementation');
-      this.service = null as any;
+      this.service = null;
     }
   }
 

@@ -179,7 +179,7 @@ export class CaseManagementService {
 
       const updatedCase = await getPrismaClient().case.update({
         where: { id: caseId },
-        data: validated as any,
+        data: validated as Prisma.CaseUpdateInput,
         include: {
           client: true,
           attorney: true,
@@ -199,7 +199,7 @@ export class CaseManagementService {
             caseNumber: updatedCase.caseNumber,
             status: updatedCase.status,
             client: {
-              email: (updatedCase.client as any).email,
+              email: (updatedCase.client as User & { email: string }).email,
               firstName: updatedCase.client.name?.split(' ')[0] || null,
               lastName: updatedCase.client.name?.split(' ').slice(1).join(' ') || null,
               phone: updatedCase.client.phone || null,
@@ -478,7 +478,7 @@ export class CaseManagementService {
       priority: TaskPriority.medium as TaskPriority,
     };
 
-    const tasksByArea: Record<PracticeArea, any[]> = {
+    const tasksByArea: Record<PracticeArea, Array<{ title: string; type: TaskType; priority: TaskPriority }>> = {
       [PracticeArea.immigration]: [
         {
           ...baseTask,

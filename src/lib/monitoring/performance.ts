@@ -4,7 +4,7 @@ import { logger } from '@/lib/pino-logger';
 interface PerformanceMark {
   name: string;
   startTime: number;
-  metadata?: any;
+  metadata?: unknown;
 }
 
 class PerformanceMonitor {
@@ -87,7 +87,7 @@ class PerformanceMonitor {
     const fidObserver = new PerformanceObserver(list => {
       const entries = list.getEntries();
       entries.forEach(entry => {
-        const fidEntry = entry as any;
+        const fidEntry = entry as PerformanceEventTiming & { processingStart: number };
         performanceLogger.measure('FID', fidEntry.processingStart - fidEntry.startTime);
       });
     });
@@ -98,8 +98,9 @@ class PerformanceMonitor {
     let clsValue = 0;
     const clsObserver = new PerformanceObserver(list => {
       for (const entry of list.getEntries()) {
-        if (!(entry as any).hadRecentInput) {
-          clsValue += (entry as any).value;
+        const layoutShift = entry as PerformanceEntry & { hadRecentInput?: boolean; value?: number };
+        if (!layoutShift.hadRecentInput) {
+          clsValue += layoutShift.value || 0;
         }
       }
       performanceLogger.measure('CLS', clsValue);
@@ -113,8 +114,9 @@ class PerformanceMonitor {
     if (typeof window === 'undefined') return;
 
     setInterval(() => {
-      if ((performance as any).memory) {
-        const memory = (performance as any).memory;
+      const performanceWithMemory = performance as Performance & { memory?: { usedJSHeapSize: number; totalJSHeapSize: number; jsHeapSizeLimit: number } };
+      if (performanceWithMemory.memory) {
+        const memory = performanceWithMemory.memory;
         performanceLogger.measure('memory-used', memory.usedJSHeapSize / 1048576, {
           totalJSHeapSize: memory.totalJSHeapSize / 1048576,
           jsHeapSizeLimit: memory.jsHeapSizeLimit / 1048576,
@@ -142,7 +144,7 @@ export const Profiler = ({ id, children }: { id: string; children: React.ReactNo
     baseDuration: number,
     startTime: number,
     commitTime: number,
-    interactions: Set<any>
+    interactions: Set<PerformanceEventTiming>
   ) => {
     performanceLogger.measure(`react-${id}-${phase}`, actualDuration, {
       baseDuration,
@@ -157,14 +159,14 @@ export const Profiler = ({ id, children }: { id: string; children: React.ReactNo
 };
 
 // API timing middleware
-export const apiTimingMiddleware = (config: any) => {
+export const apiTimingMiddleware = (config: { method?: string; url?: string }) => {
   config.metadata = config.metadata || {};
   config.metadata.startTime = Date.now();
   return config;
 };
 
 export const apiTimingInterceptor = {
-  response: (response: any) => {
+  response: (response: { config?: { method?: string; url?: string }; status?: number }) => {
     if (response.config?.metadata?.startTime) {
       const duration = Date.now() - response.config.metadata.startTime;
       performanceLogger.measure('api-request', duration, {
@@ -175,7 +177,7 @@ export const apiTimingInterceptor = {
     }
     return response;
   },
-  error: (error: any) => {
+  error: (error: { config?: { method?: string; url?: string }; response?: { status?: number } }) => {
     if (error.config?.metadata?.startTime) {
       const duration = Date.now() - error.config.metadata.startTime;
       performanceLogger.measure('api-request-failed', duration, {

@@ -24,7 +24,7 @@ export interface GeneratedBlogPost {
   featuredImage: string;
   images: string[];
   author: string;
-  faqSection: any;
+  faqSection: Array<{ question: string; answer: string }>;
   readTime: number;
 }
 
@@ -270,7 +270,13 @@ export class BlogContentGenerator {
   /**
    * Generate content outline
    */
-  private async generateOutline(options: BlogGenerationOptions, keywordData: any) {
+  private async generateOutline(options: BlogGenerationOptions, keywordData: {
+    primaryKeyword: string;
+    secondaryKeywords: string[];
+    searchVolume: number;
+    difficulty: number;
+    relatedQuestions: string[];
+  }) {
     const prompt = `Create a comprehensive blog post outline for: "${options.topic}"
 
 Practice Area: ${options.practiceArea}
@@ -300,7 +306,13 @@ Format the outline with clear hierarchy using H2 and H3 tags.`;
   /**
    * Generate main content
    */
-  private async generateContent(options: BlogGenerationOptions, outline: string, keywordData: any) {
+  private async generateContent(options: BlogGenerationOptions, outline: string, keywordData: {
+    primaryKeyword: string;
+    secondaryKeywords: string[];
+    searchVolume: number;
+    difficulty: number;
+    relatedQuestions: string[];
+  }) {
     const prompt = `Write a comprehensive, SEO-optimized blog post based on this outline:
 
 ${outline}
@@ -417,7 +429,13 @@ Add these optimizations while maintaining the flow and quality.`;
   /**
    * Generate FAQ section
    */
-  private async generateFAQSection(options: BlogGenerationOptions, keywordData: any) {
+  private async generateFAQSection(options: BlogGenerationOptions, keywordData: {
+    primaryKeyword: string;
+    secondaryKeywords: string[];
+    searchVolume: number;
+    difficulty: number;
+    relatedQuestions: string[];
+  }) {
     const faqPrompt = `Generate 5-7 frequently asked questions and detailed answers about "${options.topic}" for ${options.practiceArea} law in North Carolina.
 
 Include:
@@ -442,7 +460,17 @@ Format as JSON array with 'question' and 'answer' keys.`;
   /**
    * Generate metadata
    */
-  private async generateMetadata(content: any, options: BlogGenerationOptions, keywordData: any) {
+  private async generateMetadata(
+    content: { title: string; content: string },
+    options: BlogGenerationOptions,
+    keywordData: {
+      primaryKeyword: string;
+      secondaryKeywords: string[];
+      searchVolume: number;
+      difficulty: number;
+      relatedQuestions: string[];
+    }
+  ) {
     return {
       keywords: keywordData.all,
       featuredImage: await this.generateFeaturedImage(options.topic),
@@ -453,7 +481,11 @@ Format as JSON array with 'question' and 'answer' keys.`;
   /**
    * Translate content to Spanish
    */
-  private async translateContent(content: any, metadata: any, faqSection: any) {
+  private async translateContent(
+    content: { title: string; content: string },
+    metadata: { metaDescription: string; excerpt: string },
+    faqSection: Array<{ question: string; answer: string }>
+  ) {
     const translationPrompt = `Translate this legal blog post to Spanish. 
 Maintain legal accuracy and use appropriate legal terminology for Spanish-speaking clients.
 Keep the same professional tone and formatting.
@@ -511,12 +543,21 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
       .slice(0, 5);
   }
 
-  private extractKeywordsFromNews(newsItem: any): string[] {
+  private extractKeywordsFromNews(newsItem: {
+    title: string;
+    description?: string;
+    content?: string;
+  }): string[] {
     const text = `${newsItem.title} ${newsItem.description}`;
     return this.extractKeywords(text);
   }
 
-  private calculateRelevanceScore(topic: any): number {
+  private calculateRelevanceScore(topic: {
+    title: string;
+    source: string;
+    views?: number;
+    shares?: number;
+  }): number {
     let score = 50; // Base score
 
     // Boost for recent topics
@@ -536,7 +577,13 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
     return Math.min(score, 100);
   }
 
-  private calculateNewsRelevance(newsItem: any): number {
+  private calculateNewsRelevance(newsItem: {
+    title: string;
+    description?: string;
+    content?: string;
+    publishedAt?: Date | string;
+    source?: string;
+  }): number {
     let score = 0;
 
     // Check for legal keywords

@@ -9,7 +9,7 @@ import { apiLogger, performanceLogger } from '@/lib/pino-logger';
 export * from './api-middleware';
 
 // Placeholder for telemetry functions that were referenced
-export const trackWebVitals = (metric: any) => {
+export const trackWebVitals = (metric: { name: string; value: number; id: string; delta: number }) => {
   performanceLogger.info({ metric }, 'Web vitals tracked');
 };
 

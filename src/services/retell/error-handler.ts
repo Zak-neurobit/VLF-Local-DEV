@@ -93,7 +93,7 @@ export class RetellErrorHandler {
           }
           break;
         case 422:
-          if ((axiosError.response?.data as any)?.message?.includes('phone')) {
+          if ((axiosError.response?.data as { message?: string })?.message?.includes('phone')) {
             type = RetellErrorType.INVALID_PHONE;
             recoverable = false;
           }
@@ -135,8 +135,8 @@ export class RetellErrorHandler {
     return {
       type,
       message: (error as Error).message || 'Unknown error occurred',
-      code: axiosError.code || (axiosError.response?.data as any)?.code,
-      details: axiosError.response?.data || (error as any).details,
+      code: axiosError.code || (axiosError.response?.data as { code?: string })?.code,
+      details: axiosError.response?.data || (error as Error & { details?: unknown }).details,
       callId: context?.callId,
       contactId: context?.contactId,
       timestamp: new Date(),
@@ -188,7 +188,7 @@ export class RetellErrorHandler {
           metadata: {
             details: retellError.details,
             context,
-          } as any,
+          } as Record<string, unknown>,
         },
       });
     } catch (error) {
@@ -328,7 +328,7 @@ export class RetellErrorHandler {
           metadata: {
             errorDetails: retellError.details,
             failureTimestamp: retellError.timestamp,
-          } as any,
+          } as Prisma.JsonObject,
         },
       });
     }
@@ -554,7 +554,7 @@ export class RetellErrorHandler {
         data: {
           operation,
           delaySeconds,
-          context: context as any,
+          context: context as Record<string, unknown>,
           scheduledFor: new Date(Date.now() + delaySeconds * 1000),
           attempts: 0,
           maxAttempts: 3,
@@ -634,7 +634,7 @@ export class RetellErrorHandler {
           await emailService.sendEmail({
             to: process.env.ADMIN_EMAIL,
             subject: `Critical Retell Error: ${retellError.type}`,
-            template: 'attorney-notification' as any,
+            template: 'attorney-notification' as string,
             data: {
               subject: `Critical Retell Error: ${retellError.type}`,
               message: `

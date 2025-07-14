@@ -11,6 +11,27 @@ interface AgentTrainingConfig {
   systemPromptVar: string;
 }
 
+interface TrainingDataEntry {
+  topics?: string[];
+  keywords?: string[];
+  regulations?: string[];
+  procedures?: Record<string, unknown>;
+}
+
+interface MockAnalysisData {
+  family: AnalysisResult;
+  naturalization: AnalysisResult;
+  consular: AnalysisResult;
+  asylum: AnalysisResult;
+  uvisa: AnalysisResult;
+  tps: AnalysisResult;
+  vawa: AnalysisResult;
+  h1b: AnalysisResult;
+  perm: AnalysisResult;
+  eb1: AnalysisResult;
+  l1: AnalysisResult;
+}
+
 export class AgentTrainer {
   private extractor: CookbookExtractor;
   private agentsPath = path.join(process.cwd(), 'src/lib/crewai/agents');
@@ -19,7 +40,7 @@ export class AgentTrainer {
     this.extractor = new CookbookExtractor();
   }
 
-  async trainAllAgents() {
+  async trainAllAgents(): Promise<void> {
     logger.info('Starting comprehensive agent training from AILA Cookbook');
 
     // Generate training data from cookbook
@@ -58,7 +79,7 @@ export class AgentTrainer {
     logger.info('Agent training completed successfully');
   }
 
-  private async createTrainedAgent(config: AgentTrainingConfig, trainingData: TrainingData) {
+  private async createTrainedAgent(config: AgentTrainingConfig, trainingData: TrainingData): Promise<void> {
     logger.info(`Creating trained ${config.agentType} agent`);
 
     const agentCode = this.generateAgentCode(config, trainingData);
@@ -146,23 +167,23 @@ ${methods}
 
   private generateSystemPrompt(agentType: string, trainingData: TrainingData): string {
     const expertise = this.getExpertiseForAgent(agentType);
-    const agentData = trainingData[agentType as keyof TrainingData] || {};
+    const agentData = (trainingData[agentType as keyof TrainingData] || {}) as TrainingDataEntry;
 
     const basePrompt = `You are an expert ${expertise} attorney trained on the AILA Cookbook of Essential Practice Materials (4th Edition).
 
 Your specialized knowledge includes:
 
 TOPICS:
-${(agentData as any).topics?.join('\\n') || 'General immigration topics'}
+${agentData.topics?.join('\\n') || 'General immigration topics'}
 
 KEYWORDS:
-${(agentData as any).keywords?.join('\\n') || 'Immigration law keywords'}
+${agentData.keywords?.join('\\n') || 'Immigration law keywords'}
 
 REGULATIONS:
-${(agentData as any).regulations?.join('\\n') || 'Federal immigration regulations'}
+${agentData.regulations?.join('\\n') || 'Federal immigration regulations'}
 
 PROCEDURES:
-${Object.keys((agentData as any).procedures || {}).join('\\n') || 'Standard immigration procedures'}
+${Object.keys(agentData.procedures || {}).join('\\n') || 'Standard immigration procedures'}
 
 When providing advice:
 1. Always cite specific forms and requirements
@@ -187,7 +208,7 @@ When providing advice:
     petitionerStatus: 'USC' | 'LPR';
     beneficiaryLocation: 'US' | 'abroad';
     priorityCategory?: string;
-  }): Promise<any> {
+  }): Promise<AnalysisResult> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('family', params);
@@ -219,7 +240,7 @@ Priority Category: \${params.priorityCategory || 'To be determined'}\`;
     continuousResidence: string;
     criminalHistory?: string;
     englishAbility: string;
-  }): Promise<any> {
+  }): Promise<AnalysisResult> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('naturalization', params);
@@ -251,7 +272,7 @@ English Ability: \${params.englishAbility}\`;
     documentReadiness: string;
     previousDenials?: string;
     unlawfulPresence?: string;
-  }): Promise<any> {
+  }): Promise<AnalysisResult> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('consular', params);
@@ -277,7 +298,7 @@ Unlawful Presence: \${params.unlawfulPresence || 'None'}\`;
   }
 
   private getMockAnalysis(type: string, params: AgentParams): AnalysisResult {
-    const mockData = {
+    const mockData: MockAnalysisData = {
       family: {
         summary: 'Family-based petition analysis complete',
         recommendations: [
@@ -359,7 +380,7 @@ Unlawful Presence: \${params.unlawfulPresence || 'None'}\`;
       },
     };
 
-    return mockData[type] || mockData.family;
+    return mockData[type as keyof MockAnalysisData] || mockData.family;
   }`,
 
       humanitarian: `
@@ -370,7 +391,7 @@ Unlawful Presence: \${params.unlawfulPresence || 'None'}\`;
     protectedGround: string;
     entryDate: string;
     previousApplications?: string;
-  }): Promise<any> {
+  }): Promise<AnalysisResult> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('asylum', params);
@@ -402,7 +423,7 @@ Previous Applications: \${params.previousApplications || 'None'}\`;
     harmSuffered: string;
     lawEnforcementCooperation: string;
     certificationStatus: string;
-  }): Promise<any> {
+  }): Promise<AnalysisResult> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('uvisa', params);
@@ -433,7 +454,7 @@ Certification: \${params.certificationStatus}\`;
     entryDate: string;
     continuousPresence: string;
     criminalHistory?: string;
-  }): Promise<any> {
+  }): Promise<AnalysisResult> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('tps', params);
@@ -464,7 +485,7 @@ Criminal History: \${params.criminalHistory || 'None'}\`;
     relationshipType: string;
     abuseDocumentation: string;
     currentSafety: string;
-  }): Promise<any> {
+  }): Promise<AnalysisResult> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('vawa', params);
@@ -490,7 +511,7 @@ Current Safety: \${params.currentSafety}\`;
   }
 
   private getMockAnalysis(type: string, params: AgentParams): AnalysisResult {
-    const mockData = {
+    const mockData: MockAnalysisData = {
       asylum: {
         summary: 'Asylum claim requires immediate attention to one-year deadline',
         recommendations: [
@@ -601,7 +622,7 @@ Current Safety: \${params.currentSafety}\`;
       },
     };
 
-    return mockData[type] || mockData.asylum;
+    return mockData[type as keyof MockAnalysisData] || mockData.asylum;
   }`,
 
       business: `
@@ -612,7 +633,7 @@ Current Safety: \${params.currentSafety}\`;
     jobDuties: string;
     employerType: string;
     capSubject: boolean;
-  }): Promise<any> {
+  }): Promise<AnalysisResult> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('h1b', params);
@@ -645,7 +666,7 @@ Cap Subject: \${params.capSubject ? 'Yes' : 'No'}\`;
     location: string;
     foreignNational: string;
     recruitmentReady: boolean;
-  }): Promise<any> {
+  }): Promise<AnalysisResult> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('perm', params);
@@ -677,7 +698,7 @@ Ready for Recruitment: \${params.recruitmentReady ? 'Yes' : 'No'}\`;
     evidence: string;
     field: string;
     currentPosition?: string;
-  }): Promise<any> {
+  }): Promise<AnalysisResult> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('eb1', params);
@@ -708,7 +729,7 @@ Current Position: \${params.currentPosition || 'N/A'}\`;
     position: string;
     timeAbroad: string;
     relationship: string;
-  }): Promise<any> {
+  }): Promise<AnalysisResult> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('l1', params);
@@ -734,7 +755,7 @@ Corporate Relationship: \${params.relationship}\`;
   }
 
   private getMockAnalysis(type: string, params: AgentParams): AnalysisResult {
-    const mockData = {
+    const mockData: MockAnalysisData = {
       h1b: {
         summary: 'H-1B petition requires careful documentation of specialty occupation',
         recommendations: [
@@ -857,7 +878,7 @@ Corporate Relationship: \${params.relationship}\`;
       },
     };
 
-    return mockData[type] || mockData.h1b;
+    return mockData[type as keyof MockAnalysisData] || mockData.h1b;
   }`,
     };
 

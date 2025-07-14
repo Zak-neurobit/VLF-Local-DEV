@@ -33,12 +33,7 @@ interface CompetitorIntelligence {
     lost: BacklinkData[];
     quality: number; // 0-100
   };
-  socialMedia: {
-    platform: string;
-    followers: number;
-    engagement: number;
-    recentPosts: unknown[];
-  }[];
+  socialMedia: SocialMediaProfile[];
   technicalSEO: {
     siteSpeed: number;
     mobileScore: number;
@@ -68,12 +63,113 @@ interface BacklinkData {
   dateFound: Date;
 }
 
+interface SocialMediaProfile {
+  platform: string;
+  followers: number;
+  engagement: number;
+  recentPosts: SocialMediaPost[];
+}
+
+interface SocialMediaPost {
+  id?: string;
+  content: string;
+  date: Date;
+  likes?: number;
+  shares?: number;
+  comments?: number;
+}
+
 interface Opportunity {
   type: 'content_gap' | 'keyword_opportunity' | 'backlink_opportunity' | 'technical_advantage';
   description: string;
   priority: 'high' | 'medium' | 'low';
   actionItems: string[];
   estimatedImpact: number; // 1-10
+}
+
+interface KeywordRanking {
+  keyword: string;
+  position: number;
+  change: number;
+  url: string;
+}
+
+interface ContentAnalysis {
+  newPosts: ContentPiece[];
+  updatedPosts: ContentPiece[];
+  topPerformers: ContentPiece[];
+}
+
+interface BacklinkAnalysis {
+  total: number;
+  new: BacklinkData[];
+  lost: BacklinkData[];
+  quality: number; // 0-100
+}
+
+interface TechnicalSEOAnalysis {
+  siteSpeed: number;
+  mobileScore: number;
+  schemaMarkup: string[];
+  sslStatus: boolean;
+}
+
+interface RankingGap {
+  keyword: string;
+  ourPosition: number;
+  competitor: string;
+  theirPosition: number;
+  gap: number;
+}
+
+interface ResponseStrategy {
+  action: 'counter' | 'monitor' | 'ignore';
+  reason: string;
+  priority?: 'high' | 'medium' | 'low';
+  timeline?: string;
+}
+
+interface DailyIntelligenceReport {
+  date: Date;
+  competitors: number;
+  keyFindings: string[];
+  urgentActions: string[];
+  opportunities: Opportunity[];
+}
+
+interface MarketShareAnalysis {
+  vasquezLawFirm: number;
+  competitors: Record<string, number>;
+}
+
+interface ContentStrategyAnalysis {
+  publishingFrequency: string;
+  contentTypes: string[];
+  topicClusters: string[];
+}
+
+interface LinkBuildingAnalysis {
+  tactics: string[];
+  linkVelocity: number;
+  anchorTextDistribution: {
+    branded: number;
+    exact: number;
+    partial: number;
+    generic: number;
+  };
+}
+
+interface ConversionTacticsAnalysis {
+  ctaTypes: string[];
+  trustSignals: string[];
+  urgencyTactics: string[];
+}
+
+interface DeepAnalysis {
+  marketShare: MarketShareAnalysis;
+  contentStrategy: ContentStrategyAnalysis;
+  linkBuilding: LinkBuildingAnalysis;
+  conversionTactics: ConversionTacticsAnalysis;
 }
 
 export class CompetitorSpyAgent {
@@ -264,11 +360,11 @@ export class CompetitorSpyAgent {
         const intel: CompetitorIntelligence = {
           domain: competitor.domain,
           lastChecked: new Date(),
-          rankings: (await this.fetchCompetitorRankings(competitor)) as any,
-          content: (await this.analyzeCompetitorContent(competitor)) as any,
-          backlinks: (await this.analyzeBacklinks(competitor)) as any,
-          socialMedia: (await this.analyzeSocialMedia(competitor)) as any,
-          technicalSEO: (await this.analyzeTechnicalSEO(competitor)) as any,
+          rankings: await this.fetchCompetitorRankings(competitor),
+          content: await this.analyzeCompetitorContent(competitor),
+          backlinks: await this.analyzeBacklinks(competitor),
+          socialMedia: await this.analyzeSocialMedia(competitor),
+          technicalSEO: await this.analyzeTechnicalSEO(competitor),
           opportunities: [],
         };
 
@@ -290,8 +386,8 @@ export class CompetitorSpyAgent {
   /**
    * Fetch competitor keyword rankings
    */
-  private async fetchCompetitorRankings(competitor: Competitor): Promise<unknown[]> {
-    const rankings: unknown[] = [];
+  private async fetchCompetitorRankings(competitor: Competitor): Promise<KeywordRanking[]> {
+    const rankings: KeywordRanking[] = [];
 
     for (const keyword of this.MONITORING_TARGETS.keywords) {
       try {
@@ -304,7 +400,7 @@ export class CompetitorSpyAgent {
         rankings.push({
           keyword,
           position,
-          change: previousRanking ? position - (previousRanking as any).position : 0,
+          change: previousRanking ? position - (previousRanking as { position: number }).position : 0,
           url: `https://${competitor.domain}/${this.guessRankingPage(keyword, competitor)}`,
         });
       } catch (error) {
@@ -318,7 +414,7 @@ export class CompetitorSpyAgent {
   /**
    * Analyze competitor content strategy
    */
-  private async analyzeCompetitorContent(competitor: Competitor): Promise<unknown> {
+  private async analyzeCompetitorContent(competitor: Competitor): Promise<ContentAnalysis> {
     const content = {
       newPosts: [] as ContentPiece[],
       updatedPosts: [] as ContentPiece[],
@@ -381,7 +477,7 @@ export class CompetitorSpyAgent {
   /**
    * Analyze competitor backlinks
    */
-  private async analyzeBacklinks(competitor: Competitor): Promise<unknown> {
+  private async analyzeBacklinks(competitor: Competitor): Promise<BacklinkAnalysis> {
     // In production, would use Ahrefs/Moz API
     const mockBacklinks = {
       total: Math.floor(Math.random() * 10000) + 1000,
@@ -405,8 +501,8 @@ export class CompetitorSpyAgent {
   /**
    * Analyze competitor social media presence
    */
-  private async analyzeSocialMedia(competitor: Competitor): Promise<unknown[]> {
-    const socialProfiles = [];
+  private async analyzeSocialMedia(competitor: Competitor): Promise<SocialMediaProfile[]> {
+    const socialProfiles: SocialMediaProfile[] = [];
 
     // Check major platforms
     const platforms = ['facebook', 'twitter', 'linkedin', 'instagram'];
@@ -428,7 +524,7 @@ export class CompetitorSpyAgent {
   /**
    * Analyze technical SEO factors
    */
-  private async analyzeTechnicalSEO(competitor: Competitor): Promise<unknown> {
+  private async analyzeTechnicalSEO(competitor: Competitor): Promise<TechnicalSEOAnalysis> {
     try {
       const homepage = `https://${competitor.domain}`;
       const html = await this.webFetch.fetchHTML(homepage);
@@ -459,7 +555,7 @@ export class CompetitorSpyAgent {
    */
   private async identifyOpportunities(
     intel: CompetitorIntelligence,
-    competitor: any
+    competitor: Competitor
   ): Promise<Opportunity[]> {
     const opportunities: Opportunity[] = [];
 
@@ -580,12 +676,12 @@ export class CompetitorSpyAgent {
     return Math.floor(Math.random() * 50) + 1;
   }
 
-  private async getPreviousRanking(domain: string, keyword: string): Promise<unknown> {
+  private async getPreviousRanking(domain: string, keyword: string): Promise<{ position: number } | null> {
     // Fetch from database
     return null;
   }
 
-  private guessRankingPage(keyword: string, competitor: any): string {
+  private guessRankingPage(keyword: string, competitor: Competitor): string {
     // Guess the likely ranking page based on keyword
     if (keyword.includes('immigration')) return 'immigration-lawyer';
     if (keyword.includes('personal injury')) return 'personal-injury-attorney';
@@ -624,7 +720,7 @@ export class CompetitorSpyAgent {
     return Math.random() > 0.8;
   }
 
-  private async fetchSocialProfile(competitor: unknown, platform: string): Promise<unknown> {
+  private async fetchSocialProfile(competitor: Competitor, platform: string): Promise<SocialMediaProfile | null> {
     // Mock social profile data
     return {
       platform,
@@ -666,12 +762,12 @@ export class CompetitorSpyAgent {
       data: {
         domain: intel.domain,
         url: `https://${intel.domain}`,
-        blogPosts: intel.content.newPosts as any,
+        blogPosts: intel.content.newPosts,
         seoData: {
           rankings: intel.rankings,
           technical: intel.technicalSEO,
         },
-        backlinks: intel.backlinks as any,
+        backlinks: intel.backlinks,
         keywords: intel.rankings.map(r => ({ keyword: r.keyword, position: r.position })),
         analyzedAt: new Date(),
       },
@@ -800,7 +896,7 @@ export class CompetitorSpyAgent {
 
   private async generateDailyIntelligenceReport(
     intelligence: CompetitorIntelligence[]
-  ): Promise<unknown> {
+  ): Promise<DailyIntelligenceReport> {
     const report = {
       date: new Date(),
       competitors: intelligence.length,
@@ -828,7 +924,7 @@ export class CompetitorSpyAgent {
     return report;
   }
 
-  private async sendIntelligenceAlerts(report: any): Promise<void> {
+  private async sendIntelligenceAlerts(report: DailyIntelligenceReport): Promise<void> {
     if (report.urgentActions.length > 0) {
       logger.warn('🚨 URGENT Competitor Intelligence:', report.urgentActions);
 
@@ -836,7 +932,7 @@ export class CompetitorSpyAgent {
     }
   }
 
-  private async checkForNewContent(competitor: any): Promise<any[]> {
+  private async checkForNewContent(competitor: Competitor): Promise<ContentPiece[]> {
     // Check for content published in last hour
     const recentContent = [];
 
@@ -844,23 +940,23 @@ export class CompetitorSpyAgent {
       const content = await this.analyzeCompetitorContent(competitor);
       const hourAgo = new Date(Date.now() - 60 * 60 * 1000);
 
-      return (content as any).newPosts.filter((post: ContentPiece) => post.publishDate > hourAgo);
+      return content.newPosts.filter((post: ContentPiece) => post.publishDate > hourAgo);
     } catch (error) {
       logger.error(`Failed to check new content for ${competitor.name}:`, error);
       return [];
     }
   }
 
-  private async analyzeAndRespond(content: ContentPiece, competitor: any): Promise<void> {
+  private async analyzeAndRespond(content: ContentPiece, competitor: Competitor): Promise<void> {
     logger.info(`🎯 Analyzing new content from ${competitor.name}: ${content.title}`);
 
     // Determine response strategy
     const strategy = await this.determineResponseStrategy(content, competitor);
 
-    if ((strategy as any).action === 'counter') {
+    if (strategy.action === 'counter') {
       // Create better content immediately
       await this.createCounterContent(content, strategy);
-    } else if ((strategy as any).action === 'monitor') {
+    } else if (strategy.action === 'monitor') {
       // Track performance
       await this.trackContentPerformance(content);
     }
@@ -868,8 +964,8 @@ export class CompetitorSpyAgent {
 
   private async determineResponseStrategy(
     content: ContentPiece,
-    competitor: any
-  ): Promise<unknown> {
+    competitor: Competitor
+  ): Promise<ResponseStrategy> {
     // Use AI to determine best response
     const prompt = `
 Competitor ${competitor.name} just published:
@@ -899,7 +995,7 @@ Consider our resources and potential impact.
 
   private async createCounterContent(
     competitorContent: ContentPiece,
-    strategy: any
+    strategy: ResponseStrategy
   ): Promise<void> {
     logger.info(`🔥 Creating counter-content for: ${competitorContent.title}`);
 
@@ -912,7 +1008,7 @@ Consider our resources and potential impact.
     logger.info(`📊 Tracking performance of: ${content.title}`);
   }
 
-  private async addressRankingGap(gap: any): Promise<void> {
+  private async addressRankingGap(gap: RankingGap): Promise<void> {
     logger.info(
       `📉 Addressing ranking gap for "${gap.keyword}" - We're #${gap.ourPosition}, ${gap.competitor} is #${gap.theirPosition}`
     );
@@ -920,7 +1016,7 @@ Consider our resources and potential impact.
     // Trigger content optimization or creation
   }
 
-  private async performDeepAnalysis(): Promise<unknown> {
+  private async performDeepAnalysis(): Promise<DeepAnalysis> {
     // Comprehensive competitive analysis
     return {
       marketShare: await this.estimateMarketShare(),
@@ -930,7 +1026,7 @@ Consider our resources and potential impact.
     };
   }
 
-  private async estimateMarketShare(): Promise<unknown> {
+  private async estimateMarketShare(): Promise<MarketShareAnalysis> {
     // Estimate market share based on rankings and traffic
     return {
       vasquezLawFirm: 15,
@@ -943,7 +1039,7 @@ Consider our resources and potential impact.
     };
   }
 
-  private async reverseEngineerContentStrategy(): Promise<unknown> {
+  private async reverseEngineerContentStrategy(): Promise<ContentStrategyAnalysis> {
     // Analyze content patterns and strategy
     return {
       publishingFrequency: 'weekly',
@@ -952,7 +1048,7 @@ Consider our resources and potential impact.
     };
   }
 
-  private async analyzeLinkBuildingTactics(): Promise<unknown> {
+  private async analyzeLinkBuildingTactics(): Promise<LinkBuildingAnalysis> {
     // Identify link building strategies
     return {
       tactics: ['guest posting', 'local citations', 'press releases'],
@@ -966,7 +1062,7 @@ Consider our resources and potential impact.
     };
   }
 
-  private async identifyConversionTactics(): Promise<unknown> {
+  private async identifyConversionTactics(): Promise<ConversionTacticsAnalysis> {
     // Analyze conversion optimization tactics
     return {
       ctaTypes: ['free consultation', 'case evaluation', 'download guide'],
@@ -975,7 +1071,7 @@ Consider our resources and potential impact.
     };
   }
 
-  private async generateStrategicRecommendations(analysis: any): Promise<void> {
+  private async generateStrategicRecommendations(analysis: DeepAnalysis): Promise<void> {
     const recommendations = {
       immediate: [
         'Counter top competitor content within 48 hours',
@@ -1029,9 +1125,9 @@ Consider our resources and potential impact.
    */
   private async trackRankingMovements(intelligence: CompetitorIntelligence[]): Promise<void> {
     const movements = {
-      gained: [] as unknown[],
-      lost: [] as unknown[],
-      newEntrants: [] as unknown[],
+      gained: [] as Array<KeywordRanking & { domain: string }>,
+      lost: [] as Array<KeywordRanking & { domain: string }>,
+      newEntrants: [] as Array<KeywordRanking & { domain: string }>,
     };
 
     for (const intel of intelligence) {

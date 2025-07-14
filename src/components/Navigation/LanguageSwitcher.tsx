@@ -24,7 +24,7 @@ const languages: LanguageOption[] = [
   {
     code: 'es',
     name: 'Español',
-    flag: '🇺🇸',
+    flag: '🇪🇸',
     locale: 'es-US',
   },
 ];
@@ -210,6 +210,7 @@ export function LanguageSwitcher({
  */
 export function LanguageLinks({ className = '' }: { className?: string }) {
   const pathname = usePathname();
+  const router = useRouter();
   const safePathname = pathname || '/';
   const currentLang: 'en' | 'es' = safePathname.startsWith('/es') ? 'es' : 'en';
   const hreflangEntries = HreflangGenerator.generateHreflangEntries(safePathname);
@@ -227,6 +228,21 @@ export function LanguageLinks({ className = '' }: { className?: string }) {
       [] as typeof hreflangEntries
     );
 
+  const handleLanguageClick = (entry: typeof hreflangEntries[0], event: React.MouseEvent) => {
+    event.preventDefault();
+    try {
+      const url = new URL(entry.href);
+      router.push(url.pathname + url.search + url.hash);
+    } catch (error) {
+      logger.error('Language navigation error:', error);
+      // Fallback to current page redirect if URL parsing fails
+      const targetLang = entry.hreflang as 'en' | 'es';
+      const currentPath = safePathname.replace(/^\/es/, '') || '/';
+      const newPath = targetLang === 'es' ? `/es${currentPath}` : currentPath;
+      router.push(newPath);
+    }
+  };
+
   return (
     <div className={`flex items-center space-x-4 ${className}`}>
       {languageUrls.map(entry => {
@@ -236,19 +252,19 @@ export function LanguageLinks({ className = '' }: { className?: string }) {
         const isActive = currentLang === lang.code;
 
         return (
-          <a
+          <button
             key={entry.hreflang}
-            href={entry.href}
-            hrefLang={entry.hreflang}
+            onClick={(e) => handleLanguageClick(entry, e)}
             className={`flex items-center space-x-1 text-sm transition-colors ${
               isActive ? 'text-primary-600 font-medium' : 'text-gray-600 hover:text-primary-600'
             }`}
             aria-label={`Switch to ${lang.name}`}
             aria-current={isActive ? 'page' : undefined}
+            disabled={isActive}
           >
             <span>{lang.flag}</span>
             <span>{lang.name}</span>
-          </a>
+          </button>
         );
       })}
     </div>

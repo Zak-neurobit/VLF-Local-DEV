@@ -669,7 +669,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
         status: result.success ? 'success' : 'failed',
         url: result.url,
         externalId: result.postId || result.shareId || result.releaseId,
-        metrics: result as any,
+        metrics: result as Prisma.JsonObject,
         syndicatedAt: new Date(),
       },
     });

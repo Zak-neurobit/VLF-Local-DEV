@@ -342,7 +342,10 @@ Apply AILA training to provide:
     };
   }
 
-  private recommendAILAResources(params: any): string[] {
+  private recommendAILAResources(params: {
+    criminalHistory?: string;
+    reliefOptions?: string[];
+  }): string[] {
     const resources = [
       'AILA Practice Advisory on Detention and Bond',
       "AILA's Representing Clients in Immigration Court manual",
@@ -373,7 +376,18 @@ Apply AILA training to provide:
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   }
 
-  private getAILATrainedAnalysis(params: any): RemovalDefenseAnalysis {
+  private getAILATrainedAnalysis(params: {
+    clientName: string;
+    isDetained: boolean;
+    detentionCenter?: string;
+    hasCourtDate: boolean;
+    courtDate?: string;
+    criminalHistory?: string;
+    timeInUS?: string;
+    familyTies?: string;
+    immigrationHistory?: string;
+    countryOfOrigin?: string;
+  }): RemovalDefenseAnalysis {
     return {
       urgencyLevel: this.assessUrgency(params),
       bondEligibility: this.assessBondEligibility(params),

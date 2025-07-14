@@ -361,7 +361,12 @@ Enfócate en información factual e inferencias razonables. Evita especulaciones
 
   private async generateRecommendations(
     competitors: CompetitorProfile[],
-    marketAnalysis: any,
+    marketAnalysis: {
+      totalCompetitors: number;
+      averagePricing: number;
+      marketSaturation: string;
+      emergingTrends: string[];
+    },
     request: CompetitorAnalysisRequest
   ) {
     const prompt = `
@@ -464,9 +469,19 @@ Provide recommendations for:
   }
 
   private async storeAnalysis(
-    marketAnalysis: any,
+    marketAnalysis: {
+      totalCompetitors: number;
+      averagePricing: number;
+      marketSaturation: string;
+      emergingTrends: string[];
+    },
     competitors: CompetitorProfile[],
-    recommendations: any,
+    recommendations: {
+      immediate: string[];
+      shortTerm: string[];
+      longTerm: string[];
+      riskFactors: string[];
+    },
     request: CompetitorAnalysisRequest
   ) {
     try {

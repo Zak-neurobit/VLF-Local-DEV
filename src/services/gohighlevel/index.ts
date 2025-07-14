@@ -376,7 +376,7 @@ export class GoHighLevelService {
           where: { id: appointment.id },
           data: {
             metadata: {
-              ...((currentAppointment.metadata as object) || {}),
+              ...(currentAppointment.metadata as Record<string, unknown> || {}),
               reminderSent: true,
               reminderSentAt: new Date().toISOString(),
               ghlContactId: contact.id,
@@ -401,7 +401,7 @@ export class GoHighLevelService {
         case 'ContactCreate':
         case 'ContactUpdate':
           if (event.data && event.contactId) {
-            await this.syncContactToDatabase(event.data as unknown as GHLContact);
+            await this.syncContactToDatabase(event.data as GHLContact);
           }
           break;
 
@@ -409,8 +409,8 @@ export class GoHighLevelService {
           if (event.data && event.contactId) {
             await this.handleInboundMessage({
               contactId: event.contactId,
-              message: (event.data as any).message || '',
-              type: (event.data as any).type || 'SMS',
+              message: (event.data as GHLInboundMessage).message || '',
+              type: (event.data as GHLInboundMessage).type || 'SMS',
               direction: 'inbound',
               timestamp: event.timestamp,
             });
@@ -447,7 +447,7 @@ export class GoHighLevelService {
         message,
         direction: 'inbound',
         status: 'received',
-        ghlMessageId: (event as any).messageId,
+        ghlMessageId: (event as GHLInboundMessage & { messageId?: string }).messageId,
       });
 
       // Process keywords
@@ -509,7 +509,7 @@ export class GoHighLevelService {
             data: {
               status: 'confirmed',
               metadata: {
-                ...((appointment.metadata as object) || {}),
+                ...(appointment.metadata as Record<string, unknown> || {}),
                 confirmed: true,
                 confirmedAt: new Date().toISOString(),
               },
@@ -541,7 +541,7 @@ export class GoHighLevelService {
       logger.info('Campaign completed', {
         contactId,
         campaignId,
-        campaignName: (event as any).campaignName,
+        campaignName: (event as GHLCampaignEvent & { campaignName?: string }).campaignName,
       });
 
       // Update contact tags
@@ -1145,14 +1145,14 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
       // Filter by tags if specified
       if (filters?.tags && filters.tags.length > 0) {
         results.contacts = results.contacts.filter(
-          (contact: any) => filters.tags?.some(tag => contact.tags?.includes(tag)) ?? false
+          (contact: { tags?: string[] }) => filters.tags?.some(tag => contact.tags?.includes(tag)) ?? false
         );
       }
 
       // Filter by custom field if specified
       if (filters?.customField) {
         results.contacts = results.contacts.filter(
-          (contact: any) =>
+          (contact: { customFields?: Record<string, unknown> }) =>
             contact.customFields?.[filters.customField?.key || ''] === filters.customField?.value
         );
       }
@@ -1384,7 +1384,14 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
     };
   }
 
-  private getMockAppointmentResponse(data: any) {
+  private getMockAppointmentResponse(data: {
+    contactId?: string;
+    title?: string;
+    startTime?: Date | string;
+    endTime?: Date | string;
+    appointmentStatus?: string;
+    meetingLocation?: string;
+  }) {
     logger.info('Using mock GoHighLevel appointment response');
     return {
       id: 'mock-appointment-' + Date.now(),
@@ -1540,11 +1547,11 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
       };
 
       if (callData.summary) {
-        (updateData.customFields as any).lastCallSummary = callData.summary;
+        (updateData.customFields as Record<string, unknown>).lastCallSummary = callData.summary;
       }
 
       if (callData.sentiment) {
-        (updateData.customFields as any).lastCallSentiment = callData.sentiment;
+        (updateData.customFields as Record<string, unknown>).lastCallSentiment = callData.sentiment;
       }
 
       if (callData.appointmentScheduled) {
@@ -1676,7 +1683,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       // Filter call-related activities
       const callActivities = activities.filter(
-        (activity: any) =>
+        (activity: { type?: string; body?: string }) =>
           activity.type === 'call' || (activity.type === 'note' && activity.body?.includes('Call'))
       );
 
@@ -1720,7 +1727,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
       };
 
       if (transcript) {
-        (updateData.customFields as any)[`call_${callId}_transcript`] = transcript.substring(
+        (updateData.customFields as Record<string, unknown>)[`call_${callId}_transcript`] = transcript.substring(
           0,
           2000
         ); // Limit transcript length

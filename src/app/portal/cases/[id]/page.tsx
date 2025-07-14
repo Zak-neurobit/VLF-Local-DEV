@@ -1,66 +1,112 @@
-import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
-import { Metadata } from 'next';
-import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
+'use client';
 
-export const metadata: Metadata = {
-  title: '[id] - Vasquez Law Firm, PLLC',
-  description: 'Legal insights and information from Vasquez Law Firm',
-};
-
-export const runtime = 'nodejs';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
+import CaseDetails from '@/components/portal/case-details';
+import CaseTimeline from '@/components/portal/case-timeline';
+import CaseDocuments from '@/components/portal/case-documents';
+import CaseMessages from '@/components/portal/case-messages';
 
 export default function CaseDetailPage() {
-  // TODO: Extract content from original file and format properly
-  const post = {
-    id: '[id]',
-    title: '[id]',
-    slug: '[id]',
-    excerpt: 'Blog post excerpt here - TODO: extract from content',
-    content: `
-      <div class="prose prose-lg max-w-none">
-        <!-- TODO: Migrate content from original file -->
-        <p>This content needs to be migrated from the original file.</p>
-      </div>
-    `,
-    practiceArea: 'general', // TODO: Determine correct practice area
-    language: 'en' as const,
-    publishedAt: new Date(),
-    readTime: 5,
-    author: DEFAULT_BLOG_AUTHOR,
-    tags: [], // TODO: Add relevant tags
+  const { data: session } = useSession();
+  const params = useParams();
+  const caseId = params.id as string;
+  
+  const [caseData, setCaseData] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<'overview' | 'timeline' | 'documents' | 'messages'>('overview');
+
+  useEffect(() => {
+    if (session?.user?.id && caseId) {
+      fetchCaseDetails();
+    }
+  }, [session, caseId]);
+
+  const fetchCaseDetails = async () => {
+    try {
+      const response = await fetch(`/api/portal/cases/${caseId}`);
+      const data = await response.json();
+      
+      if (data.success) {
+        setCaseData(data.case);
+      }
+    } catch (error) {
+      console.error('Failed to fetch case details:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const categories = [
-    {
-      id: 'immigration',
-      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
-      slug: { en: 'immigration', es: 'inmigracion' },
-      icon: '🌐',
-      postCount: 45,
-    },
-    {
-      id: 'personal-injury',
-      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
-      slug: { en: 'personal-injury', es: 'lesiones-personales' },
-      icon: '🏥',
-      postCount: 32,
-    },
-    {
-      id: 'criminal-defense',
-      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
-      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
-      icon: '⚖️',
-      postCount: 28,
-    },
-  ];
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if (!caseData) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-gray-500">Case not found</p>
+      </div>
+    );
+  }
 
   return (
-    <BlogPageTemplate
-      posts={[]}
-      categories={categories}
-      isArticlePage={true}
-      currentPost={post}
-      relatedPosts={[]} // TODO: Add related posts
-    />
+    <div className="space-y-6">
+      {/* Case Header */}
+      <div className="bg-white rounded-lg shadow-sm p-6">
+        <div className="flex justify-between items-start">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">{caseData.title}</h1>
+            <p className="text-gray-600 mt-1">Case #{caseData.caseNumber}</p>
+          </div>
+          <div className="text-right">
+            <span className={`inline-flex px-3 py-1 rounded-full text-sm font-medium ${
+              caseData.status === 'active' ? 'bg-green-100 text-green-800' :
+              caseData.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+              caseData.status === 'closed' ? 'bg-gray-100 text-gray-800' :
+              'bg-blue-100 text-blue-800'
+            }`}>
+              {caseData.status}
+            </span>
+            <p className="text-sm text-gray-500 mt-2">
+              Priority: {caseData.priority}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation Tabs */}
+      <div className="bg-white rounded-lg shadow-sm">
+        <div className="border-b">
+          <nav className="flex space-x-8 px-6">
+            {(['overview', 'timeline', 'documents', 'messages'] as const).map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`py-4 px-1 border-b-2 font-medium text-sm capitalize ${
+                  activeTab === tab
+                    ? 'border-blue-500 text-blue-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </nav>
+        </div>
+
+        {/* Tab Content */}
+        <div className="p-6">
+          {activeTab === 'overview' && <CaseDetails case={caseData} />}
+          {activeTab === 'timeline' && <CaseTimeline caseId={caseId} />}
+          {activeTab === 'documents' && <CaseDocuments caseId={caseId} />}
+          {activeTab === 'messages' && <CaseMessages caseId={caseId} />}
+        </div>
+      </div>
+    </div>
   );
 }

@@ -129,8 +129,9 @@ export function useDeviceCapabilities() {
 
     window.addEventListener('resize', handleResize);
 
-    if ('connection' in navigator) {
-      (navigator as any).connection.addEventListener('change', handleConnectionChange);
+    const navigatorWithConnection = navigator as Navigator & { connection?: EventTarget };
+    if ('connection' in navigator && navigatorWithConnection.connection) {
+      navigatorWithConnection.connection.addEventListener('change', handleConnectionChange);
     }
 
     if (motionMediaQuery.addEventListener) {
@@ -143,8 +144,8 @@ export function useDeviceCapabilities() {
     return () => {
       window.removeEventListener('resize', handleResize);
 
-      if ('connection' in navigator) {
-        (navigator as any).connection.removeEventListener('change', handleConnectionChange);
+      if ('connection' in navigator && navigatorWithConnection.connection) {
+        navigatorWithConnection.connection.removeEventListener('change', handleConnectionChange);
       }
 
       if (motionMediaQuery.removeEventListener) {

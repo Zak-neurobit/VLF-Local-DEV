@@ -4,6 +4,8 @@ import { logger } from '@/lib/logger';
 import { WebFetch } from '@/lib/utils/web-fetch';
 import { getPrismaClient } from '@/lib/prisma';
 import { createCrewLogger } from '@/lib/crews/log-execution';
+import { AIOverviewOptimizationAgent } from './ai-overview-optimization-agent';
+import type { AIOverviewOptimization } from './ai-overview-optimization-agent';
 
 export interface SEOBlogGenerationRequest {
   practiceArea: string;
@@ -19,6 +21,8 @@ export interface SEOBlogGenerationRequest {
   competitorAnalysis?: boolean;
   trendingTopics?: string[];
   existingContent?: string; // For content updates/optimization
+  aiOverviewOptimization?: boolean; // New: Enable AI Overview optimization
+  voiceSearchFocus?: boolean; // New: Focus on voice search optimization
 }
 
 export interface SEOOptimization {
@@ -70,9 +74,11 @@ export interface SEOBlogResult {
   title: string;
   content: ContentStructure;
   seoOptimization: SEOOptimization;
+  aiOverviewOptimization?: AIOverviewOptimization; // New: AI Overview optimization data
   wordCount: number;
   readabilityScore: number;
   seoScore: number;
+  aiOverviewScore?: number; // New: AI Overview readiness score
   competitiveAnalysis?: {
     topCompetitorContent: string[];
     contentGaps: string[];
@@ -95,6 +101,7 @@ export class SEOBlogGenerationAgent {
   private model: ChatOpenAI;
   private webFetch: WebFetch;
   private crewLogger = createCrewLogger('seo-blog-generation-agent');
+  private aiOverviewAgent: AIOverviewOptimizationAgent; // New: AI Overview optimization agent
 
   constructor() {
     this.model = new ChatOpenAI({
@@ -103,6 +110,7 @@ export class SEOBlogGenerationAgent {
       openAIApiKey: process.env.OPENAI_API_KEY,
     });
     this.webFetch = new WebFetch();
+    this.aiOverviewAgent = new AIOverviewOptimizationAgent(); // Initialize AI Overview agent
   }
 
   async generateSEOBlog(request: SEOBlogGenerationRequest): Promise<SEOBlogResult> {
@@ -129,6 +137,30 @@ export class SEOBlogGenerationAgent {
         // Step 4: Optimize for SEO
         const seoOptimization = await this.optimizeForSEO(content, request);
 
+        // Step 4.5: Optimize for AI Overview (if enabled)
+        let aiOverviewOptimization: AIOverviewOptimization | undefined;
+        let aiOverviewScore: number | undefined;
+        if (request.aiOverviewOptimization) {
+          const contentHtml = this.convertContentToHtml(content);
+          aiOverviewOptimization = await this.aiOverviewAgent.optimizeForAIOverview({
+            content: contentHtml,
+            practiceArea: request.practiceArea,
+            targetKeywords: request.targetKeywords,
+            contentType: request.contentType === 'blog_post' ? 'article' : request.contentType,
+            targetAudience: request.targetAudience,
+            location: request.location,
+            voiceSearchFocus: request.voiceSearchFocus || false,
+            competitorAnalysis: request.competitorAnalysis || false,
+          });
+          
+          aiOverviewScore = (
+            aiOverviewOptimization.aiOverviewMetrics.readinessScore +
+            aiOverviewOptimization.aiOverviewMetrics.answerQuality +
+            aiOverviewOptimization.aiOverviewMetrics.structureScore +
+            aiOverviewOptimization.aiOverviewMetrics.authoritySignals
+          ) / 4;
+        }
+
         // Step 5: Calculate scores and predictions
         const readabilityScore = this.calculateReadabilityScore(content);
         const seoScore = this.calculateSEOScore(content, seoOptimization, request);
@@ -148,7 +180,9 @@ export class SEOBlogGenerationAgent {
         const blogResult = await this.storeBlogContent({
           content,
           seoOptimization,
+          aiOverviewOptimization,
           readabilityScore,
+          aiOverviewScore,
           seoScore,
           competitiveAnalysis,
           performancePredictions,
@@ -287,10 +321,18 @@ ${trendingContext}
 The outline should include:
 1. Compelling title with primary keyword
 2. Introduction that hooks the reader
-3. 4-6 main sections with H2 headings
+3. 4-6 main sections with H2 headings${request.aiOverviewOptimization ? ' (use question-based headings like "What is...", "How do...", "When should...")' : ''}
 4. 2-3 subsections per main section with H3 headings
 5. Conclusion that summarizes key points
 ${request.includeCallToAction ? '6. Strong call-to-action' : ''}
+${request.aiOverviewOptimization ? '7. FAQ section with 5-8 common questions' : ''}
+
+${request.aiOverviewOptimization ? `AI OVERVIEW OPTIMIZATION:
+- Structure headings as questions that match search intent
+- Plan for direct answers in the first sentence of each section
+- Include FAQ section optimized for AI Overview selection
+- Consider voice search queries and conversational language
+` : ''}
 
 Format as structured outline with headings and brief descriptions of content for each section.
 Focus on providing valuable, actionable information while establishing legal expertise and trustworthiness.
@@ -299,25 +341,43 @@ Focus on providing valuable, actionable information while establishing legal exp
 
   private getContentGenerationSystemPrompt(language: 'en' | 'es'): string {
     const prompts = {
-      en: `You are an expert legal content writer and SEO specialist. Your role is to:
-1. Create compelling, authoritative legal content that builds trust
-2. Optimize content for search engines while maintaining readability
+      en: `You are an expert legal content writer and SEO specialist specializing in AI Overview optimization. Your role is to:
+1. Create compelling, authoritative legal content that builds trust and ranks in AI Overview
+2. Optimize content for search engines, voice search, and AI Overview selection
 3. Provide practical, actionable advice while noting when professional consultation is needed
 4. Write in a way that demonstrates legal expertise without being overly technical
 5. Include appropriate disclaimers about attorney-client relationships
-6. Structure content for both human readers and search engines
+6. Structure content for human readers, search engines, and AI Overview parsing
 
-Always prioritize accuracy, helpfulness, and ethical legal practice standards.`,
+AI OVERVIEW OPTIMIZATION REQUIREMENTS:
+- Use question-based H2 headings that match search intent ("What is...", "How do...", "When should...")
+- Provide direct, authoritative answers in the first sentence of each section
+- Include FAQ sections with 40-60 word answers optimized for AI Overview
+- Use conversational language for voice search while maintaining professionalism
+- Structure content with numbered lists for procedures and bullet points for benefits
+- Include specific legal forms, timelines, and costs where relevant
+- Optimize for "near me" and local search queries
 
-      es: `Eres un escritor experto en contenido legal y especialista en SEO. Tu rol es:
-1. Crear contenido legal convincente y autorizado que genere confianza
-2. Optimizar contenido para motores de búsqueda manteniendo legibilidad
+Always prioritize accuracy, helpfulness, ethical legal practice standards, and AI Overview optimization.`,
+
+      es: `Eres un escritor experto en contenido legal y especialista en SEO que se especializa en optimización para AI Overview. Tu rol es:
+1. Crear contenido legal convincente y autorizado que genere confianza y aparezca en AI Overview
+2. Optimizar contenido para motores de búsqueda, búsqueda por voz, y selección de AI Overview
 3. Proporcionar consejos prácticos y accionables notando cuando se necesita consulta profesional
 4. Escribir de manera que demuestre experiencia legal sin ser demasiado técnico
 5. Incluir descargos de responsabilidad apropiados sobre relaciones abogado-cliente
-6. Estructurar contenido tanto para lectores humanos como motores de búsqueda
+6. Estructurar contenido para lectores humanos, motores de búsqueda, y análisis de AI Overview
 
-Siempre prioriza precisión, utilidad y estándares éticos de práctica legal.`,
+REQUISITOS DE OPTIMIZACIÓN PARA AI OVERVIEW:
+- Usar encabezados H2 basados en preguntas que coincidan con la intención de búsqueda ("¿Qué es...", "¿Cómo...", "¿Cuándo...")
+- Proporcionar respuestas directas y autoritarias en la primera oración de cada sección
+- Incluir secciones de FAQ con respuestas de 40-60 palabras optimizadas para AI Overview
+- Usar lenguaje conversacional para búsqueda por voz manteniendo profesionalismo
+- Estructurar contenido con listas numeradas para procedimientos y viñetas para beneficios
+- Incluir formularios legales específicos, cronogramas y costos cuando sea relevante
+- Optimizar para consultas "cerca de mí" y búsqueda local
+
+Siempre prioriza precisión, utilidad, estándares éticos de práctica legal, y optimización para AI Overview.`,
     };
 
     return prompts[language];
@@ -398,9 +458,34 @@ Siempre prioriza precisión, utilidad y estándares éticos de práctica legal.`
   }
 
   private buildContentPrompt(
-    outline: { outline: string; structure: any },
+    outline: { outline: string; structure: Record<string, unknown> },
     request: SEOBlogGenerationRequest
   ): string {
+    const aiOverviewRequirements = request.aiOverviewOptimization
+      ? `
+AI OVERVIEW OPTIMIZATION REQUIREMENTS:
+- Use question-based H2 headings that match search intent ("What is...", "How do...", "When should...")
+- Start each section with a direct, authoritative answer in the first sentence
+- Include an FAQ section with 5-8 questions and 40-60 word answers
+- Use conversational language optimized for voice search queries
+- Structure procedures as numbered lists and benefits as bullet points
+- Include specific legal forms, timelines, and costs where relevant
+- Add location-specific information for local search optimization
+- Ensure content is optimized for AI Overview selection and citation
+`
+      : '';
+
+    const voiceSearchRequirements = request.voiceSearchFocus
+      ? `
+VOICE SEARCH OPTIMIZATION:
+- Use natural, conversational language patterns
+- Include complete question-answer pairs for voice assistants
+- Write in second person ("you") for direct engagement
+- Add "near me" and local variations for location-based searches
+- Structure content for voice playback with complete sentences
+`
+      : '';
+
     return `
 Based on this outline, write a complete ${request.contentType} about "${request.practiceArea}":
 
@@ -413,6 +498,9 @@ WRITING REQUIREMENTS:
 - Target Audience: ${request.targetAudience}
 - Primary Keywords: ${request.targetKeywords.join(', ')}
 - Language: ${request.language}
+${request.location ? `- Location: ${request.location}` : ''}
+${aiOverviewRequirements}
+${voiceSearchRequirements}
 
 CONTENT GUIDELINES:
 1. Write engaging, informative content that establishes legal expertise
@@ -787,8 +875,10 @@ Provide SEO optimization in this JSON format:
   private async storeBlogContent(data: {
     content: ContentStructure;
     seoOptimization: SEOOptimization;
+    aiOverviewOptimization?: AIOverviewOptimization;
     readabilityScore: number;
     seoScore: number;
+    aiOverviewScore?: number;
     competitiveAnalysis?: {
       topCompetitorContent: string[];
       contentGaps: string[];
@@ -811,6 +901,7 @@ Provide SEO optimization in this JSON format:
       title: data.seoOptimization.title,
       content: data.content,
       seoOptimization: data.seoOptimization,
+      aiOverviewOptimization: data.aiOverviewOptimization,
       wordCount: [
         data.content.introduction,
         ...data.content.mainSections.map(s => s.content),
@@ -820,6 +911,7 @@ Provide SEO optimization in this JSON format:
         .split(/\s+/).length,
       readabilityScore: data.readabilityScore,
       seoScore: data.seoScore,
+      aiOverviewScore: data.aiOverviewScore,
       competitiveAnalysis: data.competitiveAnalysis,
       performancePredictions: data.performancePredictions,
       publishingRecommendations: data.publishingRecommendations,

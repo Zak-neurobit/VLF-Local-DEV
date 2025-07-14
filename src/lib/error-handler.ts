@@ -112,9 +112,9 @@ class GlobalErrorHandler {
       contexts: {
         trace: enrichedContext.traceId
           ? {
-              trace_id: enrichedContext.traceId as any,
-              span_id: enrichedContext.spanId as any,
-              trace_url: enrichedContext.traceUrl as any,
+              trace_id: enrichedContext.traceId as string,
+              span_id: enrichedContext.spanId as string,
+              trace_url: enrichedContext.traceUrl as string,
             }
           : undefined,
       },

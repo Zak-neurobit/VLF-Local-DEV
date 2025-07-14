@@ -69,7 +69,7 @@ When providing advice:
     protectedGround: string;
     entryDate: string;
     previousApplications?: string;
-  }): Promise<any> {
+  }): Promise<HumanitarianAnalysis> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('asylum', params);
@@ -101,7 +101,7 @@ Previous Applications: ${params.previousApplications || 'None'}`;
     harmSuffered: string;
     lawEnforcementCooperation: string;
     certificationStatus: string;
-  }): Promise<any> {
+  }): Promise<HumanitarianAnalysis> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('uvisa', params);
@@ -132,7 +132,7 @@ Certification: ${params.certificationStatus}`;
     entryDate: string;
     continuousPresence: string;
     criminalHistory?: string;
-  }): Promise<any> {
+  }): Promise<HumanitarianAnalysis> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('tps', params);
@@ -163,7 +163,7 @@ Criminal History: ${params.criminalHistory || 'None'}`;
     relationshipType: string;
     abuseDocumentation: string;
     currentSafety: string;
-  }): Promise<any> {
+  }): Promise<HumanitarianAnalysis> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('vawa', params);
@@ -188,7 +188,7 @@ Current Safety: ${params.currentSafety}`;
     }
   }
 
-  private getMockAnalysis(type: string, params: any): unknown {
+  private getMockAnalysis(type: string, params: Record<string, unknown>): HumanitarianAnalysis {
     const mockData = {
       asylum: {
         summary: 'Asylum claim requires immediate attention to one-year deadline',

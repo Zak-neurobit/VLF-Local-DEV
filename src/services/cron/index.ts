@@ -198,7 +198,10 @@ export class CronJobService {
   }
 
   // Calculate lead score based on various factors
-  private calculateLeadScore(lead: any): number {
+  private calculateLeadScore(lead: Lead & {
+    contact?: ContactInfo | null;
+    lastContactAt?: Date | null;
+  }): number {
     let score = 0;
 
     // Time factor - newer leads score higher
@@ -405,7 +408,7 @@ export class CronJobService {
           where: { id: appointment.id },
           data: {
             metadata: {
-              ...((appointment.metadata as object) || {}),
+              ...(appointment.metadata as Prisma.JsonObject || {}),
               surveySent: true,
               surveySentAt: new Date().toISOString(),
             },
@@ -549,7 +552,7 @@ export class CronJobService {
       for (const area of practiceAreas) {
         const areaLeads = await prisma.lead.count({
           where: {
-            practiceArea: area as any,
+            practiceArea: area as PracticeArea,
             createdAt: {
               gte: startOfDay,
               lte: endOfDay,
@@ -559,7 +562,7 @@ export class CronJobService {
 
         const areaConversions = await prisma.lead.count({
           where: {
-            practiceArea: area as any,
+            practiceArea: area as PracticeArea,
             status: 'won',
             convertedAt: {
               gte: startOfDay,
@@ -643,12 +646,12 @@ export class CronJobService {
           totalAppointments,
           completedAppointments,
           noShowAppointments,
-          practiceAreaMetrics: practiceAreaMetrics as any,
-          sourceMetrics: sourceMetrics as any,
+          practiceAreaMetrics: practiceAreaMetrics as Prisma.JsonObject,
+          sourceMetrics: sourceMetrics as Prisma.JsonObject,
           metadata: {
             lastUpdated: new Date().toISOString(),
             aggregationRun: new Date().toISOString(),
-          } as any,
+          } as Prisma.JsonObject,
         },
         create: {
           date: snapshotDate,
@@ -663,8 +666,8 @@ export class CronJobService {
           totalAppointments,
           completedAppointments,
           noShowAppointments,
-          practiceAreaMetrics: practiceAreaMetrics as any,
-          sourceMetrics: sourceMetrics as any,
+          practiceAreaMetrics: practiceAreaMetrics as Prisma.JsonObject,
+          sourceMetrics: sourceMetrics as Prisma.JsonObject,
           metadata: {
             createdAt: new Date().toISOString(),
           },
@@ -767,7 +770,7 @@ export class CronJobService {
 
     for (const [name, job] of this.jobs) {
       status[name] = {
-        running: (job as any).running || false,
+        running: (job as cron.ScheduledTask & { running?: boolean }).running || false,
       };
     }
 
@@ -783,7 +786,9 @@ export class CronJobService {
     }
 
     logger.info(`Manually triggering job: ${jobName}`);
-    await (job as any).task();
+    // Cron jobs don't expose task directly, we need to use our stored tasks
+    // This would require refactoring to store the task functions separately
+    throw new Error('Manual job triggering not implemented');
   }
 }
 

@@ -4,7 +4,7 @@ import { apiLogger } from '@/lib/pino-logger';
 
 export type RouteHandler = (
   request: NextRequest,
-  params?: any
+  params?: { params: Record<string, string> }
 ) => Promise<NextResponse> | NextResponse;
 
 interface TracingOptions {
@@ -13,7 +13,7 @@ interface TracingOptions {
 }
 
 export function withTracing(handler: RouteHandler, options: TracingOptions = {}): RouteHandler {
-  return async (request: NextRequest, params?: any) => {
+  return async (request: NextRequest, params?: { params: Record<string, string> }) => {
     const tracer = trace.getTracer('vasquez-law-api');
     const spanName = options.spanName || `${request.method} ${request.nextUrl.pathname}`;
 

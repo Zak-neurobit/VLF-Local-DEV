@@ -507,7 +507,14 @@ class EmailService {
   /**
    * Get email statistics
    */
-  async getStats(period: 'day' | 'week' | 'month' = 'day'): Promise<any> {
+  async getStats(period: 'day' | 'week' | 'month' = 'day'): Promise<{
+    sent: number;
+    delivered: number;
+    opened: number;
+    clicked: number;
+    bounced: number;
+    complaints: number;
+  }> {
     const cacheKey = `email:stats:${period}`;
 
     return cache.remember(

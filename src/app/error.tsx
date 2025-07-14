@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { logger } from '@/lib/pino-logger';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 export default function Error({
   error,
@@ -124,18 +125,18 @@ export default function Error({
             >
               🔄 {t.tryAgain}
             </button>
-            <a
+            <Link
               href="/"
               className="px-8 py-3 border-2 border-[#188bf6] text-[#188bf6] rounded-md font-semibold hover:bg-[#188bf6] hover:text-white transition-colors"
             >
               🏠 {t.goHome}
-            </a>
-            <a
+            </Link>
+            <Link
               href="/contact"
               className="px-8 py-3 bg-[#950e02] text-white rounded-md font-semibold hover:bg-[#6b0a01] transition-colors"
             >
               📞 {t.contactSupport}
-            </a>
+            </Link>
           </div>
 
           {/* Help Section */}

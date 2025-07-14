@@ -165,7 +165,7 @@ export class GHLChatSyncService {
   }
 
   // Private helper methods
-  private async getOrCreateGHLContact(userId: string, metadata?: any): Promise<string | null> {
+  private async getOrCreateGHLContact(userId: string, metadata?: Record<string, unknown>): Promise<string | null> {
     try {
       // Check cache first
       if (this.contactCache.has(userId)) {
@@ -233,7 +233,17 @@ export class GHLChatSyncService {
     return `[Chat Message ${langLabel}] ${timestamp}\n${sender}: ${message}\n---`;
   }
 
-  private formatTranscript(conversation: any): string {
+  private formatTranscript(conversation: {
+    id: string;
+    startedAt: Date;
+    language?: string;
+    status: string;
+    messages: Array<{
+      createdAt: Date;
+      role: string;
+      content: string;
+    }>;
+  }): string {
     const startTime = new Date(conversation.startedAt).toLocaleString('en-US', {
       timeZone: 'America/New_York',
     });
@@ -380,7 +390,16 @@ export class GHLChatSyncService {
     }
   }
 
-  private needsFollowUp(conversation: any): boolean {
+  private needsFollowUp(conversation: {
+    messages: Array<{
+      role: string;
+      content: string;
+    }>;
+    user: {
+      phone?: string | null;
+      email?: string | null;
+    };
+  }): boolean {
     // Check if conversation ended without resolution
     const lastMessage = conversation.messages[conversation.messages.length - 1];
     if (!lastMessage) return false;
@@ -399,7 +418,7 @@ export class GHLChatSyncService {
 
     // Check for appointment interest without booking
     const hasAppointmentInterest = conversation.messages.some(
-      (msg: any) =>
+      (msg: { content: string }) =>
         msg.content.toLowerCase().includes('appointment') ||
         msg.content.toLowerCase().includes('consultation') ||
         msg.content.toLowerCase().includes('cita') ||
@@ -411,7 +430,9 @@ export class GHLChatSyncService {
     return hasAppointmentInterest && hasContactInfo;
   }
 
-  private async triggerFollowUpCampaign(contactId: string, conversation: any) {
+  private async triggerFollowUpCampaign(contactId: string, conversation: {
+    messages: Array<{ content: string }>;
+  }) {
     const campaignId = process.env.GHL_CHAT_FOLLOWUP_CAMPAIGN_ID;
     if (!campaignId) return;
 

@@ -111,10 +111,11 @@ export function observePerformance() {
   try {
     const layoutShiftObserver = new PerformanceObserver(list => {
       for (const entry of list.getEntries()) {
-        if ((entry as any).hadRecentInput) continue;
+        const layoutShift = entry as PerformanceEntry & { hadRecentInput?: boolean; value?: number; sources?: unknown[] };
+        if (layoutShift.hadRecentInput) continue;
         logger.info('[Performance] Layout shift:', {
-          value: (entry as any).value,
-          sources: (entry as any).sources,
+          value: layoutShift.value,
+          sources: layoutShift.sources,
         });
       }
     });

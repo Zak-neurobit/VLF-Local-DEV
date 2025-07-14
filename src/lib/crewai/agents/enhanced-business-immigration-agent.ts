@@ -69,7 +69,7 @@ When providing advice:
     jobDuties: string;
     employerType: string;
     capSubject: boolean;
-  }): Promise<any> {
+  }): Promise<BusinessImmigrationAnalysis> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('h1b', params);
@@ -102,7 +102,7 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
     location: string;
     foreignNational: string;
     recruitmentReady: boolean;
-  }): Promise<any> {
+  }): Promise<BusinessImmigrationAnalysis> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('perm', params);
@@ -134,7 +134,7 @@ Ready for Recruitment: ${params.recruitmentReady ? 'Yes' : 'No'}`;
     evidence: string;
     field: string;
     currentPosition?: string;
-  }): Promise<any> {
+  }): Promise<BusinessImmigrationAnalysis> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('eb1', params);
@@ -165,7 +165,7 @@ Current Position: ${params.currentPosition || 'N/A'}`;
     position: string;
     timeAbroad: string;
     relationship: string;
-  }): Promise<any> {
+  }): Promise<BusinessImmigrationAnalysis> {
     try {
       if (!this.model) {
         return this.getMockAnalysis('l1', params);
@@ -190,7 +190,7 @@ Corporate Relationship: ${params.relationship}`;
     }
   }
 
-  private getMockAnalysis(type: string, params: any): unknown {
+  private getMockAnalysis(type: string, params: Record<string, unknown>): BusinessImmigrationAnalysis {
     const mockData = {
       h1b: {
         summary: 'H-1B petition requires careful documentation of specialty occupation',

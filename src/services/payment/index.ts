@@ -583,7 +583,7 @@ class PaymentService {
       limit?: number;
       offset?: number;
     } = {}
-  ): Promise<any[]> {
+  ): Promise<Array<Payment & { case: Case | null; refunds: PaymentRefund[] }>> {
     const cacheKey = cacheKeys.paymentSession(`history:${clientEmail}:${options.caseId || 'all'}`);
 
     return cache.remember(
@@ -1162,7 +1162,7 @@ class PaymentService {
       limit?: number;
       offset?: number;
     } = {}
-  ): Promise<any[]> {
+  ): Promise<Array<TrustLedger & { case: Case | null }>> {
     const prisma = getPrismaClient();
 
     const where: Prisma.TrustLedgerWhereInput = {

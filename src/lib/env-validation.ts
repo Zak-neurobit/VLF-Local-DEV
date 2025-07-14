@@ -88,7 +88,7 @@ function validateEnv(): ValidatedEnv {
     securityLogger.warn(
       '⚠️  Environment variable validation is skipped. This is not recommended for production.'
     );
-    return process.env as any;
+    return process.env as ValidatedEnv;
   }
 
   try {

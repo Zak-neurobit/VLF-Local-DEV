@@ -93,11 +93,11 @@ export class HODOSClient {
   }
 
   async getClient(id: string) {
-    return this.request<any>(`/clients/${id}`);
+    return this.request<{ id: string; client: ClientData }>(`/clients/${id}`);
   }
 
   async updateClient(id: string, data: Partial<ClientData>) {
-    return this.request<any>(`/clients/${id}`, {
+    return this.request<{ id: string; client: ClientData }>(`/clients/${id}`, {
       method: 'PUT',
       body: JSON.stringify(data),
     });
@@ -114,7 +114,7 @@ export class HODOSClient {
   }
 
   async getCase(id: string) {
-    return this.request<any>(`/cases/${id}`);
+    return this.request<{ id: string; case: CaseData }>(`/cases/${id}`);
   }
 
   async getCasesByClient(clientId: string) {
@@ -122,7 +122,7 @@ export class HODOSClient {
   }
 
   async updateCaseStatus(id: string, status: string) {
-    return this.request<any>(`/cases/${id}/status`, {
+    return this.request<{ id: string; status: string; updatedAt: string }>(`/cases/${id}/status`, {
       method: 'PATCH',
       body: JSON.stringify({ status }),
     });
@@ -181,7 +181,7 @@ export class HODOSClient {
   }
 
   async getWorkflowStatus(executionId: string) {
-    return this.request<any>(`/workflows/executions/${executionId}`);
+    return this.request<{ id: string; status: string; result?: unknown; error?: string }>(`/workflows/executions/${executionId}`);
   }
 
   /**

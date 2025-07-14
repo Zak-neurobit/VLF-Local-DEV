@@ -677,49 +677,49 @@ export class AutonomousCrewSystem {
   /**
    * RESULT HANDLERS
    */
-  private async handleContentGeneration(result: string, context: any): Promise<void> {
+  private async handleContentGeneration(result: string, context: Record<string, unknown>): Promise<void> {
     // Create blog post or content page
     logger.info('📝 Creating new content from AI generation');
     // Implementation to create actual content files
   }
 
-  private async handleSocialPosting(result: string, context: any): Promise<void> {
+  private async handleSocialPosting(result: string, context: Record<string, unknown>): Promise<void> {
     // Post to social media platforms
     logger.info('📱 Posting to social media platforms');
     // Implementation to post to social media
   }
 
-  private async handleReviewResponse(result: string, context: any): Promise<void> {
+  private async handleReviewResponse(result: string, context: Record<string, unknown>): Promise<void> {
     // Respond to reviews
     logger.info('⭐ Responding to customer reviews');
     // Implementation to respond to reviews
   }
 
-  private async handleLeadFollowUp(result: string, context: any): Promise<void> {
+  private async handleLeadFollowUp(result: string, context: Record<string, unknown>): Promise<void> {
     // Follow up with leads
     logger.info('📧 Following up with leads');
     // Implementation to send follow-up emails
   }
 
-  private async handlePerformanceCheck(result: string, context: any): Promise<void> {
+  private async handlePerformanceCheck(result: string, context: Record<string, unknown>): Promise<void> {
     // Optimize performance
     logger.info('⚡ Optimizing website performance');
     // Implementation to optimize performance
   }
 
-  private async handleLegalUpdate(result: string, context: any): Promise<void> {
+  private async handleLegalUpdate(result: string, context: Record<string, unknown>): Promise<void> {
     // Create legal update content
     logger.info('⚖️ Creating legal update content');
     // Implementation to create legal updates
   }
 
-  private async handleSEOOptimization(result: string, context: any): Promise<void> {
+  private async handleSEOOptimization(result: string, context: Record<string, unknown>): Promise<void> {
     // Optimize SEO
     logger.info('🔍 Optimizing SEO');
     // Implementation to optimize SEO
   }
 
-  private async handleWebsiteUpdate(result: string, context: any): Promise<void> {
+  private async handleWebsiteUpdate(result: string, context: Record<string, unknown>): Promise<void> {
     // Update website dynamically
     logger.info('🔄 Updating website content');
     // Implementation to update website

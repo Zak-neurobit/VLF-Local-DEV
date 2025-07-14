@@ -456,7 +456,7 @@ Format as JSON with: summary, callToAction (actionType, url)
           logger.info(`✅ Responded to ${review.rating}-star review at ${location}`);
 
           // Track response
-          await this.trackReviewResponse(location, review as any, response);
+          await this.trackReviewResponse(location, review as GMBReviewDetails, response);
         }
       }
     } catch (error) {
@@ -714,7 +714,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
         platforms: [`gmb_${location}`],
         scheduledFor: new Date(),
         status: 'published',
-      } as GMBMediaItem,
+      } as unknown,
     });
   }
 
@@ -728,7 +728,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       seasonal: { mediaFormat: 'PHOTO', sourceUrl: '/images/seasonal.jpg' },
     };
 
-    return mediaMap[postType as keyof typeof mediaMap] || [];
+    return (mediaMap[postType as keyof typeof mediaMap] || { mediaFormat: 'PHOTO', sourceUrl: '/images/default.jpg' }) as unknown as OptimalMedia;
   }
 
   private getTopicType(postType: string): string {
@@ -754,7 +754,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       eventType: 'EDUCATIONAL',
       startDate: nextWeek,
       endDate: nextWeek,
-    } as any;
+    };
   }
 
   private async fetchLatestReviews(locationId: string): Promise<ReviewData[]> {
@@ -777,10 +777,10 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     response: ReviewResponse
   ): Promise<void> {
     try {
-      await (this.mybusinessApi as any).locations.reviews.reply({
+      await this.mybusinessApi?.locations.reviews.reply({
         name: reviewName,
         requestBody: {
-          comment: (response as any).response,
+          comment: response.response,
         },
       });
     } catch (error) {
@@ -790,7 +790,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
   private async trackReviewResponse(
     location: string,
-    review: GMBReview,
+    review: GMBReviewDetails,
     response: ReviewResponse
   ): Promise<void> {
     // Track in database for analytics
@@ -800,7 +800,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
   private async fetchCompetitorGMBData(placeId: string): Promise<CompetitorGMBData> {
     // Fetch competitor data using Places API
     try {
-      const response = await (this.placesApi as any).places.get({
+      const response = await this.placesApi?.places.get({
         name: `places/${placeId}`,
         fields:
           'displayName,formattedAddress,rating,userRatingCount,businessStatus,regularOpeningHours,websiteUri,reviews',
@@ -817,7 +817,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     if (!data) return {} as CompetitorAnalysis;
 
     return {
-      responseRate: this.calculateResponseRate((data as any).reviews),
+      responseRate: this.calculateResponseRate((data as CompetitorGMBData & { reviews: unknown[] }).reviews),
       strengths: this.identifyStrengths(data),
       weaknesses: this.identifyWeaknesses(data),
     } as unknown as CompetitorAnalysis;
@@ -825,23 +825,33 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
   private calculateResponseRate(reviews: unknown[]): number {
     if (!reviews || reviews.length === 0) return 0;
-    const responded = reviews.filter(r => (r as any).reply).length;
+    const responded = reviews.filter(r => (r as { reply?: unknown }).reply).length;
     return (responded / reviews.length) * 100;
   }
 
   private identifyStrengths(data: CompetitorGMBData): string[] {
     const strengths = [];
-    if ((data as any).rating >= 4.5) strengths.push('High rating');
-    if ((data as any).userRatingCount > 100) strengths.push('Many reviews');
-    if ((data as any).regularOpeningHours?.periods?.length > 5) strengths.push('Extended hours');
+    const typedData = data as CompetitorGMBData & {
+      rating?: number;
+      userRatingCount?: number;
+      regularOpeningHours?: { periods?: unknown[] };
+    };
+    if (typedData.rating && typedData.rating >= 4.5) strengths.push('High rating');
+    if (typedData.userRatingCount && typedData.userRatingCount > 100) strengths.push('Many reviews');
+    if (typedData.regularOpeningHours?.periods && typedData.regularOpeningHours.periods.length > 5) strengths.push('Extended hours');
     return strengths;
   }
 
   private identifyWeaknesses(data: CompetitorGMBData): string[] {
     const weaknesses = [];
-    if ((data as any).rating < 4.5) weaknesses.push('Rating below 4.5');
-    if ((data as any).userRatingCount < 50) weaknesses.push('Few reviews');
-    if (!(data as any).websiteUri) weaknesses.push('No website listed');
+    const typedData = data as CompetitorGMBData & {
+      rating?: number;
+      userRatingCount?: number;
+      websiteUri?: string;
+    };
+    if (typedData.rating && typedData.rating < 4.5) weaknesses.push('Rating below 4.5');
+    if (typedData.userRatingCount && typedData.userRatingCount < 50) weaknesses.push('Few reviews');
+    if (!typedData.websiteUri) weaknesses.push('No website listed');
     return weaknesses;
   }
 
@@ -852,12 +862,13 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
     const actions = [];
 
-    if ((analysis as any).rating > 4.5) {
+    const typedAnalysis = analysis as CompetitorAnalysis & { rating?: number; reviewCount?: number };
+    if (typedAnalysis.rating && typedAnalysis.rating > 4.5) {
       actions.push('Increase review volume with automated requests');
       actions.push('Highlight unique differentiators in posts');
     }
 
-    if ((analysis as any).reviewCount > 100) {
+    if (typedAnalysis.reviewCount && typedAnalysis.reviewCount > 100) {
       actions.push('Focus on review quality over quantity');
       actions.push('Create posts showcasing recent wins');
     }
@@ -916,7 +927,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     const post: GMBPost = {
       summary: `Looking for a ${keyword} in ${location.name}? Vasquez Law Firm has been serving ${location.name} for over 20 years with proven results. Free consultation available! 📍 ${location.name} #${keyword.replace(/\s+/g, '')}`,
       callToAction: {
-        actionType: 'CALL' as any,
+        actionType: 'CALL',
         url: 'tel:+19803420919',
       },
     } as GMBPost;
@@ -1051,7 +1062,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     optimizations: LocalSEOOptimization
   ): Promise<void> {
     try {
-      await (this.mybusinessApi as any).locations.patch({
+      await this.mybusinessApi?.locations.patch({
         name: `locations/${locationId}`,
         updateMask: 'description,categories,attributes,serviceArea,regularHours',
         requestBody: optimizations,
@@ -1108,7 +1119,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
   private async uploadPhoto(locationId: string, photo: GMBPhoto): Promise<void> {
     try {
       // Upload photo to GMB
-      logger.info(`Uploading photo to location ${locationId}: ${(photo as any).category}`);
+      logger.info(`Uploading photo to location ${locationId}: ${(photo as GMBPhoto & { category?: string }).category || 'unknown'}`);
 
       // Track upload
       await this.prisma?.contentSchedule.create({
@@ -1118,7 +1129,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
           platforms: [`gmb_photo_${locationId}`],
           scheduledFor: new Date(),
           status: 'published',
-        } as GMBMediaItem,
+        } as unknown,
       });
     } catch (error) {
       logger.error('Failed to upload photo:', error);

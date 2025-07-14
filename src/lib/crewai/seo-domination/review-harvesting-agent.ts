@@ -48,7 +48,7 @@ interface ReviewCampaign {
 
 export class ReviewHarvestingAgent {
   private model: ChatOpenAI;
-  private prisma: import('@prisma/client').PrismaClient;
+  private prisma: import('@prisma/client').PrismaClient | null = null;
   private emailTransporter!: nodemailer.Transporter;
   private isRunning: boolean = false;
   private scheduledJobs: cron.ScheduledTask[] = [];
@@ -319,8 +319,19 @@ The Vasquez Law Firm Team`,
       })) as unknown[];
 
       for (const case_ of recentWins) {
-        const caseData = case_ as any;
-        if (await this.shouldRequestReview(caseData.client)) {
+        const caseData = case_ as {
+          client: {
+            id: string;
+            name?: string | null;
+            email?: string | null;
+            phone?: string | null;
+          };
+          attorney?: { name?: string | null } | null;
+          practiceArea: string;
+          updatedAt: Date;
+          description?: string | null;
+        };
+        if (await this.shouldRequestReview({ id: caseData.client.id, metadata: null })) {
           candidates.push({
             clientId: caseData.client.id,
             clientName: caseData.client.name || 'Valued Client',
@@ -361,8 +372,18 @@ The Vasquez Law Firm Team`,
       })) as unknown[];
 
       for (const client of longTermClients) {
-        const clientData = client as any;
-        if (await this.shouldRequestReview(clientData)) {
+        const clientData = client as {
+          id: string;
+          name?: string | null;
+          email?: string | null;
+          phone?: string | null;
+          createdAt: Date;
+          cases: Array<{
+            practiceArea: string;
+            updatedAt: Date;
+          }>;
+        };
+        if (await this.shouldRequestReview({ id: clientData.id, metadata: null })) {
           const latestCase = clientData.cases[0];
           candidates.push({
             clientId: clientData.id,
@@ -452,21 +473,23 @@ The Vasquez Law Firm Team`,
       subject: this.personalizText(emailTemplate.subject, {
         ...request,
         lastContactDate: request.lastContactDate.toISOString(),
-      } as any),
+      }),
       body: this.personalizText(emailTemplate.body, {
         ...request,
+        lastContactDate: request.lastContactDate.toISOString(),
         ...request.personalizationData,
         reviewLinks: reviewLinks.email,
-      } as any),
+      }),
     };
 
     // Personalize SMS
     const personalizedSMS = {
       text: this.personalizText(smsTemplate.text, {
         ...request,
+        lastContactDate: request.lastContactDate.toISOString(),
         ...request.personalizationData,
         shortLink: reviewLinks.sms,
-      } as any),
+      }),
     };
 
     // Use AI to enhance personalization
@@ -670,7 +693,8 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     if (await this.hasClientReviewed(client.id)) return false;
 
     // Check if client opted out
-    if ((client.metadata as any)?.reviewOptOut) return false;
+    const metadata = client.metadata as { reviewOptOut?: boolean } | null | undefined;
+    if (metadata?.reviewOptOut) return false;
 
     return true;
   }
@@ -816,8 +840,8 @@ Return as JSON: { email: { subject, body }, sms: { text } }
           input: {
             ...request,
             lastContactDate: request.lastContactDate.toISOString(),
-          } as any,
-          output: { status: 'sent' } as any,
+          } as Record<string, unknown>,
+          output: { status: 'sent' } as Record<string, unknown>,
           duration: 1000,
           success: true,
         },
@@ -893,12 +917,12 @@ Return as JSON: { email: { subject, body }, sms: { text } }
         data: {
           title: `Urgent: Negative Review Response Needed`,
           description: `Negative ${review.rating}-star review from ${review.reviewerName}: "${review.reviewText}"`,
-          type: 'client_communication' as any,
-          priority: 'urgent' as any,
-          status: 'pending' as any,
+          type: 'client_communication',
+          priority: 'urgent',
+          status: 'pending',
           createdById: 'system',
           assignedToId: process.env.MANAGER_USER_ID || 'admin',
-        } as any,
+        },
       });
     } catch (error) {
       logger.error('Failed to create escalation task:', error);

@@ -122,7 +122,14 @@ callAnalysisQueue.process(async job => {
 });
 
 // Enhanced webhook handler using queues
-export async function handleWebhookAsync(event: any) {
+export async function handleWebhookAsync(event: {
+  type: string;
+  callId?: string;
+  transcript?: string;
+  metadata?: Record<string, unknown>;
+  leadId?: string;
+  data?: Record<string, unknown>;
+}) {
   // Instead of processing synchronously, queue the job
   switch (event.type) {
     case 'call.ended':

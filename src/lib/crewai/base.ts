@@ -40,7 +40,7 @@ export abstract class Agent {
     this.maxIterations = config.maxIterations || 5;
   }
 
-  abstract execute(input: any): Promise<any>;
+  abstract execute(input: unknown): Promise<unknown>;
 
   protected log(message: string, level: 'info' | 'warn' | 'error' = 'info') {
     logger[level](`[${this.name}] ${message}`);
@@ -60,7 +60,7 @@ export abstract class Crew {
     this.verbose = config.verbose || false;
   }
 
-  abstract run(input: any): Promise<any>;
+  abstract run(input: unknown): Promise<unknown>;
 
   protected log(message: string, level: 'info' | 'warn' | 'error' = 'info') {
     if (this.verbose) {

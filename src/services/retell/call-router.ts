@@ -23,6 +23,20 @@ interface RouteDecision {
   specialInstructions?: string;
 }
 
+interface ExistingContact {
+  id: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  tags: string[];
+  customFields: Record<string, unknown>;
+  preferredLanguage?: string;
+  practiceArea?: string;
+  lastCallDate?: string;
+  callHistory: unknown[];
+  clientStatus: string;
+}
+
 export class CallRoutingService {
   private static instance: CallRoutingService;
 
@@ -98,7 +112,7 @@ export class CallRoutingService {
   }
 
   // Get existing contact information from GHL
-  private async getExistingContactInfo(phoneNumber: string) {
+  private async getExistingContactInfo(phoneNumber: string): Promise<ExistingContact | null> {
     try {
       const contact = await ghlService.findContactByPhone(phoneNumber);
 
@@ -128,7 +142,7 @@ export class CallRoutingService {
   // Determine practice area based on various factors
   private async determinePracticeArea(
     options: CallRoutingOptions,
-    existingContact: any
+    existingContact: ExistingContact | null
   ): Promise<string> {
     // 1. Use explicit practice area if provided
     if (options.practiceArea) {
@@ -144,7 +158,7 @@ export class CallRoutingService {
     if (existingContact?.tags) {
       const tags = existingContact.tags;
 
-      if (tags.some((tag: string) => tag.includes('immigration') || tag.includes('visa'))) {
+      if (tags.some(tag => tag.includes('immigration') || tag.includes('visa'))) {
         return 'immigration';
       }
       if (tags.some((tag: string) => tag.includes('injury') || tag.includes('accident'))) {
@@ -174,7 +188,7 @@ export class CallRoutingService {
   // Determine language preference
   private async determineLanguage(
     options: CallRoutingOptions,
-    existingContact: any
+    existingContact: ExistingContact | null
   ): Promise<'en' | 'es'> {
     // 1. Use explicit language if provided
     if (options.language) {
@@ -201,7 +215,7 @@ export class CallRoutingService {
   // Assess urgency of the call
   private async assessUrgency(
     options: CallRoutingOptions,
-    existingContact: any
+    existingContact: ExistingContact | null
   ): Promise<'low' | 'medium' | 'high' | 'emergency'> {
     // 1. Use explicit urgency if provided
     if (options.urgency) {
@@ -288,7 +302,7 @@ export class CallRoutingService {
     language: 'en' | 'es';
     urgency: string;
     options: CallRoutingOptions;
-    existingContact: any;
+    existingContact: ExistingContact | null;
   }): Promise<RouteDecision> {
     const { agentId, practiceArea, language, urgency, options, existingContact } = params;
 
@@ -349,7 +363,7 @@ export class CallRoutingService {
   private shouldRequireCallback(
     urgency: string,
     practiceArea: string,
-    existingContact: any
+    existingContact: ExistingContact | null
   ): boolean {
     // Emergency cases always need callback
     if (urgency === 'emergency') {
@@ -373,7 +387,7 @@ export class CallRoutingService {
   private generateSpecialInstructions(params: {
     urgency: string;
     practiceArea: string;
-    existingContact: any;
+    existingContact: ExistingContact | null;
     language: 'en' | 'es';
   }): string {
     const { urgency, practiceArea, existingContact, language } = params;
@@ -539,7 +553,12 @@ export class CallRoutingService {
     try {
       const prisma = getPrismaClient();
 
-      const where: any = {};
+      const where: {
+        status?: string;
+        language?: string;
+        practiceArea?: string;
+        urgency?: string;
+      } = {};
       if (timeRange) {
         where.createdAt = {
           gte: timeRange.start,

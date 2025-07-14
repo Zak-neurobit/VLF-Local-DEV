@@ -335,7 +335,7 @@ export function t(key: string, language: 'en' | 'es' = 'en'): string {
   if (language === 'en') return key; // Return key as-is for English
 
   const keys = key.split('.');
-  let value: any = translations.es;
+  let value: unknown = translations.es;
 
   for (const k of keys) {
     if (value && typeof value === 'object' && k in value) {
@@ -353,7 +353,7 @@ export function getSection(section: string, language: 'en' | 'es' = 'en'): unkno
   if (language === 'en') return null;
 
   const keys = section.split('.');
-  let value: any = translations.es;
+  let value: unknown = translations.es;
 
   for (const k of keys) {
     if (value && typeof value === 'object' && k in value) {

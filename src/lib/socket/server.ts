@@ -18,7 +18,7 @@ interface SocketData {
 interface ChatMessage {
   content: string;
   language?: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }
 
 interface CaseUpdateEvent {
@@ -29,14 +29,14 @@ interface CaseUpdateEvent {
     | 'note_added'
     | 'attorney_assigned'
     | 'task_updated';
-  data: any;
+  data: Record<string, unknown>;
 }
 
 interface NotificationEvent {
   type: 'info' | 'success' | 'warning' | 'error';
   title: string;
   message: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }
 
 // Room types for different conversation contexts
@@ -92,9 +92,9 @@ export class ChatSocketServer {
             if (!secret) {
               throw new Error('NextAuth secret not configured');
             }
-            const decoded = jwt.verify(token, secret) as unknown;
-            userId = (decoded as any).id;
-            userRole = (decoded as any).role;
+            const decoded = jwt.verify(token, secret) as { id?: string; role?: string };
+            userId = decoded.id;
+            userRole = decoded.role;
             authenticated = true;
           } catch (error) {
             wsLogger.warn(socket.id, 'Invalid JWT token');
