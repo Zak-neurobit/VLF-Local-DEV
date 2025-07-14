@@ -14,7 +14,7 @@ export interface Task {
   priority: 'low' | 'medium' | 'high' | 'urgent';
   status: 'pending' | 'in-progress' | 'completed' | 'failed';
   data: Record<string, unknown>;
-  result?: any;
+  result?: unknown;
   error?: string;
   userId: string;
   createdAt: Date;
@@ -29,7 +29,7 @@ export interface WorkflowStep {
   data: Record<string, unknown>;
   dependencies?: string[];
   status: 'pending' | 'in-progress' | 'completed' | 'failed';
-  result?: any;
+  result?: unknown;
   error?: string;
 }
 

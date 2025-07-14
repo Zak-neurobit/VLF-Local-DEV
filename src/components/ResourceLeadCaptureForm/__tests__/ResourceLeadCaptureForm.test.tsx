@@ -12,10 +12,10 @@ jest.mock('next/navigation', () => ({
 // Mock framer-motion
 jest.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: React.ComponentProps<'div'>) => <div {...props}>{children}</div>,
-    form: ({ children, ...props }: React.ComponentProps<'form'>) => <form {...props}>{children}</form>,
+    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    form: ({ children, ...props }: any) => <form {...props}>{children}</form>,
   },
-  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  AnimatePresence: ({ children }: any) => <>{children}</>,
 }));
 
 // Mock fetch

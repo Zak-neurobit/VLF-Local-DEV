@@ -12,6 +12,14 @@ import { logger } from '@/lib/logger';
 import { EventEmitter } from 'events';
 import pLimit from 'p-limit';
 
+interface InterAgentMessage {
+  taskId: string;
+  taskData: unknown;
+  agentName?: string;
+  messageType?: string;
+  data?: unknown;
+}
+
 export interface ParallelProcessingConfig {
   maxConcurrentTasks: number;
   taskQueueSize: number;
@@ -38,12 +46,12 @@ export interface WorkflowStep {
   id: string;
   agentName: string;
   action: string;
-  input: any;
+  input: unknown;
   dependencies: string[];
   retryCount: number;
   maxRetries: number;
   status: 'pending' | 'running' | 'completed' | 'failed';
-  result?: any;
+  result?: unknown;
   error?: string;
   startTime?: Date;
   endTime?: Date;
@@ -71,7 +79,7 @@ export interface AgentCommunicationChannel {
 export interface DistributedMemoryStore {
   agent: string;
   key: string;
-  value: any;
+  value: unknown;
   timestamp: Date;
   ttl: number;
   compressed: boolean;
@@ -92,7 +100,7 @@ export class CrewCoordinator {
   private communicationChannels: Map<string, AgentCommunicationChannel> = new Map();
   private distributedMemory: Map<string, DistributedMemoryStore> = new Map();
   private eventEmitter: EventEmitter;
-  private performanceMetrics: Map<string, any> = new Map();
+  private performanceMetrics: Map<string, unknown> = new Map();
 
   private constructor() {
     this.legalConsultationAgent = new LegalConsultationAgent();
@@ -111,7 +119,7 @@ export class CrewCoordinator {
   }
 
   // Base CrewCoordinator methods
-  async executeTask(task: CrewTask): Promise<any> {
+  async executeTask(task: CrewTask): Promise<unknown> {
     try {
       logger.info(`Starting task ${task.id} of type ${task.type}`);
 
@@ -212,7 +220,7 @@ export class CrewCoordinator {
     this.eventEmitter.emit('parallel-processing-enabled', config);
   }
 
-  async executeTasksInParallel(tasks: CrewTask[]): Promise<any[]> {
+  async executeTasksInParallel(tasks: CrewTask[]): Promise<unknown[]> {
     if (!this.parallelProcessingConfig || !this.concurrencyLimit) {
       throw new Error('Parallel processing not enabled');
     }
@@ -290,7 +298,7 @@ export class CrewCoordinator {
     if (!channel) return;
 
     // Handler for task delegation
-    channel.messageHandlers.set('delegate-task', async (message: any) => {
+    channel.messageHandlers.set('delegate-task', async (message: InterAgentMessage) => {
       const { taskId, taskData } = message;
       logger.info(`Agent ${agentName} received task delegation: ${taskId}`);
 
@@ -309,7 +317,7 @@ export class CrewCoordinator {
     });
 
     // Handler for information sharing
-    channel.messageHandlers.set('share-information', async (message: any) => {
+    channel.messageHandlers.set('share-information', async (message: InterAgentMessage) => {
       const { information, context } = message;
       logger.info(`Agent ${agentName} received information sharing:`, information);
 
@@ -322,7 +330,7 @@ export class CrewCoordinator {
     });
 
     // Handler for status updates
-    channel.messageHandlers.set('status-update', async (message: any) => {
+    channel.messageHandlers.set('status-update', async (message: InterAgentMessage) => {
       const { status, details } = message;
       logger.info(`Agent ${agentName} received status update:`, status);
 

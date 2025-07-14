@@ -4,21 +4,6 @@ import { logger } from '@/lib/logger';
 import { WebFetch } from '@/lib/utils/web-fetch';
 import { getPrismaClient } from '@/lib/prisma';
 
-interface MarketAnalysis {
-  totalCompetitors: number;
-  averagePricing: number;
-  marketSaturation: string;
-  emergingTrends: string[];
-}
-
-interface CompetitorRecommendations {
-  strengths: string[];
-  weaknesses: string[];
-  opportunities: string[];
-  threats: string[];
-  actionItems: string[];
-}
-
 export interface CompetitorAnalysisRequest {
   practiceArea: string;
   location: string;
@@ -376,9 +361,9 @@ Enfócate en información factual e inferencias razonables. Evita especulaciones
 
   private async generateRecommendations(
     competitors: CompetitorProfile[],
-    marketAnalysis: MarketAnalysis,
+    marketAnalysis: any,
     request: CompetitorAnalysisRequest
-  ): Promise<CompetitorRecommendations> {
+  ) {
     const prompt = `
 Based on this competitive analysis, generate strategic recommendations:
 
@@ -479,11 +464,11 @@ Provide recommendations for:
   }
 
   private async storeAnalysis(
-    marketAnalysis: MarketAnalysis,
+    marketAnalysis: any,
     competitors: CompetitorProfile[],
-    recommendations: CompetitorRecommendations,
+    recommendations: any,
     request: CompetitorAnalysisRequest
-  ): Promise<void> {
+  ) {
     try {
       await getPrismaClient().competitorAnalysis.create({
         data: {

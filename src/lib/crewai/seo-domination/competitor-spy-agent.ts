@@ -6,6 +6,13 @@ import * as cheerio from 'cheerio';
 import { WebFetch } from '@/lib/utils/web-fetch';
 import * as cron from 'node-cron';
 
+interface Competitor {
+  name: string;
+  domain: string;
+  locations: string[];
+  practiceAreas: string[];
+}
+
 interface CompetitorIntelligence {
   domain: string;
   lastChecked: Date;
@@ -283,7 +290,7 @@ export class CompetitorSpyAgent {
   /**
    * Fetch competitor keyword rankings
    */
-  private async fetchCompetitorRankings(competitor: any): Promise<any[]> {
+  private async fetchCompetitorRankings(competitor: Competitor): Promise<unknown[]> {
     const rankings: unknown[] = [];
 
     for (const keyword of this.MONITORING_TARGETS.keywords) {
@@ -311,7 +318,7 @@ export class CompetitorSpyAgent {
   /**
    * Analyze competitor content strategy
    */
-  private async analyzeCompetitorContent(competitor: any): Promise<unknown> {
+  private async analyzeCompetitorContent(competitor: Competitor): Promise<unknown> {
     const content = {
       newPosts: [] as ContentPiece[],
       updatedPosts: [] as ContentPiece[],
@@ -374,7 +381,7 @@ export class CompetitorSpyAgent {
   /**
    * Analyze competitor backlinks
    */
-  private async analyzeBacklinks(competitor: any): Promise<unknown> {
+  private async analyzeBacklinks(competitor: Competitor): Promise<unknown> {
     // In production, would use Ahrefs/Moz API
     const mockBacklinks = {
       total: Math.floor(Math.random() * 10000) + 1000,
@@ -398,7 +405,7 @@ export class CompetitorSpyAgent {
   /**
    * Analyze competitor social media presence
    */
-  private async analyzeSocialMedia(competitor: any): Promise<any[]> {
+  private async analyzeSocialMedia(competitor: Competitor): Promise<unknown[]> {
     const socialProfiles = [];
 
     // Check major platforms
@@ -421,7 +428,7 @@ export class CompetitorSpyAgent {
   /**
    * Analyze technical SEO factors
    */
-  private async analyzeTechnicalSEO(competitor: any): Promise<unknown> {
+  private async analyzeTechnicalSEO(competitor: Competitor): Promise<unknown> {
     try {
       const homepage = `https://${competitor.domain}`;
       const html = await this.webFetch.fetchHTML(homepage);
