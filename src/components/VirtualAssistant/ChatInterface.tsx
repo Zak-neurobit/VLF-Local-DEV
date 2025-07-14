@@ -379,7 +379,11 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                       formId: 'chat-widget',
                       pageUrl: window.location.href,
                     }),
-                  }).catch(console.error);
+                  }).catch(error => {
+                    logger.error('Failed to play AI response audio', {
+                      error: error instanceof Error ? error.message : String(error),
+                    });
+                  });
 
                   // Send the pending message
                   sendMessage(inputMessage);
