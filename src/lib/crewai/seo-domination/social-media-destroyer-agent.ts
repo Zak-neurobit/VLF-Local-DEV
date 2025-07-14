@@ -15,6 +15,13 @@ interface ViralContent {
   timingStrategy: Record<string, string>;
 }
 
+// Extended blog content type for social media
+interface SocialMediaBlogContent extends BlogContent {
+  mainContent?: string;
+  visualConcept?: string;
+  hashtags?: string[];
+}
+
 interface NewsItem {
   id: string;
   title: string;
@@ -733,10 +740,11 @@ Format as JSON with:
     let engagement = baseEngagement[contentType as keyof typeof baseEngagement] || 1000;
 
     // Boost for trending topics
-    if ((data as any).trending?.length > 3) engagement *= 1.5;
+    const trendingData = data as { trending?: string[]; news?: unknown[] };
+    if (trendingData.trending && trendingData.trending.length > 3) engagement *= 1.5;
 
     // Boost for news relevance
-    if ((data as any).news?.length > 0) engagement *= 1.3;
+    if (trendingData.news && trendingData.news.length > 0) engagement *= 1.3;
 
     return Math.floor(engagement);
   }
@@ -754,28 +762,29 @@ Format as JSON with:
 
   private async optimizeForPlatforms(content: BlogContent): Promise<Record<string, SocialPost>> {
     const optimized: Record<string, SocialPost> = {};
+    const socialContent = content as SocialMediaBlogContent;
 
     // Facebook - longer form, emotional
     optimized.facebook = {
       platform: 'facebook',
-      content: (content as any).mainContent || content.content,
-      mediaUrls: [(content as any).visualConcept || content.featuredImage],
-      hashtags: (content as any).hashtags?.slice(0, 5) || content.keywords?.slice(0, 5) || [],
+      content: socialContent.mainContent || content.content,
+      mediaUrls: [socialContent.visualConcept || content.featuredImage],
+      hashtags: socialContent.hashtags?.slice(0, 5) || content.keywords?.slice(0, 5) || [],
       mentions: ['@charlottenc', '@raleighnc'],
     };
 
     // Twitter - concise, news-jacking
     optimized.twitter = {
       platform: 'twitter',
-      content: ((content as any).mainContent || content.content).substring(0, 250) + '... [THREAD]',
-      hashtags: ((content as any).hashtags || content.keywords || []).slice(0, 3),
+      content: (socialContent.mainContent || content.content).substring(0, 250) + '... [THREAD]',
+      hashtags: (socialContent.hashtags || content.keywords || []).slice(0, 3),
       mentions: ['@NCBar', '@USCIS'],
     };
 
     // LinkedIn - professional, educational
     optimized.linkedin = {
       platform: 'linkedin',
-      content: `🎯 ${(content as any).mainContent || content.content}\n\n#LegalAdvice #NorthCarolina #VasquezLawFirm`,
+      content: `🎯 ${socialContent.mainContent || content.content}\n\n#LegalAdvice #NorthCarolina #VasquezLawFirm`,
       hashtags: ['legal', 'immigration', 'personalinjury', 'workerscomp'],
       mentions: [],
     };
@@ -783,9 +792,9 @@ Format as JSON with:
     // Instagram - visual, inspirational
     optimized.instagram = {
       platform: 'instagram',
-      content: ((content as any).mainContent || content.content).substring(0, 500),
-      mediaUrls: [(content as any).visualConcept || content.featuredImage],
-      hashtags: ((content as any).hashtags || content.keywords || []).concat([
+      content: (socialContent.mainContent || content.content).substring(0, 500),
+      mediaUrls: [socialContent.visualConcept || content.featuredImage],
+      hashtags: (socialContent.hashtags || content.keywords || []).concat([
         'lawyersofinstagram',
         'nclaw',
         'legalhelp',
@@ -817,8 +826,8 @@ Format as JSON with:
           contentType: 'social_post',
           platforms: [platform],
           scheduledFor: post.scheduledTime,
-          status: 'scheduled' as any,
-        } as any,
+          status: 'scheduled',
+        },
       });
     }
   }
@@ -832,14 +841,14 @@ Format as JSON with:
   private async analyzeCompetitorPost(post: SocialPost): Promise<CompetitorActivity> {
     return {
       platform: post.platform || 'facebook',
-      competitorName: (post as any).author || 'Unknown',
+      competitorName: (post as CompetitorPost & { author?: string }).author || 'Unknown',
       postContent: post.content || '',
       engagement: {
-        likes: (post as any).likes || 0,
-        comments: (post as any).comments || 0,
-        shares: (post as any).shares || 0,
+        likes: (post as CompetitorPost & { likes?: number }).likes || 0,
+        comments: (post as CompetitorPost & { comments?: number }).comments || 0,
+        shares: (post as CompetitorPost & { shares?: number }).shares || 0,
       },
-      timestamp: new Date((post as any).created_at || Date.now()),
+      timestamp: new Date((post as CompetitorPost & { created_at?: string | number }).created_at || Date.now()),
       viralPotential: Math.random(), // Would calculate based on engagement rate
     };
   }
@@ -868,11 +877,12 @@ Format as JSON with:
 
     for (const platform of platforms) {
       try {
+        const socialContent = content as SocialMediaBlogContent;
         await this.postToPlatform(platform as SocialPost['platform'], {
           platform: platform as SocialPost['platform'],
-          content: (content as any).mainContent || content.content,
-          hashtags: (content as any).hashtags || [],
-          mediaUrls: (content as any).visualConcept ? [(content as any).visualConcept] : undefined,
+          content: socialContent.mainContent || content.content,
+          hashtags: socialContent.hashtags || [],
+          mediaUrls: socialContent.visualConcept ? [socialContent.visualConcept] : undefined,
         });
       } catch (error) {
         logger.error(`Failed to publish to ${platform}:`, error);
@@ -887,8 +897,8 @@ Format as JSON with:
         data: {
           url: activity.platform,
           domain: activity.competitorName,
-          blogPosts: [activity] as any,
-          seoData: {} as any,
+          blogPosts: [activity],
+          seoData: {},
           analyzedAt: new Date(),
         },
       });
@@ -939,7 +949,7 @@ Format as JSON with:
 
   private async shareInCommunities(content: SocialPost): Promise<void> {
     // Share in relevant online communities
-    logger.info(`Sharing linkable content in communities: ${(content as any).title || 'content'}`);
+    logger.info(`Sharing linkable content in communities: ${(content as LinkableContent & { title?: string }).title || 'content'}`);
   }
 
   private async engageInfluencers(content: SocialPost): Promise<void> {
@@ -952,7 +962,7 @@ Format as JSON with:
     logger.info('Submitting to legal content aggregators');
   }
 
-  private async getScheduledPosts(): Promise<any[]> {
+  private async getScheduledPosts(): Promise<Array<{ platform: string; scheduledFor: Date; content: unknown }>> {
     // Get posts scheduled for cross-posting
     const scheduled = await this.prisma?.contentSchedule.findMany({
       where: {
@@ -1000,7 +1010,7 @@ Format as JSON with:
     }
   }
 
-  private async getRecentPosts(): Promise<any[]> {
+  private async getRecentPosts(): Promise<Array<{ id: string; status: string; scheduledFor: Date }>> {
     // Get posts from the last 24 hours
     return (
       (await this.prisma?.contentSchedule.findMany({
@@ -1012,7 +1022,7 @@ Format as JSON with:
     );
   }
 
-  private async fetchPostEngagement(post: SocialPost): Promise<any> {
+  private async fetchPostEngagement(post: SocialPost): Promise<{ rate: number; likes: number; comments: number; shares: number }> {
     // Fetch engagement metrics for a post
     return {
       rate: Math.random() * 0.1, // 0-10% engagement rate
@@ -1024,7 +1034,7 @@ Format as JSON with:
 
   private async boostPost(post: SocialPost): Promise<void> {
     // Boost underperforming posts
-    logger.info(`Boosting post: ${(post as any).blogPostId || 'post'}`);
+    logger.info(`Boosting post: ${(post as SocialPost & { blogPostId?: string }).blogPostId || 'post'}`);
 
     // Add engagement prompt
     const boostComment = 'Have you or someone you know experienced this? Share your story below 👇';
@@ -1034,7 +1044,7 @@ Format as JSON with:
 
   private async engageWithComments(post: SocialPost): Promise<void> {
     // Engage with high-comment posts
-    logger.info(`Engaging with comments on post: ${(post as any).blogPostId || 'post'}`);
+    logger.info(`Engaging with comments on post: ${(post as SocialPost & { blogPostId?: string }).blogPostId || 'post'}`);
   }
 
   private async analyzeAndOptimize(): Promise<void> {

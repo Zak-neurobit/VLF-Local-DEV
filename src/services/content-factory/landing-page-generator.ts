@@ -76,18 +76,18 @@ export class LandingPageGenerator {
       // Generate page sections
       const sections = await this.generateCityPageSections(
         options,
-        localData as any,
+        localData,
         localKeywords
       );
 
       // Generate hero section
-      const heroSection = await this.generateHeroSection(options, localData as any);
+      const heroSection = await this.generateHeroSection(options, localData);
 
       // Generate local schema
-      const localSchema = await this.generateLocalBusinessSchema(options, localData as any);
+      const localSchema = await this.generateLocalBusinessSchema(options, localData);
 
       // Compile full page content
-      const content = this.compileCityPageContent(heroSection, sections as any);
+      const content = this.compileCityPageContent(heroSection, sections);
 
       // Generate metadata
       const metadata = await this.generateCityPageMetadata(options, localKeywords);
@@ -98,7 +98,7 @@ export class LandingPageGenerator {
         return await this.translateLandingPage({
           content,
           ...metadata,
-          sections: sections as any,
+          sections,
           localSchema,
           heroImage,
         });
@@ -107,7 +107,7 @@ export class LandingPageGenerator {
       return {
         ...metadata,
         content,
-        sections: sections as any,
+        sections,
         localSchema,
         heroImage: await this.generateHeroImage(options.city, options.practiceArea),
       };
@@ -159,13 +159,13 @@ export class LandingPageGenerator {
       const metadata = await this.generateVariationMetadata(options);
 
       // Add conversion tracking elements
-      const trackingElements = this.addConversionTracking(conversionElements as any);
+      const trackingElements = this.addConversionTracking(conversionElements);
 
       return {
         ...metadata,
         content: content.content || '',
-        sections: (content.sections || []) as any,
-        localSchema: null as any,
+        sections: content.sections || [],
+        localSchema: null as LocalSchema,
         conversionElements: trackingElements,
         heroImage: await this.generateHeroImage('default', options.practiceArea),
       };
@@ -470,7 +470,7 @@ Format as JSON array with 'question' and 'answer' keys. Answers should be detail
    * Generate map section
    */
   private async generateMapSection(options: CityPageOptions, localData: LocalData) {
-    const nearestOffice = this.getNearestOffice(options.city) as any;
+    const nearestOffice = this.getNearestOffice(options.city);
 
     return {
       type: 'map',
@@ -697,7 +697,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
    * Helper methods
    */
   private compileCityPageContent(heroSection: PageSection, sections: PageSection[]): string {
-    const hero = heroSection as any;
+    const hero = heroSection as { headline?: string; subheadline?: string; bullets?: string[]; cta?: string; trustIndicators?: string[] };
     let content = `# ${hero.headline}\n\n`;
     content += `## ${hero.subheadline}\n\n`;
 
@@ -755,7 +755,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     options: CityPageOptions,
     localData: LocalData
   ): Promise<LocalSchema> {
-    const nearestOffice = this.getNearestOffice(options.city) as any;
+    const nearestOffice = this.getNearestOffice(options.city) || this.getDefaultOffice();
 
     return {
       '@context': 'https://schema.org',
@@ -808,24 +808,25 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     return (formatted as Record<string, string>)[practiceArea] || practiceArea;
   }
 
-  private getNearbyOffices(city: string): unknown[] {
+  private getNearbyOffices(city: string): Array<{ city: string; address: string; coordinates: { lat: number; lng: number }; distance: number }> {
     // Return offices within reasonable distance
     const offices = this.getAllOffices();
+    type OfficeWithDistance = { city: string; address: string; coordinates: { lat: number; lng: number }; distance: number };
     return offices
       .map(office => ({
-        ...(office as any),
-        distance: this.calculateDistance(city, (office as any).city),
+        ...office,
+        distance: this.calculateDistance(city, office.city),
       }))
-      .filter(office => (office as any).distance < 50)
-      .sort((a, b) => (a as any).distance - (b as any).distance);
+      .filter((office): office is OfficeWithDistance => office.distance < 50)
+      .sort((a, b) => a.distance - b.distance);
   }
 
-  private getNearestOffice(city: string): unknown {
+  private getNearestOffice(city: string): { city: string; address: string; coordinates: { lat: number; lng: number }; distance: number } | null {
     const offices = this.getNearbyOffices(city);
     return offices[0] || this.getDefaultOffice();
   }
 
-  private getAllOffices(): unknown[] {
+  private getAllOffices(): Array<{ city: string; address: string; coordinates: { lat: number; lng: number } }> {
     return [
       {
         city: 'Raleigh',
@@ -854,7 +855,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     ];
   }
 
-  private getDefaultOffice(): unknown {
+  private getDefaultOffice(): { city: string; address: string; coordinates: { lat: number; lng: number }; distance: number } {
     return this.getAllOffices()[0];
   }
 
@@ -899,19 +900,19 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     // Return practice area specific local data
     const specificData = {
       immigration: {
-        immigrantPopulation: (localData.demographics as any).immigrantPopulation || '15%',
+        immigrantPopulation: ((localData.demographics as LocalData['demographics'] & { immigrantPopulation?: string })).immigrantPopulation || '15%',
         commonCountries: ['Mexico', 'India', 'China', 'Philippines'],
         uscisOffice: 'Charlotte USCIS Field Office',
       },
       'personal-injury': {
-        accidentRate: (localData as any).crimeStats?.vehicleAccidents || 'Above state average',
+        accidentRate: ((localData as LocalData & { crimeStats?: { vehicleAccidents?: string } })).crimeStats?.vehicleAccidents || 'Above state average',
         majorHighways: ['I-40', 'I-85', 'I-95'],
-        hospitals: (localData as any).hospitals || ['Wake Med', 'Duke Health'],
+        hospitals: ((localData as LocalData & { hospitals?: string[] })).hospitals || ['Wake Med', 'Duke Health'],
       },
       // Add more practice areas
     };
 
-    return (specificData as Record<string, unknown>)[practiceArea] || ({} as any);
+    return (specificData as Record<string, unknown>)[practiceArea] || {};
   }
 
   private getRelevantStats(practiceArea: string, localData: LocalData) {
@@ -931,7 +932,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       // Add more practice areas
     };
 
-    return (statsMap as Record<string, any[]>)[practiceArea] || [];
+    return (statsMap as Record<string, Array<{ label: string; value: string; context: string }>>)[practiceArea] || [];
   }
 
   private getLocalResources(
@@ -961,7 +962,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       // Add more practice areas
     };
 
-    return (resources as Record<string, any[]>)[practiceArea] || [];
+    return (resources as Record<string, Array<{ name: string; phone?: string; website?: string; description: string }>>)[practiceArea] || [];
   }
 
   private getEmotionalTriggers(practiceArea: string): string[] {
@@ -1003,9 +1004,9 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     );
   }
 
-  private async getRelevantStatistics(practiceArea: string): Promise<any[]> {
+  private async getRelevantStatistics(practiceArea: string): Promise<Array<{ label: string; value: string; context: string }>> {
     // In production, fetch from real data sources
-    return this.getRelevantStats(practiceArea, {} as any);
+    return this.getRelevantStats(practiceArea, {} as LocalData);
   }
 
   private async getCommonQuestions(practiceArea: string): Promise<string[]> {
@@ -1077,7 +1078,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
         stickyCTA: { id: 'sticky-cta', event: 'click_sticky_cta' },
         exitCTA: { id: 'exit-cta', event: 'click_exit_cta' },
       },
-    } as any;
+    };
   }
 
   private async generateHeroImage(city: string, practiceArea: string): Promise<string> {
