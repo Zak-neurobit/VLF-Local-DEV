@@ -24,14 +24,14 @@ const DocumentTemplateSchema = z.object({
   template: z.string(),
   requiredFields: z.array(z.string()),
   language: z.enum(['en', 'es']),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.unknown()).optional(),
 });
 
 type DocumentTemplate = z.infer<typeof DocumentTemplateSchema>;
 
 interface GenerateDocumentOptions {
   templateId: string;
-  clientData: Record<string, any>;
+  clientData: Record<string, unknown>;
   language?: 'en' | 'es';
   includeWatermark?: boolean;
   encrypt?: boolean;
@@ -42,7 +42,7 @@ interface DocumentAnalysis {
   summary: string;
   risks: string[];
   recommendations: string[];
-  keyTerms: Record<string, any>;
+  keyTerms: Record<string, unknown>;
   missingFields: string[];
   legalCompliance: {
     isCompliant: boolean;
@@ -220,7 +220,10 @@ export class LegalDocumentGenerator {
     }
   }
 
-  private validateRequiredFields(template: DocumentTemplate, data: Record<string, any>): string[] {
+  private validateRequiredFields(
+    template: DocumentTemplate,
+    data: Record<string, unknown>
+  ): string[] {
     const missingFields: string[] = [];
 
     for (const field of template.requiredFields) {
@@ -233,17 +236,17 @@ export class LegalDocumentGenerator {
     return missingFields;
   }
 
-  private getNestedValue(obj: any, path: string): any {
+  private getNestedValue(obj: any, path: string): unknown {
     return path.split('.').reduce((current, key) => current?.[key], obj);
   }
 
   private async enhanceWithAI(
     template: DocumentTemplate,
-    data: Record<string, any>,
+    data: Record<string, unknown>,
     language: string
-  ): Promise<Record<string, any>> {
+  ): Promise<Record<string, unknown>> {
     // Simulate AI enhancement - in production, integrate with OpenAI/Claude
-    const enhancements: Record<string, any> = {
+    const enhancements: Record<string, unknown> = {
       ...data,
       generatedDate: new Date().toISOString(),
       documentId: `DOC-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
@@ -281,7 +284,7 @@ export class LegalDocumentGenerator {
     return limitation.toLocaleDateString();
   }
 
-  private estimateDamages(data: Record<string, any>): number {
+  private estimateDamages(data: Record<string, unknown>): number {
     // Simplified damages calculation
     let total = 0;
 
@@ -339,7 +342,7 @@ export class LegalDocumentGenerator {
     return pdfDoc;
   }
 
-  private async addWatermark(pdfDoc: PDFDocument, clientData: Record<string, any>) {
+  private async addWatermark(pdfDoc: PDFDocument, clientData: Record<string, unknown>) {
     const pages = pdfDoc.getPages();
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
@@ -373,7 +376,7 @@ export class LegalDocumentGenerator {
   private async addMetadata(
     pdfDoc: PDFDocument,
     template: DocumentTemplate,
-    clientData: Record<string, any>
+    clientData: Record<string, unknown>
   ) {
     pdfDoc.setTitle(
       `${template.name} - ${clientData.clientName || 'Client'} - ${clientData.caseNumber || 'Case'}`
@@ -389,8 +392,8 @@ export class LegalDocumentGenerator {
 
   private async saveDocumentRecord(
     template: DocumentTemplate,
-    clientData: Record<string, any>,
-    enhancedData: Record<string, any>
+    clientData: Record<string, unknown>,
+    enhancedData: Record<string, unknown>
   ) {
     try {
       // TODO: Save document record when generatedDocument model is added to schema
@@ -531,7 +534,7 @@ export class ContractAnalyzer {
     return match?.[1] || null;
   }
 
-  private extractPaymentTerms(text: string): Record<string, any> {
+  private extractPaymentTerms(text: string): Record<string, unknown> {
     const amountPattern = /\$([\\d,]+(?:\\.\\d{2})?)/g;
     const amounts = [...text.matchAll(amountPattern)].map(m => m[1]);
 
@@ -546,7 +549,7 @@ export class ContractAnalyzer {
     };
   }
 
-  private extractLiabilityTerms(text: string): Record<string, any> {
+  private extractLiabilityTerms(text: string): Record<string, unknown> {
     return {
       hasLimitationClause: /limit.*liability/i.test(text),
       hasIndemnificationClause: /indemnif/i.test(text),

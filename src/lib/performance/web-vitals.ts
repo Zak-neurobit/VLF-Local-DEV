@@ -8,7 +8,7 @@ export interface WebVitalsMetric {
   value: number;
   rating: 'good' | 'needs-improvement' | 'poor';
   delta: number;
-  entries: any[];
+  entries: unknown[];
 }
 
 // Thresholds based on Web Vitals standards
@@ -31,7 +31,7 @@ function getRating(name: string, value: number): 'good' | 'needs-improvement' | 
 
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void;
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -49,9 +49,11 @@ export function sendToAnalytics(metric: WebVitalsMetric) {
 
   // Send to our telemetry system for p99 tracking
   if (typeof window !== 'undefined') {
-    import('../telemetry').then(({ sliTracker }) => {
-      sliTracker.trackWebVitals(metric);
-    }).catch(console.error);
+    import('../telemetry')
+      .then(({ trackWebVitals }) => {
+        trackWebVitals(metric);
+      })
+      .catch(console.error);
   }
 
   // Also log to console in development
@@ -109,10 +111,10 @@ export function observePerformance() {
   try {
     const layoutShiftObserver = new PerformanceObserver(list => {
       for (const entry of list.getEntries()) {
-        if ((entry as any).hadRecentInput) continue;
+        if ((entry as unknown).hadRecentInput) continue;
         logger.info('[Performance] Layout shift:', {
-          value: (entry as any).value,
-          sources: (entry as any).sources,
+          value: (entry as unknown).value,
+          sources: (entry as unknown).sources,
         });
       }
     });

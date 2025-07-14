@@ -220,8 +220,11 @@ export class RetellAgentManager {
           if (agentId) {
             this.agents.set(config.practiceArea, agentId);
           }
-        } catch (error: any) {
-          logger.error(`Failed to create/update agent for ${config.practiceArea}:`, error);
+        } catch (error) {
+          logger.error(
+            `Failed to create/update agent for ${config.practiceArea}:`,
+            error instanceof Error ? error.message : String(error)
+          );
           // Continue with other agents even if one fails
         }
       }
@@ -312,18 +315,18 @@ export class RetellAgentManager {
 
         return agentId;
       }
-    } catch (error: any) {
+    } catch (error) {
       // Log detailed error information
-      if (error.response?.status === 404) {
+      if (error instanceof Error && (error as unknown).response?.status === 404) {
         logger.error('Retell API endpoint not found. Please check API version and endpoints.', {
-          endpoint: error.config?.url,
-          method: error.config?.method,
+          endpoint: (error as unknown).config?.url,
+          method: (error as unknown).config?.method,
         });
       } else {
         logger.error('Failed to create/update agent:', {
-          error: error.message,
-          status: error.response?.status,
-          data: error.response?.data,
+          error: error instanceof Error ? error.message : String(error),
+          status: error instanceof Error ? (error as unknown).response?.status : undefined,
+          data: error instanceof Error ? (error as unknown).response?.data : undefined,
         });
       }
       return null;

@@ -7,7 +7,6 @@ import { promisify } from 'util';
 
 const execAsync = promisify(exec);
 
-
 interface DatabaseHealthResult {
   connected: boolean;
   latency: number;
@@ -94,7 +93,9 @@ export async function GET(_request: NextRequest): Promise<NextResponse> {
         pid: process.pid,
         memory: process.memoryUsage(),
         cpuUsage: process.cpuUsage(),
-        loadAverage: (process as ProcessLoadAverage).loadavg ? (process as ProcessLoadAverage).loadavg!() : [0, 0, 0],
+        loadAverage: (process as ProcessLoadAverage).loadavg
+          ? (process as ProcessLoadAverage).loadavg!()
+          : [0, 0, 0],
       },
       recommendations: generateHealthRecommendations(results),
     };
@@ -180,7 +181,9 @@ async function checkSystemResources(): Promise<SystemResourceResult> {
       healthy: cpuHealthy,
     },
     uptime: Math.round(process.uptime()),
-    loadAverage: (process as ProcessLoadAverage).loadavg ? (process as ProcessLoadAverage).loadavg!() : [0, 0, 0],
+    loadAverage: (process as ProcessLoadAverage).loadavg
+      ? (process as ProcessLoadAverage).loadavg!()
+      : [0, 0, 0],
     status: 'healthy',
   };
 }
@@ -222,11 +225,15 @@ async function checkAgentHealth(): Promise<AgentHealthResult> {
   ];
 
   const agentHealth = agentNames.map(name => {
-    const metrics = crewCoordinator.getAgentPerformanceMetrics(name);
+    const metrics = crewCoordinator.getAgentPerformanceMetrics(name) as {
+      successRate?: number;
+      tasksExecuted?: number;
+      averageExecutionTime?: number;
+    } | null;
     return {
       name,
-      healthy: !!metrics && metrics.successRate > 0.8,
-      metrics: metrics || null,
+      healthy: !!metrics && (metrics.successRate || 0) > 0.8,
+      metrics: metrics as Record<string, unknown> | null,
     };
   });
 
@@ -443,7 +450,11 @@ function generateHealthRecommendations(
 
   // Check memory usage
   const memoryCheck = checks.find(c => c.name === 'memory_usage');
-  if (memoryCheck?.details && typeof memoryCheck.details === 'object' && 'usagePercent' in memoryCheck.details) {
+  if (
+    memoryCheck?.details &&
+    typeof memoryCheck.details === 'object' &&
+    'usagePercent' in memoryCheck.details
+  ) {
     const usagePercent = memoryCheck.details.usagePercent as number;
     if (usagePercent > 80) {
       recommendations.push('Memory usage is high - consider optimization or scaling');
@@ -452,7 +463,11 @@ function generateHealthRecommendations(
 
   // Check disk space
   const diskCheck = checks.find(c => c.name === 'disk_space');
-  if (diskCheck?.details && typeof diskCheck.details === 'object' && 'usagePercent' in diskCheck.details) {
+  if (
+    diskCheck?.details &&
+    typeof diskCheck.details === 'object' &&
+    'usagePercent' in diskCheck.details
+  ) {
     const usagePercent = diskCheck.details.usagePercent as number;
     if (usagePercent > 80) {
       recommendations.push('Disk space is running low - consider cleanup or expansion');
@@ -461,7 +476,11 @@ function generateHealthRecommendations(
 
   // Check agent health
   const agentCheck = checks.find(c => c.name === 'agent_health');
-  if (agentCheck?.details && typeof agentCheck.details === 'object' && 'unhealthyAgents' in agentCheck.details) {
+  if (
+    agentCheck?.details &&
+    typeof agentCheck.details === 'object' &&
+    'unhealthyAgents' in agentCheck.details
+  ) {
     const unhealthyAgents = agentCheck.details.unhealthyAgents as number;
     if (unhealthyAgents > 0) {
       recommendations.push(`Restart ${unhealthyAgents} unhealthy agents`);
@@ -470,7 +489,11 @@ function generateHealthRecommendations(
 
   // Check API connections
   const apiCheck = checks.find(c => c.name === 'api_connections');
-  if (apiCheck?.details && typeof apiCheck.details === 'object' && 'averageLatency' in apiCheck.details) {
+  if (
+    apiCheck?.details &&
+    typeof apiCheck.details === 'object' &&
+    'averageLatency' in apiCheck.details
+  ) {
     const averageLatency = apiCheck.details.averageLatency as number;
     if (averageLatency > 1000) {
       recommendations.push('API latency is high - check network connections');

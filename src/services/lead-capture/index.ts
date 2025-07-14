@@ -25,7 +25,7 @@ const LeadCaptureSchema = z.object({
   source: z.string(),
   language: z.enum(['en', 'es']).default('en'),
   urgency: z.enum(['immediate', 'soon', 'planning']).optional(),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.unknown()).optional(),
 });
 
 const WebFormSchema = LeadCaptureSchema.extend({
@@ -504,10 +504,10 @@ export class LeadCaptureService {
           metadata: {
             lastCallDate: new Date().toISOString(),
             totalCalls:
-              (
+              ((
                 (await prisma.contact.findUnique({ where: { phone: data.fromNumber } }))
-                  ?.metadata as any
-              )?.totalCalls + 1 || 1,
+                  ?.metadata as Record<string, unknown>
+              )?.totalCalls as number) + 1 || 1,
           },
         },
         create: {
@@ -628,7 +628,23 @@ export class LeadCaptureService {
           lastName: contact.name?.split(' ')[1] || 'Lead',
           email: contact.email || `phone-${contact.id}@lead.com`,
           phone: data.fromNumber,
-          practiceArea: (practiceArea && ['immigration', 'personal_injury', 'workers_compensation', 'criminal_defense', 'family_law', 'traffic'].includes(practiceArea) ? practiceArea : 'immigration') as 'immigration' | 'personal_injury' | 'workers_compensation' | 'criminal_defense' | 'family_law' | 'traffic',
+          practiceArea: (practiceArea &&
+          [
+            'immigration',
+            'personal_injury',
+            'workers_compensation',
+            'criminal_defense',
+            'family_law',
+            'traffic',
+          ].includes(practiceArea)
+            ? practiceArea
+            : 'immigration') as
+            | 'immigration'
+            | 'personal_injury'
+            | 'workers_compensation'
+            | 'criminal_defense'
+            | 'family_law'
+            | 'traffic',
           source: 'phone',
           language: 'en',
           urgency: (data.urgency as 'immediate' | 'soon' | 'planning') || 'planning',

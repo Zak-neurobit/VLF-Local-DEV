@@ -259,11 +259,13 @@ export class SEODominationOrchestrator {
   /**
    * Identify quick win opportunities
    */
-  private async identifyQuickWins(competitorData: Record<string, unknown>): Promise<Array<Record<string, unknown>>> {
+  private async identifyQuickWins(
+    competitorData: Record<string, unknown>
+  ): Promise<Array<Record<string, unknown>>> {
     const quickWins = [];
 
     // Content opportunities
-    const contentGaps = competitorData.contentGaps as string[] || [];
+    const contentGaps = (competitorData.contentGaps as string[]) || [];
     contentGaps.forEach((gap: string) => {
       quickWins.push({
         type: 'content',
@@ -274,7 +276,7 @@ export class SEODominationOrchestrator {
     });
 
     // Keyword opportunities
-    const keywordOpportunities = competitorData.keywordOpportunities as string[] || [];
+    const keywordOpportunities = (competitorData.keywordOpportunities as string[]) || [];
     keywordOpportunities.forEach((keyword: string) => {
       quickWins.push({
         type: 'seo',
@@ -428,7 +430,9 @@ export class SEODominationOrchestrator {
   /**
    * Identify opportunities for agent synergy
    */
-  private async identifySynergyOpportunities(statuses: AgentStatus[]): Promise<Array<Record<string, unknown>>> {
+  private async identifySynergyOpportunities(
+    statuses: AgentStatus[]
+  ): Promise<Array<Record<string, unknown>>> {
     const synergies = [];
 
     // Blog + Social synergy
@@ -465,7 +469,9 @@ export class SEODominationOrchestrator {
   /**
    * Execute coordinated actions between agents
    */
-  private async executeCoordinatedActions(synergyActions: Array<Record<string, unknown>>): Promise<void> {
+  private async executeCoordinatedActions(
+    synergyActions: Array<Record<string, unknown>>
+  ): Promise<void> {
     for (const synergy of synergyActions) {
       logger.info(`🤝 Executing synergy: ${synergy.action}`);
 
@@ -587,7 +593,7 @@ export class SEODominationOrchestrator {
   private async adjustStrategies(analysis: Record<string, unknown>): Promise<void> {
     logger.warn('⚡ Adjusting strategies based on performance analysis...');
 
-    const adjustments = (analysis.adjustments as any[]) || [];
+    const adjustments = (analysis.adjustments as unknown[]) || [];
     for (const adjustment of adjustments) {
       logger.info(`Implementing adjustment: ${adjustment}`);
 
@@ -603,7 +609,10 @@ export class SEODominationOrchestrator {
   /**
    * Log comprehensive performance report
    */
-  private logPerformanceReport(metrics: DominationMetrics, analysis: Record<string, unknown>): void {
+  private logPerformanceReport(
+    metrics: DominationMetrics,
+    analysis: Record<string, unknown>
+  ): void {
     logger.info('📈 SEO DOMINATION PERFORMANCE REPORT 📈');
     logger.info('=====================================');
 

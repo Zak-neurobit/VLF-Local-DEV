@@ -39,7 +39,7 @@ const CreateCaseSchema = z.object({
       })
     )
     .optional(),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.unknown()).optional(),
 });
 
 // Case update schema
@@ -48,7 +48,7 @@ const UpdateCaseSchema = z.object({
   status: z.nativeEnum(CaseStatus).optional(),
   title: z.string().optional(),
   description: z.string().optional(),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.unknown()).optional(),
 });
 
 // Task schema
@@ -337,7 +337,7 @@ export class CaseManagementService {
           metadata: {
             ...metadata,
             notes,
-          } as any,
+          } as unknown,
         },
       });
 

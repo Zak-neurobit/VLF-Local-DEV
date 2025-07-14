@@ -188,7 +188,7 @@ Current Safety: ${params.currentSafety}`;
     }
   }
 
-  private getMockAnalysis(type: string, params: any): any {
+  private getMockAnalysis(type: string, params: any): unknown {
     const mockData = {
       asylum: {
         summary: 'Asylum claim requires immediate attention to one-year deadline',
@@ -314,7 +314,7 @@ Current Safety: ${params.currentSafety}`;
       .filter(item => item.length > 0);
   }
 
-  private parseResponse(content: string): any {
+  private parseResponse(content: string): unknown {
     const sections = content.split('\n\n');
     return {
       summary: sections[0] || '',

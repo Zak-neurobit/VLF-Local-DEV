@@ -158,7 +158,7 @@ Unlawful Presence: ${params.unlawfulPresence || 'None'}`;
     }
   }
 
-  private getMockAnalysis(type: string, params: any): any {
+  private getMockAnalysis(type: string, params: any): unknown {
     const mockData = {
       family: {
         summary: 'Family-based petition analysis complete',
@@ -255,7 +255,7 @@ Unlawful Presence: ${params.unlawfulPresence || 'None'}`;
       .filter(item => item.length > 0);
   }
 
-  private parseResponse(content: string): any {
+  private parseResponse(content: string): unknown {
     const sections = content.split('\n\n');
     return {
       summary: sections[0] || '',

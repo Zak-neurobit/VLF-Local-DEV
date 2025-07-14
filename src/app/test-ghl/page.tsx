@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 export default function TestGHLPage() {
-  const [testResult, setTestResult] = useState<any>(null);
+  const [testResult, setTestResult] = useState<unknown>(null);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: 'John Doe',

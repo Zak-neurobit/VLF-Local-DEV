@@ -305,7 +305,7 @@ The Vasquez Law Firm Team`,
 
     try {
       // 1. Recent case wins (highest priority)
-      const recentWins = await this.prisma.case.findMany({
+      const recentWins = (await this.prisma.case.findMany({
         where: {
           status: 'closed',
           updatedAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) }, // Last 30 days
@@ -316,7 +316,7 @@ The Vasquez Law Firm Team`,
           client: true,
           attorney: true,
         },
-      }) as any[];
+      })) as unknown[];
 
       for (const case_ of recentWins) {
         if (await this.shouldRequestReview(case_.client)) {
@@ -340,7 +340,7 @@ The Vasquez Law Firm Team`,
       }
 
       // 2. Satisfied long-term clients
-      const longTermClients = await this.prisma.user.findMany({
+      const longTermClients = (await this.prisma.user.findMany({
         where: {
           role: 'CLIENT',
           createdAt: { lte: new Date(Date.now() - 180 * 24 * 60 * 60 * 1000) }, // Over 6 months
@@ -357,7 +357,7 @@ The Vasquez Law Firm Team`,
             take: 1,
           },
         },
-      }) as any[];
+      })) as unknown[];
 
       for (const client of longTermClients) {
         if (await this.shouldRequestReview(client)) {
@@ -370,7 +370,10 @@ The Vasquez Law Firm Team`,
             caseType: latestCase ? this.formatCaseType(latestCase.practiceArea) : 'legal matter',
             caseOutcome: 'resolved',
             lastContactDate: latestCase?.updatedAt || client.createdAt,
-            requestMethod: this.determineRequestMethod({ email: client.email, phone: client.phone }),
+            requestMethod: this.determineRequestMethod({
+              email: client.email,
+              phone: client.phone,
+            }),
             urgency: 'standard',
             personalizationData: {
               attorneyName: 'The Vasquez Law Firm Team',
@@ -423,7 +426,9 @@ The Vasquez Law Firm Team`,
   /**
    * Generate personalized review request message
    */
-  private async generatePersonalizedMessage(request: ReviewRequest): Promise<{ email: { subject: string; body: string }; sms: { text: string } }> {
+  private async generatePersonalizedMessage(
+    request: ReviewRequest
+  ): Promise<{ email: { subject: string; body: string }; sms: { text: string } }> {
     const templateKey = `${request.urgency}_${request.caseOutcome === 'won' ? 'win' : ''}`.replace(
       /_$/,
       ''
@@ -471,7 +476,11 @@ The Vasquez Law Firm Team`,
   /**
    * Enhance messages with AI personalization
    */
-  private async enhanceWithAI(request: ReviewRequest, email: { subject: string; body: string }, sms: { text: string }): Promise<{ email: { subject: string; body: string }; sms: { text: string } }> {
+  private async enhanceWithAI(
+    request: ReviewRequest,
+    email: { subject: string; body: string },
+    sms: { text: string }
+  ): Promise<{ email: { subject: string; body: string }; sms: { text: string } }> {
     const prompt = `
 Enhance these review request messages for maximum effectiveness:
 
@@ -639,7 +648,10 @@ Return as JSON: { email: { subject, body }, sms: { text } }
 
   // Helper methods
 
-  private async shouldRequestReview(client: { id: string; metadata?: { reviewOptOut?: boolean } }): Promise<boolean> {
+  private async shouldRequestReview(client: {
+    id: string;
+    metadata?: { reviewOptOut?: boolean };
+  }): Promise<boolean> {
     // Check if already requested recently
     const recentRequest = await this.prisma.agentExecutionLog.findFirst({
       where: {
@@ -674,7 +686,10 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     return formatted[practiceArea as keyof typeof formatted] || practiceArea;
   }
 
-  private determineRequestMethod(client: { email?: string; phone?: string }): ReviewRequest['requestMethod'] {
+  private determineRequestMethod(client: {
+    email?: string;
+    phone?: string;
+  }): ReviewRequest['requestMethod'] {
     if (client.email && client.phone) return 'both';
     if (client.email) return 'email';
     if (client.phone) return 'sms';
@@ -729,7 +744,10 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     return personalized;
   }
 
-  private async sendEmailRequest(request: ReviewRequest, message: { subject: string; body: string }): Promise<void> {
+  private async sendEmailRequest(
+    request: ReviewRequest,
+    message: { subject: string; body: string }
+  ): Promise<void> {
     if (!request.clientEmail) return;
 
     try {
@@ -791,7 +809,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
         input: {
           ...request,
           lastContactDate: request.lastContactDate.toISOString(),
-        } as any,
+        } as unknown,
         output: { status: 'sent' },
         duration: 1000,
         success: true,
@@ -807,13 +825,18 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     return [];
   }
 
-  private async analyzeSentiment(review: { rating: number }): Promise<'positive' | 'negative' | 'neutral'> {
+  private async analyzeSentiment(review: {
+    rating: number;
+  }): Promise<'positive' | 'negative' | 'neutral'> {
     if (review.rating >= 4) return 'positive';
     if (review.rating <= 2) return 'negative';
     return 'neutral';
   }
 
-  private async generateReviewResponse(review: { rating: number; reviewerName?: string }, sentiment: string): Promise<string> {
+  private async generateReviewResponse(
+    review: { rating: number; reviewerName?: string },
+    sentiment: string
+  ): Promise<string> {
     const templates = this.RESPONSE_TEMPLATES[sentiment as keyof typeof this.RESPONSE_TEMPLATES];
     let templateArray: string[] = [];
 
@@ -872,7 +895,9 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     logger.info(`Amplifying positive review from ${review.reviewerName}`);
   }
 
-  private async getPendingFollowUps(): Promise<Array<{ clientId: string; clientName: string; attemptNumber: number }>> {
+  private async getPendingFollowUps(): Promise<
+    Array<{ clientId: string; clientName: string; attemptNumber: number }>
+  > {
     // Get follow-ups due for sending
     return [];
   }
@@ -886,14 +911,19 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     logger.info(`Marked follow-up complete for ${followUp.clientName}`);
   }
 
-  private async generateFollowUpMessage(followUp: { clientName: string }): Promise<{ email: { subject: string; body: string }; sms: { text: string } }> {
+  private async generateFollowUpMessage(followUp: {
+    clientName: string;
+  }): Promise<{ email: { subject: string; body: string }; sms: { text: string } }> {
     return {
       email: this.REQUEST_TEMPLATES.email.gentle_reminder,
       sms: this.REQUEST_TEMPLATES.sms.gentle_reminder,
     };
   }
 
-  private async sendFollowUp(followUp: { clientName: string }, message: { email: { subject: string; body: string }; sms: { text: string } }): Promise<void> {
+  private async sendFollowUp(
+    followUp: { clientName: string },
+    message: { email: { subject: string; body: string }; sms: { text: string } }
+  ): Promise<void> {
     // Send follow-up message
     logger.info(`Sent follow-up to ${followUp.clientName}`);
   }
@@ -979,7 +1009,16 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     }
   }
 
-  private async getEligibleClients(): Promise<Array<{ id: string; name: string; email?: string; phone?: string; preferredContact?: string; caseType?: string }>> {
+  private async getEligibleClients(): Promise<
+    Array<{
+      id: string;
+      name: string;
+      email?: string;
+      phone?: string;
+      preferredContact?: string;
+      caseType?: string;
+    }>
+  > {
     // In production, would query database for clients who:
     // - Had successful case outcomes
     // - Haven't been asked for review in 90 days
@@ -987,12 +1026,23 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     return [];
   }
 
-  private async trackCampaign(data: { clientId: string; campaignType: string; sentAt: Date }): Promise<void> {
+  private async trackCampaign(data: {
+    clientId: string;
+    campaignType: string;
+    sentAt: Date;
+  }): Promise<void> {
     // Track campaign data for analytics
     logger.info('Tracking campaign:', data);
   }
 
-  private async sendReviewRequest(client: { id: string; name: string; email?: string; phone?: string; preferredContact?: string; caseType?: string }): Promise<void> {
+  private async sendReviewRequest(client: {
+    id: string;
+    name: string;
+    email?: string;
+    phone?: string;
+    preferredContact?: string;
+    caseType?: string;
+  }): Promise<void> {
     logger.info(`Sending review request to ${client.name}`);
 
     // Create a ReviewRequest object for this client

@@ -84,20 +84,23 @@ export class FollowUpAutomationAgent extends Agent {
     return 'cold_lead';
   }
 
-  private generateFollowUpSteps(type: string, data: {
-    contactId: string;
-    leadScore: number;
-    tier: string;
-    practiceAreas: string[];
-    urgencyLevel: string;
-    languagePreference: string;
-    previousInteractions?: Array<{
-      type: string;
-      date: string;
-      outcome?: string;
-      notes?: string;
-    }>;
-  }): FollowUpSequence['steps'] {
+  private generateFollowUpSteps(
+    type: string,
+    data: {
+      contactId: string;
+      leadScore: number;
+      tier: string;
+      practiceAreas: string[];
+      urgencyLevel: string;
+      languagePreference: string;
+      previousInteractions?: Array<{
+        type: string;
+        date: string;
+        outcome?: string;
+        notes?: string;
+      }>;
+    }
+  ): FollowUpSequence['steps'] {
     const isSpanish = data.languagePreference === 'es';
 
     switch (type) {
@@ -506,7 +509,21 @@ P.S. Immigration laws change frequently. Follow us for updates: [SOCIAL_LINKS]
     return process.env.GHL_DEFAULT_USER_ID || 'default';
   }
 
-  async execute(input: any): Promise<any> {
+  async execute(input: {
+    contactId: string;
+    leadScore: number;
+    tier: string;
+    practiceAreas: string[];
+    urgencyLevel: string;
+    preferredContact?: string;
+    caseDetails?: string;
+    language?: string;
+  }): Promise<{
+    success: boolean;
+    sequenceId: string;
+    tasksCreated: number;
+    firstFollowUp: Date;
+  }> {
     return this.createFollowUpSequence(input);
   }
 }

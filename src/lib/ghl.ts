@@ -88,17 +88,23 @@ export async function createGHLContact(data: GHLContact): Promise<any> {
       contact: response.data,
       contactId: response.data?.contact?.id,
     };
-  } catch (error: any) {
-    logger.error('Error creating contact in GHL:', {
-      status: error.response?.status,
-      data: error.response?.data,
-      message: error.message,
-    });
+  } catch (error) {
+    const errorDetails =
+      error instanceof Error
+        ? {
+            status: (error as unknown).response?.status,
+            data: (error as unknown).response?.data,
+            message: error.message,
+          }
+        : { message: String(error) };
+
+    logger.error('Error creating contact in GHL:', errorDetails);
 
     return {
       success: false,
-      error: error.response?.data || error.message,
-      status: error.response?.status,
+      error:
+        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
+      status: error instanceof Error ? (error as unknown).response?.status : undefined,
     };
   }
 }
@@ -126,18 +132,24 @@ export async function updateGHLContact(contactId: string, data: Partial<GHLConta
       success: true,
       contact: response.data,
     };
-  } catch (error: any) {
-    logger.error('Error updating contact in GHL:', {
-      contactId,
-      status: error.response?.status,
-      data: error.response?.data,
-      message: error.message,
-    });
+  } catch (error) {
+    const errorDetails =
+      error instanceof Error
+        ? {
+            contactId,
+            status: (error as unknown).response?.status,
+            data: (error as unknown).response?.data,
+            message: error.message,
+          }
+        : { contactId, message: String(error) };
+
+    logger.error('Error updating contact in GHL:', errorDetails);
 
     return {
       success: false,
-      error: error.response?.data || error.message,
-      status: error.response?.status,
+      error:
+        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
+      status: error instanceof Error ? (error as unknown).response?.status : undefined,
     };
   }
 }
@@ -168,18 +180,24 @@ export async function searchGHLContacts(query: string): Promise<any> {
       contacts: response.data.contacts || [],
       total: response.data.total || 0,
     };
-  } catch (error: any) {
-    logger.error('Error searching contacts in GHL:', {
-      query,
-      status: error.response?.status,
-      data: error.response?.data,
-      message: error.message,
-    });
+  } catch (error) {
+    const errorDetails =
+      error instanceof Error
+        ? {
+            query,
+            status: (error as unknown).response?.status,
+            data: (error as unknown).response?.data,
+            message: error.message,
+          }
+        : { query, message: String(error) };
+
+    logger.error('Error searching contacts in GHL:', errorDetails);
 
     return {
       success: false,
-      error: error.response?.data || error.message,
-      status: error.response?.status,
+      error:
+        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
+      status: error instanceof Error ? (error as unknown).response?.status : undefined,
     };
   }
 }
@@ -208,17 +226,23 @@ export async function createGHLOpportunity(data: GHLOpportunity): Promise<any> {
       opportunity: response.data,
       opportunityId: response.data?.opportunity?.id,
     };
-  } catch (error: any) {
-    logger.error('Error creating opportunity in GHL:', {
-      status: error.response?.status,
-      data: error.response?.data,
-      message: error.message,
-    });
+  } catch (error) {
+    const errorDetails =
+      error instanceof Error
+        ? {
+            status: (error as unknown).response?.status,
+            data: (error as unknown).response?.data,
+            message: error.message,
+          }
+        : { message: String(error) };
+
+    logger.error('Error creating opportunity in GHL:', errorDetails);
 
     return {
       success: false,
-      error: error.response?.data || error.message,
-      status: error.response?.status,
+      error:
+        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
+      status: error instanceof Error ? (error as unknown).response?.status : undefined,
     };
   }
 }
@@ -255,18 +279,24 @@ export async function sendGHLSMS(data: GHLSMSMessage): Promise<any> {
       success: true,
       message: response.data,
     };
-  } catch (error: any) {
-    logger.error('Error sending SMS in GHL:', {
-      contactId: data.contactId,
-      status: error.response?.status,
-      data: error.response?.data,
-      message: error.message,
-    });
+  } catch (error) {
+    const errorDetails =
+      error instanceof Error
+        ? {
+            contactId: data.contactId,
+            status: (error as unknown).response?.status,
+            data: (error as unknown).response?.data,
+            message: error.message,
+          }
+        : { contactId: data.contactId, message: String(error) };
+
+    logger.error('Error sending SMS in GHL:', errorDetails);
 
     return {
       success: false,
-      error: error.response?.data || error.message,
-      status: error.response?.status,
+      error:
+        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
+      status: error instanceof Error ? (error as unknown).response?.status : undefined,
     };
   }
 }
@@ -303,19 +333,25 @@ export async function triggerGHLCall(data: GHLCall): Promise<any> {
       success: true,
       call: response.data,
     };
-  } catch (error: any) {
-    logger.error('Error triggering call in GHL:', {
-      contactId: data.contactId,
-      phoneNumber: data.phoneNumber,
-      status: error.response?.status,
-      data: error.response?.data,
-      message: error.message,
-    });
+  } catch (error) {
+    const errorDetails =
+      error instanceof Error
+        ? {
+            contactId: data.contactId,
+            phoneNumber: data.phoneNumber,
+            status: (error as unknown).response?.status,
+            data: (error as unknown).response?.data,
+            message: error.message,
+          }
+        : { contactId: data.contactId, phoneNumber: data.phoneNumber, message: String(error) };
+
+    logger.error('Error triggering call in GHL:', errorDetails);
 
     return {
       success: false,
-      error: error.response?.data || error.message,
-      status: error.response?.status,
+      error:
+        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
+      status: error instanceof Error ? (error as unknown).response?.status : undefined,
     };
   }
 }
@@ -341,18 +377,24 @@ export async function getGHLContact(contactId: string): Promise<any> {
       success: true,
       contact: response.data.contact,
     };
-  } catch (error: any) {
-    logger.error('Error getting contact from GHL:', {
-      contactId,
-      status: error.response?.status,
-      data: error.response?.data,
-      message: error.message,
-    });
+  } catch (error) {
+    const errorDetails =
+      error instanceof Error
+        ? {
+            contactId,
+            status: (error as unknown).response?.status,
+            data: (error as unknown).response?.data,
+            message: error.message,
+          }
+        : { contactId, message: String(error) };
+
+    logger.error('Error getting contact from GHL:', errorDetails);
 
     return {
       success: false,
-      error: error.response?.data || error.message,
-      status: error.response?.status,
+      error:
+        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
+      status: error instanceof Error ? (error as unknown).response?.status : undefined,
     };
   }
 }
@@ -384,19 +426,25 @@ export async function addGHLContactTags(contactId: string, tags: string[]): Prom
       success: true,
       result: response.data,
     };
-  } catch (error: any) {
-    logger.error('Error adding tags to contact in GHL:', {
-      contactId,
-      tags,
-      status: error.response?.status,
-      data: error.response?.data,
-      message: error.message,
-    });
+  } catch (error) {
+    const errorDetails =
+      error instanceof Error
+        ? {
+            contactId,
+            tags,
+            status: (error as unknown).response?.status,
+            data: (error as unknown).response?.data,
+            message: error.message,
+          }
+        : { contactId, tags, message: String(error) };
+
+    logger.error('Error adding tags to contact in GHL:', errorDetails);
 
     return {
       success: false,
-      error: error.response?.data || error.message,
-      status: error.response?.status,
+      error:
+        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
+      status: error instanceof Error ? (error as unknown).response?.status : undefined,
     };
   }
 }
@@ -462,17 +510,23 @@ export async function testGHLConnection(): Promise<any> {
       location: response.data,
       message: 'GHL connection successful',
     };
-  } catch (error: any) {
-    logger.error('Error testing GHL connection:', {
-      status: error.response?.status,
-      data: error.response?.data,
-      message: error.message,
-    });
+  } catch (error) {
+    const errorDetails =
+      error instanceof Error
+        ? {
+            status: (error as unknown).response?.status,
+            data: (error as unknown).response?.data,
+            message: error.message,
+          }
+        : { message: String(error) };
+
+    logger.error('Error testing GHL connection:', errorDetails);
 
     return {
       success: false,
-      error: error.response?.data || error.message,
-      status: error.response?.status,
+      error:
+        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
+      status: error instanceof Error ? (error as unknown).response?.status : undefined,
     };
   }
 }

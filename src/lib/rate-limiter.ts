@@ -1,3 +1,5 @@
+import { NextResponse } from 'next/server';
+
 // Simple rate limiter for launch
 export class RateLimiter {
   private attempts: Map<string, number[]> = new Map();
@@ -35,18 +37,20 @@ export class RateLimiter {
 export function rateLimit(options: { windowMs?: number; max?: number } = {}) {
   const limiter = new RateLimiter(options.max || 10, options.windowMs || 60000);
 
-  return async (req: any) => {
+  return async (req: { headers?: Record<string, string>; ip?: string }) => {
     const key = req.headers?.['x-forwarded-for'] || req.ip || 'anonymous';
     const result = await limiter.checkLimit(key);
 
     if (!result.allowed) {
-      return new Response(JSON.stringify({ error: 'Too many requests' }), {
-        status: 429,
-        headers: {
-          'Content-Type': 'application/json',
-          'Retry-After': result.retryAfter?.toString() || '60',
-        },
-      });
+      return NextResponse.json(
+        { error: 'Too many requests' },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': result.retryAfter?.toString() || '60',
+          },
+        }
+      );
     }
 
     return null;

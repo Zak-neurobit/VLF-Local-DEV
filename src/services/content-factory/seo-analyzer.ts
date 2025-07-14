@@ -1,10 +1,11 @@
 import { componentLogger as logger } from '@/lib/logger';
+import type { SEOContent } from '@/types/content-factory';
 
 export class SEOAnalyzer {
   /**
    * Calculate SEO score for content
    */
-  async calculateScore(content: any): Promise<number> {
+  async calculateScore(content: SEOContent): Promise<number> {
     logger.info('Calculating SEO score', { title: content.title });
 
     const scores = {
@@ -105,7 +106,7 @@ export class SEOAnalyzer {
   /**
    * Analyze meta description
    */
-  private analyzeMetaDescription(content: any): number {
+  private analyzeMetaDescription(content: SEOContent): number {
     let score = 100;
     const description = content.metaDescription || '';
     const primaryKeyword = content.keywords?.[0] || '';
@@ -141,7 +142,7 @@ export class SEOAnalyzer {
   /**
    * Analyze content quality
    */
-  private async analyzeContentQuality(content: any): Promise<number> {
+  private async analyzeContentQuality(content: SEOContent): Promise<number> {
     let score = 100;
     const text = content.content || '';
     const wordCount = text.split(/\s+/).length;
@@ -196,7 +197,7 @@ export class SEOAnalyzer {
   /**
    * Analyze keyword density
    */
-  private analyzeKeywordDensity(content: any): number {
+  private analyzeKeywordDensity(content: SEOContent): number {
     let score = 100;
     const text = content.content || '';
     const keywords = content.keywords || [];
@@ -258,7 +259,7 @@ export class SEOAnalyzer {
   /**
    * Analyze readability
    */
-  private analyzeReadability(content: any): number {
+  private analyzeReadability(content: SEOContent): number {
     let score = 100;
     const text = content.content || '';
 
@@ -339,7 +340,7 @@ export class SEOAnalyzer {
   /**
    * Analyze internal linking
    */
-  private analyzeInternalLinking(content: any): number {
+  private analyzeInternalLinking(content: SEOContent): number {
     let score = 100;
     const text = content.content || '';
     const wordCount = text.split(/\s+/).length;
@@ -394,7 +395,7 @@ export class SEOAnalyzer {
   /**
    * Analyze heading structure
    */
-  private analyzeHeadingStructure(content: any): number {
+  private analyzeHeadingStructure(content: SEOContent): number {
     let score = 100;
     const text = content.content || '';
 
@@ -441,7 +442,7 @@ export class SEOAnalyzer {
   /**
    * Analyze image optimization
    */
-  private analyzeImageOptimization(content: any): number {
+  private analyzeImageOptimization(content: SEOContent): number {
     let score = 100;
     const images = content.images || [];
     const imageReferences = content.content.match(/!\[[^\]]*\]/g) || [];
@@ -487,7 +488,7 @@ export class SEOAnalyzer {
   /**
    * Analyze schema markup
    */
-  private analyzeSchemaMarkup(content: any): number {
+  private analyzeSchemaMarkup(content: SEOContent): number {
     let score = 100;
 
     // Check for FAQ schema
@@ -520,7 +521,7 @@ export class SEOAnalyzer {
   /**
    * Analyze mobile optimization
    */
-  private analyzeMobileOptimization(content: any): number {
+  private analyzeMobileOptimization(content: SEOContent): number {
     let score = 100;
     const text = content.content || '';
 
@@ -560,7 +561,7 @@ export class SEOAnalyzer {
   /**
    * Generate SEO recommendations
    */
-  async generateRecommendations(content: any, score: number): Promise<string[]> {
+  async generateRecommendations(content: SEOContent, score: number): Promise<string[]> {
     const recommendations = [];
 
     if (score < 70) {

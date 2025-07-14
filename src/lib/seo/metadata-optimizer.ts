@@ -203,7 +203,7 @@ export function generateOptimizedTitle(
   let template: string;
 
   if (typeof templates === 'object' && !Array.isArray(templates)) {
-    const subTemplates = templates[subType as keyof typeof templates] as any;
+    const subTemplates = templates[subType as keyof typeof templates] as unknown;
     if (Array.isArray(subTemplates) && subTemplates.length > 0) {
       template = subTemplates[Math.floor(Math.random() * subTemplates.length)];
     } else {
@@ -395,7 +395,7 @@ export function enhanceStructuredData(metadata: Metadata): Metadata {
       'twitter:card': 'summary_large_image',
       'twitter:site': '@VasquezLawNC',
       'twitter:creator': '@VasquezLawNC',
-    } as any,
+    } as unknown,
     robots: {
       index: true,
       follow: true,

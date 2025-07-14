@@ -290,7 +290,7 @@ export class SEOAgent {
         title: original.title,
         content: original.content,
         metaDescription: original.metaDescription,
-        faqSection: (original as any).faqSection,
+        faqSection: (original as unknown).faqSection,
       })}
       
       Return JSON with translated: title, content, metaDescription, faqSection, keywords`;
@@ -312,8 +312,8 @@ export class SEOAgent {
         language: targetLanguage,
         status: 'draft',
         seoScore: await this.calculateSEOScore(translatedData),
-        readTime: (original as any).readTime,
-        originalId: (original as any).id,
+        readTime: (original as unknown).readTime,
+        originalId: (original as unknown).id,
       },
     });
   }
@@ -580,10 +580,10 @@ export class SEOAgent {
       address: [
         {
           '@type': 'PostalAddress',
-          streetAddress: (data.addresses as any)?.[0]?.street || '123 Main St, Suite 100',
-          addressLocality: (data.addresses as any)?.[0]?.city || 'Raleigh',
-          addressRegion: (data.addresses as any)?.[0]?.state || 'NC',
-          postalCode: (data.addresses as any)?.[0]?.zip || '27601',
+          streetAddress: (data.addresses as unknown)?.[0]?.street || '123 Main St, Suite 100',
+          addressLocality: (data.addresses as unknown)?.[0]?.city || 'Raleigh',
+          addressRegion: (data.addresses as unknown)?.[0]?.state || 'NC',
+          postalCode: (data.addresses as unknown)?.[0]?.zip || '27601',
           addressCountry: 'US',
         },
       ],
@@ -693,19 +693,23 @@ export class SEOAgent {
         '@id': `${this.baseUrl}/blog/${data.slug}`,
       },
       articleSection: this.formatPracticeAreaName(data.practiceArea as string),
-      ...(data.faqSection && Array.isArray(data.faqSection) && data.faqSection.length > 0 ? {
-        hasPart: {
-          '@type': 'FAQPage',
-          mainEntity: (data.faqSection as Array<{ question: string; answer: string }>).map(faq => ({
-            '@type': 'Question',
-            name: faq.question,
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: faq.answer,
+      ...(data.faqSection && Array.isArray(data.faqSection) && data.faqSection.length > 0
+        ? {
+            hasPart: {
+              '@type': 'FAQPage',
+              mainEntity: (data.faqSection as Array<{ question: string; answer: string }>).map(
+                faq => ({
+                  '@type': 'Question',
+                  name: faq.question,
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: faq.answer,
+                  },
+                })
+              ),
             },
-          })),
-        },
-      } : {})
+          }
+        : {}),
     };
   }
 
@@ -1310,7 +1314,7 @@ export class SEOAgent {
 
     // Analyze missing topics
     const ourPracticeAreas = this.config.practiceAreas;
-    const theirTopics = (analysis as any).contentStrategy?.topics || [];
+    const theirTopics = (analysis as unknown).contentStrategy?.topics || [];
 
     for (const area of ourPracticeAreas) {
       const relatedTopics = await this.suggestTopics(area, theirTopics);
@@ -1434,7 +1438,7 @@ export class SEOAgent {
   ): Promise<boolean> {
     const prompt = `Analyze if this news article is relevant for a law firm's ${practiceArea} practice area blog:
       Title: ${article.title}
-      Summary: ${(article as any).summary || article.description || ''}
+      Summary: ${(article as unknown).summary || article.description || ''}
       
       Consider:
       1. Direct relevance to legal practice

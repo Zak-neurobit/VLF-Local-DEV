@@ -376,7 +376,16 @@ class EnhancedAgentDeployer {
     await this.coordinator.setupAutomationWorkflows(config.name);
   }
 
-  private async configureAutoScaling(agentName: string, config: any): Promise<void> {
+  private async configureAutoScaling(
+    agentName: string,
+    config: {
+      minReplicas: number;
+      maxReplicas: number;
+      targetCpuUtilization: number;
+      scaleUpStabilization?: number;
+      scaleDownStabilization?: number;
+    }
+  ): Promise<void> {
     logger.info(`Configuring auto-scaling for ${agentName}:`, config);
 
     // Register scaling configuration with monitor
@@ -594,7 +603,10 @@ class EnhancedAgentDeployer {
       if (!groups.has(priority)) {
         groups.set(priority, []);
       }
-      groups.get(priority)!.push(agent);
+      const group = groups.get(priority);
+      if (group) {
+        group.push(agent);
+      }
     });
 
     // Sort by priority (ascending)

@@ -167,10 +167,10 @@ export function initializeDOMSafety(): (() => void) | undefined {
   };
 
   // Apply patches
-  Node.prototype.removeChild = safetyPatches.removeChild.patch as any;
-  Node.prototype.appendChild = safetyPatches.appendChild.patch as any;
-  Node.prototype.insertBefore = safetyPatches.insertBefore.patch as any;
-  Node.prototype.replaceChild = safetyPatches.replaceChild.patch as any;
+  Node.prototype.removeChild = safetyPatches.removeChild.patch as unknown;
+  Node.prototype.appendChild = safetyPatches.appendChild.patch as unknown;
+  Node.prototype.insertBefore = safetyPatches.insertBefore.patch as unknown;
+  Node.prototype.replaceChild = safetyPatches.replaceChild.patch as unknown;
   Element.prototype.remove = safetyPatches.remove.patch;
 
   // Return cleanup function

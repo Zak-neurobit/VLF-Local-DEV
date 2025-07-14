@@ -269,7 +269,7 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({
                       Bilingual Services
                     </Heading>
                     <Text size="base" style={{ color: COLORS.neutral[700] }}>
-                      Full legal services in English and Spanish for {city}'s diverse community
+                      Full legal services in English and Spanish for {city}&apos;s diverse community
                     </Text>
                   </div>
                 </div>
@@ -381,7 +381,7 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({
                   {'★'.repeat(testimonial.rating)}
                 </div>
                 <Text size="base" className="mb-4" style={{ color: COLORS.neutral[700] }}>
-                  "{testimonial.text}"
+                  &ldquo;{testimonial.text}&rdquo;
                 </Text>
                 <Text size="sm" weight="semibold" style={{ color: COLORS.burgundy[700] }}>
                   - {testimonial.name}, {testimonial.location}

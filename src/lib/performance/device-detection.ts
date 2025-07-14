@@ -130,7 +130,7 @@ export function useDeviceCapabilities() {
     window.addEventListener('resize', handleResize);
 
     if ('connection' in navigator) {
-      (navigator as any).connection.addEventListener('change', handleConnectionChange);
+      (navigator as unknown).connection.addEventListener('change', handleConnectionChange);
     }
 
     if (motionMediaQuery.addEventListener) {
@@ -144,7 +144,7 @@ export function useDeviceCapabilities() {
       window.removeEventListener('resize', handleResize);
 
       if ('connection' in navigator) {
-        (navigator as any).connection.removeEventListener('change', handleConnectionChange);
+        (navigator as unknown).connection.removeEventListener('change', handleConnectionChange);
       }
 
       if (motionMediaQuery.removeEventListener) {

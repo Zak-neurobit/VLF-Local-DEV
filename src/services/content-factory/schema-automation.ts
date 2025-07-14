@@ -1,5 +1,14 @@
 import { componentLogger as logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
+import type {
+  BlogContent,
+  FAQ,
+  Event,
+  Attorney,
+  ServiceVariation,
+  SchemaContent,
+  GeneratedLandingPage,
+} from '@/types/content-factory';
 
 export class SchemaMarkupAutomation {
   private baseUrl: string;
@@ -15,7 +24,7 @@ export class SchemaMarkupAutomation {
   /**
    * Generate blog post schema
    */
-  async generateBlogSchema(blogPost: any) {
+  async generateBlogSchema(blogPost: BlogContent & { faqSection?: FAQ[] }) {
     logger.info('Generating blog schema', { id: blogPost.id });
 
     const schema = {
@@ -54,9 +63,9 @@ export class SchemaMarkupAutomation {
 
     // Add FAQ schema if present
     if (blogPost.faqSection && blogPost.faqSection.length > 0) {
-      (schema as any)['hasPart'] = {
+      (schema as unknown)['hasPart'] = {
         '@type': 'FAQPage',
-        mainEntity: blogPost.faqSection.map((faq: any) => ({
+        mainEntity: blogPost.faqSection.map(faq => ({
           '@type': 'Question',
           name: faq.question,
           acceptedAnswer: {
@@ -69,7 +78,7 @@ export class SchemaMarkupAutomation {
     }
 
     // Add breadcrumb
-    (schema as any)['breadcrumb'] = this.generateBreadcrumb([
+    (schema as unknown)['breadcrumb'] = this.generateBreadcrumb([
       { name: 'Home', url: '/' },
       { name: 'Blog', url: '/blog' },
       { name: blogPost.title, url: `/blog/${blogPost.slug}` },
@@ -84,7 +93,7 @@ export class SchemaMarkupAutomation {
   /**
    * Generate local business schema for landing pages
    */
-  async generateLocalBusinessSchema(landingPage: any) {
+  async generateLocalBusinessSchema(landingPage: GeneratedLandingPage) {
     logger.info('Generating local business schema', { id: landingPage.id });
 
     const schema = {
@@ -147,7 +156,7 @@ export class SchemaMarkupAutomation {
   /**
    * Generate service schema for practice areas
    */
-  async generateServiceSchema(variation: any) {
+  async generateServiceSchema(variation: ServiceVariation) {
     logger.info('Generating service schema', { id: variation.id });
 
     const schema = {
@@ -192,7 +201,7 @@ export class SchemaMarkupAutomation {
 
     // Add variation-specific elements
     if (variation.variationType === 'faq-focused') {
-      (schema as any)['mainEntity'] = this.generateFAQSchema(variation);
+      (schema as unknown)['mainEntity'] = this.generateFAQSchema(variation);
     }
 
     // Store schema in database
@@ -204,7 +213,7 @@ export class SchemaMarkupAutomation {
   /**
    * Generate FAQ schema
    */
-  async generateFAQSchema(content: any) {
+  async generateFAQSchema(content: SchemaContent) {
     logger.info('Generating FAQ schema', { id: content.id });
 
     const faqItems = content.faqSection || content.questions || [];
@@ -215,7 +224,7 @@ export class SchemaMarkupAutomation {
       '@id': `${this.baseUrl}/${content.slug}#faq`,
       name: `${content.title} - Frequently Asked Questions`,
       description: `Common questions about ${content.practiceArea || content.title}`,
-      mainEntity: faqItems.map((faq: any, index: number) => ({
+      mainEntity: faqItems.map((faq, index) => ({
         '@type': 'Question',
         '@id': `${this.baseUrl}/${content.slug}#question${index + 1}`,
         name: faq.question,
@@ -235,7 +244,7 @@ export class SchemaMarkupAutomation {
   /**
    * Generate HowTo schema for guides
    */
-  async generateHowToSchema(content: any) {
+  async generateHowToSchema(content: SchemaContent) {
     logger.info('Generating HowTo schema', { id: content.id });
 
     // Extract steps from content
@@ -282,7 +291,7 @@ export class SchemaMarkupAutomation {
   /**
    * Generate event schema for webinars
    */
-  async generateEventSchema(event: any) {
+  async generateEventSchema(event: Event) {
     logger.info('Generating event schema', { event });
 
     const schema = {
@@ -310,7 +319,7 @@ export class SchemaMarkupAutomation {
       organizer: {
         '@id': `${this.baseUrl}/#organization`,
       },
-      performer: event.speakers?.map((speaker: any) => ({
+      performer: event.speakers?.map(speaker => ({
         '@type': 'Person',
         name: speaker.name,
         jobTitle: speaker.title,
@@ -333,7 +342,7 @@ export class SchemaMarkupAutomation {
   /**
    * Generate attorney schema
    */
-  async generateAttorneySchema(attorney: any) {
+  async generateAttorneySchema(attorney: Attorney) {
     const schema = {
       '@context': 'https://schema.org',
       '@type': 'Attorney',
@@ -345,7 +354,7 @@ export class SchemaMarkupAutomation {
       worksFor: {
         '@id': `${this.baseUrl}/#organization`,
       },
-      alumniOf: attorney.education?.map((edu: any) => ({
+      alumniOf: attorney.education?.map(edu => ({
         '@type': 'EducationalOrganization',
         name: edu.school,
       })),
@@ -360,7 +369,7 @@ export class SchemaMarkupAutomation {
         '@type': 'Organization',
         name: bar,
       })),
-      award: attorney.awards?.map((award: any) => award.name),
+      award: attorney.awards?.map(award => award.name),
     };
 
     return schema;
@@ -497,7 +506,7 @@ export class SchemaMarkupAutomation {
     };
 
     return (
-      (authors as Record<string, any>)[authorName || ''] || {
+      (authors as Record<string, unknown>)[authorName || ''] || {
         '@type': 'Organization',
         '@id': `${this.baseUrl}/#organization`,
         name: 'Vasquez Law Team',
@@ -567,7 +576,11 @@ export class SchemaMarkupAutomation {
       // Add more practice areas...
     };
 
-    return ((offers as Record<string, any[]>)[practiceArea] || []).map((offer: any) => ({
+    return (
+      (offers as Record<string, Array<{ type: string; price: string; description: string }>>)[
+        practiceArea
+      ] || []
+    ).map(offer => ({
       '@type': 'Offer',
       itemOffered: {
         '@type': 'Service',
@@ -661,7 +674,8 @@ export class SchemaMarkupAutomation {
       // Add more cities...
     };
 
-    const coords = (coordinates as Record<string, {lat: number, lng: number}>)[city] || coordinates['Raleigh'];
+    const coords =
+      (coordinates as Record<string, { lat: number; lng: number }>)[city] || coordinates['Raleigh'];
 
     return {
       '@type': 'GeoCoordinates',
@@ -748,7 +762,7 @@ export class SchemaMarkupAutomation {
     return steps;
   }
 
-  private generateSchemaImprovements(schemaItem: any): string[] {
+  private generateSchemaImprovements(schemaItem: Record<string, unknown>): string[] {
     const improvements = [];
     const schema = JSON.parse(schemaItem.schema);
 
@@ -772,7 +786,11 @@ export class SchemaMarkupAutomation {
     return improvements;
   }
 
-  private async saveSchema(contentId: string, contentType: string, schema: any) {
+  private async saveSchema(
+    contentId: string,
+    contentType: string,
+    schema: Record<string, unknown>
+  ) {
     const prisma = getPrismaClient();
 
     try {

@@ -24,7 +24,7 @@ class MockRedis {
     return this.store.get(key) || null;
   }
 
-  async set(key: string, value: any, mode?: string, duration?: number) {
+  async set(key: string, value: unknown, mode?: string, duration?: number) {
     this.store.set(key, value);
     if (mode === 'EX' && duration) {
       setTimeout(() => this.store.delete(key), duration * 1000);
@@ -49,7 +49,7 @@ class MockRedis {
     return 'PONG';
   }
 
-  on(event: string, handler: Function) {
+  on(event: string, handler: (...args: unknown[]) => void) {
     // Mock event handling
   }
 
@@ -73,7 +73,7 @@ class MockRedis {
     return keys;
   }
 
-  async setex(key: string, seconds: number, value: any) {
+  async setex(key: string, seconds: number, value: unknown) {
     return this.set(key, value, 'EX', seconds);
   }
 
@@ -108,7 +108,7 @@ function getRedis() {
     _redis =
       process.env.MOCK_REDIS === 'true' ||
       (process.env.NODE_ENV === 'production' && !process.env.REDIS_HOST)
-        ? (new MockRedis() as any)
+        ? (new MockRedis() as unknown)
         : new Redis(redisConfig);
 
     // Only connect if not mock
@@ -138,7 +138,7 @@ function getBullRedis() {
     _bullRedis =
       process.env.MOCK_REDIS === 'true' ||
       (process.env.NODE_ENV === 'production' && !process.env.REDIS_HOST)
-        ? (new MockRedis() as any)
+        ? (new MockRedis() as unknown)
         : new Redis(redisConfig);
 
     // Only connect if not mock
@@ -188,7 +188,7 @@ class CacheManager {
     }
   }
 
-  async set(key: string, value: any, ttl = this.defaultTTL): Promise<void> {
+  async set(key: string, value: unknown, ttl = this.defaultTTL): Promise<void> {
     const start = Date.now();
     try {
       await this.redis.setex(key, ttl, JSON.stringify(value));
@@ -218,7 +218,7 @@ class CacheManager {
   }
 
   // Multi-level caching with memory + Redis
-  private memoryCache = new Map<string, { value: any; expires: number }>();
+  private memoryCache = new Map<string, { value: unknown; expires: number }>();
 
   async getWithMemory<T>(key: string): Promise<T | null> {
     // Check memory first
@@ -305,7 +305,7 @@ class CacheManager {
     try {
       const info = await this.redis.info();
       const lines = info.split('\r\n');
-      const stats: any = {};
+      const stats: Record<string, unknown> = {};
 
       lines.forEach(line => {
         const [key, value] = line.split(':');
@@ -380,7 +380,7 @@ export const cacheKeys = {
 
 // Decorator for caching method results
 export function Cacheable(ttl = 300) {
-  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (target: object, propertyKey: string, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value;
 
     descriptor.value = async function (...args: unknown[]) {

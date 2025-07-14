@@ -171,7 +171,11 @@ export class SEOBlogGenerationAgent {
     );
   }
 
-  private async analyzeCompetitorContent(request: SEOBlogGenerationRequest) {
+  private async analyzeCompetitorContent(request: SEOBlogGenerationRequest): Promise<{
+    topCompetitorContent: string[];
+    contentGaps: string[];
+    differentiationOpportunities: string[];
+  }> {
     const searchQuery = `${request.practiceArea} ${request.targetKeywords[0]} blog`;
 
     try {
@@ -228,8 +232,12 @@ Respond in JSON format:
 
   private async generateContentOutline(
     request: SEOBlogGenerationRequest,
-    competitiveAnalysis?: any
-  ): Promise<{ outline: string; structure: any }> {
+    competitiveAnalysis?: {
+      topCompetitorContent: string[];
+      contentGaps: string[];
+      differentiationOpportunities: string[];
+    }
+  ): Promise<{ outline: string; structure: unknown }> {
     const outlinePrompt = this.buildOutlinePrompt(request, competitiveAnalysis);
 
     const response = await this.model.invoke([
@@ -243,7 +251,14 @@ Respond in JSON format:
     return { outline, structure };
   }
 
-  private buildOutlinePrompt(request: SEOBlogGenerationRequest, competitiveAnalysis?: any): string {
+  private buildOutlinePrompt(
+    request: SEOBlogGenerationRequest,
+    competitiveAnalysis?: {
+      topCompetitorContent: string[];
+      contentGaps: string[];
+      differentiationOpportunities: string[];
+    }
+  ): string {
     const competitorInsights = competitiveAnalysis
       ? `Competitor Analysis Insights:
 - Content Gaps: ${competitiveAnalysis.contentGaps?.join(', ')}
@@ -308,7 +323,7 @@ Siempre prioriza precisión, utilidad y estándares éticos de práctica legal.`
     return prompts[language];
   }
 
-  private parseContentOutline(outline: string): any {
+  private parseContentOutline(outline: string): unknown {
     // Parse the outline into a structured format
     // This is a simplified parser - in production would be more robust
     const lines = outline.split('\n').filter(line => line.trim());
@@ -324,8 +339,12 @@ Siempre prioriza precisión, utilidad y estándares éticos de práctica legal.`
       callToAction: '',
     };
 
-    let currentSection: any = null;
-    let currentSubsection: any = null;
+    let currentSection: {
+      heading: string;
+      content: string;
+      subsections: Array<{ heading: string; content: string }>;
+    } | null = null;
+    let currentSubsection: { heading: string; content: string } | null = null;
 
     for (const line of lines) {
       const trimmed = line.trim();
@@ -365,7 +384,7 @@ Siempre prioriza precisión, utilidad y estándares éticos de práctica legal.`
   }
 
   private async generateContent(
-    outline: { outline: string; structure: any },
+    outline: { outline: string; structure: unknown },
     request: SEOBlogGenerationRequest
   ): Promise<ContentStructure> {
     const contentPrompt = this.buildContentPrompt(outline, request);
@@ -425,8 +444,12 @@ Ensure the content is valuable, accurate, and designed to rank well in search re
       faq: [],
     };
 
-    let currentSection: any = null;
-    let currentSubsection: any = null;
+    let currentSection: {
+      heading: string;
+      content: string;
+      subsections: Array<{ heading: string; content: string }>;
+    } | null = null;
+    let currentSubsection: { heading: string; content: string } | null = null;
     let currentContent: string[] = [];
     let inIntroduction = true;
     let inConclusion = false;
@@ -764,9 +787,21 @@ Provide SEO optimization in this JSON format:
     seoOptimization: SEOOptimization;
     readabilityScore: number;
     seoScore: number;
-    competitiveAnalysis?: any;
-    performancePredictions: any;
-    publishingRecommendations: any;
+    competitiveAnalysis?: {
+      topCompetitorContent: string[];
+      contentGaps: string[];
+      differentiationOpportunities: string[];
+    };
+    performancePredictions: {
+      estimatedTraffic: number;
+      rankingPotential: 'low' | 'medium' | 'high';
+      conversionPotential: 'low' | 'medium' | 'high';
+    };
+    publishingRecommendations: {
+      bestPublishTime: string;
+      promotionChannels: string[];
+      followUpActions: string[];
+    };
     request: SEOBlogGenerationRequest;
   }): Promise<SEOBlogResult> {
     const blogResult: SEOBlogResult = {

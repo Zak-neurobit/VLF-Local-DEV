@@ -522,7 +522,7 @@ export class CronJobService {
       });
 
       // Aggregate metrics by practice area
-      const practiceAreaMetrics: Record<string, any> = {};
+      const practiceAreaMetrics: Record<string, unknown> = {};
       const practiceAreas = [
         'immigration',
         'personal_injury',
@@ -535,7 +535,7 @@ export class CronJobService {
       for (const area of practiceAreas) {
         const areaLeads = await prisma.lead.count({
           where: {
-            practiceArea: area as any,
+            practiceArea: area as unknown,
             createdAt: {
               gte: startOfDay,
               lte: endOfDay,
@@ -545,7 +545,7 @@ export class CronJobService {
 
         const areaConversions = await prisma.lead.count({
           where: {
-            practiceArea: area as any,
+            practiceArea: area as unknown,
             status: 'won',
             convertedAt: {
               gte: startOfDay,
@@ -576,7 +576,7 @@ export class CronJobService {
       }
 
       // Aggregate metrics by source
-      const sourceMetrics: Record<string, any> = {};
+      const sourceMetrics: Record<string, unknown> = {};
       const leadSources = await prisma.lead.groupBy({
         by: ['source'],
         where: {
@@ -749,11 +749,11 @@ export class CronJobService {
 
   // Get job status
   getJobStatus() {
-    const status: Record<string, any> = {};
+    const status: Record<string, unknown> = {};
 
     for (const [name, job] of this.jobs) {
       status[name] = {
-        running: (job as any).running || false,
+        running: (job as unknown).running || false,
       };
     }
 
@@ -769,7 +769,7 @@ export class CronJobService {
     }
 
     logger.info(`Manually triggering job: ${jobName}`);
-    await (job as any).task();
+    await (job as unknown).task();
   }
 }
 

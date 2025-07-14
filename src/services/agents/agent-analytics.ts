@@ -75,7 +75,7 @@ export class AgentAnalyticsService {
           success: data.success,
           satisfaction: data.satisfaction,
           escalated: data.escalated || false,
-          metadata: (data.metadata || {}) as any,
+          metadata: (data.metadata || {}) as unknown,
         },
       });
 

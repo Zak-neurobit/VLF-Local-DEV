@@ -88,7 +88,7 @@ interface TaskConfig {
   priority: number;
   dependencies: string[];
   tools: string[];
-  context: Record<string, any>;
+  context: Record<string, unknown>;
   deadline?: Date;
   retryCount: number;
   maxRetries: number;
@@ -424,23 +424,27 @@ export class AutonomousCrewSystem {
       const result = await this.executeTask(task);
 
       // Update metrics
-      const metrics = this.metrics.get(agentId)!;
-      metrics.tasksCompleted++;
-      metrics.tasksSuccessful++;
-      metrics.lastActive = new Date();
-      metrics.averageExecutionTime =
-        (metrics.averageExecutionTime + (performance.now() - startTime)) / 2;
-      metrics.successRate = (metrics.tasksSuccessful / metrics.tasksCompleted) * 100;
+      const metrics = this.metrics.get(agentId);
+      if (metrics) {
+        metrics.tasksCompleted++;
+        metrics.tasksSuccessful++;
+        metrics.lastActive = new Date();
+        metrics.averageExecutionTime =
+          (metrics.averageExecutionTime + (performance.now() - startTime)) / 2;
+        metrics.successRate = (metrics.tasksSuccessful / metrics.tasksCompleted) * 100;
+      }
 
       logger.info(`✅ Agent ${agent.name} completed task successfully`);
     } catch (error) {
       logger.error(`❌ Agent ${agent.name} failed:`, error);
 
       // Update error metrics
-      const metrics = this.metrics.get(agentId)!;
-      metrics.tasksFailed++;
-      metrics.tasksCompleted++;
-      metrics.errorRate = (metrics.tasksFailed / metrics.tasksCompleted) * 100;
+      const metrics = this.metrics.get(agentId);
+      if (metrics) {
+        metrics.tasksFailed++;
+        metrics.tasksCompleted++;
+        metrics.errorRate = (metrics.tasksFailed / metrics.tasksCompleted) * 100;
+      }
     }
   }
 
@@ -591,7 +595,7 @@ export class AutonomousCrewSystem {
    * EXECUTE TASK
    * Runs a specific task using AI
    */
-  private async executeTask(task: TaskConfig): Promise<any> {
+  private async executeTask(task: TaskConfig): Promise<Record<string, unknown>> {
     const agent = this.agents.get(task.agentId);
     if (!agent) throw new Error(`Agent ${task.agentId} not found`);
 

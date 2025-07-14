@@ -15,7 +15,7 @@ interface CallStatus {
     | 'busy'
     | 'voicemail';
   timestamp: Date;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 interface StatusUpdate {
@@ -69,7 +69,7 @@ export class StatusManager {
   async updateCallStatus(
     callId: string,
     status: CallStatus['status'],
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ): Promise<void> {
     try {
       const previousStatus = this.callStatuses.get(callId);
@@ -111,7 +111,7 @@ export class StatusManager {
     callId: string,
     previousStatus: string,
     newStatus: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ): Promise<void> {
     try {
       const prisma = getPrismaClient();
@@ -123,7 +123,7 @@ export class StatusManager {
           previousStatus,
           newStatus,
           timestamp: new Date(),
-          metadata: metadata || ({} as any),
+          metadata: metadata || ({} as unknown),
         },
       });
 
@@ -140,7 +140,7 @@ export class StatusManager {
               to: newStatus,
               timestamp: new Date().toISOString(),
             },
-          } as any,
+          } as unknown,
         },
       });
     } catch (error) {
@@ -179,7 +179,7 @@ export class StatusManager {
     callId: string,
     previousStatus: string | undefined,
     newStatus: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ): Promise<void> {
     try {
       switch (newStatus) {
@@ -224,7 +224,7 @@ export class StatusManager {
   private async updateGHLStatus(
     callId: string,
     status: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ): Promise<void> {
     try {
       // Get call record to find GHL contact ID
@@ -255,7 +255,7 @@ export class StatusManager {
   }
 
   // Get human-readable status message
-  private getStatusMessage(status: string, metadata?: Record<string, any>): string {
+  private getStatusMessage(status: string, metadata?: Record<string, unknown>): string {
     const timestamp = new Date().toLocaleString();
 
     switch (status) {
@@ -279,7 +279,10 @@ export class StatusManager {
   }
 
   // Handle specific status changes
-  private async handleCallQueued(callId: string, metadata?: Record<string, any>): Promise<void> {
+  private async handleCallQueued(
+    callId: string,
+    metadata?: Record<string, unknown>
+  ): Promise<void> {
     logger.info('Call queued', { callId });
 
     // Set timeout to detect stuck calls
@@ -297,7 +300,10 @@ export class StatusManager {
     ); // 2 minutes
   }
 
-  private async handleCallRinging(callId: string, metadata?: Record<string, any>): Promise<void> {
+  private async handleCallRinging(
+    callId: string,
+    metadata?: Record<string, unknown>
+  ): Promise<void> {
     logger.info('Call ringing', { callId });
 
     // Set timeout for ringing calls
@@ -311,7 +317,10 @@ export class StatusManager {
     }, 30 * 1000); // 30 seconds
   }
 
-  private async handleCallConnected(callId: string, metadata?: Record<string, any>): Promise<void> {
+  private async handleCallConnected(
+    callId: string,
+    metadata?: Record<string, unknown>
+  ): Promise<void> {
     logger.info('Call connected', { callId });
 
     // Update database with connection time
@@ -324,7 +333,7 @@ export class StatusManager {
     });
   }
 
-  private async handleCallEnded(callId: string, metadata?: Record<string, any>): Promise<void> {
+  private async handleCallEnded(callId: string, metadata?: Record<string, unknown>): Promise<void> {
     logger.info('Call ended', { callId, metadata });
 
     // Update database with end time
@@ -341,7 +350,10 @@ export class StatusManager {
     await this.triggerPostCallProcessing(callId, metadata);
   }
 
-  private async handleCallFailed(callId: string, metadata?: Record<string, any>): Promise<void> {
+  private async handleCallFailed(
+    callId: string,
+    metadata?: Record<string, unknown>
+  ): Promise<void> {
     logger.warn('Call failed', { callId, reason: metadata?.reason });
 
     // Update database with failure reason
@@ -359,21 +371,21 @@ export class StatusManager {
     await this.createFailureFollowUp(callId, metadata);
   }
 
-  private async handleNoAnswer(callId: string, metadata?: Record<string, any>): Promise<void> {
+  private async handleNoAnswer(callId: string, metadata?: Record<string, unknown>): Promise<void> {
     logger.info('No answer', { callId });
 
     // Schedule follow-up call or SMS
     await this.scheduleNoAnswerFollowUp(callId, metadata);
   }
 
-  private async handleBusy(callId: string, metadata?: Record<string, any>): Promise<void> {
+  private async handleBusy(callId: string, metadata?: Record<string, unknown>): Promise<void> {
     logger.info('Phone busy', { callId });
 
     // Schedule retry after delay
     await this.scheduleBusyRetry(callId, metadata);
   }
 
-  private async handleVoicemail(callId: string, metadata?: Record<string, any>): Promise<void> {
+  private async handleVoicemail(callId: string, metadata?: Record<string, unknown>): Promise<void> {
     logger.info('Voicemail detected', { callId });
 
     // Trigger voicemail follow-up campaign
@@ -383,7 +395,7 @@ export class StatusManager {
   // Trigger post-call processing
   private async triggerPostCallProcessing(
     callId: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ): Promise<void> {
     try {
       // Import recording manager to avoid circular dependency
@@ -417,7 +429,7 @@ export class StatusManager {
   // Create follow-up for failed calls
   private async createFailureFollowUp(
     callId: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ): Promise<void> {
     try {
       const call = await this.getCallWithContact(callId);
@@ -437,7 +449,7 @@ export class StatusManager {
   // Schedule no-answer follow-up
   private async scheduleNoAnswerFollowUp(
     callId: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ): Promise<void> {
     try {
       const call = await this.getCallWithContact(callId);
@@ -465,7 +477,10 @@ export class StatusManager {
   }
 
   // Schedule retry for busy calls
-  private async scheduleBusyRetry(callId: string, metadata?: Record<string, any>): Promise<void> {
+  private async scheduleBusyRetry(
+    callId: string,
+    metadata?: Record<string, unknown>
+  ): Promise<void> {
     try {
       const call = await this.getCallWithContact(callId);
       if (!call?.ghlContactId) return;
@@ -499,7 +514,7 @@ export class StatusManager {
   // Trigger voicemail follow-up
   private async triggerVoicemailFollowUp(
     callId: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ): Promise<void> {
     try {
       const call = await this.getCallWithContact(callId);
@@ -584,7 +599,7 @@ export class StatusManager {
       const analytics = {
         total: statusUpdates.length,
         statusDistribution: {} as Record<string, number>,
-        trendsOverTime: [] as any[],
+        trendsOverTime: [] as unknown[],
       };
 
       statusUpdates.forEach(update => {

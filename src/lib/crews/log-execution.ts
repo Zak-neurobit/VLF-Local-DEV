@@ -34,7 +34,7 @@ export async function logCrewExecution(params: LogExecutionParams) {
         input: params.input || {},
         output: params.output || {},
         error: params.error,
-        metadata: params.metadata as any || {},
+        metadata: (params.metadata as unknown) || {},
       },
     });
 

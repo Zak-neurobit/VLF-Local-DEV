@@ -36,11 +36,18 @@ export async function GET(_request: NextRequest): Promise<NextResponse> {
       'competitor-spy',
     ];
 
-    const agentStatuses = agentNames.map(name => ({
-      name,
-      metrics: crewCoordinator.getAgentPerformanceMetrics(name),
-      status: crewCoordinator.getAgentPerformanceMetrics(name) ? 'running' : 'stopped',
-    }));
+    const agentStatuses = agentNames.map(name => {
+      const metrics = crewCoordinator.getAgentPerformanceMetrics(name) as {
+        tasksExecuted?: number;
+        successRate?: number;
+        averageExecutionTime?: number;
+      } | null;
+      return {
+        name,
+        metrics,
+        status: metrics ? 'running' : 'stopped',
+      };
+    });
 
     // Get current time and uptime
     const currentTime = new Date();

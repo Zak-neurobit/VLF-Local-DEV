@@ -646,7 +646,7 @@ export class RecordingManager {
         appointmentRate: 0,
         followUpRate: 0,
         topKeywords: {} as Record<string, number>,
-        trendsOverTime: [] as any[],
+        trendsOverTime: [] as unknown[],
       };
 
       let totalDuration = 0;

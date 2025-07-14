@@ -37,7 +37,7 @@ interface RetellCall {
   end_timestamp?: number;
   transcript?: string;
   recording_url?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   from_number?: string;
   to_number?: string;
   direction?: 'inbound' | 'outbound';
@@ -49,13 +49,13 @@ interface CreateCallParams {
   agent_id: string;
   from_number: string;
   to_number: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   override_agent_config?: Partial<RetellAgent>;
 }
 
 interface WebCallParams {
   agent_id: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   override_agent_config?: Partial<RetellAgent>;
 }
 
@@ -91,7 +91,7 @@ export class RetellService {
           data: config.data,
         });
 
-        (config as any).metadata = { requestId, startTime: Date.now() };
+        (config as unknown).metadata = { requestId, startTime: Date.now() };
         return config;
       },
       error => {
@@ -103,10 +103,10 @@ export class RetellService {
     // Response interceptor
     this.client.interceptors.response.use(
       response => {
-        if ((response.config as any).metadata) {
-          const duration = Date.now() - (response.config as any).metadata.startTime;
+        if ((response.config as unknown).metadata) {
+          const duration = Date.now() - (response.config as unknown).metadata.startTime;
           logger.info('Retell API response', {
-            requestId: (response.config as any).metadata.requestId,
+            requestId: (response.config as unknown).metadata.requestId,
             status: response.status,
             duration,
           });
@@ -114,10 +114,10 @@ export class RetellService {
         return response;
       },
       error => {
-        if ((error.config as any)?.metadata) {
-          const duration = Date.now() - (error.config as any).metadata.startTime;
+        if ((error.config as unknown)?.metadata) {
+          const duration = Date.now() - (error.config as unknown).metadata.startTime;
           logger.error('Retell API error', {
-            requestId: (error.config as any).metadata.requestId,
+            requestId: (error.config as unknown).metadata.requestId,
             status: error.response?.status,
             duration,
             error: error.response?.data || error.message,
@@ -159,8 +159,8 @@ export class RetellService {
         try {
           const response = await this.client.get(`/api/get-agent/${agentId}`);
           return response.data;
-        } catch (error: any) {
-          if (error.response?.status === 404) {
+        } catch (error) {
+          if (error instanceof Error && (error as unknown).response?.status === 404) {
             return null;
           }
           throw error;
@@ -239,8 +239,8 @@ export class RetellService {
         try {
           const response = await this.client.get(`/api/get-call/${callId}`);
           return response.data;
-        } catch (error: any) {
-          if (error.response?.status === 404) {
+        } catch (error) {
+          if (error instanceof Error && (error as unknown).response?.status === 404) {
             return null;
           }
           throw error;

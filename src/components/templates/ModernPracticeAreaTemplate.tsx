@@ -336,175 +336,210 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
               ) : (
                 <>
                   {/* Introduction */}
-                  {(content as any).introduction && (
-                    <div className="max-w-4xl mx-auto text-center">
-                      <p className="text-xl text-gray-300 leading-relaxed">
-                        {(content as any).introduction}
-                      </p>
-                    </div>
-                  )}
+                  {typeof content === 'object' &&
+                    content &&
+                    'introduction' in content &&
+                    content.introduction && (
+                      <div className="max-w-4xl mx-auto text-center">
+                        <p className="text-xl text-gray-300 leading-relaxed">
+                          {content.introduction}
+                        </p>
+                      </div>
+                    )}
 
                   {/* Process Section */}
-                  {(content as any).process && (content as any).processTitle && (
-                    <div className="max-w-6xl mx-auto">
-                      <h2 className="text-3xl md:text-4xl font-black text-center text-white mb-12">
-                        {(content as any).processTitle}
-                      </h2>
-                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {(content as any).process.map((step: any, index: number) => (
-                          <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
-                          >
-                            <div className="text-3xl font-black text-primary mb-3">{step.step}</div>
-                            <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
-                            <p className="text-gray-300">{step.description}</p>
-                          </motion.div>
-                        ))}
+                  {typeof content === 'object' &&
+                    content &&
+                    'process' in content &&
+                    'processTitle' in content &&
+                    content.process &&
+                    content.processTitle && (
+                      <div className="max-w-6xl mx-auto">
+                        <h2 className="text-3xl md:text-4xl font-black text-center text-white mb-12">
+                          {content.processTitle}
+                        </h2>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                          {content.process.map((step, index) => (
+                            <motion.div
+                              key={index}
+                              initial={{ opacity: 0, y: 20 }}
+                              whileInView={{ opacity: 1, y: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: index * 0.1 }}
+                              className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+                            >
+                              <div className="text-3xl font-black text-primary mb-3">
+                                {step.step}
+                              </div>
+                              <h3 className="text-xl font-semibold text-white mb-3">
+                                {step.title}
+                              </h3>
+                              <p className="text-gray-300">{step.description}</p>
+                            </motion.div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
 
                   {/* Urgency Section */}
-                  {(content as any).urgencyTitle && (content as any).urgencyMessage && (
-                    <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-8 text-center">
-                      <h2 className="text-2xl md:text-3xl font-black text-red-400 mb-4">
-                        {(content as any).urgencyTitle}
-                      </h2>
-                      <p className="text-lg text-gray-300">{(content as any).urgencyMessage}</p>
-                    </div>
-                  )}
+                  {typeof content === 'object' &&
+                    content &&
+                    'urgencyTitle' in content &&
+                    'urgencyMessage' in content &&
+                    content.urgencyTitle &&
+                    content.urgencyMessage && (
+                      <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-8 text-center">
+                        <h2 className="text-2xl md:text-3xl font-black text-red-400 mb-4">
+                          {content.urgencyTitle}
+                        </h2>
+                        <p className="text-lg text-gray-300">{content.urgencyMessage}</p>
+                      </div>
+                    )}
 
                   {/* Success Stats */}
-                  {(content as any).successStats && (
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                      {(content as any).successStats.map((stat: any, index: number) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: index * 0.1 }}
-                          className="text-center"
-                        >
-                          <div className="text-4xl md:text-5xl font-black text-primary mb-2">
-                            {stat.number}
-                          </div>
-                          <div className="text-gray-400">{stat.label}</div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Why Choose Us */}
-                  {(content as any).whyChooseTitle && (content as any).whyChoosePoints && (
-                    <div className="max-w-4xl mx-auto">
-                      <h2 className="text-3xl md:text-4xl font-black text-center text-white mb-12">
-                        {(content as any).whyChooseTitle}
-                      </h2>
-                      <div className="grid md:grid-cols-2 gap-4">
-                        {(content as any).whyChoosePoints.map((point: any, index: number) => (
+                  {typeof content === 'object' &&
+                    content &&
+                    'successStats' in content &&
+                    content.successStats && (
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {content.successStats.map((stat, index) => (
                           <motion.div
                             key={index}
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className="flex items-center gap-3"
+                            className="text-center"
                           >
-                            <Shield className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-gray-300">{point}</span>
+                            <div className="text-4xl md:text-5xl font-black text-primary mb-2">
+                              {stat.number}
+                            </div>
+                            <div className="text-gray-400">{stat.label}</div>
                           </motion.div>
                         ))}
                       </div>
-                    </div>
-                  )}
+                    )}
+
+                  {/* Why Choose Us */}
+                  {typeof content === 'object' &&
+                    content &&
+                    'whyChooseTitle' in content &&
+                    'whyChoosePoints' in content &&
+                    content.whyChooseTitle &&
+                    content.whyChoosePoints && (
+                      <div className="max-w-4xl mx-auto">
+                        <h2 className="text-3xl md:text-4xl font-black text-center text-white mb-12">
+                          {content.whyChooseTitle}
+                        </h2>
+                        <div className="grid md:grid-cols-2 gap-4">
+                          {content.whyChoosePoints.map((point, index) => (
+                            <motion.div
+                              key={index}
+                              initial={{ opacity: 0, x: -20 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: index * 0.1 }}
+                              className="flex items-center gap-3"
+                            >
+                              <Shield className="w-5 h-5 text-primary flex-shrink-0" />
+                              <span className="text-gray-300">{point}</span>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
                   {/* Penalties Section */}
-                  {(content as any).penalties && (content as any).penaltiesTitle && (
-                    <div className="max-w-6xl mx-auto">
-                      <h2 className="text-3xl md:text-4xl font-black text-center text-white mb-12">
-                        {(content as any).penaltiesTitle}
-                      </h2>
-                      <div className="grid md:grid-cols-2 gap-8">
-                        {(content as any).penalties.map((penalty: any, index: number) => (
-                          <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.2 }}
-                            className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-red-500/30"
-                          >
-                            <h3 className="text-xl font-bold text-red-400 mb-6">{penalty.title}</h3>
-                            <div className="grid gap-6">
-                              <div>
-                                <h4 className="text-lg font-semibold text-white mb-3">
-                                  Criminal Penalties
-                                </h4>
-                                <ul className="space-y-2">
-                                  {penalty.criminal.map((item: any, i: number) => (
-                                    <li key={i} className="flex items-center gap-2 text-gray-300">
-                                      <span className="text-red-400">•</span>
-                                      {item}
-                                    </li>
-                                  ))}
-                                </ul>
+                  {typeof content === 'object' &&
+                    content &&
+                    'penalties' in content &&
+                    'penaltiesTitle' in content &&
+                    content.penalties &&
+                    content.penaltiesTitle && (
+                      <div className="max-w-6xl mx-auto">
+                        <h2 className="text-3xl md:text-4xl font-black text-center text-white mb-12">
+                          {content.penaltiesTitle}
+                        </h2>
+                        <div className="grid md:grid-cols-2 gap-8">
+                          {content.penalties.map((penalty, index) => (
+                            <motion.div
+                              key={index}
+                              initial={{ opacity: 0, y: 20 }}
+                              whileInView={{ opacity: 1, y: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: index * 0.2 }}
+                              className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-red-500/30"
+                            >
+                              <h3 className="text-xl font-bold text-red-400 mb-6">
+                                {penalty.title}
+                              </h3>
+                              <div className="grid gap-6">
+                                <div>
+                                  <h4 className="text-lg font-semibold text-white mb-3">
+                                    Criminal Penalties
+                                  </h4>
+                                  <ul className="space-y-2">
+                                    {penalty.criminal.map((item: any, i: number) => (
+                                      <li key={i} className="flex items-center gap-2 text-gray-300">
+                                        <span className="text-red-400">•</span>
+                                        {item}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                                <div>
+                                  <h4 className="text-lg font-semibold text-white mb-3">
+                                    License Penalties
+                                  </h4>
+                                  <ul className="space-y-2">
+                                    {penalty.license.map((item: any, i: number) => (
+                                      <li key={i} className="flex items-center gap-2 text-gray-300">
+                                        <span className="text-red-400">•</span>
+                                        {item}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
                               </div>
-                              <div>
-                                <h4 className="text-lg font-semibold text-white mb-3">
-                                  License Penalties
-                                </h4>
-                                <ul className="space-y-2">
-                                  {penalty.license.map((item: any, i: number) => (
-                                    <li key={i} className="flex items-center gap-2 text-gray-300">
-                                      <span className="text-red-400">•</span>
-                                      {item}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            </div>
-                          </motion.div>
-                        ))}
+                            </motion.div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
 
                   {/* State Comparison */}
-                  {(content as any).stateComparison && (
-                    <div className="max-w-6xl mx-auto">
-                      <h2 className="text-3xl md:text-4xl font-black text-center text-white mb-12">
-                        {(content as any).stateComparison.title}
-                      </h2>
-                      <div className="grid md:grid-cols-2 gap-8">
-                        {(content as any).stateComparison.states.map((state: any, index: number) => (
-                          <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.2 }}
-                            className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
-                          >
-                            <h3 className="text-xl font-bold text-primary mb-6">{state.name}</h3>
-                            <ul className="space-y-3">
-                              {state.points.map((point: any, i: number) => (
-                                <li key={i} className="flex items-start gap-2 text-gray-300">
-                                  <span className="text-primary mt-1">•</span>
-                                  {point}
-                                </li>
-                              ))}
-                            </ul>
-                          </motion.div>
-                        ))}
+                  {typeof content === 'object' &&
+                    content &&
+                    'stateComparison' in content &&
+                    content.stateComparison && (
+                      <div className="max-w-6xl mx-auto">
+                        <h2 className="text-3xl md:text-4xl font-black text-center text-white mb-12">
+                          {content.stateComparison.title}
+                        </h2>
+                        <div className="grid md:grid-cols-2 gap-8">
+                          {content.stateComparison.states.map((state, index) => (
+                            <motion.div
+                              key={index}
+                              initial={{ opacity: 0, y: 20 }}
+                              whileInView={{ opacity: 1, y: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: index * 0.2 }}
+                              className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+                            >
+                              <h3 className="text-xl font-bold text-primary mb-6">{state.name}</h3>
+                              <ul className="space-y-3">
+                                {state.points.map((point: any, i: number) => (
+                                  <li key={i} className="flex items-start gap-2 text-gray-300">
+                                    <span className="text-primary mt-1">•</span>
+                                    {point}
+                                  </li>
+                                ))}
+                              </ul>
+                            </motion.div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                 </>
               )}
             </motion.div>
@@ -595,7 +630,11 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
           title={title}
           description={
             description ||
-            (React.isValidElement(content) ? title : (content as any).introduction) ||
+            (React.isValidElement(content)
+              ? title
+              : typeof content === 'object' && content && 'introduction' in content
+                ? content.introduction
+                : title) ||
             title
           }
           services={services}

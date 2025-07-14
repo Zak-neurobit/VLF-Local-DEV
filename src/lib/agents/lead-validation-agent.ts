@@ -4,6 +4,23 @@ import { GoHighLevelService } from '@/services/gohighlevel';
 import { logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 
+interface LeadData {
+  id: string;
+  name?: string;
+  email?: string;
+  phone?: string;
+  caseType?: string;
+  message?: string;
+  source?: string;
+  createdAt?: Date;
+  customFields?: Record<string, unknown>;
+  tags?: string[];
+  preferredLanguage?: string;
+  urgency?: string;
+  location?: string;
+  referralSource?: string;
+}
+
 // Lead quality scoring schema
 const LeadScoreSchema = z.object({
   score: z.number().min(0).max(100),
@@ -328,11 +345,15 @@ export class LeadValidationAgent extends Agent {
     return 'low';
   }
 
-  private generateRecommendations(leadData: {
-    message: string;
-    practiceArea?: string;
-    urgencyIndicators?: string[];
-  }, tier: string, _score: number): string[] {
+  private generateRecommendations(
+    leadData: {
+      message: string;
+      practiceArea?: string;
+      urgencyIndicators?: string[];
+    },
+    tier: string,
+    _score: number
+  ): string[] {
     const recommendations = [];
 
     if (tier === 'hot') {
@@ -361,7 +382,7 @@ export class LeadValidationAgent extends Agent {
     return recommendations;
   }
 
-  private getRejectionReasons(leadData: any): string[] {
+  private getRejectionReasons(leadData: LeadData): string[] {
     const reasons = [];
 
     if (!leadData.phone || leadData.phone.length < 10) {
@@ -396,7 +417,7 @@ export class LeadValidationAgent extends Agent {
     return 'Archive for future reference';
   }
 
-  private estimateCaseValue(leadData: any): number {
+  private estimateCaseValue(leadData: LeadData): number {
     const message = leadData.message.toLowerCase();
     let baseValue = 2500; // Minimum case value
 
@@ -427,10 +448,7 @@ export class LeadValidationAgent extends Agent {
     return Math.round(baseValue);
   }
 
-  private identifyPracticeAreas(leadData: {
-    message: string;
-    practiceArea?: string;
-  }): string[] {
+  private identifyPracticeAreas(leadData: { message: string; practiceArea?: string }): string[] {
     const message = leadData.message.toLowerCase();
     const areas = [];
 
@@ -463,7 +481,7 @@ export class LeadValidationAgent extends Agent {
     return areas.length > 0 ? areas : ['general-immigration'];
   }
 
-  private detectLanguagePreference(leadData: any): 'en' | 'es' | 'bilingual' {
+  private detectLanguagePreference(leadData: LeadData): 'en' | 'es' | 'bilingual' {
     const message = leadData.message;
 
     // Spanish indicators
@@ -480,7 +498,7 @@ export class LeadValidationAgent extends Agent {
     return 'en';
   }
 
-  private async updateGHLContact(leadData: any, validation: LeadScore): Promise<string> {
+  private async updateGHLContact(leadData: LeadData, validation: LeadScore): Promise<string> {
     try {
       // Find or create contact in GHL
       let contact = await this.ghl.findContactByEmail(leadData.email);
@@ -562,22 +580,25 @@ export class LeadValidationAgent extends Agent {
     }
   }
 
-  private async logValidation(leadData: {
-    name: string;
-    email: string;
-    phone: string;
-    message: string;
-    source: string;
-    language?: string;
-    practiceArea?: string;
-    urgencyIndicators?: string[];
-    previousInteractions?: Array<{
-      type: string;
-      date: string;
-      outcome?: string;
-      notes?: string;
-    }>;
-  }, validation: LeadScore): Promise<void> {
+  private async logValidation(
+    leadData: {
+      name: string;
+      email: string;
+      phone: string;
+      message: string;
+      source: string;
+      language?: string;
+      practiceArea?: string;
+      urgencyIndicators?: string[];
+      previousInteractions?: Array<{
+        type: string;
+        date: string;
+        outcome?: string;
+        notes?: string;
+      }>;
+    },
+    validation: LeadScore
+  ): Promise<void> {
     try {
       const prisma = getPrismaClient();
       if (!prisma) {
@@ -605,7 +626,7 @@ export class LeadValidationAgent extends Agent {
     }
   }
 
-  async execute(input: any): Promise<any> {
+  async execute(input: LeadData): Promise<LeadScore> {
     return this.validateLead(input);
   }
 }

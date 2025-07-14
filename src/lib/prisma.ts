@@ -52,12 +52,18 @@ class MockPrismaClient {
 
   account = {
     findUnique: async () => null,
-    create: async (args: { data: Record<string, unknown> }) => ({ id: 'mock-' + Date.now(), ...args.data }),
+    create: async (args: { data: Record<string, unknown> }) => ({
+      id: 'mock-' + Date.now(),
+      ...args.data,
+    }),
   };
 
   session = {
     findUnique: async () => null,
-    create: async (args: { data: Record<string, unknown> }) => ({ id: 'mock-' + Date.now(), ...args.data }),
+    create: async (args: { data: Record<string, unknown> }) => ({
+      id: 'mock-' + Date.now(),
+      ...args.data,
+    }),
     delete: async () => ({ id: 'deleted' }),
   };
 
@@ -181,7 +187,7 @@ export async function isDatabaseConnected(): Promise<boolean> {
     return true;
   } catch (error) {
     dbLogger.warn({ error }, 'Database connection check failed');
-    global.prismaConnectionChecked = false;
+    globalForPrisma.prismaConnectionChecked = false;
     return false;
   }
 }

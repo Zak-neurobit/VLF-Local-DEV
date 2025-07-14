@@ -40,7 +40,10 @@ class SafePrismaClient {
       findFirst: async () => null,
       findMany: async () => [],
       create: async (args: { data: Record<string, unknown> }) => ({ id: 'mock-id', ...args.data }),
-      update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({ id: args.where.id, ...args.data }),
+      update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({
+        id: args.where.id,
+        ...args.data,
+      }),
       delete: async () => ({ id: 'deleted' }),
       count: async () => 0,
     };
@@ -55,7 +58,10 @@ class SafePrismaClient {
       findFirst: async () => null,
       findMany: async () => [],
       create: async (args: { data: Record<string, unknown> }) => ({ id: 'mock-id', ...args.data }),
-      update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({ id: args.where.id, ...args.data }),
+      update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({
+        id: args.where.id,
+        ...args.data,
+      }),
       delete: async () => ({ id: 'deleted' }),
       count: async () => 0,
     };
@@ -76,7 +82,7 @@ class SafePrismaClient {
 
   async $transaction(fn: (client: any) => Promise<unknown>) {
     if (this.realClient) {
-      return this.realClient.$transaction(fn as any);
+      return this.realClient.$transaction(fn as unknown);
     }
     // Mock transaction
     return fn(this);

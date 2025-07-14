@@ -7,18 +7,18 @@ import { useCrewAI } from '@/hooks/useCrewAI';
 import { toast } from 'react-hot-toast';
 import { ChatInterface } from './ChatInterface';
 import { io, Socket } from 'socket.io-client';
-import { 
-  Mic, 
-  MicOff, 
-  MessageCircle, 
-  X, 
-  Volume2, 
+import {
+  Mic,
+  MicOff,
+  MessageCircle,
+  X,
+  Volume2,
   VolumeX,
   Loader2,
   Phone,
   FileText,
   Calendar,
-  Globe
+  Globe,
 } from 'lucide-react';
 
 declare global {
@@ -50,14 +50,18 @@ interface ConversationState {
 export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
   onMessage,
   language = 'en',
-  userId
+  userId,
 }) => {
   // Chat state
   const [isOpen, setIsOpen] = useState(false);
-  const [mode, setMode] = useState<'chat' | 'voice' | 'consultation' | 'document' | 'appointment'>('chat');
+  const [mode, setMode] = useState<'chat' | 'voice' | 'consultation' | 'document' | 'appointment'>(
+    'chat'
+  );
   const [isMinimized, setIsMinimized] = useState(false);
-  const [connectionStatus, setConnectionStatus] = useState<'connecting' | 'connected' | 'disconnected'>('disconnected');
-  
+  const [connectionStatus, setConnectionStatus] = useState<
+    'connecting' | 'connected' | 'disconnected'
+  >('disconnected');
+
   // Voice & Audio state
   const [conversationState, setConversationState] = useState<ConversationState>({
     isListening: false,
@@ -65,13 +69,13 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
     isProcessing: false,
     transcript: '',
     interimTranscript: '',
-    error: null
+    error: null,
   });
-  
+
   const [isMuted] = useState(false);
   const [volume] = useState(0.8);
   const [voiceEnabled, setVoiceEnabled] = useState(false);
-  
+
   // Refs
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const synthRef = useRef<SpeechSynthesis | null>(null);
@@ -81,13 +85,18 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
 
   // Message state
   // Message type matching what we use internally
-  type InternalMessage = { id: string; text: string; sender: 'user' | 'assistant'; timestamp: Date };
+  type InternalMessage = {
+    id: string;
+    text: string;
+    sender: 'user' | 'assistant';
+    timestamp: Date;
+  };
   const [messages, setMessages] = useState<InternalMessage[]>([]);
   const [activeAgent, setActiveAgent] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // CrewAI Integration
-  const { 
+  const {
     isLoading,
     createLegalConsultationTask,
     createAppointmentSchedulingTask,
@@ -98,74 +107,110 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
   } = useCrewAI();
 
   // Message handling
-  const sendMessage = useCallback(async (text: string) => {
-    const newMessage = {
-      id: Date.now().toString(),
-      text,
-      sender: 'user' as const,
-      timestamp: new Date(),
-    };
-    setMessages(prev => [...prev, newMessage]);
-    
-    // Process message with AI
-    if (onMessage) {
-      onMessage(text);
-    }
-  }, [onMessage]);
+  const sendMessage = useCallback(
+    async (text: string) => {
+      const newMessage = {
+        id: Date.now().toString(),
+        text,
+        sender: 'user' as const,
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, newMessage]);
+
+      // Process message with AI
+      if (onMessage) {
+        onMessage(text);
+      }
+    },
+    [onMessage]
+  );
 
   const clearError = useCallback(() => {
     setError(null);
   }, []);
 
   // Task execution wrapper
-  const executeTask = useCallback(async (task: any) => {
-    try {
-      if (task.type === 'consultation') {
-        return await createLegalConsultationTask(task.data);
-      } else if (task.type === 'appointment') {
-        return await createAppointmentSchedulingTask(task.data);
-      } else if (task.type === 'document') {
-        // Document analysis requires a file parameter
-        // Since we don't have a file in task.data, we need to handle this differently
-        // For now, we'll throw an error indicating a file is required
-        throw new Error('Document analysis requires a file to be uploaded');
-      } else if (task.type === 'intake') {
-        return await createClientIntakeWorkflow(task.data);
+  const executeTask = useCallback(
+    async (task: {
+      type: 'consultation' | 'appointment' | 'document' | 'intake';
+      data: Record<string, unknown>;
+    }) => {
+      try {
+        if (task.type === 'consultation') {
+          return await createLegalConsultationTask(
+            task.data as {
+              userId: string;
+              caseType: string;
+              description: string;
+              urgency?: 'low' | 'medium' | 'high';
+              language?: 'en' | 'es';
+              location?: string;
+            }
+          );
+        } else if (task.type === 'appointment') {
+          return await createAppointmentSchedulingTask(
+            task.data as {
+              userId: string;
+              type: string;
+              dateTime: string;
+              duration?: number;
+              practiceArea?: string;
+              language?: 'en' | 'es';
+              urgency?: 'low' | 'medium' | 'high';
+            }
+          );
+        } else if (task.type === 'document') {
+          // Document analysis requires a file parameter
+          // Since we don't have a file in task.data, we need to handle this differently
+          // For now, we'll throw an error indicating a file is required
+          throw new Error('Document analysis requires a file to be uploaded');
+        } else if (task.type === 'intake') {
+          return await createClientIntakeWorkflow(task.data);
+        }
+        throw new Error('Unknown task type');
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+        throw err;
       }
-      throw new Error('Unknown task type');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-      throw err;
-    }
-  }, [createLegalConsultationTask, createAppointmentSchedulingTask, createDocumentAnalysisTask, createClientIntakeWorkflow]);
+    },
+    [
+      createLegalConsultationTask,
+      createAppointmentSchedulingTask,
+      createDocumentAnalysisTask,
+      createClientIntakeWorkflow,
+    ]
+  );
 
   // Voice message handler
-  const handleVoiceMessage = useCallback(async (transcript: string) => {
-    if (!transcript.trim()) return;
+  const handleVoiceMessage = useCallback(
+    async (transcript: string) => {
+      if (!transcript.trim()) return;
 
-    setConversationState(prev => ({ ...prev, isProcessing: true }));
-    
-    try {
-      await sendMessage(transcript);
-      onMessage?.(transcript);
-    } catch (error) {
-      logger.error('Error processing voice message:', error);
-      toast.error('Failed to process voice message');
-    } finally {
-      setConversationState(prev => ({ ...prev, isProcessing: false }));
-    }
-  }, [sendMessage, onMessage]);
+      setConversationState(prev => ({ ...prev, isProcessing: true }));
+
+      try {
+        await sendMessage(transcript);
+        onMessage?.(transcript);
+      } catch (error) {
+        logger.error('Error processing voice message:', error);
+        toast.error('Failed to process voice message');
+      } finally {
+        setConversationState(prev => ({ ...prev, isProcessing: false }));
+      }
+    },
+    [sendMessage, onMessage]
+  );
 
   // Initialize Speech Recognition
   const initializeSpeechRecognition = useCallback(() => {
     if (typeof window === 'undefined') return;
-    
+
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    
+
     if (!SpeechRecognition) {
       setConversationState(prev => ({
         ...prev,
-        error: 'Speech recognition not supported in this browser'
+        error: 'Speech recognition not supported in this browser',
       }));
       return;
     }
@@ -196,7 +241,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
       setConversationState(prev => ({
         ...prev,
         transcript: prev.transcript + finalTranscript,
-        interimTranscript
+        interimTranscript,
       }));
 
       if (finalTranscript) {
@@ -204,11 +249,11 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
       }
     };
 
-    recognition.onerror = (event) => {
+    recognition.onerror = event => {
       setConversationState(prev => ({
         ...prev,
         isListening: false,
-        error: `Recognition error: ${event.error}`
+        error: `Recognition error: ${event.error}`,
       }));
     };
 
@@ -222,37 +267,40 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
   // Initialize Speech Synthesis
   const initializeSpeechSynthesis = useCallback(() => {
     if (typeof window === 'undefined') return;
-    
+
     synthRef.current = window.speechSynthesis;
   }, []);
 
   // Text-to-Speech
-  const speak = useCallback((text: string) => {
-    if (!synthRef.current || isMuted) return;
+  const speak = useCallback(
+    (text: string) => {
+      if (!synthRef.current || isMuted) return;
 
-    // Cancel any ongoing speech
-    synthRef.current.cancel();
+      // Cancel any ongoing speech
+      synthRef.current.cancel();
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = language === 'es' ? 'es-US' : 'en-US';
-    utterance.volume = volume;
-    utterance.rate = 1;
-    utterance.pitch = 1;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = language === 'es' ? 'es-US' : 'en-US';
+      utterance.volume = volume;
+      utterance.rate = 1;
+      utterance.pitch = 1;
 
-    utterance.onstart = () => {
-      setConversationState(prev => ({ ...prev, isSpeaking: true }));
-    };
+      utterance.onstart = () => {
+        setConversationState(prev => ({ ...prev, isSpeaking: true }));
+      };
 
-    utterance.onend = () => {
-      setConversationState(prev => ({ ...prev, isSpeaking: false }));
-    };
+      utterance.onend = () => {
+        setConversationState(prev => ({ ...prev, isSpeaking: false }));
+      };
 
-    utterance.onerror = () => {
-      setConversationState(prev => ({ ...prev, isSpeaking: false }));
-    };
+      utterance.onerror = () => {
+        setConversationState(prev => ({ ...prev, isSpeaking: false }));
+      };
 
-    synthRef.current.speak(utterance);
-  }, [language, volume, isMuted]);
+      synthRef.current.speak(utterance);
+    },
+    [language, volume, isMuted]
+  );
 
   // Voice controls
   const startListening = useCallback(() => {
@@ -282,7 +330,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
     const socket = io('/virtual-assistant', {
       transports: ['websocket'],
       upgrade: true,
-      query: { userId, language }
+      query: { userId, language },
     });
 
     socket.on('connect', () => {
@@ -295,17 +343,17 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
       toast.error('Virtual Assistant disconnected');
     });
 
-    socket.on('agent_response', (data) => {
+    socket.on('agent_response', data => {
       if (voiceEnabled && data.response) {
         speak(data.response);
       }
     });
 
-    socket.on('task_update', (data) => {
+    socket.on('task_update', data => {
       toast.success(`Task ${data.task} updated: ${data.status}`);
     });
 
-    socket.on('error', (error) => {
+    socket.on('error', error => {
       toast.error(`Assistant error: ${error.message}`);
     });
 
@@ -326,7 +374,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
   useEffect(() => {
     initializeSpeechRecognition();
     initializeSpeechSynthesis();
-    
+
     return () => {
       if (recognitionRef.current) {
         recognitionRef.current.stop();
@@ -345,94 +393,106 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
   }, [initializeSpeechRecognition, initializeSpeechSynthesis]);
 
   // Handle mode changes
-  const handleModeChange = useCallback((newMode: typeof mode) => {
-    setMode(newMode);
-    
-    if (newMode === 'voice') {
-      setVoiceEnabled(true);
-      initializeSocket();
-    } else {
-      setVoiceEnabled(false);
-      if (socketRef.current) {
-        socketRef.current.disconnect();
-        socketRef.current = null;
+  const handleModeChange = useCallback(
+    (newMode: typeof mode) => {
+      setMode(newMode);
+
+      if (newMode === 'voice') {
+        setVoiceEnabled(true);
+        initializeSocket();
+      } else {
+        setVoiceEnabled(false);
+        if (socketRef.current) {
+          socketRef.current.disconnect();
+          socketRef.current = null;
+        }
       }
-    }
-  }, [initializeSocket]);
+    },
+    [initializeSocket]
+  );
 
   // Execute specialized tasks
-  const executeConsultation = useCallback(async (type: string, data: Record<string, unknown>) => {
-    try {
-      setConversationState(prev => ({ ...prev, isProcessing: true }));
-      
-      const result = await executeTask({
-        agent: 'legal-consultation',
-        task: type,
-        data: {
-          ...data,
-          language,
-          userId
-        }
-      });
+  const executeConsultation = useCallback(
+    async (type: string, data: Record<string, unknown>) => {
+      try {
+        setConversationState(prev => ({ ...prev, isProcessing: true }));
 
-      toast.success('Consultation completed');
-      return result;
-    } catch (error) {
-      toast.error('Consultation failed');
-      throw error;
-    } finally {
-      setConversationState(prev => ({ ...prev, isProcessing: false }));
-    }
-  }, [executeTask, language, userId]);
+        const result = await executeTask({
+          agent: 'legal-consultation',
+          task: type,
+          data: {
+            ...data,
+            language,
+            userId,
+          },
+        });
 
-  const analyzeDocument = useCallback(async (file: File, analysisType: string) => {
-    try {
-      setConversationState(prev => ({ ...prev, isProcessing: true }));
-      
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('analysisType', analysisType);
-      formData.append('language', language);
+        toast.success('Consultation completed');
+        return result;
+      } catch (error) {
+        toast.error('Consultation failed');
+        throw error;
+      } finally {
+        setConversationState(prev => ({ ...prev, isProcessing: false }));
+      }
+    },
+    [executeTask, language, userId]
+  );
 
-      const result = await executeTask({
-        agent: 'document-analysis',
-        task: 'analyze',
-        data: formData
-      });
+  const analyzeDocument = useCallback(
+    async (file: File, analysisType: string) => {
+      try {
+        setConversationState(prev => ({ ...prev, isProcessing: true }));
 
-      toast.success('Document analysis completed');
-      return result;
-    } catch (error) {
-      toast.error('Document analysis failed');
-      throw error;
-    } finally {
-      setConversationState(prev => ({ ...prev, isProcessing: false }));
-    }
-  }, [executeTask, language]);
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('analysisType', analysisType);
+        formData.append('language', language);
 
-  const scheduleAppointment = useCallback(async (appointmentData: Record<string, unknown>) => {
-    try {
-      setConversationState(prev => ({ ...prev, isProcessing: true }));
-      
-      const result = await executeTask({
-        agent: 'appointment-scheduling',
-        task: 'schedule',
-        data: {
-          ...appointmentData,
-          language,
-          userId
-        }
-      });
+        const result = await executeTask({
+          agent: 'document-analysis',
+          task: 'analyze',
+          data: formData,
+        });
 
-      toast.success('Appointment scheduled');
-      return result;
-    } catch (error) {
-      toast.error('Appointment scheduling failed');
-      throw error;
-    } finally {
-      setConversationState(prev => ({ ...prev, isProcessing: false }));
-    }
-  }, [executeTask, language, userId]);
+        toast.success('Document analysis completed');
+        return result;
+      } catch (error) {
+        toast.error('Document analysis failed');
+        throw error;
+      } finally {
+        setConversationState(prev => ({ ...prev, isProcessing: false }));
+      }
+    },
+    [executeTask, language]
+  );
+
+  const scheduleAppointment = useCallback(
+    async (appointmentData: Record<string, unknown>) => {
+      try {
+        setConversationState(prev => ({ ...prev, isProcessing: true }));
+
+        const result = await executeTask({
+          agent: 'appointment-scheduling',
+          task: 'schedule',
+          data: {
+            ...appointmentData,
+            language,
+            userId,
+          },
+        });
+
+        toast.success('Appointment scheduled');
+        return result;
+      } catch (error) {
+        toast.error('Appointment scheduling failed');
+        throw error;
+      } finally {
+        setConversationState(prev => ({ ...prev, isProcessing: false }));
+      }
+    },
+    [executeTask, language, userId]
+  );
 
   if (!isOpen) {
     return (
@@ -459,9 +519,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
     <AnimatePresence>
       <motion.div
         className={`fixed z-50 bg-white rounded-lg shadow-2xl border border-gray-200 ${
-          isMinimized 
-            ? 'bottom-6 right-6 w-80 h-16'
-            : 'bottom-6 right-6 w-96 h-[600px]'
+          isMinimized ? 'bottom-6 right-6 w-80 h-16' : 'bottom-6 right-6 w-96 h-[600px]'
         }`}
         initial={{ opacity: 0, scale: 0.8, y: 100 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -475,20 +533,28 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
               <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
                 <MessageCircle size={16} className="text-white" />
               </div>
-              <div className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full ${
-                connectionStatus === 'connected' ? 'bg-green-400' :
-                connectionStatus === 'connecting' ? 'bg-yellow-400' : 'bg-red-400'
-              }`} />
+              <div
+                className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full ${
+                  connectionStatus === 'connected'
+                    ? 'bg-green-400'
+                    : connectionStatus === 'connecting'
+                      ? 'bg-yellow-400'
+                      : 'bg-red-400'
+                }`}
+              />
             </div>
             <div>
               <h3 className="font-semibold text-gray-800">Vasquez Law Assistant</h3>
               <p className="text-xs text-gray-500">
-                {connectionStatus === 'connected' ? 'Online' : 
-                 connectionStatus === 'connecting' ? 'Connecting...' : 'Offline'}
+                {connectionStatus === 'connected'
+                  ? 'Online'
+                  : connectionStatus === 'connecting'
+                    ? 'Connecting...'
+                    : 'Offline'}
               </p>
             </div>
           </div>
-          
+
           <div className="flex items-center space-x-2">
             {/* Voice toggle */}
             <button
@@ -500,7 +566,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
             >
               {voiceEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
             </button>
-            
+
             {/* Minimize/Maximize */}
             <button
               onClick={() => setIsMinimized(!isMinimized)}
@@ -508,7 +574,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
             >
               {isMinimized ? <Globe size={16} /> : <Calendar size={16} />}
             </button>
-            
+
             {/* Close */}
             <button
               onClick={() => setIsOpen(false)}
@@ -528,8 +594,8 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
                 { id: 'voice', icon: Mic, label: 'Voice' },
                 { id: 'consultation', icon: Phone, label: 'Consult' },
                 { id: 'document', icon: FileText, label: 'Document' },
-                { id: 'appointment', icon: Calendar, label: 'Schedule' }
-              ].map((modeOption) => (
+                { id: 'appointment', icon: Calendar, label: 'Schedule' },
+              ].map(modeOption => (
                 <button
                   key={modeOption.id}
                   onClick={() => handleModeChange(modeOption.id as typeof mode)}
@@ -548,21 +614,25 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
             {/* Content Area */}
             <div className="flex-1 overflow-hidden">
               {mode === 'chat' && (
-                <ChatInterface 
+                <ChatInterface
                   language={language}
                   userId={userId}
                   onScheduleAppointment={() => setMode('appointment')}
-                  onCallRequest={() => window.location.href = 'tel:+1234567890'}
+                  onCallRequest={() => (window.location.href = 'tel:+1234567890')}
                 />
               )}
-              
+
               {mode === 'voice' && (
                 <div className="p-6 h-full flex flex-col items-center justify-center space-y-4">
-                  <div className={`w-20 h-20 rounded-full flex items-center justify-center transition-colors ${
-                    conversationState.isListening ? 'bg-red-100 text-red-600' :
-                    conversationState.isSpeaking ? 'bg-blue-100 text-blue-600' :
-                    'bg-gray-100 text-gray-400'
-                  }`}>
+                  <div
+                    className={`w-20 h-20 rounded-full flex items-center justify-center transition-colors ${
+                      conversationState.isListening
+                        ? 'bg-red-100 text-red-600'
+                        : conversationState.isSpeaking
+                          ? 'bg-blue-100 text-blue-600'
+                          : 'bg-gray-100 text-gray-400'
+                    }`}
+                  >
                     {conversationState.isProcessing ? (
                       <Loader2 size={32} className="animate-spin" />
                     ) : conversationState.isListening ? (
@@ -571,13 +641,16 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
                       <MicOff size={32} />
                     )}
                   </div>
-                  
+
                   <div className="text-center">
                     <p className="font-medium text-gray-800">
-                      {conversationState.isListening ? 'Listening...' :
-                       conversationState.isSpeaking ? 'Speaking...' :
-                       conversationState.isProcessing ? 'Processing...' :
-                       'Click to start voice conversation'}
+                      {conversationState.isListening
+                        ? 'Listening...'
+                        : conversationState.isSpeaking
+                          ? 'Speaking...'
+                          : conversationState.isProcessing
+                            ? 'Processing...'
+                            : 'Click to start voice conversation'}
                     </p>
                     {conversationState.transcript && (
                       <p className="text-sm text-gray-600 mt-2">
@@ -590,7 +663,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
                       </p>
                     )}
                   </div>
-                  
+
                   <div className="flex space-x-3">
                     <button
                       onClick={conversationState.isListening ? stopListening : startListening}
@@ -603,7 +676,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
                     >
                       {conversationState.isListening ? 'Stop' : 'Start'}
                     </button>
-                    
+
                     {conversationState.isSpeaking && (
                       <button
                         onClick={stopSpeaking}
@@ -615,21 +688,23 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
                   </div>
                 </div>
               )}
-              
+
               {mode === 'consultation' && (
                 <div className="p-4 space-y-4">
                   <h4 className="font-semibold text-gray-800">Legal Consultation</h4>
-                  
+
                   <div className="grid grid-cols-2 gap-3">
                     {[
                       'Immigration Case Review',
                       'Criminal Defense Analysis',
                       'Personal Injury Assessment',
-                      'Family Law Consultation'
-                    ].map((consultationType) => (
+                      'Family Law Consultation',
+                    ].map(consultationType => (
                       <button
                         key={consultationType}
-                        onClick={() => executeConsultation('quick-consultation', { type: consultationType })}
+                        onClick={() =>
+                          executeConsultation('quick-consultation', { type: consultationType })
+                        }
                         disabled={conversationState.isProcessing}
                         className="p-3 text-sm bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors disabled:opacity-50"
                       >
@@ -637,7 +712,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
                       </button>
                     ))}
                   </div>
-                  
+
                   {activeAgent === 'legal-consultation' && (
                     <div className="mt-4 p-3 bg-yellow-50 text-yellow-800 rounded-lg text-sm">
                       Consultation in progress...
@@ -645,18 +720,18 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
                   )}
                 </div>
               )}
-              
+
               {mode === 'document' && (
                 <div className="p-4 space-y-4">
                   <h4 className="font-semibold text-gray-800">Document Analysis</h4>
-                  
+
                   <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
                     <input
                       type="file"
                       id="document-upload"
                       className="hidden"
                       accept=".pdf,.doc,.docx,.txt"
-                      onChange={(e) => {
+                      onChange={e => {
                         const file = e.target.files?.[0];
                         if (file) {
                           analyzeDocument(file, 'legal-review');
@@ -668,12 +743,10 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
                       className="cursor-pointer flex flex-col items-center space-y-2"
                     >
                       <FileText size={32} className="text-gray-400" />
-                      <span className="text-sm text-gray-600">
-                        Upload document for analysis
-                      </span>
+                      <span className="text-sm text-gray-600">Upload document for analysis</span>
                     </label>
                   </div>
-                  
+
                   {activeAgent === 'document-analysis' && (
                     <div className="mt-4 p-3 bg-yellow-50 text-yellow-800 rounded-lg text-sm">
                       Analyzing document...
@@ -681,11 +754,11 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
                   )}
                 </div>
               )}
-              
+
               {mode === 'appointment' && (
                 <div className="p-4 space-y-4">
                   <h4 className="font-semibold text-gray-800">Schedule Appointment</h4>
-                  
+
                   <div className="space-y-3">
                     <select className="w-full p-2 border border-gray-300 rounded-lg text-sm">
                       <option>Select consultation type</option>
@@ -694,13 +767,13 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
                       <option>Personal Injury Consultation</option>
                       <option>Family Law Consultation</option>
                     </select>
-                    
+
                     <input
                       type="date"
                       className="w-full p-2 border border-gray-300 rounded-lg text-sm"
                       min={new Date().toISOString().split('T')[0]}
                     />
-                    
+
                     <select className="w-full p-2 border border-gray-300 rounded-lg text-sm">
                       <option>Preferred time</option>
                       <option>9:00 AM</option>
@@ -710,20 +783,22 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
                       <option>3:00 PM</option>
                       <option>4:00 PM</option>
                     </select>
-                    
+
                     <button
-                      onClick={() => scheduleAppointment({
-                        type: 'consultation',
-                        date: new Date(),
-                        time: '10:00 AM'
-                      })}
+                      onClick={() =>
+                        scheduleAppointment({
+                          type: 'consultation',
+                          date: new Date(),
+                          time: '10:00 AM',
+                        })
+                      }
                       disabled={conversationState.isProcessing}
                       className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
                     >
                       Schedule Appointment
                     </button>
                   </div>
-                  
+
                   {activeAgent === 'appointment-scheduling' && (
                     <div className="mt-4 p-3 bg-yellow-50 text-yellow-800 rounded-lg text-sm">
                       Scheduling appointment...
@@ -736,18 +811,11 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
             {/* Status bar */}
             <div className="px-4 py-2 bg-gray-50 border-t border-gray-200 text-xs text-gray-500">
               <div className="flex items-center justify-between">
-                <span>
-                  {activeAgent ? `Active: ${activeAgent}` : 'Ready'}
-                </span>
+                <span>{activeAgent ? `Active: ${activeAgent}` : 'Ready'}</span>
                 <span className="flex items-center space-x-2">
-                  {conversationState.error && (
-                    <span className="text-red-500">Error</span>
-                  )}
+                  {conversationState.error && <span className="text-red-500">Error</span>}
                   {error && (
-                    <button
-                      onClick={clearError}
-                      className="text-red-500 hover:text-red-700"
-                    >
+                    <button onClick={clearError} className="text-red-500 hover:text-red-700">
                       Clear Error
                     </button>
                   )}

@@ -128,7 +128,7 @@ export class ContentScheduler {
       const performance = await this.getContentPerformance(contentId);
 
       // Check if rescheduling would help
-      if ((performance as any).viewsPerHour < 10) {
+      if ((performance as unknown).viewsPerHour < 10) {
         // Find better time slot
         const betterTime = await this.findBetterTimeSlot(contentId);
 
@@ -228,7 +228,7 @@ export class ContentScheduler {
     return performanceData;
   }
 
-  private analyzeOptimalHours(performanceData: any[]): number[] {
+  private analyzeOptimalHours(performanceData: unknown[]): number[] {
     // Group by hour of day
     const hourlyPerformance = new Map<number, number[]>();
 

@@ -55,16 +55,16 @@ export interface Workflow {
   steps: WorkflowStep[];
   currentStep: number;
   status: 'pending' | 'running' | 'completed' | 'failed';
-  context: Record<string, any>;
+  context: Record<string, unknown>;
   createdAt: Date;
   completedAt?: Date;
 }
 
 export interface AgentCommunicationChannel {
   agentName: string;
-  messageQueue: any[];
+  messageQueue: unknown[];
   subscribers: Set<string>;
-  messageHandlers: Map<string, (...args: any[]) => any>;
+  messageHandlers: Map<string, (...args: unknown[]) => any>;
   lastActivity: Date;
 }
 
@@ -477,7 +477,7 @@ export class CrewCoordinator {
     return JSON.stringify(data);
   }
 
-  private decompressData(data: string): any {
+  private decompressData(data: string): unknown {
     // Simple decompression simulation
     return JSON.parse(data);
   }
@@ -562,7 +562,7 @@ export class CrewCoordinator {
 
   private async checkStepDependencies(
     step: WorkflowStep,
-    results: any[]
+    results: unknown[]
   ): Promise<{
     canExecute: boolean;
     missingDependencies: string[];
@@ -584,7 +584,7 @@ export class CrewCoordinator {
 
   private async executeWorkflowStep(
     step: WorkflowStep,
-    context: Record<string, any>
+    context: Record<string, unknown>
   ): Promise<any> {
     step.status = 'running';
     step.startTime = new Date();
@@ -783,7 +783,7 @@ export class CrewCoordinator {
     return this.workflowManager.get(workflowId) || null;
   }
 
-  getAgentPerformanceMetrics(agentName: string): any {
+  getAgentPerformanceMetrics(agentName: string): unknown {
     return this.performanceMetrics.get(agentName) || null;
   }
 

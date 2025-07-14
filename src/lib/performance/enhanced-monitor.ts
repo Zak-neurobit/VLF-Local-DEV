@@ -74,7 +74,7 @@ class EnhancedPerformanceMonitor {
       const fidObserver = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           if (entry.name === 'first-input') {
-            this.metrics.fid = (entry as any).processingStart - entry.startTime;
+            this.metrics.fid = (entry as unknown).processingStart - entry.startTime;
           }
         }
       });
@@ -85,8 +85,8 @@ class EnhancedPerformanceMonitor {
       const clsObserver = new PerformanceObserver(list => {
         let clsValue = 0;
         for (const entry of list.getEntries()) {
-          if (!(entry as any).hadRecentInput) {
-            clsValue += (entry as any).value;
+          if (!(entry as unknown).hadRecentInput) {
+            clsValue += (entry as unknown).value;
           }
         }
         this.metrics.cls = clsValue;
@@ -153,7 +153,7 @@ class EnhancedPerformanceMonitor {
     // Memory usage monitoring
     const checkMemory = () => {
       if ('memory' in performance) {
-        const memory = (performance as any).memory;
+        const memory = (performance as unknown).memory;
         this.metrics.jsHeapSize = memory.jsHeapSizeLimit;
         this.metrics.totalJSHeapSize = memory.totalJSHeapSize;
         this.metrics.usedJSHeapSize = memory.usedJSHeapSize;
@@ -165,7 +165,7 @@ class EnhancedPerformanceMonitor {
     const memoryInterval = setInterval(checkMemory, 30000); // Check every 30 seconds
 
     // Store interval ID for cleanup
-    (this as any).memoryInterval = memoryInterval;
+    (this as unknown).memoryInterval = memoryInterval;
   }
 
   private getResourceType(url: string): string {
@@ -246,8 +246,8 @@ Performance Report:
       }
     });
 
-    if ((this as any).memoryInterval) {
-      clearInterval((this as any).memoryInterval);
+    if ((this as unknown).memoryInterval) {
+      clearInterval((this as unknown).memoryInterval);
     }
   }
 

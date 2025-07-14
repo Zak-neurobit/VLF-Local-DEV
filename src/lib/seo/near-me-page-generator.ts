@@ -169,7 +169,7 @@ export function generateNearMeContent(data: NearMePageData) {
 }
 
 function getServiceDetails(service: string, city: string) {
-  const serviceMap: Record<string, any> = {
+  const serviceMap: Record<string, unknown> = {
     'Immigration Lawyer': [
       {
         title: 'Green Card Applications',
@@ -339,7 +339,7 @@ function generateLocalTestimonials(service: string, city: string) {
 }
 
 function getOfficeAddress(city: string) {
-  const offices: Record<string, any> = {
+  const offices: Record<string, unknown> = {
     Charlotte: {
       street: '201 N. Tryon St #1250',
       city: 'Charlotte',

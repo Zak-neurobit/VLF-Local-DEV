@@ -13,7 +13,7 @@ export interface EmailOptions {
   html?: string;
   text?: string;
   template?: string;
-  templateData?: Record<string, any>;
+  templateData?: Record<string, unknown>;
   attachments?: EmailAttachment[];
   replyTo?: string;
   priority?: 'high' | 'normal' | 'low';
@@ -36,7 +36,7 @@ export interface EmailResult {
 }
 
 // Simple template function to replace handlebars
-function compileTemplate(template: string, data: Record<string, any>): string {
+function compileTemplate(template: string, data: Record<string, unknown>): string {
   return template.replace(/\{\{(\w+)\}\}/g, (match, key) => {
     return data[key] || match;
   });

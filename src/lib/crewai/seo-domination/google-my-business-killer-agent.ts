@@ -4,34 +4,22 @@ import { logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 import { google } from 'googleapis';
 import * as cron from 'node-cron';
+import type {
+  GMBReview,
+  GMBLocation,
+  GMBPost,
+  GMBPhoto,
+  CompetitorGMBData,
+  ReviewResponse,
+  LocalSEOOptimization,
+  CompetitorAnalysis,
+} from '@/types/crewai';
+import type { PrismaClient } from '@prisma/client';
 
-interface GMBPost {
-  summary: string;
-  callToAction: {
-    actionType: 'LEARN_MORE' | 'BOOK' | 'CALL' | 'SIGN_UP';
-    url?: string;
-  };
-  media?: {
-    mediaFormat: 'PHOTO' | 'VIDEO';
-    sourceUrl: string;
-  };
-  topicType: 'STANDARD' | 'EVENT' | 'OFFER' | 'ALERT';
-  event?: {
-    title: string;
-    schedule: {
-      startDate: string;
-      startTime: string;
-      endDate?: string;
-      endTime?: string;
-    };
-  };
-}
-
-interface ReviewResponse {
-  reviewId: string;
-  response: string;
-  sentiment: 'positive' | 'negative' | 'neutral';
-  urgency: 'immediate' | 'high' | 'medium' | 'low';
+interface CounterStrategy {
+  actions: string[];
+  priority: string[];
+  timeline: string;
 }
 
 interface LocalRankingData {
@@ -44,9 +32,9 @@ interface LocalRankingData {
 
 export class GoogleMyBusinessKillerAgent {
   private model: ChatOpenAI;
-  private prisma: any;
-  private mybusinessApi: any;
-  private placesApi: any;
+  private prisma: PrismaClient | null = null;
+  private mybusinessApi: unknown;
+  private placesApi: unknown;
   private isRunning: boolean = false;
   private scheduledJobs: cron.ScheduledTask[] = [];
 
@@ -160,12 +148,12 @@ export class GoogleMyBusinessKillerAgent {
 
     this.mybusinessApi = google.mybusinessbusinessinformation({
       version: 'v1',
-      auth: authClient as any,
+      auth: authClient as unknown,
     });
 
     this.placesApi = google.places({
       version: 'v1',
-      auth: authClient as any,
+      auth: authClient as unknown,
     });
   }
 
@@ -410,7 +398,7 @@ Format as JSON with: summary, callToAction (actionType, url)
   /**
    * Generate intelligent review response
    */
-  private async generateReviewResponse(review: any): Promise<ReviewResponse> {
+  private async generateReviewResponse(review: GMBReview): Promise<ReviewResponse> {
     const isPositive = review.rating >= 4;
     const templates = isPositive
       ? review.rating === 5
@@ -734,7 +722,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
   private async trackReviewResponse(
     location: string,
-    review: any,
+    review: GMBReview,
     response: ReviewResponse
   ): Promise<void> {
     // Track in database for analytics
@@ -757,7 +745,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     }
   }
 
-  private async analyzeCompetitorGMBStrategy(data: any): Promise<any> {
+  private async analyzeCompetitorGMBStrategy(data: CompetitorGMBData): Promise<CompetitorAnalysis> {
     if (!data) return null;
 
     return {
@@ -770,13 +758,13 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     };
   }
 
-  private calculateResponseRate(reviews: any[]): number {
+  private calculateResponseRate(reviews: unknown[]): number {
     if (!reviews || reviews.length === 0) return 0;
     const responded = reviews.filter(r => r.reply).length;
     return (responded / reviews.length) * 100;
   }
 
-  private identifyStrengths(data: any): string[] {
+  private identifyStrengths(data: CompetitorGMBData): string[] {
     const strengths = [];
     if (data.rating >= 4.5) strengths.push('High rating');
     if (data.userRatingCount > 100) strengths.push('Many reviews');
@@ -784,7 +772,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     return strengths;
   }
 
-  private identifyWeaknesses(data: any): string[] {
+  private identifyWeaknesses(data: CompetitorGMBData): string[] {
     const weaknesses = [];
     if (data.rating < 4.5) weaknesses.push('Rating below 4.5');
     if (data.userRatingCount < 50) weaknesses.push('Few reviews');
@@ -792,7 +780,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     return weaknesses;
   }
 
-  private async generateCounterStrategy(analysis: any): Promise<any> {
+  private async generateCounterStrategy(analysis: CompetitorAnalysis): Promise<CounterStrategy> {
     if (!analysis) return null;
 
     const strategies = [];
@@ -819,7 +807,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     return { strategies, priority: 'high' };
   }
 
-  private async executeCounterStrategy(strategy: any): Promise<void> {
+  private async executeCounterStrategy(strategy: CounterStrategy): Promise<void> {
     if (!strategy) return;
 
     // Execute top priority strategies
@@ -843,7 +831,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     };
   }
 
-  private async boostLocalSEO(keyword: string, location: any): Promise<void> {
+  private async boostLocalSEO(keyword: string, location: GMBLocation): Promise<void> {
     logger.info(`🚀 Boosting local SEO for "${keyword}" in ${location.name}`);
 
     // Create targeted content
@@ -853,7 +841,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     await this.updateDescriptionWithKeyword(keyword, location);
   }
 
-  private async createLocationSpecificPost(keyword: string, location: any): Promise<void> {
+  private async createLocationSpecificPost(keyword: string, location: GMBLocation): Promise<void> {
     const post: GMBPost = {
       summary: `Looking for a ${keyword} in ${location.name}? Vasquez Law Firm has been serving ${location.name} for over 20 years with proven results. Free consultation available! 📍 ${location.name} #${keyword.replace(/\s+/g, '')}`,
       callToAction: {
@@ -872,7 +860,10 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     }
   }
 
-  private async updateDescriptionWithKeyword(keyword: string, location: any): Promise<void> {
+  private async updateDescriptionWithKeyword(
+    keyword: string,
+    location: GMBLocation
+  ): Promise<void> {
     // Update business description to include keyword
     logger.info(`Updated description with keyword: ${keyword} for ${location.name}`);
   }
@@ -982,7 +973,10 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     };
   }
 
-  private async updateBusinessInfo(locationId: string, optimizations: any): Promise<void> {
+  private async updateBusinessInfo(
+    locationId: string,
+    optimizations: LocalSEOOptimization
+  ): Promise<void> {
     try {
       await this.mybusinessApi.locations.patch({
         name: `locations/${locationId}`,
@@ -1027,7 +1021,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     ];
   }
 
-  private async uploadPhoto(locationId: string, photo: any): Promise<void> {
+  private async uploadPhoto(locationId: string, photo: GMBPhoto): Promise<void> {
     try {
       // Upload photo to GMB
       logger.info(`Uploading photo to location ${locationId}: ${photo.type}`);

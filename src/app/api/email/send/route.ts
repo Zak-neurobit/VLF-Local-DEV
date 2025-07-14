@@ -16,7 +16,7 @@ const sendEmailSchema = z.object({
   html: z.string().optional(),
   text: z.string().optional(),
   template: z.string().optional(),
-  templateData: z.record(z.any()).optional(),
+  templateData: z.record(z.unknown()).optional(),
   replyTo: z.string().email().optional(),
   priority: z.enum(['high', 'normal', 'low']).optional(),
 });

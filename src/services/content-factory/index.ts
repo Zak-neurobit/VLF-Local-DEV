@@ -141,7 +141,7 @@ export class ContentFactory {
           language,
           targetKeywords: topic.keywords,
           includeLocalCaseStudy: true,
-          optimizeForVoiceSearch: Boolean((topic as any).isVoiceSearch),
+          optimizeForVoiceSearch: Boolean((topic as unknown).isVoiceSearch),
         });
 
         // Save to database
@@ -297,7 +297,7 @@ export class ContentFactory {
   /**
    * Generate schema markup for all content
    */
-  private async generateSchemaMarkup(content: any[]) {
+  private async generateSchemaMarkup(content: unknown[]) {
     logger.info('Generating schema markup for content', { count: content.length });
 
     for (const item of content) {
@@ -324,7 +324,7 @@ export class ContentFactory {
   /**
    * Schedule content for optimal publishing times
    */
-  private async scheduleContent(content: any[]) {
+  private async scheduleContent(content: unknown[]) {
     logger.info('Scheduling content publication', { count: content.length });
 
     const optimalTimes = await this.scheduler.getOptimalPublishingTimes();
@@ -455,7 +455,7 @@ export class ContentFactory {
     return audienceMap[practiceArea] || 'individuals seeking legal help';
   }
 
-  private extractTopTopics(content: any[]): string[] {
+  private extractTopTopics(content: unknown[]): string[] {
     // Extract and rank topics by performance
     const topicCounts = new Map<string, number>();
 
@@ -475,7 +475,7 @@ export class ContentFactory {
     return title.split(':')[0].trim();
   }
 
-  private extractBestKeywords(content: any[]): string[] {
+  private extractBestKeywords(content: unknown[]): string[] {
     const keywordPerformance = new Map<string, number>();
 
     content.forEach(item => {
@@ -493,12 +493,12 @@ export class ContentFactory {
       .map(([keyword]) => keyword);
   }
 
-  private calculateOptimalLength(content: any[]): number {
+  private calculateOptimalLength(content: unknown[]): number {
     const lengths = content.map(item => item.content.length);
     return Math.round(lengths.reduce((a, b) => a + b, 0) / lengths.length);
   }
 
-  private identifyBestPublishTimes(content: any[]): string[] {
+  private identifyBestPublishTimes(content: unknown[]): string[] {
     // Analyze publish times vs performance
     const timePerformance = new Map<number, number>();
 
@@ -515,13 +515,13 @@ export class ContentFactory {
       .map(([hour]) => `${hour}:00`);
   }
 
-  private calculateAverage(items: any[], field: string): number {
+  private calculateAverage(items: unknown[], field: string): number {
     if (items.length === 0) return 0;
     const sum = items.reduce((acc, item) => acc + (item[field] || 0), 0);
     return Math.round(sum / items.length);
   }
 
-  private calculateAvgPosition(content: any[]): number {
+  private calculateAvgPosition(content: unknown[]): number {
     const positions = content
       .flatMap(c => c.seoAnalysis?.map((a: any) => a.avgPosition) || [])
       .filter(p => p > 0);

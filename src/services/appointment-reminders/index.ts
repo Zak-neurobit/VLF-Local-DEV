@@ -15,7 +15,7 @@ export class AppointmentReminderService {
       logger.info(`Found ${appointments.length} appointments for reminder`);
 
       for (const appointment of appointments) {
-        await this.sendReminder(appointment as any);
+        await this.sendReminder(appointment as unknown);
       }
 
       // Get appointments for 1 week out

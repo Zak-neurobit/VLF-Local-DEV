@@ -97,7 +97,7 @@ export const removalDefenseTraining: AgentTrainingData = {
       expectedResponse:
         "A single DUI typically isn't an aggravated felony, but it can affect discretionary relief and bond. The judge will consider it for moral character. Were there any aggravating factors like injury or property damage?",
       followUpQuestions: [
-        'Was anyone injured in the DUI incident?',
+        'Was unknownone injured in the DUI incident?',
         'What was your blood alcohol level?',
         'Have you completed all court requirements?',
         'Do you have any other arrests or convictions?',

@@ -68,8 +68,8 @@ export class GHLNotificationService {
   async sendBulkSMS(options: z.infer<typeof BulkSMSSchema>) {
     try {
       const validated = BulkSMSSchema.parse(options);
-      const results: any[] = [];
-      const errors: any[] = [];
+      const results: unknown[] = [];
+      const errors: unknown[] = [];
 
       // Process in batches to avoid rate limiting
       const batchSize = 10;

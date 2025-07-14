@@ -24,7 +24,7 @@ interface ErrorContext {
   userId?: string;
   url?: string;
   userAgent?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 class GlobalErrorHandler {
@@ -110,11 +110,13 @@ class GlobalErrorHandler {
         hasTrace: !!enrichedContext.traceId,
       },
       contexts: {
-        trace: enrichedContext.traceId ? {
-          trace_id: enrichedContext.traceId,
-          span_id: enrichedContext.spanId,
-          trace_url: enrichedContext.traceUrl,
-        } : undefined,
+        trace: enrichedContext.traceId
+          ? {
+              trace_id: enrichedContext.traceId,
+              span_id: enrichedContext.spanId,
+              trace_url: enrichedContext.traceUrl,
+            }
+          : undefined,
       },
     });
 
@@ -180,7 +182,10 @@ class GlobalErrorHandler {
       if (!groups.has(key)) {
         groups.set(key, []);
       }
-      groups.get(key)!.push(item);
+      const group = groups.get(key);
+      if (group) {
+        group.push(item);
+      }
     });
 
     return groups;

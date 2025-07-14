@@ -10,7 +10,7 @@ interface CallRoutingOptions {
   language?: 'en' | 'es';
   urgency?: 'low' | 'medium' | 'high' | 'emergency';
   sourceType?: 'website' | 'google' | 'referral' | 'existing_client';
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 interface RouteDecision {
@@ -476,9 +476,9 @@ export class CallRoutingService {
           urgency: options.urgency || 'low',
           routingReason: routeDecision.specialInstructions || 'Standard routing',
           metadata: {
-            routeDecision: routeDecision as any,
-            originalOptions: options as any,
-          } as any,
+            routeDecision: routeDecision as unknown,
+            originalOptions: options as unknown,
+          } as unknown,
         },
       });
 
@@ -514,7 +514,7 @@ export class CallRoutingService {
   }
 
   // Handle inbound call routing
-  async handleInboundCall(phoneNumber: string, metadata?: Record<string, any>) {
+  async handleInboundCall(phoneNumber: string, metadata?: Record<string, unknown>) {
     try {
       // Auto-detect call characteristics for inbound calls
       const options: CallRoutingOptions = {

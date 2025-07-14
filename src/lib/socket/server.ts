@@ -88,7 +88,7 @@ export class ChatSocketServer {
         // Try to authenticate with JWT token
         if (token) {
           try {
-            const decoded = jwt.verify(token, process.env.NEXTAUTH_SECRET!) as any;
+            const decoded = jwt.verify(token, process.env.NEXTAUTH_SECRET!) as unknown;
             userId = decoded.id;
             userRole = decoded.role;
             authenticated = true;

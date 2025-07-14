@@ -3,6 +3,8 @@ import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 import * as cron from 'node-cron';
+import type { SocialMediaPost, BlogContent } from '@/types/content-factory';
+import type { PrismaClient } from '@prisma/client';
 import axios from 'axios';
 
 interface SocialPost {
@@ -46,7 +48,7 @@ interface CompetitorActivity {
 
 export class SocialMediaDestroyerAgent {
   private model: ChatOpenAI;
-  private prisma: any;
+  private prisma: PrismaClient | null = null;
   private isRunning: boolean = false;
   private scheduledJobs: cron.ScheduledTask[] = [];
 
@@ -625,12 +627,12 @@ Format as JSON with:
 
   private async evaluateOpportunity(
     contentType: string,
-    data: { trending: string[]; news: any[]; competitorHits: any[] }
+    data: { trending: string[]; news: unknown[]; competitorHits: unknown[] }
   ): Promise<ViralContentStrategy> {
     const template = this.VIRAL_TEMPLATES[contentType as keyof typeof this.VIRAL_TEMPLATES];
 
     return {
-      contentType: contentType as any,
+      contentType: contentType as unknown,
       hook: template.hooks[0],
       structure: this.generateContentStructure(contentType),
       expectedEngagement: this.predictEngagement(contentType, data),
@@ -656,7 +658,7 @@ Format as JSON with:
     return structures[contentType as keyof typeof structures] || ['Hook', 'Body', 'CTA'];
   }
 
-  private predictEngagement(contentType: string, data: any): number {
+  private predictEngagement(contentType: string, data: SocialPost): number {
     // Predict engagement based on content type and current trends
     const baseEngagement = {
       educational: 1500,
@@ -687,7 +689,7 @@ Format as JSON with:
     return audienceMap[contentType as keyof typeof audienceMap] || ['general public'];
   }
 
-  private async optimizeForPlatforms(content: any): Promise<Record<string, SocialPost>> {
+  private async optimizeForPlatforms(content: BlogContent): Promise<Record<string, SocialPost>> {
     const optimized: Record<string, SocialPost> = {};
 
     // Facebook - longer form, emotional
@@ -759,7 +761,7 @@ Format as JSON with:
     return [];
   }
 
-  private async analyzeCompetitorPost(post: any): Promise<CompetitorActivity> {
+  private async analyzeCompetitorPost(post: SocialPost): Promise<CompetitorActivity> {
     return {
       platform: post.platform || 'facebook',
       competitorName: post.author || 'Unknown',
@@ -792,7 +794,7 @@ Format as JSON with:
     await this.publishImmediately(counterContent);
   }
 
-  private async publishImmediately(content: any): Promise<void> {
+  private async publishImmediately(content: SocialPost): Promise<void> {
     // Publish across all platforms immediately
     const platforms = ['facebook', 'twitter', 'linkedin', 'instagram'];
 
@@ -862,17 +864,17 @@ Format as JSON with:
     };
   }
 
-  private async shareInCommunities(content: any): Promise<void> {
+  private async shareInCommunities(content: SocialPost): Promise<void> {
     // Share in relevant online communities
     logger.info(`Sharing linkable content in communities: ${content.title}`);
   }
 
-  private async engageInfluencers(content: any): Promise<void> {
+  private async engageInfluencers(content: SocialPost): Promise<void> {
     // Engage with local influencers
     logger.info('Engaging with local influencers for backlinks');
   }
 
-  private async submitToAggregators(content: any): Promise<void> {
+  private async submitToAggregators(content: SocialPost): Promise<void> {
     // Submit to content aggregators
     logger.info('Submitting to legal content aggregators');
   }
@@ -890,7 +892,7 @@ Format as JSON with:
     return scheduled;
   }
 
-  private async adaptContentForPlatforms(post: any): Promise<Record<string, any>> {
+  private async adaptContentForPlatforms(post: SocialPost): Promise<Record<string, SocialPost>> {
     // Adapt content for each platform's requirements
     return {
       facebook: { ...post, content: post.content },
@@ -900,7 +902,7 @@ Format as JSON with:
     };
   }
 
-  private async postToPlatform(platform: SocialPost['platform'], post: any): Promise<void> {
+  private async postToPlatform(platform: SocialPost['platform'], post: SocialPost): Promise<void> {
     switch (platform) {
       case 'facebook':
         await this.postToFacebook(post);
@@ -935,7 +937,7 @@ Format as JSON with:
     });
   }
 
-  private async fetchPostEngagement(post: any): Promise<any> {
+  private async fetchPostEngagement(post: SocialPost): Promise<EngagementMetrics> {
     // Fetch engagement metrics for a post
     return {
       rate: Math.random() * 0.1, // 0-10% engagement rate
@@ -945,7 +947,7 @@ Format as JSON with:
     };
   }
 
-  private async boostPost(post: any): Promise<void> {
+  private async boostPost(post: SocialPost): Promise<void> {
     // Boost underperforming posts
     logger.info(`Boosting post: ${post.blogPostId}`);
 
@@ -955,7 +957,7 @@ Format as JSON with:
     // Would post comment on actual platform
   }
 
-  private async engageWithComments(post: any): Promise<void> {
+  private async engageWithComments(post: SocialPost): Promise<void> {
     // Engage with high-comment posts
     logger.info(`Engaging with comments on post: ${post.blogPostId}`);
   }

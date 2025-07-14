@@ -5,8 +5,8 @@ export class AnalyticsService {
     logger.info('Tracking event', { eventName, properties });
 
     // Mock implementation - integrate with Google Analytics, Mixpanel, etc.
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', eventName, properties);
+    if (typeof window !== 'undefined' && (window as unknown).gtag) {
+      (window as unknown).gtag('event', eventName, properties);
     }
   }
 

@@ -2,14 +2,14 @@
 // BUILD UP NOT DOWN - simplified but functional cache
 
 interface MockCache {
-  get: (key: string) => Promise<any>;
-  set: (key: string, value: any, ttl?: number) => Promise<void>;
+  get: (key: string) => Promise<unknown>;
+  set: (key: string, value: unknown, ttl?: number) => Promise<void>;
   del: (key: string) => Promise<void>;
   clear: () => Promise<void>;
   delete: (key: string) => Promise<void>;
   deletePattern: (pattern: string) => Promise<void>;
   flush: () => Promise<void>;
-  info: () => Promise<any>;
+  info: () => Promise<Record<string, unknown>>;
   keys: (pattern: string) => Promise<string[]>;
   dbsize: () => Promise<number>;
   memory: (cmd: string, key: string) => Promise<number>;
@@ -72,12 +72,12 @@ export const CacheTTL = {
 };
 
 export function Cacheable(ttl = 300) {
-  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  return function (target: object, propertyKey: string, descriptor: PropertyDescriptor) {
     return descriptor;
   };
 }
 
-export async function withCache(key: string, fn: () => Promise<any>, ttl = 300) {
+export async function withCache<T>(key: string, fn: () => Promise<T>, ttl = 300): Promise<T> {
   return await fn();
 }
 

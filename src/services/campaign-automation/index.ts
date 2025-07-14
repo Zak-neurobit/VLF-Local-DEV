@@ -7,7 +7,7 @@ interface CampaignTarget {
   contactId: string;
   campaignId: string;
   reason: string;
-  data?: Record<string, any>;
+  data?: Record<string, unknown>;
 }
 
 export class CampaignAutomationService {

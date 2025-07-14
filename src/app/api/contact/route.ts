@@ -11,7 +11,10 @@ export async function POST(req: NextRequest) {
 
   try {
     // Apply rate limiting
-    const rateLimitResponse = await contactFormLimiter(req);
+    const rateLimitResponse = await contactFormLimiter({
+      headers: Object.fromEntries(req.headers.entries()),
+      ip: req.headers.get('x-forwarded-for') || req.ip || undefined,
+    });
     if (rateLimitResponse) {
       return rateLimitResponse;
     }

@@ -12,6 +12,12 @@ import { logger } from '@/lib/logger';
 import { EventEmitter } from 'events';
 import pLimit from 'p-limit';
 
+interface BaseAgent {
+  name: string;
+  execute(input: unknown): Promise<unknown>;
+  initialize?(): Promise<void>;
+}
+
 export interface AgentContext {
   userId?: string;
   sessionId: string;
@@ -69,7 +75,7 @@ export interface BaseAgent {
 
 // Adapter wrapper for CrewAI agents
 class CrewAIAgentAdapter implements BaseAgent {
-  constructor(private agent: any) {}
+  constructor(private agent: BaseAgent) {}
 
   async process(input: string, context: AgentContext): Promise<AgentResponse> {
     // Default implementation that calls the agent's primary method
@@ -84,7 +90,7 @@ class CrewAIAgentAdapter implements BaseAgent {
     } else if (this.agent.assessCase) {
       return this.handleAssessment(input, context);
     }
-    
+
     throw new Error('Agent does not have a recognized method');
   }
 
@@ -100,7 +106,8 @@ class CrewAIAgentAdapter implements BaseAgent {
 
     return {
       agent: 'consultation',
-      response: result.recommendations?.join('\n\n') || 'Please provide more details about your case.',
+      response:
+        result.recommendations?.join('\n\n') || 'Please provide more details about your case.',
       suggestions: result.nextSteps || [],
     };
   }
@@ -109,7 +116,8 @@ class CrewAIAgentAdapter implements BaseAgent {
     // For appointment scheduling, we need to parse the input for appointment details
     return {
       agent: 'appointment',
-      response: 'I can help you schedule an appointment. Please provide your preferred date and time.',
+      response:
+        'I can help you schedule an appointment. Please provide your preferred date and time.',
       actions: [
         {
           type: 'show-calendar',
@@ -185,7 +193,7 @@ class CrewAIAgentAdapter implements BaseAgent {
 
 // Adapter for automation agents
 class AutomationAgentAdapter implements BaseAgent {
-  constructor(private agent: any) {}
+  constructor(private agent: BaseAgent) {}
 
   async process(input: string, context: AgentContext): Promise<AgentResponse> {
     if (this.agent.validateLead) {
@@ -193,7 +201,7 @@ class AutomationAgentAdapter implements BaseAgent {
     } else if (this.agent.createFollowUpSequence) {
       return this.handleFollowUp(input, context);
     }
-    
+
     throw new Error('Automation agent does not have a recognized method');
   }
 
@@ -298,18 +306,42 @@ export class AgentOrchestrator extends EventEmitter {
     };
 
     // Initialize all customer-facing agents with adapters
-    safeRegister('consultation', () => new CrewAIAgentAdapter(new LegalConsultationAgent()), 'crewai');
-    safeRegister('appointment', () => new CrewAIAgentAdapter(new AppointmentSchedulingAgent()), 'crewai');
+    safeRegister(
+      'consultation',
+      () => new CrewAIAgentAdapter(new LegalConsultationAgent()),
+      'crewai'
+    );
+    safeRegister(
+      'appointment',
+      () => new CrewAIAgentAdapter(new AppointmentSchedulingAgent()),
+      'crewai'
+    );
     safeRegister('document', () => new CrewAIAgentAdapter(new DocumentAnalysisAgent()), 'crewai');
     safeRegister('intake', () => new CrewAIAgentAdapter(new EnhancedIntakeAgent()), 'crewai');
     safeRegister('removal', () => new CrewAIAgentAdapter(new RemovalDefenseAgent()), 'crewai');
-    safeRegister('business', () => new CrewAIAgentAdapter(new BusinessImmigrationAgent()), 'crewai');
+    safeRegister(
+      'business',
+      () => new CrewAIAgentAdapter(new BusinessImmigrationAgent()),
+      'crewai'
+    );
     safeRegister('criminal', () => new CrewAIAgentAdapter(new CriminalDefenseAgent()), 'crewai');
-    safeRegister('aila', () => new CrewAIAgentAdapter(new AILATrainedRemovalDefenseAgent()), 'crewai');
+    safeRegister(
+      'aila',
+      () => new CrewAIAgentAdapter(new AILATrainedRemovalDefenseAgent()),
+      'crewai'
+    );
 
     // Initialize automation agents with adapters
-    safeRegister('lead-validation', () => new AutomationAgentAdapter(new LeadValidationAgent()), 'automation');
-    safeRegister('follow-up', () => new AutomationAgentAdapter(new FollowUpAutomationAgent()), 'automation');
+    safeRegister(
+      'lead-validation',
+      () => new AutomationAgentAdapter(new LeadValidationAgent()),
+      'automation'
+    );
+    safeRegister(
+      'follow-up',
+      () => new AutomationAgentAdapter(new FollowUpAutomationAgent()),
+      'automation'
+    );
 
     // Log initialization results
     logger.info(`Agent Orchestrator initialization complete:`, {
@@ -541,7 +573,7 @@ export class AgentOrchestrator extends EventEmitter {
     memory.lastAccessed = new Date();
   }
 
-  getAgentMemory(agentName: string, key: string): any {
+  getAgentMemory(agentName: string, key: string): unknown {
     const memory = this.agentMemory.get(agentName);
     if (!memory) return null;
 
@@ -682,8 +714,10 @@ export class AgentOrchestrator extends EventEmitter {
     throw new Error(`Agent ${agentName} does not have a process method`);
   }
 
-
-  private async extractAppointmentData(_message: string, _context: AgentContext): Promise<{
+  private async extractAppointmentData(
+    _message: string,
+    _context: AgentContext
+  ): Promise<{
     complete: boolean;
     prompt: string;
     availableDates: string[];
@@ -730,7 +764,7 @@ export class AgentOrchestrator extends EventEmitter {
     return status;
   }
 
-  async testAgent(agentName: string, testMessage: string): Promise<any> {
+  async testAgent(agentName: string, testMessage: string): Promise<AgentResponse> {
     const agent = this.agents.get(agentName);
 
     if (!agent) {
@@ -783,7 +817,10 @@ export class AgentOrchestrator extends EventEmitter {
 
     // Analyze message queue and agent memories
     for (const [agentName, memory] of this.agentMemory) {
-      const agentMessages = memory.workingMemory.filter((item: any) => item.from || item.to).length;
+      const agentMessages = memory.workingMemory.filter(item => {
+        const messageItem = item as InterAgentMessage;
+        return messageItem.from || messageItem.to;
+      }).length;
       stats.messagesByAgent[agentName] = agentMessages;
       stats.totalMessages += agentMessages;
     }

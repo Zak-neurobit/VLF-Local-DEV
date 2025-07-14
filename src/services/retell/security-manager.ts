@@ -315,8 +315,8 @@ export class SecurityManager {
   }
 
   // Sanitize call metadata
-  sanitizeMetadata(metadata: Record<string, any>): Record<string, any> {
-    const sanitized: Record<string, any> = {};
+  sanitizeMetadata(metadata: Record<string, unknown>): Record<string, unknown> {
+    const sanitized: Record<string, unknown> = {};
 
     for (const [key, value] of Object.entries(metadata)) {
       // Skip sensitive keys
@@ -367,7 +367,7 @@ export class SecurityManager {
   private async logSecurityEvent(event: {
     type: string;
     riskLevel: 'low' | 'medium' | 'high';
-    details: Record<string, any>;
+    details: Record<string, unknown>;
   }): Promise<void> {
     try {
       logger.warn('Security event detected', {
@@ -402,7 +402,7 @@ export class SecurityManager {
   private async sendSecurityAlert(event: {
     type: string;
     riskLevel: string;
-    details: Record<string, any>;
+    details: Record<string, unknown>;
   }): Promise<void> {
     try {
       // Send email alert if configured
@@ -486,7 +486,7 @@ export class SecurityManager {
           high: 0,
         },
         byType: {} as Record<string, number>,
-        trendsOverTime: [] as any[],
+        trendsOverTime: [] as unknown[],
       };
 
       events.forEach(event => {
@@ -505,7 +505,7 @@ export class SecurityManager {
   validateCallConfig(config: {
     phoneNumber: string;
     agentId: string;
-    metadata?: Record<string, any>;
+    metadata?: Record<string, unknown>;
   }): SecurityValidation {
     try {
       const issues: string[] = [];

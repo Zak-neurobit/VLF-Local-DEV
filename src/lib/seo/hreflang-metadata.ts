@@ -278,10 +278,10 @@ export function generateBlogMetadata(options: {
 
   // Add article-specific OpenGraph data
   if (metadata.openGraph) {
-    (metadata.openGraph as any).type = 'article';
-    (metadata.openGraph as any).authors = options.author ? [options.author] : undefined;
-    (metadata.openGraph as any).publishedTime = options.publishDate?.toISOString();
-    (metadata.openGraph as any).tags = options.tags;
+    (metadata.openGraph as unknown).type = 'article';
+    (metadata.openGraph as unknown).authors = options.author ? [options.author] : undefined;
+    (metadata.openGraph as unknown).publishedTime = options.publishDate?.toISOString();
+    (metadata.openGraph as unknown).tags = options.tags;
   }
 
   return metadata;

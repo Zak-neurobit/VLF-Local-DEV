@@ -2,6 +2,7 @@ import { CookbookExtractor } from './cookbook-extractor';
 import { logger } from '@/lib/logger';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
+import type { TrainingData, QueryContext, AnalysisResult, AgentParams } from '@/types/crewai';
 
 interface AgentTrainingConfig {
   agentFile: string;
@@ -57,7 +58,7 @@ export class AgentTrainer {
     logger.info('Agent training completed successfully');
   }
 
-  private async createTrainedAgent(config: AgentTrainingConfig, trainingData: any) {
+  private async createTrainedAgent(config: AgentTrainingConfig, trainingData: TrainingData) {
     logger.info(`Creating trained ${config.agentType} agent`);
 
     const agentCode = this.generateAgentCode(config, trainingData);
@@ -67,7 +68,7 @@ export class AgentTrainer {
     logger.info(`Created ${config.agentFile}`);
   }
 
-  private generateAgentCode(config: AgentTrainingConfig, trainingData: any): string {
+  private generateAgentCode(config: AgentTrainingConfig, trainingData: TrainingData): string {
     const { className, systemPromptVar, agentType } = config;
 
     // Generate comprehensive system prompt with cookbook knowledge
@@ -117,7 +118,7 @@ ${methods}
       .filter(item => item.length > 0);
   }
 
-  private parseResponse(content: string): any {
+  private parseResponse(content: string): unknown {
     const sections = content.split('\\n\\n');
     return {
       summary: sections[0] || '',
@@ -132,7 +133,7 @@ ${methods}
 `;
   }
 
-  private generateSystemPrompt(agentType: string, trainingData: any): string {
+  private generateSystemPrompt(agentType: string, trainingData: TrainingData): string {
     const basePrompt = `You are an expert ${trainingData.expertise} attorney trained on the AILA Cookbook of Essential Practice Materials (4th Edition).
 
 Your specialized knowledge includes:
@@ -171,7 +172,7 @@ When providing advice:
     return basePrompt;
   }
 
-  private generateSpecializedMethods(agentType: string, trainingData: any): string {
+  private generateSpecializedMethods(agentType: string, trainingData: TrainingData): string {
     const methodsMap = {
       affirmative: `
   async analyzeFamilyPetition(params: {
@@ -270,7 +271,7 @@ Unlawful Presence: \${params.unlawfulPresence || 'None'}\`;
     }
   }
 
-  private getMockAnalysis(type: string, params: any): any {
+  private getMockAnalysis(type: string, params: AgentParams): AnalysisResult {
     const mockData = {
       family: {
         summary: 'Family-based petition analysis complete',
@@ -483,7 +484,7 @@ Current Safety: \${params.currentSafety}\`;
     }
   }
 
-  private getMockAnalysis(type: string, params: any): any {
+  private getMockAnalysis(type: string, params: AgentParams): AnalysisResult {
     const mockData = {
       asylum: {
         summary: 'Asylum claim requires immediate attention to one-year deadline',
@@ -727,7 +728,7 @@ Corporate Relationship: \${params.relationship}\`;
     }
   }
 
-  private getMockAnalysis(type: string, params: any): any {
+  private getMockAnalysis(type: string, params: AgentParams): AnalysisResult {
     const mockData = {
       h1b: {
         summary: 'H-1B petition requires careful documentation of specialty occupation',
@@ -894,7 +895,7 @@ export class EnhancedCrewCoordinator {
     logger.info('Enhanced CrewAI agents initialized with AILA Cookbook training');
   }
 
-  async routeQuery(query: string, context?: any): Promise<any> {
+  async routeQuery(query: string, context?: QueryContext): Promise<AnalysisResult> {
     // Analyze query to determine which agent(s) to use
     const routing = await this.analyzeQuery(query);
     
@@ -962,7 +963,7 @@ export class EnhancedCrewCoordinator {
     return { primaryAgent, agents };
   }
 
-  private async handleAffirmativeQuery(query: string, context?: any): Promise<any> {
+  private async handleAffirmativeQuery(query: string, context?: QueryContext): Promise<AnalysisResult> {
     // Extract relevant parameters from query
     if (query.toLowerCase().includes('naturalization') || query.toLowerCase().includes('n-400')) {
       return this.affirmativeAgent.prepareNaturalization({
@@ -992,7 +993,7 @@ export class EnhancedCrewCoordinator {
     }
   }
 
-  private async handleHumanitarianQuery(query: string, context?: any): Promise<any> {
+  private async handleHumanitarianQuery(query: string, context?: QueryContext): Promise<AnalysisResult> {
     if (query.toLowerCase().includes('asylum')) {
       return this.humanitarianAgent.analyzeAsylumClaim({
         clientName: context?.clientName || 'Client',
@@ -1021,7 +1022,7 @@ export class EnhancedCrewCoordinator {
     }
   }
 
-  private async handleBusinessQuery(query: string, context?: any): Promise<any> {
+  private async handleBusinessQuery(query: string, context?: QueryContext): Promise<AnalysisResult> {
     if (query.toLowerCase().includes('h-1b') || query.toLowerCase().includes('h1b')) {
       return this.businessAgent.analyzeH1B({
         position: context?.position || 'Position',
@@ -1060,7 +1061,7 @@ export class EnhancedCrewCoordinator {
     }
   }
 
-  private async handleRemovalQuery(query: string, context?: any): Promise<any> {
+  private async handleRemovalQuery(query: string, context?: QueryContext): Promise<AnalysisResult> {
     return this.removalAgent.analyzeCase({
       clientName: context?.clientName || 'Client',
       isDetained: context?.isDetained || false,
@@ -1074,7 +1075,7 @@ export class EnhancedCrewCoordinator {
     });
   }
 
-  private async handleCriminalQuery(query: string, context?: any): Promise<any> {
+  private async handleCriminalQuery(query: string, context?: QueryContext): Promise<AnalysisResult> {
     return this.criminalAgent.analyzeCase({
       charges: context?.charges || 'To be specified',
       jurisdiction: 'North Carolina',
@@ -1085,7 +1086,7 @@ export class EnhancedCrewCoordinator {
     });
   }
 
-  private async handleGeneralQuery(query: string, context?: any): Promise<any> {
+  private async handleGeneralQuery(query: string, context?: QueryContext): Promise<AnalysisResult> {
     // For general queries, provide routing information
     return {
       message: 'Please specify your legal need for appropriate assistance',

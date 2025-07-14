@@ -87,7 +87,7 @@ class PerformanceMonitor {
     const fidObserver = new PerformanceObserver(list => {
       const entries = list.getEntries();
       entries.forEach(entry => {
-        const fidEntry = entry as any;
+        const fidEntry = entry as unknown;
         performanceLogger.measure('FID', fidEntry.processingStart - fidEntry.startTime);
       });
     });
@@ -98,8 +98,8 @@ class PerformanceMonitor {
     let clsValue = 0;
     const clsObserver = new PerformanceObserver(list => {
       for (const entry of list.getEntries()) {
-        if (!(entry as any).hadRecentInput) {
-          clsValue += (entry as any).value;
+        if (!(entry as unknown).hadRecentInput) {
+          clsValue += (entry as unknown).value;
         }
       }
       performanceLogger.measure('CLS', clsValue);
@@ -113,8 +113,8 @@ class PerformanceMonitor {
     if (typeof window === 'undefined') return;
 
     setInterval(() => {
-      if ((performance as any).memory) {
-        const memory = (performance as any).memory;
+      if ((performance as unknown).memory) {
+        const memory = (performance as unknown).memory;
         performanceLogger.measure('memory-used', memory.usedJSHeapSize / 1048576, {
           totalJSHeapSize: memory.totalJSHeapSize / 1048576,
           jsHeapSizeLimit: memory.jsHeapSizeLimit / 1048576,

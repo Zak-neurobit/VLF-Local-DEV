@@ -6,7 +6,7 @@ export interface Message {
   text: string;
   sender: 'user' | 'assistant';
   timestamp: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 interface ChatState {

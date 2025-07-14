@@ -10,9 +10,10 @@ import { env } from '@/lib/env';
 
 // Use a simple console logger in edge runtime
 const logger = {
-  info: (message: string, ...args: any[]) => securityLogger.info(`[INFO] ${message}`, ...args),
-  error: (message: string, ...args: any[]) => securityLogger.error(`[ERROR] ${message}`, ...args),
-  warn: (message: string, ...args: any[]) => securityLogger.warn(`[WARN] ${message}`, ...args),
+  info: (message: string, ...args: unknown[]) => securityLogger.info(`[INFO] ${message}`, ...args),
+  error: (message: string, ...args: unknown[]) =>
+    securityLogger.error(`[ERROR] ${message}`, ...args),
+  warn: (message: string, ...args: unknown[]) => securityLogger.warn(`[WARN] ${message}`, ...args),
 };
 
 // Helper function to get client IP from request headers
@@ -58,7 +59,7 @@ const createSafeAdapter = () => {
 
 export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
-  adapter: createSafeAdapter() as any,
+  adapter: createSafeAdapter() as unknown,
   providers: [
     // Email/Password authentication
     CredentialsProvider({
@@ -313,7 +314,7 @@ export const authOptions: NextAuthOptions = {
         const dbConnected = await isDatabaseConnected();
         if (dbConnected) {
           // Get IP address from the request headers passed from the route handler
-          const headers = (message as any).__headers;
+          const headers = (message as unknown).__headers;
           const clientIp = getClientIp(headers);
 
           await safeDbOperation(

@@ -17,11 +17,11 @@ export async function GET(request: NextRequest) {
 
     // Get date range from query params
     const searchParams = request.nextUrl.searchParams;
-    const startDate = searchParams.get('start') ? new Date(searchParams.get('start')!) : new Date();
+    const startParam = searchParams.get('start');
+    const startDate = startParam ? new Date(startParam) : new Date();
 
-    const endDate = searchParams.get('end')
-      ? new Date(searchParams.get('end')!)
-      : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days from now
+    const endParam = searchParams.get('end');
+    const endDate = endParam ? new Date(endParam) : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days from now
 
     logger.info('Fetching content calendar', {
       userId: session.user.id,

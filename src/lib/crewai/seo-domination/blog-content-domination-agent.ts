@@ -250,7 +250,7 @@ export class BlogContentDominationAgent {
         const $ = cheerio.load(html);
 
         // Extract recent posts
-        const posts: any[] = [];
+        const posts: unknown[] = [];
         $('article, .blog-post, .post, .entry').each((_, elem) => {
           const title = $(elem).find('h1, h2, h3, .title, .entry-title').first().text().trim();
           const link = $(elem).find('a').first().attr('href');
@@ -358,7 +358,7 @@ export class BlogContentDominationAgent {
     // Analyze what competitors are missing
     const allCompetitorTopics = new Set<string>();
     competitorAnalyses.forEach(analysis => {
-      const posts = analysis.blogPosts as any[];
+      const posts = analysis.blogPosts as unknown[];
       posts.forEach(post => {
         if (post.keywords) {
           post.keywords.forEach((keyword: string) =>
@@ -667,7 +667,7 @@ Format as JSON with all sections clearly defined.
     return words.filter(word => !stopWords.has(word) && word.length > 3);
   }
 
-  private async analyzeCompetitorGaps(posts: any[], competitorUrl: string): Promise<any> {
+  private async analyzeCompetitorGaps(posts: unknown[], competitorUrl: string): Promise<any> {
     // Analyze what the competitor is missing
     const coveredTopics = new Set(posts.map(p => p.keywords).flat());
     const missingTopics: string[] = [];
@@ -835,7 +835,7 @@ Format as JSON with all sections clearly defined.
     const opportunities: ContentOpportunity[] = [];
 
     for (const analysis of analyses) {
-      const posts = analysis.blogPosts as any[];
+      const posts = analysis.blogPosts as unknown[];
       const topPosts = posts.slice(0, 3); // Their best content
 
       for (const post of topPosts) {
@@ -854,7 +854,7 @@ Format as JSON with all sections clearly defined.
     return opportunities;
   }
 
-  private getContentTemplate(opportunity: ContentOpportunity): any {
+  private getContentTemplate(opportunity: ContentOpportunity): unknown {
     if (opportunity.contentType === 'news_response')
       return this.CONTENT_TEMPLATES.breaking_news_response;
     if (opportunity.priority >= 9) return this.CONTENT_TEMPLATES.trending_topic;
@@ -904,7 +904,7 @@ Format as JSON with all sections clearly defined.
     ];
   }
 
-  private getNCGeoTargeting(): any {
+  private getNCGeoTargeting(): unknown {
     return {
       state: 'North Carolina',
       cities: ['Charlotte', 'Raleigh', 'Durham', 'Greensboro', 'Winston-Salem', 'Fayetteville'],
@@ -913,7 +913,7 @@ Format as JSON with all sections clearly defined.
     };
   }
 
-  private generateLocalBusinessSchema(): any {
+  private generateLocalBusinessSchema(): unknown {
     return {
       '@context': 'https://schema.org',
       '@type': 'LegalService',

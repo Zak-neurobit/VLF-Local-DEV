@@ -1,11 +1,11 @@
 // Dynamic logger that uses Winston on server and console on client
 // Enhanced with OpenTelemetry trace correlation
-let logger: any;
-let apiLogger: any;
-let securityLogger: any;
-let performanceLogger: any;
-let wsLogger: any;
-let dbLogger: any;
+let logger: winston.Logger;
+let apiLogger: winston.Logger;
+let securityLogger: winston.Logger;
+let performanceLogger: winston.Logger;
+let wsLogger: winston.Logger;
+let dbLogger: winston.Logger;
 
 // Import OpenTelemetry trace correlation (conditional for server-side only)
 let getTraceContext: (() => { traceId: string; spanId: string } | null) | null = null;
@@ -43,7 +43,7 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
       winston.format.errors({ stack: true }),
       winston.format.splat(),
       // Add trace context to all log entries
-      winston.format((info) => {
+      winston.format(info => {
         return addTraceContext(info);
       })(),
       winston.format.json()
@@ -78,43 +78,57 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
 
   // API Logger
   apiLogger = {
-    request: (endpoint: string, method: string, payload?: unknown, headers?: any) => {
+    request: (
+      endpoint: string,
+      method: string,
+      payload?: unknown,
+      headers?: Record<string, unknown>
+    ) => {
       const requestId = generateRequestId();
-      logger.info('API Request', addTraceContext({
-        requestId,
-        endpoint,
-        method,
-        payload: sanitizePayload(payload),
-        headers: sanitizeHeaders(headers),
-        timestamp: new Date().toISOString(),
-        category: 'api_request',
-      }));
+      logger.info(
+        'API Request',
+        addTraceContext({
+          requestId,
+          endpoint,
+          method,
+          payload: sanitizePayload(payload),
+          headers: sanitizeHeaders(headers),
+          timestamp: new Date().toISOString(),
+          category: 'api_request',
+        })
+      );
       return requestId;
     },
 
     response: (requestId: string, status: number, duration: number, data?: unknown) => {
-      logger.info('API Response', addTraceContext({
-        requestId,
-        status,
-        duration,
-        responseSize: data ? JSON.stringify(data).length : 0,
-        timestamp: new Date().toISOString(),
-        category: 'api_response',
-      }));
+      logger.info(
+        'API Response',
+        addTraceContext({
+          requestId,
+          status,
+          duration,
+          responseSize: data ? JSON.stringify(data).length : 0,
+          timestamp: new Date().toISOString(),
+          category: 'api_response',
+        })
+      );
     },
 
-    error: (requestId: string, error: any, retry?: number) => {
-      logger.error('API Error', addTraceContext({
-        requestId,
-        error: {
-          message: error.message,
-          stack: error.stack,
-          code: error.code,
-        },
-        retry,
-        timestamp: new Date().toISOString(),
-        category: 'api_error',
-      }));
+    error: (requestId: string, error: unknown, retry?: number) => {
+      logger.error(
+        'API Error',
+        addTraceContext({
+          requestId,
+          error: {
+            message: error.message,
+            stack: error.stack,
+            code: error.code,
+          },
+          retry,
+          timestamp: new Date().toISOString(),
+          category: 'api_error',
+        })
+      );
     },
 
     info: (message: string, meta?: unknown) => {
@@ -198,7 +212,12 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
     },
 
     // Additional methods for component tracking
-    stateChange: (componentName: string, previousState: any, newState: any, trigger: string) => {
+    stateChange: (
+      componentName: string,
+      previousState: unknown,
+      newState: unknown,
+      trigger: string
+    ) => {
       logger.debug(`State change: ${componentName}`, { previousState, newState, trigger });
     },
     mount: (componentName: string, props?: unknown) => {
@@ -210,7 +229,7 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
     rerender: (componentName: string, reason: string, changes?: unknown) => {
       logger.debug(`Component rerender: ${componentName}`, { reason, changes });
     },
-    propChange: (componentName: string, propName: string, oldValue: unknown, newValue: any) => {
+    propChange: (componentName: string, propName: string, oldValue: unknown, newValue: unknown) => {
       logger.debug(`Prop change: ${componentName}.${propName}`, { oldValue, newValue });
     },
     info: (message: string, meta?: unknown) => {
@@ -346,7 +365,12 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
 
   // Create compatible API interfaces
   apiLogger = {
-    request: (endpoint: string, method: string, payload?: unknown, headers?: any) => {
+    request: (
+      endpoint: string,
+      method: string,
+      payload?: unknown,
+      headers?: Record<string, unknown>
+    ) => {
       const requestId = `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       logger.info(`API Request: ${method} ${endpoint}`, { requestId });
       return requestId;
@@ -354,7 +378,7 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
     response: (requestId: string, status: number, duration: number, data?: unknown) => {
       logger.info(`API Response: ${status} in ${duration}ms`, { requestId });
     },
-    error: (requestId: string, error: any, retry?: number) => {
+    error: (requestId: string, error: unknown, retry?: number) => {
       logger.error(`API Error`, { requestId, error: error.message || error });
     },
     info: (message: string, meta?: unknown) => logger.info(message, meta),
@@ -433,7 +457,7 @@ function generateRequestId(): string {
   return `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 }
 
-function addTraceContext(metadata: any): any {
+function addTraceContext(metadata: Record<string, unknown>): Record<string, unknown> {
   if (!getTraceContext || typeof window !== 'undefined') {
     return metadata;
   }
@@ -456,7 +480,7 @@ function addTraceContext(metadata: any): any {
   return metadata;
 }
 
-function sanitizePayload(payload: unknown): any {
+function sanitizePayload(payload: unknown): unknown {
   if (!payload) return null;
 
   const sensitiveFields = ['password', 'token', 'apiKey', 'ssn', 'creditCard'];
@@ -471,7 +495,7 @@ function sanitizePayload(payload: unknown): any {
   return sanitized;
 }
 
-function sanitizeHeaders(headers: unknown): any {
+function sanitizeHeaders(headers: unknown): unknown {
   if (!headers) return null;
 
   const sensitiveHeaders = ['authorization', 'cookie', 'x-api-key'];

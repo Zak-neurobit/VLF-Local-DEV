@@ -8,7 +8,7 @@ interface ChatSyncOptions {
   message: string;
   language: 'en' | 'es';
   isUserMessage: boolean;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 interface ContactInfo {

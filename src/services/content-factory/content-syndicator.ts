@@ -4,6 +4,17 @@ import { LinkedInAPI } from '@/lib/external-apis/linkedin';
 import { MediumAPI } from '@/lib/external-apis/medium';
 import { PRNewsWireAPI } from '@/lib/external-apis/pr-newswire';
 import { LegalDirectoryAPI } from '@/lib/external-apis/legal-directories';
+import type {
+  BlogContent,
+  DirectorySubmissionFormat,
+  MediumPost,
+  LinkedInShare,
+  PRRelease,
+  CitationSource,
+  CitationResult,
+  SyndicationResult,
+  ContentSyndicationMetrics,
+} from '@/types/content-factory';
 
 export class ContentSyndicator {
   private linkedInAPI: LinkedInAPI;
@@ -36,7 +47,7 @@ export class ContentSyndicator {
   /**
    * Submit content to legal directories
    */
-  async submitToLegalDirectories(content: any) {
+  async submitToLegalDirectories(content: BlogContent) {
     logger.info('Submitting to legal directories', { id: content.id });
 
     const directories = [
@@ -52,7 +63,7 @@ export class ContentSyndicator {
       'bestlawyers',
     ];
 
-    const results = [];
+    const results: SyndicationResult[] = [];
 
     for (const directory of directories) {
       try {
@@ -86,11 +97,11 @@ export class ContentSyndicator {
   /**
    * Post content to Medium
    */
-  async postToMedium(content: any) {
+  async postToMedium(content: BlogContent) {
     logger.info('Posting to Medium', { id: content.id });
 
     try {
-      const mediumPost = {
+      const mediumPost: MediumPost = {
         title: content.title,
         content: await this.convertToMediumFormat(content),
         tags: this.getMediumTags(content),
@@ -120,12 +131,12 @@ export class ContentSyndicator {
   /**
    * Post content to LinkedIn
    */
-  async postToLinkedIn(content: any) {
+  async postToLinkedIn(content: BlogContent) {
     logger.info('Posting to LinkedIn', { id: content.id });
 
     try {
       // Create article post
-      const articlePost = {
+      const articlePost: LinkedInShare = {
         author: 'urn:li:organization:vasquez-law-firm',
         lifecycleState: 'PUBLISHED',
         specificContent: {
@@ -177,11 +188,11 @@ export class ContentSyndicator {
   /**
    * Create PR release for significant content
    */
-  async createPRRelease(content: any) {
+  async createPRRelease(content: BlogContent) {
     logger.info('Creating PR release', { id: content.id });
 
     try {
-      const release = {
+      const release: PRRelease = {
         headline: this.createPRHeadline(content),
         subheadline: content.metaDescription,
         dateline: `RALEIGH, NC - ${new Date().toLocaleDateString('en-US', {
@@ -232,10 +243,10 @@ export class ContentSyndicator {
   /**
    * Build citation network
    */
-  async buildCitations(content: any) {
+  async buildCitations(content: BlogContent) {
     logger.info('Building citation network', { id: content.id });
 
-    const citationSources = [
+    const citationSources: CitationSource[] = [
       // Legal citation sites
       {
         name: 'Google My Business',
@@ -274,7 +285,7 @@ export class ContentSyndicator {
       },
     ];
 
-    const results = [];
+    const results: SyndicationResult[] = [];
 
     for (const source of citationSources) {
       try {
@@ -308,7 +319,10 @@ export class ContentSyndicator {
   /**
    * Helper methods for formatting content
    */
-  private async formatForDirectory(content: any, directory: string): Promise<import('@/lib/external-apis/legal-directories').DirectorySubmission> {
+  private async formatForDirectory(
+    content: BlogContent,
+    directory: string
+  ): Promise<import('@/lib/external-apis/legal-directories').DirectorySubmission> {
     const formats = {
       avvo: {
         title: content.title,
@@ -337,8 +351,10 @@ export class ContentSyndicator {
       // Add more directory formats...
     };
 
-    const formatMap = formats[directory as keyof typeof formats] as any;
-    
+    const formatMap = formats[directory as keyof typeof formats] as
+      | DirectorySubmissionFormat
+      | undefined;
+
     // Ensure we always return a DirectorySubmission compatible object
     if (formatMap) {
       return {
@@ -350,7 +366,7 @@ export class ContentSyndicator {
         url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}`,
       };
     }
-    
+
     // Default format
     return {
       title: content.title,
@@ -359,7 +375,7 @@ export class ContentSyndicator {
     };
   }
 
-  private async convertToMediumFormat(content: any): Promise<string> {
+  private async convertToMediumFormat(content: BlogContent): Promise<string> {
     // Convert markdown to Medium-compatible format
     let mediumContent = content.content;
 
@@ -375,7 +391,7 @@ export class ContentSyndicator {
     return mediumContent;
   }
 
-  private getMediumTags(content: any): string[] {
+  private getMediumTags(content: BlogContent): string[] {
     const practiceAreaTags = {
       immigration: ['immigration', 'immigration-law', 'visa', 'green-card', 'citizenship'],
       'personal-injury': ['personal-injury', 'car-accident', 'injury-law', 'accident-lawyer'],
@@ -391,7 +407,7 @@ export class ContentSyndicator {
     return tags.slice(0, 5);
   }
 
-  private createLinkedInIntro(content: any): string {
+  private createLinkedInIntro(content: BlogContent): string {
     const intros = [
       `New insights on ${content.practiceArea} law: "${content.title}"`,
       `Important information for anyone dealing with ${content.practiceArea} issues.`,
@@ -404,9 +420,9 @@ export class ContentSyndicator {
     return `${intro}\n\n${content.excerpt}\n\nRead more: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}\n\n#LegalAdvice #${this.formatHashtag(content.practiceArea)} #NorthCarolinaLaw #VasquezLawFirm`;
   }
 
-  private async postToLinkedInCompanyPage(content: any) {
+  private async postToLinkedInCompanyPage(content: BlogContent) {
     // Post to company page with different format
-    const companyPost = {
+    const companyPost: LinkedInShare = {
       author: 'urn:li:organization:vasquez-law-firm',
       lifecycleState: 'PUBLISHED',
       specificContent: {
@@ -434,7 +450,7 @@ export class ContentSyndicator {
     return await this.linkedInAPI.createCompanyShare(companyPost);
   }
 
-  private createCompanyPagePost(content: any): string {
+  private createCompanyPagePost(content: BlogContent): string {
     return `📚 NEW ARTICLE: ${content.title}
 
 ${content.excerpt}
@@ -452,7 +468,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
 #${this.formatHashtag(content.practiceArea)} #LegalAdvice #NorthCarolinaLaw #LawyersOfLinkedIn`;
   }
 
-  private createPRHeadline(content: any): string {
+  private createPRHeadline(content: BlogContent): string {
     const templates = [
       `Vasquez Law Firm Releases Comprehensive Guide on ${this.formatPracticeArea(content.practiceArea)}`,
       `New Legal Insights: ${content.title}`,
@@ -463,7 +479,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     return templates[0]; // Use most professional template for PR
   }
 
-  private async createPRBody(content: any): Promise<string> {
+  private async createPRBody(content: BlogContent): Promise<string> {
     // Convert blog content to PR format
     const sections = content.content.split(/^##/m);
 
@@ -513,7 +529,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
   /**
    * Citation building methods
    */
-  private async submitToGoogleMyBusiness(content: any) {
+  private async submitToGoogleMyBusiness(content: BlogContent): Promise<CitationResult> {
     // Update GMB posts with new content
     const post = {
       summary: content.excerpt,
@@ -533,22 +549,22 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     return { postId: 'gmb-' + Date.now(), status: 'published' };
   }
 
-  private async submitToBingPlaces(content: any) {
+  private async submitToBingPlaces(content: BlogContent): Promise<CitationResult> {
     // Update Bing Places listing
     return { status: 'updated', listingId: 'bing-vlf' };
   }
 
-  private async submitToAppleMaps(content: any) {
+  private async submitToAppleMaps(content: BlogContent): Promise<CitationResult> {
     // Update Apple Maps Connect
     return { status: 'updated', placeId: 'apple-vlf' };
   }
 
-  private async updateBBBProfile(content: any) {
+  private async updateBBBProfile(content: BlogContent): Promise<CitationResult> {
     // Update BBB business profile
     return { status: 'updated', accreditationId: 'bbb-vlf' };
   }
 
-  private async submitToChamber(content: any) {
+  private async submitToChamber(content: BlogContent): Promise<CitationResult> {
     // Submit to local Chamber of Commerce directories
     const chambers = ['Greater Raleigh Chamber', 'Charlotte Chamber', 'Orlando Chamber'];
 
@@ -561,7 +577,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     };
   }
 
-  private async submitToLegalAid(content: any) {
+  private async submitToLegalAid(content: BlogContent): Promise<CitationResult> {
     // Submit to legal aid directories
     return {
       status: 'submitted',
@@ -569,7 +585,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     };
   }
 
-  private async submitToBarAssociations(content: any) {
+  private async submitToBarAssociations(content: BlogContent): Promise<CitationResult> {
     // Submit to bar association directories
     return {
       status: 'submitted',
@@ -582,7 +598,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     };
   }
 
-  private async buildContextualBacklinks(content: any) {
+  private async buildContextualBacklinks(content: BlogContent) {
     // Build high-quality contextual backlinks
     const strategies = [
       // Guest posting
@@ -600,7 +616,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     await Promise.all(strategies);
   }
 
-  private async submitGuestPost(content: any) {
+  private async submitGuestPost(content: BlogContent) {
     // Submit guest posts to relevant sites
     const sites = this.getGuestPostSites(content.practiceArea);
 
@@ -616,22 +632,22 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     return { submitted: sites.length, sites };
   }
 
-  private async submitToResourcePages(content: any) {
+  private async submitToResourcePages(content: BlogContent) {
     // Find and submit to relevant resource pages
     return { submitted: 5, category: 'legal-resources' };
   }
 
-  private async respondToHARO(content: any) {
+  private async respondToHARO(content: BlogContent) {
     // Respond to Help a Reporter Out queries
     return { responded: 3, category: content.practiceArea };
   }
 
-  private async pitchToPodcasts(content: any) {
+  private async pitchToPodcasts(content: BlogContent) {
     // Pitch attorneys as podcast guests
     return { pitched: 2, topic: content.title };
   }
 
-  private async buildLocalPartnerships(content: any) {
+  private async buildLocalPartnerships(content: BlogContent) {
     // Build partnerships with local organizations
     return { partnerships: 4, type: 'community-organizations' };
   }
@@ -639,7 +655,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
   /**
    * Tracking and analytics
    */
-  private async trackSyndication(contentId: string, platform: string, result: any) {
+  private async trackSyndication(contentId: string, platform: string, result: SyndicationResult) {
     const prisma = await import('@/lib/prisma').then(m => m.getPrismaClient());
 
     await prisma.contentSyndication.create({
@@ -649,7 +665,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
         status: result.success ? 'success' : 'failed',
         url: result.url,
         externalId: result.postId || result.shareId || result.releaseId,
-        metrics: result,
+        metrics: result as unknown,
         syndicatedAt: new Date(),
       },
     });
@@ -713,7 +729,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     return formatted[practiceArea as keyof typeof formatted] || practiceArea;
   }
 
-  private extractKeyPoint(content: any, index: number): string {
+  private extractKeyPoint(content: BlogContent, index: number): string {
     const defaultPoints = [
       'Expert legal guidance',
       'Free consultation available',
@@ -745,7 +761,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     return points.slice(0, count);
   }
 
-  private generateAttorneyQuote(content: any): string {
+  private generateAttorneyQuote(content: BlogContent): string {
     const quotes = {
       immigration:
         'Understanding your rights and options is crucial when navigating immigration law. This guide provides the clarity our clients need.',
@@ -801,7 +817,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     return sites[practiceArea as keyof typeof sites] || ['legaltalk.com', 'lawyerist.com'];
   }
 
-  private async formatAsGuestPost(content: any): Promise<string> {
+  private async formatAsGuestPost(content: BlogContent): Promise<string> {
     // Reformat content as guest post
     let guestContent = content.content;
 

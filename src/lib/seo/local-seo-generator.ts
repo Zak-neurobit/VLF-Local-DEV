@@ -382,8 +382,8 @@ export function generateLocalBusinessSchema(city: string, practiceArea?: string)
   };
 
   if (practiceArea) {
-    (baseSchema as any).knowsAbout = [practiceArea];
-    (baseSchema as any).serviceType = practiceArea;
+    (baseSchema as unknown).knowsAbout = [practiceArea];
+    (baseSchema as unknown).serviceType = practiceArea;
   }
 
   return baseSchema;

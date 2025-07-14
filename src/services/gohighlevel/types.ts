@@ -7,7 +7,7 @@ export interface GHLContact {
   phone: string;
   tags?: string[];
   source?: string;
-  customFields?: Record<string, any>;
+  customFields?: Record<string, unknown>;
 }
 
 export interface GHLContactUpdate {
@@ -17,7 +17,7 @@ export interface GHLContactUpdate {
   phone?: string;
   tags?: string[];
   source?: string;
-  customFields?: Record<string, any>;
+  customFields?: Record<string, unknown>;
 }
 
 export interface GHLSMSOptions {
@@ -38,7 +38,7 @@ export interface GHLTaskOptions {
   assignedTo?: string;
   dueDate?: Date;
   priority?: 'high' | 'medium' | 'low';
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface GHLNoteOptions {

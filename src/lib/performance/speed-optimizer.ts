@@ -18,7 +18,7 @@ export function useNetworkStatus() {
 
   useEffect(() => {
     if ('connection' in navigator) {
-      const connection = (navigator as any).connection;
+      const connection = (navigator as unknown).connection;
 
       const updateConnectionStatus = () => {
         setEffectiveType(connection.effectiveType || '4g');
@@ -143,7 +143,7 @@ export function lazyLoadScript(src: string, attributes?: Record<string, string>)
 }
 
 // Critical CSS extraction helper
-export function extractCriticalCSS(css: string, viewport: { width: number; height: number }) {
+export function extractCriticalCSS(css: string, _viewport: { width: number; height: number }) {
   // This is a placeholder - in production, use a tool like critical or penthouse
   // For now, return CSS that affects above-the-fold content
   return (
@@ -167,10 +167,9 @@ export function extractCriticalCSS(css: string, viewport: { width: number; heigh
 // Intersection Observer for lazy loading with network awareness
 export function createAdaptiveIntersectionObserver(
   callback: IntersectionObserverCallback,
-  options?: IntersectionObserverInit
+  options?: IntersectionObserverInit,
+  isSlowNetwork: boolean = false
 ) {
-  const { isSlowNetwork } = useNetworkStatus();
-
   // Adjust root margin based on network speed
   const adaptiveOptions: IntersectionObserverInit = {
     ...options,

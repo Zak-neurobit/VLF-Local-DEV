@@ -36,14 +36,17 @@ const LeadCaptureRequestSchema = z.object({
 });
 
 // Wrap POST handler with lead capture tracing
-async function handlePOST(request: NextRequest) {
+async function handlePOST(request: NextRequest): Promise<NextResponse> {
   try {
     // Get IP for rate limiting
     const ip =
       request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
 
     // Apply rate limiting
-    const rateLimitResponse = await limiter(request);
+    const rateLimitResponse = await limiter({
+      headers: Object.fromEntries(request.headers.entries()),
+      ip: request.headers.get('x-forwarded-for') || request.ip || undefined,
+    });
     if (rateLimitResponse) {
       return rateLimitResponse;
     }

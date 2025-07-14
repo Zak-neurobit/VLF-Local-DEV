@@ -102,7 +102,7 @@ export const useHodosIntegration = ({ onAgentResponse, onError }: UseHodosIntegr
         // Add disclaimer for legal advice
         const disclaimer =
           '\n\n*This information is for general guidance only and does not constitute legal advice. Please consult with one of our attorneys for advice specific to your situation.*';
-        return (response as any).response + disclaimer;
+        return (response as unknown).response + disclaimer;
       }
 
       return null;
@@ -128,7 +128,11 @@ export const useHodosIntegration = ({ onAgentResponse, onError }: UseHodosIntegr
         agent: 'Sage', // Document analysis specialist
       });
 
-      return (response && typeof response === 'object' && 'response' in response ? (response as any).response : null) || 'Unable to analyze the document at this time.';
+      return (
+        (response && typeof response === 'object' && 'response' in response
+          ? (response as unknown).response
+          : null) || 'Unable to analyze the document at this time.'
+      );
     } catch (error) {
       onError?.(error as Error);
       return 'Error analyzing document. Please try again.';

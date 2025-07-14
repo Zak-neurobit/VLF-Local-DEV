@@ -3,6 +3,16 @@ import { logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 import { APISafetyWrapper } from '@/lib/api-safety';
 import { envConfig, SERVICE_CONFIGS } from '@/lib/env-config';
+import type {
+  GHLContact,
+  GHLAppointment,
+  GHLOpportunity,
+  GHLWebhookEvent,
+  GHLInboundMessage,
+  GHLCampaignEvent,
+  GHLActivity,
+  GHLUpdateData,
+} from '@/types/gohighlevel';
 
 // GHL API schemas
 const ContactSchema = z.object({
@@ -12,7 +22,7 @@ const ContactSchema = z.object({
   phone: z.string(),
   tags: z.array(z.string()).optional(),
   source: z.string().optional(),
-  customFields: z.record(z.any()).optional(),
+  customFields: z.record(z.unknown()).optional(),
 });
 
 const CampaignTriggerSchema = z.object({
@@ -277,7 +287,7 @@ export class GoHighLevelService {
       email?: string;
       tags?: string[];
       source?: string;
-      customFields?: Record<string, any>;
+      customFields?: Record<string, unknown>;
     }
   ) {
     try {
@@ -383,7 +393,7 @@ export class GoHighLevelService {
   }
 
   // Handle incoming webhook
-  async handleWebhook(event: any) {
+  async handleWebhook(event: GHLWebhookEvent) {
     try {
       logger.info('GHL webhook received', { type: event.type });
 
@@ -411,7 +421,7 @@ export class GoHighLevelService {
   }
 
   // Handle inbound message
-  private async handleInboundMessage(event: any) {
+  private async handleInboundMessage(event: GHLInboundMessage) {
     try {
       const { contactId, message, phone } = event;
 
@@ -508,7 +518,7 @@ export class GoHighLevelService {
   }
 
   // Handle campaign completed
-  private async handleCampaignCompleted(event: any) {
+  private async handleCampaignCompleted(event: GHLCampaignEvent) {
     try {
       const { contactId, campaignId, campaignName } = event;
 
@@ -546,7 +556,7 @@ export class GoHighLevelService {
   }
 
   // Sync contact to database
-  private async syncContactToDatabase(ghlContact: any) {
+  private async syncContactToDatabase(ghlContact: GHLContact) {
     try {
       // TODO: Implement contact sync when contact model is added to schema
       // For now, we'll use the User model for contact-like functionality
@@ -626,7 +636,7 @@ export class GoHighLevelService {
   }
 
   // Format appointment reminder
-  private formatAppointmentReminder(appointment: any): string {
+  private formatAppointmentReminder(appointment: GHLAppointment): string {
     const date = new Date(appointment.date);
     const formattedDate = date.toLocaleDateString('en-US', {
       weekday: 'long',
@@ -707,7 +717,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
     pipelineId: string;
     stageId: string;
     value?: number;
-    customFields?: Record<string, any>;
+    customFields?: Record<string, unknown>;
   }) {
     if (!this.apiWrapper.isAvailable()) {
       return this.getMockOpportunityResponse(data);
@@ -832,7 +842,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
     }
   ) {
     try {
-      const updateData: any = {};
+      const updateData: Record<string, unknown> = {};
 
       if (data.title) updateData.title = data.title;
       if (data.startTime) updateData.startTime = data.startTime.toISOString();
@@ -1056,7 +1066,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
   async batchUpdateContacts(
     updates: Array<{
       contactId: string;
-      data: Record<string, any>;
+      data: Record<string, unknown>;
     }>
   ) {
     const results = [];
@@ -1083,7 +1093,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
     query: string,
     filters?: {
       tags?: string[];
-      customField?: { key: string; value: any };
+      customField?: { key: string; value: unknown };
       limit?: number;
     }
   ) {
@@ -1109,7 +1119,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       // Filter by tags if specified
       if (filters?.tags && filters.tags.length > 0) {
-        results.contacts = results.contacts.filter((contact: any) =>
+        results.contacts = results.contacts.filter(contact =>
           filters.tags!.some(tag => contact.tags?.includes(tag))
         );
       }
@@ -1117,8 +1127,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
       // Filter by custom field if specified
       if (filters?.customField) {
         results.contacts = results.contacts.filter(
-          (contact: any) =>
-            contact.customFields?.[filters.customField!.key] === filters.customField!.value
+          contact => contact.customFields?.[filters.customField!.key] === filters.customField!.value
         );
       }
 
@@ -1137,7 +1146,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
     lastName?: string;
     tags?: string[];
     source?: string;
-    customFields?: Record<string, any>;
+    customFields?: Record<string, unknown>;
   }) {
     try {
       // Try to find existing contact
@@ -1315,7 +1324,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
   }
 
   // Mock responses for when API is not configured
-  private getMockContactResponse(data: any) {
+  private getMockContactResponse(data: Partial<GHLContact>) {
     logger.info('Using mock GoHighLevel contact response');
     return {
       id: 'mock-contact-' + Date.now(),
@@ -1349,7 +1358,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
     };
   }
 
-  private getMockAppointmentResponse(data: any) {
+  private getMockAppointmentResponse(data: Partial<GHLAppointment>) {
     logger.info('Using mock GoHighLevel appointment response');
     return {
       id: 'mock-appointment-' + Date.now(),
@@ -1362,7 +1371,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
     };
   }
 
-  private getMockOpportunityResponse(data: any) {
+  private getMockOpportunityResponse(data: Partial<GHLOpportunity>) {
     logger.info('Using mock GoHighLevel opportunity response');
     return {
       id: 'mock-opportunity-' + Date.now(),
@@ -1383,7 +1392,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
     practiceArea?: string;
     callType?: 'consultation' | 'follow-up' | 'appointment-reminder' | 'general';
     preferredLanguage?: 'en' | 'es';
-    metadata?: Record<string, any>;
+    metadata?: Record<string, unknown>;
   }) {
     try {
       // Get contact details - use direct API call to avoid circular dependency
@@ -1495,7 +1504,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
     }
   ) {
     try {
-      const updateData: any = {
+      const updateData: Record<string, unknown> = {
         customFields: {
           lastCallId: callData.callId,
           lastCallDate: new Date().toISOString(),
@@ -1641,7 +1650,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       // Filter call-related activities
       const callActivities = activities.filter(
-        (activity: any) =>
+        activity =>
           activity.type === 'call' || (activity.type === 'note' && activity.body?.includes('Call'))
       );
 
@@ -1677,7 +1686,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
     transcript?: string
   ) {
     try {
-      const updateData: any = {
+      const updateData: Record<string, unknown> = {
         customFields: {
           [`call_${callId}_recording`]: recordingUrl,
           lastCallRecording: recordingUrl,

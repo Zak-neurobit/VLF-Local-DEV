@@ -349,7 +349,7 @@ export function t(key: string, language: 'en' | 'es' = 'en'): string {
 }
 
 // Get all translations for a section
-export function getSection(section: string, language: 'en' | 'es' = 'en'): any {
+export function getSection(section: string, language: 'en' | 'es' = 'en'): unknown {
   if (language === 'en') return null;
 
   const keys = section.split('.');

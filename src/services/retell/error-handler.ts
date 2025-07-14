@@ -3,6 +3,7 @@ import { securityLogger } from '@/lib/pino-logger';
 import { ghlService } from '@/services/gohighlevel';
 import { getPrismaClient } from '@/lib/prisma';
 import type { TaskType } from '@prisma/client';
+import type { RetellContext, RetellErrorInfo } from '@/types/gohighlevel';
 
 export enum RetellErrorType {
   AUTHENTICATION = 'AUTHENTICATION',
@@ -20,7 +21,7 @@ export interface RetellError {
   type: RetellErrorType;
   message: string;
   code?: string;
-  details?: any;
+  details?: unknown;
   callId?: string;
   contactId?: string;
   timestamp: Date;
@@ -40,12 +41,12 @@ export class RetellErrorHandler {
 
   // Main error handling method
   async handleError(
-    error: any,
-    context?: {
+    error: unknown,
+    context?: RetellContext & {
       callId?: string;
       contactId?: string;
       operation?: string;
-      metadata?: Record<string, any>;
+      metadata?: Record<string, unknown>;
     }
   ): Promise<RetellError> {
     const retellError = this.classifyError(error, context);
@@ -63,7 +64,7 @@ export class RetellErrorHandler {
   }
 
   // Classify error type based on error details
-  private classifyError(error: any, context?: any): RetellError {
+  private classifyError(error: unknown, context?: RetellContext): RetellError {
     let type = RetellErrorType.UNKNOWN;
     let recoverable = false;
     let retryAfter: number | undefined;
@@ -143,7 +144,7 @@ export class RetellErrorHandler {
   }
 
   // Extract retry-after header
-  private extractRetryAfter(headers: any): number {
+  private extractRetryAfter(headers: Record<string, string>): number {
     const retryAfter = headers?.['retry-after'] || headers?.['x-ratelimit-reset'];
     if (retryAfter) {
       const seconds = parseInt(retryAfter, 10);
@@ -153,7 +154,7 @@ export class RetellErrorHandler {
   }
 
   // Log error to database and external systems
-  private async logError(retellError: RetellError, context?: any) {
+  private async logError(retellError: RetellError, context?: RetellContext) {
     try {
       // Log to Winston/Pino
       logger.error('Retell service error', {
@@ -193,7 +194,7 @@ export class RetellErrorHandler {
   }
 
   // Process specific error types
-  private async processErrorType(retellError: RetellError, context?: any) {
+  private async processErrorType(retellError: RetellError, context?: RetellContext) {
     try {
       switch (retellError.type) {
         case RetellErrorType.AUTHENTICATION:
@@ -230,7 +231,7 @@ export class RetellErrorHandler {
   }
 
   // Handle authentication errors
-  private async handleAuthenticationError(retellError: RetellError, context?: any) {
+  private async handleAuthenticationError(retellError: RetellError, context?: RetellContext) {
     logger.error('Retell authentication error - check API key', {
       callId: retellError.callId,
       context,
@@ -254,7 +255,7 @@ export class RetellErrorHandler {
   }
 
   // Handle rate limit errors
-  private async handleRateLimitError(retellError: RetellError, context?: any) {
+  private async handleRateLimitError(retellError: RetellError, context?: RetellContext) {
     logger.warn('Retell rate limit reached', {
       retryAfter: retellError.retryAfter,
       callId: retellError.callId,
@@ -276,7 +277,7 @@ export class RetellErrorHandler {
   }
 
   // Handle agent unavailable errors
-  private async handleAgentUnavailableError(retellError: RetellError, context?: any) {
+  private async handleAgentUnavailableError(retellError: RetellError, context?: RetellContext) {
     logger.warn('Retell agent unavailable', {
       callId: retellError.callId,
       context,
@@ -301,7 +302,7 @@ export class RetellErrorHandler {
   }
 
   // Handle call failed errors
-  private async handleCallFailedError(retellError: RetellError, context?: any) {
+  private async handleCallFailedError(retellError: RetellError, context?: RetellContext) {
     logger.warn('Retell call failed', {
       callId: retellError.callId,
       reason: retellError.message,
@@ -342,7 +343,7 @@ export class RetellErrorHandler {
   }
 
   // Handle invalid phone errors
-  private async handleInvalidPhoneError(retellError: RetellError, context?: any) {
+  private async handleInvalidPhoneError(retellError: RetellError, context?: RetellContext) {
     logger.warn('Invalid phone number for call', {
       callId: retellError.callId,
       phone: context?.phoneNumber,
@@ -372,7 +373,7 @@ export class RetellErrorHandler {
   }
 
   // Handle insufficient balance errors
-  private async handleInsufficientBalanceError(retellError: RetellError, context?: any) {
+  private async handleInsufficientBalanceError(retellError: RetellError, context?: RetellContext) {
     logger.error('Insufficient Retell account balance', {
       callId: retellError.callId,
     });
@@ -407,7 +408,7 @@ export class RetellErrorHandler {
   }
 
   // Generic error handling
-  private async handleGenericError(retellError: RetellError, context?: any) {
+  private async handleGenericError(retellError: RetellError, context?: RetellContext) {
     logger.error('Generic Retell error', {
       type: retellError.type,
       message: retellError.message,
@@ -424,7 +425,7 @@ export class RetellErrorHandler {
   }
 
   // Update GHL contact with error information
-  private async updateContactWithError(contactId: string, errorInfo: any) {
+  private async updateContactWithError(contactId: string, errorInfo: RetellErrorInfo) {
     try {
       const contact = await ghlService.getContact(contactId);
       if (contact) {
@@ -489,7 +490,7 @@ export class RetellErrorHandler {
   }
 
   // Create callback task for failed calls
-  private async createCallbackTask(retellError: RetellError, context?: any) {
+  private async createCallbackTask(retellError: RetellError, context?: RetellContext) {
     if (!retellError.contactId) return;
 
     try {
@@ -518,7 +519,7 @@ export class RetellErrorHandler {
   }
 
   // Find alternative agent when primary agent fails
-  private async findAlternativeAgent(context?: any): Promise<string | null> {
+  private async findAlternativeAgent(context?: RetellContext): Promise<string | null> {
     try {
       // Try general agent as fallback
       const { RetellAgentManager } = await import('./agent-manager-v2');
@@ -530,7 +531,7 @@ export class RetellErrorHandler {
   }
 
   // Schedule retry for failed operations
-  private async scheduleRetry(operation: string, delaySeconds: number, context: any) {
+  private async scheduleRetry(operation: string, delaySeconds: number, context: RetellContext) {
     try {
       // Store retry information in database
       const prisma = getPrismaClient();
@@ -560,7 +561,7 @@ export class RetellErrorHandler {
     try {
       const prisma = getPrismaClient();
 
-      const where: any = { service: 'retell' };
+      const where: Record<string, unknown> = { service: 'retell' };
       if (timeRange) {
         where.createdAt = {
           gte: timeRange.start,
@@ -604,7 +605,7 @@ export class RetellErrorHandler {
   }
 
   // Notify stakeholders of critical errors
-  private async notifyIfRequired(retellError: RetellError, context?: any) {
+  private async notifyIfRequired(retellError: RetellError, context?: RetellContext) {
     // Only notify for critical, non-recoverable errors
     const criticalErrors = [RetellErrorType.AUTHENTICATION, RetellErrorType.INSUFFICIENT_BALANCE];
 
@@ -618,7 +619,7 @@ export class RetellErrorHandler {
           await emailService.sendEmail({
             to: process.env.ADMIN_EMAIL,
             subject: `Critical Retell Error: ${retellError.type}`,
-            template: 'attorney-notification' as any,
+            template: 'attorney-notification' as unknown,
             data: {
               subject: `Critical Retell Error: ${retellError.type}`,
               message: `

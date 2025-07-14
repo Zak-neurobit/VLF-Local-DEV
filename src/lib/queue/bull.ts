@@ -250,7 +250,7 @@ export function setupQueueMonitoring() {
 
   // Health check endpoint data
   return async () => {
-    const health: Record<string, any> = {};
+    const health: Record<string, unknown> = {};
 
     for (const { name, queue } of queues) {
       const [waiting, active, completed, failed, delayed, paused] = await Promise.all([

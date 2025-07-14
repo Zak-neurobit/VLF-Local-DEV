@@ -23,7 +23,7 @@ interface CaseData {
 interface AgentTask {
   agent?: string;
   task: string;
-  context?: any;
+  context?: Record<string, unknown>;
   priority?: 'low' | 'medium' | 'high';
 }
 
@@ -86,7 +86,7 @@ export class HODOSClient {
    * Client Management
    */
   async createClient(data: ClientData) {
-    return this.request<{ id: string; client: any }>('/clients', {
+    return this.request<{ id: string; client: ClientData }>('/clients', {
       method: 'POST',
       body: JSON.stringify(data),
     });
@@ -107,7 +107,7 @@ export class HODOSClient {
    * Case Management
    */
   async createCase(data: CaseData) {
-    return this.request<{ id: string; case: any }>('/cases', {
+    return this.request<{ id: string; case: CaseData }>('/cases', {
       method: 'POST',
       body: JSON.stringify(data),
     });
@@ -118,7 +118,7 @@ export class HODOSClient {
   }
 
   async getCasesByClient(clientId: string) {
-    return this.request<any[]>(`/cases?clientId=${clientId}`);
+    return this.request<CaseData[]>(`/cases?clientId=${clientId}`);
   }
 
   async updateCaseStatus(id: string, status: string) {
@@ -164,7 +164,7 @@ export class HODOSClient {
   }
 
   async getAvailableAgents() {
-    return this.request<any[]>('/agents');
+    return this.request<Array<{ id: string; name: string; status: string }>>('/agents');
   }
 
   /**
@@ -192,7 +192,9 @@ export class HODOSClient {
     if (attorneyId) params.append('attorneyId', attorneyId);
     if (date) params.append('date', date);
 
-    return this.request<any[]>(`/scheduling/availability?${params}`);
+    return this.request<Array<{ date: string; times: string[] }>>(
+      `/scheduling/availability?${params}`
+    );
   }
 
   async bookAppointment(data: {
@@ -202,7 +204,10 @@ export class HODOSClient {
     type: string;
     notes?: string;
   }) {
-    return this.request<{ id: string; appointment: any }>('/scheduling/appointments', {
+    return this.request<{
+      id: string;
+      appointment: { date: string; time: string; duration: number; status: string };
+    }>('/scheduling/appointments', {
       method: 'POST',
       body: JSON.stringify(data),
     });

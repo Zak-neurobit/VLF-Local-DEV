@@ -190,7 +190,7 @@ Corporate Relationship: ${params.relationship}`;
     }
   }
 
-  private getMockAnalysis(type: string, params: any): any {
+  private getMockAnalysis(type: string, params: any): unknown {
     const mockData = {
       h1b: {
         summary: 'H-1B petition requires careful documentation of specialty occupation',
@@ -328,7 +328,7 @@ Corporate Relationship: ${params.relationship}`;
       .filter(item => item.length > 0);
   }
 
-  private parseResponse(content: string): any {
+  private parseResponse(content: string): unknown {
     const sections = content.split('\n\n');
     return {
       summary: sections[0] || '',

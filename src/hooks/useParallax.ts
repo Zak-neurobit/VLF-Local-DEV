@@ -79,17 +79,52 @@ export function useMultiLayerParallax(layers: number = 3) {
     offset: ['start end', 'end start'],
   });
 
-  const layerEffects = Array.from({ length: layers }, (_, index) => {
-    const depth = (index + 1) / layers;
-    const speed = 1 - depth * 0.8; // Closer layers move faster
+  // Create a fixed set of transform values (maximum 5 layers for hook consistency)
+  const maxLayers = Math.min(layers, 5);
 
-    return {
-      y: useTransform(scrollYProgress, [0, 1], [-200 * speed, 200 * speed]),
-      scale: useTransform(scrollYProgress, [0, 0.5, 1], [1 - depth * 0.2, 1, 1 + depth * 0.1]),
-      opacity: useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]),
-      blur: useTransform(scrollYProgress, [0, 1], [depth * 2, 0]),
-    };
-  });
+  // Layer 1
+  const layer1Depth = 1 / maxLayers;
+  const layer1Speed = 1 - layer1Depth * 0.8;
+  const layer1Y = useTransform(scrollYProgress, [0, 1], [-200 * layer1Speed, 200 * layer1Speed]);
+  const layer1Scale = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    [1 - layer1Depth * 0.2, 1, 1 + layer1Depth * 0.1]
+  );
+  const layer1Opacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
+  const layer1Blur = useTransform(scrollYProgress, [0, 1], [layer1Depth * 2, 0]);
+
+  // Layer 2
+  const layer2Depth = 2 / maxLayers;
+  const layer2Speed = 1 - layer2Depth * 0.8;
+  const layer2Y = useTransform(scrollYProgress, [0, 1], [-200 * layer2Speed, 200 * layer2Speed]);
+  const layer2Scale = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    [1 - layer2Depth * 0.2, 1, 1 + layer2Depth * 0.1]
+  );
+  const layer2Opacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
+  const layer2Blur = useTransform(scrollYProgress, [0, 1], [layer2Depth * 2, 0]);
+
+  // Layer 3
+  const layer3Depth = 3 / maxLayers;
+  const layer3Speed = 1 - layer3Depth * 0.8;
+  const layer3Y = useTransform(scrollYProgress, [0, 1], [-200 * layer3Speed, 200 * layer3Speed]);
+  const layer3Scale = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    [1 - layer3Depth * 0.2, 1, 1 + layer3Depth * 0.1]
+  );
+  const layer3Opacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
+  const layer3Blur = useTransform(scrollYProgress, [0, 1], [layer3Depth * 2, 0]);
+
+  const allLayers = [
+    { y: layer1Y, scale: layer1Scale, opacity: layer1Opacity, blur: layer1Blur },
+    { y: layer2Y, scale: layer2Scale, opacity: layer2Opacity, blur: layer2Blur },
+    { y: layer3Y, scale: layer3Scale, opacity: layer3Opacity, blur: layer3Blur },
+  ];
+
+  const layerEffects = allLayers.slice(0, maxLayers);
 
   return {
     containerRef,
