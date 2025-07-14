@@ -298,17 +298,31 @@ export class CrewCoordinator {
     if (!channel) return;
 
     // Handler for task delegation
-    channel.messageHandlers.set('delegate-task', async (message: InterAgentMessage) => {
+    channel.messageHandlers.set('delegate-task', async (...args: unknown[]) => {
+      const message = args[0] as InterAgentMessage;
       const { taskId, taskData } = message;
+      const typedTaskData = taskData as {
+        type: string;
+        priority?: string;
+        userId: string;
+        data: unknown;
+      };
       logger.info(`Agent ${agentName} received task delegation: ${taskId}`);
 
       // Create and execute delegated task
       const task: CrewTask = {
         id: taskId,
-        type: taskData.type,
-        priority: taskData.priority || 'medium',
-        userId: taskData.userId,
-        data: taskData.data,
+        type: typedTaskData.type as
+          | 'legal-consultation'
+          | 'appointment-scheduling'
+          | 'document-analysis'
+          | 'competitive-analysis'
+          | 'social-media-monitoring'
+          | 'seo-blog-generation'
+          | 'multi-step',
+        priority: (typedTaskData.priority as 'low' | 'medium' | 'high' | 'urgent') || 'medium',
+        userId: typedTaskData.userId,
+        data: typedTaskData.data,
         status: 'pending',
         createdAt: new Date(),
       };
@@ -317,7 +331,8 @@ export class CrewCoordinator {
     });
 
     // Handler for information sharing
-    channel.messageHandlers.set('share-information', async (message: InterAgentMessage) => {
+    channel.messageHandlers.set('share-information', async (...args: unknown[]) => {
+      const message = args[0] as InterAgentMessage & { information: unknown; context: unknown };
       const { information, context } = message;
       logger.info(`Agent ${agentName} received information sharing:`, information);
 
@@ -330,7 +345,8 @@ export class CrewCoordinator {
     });
 
     // Handler for status updates
-    channel.messageHandlers.set('status-update', async (message: InterAgentMessage) => {
+    channel.messageHandlers.set('status-update', async (...args: unknown[]) => {
+      const message = args[0] as InterAgentMessage & { status: unknown; details: unknown };
       const { status, details } = message;
       logger.info(`Agent ${agentName} received status update:`, status);
 
@@ -458,7 +474,9 @@ export class CrewCoordinator {
       hit: true,
     });
 
-    return memoryStore.compressed ? this.decompressData(memoryStore.value) : memoryStore.value;
+    return memoryStore.compressed
+      ? this.decompressData(memoryStore.value as string)
+      : memoryStore.value;
   }
 
   private cleanupExpiredMemory(): void {
@@ -603,13 +621,13 @@ export class CrewCoordinator {
 
       switch (step.agentName) {
         case 'legal-consultation':
-          result = await this.legalConsultationAgent.analyze(step.input);
+          result = await this.legalConsultationAgent.analyze(step.input as any);
           break;
         case 'appointment-scheduling':
-          result = await this.appointmentSchedulingAgent.findAvailableSlots(step.input);
+          result = await this.appointmentSchedulingAgent.findAvailableSlots(step.input as any);
           break;
         case 'document-analysis':
-          result = await this.documentAnalysisAgent.analyzeDocument(step.input);
+          result = await this.documentAnalysisAgent.analyzeDocument(step.input as any);
           break;
         // Add more agent handlers as needed
         default:
@@ -767,7 +785,14 @@ export class CrewCoordinator {
     success: boolean,
     executionTime: number
   ): void {
-    const metrics = this.performanceMetrics.get(agentName);
+    const metrics = this.performanceMetrics.get(agentName) as
+      | {
+          tasksExecuted: number;
+          averageExecutionTime: number;
+          successRate: number;
+          lastActivity: Date;
+        }
+      | undefined;
     if (!metrics) return;
 
     metrics.tasksExecuted++;

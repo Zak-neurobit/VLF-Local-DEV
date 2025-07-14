@@ -616,10 +616,18 @@ export class AutonomousCrewSystem {
       max_tokens: agent.maxTokens,
     });
 
-    const result = response.choices[0].message.content || '';
+    const content = response.choices[0].message.content || '';
 
     // Process the result based on task type
-    await this.processTaskResult(task, result);
+    await this.processTaskResult(task, content);
+
+    const result: Record<string, unknown> = {
+      content,
+      taskId: task.id,
+      agentId: task.agentId,
+      executedAt: new Date().toISOString(),
+      success: true,
+    };
 
     return result;
   }

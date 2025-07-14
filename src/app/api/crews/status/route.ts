@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { CrewCoordinator } from '@/lib/crewai/enhanced-crew-coordinator';
 import { logger } from '@/lib/logger';
+import { withDatabaseTracing } from '@/lib/telemetry/api-middleware';
 
 interface ProcessWithLoadAvg extends NodeJS.Process {
   loadavg?: () => [number, number, number];
 }
 
 export const dynamic = 'force-dynamic';
-export async function GET(_request: NextRequest): Promise<NextResponse> {
+
+async function handleGET(_request: NextRequest): Promise<NextResponse> {
   try {
     const crewCoordinator = CrewCoordinator.getInstance();
     // Get system status
@@ -136,7 +138,7 @@ export async function GET(_request: NextRequest): Promise<NextResponse> {
   }
 }
 
-export async function POST(_request: NextRequest): Promise<NextResponse> {
+async function handlePOST(_request: NextRequest): Promise<NextResponse> {
   try {
     const body = await _request.json();
     const { action, agentName } = body;
@@ -195,3 +197,6 @@ export async function POST(_request: NextRequest): Promise<NextResponse> {
     );
   }
 }
+
+export const GET = withDatabaseTracing(handleGET);
+export const POST = withDatabaseTracing(handlePOST);

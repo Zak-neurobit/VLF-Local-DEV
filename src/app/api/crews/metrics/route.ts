@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getPrismaClient } from '@/lib/prisma';
 import { CrewCoordinator } from '@/lib/crewai/enhanced-crew-coordinator';
 import { logger } from '@/lib/logger';
+import { withDatabaseTracing } from '@/lib/telemetry/api-middleware';
 
 export const dynamic = 'force-dynamic';
 
@@ -22,7 +23,7 @@ interface SystemMetric {
   totalAgents: number;
 }
 
-export async function GET(request: NextRequest): Promise<NextResponse> {
+async function handleGET(request: NextRequest): Promise<NextResponse> {
   try {
     const { searchParams } = new URL(request.url);
     const timeRange = searchParams.get('timeRange') || '24h';
@@ -340,3 +341,5 @@ function generateRecommendations(
 
   return recommendations;
 }
+
+export const GET = withDatabaseTracing(handleGET);
