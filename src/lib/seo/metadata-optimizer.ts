@@ -387,7 +387,7 @@ export function enhanceStructuredData(metadata: Metadata): Metadata {
   return {
     ...metadata,
     other: {
-      ...metadata.other,
+      ...(metadata.other as Record<string, string>),
       'og:locale': 'en_US',
       'og:locale:alternate': 'es_ES',
       'article:author': 'Vasquez Law Firm, PLLC',
@@ -395,7 +395,7 @@ export function enhanceStructuredData(metadata: Metadata): Metadata {
       'twitter:card': 'summary_large_image',
       'twitter:site': '@VasquezLawNC',
       'twitter:creator': '@VasquezLawNC',
-    } as unknown,
+    },
     robots: {
       index: true,
       follow: true,

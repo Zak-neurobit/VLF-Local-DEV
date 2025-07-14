@@ -98,7 +98,7 @@ class EnhancedSEO {
           },
         ],
         locale,
-        type: ogType as unknown,
+        type: ogType as any,
       },
       twitter: {
         card: 'summary_large_image',
