@@ -5,7 +5,7 @@ import { logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 
 interface LeadData {
-  id: string;
+  id?: string;
   name?: string;
   email?: string;
   phone?: string;
@@ -19,6 +19,15 @@ interface LeadData {
   urgency?: string;
   location?: string;
   referralSource?: string;
+  language?: string;
+  practiceArea?: string;
+  urgencyIndicators?: string[];
+  previousInteractions?: Array<{
+    type: string;
+    date: string;
+    outcome?: string;
+    notes?: string;
+  }>;
 }
 
 // Lead quality scoring schema
@@ -391,10 +400,10 @@ export class LeadValidationAgent extends Agent {
     if (!leadData.email || !leadData.email.includes('@')) {
       reasons.push('Invalid email address');
     }
-    if (leadData.message.length < 20) {
+    if (!leadData.message || leadData.message.length < 20) {
       reasons.push('Message too short to determine needs');
     }
-    if (leadData.message.match(/test|asdf|123/i)) {
+    if (leadData.message && leadData.message.match(/test|asdf|123/i)) {
       reasons.push('Appears to be test submission');
     }
 
@@ -418,7 +427,7 @@ export class LeadValidationAgent extends Agent {
   }
 
   private estimateCaseValue(leadData: LeadData): number {
-    const message = leadData.message.toLowerCase();
+    const message = (leadData.message || '').toLowerCase();
     let baseValue = 2500; // Minimum case value
 
     // Business immigration multipliers
@@ -482,7 +491,7 @@ export class LeadValidationAgent extends Agent {
   }
 
   private detectLanguagePreference(leadData: LeadData): 'en' | 'es' | 'bilingual' {
-    const message = leadData.message;
+    const message = leadData.message || '';
 
     // Spanish indicators
     const spanishPatterns = [
@@ -501,14 +510,15 @@ export class LeadValidationAgent extends Agent {
   private async updateGHLContact(leadData: LeadData, validation: LeadScore): Promise<string> {
     try {
       // Find or create contact in GHL
-      let contact = await this.ghl.findContactByEmail(leadData.email);
+      let contact = await this.ghl.findContactByEmail(leadData.email || '');
 
       if (!contact) {
+        const nameParts = (leadData.name || 'Unknown').split(' ');
         contact = await this.ghl.upsertContact({
-          firstName: leadData.name.split(' ')[0],
-          lastName: leadData.name.split(' ').slice(1).join(' '),
-          email: leadData.email,
-          phone: leadData.phone,
+          firstName: nameParts[0],
+          lastName: nameParts.slice(1).join(' '),
+          email: leadData.email || '',
+          phone: leadData.phone || '',
           source: leadData.source,
           tags: [
             'lead-validation',
@@ -519,11 +529,12 @@ export class LeadValidationAgent extends Agent {
       }
 
       // Update contact with validation data
+      const fallbackNameParts = (leadData.name || 'Unknown').split(' ');
       contact = await this.ghl.upsertContact({
-        firstName: contact.firstName || leadData.name.split(' ')[0],
-        lastName: contact.lastName || leadData.name.split(' ').slice(1).join(' '),
-        email: leadData.email,
-        phone: leadData.phone,
+        firstName: contact.firstName || fallbackNameParts[0],
+        lastName: contact.lastName || fallbackNameParts.slice(1).join(' '),
+        email: leadData.email || '',
+        phone: leadData.phone || '',
         tags: [
           'lead-validation',
           `tier-${validation.tier}`,
@@ -627,7 +638,17 @@ export class LeadValidationAgent extends Agent {
   }
 
   async execute(input: LeadData): Promise<LeadScore> {
-    return this.validateLead(input);
+    return this.validateLead({
+      name: input.name || '',
+      email: input.email || '',
+      phone: input.phone || '',
+      message: input.message || '',
+      source: input.source || 'unknown',
+      language: input.language,
+      practiceArea: input.practiceArea,
+      urgencyIndicators: input.urgencyIndicators,
+      previousInteractions: input.previousInteractions,
+    });
   }
 }
 

@@ -51,9 +51,10 @@ export async function POST(request: NextRequest) {
       type: interaction.channel || 'unknown',
       date: interaction.startedAt.toISOString(),
       outcome: interaction.status,
-      notes: typeof interaction.metadata === 'object' && interaction.metadata !== null 
-        ? JSON.stringify(interaction.metadata) 
-        : undefined,
+      notes:
+        typeof interaction.metadata === 'object' && interaction.metadata !== null
+          ? JSON.stringify(interaction.metadata)
+          : undefined,
     }));
 
     // Validate the lead
@@ -109,7 +110,9 @@ export async function POST(request: NextRequest) {
       executionTime: Date.now() - startTime,
     });
   } catch (error) {
-    logger.error('Lead validation error:', error);
+    logger.error('Lead validation error:', {
+      error: error instanceof Error ? error.message : String(error),
+    });
 
     // Log failed execution
     logger.error('Agent execution failed:', {
@@ -181,7 +184,9 @@ export async function GET(_request: NextRequest) {
       leadDistribution,
     });
   } catch (error) {
-    logger.error('Agent health check error:', error);
+    logger.error('Agent health check error:', {
+      error: error instanceof Error ? error.message : String(error),
+    });
     return NextResponse.json(
       {
         success: false,

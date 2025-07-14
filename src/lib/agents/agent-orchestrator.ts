@@ -12,12 +12,6 @@ import { logger } from '@/lib/logger';
 import { EventEmitter } from 'events';
 import pLimit from 'p-limit';
 
-interface BaseAgent {
-  name: string;
-  execute(input: unknown): Promise<unknown>;
-  initialize?(): Promise<void>;
-}
-
 export interface AgentContext {
   userId?: string;
   sessionId: string;
@@ -35,6 +29,8 @@ export interface AgentResponse {
     data: unknown;
   }>;
   handoff?: string;
+  recommendations?: string[];
+  nextSteps?: string[];
 }
 
 export interface AgentMemory {
@@ -65,29 +61,38 @@ export interface AgentPerformanceMetrics {
 
 // Base agent interface that all agents should implement
 export interface BaseAgent {
+  name?: string;
   process?: (input: string, context: AgentContext) => Promise<AgentResponse>;
-  execute?: (input: string, context: AgentContext) => Promise<AgentResponse>;
+  execute?: (input: string | unknown, context?: AgentContext) => Promise<AgentResponse | unknown>;
   analyze?: (input: string, context: AgentContext) => Promise<AgentResponse>;
   processTask?: (task: string, context: AgentContext) => Promise<AgentResponse>;
   validateLead?: (leadData: unknown) => Promise<unknown>;
   createFollowUpSequence?: (leadData: unknown) => Promise<unknown>;
+  initialize?(): Promise<void>;
+  // Additional agent-specific methods
+  findAvailableSlots?: (input: unknown, context: AgentContext) => Promise<AgentResponse>;
+  analyzeDocument?: (input: unknown, context: AgentContext) => Promise<AgentResponse>;
+  processIntake?: (input: unknown, context: AgentContext) => Promise<AgentResponse>;
+  assessCase?: (input: unknown, context: AgentContext) => Promise<AgentResponse>;
 }
 
 // Adapter wrapper for CrewAI agents
 class CrewAIAgentAdapter implements BaseAgent {
-  constructor(private agent: BaseAgent) {}
+  constructor(private agent: unknown) {}
 
   async process(input: string, context: AgentContext): Promise<AgentResponse> {
+    const agent = this.agent as Partial<BaseAgent>;
+
     // Default implementation that calls the agent's primary method
-    if (this.agent.analyze) {
+    if (agent.analyze) {
       return this.handleAnalyze(input, context);
-    } else if (this.agent.findAvailableSlots) {
+    } else if (agent.findAvailableSlots) {
       return this.handleAppointment(input, context);
-    } else if (this.agent.analyzeDocument) {
+    } else if (agent.analyzeDocument) {
       return this.handleDocument(input, context);
-    } else if (this.agent.processIntake) {
+    } else if (agent.processIntake) {
       return this.handleIntake(input, context);
-    } else if (this.agent.assessCase) {
+    } else if (agent.assessCase) {
       return this.handleAssessment(input, context);
     }
 
@@ -95,20 +100,19 @@ class CrewAIAgentAdapter implements BaseAgent {
   }
 
   private async handleAnalyze(input: string, context: AgentContext): Promise<AgentResponse> {
-    const result = await this.agent.analyze({
-      userId: context.userId || 'anonymous',
-      description: input,
-      caseType: 'general',
-      urgency: 'medium',
-      language: context.language as 'en' | 'es',
-      location: context.metadata?.location,
-    });
+    const agent = this.agent as Partial<BaseAgent>;
+    if (!agent.analyze) {
+      throw new Error('Agent does not support analyze method');
+    }
+
+    const result = await agent.analyze(input, context);
+    const agentResult = result as AgentResponse;
 
     return {
       agent: 'consultation',
       response:
-        result.recommendations?.join('\n\n') || 'Please provide more details about your case.',
-      suggestions: result.nextSteps || [],
+        agentResult.recommendations?.join('\n\n') || 'Please provide more details about your case.',
+      suggestions: agentResult.nextSteps || [],
     };
   }
 
@@ -145,60 +149,63 @@ class CrewAIAgentAdapter implements BaseAgent {
     }
 
     const documents = context.metadata.documents as string[];
-    const result = await this.agent.analyzeDocument({
-      documentPath: documents[0],
-      documentType: 'other',
-      analysisType: 'full-analysis',
-      language: context.language as 'en' | 'es',
-      urgency: 'medium',
-      clientId: context.userId || 'anonymous',
-    });
+    const agent = this.agent as Partial<BaseAgent>;
+    if (!agent.analyzeDocument) {
+      throw new Error('Agent does not support analyzeDocument method');
+    }
+
+    const result = await agent.analyzeDocument(documents[0], context);
+    const agentResult = result as AgentResponse;
 
     return {
       agent: 'document',
-      response: result.summary || 'Document analysis complete.',
-      suggestions: result.recommendedActions || [],
+      response: agentResult.response || 'Document analysis complete.',
+      suggestions: agentResult.suggestions || [],
     };
   }
 
   private async handleIntake(input: string, context: AgentContext): Promise<AgentResponse> {
-    const result = await this.agent.processIntake({
-      clientInput: input,
-      preferredLanguage: context.language as 'en' | 'es',
-      isEmergency: false,
-      contactInfo: context.metadata?.contactInfo,
-    });
+    const agent = this.agent as Partial<BaseAgent>;
+    if (!agent.processIntake) {
+      throw new Error('Agent does not support processIntake method');
+    }
+
+    const result = await agent.processIntake(input, context);
+    const agentResult = result as AgentResponse;
 
     return {
       agent: 'intake',
-      response: result.summary || 'Intake process initiated.',
-      suggestions: result.nextSteps || [],
+      response: agentResult.response || 'Intake process initiated.',
+      suggestions: agentResult.suggestions || [],
     };
   }
 
   private async handleAssessment(input: string, context: AgentContext): Promise<AgentResponse> {
-    const result = await this.agent.assessCase({
-      caseDetails: input,
-      clientId: context.userId || 'anonymous',
-      language: context.language as 'en' | 'es',
-    });
+    const agent = this.agent as Partial<BaseAgent>;
+    if (!agent.assessCase) {
+      throw new Error('Agent does not support assessCase method');
+    }
+
+    const result = await agent.assessCase(input, context);
+    const agentResult = result as AgentResponse;
 
     return {
       agent: 'assessment',
-      response: result.analysis || 'Case assessment complete.',
-      suggestions: result.recommendations || [],
+      response: agentResult.response || 'Case assessment complete.',
+      suggestions: agentResult.suggestions || [],
     };
   }
 }
 
 // Adapter for automation agents
 class AutomationAgentAdapter implements BaseAgent {
-  constructor(private agent: BaseAgent) {}
+  constructor(private agent: unknown) {}
 
   async process(input: string, context: AgentContext): Promise<AgentResponse> {
-    if (this.agent.validateLead) {
+    const agent = this.agent as Partial<BaseAgent>;
+    if (agent.validateLead) {
       return this.handleLeadValidation(input, context);
-    } else if (this.agent.createFollowUpSequence) {
+    } else if (agent.createFollowUpSequence) {
       return this.handleFollowUp(input, context);
     }
 
@@ -216,16 +223,22 @@ class AutomationAgentAdapter implements BaseAgent {
       language: context.language,
     };
 
-    const result = await this.agent.validateLead(leadData);
+    const agent = this.agent as Partial<BaseAgent>;
+    if (!agent.validateLead) {
+      throw new Error('Agent does not support validateLead method');
+    }
+
+    const result = await agent.validateLead(leadData);
+    const validationResult = result as { score: number; tier: string; recommendations?: string[] };
 
     return {
       agent: 'lead-validation',
-      response: `Lead validation complete. Score: ${result.score}, Tier: ${result.tier}`,
-      suggestions: result.recommendations || [],
+      response: `Lead validation complete. Score: ${validationResult.score}, Tier: ${validationResult.tier}`,
+      suggestions: validationResult.recommendations || [],
       actions: [
         {
           type: 'lead-validated',
-          data: result,
+          data: validationResult,
         },
       ],
     };
@@ -241,7 +254,12 @@ class AutomationAgentAdapter implements BaseAgent {
       languagePreference: context.language,
     };
 
-    const result = await this.agent.createFollowUpSequence(followUpData);
+    const agent = this.agent as Partial<BaseAgent>;
+    if (!agent.createFollowUpSequence) {
+      throw new Error('Agent does not support createFollowUpSequence method');
+    }
+
+    const result = await agent.createFollowUpSequence(followUpData);
 
     return {
       agent: 'follow-up',

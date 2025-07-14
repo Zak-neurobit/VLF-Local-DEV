@@ -2,6 +2,7 @@ import { Agent } from '@/lib/crewai/base';
 import { GoHighLevelService } from '@/services/gohighlevel';
 import { logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
+import { delay } from '@/lib/utils/async';
 import { z } from 'zod';
 
 const FollowUpSequenceSchema = z.object({
@@ -405,27 +406,24 @@ P.S. Immigration laws change frequently. Follow us for updates: [SOCIAL_LINKS]
     const step = sequence.steps[stepIndex];
 
     // Schedule the action based on the delay
-    setTimeout(
-      async () => {
-        try {
-          // Check stop conditions
-          const shouldStop = await this.checkStopConditions(sequence);
-          if (shouldStop) {
-            logger.info(`Stopping sequence for ${sequence.contactId} due to stop condition`);
-            return;
-          }
-
-          // Execute the step
-          await this.executeStep(sequence, step);
-
-          // Schedule next step
-          await this.scheduleNextStep(sequence, stepIndex + 1);
-        } catch (error) {
-          logger.error(`Error executing step ${stepIndex}:`, error);
+    delay(step.delay * 60 * 1000).then(async () => {
+      try {
+        // Check stop conditions
+        const shouldStop = await this.checkStopConditions(sequence);
+        if (shouldStop) {
+          logger.info(`Stopping sequence for ${sequence.contactId} due to stop condition`);
+          return;
         }
-      },
-      step.delay * 60 * 1000
-    ); // Convert minutes to milliseconds
+
+        // Execute the step
+        await this.executeStep(sequence, step);
+
+        // Schedule next step
+        await this.scheduleNextStep(sequence, stepIndex + 1);
+      } catch (error) {
+        logger.error(`Error executing step ${stepIndex}:`, error);
+      }
+    });
   }
 
   private async checkStopConditions(_sequence: FollowUpSequence): Promise<boolean> {
@@ -524,7 +522,17 @@ P.S. Immigration laws change frequently. Follow us for updates: [SOCIAL_LINKS]
     tasksCreated: number;
     firstFollowUp: Date;
   }> {
-    return this.createFollowUpSequence(input);
+    const sequence = await this.createFollowUpSequence({
+      ...input,
+      languagePreference: input.language || 'en',
+    });
+
+    return {
+      success: true,
+      sequenceId: sequence.contactId,
+      tasksCreated: sequence.steps.length,
+      firstFollowUp: new Date(Date.now() + (sequence.steps[0]?.delay || 0) * 60 * 1000),
+    };
   }
 }
 

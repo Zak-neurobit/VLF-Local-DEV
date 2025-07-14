@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 import type { PrismaClient } from '@prisma/client';
+import { withAIAgentTracing, withDatabaseTracing } from '@/lib/telemetry/api-middleware';
 
-
-export async function GET(request: NextRequest) {
+async function handleGET(request: NextRequest) {
   try {
     const prisma = getPrismaClient();
     const { searchParams } = new URL(request.url);
@@ -93,7 +93,7 @@ async function getAgentMetrics(prisma: PrismaClient, agentName: string, since: D
   };
 }
 
-export async function POST(request: NextRequest) {
+async function handlePOST(request: NextRequest) {
   try {
     const body = await request.json();
     const { agent, action, params } = body;
@@ -190,3 +190,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to execute agent action' }, { status: 500 });
   }
 }
+
+export const GET = withDatabaseTracing(handleGET);
+export const POST = withAIAgentTracing(handlePOST);

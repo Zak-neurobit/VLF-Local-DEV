@@ -69,7 +69,7 @@ export async function GET(req: NextRequest) {
     const queueStatus = coordinator.getQueueStatus();
 
     // Query conversation metrics
-    const conversations = await prisma!.conversation.findMany({
+    const conversations = await prisma.conversation.findMany({
       where: {
         startedAt: {
           gte: startDate,
@@ -132,20 +132,20 @@ export async function GET(req: NextRequest) {
     }
 
     // Get system health metrics
-    const totalConversations = await prisma!.conversation.count({
+    const totalConversations = await prisma.conversation.count({
       where: {
         startedAt: { gte: startDate },
       },
     });
 
-    const activeConversations = await prisma!.conversation.count({
+    const activeConversations = await prisma.conversation.count({
       where: {
         status: 'active',
         startedAt: { gte: startDate },
       },
     });
 
-    const totalMessages = await prisma!.message.count({
+    const totalMessages = await prisma.message.count({
       where: {
         createdAt: { gte: startDate },
       },
@@ -187,7 +187,10 @@ export async function GET(req: NextRequest) {
       alerts: generateAlerts(agentMetrics, queueStatus),
     });
   } catch (error) {
-    logger.error('Error fetching monitoring data:', error);
+    logger.error('Error fetching monitoring data:', {
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+    });
     return NextResponse.json({ error: 'Failed to fetch monitoring data' }, { status: 500 });
   }
 }
