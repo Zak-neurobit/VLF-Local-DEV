@@ -74,29 +74,40 @@ export class LandingPageGenerator {
       );
 
       // Generate page sections
-      const sections = await this.generateCityPageSections(options, localData, localKeywords);
+      const sections = await this.generateCityPageSections(
+        options,
+        localData as any,
+        localKeywords
+      );
 
       // Generate hero section
-      const heroSection = await this.generateHeroSection(options, localData);
+      const heroSection = await this.generateHeroSection(options, localData as any);
 
       // Generate local schema
-      const localSchema = await this.generateLocalBusinessSchema(options, localData);
+      const localSchema = await this.generateLocalBusinessSchema(options, localData as any);
 
       // Compile full page content
-      const content = this.compileCityPageContent(heroSection, sections);
+      const content = this.compileCityPageContent(heroSection, sections as any);
 
       // Generate metadata
       const metadata = await this.generateCityPageMetadata(options, localKeywords);
 
       // Translate if needed
       if (options.language === 'es') {
-        return await this.translateLandingPage({ content, ...metadata, sections, localSchema });
+        const heroImage = await this.generateHeroImage(options.city, options.practiceArea);
+        return await this.translateLandingPage({
+          content,
+          ...metadata,
+          sections: sections as any,
+          localSchema,
+          heroImage,
+        });
       }
 
       return {
         ...metadata,
         content,
-        sections,
+        sections: sections as any,
         localSchema,
         heroImage: await this.generateHeroImage(options.city, options.practiceArea),
       };
@@ -148,13 +159,13 @@ export class LandingPageGenerator {
       const metadata = await this.generateVariationMetadata(options);
 
       // Add conversion tracking elements
-      const trackingElements = this.addConversionTracking(conversionElements);
+      const trackingElements = this.addConversionTracking(conversionElements as any);
 
       return {
         ...metadata,
         content: content.content || '',
-        sections: content.sections || [],
-        localSchema: null,
+        sections: (content.sections || []) as any,
+        localSchema: null as any,
         conversionElements: trackingElements,
         heroImage: await this.generateHeroImage('default', options.practiceArea),
       };
@@ -202,32 +213,40 @@ export class LandingPageGenerator {
     keywords: string[]
   ) {
     const sections = [];
+    let order = 0;
 
     // Local expertise section
-    sections.push(await this.generateLocalExpertiseSection(options, localData));
+    const expertiseSection = await this.generateLocalExpertiseSection(options, localData);
+    sections.push({ ...expertiseSection, order: order++ });
 
     // Practice area specific content
-    sections.push(await this.generatePracticeAreaSection(options, localData));
+    const practiceSection = await this.generatePracticeAreaSection(options, localData);
+    sections.push({ ...practiceSection, order: order++ });
 
     // Local statistics section
     if (options.includeLocalStats) {
-      sections.push(await this.generateLocalStatsSection(options, localData));
+      const statsSection = await this.generateLocalStatsSection(options, localData);
+      sections.push({ ...statsSection, order: order++ });
     }
 
     // Testimonials section
     if (options.includeTestimonials) {
-      sections.push(await this.generateTestimonialsSection(options));
+      const testimonialsSection = await this.generateTestimonialsSection(options);
+      sections.push({ ...testimonialsSection, order: order++ });
     }
 
     // Local resources section
-    sections.push(await this.generateLocalResourcesSection(options, localData));
+    const resourcesSection = await this.generateLocalResourcesSection(options, localData);
+    sections.push({ ...resourcesSection, order: order++ });
 
     // FAQ section
-    sections.push(await this.generateLocalFAQSection(options, keywords));
+    const faqSection = await this.generateLocalFAQSection(options, keywords);
+    sections.push({ ...faqSection, order: order++ });
 
     // Contact section with map
     if (options.includeMapEmbed) {
-      sections.push(await this.generateMapSection(options, localData));
+      const mapSection = await this.generateMapSection(options, localData);
+      sections.push({ ...mapSection, order: order++ });
     }
 
     return sections;
@@ -236,10 +255,7 @@ export class LandingPageGenerator {
   /**
    * Generate hero section
    */
-  private async generateHeroSection(
-    options: CityPageOptions,
-    localData: LocalData
-  ): Promise<PageSection> {
+  private async generateHeroSection(options: CityPageOptions, localData: LocalData) {
     const prompt = `Create a compelling hero section for a ${options.practiceArea} lawyer landing page in ${options.city}, NC.
 
 Include:
@@ -260,16 +276,14 @@ Format as JSON with keys: headline, subheadline, benefits, cta, trustIndicators`
       max_tokens: 500,
     });
 
-    return JSON.parse(response.choices[0].message.content || '{}');
+    const heroData = JSON.parse(response.choices[0].message.content || '{}');
+    return { ...heroData, order: 0 };
   }
 
   /**
    * Generate local expertise section
    */
-  private async generateLocalExpertiseSection(
-    options: CityPageOptions,
-    localData: LocalData
-  ): Promise<PageSection> {
+  private async generateLocalExpertiseSection(options: CityPageOptions, localData: LocalData) {
     const prompt = `Write a "Local ${options.city} Expertise" section for ${options.practiceArea} law.
 
 Include:
@@ -298,10 +312,7 @@ Make it specific and authentic, not generic. About 200-300 words.`;
   /**
    * Generate practice area specific content
    */
-  private async generatePracticeAreaSection(
-    options: CityPageOptions,
-    localData: LocalData
-  ): Promise<PageSection> {
+  private async generatePracticeAreaSection(options: CityPageOptions, localData: LocalData) {
     const specificData = this.getPracticeAreaSpecificData(options.practiceArea, localData);
 
     const prompt = `Write a section about ${options.practiceArea} law services in ${options.city}, NC.
@@ -334,10 +345,7 @@ About 300-400 words. Make it specific to ${options.city}.`;
   /**
    * Generate local statistics section
    */
-  private async generateLocalStatsSection(
-    options: CityPageOptions,
-    localData: LocalData
-  ): Promise<PageSection> {
+  private async generateLocalStatsSection(options: CityPageOptions, localData: LocalData) {
     const stats = this.getRelevantStats(options.practiceArea, localData);
 
     const prompt = `Create a statistics section showing why ${options.practiceArea} legal services are needed in ${options.city}.
@@ -398,10 +406,7 @@ Make them authentic, specific, and emotionally compelling. Vary the length and s
   /**
    * Generate local resources section
    */
-  private async generateLocalResourcesSection(
-    options: CityPageOptions,
-    localData: LocalData
-  ): Promise<PageSection> {
+  private async generateLocalResourcesSection(options: CityPageOptions, localData: LocalData) {
     const resources = this.getLocalResources(options.city, options.practiceArea, localData);
 
     const prompt = `Create a helpful local resources section for ${options.city} residents dealing with ${options.practiceArea} issues.
@@ -464,11 +469,8 @@ Format as JSON array with 'question' and 'answer' keys. Answers should be detail
   /**
    * Generate map section
    */
-  private async generateMapSection(
-    options: CityPageOptions,
-    localData: LocalData
-  ): Promise<PageSection> {
-    const nearestOffice = this.getNearestOffice(options.city);
+  private async generateMapSection(options: CityPageOptions, localData: LocalData) {
+    const nearestOffice = this.getNearestOffice(options.city) as any;
 
     return {
       type: 'map',
@@ -695,11 +697,12 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
    * Helper methods
    */
   private compileCityPageContent(heroSection: PageSection, sections: PageSection[]): string {
-    let content = `# ${heroSection.headline}\n\n`;
-    content += `## ${heroSection.subheadline}\n\n`;
+    const hero = heroSection as any;
+    let content = `# ${hero.headline}\n\n`;
+    content += `## ${hero.subheadline}\n\n`;
 
     // Add benefits
-    content += heroSection.benefits?.map((b: string) => `- ${b}`).join('\n') + '\n\n';
+    content += hero.benefits?.map((b: string) => `- ${b}`).join('\n') + '\n\n';
 
     // Add sections
     sections.forEach(section => {
@@ -752,7 +755,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     options: CityPageOptions,
     localData: LocalData
   ): Promise<LocalSchema> {
-    const nearestOffice = this.getNearestOffice(options.city);
+    const nearestOffice = this.getNearestOffice(options.city) as any;
 
     return {
       '@context': 'https://schema.org',
@@ -761,8 +764,10 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       description: `Professional ${options.practiceArea} legal services in ${options.city}, North Carolina`,
       address: {
         '@type': 'PostalAddress',
+        streetAddress: nearestOffice.address || '6009 Triangle Dr',
         addressLocality: options.city,
         addressRegion: 'NC',
+        postalCode: nearestOffice.zip || '27616',
         addressCountry: 'US',
       },
       geo: {
@@ -772,11 +777,12 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       },
       telephone: '1-844-967-3536',
       priceRange: '$$$',
-      openingHours: 'Mo-Fr 09:00-18:00',
-      areaServed: {
-        '@type': 'City',
-        name: options.city,
-      },
+      areaServed: [
+        {
+          '@type': 'City',
+          name: options.city,
+        },
+      ],
     };
   }
 
@@ -807,11 +813,11 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     const offices = this.getAllOffices();
     return offices
       .map(office => ({
-        ...office,
-        distance: this.calculateDistance(city, office.city),
+        ...(office as any),
+        distance: this.calculateDistance(city, (office as any).city),
       }))
-      .filter(office => office.distance < 50)
-      .sort((a, b) => a.distance - b.distance);
+      .filter(office => (office as any).distance < 50)
+      .sort((a, b) => (a as any).distance - (b as any).distance);
   }
 
   private getNearestOffice(city: string): unknown {
@@ -893,25 +899,22 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     // Return practice area specific local data
     const specificData = {
       immigration: {
-        immigrantPopulation: localData.demographics.immigrantPopulation || '15%',
+        immigrantPopulation: (localData.demographics as any).immigrantPopulation || '15%',
         commonCountries: ['Mexico', 'India', 'China', 'Philippines'],
         uscisOffice: 'Charlotte USCIS Field Office',
       },
       'personal-injury': {
-        accidentRate: localData.crimeStats.vehicleAccidents || 'Above state average',
+        accidentRate: (localData as any).crimeStats?.vehicleAccidents || 'Above state average',
         majorHighways: ['I-40', 'I-85', 'I-95'],
-        hospitals: localData.hospitals || ['Wake Med', 'Duke Health'],
+        hospitals: (localData as any).hospitals || ['Wake Med', 'Duke Health'],
       },
       // Add more practice areas
     };
 
-    return (specificData as Record<string, unknown>)[practiceArea] || {};
+    return (specificData as Record<string, unknown>)[practiceArea] || ({} as any);
   }
 
-  private getRelevantStats(
-    practiceArea: string,
-    localData: LocalData
-  ): Record<string, number | string> {
+  private getRelevantStats(practiceArea: string, localData: LocalData) {
     const statsMap = {
       immigration: [
         { label: 'Immigrant Population', value: '125,000+', context: 'in the Triangle area' },
@@ -1002,7 +1005,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
 
   private async getRelevantStatistics(practiceArea: string): Promise<any[]> {
     // In production, fetch from real data sources
-    return this.getRelevantStats(practiceArea, {});
+    return this.getRelevantStats(practiceArea, {} as any);
   }
 
   private async getCommonQuestions(practiceArea: string): Promise<string[]> {
@@ -1074,7 +1077,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
         stickyCTA: { id: 'sticky-cta', event: 'click_sticky_cta' },
         exitCTA: { id: 'exit-cta', event: 'click_exit_cta' },
       },
-    };
+    } as any;
   }
 
   private async generateHeroImage(city: string, practiceArea: string): Promise<string> {

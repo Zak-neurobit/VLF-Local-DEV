@@ -89,7 +89,9 @@ export class ContentSyndicator {
     }
 
     // Track submissions
-    await this.trackSyndication(content.id, 'directories', results);
+    for (const result of results) {
+      await this.trackSyndication(content.id, 'directories', result);
+    }
 
     return results;
   }
@@ -192,9 +194,9 @@ export class ContentSyndicator {
     logger.info('Creating PR release', { id: content.id });
 
     try {
-      const release: PRRelease = {
+      const release = {
         headline: this.createPRHeadline(content),
-        subheadline: content.metaDescription,
+        subheadline: content.metaDescription || content.excerpt,
         dateline: `RALEIGH, NC - ${new Date().toLocaleDateString('en-US', {
           month: 'long',
           day: 'numeric',
@@ -311,7 +313,9 @@ export class ContentSyndicator {
     await this.buildContextualBacklinks(content);
 
     // Track citations
-    await this.trackSyndication(content.id, 'citations', results);
+    for (const result of results) {
+      await this.trackSyndication(content.id, 'citations', result);
+    }
 
     return results;
   }
@@ -624,7 +628,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     const guestPost = {
       title: `Guest Post: ${content.title}`,
       content: await this.formatAsGuestPost(content),
-      authorBio: this.getAuthorBio(content.author),
+      authorBio: this.getAuthorBio(content.author || 'William Vasquez'),
       backlink: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}`,
     };
 
@@ -665,7 +669,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
         status: result.success ? 'success' : 'failed',
         url: result.url,
         externalId: result.postId || result.shareId || result.releaseId,
-        metrics: result as unknown,
+        metrics: result as any,
         syndicatedAt: new Date(),
       },
     });
@@ -828,7 +832,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     const intro = `*Editor's Note: This guest post provides valuable insights on ${content.practiceArea} law from the experienced team at Vasquez Law Firm.*\n\n`;
 
     // Add author resource box
-    const resourceBox = `\n\n---\n\n**About the Author**\n\n${this.getAuthorBio(content.author)}\n\nThis article originally appeared on the [Vasquez Law Firm blog](${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}).`;
+    const resourceBox = `\n\n---\n\n**About the Author**\n\n${this.getAuthorBio(content.author || 'William Vasquez')}\n\nThis article originally appeared on the [Vasquez Law Firm blog](${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}).`;
 
     return intro + guestContent + resourceBox;
   }

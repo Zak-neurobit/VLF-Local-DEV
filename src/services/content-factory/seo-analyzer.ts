@@ -472,8 +472,9 @@ export class SEOAnalyzer {
 
     // Check image file names (should be descriptive)
     let poorFileNames = 0;
-    images.forEach((image: string) => {
-      if (/IMG_\d+|image\d+|photo\d+/i.test(image)) {
+    images.forEach(image => {
+      const src = typeof image === 'string' ? image : image.src;
+      if (/IMG_\d+|image\d+|photo\d+/i.test(src)) {
         poorFileNames++;
       }
     });
@@ -508,7 +509,14 @@ export class SEOAnalyzer {
     let missingFields = 0;
 
     requiredFields.forEach(field => {
-      if (!content[field] && !content.publishedAt && field === 'datePublished') {
+      // Check specific fields that exist in SEOContent
+      if (field === 'title' && !content.title) {
+        missingFields++;
+      } else if (field === 'description' && !content.metaDescription) {
+        missingFields++;
+      } else if (field === 'author' && !content.author) {
+        missingFields++;
+      } else if (field === 'datePublished' && !content.publishedAt) {
         missingFields++;
       }
     });

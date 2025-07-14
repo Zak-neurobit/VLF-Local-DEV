@@ -128,7 +128,7 @@ export class ContentScheduler {
       const performance = await this.getContentPerformance(contentId);
 
       // Check if rescheduling would help
-      if ((performance as unknown).viewsPerHour < 10) {
+      if ((performance as any).viewsPerHour < 10) {
         // Find better time slot
         const betterTime = await this.findBetterTimeSlot(contentId);
 
@@ -190,10 +190,13 @@ export class ContentScheduler {
         calendar.set(dateKey, []);
       }
 
-      calendar.get(dateKey)!.push({
-        ...item,
-        content: await this.getContentDetails(item.contentId, item.contentType),
-      });
+      const dayItems = calendar.get(dateKey);
+      if (dayItems) {
+        dayItems.push({
+          ...item,
+          content: await this.getContentDetails(item.contentId, item.contentType),
+        });
+      }
     }
 
     return Object.fromEntries(calendar);
@@ -233,14 +236,15 @@ export class ContentScheduler {
     const hourlyPerformance = new Map<number, number[]>();
 
     performanceData.forEach(data => {
-      const hour = new Date(data.publishedAt).getHours();
+      const perfData = data as any;
+      const hour = new Date(perfData.publishedAt).getHours();
 
       if (!hourlyPerformance.has(hour)) {
         hourlyPerformance.set(hour, []);
       }
 
       // Score based on first hour views and engagement
-      const score = data.viewsFirstHour * (1 + data.engagementRate);
+      const score = perfData.viewsFirstHour * (1 + perfData.engagementRate);
       hourlyPerformance.get(hour)!.push(score);
     });
 
@@ -464,10 +468,10 @@ export class ContentScheduler {
         await this.publishToTwitter(content);
         break;
       case 'linkedin':
-        await syndicator.postToLinkedIn(content);
+        await syndicator.postToLinkedIn(content as any);
         break;
       case 'medium':
-        await syndicator.postToMedium(content);
+        await syndicator.postToMedium(content as any);
         break;
     }
   }

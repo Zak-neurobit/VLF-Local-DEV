@@ -6,6 +6,7 @@ import { SchemaMarkupAutomation } from './schema-automation';
 import { ContentSyndicator } from './content-syndicator';
 import { ContentScheduler } from './content-scheduler';
 import { SEOAnalyzer } from './seo-analyzer';
+import type { BlogContent } from '@/types/content-factory';
 
 export interface ContentFactoryConfig {
   dailyBlogTarget: number;
@@ -141,7 +142,7 @@ export class ContentFactory {
           language,
           targetKeywords: topic.keywords,
           includeLocalCaseStudy: true,
-          optimizeForVoiceSearch: Boolean((topic as unknown).isVoiceSearch),
+          optimizeForVoiceSearch: Boolean((topic as any).isVoiceSearch),
         });
 
         // Save to database
@@ -162,7 +163,11 @@ export class ContentFactory {
             author: blogPost.author,
             keywords: blogPost.keywords,
             faqSection: blogPost.faqSection,
-            seoScore: await this.seoAnalyzer.calculateScore(blogPost),
+            seoScore: await this.seoAnalyzer.calculateScore({
+              ...blogPost,
+              id: Date.now().toString(),
+              practiceArea,
+            } as any),
             readTime: blogPost.readTime,
           },
         });
@@ -224,8 +229,8 @@ export class ContentFactory {
               practiceArea,
               language,
               heroImage: page.heroImage,
-              sections: page.sections,
-              localSchema: page.localSchema,
+              sections: page.sections as any,
+              localSchema: page.localSchema as any,
               status: 'published',
               publishedAt: new Date(),
               viewCount: 0,
@@ -276,7 +281,7 @@ export class ContentFactory {
               practiceArea,
               variationType: type,
               content: variation.content,
-              conversionElements: variation.conversionElements,
+              conversionElements: variation.conversionElements as any,
               language,
               status: 'testing',
               trafficPercentage: 25, // Split traffic evenly
@@ -301,22 +306,23 @@ export class ContentFactory {
     logger.info('Generating schema markup for content', { count: content.length });
 
     for (const item of content) {
-      if (item.model === 'BlogPost') {
-        await this.schemaAutomation.generateBlogSchema(item);
-      } else if (item.model === 'LandingPage') {
-        await this.schemaAutomation.generateLocalBusinessSchema(item);
-      } else if (item.model === 'LandingPageVariation') {
-        await this.schemaAutomation.generateServiceSchema(item);
+      const contentItem = item as any;
+      if (contentItem.model === 'BlogPost') {
+        await this.schemaAutomation.generateBlogSchema(contentItem);
+      } else if (contentItem.model === 'LandingPage') {
+        await this.schemaAutomation.generateLocalBusinessSchema(contentItem);
+      } else if (contentItem.model === 'LandingPageVariation') {
+        await this.schemaAutomation.generateServiceSchema(contentItem);
       }
 
       // Generate FAQ schema if applicable
-      if (item.faqSection) {
-        await this.schemaAutomation.generateFAQSchema(item);
+      if (contentItem.faqSection) {
+        await this.schemaAutomation.generateFAQSchema(contentItem);
       }
 
       // Generate HowTo schema for guides
-      if (item.content?.includes('Step 1:') || item.content?.includes('How to')) {
-        await this.schemaAutomation.generateHowToSchema(item);
+      if (contentItem.content?.includes('Step 1:') || contentItem.content?.includes('How to')) {
+        await this.schemaAutomation.generateHowToSchema(contentItem);
       }
     }
   }
@@ -330,7 +336,7 @@ export class ContentFactory {
     const optimalTimes = await this.scheduler.getOptimalPublishingTimes();
 
     for (let i = 0; i < content.length; i++) {
-      const item = content[i];
+      const item = content[i] as any;
       const timeSlot = optimalTimes[i % optimalTimes.length];
 
       await this.scheduler.schedulePublication({
@@ -363,26 +369,32 @@ export class ContentFactory {
     });
 
     for (const content of recentContent) {
+      const blogContent = {
+        ...content,
+        excerpt: content.excerpt || content.metaDescription || '',
+        metaDescription: content.metaDescription || '',
+      } as BlogContent;
+
       // Submit to legal directories
-      await this.syndicator.submitToLegalDirectories(content);
+      await this.syndicator.submitToLegalDirectories(blogContent);
 
       // Post to Medium
       if (this.config.syndicationPlatforms.includes('medium')) {
-        await this.syndicator.postToMedium(content);
+        await this.syndicator.postToMedium(blogContent);
       }
 
       // Post to LinkedIn
       if (this.config.syndicationPlatforms.includes('linkedin')) {
-        await this.syndicator.postToLinkedIn(content);
+        await this.syndicator.postToLinkedIn(blogContent);
       }
 
       // Create PR release for significant content
       if (content.seoScore >= 80) {
-        await this.syndicator.createPRRelease(content);
+        await this.syndicator.createPRRelease(blogContent);
       }
 
       // Build citation network
-      await this.syndicator.buildCitations(content);
+      await this.syndicator.buildCitations(blogContent);
 
       // Update syndication status (add field to track this separately if needed)
       // await prisma.blogPost.update({
@@ -460,8 +472,9 @@ export class ContentFactory {
     const topicCounts = new Map<string, number>();
 
     content.forEach(item => {
-      const topic = this.extractTopicFromTitle(item.title);
-      topicCounts.set(topic, (topicCounts.get(topic) || 0) + item.viewCount);
+      const contentItem = item as any;
+      const topic = this.extractTopicFromTitle(contentItem.title);
+      topicCounts.set(topic, (topicCounts.get(topic) || 0) + contentItem.viewCount);
     });
 
     return Array.from(topicCounts.entries())
@@ -479,9 +492,10 @@ export class ContentFactory {
     const keywordPerformance = new Map<string, number>();
 
     content.forEach(item => {
-      item.keywords?.forEach((keyword: string) => {
-        const score = item.seoAnalysis?.[0]?.avgPosition
-          ? 100 - item.seoAnalysis[0].avgPosition
+      const contentItem = item as any;
+      contentItem.keywords?.forEach((keyword: string) => {
+        const score = contentItem.seoAnalysis?.[0]?.avgPosition
+          ? 100 - contentItem.seoAnalysis[0].avgPosition
           : 0;
         keywordPerformance.set(keyword, (keywordPerformance.get(keyword) || 0) + score);
       });
@@ -494,7 +508,7 @@ export class ContentFactory {
   }
 
   private calculateOptimalLength(content: unknown[]): number {
-    const lengths = content.map(item => item.content.length);
+    const lengths = content.map(item => (item as any).content.length);
     return Math.round(lengths.reduce((a, b) => a + b, 0) / lengths.length);
   }
 
@@ -503,9 +517,10 @@ export class ContentFactory {
     const timePerformance = new Map<number, number>();
 
     content.forEach(item => {
-      if (item.publishedAt) {
-        const hour = new Date(item.publishedAt).getHours();
-        timePerformance.set(hour, (timePerformance.get(hour) || 0) + item.viewCount);
+      const contentItem = item as any;
+      if (contentItem.publishedAt) {
+        const hour = new Date(contentItem.publishedAt).getHours();
+        timePerformance.set(hour, (timePerformance.get(hour) || 0) + contentItem.viewCount);
       }
     });
 
@@ -517,13 +532,13 @@ export class ContentFactory {
 
   private calculateAverage(items: unknown[], field: string): number {
     if (items.length === 0) return 0;
-    const sum = items.reduce((acc, item) => acc + (item[field] || 0), 0);
+    const sum = items.reduce((acc: number, item) => acc + ((item as any)[field] || 0), 0);
     return Math.round(sum / items.length);
   }
 
   private calculateAvgPosition(content: unknown[]): number {
     const positions = content
-      .flatMap(c => c.seoAnalysis?.map((a: any) => a.avgPosition) || [])
+      .flatMap(c => (c as any).seoAnalysis?.map((a: any) => a.avgPosition) || [])
       .filter(p => p > 0);
 
     if (positions.length === 0) return 0;

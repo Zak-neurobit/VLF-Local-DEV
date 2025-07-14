@@ -7,8 +7,8 @@ import type {
   Attorney,
   ServiceVariation,
   SchemaContent,
-  GeneratedLandingPage,
 } from '@/types/content-factory';
+import type { GeneratedLandingPage } from './landing-page-generator';
 
 export class SchemaMarkupAutomation {
   private baseUrl: string;
@@ -38,7 +38,7 @@ export class SchemaMarkupAutomation {
       headline: blogPost.title,
       alternativeHeadline: blogPost.metaDescription,
       description: blogPost.excerpt,
-      image: this.generateImageSchema(blogPost.featuredImage, blogPost.images),
+      image: this.generateImageSchema(blogPost.featuredImage, (blogPost as any).images),
       datePublished: blogPost.publishedAt,
       dateModified: blogPost.updatedAt,
       author: this.generateAuthorSchema(blogPost.author),
@@ -46,8 +46,8 @@ export class SchemaMarkupAutomation {
       keywords: blogPost.keywords.join(', '),
       articleSection: this.formatPracticeArea(blogPost.practiceArea),
       wordCount: this.calculateWordCount(blogPost.content),
-      timeRequired: `PT${blogPost.readTime}M`,
-      inLanguage: blogPost.language === 'es' ? 'es-US' : 'en-US',
+      timeRequired: `PT${(blogPost as any).readTime || 5}M`,
+      inLanguage: (blogPost as any).language === 'es' ? 'es-US' : 'en-US',
       isAccessibleForFree: true,
       isPartOf: {
         '@type': 'Blog',
@@ -63,7 +63,7 @@ export class SchemaMarkupAutomation {
 
     // Add FAQ schema if present
     if (blogPost.faqSection && blogPost.faqSection.length > 0) {
-      (schema as unknown)['hasPart'] = {
+      (schema as any)['hasPart'] = {
         '@type': 'FAQPage',
         mainEntity: blogPost.faqSection.map(faq => ({
           '@type': 'Question',
@@ -78,7 +78,7 @@ export class SchemaMarkupAutomation {
     }
 
     // Add breadcrumb
-    (schema as unknown)['breadcrumb'] = this.generateBreadcrumb([
+    (schema as any)['breadcrumb'] = this.generateBreadcrumb([
       { name: 'Home', url: '/' },
       { name: 'Blog', url: '/blog' },
       { name: blogPost.title, url: `/blog/${blogPost.slug}` },
@@ -94,14 +94,14 @@ export class SchemaMarkupAutomation {
    * Generate local business schema for landing pages
    */
   async generateLocalBusinessSchema(landingPage: GeneratedLandingPage) {
-    logger.info('Generating local business schema', { id: landingPage.id });
+    logger.info('Generating local business schema', { slug: landingPage.slug });
 
     const schema = {
       '@context': 'https://schema.org',
       '@type': 'LegalService',
       '@id': `${this.baseUrl}/${landingPage.slug}#localbusiness`,
-      name: `Vasquez Law Firm - ${landingPage.city} ${this.formatPracticeArea(landingPage.practiceArea)} Lawyers`,
-      alternateName: `VLF ${landingPage.city}`,
+      name: `Vasquez Law Firm - ${(landingPage as any).city || 'NC'} ${this.formatPracticeArea((landingPage as any).practiceArea || 'Legal')} Lawyers`,
+      alternateName: `VLF ${(landingPage as any).city || 'NC'}`,
       description: landingPage.metaDescription,
       url: `${this.baseUrl}/${landingPage.slug}`,
       telephone: '+1-844-967-3536',
@@ -109,16 +109,16 @@ export class SchemaMarkupAutomation {
       image: this.generateImageSchema(landingPage.heroImage),
       address: {
         '@type': 'PostalAddress',
-        addressLocality: landingPage.city,
-        addressRegion: landingPage.state,
-        postalCode: this.getCityZipCode(landingPage.city),
+        addressLocality: (landingPage as any).city || 'Raleigh',
+        addressRegion: (landingPage as any).state || 'NC',
+        postalCode: this.getCityZipCode((landingPage as any).city || 'Raleigh'),
         addressCountry: 'US',
       },
-      geo: this.getCityCoordinates(landingPage.city),
+      geo: this.getCityCoordinates((landingPage as any).city || 'Raleigh'),
       openingHoursSpecification: this.generateOpeningHours(),
       areaServed: {
         '@type': 'City',
-        name: landingPage.city,
+        name: (landingPage as any).city || 'Raleigh',
         containedInPlace: {
           '@type': 'State',
           name: 'North Carolina',
@@ -126,8 +126,8 @@ export class SchemaMarkupAutomation {
       },
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
-        name: `${this.formatPracticeArea(landingPage.practiceArea)} Services`,
-        itemListElement: this.generateServiceOffers(landingPage.practiceArea),
+        name: `${this.formatPracticeArea((landingPage as any).practiceArea || 'Legal')} Services`,
+        itemListElement: this.generateServiceOffers((landingPage as any).practiceArea || 'legal'),
       },
       aggregateRating: {
         '@type': 'AggregateRating',
@@ -138,8 +138,8 @@ export class SchemaMarkupAutomation {
       },
       review: this.generateReviewSchema(),
       sameAs: this.getSocialProfiles(),
-      knowsAbout: this.getPracticeAreaTopics(landingPage.practiceArea),
-      makesOffer: this.generateServiceSchema(landingPage.practiceArea),
+      knowsAbout: this.getPracticeAreaTopics((landingPage as any).practiceArea || 'legal'),
+      makesOffer: this.generateServiceSchema((landingPage as any).practiceArea || 'legal'),
     };
 
     // Add local business specific markup
@@ -148,7 +148,7 @@ export class SchemaMarkupAutomation {
     }
 
     // Store schema in database
-    await this.saveSchema(landingPage.id, 'LandingPage', schema);
+    await this.saveSchema(landingPage.slug, 'LandingPage', schema);
 
     return schema;
   }
@@ -157,7 +157,7 @@ export class SchemaMarkupAutomation {
    * Generate service schema for practice areas
    */
   async generateServiceSchema(variation: ServiceVariation) {
-    logger.info('Generating service schema', { id: variation.id });
+    logger.info('Generating service schema', { slug: variation.slug });
 
     const schema = {
       '@context': 'https://schema.org',
@@ -201,11 +201,11 @@ export class SchemaMarkupAutomation {
 
     // Add variation-specific elements
     if (variation.variationType === 'faq-focused') {
-      (schema as unknown)['mainEntity'] = this.generateFAQSchema(variation);
+      (schema as any)['mainEntity'] = this.generateFAQSchema(variation);
     }
 
     // Store schema in database
-    await this.saveSchema(variation.id, 'LandingPageVariation', schema);
+    await this.saveSchema(variation.slug, 'LandingPageVariation', schema);
 
     return schema;
   }
@@ -224,7 +224,7 @@ export class SchemaMarkupAutomation {
       '@id': `${this.baseUrl}/${content.slug}#faq`,
       name: `${content.title} - Frequently Asked Questions`,
       description: `Common questions about ${content.practiceArea || content.title}`,
-      mainEntity: faqItems.map((faq, index) => ({
+      mainEntity: faqItems.map((faq: FAQ, index: number) => ({
         '@type': 'Question',
         '@id': `${this.baseUrl}/${content.slug}#question${index + 1}`,
         name: faq.question,
@@ -248,7 +248,7 @@ export class SchemaMarkupAutomation {
     logger.info('Generating HowTo schema', { id: content.id });
 
     // Extract steps from content
-    const steps = this.extractHowToSteps(content.content);
+    const steps = this.extractHowToSteps(content.content || '');
 
     if (steps.length === 0) return null;
 
@@ -259,7 +259,7 @@ export class SchemaMarkupAutomation {
       name: content.title,
       description: content.metaDescription,
       image: this.generateImageSchema(content.featuredImage),
-      totalTime: `PT${content.readTime * 2}M`, // Estimate time to complete
+      totalTime: `PT${((content as any).readTime || 5) * 2}M`, // Estimate time to complete
       estimatedCost: {
         '@type': 'MonetaryAmount',
         currency: 'USD',
@@ -322,7 +322,7 @@ export class SchemaMarkupAutomation {
       performer: event.speakers?.map(speaker => ({
         '@type': 'Person',
         name: speaker.name,
-        jobTitle: speaker.title,
+        jobTitle: speaker.title || speaker.role || 'Speaker',
       })),
       offers: {
         '@type': 'Offer',
@@ -356,7 +356,7 @@ export class SchemaMarkupAutomation {
       },
       alumniOf: attorney.education?.map(edu => ({
         '@type': 'EducationalOrganization',
-        name: edu.school,
+        name: edu.school || edu.name,
       })),
       knowsLanguage: attorney.languages || ['English', 'Spanish'],
       hasOccupation: {
@@ -381,14 +381,22 @@ export class SchemaMarkupAutomation {
   async updateAttorneySchemas() {
     logger.info('Updating attorney schemas');
 
-    const attorneys = [
+    const attorneys: Attorney[] = [
       {
         name: 'William Vasquez',
         slug: 'william-vasquez',
+        jobTitle: 'Managing Attorney',
         title: 'Managing Attorney',
         bio: 'Founder of Vasquez Law Firm with over 30 years of experience',
         image: '/images/attorneys/william-vasquez.jpg',
-        education: [{ school: 'Campbell University School of Law', degree: 'J.D.' }],
+        education: [
+          {
+            '@type': 'Education',
+            name: 'Campbell University School of Law',
+            school: 'Campbell University School of Law',
+            degree: 'J.D.',
+          },
+        ],
         languages: ['English', 'Spanish'],
         practiceAreas: ['Immigration', 'Personal Injury'],
         barAssociations: ['North Carolina State Bar', 'American Immigration Lawyers Association'],
@@ -402,7 +410,7 @@ export class SchemaMarkupAutomation {
 
     for (const attorney of attorneys) {
       const schema = await this.generateAttorneySchema(attorney);
-      await this.saveSchema(attorney.slug, 'Attorney', schema);
+      await this.saveSchema(attorney.slug || attorney.name, 'Attorney', schema);
     }
   }
 
@@ -576,11 +584,7 @@ export class SchemaMarkupAutomation {
       // Add more practice areas...
     };
 
-    return (
-      (offers as Record<string, Array<{ type: string; price: string; description: string }>>)[
-        practiceArea
-      ] || []
-    ).map(offer => ({
+    return ((offers as any)[practiceArea] || []).map((offer: any) => ({
       '@type': 'Offer',
       itemOffered: {
         '@type': 'Service',
@@ -764,7 +768,7 @@ export class SchemaMarkupAutomation {
 
   private generateSchemaImprovements(schemaItem: Record<string, unknown>): string[] {
     const improvements = [];
-    const schema = JSON.parse(schemaItem.schema);
+    const schema = JSON.parse(schemaItem.schema as string);
 
     // Check for missing required fields
     if (!schema.image) {
@@ -808,7 +812,7 @@ export class SchemaMarkupAutomation {
         create: {
           contentId,
           contentType,
-          schemaType: schema['@type'],
+          schemaType: schema['@type'] as string,
           schema: JSON.stringify(schema),
         },
       });
