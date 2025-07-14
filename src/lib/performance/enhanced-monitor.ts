@@ -1,6 +1,7 @@
 'use client';
 
 import { logger } from '@/lib/logger';
+import { delay } from '@/lib/utils/async';
 
 export interface PerformanceMetrics {
   fcp?: number; // First Contentful Paint
@@ -32,6 +33,8 @@ class EnhancedPerformanceMonitor {
   private resourceTimings: ResourceTiming[] = [];
   private observers: PerformanceObserver[] = [];
   private startTime: number;
+  private memoryMonitoringAbortController?: AbortController;
+  private realTimeMonitoringAbortController?: AbortController;
 
   constructor() {
     this.startTime = performance.now();
@@ -74,7 +77,7 @@ class EnhancedPerformanceMonitor {
       const fidObserver = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           if (entry.name === 'first-input') {
-            this.metrics.fid = (entry as unknown).processingStart - entry.startTime;
+            this.metrics.fid = (entry as any).processingStart - entry.startTime;
           }
         }
       });
@@ -85,8 +88,8 @@ class EnhancedPerformanceMonitor {
       const clsObserver = new PerformanceObserver(list => {
         let clsValue = 0;
         for (const entry of list.getEntries()) {
-          if (!(entry as unknown).hadRecentInput) {
-            clsValue += (entry as unknown).value;
+          if (!(entry as any).hadRecentInput) {
+            clsValue += (entry as any).value;
           }
         }
         this.metrics.cls = clsValue;
@@ -153,7 +156,7 @@ class EnhancedPerformanceMonitor {
     // Memory usage monitoring
     const checkMemory = () => {
       if ('memory' in performance) {
-        const memory = (performance as unknown).memory;
+        const memory = (performance as any).memory;
         this.metrics.jsHeapSize = memory.jsHeapSizeLimit;
         this.metrics.totalJSHeapSize = memory.totalJSHeapSize;
         this.metrics.usedJSHeapSize = memory.usedJSHeapSize;
@@ -162,10 +165,9 @@ class EnhancedPerformanceMonitor {
     };
 
     checkMemory();
-    const memoryInterval = setInterval(checkMemory, 30000); // Check every 30 seconds
 
-    // Store interval ID for cleanup
-    (this as unknown).memoryInterval = memoryInterval;
+    // Start async memory monitoring loop
+    this.startMemoryMonitoring();
   }
 
   private getResourceType(url: string): string {
@@ -246,27 +248,67 @@ Performance Report:
       }
     });
 
-    if ((this as unknown).memoryInterval) {
-      clearInterval((this as unknown).memoryInterval);
+    // Abort async monitoring loops
+    this.memoryMonitoringAbortController?.abort();
+    this.realTimeMonitoringAbortController?.abort();
+  }
+
+  // Real-time monitoring with async loop
+  public startRealTimeMonitoring() {
+    this.realTimeMonitoringAbortController = new AbortController();
+    this.startRealTimeMonitoringLoop();
+
+    return () => this.realTimeMonitoringAbortController?.abort();
+  }
+
+  private async startMemoryMonitoring() {
+    this.memoryMonitoringAbortController = new AbortController();
+
+    const checkMemory = () => {
+      if (typeof window !== 'undefined' && 'performance' in window && 'memory' in performance) {
+        const memory = (performance as any).memory;
+        this.metrics.jsHeapSize = memory.jsHeapSize;
+        this.metrics.totalJSHeapSize = memory.totalJSHeapSize;
+        this.metrics.usedJSHeapSize = memory.usedJSHeapSize;
+        this.metrics.memoryUsage = (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100;
+      }
+    };
+
+    try {
+      while (!this.memoryMonitoringAbortController.signal.aborted) {
+        checkMemory();
+        await delay(30000, this.memoryMonitoringAbortController.signal); // Check every 30 seconds
+      }
+    } catch (error) {
+      // Monitoring was aborted or error occurred
+      if (!this.memoryMonitoringAbortController.signal.aborted) {
+        logger.error('Memory monitoring error:', error);
+      }
     }
   }
 
-  // Real-time monitoring
-  public startRealTimeMonitoring() {
-    const interval = setInterval(() => {
-      this.logMetrics();
+  private async startRealTimeMonitoringLoop() {
+    try {
+      while (!this.realTimeMonitoringAbortController?.signal.aborted) {
+        this.logMetrics();
 
-      // Alert for performance issues
-      const score = this.getPerformanceScore();
-      if (score < 70) {
-        logger.warn('Performance degradation detected', {
-          score,
-          report: this.generateReport(),
-        });
+        // Alert for performance issues
+        const score = this.getPerformanceScore();
+        if (score < 70) {
+          logger.warn('Performance degradation detected', {
+            score,
+            report: this.generateReport(),
+          });
+        }
+
+        await delay(60000, this.realTimeMonitoringAbortController.signal); // Every minute
       }
-    }, 60000); // Every minute
-
-    return () => clearInterval(interval);
+    } catch (error) {
+      // Monitoring was aborted or error occurred
+      if (!this.realTimeMonitoringAbortController?.signal.aborted) {
+        logger.error('Real-time monitoring error:', error);
+      }
+    }
   }
 }
 

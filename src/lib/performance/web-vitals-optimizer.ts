@@ -138,7 +138,7 @@ class WebVitalsOptimizer {
       const observer = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           if (entry.name === 'first-input') {
-            const fid = (entry as unknown).processingStart - entry.startTime;
+            const fid = (entry as any).processingStart - entry.startTime;
             this.metrics.fid = fid;
             this.logMetric('FID', fid);
           }
@@ -156,8 +156,8 @@ class WebVitalsOptimizer {
       let clsValue = 0;
       const observer = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
-          if (!(entry as unknown).hadRecentInput) {
-            clsValue += (entry as unknown).value;
+          if (!(entry as any).hadRecentInput) {
+            clsValue += (entry as any).value;
           }
         }
         this.metrics.cls = clsValue;
@@ -384,7 +384,7 @@ ${recommendations.length > 0 ? recommendations.map(rec => `- ${rec}`).join('\n')
         rules.forEach(rule => {
           if (rule instanceof CSSFontFaceRule) {
             // Set font-display using setProperty
-            (rule.style as unknown).setProperty('font-display', 'swap');
+            (rule.style as any).setProperty('font-display', 'swap');
           }
         });
       } catch (e) {
