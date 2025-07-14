@@ -133,39 +133,50 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
   const executeTask = useCallback(
     async (task: {
       type: 'consultation' | 'appointment' | 'document' | 'intake';
-      data: Record<string, unknown>;
+      data: Record<string, unknown> | FormData;
     }) => {
       try {
         if (task.type === 'consultation') {
-          return await createLegalConsultationTask(
-            task.data as {
-              userId: string;
-              caseType: string;
-              description: string;
-              urgency?: 'low' | 'medium' | 'high';
-              language?: 'en' | 'es';
-              location?: string;
-            }
-          );
+          const consultationData = task.data as Record<string, unknown>;
+          return await createLegalConsultationTask({
+            userId: String(consultationData.userId || ''),
+            caseType: String(consultationData.caseType || ''),
+            description: String(consultationData.description || ''),
+            urgency: (consultationData.urgency as 'low' | 'medium' | 'high') || 'medium',
+            language: (consultationData.language as 'en' | 'es') || 'en',
+            location: String(consultationData.location || ''),
+          });
         } else if (task.type === 'appointment') {
-          return await createAppointmentSchedulingTask(
-            task.data as {
-              userId: string;
-              type: string;
-              dateTime: string;
-              duration?: number;
-              practiceArea?: string;
-              language?: 'en' | 'es';
-              urgency?: 'low' | 'medium' | 'high';
-            }
-          );
+          const appointmentData = task.data as Record<string, unknown>;
+          return await createAppointmentSchedulingTask({
+            userId: String(appointmentData.userId || ''),
+            practiceArea: String(appointmentData.practiceArea || ''),
+            duration: Number(appointmentData.duration) || 60,
+            language: (appointmentData.language as 'en' | 'es') || 'en',
+            appointmentType: 'consultation',
+            isUrgent: appointmentData.urgency === 'high',
+            clientInfo: {
+              firstName: String(appointmentData.firstName || ''),
+              lastName: String(appointmentData.lastName || ''),
+              email: String(appointmentData.email || ''),
+              phone: String(appointmentData.phone || ''),
+            },
+          });
         } else if (task.type === 'document') {
           // Document analysis requires a file parameter
           // Since we don't have a file in task.data, we need to handle this differently
           // For now, we'll throw an error indicating a file is required
           throw new Error('Document analysis requires a file to be uploaded');
         } else if (task.type === 'intake') {
-          return await createClientIntakeWorkflow(task.data);
+          const intakeData = task.data as Record<string, unknown>;
+          return await createClientIntakeWorkflow({
+            userId: String(intakeData.userId || ''),
+            caseType: String(intakeData.caseType || ''),
+            description: String(intakeData.description || ''),
+            urgency: (intakeData.urgency as 'low' | 'medium' | 'high') || 'medium',
+            language: (intakeData.language as 'en' | 'es') || 'en',
+            location: String(intakeData.location || ''),
+          });
         }
         throw new Error('Unknown task type');
       } catch (err) {
@@ -418,8 +429,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
         setConversationState(prev => ({ ...prev, isProcessing: true }));
 
         const result = await executeTask({
-          agent: 'legal-consultation',
-          task: type,
+          type: 'consultation',
           data: {
             ...data,
             language,
@@ -450,8 +460,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
         formData.append('language', language);
 
         const result = await executeTask({
-          agent: 'document-analysis',
-          task: 'analyze',
+          type: 'document',
           data: formData,
         });
 
@@ -473,8 +482,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
         setConversationState(prev => ({ ...prev, isProcessing: true }));
 
         const result = await executeTask({
-          agent: 'appointment-scheduling',
-          task: 'schedule',
+          type: 'appointment',
           data: {
             ...appointmentData,
             language,
