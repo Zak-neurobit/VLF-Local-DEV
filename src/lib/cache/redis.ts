@@ -108,7 +108,7 @@ function getRedis() {
     _redis =
       process.env.MOCK_REDIS === 'true' ||
       (process.env.NODE_ENV === 'production' && !process.env.REDIS_HOST)
-        ? (new MockRedis() as unknown)
+        ? (new MockRedis() as MockRedis)
         : new Redis(redisConfig);
 
     // Only connect if not mock
@@ -138,7 +138,7 @@ function getBullRedis() {
     _bullRedis =
       process.env.MOCK_REDIS === 'true' ||
       (process.env.NODE_ENV === 'production' && !process.env.REDIS_HOST)
-        ? (new MockRedis() as unknown)
+        ? (new MockRedis() as MockRedis)
         : new Redis(redisConfig);
 
     // Only connect if not mock
@@ -181,7 +181,7 @@ class CacheManager {
       const value = await this.redis.get(key);
       performanceLogger.measure('cache-get', Date.now() - start, { key, hit: !!value });
 
-      return value ? JSON.parse(value) : null;
+      return value && typeof value === 'string' ? JSON.parse(value) : null;
     } catch (error) {
       securityLogger.error('Cache get error:', error);
       return null;
@@ -224,7 +224,7 @@ class CacheManager {
     // Check memory first
     const memCached = this.memoryCache.get(key);
     if (memCached && memCached.expires > Date.now()) {
-      return memCached.value;
+      return memCached.value as T;
     }
 
     // Then check Redis
@@ -315,11 +315,11 @@ class CacheManager {
       });
 
       return {
-        used_memory: stats.used_memory || 'N/A',
-        used_memory_human: stats.used_memory_human || 'N/A',
-        connected_clients: stats.connected_clients || 'N/A',
-        total_connections_received: stats.total_connections_received || 'N/A',
-        total_commands_processed: stats.total_commands_processed || 'N/A',
+        used_memory: (stats.used_memory as string) || 'N/A',
+        used_memory_human: (stats.used_memory_human as string) || 'N/A',
+        connected_clients: (stats.connected_clients as string) || 'N/A',
+        total_connections_received: (stats.total_connections_received as string) || 'N/A',
+        total_commands_processed: (stats.total_commands_processed as string) || 'N/A',
       };
     } catch (error) {
       logger.error('Cache info error:', error);

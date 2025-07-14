@@ -59,7 +59,7 @@ const createSafeAdapter = () => {
 
 export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
-  adapter: createSafeAdapter() as unknown,
+  adapter: createSafeAdapter(),
   providers: [
     // Email/Password authentication
     CredentialsProvider({
@@ -314,8 +314,8 @@ export const authOptions: NextAuthOptions = {
         const dbConnected = await isDatabaseConnected();
         if (dbConnected) {
           // Get IP address from the request headers passed from the route handler
-          const headers = (message as unknown).__headers;
-          const clientIp = getClientIp(headers);
+          const headers = (message as { __headers?: Headers }).__headers;
+          const clientIp = getClientIp(headers ? Object.fromEntries(headers.entries()) : undefined);
 
           await safeDbOperation(
             async () => {

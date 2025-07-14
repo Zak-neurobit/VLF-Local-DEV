@@ -13,6 +13,14 @@ if (!GHL_API_KEY || !GHL_LOCATION_ID) {
   );
 }
 
+// Error type for axios errors
+interface AxiosError extends Error {
+  response?: {
+    status?: number;
+    data?: unknown;
+  };
+}
+
 // GHL Contact Interface
 export interface GHLContact {
   firstName?: string;
@@ -45,6 +53,92 @@ export interface GHLOpportunity {
   notes?: string;
 }
 
+// GHL Response Types
+export interface GHLContactResponse {
+  success: boolean;
+  contact?: {
+    id: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phone?: string;
+    locationId: string;
+    [key: string]: unknown;
+  };
+  contactId?: string;
+  error?: string;
+  status?: number;
+}
+
+export interface GHLOpportunityResponse {
+  success: boolean;
+  opportunity?: {
+    id: string;
+    title: string;
+    status: string;
+    stageId: string;
+    pipelineId: string;
+    contactId: string;
+    [key: string]: unknown;
+  };
+  opportunityId?: string;
+  error?: string;
+  status?: number;
+}
+
+export interface GHLSearchResponse {
+  success: boolean;
+  contacts?: Array<{
+    id: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phone?: string;
+    [key: string]: unknown;
+  }>;
+  total?: number;
+  error?: string;
+  status?: number;
+}
+
+export interface GHLSMSResponse {
+  success: boolean;
+  message?: {
+    id: string;
+    status: string;
+    [key: string]: unknown;
+  };
+  messageId?: string;
+  error?: string;
+  status?: number;
+}
+
+export interface GHLCallResponse {
+  success: boolean;
+  call?: {
+    id: string;
+    status: string;
+    [key: string]: unknown;
+  };
+  error?: string;
+  status?: number;
+}
+
+export interface GHLTagResponse {
+  success: boolean;
+  result?: unknown;
+  error?: string;
+  status?: number;
+}
+
+export interface GHLConnectionResponse {
+  success: boolean;
+  location?: unknown;
+  message?: string;
+  error?: string;
+  status?: number;
+}
+
 // GHL SMS Interface
 export interface GHLSMSMessage {
   contactId: string;
@@ -62,7 +156,7 @@ export interface GHLCall {
 /**
  * Create a contact in GoHighLevel
  */
-export async function createGHLContact(data: GHLContact): Promise<any> {
+export async function createGHLContact(data: GHLContact): Promise<GHLContactResponse> {
   if (!GHL_API_KEY || !GHL_LOCATION_ID) {
     logger.warn('GHL API not configured, skipping contact creation');
     return { success: false, error: 'GHL API not configured' };
@@ -92,8 +186,8 @@ export async function createGHLContact(data: GHLContact): Promise<any> {
     const errorDetails =
       error instanceof Error
         ? {
-            status: (error as unknown).response?.status,
-            data: (error as unknown).response?.data,
+            status: (error as AxiosError).response?.status,
+            data: (error as AxiosError).response?.data,
             message: error.message,
           }
         : { message: String(error) };
@@ -103,8 +197,10 @@ export async function createGHLContact(data: GHLContact): Promise<any> {
     return {
       success: false,
       error:
-        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
-      status: error instanceof Error ? (error as unknown).response?.status : undefined,
+        error instanceof Error
+          ? String((error as AxiosError).response?.data) || error.message
+          : String(error),
+      status: error instanceof Error ? (error as AxiosError).response?.status : undefined,
     };
   }
 }
@@ -112,7 +208,10 @@ export async function createGHLContact(data: GHLContact): Promise<any> {
 /**
  * Update a contact in GoHighLevel
  */
-export async function updateGHLContact(contactId: string, data: Partial<GHLContact>): Promise<any> {
+export async function updateGHLContact(
+  contactId: string,
+  data: Partial<GHLContact>
+): Promise<GHLContactResponse> {
   if (!GHL_API_KEY) {
     logger.warn('GHL API not configured, skipping contact update');
     return { success: false, error: 'GHL API not configured' };
@@ -137,8 +236,8 @@ export async function updateGHLContact(contactId: string, data: Partial<GHLConta
       error instanceof Error
         ? {
             contactId,
-            status: (error as unknown).response?.status,
-            data: (error as unknown).response?.data,
+            status: (error as AxiosError).response?.status,
+            data: (error as AxiosError).response?.data,
             message: error.message,
           }
         : { contactId, message: String(error) };
@@ -148,8 +247,10 @@ export async function updateGHLContact(contactId: string, data: Partial<GHLConta
     return {
       success: false,
       error:
-        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
-      status: error instanceof Error ? (error as unknown).response?.status : undefined,
+        error instanceof Error
+          ? String((error as AxiosError).response?.data) || error.message
+          : String(error),
+      status: error instanceof Error ? (error as AxiosError).response?.status : undefined,
     };
   }
 }
@@ -157,7 +258,7 @@ export async function updateGHLContact(contactId: string, data: Partial<GHLConta
 /**
  * Search for contacts in GoHighLevel
  */
-export async function searchGHLContacts(query: string): Promise<any> {
+export async function searchGHLContacts(query: string): Promise<GHLSearchResponse> {
   if (!GHL_API_KEY) {
     logger.warn('GHL API not configured, skipping contact search');
     return { success: false, error: 'GHL API not configured' };
@@ -185,8 +286,8 @@ export async function searchGHLContacts(query: string): Promise<any> {
       error instanceof Error
         ? {
             query,
-            status: (error as unknown).response?.status,
-            data: (error as unknown).response?.data,
+            status: (error as AxiosError).response?.status,
+            data: (error as AxiosError).response?.data,
             message: error.message,
           }
         : { query, message: String(error) };
@@ -196,8 +297,10 @@ export async function searchGHLContacts(query: string): Promise<any> {
     return {
       success: false,
       error:
-        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
-      status: error instanceof Error ? (error as unknown).response?.status : undefined,
+        error instanceof Error
+          ? String((error as AxiosError).response?.data) || error.message
+          : String(error),
+      status: error instanceof Error ? (error as AxiosError).response?.status : undefined,
     };
   }
 }
@@ -205,7 +308,7 @@ export async function searchGHLContacts(query: string): Promise<any> {
 /**
  * Create an opportunity in GoHighLevel
  */
-export async function createGHLOpportunity(data: GHLOpportunity): Promise<any> {
+export async function createGHLOpportunity(data: GHLOpportunity): Promise<GHLOpportunityResponse> {
   if (!GHL_API_KEY) {
     logger.warn('GHL API not configured, skipping opportunity creation');
     return { success: false, error: 'GHL API not configured' };
@@ -230,8 +333,8 @@ export async function createGHLOpportunity(data: GHLOpportunity): Promise<any> {
     const errorDetails =
       error instanceof Error
         ? {
-            status: (error as unknown).response?.status,
-            data: (error as unknown).response?.data,
+            status: (error as AxiosError).response?.status,
+            data: (error as AxiosError).response?.data,
             message: error.message,
           }
         : { message: String(error) };
@@ -241,8 +344,10 @@ export async function createGHLOpportunity(data: GHLOpportunity): Promise<any> {
     return {
       success: false,
       error:
-        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
-      status: error instanceof Error ? (error as unknown).response?.status : undefined,
+        error instanceof Error
+          ? String((error as AxiosError).response?.data) || error.message
+          : String(error),
+      status: error instanceof Error ? (error as AxiosError).response?.status : undefined,
     };
   }
 }
@@ -250,7 +355,7 @@ export async function createGHLOpportunity(data: GHLOpportunity): Promise<any> {
 /**
  * Send SMS through GoHighLevel
  */
-export async function sendGHLSMS(data: GHLSMSMessage): Promise<any> {
+export async function sendGHLSMS(data: GHLSMSMessage): Promise<GHLSMSResponse> {
   if (!GHL_API_KEY) {
     logger.warn('GHL API not configured, skipping SMS send');
     return { success: false, error: 'GHL API not configured' };
@@ -284,8 +389,8 @@ export async function sendGHLSMS(data: GHLSMSMessage): Promise<any> {
       error instanceof Error
         ? {
             contactId: data.contactId,
-            status: (error as unknown).response?.status,
-            data: (error as unknown).response?.data,
+            status: (error as AxiosError).response?.status,
+            data: (error as AxiosError).response?.data,
             message: error.message,
           }
         : { contactId: data.contactId, message: String(error) };
@@ -295,8 +400,10 @@ export async function sendGHLSMS(data: GHLSMSMessage): Promise<any> {
     return {
       success: false,
       error:
-        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
-      status: error instanceof Error ? (error as unknown).response?.status : undefined,
+        error instanceof Error
+          ? String((error as AxiosError).response?.data) || error.message
+          : String(error),
+      status: error instanceof Error ? (error as AxiosError).response?.status : undefined,
     };
   }
 }
@@ -304,7 +411,7 @@ export async function sendGHLSMS(data: GHLSMSMessage): Promise<any> {
 /**
  * Trigger a phone call through GoHighLevel
  */
-export async function triggerGHLCall(data: GHLCall): Promise<any> {
+export async function triggerGHLCall(data: GHLCall): Promise<GHLCallResponse> {
   if (!GHL_API_KEY) {
     logger.warn('GHL API not configured, skipping call trigger');
     return { success: false, error: 'GHL API not configured' };
@@ -339,8 +446,8 @@ export async function triggerGHLCall(data: GHLCall): Promise<any> {
         ? {
             contactId: data.contactId,
             phoneNumber: data.phoneNumber,
-            status: (error as unknown).response?.status,
-            data: (error as unknown).response?.data,
+            status: (error as AxiosError).response?.status,
+            data: (error as AxiosError).response?.data,
             message: error.message,
           }
         : { contactId: data.contactId, phoneNumber: data.phoneNumber, message: String(error) };
@@ -350,8 +457,10 @@ export async function triggerGHLCall(data: GHLCall): Promise<any> {
     return {
       success: false,
       error:
-        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
-      status: error instanceof Error ? (error as unknown).response?.status : undefined,
+        error instanceof Error
+          ? String((error as AxiosError).response?.data) || error.message
+          : String(error),
+      status: error instanceof Error ? (error as AxiosError).response?.status : undefined,
     };
   }
 }
@@ -359,7 +468,7 @@ export async function triggerGHLCall(data: GHLCall): Promise<any> {
 /**
  * Get contact by ID from GoHighLevel
  */
-export async function getGHLContact(contactId: string): Promise<any> {
+export async function getGHLContact(contactId: string): Promise<GHLContactResponse> {
   if (!GHL_API_KEY) {
     logger.warn('GHL API not configured, skipping contact retrieval');
     return { success: false, error: 'GHL API not configured' };
@@ -382,8 +491,8 @@ export async function getGHLContact(contactId: string): Promise<any> {
       error instanceof Error
         ? {
             contactId,
-            status: (error as unknown).response?.status,
-            data: (error as unknown).response?.data,
+            status: (error as AxiosError).response?.status,
+            data: (error as AxiosError).response?.data,
             message: error.message,
           }
         : { contactId, message: String(error) };
@@ -393,8 +502,10 @@ export async function getGHLContact(contactId: string): Promise<any> {
     return {
       success: false,
       error:
-        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
-      status: error instanceof Error ? (error as unknown).response?.status : undefined,
+        error instanceof Error
+          ? String((error as AxiosError).response?.data) || error.message
+          : String(error),
+      status: error instanceof Error ? (error as AxiosError).response?.status : undefined,
     };
   }
 }
@@ -402,7 +513,10 @@ export async function getGHLContact(contactId: string): Promise<any> {
 /**
  * Add tags to a contact in GoHighLevel
  */
-export async function addGHLContactTags(contactId: string, tags: string[]): Promise<any> {
+export async function addGHLContactTags(
+  contactId: string,
+  tags: string[]
+): Promise<GHLTagResponse> {
   if (!GHL_API_KEY) {
     logger.warn('GHL API not configured, skipping tag addition');
     return { success: false, error: 'GHL API not configured' };
@@ -432,8 +546,8 @@ export async function addGHLContactTags(contactId: string, tags: string[]): Prom
         ? {
             contactId,
             tags,
-            status: (error as unknown).response?.status,
-            data: (error as unknown).response?.data,
+            status: (error as AxiosError).response?.status,
+            data: (error as AxiosError).response?.data,
             message: error.message,
           }
         : { contactId, tags, message: String(error) };
@@ -443,8 +557,10 @@ export async function addGHLContactTags(contactId: string, tags: string[]): Prom
     return {
       success: false,
       error:
-        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
-      status: error instanceof Error ? (error as unknown).response?.status : undefined,
+        error instanceof Error
+          ? String((error as AxiosError).response?.data) || error.message
+          : String(error),
+      status: error instanceof Error ? (error as AxiosError).response?.status : undefined,
     };
   }
 }
@@ -489,7 +605,7 @@ export function getPracticeAreaTags(practiceArea?: string, additionalInfo?: stri
 /**
  * Test GHL connection and configuration
  */
-export async function testGHLConnection(): Promise<any> {
+export async function testGHLConnection(): Promise<GHLConnectionResponse> {
   if (!GHL_API_KEY || !GHL_LOCATION_ID) {
     return {
       success: false,
@@ -514,8 +630,8 @@ export async function testGHLConnection(): Promise<any> {
     const errorDetails =
       error instanceof Error
         ? {
-            status: (error as unknown).response?.status,
-            data: (error as unknown).response?.data,
+            status: (error as AxiosError).response?.status,
+            data: (error as AxiosError).response?.data,
             message: error.message,
           }
         : { message: String(error) };
@@ -525,8 +641,10 @@ export async function testGHLConnection(): Promise<any> {
     return {
       success: false,
       error:
-        error instanceof Error ? (error as unknown).response?.data || error.message : String(error),
-      status: error instanceof Error ? (error as unknown).response?.status : undefined,
+        error instanceof Error
+          ? String((error as AxiosError).response?.data) || error.message
+          : String(error),
+      status: error instanceof Error ? (error as AxiosError).response?.status : undefined,
     };
   }
 }

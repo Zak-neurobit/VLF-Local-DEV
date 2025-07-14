@@ -106,15 +106,15 @@ class GlobalErrorHandler {
       extra: enrichedContext,
       tags: {
         source: context.source || 'unknown',
-        traceId: enrichedContext.traceId || 'unknown',
+        traceId: (enrichedContext.traceId || 'unknown') as string,
         hasTrace: !!enrichedContext.traceId,
       },
       contexts: {
         trace: enrichedContext.traceId
           ? {
-              trace_id: enrichedContext.traceId,
-              span_id: enrichedContext.spanId,
-              trace_url: enrichedContext.traceUrl,
+              trace_id: enrichedContext.traceId as any,
+              span_id: enrichedContext.spanId as any,
+              trace_url: enrichedContext.traceUrl as any,
             }
           : undefined,
       },

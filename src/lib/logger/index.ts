@@ -1,11 +1,23 @@
 // Dynamic logger that uses Winston on server and console on client
 // Enhanced with OpenTelemetry trace correlation
-let logger: winston.Logger;
-let apiLogger: winston.Logger;
-let securityLogger: winston.Logger;
-let performanceLogger: winston.Logger;
-let wsLogger: winston.Logger;
-let dbLogger: winston.Logger;
+import type {
+  Logger,
+  APILogger,
+  SecurityLogger,
+  PerformanceLogger,
+  WSLogger,
+  DBLogger,
+  ComponentLogger,
+  LogMeta,
+  WinstonLogInfo,
+} from '@/types/logger';
+
+let logger: Logger;
+let apiLogger: APILogger;
+let securityLogger: SecurityLogger;
+let performanceLogger: PerformanceLogger;
+let wsLogger: WSLogger;
+let dbLogger: DBLogger;
 
 // Import OpenTelemetry trace correlation (conditional for server-side only)
 let getTraceContext: (() => { traceId: string; spanId: string } | null) | null = null;
@@ -23,8 +35,8 @@ if (typeof window === 'undefined') {
 
 // Check if we're in Edge runtime (middleware)
 const isEdgeRuntime =
-  typeof (globalThis as any).EdgeRuntime !== 'undefined' ||
-  (globalThis as any).EdgeRuntime !== undefined;
+  typeof (globalThis as { EdgeRuntime?: unknown }).EdgeRuntime !== 'undefined' ||
+  (globalThis as { EdgeRuntime?: unknown }).EdgeRuntime !== undefined;
 
 if (typeof window === 'undefined' && !isEdgeRuntime) {
   // Server-side (Node.js): Use Winston
@@ -43,7 +55,7 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
       winston.format.errors({ stack: true }),
       winston.format.splat(),
       // Add trace context to all log entries
-      winston.format(info => {
+      winston.format((info: WinstonLogInfo) => {
         return addTraceContext(info);
       })(),
       winston.format.json()
@@ -122,7 +134,7 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
           error: {
             message: error.message,
             stack: error.stack,
-            code: error.code,
+            code: (error as Error & { code?: string }).code,
           },
           retry,
           timestamp: new Date().toISOString(),
@@ -276,7 +288,7 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
           error instanceof Error
             ? {
                 message: error.message,
-                code: (error as any).code,
+                code: (error as Error & { code?: string }).code,
               }
             : { message: String(error) },
         timestamp: new Date().toISOString(),
@@ -318,7 +330,7 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
           error instanceof Error
             ? {
                 message: error.message,
-                code: (error as any).code,
+                code: (error as Error & { code?: string }).code,
                 stack: error.stack,
               }
             : { message: String(error) },
@@ -379,7 +391,10 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
       logger.info(`API Response: ${status} in ${duration}ms`, { requestId });
     },
     error: (requestId: string, error: unknown, retry?: number) => {
-      logger.error(`API Error`, { requestId, error: error.message || error });
+      logger.error(`API Error`, {
+        requestId,
+        error: error instanceof Error ? error.message : String(error),
+      });
     },
     info: (message: string, meta?: unknown) => logger.info(message, meta),
   };
@@ -484,7 +499,7 @@ function sanitizePayload(payload: unknown): unknown {
   if (!payload) return null;
 
   const sensitiveFields = ['password', 'token', 'apiKey', 'ssn', 'creditCard'];
-  const sanitized = { ...payload } as any;
+  const sanitized = { ...payload } as Record<string, unknown>;
 
   sensitiveFields.forEach(field => {
     if (sanitized[field]) {
@@ -499,7 +514,7 @@ function sanitizeHeaders(headers: unknown): unknown {
   if (!headers) return null;
 
   const sensitiveHeaders = ['authorization', 'cookie', 'x-api-key'];
-  const sanitized = { ...headers } as any;
+  const sanitized = { ...headers } as Record<string, unknown>;
 
   sensitiveHeaders.forEach(header => {
     if (sanitized[header]) {
