@@ -68,7 +68,7 @@ export class HODOSClient {
           ...this.headers,
           ...options.headers,
         },
-        signal: AbortSignal.timeout(this.config.timeout!),
+        signal: AbortSignal.timeout(this.config.timeout || 30000),
       });
 
       if (!response.ok) {

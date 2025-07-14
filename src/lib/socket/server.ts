@@ -88,9 +88,13 @@ export class ChatSocketServer {
         // Try to authenticate with JWT token
         if (token) {
           try {
-            const decoded = jwt.verify(token, process.env.NEXTAUTH_SECRET!) as unknown;
-            userId = decoded.id;
-            userRole = decoded.role;
+            const secret = process.env.NEXTAUTH_SECRET;
+            if (!secret) {
+              throw new Error('NextAuth secret not configured');
+            }
+            const decoded = jwt.verify(token, secret) as unknown;
+            userId = (decoded as any).id;
+            userRole = (decoded as any).role;
             authenticated = true;
           } catch (error) {
             wsLogger.warn(socket.id, 'Invalid JWT token');
@@ -728,7 +732,10 @@ export class ChatSocketServer {
     if (!this.roomParticipants.has(roomId)) {
       this.roomParticipants.set(roomId, new Set());
     }
-    this.roomParticipants.get(roomId)!.add(socket.id);
+    const participants = this.roomParticipants.get(roomId);
+    if (participants) {
+      participants.add(socket.id);
+    }
 
     wsLogger.info(socket.id, `Joined room: ${roomId} (${roomType})`);
   }

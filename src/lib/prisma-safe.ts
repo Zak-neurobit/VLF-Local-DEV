@@ -82,7 +82,7 @@ class SafePrismaClient {
 
   async $transaction(fn: (client: any) => Promise<unknown>) {
     if (this.realClient) {
-      return this.realClient.$transaction(fn as unknown);
+      return this.realClient.$transaction(fn as any);
     }
     // Mock transaction
     return fn(this);

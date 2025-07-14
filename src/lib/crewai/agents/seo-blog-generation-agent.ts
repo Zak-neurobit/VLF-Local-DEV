@@ -447,9 +447,9 @@ Ensure the content is valuable, accurate, and designed to rank well in search re
     let currentSection: {
       heading: string;
       content: string;
-      subsections: Array<{ heading: string; content: string }>;
+      subSections?: Array<{ subHeading: string; content: string }>;
     } | null = null;
-    let currentSubsection: { heading: string; content: string } | null = null;
+    let currentSubsection: { subHeading: string; content: string } | null = null;
     let currentContent: string[] = [];
     let inIntroduction = true;
     let inConclusion = false;
@@ -524,10 +524,12 @@ Ensure the content is valuable, accurate, and designed to rank well in search re
           // Simple FAQ parsing
           const [question, ...answerParts] = trimmed.split('?');
           if (question && answerParts.length > 0) {
-            structure.faq!.push({
-              question: question.trim() + '?',
-              answer: answerParts.join('?').trim(),
-            });
+            if (structure.faq) {
+              structure.faq.push({
+                question: question.trim() + '?',
+                answer: answerParts.join('?').trim(),
+              });
+            }
           }
         } else {
           currentContent.push(trimmed);

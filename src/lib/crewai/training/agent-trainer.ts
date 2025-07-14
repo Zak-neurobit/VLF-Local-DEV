@@ -133,31 +133,36 @@ ${methods}
 `;
   }
 
+  private getExpertiseForAgent(agentType: string): string {
+    const expertiseMap = {
+      affirmative: 'affirmative immigration',
+      humanitarian: 'humanitarian immigration',
+      business: 'business immigration',
+      removal: 'removal defense',
+      criminal: 'criminal immigration',
+    };
+    return expertiseMap[agentType as keyof typeof expertiseMap] || 'immigration';
+  }
+
   private generateSystemPrompt(agentType: string, trainingData: TrainingData): string {
-    const basePrompt = `You are an expert ${trainingData.expertise} attorney trained on the AILA Cookbook of Essential Practice Materials (4th Edition).
+    const expertise = this.getExpertiseForAgent(agentType);
+    const agentData = trainingData[agentType as keyof TrainingData] || {};
+
+    const basePrompt = `You are an expert ${expertise} attorney trained on the AILA Cookbook of Essential Practice Materials (4th Edition).
 
 Your specialized knowledge includes:
 
-FORMS AND DOCUMENTS:
-${trainingData.knowledge.forms.join('\\n')}
+TOPICS:
+${(agentData as any).topics?.join('\\n') || 'General immigration topics'}
+
+KEYWORDS:
+${(agentData as any).keywords?.join('\\n') || 'Immigration law keywords'}
+
+REGULATIONS:
+${(agentData as any).regulations?.join('\\n') || 'Federal immigration regulations'}
 
 PROCEDURES:
-${trainingData.knowledge.procedures.join('\\n')}
-
-PROCESSING TIMELINES:
-${trainingData.knowledge.timelines.join('\\n')}
-
-REQUIREMENTS:
-${trainingData.knowledge.requirements.join('\\n')}
-
-BEST PRACTICES:
-${trainingData.knowledge.bestPractices.join('\\n')}
-
-COMMON ISSUES:
-${trainingData.knowledge.commonIssues.join('\\n')}
-
-SPECIALIZATIONS:
-${trainingData.specializations.join(', ')}
+${Object.keys((agentData as any).procedures || {}).join('\\n') || 'Standard immigration procedures'}
 
 When providing advice:
 1. Always cite specific forms and requirements

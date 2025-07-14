@@ -51,7 +51,11 @@ export class LegalConsultationAgent {
       const systemPrompt = this.buildSystemPrompt(request.language);
       const userPrompt = this.buildUserPrompt(request);
 
-      const response = await this.model!.invoke([
+      if (!this.model) {
+        throw new Error('Legal consultation model not initialized');
+      }
+
+      const response = await this.model.invoke([
         new SystemMessage(systemPrompt),
         new HumanMessage(userPrompt),
       ]);
