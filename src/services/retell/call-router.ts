@@ -478,7 +478,7 @@ export class CallRoutingService {
           metadata: {
             routeDecision: routeDecision as unknown,
             originalOptions: options as unknown,
-          } as unknown,
+          } as any,
         },
       });
 

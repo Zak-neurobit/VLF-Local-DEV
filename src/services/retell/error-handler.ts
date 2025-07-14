@@ -4,6 +4,7 @@ import { ghlService } from '@/services/gohighlevel';
 import { getPrismaClient } from '@/lib/prisma';
 import type { TaskType } from '@prisma/client';
 import type { RetellContext, RetellErrorInfo } from '@/types/gohighlevel';
+import type { AxiosError } from '@/types/axios';
 
 export enum RetellErrorType {
   AUTHENTICATION = 'AUTHENTICATION',
@@ -70,8 +71,9 @@ export class RetellErrorHandler {
     let retryAfter: number | undefined;
 
     // Check HTTP status codes
-    if (error.response?.status) {
-      const status = error.response.status;
+    const axiosError = error as AxiosError;
+    if (axiosError.response?.status) {
+      const status = axiosError.response.status;
 
       switch (status) {
         case 401:
@@ -82,7 +84,7 @@ export class RetellErrorHandler {
         case 429:
           type = RetellErrorType.RATE_LIMIT;
           recoverable = true;
-          retryAfter = this.extractRetryAfter(error.response.headers);
+          retryAfter = this.extractRetryAfter(axiosError.response?.headers);
           break;
         case 404:
           if (context?.operation?.includes('agent')) {
@@ -91,7 +93,7 @@ export class RetellErrorHandler {
           }
           break;
         case 422:
-          if (error.response.data?.message?.includes('phone')) {
+          if ((axiosError.response?.data as any)?.message?.includes('phone')) {
             type = RetellErrorType.INVALID_PHONE;
             recoverable = false;
           }
@@ -112,8 +114,8 @@ export class RetellErrorHandler {
     }
 
     // Check error messages for specific patterns
-    if (error.message) {
-      const message = error.message.toLowerCase();
+    if ((error as Error).message) {
+      const message = (error as Error).message.toLowerCase();
 
       if (message.includes('call failed') || message.includes('call ended')) {
         type = RetellErrorType.CALL_FAILED;
@@ -132,9 +134,9 @@ export class RetellErrorHandler {
 
     return {
       type,
-      message: error.message || 'Unknown error occurred',
-      code: error.code || error.response?.data?.code,
-      details: error.response?.data || error.details,
+      message: (error as Error).message || 'Unknown error occurred',
+      code: axiosError.code || (axiosError.response?.data as any)?.code,
+      details: axiosError.response?.data || (error as any).details,
       callId: context?.callId,
       contactId: context?.contactId,
       timestamp: new Date(),
@@ -144,8 +146,11 @@ export class RetellErrorHandler {
   }
 
   // Extract retry-after header
-  private extractRetryAfter(headers: Record<string, string>): number {
-    const retryAfter = headers?.['retry-after'] || headers?.['x-ratelimit-reset'];
+  private extractRetryAfter(headers?: Record<string, string>): number {
+    if (!headers) {
+      return 60; // Default 1 minute
+    }
+    const retryAfter = headers['retry-after'] || headers['x-ratelimit-reset'];
     if (retryAfter) {
       const seconds = parseInt(retryAfter, 10);
       return isNaN(seconds) ? 60 : seconds;
@@ -183,7 +188,7 @@ export class RetellErrorHandler {
           metadata: {
             details: retellError.details,
             context,
-          },
+          } as any,
         },
       });
     } catch (error) {
@@ -240,8 +245,10 @@ export class RetellErrorHandler {
     // Update contact in GHL with error status
     if (retellError.contactId) {
       await this.updateContactWithError(retellError.contactId, {
+        message: 'Authentication failed',
         error: 'Authentication failed',
         timestamp: retellError.timestamp,
+        retryCount: 0,
       });
     }
 
@@ -269,9 +276,11 @@ export class RetellErrorHandler {
     // Update contact status
     if (retellError.contactId) {
       await this.updateContactWithError(retellError.contactId, {
+        message: 'Rate limit reached - call will be retried',
         error: 'Rate limit reached - call will be retried',
         retryAfter: retellError.retryAfter,
         timestamp: retellError.timestamp,
+        retryCount: 0,
       });
     }
   }
@@ -319,7 +328,7 @@ export class RetellErrorHandler {
           metadata: {
             errorDetails: retellError.details,
             failureTimestamp: retellError.timestamp,
-          },
+          } as any,
         },
       });
     }
@@ -327,9 +336,11 @@ export class RetellErrorHandler {
     // Update GHL contact
     if (retellError.contactId) {
       await this.updateContactWithError(retellError.contactId, {
+        message: retellError.message,
         error: 'Call failed',
         reason: retellError.message,
         timestamp: retellError.timestamp,
+        retryCount: 0,
       });
 
       // Create follow-up task
@@ -352,9 +363,11 @@ export class RetellErrorHandler {
     // Update contact with invalid phone flag
     if (retellError.contactId) {
       await this.updateContactWithError(retellError.contactId, {
+        message: 'Invalid phone number',
         error: 'Invalid phone number',
         phoneNumber: context?.phoneNumber,
         timestamp: retellError.timestamp,
+        retryCount: 0,
       });
 
       // Add tag for invalid phone
@@ -390,8 +403,10 @@ export class RetellErrorHandler {
     // Update contact with service unavailable message
     if (retellError.contactId) {
       await this.updateContactWithError(retellError.contactId, {
+        message: 'Service temporarily unavailable',
         error: 'Service temporarily unavailable',
         timestamp: retellError.timestamp,
+        retryCount: 0,
       });
 
       // Send SMS if possible
@@ -539,7 +554,7 @@ export class RetellErrorHandler {
         data: {
           operation,
           delaySeconds,
-          context: context,
+          context: context as any,
           scheduledFor: new Date(Date.now() + delaySeconds * 1000),
           attempts: 0,
           maxAttempts: 3,
@@ -619,7 +634,7 @@ export class RetellErrorHandler {
           await emailService.sendEmail({
             to: process.env.ADMIN_EMAIL,
             subject: `Critical Retell Error: ${retellError.type}`,
-            template: 'attorney-notification' as unknown,
+            template: 'attorney-notification' as any,
             data: {
               subject: `Critical Retell Error: ${retellError.type}`,
               message: `

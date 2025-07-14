@@ -29,6 +29,98 @@ interface RetellAgent {
   reminder_max_count?: number;
 }
 
+interface CallAnalytics {
+  call_id: string;
+  agent_id: string;
+  duration_seconds: number;
+  transcript: Array<{
+    role: 'agent' | 'user';
+    content: string;
+    timestamp: number;
+  }>;
+  sentiment_analysis?: {
+    overall_sentiment: string;
+    confidence: number;
+  };
+  call_summary?: string;
+  metrics?: {
+    latency: number;
+    interruptions: number;
+    user_satisfaction?: number;
+  };
+}
+
+interface AgentAnalytics {
+  agent_id: string;
+  total_calls: number;
+  total_duration: number;
+  average_call_duration: number;
+  success_rate: number;
+  metrics: {
+    average_latency: number;
+    interruption_rate: number;
+    user_satisfaction: number;
+  };
+}
+
+interface RetellVoice {
+  voice_id: string;
+  voice_name: string;
+  gender: string;
+  accent: string;
+  language: string;
+  provider: string;
+}
+
+interface RetellLLM {
+  llm_id: string;
+  llm_name: string;
+  provider: string;
+  model: string;
+}
+
+interface RetellWebhookEvent {
+  event:
+    | 'call_started'
+    | 'call_ended'
+    | 'call_analyzed'
+    | 'transcript_ready'
+    | 'recording_ready'
+    | 'call_queued'
+    | 'call_ringing'
+    | 'call_failed'
+    | 'call_no_answer'
+    | 'call_busy'
+    | 'voicemail_detected';
+  call: {
+    call_id: string;
+    agent_id: string;
+    from_number?: string;
+    to_number?: string;
+    status?: string;
+    start_timestamp?: number;
+    end_timestamp?: number;
+    duration_seconds?: number;
+    duration_ms?: number;
+    disconnection_reason?: string;
+  };
+  call_id?: string;
+  transcript?: Array<{
+    role: 'agent' | 'user';
+    content: string;
+    timestamp: number;
+  }>;
+  analysis?: {
+    call_summary?: string;
+    sentiment?: string;
+    summary?: string;
+    sentiment_analysis?: {
+      overall_sentiment: string;
+      confidence: number;
+    };
+  };
+}
+
 interface RetellCall {
   call_id: string;
   agent_id: string;
@@ -91,7 +183,7 @@ export class RetellService {
           data: config.data,
         });
 
-        (config as unknown).metadata = { requestId, startTime: Date.now() };
+        (config as any).metadata = { requestId, startTime: Date.now() };
         return config;
       },
       error => {
@@ -103,10 +195,10 @@ export class RetellService {
     // Response interceptor
     this.client.interceptors.response.use(
       response => {
-        if ((response.config as unknown).metadata) {
-          const duration = Date.now() - (response.config as unknown).metadata.startTime;
+        if ((response.config as any).metadata) {
+          const duration = Date.now() - (response.config as any).metadata.startTime;
           logger.info('Retell API response', {
-            requestId: (response.config as unknown).metadata.requestId,
+            requestId: (response.config as any).metadata.requestId,
             status: response.status,
             duration,
           });
@@ -114,10 +206,10 @@ export class RetellService {
         return response;
       },
       error => {
-        if ((error.config as unknown)?.metadata) {
-          const duration = Date.now() - (error.config as unknown).metadata.startTime;
+        if ((error.config as any)?.metadata) {
+          const duration = Date.now() - (error.config as any).metadata.startTime;
           logger.error('Retell API error', {
-            requestId: (error.config as unknown).metadata.requestId,
+            requestId: (error.config as any).metadata.requestId,
             status: error.response?.status,
             duration,
             error: error.response?.data || error.message,
@@ -160,7 +252,7 @@ export class RetellService {
           const response = await this.client.get(`/api/get-agent/${agentId}`);
           return response.data;
         } catch (error) {
-          if (error instanceof Error && (error as unknown).response?.status === 404) {
+          if (error instanceof Error && (error as any).response?.status === 404) {
             return null;
           }
           throw error;
@@ -240,7 +332,7 @@ export class RetellService {
           const response = await this.client.get(`/api/get-call/${callId}`);
           return response.data;
         } catch (error) {
-          if (error instanceof Error && (error as unknown).response?.status === 404) {
+          if (error instanceof Error && (error as any).response?.status === 404) {
             return null;
           }
           throw error;
@@ -299,12 +391,15 @@ export class RetellService {
   }
 
   // Analytics
-  async getCallAnalytics(callId: string): Promise<any> {
+  async getCallAnalytics(callId: string): Promise<CallAnalytics> {
     const response = await this.client.get(`/get-call-analysis/${callId}`);
     return response.data;
   }
 
-  async getAgentAnalytics(agentId: string, timeRange?: { start: Date; end: Date }): Promise<any> {
+  async getAgentAnalytics(
+    agentId: string,
+    timeRange?: { start: Date; end: Date }
+  ): Promise<AgentAnalytics> {
     const params = timeRange
       ? {
           start_timestamp: timeRange.start.getTime(),
@@ -317,7 +412,7 @@ export class RetellService {
   }
 
   // Voice Management
-  async listVoices(): Promise<any[]> {
+  async listVoices(): Promise<RetellVoice[]> {
     const cacheKey = 'retell:voices:list';
 
     return cache.remember(
@@ -331,7 +426,7 @@ export class RetellService {
   }
 
   // LLM Management
-  async listLLMs(): Promise<any[]> {
+  async listLLMs(): Promise<RetellLLM[]> {
     const cacheKey = 'retell:llms:list';
 
     return cache.remember(
@@ -358,7 +453,7 @@ export class RetellService {
     }
   }
 
-  async handleWebhookEvent(event: any): Promise<void> {
+  async handleWebhookEvent(event: RetellWebhookEvent): Promise<void> {
     logger.info('Retell webhook event', { type: event.event, callId: event.call?.call_id });
 
     try {
@@ -450,7 +545,7 @@ export class RetellService {
     }
   }
 
-  private async handleCallStarted(event: any): Promise<void> {
+  private async handleCallStarted(event: RetellWebhookEvent): Promise<void> {
     const { call } = event;
 
     // Store call data
@@ -465,7 +560,7 @@ export class RetellService {
     });
   }
 
-  private async handleCallEnded(event: any): Promise<void> {
+  private async handleCallEnded(event: RetellWebhookEvent): Promise<void> {
     const { call } = event;
 
     // Update call data
@@ -474,27 +569,31 @@ export class RetellService {
     // Queue for analysis
     await callAnalysisQueue.add('analyze-call', {
       callId: call.call_id,
-      transcript: call.transcript,
-      metadata: call.metadata,
-      duration: call.duration_ms,
+      transcript: event.transcript,
+      metadata: {},
+      duration: call.duration_seconds ? call.duration_seconds * 1000 : 0,
     });
   }
 
-  private async handleCallAnalyzed(event: any): Promise<void> {
+  private async handleCallAnalyzed(event: RetellWebhookEvent): Promise<void> {
     const { call_id, analysis } = event;
 
-    logger.info('Call analysis complete', {
-      callId: call_id,
-      sentiment: analysis.sentiment,
-      summary: analysis.summary?.substring(0, 100),
-    });
+    if (analysis) {
+      logger.info('Call analysis complete', {
+        callId: call_id,
+        sentiment: analysis.sentiment || analysis.sentiment_analysis?.overall_sentiment,
+        summary: (analysis.summary || analysis.call_summary)?.substring(0, 100),
+      });
+    }
   }
 
-  private async handleTranscriptReady(event: any): Promise<void> {
+  private async handleTranscriptReady(event: RetellWebhookEvent): Promise<void> {
     const { call_id, transcript } = event;
 
-    // Cache transcript
-    await cache.set(cacheKeys.callTranscript(call_id), transcript, CacheTTL.EXTRA_LONG);
+    if (call_id && transcript) {
+      // Cache transcript
+      await cache.set(cacheKeys.callTranscript(call_id), transcript, CacheTTL.EXTRA_LONG);
+    }
   }
 }
 

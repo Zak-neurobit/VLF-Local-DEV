@@ -317,16 +317,16 @@ export class RetellAgentManager {
       }
     } catch (error) {
       // Log detailed error information
-      if (error instanceof Error && (error as unknown).response?.status === 404) {
+      if (error instanceof Error && (error as any).response?.status === 404) {
         logger.error('Retell API endpoint not found. Please check API version and endpoints.', {
-          endpoint: (error as unknown).config?.url,
-          method: (error as unknown).config?.method,
+          endpoint: (error as any).config?.url,
+          method: (error as any).config?.method,
         });
       } else {
         logger.error('Failed to create/update agent:', {
           error: error instanceof Error ? error.message : String(error),
-          status: error instanceof Error ? (error as unknown).response?.status : undefined,
-          data: error instanceof Error ? (error as unknown).response?.data : undefined,
+          status: error instanceof Error ? (error as any).response?.status : undefined,
+          data: error instanceof Error ? (error as any).response?.data : undefined,
         });
       }
       return null;
