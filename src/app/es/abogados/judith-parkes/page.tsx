@@ -1,66 +1,41 @@
-import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
-import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
+import { AttorneyPageTemplate } from '@/components/attorneys/AttorneyPageTemplate';
+import { getAttorneyBySlug } from '@/data/attorneys';
+import { notFound } from 'next/navigation';
+import { generateAttorneyMetadata } from '@/lib/seo/hreflang-metadata';
+import { AttorneyPageHreflang } from '@/components/SEO/DynamicHreflang';
 
-export const metadata: Metadata = {
-  title: 'Judith Parkes - Abogado - Vasquez Law Firm, PLLC',
-  description: '',
-};
+export const metadata: Metadata = generateAttorneyMetadata({
+  name: 'Judith Parkes',
+  nameEs: 'Judith Parkes',
+  title: "Personal Injury and Workers' Compensation Attorney",
+  titleEs: 'Abogada de Lesiones Personales y Compensación Laboral',
+  description:
+    "Judith Parkes is a dedicated personal injury and workers' compensation attorney who fights tirelessly for clients who have been injured due to the negligence of others.",
+  descriptionEs:
+    'Judith Parkes es una abogada dedicada de lesiones personales y compensación laboral que lucha incansablemente por clientes que han sido lesionados debido a la negligencia de otros.',
+  slug: 'judith-parkes',
+  photo: '/images/attorneys/judith-parkes.jpg',
+  specialties: [
+    'personal injury',
+    'workers compensation',
+    'auto accidents',
+    'medical malpractice',
+    'Spanish speaking lawyer',
+  ],
+});
 
-export const runtime = 'nodejs';
+export default function Page() {
+  const attorney = getAttorneyBySlug('judith-parkes');
 
-export default function JudithParkesPage() {
-  // TODO: Extract content from original file and format properly
-  const post = {
-    id: 'judith-parkes',
-    title: 'Judith Parkes - Abogado',
-    slug: 'judith-parkes',
-    excerpt: 'Blog post excerpt here - TODO: extract from content',
-    content: `
-      <div class="prose prose-lg max-w-none">
-        <!-- TODO: Migrate content from original file -->
-        <p>This content needs to be migrated from the original file.</p>
-      </div>
-    `,
-    practiceArea: 'general', // TODO: Determine correct practice area
-    language: 'en' as const,
-    publishedAt: new Date(),
-    readTime: 5,
-    author: DEFAULT_BLOG_AUTHOR,
-    tags: [], // TODO: Add relevant tags
-  };
-
-  const categories = [
-    {
-      id: 'immigration',
-      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
-      slug: { en: 'immigration', es: 'inmigracion' },
-      icon: '🌐',
-      postCount: 45,
-    },
-    {
-      id: 'personal-injury',
-      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
-      slug: { en: 'personal-injury', es: 'lesiones-personales' },
-      icon: '🏥',
-      postCount: 32,
-    },
-    {
-      id: 'criminal-defense',
-      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
-      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
-      icon: '⚖️',
-      postCount: 28,
-    },
-  ];
+  if (!attorney) {
+    notFound();
+  }
 
   return (
-    <BlogPageTemplate
-      posts={[]}
-      categories={categories}
-      isArticlePage={true}
-      currentPost={post}
-      relatedPosts={[]} // TODO: Add related posts
-    />
+    <>
+      <AttorneyPageHreflang slug="judith-parkes" />
+      <AttorneyPageTemplate attorney={attorney} language="es" />
+    </>
   );
 }
