@@ -359,7 +359,7 @@ export class BlogContentDominationAgent {
     const allCompetitorTopics = new Set<string>();
     competitorAnalyses.forEach(analysis => {
       const posts = analysis.blogPosts as unknown[];
-      posts.forEach(post => {
+      posts.forEach((post: any) => {
         if (post.keywords) {
           post.keywords.forEach((keyword: string) =>
             allCompetitorTopics.add(keyword.toLowerCase())
@@ -518,7 +518,7 @@ Competition Level: ${opportunity.competitionLevel}
 Requirements:
 1. Word count: ${opportunity.competitionLevel === 'high' ? '3000-4000' : '2000-3000'} words
 2. Include ALL target keywords naturally
-3. Structure: ${template.structure.join(', ')}
+3. Structure: ${(template as any).structure.join(', ')}
 4. Add 10+ relevant FAQs
 5. Include local NC examples and case studies
 6. Add compelling statistics and data
@@ -669,7 +669,7 @@ Format as JSON with all sections clearly defined.
 
   private async analyzeCompetitorGaps(posts: unknown[], competitorUrl: string): Promise<any> {
     // Analyze what the competitor is missing
-    const coveredTopics = new Set(posts.map(p => p.keywords).flat());
+    const coveredTopics = new Set(posts.map((p: any) => p.keywords).flat());
     const missingTopics: string[] = [];
 
     Object.values(this.PRACTICE_AREA_KEYWORDS)
@@ -687,7 +687,7 @@ Format as JSON with all sections clearly defined.
     return {
       coveredTopics: Array.from(coveredTopics),
       missingTopics,
-      lastPostDate: posts[0]?.date || 'unknown',
+      lastPostDate: (posts[0] as any)?.date || 'unknown',
       postingFrequency: posts.length,
     };
   }
@@ -840,8 +840,8 @@ Format as JSON with all sections clearly defined.
 
       for (const post of topPosts) {
         opportunities.push({
-          title: `${post.title} - The Definitive NC Legal Guide`,
-          targetKeywords: post.keywords || [],
+          title: `${(post as any).title} - The Definitive NC Legal Guide`,
+          targetKeywords: (post as any).keywords || [],
           estimatedTraffic: 500,
           competitionLevel: 'medium',
           contentType: 'blog',

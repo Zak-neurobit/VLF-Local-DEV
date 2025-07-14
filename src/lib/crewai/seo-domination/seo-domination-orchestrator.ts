@@ -5,6 +5,7 @@ import { SocialMediaDestroyerAgent } from './social-media-destroyer-agent';
 import { ReviewHarvestingAgent } from './review-harvesting-agent';
 import { CompetitorSpyAgent } from './competitor-spy-agent';
 import { getPrismaClient } from '@/lib/prisma';
+import type { PrismaClient } from '@prisma/client';
 import * as cron from 'node-cron';
 
 interface AgentStatus {
@@ -56,7 +57,7 @@ export class SEODominationOrchestrator {
     competitor: CompetitorSpyAgent;
   };
 
-  private prisma: any;
+  private prisma: PrismaClient;
   private isRunning: boolean = false;
   private monitoringJob: cron.ScheduledTask | null = null;
   private coordinationJob: cron.ScheduledTask | null = null;
@@ -598,9 +599,9 @@ export class SEODominationOrchestrator {
       logger.info(`Implementing adjustment: ${adjustment}`);
 
       // Trigger specific agent actions based on adjustment needed
-      if (adjustment.includes('content production')) {
+      if ((adjustment as string).includes('content production')) {
         // Increase blog agent frequency
-      } else if (adjustment.includes('SEO efforts')) {
+      } else if ((adjustment as string).includes('SEO efforts')) {
         // Focus on technical SEO and link building
       }
     }
@@ -669,7 +670,7 @@ export class SEODominationOrchestrator {
           agentName: 'SEODominationOrchestrator',
           executionType: 'performance_report',
           input: {},
-          output: metrics,
+          output: metrics as any,
           duration: 0,
           success: true,
           metadata: {
@@ -768,7 +769,7 @@ export class SEODominationOrchestrator {
       data: {
         agentName: 'SEODominationOrchestrator',
         executionType: 'agent_collaboration',
-        input: synergy,
+        input: synergy as any,
         output: { status: 'executed' },
         duration: 1000,
         success: true,

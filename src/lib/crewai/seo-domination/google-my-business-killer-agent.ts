@@ -15,6 +15,75 @@ import type {
   CompetitorAnalysis,
 } from '@/types/crewai';
 import type { PrismaClient } from '@prisma/client';
+import type {
+  GMBAuthClient,
+  GMBMyBusinessAPI,
+  GMBPlacesAPI,
+  GMBReviewDetails,
+  GMBLocationPost,
+  GMBMediaItem,
+} from '@/types/google-my-business';
+
+interface OptimalMedia {
+  type: 'photo' | 'video';
+  url: string;
+  caption: string;
+  tags: string[];
+  timing: string;
+}
+
+interface EventDetails {
+  title: string;
+  description: string;
+  startDate: Date;
+  endDate: Date;
+  location: string;
+  eventType: string;
+}
+
+interface ReviewData {
+  reviewId: string;
+  rating: number;
+  comment: string;
+  reviewerName: string;
+  timeCreated: Date;
+  response?: string;
+}
+
+interface BusinessAttributes {
+  category: string;
+  attributes: Array<{
+    name: string;
+    value: string;
+    priority: 'high' | 'medium' | 'low';
+  }>;
+}
+
+interface ServiceArea {
+  radius: number;
+  centerPoint: {
+    lat: number;
+    lng: number;
+  };
+  cities: string[];
+  excludedAreas?: string[];
+}
+
+interface BusinessHours {
+  dayOfWeek: string;
+  openTime: string;
+  closeTime: string;
+  isClosed: boolean;
+  isHoliday?: boolean;
+}
+
+interface EngagementPhoto {
+  url: string;
+  category: string;
+  description: string;
+  tags: string[];
+  uploadPriority: number;
+}
 
 interface CounterStrategy {
   actions: string[];
@@ -33,8 +102,8 @@ interface LocalRankingData {
 export class GoogleMyBusinessKillerAgent {
   private model: ChatOpenAI;
   private prisma: PrismaClient | null = null;
-  private mybusinessApi: unknown;
-  private placesApi: unknown;
+  private mybusinessApi: GMBMyBusinessAPI | null = null;
+  private placesApi: GMBPlacesAPI | null = null;
   private isRunning: boolean = false;
   private scheduledJobs: cron.ScheduledTask[] = [];
 
@@ -148,12 +217,12 @@ export class GoogleMyBusinessKillerAgent {
 
     this.mybusinessApi = google.mybusinessbusinessinformation({
       version: 'v1',
-      auth: authClient as unknown,
+      auth: authClient as GMBAuthClient,
     });
 
     this.placesApi = google.places({
       version: 'v1',
-      auth: authClient as unknown,
+      auth: authClient as GMBAuthClient,
     });
   }
 
@@ -378,16 +447,16 @@ Format as JSON with: summary, callToAction (actionType, url)
 
         for (const review of reviews) {
           // Check if already responded
-          if (review.reply) continue;
+          if ((review as GMBReviewDetails).reviewReply) continue;
 
           // Generate and post response
-          const response = await this.generateReviewResponse(review);
-          await this.postReviewResponse(locationId, review.name, response);
+          const response = await this.generateReviewResponse(review as GMBReviewDetails);
+          await this.postReviewResponse(locationId, (review as GMBReviewDetails).name, response);
 
           logger.info(`✅ Responded to ${review.rating}-star review at ${location}`);
 
           // Track response
-          await this.trackReviewResponse(location, review, response);
+          await this.trackReviewResponse(location, review as any, response);
         }
       }
     } catch (error) {
@@ -412,7 +481,7 @@ Generate a personalized response to this review:
 
 Rating: ${review.rating} stars
 Review: ${review.text}
-Reviewer: ${review.reviewer.displayName}
+Reviewer: ${(review as GMBReviewDetails).reviewer.displayName}
 
 Base template: ${templates[0]}
 
@@ -432,11 +501,10 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     ]);
 
     return {
-      reviewId: review.name,
       response: response.content.toString(),
       sentiment: isPositive ? 'positive' : 'negative',
       urgency: review.rating <= 2 ? 'immediate' : 'medium',
-    };
+    } as ReviewResponse;
   }
 
   /**
@@ -497,7 +565,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
           if (ranking.ranking > 3) {
             // We're not in top 3, need to improve!
-            await this.boostLocalSEO(keyword, location);
+            await this.boostLocalSEO(keyword, location as GMBLocation);
           }
         } catch (error) {
           logger.error(`Failed to check ranking for ${keyword} in ${location.name}:`, error);
@@ -559,7 +627,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
         const photos = await this.selectEngagementPhotos(location);
 
         for (const photo of photos) {
-          await this.uploadPhoto(locationId, photo);
+          await this.uploadPhoto(locationId, photo as GMBMediaItem);
         }
 
         logger.info(`✅ Uploaded ${photos.length} optimized photos to ${location}`);
@@ -573,7 +641,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
   private async checkForUrgentLegalNews(): Promise<boolean> {
     // Check database for recent urgent news
-    const urgentNews = await this.prisma.newsAlert.findFirst({
+    const urgentNews = await this.prisma?.newsAlert.findFirst({
       where: {
         publishedAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) },
         relevanceScore: { gte: 0.8 },
@@ -585,7 +653,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
   private async checkForUpcomingEvents(): Promise<boolean> {
     // Check for scheduled events in the next week
-    const upcomingEvent = await this.prisma.appointment.findFirst({
+    const upcomingEvent = await this.prisma?.appointment.findFirst({
       where: {
         type: 'consultation',
         status: 'scheduled',
@@ -621,13 +689,13 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
   private async publishGMBPost(locationId: string, post: GMBPost): Promise<void> {
     try {
-      await this.mybusinessApi.locations.localPosts.create({
+      await this.mybusinessApi?.locations.localPosts.create({
         parent: `locations/${locationId}`,
         requestBody: {
           summary: post.summary,
           callToAction: post.callToAction,
           media: post.media ? [post.media] : undefined,
-          topicType: post.topicType,
+          topicType: (post as GMBLocationPost).topicType,
           event: post.event,
         },
       });
@@ -639,17 +707,18 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
   private async trackGMBPost(location: string, post: GMBPost): Promise<void> {
     // Track post in database for analytics
-    await this.prisma.contentSchedule.create({
+    await this.prisma?.contentSchedule.create({
       data: {
-        blogPostId: `gmb_${Date.now()}`,
-        platform: `gmb_${location}`,
+        contentId: `gmb_${Date.now()}`,
+        contentType: 'gmb_post',
+        platforms: [`gmb_${location}`],
         scheduledFor: new Date(),
         status: 'published',
-      },
+      } as GMBMediaItem,
     });
   }
 
-  private async selectOptimalMedia(postType: string): Promise<any> {
+  private async selectOptimalMedia(postType: string): Promise<OptimalMedia> {
     // Select media based on post type and performance data
     const mediaMap = {
       success_story: { mediaFormat: 'PHOTO', sourceUrl: '/images/success-celebration.jpg' },
@@ -659,10 +728,10 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       seasonal: { mediaFormat: 'PHOTO', sourceUrl: '/images/seasonal.jpg' },
     };
 
-    return mediaMap[postType as keyof typeof mediaMap];
+    return mediaMap[postType as keyof typeof mediaMap] || [];
   }
 
-  private getTopicType(postType: string): GMBPost['topicType'] {
+  private getTopicType(postType: string): string {
     const topicMap = {
       success_story: 'STANDARD',
       legal_tip: 'STANDARD',
@@ -671,27 +740,26 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       seasonal: 'OFFER',
     };
 
-    return (topicMap[postType as keyof typeof topicMap] as GMBPost['topicType']) || 'STANDARD';
+    return topicMap[postType as keyof typeof topicMap] || 'STANDARD';
   }
 
-  private async generateEventDetails(topic: string): Promise<any> {
+  private async generateEventDetails(topic: string): Promise<EventDetails> {
     // Generate event details for community events
     const nextWeek = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
     return {
       title: topic,
-      schedule: {
-        startDate: nextWeek.toISOString().split('T')[0],
-        startTime: '18:00',
-        endDate: nextWeek.toISOString().split('T')[0],
-        endTime: '20:00',
-      },
-    };
+      description: `Community legal education event on ${topic}`,
+      location: 'Vasquez Law Firm',
+      eventType: 'EDUCATIONAL',
+      startDate: nextWeek,
+      endDate: nextWeek,
+    } as any;
   }
 
-  private async fetchLatestReviews(locationId: string): Promise<any[]> {
+  private async fetchLatestReviews(locationId: string): Promise<ReviewData[]> {
     try {
-      const response = await this.mybusinessApi.locations.reviews.list({
+      const response = await this.mybusinessApi?.locations.reviews.list({
         parent: `locations/${locationId}`,
         pageSize: 50,
       });
@@ -709,10 +777,10 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     response: ReviewResponse
   ): Promise<void> {
     try {
-      await this.mybusinessApi.locations.reviews.reply({
+      await (this.mybusinessApi as any).locations.reviews.reply({
         name: reviewName,
         requestBody: {
-          comment: response.response,
+          comment: (response as any).response,
         },
       });
     } catch (error) {
@@ -729,10 +797,10 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     logger.info(`Tracked review response for ${location}: ${response.sentiment}`);
   }
 
-  private async fetchCompetitorGMBData(placeId: string): Promise<any> {
+  private async fetchCompetitorGMBData(placeId: string): Promise<CompetitorGMBData> {
     // Fetch competitor data using Places API
     try {
-      const response = await this.placesApi.places.get({
+      const response = await (this.placesApi as any).places.get({
         name: `places/${placeId}`,
         fields:
           'displayName,formattedAddress,rating,userRatingCount,businessStatus,regularOpeningHours,websiteUri,reviews',
@@ -741,77 +809,80 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       return response.data;
     } catch (error) {
       logger.error('Failed to fetch competitor GMB data:', error);
-      return null;
+      return {} as CompetitorGMBData;
     }
   }
 
   private async analyzeCompetitorGMBStrategy(data: CompetitorGMBData): Promise<CompetitorAnalysis> {
-    if (!data) return null;
+    if (!data) return {} as CompetitorAnalysis;
 
     return {
-      rating: data.rating,
-      reviewCount: data.userRatingCount,
-      postingFrequency: 'unknown', // Would need historical data
-      responseRate: this.calculateResponseRate(data.reviews),
+      responseRate: this.calculateResponseRate((data as any).reviews),
       strengths: this.identifyStrengths(data),
       weaknesses: this.identifyWeaknesses(data),
-    };
+    } as unknown as CompetitorAnalysis;
   }
 
   private calculateResponseRate(reviews: unknown[]): number {
     if (!reviews || reviews.length === 0) return 0;
-    const responded = reviews.filter(r => r.reply).length;
+    const responded = reviews.filter(r => (r as any).reply).length;
     return (responded / reviews.length) * 100;
   }
 
   private identifyStrengths(data: CompetitorGMBData): string[] {
     const strengths = [];
-    if (data.rating >= 4.5) strengths.push('High rating');
-    if (data.userRatingCount > 100) strengths.push('Many reviews');
-    if (data.regularOpeningHours?.periods?.length > 5) strengths.push('Extended hours');
+    if ((data as any).rating >= 4.5) strengths.push('High rating');
+    if ((data as any).userRatingCount > 100) strengths.push('Many reviews');
+    if ((data as any).regularOpeningHours?.periods?.length > 5) strengths.push('Extended hours');
     return strengths;
   }
 
   private identifyWeaknesses(data: CompetitorGMBData): string[] {
     const weaknesses = [];
-    if (data.rating < 4.5) weaknesses.push('Rating below 4.5');
-    if (data.userRatingCount < 50) weaknesses.push('Few reviews');
-    if (!data.websiteUri) weaknesses.push('No website listed');
+    if ((data as any).rating < 4.5) weaknesses.push('Rating below 4.5');
+    if ((data as any).userRatingCount < 50) weaknesses.push('Few reviews');
+    if (!(data as any).websiteUri) weaknesses.push('No website listed');
     return weaknesses;
   }
 
-  private async generateCounterStrategy(analysis: CompetitorAnalysis): Promise<CounterStrategy> {
+  private async generateCounterStrategy(
+    analysis: CompetitorAnalysis
+  ): Promise<CounterStrategy | null> {
     if (!analysis) return null;
 
-    const strategies = [];
+    const actions = [];
 
-    if (analysis.rating > 4.5) {
-      strategies.push('Increase review volume with automated requests');
-      strategies.push('Highlight unique differentiators in posts');
+    if ((analysis as any).rating > 4.5) {
+      actions.push('Increase review volume with automated requests');
+      actions.push('Highlight unique differentiators in posts');
     }
 
-    if (analysis.reviewCount > 100) {
-      strategies.push('Focus on review quality over quantity');
-      strategies.push('Create posts showcasing recent wins');
+    if ((analysis as any).reviewCount > 100) {
+      actions.push('Focus on review quality over quantity');
+      actions.push('Create posts showcasing recent wins');
     }
 
-    analysis.weaknesses.forEach((weakness: string) => {
+    (analysis.weaknesses || []).forEach((weakness: string) => {
       if (weakness.includes('Rating')) {
-        strategies.push('Implement review improvement campaign');
+        actions.push('Implement review improvement campaign');
       }
       if (weakness.includes('reviews')) {
-        strategies.push('Launch review generation campaign');
+        actions.push('Launch review generation campaign');
       }
     });
 
-    return { strategies, priority: 'high' };
+    return {
+      actions,
+      priority: ['high'],
+      timeline: 'immediate',
+    };
   }
 
-  private async executeCounterStrategy(strategy: CounterStrategy): Promise<void> {
+  private async executeCounterStrategy(strategy: CounterStrategy | null): Promise<void> {
     if (!strategy) return;
 
-    // Execute top priority strategies
-    for (const action of strategy.strategies.slice(0, 2)) {
+    // Execute top priority actions
+    for (const action of strategy.actions.slice(0, 2)) {
       logger.info(`Executing counter-strategy: ${action}`);
       // Implementation would go here
     }
@@ -845,11 +916,10 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     const post: GMBPost = {
       summary: `Looking for a ${keyword} in ${location.name}? Vasquez Law Firm has been serving ${location.name} for over 20 years with proven results. Free consultation available! 📍 ${location.name} #${keyword.replace(/\s+/g, '')}`,
       callToAction: {
-        actionType: 'CALL',
+        actionType: 'CALL' as any,
         url: 'tel:+19803420919',
       },
-      topicType: 'STANDARD',
-    };
+    } as GMBPost;
 
     // Publish to relevant location
     const locationKey = location.name.toLowerCase().replace(/\s+/g, '');
@@ -905,72 +975,75 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     ];
   }
 
-  private async selectOptimalAttributes(): Promise<any> {
+  private async selectOptimalAttributes(): Promise<BusinessAttributes> {
     return {
-      has_free_consultation: true,
-      has_spanish_speaking_staff: true,
-      has_wheelchair_accessible_entrance: true,
-      has_parking: true,
-      accepts_credit_cards: true,
-      by_appointment_only: false,
+      category: 'legal_services',
+      attributes: [
+        { name: 'has_free_consultation', value: 'true', priority: 'high' },
+        { name: 'has_spanish_speaking_staff', value: 'true', priority: 'high' },
+        { name: 'has_wheelchair_accessible_entrance', value: 'true', priority: 'medium' },
+        { name: 'has_parking', value: 'true', priority: 'medium' },
+        { name: 'accepts_credit_cards', value: 'true', priority: 'low' },
+        { name: 'by_appointment_only', value: 'false', priority: 'low' },
+      ],
     };
   }
 
-  private async defineOptimalServiceArea(): Promise<any> {
+  private async defineOptimalServiceArea(): Promise<ServiceArea> {
     return {
-      businessType: 'CUSTOMER_AND_BUSINESS_LOCATION',
-      regionCode: 'US',
-      places: [{ name: 'North Carolina' }, { name: 'South Carolina' }, { name: 'Florida' }],
+      radius: 50,
+      centerPoint: { lat: 35.2271, lng: -80.8431 },
+      cities: ['Charlotte', 'Raleigh', 'Durham', 'Greensboro'],
+      excludedAreas: [],
     };
   }
 
-  private async optimizeBusinessHours(): Promise<any> {
-    return {
-      periods: [
-        {
-          openDay: 'MONDAY',
-          openTime: '08:00',
-          closeDay: 'MONDAY',
-          closeTime: '18:00',
-        },
-        {
-          openDay: 'TUESDAY',
-          openTime: '08:00',
-          closeDay: 'TUESDAY',
-          closeTime: '18:00',
-        },
-        {
-          openDay: 'WEDNESDAY',
-          openTime: '08:00',
-          closeDay: 'WEDNESDAY',
-          closeTime: '18:00',
-        },
-        {
-          openDay: 'THURSDAY',
-          openTime: '08:00',
-          closeDay: 'THURSDAY',
-          closeTime: '18:00',
-        },
-        {
-          openDay: 'FRIDAY',
-          openTime: '08:00',
-          closeDay: 'FRIDAY',
-          closeTime: '18:00',
-        },
-        {
-          openDay: 'SATURDAY',
-          openTime: '09:00',
-          closeDay: 'SATURDAY',
-          closeTime: '14:00',
-        },
-      ],
-      specialHours: [
-        {
-          date: '2024-12-25',
-          isClosed: true,
-        },
-      ],
-    };
+  private async optimizeBusinessHours(): Promise<BusinessHours[]> {
+    return [
+      {
+        dayOfWeek: 'MONDAY',
+        openTime: '08:00',
+        closeTime: '18:00',
+        isClosed: false,
+      },
+      {
+        dayOfWeek: 'TUESDAY',
+        openTime: '08:00',
+        closeTime: '18:00',
+        isClosed: false,
+      },
+      {
+        dayOfWeek: 'WEDNESDAY',
+        openTime: '08:00',
+        closeTime: '18:00',
+        isClosed: false,
+      },
+      {
+        dayOfWeek: 'THURSDAY',
+        openTime: '08:00',
+        closeTime: '18:00',
+        isClosed: false,
+      },
+      {
+        dayOfWeek: 'FRIDAY',
+        openTime: '08:00',
+        closeTime: '18:00',
+        isClosed: false,
+      },
+      {
+        dayOfWeek: 'SATURDAY',
+        openTime: '09:00',
+        closeTime: '14:00',
+        isClosed: false,
+      },
+      {
+        dayOfWeek: 'SUNDAY',
+        openTime: '',
+        closeTime: '',
+        isClosed: true,
+        isHoliday: false,
+      },
+    ];
   }
 
   private async updateBusinessInfo(
@@ -978,7 +1051,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     optimizations: LocalSEOOptimization
   ): Promise<void> {
     try {
-      await this.mybusinessApi.locations.patch({
+      await (this.mybusinessApi as any).locations.patch({
         name: `locations/${locationId}`,
         updateMask: 'description,categories,attributes,serviceArea,regularHours',
         requestBody: optimizations,
@@ -989,34 +1062,45 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
   }
 
   private async getLastPhotoUpdate(): Promise<number> {
-    // Check when photos were last updated
-    const lastUpdate = await this.prisma.contentSchedule.findFirst({
-      where: {
-        platform: { startsWith: 'gmb_photo_' },
-      },
-      orderBy: { scheduledFor: 'desc' },
-    });
+    try {
+      // Check when photos were last updated
+      const lastUpdate = await this.prisma?.contentSchedule.findFirst({
+        where: {
+          platforms: { has: 'gmb_photo' },
+        },
+        orderBy: { scheduledFor: 'desc' },
+      });
 
-    return lastUpdate ? lastUpdate.scheduledFor.getTime() : 0;
+      return lastUpdate ? lastUpdate.scheduledFor.getTime() : 0;
+    } catch (error) {
+      logger.error('Failed to get last photo update:', error);
+      return 0;
+    }
   }
 
-  private async selectEngagementPhotos(location: string): Promise<any[]> {
+  private async selectEngagementPhotos(location: string): Promise<EngagementPhoto[]> {
     // Select photos optimized for engagement based on location
     return [
       {
-        type: 'COVER',
-        sourceUrl: `/images/offices/${location}-exterior.jpg`,
+        url: `/images/offices/${location}-exterior.jpg`,
+        category: 'COVER',
         description: `Vasquez Law Firm ${location} office - Serving the community since 2003`,
+        tags: ['office', 'exterior', location],
+        uploadPriority: 1,
       },
       {
-        type: 'TEAM',
-        sourceUrl: `/images/team/${location}-team.jpg`,
+        url: `/images/team/${location}-team.jpg`,
+        category: 'TEAM',
         description: `Our experienced legal team in ${location}`,
+        tags: ['team', 'attorneys', location],
+        uploadPriority: 2,
       },
       {
-        type: 'INTERIOR',
-        sourceUrl: `/images/offices/${location}-interior.jpg`,
+        url: `/images/offices/${location}-interior.jpg`,
+        category: 'INTERIOR',
         description: `Modern, comfortable consultation rooms`,
+        tags: ['interior', 'consultation', location],
+        uploadPriority: 3,
       },
     ];
   }
@@ -1024,16 +1108,17 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
   private async uploadPhoto(locationId: string, photo: GMBPhoto): Promise<void> {
     try {
       // Upload photo to GMB
-      logger.info(`Uploading photo to location ${locationId}: ${photo.type}`);
+      logger.info(`Uploading photo to location ${locationId}: ${(photo as any).category}`);
 
       // Track upload
-      await this.prisma.contentSchedule.create({
+      await this.prisma?.contentSchedule.create({
         data: {
-          blogPostId: `gmb_photo_${Date.now()}`,
-          platform: `gmb_photo_${locationId}`,
+          contentId: `gmb_photo_${Date.now()}`,
+          contentType: 'gmb_photo',
+          platforms: [`gmb_photo_${locationId}`],
           scheduledFor: new Date(),
           status: 'published',
-        },
+        } as GMBMediaItem,
       });
     } catch (error) {
       logger.error('Failed to upload photo:', error);

@@ -319,21 +319,22 @@ The Vasquez Law Firm Team`,
       })) as unknown[];
 
       for (const case_ of recentWins) {
-        if (await this.shouldRequestReview(case_.client)) {
+        const caseData = case_ as any;
+        if (await this.shouldRequestReview(caseData.client)) {
           candidates.push({
-            clientId: case_.client.id,
-            clientName: case_.client.name || 'Valued Client',
-            clientEmail: case_.client.email,
-            clientPhone: case_.client.phone,
-            caseType: this.formatCaseType(case_.practiceArea),
+            clientId: caseData.client.id,
+            clientName: caseData.client.name || 'Valued Client',
+            clientEmail: caseData.client.email,
+            clientPhone: caseData.client.phone,
+            caseType: this.formatCaseType(caseData.practiceArea),
             caseOutcome: 'won',
-            lastContactDate: case_.updatedAt,
-            requestMethod: this.determineRequestMethod(case_.client),
+            lastContactDate: caseData.updatedAt,
+            requestMethod: this.determineRequestMethod(caseData.client),
             urgency: 'immediate',
             personalizationData: {
-              attorneyName: case_.attorney?.name || 'Your Attorney',
-              caseDetails: case_.description,
-              timeSince: this.getTimeSince(case_.updatedAt),
+              attorneyName: caseData.attorney?.name || 'Your Attorney',
+              caseDetails: caseData.description,
+              timeSince: this.getTimeSince(caseData.updatedAt),
             },
           });
         }
@@ -360,24 +361,25 @@ The Vasquez Law Firm Team`,
       })) as unknown[];
 
       for (const client of longTermClients) {
-        if (await this.shouldRequestReview(client)) {
-          const latestCase = client.cases[0];
+        const clientData = client as any;
+        if (await this.shouldRequestReview(clientData)) {
+          const latestCase = clientData.cases[0];
           candidates.push({
-            clientId: client.id,
-            clientName: client.name || 'Valued Client',
-            clientEmail: client.email,
-            clientPhone: client.phone || undefined,
+            clientId: clientData.id,
+            clientName: clientData.name || 'Valued Client',
+            clientEmail: clientData.email,
+            clientPhone: clientData.phone || undefined,
             caseType: latestCase ? this.formatCaseType(latestCase.practiceArea) : 'legal matter',
             caseOutcome: 'resolved',
-            lastContactDate: latestCase?.updatedAt || client.createdAt,
+            lastContactDate: latestCase?.updatedAt || clientData.createdAt,
             requestMethod: this.determineRequestMethod({
-              email: client.email,
-              phone: client.phone,
+              email: clientData.email,
+              phone: clientData.phone,
             }),
             urgency: 'standard',
             personalizationData: {
               attorneyName: 'The Vasquez Law Firm Team',
-              timeSince: this.getTimeSince(latestCase?.updatedAt || client.createdAt),
+              timeSince: this.getTimeSince(latestCase?.updatedAt || clientData.createdAt),
             },
           });
         }
@@ -450,12 +452,12 @@ The Vasquez Law Firm Team`,
       subject: this.personalizText(emailTemplate.subject, {
         ...request,
         lastContactDate: request.lastContactDate.toISOString(),
-      } as Record<string, unknown>),
+      } as any),
       body: this.personalizText(emailTemplate.body, {
         ...request,
         ...request.personalizationData,
         reviewLinks: reviewLinks.email,
-      }),
+      } as any),
     };
 
     // Personalize SMS
@@ -464,7 +466,7 @@ The Vasquez Law Firm Team`,
         ...request,
         ...request.personalizationData,
         shortLink: reviewLinks.sms,
-      }),
+      } as any),
     };
 
     // Use AI to enhance personalization
@@ -650,7 +652,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
 
   private async shouldRequestReview(client: {
     id: string;
-    metadata?: { reviewOptOut?: boolean };
+    metadata?: { reviewOptOut?: boolean } | null;
   }): Promise<boolean> {
     // Check if already requested recently
     const recentRequest = await this.prisma.agentExecutionLog.findFirst({
@@ -668,7 +670,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     if (await this.hasClientReviewed(client.id)) return false;
 
     // Check if client opted out
-    if (client.metadata?.reviewOptOut) return false;
+    if ((client.metadata as any)?.reviewOptOut) return false;
 
     return true;
   }
@@ -708,16 +710,20 @@ Return as JSON: { email: { subject, body }, sms: { text } }
   }
 
   private async identifyPositiveSentimentClients(): Promise<ReviewRequest[]> {
-    const positiveCalls = await this.prisma.callRecording.findMany({
-      where: {
-        sentiment: 'positive',
-        createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
-      },
-      take: 20,
-    });
+    try {
+      const positiveCalls = await this.prisma.call.findMany({
+        where: {
+          createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
+        },
+        take: 20,
+      });
 
-    // Convert to review requests
-    return [];
+      // Convert to review requests
+      return [];
+    } catch (error) {
+      logger.error('Failed to identify positive sentiment clients:', error);
+      return [];
+    }
   }
 
   private generateReviewLinks(request: ReviewRequest): { email: string; sms: string } {
@@ -802,19 +808,23 @@ Return as JSON: { email: { subject, body }, sms: { text } }
   }
 
   private async trackReviewRequest(request: ReviewRequest): Promise<void> {
-    await this.prisma.agentExecutionLog.create({
-      data: {
-        agentName: 'ReviewHarvestingAgent',
-        executionType: 'review_request',
-        input: {
-          ...request,
-          lastContactDate: request.lastContactDate.toISOString(),
-        } as unknown,
-        output: { status: 'sent' },
-        duration: 1000,
-        success: true,
-      },
-    });
+    try {
+      await this.prisma.agentExecutionLog.create({
+        data: {
+          agentName: 'ReviewHarvestingAgent',
+          executionType: 'review_request',
+          input: {
+            ...request,
+            lastContactDate: request.lastContactDate.toISOString(),
+          } as any,
+          output: { status: 'sent' } as any,
+          duration: 1000,
+          success: true,
+        },
+      });
+    } catch (error) {
+      logger.error('Failed to track review request:', error);
+    }
   }
 
   private async fetchNewReviews(platform: ReviewPlatform): Promise<ReviewResponse[]> {
@@ -827,6 +837,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
 
   private async analyzeSentiment(review: {
     rating: number;
+    reviewText?: string;
   }): Promise<'positive' | 'negative' | 'neutral'> {
     if (review.rating >= 4) return 'positive';
     if (review.rating <= 2) return 'negative';
@@ -877,17 +888,21 @@ Return as JSON: { email: { subject, body }, sms: { text } }
 
   private async escalateNegativeReview(review: ReviewResponse): Promise<void> {
     // Create urgent task for management
-    await this.prisma.task.create({
-      data: {
-        title: `Urgent: Negative Review Response Needed`,
-        description: `Negative ${review.rating}-star review from ${review.reviewerName}: "${review.reviewText}"`,
-        type: 'client_communication',
-        priority: 'urgent',
-        status: 'pending',
-        createdById: 'system',
-        assignedToId: process.env.MANAGER_USER_ID,
-      },
-    });
+    try {
+      await this.prisma.task.create({
+        data: {
+          title: `Urgent: Negative Review Response Needed`,
+          description: `Negative ${review.rating}-star review from ${review.reviewerName}: "${review.reviewText}"`,
+          type: 'client_communication' as any,
+          priority: 'urgent' as any,
+          status: 'pending' as any,
+          createdById: 'system',
+          assignedToId: process.env.MANAGER_USER_ID || 'admin',
+        } as any,
+      });
+    } catch (error) {
+      logger.error('Failed to create escalation task:', error);
+    }
   }
 
   private async amplifyPositiveReview(review: ReviewResponse): Promise<void> {

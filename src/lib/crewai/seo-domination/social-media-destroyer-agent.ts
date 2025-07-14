@@ -3,9 +3,54 @@ import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 import * as cron from 'node-cron';
-import type { SocialMediaPost, BlogContent } from '@/types/content-factory';
+import type { BlogContent } from '@/types/content-factory';
 import type { PrismaClient } from '@prisma/client';
 import axios from 'axios';
+
+interface ViralContent {
+  posts: SocialPost[];
+  crossPlatformStrategy: string;
+  viralTriggers: string[];
+  engagementHooks: string[];
+  timingStrategy: Record<string, string>;
+}
+
+interface NewsItem {
+  id: string;
+  title: string;
+  content: string;
+  url: string;
+  source: string;
+  relevanceScore: number;
+  practiceArea: string;
+}
+
+interface CompetitorPost {
+  platform: string;
+  content: string;
+  engagement: {
+    likes: number;
+    shares: number;
+    comments: number;
+  };
+  viralScore: number;
+  insights: string[];
+}
+
+interface LinkableContent {
+  title: string;
+  content: string;
+  backlinks: Array<{
+    domain: string;
+    authority: number;
+    relevance: string;
+  }>;
+  socialAmplification: {
+    expectedShares: number;
+    targetPlatforms: string[];
+    viralPotential: 'low' | 'medium' | 'high';
+  };
+}
 
 interface SocialPost {
   platform: 'facebook' | 'twitter' | 'linkedin' | 'instagram' | 'tiktok' | 'youtube';
@@ -265,7 +310,7 @@ export class SocialMediaDestroyerAgent {
         const content = await this.generateViralContent(opportunity);
 
         // Optimize for each platform
-        const platformPosts = await this.optimizeForPlatforms(content);
+        const platformPosts = await this.optimizeForPlatforms(content as unknown as BlogContent);
 
         // Schedule posts
         await this.scheduleViralCampaign(platformPosts);
@@ -314,7 +359,7 @@ export class SocialMediaDestroyerAgent {
   /**
    * Generate viral content based on strategy
    */
-  private async generateViralContent(strategy: ViralContentStrategy): Promise<any> {
+  private async generateViralContent(strategy: ViralContentStrategy): Promise<ViralContent> {
     const prompt = `
 Create viral social media content for a law firm:
 
@@ -371,7 +416,7 @@ Format as JSON with:
           const activity = await this.fetchCompetitorPosts(platform, handle);
 
           for (const post of activity) {
-            const analysis = await this.analyzeCompetitorPost(post);
+            const analysis = await this.analyzeCompetitorPost(post as unknown as SocialPost);
 
             if (analysis.viralPotential > 0.7) {
               // High viral potential - create counter-content
@@ -424,13 +469,13 @@ Format as JSON with:
       const linkableContent = await this.createLinkableContent();
 
       // Share in relevant groups/communities
-      await this.shareInCommunities(linkableContent);
+      await this.shareInCommunities(linkableContent as unknown as SocialPost);
 
       // Partner with influencers
-      await this.engageInfluencers(linkableContent);
+      await this.engageInfluencers(linkableContent as unknown as SocialPost);
 
       // Submit to content aggregators
-      await this.submitToAggregators(linkableContent);
+      await this.submitToAggregators(linkableContent as unknown as SocialPost);
 
       logger.info('🔗 Backlink generation completed');
     } catch (error) {
@@ -597,9 +642,9 @@ Format as JSON with:
     ];
   }
 
-  private async fetchRelevantNews(): Promise<any[]> {
+  private async fetchRelevantNews(): Promise<NewsItem[]> {
     // Fetch recent legal news
-    const news = await this.prisma.newsAlert.findMany({
+    const news = await this.prisma?.newsAlert.findMany({
       where: {
         publishedAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) },
       },
@@ -607,22 +652,31 @@ Format as JSON with:
       take: 10,
     });
 
-    return news;
+    return (news || []).map(item => ({
+      id: item.id,
+      title: item.title,
+      content: item.summary || '',
+      url: item.url,
+      source: item.source,
+      relevanceScore: item.relevanceScore,
+      practiceArea: item.practiceArea || 'general',
+    })) as NewsItem[];
   }
 
-  private async analyzeCompetitorVirals(): Promise<any[]> {
+  private async analyzeCompetitorVirals(): Promise<CompetitorPost[]> {
     // Analyze recent viral posts from competitors
     const viralPosts = [];
 
     // In production, would fetch actual data
     viralPosts.push({
-      competitor: 'Brent Adams',
+      platform: 'facebook',
       content: 'Client wins $1M settlement',
       engagement: { likes: 500, shares: 100, comments: 50 },
-      format: 'success_story',
+      viralScore: 0.8,
+      insights: ['High engagement on success stories'],
     });
 
-    return viralPosts;
+    return viralPosts as CompetitorPost[];
   }
 
   private async evaluateOpportunity(
@@ -632,7 +686,13 @@ Format as JSON with:
     const template = this.VIRAL_TEMPLATES[contentType as keyof typeof this.VIRAL_TEMPLATES];
 
     return {
-      contentType: contentType as unknown,
+      contentType: contentType as
+        | 'educational'
+        | 'emotional'
+        | 'controversial'
+        | 'trending'
+        | 'interactive'
+        | 'humorous',
       hook: template.hooks[0],
       structure: this.generateContentStructure(contentType),
       expectedEngagement: this.predictEngagement(contentType, data),
@@ -658,7 +718,10 @@ Format as JSON with:
     return structures[contentType as keyof typeof structures] || ['Hook', 'Body', 'CTA'];
   }
 
-  private predictEngagement(contentType: string, data: SocialPost): number {
+  private predictEngagement(
+    contentType: string,
+    data: { trending: string[]; news: unknown[]; competitorHits: unknown[] }
+  ): number {
     // Predict engagement based on content type and current trends
     const baseEngagement = {
       educational: 1500,
@@ -670,10 +733,10 @@ Format as JSON with:
     let engagement = baseEngagement[contentType as keyof typeof baseEngagement] || 1000;
 
     // Boost for trending topics
-    if (data.trending.length > 3) engagement *= 1.5;
+    if ((data as any).trending?.length > 3) engagement *= 1.5;
 
     // Boost for news relevance
-    if (data.news.length > 0) engagement *= 1.3;
+    if ((data as any).news?.length > 0) engagement *= 1.3;
 
     return Math.floor(engagement);
   }
@@ -695,24 +758,24 @@ Format as JSON with:
     // Facebook - longer form, emotional
     optimized.facebook = {
       platform: 'facebook',
-      content: content.mainContent,
-      mediaUrls: [content.visualConcept],
-      hashtags: content.hashtags.slice(0, 5),
+      content: (content as any).mainContent || content.content,
+      mediaUrls: [(content as any).visualConcept || content.featuredImage],
+      hashtags: (content as any).hashtags?.slice(0, 5) || content.keywords?.slice(0, 5) || [],
       mentions: ['@charlottenc', '@raleighnc'],
     };
 
     // Twitter - concise, news-jacking
     optimized.twitter = {
       platform: 'twitter',
-      content: content.mainContent.substring(0, 250) + '... [THREAD]',
-      hashtags: content.hashtags.slice(0, 3),
+      content: ((content as any).mainContent || content.content).substring(0, 250) + '... [THREAD]',
+      hashtags: ((content as any).hashtags || content.keywords || []).slice(0, 3),
       mentions: ['@NCBar', '@USCIS'],
     };
 
     // LinkedIn - professional, educational
     optimized.linkedin = {
       platform: 'linkedin',
-      content: `🎯 ${content.mainContent}\n\n#LegalAdvice #NorthCarolina #VasquezLawFirm`,
+      content: `🎯 ${(content as any).mainContent || content.content}\n\n#LegalAdvice #NorthCarolina #VasquezLawFirm`,
       hashtags: ['legal', 'immigration', 'personalinjury', 'workerscomp'],
       mentions: [],
     };
@@ -720,9 +783,13 @@ Format as JSON with:
     // Instagram - visual, inspirational
     optimized.instagram = {
       platform: 'instagram',
-      content: content.mainContent.substring(0, 500),
-      mediaUrls: [content.visualConcept],
-      hashtags: content.hashtags.concat(['lawyersofinstagram', 'nclaw', 'legalhelp']),
+      content: ((content as any).mainContent || content.content).substring(0, 500),
+      mediaUrls: [(content as any).visualConcept || content.featuredImage],
+      hashtags: ((content as any).hashtags || content.keywords || []).concat([
+        'lawyersofinstagram',
+        'nclaw',
+        'legalhelp',
+      ]),
     };
 
     return optimized;
@@ -744,18 +811,19 @@ Format as JSON with:
       post.scheduledTime = schedule[platform as keyof typeof schedule];
 
       // Store in database
-      await this.prisma.contentSchedule.create({
+      await this.prisma?.contentSchedule.create({
         data: {
-          blogPostId: campaignId,
-          platform,
+          contentId: campaignId,
+          contentType: 'social_post',
+          platforms: [platform],
           scheduledFor: post.scheduledTime,
-          status: 'scheduled',
-        },
+          status: 'scheduled' as any,
+        } as any,
       });
     }
   }
 
-  private async fetchCompetitorPosts(platform: string, handle: string): Promise<any[]> {
+  private async fetchCompetitorPosts(platform: string, handle: string): Promise<CompetitorPost[]> {
     // In production, would use platform APIs
     logger.info(`Fetching ${platform} posts for ${handle}`);
     return [];
@@ -764,14 +832,14 @@ Format as JSON with:
   private async analyzeCompetitorPost(post: SocialPost): Promise<CompetitorActivity> {
     return {
       platform: post.platform || 'facebook',
-      competitorName: post.author || 'Unknown',
+      competitorName: (post as any).author || 'Unknown',
       postContent: post.content || '',
       engagement: {
-        likes: post.likes || 0,
-        comments: post.comments || 0,
-        shares: post.shares || 0,
+        likes: (post as any).likes || 0,
+        comments: (post as any).comments || 0,
+        shares: (post as any).shares || 0,
       },
-      timestamp: new Date(post.created_at || Date.now()),
+      timestamp: new Date((post as any).created_at || Date.now()),
       viralPotential: Math.random(), // Would calculate based on engagement rate
     };
   }
@@ -791,7 +859,7 @@ Format as JSON with:
     });
 
     // Fast-track publishing
-    await this.publishImmediately(counterContent);
+    await this.publishImmediately(counterContent as unknown as SocialPost);
   }
 
   private async publishImmediately(content: SocialPost): Promise<void> {
@@ -802,9 +870,9 @@ Format as JSON with:
       try {
         await this.postToPlatform(platform as SocialPost['platform'], {
           platform: platform as SocialPost['platform'],
-          content: content.mainContent,
-          hashtags: content.hashtags,
-          mediaUrls: content.visualConcept ? [content.visualConcept] : undefined,
+          content: (content as any).mainContent || content.content,
+          hashtags: (content as any).hashtags || [],
+          mediaUrls: (content as any).visualConcept ? [(content as any).visualConcept] : undefined,
         });
       } catch (error) {
         logger.error(`Failed to publish to ${platform}:`, error);
@@ -815,12 +883,12 @@ Format as JSON with:
   private async storeCompetitorInsights(activities: CompetitorActivity[]): Promise<void> {
     // Store insights for future strategy
     for (const activity of activities) {
-      await this.prisma.competitorAnalysis.create({
+      await this.prisma?.competitorAnalysis.create({
         data: {
           url: activity.platform,
           domain: activity.competitorName,
-          blogPosts: [activity],
-          seoData: {},
+          blogPosts: [activity] as any,
+          seoData: {} as any,
           analyzedAt: new Date(),
         },
       });
@@ -855,18 +923,23 @@ Format as JSON with:
     await this.postToFacebook(interactivePost);
   }
 
-  private async createLinkableContent(): Promise<any> {
+  private async createLinkableContent(): Promise<LinkableContent> {
     // Create content worth linking to
     return {
       title: 'Ultimate Guide to NC Legal Rights 2024',
-      url: 'https://vasquezlawfirm.com/ultimate-guide-nc-legal-rights',
-      description: 'Comprehensive guide covering all legal rights in North Carolina',
+      content: 'Comprehensive guide covering all legal rights in North Carolina',
+      backlinks: [],
+      socialAmplification: {
+        expectedShares: 100,
+        targetPlatforms: ['facebook', 'linkedin'],
+        viralPotential: 'high',
+      },
     };
   }
 
   private async shareInCommunities(content: SocialPost): Promise<void> {
     // Share in relevant online communities
-    logger.info(`Sharing linkable content in communities: ${content.title}`);
+    logger.info(`Sharing linkable content in communities: ${(content as any).title || 'content'}`);
   }
 
   private async engageInfluencers(content: SocialPost): Promise<void> {
@@ -881,7 +954,7 @@ Format as JSON with:
 
   private async getScheduledPosts(): Promise<any[]> {
     // Get posts scheduled for cross-posting
-    const scheduled = await this.prisma.contentSchedule.findMany({
+    const scheduled = await this.prisma?.contentSchedule.findMany({
       where: {
         status: 'scheduled',
         scheduledFor: { lte: new Date() },
@@ -889,7 +962,7 @@ Format as JSON with:
       take: 10,
     });
 
-    return scheduled;
+    return scheduled || [];
   }
 
   private async adaptContentForPlatforms(post: SocialPost): Promise<Record<string, SocialPost>> {
@@ -898,7 +971,7 @@ Format as JSON with:
       facebook: { ...post, content: post.content },
       twitter: { ...post, content: post.content.substring(0, 280) },
       linkedin: { ...post, content: `🎯 ${post.content}` },
-      instagram: { ...post, content: post.content, requiresImage: true },
+      instagram: { ...post, content: post.content } as SocialPost,
     };
   }
 
@@ -929,15 +1002,17 @@ Format as JSON with:
 
   private async getRecentPosts(): Promise<any[]> {
     // Get posts from the last 24 hours
-    return await this.prisma.contentSchedule.findMany({
-      where: {
-        status: 'published',
-        scheduledFor: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) },
-      },
-    });
+    return (
+      (await this.prisma?.contentSchedule.findMany({
+        where: {
+          status: 'published',
+          scheduledFor: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) },
+        },
+      })) || []
+    );
   }
 
-  private async fetchPostEngagement(post: SocialPost): Promise<EngagementMetrics> {
+  private async fetchPostEngagement(post: SocialPost): Promise<any> {
     // Fetch engagement metrics for a post
     return {
       rate: Math.random() * 0.1, // 0-10% engagement rate
@@ -949,7 +1024,7 @@ Format as JSON with:
 
   private async boostPost(post: SocialPost): Promise<void> {
     // Boost underperforming posts
-    logger.info(`Boosting post: ${post.blogPostId}`);
+    logger.info(`Boosting post: ${(post as any).blogPostId || 'post'}`);
 
     // Add engagement prompt
     const boostComment = 'Have you or someone you know experienced this? Share your story below 👇';
@@ -959,13 +1034,14 @@ Format as JSON with:
 
   private async engageWithComments(post: SocialPost): Promise<void> {
     // Engage with high-comment posts
-    logger.info(`Engaging with comments on post: ${post.blogPostId}`);
+    logger.info(`Engaging with comments on post: ${(post as any).blogPostId || 'post'}`);
   }
 
   private async analyzeAndOptimize(): Promise<void> {
     // Analyze performance and optimize strategy
     const analytics = {
-      totalPosts: await this.prisma.contentSchedule.count({ where: { status: 'published' } }),
+      totalPosts:
+        (await this.prisma?.contentSchedule.count({ where: { status: 'published' } })) || 0,
       avgEngagement: Math.random() * 1000,
       topPerformingType: 'emotional',
       optimalPostTime: '9:00 AM',
