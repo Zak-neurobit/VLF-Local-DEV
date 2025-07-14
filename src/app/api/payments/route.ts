@@ -4,7 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { paymentService } from '@/services/payment';
 import { logger } from '@/lib/logger';
 import { z } from 'zod';
-
+import { withPaymentTracing } from '@/lib/telemetry/api-middleware';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -55,7 +55,7 @@ const paymentPlanSchema = z.object({
   caseId: z.string().optional(),
 });
 
-export async function POST(request: NextRequest) {
+async function handlePOST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -205,7 +205,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET(request: NextRequest) {
+async function handleGET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
@@ -278,3 +278,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
+export const POST = withPaymentTracing(handlePOST);
+export const GET = withPaymentTracing(handleGET);

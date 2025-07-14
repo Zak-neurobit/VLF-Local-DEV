@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ghlService } from '@/services/gohighlevel';
 import { logger } from '@/lib/logger';
 import crypto from 'crypto';
+import { withTracing } from '@/lib/telemetry/api-middleware';
 
 // Verify GHL webhook signature
 const verifyWebhookSignature = (request: NextRequest, body: string): boolean => {
@@ -17,7 +18,7 @@ const verifyWebhookSignature = (request: NextRequest, body: string): boolean => 
   return signature === expectedSignature;
 };
 
-export async function POST(request: NextRequest) {
+async function handlePOST(request: NextRequest) {
   try {
     const rawBody = await request.text();
 
@@ -67,3 +68,8 @@ export async function GET(request: NextRequest) {
     configured: !!process.env.GHL_API_KEY,
   });
 }
+
+export const POST = withTracing(handlePOST, {
+  spanName: 'webhook.ghl',
+  attributes: { 'vlf.operation': 'webhook_ghl' },
+});

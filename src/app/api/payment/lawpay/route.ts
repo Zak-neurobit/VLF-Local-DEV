@@ -7,14 +7,24 @@ export async function POST(request: NextRequest) {
     const { amount, description, clientEmail, paymentMethod, trustAccount } = await request.json();
 
     // LawPay API credentials
-    const publicKey = process.env.LAWPAY_PUBLIC_KEY!;
-    const secretKey = process.env.LAWPAY_SECRET_KEY!;
+    const publicKey = process.env.LAWPAY_PUBLIC_KEY;
+    const secretKey = process.env.LAWPAY_SECRET_KEY;
     const apiUrl = 'https://api.lawpay.com/v1';
+
+    if (!publicKey || !secretKey) {
+      paymentLogger.error('LawPay credentials not configured');
+      return NextResponse.json({ error: 'Payment service not configured' }, { status: 500 });
+    }
 
     // Determine account type (trust or operating)
     const accountId = trustAccount
-      ? process.env.LAWPAY_TRUST_ACCOUNT_ID!
-      : process.env.LAWPAY_OPERATING_ACCOUNT_ID!;
+      ? process.env.LAWPAY_TRUST_ACCOUNT_ID
+      : process.env.LAWPAY_OPERATING_ACCOUNT_ID;
+
+    if (!accountId) {
+      paymentLogger.error('LawPay account ID not configured');
+      return NextResponse.json({ error: 'Payment account not configured' }, { status: 500 });
+    }
 
     // Create payment token first
     const tokenResponse = await fetch(`${apiUrl}/tokens`, {

@@ -7,6 +7,7 @@ import { statusManager } from '@/services/retell/status-manager';
 import { recordingManager } from '@/services/retell/recording-manager';
 import { retellErrorHandler } from '@/services/retell/error-handler';
 import type { RetellCallAnalysis, RetellCallMetadata } from '@/types/api';
+import { withTracing } from '@/lib/telemetry/api-middleware';
 
 export const dynamic = 'force-dynamic';
 interface RetellWebhookEvent {
@@ -37,7 +38,7 @@ interface RetellWebhookEvent {
   recording_url?: string;
 }
 
-export async function POST(request: NextRequest) {
+async function handlePOST(request: NextRequest) {
   let event: RetellWebhookEvent | undefined;
   try {
     // Get webhook signature for verification
@@ -515,3 +516,8 @@ export async function GET(_request: NextRequest) {
     configured: !!process.env.RETELL_API_KEY,
   });
 }
+
+export const POST = withTracing(handlePOST, {
+  spanName: 'webhook.retell',
+  attributes: { 'vlf.operation': 'webhook_retell' },
+});

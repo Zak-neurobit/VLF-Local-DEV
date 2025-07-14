@@ -7,8 +7,12 @@ export async function POST(request: NextRequest) {
       await request.json();
 
     // Authorize.Net API credentials
-    const apiLoginId = process.env.AUTHORIZE_NET_API_LOGIN_ID!;
-    const transactionKey = process.env.AUTHORIZE_NET_TRANSACTION_KEY!;
+    const apiLoginId = process.env.AUTHORIZE_NET_API_LOGIN_ID;
+    const transactionKey = process.env.AUTHORIZE_NET_TRANSACTION_KEY;
+
+    if (!apiLoginId || !transactionKey) {
+      return NextResponse.json({ error: 'Payment service not configured' }, { status: 500 });
+    }
     const apiUrl =
       process.env.NODE_ENV === 'production'
         ? 'https://api.authorize.net/xml/v1/request.api'
