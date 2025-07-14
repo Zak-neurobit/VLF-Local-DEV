@@ -178,10 +178,58 @@ export class HreflangGenerator {
   ];
 
   /**
-   * Get current path without locale prefix
+   * Get current path without locale prefix and translate Spanish segments to English
    */
   private static getCleanPath(pathname: string): string {
-    return pathname.replace(/^\/es(?:\/|$)/, '/').replace(/\/+$/, '') || '/';
+    // Remove query parameters and hash
+    const pathWithoutQuery = pathname.split('?')[0].split('#')[0];
+
+    // If it's not a Spanish path, just clean it up
+    if (!pathWithoutQuery.startsWith('/es')) {
+      return pathWithoutQuery.replace(/\/+$/, '') || '/';
+    }
+
+    // Remove /es prefix
+    const withoutEsPrefix =
+      pathWithoutQuery.replace(/^\/es(?:\/|$)/, '/').replace(/\/+$/, '') || '/';
+
+    // For Spanish paths, try to find the English equivalent by checking our translations
+    for (const [englishPath, translation] of Object.entries(this.PAGE_TRANSLATIONS)) {
+      if (translation.es === pathWithoutQuery) {
+        return englishPath;
+      }
+    }
+
+    // If no exact match found, try pattern-based reverse translation
+    const spanishSegments = withoutEsPrefix.split('/').filter(Boolean);
+    const englishSegments = spanishSegments.map(segment => {
+      // Basic Spanish to English translation for common segments
+      const segmentMap: Record<string, string> = {
+        abogados: 'attorneys',
+        'areas-de-practica': 'practice-areas',
+        inmigracion: 'immigration',
+        'lesiones-personales': 'personal-injury',
+        'defensa-criminal': 'criminal-defense',
+        'compensacion-laboral': 'workers-compensation',
+        'derecho-familia': 'family-law',
+        'infracciones-transito': 'traffic-violations',
+        ubicaciones: 'locations',
+        contacto: 'contact',
+        'acerca-de': 'about',
+        testimonios: 'testimonials',
+        'resultados-casos': 'case-results',
+        becas: 'scholarship',
+        'consulta-gratuita': 'free-consultation',
+        pago: 'payment',
+        'hacer-pago': 'make-payment',
+        'politica-privacidad': 'privacy-policy',
+        'terminos-servicio': 'terms-of-service',
+        'mapa-del-sitio': 'sitemap',
+      };
+      return segmentMap[segment] || segment;
+    });
+
+    return '/' + englishSegments.join('/');
   }
 
   /**
@@ -300,12 +348,13 @@ export class HreflangGenerator {
     const currentPath = pathname || '/';
     const currentLocale = this.detectLocale(currentPath);
     const cleanPath = this.getCleanPath(currentPath);
-    const hasTranslation = this.hasSpanishVersion(cleanPath);
+    const translation = this.getPageTranslation(cleanPath);
 
     const locale = currentLocale === 'es' ? 'es_US' : 'en_US';
     const alternateLocale: string[] = [];
 
-    if (hasTranslation) {
+    // Only add alternate locales if the page has translations
+    if (translation) {
       if (currentLocale === 'es') {
         alternateLocale.push('en_US');
       } else {
@@ -320,9 +369,7 @@ export class HreflangGenerator {
 /**
  * React component for rendering hreflang tags
  */
-export function HreflangTags({
-  customPath,
-}: HreflangGeneratorProps) {
+export function HreflangTags({ customPath }: HreflangGeneratorProps) {
   const pathname = usePathname();
   const entries = HreflangGenerator.generateHreflangEntries(pathname || '/', customPath);
 
