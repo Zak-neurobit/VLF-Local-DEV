@@ -1,6 +1,7 @@
 import { openai } from '@ai-sdk/openai';
 import { apiLogger } from '@/lib/pino-logger';
 import { streamText } from 'ai';
+import { withAIAgentTracing } from '@/lib/telemetry/api-middleware';
 
 export const runtime = 'edge';
 
@@ -26,7 +27,7 @@ Guidelines:
 6. Be concise but thorough
 7. Show understanding of their situation`;
 
-export async function POST(req: Request) {
+async function handlePOST(req: Request) {
   try {
     const { messages } = await req.json();
 
@@ -44,3 +45,6 @@ export async function POST(req: Request) {
     return new Response('Error processing request', { status: 500 });
   }
 }
+
+// Export with telemetry wrapper
+export const POST = withAIAgentTracing(handlePOST);

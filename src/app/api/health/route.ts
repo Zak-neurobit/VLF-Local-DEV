@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { withTracing } from '@/lib/telemetry/api-middleware';
 
-export async function GET(_req: NextRequest) {
+async function handleGET(_req: NextRequest) {
   const health = {
     status: 'healthy',
     timestamp: new Date().toISOString(),
@@ -75,3 +76,9 @@ export async function GET(_req: NextRequest) {
 
   return NextResponse.json(health, { status: statusCode });
 }
+
+// Export with telemetry wrapper
+export const GET = withTracing(handleGET, {
+  spanName: 'health.check',
+  attributes: { 'vlf.operation': 'health_check' },
+});

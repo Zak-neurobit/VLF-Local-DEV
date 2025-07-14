@@ -5,14 +5,20 @@ import { getPrismaClient } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
 import { PaymentStatus, PaymentGateway, PaymentMethod } from '@prisma/client';
 import { emailQueue } from '@/lib/queue/bull';
+import { withPaymentTracing } from '@/lib/telemetry/api-middleware';
 import type { PaymentPlanMetadata } from '@/types/api';
 
 export const dynamic = 'force-dynamic';
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+
+if (!process.env.STRIPE_SECRET_KEY || !process.env.STRIPE_WEBHOOK_SECRET) {
+  throw new Error('Stripe configuration missing');
+}
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2023-10-16',
 });
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 // Helper function to calculate next payment date
 function calculateNextPaymentDate(
@@ -72,7 +78,7 @@ async function updatePaymentPlanMetadata(
 //   }).format(amount);
 // }
 
-export async function POST(request: NextRequest) {
+async function handlePOST(request: NextRequest) {
   // Validate required environment variables
   if (!process.env.STRIPE_SECRET_KEY || !process.env.STRIPE_WEBHOOK_SECRET) {
     logger.error('Missing required Stripe environment variables');
@@ -628,5 +634,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 });
   }
 }
+
+// Export with telemetry wrapper
+export const POST = withPaymentTracing(handlePOST);
 
 // Note: Next.js 13+ App Router handles raw body parsing automatically

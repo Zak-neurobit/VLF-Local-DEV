@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { emailService } from '@/services/email';
 import { z } from 'zod';
 import { logger } from '@/lib/logger';
+import { withTracing } from '@/lib/telemetry/api-middleware';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -21,7 +22,7 @@ const sendEmailSchema = z.object({
   priority: z.enum(['high', 'normal', 'low']).optional(),
 });
 
-export async function POST(request: NextRequest) {
+async function handlePOST(request: NextRequest) {
   try {
     // Check authentication - only authenticated users can send emails
     const session = await getServerSession(authOptions);
@@ -123,3 +124,9 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
+// Export with telemetry wrapper
+export const POST = withTracing(handlePOST, {
+  spanName: 'email.send',
+  attributes: { 'vlf.operation': 'email_send' },
+});

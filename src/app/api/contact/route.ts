@@ -5,8 +5,9 @@ import { emailService } from '@/services/email.service';
 import { contactFormSchema } from '@/lib/validations/forms';
 import { contactFormLimiter } from '@/lib/rate-limiter';
 import { createGHLContact, getPracticeAreaTags } from '@/lib/ghl';
+import { withLeadCaptureTracing } from '@/lib/telemetry/api-middleware';
 
-export async function POST(req: NextRequest) {
+async function handlePOST(req: NextRequest) {
   apiLogger.request(req.method, req.url, {});
 
   try {
@@ -149,3 +150,6 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+// Export with telemetry wrapper
+export const POST = withLeadCaptureTracing(handlePOST);
