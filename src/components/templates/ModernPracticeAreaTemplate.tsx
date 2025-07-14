@@ -479,7 +479,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                                     Criminal Penalties
                                   </h4>
                                   <ul className="space-y-2">
-                                    {penalty.criminal.map((item: any, i: number) => (
+                                    {penalty.criminal.map((item: string, i: number) => (
                                       <li key={i} className="flex items-center gap-2 text-gray-300">
                                         <span className="text-red-400">•</span>
                                         {item}
@@ -492,7 +492,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                                     License Penalties
                                   </h4>
                                   <ul className="space-y-2">
-                                    {penalty.license.map((item: any, i: number) => (
+                                    {penalty.license.map((item: string, i: number) => (
                                       <li key={i} className="flex items-center gap-2 text-gray-300">
                                         <span className="text-red-400">•</span>
                                         {item}
@@ -528,7 +528,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                             >
                               <h3 className="text-xl font-bold text-primary mb-6">{state.name}</h3>
                               <ul className="space-y-3">
-                                {state.points.map((point: any, i: number) => (
+                                {state.points.map((point: string, i: number) => (
                                   <li key={i} className="flex items-start gap-2 text-gray-300">
                                     <span className="text-primary mt-1">•</span>
                                     {point}

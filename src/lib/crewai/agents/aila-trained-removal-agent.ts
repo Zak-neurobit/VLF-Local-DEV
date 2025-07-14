@@ -4,6 +4,19 @@ import { APISafetyWrapper } from '@/lib/api-safety';
 import { logger } from '@/lib/logger';
 import { immigrationKnowledgeBase } from '@/config/agents/knowledge-base/immigration-knowledge';
 
+interface RemovalCaseParams {
+  clientName: string;
+  isDetained: boolean;
+  detentionCenter?: string;
+  hasCourtDate: boolean;
+  courtDate?: string;
+  criminalHistory?: string;
+  timeInUS?: string;
+  familyTies?: string;
+  immigrationHistory?: string;
+  countryOfOrigin?: string;
+}
+
 export class AILATrainedRemovalDefenseAgent {
   private model: ChatOpenAI | null = null;
   private safetyWrapper: APISafetyWrapper;
@@ -86,7 +99,7 @@ When analyzing cases:
 - Consider pro se resources if needed`;
   }
 
-  private buildCasePrompt(params: any): string {
+  private buildCasePrompt(params: RemovalCaseParams): string {
     return `Analyze this removal defense case using AILA best practices:
 
 Client: ${params.clientName}
@@ -107,7 +120,7 @@ Apply AILA training to provide:
 6. Circuit-specific considerations if applicable`;
   }
 
-  private parseAILAAnalysis(content: string, params: any): RemovalDefenseAnalysis {
+  private parseAILAAnalysis(content: string, params: RemovalCaseParams): RemovalDefenseAnalysis {
     // Enhanced parsing with AILA categories
     const analysis: RemovalDefenseAnalysis = {
       urgencyLevel: this.assessUrgency(params),
@@ -132,7 +145,7 @@ Apply AILA training to provide:
     return analysis;
   }
 
-  private assessUrgency(params: any): 'critical' | 'urgent' | 'standard' {
+  private assessUrgency(params: RemovalCaseParams): 'critical' | 'urgent' | 'standard' {
     if (params.isDetained) return 'critical';
     if (params.hasCourtDate) {
       const daysUntilCourt = this.daysUntilDate(params.courtDate);
@@ -142,7 +155,7 @@ Apply AILA training to provide:
     return 'standard';
   }
 
-  private assessBondEligibility(params: any): BondAssessment {
+  private assessBondEligibility(params: RemovalCaseParams): BondAssessment {
     const assessment: BondAssessment = {
       eligible: true,
       factors: {
@@ -186,7 +199,7 @@ Apply AILA training to provide:
     return assessment;
   }
 
-  private identifyReliefOptions(params: any): ReliefOption[] {
+  private identifyReliefOptions(params: RemovalCaseParams): ReliefOption[] {
     const options: ReliefOption[] = [];
 
     // Cancellation of Removal
@@ -234,7 +247,7 @@ Apply AILA training to provide:
     return options;
   }
 
-  private identifyProceduralDefenses(params: any): string[] {
+  private identifyProceduralDefenses(params: RemovalCaseParams): string[] {
     return [
       'Review NTA for defects (missing allegations, improper service)',
       'Check jurisdiction (proper venue, timely filing)',
@@ -246,7 +259,7 @@ Apply AILA training to provide:
     ];
   }
 
-  private prioritizeEvidence(params: any): EvidencePriority[] {
+  private prioritizeEvidence(params: RemovalCaseParams): EvidencePriority[] {
     const priorities: EvidencePriority[] = [
       {
         category: 'Identity & Status',
@@ -282,7 +295,7 @@ Apply AILA training to provide:
     return priorities;
   }
 
-  private developStrategy(params: any): string[] {
+  private developStrategy(params: RemovalCaseParams): string[] {
     const strategies = [];
 
     if (params.isDetained) {
@@ -305,7 +318,7 @@ Apply AILA training to provide:
     return strategies;
   }
 
-  private estimateTimeline(params: any): TimelineEstimate {
+  private estimateTimeline(params: RemovalCaseParams): TimelineEstimate {
     if (params.isDetained) {
       return {
         overall: '6-12 months (detained docket)',

@@ -18,7 +18,7 @@ const redisConfig = {
 
 // Mock Redis for local testing
 class MockRedis {
-  private store = new Map<string, any>();
+  private store = new Map<string, unknown>();
 
   async get(key: string) {
     return this.store.get(key) || null;

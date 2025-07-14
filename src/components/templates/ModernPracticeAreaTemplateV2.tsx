@@ -3,13 +3,7 @@
 import React, { useState } from 'react';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { motion } from 'framer-motion';
-import {
-  Phone,
-  MessageCircle,
-  Shield,
-  AlertCircle,
-  CheckCircle,
-} from 'lucide-react';
+import { Phone, MessageCircle, Shield, AlertCircle, CheckCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   EnhancedHero,
@@ -296,7 +290,7 @@ export const ModernPracticeAreaTemplateV2: React.FC<ModernPracticeAreaTemplateV2
                     </span>
                   ))}
                 </div>
-                <p className="text-gray-300 mb-4">"{testimonial.text}"</p>
+                <p className="text-gray-300 mb-4">&ldquo;{testimonial.text}&rdquo;</p>
                 <p className="text-gold-400 font-semibold">- {testimonial.author}</p>
               </EnhancedCard>
             ))}
@@ -335,7 +329,7 @@ export const ModernPracticeAreaTemplateV2: React.FC<ModernPracticeAreaTemplateV2
           <h2 className="text-3xl md:text-4xl font-black text-black mb-6">
             {isUrgent
               ? language === 'en'
-                ? "Don't Wait - Your Case Needs Immediate Attention"
+                ? 'Don&apos;t Wait - Your Case Needs Immediate Attention'
                 : 'No Espere - Su Caso Necesita Atención Inmediata'
               : language === 'en'
                 ? 'Ready to Get Started?'

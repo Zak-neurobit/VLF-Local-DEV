@@ -380,7 +380,7 @@ export default function ModernServiceLocationTemplate({
               What {data.cityName} Clients Say
             </Heading>
             <Text size="lg" className="text-gray-400">
-              Real reviews from real people we've helped
+              Real reviews from real people we&apos;ve helped
             </Text>
           </motion.div>
 
@@ -399,7 +399,7 @@ export default function ModernServiceLocationTemplate({
                     <Star key={i} className="h-5 w-5 text-primary fill-primary" />
                   ))}
                 </div>
-                <p className="text-gray-300 mb-6 italic">"{testimonial.text}"</p>
+                <p className="text-gray-300 mb-6 italic">&ldquo;{testimonial.text}&rdquo;</p>
                 <div className="flex items-center gap-3">
                   <div className="h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center">
                     <Users className="h-6 w-6 text-primary" />
@@ -695,8 +695,8 @@ export default function ModernServiceLocationTemplate({
                   Ready to Fight for Your Rights?
                 </Heading>
                 <Text size="lg" className="text-gray-300 mb-8">
-                  Don't wait. Every moment counts in {data.serviceName.toLowerCase()} cases. Contact
-                  us now for a free consultation.
+                  Don&apos;t wait. Every moment counts in {data.serviceName.toLowerCase()} cases.
+                  Contact us now for a free consultation.
                 </Text>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <Button href="/contact" size="lg" className="text-lg">
@@ -757,7 +757,7 @@ export default function ModernServiceLocationTemplate({
             viewport={{ once: true }}
           >
             <Heading level={2} className="text-white mb-6">
-              Don't Face {data.serviceName} Issues Alone
+              Don&apos;t Face {data.serviceName} Issues Alone
             </Heading>
             <Text size="xl" className="text-gray-300 mb-8">
               You have rights. We have the experience to protect them.

@@ -3,6 +3,13 @@ import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 
+interface GHLCalendarSlot {
+  date: string;
+  time: string;
+  userId?: string;
+  userName?: string;
+}
+
 export interface AppointmentRequest {
   userId: string;
   preferredDates: Date[];
@@ -624,7 +631,7 @@ Please analyze and recommend the best appointment slots.
       const result = await response.json();
 
       // Convert GHL slots to our format
-      return result.slots.map((slot: any) => ({
+      return result.slots.map((slot: GHLCalendarSlot) => ({
         date: new Date(slot.date),
         time: slot.time,
         attorneyId: slot.userId || '1',
