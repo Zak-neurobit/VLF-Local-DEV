@@ -38,7 +38,10 @@ export class SchemaMarkupAutomation {
       headline: blogPost.title,
       alternativeHeadline: blogPost.metaDescription,
       description: blogPost.excerpt,
-      image: this.generateImageSchema(blogPost.featuredImage, (blogPost as any).images),
+      image: this.generateImageSchema(
+        blogPost.featuredImage,
+        (blogPost as BlogContent & { images?: unknown[] }).images
+      ),
       datePublished: blogPost.publishedAt,
       dateModified: blogPost.updatedAt,
       author: this.generateAuthorSchema(blogPost.author),
@@ -46,8 +49,9 @@ export class SchemaMarkupAutomation {
       keywords: blogPost.keywords.join(', '),
       articleSection: this.formatPracticeArea(blogPost.practiceArea),
       wordCount: this.calculateWordCount(blogPost.content),
-      timeRequired: `PT${(blogPost as any).readTime || 5}M`,
-      inLanguage: (blogPost as any).language === 'es' ? 'es-US' : 'en-US',
+      timeRequired: `PT${(blogPost as BlogContent & { readTime?: number }).readTime || 5}M`,
+      inLanguage:
+        (blogPost as BlogContent & { language?: string }).language === 'es' ? 'es-US' : 'en-US',
       isAccessibleForFree: true,
       isPartOf: {
         '@type': 'Blog',
@@ -63,7 +67,7 @@ export class SchemaMarkupAutomation {
 
     // Add FAQ schema if present
     if (blogPost.faqSection && blogPost.faqSection.length > 0) {
-      (schema as any)['hasPart'] = {
+      (schema as Record<string, unknown>)['hasPart'] = {
         '@type': 'FAQPage',
         mainEntity: blogPost.faqSection.map(faq => ({
           '@type': 'Question',
@@ -78,7 +82,7 @@ export class SchemaMarkupAutomation {
     }
 
     // Add breadcrumb
-    (schema as any)['breadcrumb'] = this.generateBreadcrumb([
+    (schema as Record<string, unknown>)['breadcrumb'] = this.generateBreadcrumb([
       { name: 'Home', url: '/' },
       { name: 'Blog', url: '/blog' },
       { name: blogPost.title, url: `/blog/${blogPost.slug}` },
@@ -100,8 +104,8 @@ export class SchemaMarkupAutomation {
       '@context': 'https://schema.org',
       '@type': 'LegalService',
       '@id': `${this.baseUrl}/${landingPage.slug}#localbusiness`,
-      name: `Vasquez Law Firm - ${(landingPage as any).city || 'NC'} ${this.formatPracticeArea((landingPage as any).practiceArea || 'Legal')} Lawyers`,
-      alternateName: `VLF ${(landingPage as any).city || 'NC'}`,
+      name: `Vasquez Law Firm - ${(landingPage as GeneratedLandingPage & { city?: string }).city || 'NC'} ${this.formatPracticeArea((landingPage as GeneratedLandingPage & { practiceArea?: string }).practiceArea || 'Legal')} Lawyers`,
+      alternateName: `VLF ${(landingPage as GeneratedLandingPage & { city?: string }).city || 'NC'}`,
       description: landingPage.metaDescription,
       url: `${this.baseUrl}/${landingPage.slug}`,
       telephone: '+1-844-967-3536',
@@ -109,16 +113,21 @@ export class SchemaMarkupAutomation {
       image: this.generateImageSchema(landingPage.heroImage),
       address: {
         '@type': 'PostalAddress',
-        addressLocality: (landingPage as any).city || 'Raleigh',
-        addressRegion: (landingPage as any).state || 'NC',
-        postalCode: this.getCityZipCode((landingPage as any).city || 'Raleigh'),
+        addressLocality:
+          (landingPage as GeneratedLandingPage & { city?: string }).city || 'Raleigh',
+        addressRegion: (landingPage as GeneratedLandingPage & { state?: string }).state || 'NC',
+        postalCode: this.getCityZipCode(
+          (landingPage as GeneratedLandingPage & { city?: string }).city || 'Raleigh'
+        ),
         addressCountry: 'US',
       },
-      geo: this.getCityCoordinates((landingPage as any).city || 'Raleigh'),
+      geo: this.getCityCoordinates(
+        (landingPage as GeneratedLandingPage & { city?: string }).city || 'Raleigh'
+      ),
       openingHoursSpecification: this.generateOpeningHours(),
       areaServed: {
         '@type': 'City',
-        name: (landingPage as any).city || 'Raleigh',
+        name: (landingPage as GeneratedLandingPage & { city?: string }).city || 'Raleigh',
         containedInPlace: {
           '@type': 'State',
           name: 'North Carolina',
@@ -126,8 +135,10 @@ export class SchemaMarkupAutomation {
       },
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
-        name: `${this.formatPracticeArea((landingPage as any).practiceArea || 'Legal')} Services`,
-        itemListElement: this.generateServiceOffers((landingPage as any).practiceArea || 'legal'),
+        name: `${this.formatPracticeArea((landingPage as GeneratedLandingPage & { practiceArea?: string }).practiceArea || 'Legal')} Services`,
+        itemListElement: this.generateServiceOffers(
+          (landingPage as GeneratedLandingPage & { practiceArea?: string }).practiceArea || 'legal'
+        ),
       },
       aggregateRating: {
         '@type': 'AggregateRating',
@@ -138,8 +149,12 @@ export class SchemaMarkupAutomation {
       },
       review: this.generateReviewSchema(),
       sameAs: this.getSocialProfiles(),
-      knowsAbout: this.getPracticeAreaTopics((landingPage as any).practiceArea || 'legal'),
-      makesOffer: this.generateServiceSchema((landingPage as any).practiceArea || 'legal'),
+      knowsAbout: this.getPracticeAreaTopics(
+        (landingPage as GeneratedLandingPage & { practiceArea?: string }).practiceArea || 'legal'
+      ),
+      makesOffer: this.generateServiceSchema(
+        (landingPage as GeneratedLandingPage & { practiceArea?: string }).practiceArea || 'legal'
+      ),
     };
 
     // Add local business specific markup
@@ -201,7 +216,7 @@ export class SchemaMarkupAutomation {
 
     // Add variation-specific elements
     if (variation.variationType === 'faq-focused') {
-      (schema as any)['mainEntity'] = this.generateFAQSchema(variation);
+      (schema as Record<string, unknown>)['mainEntity'] = this.generateFAQSchema(variation);
     }
 
     // Store schema in database
@@ -259,7 +274,7 @@ export class SchemaMarkupAutomation {
       name: content.title,
       description: content.metaDescription,
       image: this.generateImageSchema(content.featuredImage),
-      totalTime: `PT${((content as any).readTime || 5) * 2}M`, // Estimate time to complete
+      totalTime: `PT${((content as SchemaContent & { readTime?: number }).readTime || 5) * 2}M`, // Estimate time to complete
       estimatedCost: {
         '@type': 'MonetaryAmount',
         currency: 'USD',
@@ -584,7 +599,9 @@ export class SchemaMarkupAutomation {
       // Add more practice areas...
     };
 
-    return ((offers as any)[practiceArea] || []).map((offer: any) => ({
+    return (
+      (offers as Record<string, Array<{ name: string; description: string }>>)[practiceArea] || []
+    ).map(offer => ({
       '@type': 'Offer',
       itemOffered: {
         '@type': 'Service',
@@ -735,7 +752,7 @@ export class SchemaMarkupAutomation {
       // Add more practice areas...
     };
 
-    return (options as Record<string, any[]>)[practiceArea] || [];
+    return (options as Record<string, string[]>)[practiceArea] || [];
   }
 
   private getServiceReviewCount(practiceArea: string): string {

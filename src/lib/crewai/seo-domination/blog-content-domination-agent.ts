@@ -24,10 +24,69 @@ interface ContentOpportunity {
   reason: string;
 }
 
+interface GeneratedContent {
+  title: string;
+  content: string;
+  sections: Array<{
+    heading: string;
+    content: string;
+  }>;
+  faqs: Array<{
+    question: string;
+    answer: string;
+  }>;
+  keywords: string[];
+  metaDescription: string;
+}
+
+interface OptimizedContent extends GeneratedContent {
+  seoScore: number;
+  readabilityScore: number;
+  targetKeywordDensity: Record<string, number>;
+  internalLinks: string[];
+  schema: Record<string, unknown>;
+}
+
+interface CompetitorGapAnalysis {
+  missingTopics: string[];
+  contentGaps: string[];
+  averageWordCount: number;
+  lastPostDate: string;
+  updateFrequency: string;
+}
+
+interface SearchResult {
+  title: string;
+  description: string;
+  url: string;
+  date?: string;
+}
+
+interface ContentTemplate {
+  structure: string[];
+  [key: string]: unknown;
+}
+
+interface ContentPerformance {
+  views: number;
+  avgTimeOnPage: number;
+  bounceRate: number;
+  socialShares: number;
+  backlinks: number;
+  rankings: Record<string, number>;
+}
+
+interface ContentImprovement {
+  type: 'update' | 'expand' | 'optimize';
+  suggestions: string[];
+  priority: 'low' | 'medium' | 'high';
+  estimatedImpact: number;
+}
+
 export class BlogContentDominationAgent {
   private model: ChatOpenAI;
   private webFetch: WebFetch;
-  private prisma: any;
+  private prisma: ReturnType<typeof getPrismaClient> | null = null;
   private isRunning: boolean = false;
   private monitoringInterval: NodeJS.Timeout | null = null;
 
@@ -359,7 +418,7 @@ export class BlogContentDominationAgent {
     const allCompetitorTopics = new Set<string>();
     competitorAnalyses.forEach(analysis => {
       const posts = analysis.blogPosts as unknown[];
-      posts.forEach((post: any) => {
+      posts.forEach(post => {
         if (post.keywords) {
           post.keywords.forEach((keyword: string) =>
             allCompetitorTopics.add(keyword.toLowerCase())
@@ -505,7 +564,9 @@ Respond with a JSON array of gap opportunities.
   /**
    * Generate content that dominates the competition
    */
-  private async generateDominationContent(opportunity: ContentOpportunity): Promise<any> {
+  private async generateDominationContent(
+    opportunity: ContentOpportunity
+  ): Promise<GeneratedContent> {
     const template = this.getContentTemplate(opportunity);
 
     const prompt = `
@@ -518,7 +579,7 @@ Competition Level: ${opportunity.competitionLevel}
 Requirements:
 1. Word count: ${opportunity.competitionLevel === 'high' ? '3000-4000' : '2000-3000'} words
 2. Include ALL target keywords naturally
-3. Structure: ${(template as any).structure.join(', ')}
+3. Structure: ${(template as ContentTemplate).structure.join(', ')}
 4. Add 10+ relevant FAQs
 5. Include local NC examples and case studies
 6. Add compelling statistics and data
@@ -547,7 +608,10 @@ Format as JSON with all sections clearly defined.
   /**
    * Optimize content for search supremacy
    */
-  private async optimizeForSupremacy(content: any, opportunity: ContentOpportunity): Promise<any> {
+  private async optimizeForSupremacy(
+    content: GeneratedContent,
+    opportunity: ContentOpportunity
+  ): Promise<OptimizedContent> {
     // Add power words for CTR
     const powerWords = ['Ultimate', 'Essential', 'Proven', 'Expert', 'Comprehensive', 'Exclusive'];
 
@@ -576,7 +640,7 @@ Format as JSON with all sections clearly defined.
   /**
    * Publish content across all channels
    */
-  private async publishContent(content: any, language: string): Promise<void> {
+  private async publishContent(content: OptimizedContent, language: string): Promise<void> {
     try {
       // Save to database
       const blogPost = await this.prisma.blogPost.create({
@@ -667,9 +731,12 @@ Format as JSON with all sections clearly defined.
     return words.filter(word => !stopWords.has(word) && word.length > 3);
   }
 
-  private async analyzeCompetitorGaps(posts: unknown[], competitorUrl: string): Promise<any> {
+  private async analyzeCompetitorGaps(
+    posts: unknown[],
+    competitorUrl: string
+  ): Promise<CompetitorGapAnalysis> {
     // Analyze what the competitor is missing
-    const coveredTopics = new Set(posts.map((p: any) => p.keywords).flat());
+    const coveredTopics = new Set(posts.map(p => (p as BlogPost).keywords).flat());
     const missingTopics: string[] = [];
 
     Object.values(this.PRACTICE_AREA_KEYWORDS)
@@ -687,12 +754,12 @@ Format as JSON with all sections clearly defined.
     return {
       coveredTopics: Array.from(coveredTopics),
       missingTopics,
-      lastPostDate: (posts[0] as any)?.date || 'unknown',
+      lastPostDate: (posts[0] as BlogPost & { date?: string })?.date || 'unknown',
       postingFrequency: posts.length,
     };
   }
 
-  private async extractTrendingTopic(searchResult: any): Promise<TrendingTopic | null> {
+  private async extractTrendingTopic(searchResult: SearchResult): Promise<TrendingTopic | null> {
     try {
       // Extract and analyze the search result for trending potential
       const topic = searchResult.title.replace(/[^\w\s]/g, '').trim();
@@ -840,8 +907,8 @@ Format as JSON with all sections clearly defined.
 
       for (const post of topPosts) {
         opportunities.push({
-          title: `${(post as any).title} - The Definitive NC Legal Guide`,
-          targetKeywords: (post as any).keywords || [],
+          title: `${(post as BlogPost).title} - The Definitive NC Legal Guide`,
+          targetKeywords: (post as BlogPost).keywords || [],
           estimatedTraffic: 500,
           competitionLevel: 'medium',
           contentType: 'blog',
@@ -862,7 +929,10 @@ Format as JSON with all sections clearly defined.
     return this.CONTENT_TEMPLATES.evergreen_domination;
   }
 
-  private async translateAndOptimize(content: any, targetLang: string): Promise<any> {
+  private async translateAndOptimize(
+    content: OptimizedContent,
+    targetLang: string
+  ): Promise<OptimizedContent> {
     // In production, would use professional translation API
     const translatedContent = { ...content };
     translatedContent.language = targetLang;
@@ -870,7 +940,7 @@ Format as JSON with all sections clearly defined.
     return translatedContent;
   }
 
-  private async scheduleSocialMediaDomination(content: any): Promise<void> {
+  private async scheduleSocialMediaDomination(content: OptimizedContent): Promise<void> {
     // Schedule posts across all platforms
     const platforms = ['facebook', 'twitter', 'linkedin', 'instagram'];
     const postTimes = [
@@ -968,7 +1038,7 @@ Format as JSON with all sections clearly defined.
       .substring(0, 100);
   }
 
-  private formatContentAsHTML(content: any): string {
+  private formatContentAsHTML(content: OptimizedContent): string {
     // Convert structured content to HTML
     let html = `<article class="seo-domination-content">`;
 
@@ -981,7 +1051,7 @@ Format as JSON with all sections clearly defined.
     }
 
     if (content.sections) {
-      content.sections.forEach((section: any) => {
+      content.sections.forEach(section => {
         html += `<section>
           <h2>${section.title}</h2>
           <div>${section.content}</div>
@@ -991,7 +1061,7 @@ Format as JSON with all sections clearly defined.
 
     if (content.faqs) {
       html += `<section class="faqs" itemscope itemtype="https://schema.org/FAQPage">`;
-      content.faqs.forEach((faq: any) => {
+      content.faqs.forEach(faq => {
         html += `
           <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
             <h3 itemprop="name">${faq.question}</h3>
@@ -1008,7 +1078,7 @@ Format as JSON with all sections clearly defined.
     return html;
   }
 
-  private detectPracticeArea(content: any): string {
+  private detectPracticeArea(content: OptimizedContent): string {
     const text = JSON.stringify(content).toLowerCase();
 
     if (text.includes('immigration') || text.includes('visa') || text.includes('deportation')) {
@@ -1069,7 +1139,7 @@ Format as JSON with all sections clearly defined.
     return 'informational';
   }
 
-  private async analyzeContentPerformance(post: BlogPost): Promise<any> {
+  private async analyzeContentPerformance(post: BlogPost): Promise<ContentPerformance> {
     // Analyze current performance metrics
     return {
       currentRanking: Math.floor(Math.random() * 50) + 1,
@@ -1080,7 +1150,10 @@ Format as JSON with all sections clearly defined.
     };
   }
 
-  private async generateContentImprovements(post: BlogPost, analysis: any): Promise<any> {
+  private async generateContentImprovements(
+    post: BlogPost,
+    analysis: ContentPerformance
+  ): Promise<ContentImprovement> {
     const prompt = `
 Analyze this underperforming content and suggest improvements:
 
@@ -1110,7 +1183,10 @@ Respond with actionable improvements in JSON format.
     return improvements;
   }
 
-  private async applyContentImprovements(post: BlogPost, improvements: any): Promise<void> {
+  private async applyContentImprovements(
+    post: BlogPost,
+    improvements: ContentImprovement
+  ): Promise<void> {
     // Apply the improvements to the post
     await this.prisma.blogPost.update({
       where: { id: post.id },
