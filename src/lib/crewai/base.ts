@@ -1,5 +1,45 @@
 import { logger } from '@/lib/logger';
 
+// Generic execution input and output types
+export interface AgentInput {
+  task: string;
+  context?: Record<string, unknown>;
+  priority?: 'low' | 'medium' | 'high' | 'critical';
+  metadata?: Record<string, unknown>;
+}
+
+export interface AgentOutput {
+  result: string;
+  success: boolean;
+  error?: string;
+  metadata?: Record<string, unknown>;
+  executionTime?: number;
+}
+
+export interface CrewInput {
+  tasks: Array<{
+    id: string;
+    description: string;
+    assignedAgent: string;
+    dependencies?: string[];
+  }>;
+  context?: Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+}
+
+export interface CrewOutput {
+  results: Array<{
+    taskId: string;
+    agentName: string;
+    result: string;
+    success: boolean;
+    error?: string;
+  }>;
+  overallSuccess: boolean;
+  executionTime: number;
+  metadata?: Record<string, unknown>;
+}
+
 export interface AgentConfig {
   name: string;
   role: string;
@@ -40,7 +80,7 @@ export abstract class Agent {
     this.maxIterations = config.maxIterations || 5;
   }
 
-  abstract execute(input: any): Promise<any>;
+  abstract execute(input: AgentInput): Promise<AgentOutput>;
 
   protected log(message: string, level: 'info' | 'warn' | 'error' = 'info') {
     logger[level](`[${this.name}] ${message}`);
@@ -60,7 +100,7 @@ export abstract class Crew {
     this.verbose = config.verbose || false;
   }
 
-  abstract run(input: any): Promise<any>;
+  abstract run(input: CrewInput): Promise<CrewOutput>;
 
   protected log(message: string, level: 'info' | 'warn' | 'error' = 'info') {
     if (this.verbose) {
