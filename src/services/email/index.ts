@@ -38,7 +38,7 @@ export interface EmailResult {
 // Simple template function to replace handlebars
 function compileTemplate(template: string, data: Record<string, unknown>): string {
   return template.replace(/\{\{(\w+)\}\}/g, (match, key) => {
-    return data[key] || match;
+    return String(data[key] || match);
   });
 }
 
@@ -76,9 +76,11 @@ class EmailService {
     // Skip verification during build
     if (process.env.NODE_ENV !== 'production' && !process.env.NEXT_PHASE) {
       // Defer verification to avoid build-time connection attempts
-      setTimeout(() => {
-        this.verifyConnection();
-      }, 5000);
+      import('@/lib/utils/async').then(({ delay }) => {
+        delay(5000).then(() => {
+          this.verifyConnection();
+        });
+      });
     }
 
     // Load email templates
@@ -155,7 +157,7 @@ class EmailService {
       }
 
       // Wrap in layout
-      html = this.wrapInLayout(html || '', options.templateData?.title || options.subject);
+      html = this.wrapInLayout(html || '', String(options.templateData?.title || options.subject));
 
       // Prepare mail options
       const mailOptions: nodemailer.SendMailOptions = {

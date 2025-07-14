@@ -1040,7 +1040,11 @@ class EmailService {
   // Verify SMTP connection
   private async verifyConnection(): Promise<void> {
     try {
-      await transporter!.verify();
+      if (!transporter) {
+        logger.warn('SMTP not configured, skipping verification');
+        return;
+      }
+      await transporter.verify();
       logger.info('SMTP connection verified successfully');
     } catch (error) {
       logger.error('SMTP connection verification failed', error as Error);
@@ -1131,7 +1135,10 @@ class EmailService {
       // Send email with retry logic
       const info = await pRetry(
         async () => {
-          const result = await transporter!.sendMail(mailOptions);
+          if (!transporter) {
+            throw new Error('SMTP transporter not configured');
+          }
+          const result = await transporter.sendMail(mailOptions);
           return result;
         },
         {

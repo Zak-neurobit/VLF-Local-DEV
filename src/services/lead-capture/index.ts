@@ -779,8 +779,8 @@ export class LeadCaptureService {
           'accident',
           'hospital',
         ];
-        const hasUrgentKeywords = urgentKeywords.some(keyword =>
-          lead.description!.toLowerCase().includes(keyword)
+        const hasUrgentKeywords = urgentKeywords.some(
+          keyword => lead.description?.toLowerCase().includes(keyword) ?? false
         );
         if (hasUrgentKeywords) {
           score += 10;
