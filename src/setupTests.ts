@@ -1,4 +1,87 @@
 import '@testing-library/jest-dom';
+import React from 'react';
+
+// Mock pino logger
+jest.mock('@/lib/pino-logger', () => ({
+  logger: {
+    error: jest.fn(),
+    warn: jest.fn(),
+    info: jest.fn(),
+    debug: jest.fn(),
+  },
+  apiLogger: {
+    error: jest.fn(),
+    warn: jest.fn(),
+    info: jest.fn(),
+    debug: jest.fn(),
+  },
+  dbLogger: {
+    error: jest.fn(),
+    warn: jest.fn(),
+    info: jest.fn(),
+    debug: jest.fn(),
+  },
+  securityLogger: {
+    error: jest.fn(),
+    warn: jest.fn(),
+    info: jest.fn(),
+    debug: jest.fn(),
+  },
+  performanceLogger: {
+    error: jest.fn(),
+    warn: jest.fn(),
+    info: jest.fn(),
+    debug: jest.fn(),
+  },
+}));
+
+// Mock browser utils
+jest.mock('@/lib/utils/browser', () => ({
+  isBrowser: true,
+  safeWindow: {
+    innerWidth: 1024,
+    innerHeight: 768,
+    location: { href: '', pathname: '', search: '', hash: '' },
+    localStorage: {
+      getItem: jest.fn(),
+      setItem: jest.fn(),
+      removeItem: jest.fn(),
+      clear: jest.fn(),
+    },
+    sessionStorage: {
+      getItem: jest.fn(),
+      setItem: jest.fn(),
+      removeItem: jest.fn(),
+      clear: jest.fn(),
+    },
+  },
+  onClient: jest.fn(callback => callback()),
+  addWindowListener: jest.fn(() => jest.fn()),
+}));
+
+// Mock Bull queue
+jest.mock('bull', () => {
+  return jest.fn().mockImplementation(() => ({
+    add: jest.fn().mockResolvedValue({ id: '123' }),
+    process: jest.fn(),
+    on: jest.fn(),
+    close: jest.fn(),
+    getJob: jest.fn(),
+    getJobs: jest.fn().mockResolvedValue([]),
+    empty: jest.fn(),
+    clean: jest.fn(),
+    pause: jest.fn(),
+    resume: jest.fn(),
+    isPaused: jest.fn().mockResolvedValue(false),
+    getJobCounts: jest.fn().mockResolvedValue({
+      waiting: 0,
+      active: 0,
+      completed: 0,
+      failed: 0,
+      delayed: 0,
+    }),
+  }));
+});
 
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
@@ -27,49 +110,78 @@ jest.mock('next/image', () => ({
 }));
 
 // Mock framer-motion
-jest.mock('framer-motion', () => ({
-  motion: {
-    div: 'div',
-    nav: 'nav',
-    header: 'header',
-    section: 'section',
-    article: 'article',
-    aside: 'aside',
-    main: 'main',
-    footer: 'footer',
-    h1: 'h1',
-    h2: 'h2',
-    h3: 'h3',
-    h4: 'h4',
-    h5: 'h5',
-    h6: 'h6',
-    p: 'p',
-    span: 'span',
-    a: 'a',
-    button: 'button',
-    form: 'form',
-    input: 'input',
-    textarea: 'textarea',
-    select: 'select',
-    option: 'option',
-    label: 'label',
-    ul: 'ul',
-    ol: 'ol',
-    li: 'li',
-    img: 'img',
-    video: 'video',
-    audio: 'audio',
-    canvas: 'canvas',
-    svg: 'svg',
-    path: 'path',
-    circle: 'circle',
-    rect: 'rect',
-    line: 'line',
-    polyline: 'polyline',
-    polygon: 'polygon',
-  },
-  AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
-}));
+jest.mock('framer-motion', () => {
+  // Create a mock component that strips framer-motion props
+  const createMockComponent =
+    (tag: string) =>
+    ({ children, ...props }: any) => {
+      // Remove framer-motion specific props to avoid React warnings
+      const {
+        initial,
+        animate,
+        exit,
+        transition,
+        variants,
+        whileHover,
+        whileTap,
+        whileInView,
+        whileFocus,
+        drag,
+        dragConstraints,
+        dragElastic,
+        dragMomentum,
+        dragPropagation,
+        dragTransition,
+        ...cleanProps
+      } = props;
+
+      return React.createElement(tag, cleanProps, children);
+    };
+
+  return {
+    motion: {
+      div: createMockComponent('div'),
+      nav: createMockComponent('nav'),
+      header: createMockComponent('header'),
+      section: createMockComponent('section'),
+      article: createMockComponent('article'),
+      aside: createMockComponent('aside'),
+      main: createMockComponent('main'),
+      footer: createMockComponent('footer'),
+      h1: createMockComponent('h1'),
+      h2: createMockComponent('h2'),
+      h3: createMockComponent('h3'),
+      h4: createMockComponent('h4'),
+      h5: createMockComponent('h5'),
+      h6: createMockComponent('h6'),
+      p: createMockComponent('p'),
+      span: createMockComponent('span'),
+      a: createMockComponent('a'),
+      button: createMockComponent('button'),
+      form: createMockComponent('form'),
+      input: createMockComponent('input'),
+      textarea: createMockComponent('textarea'),
+      select: createMockComponent('select'),
+      option: createMockComponent('option'),
+      label: createMockComponent('label'),
+      ul: createMockComponent('ul'),
+      ol: createMockComponent('ol'),
+      li: createMockComponent('li'),
+      img: createMockComponent('img'),
+      video: createMockComponent('video'),
+      audio: createMockComponent('audio'),
+      canvas: createMockComponent('canvas'),
+      svg: createMockComponent('svg'),
+      path: createMockComponent('path'),
+      circle: createMockComponent('circle'),
+      rect: createMockComponent('rect'),
+      line: createMockComponent('line'),
+      polyline: createMockComponent('polyline'),
+      polygon: createMockComponent('polygon'),
+    },
+    AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
+  };
+});
 
 // Note: window.location cannot be easily mocked in jsdom
 // Tests that need to mock window.location should do so individually
@@ -88,15 +200,18 @@ if (typeof document !== 'undefined') {
     }
 
     return element;
-  }) as any;
+  }) as typeof document.createElement;
 
-  // Mock document.body.appendChild and removeChild
+  // Mock document.body.appendChild and removeChild with proper implementation
+  const originalAppendChild = document.body.appendChild.bind(document.body);
+  const originalRemoveChild = document.body.removeChild.bind(document.body);
+
   document.body.appendChild = jest.fn(element => {
-    return element;
+    return originalAppendChild(element);
   });
 
   document.body.removeChild = jest.fn(element => {
-    return element;
+    return originalRemoveChild(element);
   });
 }
 
