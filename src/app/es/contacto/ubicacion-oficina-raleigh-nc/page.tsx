@@ -1,6 +1,34 @@
-'use client';
-
 import { OfficeLocationTemplate } from '@/components/templates/OfficeLocationTemplate';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Oficina de Raleigh NC | Abogados de Inmigración | Vasquez Law Firm',
+  description:
+    'Visite nuestra oficina de Raleigh para consultas legales en español. Inmigración, lesiones personales, defensa criminal. 4426 Louisburg Road. Llame (919) 533-7000.',
+  keywords:
+    'abogado Raleigh NC, oficina legal Raleigh, abogado inmigracion Raleigh, abogado español Raleigh',
+  openGraph: {
+    title: 'Oficina Legal en Raleigh NC | Vasquez Law Firm',
+    description:
+      'Abogados que hablan español en Raleigh. Consultas gratuitas para inmigración, accidentes y más.',
+    url: 'https://www.vasquezlawnc.com/es/contacto/ubicacion-oficina-raleigh-nc',
+    images: [
+      {
+        url: 'https://www.vasquezlawnc.com/images/raleigh-office-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Oficina de Vasquez Law Firm en Raleigh NC',
+      },
+    ],
+  },
+  alternates: {
+    canonical: 'https://www.vasquezlawnc.com/es/contacto/ubicacion-oficina-raleigh-nc',
+    languages: {
+      'en-US': 'https://www.vasquezlawnc.com/contact/raleigh-nc-office-location',
+      'es-ES': 'https://www.vasquezlawnc.com/es/contacto/ubicacion-oficina-raleigh-nc',
+    },
+  },
+};
 
 export default function RaleighOfficePageES() {
   const officeData = {
@@ -30,32 +58,3 @@ export default function RaleighOfficePageES() {
 
   return <OfficeLocationTemplate office={officeData} language="es" />;
 }
-
-export const metadata = {
-  title: 'Oficina de Raleigh NC | Abogados de Inmigración | Vasquez Law Firm',
-  description:
-    'Visite nuestra oficina de Raleigh para consultas legales en español. Inmigración, lesiones personales, defensa criminal. 4426 Louisburg Road. Llame (919) 533-7000.',
-  keywords:
-    'abogado Raleigh NC, oficina legal Raleigh, abogado inmigracion Raleigh, abogado español Raleigh',
-  openGraph: {
-    title: 'Oficina Legal en Raleigh NC | Vasquez Law Firm',
-    description:
-      'Abogados que hablan español en Raleigh. Consultas gratuitas para inmigración, accidentes y más.',
-    url: 'https://www.vasquezlawnc.com/es/contacto/ubicacion-oficina-raleigh-nc',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/raleigh-office-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Oficina de Vasquez Law Firm en Raleigh NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/contacto/ubicacion-oficina-raleigh-nc',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/contact/raleigh-nc-office-location',
-      'es-ES': 'https://www.vasquezlawnc.com/es/contacto/ubicacion-oficina-raleigh-nc',
-    },
-  },
-};

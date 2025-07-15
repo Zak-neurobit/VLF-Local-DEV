@@ -1,6 +1,34 @@
-'use client';
-
 import { OfficeLocationTemplate } from '@/components/templates/OfficeLocationTemplate';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Oficina de Smithfield NC | Abogados de Inmigración | Vasquez Law Firm',
+  description:
+    'Visite nuestra oficina de Smithfield para consultas legales en español. Inmigración, lesiones personales, defensa criminal. 612 S Brightleaf Blvd. Llame (919) 989-3000.',
+  keywords:
+    'abogado Smithfield NC, oficina legal Smithfield, abogado inmigracion Smithfield, abogado español Smithfield',
+  openGraph: {
+    title: 'Oficina Legal en Smithfield NC | Vasquez Law Firm',
+    description:
+      'Abogados que hablan español en Smithfield. Consultas gratuitas para inmigración, accidentes y más.',
+    url: 'https://www.vasquezlawnc.com/es/contacto/ubicacion-oficina-smithfield',
+    images: [
+      {
+        url: 'https://www.vasquezlawnc.com/images/smithfield-office-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Oficina de Vasquez Law Firm en Smithfield NC',
+      },
+    ],
+  },
+  alternates: {
+    canonical: 'https://www.vasquezlawnc.com/es/contacto/ubicacion-oficina-smithfield',
+    languages: {
+      'en-US': 'https://www.vasquezlawnc.com/contact/smithfield-office-location',
+      'es-ES': 'https://www.vasquezlawnc.com/es/contacto/ubicacion-oficina-smithfield',
+    },
+  },
+};
 
 export default function SmithfieldOfficePageES() {
   const officeData = {
@@ -30,32 +58,3 @@ export default function SmithfieldOfficePageES() {
 
   return <OfficeLocationTemplate office={officeData} language="es" />;
 }
-
-export const metadata = {
-  title: 'Oficina de Smithfield NC | Abogados de Inmigración | Vasquez Law Firm',
-  description:
-    'Visite nuestra oficina de Smithfield para consultas legales en español. Inmigración, lesiones personales, defensa criminal. 612 S Brightleaf Blvd. Llame (919) 989-3000.',
-  keywords:
-    'abogado Smithfield NC, oficina legal Smithfield, abogado inmigracion Smithfield, abogado español Smithfield',
-  openGraph: {
-    title: 'Oficina Legal en Smithfield NC | Vasquez Law Firm',
-    description:
-      'Abogados que hablan español en Smithfield. Consultas gratuitas para inmigración, accidentes y más.',
-    url: 'https://www.vasquezlawnc.com/es/contacto/ubicacion-oficina-smithfield',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/smithfield-office-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Oficina de Vasquez Law Firm en Smithfield NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/contacto/ubicacion-oficina-smithfield',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/contact/smithfield-office-location',
-      'es-ES': 'https://www.vasquezlawnc.com/es/contacto/ubicacion-oficina-smithfield',
-    },
-  },
-};
