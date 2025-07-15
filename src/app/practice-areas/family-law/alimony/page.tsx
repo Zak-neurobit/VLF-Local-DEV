@@ -1,0 +1,53 @@
+import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'NC Alimony Lawyer | Spousal Support Attorney | Vasquez Law Firm',
+  description:
+    'Navigating alimony and spousal support in North Carolina. Whether seeking or defending against alimony, our attorneys protect your financial future. Se habla español.',
+  keywords: [
+    'alimony lawyer NC',
+    'North Carolina spousal support attorney',
+    'post separation support lawyer',
+    'permanent alimony attorney NC',
+    'alimony modification lawyer',
+    'Charlotte alimony attorney',
+    'Raleigh spousal support lawyer',
+    'abogado pension alimenticia',
+    'alimony defense attorney NC',
+    'spousal support calculation lawyer',
+  ],
+  openGraph: {
+    title: 'NC Alimony & Spousal Support Lawyer',
+    description:
+      'Experienced representation in alimony cases. We help clients seek fair support or defend against excessive demands.',
+    images: [
+      {
+        url: '/images/alimony-hero.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'North Carolina Alimony Attorney',
+      },
+    ],
+  },
+};
+
+export default function AlimonyPage() {
+  const pageData = {
+    practiceArea: 'Alimony',
+    title: 'Professional Legal Services',
+    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
+    heroTitle: 'Alimony Attorneys',
+    heroSubtitle: 'Experienced legal representation',
+    urgencyLevel: 'medium' as const,
+    emergencyMessage: '',
+    services: [], // TODO: Add services
+    faqs: [], // TODO: Add FAQs
+    testimonials: [], // TODO: Add testimonials
+    statistics: [],
+    processSteps: [],
+    language: 'en' as const,
+  };
+
+  return <ModernPracticeAreaTemplateV2 {...pageData} />;
+}
