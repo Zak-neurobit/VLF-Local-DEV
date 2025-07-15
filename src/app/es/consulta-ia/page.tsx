@@ -1,21 +1,368 @@
-import { Metadata } from 'next';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
-import { VirtualParalegal } from '@/components/VirtualParalegal';
-import { ChatWidget } from '@/components/ChatWidget';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Consulta Legal con IA - Bufete de Abogados Vásquez',
+import { motion } from 'framer-motion';
+import {
+  Sparkles,
+  MessageSquare,
+  Clock,
+  Shield,
+  Globe,
+  Brain,
+  CheckCircle,
+  ArrowRight,
+} from 'lucide-react';
+import Link from 'next/link';
+import { useState } from 'react';
+import { ModernChatWidget } from '@/components/ui/modern-chat-widget';
+
+export default function ConsultaIAPage() {
+  const [showChat, setShowChat] = useState(false);
+
+  const features = [
+    {
+      icon: <Clock className="w-6 h-6 text-blue-500" />,
+      title: 'Disponible 24/7',
+      description: 'Obtenga respuestas inmediatas a cualquier hora del día o la noche',
+    },
+    {
+      icon: <Globe className="w-6 h-6 text-green-500" />,
+      title: '100% en Español',
+      description: 'Comunicación completa en su idioma, sin barreras lingüísticas',
+    },
+    {
+      icon: <Shield className="w-6 h-6 text-purple-500" />,
+      title: 'Totalmente Confidencial',
+      description: 'Sus consultas son privadas y protegidas por secreto profesional',
+    },
+    {
+      icon: <Brain className="w-6 h-6 text-orange-500" />,
+      title: 'IA Entrenada en Leyes',
+      description: 'Respuestas basadas en las leyes de NC, FL y federales',
+    },
+  ];
+
+  const useCases = [
+    '¿Califico para una visa de trabajo?',
+    '¿Cuánto vale mi caso de accidente?',
+    '¿Qué hacer si me arrestaron?',
+    '¿Cómo solicitar asilo político?',
+    '¿Puedo pelear mi deportación?',
+    '¿Cómo obtener compensación laboral?',
+  ];
+
+  const process = [
+    {
+      step: '1',
+      title: 'Haga Su Pregunta',
+      description: 'Escriba su consulta legal en español, con todos los detalles relevantes',
+    },
+    {
+      step: '2',
+      title: 'Reciba Orientación Inmediata',
+      description: 'Nuestra IA analiza su situación y proporciona información legal relevante',
+    },
+    {
+      step: '3',
+      title: 'Obtenga Próximos Pasos',
+      description: 'Reciba recomendaciones específicas y la opción de hablar con un abogado',
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 text-white py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-black/20" />
+
+        {/* Animated background particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-white/10 rounded-full"
+              initial={{
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+              }}
+              animate={{
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+              }}
+              transition={{
+                duration: Math.random() * 20 + 10,
+                repeat: Infinity,
+                ease: 'linear',
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6"
+            >
+              <Sparkles className="w-5 h-5 text-secondary-400" />
+              <span className="text-sm font-medium">
+                Tecnología de Inteligencia Artificial Avanzada
+              </span>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-5xl md:text-7xl font-bold mb-6"
+            >
+              Consulta Legal con <span className="text-secondary-400">IA</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto"
+            >
+              Obtenga respuestas legales instantáneas las 24 horas. Nuestra IA está entrenada en
+              inmigración, lesiones personales, y más.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <button
+                onClick={() => setShowChat(true)}
+                className="bg-secondary-500 hover:bg-secondary-600 text-black font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105 text-lg"
+              >
+                <MessageSquare className="w-6 h-6" />
+                Comenzar Consulta Gratis
+              </button>
+              <Link
+                href="/es/consulta-gratis"
+                className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-bold py-4 px-8 rounded-lg transition-all border border-white/30 text-lg"
+              >
+                Prefiero Hablar con un Abogado
+              </Link>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="mt-6 text-sm text-gray-300"
+            >
+              Sin costo • Sin obligación • Respuesta inmediata
+            </motion.p>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">¿Por Qué Usar Nuestra IA Legal?</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="text-center group"
+              >
+                <div className="mx-auto w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary-50 transition-colors">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Use Cases */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-4">Preguntas Que Puede Hacer</h2>
+            <p className="text-center text-gray-600 mb-12">
+              Nuestra IA puede ayudarle con consultas sobre inmigración, accidentes, defensa
+              criminal, compensación laboral y más.
+            </p>
+            <div className="grid md:grid-cols-2 gap-4">
+              {useCases.map((useCase, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all cursor-pointer group"
+                  onClick={() => setShowChat(true)}
+                >
+                  <div className="flex items-center justify-between">
+                    <p className="text-lg text-gray-700 group-hover:text-primary-600 transition-colors">
+                      {useCase}
+                    </p>
+                    <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-primary-600 transition-colors" />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Process Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-12">Cómo Funciona</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              {process.map((step, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                  className="relative"
+                >
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-2xl font-bold text-primary-600">{step.step}</span>
+                    </div>
+                    <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
+                    <p className="text-gray-600">{step.description}</p>
+                  </div>
+                  {index < process.length - 1 && (
+                    <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-gray-200 -translate-x-1/2">
+                      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-gray-200 rotate-45" />
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Chat Interface */}
+      {showChat && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden"
+          >
+            <div className="p-6 border-b bg-primary-900 text-white">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-2xl font-bold flex items-center gap-2">
+                    <Sparkles className="w-6 h-6 text-secondary-400" />
+                    Consulta Legal con IA
+                  </h3>
+                  <p className="text-sm text-gray-200 mt-1">Haga su pregunta legal en español</p>
+                </div>
+                <button
+                  onClick={() => setShowChat(false)}
+                  className="text-white/80 hover:text-white transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div className="h-[60vh]">
+              <ModernChatWidget
+                language="es"
+                embedded={true}
+                initialMessage="¡Hola! Soy su asistente legal virtual. ¿En qué puedo ayudarle hoy? Puede preguntarme sobre inmigración, accidentes, defensa criminal, o cualquier tema legal."
+              />
+            </div>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Trust Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-8">Importante Saber</h2>
+            <div className="bg-yellow-50 border-2 border-yellow-200 rounded-lg p-8">
+              <p className="text-lg text-gray-700 mb-4">
+                <strong>Nuestra IA proporciona información legal general</strong> basada en las
+                leyes actuales, pero no reemplaza el consejo de un abogado licenciado.
+              </p>
+              <p className="text-gray-600">
+                Para casos específicos o situaciones complejas, siempre recomendamos una consulta
+                personalizada con nuestros abogados experimentados.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-primary-900 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-4">¿Listo para Obtener Respuestas?</h2>
+          <p className="text-xl mb-8 text-gray-200">
+            Nuestra IA está disponible 24/7 para ayudarle con sus preguntas legales
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={() => setShowChat(true)}
+              className="bg-secondary-500 hover:bg-secondary-600 text-black font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105"
+            >
+              <MessageSquare className="w-5 h-5" />
+              Iniciar Chat con IA
+            </button>
+            <a
+              href="tel:1-844-967-3536"
+              className="bg-white hover:bg-gray-100 text-primary-900 font-bold py-4 px-8 rounded-lg transition-all"
+            >
+              Llamar: 1-844-YO-PELEO
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+export const metadata = {
+  title: 'Consulta Legal con IA | Asistente Virtual 24/7 | Vasquez Law Firm',
   description:
-    'Obtenga asesoría legal instantánea con nuestro asistente de inteligencia artificial. Disponible 24/7 en español para responder sus preguntas legales.',
+    'Obtenga respuestas legales instantáneas con nuestro asistente de IA. Disponible 24/7 en español. Inmigración, accidentes, defensa criminal. Gratis y confidencial.',
   keywords:
-    'consulta legal IA, abogado virtual, asesoría legal gratis, chatbot legal español, inteligencia artificial legal',
+    'consulta legal IA, abogado virtual, chatbot legal español, inteligencia artificial abogado, consulta gratis IA',
   openGraph: {
-    title: 'Consulta Legal con IA - Bufete de Abogados Vásquez',
+    title: 'Consulta Legal con IA - Respuestas Instantáneas 24/7',
     description:
-      'Asistente legal virtual disponible 24/7. Obtenga respuestas inmediatas a sus preguntas legales en español.',
-    type: 'website',
-    locale: 'es_ES',
-    alternateLocale: 'en_US',
+      'Asistente legal virtual en español. Respuestas inmediatas sobre inmigración, accidentes y más.',
+    url: 'https://www.vasquezlawnc.com/es/consulta-ia',
+    images: [
+      {
+        url: 'https://www.vasquezlawnc.com/images/ai-consultation-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Consulta Legal con Inteligencia Artificial',
+      },
+    ],
   },
   alternates: {
     canonical: 'https://www.vasquezlawnc.com/es/consulta-ia',
@@ -25,210 +372,3 @@ export const metadata: Metadata = {
     },
   },
 };
-
-export default function ConsultaIAPage() {
-  return (
-    <MasterLayout>
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        {/* Hero Section */}
-        <section className="relative py-16 lg:py-24 overflow-hidden">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                Consulta Legal con Inteligencia Artificial
-              </h1>
-              <p className="text-xl text-gray-600 mb-8">
-                Obtenga respuestas inmediatas a sus preguntas legales las 24 horas del día, los 7
-                días de la semana con nuestro asistente virtual impulsado por IA.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button
-                  onClick={() => {
-                    const chatSection = document.getElementById('virtual-paralegal');
-                    chatSection?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="px-8 py-4 bg-secondary text-white font-semibold rounded-lg hover:bg-secondary-dark transition-colors"
-                >
-                  Comenzar Consulta Gratuita
-                </button>
-                <a
-                  href="tel:18449673536"
-                  className="px-8 py-4 bg-white text-secondary font-semibold rounded-lg border-2 border-secondary hover:bg-secondary hover:text-white transition-colors"
-                >
-                  Llamar: 1-844-YO-PELEO
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Features Section */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-                ¿Por Qué Usar Nuestra Consulta con IA?
-              </h2>
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg
-                      className="w-8 h-8 text-secondary"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">Disponible 24/7</h3>
-                  <p className="text-gray-600">
-                    Obtenga respuestas instantáneas en cualquier momento, sin necesidad de cita.
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg
-                      className="w-8 h-8 text-secondary"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">100% en Español</h3>
-                  <p className="text-gray-600">
-                    Comunicación completa en español, diseñada para nuestra comunidad hispana.
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg
-                      className="w-8 h-8 text-secondary"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">Confidencial y Seguro</h3>
-                  <p className="text-gray-600">
-                    Sus consultas son privadas y protegidas con encriptación de nivel bancario.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Virtual Paralegal Section */}
-        <section id="virtual-paralegal" className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-                Hable con Nuestro Asistente Legal Virtual
-              </h2>
-              <div className="bg-white rounded-xl shadow-lg p-6">
-                <VirtualParalegal language="es" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-16 bg-secondary text-white">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-6">¿Prefiere Hablar con un Abogado Real?</h2>
-              <p className="text-xl mb-8 text-white/90">
-                Nuestro equipo legal está disponible para consultas telefónicas gratuitas. Llámenos
-                ahora o programe una cita en persona.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="/es/consulta-gratuita"
-                  className="px-8 py-4 bg-white text-secondary font-semibold rounded-lg hover:bg-gray-100 transition-colors"
-                >
-                  Programar Consulta Gratuita
-                </a>
-                <a
-                  href="tel:18449673536"
-                  className="px-8 py-4 bg-secondary-dark text-white font-semibold rounded-lg hover:bg-secondary-darker transition-colors"
-                >
-                  Llamar Ahora: 1-844-YO-PELEO
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-                Preguntas Frecuentes
-              </h2>
-              <div className="space-y-6">
-                <div className="border-b pb-6">
-                  <h3 className="text-xl font-semibold mb-3">¿Es gratis la consulta con IA?</h3>
-                  <p className="text-gray-600">
-                    Sí, nuestra consulta con IA es completamente gratuita. Puede hacer todas las
-                    preguntas que necesite sin ningún costo.
-                  </p>
-                </div>
-                <div className="border-b pb-6">
-                  <h3 className="text-xl font-semibold mb-3">
-                    ¿Puede la IA reemplazar a un abogado real?
-                  </h3>
-                  <p className="text-gray-600">
-                    No, la IA proporciona información general y orientación inicial, pero no puede
-                    reemplazar el consejo legal personalizado de un abogado licenciado. Para casos
-                    específicos, siempre recomendamos una consulta con nuestros abogados.
-                  </p>
-                </div>
-                <div className="border-b pb-6">
-                  <h3 className="text-xl font-semibold mb-3">
-                    ¿Qué tipos de preguntas puedo hacer?
-                  </h3>
-                  <p className="text-gray-600">
-                    Puede preguntar sobre inmigración, lesiones personales, compensación laboral,
-                    defensa criminal y derecho familiar. La IA está entrenada en las leyes de
-                    Carolina del Norte y Florida.
-                  </p>
-                </div>
-                <div className="border-b pb-6">
-                  <h3 className="text-xl font-semibold mb-3">¿Es segura mi información?</h3>
-                  <p className="text-gray-600">
-                    Absolutamente. Utilizamos encriptación de nivel bancario y no almacenamos
-                    información personal identificable. Sus consultas son anónimas y confidenciales.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      {/* Floating Chat Widget */}
-      <ChatWidget language="es" />
-    </MasterLayout>
-  );
-}
