@@ -10,12 +10,14 @@ const CalculatorResultSchema = z.object({
   disclaimer: z.string(),
   timestamp: z.date(),
   estimatedAccuracy: z.number().min(0).max(100),
-  followUpActions: z.array(z.object({
-    action: z.string(),
-    description: z.string(),
-    priority: z.enum(['high', 'medium', 'low']),
-    timeframe: z.string().optional(),
-  })),
+  followUpActions: z.array(
+    z.object({
+      action: z.string(),
+      description: z.string(),
+      priority: z.enum(['high', 'medium', 'low']),
+      timeframe: z.string().optional(),
+    })
+  ),
 });
 
 // Personal Injury Calculator
@@ -24,7 +26,13 @@ const PersonalInjuryInputSchema = z.object({
   lostWages: z.number().min(0),
   painAndSuffering: z.enum(['minimal', 'moderate', 'severe', 'extreme']),
   injuryType: z.enum(['soft_tissue', 'fracture', 'head_injury', 'spinal_injury', 'burns', 'other']),
-  accidentType: z.enum(['car_accident', 'slip_and_fall', 'workplace', 'medical_malpractice', 'other']),
+  accidentType: z.enum([
+    'car_accident',
+    'slip_and_fall',
+    'workplace',
+    'medical_malpractice',
+    'other',
+  ]),
   duration: z.number().min(0), // Duration of treatment in weeks
   permanentDisability: z.boolean(),
   futureExpenses: z.number().min(0),
@@ -39,7 +47,14 @@ const ImmigrationInputSchema = z.object({
   countryOfBirth: z.string(),
   relationshipToSponsor: z.enum(['spouse', 'child', 'parent', 'sibling', 'other', 'none']),
   sponsorCitizenship: z.enum(['us_citizen', 'permanent_resident', 'none']),
-  currentStatus: z.enum(['tourist', 'student', 'work_visa', 'asylum_seeker', 'undocumented', 'other']),
+  currentStatus: z.enum([
+    'tourist',
+    'student',
+    'work_visa',
+    'asylum_seeker',
+    'undocumented',
+    'other',
+  ]),
   criminalHistory: z.boolean(),
   previousDenials: z.boolean(),
   englishProficiency: z.enum(['fluent', 'intermediate', 'basic', 'none']),
@@ -48,7 +63,13 @@ const ImmigrationInputSchema = z.object({
 
 // Workers Compensation Calculator
 const WorkersCompInputSchema = z.object({
-  injuryType: z.enum(['temporary_partial', 'temporary_total', 'permanent_partial', 'permanent_total', 'death']),
+  injuryType: z.enum([
+    'temporary_partial',
+    'temporary_total',
+    'permanent_partial',
+    'permanent_total',
+    'death',
+  ]),
   weeklyWage: z.number().min(0),
   weeksDisabled: z.number().min(0),
   medicalExpenses: z.number().min(0),
@@ -86,10 +107,11 @@ const FamilyLawInputSchema = z.object({
 });
 
 export class LegalCalculatorEngine {
-  
-  async calculatePersonalInjury(inputs: z.infer<typeof PersonalInjuryInputSchema>): Promise<z.infer<typeof CalculatorResultSchema>> {
+  async calculatePersonalInjury(
+    inputs: z.infer<typeof PersonalInjuryInputSchema>
+  ): Promise<z.infer<typeof CalculatorResultSchema>> {
     const validatedInputs = PersonalInjuryInputSchema.parse(inputs);
-    
+
     // Base calculation factors
     const painMultipliers = {
       minimal: 1.5,
@@ -111,30 +133,34 @@ export class LegalCalculatorEngine {
     const medicalBase = validatedInputs.medicalExpenses + validatedInputs.futureExpenses;
     const painMultiplier = painMultipliers[validatedInputs.painAndSuffering];
     const injuryMultiplier = injuryTypeMultipliers[validatedInputs.injuryType];
-    
+
     let painAndSufferingAmount = medicalBase * painMultiplier * injuryMultiplier;
-    
+
     // Adjust for permanent disability
     if (validatedInputs.permanentDisability) {
       painAndSufferingAmount *= 1.5;
     }
 
     // Calculate total damages
-    const economicDamages = validatedInputs.medicalExpenses + 
-                          validatedInputs.lostWages + 
-                          validatedInputs.futureExpenses + 
-                          validatedInputs.propertyDamage;
+    const economicDamages =
+      validatedInputs.medicalExpenses +
+      validatedInputs.lostWages +
+      validatedInputs.futureExpenses +
+      validatedInputs.propertyDamage;
 
     const totalDamages = economicDamages + painAndSufferingAmount;
-    
+
     // Apply comparative negligence if applicable
-    const adjustedTotal = totalDamages * (100 - validatedInputs.faultPercentage) / 100;
+    const adjustedTotal = (totalDamages * (100 - validatedInputs.faultPercentage)) / 100;
 
     // Generate settlement ranges
     const lowEstimate = adjustedTotal * 0.7;
     const highEstimate = adjustedTotal * 1.3;
 
-    const recommendations = this.generatePersonalInjuryRecommendations(validatedInputs, adjustedTotal);
+    const recommendations = this.generatePersonalInjuryRecommendations(
+      validatedInputs,
+      adjustedTotal
+    );
 
     return {
       calculatorType: 'personal_injury',
@@ -151,7 +177,8 @@ export class LegalCalculatorEngine {
         estimatedNettoClient: adjustedTotal * 0.67, // After 33% attorney fee
       },
       recommendations,
-      disclaimer: 'This is an estimate only. Actual settlement amounts vary significantly based on specific case facts, jurisdiction, and many other factors.',
+      disclaimer:
+        'This is an estimate only. Actual settlement amounts vary significantly based on specific case facts, jurisdiction, and many other factors.',
       timestamp: new Date(),
       estimatedAccuracy: 75,
       followUpActions: [
@@ -175,9 +202,11 @@ export class LegalCalculatorEngine {
     };
   }
 
-  async calculateImmigration(inputs: z.infer<typeof ImmigrationInputSchema>): Promise<z.infer<typeof CalculatorResultSchema>> {
+  async calculateImmigration(
+    inputs: z.infer<typeof ImmigrationInputSchema>
+  ): Promise<z.infer<typeof CalculatorResultSchema>> {
     const validatedInputs = ImmigrationInputSchema.parse(inputs);
-    
+
     // Processing time estimates (in months)
     const processingTimes = {
       family: { spouse: 12, child: 18, parent: 24, sibling: 120 },
@@ -195,7 +224,8 @@ export class LegalCalculatorEngine {
     if (validatedInputs.criminalHistory) successProbability -= 20;
     if (validatedInputs.previousDenials) successProbability -= 15;
     if (validatedInputs.englishProficiency === 'fluent') successProbability += 5;
-    if (validatedInputs.education === 'phd' || validatedInputs.education === 'masters') successProbability += 10;
+    if (validatedInputs.education === 'phd' || validatedInputs.education === 'masters')
+      successProbability += 10;
 
     // Estimate costs
     const costEstimates = {
@@ -209,12 +239,18 @@ export class LegalCalculatorEngine {
 
     const estimatedCost = costEstimates[validatedInputs.visaType];
     let estimatedTimeframe = processingTimes[validatedInputs.visaType];
-    
+
     if (typeof estimatedTimeframe === 'object') {
-      estimatedTimeframe = estimatedTimeframe[validatedInputs.relationshipToSponsor as keyof typeof estimatedTimeframe] || 24;
+      estimatedTimeframe =
+        estimatedTimeframe[
+          validatedInputs.relationshipToSponsor as keyof typeof estimatedTimeframe
+        ] || 24;
     }
 
-    const recommendations = this.generateImmigrationRecommendations(validatedInputs, successProbability);
+    const recommendations = this.generateImmigrationRecommendations(
+      validatedInputs,
+      successProbability
+    );
 
     return {
       calculatorType: 'immigration',
@@ -227,7 +263,8 @@ export class LegalCalculatorEngine {
         nextSteps: this.getImmigrationNextSteps(validatedInputs),
       },
       recommendations,
-      disclaimer: 'Immigration law is complex and constantly changing. This estimate is based on current processing times and typical cases. Individual results may vary significantly.',
+      disclaimer:
+        'Immigration law is complex and constantly changing. This estimate is based on current processing times and typical cases. Individual results may vary significantly.',
       timestamp: new Date(),
       estimatedAccuracy: 70,
       followUpActions: [
@@ -251,9 +288,11 @@ export class LegalCalculatorEngine {
     };
   }
 
-  async calculateWorkersComp(inputs: z.infer<typeof WorkersCompInputSchema>): Promise<z.infer<typeof CalculatorResultSchema>> {
+  async calculateWorkersComp(
+    inputs: z.infer<typeof WorkersCompInputSchema>
+  ): Promise<z.infer<typeof CalculatorResultSchema>> {
     const validatedInputs = WorkersCompInputSchema.parse(inputs);
-    
+
     // NC Workers' Compensation rates (2024)
     const compensationRates = {
       temporary_total: 0.6667, // 2/3 of wages
@@ -264,12 +303,15 @@ export class LegalCalculatorEngine {
 
     const maxWeeklyBenefit = 1100; // NC maximum weekly benefit
     const avgWeeklyWage = validatedInputs.weeklyWage;
-    
-    let weeklyBenefit = Math.min(avgWeeklyWage * compensationRates[validatedInputs.injuryType], maxWeeklyBenefit);
-    
+
+    const weeklyBenefit = Math.min(
+      avgWeeklyWage * compensationRates[validatedInputs.injuryType],
+      maxWeeklyBenefit
+    );
+
     // Calculate total compensation
     let totalCompensation = 0;
-    let duration = validatedInputs.weeksDisabled;
+    const duration = validatedInputs.weeksDisabled;
 
     switch (validatedInputs.injuryType) {
       case 'temporary_total':
@@ -302,16 +344,19 @@ export class LegalCalculatorEngine {
         totalBenefits,
         duration,
         maxMedicalBenefit: 'Unlimited for authorized treatment',
-        vocationalRehab: validatedInputs.injuryType.includes('permanent') ? 'Available' : 'Not applicable',
+        vocationalRehab: validatedInputs.injuryType.includes('permanent')
+          ? 'Available'
+          : 'Not applicable',
       },
       recommendations,
-      disclaimer: 'Workers\' compensation benefits are governed by state law and individual case circumstances. This calculator provides estimates based on North Carolina law.',
+      disclaimer:
+        "Workers' compensation benefits are governed by state law and individual case circumstances. This calculator provides estimates based on North Carolina law.",
       timestamp: new Date(),
       estimatedAccuracy: 85,
       followUpActions: [
         {
           action: 'claim_filing',
-          description: 'File workers\' compensation claim immediately if not done',
+          description: "File workers' compensation claim immediately if not done",
           priority: 'high',
           timeframe: 'within 30 days of injury',
         },
@@ -322,44 +367,51 @@ export class LegalCalculatorEngine {
         },
         {
           action: 'legal_consultation',
-          description: 'Consult with workers\' compensation attorney',
+          description: "Consult with workers' compensation attorney",
           priority: 'medium',
         },
       ],
     };
   }
 
-  async calculateCriminalDefense(inputs: z.infer<typeof CriminalDefenseInputSchema>): Promise<z.infer<typeof CalculatorResultSchema>> {
+  async calculateCriminalDefense(
+    inputs: z.infer<typeof CriminalDefenseInputSchema>
+  ): Promise<z.infer<typeof CalculatorResultSchema>> {
     const validatedInputs = CriminalDefenseInputSchema.parse(inputs);
-    
+
     // Sentence estimation based on NC guidelines
     let baseSentence = 0; // Months
     let probationLikelihood = 50; // Percentage
-    
+
     // Base sentences by charge type and class
     if (validatedInputs.chargeType === 'felony') {
       const felonyBaseSentences = {
-        'A': 240, // 20+ years
-        'B1': 180, // 15+ years
-        'B2': 120, // 10+ years
-        'C': 84, // 7+ years
-        'D': 51, // 4+ years
-        'E': 24, // 2+ years
-        'F': 12, // 1+ year
-        'G': 8, // 8+ months
-        'H': 6, // 6+ months
-        'I': 4, // 4+ months
+        A: 240, // 20+ years
+        B1: 180, // 15+ years
+        B2: 120, // 10+ years
+        C: 84, // 7+ years
+        D: 51, // 4+ years
+        E: 24, // 2+ years
+        F: 12, // 1+ year
+        G: 8, // 8+ months
+        H: 6, // 6+ months
+        I: 4, // 4+ months
       };
-      baseSentence = felonyBaseSentences[validatedInputs.chargeClass as keyof typeof felonyBaseSentences] || 12;
-      probationLikelihood = validatedInputs.chargeClass === 'H' || validatedInputs.chargeClass === 'I' ? 70 : 30;
+      baseSentence =
+        felonyBaseSentences[validatedInputs.chargeClass as keyof typeof felonyBaseSentences] || 12;
+      probationLikelihood =
+        validatedInputs.chargeClass === 'H' || validatedInputs.chargeClass === 'I' ? 70 : 30;
     } else {
       const misdemeanorBaseSentences = {
-        'A1': 5, // Up to 150 days
+        A1: 5, // Up to 150 days
         '1': 4, // Up to 120 days
         '2': 2, // Up to 60 days
         '3': 1, // Up to 20 days
       };
-      baseSentence = misdemeanorBaseSentences[validatedInputs.chargeClass as keyof typeof misdemeanorBaseSentences] || 2;
+      baseSentence =
+        misdemeanorBaseSentences[
+          validatedInputs.chargeClass as keyof typeof misdemeanorBaseSentences
+        ] || 2;
       probationLikelihood = 80;
     }
 
@@ -387,17 +439,22 @@ export class LegalCalculatorEngine {
     }
 
     // Calculate cost estimates
-    const costEstimates = validatedInputs.publicDefender ? {
-      attorney: 0,
-      court: 500,
-      total: 500,
-    } : {
-      attorney: validatedInputs.chargeType === 'felony' ? 8000 : 3000,
-      court: 500,
-      total: validatedInputs.chargeType === 'felony' ? 8500 : 3500,
-    };
+    const costEstimates = validatedInputs.publicDefender
+      ? {
+          attorney: 0,
+          court: 500,
+          total: 500,
+        }
+      : {
+          attorney: validatedInputs.chargeType === 'felony' ? 8000 : 3000,
+          court: 500,
+          total: validatedInputs.chargeType === 'felony' ? 8500 : 3500,
+        };
 
-    const recommendations = this.generateCriminalDefenseRecommendations(validatedInputs, baseSentence);
+    const recommendations = this.generateCriminalDefenseRecommendations(
+      validatedInputs,
+      baseSentence
+    );
 
     return {
       calculatorType: 'criminal_defense',
@@ -416,7 +473,8 @@ export class LegalCalculatorEngine {
         trialLikelihood: validatedInputs.evidenceStrength === 'weak' ? 70 : 20,
       },
       recommendations,
-      disclaimer: 'Criminal sentencing involves many variables and judicial discretion. This estimate is based on general guidelines and may not reflect actual outcomes.',
+      disclaimer:
+        'Criminal sentencing involves many variables and judicial discretion. This estimate is based on general guidelines and may not reflect actual outcomes.',
       timestamp: new Date(),
       estimatedAccuracy: 65,
       followUpActions: [
@@ -440,11 +498,13 @@ export class LegalCalculatorEngine {
     };
   }
 
-  async calculateFamilyLaw(inputs: z.infer<typeof FamilyLawInputSchema>): Promise<z.infer<typeof CalculatorResultSchema>> {
+  async calculateFamilyLaw(
+    inputs: z.infer<typeof FamilyLawInputSchema>
+  ): Promise<z.infer<typeof CalculatorResultSchema>> {
     const validatedInputs = FamilyLawInputSchema.parse(inputs);
-    
+
     let results = {};
-    
+
     if (validatedInputs.calculationType === 'child_support') {
       results = this.calculateChildSupport(validatedInputs);
     } else if (validatedInputs.calculationType === 'spousal_support') {
@@ -460,7 +520,8 @@ export class LegalCalculatorEngine {
       inputs: validatedInputs,
       results,
       recommendations,
-      disclaimer: 'Family law calculations vary by jurisdiction and individual circumstances. These estimates are based on general guidelines.',
+      disclaimer:
+        'Family law calculations vary by jurisdiction and individual circumstances. These estimates are based on general guidelines.',
       timestamp: new Date(),
       estimatedAccuracy: 80,
       followUpActions: [
@@ -487,7 +548,7 @@ export class LegalCalculatorEngine {
     // NC Child Support Guidelines
     const combinedIncome = inputs.grossIncome1 + inputs.grossIncome2;
     const childrenCount = inputs.childrenCount;
-    
+
     // Basic support obligation (simplified calculation)
     const supportPercentages = {
       1: 0.17,
@@ -496,14 +557,15 @@ export class LegalCalculatorEngine {
       4: 0.31,
       5: 0.33,
     };
-    
-    const supportPercentage = supportPercentages[Math.min(childrenCount, 5) as keyof typeof supportPercentages] || 0.35;
+
+    const supportPercentage =
+      supportPercentages[Math.min(childrenCount, 5) as keyof typeof supportPercentages] || 0.35;
     const basicSupport = combinedIncome * supportPercentage;
-    
+
     // Allocate based on income shares
     const payorShare = inputs.grossIncome1 / combinedIncome;
-    const monthlySupport = basicSupport * payorShare / 12;
-    
+    const monthlySupport = (basicSupport * payorShare) / 12;
+
     return {
       combinedIncome,
       basicSupportObligation: basicSupport,
@@ -517,16 +579,16 @@ export class LegalCalculatorEngine {
     const incomeDifference = Math.abs(inputs.grossIncome1 - inputs.grossIncome2);
     const higherIncome = Math.max(inputs.grossIncome1, inputs.grossIncome2);
     const lowerIncome = Math.min(inputs.grossIncome1, inputs.grossIncome2);
-    
+
     // Duration factors
     let durationMultiplier = 1;
     if (inputs.marriageDuration < 5) durationMultiplier = 0.5;
     else if (inputs.marriageDuration > 20) durationMultiplier = 1.5;
-    
+
     // Estimated spousal support (30-40% of income difference)
     const monthlySpousalSupport = (incomeDifference * 0.35 * durationMultiplier) / 12;
     const supportDuration = Math.min(inputs.marriageDuration * 0.5, 10); // Max 10 years
-    
+
     return {
       incomeDifference,
       recommendedMonthlySupport: monthlySpousalSupport,
@@ -539,7 +601,7 @@ export class LegalCalculatorEngine {
   private calculatePropertyDivision(inputs: z.infer<typeof FamilyLawInputSchema>) {
     const netWorth = inputs.propertyValue - inputs.debt;
     const equitableShare = netWorth * 0.5; // 50/50 starting point
-    
+
     return {
       totalProperty: inputs.propertyValue,
       totalDebt: inputs.debt,
@@ -558,94 +620,116 @@ export class LegalCalculatorEngine {
   // Recommendation generators
   private generatePersonalInjuryRecommendations(inputs: any, totalDamages: number): string[] {
     const recommendations = [];
-    
+
     if (totalDamages > 100000) {
-      recommendations.push('Your case may warrant significant compensation. Consider hiring an experienced personal injury attorney.');
+      recommendations.push(
+        'Your case may warrant significant compensation. Consider hiring an experienced personal injury attorney.'
+      );
     }
-    
+
     if (inputs.permanentDisability) {
-      recommendations.push('Permanent disabilities often require expert medical testimony and life care planning.');
+      recommendations.push(
+        'Permanent disabilities often require expert medical testimony and life care planning.'
+      );
     }
-    
+
     if (inputs.faultPercentage > 25) {
-      recommendations.push('Comparative negligence may reduce your recovery. Legal representation is crucial.');
+      recommendations.push(
+        'Comparative negligence may reduce your recovery. Legal representation is crucial.'
+      );
     }
-    
-    recommendations.push('Document all medical treatment and follow your doctor\'s orders completely.');
-    
+
+    recommendations.push(
+      "Document all medical treatment and follow your doctor's orders completely."
+    );
+
     return recommendations;
   }
 
   private generateImmigrationRecommendations(inputs: any, successProbability: number): string[] {
     const recommendations = [];
-    
+
     if (successProbability < 60) {
       recommendations.push('Your case has complications that require expert legal guidance.');
     }
-    
+
     if (inputs.criminalHistory) {
-      recommendations.push('Criminal history can significantly impact immigration cases. Consult an attorney immediately.');
+      recommendations.push(
+        'Criminal history can significantly impact immigration cases. Consult an attorney immediately.'
+      );
     }
-    
+
     if (inputs.previousDenials) {
-      recommendations.push('Previous denials require careful analysis and strategic reapplication.');
+      recommendations.push(
+        'Previous denials require careful analysis and strategic reapplication.'
+      );
     }
-    
+
     recommendations.push('Start gathering required documentation as early as possible.');
-    
+
     return recommendations;
   }
 
   private generateWorkersCompRecommendations(inputs: any, totalBenefits: number): string[] {
     const recommendations = [];
-    
+
     if (inputs.injuryType.includes('permanent')) {
-      recommendations.push('Permanent injuries require thorough medical evaluation and legal representation.');
+      recommendations.push(
+        'Permanent injuries require thorough medical evaluation and legal representation.'
+      );
     }
-    
+
     if (inputs.returnToWorkStatus === 'cannot_return') {
       recommendations.push('Consider vocational rehabilitation benefits and retraining programs.');
     }
-    
+
     recommendations.push('Keep detailed records of all medical appointments and treatments.');
-    
+
     return recommendations;
   }
 
   private generateCriminalDefenseRecommendations(inputs: any, baseSentence: number): string[] {
     const recommendations = [];
-    
+
     if (inputs.chargeType === 'felony') {
-      recommendations.push('Felony charges carry serious consequences. Immediate legal representation is essential.');
+      recommendations.push(
+        'Felony charges carry serious consequences. Immediate legal representation is essential.'
+      );
     }
-    
+
     if (inputs.priorConvictions > 0) {
-      recommendations.push('Prior convictions will enhance your sentence. Expert defense is crucial.');
+      recommendations.push(
+        'Prior convictions will enhance your sentence. Expert defense is crucial.'
+      );
     }
-    
+
     if (inputs.evidenceStrength === 'strong') {
       recommendations.push('Consider plea negotiation to reduce charges and sentences.');
     }
-    
-    recommendations.push('Exercise your right to remain silent until you have legal representation.');
-    
+
+    recommendations.push(
+      'Exercise your right to remain silent until you have legal representation.'
+    );
+
     return recommendations;
   }
 
   private generateFamilyLawRecommendations(inputs: any): string[] {
     const recommendations = [];
-    
+
     if (inputs.childrenCount > 0) {
       recommendations.push('Focus on the best interests of the children in all decisions.');
     }
-    
+
     if (inputs.marriageDuration > 10) {
-      recommendations.push('Long-term marriages often involve complex asset division and support issues.');
+      recommendations.push(
+        'Long-term marriages often involve complex asset division and support issues.'
+      );
     }
-    
+
     recommendations.push('Consider mediation as a cost-effective alternative to litigation.');
     recommendations.push('Maintain detailed financial records throughout the process.');
-    
+
     return recommendations;
   }
 
@@ -661,7 +745,7 @@ export class LegalCalculatorEngine {
 
   private getImmigrationNextSteps(inputs: any): string[] {
     const steps = [];
-    
+
     switch (inputs.visaType) {
       case 'family':
         steps.push('File Form I-130 Petition');
@@ -679,7 +763,7 @@ export class LegalCalculatorEngine {
         steps.push('Appear at immigration court if necessary');
         break;
     }
-    
+
     return steps;
   }
 

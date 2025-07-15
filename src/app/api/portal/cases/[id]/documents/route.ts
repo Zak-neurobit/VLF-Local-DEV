@@ -3,10 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma-safe';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.id) {
@@ -28,7 +25,7 @@ export async function GET(
       return NextResponse.json({ error: 'Case not found' }, { status: 404 });
     }
 
-    let where: any = { caseId: params.id };
+    const where: any = { caseId: params.id };
 
     if (filter === 'pending_signature') {
       where.signatureRequired = true;
@@ -53,7 +50,7 @@ export async function GET(
     });
 
     // Transform documents
-    const transformedDocuments = documents.map((doc) => ({
+    const transformedDocuments = documents.map(doc => ({
       id: doc.id,
       name: doc.name,
       type: doc.type,
@@ -74,9 +71,6 @@ export async function GET(
     return NextResponse.json({ success: true, documents: transformedDocuments });
   } catch (error) {
     console.error('Failed to fetch documents:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch documents' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch documents' }, { status: 500 });
   }
 }
