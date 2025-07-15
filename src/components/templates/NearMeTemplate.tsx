@@ -1,7 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Clock, Star, CheckCircle, ArrowRight, Users, Award, Shield } from 'lucide-react';
+import {
+  MapPin,
+  Phone,
+  Clock,
+  Star,
+  CheckCircle,
+  ArrowRight,
+  Users,
+  Award,
+  Shield,
+} from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ContactForm } from '@/components/forms/ContactForm';
@@ -24,7 +34,13 @@ interface NearMeTemplateProps {
   language: 'en' | 'es';
 }
 
-export function NearMeTemplate({ city, state, practiceArea, nearestOffice, language }: NearMeTemplateProps) {
+export function NearMeTemplate({
+  city,
+  state,
+  practiceArea,
+  nearestOffice,
+  language,
+}: NearMeTemplateProps) {
   const isSpanish = language === 'es';
 
   const content = {
@@ -59,7 +75,9 @@ export function NearMeTemplate({ city, state, practiceArea, nearestOffice, langu
         : 'Comprehensive legal representation for your case',
     },
     benefits: {
-      title: isSpanish ? 'Beneficios de Nuestra Consulta Gratuita' : 'Benefits of Our Free Consultation',
+      title: isSpanish
+        ? 'Beneficios de Nuestra Consulta Gratuita'
+        : 'Benefits of Our Free Consultation',
       benefit1: isSpanish ? 'Evaluación experta de su caso' : 'Expert case evaluation',
       benefit2: isSpanish ? 'Sin costo ni obligación' : 'No cost or obligation',
       benefit3: isSpanish ? 'Respuestas claras a sus preguntas' : 'Clear answers to your questions',
@@ -70,14 +88,14 @@ export function NearMeTemplate({ city, state, practiceArea, nearestOffice, langu
       title: isSpanish ? 'Ayuda de Emergencia 24/7' : '24/7 Emergency Help',
       description: isSpanish
         ? 'Situaciones legales urgentes no esperan. Nuestro equipo está disponible las 24 horas.'
-        : 'Urgent legal situations don\\'t wait. Our team is available 24 hours a day.',
+        : "Urgent legal situations don't wait. Our team is available 24 hours a day.",
       button: isSpanish ? 'Emergencia Legal' : 'Legal Emergency',
     },
     cta: {
       title: isSpanish ? 'Obtenga Ayuda Legal Hoy' : 'Get Legal Help Today',
       subtitle: isSpanish
         ? `No espere para proteger sus derechos. Contacte a nuestros expertos en ${practiceArea.name.es.toLowerCase()} ahora.`
-        : `Don\\'t wait to protect your rights. Contact our ${practiceArea.name.en.toLowerCase()} experts now.`,
+        : `Don't wait to protect your rights. Contact our ${practiceArea.name.en.toLowerCase()} experts now.`,
     },
   };
 
@@ -215,7 +233,7 @@ export function NearMeTemplate({ city, state, practiceArea, nearestOffice, langu
                 {nearestOffice.distance} {isSpanish ? 'de su ubicación' : 'from your location'}
               </span>
             </motion.div>
-            
+
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -224,7 +242,7 @@ export function NearMeTemplate({ city, state, practiceArea, nearestOffice, langu
             >
               {content.hero.title}
             </motion.h1>
-            
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -264,21 +282,24 @@ export function NearMeTemplate({ city, state, practiceArea, nearestOffice, langu
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">{content.stats.title}</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[content.stats.stat1, content.stats.stat2, content.stats.stat3, content.stats.stat4].map(
-                (stat, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="text-center"
-                  >
-                    <div className="text-4xl font-bold text-secondary-400 mb-2">{stat.number}</div>
-                    <div className="text-gray-300">{stat.label}</div>
-                  </motion.div>
-                )
-              )}
+              {[
+                content.stats.stat1,
+                content.stats.stat2,
+                content.stats.stat3,
+                content.stats.stat4,
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="text-center"
+                >
+                  <div className="text-4xl font-bold text-secondary-400 mb-2">{stat.number}</div>
+                  <div className="text-gray-300">{stat.label}</div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
@@ -350,7 +371,7 @@ export function NearMeTemplate({ city, state, practiceArea, nearestOffice, langu
               <h2 className="text-3xl font-bold mb-4">{content.services.title}</h2>
               <p className="text-xl text-gray-600">{content.services.subtitle}</p>
             </div>
-            
+
             <div className="grid md:grid-cols-2 gap-6">
               {serviceList[language].map((service, index) => (
                 <motion.div
@@ -364,7 +385,9 @@ export function NearMeTemplate({ city, state, practiceArea, nearestOffice, langu
                   <CheckCircle className="w-6 h-6 text-green-500 mb-3" />
                   <h3 className="text-lg font-semibold mb-2">{service}</h3>
                   <p className="text-gray-600 text-sm">
-                    {isSpanish ? 'Representación experta disponible' : 'Expert representation available'}
+                    {isSpanish
+                      ? 'Representación experta disponible'
+                      : 'Expert representation available'}
                   </p>
                 </motion.div>
               ))}
@@ -453,7 +476,10 @@ export function NearMeTemplate({ city, state, practiceArea, nearestOffice, langu
               <h3 className="text-2xl font-bold mb-6 text-center">
                 {isSpanish ? 'Envíenos un Mensaje' : 'Send Us a Message'}
               </h3>
-              <ContactForm language={language} source={`near-me-${city.toLowerCase()}-${practiceArea.key}`} />
+              <ContactForm
+                language={language}
+                source={`near-me-${city.toLowerCase()}-${practiceArea.key}`}
+              />
             </div>
           </div>
         </div>
