@@ -3,9 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  // For SQLite local testing, change provider to "sqlite"
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL")
 }
 
 model User {
@@ -186,24 +186,35 @@ model Task {
 model BlogPost {
   id              String    @id @default(cuid())
   title           String
+  titleEs         String?   // Spanish title
   slug            String    @unique
   content         String    @db.Text
+  contentEs       String?   @db.Text // Spanish content
   excerpt         String?
+  excerptEs       String?   // Spanish excerpt
   metaDescription String
   metaKeywords    String[]
   featuredImage   String?
   images          String[]
-  practiceArea    String
-  language        String
+  practiceArea    String?   // Made optional for news posts
+  category        String    @default("general") // immigration, workers-comp, personal-injury, etc.
+  language        String    @default("en")
   status          String    @default("draft") // draft, published, archived
   publishedAt     DateTime?
   author          String?
+  tags            String[]  // For news categorization
   keywords        String[]
   faqSection      Json?
   seoScore        Int       @default(0)
   viewCount       Int       @default(0)
   readTime        Int       @default(0) // in minutes
-
+  
+  // News monitoring fields
+  sourceUrl       String?   // Original news source URL
+  sourceName      String?   // News source name (USCIS, Congress, etc.)
+  metadata        Json      @default("{}") // Flexible metadata for news items
+  seo             Json?     // SEO metadata
+  
   // Translation relationship
   originalId   String?
   original     BlogPost?  @relation("BlogTranslation", fields: [originalId], references: [id])
@@ -218,6 +229,9 @@ model BlogPost {
   @@index([slug])
   @@index([practiceArea, language])
   @@index([status, publishedAt])
+  @@index([category])
+  @@index([sourceUrl])
+  @@index([sourceName])
 }
 
 model ScrapedContent {

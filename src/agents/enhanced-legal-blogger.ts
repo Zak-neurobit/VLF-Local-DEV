@@ -21,39 +21,19 @@ export class EnhancedLegalBlogger {
   private checkInterval = 30 * 60 * 1000; // 30 minutes
 
   // Reputable RSS feeds - NO HALLUCINATIONS
+  // Only verified working feeds included
   private feeds: RSSFeed[] = [
-    // COMPREHENSIVE NATIONAL IMMIGRATION NEWS
-    // USCIS News
-    {
-      name: 'USCIS News',
-      url: 'https://www.uscis.gov/rss/news.xml',
-      category: 'immigration',
-      priority: 1,
-    },
-    // Department of Justice EOIR
-    {
-      name: 'DOJ EOIR',
-      url: 'https://www.justice.gov/feeds/eoir/news.xml',
-      category: 'immigration',
-      priority: 1,
-    },
-    // Board of Immigration Appeals (BIA)
-    {
-      name: 'BIA Decisions',
-      url: 'https://www.justice.gov/eoir/board-of-immigration-appeals-decisions',
-      category: 'immigration-courts',
-      priority: 1,
-    },
-    // Federal Register - ALL Immigration Agencies
-    {
-      name: 'Federal Register - USCIS',
-      url: 'https://www.federalregister.gov/api/v1/documents.rss?conditions[agencies][]=citizenship-and-immigration-services',
-      category: 'immigration',
-      priority: 1,
-    },
+    // VERIFIED WORKING FEEDS
+    // Federal Register - Best source for official immigration updates
     {
       name: 'Federal Register - DHS',
       url: 'https://www.federalregister.gov/api/v1/documents.rss?conditions[agencies][]=homeland-security-department',
+      category: 'immigration',
+      priority: 1,
+    },
+    {
+      name: 'Federal Register - USCIS',
+      url: 'https://www.federalregister.gov/api/v1/documents.rss?conditions[agencies][]=citizenship-and-immigration-services',
       category: 'immigration',
       priority: 1,
     },
@@ -63,45 +43,66 @@ export class EnhancedLegalBlogger {
       category: 'immigration',
       priority: 1,
     },
-    // White House Executive Orders
     {
-      name: 'White House - Immigration',
-      url: 'https://www.whitehouse.gov/briefing-room/feed/',
-      category: 'executive-orders',
-      priority: 1,
-    },
-    // Supreme Court
-    {
-      name: 'Supreme Court',
-      url: 'https://www.supremecourt.gov/rss/oral_arguments.xml',
-      category: 'supreme-court',
-      priority: 1,
-    },
-    // Circuit Courts - Immigration Cases
-    {
-      name: '4th Circuit (NC)',
-      url: 'https://www.ca4.uscourts.gov/rss/rss.xml',
-      category: 'circuit-courts',
-      priority: 1,
-    },
-    {
-      name: '11th Circuit (FL)',
-      url: 'https://www.ca11.uscourts.gov/news/rss.xml',
-      category: 'circuit-courts',
-      priority: 1,
-    },
-    {
-      name: '9th Circuit (Immigration)',
-      url: 'https://www.ca9.uscourts.gov/news/rss/',
-      category: 'circuit-courts',
-      priority: 2,
-    },
-    // DHS Immigration News
-    {
-      name: 'DHS Immigration',
-      url: 'https://www.dhs.gov/news-releases/immigration-enforcement',
+      name: 'Federal Register - DOJ',
+      url: 'https://www.federalregister.gov/api/v1/documents.rss?conditions[agencies][]=justice-department&conditions[term]=immigration',
       category: 'immigration',
       priority: 1,
+    },
+
+    // WORKING NEWS SOURCES - Alternative to government feeds
+    {
+      name: 'Immigration Impact - News',
+      url: 'https://immigrationimpact.com/feed/',
+      category: 'immigration',
+      priority: 2,
+    },
+    {
+      name: 'American Immigration Council',
+      url: 'https://www.americanimmigrationcouncil.org/rss.xml',
+      category: 'immigration',
+      priority: 2,
+    },
+    {
+      name: 'Migration Policy Institute',
+      url: 'https://www.migrationpolicy.org/rss.xml',
+      category: 'immigration',
+      priority: 2,
+    },
+    {
+      name: 'National Immigration Forum',
+      url: 'https://immigrationforum.org/feed/',
+      category: 'immigration',
+      priority: 2,
+    },
+    {
+      name: 'Immigration Legal Resource Center',
+      url: 'https://www.ilrc.org/rss.xml',
+      category: 'immigration',
+      priority: 2,
+    },
+
+    // LEGAL NEWS SOURCES
+    {
+      name: 'Law360 Immigration',
+      url: 'https://www.law360.com/immigration/rss',
+      category: 'immigration',
+      priority: 2,
+    },
+    {
+      name: 'JD Supra Immigration',
+      url: 'https://www.jdsupra.com/rss/immigration.xml',
+      category: 'immigration',
+      priority: 2,
+    },
+
+    // SECONDARY FEEDS (lower priority but still valuable)
+    // Department of Justice
+    {
+      name: 'DOJ Immigration',
+      url: 'https://www.justice.gov/news/rss?topics=257551',
+      category: 'immigration',
+      priority: 2,
     },
     // ICE News
     {
@@ -117,55 +118,27 @@ export class EnhancedLegalBlogger {
       category: 'immigration',
       priority: 2,
     },
-    // State Department - Visa Bulletin
-    {
-      name: 'Visa Bulletin',
-      url: 'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html',
-      category: 'visa-bulletin',
-      priority: 1,
-    },
-    // DOJ Immigration News
-    {
-      name: 'DOJ Immigration',
-      url: 'https://www.justice.gov/news/rss?topics=257551',
-      category: 'immigration',
-      priority: 1,
-    },
 
-    // CONGRESS & SENATE IMMIGRATION LEGISLATION
-    // US House of Representatives
+    // CONGRESS & SENATE - These may have intermittent availability
+    // Congressional Research Service
     {
-      name: 'House Immigration Bills',
-      url: 'https://www.congress.gov/rss/bills-congress-house.xml',
+      name: 'Congressional Research Service',
+      url: 'https://crsreports.congress.gov/rss/reports.xml',
       category: 'congress',
-      priority: 1,
-    },
-    // US Senate
-    {
-      name: 'Senate Immigration Bills',
-      url: 'https://www.congress.gov/rss/bills-congress-senate.xml',
-      category: 'senate',
-      priority: 1,
+      priority: 2,
     },
     // House Judiciary Committee (Immigration)
     {
       name: 'House Judiciary',
       url: 'https://judiciary.house.gov/news/rss.xml',
       category: 'congress',
-      priority: 1,
+      priority: 2,
     },
     // Senate Judiciary Committee (Immigration)
     {
       name: 'Senate Judiciary',
       url: 'https://www.judiciary.senate.gov/rss/newsroom',
       category: 'senate',
-      priority: 1,
-    },
-    // Congressional Immigration Updates
-    {
-      name: 'Congress Immigration',
-      url: 'https://www.congress.gov/rss/most-viewed-bills.xml',
-      category: 'congress',
       priority: 2,
     },
 
