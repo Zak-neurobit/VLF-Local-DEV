@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { NewsTicker } from '@/components/ui/news-ticker';
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -32,6 +33,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <NewsTicker locale={language} />
       <Header language={language} setLanguage={handleLanguageChange} />
       <main className="flex-grow">{children}</main>
       <Footer language={language} />
