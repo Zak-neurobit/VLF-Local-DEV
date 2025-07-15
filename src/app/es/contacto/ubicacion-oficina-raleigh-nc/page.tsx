@@ -1,73 +1,61 @@
-import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
-import { Metadata } from 'next';
-import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Ubicacion Oficina Raleigh, NC - Vasquez Law Firm, PLLC',
-  description:
-    'Encuentre la mejor ruta a nuestra oficina en Raleigh, NC. Obtenga mapas e indicaciones precisas para visitarnos. ¡Contáctenos para más información!',
-  openGraph: {
-    title: 'Ubicacion Oficina Raleigh, NC - Vasquez Law Firm, PLLC',
-    description:
-      'Encuentre la mejor ruta a nuestra oficina en Raleigh, NC. Obtenga mapas e indicaciones precisas para visitarnos. ¡Contáctenos para más información!',
-    images: [{ url: '/images/og-default.jpg' }],
-  },
-};
+import { OfficeLocationTemplate } from '@/components/templates/OfficeLocationTemplate';
 
-export const runtime = 'nodejs';
-
-export default function UbicacionOficinaRaleighNcPage() {
-  // TODO: Extract content from original file and format properly
-  const post = {
-    id: 'ubicacion-oficina-raleigh-nc',
-    title: 'Mapa e indicaciones – Raleigh',
-    slug: 'ubicacion-oficina-raleigh-nc',
-    excerpt: 'Blog post excerpt here - TODO: extract from content',
-    content: `
-      <div class="prose prose-lg max-w-none">
-        <!-- TODO: Migrate content from original file -->
-        <p>This content needs to be migrated from the original file.</p>
-      </div>
-    `,
-    practiceArea: 'general', // TODO: Determine correct practice area
-    language: 'en' as const,
-    publishedAt: new Date(),
-    readTime: 5,
-    author: DEFAULT_BLOG_AUTHOR,
-    tags: [], // TODO: Add relevant tags
+export default function RaleighOfficePageES() {
+  const officeData = {
+    city: 'Raleigh',
+    state: 'NC',
+    address: '4426 Louisburg Road, Raleigh, NC 27616',
+    phone: '(919) 533-7000',
+    email: 'info@vasquezlawnc.com',
+    hours: {
+      weekdays: '8:30 AM - 5:30 PM',
+      saturday: 'Con cita previa',
+      sunday: undefined,
+    },
+    mapUrl: 'https://maps.google.com/maps?q=4426+Louisburg+Road+Raleigh+NC+27616',
+    practiceAreas: [
+      'immigration',
+      'personal-injury',
+      'workers-compensation',
+      'criminal-defense',
+      'family-law',
+      'car-accidents',
+    ],
+    attorneys: ['William Vasquez', 'Mark Kelsey', 'Roselyn V. Torrellas'],
+    parkingInfo: 'Estacionamiento gratuito disponible frente al edificio',
+    publicTransit: 'Línea de autobús GoRaleigh #12 con parada cerca',
   };
 
-  const categories = [
-    {
-      id: 'immigration',
-      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
-      slug: { en: 'immigration', es: 'inmigracion' },
-      icon: '🌐',
-      postCount: 45,
-    },
-    {
-      id: 'personal-injury',
-      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
-      slug: { en: 'personal-injury', es: 'lesiones-personales' },
-      icon: '🏥',
-      postCount: 32,
-    },
-    {
-      id: 'criminal-defense',
-      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
-      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
-      icon: '⚖️',
-      postCount: 28,
-    },
-  ];
-
-  return (
-    <BlogPageTemplate
-      posts={[]}
-      categories={categories}
-      isArticlePage={true}
-      currentPost={post}
-      relatedPosts={[]} // TODO: Add related posts
-    />
-  );
+  return <OfficeLocationTemplate office={officeData} language="es" />;
 }
+
+export const metadata = {
+  title: 'Oficina de Raleigh NC | Abogados de Inmigración | Vasquez Law Firm',
+  description:
+    'Visite nuestra oficina de Raleigh para consultas legales en español. Inmigración, lesiones personales, defensa criminal. 4426 Louisburg Road. Llame (919) 533-7000.',
+  keywords:
+    'abogado Raleigh NC, oficina legal Raleigh, abogado inmigracion Raleigh, abogado español Raleigh',
+  openGraph: {
+    title: 'Oficina Legal en Raleigh NC | Vasquez Law Firm',
+    description:
+      'Abogados que hablan español en Raleigh. Consultas gratuitas para inmigración, accidentes y más.',
+    url: 'https://www.vasquezlawnc.com/es/contacto/ubicacion-oficina-raleigh-nc',
+    images: [
+      {
+        url: 'https://www.vasquezlawnc.com/images/raleigh-office-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Oficina de Vasquez Law Firm en Raleigh NC',
+      },
+    ],
+  },
+  alternates: {
+    canonical: 'https://www.vasquezlawnc.com/es/contacto/ubicacion-oficina-raleigh-nc',
+    languages: {
+      'en-US': 'https://www.vasquezlawnc.com/contact/raleigh-nc-office-location',
+      'es-ES': 'https://www.vasquezlawnc.com/es/contacto/ubicacion-oficina-raleigh-nc',
+    },
+  },
+};
