@@ -1,0 +1,96 @@
+{
+  "timestamp": "2025-07-17T19:00:21.048Z",
+  "results": [
+    {
+      "endpoint": "GET /api/health",
+      "status": "failed",
+      "responseTime": 16,
+      "message": "fetch failed",
+      "details": {}
+    },
+    {
+      "endpoint": "GET /api/health/db",
+      "status": "failed",
+      "responseTime": 1,
+      "message": "fetch failed",
+      "details": {}
+    },
+    {
+      "endpoint": "GET /api/chat",
+      "status": "failed",
+      "responseTime": 1,
+      "message": "fetch failed",
+      "details": {}
+    },
+    {
+      "endpoint": "POST /api/chat",
+      "status": "failed",
+      "responseTime": 2,
+      "message": "fetch failed",
+      "details": {}
+    },
+    {
+      "endpoint": "POST /api/contact",
+      "status": "failed",
+      "responseTime": 1,
+      "message": "fetch failed",
+      "details": {}
+    },
+    {
+      "endpoint": "GET /api/health/socket",
+      "status": "failed",
+      "responseTime": 1,
+      "message": "fetch failed",
+      "details": {}
+    },
+    {
+      "endpoint": "GET /api/ai/health",
+      "status": "failed",
+      "responseTime": 0,
+      "message": "fetch failed",
+      "details": {}
+    },
+    {
+      "endpoint": "GET /api/deploy-check",
+      "status": "failed",
+      "responseTime": 1,
+      "message": "fetch failed",
+      "details": {}
+    },
+    {
+      "endpoint": "POST /api/newsletter",
+      "status": "failed",
+      "responseTime": 2,
+      "message": "fetch failed",
+      "details": {}
+    },
+    {
+      "endpoint": "GET /api/analytics/dashboard",
+      "status": "failed",
+      "responseTime": 0,
+      "message": "fetch failed",
+      "details": {}
+    },
+    {
+      "endpoint": "GET /api/news/ticker",
+      "status": "failed",
+      "responseTime": 1,
+      "message": "fetch failed",
+      "details": {}
+    },
+    {
+      "endpoint": "GET /api/sitemap",
+      "status": "failed",
+      "responseTime": 1,
+      "message": "fetch failed",
+      "details": {}
+    },
+    {
+      "endpoint": "GET /api/robots",
+      "status": "failed",
+      "responseTime": 0,
+      "message": "fetch failed",
+      "details": {}
+    }
+  ]
+}

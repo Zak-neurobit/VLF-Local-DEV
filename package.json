@@ -71,6 +71,7 @@
     "news:monitor:dev": "tsx --watch scripts/start-news-monitor.ts",
     "news:monitor:background": "nohup tsx scripts/start-news-monitor.ts > logs/news-monitor.log 2>&1 &",
     "test:redis": "tsx scripts/test-apis.ts --redis-only",
+    "test:redis:connection": "tsx scripts/test-redis-connection.ts",
     "test:openai": "tsx scripts/test-apis.ts --openai-only",
     "test:ghl": "tsx scripts/test-apis.ts --ghl-only",
     "test:email": "tsx scripts/test-apis.ts --email-only",
