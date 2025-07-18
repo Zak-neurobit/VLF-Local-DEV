@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getCrewCoordinator } from '@/lib/crewai/crew-coordinator';
 import { CompetitorAnalysisRequest } from '@/lib/crewai/agents/competitive-analysis-agent';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 
 export async function POST(request: NextRequest) {
   try {

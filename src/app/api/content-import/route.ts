@@ -174,7 +174,7 @@ async function importPage(url: string) {
       },
     };
   } catch (error) {
-    apiLogger.error('import-page', error as Error, { url });
+    apiLogger.error('import-page', { error: error as Error, url });
     throw error;
   }
 }
@@ -306,7 +306,7 @@ async function importBlogPost(data: {
 
     return blogPost;
   } catch (error) {
-    apiLogger.error('import-blog-post', error as Error, { url: data.url });
+    apiLogger.error('import-blog-post', { error: error as Error, url: data.url });
     throw error;
   }
 }
@@ -403,7 +403,7 @@ async function optimizeImportedContent() {
       const optimized = await optimizeContentForSEO({
         title: draft.title,
         content: draft.content,
-        practiceArea: draft.practiceArea,
+        practiceArea: draft.practiceArea || 'general',
       });
 
       // Update the post
@@ -418,7 +418,7 @@ async function optimizeImportedContent() {
         },
       });
     } catch (error) {
-      apiLogger.error('optimize-content', error as Error, { id: draft.id });
+      apiLogger.error('optimize-content', { error: error as Error, id: draft.id });
     }
   }
 

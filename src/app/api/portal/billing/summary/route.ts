@@ -21,20 +21,20 @@ export async function GET() {
         select: {
           id: true,
           invoiceNumber: true,
-          amount: true,
+          total: true,
           dueDate: true,
           status: true,
         },
       }),
       prisma.payment.findMany({
-        where: { clientId },
+        where: { clientEmail: session.user.email! },
         orderBy: { createdAt: 'desc' },
         select: {
           amount: true,
           createdAt: true,
         },
       }),
-      prisma.paymentMethod.findMany({
+      prisma.paymentSource.findMany({
         where: { clientId },
         select: {
           id: true,
@@ -46,14 +46,12 @@ export async function GET() {
     ]);
 
     // Calculate totals
-    const totalBilled = invoices.reduce((sum, inv) => sum + inv.amount, 0);
-    const totalPaid = payments.reduce((sum, pay) => sum + pay.amount, 0);
+    const totalBilled = invoices.reduce((sum: number, inv) => sum + inv.total, 0);
+    const totalPaid = payments.reduce((sum: number, pay) => sum + pay.amount, 0);
     const outstandingBalance = totalBilled - totalPaid;
 
     // Find next payment due
-    const nextInvoice = invoices.find(
-      (inv) => inv.status === 'sent' || inv.status === 'overdue'
-    );
+    const nextInvoice = invoices.find(inv => inv.status === 'SENT' || inv.status === 'OVERDUE');
 
     const summary = {
       totalBilled,
@@ -64,7 +62,7 @@ export async function GET() {
       nextPaymentDue: nextInvoice
         ? {
             date: nextInvoice.dueDate,
-            amount: nextInvoice.amount,
+            amount: nextInvoice.total,
           }
         : null,
       recentInvoices: invoices,
@@ -74,9 +72,6 @@ export async function GET() {
     return NextResponse.json({ success: true, summary });
   } catch (error) {
     console.error('Failed to fetch billing summary:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch billing summary' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch billing summary' }, { status: 500 });
   }
 }

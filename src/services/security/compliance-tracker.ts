@@ -1,5 +1,6 @@
 import { logger } from '@/lib/logger';
 import { prisma } from '@/lib/prisma-safe';
+import { documentShareStubs, complianceReportStubs } from '@/lib/prisma-model-stubs';
 import { EventEmitter } from 'events';
 import { z } from 'zod';
 
@@ -109,7 +110,7 @@ export class ComplianceTracker extends EventEmitter {
         this.checkDatabaseEncryption(),
         this.checkFileStorageEncryption(),
       ]);
-      
+
       return {
         compliant: checks.every(c => c),
         evidence: ['Database encryption: AES-256', 'File storage: Encrypted S3'],
@@ -121,9 +122,10 @@ export class ComplianceTracker extends EventEmitter {
       const violations = await this.checkAccessControlViolations();
       return {
         compliant: violations.length === 0,
-        evidence: violations.length === 0 
-          ? ['No access control violations found']
-          : violations.map(v => `Violation: ${v}`),
+        evidence:
+          violations.length === 0
+            ? ['No access control violations found']
+            : violations.map(v => `Violation: ${v}`),
       };
     });
 
@@ -144,9 +146,10 @@ export class ComplianceTracker extends EventEmitter {
       const breaches = await this.checkConfidentialityBreaches();
       return {
         compliant: breaches.length === 0,
-        evidence: breaches.length === 0
-          ? ['No confidentiality breaches detected']
-          : breaches.map(b => `Breach: ${b.description}`),
+        evidence:
+          breaches.length === 0
+            ? ['No confidentiality breaches detected']
+            : breaches.map(b => `Breach: ${b.description}`),
       };
     });
 
@@ -164,7 +167,7 @@ export class ComplianceTracker extends EventEmitter {
     });
   }
 
-  async runComplianceCheck(frameworkId: string): Promise<ComplianceReportSchema> {
+  async runComplianceCheck(frameworkId: string): Promise<typeof ComplianceReportSchema._type> {
     const framework = complianceFrameworks[frameworkId as keyof typeof complianceFrameworks];
     if (!framework) {
       throw new Error(`Unknown compliance framework: ${frameworkId}`);
@@ -186,17 +189,18 @@ export class ComplianceTracker extends EventEmitter {
 
     const totalRequirements = framework.requirements.length;
     const completionPercentage = Math.round((compliantCount / totalRequirements) * 100);
-    
-    const overallStatus = compliantCount === totalRequirements 
-      ? 'compliant' 
-      : compliantCount + partialCount > totalRequirements / 2 
-      ? 'partial' 
-      : 'non_compliant';
+
+    const overallStatus =
+      compliantCount === totalRequirements
+        ? 'compliant'
+        : compliantCount + partialCount > totalRequirements / 2
+          ? 'partial'
+          : 'non_compliant';
 
     const riskScore = this.calculateRiskScore(requirements);
     const recommendations = this.generateRecommendations(requirements);
 
-    const report: ComplianceReportSchema = {
+    const report: typeof ComplianceReportSchema._type = {
       frameworkId,
       overallStatus,
       completionPercentage,
@@ -230,7 +234,7 @@ export class ComplianceTracker extends EventEmitter {
   ): Promise<ComplianceCheck> {
     // Check if we have an automated checker
     const automatedChecker = this.automatedCheckers.get(requirementId);
-    
+
     if (automatedChecker) {
       const result = await automatedChecker();
       return {
@@ -267,7 +271,7 @@ export class ComplianceTracker extends EventEmitter {
     const totalRisk = requirements.reduce((sum, req) => {
       const weight = weights[req.status];
       const severity = this.getRequirementSeverity(req.requirementId);
-      return sum + (weight * severity);
+      return sum + weight * severity;
     }, 0);
 
     const maxRisk = requirements.length * 10; // Max severity is 10
@@ -296,9 +300,7 @@ export class ComplianceTracker extends EventEmitter {
     const nonCompliant = requirements.filter(r => r.status !== 'compliant');
 
     // Priority recommendations
-    const critical = nonCompliant.filter(r => 
-      this.getRequirementSeverity(r.requirementId) >= 9
-    );
+    const critical = nonCompliant.filter(r => this.getRequirementSeverity(r.requirementId) >= 9);
 
     if (critical.length > 0) {
       recommendations.push(
@@ -349,12 +351,12 @@ export class ComplianceTracker extends EventEmitter {
 
   private async checkAccessControlViolations(): Promise<string[]> {
     const violations: string[] = [];
-    
+
     // Check for overly permissive roles
     const adminCount = await prisma.user.count({
-      where: { role: { contains: 'admin' } },
+      where: { role: 'ADMIN' },
     });
-    
+
     if (adminCount > 5) {
       violations.push(`Excessive admin accounts: ${adminCount}`);
     }
@@ -363,8 +365,8 @@ export class ComplianceTracker extends EventEmitter {
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
     const inactiveWithAccess = await prisma.user.count({
       where: {
-        lastLogin: { lt: thirtyDaysAgo },
-        status: 'active',
+        lastActive: { lt: thirtyDaysAgo },
+        blocked: false,
       },
     });
 
@@ -401,12 +403,14 @@ export class ComplianceTracker extends EventEmitter {
     };
   }
 
-  private async checkConfidentialityBreaches(): Promise<Array<{
-    id: string;
-    description: string;
-    severity: string;
-    timestamp: Date;
-  }>> {
+  private async checkConfidentialityBreaches(): Promise<
+    Array<{
+      id: string;
+      description: string;
+      severity: string;
+      timestamp: Date;
+    }>
+  > {
     // Check for potential confidentiality breaches
     const breaches: Array<{
       id: string;
@@ -416,7 +420,7 @@ export class ComplianceTracker extends EventEmitter {
     }> = [];
 
     // Check for documents shared externally
-    const externalShares = await prisma.documentShare.count({
+    const externalShares = await documentShareStubs.count({
       where: {
         sharedWith: { contains: '@' },
         expiresAt: { lt: new Date() },
@@ -451,9 +455,9 @@ export class ComplianceTracker extends EventEmitter {
     };
   }
 
-  private async storeComplianceReport(report: ComplianceReportSchema): Promise<void> {
+  private async storeComplianceReport(report: typeof ComplianceReportSchema._type): Promise<void> {
     try {
-      await prisma.complianceReport.create({
+      await complianceReportStubs.create({
         data: {
           frameworkId: report.frameworkId,
           status: report.overallStatus,
@@ -474,16 +478,19 @@ export class ComplianceTracker extends EventEmitter {
   async scheduleComplianceAudits(): Promise<void> {
     for (const frameworkId of this.activeFrameworks) {
       // Schedule weekly automated checks
-      setInterval(async () => {
-        try {
-          await this.runComplianceCheck(frameworkId);
-        } catch (error) {
-          logger.error('Scheduled compliance check failed', { 
-            framework: frameworkId, 
-            error 
-          });
-        }
-      }, 7 * 24 * 60 * 60 * 1000); // Weekly
+      setInterval(
+        async () => {
+          try {
+            await this.runComplianceCheck(frameworkId);
+          } catch (error) {
+            logger.error('Scheduled compliance check failed', {
+              framework: frameworkId,
+              error,
+            });
+          }
+        },
+        7 * 24 * 60 * 60 * 1000
+      ); // Weekly
     }
   }
 
@@ -503,26 +510,26 @@ export class ComplianceTracker extends EventEmitter {
     let criticalIssues = 0;
 
     for (const [id, framework] of Object.entries(complianceFrameworks)) {
-      const latestReport = await prisma.complianceReport.findFirst({
-        where: { frameworkId: id },
+      const latestReport = (await complianceReportStubs.findFirst({
+        where: { frameworkId: id } as any,
         orderBy: { auditDate: 'desc' },
-      });
+      })) as any;
 
       if (latestReport) {
         frameworks.push({
           id,
           name: framework.name,
-          status: latestReport.status,
-          completionPercentage: latestReport.completionPercentage,
-          lastAudit: latestReport.auditDate,
+          status: latestReport.status || 'not_audited',
+          completionPercentage: latestReport.completionPercentage || 0,
+          lastAudit: latestReport.auditDate || null,
         });
 
-        totalRisk += latestReport.riskScore;
-        
+        totalRisk += latestReport.riskScore || 0;
+
         // Count critical issues
-        const requirements = JSON.parse(latestReport.requirements as string);
-        criticalIssues += requirements.filter((r: any) => 
-          r.status !== 'compliant' && this.getRequirementSeverity(r.requirementId) >= 9
+        const requirements = JSON.parse((latestReport.requirements as string) || '[]');
+        criticalIssues += requirements.filter(
+          (r: any) => r.status !== 'compliant' && this.getRequirementSeverity(r.requirementId) >= 9
         ).length;
       } else {
         frameworks.push({

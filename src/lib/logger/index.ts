@@ -565,3 +565,4 @@ export {
   requestLogger,
   userFlowLogger,
 };
+export { errorToLogMeta } from './utils';

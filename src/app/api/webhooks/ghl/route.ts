@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ghlService } from '@/services/gohighlevel';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import crypto from 'crypto';
 import { withTracing } from '@/lib/telemetry/api-middleware';
 

@@ -63,16 +63,6 @@ const attorneyMetadata: Record<string, Metadata> = {
     description:
       'Meet Rebecca Sommer, dedicated immigration attorney at Vasquez Law Firm. Committed to helping clients achieve their immigration goals.',
   },
-  'judith-parkes': {
-    title: 'Judith Parkes | Immigration Attorney | Vasquez Law Firm',
-    description:
-      'Meet Judith Parkes, experienced immigration attorney at Vasquez Law Firm. Providing compassionate and effective representation.',
-  },
-  'christopher-afanador-abogado': {
-    title: 'Christopher Afanador | Abogado de Inmigración | Vasquez Law Firm',
-    description:
-      'Conozca a Christopher Afanador, abogado de inmigración en Vasquez Law Firm. Representación legal en español.',
-  },
   'jillian-baucom-es': {
     title: 'Jillian Baucom | Abogada de Inmigración | Vasquez Law Firm',
     description:

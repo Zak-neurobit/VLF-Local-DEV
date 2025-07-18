@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { leadCaptureService } from '@/services/lead-capture';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { z } from 'zod';
 import { rateLimit } from '@/lib/rate-limiter';
 import { withLeadCaptureTracing, withDatabaseTracing } from '@/lib/telemetry/api-middleware';

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cache, cacheKeys, CacheTTL } from './redis';
 import { logger } from '../logger';
+import { errorToLogMeta } from '../logger/utils';
 
 interface CacheOptions {
   ttl?: number;

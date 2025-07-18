@@ -27,13 +27,13 @@ export async function GET(request: NextRequest) {
       checks: {
         socket_server: healthStatus.status === 'healthy' ? 'pass' : 'fail',
         response_time: responseTime < 1000 ? 'pass' : 'warn',
-        memory_usage: healthStatus.details.system?.memory
-          ? healthStatus.details.system.memory.heapUsed /
-              healthStatus.details.system.memory.heapTotal <
-            0.9
-            ? 'pass'
-            : 'warn'
-          : 'unknown',
+        memory_usage: (() => {
+          const system = healthStatus.details.system as any;
+          if (system?.memory?.heapUsed && system?.memory?.heapTotal) {
+            return system.memory.heapUsed / system.memory.heapTotal < 0.9 ? 'pass' : 'warn';
+          }
+          return 'unknown';
+        })(),
         circuit_breakers: healthStatus.details.circuitBreakers
           ? Object.values(healthStatus.details.circuitBreakers).every(
               (cb: any) => cb.status === 'closed'

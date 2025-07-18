@@ -94,7 +94,7 @@ export class RecordingManager {
         followUpRequired: analysis.followUpRequired,
       });
     } catch (error) {
-      logger.error('Failed to process recording:', error, { callId });
+      logger.error('Failed to process recording:', { error, callId });
       throw error;
     }
   }

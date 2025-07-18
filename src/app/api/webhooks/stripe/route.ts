@@ -3,6 +3,7 @@ import { headers } from 'next/headers';
 import Stripe from 'stripe';
 import { getPrismaClient } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { PaymentStatus, PaymentGateway, PaymentMethod } from '@prisma/client';
 import { emailQueue } from '@/lib/queue/bull';
 import { withPaymentTracing } from '@/lib/telemetry/api-middleware';
@@ -99,7 +100,7 @@ async function handlePOST(request: NextRequest) {
     try {
       event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
     } catch (err) {
-      logger.error('Stripe webhook signature verification failed:', err);
+      logger.error('Stripe webhook signature verification failed', errorToLogMeta(err));
       return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
     }
 
@@ -630,7 +631,7 @@ async function handlePOST(request: NextRequest) {
 
     return NextResponse.json({ received: true });
   } catch (error) {
-    logger.error('Stripe webhook error:', errorToLogMeta(error));
+    logger.error('Stripe webhook error', errorToLogMeta(error));
     return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 });
   }
 }

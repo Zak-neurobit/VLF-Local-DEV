@@ -163,7 +163,7 @@ export class StatusManager {
         metadata,
       });
     } catch (error) {
-      logger.error('Failed to update call status:', error, { callId, status });
+      logger.error('Failed to update call status:', { error, callId, status });
     }
   }
 

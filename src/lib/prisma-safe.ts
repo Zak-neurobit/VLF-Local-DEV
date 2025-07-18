@@ -67,6 +67,61 @@ class SafePrismaClient {
     };
   }
 
+  get case() {
+    if (this.isAvailable && this.realClient) {
+      return this.realClient.case;
+    }
+    return {
+      findUnique: async () => null,
+      findFirst: async () => null,
+      findMany: async () => [],
+      create: async (args: { data: Record<string, unknown> }) => ({ id: 'mock-id', ...args.data }),
+      update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({
+        id: args.where.id,
+        ...args.data,
+      }),
+      delete: async () => ({ id: 'deleted' }),
+      count: async () => 0,
+    };
+  }
+
+  get message() {
+    if (this.isAvailable && this.realClient) {
+      return this.realClient.message;
+    }
+    return {
+      findUnique: async () => null,
+      findFirst: async () => null,
+      findMany: async () => [],
+      create: async (args: { data: Record<string, unknown> }) => ({ id: 'mock-id', ...args.data }),
+      update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({
+        id: args.where.id,
+        ...args.data,
+      }),
+      updateMany: async () => ({ count: 0 }),
+      delete: async () => ({ id: 'deleted' }),
+      count: async () => 0,
+    };
+  }
+
+  get userActivity() {
+    if (this.isAvailable && this.realClient) {
+      return this.realClient.userActivity;
+    }
+    return {
+      findUnique: async () => null,
+      findFirst: async () => null,
+      findMany: async () => [],
+      create: async (args: { data: Record<string, unknown> }) => ({ id: 'mock-id', ...args.data }),
+      update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({
+        id: args.where.id,
+        ...args.data,
+      }),
+      delete: async () => ({ id: 'deleted' }),
+      count: async () => 0,
+    };
+  }
+
   // Add other models as needed
   async $connect() {
     if (this.realClient) {

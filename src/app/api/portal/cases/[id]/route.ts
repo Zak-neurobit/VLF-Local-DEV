@@ -3,10 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma-safe';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.id) {
@@ -30,26 +27,10 @@ export async function GET(
           select: {
             id: true,
             name: true,
-            uploadedAt: true,
+            createdAt: true,
           },
         },
-        messages: {
-          select: {
-            id: true,
-            readAt: true,
-          },
-        },
-        hearings: {
-          where: {
-            date: { gte: new Date() },
-          },
-          orderBy: { date: 'asc' },
-          take: 1,
-        },
-        activities: {
-          orderBy: { createdAt: 'desc' },
-          take: 1,
-        },
+        // Remove non-existent relations
       },
     });
 
@@ -58,38 +39,36 @@ export async function GET(
     }
 
     // Transform the data
+    const metadata = (caseData.metadata as any) || {};
     const transformedCase = {
       id: caseData.id,
       caseNumber: caseData.caseNumber,
-      title: caseData.title,
+      title: metadata.title || `Case ${caseData.caseNumber}`,
       description: caseData.description,
       practiceArea: caseData.practiceArea,
       status: caseData.status,
-      priority: caseData.priority,
+      priority: metadata.priority || 'normal',
       attorney: caseData.attorney,
       createdAt: caseData.createdAt,
       updatedAt: caseData.updatedAt,
-      nextHearing: caseData.hearings[0] || null,
+      nextHearing: metadata.nextHearing || null,
       keyDates: [
         { label: 'Case Filed', date: caseData.createdAt },
         { label: 'Last Updated', date: caseData.updatedAt },
       ],
       parties: [
         { role: 'Client', name: session.user.name || 'Client' },
-        { role: 'Attorney', name: caseData.attorney.name },
+        { role: 'Attorney', name: caseData.attorney?.name || 'Not Assigned' },
       ],
       stats: {
         documents: caseData.documents.length,
-        unreadMessages: caseData.messages.filter((m) => !m.readAt).length,
+        unreadMessages: 0, // TODO: Implement when CaseMessage model is added
       },
     };
 
     return NextResponse.json({ success: true, case: transformedCase });
   } catch (error) {
     console.error('Failed to fetch case details:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch case details' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch case details' }, { status: 500 });
   }
 }

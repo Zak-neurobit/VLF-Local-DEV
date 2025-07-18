@@ -714,7 +714,12 @@ export default function NorthCarolinaCriminalDefenseGuidePage() {
       'Constitutional Rights',
       'YO PELEO POR TI',
     ],
-    featuredImage: '/images/blog/nc-criminal-defense-guide.jpg',
+    featuredImage: {
+      url: '/images/blog/nc-criminal-defense-guide.jpg',
+      alt: 'North Carolina Criminal Defense Guide - Vasquez Law Firm',
+      width: 1200,
+      height: 630,
+    },
     views: 0,
   };
 
@@ -749,6 +754,7 @@ export default function NorthCarolinaCriminalDefenseGuidePage() {
       slug: 'dui-defense-strategies-north-carolina',
       excerpt:
         'Learn the most effective defense strategies for DUI charges in NC, from challenging the stop to questioning breathalyzer accuracy.',
+      content: '', // Content is not displayed in related posts section
       practiceArea: 'criminal-defense',
       language: 'en' as const,
       publishedAt: new Date('2024-01-10T10:00:00.000Z'),
@@ -762,6 +768,7 @@ export default function NorthCarolinaCriminalDefenseGuidePage() {
       slug: 'drug-possession-laws-north-carolina',
       excerpt:
         "Complete guide to drug possession charges in NC, including penalties, defenses, and what to do if you're charged.",
+      content: '', // Content is not displayed in related posts section
       practiceArea: 'criminal-defense',
       language: 'en' as const,
       publishedAt: new Date('2024-01-05T10:00:00.000Z'),
@@ -775,6 +782,7 @@ export default function NorthCarolinaCriminalDefenseGuidePage() {
       slug: 'assault-charges-defense-north-carolina',
       excerpt:
         'Expert analysis of assault charge defenses in North Carolina, including self-defense and false accusation strategies.',
+      content: '', // Content is not displayed in related posts section
       practiceArea: 'criminal-defense',
       language: 'en' as const,
       publishedAt: new Date('2024-01-01T10:00:00.000Z'),

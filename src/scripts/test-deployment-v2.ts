@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 
 import { logger } from '../lib/logger';
+import { errorToLogMeta } from '../lib/logger/utils';
 import { AgentMonitor } from '../lib/agents/agent-monitor';
 import { AgentOrchestrator } from '../lib/agents/agent-orchestrator';
 import { CrewCoordinator } from '../lib/crewai/enhanced-crew-coordinator';

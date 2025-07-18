@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { emailService } from '@/services/email';
 import { z } from 'zod';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { withTracing } from '@/lib/telemetry/api-middleware';
 
 export const runtime = 'nodejs';

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { CrewCoordinator } from '@/lib/crewai/enhanced-crew-coordinator';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { withDatabaseTracing } from '@/lib/telemetry/api-middleware';
 
 interface ProcessWithLoadAvg extends NodeJS.Process {

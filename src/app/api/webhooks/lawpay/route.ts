@@ -99,23 +99,37 @@ async function handlePaymentCreated(data: any) {
     const amountInDollars = amount > 1000 ? amount / 100 : amount;
 
     // Create or update payment record
-    await prisma.payment.upsert({
-      where: { externalId: paymentId },
-      create: {
-        externalId: paymentId,
-        amount: amountInDollars,
-        currency,
-        status: 'pending',
-        provider: 'lawpay',
-        metadata: {
-          ...metadata,
-          lawpayData: data,
-        },
-      },
-      update: {
-        status: 'pending',
-      },
+    // Check if payment already exists
+    const existingPayment = await prisma.payment.findFirst({
+      where: { gatewayTransactionId: paymentId },
     });
+
+    if (existingPayment) {
+      await prisma.payment.update({
+        where: { id: existingPayment.id },
+        data: {
+          status: 'PENDING',
+        },
+      });
+    } else {
+      await prisma.payment.create({
+        data: {
+          gatewayTransactionId: paymentId,
+          amount: amountInDollars,
+          currency,
+          status: 'PENDING',
+          gateway: 'LAWPAY',
+          paymentMethod: 'CARD',
+          description: metadata.description || 'Payment via LawPay',
+          clientEmail: metadata.email || 'unknown@email.com',
+          clientName: metadata.name || 'Unknown',
+          metadata: {
+            ...metadata,
+            lawpayData: data,
+          },
+        },
+      });
+    }
 
     logger.info('Payment created in database', { paymentId });
   } catch (error) {
@@ -131,25 +145,34 @@ async function handlePaymentSucceeded(data: any) {
   const metadata = data.metadata || data.custom_fields || {};
 
   try {
+    // Calculate amount in dollars
+    const amountInDollars = amount > 1000 ? amount / 100 : amount;
+
     // Find payment by external ID or reference
     const existingPayment = await prisma.payment.findFirst({
       where: {
-        OR: [{ externalId: paymentId }, { metadata: { path: ['reference'], equals: paymentId } }],
+        OR: [
+          { gatewayTransactionId: paymentId },
+          { metadata: { path: ['reference'], equals: paymentId } },
+        ],
       },
     });
 
     if (!existingPayment) {
       // Create new payment if it doesn't exist
-      const amountInDollars = amount > 1000 ? amount / 100 : amount;
       await prisma.payment.create({
         data: {
-          externalId: paymentId,
+          gatewayTransactionId: paymentId,
           amount: amountInDollars,
           currency: data.currency || 'USD',
-          status: 'completed',
-          provider: 'lawpay',
-          transactionId,
-          completedAt: new Date(),
+          status: 'SUCCEEDED',
+          gateway: 'LAWPAY',
+          gatewayChargeId: transactionId,
+          processedAt: new Date(),
+          paymentMethod: 'CARD',
+          description: metadata.description || 'Payment via LawPay',
+          clientEmail: metadata.email || 'unknown@email.com',
+          clientName: metadata.name || 'Unknown',
           metadata: {
             ...metadata,
             lawpayData: data,
@@ -161,11 +184,11 @@ async function handlePaymentSucceeded(data: any) {
       await prisma.payment.update({
         where: { id: existingPayment.id },
         data: {
-          status: 'completed',
-          transactionId,
-          completedAt: new Date(),
+          status: 'SUCCEEDED',
+          gatewayChargeId: transactionId,
+          processedAt: new Date(),
           metadata: {
-            ...existingPayment.metadata,
+            ...((existingPayment.metadata as object) || {}),
             ...metadata,
             lawpayData: data,
           },
@@ -174,9 +197,9 @@ async function handlePaymentSucceeded(data: any) {
     }
 
     logger.info('Payment succeeded', {
-      paymentId: payment_id,
-      amount: amount / 100,
-      transactionId: transaction_id,
+      paymentId,
+      amount: amountInDollars,
+      transactionId,
     });
 
     // Send confirmation email
@@ -184,87 +207,88 @@ async function handlePaymentSucceeded(data: any) {
       // TODO: Queue confirmation email
       logger.info('Payment confirmation email queued', {
         email: metadata.clientEmail,
-        paymentId: payment_id,
+        paymentId,
       });
     }
 
     // Create notification for admin
-    await prisma.notification.create({
-      data: {
-        type: 'payment_received',
-        title: 'Payment Received',
-        message: `Payment of $${(amount / 100).toFixed(2)} received`,
-        data: {
-          paymentId: payment.id,
-          amount: amount / 100,
-          clientName: metadata?.clientName,
-          clientEmail: metadata?.clientEmail,
-        },
-      },
+    // TODO: Implement notification system
+    logger.info('Payment notification would be created', {
+      type: 'PAYMENT_RECEIVED',
+      amount: amountInDollars,
+      clientEmail: metadata?.clientEmail,
     });
   } catch (error) {
-    logger.error(
-      'Failed to handle payment success',
-      createErrorLogMeta(error, { paymentId: payment_id })
-    );
+    logger.error('Failed to handle payment success', createErrorLogMeta(error, { paymentId }));
   }
 }
 
 async function handlePaymentFailed(data: any) {
-  const { payment_id, failure_reason, failure_code } = data;
+  const paymentId = data.payment_id || data.id || data.transaction_id || data.reference;
+  const failureReason =
+    data.failure_reason || data.error_message || data.decline_reason || 'Unknown error';
 
   try {
-    await prisma.payment.update({
-      where: { externalId: payment_id },
-      data: {
-        status: 'failed',
-        errorMessage: failure_reason,
-        metadata: {
-          failureCode: failure_code,
-          lawpayData: data,
-        },
-      },
+    const existingPayment = await prisma.payment.findFirst({
+      where: { gatewayTransactionId: paymentId },
     });
 
+    if (existingPayment) {
+      await prisma.payment.update({
+        where: { id: existingPayment.id },
+        data: {
+          status: 'FAILED',
+          failureReason,
+          metadata: {
+            ...((existingPayment.metadata as object) || {}),
+            failureCode: data.failure_code || data.error_code || 'unknown',
+            lawpayData: data,
+          },
+        },
+      });
+    }
+
     logger.warn('Payment failed', {
-      paymentId: payment_id,
-      reason: failure_reason,
-      code: failure_code,
+      paymentId,
+      reason: failureReason,
     });
   } catch (error) {
-    logger.error(
-      'Failed to handle payment failure',
-      createErrorLogMeta(error, { paymentId: payment_id })
-    );
+    logger.error('Failed to handle payment failure', createErrorLogMeta(error, { paymentId }));
   }
 }
 
 async function handlePaymentRefunded(data: any) {
-  const { payment_id, refund_amount, refund_id } = data;
+  const paymentId = data.payment_id || data.id || data.transaction_id || data.reference;
+  const refundAmount = data.refund_amount || data.amount || 0;
+  const refundId = data.refund_id || data.refund_transaction_id || data.id;
 
   try {
-    await prisma.payment.update({
-      where: { externalId: payment_id },
-      data: {
-        status: 'refunded',
-        metadata: {
-          refundId: refund_id,
-          refundAmount: refund_amount / 100,
-          refundedAt: new Date(),
-          lawpayData: data,
-        },
-      },
+    const existingPayment = await prisma.payment.findFirst({
+      where: { gatewayTransactionId: paymentId },
     });
 
+    if (existingPayment) {
+      await prisma.payment.update({
+        where: { id: existingPayment.id },
+        data: {
+          status: 'REFUNDED',
+          refundedAt: new Date(),
+          metadata: {
+            ...((existingPayment.metadata as object) || {}),
+            refundId,
+            refundAmount: refundAmount > 1000 ? refundAmount / 100 : refundAmount,
+            lawpayData: data,
+          },
+        },
+      });
+    }
+
     logger.info('Payment refunded', {
-      paymentId: payment_id,
-      refundAmount: refund_amount / 100,
-      refundId: refund_id,
+      paymentId,
+      refundAmount: refundAmount > 1000 ? refundAmount / 100 : refundAmount,
+      refundId,
     });
   } catch (error) {
-    logger.error(
-      'Failed to handle payment refund',
-      createErrorLogMeta(error, { paymentId: payment_id })
-    );
+    logger.error('Failed to handle payment refund', createErrorLogMeta(error, { paymentId }));
   }
 }

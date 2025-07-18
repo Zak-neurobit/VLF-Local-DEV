@@ -1030,7 +1030,12 @@ export default function NorthCarolinaFamilyLawGuidePage() {
       'Property Division',
       'YO PELEO POR TI',
     ],
-    featuredImage: '/images/blog/nc-family-law-guide.jpg',
+    featuredImage: {
+      url: '/images/blog/nc-family-law-guide.jpg',
+      alt: 'North Carolina Family Law Guide - Vasquez Law Firm',
+      width: 1200,
+      height: 630,
+    },
     views: 0,
   };
 
@@ -1065,6 +1070,7 @@ export default function NorthCarolinaFamilyLawGuidePage() {
       slug: 'north-carolina-divorce-guide',
       excerpt:
         'Everything you need to know about getting divorced in NC, from separation requirements to property division and custody.',
+      content: '', // Content is not displayed in related posts section
       practiceArea: 'family-law',
       language: 'en' as const,
       publishedAt: new Date('2024-01-15T10:00:00.000Z'),
@@ -1078,6 +1084,7 @@ export default function NorthCarolinaFamilyLawGuidePage() {
       slug: 'child-custody-laws-north-carolina',
       excerpt:
         'Understanding child custody decisions in NC, including best interest factors, parenting plans, and modification procedures.',
+      content: '', // Content is not displayed in related posts section
       practiceArea: 'family-law',
       language: 'en' as const,
       publishedAt: new Date('2024-01-10T10:00:00.000Z'),
@@ -1091,6 +1098,7 @@ export default function NorthCarolinaFamilyLawGuidePage() {
       slug: 'domestic-violence-protection-orders-nc',
       excerpt:
         'How to obtain protection from domestic violence in NC, including 50B orders, emergency procedures, and safety planning.',
+      content: '', // Content is not displayed in related posts section
       practiceArea: 'family-law',
       language: 'en' as const,
       publishedAt: new Date('2024-01-05T10:00:00.000Z'),

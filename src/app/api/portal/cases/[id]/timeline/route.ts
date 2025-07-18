@@ -2,11 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma-safe';
+// import type { UserActivity } from '@prisma/client';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.id) {
@@ -26,8 +24,14 @@ export async function GET(
     }
 
     // Get all activities for the case
-    const activities = await prisma.caseActivity.findMany({
-      where: { caseId: params.id },
+    const activities = await prisma.userActivity.findMany({
+      where: {
+        userId: session.user.id,
+        metadata: {
+          path: ['caseId'],
+          equals: params.id,
+        },
+      },
       orderBy: { createdAt: 'desc' },
       include: {
         user: {
@@ -40,25 +44,29 @@ export async function GET(
     });
 
     // Transform activities into timeline events
-    const events = activities.map((activity) => ({
-      id: activity.id,
-      type: activity.type as any,
-      title: activity.title,
-      description: activity.description,
-      date: activity.createdAt,
-      user: {
-        name: activity.user.name || 'System',
-        role: activity.user.role || 'system',
-      },
-      metadata: activity.metadata as any,
-    }));
+    const events = activities.map((activity: any) => {
+      // Extract title and description from metadata if available
+      const metadata = (activity.metadata as any) || {};
+      const title = metadata.title || activity.type || 'Activity';
+      const description = metadata.description || '';
+
+      return {
+        id: activity.id,
+        type: activity.type,
+        title: title,
+        description: description,
+        date: activity.createdAt,
+        user: {
+          name: activity.user?.name || 'System',
+          role: activity.user?.role || 'system',
+        },
+        metadata: metadata,
+      };
+    });
 
     return NextResponse.json({ success: true, events });
   } catch (error) {
     console.error('Failed to fetch timeline:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch timeline' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch timeline' }, { status: 500 });
   }
 }

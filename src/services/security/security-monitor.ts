@@ -1,14 +1,15 @@
 import { logger } from '@/lib/logger';
 import { prisma } from '@/lib/prisma-safe';
+import { securityReportStubs } from '@/lib/prisma-model-stubs';
 import { EventEmitter } from 'events';
 import crypto from 'crypto';
 import { z } from 'zod';
-import type { 
-  ThreatDetectorConfig, 
-  SecurityPolicy, 
+import type {
+  ThreatDetectorConfig,
+  SecurityPolicy,
   MonitoringStatus,
   SecurityMetrics,
-  ThreatResponseAction 
+  ThreatResponseAction,
 } from '@/lib/security/types';
 
 // Basic threat interface
@@ -155,10 +156,10 @@ export class SecurityMonitor extends EventEmitter {
     }
 
     this.isMonitoring = true;
-    
+
     // Enable specific detectors or all if none specified
     const enabledDetectors = detectorIds || Array.from(this.threatDetectors.keys());
-    
+
     for (const id of enabledDetectors) {
       const detector = this.threatDetectors.get(id);
       if (detector) {
@@ -245,35 +246,44 @@ export class SecurityMonitor extends EventEmitter {
     // Simulate different types of threats based on detector type
     switch (detector.type) {
       case 'authentication':
-        if (Math.random() < 0.1) { // 10% chance of threat
-          threats.push(this.createThreat({
-            type: detector.id,
-            severity: 'high',
-            description: `${detector.name} detected suspicious activity`,
-            evidence: ['Multiple failed login attempts from same IP'],
-          }));
+        if (Math.random() < 0.1) {
+          // 10% chance of threat
+          threats.push(
+            this.createThreat({
+              type: detector.id,
+              severity: 'high',
+              description: `${detector.name} detected suspicious activity`,
+              evidence: ['Multiple failed login attempts from same IP'],
+            })
+          );
         }
         break;
 
       case 'api':
-        if (Math.random() < 0.05) { // 5% chance of threat
-          threats.push(this.createThreat({
-            type: detector.id,
-            severity: 'medium',
-            description: `API abuse pattern detected`,
-            evidence: ['High request rate from single source'],
-          }));
+        if (Math.random() < 0.05) {
+          // 5% chance of threat
+          threats.push(
+            this.createThreat({
+              type: detector.id,
+              severity: 'medium',
+              description: `API abuse pattern detected`,
+              evidence: ['High request rate from single source'],
+            })
+          );
         }
         break;
 
       case 'data-access':
-        if (Math.random() < 0.02) { // 2% chance of threat
-          threats.push(this.createThreat({
-            type: detector.id,
-            severity: 'critical',
-            description: `Potential data exfiltration detected`,
-            evidence: ['Large data download outside normal hours'],
-          }));
+        if (Math.random() < 0.02) {
+          // 2% chance of threat
+          threats.push(
+            this.createThreat({
+              type: detector.id,
+              severity: 'critical',
+              description: `Potential data exfiltration detected`,
+              evidence: ['Large data download outside normal hours'],
+            })
+          );
         }
         break;
     }
@@ -313,11 +323,11 @@ export class SecurityMonitor extends EventEmitter {
 
   private async handleThreat(threat: SecurityThreat): Promise<void> {
     // Log the threat
-    logger.warn('Security threat detected', { 
+    logger.warn('Security threat detected', {
       id: threat.id,
       type: threat.type,
       severity: threat.severity,
-      description: threat.description
+      description: threat.description,
     });
 
     // Store in database
@@ -326,14 +336,17 @@ export class SecurityMonitor extends EventEmitter {
         data: {
           id: threat.id,
           type: threat.type,
+          source: threat.sourceIp || 'unknown',
+          threat: threat.description,
           severity: threat.severity,
           status: threat.status,
-          description: threat.description,
-          sourceIp: threat.sourceIp,
-          targetResource: threat.targetResource,
-          evidence: JSON.stringify(threat.evidence),
-          count: threat.count,
-          metadata: JSON.stringify(threat.metadata || {}),
+          details: threat.description,
+          metadata: {
+            targetResource: threat.targetResource,
+            evidence: threat.evidence,
+            count: threat.count,
+            ...threat.metadata,
+          },
         },
       });
     } catch (error) {
@@ -358,18 +371,21 @@ export class SecurityMonitor extends EventEmitter {
         break;
       case 'data-exfiltration':
         // Suspend user account
-        logger.info('Auto-suspending user for data exfiltration', { resource: threat.targetResource });
+        logger.info('Auto-suspending user for data exfiltration', {
+          resource: threat.targetResource,
+        });
         break;
     }
   }
 
   private async checkCompliance(): Promise<any> {
     const violations = [];
-    
+
     for (const [id, policy] of this.securityPolicies) {
       if (policy.enforced) {
         // Simulate compliance checking
-        if (Math.random() < 0.1) { // 10% chance of violation
+        if (Math.random() < 0.1) {
+          // 10% chance of violation
           violations.push({
             policyId: id,
             policyName: policy.name,
@@ -383,14 +399,20 @@ export class SecurityMonitor extends EventEmitter {
     return { violations, compliant: violations.length === 0 };
   }
 
-  private async generateSecurityReport(scanResults: ScanResult[], complianceResults: any): Promise<any> {
+  private async generateSecurityReport(
+    scanResults: ScanResult[],
+    complianceResults: any
+  ): Promise<any> {
     const totalThreats = scanResults.reduce((sum, result) => sum + result.threats.length, 0);
-    const threatsBySeverity = scanResults.reduce((acc, result) => {
-      result.threats.forEach(threat => {
-        acc[threat.severity] = (acc[threat.severity] || 0) + 1;
-      });
-      return acc;
-    }, {} as Record<string, number>);
+    const threatsBySeverity = scanResults.reduce(
+      (acc, result) => {
+        result.threats.forEach(threat => {
+          acc[threat.severity] = (acc[threat.severity] || 0) + 1;
+        });
+        return acc;
+      },
+      {} as Record<string, number>
+    );
 
     return {
       timestamp: new Date(),
@@ -412,7 +434,7 @@ export class SecurityMonitor extends EventEmitter {
 
   private async storeScanResults(report: any): Promise<void> {
     try {
-      await prisma.securityReport.create({
+      await securityReportStubs.create({
         data: {
           timestamp: report.timestamp,
           summary: JSON.stringify(report.summary),
@@ -428,12 +450,11 @@ export class SecurityMonitor extends EventEmitter {
 
   async getMonitoringStatus(): Promise<MonitoringStatus> {
     const totalDetectors = this.threatDetectors.size;
-    const activeDetectors = Array.from(this.threatDetectors.values())
-      .filter(d => d.enabled).length;
+    const activeDetectors = Array.from(this.threatDetectors.values()).filter(d => d.enabled).length;
 
     const threatsLast24h = await prisma.securityThreat.count({
       where: {
-        timestamp: {
+        createdAt: {
           gte: new Date(Date.now() - 24 * 60 * 60 * 1000),
         },
       },
@@ -441,7 +462,7 @@ export class SecurityMonitor extends EventEmitter {
 
     const openIncidents = await prisma.securityIncident.count({
       where: {
-        status: { in: ['open', 'investigating'] },
+        resolved: false,
       },
     });
 
@@ -456,21 +477,29 @@ export class SecurityMonitor extends EventEmitter {
     };
   }
 
-  async getThreats(params: {
-    timeframe?: string;
-    severity?: string;
-    status?: string;
-  } = {}): Promise<SecurityThreat[]> {
+  async getThreats(
+    params: {
+      timeframe?: string;
+      severity?: string;
+      status?: string;
+    } = {}
+  ): Promise<SecurityThreat[]> {
     const where: any = {};
 
     // Apply timeframe filter
     if (params.timeframe) {
-      const hours = params.timeframe === '1h' ? 1 : 
-                   params.timeframe === '24h' ? 24 :
-                   params.timeframe === '7d' ? 168 :
-                   params.timeframe === '30d' ? 720 : 24;
-      
-      where.timestamp = {
+      const hours =
+        params.timeframe === '1h'
+          ? 1
+          : params.timeframe === '24h'
+            ? 24
+            : params.timeframe === '7d'
+              ? 168
+              : params.timeframe === '30d'
+                ? 720
+                : 24;
+
+      where.createdAt = {
         gte: new Date(Date.now() - hours * 60 * 60 * 1000),
       };
     }
@@ -485,23 +514,26 @@ export class SecurityMonitor extends EventEmitter {
 
     const threats = await prisma.securityThreat.findMany({
       where,
-      orderBy: { timestamp: 'desc' },
+      orderBy: { createdAt: 'desc' },
       take: 100,
     });
 
-    return threats.map(t => ({
-      id: t.id,
-      type: t.type,
-      severity: t.severity as SecurityThreat['severity'],
-      status: t.status as SecurityThreat['status'],
-      description: t.description,
-      sourceIp: t.sourceIp || undefined,
-      targetResource: t.targetResource || undefined,
-      timestamp: t.timestamp,
-      evidence: JSON.parse(t.evidence as string || '[]'),
-      count: t.count,
-      metadata: JSON.parse(t.metadata as string || '{}'),
-    }));
+    return threats.map(t => {
+      const metadata = (t.metadata as any) || {};
+      return {
+        id: t.id,
+        type: t.type,
+        severity: t.severity as SecurityThreat['severity'],
+        status: t.status as SecurityThreat['status'],
+        description: t.details,
+        sourceIp: t.source || undefined,
+        targetResource: metadata.targetResource || undefined,
+        timestamp: t.createdAt,
+        evidence: metadata.evidence || [],
+        count: metadata.count || 1,
+        metadata: metadata,
+      };
+    });
   }
 
   async performSecurityAudit(): Promise<{
@@ -529,10 +561,10 @@ export class SecurityMonitor extends EventEmitter {
         if (result) passed++;
         else failed++;
       } catch (error) {
-        results.push({ 
-          name: check.name, 
-          passed: false, 
-          details: String(error) 
+        results.push({
+          name: check.name,
+          passed: false,
+          details: String(error),
         });
         failed++;
       }
@@ -554,7 +586,7 @@ export class SecurityMonitor extends EventEmitter {
   private async checkAccessControls(): Promise<boolean> {
     // Check for proper access controls
     const adminCount = await prisma.user.count({
-      where: { role: { contains: 'admin' } },
+      where: { role: 'ADMIN' },
     });
     return adminCount <= 5; // Limit admin accounts
   }
@@ -575,8 +607,8 @@ export class SecurityMonitor extends EventEmitter {
   }
 
   async respondToThreat(
-    threatId: string, 
-    action: ThreatResponseAction, 
+    threatId: string,
+    action: ThreatResponseAction,
     notes?: string
   ): Promise<void> {
     const threat = this.activeThreats.get(threatId);
@@ -606,7 +638,7 @@ export class SecurityMonitor extends EventEmitter {
     // Update in database
     await prisma.securityThreat.update({
       where: { id: threatId },
-      data: { 
+      data: {
         status: threat.status,
         updatedAt: new Date(),
       },
@@ -633,11 +665,8 @@ export class SecurityMonitor extends EventEmitter {
           id: crypto.randomUUID(),
           type: incident.type,
           severity: incident.severity,
-          status: 'open',
-          title: `Security Incident: ${incident.type}`,
           description: incident.description,
-          reportedBy: 'system',
-          metadata: JSON.stringify(incident.metadata || {}),
+          metadata: incident.metadata || {},
         },
       });
 

@@ -28,45 +28,43 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     const where: any = { caseId: params.id };
 
     if (filter === 'pending_signature') {
-      where.signatureRequired = true;
-      where.signedAt = null;
+      // Filter by metadata for signature required documents
+      where.metadata = {
+        path: ['signatureRequired'],
+        equals: true,
+      };
     } else if (filter === 'recent') {
       const sevenDaysAgo = new Date();
       sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-      where.uploadedAt = { gte: sevenDaysAgo };
+      where.createdAt = { gte: sevenDaysAgo };
     }
 
     const documents = await prisma.document.findMany({
       where,
-      orderBy: { uploadedAt: 'desc' },
-      include: {
-        uploadedBy: {
-          select: {
-            name: true,
-            role: true,
-          },
-        },
-      },
+      orderBy: { createdAt: 'desc' },
     });
 
     // Transform documents
-    const transformedDocuments = documents.map(doc => ({
-      id: doc.id,
-      name: doc.name,
-      type: doc.type,
-      size: doc.size,
-      uploadedAt: doc.uploadedAt,
-      uploadedBy: {
-        name: doc.uploadedBy.name || 'Unknown',
-        role: doc.uploadedBy.role || 'client',
-      },
-      status: doc.status,
-      category: doc.category,
-      description: doc.description,
-      downloadUrl: `/api/portal/documents/${doc.id}/download`,
-      signatureRequired: doc.signatureRequired,
-      signedAt: doc.signedAt,
-    }));
+    const transformedDocuments = documents.map(doc => {
+      const metadata = (doc.metadata as any) || {};
+      return {
+        id: doc.id,
+        name: doc.name,
+        type: doc.type,
+        size: doc.size,
+        uploadedAt: doc.createdAt,
+        uploadedBy: {
+          name: metadata.uploadedByName || 'Unknown',
+          role: metadata.uploadedByRole || 'client',
+        },
+        status: metadata.status || 'uploaded',
+        category: metadata.category || doc.type,
+        description: metadata.description || '',
+        downloadUrl: `/api/portal/documents/${doc.id}/download`,
+        signatureRequired: metadata.signatureRequired || false,
+        signedAt: metadata.signedAt || null,
+      };
+    });
 
     return NextResponse.json({ success: true, documents: transformedDocuments });
   } catch (error) {

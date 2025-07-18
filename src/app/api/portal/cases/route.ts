@@ -47,36 +47,33 @@ export async function GET(request: NextRequest) {
         _count: {
           select: {
             documents: true,
-            messages: {
-              where: { readAt: null },
-            },
           },
         },
       },
     });
 
     // Transform the data
-    const transformedCases = cases.map((c) => ({
-      id: c.id,
-      caseNumber: c.caseNumber,
-      title: c.title,
-      practiceArea: c.practiceArea,
-      status: c.status,
-      priority: c.priority,
-      attorney: c.attorney,
-      createdAt: c.createdAt,
-      updatedAt: c.updatedAt,
-      unreadMessages: c._count.messages,
-      documentCount: c._count.documents,
-      lastActivity: c.updatedAt,
-    }));
+    const transformedCases = cases.map(c => {
+      const metadata = (c.metadata as any) || {};
+      return {
+        id: c.id,
+        caseNumber: c.caseNumber,
+        title: metadata.title || `Case ${c.caseNumber}`,
+        practiceArea: c.practiceArea,
+        status: c.status,
+        priority: metadata.priority || 'normal',
+        attorney: c.attorney,
+        createdAt: c.createdAt,
+        updatedAt: c.updatedAt,
+        unreadMessages: 0, // TODO: Implement when CaseMessage model is added
+        documentCount: c._count.documents,
+        lastActivity: c.updatedAt,
+      };
+    });
 
     return NextResponse.json({ success: true, cases: transformedCases });
   } catch (error) {
     console.error('Failed to fetch cases:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch cases' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch cases' }, { status: 500 });
   }
 }

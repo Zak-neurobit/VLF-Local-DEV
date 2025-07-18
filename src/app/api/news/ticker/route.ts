@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { createErrorLogMeta } from '@/lib/logger/utils';
 import RssParser from 'rss-parser';
 
 // Working RSS feeds for live news
@@ -59,7 +59,7 @@ async function fetchLiveNews(category: string, limit: number): Promise<any[]> {
         newsItems.push(...items);
       }
     } catch (error) {
-      logger.warn(`Failed to fetch from ${feed.name}:`, errorToLogMeta(error));
+      logger.warn(`Failed to fetch from ${feed.name}:`, createErrorLogMeta(error) as any);
     }
   }
 
@@ -95,6 +95,7 @@ export async function GET(request: NextRequest) {
           category: category,
           publishedAt: {
             lte: new Date(),
+            not: null,
           },
           status: 'published',
         },
@@ -111,12 +112,6 @@ export async function GET(request: NextRequest) {
         },
         orderBy: [
           {
-            metadata: {
-              path: ['urgent'],
-              sort: 'desc',
-            },
-          },
-          {
             publishedAt: 'desc',
           },
         ],
@@ -129,15 +124,15 @@ export async function GET(request: NextRequest) {
         title: post.title,
         titleEs: post.titleEs,
         url: `/blog/${post.slug}`,
-        date: post.publishedAt.toISOString(),
+        date: post.publishedAt ? post.publishedAt.toISOString() : new Date().toISOString(),
         category: post.category,
-        urgent: post.metadata?.urgent || false,
+        urgent: (post.metadata as any)?.urgent || false,
         excerpt: locale === 'es' ? post.excerptEs || post.excerpt : post.excerpt,
       }));
 
       logger.info(`Fetched ${newsItems.length} news items from database`);
     } catch (dbError) {
-      logger.warn('Database unavailable, fetching live news:', dbError);
+      logger.warn('Database unavailable, fetching live news:', createErrorLogMeta(dbError) as any);
 
       // If database fails, fetch live news from RSS feeds
       newsItems = await fetchLiveNews(category, limit);
@@ -215,7 +210,7 @@ export async function GET(request: NextRequest) {
       total: newsItems.length,
     });
   } catch (error) {
-    logger.error('Error fetching news ticker items:', errorToLogMeta(error));
+    logger.error('Error fetching news ticker items:', createErrorLogMeta(error) as any);
     return NextResponse.json({ error: 'Failed to fetch news items' }, { status: 500 });
   }
 }

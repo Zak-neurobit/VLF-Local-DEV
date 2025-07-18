@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getRetellService } from '@/services/retell';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { callAnalysisQueue } from '@/lib/queue/bull';
 import { getPrismaClient } from '@/lib/prisma';
 import { statusManager } from '@/services/retell/status-manager';
@@ -83,7 +84,7 @@ async function handlePOST(request: NextRequest) {
       metadata: { event: event?.event, callId: event?.call?.call_id },
     });
 
-    logger.error('Retell webhook error:', errorToLogMeta(error));
+    logger.error('Retell webhook error', errorToLogMeta(error));
     return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 });
   }
 }
@@ -129,7 +130,7 @@ async function handleRetellEvent(event: RetellWebhookEvent) {
           try {
             await recordingManager.processRecording(call.call_id as string);
           } catch (error) {
-            logger.error('Failed to process recording:', errorToLogMeta(error));
+            logger.error('Failed to process recording', errorToLogMeta(error));
           }
         }, 1000); // 1 second delay
       }
@@ -254,7 +255,7 @@ async function handleCallStarted(call: Record<string, unknown>) {
           },
         });
       } catch (ghlError) {
-        logger.error('Failed to sync with GHL:', ghlError);
+        logger.error('Failed to sync with GHL', errorToLogMeta(ghlError));
       }
     }
 
@@ -265,7 +266,7 @@ async function handleCallStarted(call: Record<string, unknown>) {
       to: call.to_number,
     });
   } catch (error) {
-    logger.error('Failed to handle call started:', errorToLogMeta(error));
+    logger.error('Failed to handle call started', errorToLogMeta(error));
   }
 }
 
@@ -375,7 +376,7 @@ async function handleCallEnded(call: Record<string, unknown>) {
           });
         }
       } catch (ghlError) {
-        logger.error('Failed to update GHL after call ended:', ghlError);
+        logger.error('Failed to update GHL after call ended', errorToLogMeta(ghlError));
       }
     }
 
@@ -393,7 +394,7 @@ async function handleCallEnded(call: Record<string, unknown>) {
       reason: call.disconnection_reason,
     });
   } catch (error) {
-    logger.error('Failed to handle call ended:', errorToLogMeta(error));
+    logger.error('Failed to handle call ended', errorToLogMeta(error));
   }
 }
 
@@ -428,7 +429,7 @@ async function handleCallAnalyzed(event: Record<string, unknown>) {
       sentiment: (analysis as Record<string, unknown>).sentiment,
     });
   } catch (error) {
-    logger.error('Failed to handle call analysis:', errorToLogMeta(error));
+    logger.error('Failed to handle call analysis', errorToLogMeta(error));
   }
 }
 
@@ -449,7 +450,7 @@ async function handleTranscriptReady(event: Record<string, unknown>) {
       length: (transcript as string).length,
     });
   } catch (error) {
-    logger.error('Failed to handle transcript ready:', errorToLogMeta(error));
+    logger.error('Failed to handle transcript ready', errorToLogMeta(error));
   }
 }
 
@@ -469,7 +470,7 @@ async function handleRecordingReady(event: Record<string, unknown>) {
       callId: call_id,
     });
   } catch (error) {
-    logger.error('Failed to handle recording ready:', errorToLogMeta(error));
+    logger.error('Failed to handle recording ready', errorToLogMeta(error));
   }
 }
 
@@ -503,7 +504,7 @@ async function createFollowUpTask(call: Record<string, unknown>) {
       callId: call.externalCallId as string,
     });
   } catch (error) {
-    logger.error('Failed to create follow-up task:', errorToLogMeta(error));
+    logger.error('Failed to create follow-up task', errorToLogMeta(error));
   }
 }
 

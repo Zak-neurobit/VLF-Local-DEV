@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 
 import { logger } from '../lib/logger';
+import { errorToLogMeta } from '../lib/logger/utils';
 import { prisma } from '../lib/prisma';
 import { AgentOrchestrator } from '../lib/agents/agent-orchestrator';
 import { AgentMonitor } from '../lib/agents/agent-monitor';

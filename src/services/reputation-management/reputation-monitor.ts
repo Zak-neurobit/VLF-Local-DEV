@@ -1,6 +1,7 @@
 import { logger } from '@/lib/logger';
 import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma-safe';
+import { reviewStubs } from '@/lib/prisma-model-stubs';
 import { reviewHarvester } from './review-harvester';
 import { responseGenerator } from './response-generator';
 import { EventEmitter } from 'events';
@@ -328,7 +329,7 @@ export class ReputationMonitor extends EventEmitter {
     const targetResponseTime = this.alertThresholds.responseTimeTarget;
     const cutoffTime = new Date(Date.now() - targetResponseTime * 60 * 1000);
 
-    const unansweredReviews = await prisma.review.findMany({
+    const unansweredReviews = await reviewStubs.findMany({
       where: {
         responded: false,
         publishedAt: { lte: cutoffTime },
@@ -408,7 +409,7 @@ export class ReputationMonitor extends EventEmitter {
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-    const recentReviews = await prisma.review.findMany({
+    const recentReviews = await reviewStubs.findMany({
       where: {
         publishedAt: { gte: thirtyDaysAgo },
       },
@@ -446,10 +447,10 @@ export class ReputationMonitor extends EventEmitter {
 
   private async calculateReputationMetrics(): Promise<ReputationMetrics> {
     const [totalReviews, respondedReviews, avgRating, platformStats] = await Promise.all([
-      prisma.review.count(),
-      prisma.review.count({ where: { responded: true } }),
-      prisma.review.aggregate({ _avg: { rating: true } }),
-      prisma.review.groupBy({
+      reviewStubs.count(),
+      reviewStubs.count({ where: { responded: true } }),
+      reviewStubs.aggregate({ _avg: { rating: true } }),
+      reviewStubs.groupBy({
         by: ['platformId'],
         _count: true,
         _avg: { rating: true },
@@ -622,13 +623,13 @@ export class ReputationMonitor extends EventEmitter {
     const performance = [];
 
     for (const platform of platforms) {
-      const stats = await prisma.review.aggregate({
+      const stats = await reviewStubs.aggregate({
         where: { platformId: platform.id },
         _count: true,
         _avg: { rating: true },
       });
 
-      const responseStats = await prisma.review.aggregate({
+      const responseStats = await reviewStubs.aggregate({
         where: {
           platformId: platform.id,
           responded: true,

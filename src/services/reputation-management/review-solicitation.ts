@@ -1,6 +1,12 @@
 import { logger } from '@/lib/logger';
 import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma-safe';
+import {
+  reviewStubs,
+  scheduledEmailStubs,
+  reviewSolicitationTrackingStubs,
+  reviewSolicitationOptOutStubs,
+} from '@/lib/prisma-model-stubs';
 import { emailService } from '@/services/email.service';
 import { z } from 'zod';
 
@@ -340,7 +346,7 @@ Vasquez Law Firm, PLLC
     attempt: number;
     data: any;
   }): Promise<void> {
-    await prisma.scheduledEmail.create({
+    await scheduledEmailStubs.create({
       data: {
         type: 'review_solicitation',
         recipientId: params.clientId,
@@ -359,7 +365,7 @@ Vasquez Law Firm, PLLC
   async sendScheduledEmails(): Promise<void> {
     const now = new Date();
 
-    const scheduledEmails = await prisma.scheduledEmail.findMany({
+    const scheduledEmails = await scheduledEmailStubs.findMany({
       where: {
         type: 'review_solicitation',
         status: 'scheduled',
@@ -375,7 +381,7 @@ Vasquez Law Firm, PLLC
         await this.sendSolicitationEmail(scheduledEmail);
 
         // Mark as sent
-        await prisma.scheduledEmail.update({
+        await scheduledEmailStubs.update({
           where: { id: scheduledEmail.id },
           data: {
             status: 'sent',
@@ -386,7 +392,7 @@ Vasquez Law Firm, PLLC
         logger.error(`Failed to send scheduled email ${scheduledEmail.id}:`, errorToLogMeta(error));
 
         // Mark as failed
-        await prisma.scheduledEmail.update({
+        await scheduledEmailStubs.update({
           where: { id: scheduledEmail.id },
           data: {
             status: 'failed',
@@ -518,7 +524,7 @@ Vasquez Law Firm, PLLC
     clientId: string,
     campaignId: string
   ): Promise<void> {
-    await prisma.reviewSolicitationTracking.create({
+    await reviewSolicitationTrackingStubs.create({
       data: {
         emailId,
         clientId,
@@ -530,7 +536,7 @@ Vasquez Law Firm, PLLC
   }
 
   private async isOptedOut(clientId: string): Promise<boolean> {
-    const optOut = await prisma.reviewSolicitationOptOut.findUnique({
+    const optOut = await reviewSolicitationOptOutStubs.findUnique({
       where: { clientId },
     });
 
@@ -541,7 +547,7 @@ Vasquez Law Firm, PLLC
     const since = new Date();
     since.setDate(since.getDate() - daysSince);
 
-    const recentReview = await prisma.review.findFirst({
+    const recentReview = await reviewStubs.findFirst({
       where: {
         authorEmail: clientId, // Assuming we track client reviews by email
         publishedAt: { gte: since },
@@ -552,7 +558,7 @@ Vasquez Law Firm, PLLC
   }
 
   async optOutClient(clientId: string, reason?: string): Promise<void> {
-    await prisma.reviewSolicitationOptOut.create({
+    await reviewSolicitationOptOutStubs.create({
       data: {
         clientId,
         reason,
@@ -561,7 +567,7 @@ Vasquez Law Firm, PLLC
     });
 
     // Cancel any scheduled emails
-    await prisma.scheduledEmail.updateMany({
+    await scheduledEmailStubs.updateMany({
       where: {
         recipientId: clientId,
         type: 'review_solicitation',
@@ -576,7 +582,7 @@ Vasquez Law Firm, PLLC
   }
 
   async getClientSolicitationHistory(clientId: string): Promise<any[]> {
-    return await prisma.reviewSolicitationTracking.findMany({
+    return await reviewSolicitationTrackingStubs.findMany({
       where: { clientId },
       orderBy: { sentAt: 'desc' },
       include: {
@@ -586,15 +592,15 @@ Vasquez Law Firm, PLLC
   }
 
   async getCampaignPerformance(campaignId: string): Promise<CampaignPerformance> {
-    const tracking = await prisma.reviewSolicitationTracking.findMany({
+    const tracking = await reviewSolicitationTrackingStubs.findMany({
       where: { campaignId },
     });
 
-    const reviews = await prisma.review.findMany({
+    const reviews = await reviewStubs.findMany({
       where: {
-        authorEmail: { in: tracking.map(t => t.clientId) },
+        authorEmail: { in: tracking.map((t: { clientId: string }) => t.clientId) },
         publishedAt: {
-          gte: new Date(Math.min(...tracking.map(t => t.sentAt.getTime()))),
+          gte: new Date(Math.min(...tracking.map((t: { sentAt: Date }) => t.sentAt.getTime()))),
         },
       },
     });
@@ -609,7 +615,10 @@ Vasquez Law Firm, PLLC
       reviewsReceived,
       conversionRate,
       averageRating:
-        reviews.length > 0 ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length : 0,
+        reviews.length > 0
+          ? reviews.reduce((sum: number, r: { rating: number }) => sum + r.rating, 0) /
+            reviews.length
+          : 0,
       platformBreakdown: this.calculatePlatformBreakdown(reviews),
     };
   }

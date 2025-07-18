@@ -1,6 +1,7 @@
 import { logger } from '@/lib/logger';
 import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma-safe';
+import { reviewStubs } from '@/lib/prisma-model-stubs';
 import { z } from 'zod';
 import { EventEmitter } from 'events';
 
@@ -353,7 +354,7 @@ export class ReviewHarvester extends EventEmitter {
     for (const review of reviews) {
       try {
         // Check if review already exists
-        const existing = await prisma.review.findUnique({
+        const existing = await reviewStubs.findUnique({
           where: {
             platformId_externalId: {
               platformId,
@@ -364,7 +365,7 @@ export class ReviewHarvester extends EventEmitter {
 
         if (!existing) {
           // Create new review
-          const created = await prisma.review.create({
+          const created = await reviewStubs.create({
             data: {
               ...review,
               sentiment: review.sentiment || this.analyzeSentiment(review),
@@ -385,7 +386,7 @@ export class ReviewHarvester extends EventEmitter {
           }
         } else if (this.hasChanged(existing, review)) {
           // Update existing review
-          await prisma.review.update({
+          await reviewStubs.update({
             where: { id: existing.id },
             data: {
               rating: review.rating,
@@ -579,25 +580,25 @@ export class ReviewHarvester extends EventEmitter {
     }
 
     const [total, byRating, bySentiment, byPlatform] = await Promise.all([
-      prisma.review.count({ where }),
-      prisma.review.groupBy({
+      reviewStubs.count({ where }),
+      reviewStubs.groupBy({
         by: ['rating'],
         where,
         _count: true,
       }),
-      prisma.review.groupBy({
+      reviewStubs.groupBy({
         by: ['sentiment'],
         where,
         _count: true,
       }),
-      prisma.review.groupBy({
+      reviewStubs.groupBy({
         by: ['platformId'],
         where,
         _count: true,
       }),
     ]);
 
-    const avgRating = await prisma.review.aggregate({
+    const avgRating = await reviewStubs.aggregate({
       where,
       _avg: { rating: true },
     });
@@ -607,9 +608,14 @@ export class ReviewHarvester extends EventEmitter {
       averageRating: avgRating._avg.rating || 0,
       ratingDistribution: Object.fromEntries(byRating.map(r => [r.rating, r._count])),
       sentimentDistribution: Object.fromEntries(
-        bySentiment.map(s => [s.sentiment || 'unknown', s._count])
+        bySentiment.map((s: { sentiment: string | null; _count: number }) => [
+          s.sentiment || 'unknown',
+          s._count,
+        ])
       ),
-      platformDistribution: Object.fromEntries(byPlatform.map(p => [p.platformId, p._count])),
+      platformDistribution: Object.fromEntries(
+        byPlatform.map((p: { platformId: string; _count: number }) => [p.platformId, p._count])
+      ),
     };
   }
 
@@ -631,7 +637,7 @@ export class ReviewHarvester extends EventEmitter {
       if (params.maxRating) where.rating.lte = params.maxRating;
     }
 
-    return await prisma.review.findMany({
+    return await reviewStubs.findMany({
       where,
       orderBy: { publishedAt: 'desc' },
       take: params.limit || 20,

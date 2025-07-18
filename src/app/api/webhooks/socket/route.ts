@@ -25,7 +25,11 @@ export async function POST(req: NextRequest) {
         break;
 
       default:
-        apiLogger.warning('socket-unknown-event', { event });
+        if (apiLogger.warn) {
+          apiLogger.warn('socket-unknown-event', { event });
+        } else {
+          apiLogger.info('socket-unknown-event', { event });
+        }
     }
 
     return NextResponse.json({ success: true });

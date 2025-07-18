@@ -948,7 +948,12 @@ export default function NorthCarolinaWorkersCompensationGuidePage() {
       'Industrial Commission',
       'YO PELEO POR TI',
     ],
-    featuredImage: '/images/blog/nc-workers-compensation-guide.jpg',
+    featuredImage: {
+      url: '/images/blog/nc-workers-compensation-guide.jpg',
+      alt: 'North Carolina Workers Compensation Guide - Vasquez Law Firm',
+      width: 1200,
+      height: 630,
+    },
     views: 0,
   };
 
@@ -983,6 +988,7 @@ export default function NorthCarolinaWorkersCompensationGuidePage() {
       slug: 'workplace-injury-settlements-north-carolina',
       excerpt:
         "Learn how to maximize your workers' compensation settlement in NC, including permanent disability ratings, third-party claims, and negotiation strategies.",
+      content: '', // Content is not displayed in related posts section
       practiceArea: 'workers-compensation',
       language: 'en' as const,
       publishedAt: new Date('2024-01-18T10:00:00.000Z'),
@@ -996,6 +1002,7 @@ export default function NorthCarolinaWorkersCompensationGuidePage() {
       slug: 'denied-workers-comp-claims-north-carolina',
       excerpt:
         "Complete guide to appealing denied workers' compensation claims in NC, including common denial reasons and strategies for winning appeals.",
+      content: '', // Content is not displayed in related posts section
       practiceArea: 'workers-compensation',
       language: 'en' as const,
       publishedAt: new Date('2024-01-15T10:00:00.000Z'),
@@ -1009,6 +1016,7 @@ export default function NorthCarolinaWorkersCompensationGuidePage() {
       slug: 'construction-worker-rights-north-carolina',
       excerpt:
         "Know your rights as a construction worker in NC, including workers' comp benefits, safety protections, and third-party injury claims.",
+      content: '', // Content is not displayed in related posts section
       practiceArea: 'workers-compensation',
       language: 'en' as const,
       publishedAt: new Date('2024-01-12T10:00:00.000Z'),

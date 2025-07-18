@@ -6,6 +6,7 @@
 import { logger } from '@/lib/logger';
 import { getRetellService, RetellAgent } from './index';
 import { prisma } from '@/lib/prisma-safe';
+import { voiceAgentStubs, voiceCallMetricsStubs } from '@/lib/prisma-model-stubs';
 import { aiClientIntakeSystem } from '@/lib/crewai/ai-powered-client-intake';
 import { createNotification } from '@/lib/notifications';
 import { sendEmail } from '@/lib/email';
@@ -16,18 +17,18 @@ export interface VoiceUXConfig {
   enableContextAwareness: boolean;
   enableEmotionDetection: boolean;
   enableMultiLanguage: boolean;
-  
+
   // User Experience
   naturalConversationMode: boolean;
   adaptiveSpeechRate: boolean;
   intelligentPausing: boolean;
   clarificationPrompts: boolean;
-  
+
   // Accessibility
   enhancedAccessibility: boolean;
   visualImpairmentSupport: boolean;
   hearingImpairmentSupport: boolean;
-  
+
   // Performance
   reducedLatency: boolean;
   streamingResponses: boolean;
@@ -138,7 +139,7 @@ export class EnhancedVoiceUXSystem {
         system_prompt: systemPrompt,
       },
       webhook_url: `${process.env.NEXT_PUBLIC_APP_URL}/api/retell/webhook`,
-      
+
       // Enhanced UX settings
       interruption_sensitivity: uxConfig.naturalConversationMode ? 0.7 : 0.5,
       ambient_sound: false,
@@ -154,7 +155,7 @@ export class EnhancedVoiceUXSystem {
     this.voiceAgentConfigs.set(agent.agent_id, uxConfig);
 
     // Store agent configuration in database
-    await prisma.voiceAgent.create({
+    await voiceAgentStubs.create({
       data: {
         agentId: agent.agent_id,
         name: params.name,
@@ -166,9 +167,9 @@ export class EnhancedVoiceUXSystem {
       },
     });
 
-    logger.info('Enhanced voice agent created', { 
+    logger.info('Enhanced voice agent created', {
       agentId: agent.agent_id,
-      name: params.name 
+      name: params.name,
     });
 
     return agent;
@@ -251,10 +252,11 @@ export class EnhancedVoiceUXSystem {
 
     // Update conversation history
     for (const turn of params.transcript) {
-      if (!context.conversationHistory.find(h => 
-        h.timestamp.getTime() === turn.timestamp && 
-        h.message === turn.content
-      )) {
+      if (
+        !context.conversationHistory.find(
+          h => h.timestamp.getTime() === turn.timestamp && h.message === turn.content
+        )
+      ) {
         context.conversationHistory.push({
           timestamp: new Date(turn.timestamp),
           speaker: turn.role,
@@ -302,20 +304,20 @@ export class EnhancedVoiceUXSystem {
     comprehensionScore: number;
   }> {
     const recentMessages = context.conversationHistory.slice(-5);
-    
+
     // Emotion detection based on conversation patterns
     const emotionIndicators = {
-      frustrated: ['don\'t understand', 'this is confusing', 'frustrated', 'annoying'],
+      frustrated: ["don't understand", 'this is confusing', 'frustrated', 'annoying'],
       anxious: ['worried', 'urgent', 'emergency', 'nervous', 'scared'],
-      confused: ['what', 'how', 'explain', 'don\'t get it', 'unclear'],
+      confused: ['what', 'how', 'explain', "don't get it", 'unclear'],
       urgent: ['immediately', 'asap', 'emergency', 'right now', 'urgent'],
     };
 
     let detectedEmotion: typeof context.emotionalState = 'calm';
     for (const [emotion, indicators] of Object.entries(emotionIndicators)) {
-      const hasIndicator = recentMessages.some(msg => 
-        msg.speaker === 'user' && 
-        indicators.some(ind => msg.message.toLowerCase().includes(ind))
+      const hasIndicator = recentMessages.some(
+        msg =>
+          msg.speaker === 'user' && indicators.some(ind => msg.message.toLowerCase().includes(ind))
       );
       if (hasIndicator) {
         detectedEmotion = emotion as typeof context.emotionalState;
@@ -324,17 +326,19 @@ export class EnhancedVoiceUXSystem {
     }
 
     // Calculate comprehension score
-    const clarificationRequests = recentMessages.filter(msg =>
-      msg.speaker === 'user' && 
-      (msg.message.includes('?') || msg.message.toLowerCase().includes('what') ||
-       msg.message.toLowerCase().includes('repeat'))
+    const clarificationRequests = recentMessages.filter(
+      msg =>
+        msg.speaker === 'user' &&
+        (msg.message.includes('?') ||
+          msg.message.toLowerCase().includes('what') ||
+          msg.message.toLowerCase().includes('repeat'))
     ).length;
-    
-    const comprehensionScore = Math.max(0, 100 - (clarificationRequests * 20));
+
+    const comprehensionScore = Math.max(0, 100 - clarificationRequests * 20);
 
     // Suggest UX adjustments based on analysis
     const suggestedAdjustments: any = {};
-    
+
     if (detectedEmotion === 'confused' || comprehensionScore < 60) {
       suggestedAdjustments.speechRate = 0.9; // Slower
       suggestedAdjustments.clarificationStyle = 'verbose';
@@ -367,7 +371,8 @@ export class EnhancedVoiceUXSystem {
 
     return {
       detectedEmotion,
-      suggestedAdjustments: Object.keys(suggestedAdjustments).length > 0 ? suggestedAdjustments : undefined,
+      suggestedAdjustments:
+        Object.keys(suggestedAdjustments).length > 0 ? suggestedAdjustments : undefined,
       routingNeeded: !!routingTarget && routingTarget !== context.legalContext?.practiceArea,
       routingTarget,
       comprehensionScore,
@@ -395,10 +400,7 @@ export class EnhancedVoiceUXSystem {
   /**
    * Handle smart routing to specialized agents
    */
-  private async handleSmartRouting(
-    sessionId: string,
-    targetArea: string
-  ): Promise<void> {
+  private async handleSmartRouting(sessionId: string, targetArea: string): Promise<void> {
     logger.info('Smart routing initiated', { sessionId, targetArea });
 
     const context = this.conversationContexts.get(sessionId);
@@ -439,9 +441,10 @@ export class EnhancedVoiceUXSystem {
       empathetic: 'understanding, patient, and supportive',
     };
 
-    const languageInstructions = params.language === 'es' 
-      ? 'Speak in Spanish. Use formal "usted" unless the caller uses "tú".'
-      : 'Speak in clear, simple English. Avoid legal jargon unless necessary.';
+    const languageInstructions =
+      params.language === 'es'
+        ? 'Speak in Spanish. Use formal "usted" unless the caller uses "tú".'
+        : 'Speak in clear, simple English. Avoid legal jargon unless necessary.';
 
     return `You are an AI legal assistant for Vasquez Law Firm, specializing in ${params.practiceArea}.
 
@@ -485,11 +488,12 @@ Remember: You represent Vasquez Law Firm. Be helpful, professional, and always p
     personality: 'professional' | 'friendly' | 'empathetic';
   }): Promise<string> {
     const voices = await this.retellService.listVoices();
-    
+
     // Filter by language
-    const languageVoices = voices.filter(v => 
-      (params.language === 'es' && v.language.toLowerCase().includes('spanish')) ||
-      (params.language === 'en' && v.language.toLowerCase().includes('english'))
+    const languageVoices = voices.filter(
+      v =>
+        (params.language === 'es' && v.language.toLowerCase().includes('spanish')) ||
+        (params.language === 'en' && v.language.toLowerCase().includes('english'))
     );
 
     // Select based on personality
@@ -501,12 +505,14 @@ Remember: You represent Vasquez Law Firm. Be helpful, professional, and always p
     };
 
     const prefs = personalityPreferences[params.personality];
-    
+
     // Find best match
-    const optimalVoice = languageVoices.find(v => 
-      (!prefs.gender || v.gender.toLowerCase() === prefs.gender) &&
-      (!prefs.accent || v.accent.toLowerCase().includes(prefs.accent))
-    ) || languageVoices[0];
+    const optimalVoice =
+      languageVoices.find(
+        v =>
+          (!prefs.gender || v.gender.toLowerCase() === prefs.gender) &&
+          (!prefs.accent || v.accent.toLowerCase().includes(prefs.accent))
+      ) || languageVoices[0];
 
     return optimalVoice.voice_id;
   }
@@ -547,11 +553,11 @@ Remember: You represent Vasquez Law Firm. Be helpful, professional, and always p
     // Calculate average response time (simplified)
     let totalResponseTime = 0;
     let responseCount = 0;
-    
+
     for (let i = 1; i < context.conversationHistory.length; i++) {
       const current = context.conversationHistory[i];
       const previous = context.conversationHistory[i - 1];
-      
+
       if (current.speaker === 'agent' && previous.speaker === 'user') {
         const responseTime = current.timestamp.getTime() - previous.timestamp.getTime();
         totalResponseTime += responseTime;
@@ -562,41 +568,42 @@ Remember: You represent Vasquez Law Firm. Be helpful, professional, and always p
     const averageResponseTime = responseCount > 0 ? totalResponseTime / responseCount : 0;
 
     // Count clarifications
-    const clarificationCount = context.conversationHistory.filter(h =>
-      h.speaker === 'agent' && 
-      (h.message.includes('Could you clarify') || h.message.includes('Can you explain'))
+    const clarificationCount = context.conversationHistory.filter(
+      h =>
+        h.speaker === 'agent' &&
+        (h.message.includes('Could you clarify') || h.message.includes('Can you explain'))
     ).length;
 
     // Calculate completion rate (simplified)
-    const hasGreeting = context.conversationHistory.some(h => 
-      h.speaker === 'agent' && h.message.toLowerCase().includes('hello')
+    const hasGreeting = context.conversationHistory.some(
+      h => h.speaker === 'agent' && h.message.toLowerCase().includes('hello')
     );
-    const hasIssueIdentified = context.conversationHistory.some(h =>
-      h.message.toLowerCase().includes('understand') || 
-      h.message.toLowerCase().includes('help you with')
+    const hasIssueIdentified = context.conversationHistory.some(
+      h =>
+        h.message.toLowerCase().includes('understand') ||
+        h.message.toLowerCase().includes('help you with')
     );
-    const hasNextSteps = context.conversationHistory.some(h =>
-      h.message.toLowerCase().includes('schedule') || 
-      h.message.toLowerCase().includes('consultation')
+    const hasNextSteps = context.conversationHistory.some(
+      h =>
+        h.message.toLowerCase().includes('schedule') ||
+        h.message.toLowerCase().includes('consultation')
     );
 
-    const completionRate = (
-      (hasGreeting ? 33 : 0) + 
-      (hasIssueIdentified ? 33 : 0) + 
-      (hasNextSteps ? 34 : 0)
-    );
+    const completionRate =
+      (hasGreeting ? 33 : 0) + (hasIssueIdentified ? 33 : 0) + (hasNextSteps ? 34 : 0);
 
     // Interaction quality based on conversation flow
-    const interactionQuality = Math.min(100, 
-      completionRate * 0.4 + 
-      (100 - clarificationCount * 10) * 0.3 +
-      (averageResponseTime < 2000 ? 100 : 50) * 0.3
+    const interactionQuality = Math.min(
+      100,
+      completionRate * 0.4 +
+        (100 - clarificationCount * 10) * 0.3 +
+        (averageResponseTime < 2000 ? 100 : 50) * 0.3
     );
 
     return {
       sessionId,
       interactionQuality,
-      clarityScore: 100 - (clarificationCount * 10),
+      clarityScore: 100 - clarificationCount * 10,
       completionRate,
       averageResponseTime,
       interruptionCount: 0, // Would need real-time data
@@ -658,7 +665,7 @@ Remember: You represent Vasquez Law Firm. Be helpful, professional, and always p
       // Process through AI intake system
       try {
         const assessment = await aiClientIntakeSystem.processClientIntake(intakeRequest as any);
-        
+
         // Send follow-up email
         if (context.userId) {
           await this.sendFollowUpEmail(context.userId, assessment);
@@ -669,7 +676,7 @@ Remember: You represent Vasquez Law Firm. Be helpful, professional, and always p
     }
 
     // Store call metrics
-    await prisma.voiceCallMetrics.create({
+    await voiceCallMetricsStubs.create({
       data: {
         callId: params.callId,
         sessionId: params.sessionId,
@@ -711,7 +718,7 @@ Remember: You represent Vasquez Law Firm. Be helpful, professional, and always p
   private extractClientGoals(history: ConversationContext['conversationHistory']): string[] {
     // Simple extraction - in practice would use NLP
     const goals: string[] = [];
-    
+
     const goalKeywords = ['want', 'need', 'hope', 'goal', 'looking for'];
     history
       .filter(h => h.speaker === 'user')

@@ -35,15 +35,16 @@ export async function POST(request: NextRequest) {
       data: {
         amount: validatedData.amount,
         currency: 'USD',
-        status: 'pending',
-        provider: 'lawpay',
+        status: 'PENDING',
+        gateway: 'LAWPAY',
         description: validatedData.description,
+        clientEmail: validatedData.clientEmail,
+        clientName: validatedData.clientName,
+        clientPhone: validatedData.clientPhone,
+        accountType: validatedData.trustAccount ? 'TRUST' : 'OPERATING',
+        paymentMethod: 'CARD', // Default to card for LawPay
         metadata: {
-          clientEmail: validatedData.clientEmail,
-          clientName: validatedData.clientName,
-          clientPhone: validatedData.clientPhone,
           invoiceNumber: validatedData.invoiceNumber,
-          trustAccount: validatedData.trustAccount,
         },
       },
     });
@@ -106,7 +107,7 @@ export async function GET(request: NextRequest) {
         status: true,
         description: true,
         createdAt: true,
-        completedAt: true,
+        processedAt: true,
         metadata: true,
       },
     });

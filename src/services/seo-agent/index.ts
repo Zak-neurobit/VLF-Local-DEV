@@ -6,6 +6,7 @@ import * as cheerio from 'cheerio';
 import { CronJob } from 'cron';
 import axios from 'axios';
 import { URL } from 'url';
+import crypto from 'crypto';
 import type { SchemaOrgFAQ, SchemaMarkup } from '@/types/services';
 
 export interface SEOAgentConfig {
@@ -173,7 +174,16 @@ export class SEOAgent {
         });
 
         if (original) {
-          return await this.translateBlogPost(original, language);
+          return await this.translateBlogPost(
+            {
+              title: original.title,
+              content: original.content,
+              metaDescription: original.metaDescription,
+              keywords: original.metaKeywords,
+              practiceArea: original.practiceArea || undefined,
+            },
+            language
+          );
         }
       }
 
@@ -236,7 +246,7 @@ export class SEOAgent {
           content: blogData.content,
           excerpt: this.generateExcerpt(blogData.content),
           metaDescription: blogData.metaDescription,
-          metaKeywords: blogData.keywords,
+          metaKeywords: blogData.keywords || [],
           language,
           practiceArea,
           keywords: blogData.keywords,
@@ -251,7 +261,22 @@ export class SEOAgent {
       await this.generateBlogImages(blog.id, topic);
 
       // Generate schema markup
-      await this.generateAndSaveSchemaMarkup(blog);
+      await this.generateAndSaveSchemaMarkup({
+        id: blog.id,
+        title: blog.title,
+        slug: blog.slug,
+        content: blog.content,
+        excerpt: blog.excerpt || undefined,
+        metaDescription: blog.metaDescription,
+        keywords: blog.metaKeywords,
+        faqSection: blog.faqSection as Array<{ question: string; answer: string }> | undefined,
+        language: blog.language,
+        practiceArea: blog.practiceArea || undefined,
+        author: blog.author || undefined,
+        featuredImage: blog.featuredImage || undefined,
+        publishedAt: blog.publishedAt || undefined,
+        updatedAt: blog.updatedAt,
+      });
 
       // If not already a translation, create in other language
       if (!isTranslation) {
@@ -264,10 +289,14 @@ export class SEOAgent {
         });
       }
 
-      performanceLogger.operation('blog-generated', { id: blog.id, language });
+      performanceLogger.info('blog-generated', { id: blog.id, language });
       return blog;
     } catch (error) {
-      componentLogger.error('SEOAgent.generateBlogPost', error as Error, { topic, practiceArea });
+      componentLogger.error('SEOAgent.generateBlogPost', {
+        error: error as Error,
+        topic,
+        practiceArea,
+      });
       throw error;
     }
   }
@@ -290,7 +319,8 @@ export class SEOAgent {
         title: original.title,
         content: original.content,
         metaDescription: original.metaDescription,
-        faqSection: (original as { faqSection?: Array<{ question: string; answer: string }> }).faqSection,
+        faqSection: (original as { faqSection?: Array<{ question: string; answer: string }> })
+          .faqSection,
       })}
       
       Return JSON with translated: title, content, metaDescription, faqSection, keywords`;
@@ -307,13 +337,13 @@ export class SEOAgent {
       data: {
         ...translatedData,
         slug: this.generateSlug(translatedData.title),
-        excerpt: this.generateExcerpt(translatedData.content),
-        practiceArea: original.practiceArea,
+        excerpt: this.generateExcerpt(translatedData.content) || undefined,
+        practiceArea: original.practiceArea || undefined,
         language: targetLanguage,
         status: 'draft',
         seoScore: await this.calculateSEOScore(translatedData),
-        readTime: (original as { readTime?: number }).readTime || 5,
-        originalId: (original as { id?: string }).id || '',
+        readTime: 5,
+        originalId: undefined,
       },
     });
   }
@@ -353,7 +383,10 @@ export class SEOAgent {
         longTail: longTailKeywords,
       };
     } catch (error) {
-      componentLogger.error('SEOAgent.performKeywordResearch', error as Error, { practiceArea });
+      componentLogger.error('SEOAgent.performKeywordResearch', {
+        error: error as Error,
+        practiceArea,
+      });
       throw error;
     }
   }
@@ -580,10 +613,42 @@ export class SEOAgent {
       address: [
         {
           '@type': 'PostalAddress',
-          streetAddress: (data.addresses as Array<{ street?: string; city?: string; state?: string; zip?: string }>)?.[0]?.street || '123 Main St, Suite 100',
-          addressLocality: (data.addresses as Array<{ street?: string; city?: string; state?: string; zip?: string }>)?.[0]?.city || 'Raleigh',
-          addressRegion: (data.addresses as Array<{ street?: string; city?: string; state?: string; zip?: string }>)?.[0]?.state || 'NC',
-          postalCode: (data.addresses as Array<{ street?: string; city?: string; state?: string; zip?: string }>)?.[0]?.zip || '27601',
+          streetAddress:
+            (
+              data.addresses as Array<{
+                street?: string;
+                city?: string;
+                state?: string;
+                zip?: string;
+              }>
+            )?.[0]?.street || '123 Main St, Suite 100',
+          addressLocality:
+            (
+              data.addresses as Array<{
+                street?: string;
+                city?: string;
+                state?: string;
+                zip?: string;
+              }>
+            )?.[0]?.city || 'Raleigh',
+          addressRegion:
+            (
+              data.addresses as Array<{
+                street?: string;
+                city?: string;
+                state?: string;
+                zip?: string;
+              }>
+            )?.[0]?.state || 'NC',
+          postalCode:
+            (
+              data.addresses as Array<{
+                street?: string;
+                city?: string;
+                state?: string;
+                zip?: string;
+              }>
+            )?.[0]?.zip || '27601',
           addressCountry: 'US',
         },
       ],
@@ -685,7 +750,7 @@ export class SEOAgent {
       dateModified: data.updatedAt || new Date().toISOString(),
       description: data.excerpt || data.metaDescription,
       articleBody: data.content,
-      keywords: (data.keywords as string[])?.join(', '),
+      keywords: (data.keywords as string[])?.join(', ') || '',
       wordCount: (data.content as string)?.split(' ').length || 0,
       inLanguage: data.language === 'es' ? 'es-US' : 'en-US',
       mainEntityOfPage: {
@@ -1110,9 +1175,10 @@ export class SEOAgent {
 
       // Content gap analysis
       const contentGaps = await this.findContentGaps({
-        competitors: topPages.map(page => ({ url: page.url, keywords: page.keywords || [] })),
+        competitors: topPages.map(page => ({ url: page.url, keywords: [] })),
         currentKeywords: contentStrategy.topKeywords || [],
         practiceAreas: this.config.practiceAreas,
+        contentStrategy: { topics: contentStrategy.topTopics || [] },
       });
 
       return {
@@ -1125,7 +1191,7 @@ export class SEOAgent {
         contentGaps,
       };
     } catch (error) {
-      componentLogger.error('SEOAgent.analyzeCompetitor', error as Error, { url });
+      componentLogger.error('SEOAgent.analyzeCompetitor', { error: error as Error, url });
       throw error;
     }
   }
@@ -1143,18 +1209,21 @@ export class SEOAgent {
 
       return { urls };
     } catch (error) {
-      componentLogger.warn('SEOAgent.fetchSitemap failed', { url, error });
+      componentLogger.warn?.('SEOAgent.fetchSitemap failed', { url, error }) ||
+        console.warn('SEOAgent.fetchSitemap failed', { url, error });
       return { urls: [] };
     }
   }
 
-  private async identifyTopPages(url: string): Promise<Array<{
-    url: string;
-    title: string;
-    metaDescription?: string;
-    h1: string;
-    wordCount: number;
-  }>> {
+  private async identifyTopPages(url: string): Promise<
+    Array<{
+      url: string;
+      title: string;
+      metaDescription?: string;
+      h1: string;
+      wordCount: number;
+    }>
+  > {
     // In production, this would use SEO tools API
     // For now, we'll analyze the homepage and key pages
     const pagesToAnalyze = [url, `${url}/practice-areas`, `${url}/about`, `${url}/blog`];
@@ -1173,7 +1242,8 @@ export class SEOAgent {
           wordCount: $('body').text().split(/\s+/).length,
         });
       } catch (error) {
-        componentLogger.warn('Failed to analyze page', { pageUrl, error });
+        componentLogger.warn?.('Failed to analyze page', { pageUrl, error }) ||
+          console.warn('Failed to analyze page', { pageUrl, error });
       }
     }
 
@@ -1276,7 +1346,7 @@ export class SEOAgent {
 
       return audit;
     } catch (error) {
-      componentLogger.error('SEOAgent.auditTechnicalSEO', error as Error, { url });
+      componentLogger.error('SEOAgent.auditTechnicalSEO', { error: error as Error, url });
       return { score: 0, issues: ['Failed to audit'], suggestions: [] };
     }
   }
@@ -1290,7 +1360,7 @@ export class SEOAgent {
     backlinks: {
       totalBacklinks: number;
       referringDomains: number;
-      topSources: string[];
+      topReferrers: string[];
     }
   ): Promise<{
     contentGaps: string[];
@@ -1325,12 +1395,14 @@ export class SEOAgent {
     competitors: Array<{ url: string; keywords: string[] }>;
     currentKeywords: string[];
     practiceAreas: string[];
+    contentStrategy?: { topics?: string[] };
   }): Promise<ContentGap[]> {
     const gaps: ContentGap[] = [];
 
     // Analyze missing topics
     const ourPracticeAreas = this.config.practiceAreas;
-    const theirTopics = (analysis as { contentStrategy?: { topics?: string[] } }).contentStrategy?.topics || [];
+    const theirTopics =
+      (analysis as { contentStrategy?: { topics?: string[] } }).contentStrategy?.topics || [];
 
     for (const area of ourPracticeAreas) {
       const relatedTopics = await this.suggestTopics(area, theirTopics);
@@ -1376,7 +1448,10 @@ export class SEOAgent {
           }
         }
       } catch (error) {
-        componentLogger.error('SEOAgent.checkTrendingNews', error as Error, { practiceArea });
+        componentLogger.error('SEOAgent.checkTrendingNews', {
+          error: error as Error,
+          practiceArea,
+        });
       }
     }
   }
@@ -1418,7 +1493,8 @@ export class SEOAgent {
             }
           }
         } catch (error) {
-          componentLogger.error('SEOAgent.scanSocialMedia', error as Error, {
+          componentLogger.error('SEOAgent.scanSocialMedia', {
+            error: error as Error,
             platform,
             practiceArea,
           });
@@ -1427,13 +1503,15 @@ export class SEOAgent {
     }
   }
 
-  private async fetchGoogleNews(query: string): Promise<Array<{
-    title: string;
-    url: string;
-    summary: string;
-    publishedAt: Date;
-    source: string;
-  }>> {
+  private async fetchGoogleNews(query: string): Promise<
+    Array<{
+      title: string;
+      url: string;
+      summary: string;
+      publishedAt: Date;
+      source: string;
+    }>
+  > {
     // In production, use Google News API or web scraping
     // This is a placeholder that would fetch real news
     const mockNews = [
@@ -1480,22 +1558,27 @@ export class SEOAgent {
     return analysis.relevant && analysis.score > 7;
   }
 
-  private async scrapeSocialPlatform(platform: string, practiceArea: string): Promise<Array<{
-    url: string;
-    title: string;
-    description: string;
-    engagement: {
-      likes: number;
-      comments: number;
-      shares: number;
+  private async scrapeSocialPlatform(
+    platform: string,
+    practiceArea: string
+  ): Promise<
+    Array<{
+      url: string;
+      title: string;
+      description: string;
+      engagement: {
+        likes: number;
+        comments: number;
+        shares: number;
+        views?: number;
+      };
+      publishedAt: Date;
+      author: string;
+      hashtags: string[];
+      relevanceScore: number;
       views?: number;
-    };
-    publishedAt: Date;
-    author: string;
-    hashtags: string[];
-    relevanceScore: number;
-    views?: number;
-  }>> {
+    }>
+  > {
     // In production, use platform APIs or scraping tools
     // This is a placeholder
     return [];
@@ -1783,7 +1866,7 @@ export class SEOAgent {
         },
       });
     } catch (error) {
-      componentLogger.error('SEOAgent.generateBlogImages', error as Error, { blogId });
+      componentLogger.error('SEOAgent.generateBlogImages', { error: error as Error, blogId });
     }
   }
 
@@ -1906,10 +1989,26 @@ export class SEOAgent {
         });
 
         // Save analysis to database
+        const domain = new URL(competitor).hostname;
+
+        // First, ensure competitor exists
+        const competitorRecord = await getPrismaClient().competitor.upsert({
+          where: { website: competitor },
+          update: { lastChecked: new Date() },
+          create: {
+            name: domain,
+            website: competitor,
+            domain: domain,
+            practiceAreas: this.config.practiceAreas,
+            locations: ['North Carolina', 'Florida'],
+          },
+        });
+
         await getPrismaClient().competitorAnalysis.create({
           data: {
+            competitorId: competitorRecord.id,
             url: competitor,
-            domain: new URL(competitor).hostname,
+            domain: domain,
             blogPosts: analysis.topPages,
             seoData: analysis.technicalSEO,
             backlinks: analysis.backlinks,
@@ -1929,7 +2028,10 @@ export class SEOAgent {
           });
         }
       } catch (error) {
-        componentLogger.error('SEOAgent.runCompetitorAnalysis', error as Error, { competitor });
+        componentLogger.error('SEOAgent.runCompetitorAnalysis', {
+          error: error as Error,
+          competitor,
+        });
       }
     }
   }
@@ -1948,7 +2050,7 @@ export class SEOAgent {
       for (const post of posts) {
         const score = await this.scoreContent(post.content, {
           targetKeywords: post.keywords,
-          practiceArea: post.practiceArea,
+          practiceArea: post.practiceArea || 'general',
           contentType: 'blog',
         });
 

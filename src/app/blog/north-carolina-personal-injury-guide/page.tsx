@@ -821,7 +821,12 @@ export default function NorthCarolinaPersonalInjuryGuidePage() {
       'Insurance Claims',
       'YO PELEO POR TI',
     ],
-    featuredImage: '/images/blog/nc-personal-injury-guide.jpg',
+    featuredImage: {
+      url: '/images/blog/nc-personal-injury-guide.jpg',
+      alt: 'North Carolina Personal Injury Guide - Vasquez Law Firm',
+      width: 1200,
+      height: 630,
+    },
     views: 0,
   };
 
@@ -856,6 +861,7 @@ export default function NorthCarolinaPersonalInjuryGuidePage() {
       slug: 'car-accident-settlements-north-carolina',
       excerpt:
         'Learn how to maximize your car accident settlement in NC, including evidence collection, negotiation strategies, and avoiding common mistakes.',
+      content: '', // Content is not displayed in related posts section
       practiceArea: 'personal-injury',
       language: 'en' as const,
       publishedAt: new Date('2024-01-15T10:00:00.000Z'),
@@ -869,6 +875,7 @@ export default function NorthCarolinaPersonalInjuryGuidePage() {
       slug: 'medical-malpractice-laws-north-carolina',
       excerpt:
         'Complete guide to medical malpractice in NC, including types of cases, damage caps, and how to prove negligence.',
+      content: '', // Content is not displayed in related posts section
       practiceArea: 'personal-injury',
       language: 'en' as const,
       publishedAt: new Date('2024-01-10T10:00:00.000Z'),
@@ -882,6 +889,7 @@ export default function NorthCarolinaPersonalInjuryGuidePage() {
       slug: 'slip-fall-premises-liability-north-carolina',
       excerpt:
         'Expert analysis of premises liability and slip and fall cases in North Carolina, including proving negligence and recovering damages.',
+      content: '', // Content is not displayed in related posts section
       practiceArea: 'personal-injury',
       language: 'en' as const,
       publishedAt: new Date('2024-01-05T10:00:00.000Z'),

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getCrewCoordinator } from '@/lib/crewai/crew-coordinator';
 import { SocialMediaMonitoringRequest } from '@/lib/crewai/agents/social-media-monitoring-agent';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 
 export async function POST(request: NextRequest) {
   try {
