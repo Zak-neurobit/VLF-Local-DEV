@@ -5,10 +5,24 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectOption } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Star, MessageSquare, AlertTriangle, TrendingUp, Clock, Send, Calendar } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import {
+  Star,
+  MessageSquare,
+  AlertTriangle,
+  TrendingUp,
+  Clock,
+  Send,
+  Calendar,
+} from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
 export default function ReputationManagementPage() {
@@ -36,10 +50,7 @@ export default function ReputationManagementPage() {
         fetch('/api/reputation/statistics'),
       ]);
 
-      const [reviewsData, statsData] = await Promise.all([
-        reviewsRes.json(),
-        statsRes.json(),
-      ]);
+      const [reviewsData, statsData] = await Promise.all([reviewsRes.json(), statsRes.json()]);
 
       setReviews(reviewsData.reviews || []);
       setStatistics(statsData);
@@ -53,7 +64,7 @@ export default function ReputationManagementPage() {
   const handleGenerateResponse = async (review: any) => {
     setIsGenerating(true);
     setSelectedReview(review);
-    
+
     try {
       const response = await fetch('/api/reputation/respond', {
         method: 'POST',
@@ -128,7 +139,7 @@ export default function ReputationManagementPage() {
       neutral: { variant: 'secondary', color: 'text-gray-600' },
       negative: { variant: 'destructive', color: 'text-red-600' },
     };
-    
+
     return variants[sentiment] || variants.neutral;
   };
 
@@ -144,9 +155,7 @@ export default function ReputationManagementPage() {
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Reputation Management</h1>
-        <Button onClick={() => handleHarvestReviews()}>
-          Harvest All Reviews
-        </Button>
+        <Button onClick={() => handleHarvestReviews()}>Harvest All Reviews</Button>
       </div>
 
       {/* Statistics Overview */}
@@ -175,7 +184,7 @@ export default function ReputationManagementPage() {
             <CardContent>
               <div className="text-2xl font-bold">{statistics.statistics.total}</div>
               <p className="text-xs text-muted-foreground">
-                {statistics.report.metrics.responseRate 
+                {statistics.report.metrics.responseRate
                   ? `${(statistics.report.metrics.responseRate * 100).toFixed(0)}% responded`
                   : 'Calculating...'}
               </p>
@@ -191,9 +200,7 @@ export default function ReputationManagementPage() {
               <div className="text-2xl font-bold">
                 {statistics.statistics.total - statistics.report.metrics.respondedReviews}
               </div>
-              <p className="text-xs text-muted-foreground">
-                Awaiting response
-              </p>
+              <p className="text-xs text-muted-foreground">Awaiting response</p>
             </CardContent>
           </Card>
 
@@ -203,12 +210,8 @@ export default function ReputationManagementPage() {
               <AlertTriangle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                {statistics.report.recentAlerts.length}
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Requires attention
-              </p>
+              <div className="text-2xl font-bold">{statistics.report.recentAlerts.length}</div>
+              <p className="text-xs text-muted-foreground">Requires attention</p>
             </CardContent>
           </Card>
         </div>
@@ -225,50 +228,38 @@ export default function ReputationManagementPage() {
         <TabsContent value="reviews" className="space-y-4">
           {/* Filters */}
           <div className="flex gap-4">
-            <Select value={platformFilter} onValueChange={setPlatformFilter}>
-              <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="All Platforms" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Platforms</SelectItem>
-                <SelectItem value="google">Google</SelectItem>
-                <SelectItem value="avvo">Avvo</SelectItem>
-                <SelectItem value="facebook">Facebook</SelectItem>
-                <SelectItem value="yelp">Yelp</SelectItem>
-              </SelectContent>
+            <Select value={platformFilter} onChange={e => setPlatformFilter(e.target.value)}>
+              <SelectOption value="all">All Platforms</SelectOption>
+              <SelectOption value="google">Google</SelectOption>
+              <SelectOption value="avvo">Avvo</SelectOption>
+              <SelectOption value="facebook">Facebook</SelectOption>
+              <SelectOption value="yelp">Yelp</SelectOption>
             </Select>
 
-            <Select value={sentimentFilter} onValueChange={setSentimentFilter}>
-              <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="All Sentiments" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Sentiments</SelectItem>
-                <SelectItem value="positive">Positive</SelectItem>
-                <SelectItem value="neutral">Neutral</SelectItem>
-                <SelectItem value="negative">Negative</SelectItem>
-              </SelectContent>
+            <Select value={sentimentFilter} onChange={e => setSentimentFilter(e.target.value)}>
+              <SelectOption value="all">All Sentiments</SelectOption>
+              <SelectOption value="positive">Positive</SelectOption>
+              <SelectOption value="neutral">Neutral</SelectOption>
+              <SelectOption value="negative">Negative</SelectOption>
             </Select>
           </div>
 
           {/* Reviews List */}
           <div className="space-y-4">
-            {reviews.map((review) => (
+            {reviews.map(review => (
               <Card key={review.id}>
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
                       <div className="flex items-center gap-4 mb-2">
                         <span className="text-lg font-medium">{review.author}</span>
-                        <Badge variant="outline">{review.platform?.name || review.platformId}</Badge>
-                        <Badge {...getSentimentBadge(review.sentiment)}>
-                          {review.sentiment}
+                        <Badge variant="outline">
+                          {review.platform?.name || review.platformId}
                         </Badge>
-                        {review.responded && (
-                          <Badge variant="success">Responded</Badge>
-                        )}
+                        <Badge {...getSentimentBadge(review.sentiment)}>{review.sentiment}</Badge>
+                        {review.responded && <Badge variant="success">Responded</Badge>}
                       </div>
-                      
+
                       <div className="flex items-center gap-4 mb-3">
                         <span className="text-yellow-500">{getRatingStars(review.rating)}</span>
                         <span className="text-sm text-gray-500">
@@ -293,8 +284,8 @@ export default function ReputationManagementPage() {
                       {!review.responded && (
                         <Dialog>
                           <DialogTrigger asChild>
-                            <Button 
-                              variant="outline" 
+                            <Button
+                              variant="outline"
                               size="sm"
                               onClick={() => handleGenerateResponse(review)}
                             >
@@ -314,13 +305,15 @@ export default function ReputationManagementPage() {
                               </div>
 
                               <div>
-                                <label className="block text-sm font-medium mb-2">
-                                  Response
-                                </label>
+                                <label className="block text-sm font-medium mb-2">Response</label>
                                 <Textarea
                                   value={responseText}
-                                  onChange={(e) => setResponseText(e.target.value)}
-                                  placeholder={isGenerating ? "Generating response..." : "Type your response..."}
+                                  onChange={e => setResponseText(e.target.value)}
+                                  placeholder={
+                                    isGenerating
+                                      ? 'Generating response...'
+                                      : 'Type your response...'
+                                  }
                                   rows={6}
                                   disabled={isGenerating}
                                 />
@@ -344,10 +337,7 @@ export default function ReputationManagementPage() {
                                   >
                                     Cancel
                                   </Button>
-                                  <Button
-                                    onClick={handleSendResponse}
-                                    disabled={!responseText}
-                                  >
+                                  <Button onClick={handleSendResponse} disabled={!responseText}>
                                     <Send className="h-4 w-4 mr-1" />
                                     Send Response
                                   </Button>
@@ -357,9 +347,9 @@ export default function ReputationManagementPage() {
                           </DialogContent>
                         </Dialog>
                       )}
-                      
-                      <Button 
-                        variant="ghost" 
+
+                      <Button
+                        variant="ghost"
                         size="sm"
                         onClick={() => window.open(review.url, '_blank')}
                       >
@@ -373,7 +363,8 @@ export default function ReputationManagementPage() {
                       <p className="text-sm font-medium text-blue-900 mb-1">Our Response:</p>
                       <p className="text-sm text-blue-800">{review.response.responseText}</p>
                       <p className="text-xs text-blue-600 mt-2">
-                        Responded {formatDistanceToNow(new Date(review.response.sentAt), { addSuffix: true })}
+                        Responded{' '}
+                        {formatDistanceToNow(new Date(review.response.sentAt), { addSuffix: true })}
                       </p>
                     </div>
                   )}
@@ -394,11 +385,15 @@ export default function ReputationManagementPage() {
                 <CardContent>
                   <div className="space-y-4">
                     {statistics.report.platformPerformance.map((platform: any) => (
-                      <div key={platform.platformId} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div
+                        key={platform.platformId}
+                        className="flex items-center justify-between p-4 border rounded-lg"
+                      >
                         <div>
                           <h4 className="font-medium">{platform.platformName}</h4>
                           <p className="text-sm text-gray-600">
-                            {platform.totalReviews} reviews • {platform.averageRating.toFixed(1)} avg rating
+                            {platform.totalReviews} reviews • {platform.averageRating.toFixed(1)}{' '}
+                            avg rating
                           </p>
                         </div>
                         <div className="text-right">
@@ -440,7 +435,7 @@ export default function ReputationManagementPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {['post-case-success', 'post-consultation', 'case-milestone'].map((campaignId) => (
+                {['post-case-success', 'post-consultation', 'case-milestone'].map(campaignId => (
                   <div key={campaignId} className="p-4 border rounded-lg">
                     <div className="flex justify-between items-center">
                       <div>
@@ -461,26 +456,43 @@ export default function ReputationManagementPage() {
         <TabsContent value="alerts" className="space-y-4">
           {statistics && statistics.report.recentAlerts.length > 0 ? (
             statistics.report.recentAlerts.map((alert: any) => (
-              <Card key={alert.id} className={
-                alert.severity === 'urgent' ? 'border-red-500' :
-                alert.severity === 'high' ? 'border-orange-500' :
-                'border-gray-200'
-              }>
+              <Card
+                key={alert.id}
+                className={
+                  alert.severity === 'urgent'
+                    ? 'border-red-500'
+                    : alert.severity === 'high'
+                      ? 'border-orange-500'
+                      : 'border-gray-200'
+                }
+              >
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="flex items-center gap-2 mb-2">
-                        <AlertTriangle className={`h-5 w-5 ${
-                          alert.severity === 'urgent' ? 'text-red-500' :
-                          alert.severity === 'high' ? 'text-orange-500' :
-                          'text-yellow-500'
-                        }`} />
-                        <h3 className="font-medium">{alert.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</h3>
-                        <Badge variant={
-                          alert.severity === 'urgent' ? 'destructive' :
-                          alert.severity === 'high' ? 'warning' :
-                          'secondary'
-                        }>
+                        <AlertTriangle
+                          className={`h-5 w-5 ${
+                            alert.severity === 'urgent'
+                              ? 'text-red-500'
+                              : alert.severity === 'high'
+                                ? 'text-orange-500'
+                                : 'text-yellow-500'
+                          }`}
+                        />
+                        <h3 className="font-medium">
+                          {alert.type
+                            .replace(/_/g, ' ')
+                            .replace(/\b\w/g, (l: string) => l.toUpperCase())}
+                        </h3>
+                        <Badge
+                          variant={
+                            alert.severity === 'urgent'
+                              ? 'destructive'
+                              : alert.severity === 'high'
+                                ? 'warning'
+                                : 'secondary'
+                          }
+                        >
                           {alert.severity}
                         </Badge>
                       </div>

@@ -1,12 +1,10 @@
-'use client';
-
 import { LocationServiceTemplate } from '@/components/templates/LocationServiceTemplate';
 import { getLocationServiceCityBySlug, getLocationServiceByKey } from '@/data/location-services';
 
 export default function HuntersvilleLesionesPersonalesPage() {
   const cityData = getLocationServiceCityBySlug('huntersville');
   const serviceData = getLocationServiceByKey('lesiones-personales');
-  
+
   if (!cityData || !serviceData) {
     return <div>Page not found</div>;
   }
@@ -24,24 +22,29 @@ export default function HuntersvilleLesionesPersonalesPage() {
 
 export const metadata = {
   title: 'Lesiones Personales en Huntersville, NC | Vasquez Law Firm',
-  description: 'Servicios legales de lesiones personales en Huntersville, NC. Abogados locales experimentados. Consultas gratuitas. Llame (704) 533-7000.',
-  keywords: 'lesiones personales Huntersville, abogado Huntersville, lesiones personales NC, abogado español Huntersville, servicios legales Huntersville',
+  description:
+    'Servicios legales de lesiones personales en Huntersville, NC. Abogados locales experimentados. Consultas gratuitas. Llame (704) 533-7000.',
+  keywords:
+    'lesiones personales Huntersville, abogado Huntersville, lesiones personales NC, abogado español Huntersville, servicios legales Huntersville',
   openGraph: {
     title: 'Lesiones Personales en Huntersville, NC | Vasquez Law Firm',
-    description: 'Servicios legales de lesiones personales en Huntersville, NC. Abogados locales experimentados. Consultas gratuitas. Llame (704) 533-7000.',
+    description:
+      'Servicios legales de lesiones personales en Huntersville, NC. Abogados locales experimentados. Consultas gratuitas. Llame (704) 533-7000.',
     url: 'https://www.vasquezlawnc.com/es/ubicaciones/huntersville-lesiones-personales',
-    images: [{
-      url: 'https://www.vasquezlawnc.com/images/huntersville-lesiones-personales-og.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Lesiones Personales en Huntersville, NC'
-    }]
+    images: [
+      {
+        url: 'https://www.vasquezlawnc.com/images/huntersville-lesiones-personales-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Lesiones Personales en Huntersville, NC',
+      },
+    ],
   },
   alternates: {
     canonical: 'https://www.vasquezlawnc.com/es/ubicaciones/huntersville-lesiones-personales',
     languages: {
       'en-US': 'https://www.vasquezlawnc.com/locations/huntersville-personal-injury',
-      'es-ES': 'https://www.vasquezlawnc.com/es/ubicaciones/huntersville-lesiones-personales'
-    }
-  }
+      'es-ES': 'https://www.vasquezlawnc.com/es/ubicaciones/huntersville-lesiones-personales',
+    },
+  },
 };

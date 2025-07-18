@@ -1,12 +1,10 @@
-'use client';
-
 import { LocationServiceTemplate } from '@/components/templates/LocationServiceTemplate';
 import { getLocationServiceCityBySlug, getLocationServiceByKey } from '@/data/location-services';
 
 export default function IndianTrailLesionesPersonalesPage() {
   const cityData = getLocationServiceCityBySlug('indian-trail');
   const serviceData = getLocationServiceByKey('lesiones-personales');
-  
+
   if (!cityData || !serviceData) {
     return <div>Page not found</div>;
   }
@@ -24,24 +22,29 @@ export default function IndianTrailLesionesPersonalesPage() {
 
 export const metadata = {
   title: 'Lesiones Personales en Indian Trail, NC | Vasquez Law Firm',
-  description: 'Servicios legales de lesiones personales en Indian Trail, NC. Abogados locales experimentados. Consultas gratuitas. Llame (704) 533-7000.',
-  keywords: 'lesiones personales Indian Trail, abogado Indian Trail, lesiones personales NC, abogado español Indian Trail, servicios legales Indian Trail',
+  description:
+    'Servicios legales de lesiones personales en Indian Trail, NC. Abogados locales experimentados. Consultas gratuitas. Llame (704) 533-7000.',
+  keywords:
+    'lesiones personales Indian Trail, abogado Indian Trail, lesiones personales NC, abogado español Indian Trail, servicios legales Indian Trail',
   openGraph: {
     title: 'Lesiones Personales en Indian Trail, NC | Vasquez Law Firm',
-    description: 'Servicios legales de lesiones personales en Indian Trail, NC. Abogados locales experimentados. Consultas gratuitas. Llame (704) 533-7000.',
+    description:
+      'Servicios legales de lesiones personales en Indian Trail, NC. Abogados locales experimentados. Consultas gratuitas. Llame (704) 533-7000.',
     url: 'https://www.vasquezlawnc.com/es/ubicaciones/indian-trail-lesiones-personales',
-    images: [{
-      url: 'https://www.vasquezlawnc.com/images/indian-trail-lesiones-personales-og.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Lesiones Personales en Indian Trail, NC'
-    }]
+    images: [
+      {
+        url: 'https://www.vasquezlawnc.com/images/indian-trail-lesiones-personales-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Lesiones Personales en Indian Trail, NC',
+      },
+    ],
   },
   alternates: {
     canonical: 'https://www.vasquezlawnc.com/es/ubicaciones/indian-trail-lesiones-personales',
     languages: {
       'en-US': 'https://www.vasquezlawnc.com/locations/indian-trail-personal-injury',
-      'es-ES': 'https://www.vasquezlawnc.com/es/ubicaciones/indian-trail-lesiones-personales'
-    }
-  }
+      'es-ES': 'https://www.vasquezlawnc.com/es/ubicaciones/indian-trail-lesiones-personales',
+    },
+  },
 };

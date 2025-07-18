@@ -1,12 +1,10 @@
-'use client';
-
 import { LocationServiceTemplate } from '@/components/templates/LocationServiceTemplate';
 import { getLocationServiceCityBySlug, getLocationServiceByKey } from '@/data/location-services';
 
 export default function OrlandoCompensacionLaboralPage() {
   const cityData = getLocationServiceCityBySlug('orlando');
   const serviceData = getLocationServiceByKey('compensacion-laboral');
-  
+
   if (!cityData || !serviceData) {
     return <div>Page not found</div>;
   }
@@ -24,24 +22,29 @@ export default function OrlandoCompensacionLaboralPage() {
 
 export const metadata = {
   title: 'Compensación Laboral en Orlando, FL | Vasquez Law Firm',
-  description: 'Servicios legales de compensación laboral en Orlando, FL. Abogados locales experimentados. Consultas gratuitas. Llame (407) 955-5000.',
-  keywords: 'compensación laboral Orlando, abogado Orlando, compensación laboral FL, abogado español Orlando, servicios legales Orlando',
+  description:
+    'Servicios legales de compensación laboral en Orlando, FL. Abogados locales experimentados. Consultas gratuitas. Llame (407) 955-5000.',
+  keywords:
+    'compensación laboral Orlando, abogado Orlando, compensación laboral FL, abogado español Orlando, servicios legales Orlando',
   openGraph: {
     title: 'Compensación Laboral en Orlando, FL | Vasquez Law Firm',
-    description: 'Servicios legales de compensación laboral en Orlando, FL. Abogados locales experimentados. Consultas gratuitas. Llame (407) 955-5000.',
+    description:
+      'Servicios legales de compensación laboral en Orlando, FL. Abogados locales experimentados. Consultas gratuitas. Llame (407) 955-5000.',
     url: 'https://www.vasquezlawnc.com/es/ubicaciones/orlando-compensacion-laboral',
-    images: [{
-      url: 'https://www.vasquezlawnc.com/images/orlando-compensacion-laboral-og.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Compensación Laboral en Orlando, FL'
-    }]
+    images: [
+      {
+        url: 'https://www.vasquezlawnc.com/images/orlando-compensacion-laboral-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Compensación Laboral en Orlando, FL',
+      },
+    ],
   },
   alternates: {
     canonical: 'https://www.vasquezlawnc.com/es/ubicaciones/orlando-compensacion-laboral',
     languages: {
       'en-US': 'https://www.vasquezlawnc.com/locations/orlando-workers-compensation',
-      'es-ES': 'https://www.vasquezlawnc.com/es/ubicaciones/orlando-compensacion-laboral'
-    }
-  }
+      'es-ES': 'https://www.vasquezlawnc.com/es/ubicaciones/orlando-compensacion-laboral',
+    },
+  },
 };

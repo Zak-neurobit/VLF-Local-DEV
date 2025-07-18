@@ -1,3 +1,5 @@
+const { withSentryConfig } = require('@sentry/nextjs');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Internationalization
@@ -65,7 +67,7 @@ const nextConfig = {
             value:
               process.env.NODE_ENV === 'development'
                 ? '' // Disabled in development for hot reload
-                : "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' *.google-analytics.com *.googletagmanager.com *.google.com *.gstatic.com *.googleapis.com *.vercel-insights.com *.vercel-analytics.com; style-src 'self' 'unsafe-inline' *.googleapis.com; img-src 'self' data: blob: *.google-analytics.com *.googletagmanager.com *.google.com *.gstatic.com *.googleapis.com https:; font-src 'self' *.gstatic.com *.googleapis.com; connect-src 'self' *.google-analytics.com *.googletagmanager.com *.google.com *.googleapis.com *.vercel-insights.com *.vercel-analytics.com wss: https:; frame-src 'self' *.google.com *.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';",
+                : "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' *.google-analytics.com *.googletagmanager.com *.google.com *.gstatic.com *.googleapis.com *.vercel-insights.com *.vercel-analytics.com *.sentry.io *.ingest.sentry.io; style-src 'self' 'unsafe-inline' *.googleapis.com; img-src 'self' data: blob: *.google-analytics.com *.googletagmanager.com *.google.com *.gstatic.com *.googleapis.com *.sentry.io https:; font-src 'self' *.gstatic.com *.googleapis.com; connect-src 'self' *.google-analytics.com *.googletagmanager.com *.google.com *.googleapis.com *.vercel-insights.com *.vercel-analytics.com *.sentry.io *.ingest.sentry.io wss: https:; frame-src 'self' *.google.com *.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; report-uri https://o4509686791274496.ingest.us.sentry.io/api/4509686792323072/security/?sentry_key=cba8298406de5e2b11befb42392681da;",
           },
         ],
       },
@@ -159,4 +161,32 @@ const nextConfig = {
   }),
 };
 
-module.exports = nextConfig;
+// Sentry configuration options
+const sentryWebpackPluginOptions = {
+  // Organization and project from your Sentry account
+  org: 'vasquez-law-firmpllc',
+  project: 'javascript-nextjs',
+
+  // Only upload source maps in production
+  silent: true,
+
+  // Automatically upload source maps during build
+  widenClientFileUpload: true,
+
+  // Transpile SDK for compatibility
+  transpileClientSDK: true,
+
+  // Routes to tunnel Sentry requests through to avoid ad blockers
+  tunnelRoute: '/monitoring',
+
+  // Hide source maps from the client
+  hideSourceMaps: true,
+
+  // Disable org/project lookup in CI
+  disableLogger: true,
+
+  // Auto-instrument API routes and Server Components
+  automaticVercelMonitors: true,
+};
+
+module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);

@@ -1,9 +1,8 @@
-import ConcordPersonalInjuryNearMeClient from './ConcordPersonalInjuryNearMeClient';
+import concordPersonalInjuryNearMeClient from './concordPersonalInjuryNearMeClient';
 
-export default function ConcordPersonalInjuryNearMePage() {
-  return <ConcordPersonalInjuryNearMeClient />;
+export default function concordPersonalInjuryNearMePage() {
+  return <concordPersonalInjuryNearMeClient />;
 }
-
 export const metadata = {
   title: 'Abogado de Lesiones Personales Cerca de Mi en Concord, NC | Vasquez Law Firm',
   description:

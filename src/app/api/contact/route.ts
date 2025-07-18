@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPrismaClient } from '@/lib/prisma';
-import { apiLogger } from '@/lib/logger';
+import { logger, apiLogger } from '@/lib/logger';
 import { emailService } from '@/services/email.service';
 import { contactFormSchema } from '@/lib/validations/forms';
 import { contactFormLimiter } from '@/lib/rate-limiter';
@@ -8,7 +8,7 @@ import { createGHLContact, getPracticeAreaTags } from '@/lib/ghl';
 import { withLeadCaptureTracing } from '@/lib/telemetry/api-middleware';
 
 async function handlePOST(req: NextRequest) {
-  apiLogger.request(req.method, req.url, {});
+  const requestId = apiLogger?.request ? apiLogger.request(req.method, req.url, {}) : 'no-logger';
 
   try {
     // Apply rate limiting
@@ -27,7 +27,9 @@ async function handlePOST(req: NextRequest) {
 
     // Check honeypot
     if (validatedData.website) {
-      apiLogger.warn('Honeypot triggered', { ip: req.headers.get('x-forwarded-for') });
+      if (apiLogger && apiLogger.warn) {
+        apiLogger.warn('Honeypot triggered', { ip: req.headers.get('x-forwarded-for') });
+      }
       // Return success to not reveal honeypot
       return NextResponse.json({
         success: true,
@@ -111,13 +113,14 @@ async function handlePOST(req: NextRequest) {
     });
 
     // Log successful submission
-    apiLogger.info('contact-form-success', {
-      userId: user.id,
-      taskId: task.id,
-      caseType: validatedData.caseType,
-      ghlResult: ghlResult.success ? 'success' : 'failed',
-      ghlContactId: ghlResult.contactId,
-    });
+    apiLogger?.info &&
+      apiLogger.info('contact-form-success', {
+        userId: user.id,
+        taskId: task.id,
+        caseType: validatedData.caseType,
+        ghlResult: ghlResult.success ? 'success' : 'failed',
+        ghlContactId: ghlResult.contactId,
+      });
 
     return NextResponse.json({
       success: true,
@@ -128,7 +131,9 @@ async function handlePOST(req: NextRequest) {
       userId: user.id,
     });
   } catch (error) {
-    apiLogger.error('contact-form', error as Error, {});
+    apiLogger?.error
+      ? apiLogger.error('contact-form', error as Error)
+      : console.error('contact-form', error);
 
     if (error instanceof Error && 'errors' in error) {
       return NextResponse.json(

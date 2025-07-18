@@ -5,14 +5,13 @@ import { Metadata } from 'next';
 // Dynamic imports for each attorney page
 const attorneyPages = {
   'adrianna-ingram': () => import('../adrianna-ingram/page').then(mod => mod.default),
-  'jillian-baucom-es': () => import('../jillian-baucom-es/page').then(mod => mod.default),
+  'jillian-baucom': () => import('../jillian-baucom/page').then(mod => mod.default),
   'kelly-vega': () => import('../kelly-vega/page').then(mod => mod.default),
-  'mark-kelsey-es': () => import('../mark-kelsey-es/page').then(mod => mod.default),
-  'christopher-afanador-abogado': () =>
-    import('../christopher-afanador-abogado/page').then(mod => mod.default),
+  // 'mark-kelsey-es': Spanish version removed - using main page,
+  'christopher-afanador': () => import('../christopher-afanador/page').then(mod => mod.default),
   'mark-kelsey': () => import('../mark-kelsey/page').then(mod => mod.default),
   'judith-parkes': () => import('../judith-parkes/page').then(mod => mod.default),
-  'roselyn-v-torrellas': () => import('../roselyn-v-torrellas/page').then(mod => mod.default),
+  'roselyn-v-torrellas': () => import('../roselyn-torrellas/page').then(mod => mod.default),
   'william-vasquez': () => import('../william-vasquez/page').then(mod => mod.default),
   'rebecca-sommer': () => import('../rebecca-sommer/page').then(mod => mod.default),
 } as const;
@@ -23,6 +22,21 @@ const attorneyMetadata: Record<string, Metadata> = {
     title: 'Adrianna Ingram | Immigration Attorney | Vasquez Law Firm',
     description:
       'Meet Adrianna Ingram, experienced immigration attorney at Vasquez Law Firm. Specialized in immigration law and client advocacy.',
+  },
+  'jillian-baucom': {
+    title: 'Jillian Baucom | Immigration Attorney | Vasquez Law Firm',
+    description:
+      'Meet Jillian Baucom, experienced immigration attorney at Vasquez Law Firm. Dedicated to helping clients achieve their immigration goals.',
+  },
+  'christopher-afanador': {
+    title: 'Christopher Afanador | Immigration Attorney | Vasquez Law Firm',
+    description:
+      'Meet Christopher Afanador, skilled immigration attorney at Vasquez Law Firm. Providing compassionate legal representation.',
+  },
+  'judith-parkes': {
+    title: 'Judith Parkes | Immigration Attorney | Vasquez Law Firm',
+    description:
+      'Meet Judith Parkes, dedicated immigration attorney at Vasquez Law Firm. Committed to excellence in immigration law.',
   },
   'kelly-vega': {
     title: 'Kelly Vega | Immigration Attorney | Vasquez Law Firm',

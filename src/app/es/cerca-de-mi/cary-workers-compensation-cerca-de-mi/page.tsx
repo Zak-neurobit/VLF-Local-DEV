@@ -1,9 +1,8 @@
-import CaryWorkersCompensationNearMeClient from './CaryWorkersCompensationNearMeClient';
+import caryWorkersCompensationNearMeClient from './caryWorkersCompensationNearMeClient';
 
-export default function CaryWorkersCompensationNearMePage() {
-  return <CaryWorkersCompensationNearMeClient />;
+export default function caryWorkersCompensationNearMePage() {
+  return <caryWorkersCompensationNearMeClient />;
 }
-
 export const metadata = {
   title: 'Abogado de Compensación Laboral Cerca de Mi en Cary, NC | Vasquez Law Firm',
   description:

@@ -71,11 +71,12 @@ export async function GET(request: NextRequest) {
 
     if (detailed) {
       // Detailed health with all metrics
-      const status = await socketServer.getDetailedHealthCheck();
-      return NextResponse.json(status);
+      const status = socketServer.getHealthStatus();
+      const metricsData = socketServer.getMetricsData();
+      return NextResponse.json({ ...status, metrics: metricsData });
     } else if (metrics) {
       // Just metrics data
-      const metricsData = socketServer.getMetrics();
+      const metricsData = socketServer.getMetricsData();
       return NextResponse.json(metricsData);
     } else {
       // Basic status
@@ -118,16 +119,11 @@ export async function POST(request: NextRequest) {
 
     switch (action) {
       case 'execute_command':
-        const command = AdminCommandSchema.parse(data);
-        await socketServer.executeAdminCommand(
-          {
-            ...command,
-            adminId: auth.user.id,
-            timestamp: Date.now(),
-          },
-          auth.user.id
-        );
-        result.message = `Command ${command.type} executed successfully`;
+        // Admin commands should be executed via socket connection, not REST API
+        // const command = AdminCommandSchema.parse(data);
+        // Commands need to be sent via socket.emit('admin:command', command)
+        result.success = false;
+        result.message = 'Admin commands must be executed via WebSocket connection';
         break;
 
       case 'configure_alert':
@@ -363,28 +359,22 @@ export async function DELETE(request: NextRequest) {
           message: 'Emergency shutdown initiated',
           timestamp: Date.now(),
         });
+        break;
 
       case 'disconnect_all_users':
-        // Disconnect all non-admin users
-        const connections = socketServer.getConnectionsData();
-        const nonAdminConnections = connections.filter(
-          conn => !socketServer.isAdminConnection(conn.socketId)
-        );
+        // This functionality requires WebSocket connection to filter admin connections
+        // Cannot access private isAdminConnection method from REST API
+        const disconnectMessage = 'Disconnect all users must be executed via WebSocket connection';
 
-        for (const conn of nonAdminConnections) {
-          await socketServer.forceDisconnectSocket(conn.socketId, 'Emergency disconnect by admin');
-        }
-
-        logger.warn('All users disconnected', {
+        logger.warn('Disconnect all users attempted via REST API', {
           adminId: auth.user.id,
-          disconnectedCount: nonAdminConnections.length,
           userAgent: request.headers.get('user-agent'),
           ip: request.ip || 'unknown',
         });
 
         return NextResponse.json({
-          success: true,
-          message: `Disconnected ${nonAdminConnections.length} users`,
+          success: false,
+          message: disconnectMessage,
           timestamp: Date.now(),
         });
 

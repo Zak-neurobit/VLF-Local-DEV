@@ -1,12 +1,10 @@
-'use client';
-
 import { LocationServiceTemplate } from '@/components/templates/LocationServiceTemplate';
 import { getLocationServiceCityBySlug, getLocationServiceByKey } from '@/data/location-services';
 
 export default function ConcordLesionesPersonalesPage() {
   const cityData = getLocationServiceCityBySlug('concord');
   const serviceData = getLocationServiceByKey('lesiones-personales');
-  
+
   if (!cityData || !serviceData) {
     return <div>Page not found</div>;
   }
@@ -24,24 +22,29 @@ export default function ConcordLesionesPersonalesPage() {
 
 export const metadata = {
   title: 'Lesiones Personales en Concord, NC | Vasquez Law Firm',
-  description: 'Servicios legales de lesiones personales en Concord, NC. Abogados locales experimentados. Consultas gratuitas. Llame (704) 533-7000.',
-  keywords: 'lesiones personales Concord, abogado Concord, lesiones personales NC, abogado español Concord, servicios legales Concord',
+  description:
+    'Servicios legales de lesiones personales en Concord, NC. Abogados locales experimentados. Consultas gratuitas. Llame (704) 533-7000.',
+  keywords:
+    'lesiones personales Concord, abogado Concord, lesiones personales NC, abogado español Concord, servicios legales Concord',
   openGraph: {
     title: 'Lesiones Personales en Concord, NC | Vasquez Law Firm',
-    description: 'Servicios legales de lesiones personales en Concord, NC. Abogados locales experimentados. Consultas gratuitas. Llame (704) 533-7000.',
+    description:
+      'Servicios legales de lesiones personales en Concord, NC. Abogados locales experimentados. Consultas gratuitas. Llame (704) 533-7000.',
     url: 'https://www.vasquezlawnc.com/es/ubicaciones/concord-lesiones-personales',
-    images: [{
-      url: 'https://www.vasquezlawnc.com/images/concord-lesiones-personales-og.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Lesiones Personales en Concord, NC'
-    }]
+    images: [
+      {
+        url: 'https://www.vasquezlawnc.com/images/concord-lesiones-personales-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Lesiones Personales en Concord, NC',
+      },
+    ],
   },
   alternates: {
     canonical: 'https://www.vasquezlawnc.com/es/ubicaciones/concord-lesiones-personales',
     languages: {
       'en-US': 'https://www.vasquezlawnc.com/locations/concord-personal-injury',
-      'es-ES': 'https://www.vasquezlawnc.com/es/ubicaciones/concord-lesiones-personales'
-    }
-  }
+      'es-ES': 'https://www.vasquezlawnc.com/es/ubicaciones/concord-lesiones-personales',
+    },
+  },
 };

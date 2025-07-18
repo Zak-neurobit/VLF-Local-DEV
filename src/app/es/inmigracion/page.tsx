@@ -1,5 +1,3 @@
-'use client';
-
 import { ModernPracticeAreaTemplateV3 } from '@/components/templates/ModernPracticeAreaTemplateV3';
 import { getPracticeAreaByKey } from '@/data/practice-areas';
 

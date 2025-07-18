@@ -1,14 +1,17 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ContactForm } from '@/components/contact/ContactForm';
+import { ContactForm } from '@/components/forms/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Abogado de Lesiones Personales en Charlotte, NC | Bufete Vasquez',
-  description: 'Abogados de lesiones personales en Charlotte, NC. Accidentes automovilísticos, negligencia médica, lesiones en el trabajo. No cobramos a menos que ganemos.',
-  keywords: 'abogado lesiones personales Charlotte, accidentes auto Charlotte, negligencia médica Charlotte, compensación Charlotte',
+  description:
+    'Abogados de lesiones personales en Charlotte, NC. Accidentes automovilísticos, negligencia médica, lesiones en el trabajo. No cobramos a menos que ganemos.',
+  keywords:
+    'abogado lesiones personales Charlotte, accidentes auto Charlotte, negligencia médica Charlotte, compensación Charlotte',
   openGraph: {
     title: 'Abogado de Lesiones Personales en Charlotte, NC | Bufete Vasquez',
-    description: 'Especialistas en lesiones personales en Charlotte, NC. Luchamos por la máxima compensación. Consulta gratuita.',
+    description:
+      'Especialistas en lesiones personales en Charlotte, NC. Luchamos por la máxima compensación. Consulta gratuita.',
     url: 'https://vasquezlawfirm.com/es/ubicaciones/charlotte/lesiones-personales',
     siteName: 'Bufete de Abogados Vasquez',
     locale: 'es_US',
@@ -30,7 +33,8 @@ export default function CharlottePersonalInjuryPage() {
               Abogado de Lesiones Personales en Charlotte
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              Luchamos incansablemente por la máxima compensación para víctimas de accidentes y negligencia en Charlotte, NC.
+              Luchamos incansablemente por la máxima compensación para víctimas de accidentes y
+              negligencia en Charlotte, NC.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -85,7 +89,8 @@ export default function CharlottePersonalInjuryPage() {
               Tipos de Casos de Lesiones Personales en Charlotte
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Representamos víctimas de todos los tipos de accidentes y negligencia en el área metropolitana de Charlotte.
+              Representamos víctimas de todos los tipos de accidentes y negligencia en el área
+              metropolitana de Charlotte.
             </p>
           </div>
 
@@ -94,13 +99,18 @@ export default function CharlottePersonalInjuryPage() {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"
+                    clipRule="evenodd"
+                  />
                   <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1V8a1 1 0 00-1-1h-3z" />
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Accidentes Automovilísticos</h3>
               <p className="text-gray-600 mb-4">
-                Representamos víctimas de accidentes en las principales carreteras de Charlotte, incluyendo I-77, I-85, y I-485.
+                Representamos víctimas de accidentes en las principales carreteras de Charlotte,
+                incluyendo I-77, I-85, y I-485.
               </p>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>• Colisiones frontales y traseras</li>
@@ -121,7 +131,8 @@ export default function CharlottePersonalInjuryPage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Accidentes de Camiones</h3>
               <p className="text-gray-600 mb-4">
-                Casos complejos contra compañías de transporte y sus aseguradoras por accidentes devastadores.
+                Casos complejos contra compañías de transporte y sus aseguradoras por accidentes
+                devastadores.
               </p>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>• Accidentes de tractor-remolque</li>
@@ -135,12 +146,17 @@ export default function CharlottePersonalInjuryPage() {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Negligencia Médica</h3>
               <p className="text-gray-600 mb-4">
-                Casos contra hospitales y médicos en Charlotte por errores médicos que causan lesiones graves.
+                Casos contra hospitales y médicos en Charlotte por errores médicos que causan
+                lesiones graves.
               </p>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>• Errores quirúrgicos</li>
@@ -154,7 +170,11 @@ export default function CharlottePersonalInjuryPage() {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Lesiones en el Trabajo</h3>
@@ -173,12 +193,17 @@ export default function CharlottePersonalInjuryPage() {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Resbalones y Caídas</h3>
               <p className="text-gray-600 mb-4">
-                Casos de responsabilidad civil contra propietarios negligentes en tiendas, oficinas y propiedades.
+                Casos de responsabilidad civil contra propietarios negligentes en tiendas, oficinas
+                y propiedades.
               </p>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>• Pisos mojados sin señalización</li>
@@ -192,12 +217,17 @@ export default function CharlottePersonalInjuryPage() {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Muerte Injusta</h3>
               <p className="text-gray-600 mb-4">
-                Representamos familias que han perdido seres queridos debido a la negligencia de otros.
+                Representamos familias que han perdido seres queridos debido a la negligencia de
+                otros.
               </p>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>• Accidentes fatales de tráfico</li>
@@ -224,11 +254,21 @@ export default function CharlottePersonalInjuryPage() {
                     Carreteras Peligrosas en Charlotte
                   </h3>
                   <ul className="space-y-2 text-gray-600">
-                    <li>• <strong>I-77:</strong> Una de las carreteras más peligrosas de NC</li>
-                    <li>• <strong>I-85:</strong> Alto tráfico de camiones comerciales</li>
-                    <li>• <strong>I-485 (The Loop):</strong> Múltiples puntos de congestión</li>
-                    <li>• <strong>Independence Boulevard:</strong> Intersecciones peligrosas</li>
-                    <li>• <strong>South Boulevard:</strong> Alto índice de accidentes peatonales</li>
+                    <li>
+                      • <strong>I-77:</strong> Una de las carreteras más peligrosas de NC
+                    </li>
+                    <li>
+                      • <strong>I-85:</strong> Alto tráfico de camiones comerciales
+                    </li>
+                    <li>
+                      • <strong>I-485 (The Loop):</strong> Múltiples puntos de congestión
+                    </li>
+                    <li>
+                      • <strong>Independence Boulevard:</strong> Intersecciones peligrosas
+                    </li>
+                    <li>
+                      • <strong>South Boulevard:</strong> Alto índice de accidentes peatonales
+                    </li>
                   </ul>
                 </div>
 
@@ -247,36 +287,42 @@ export default function CharlottePersonalInjuryPage() {
             </div>
 
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Casos Exitosos en Charlotte
-              </h2>
-              
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Casos Exitosos en Charlotte</h2>
+
               <div className="space-y-6">
                 <div className="bg-white p-6 rounded-lg shadow">
-                  <h4 className="font-semibold text-gray-900 mb-2">Accidente de Tractor-Remolque - $2.1M</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">
+                    Accidente de Tractor-Remolque - $2.1M
+                  </h4>
                   <p className="text-gray-600 text-sm">
-                    Familia hispana obtuvo compensación después de que conductor de camión se quedó dormido en I-77, causando lesiones permanentes.
+                    Familia hispana obtuvo compensación después de que conductor de camión se quedó
+                    dormido en I-77, causando lesiones permanentes.
                   </p>
                 </div>
 
                 <div className="bg-white p-6 rounded-lg shadow">
                   <h4 className="font-semibold text-gray-900 mb-2">Negligencia Médica - $1.8M</h4>
                   <p className="text-gray-600 text-sm">
-                    Error quirúrgico en Carolinas Medical Center resultó en compensación por daños permanentes y dolor.
+                    Error quirúrgico en Carolinas Medical Center resultó en compensación por daños
+                    permanentes y dolor.
                   </p>
                 </div>
 
                 <div className="bg-white p-6 rounded-lg shadow">
-                  <h4 className="font-semibold text-gray-900 mb-2">Accidente de Construcción - $950K</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">
+                    Accidente de Construcción - $950K
+                  </h4>
                   <p className="text-gray-600 text-sm">
-                    Trabajador inmigrante lesionado por equipo defectuoso en proyecto de desarrollo en South End.
+                    Trabajador inmigrante lesionado por equipo defectuoso en proyecto de desarrollo
+                    en South End.
                   </p>
                 </div>
 
                 <div className="bg-white p-6 rounded-lg shadow">
                   <h4 className="font-semibold text-gray-900 mb-2">Muerte Injusta - $1.2M</h4>
                   <p className="text-gray-600 text-sm">
-                    Familia recibió compensación después de accidente fatal causado por conductor ebrio en Independence Boulevard.
+                    Familia recibió compensación después de accidente fatal causado por conductor
+                    ebrio en Independence Boulevard.
                   </p>
                 </div>
               </div>
@@ -357,7 +403,8 @@ export default function CharlottePersonalInjuryPage() {
               </div>
               <h3 className="text-xl font-semibold mb-3">Representación Agresiva</h3>
               <p>
-                No nos conformamos con ofertas bajas. Luchamos hasta obtener la compensación completa que merece.
+                No nos conformamos con ofertas bajas. Luchamos hasta obtener la compensación
+                completa que merece.
               </p>
             </div>
 
@@ -367,7 +414,8 @@ export default function CharlottePersonalInjuryPage() {
               </div>
               <h3 className="text-xl font-semibold mb-3">Red Médica</h3>
               <p>
-                Trabajamos con los mejores médicos especializados para documentar sus lesiones y tratamiento.
+                Trabajamos con los mejores médicos especializados para documentar sus lesiones y
+                tratamiento.
               </p>
             </div>
 
@@ -376,9 +424,7 @@ export default function CharlottePersonalInjuryPage() {
                 <span className="text-2xl">💰</span>
               </div>
               <h3 className="text-xl font-semibold mb-3">Sin Honorarios Adelantados</h3>
-              <p>
-                Solo cobramos si ganamos su caso. Usted no arriesga nada por buscar justicia.
-              </p>
+              <p>Solo cobramos si ganamos su caso. Usted no arriesga nada por buscar justicia.</p>
             </div>
           </div>
         </div>
@@ -392,7 +438,8 @@ export default function CharlottePersonalInjuryPage() {
               ¿Fue Lesionado en Charlotte? Contáctenos Ahora
             </h2>
             <p className="text-xl text-gray-600">
-              Cada día que espera es evidencia que se pierde. Actúe ahora para proteger sus derechos.
+              Cada día que espera es evidencia que se pierde. Actúe ahora para proteger sus
+              derechos.
             </p>
           </div>
           <ContactForm />

@@ -4,9 +4,9 @@ import { logger } from '../src/lib/logger';
 import { getPrismaClient } from '../src/lib/prisma';
 import { getRetellClient } from '../src/services/retell/client';
 import { OpenAI } from 'openai';
-import twilio from 'twilio';
-import Stripe from 'stripe';
-import sgMail from '@sendgrid/mail';
+// import twilio from 'twilio'; // Not used - using GoHighLevel instead
+// import Stripe from 'stripe'; // Not used - using LawPay instead
+// import sgMail from '@sendgrid/mail'; // Not used - using Office 365 instead
 import * as Sentry from '@sentry/nextjs';
 import { createServer } from 'http';
 import { getChatSocketServer } from '../src/lib/socket/server';
@@ -93,48 +93,51 @@ async function runTests() {
     logger.info('OpenAI connection test passed', { modelCount: models.data.length });
   });
 
-  // 5. Twilio
+  // 5. GoHighLevel (SMS/CRM)
   await testService(
-    'Twilio (Phone/SMS)',
+    'GoHighLevel CRM',
     async () => {
-      if (!process.env.TWILIO_ACCOUNT_SID || !process.env.TWILIO_AUTH_TOKEN) {
-        throw new Error('Twilio credentials not configured');
+      if (!process.env.GHL_API_KEY) {
+        throw new Error('GHL_API_KEY not configured');
       }
-      const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-      const account = await client.api.accounts(process.env.TWILIO_ACCOUNT_SID).fetch();
-      logger.info('Twilio connection test passed', { status: account.status });
-    },
-    false
-  ); // Not required for basic functionality
-
-  // 6. Stripe
-  await testService(
-    'Stripe Payment Processing',
-    async () => {
-      if (!process.env.STRIPE_SECRET_KEY) {
-        throw new Error('STRIPE_SECRET_KEY not configured');
-      }
-      const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-        apiVersion: '2024-12-18.acacia',
+      logger.info('GoHighLevel configured', {
+        locationId: process.env.GHL_LOCATION_ID,
+        apiUrl: process.env.GHL_API_URL,
       });
-      const paymentMethods = await stripe.paymentMethods.list({ limit: 1 });
-      logger.info('Stripe connection test passed');
     },
-    false
+    true
   );
 
-  // 7. SendGrid
+  // 6. LawPay Payment Processing
   await testService(
-    'SendGrid Email Service',
+    'LawPay Payment Processing',
     async () => {
-      if (!process.env.SENDGRID_API_KEY) {
-        throw new Error('SENDGRID_API_KEY not configured');
+      if (!process.env.LAWPAY_SECRET_KEY || !process.env.LAWPAY_PUBLIC_KEY) {
+        throw new Error('LawPay credentials not configured');
       }
-      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-      // SendGrid doesn't have a direct test endpoint, but we can verify the API key format
-      logger.info('SendGrid configuration test passed');
+      logger.info('LawPay webhook configuration test passed', {
+        webhookUrl: 'https://www.vasquezlawnc.com/api/webhooks/lawpay',
+        hasSecretKey: !!process.env.LAWPAY_SECRET_KEY,
+        hasPublicKey: !!process.env.LAWPAY_PUBLIC_KEY,
+      });
     },
-    false
+    true
+  );
+
+  // 7. Office 365 Email
+  await testService(
+    'Office 365 Email Service',
+    async () => {
+      if (!process.env.SMTP_HOST || !process.env.SMTP_PASSWORD) {
+        throw new Error('Office 365 email not configured');
+      }
+      logger.info('Office 365 email configuration test passed', {
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT,
+        user: process.env.SMTP_USER,
+      });
+    },
+    true
   );
 
   // 8. Sentry
@@ -145,9 +148,13 @@ async function runTests() {
         throw new Error('SENTRY_DSN not configured');
       }
       // Sentry is already initialized in the app, just verify configuration
-      logger.info('Sentry configuration test passed');
+      logger.info('Sentry configuration test passed', {
+        org: process.env.SENTRY_ORG,
+        project: process.env.SENTRY_PROJECT,
+        environment: process.env.SENTRY_ENVIRONMENT,
+      });
     },
-    false
+    true // Now required since we configured it
   );
 
   // 9. Socket.IO Server
@@ -185,6 +192,29 @@ async function runTests() {
       logger.info('Redis connection test passed');
     },
     false
+  );
+
+  // 11. Google Cloud
+  await testService(
+    'Google Cloud (CrewAI)',
+    async () => {
+      if (!process.env.GOOGLE_APPLICATION_CREDENTIALS || !process.env.GOOGLE_CLOUD_PROJECT) {
+        throw new Error('Google Cloud not configured');
+      }
+
+      const fs = await import('fs/promises');
+      const path = await import('path');
+
+      // Check if credentials file exists
+      const credsPath = path.resolve(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+      await fs.access(credsPath);
+
+      logger.info('Google Cloud configuration test passed', {
+        project: process.env.GOOGLE_CLOUD_PROJECT,
+        credentialsFile: 'Present',
+      });
+    },
+    true // Now required since we configured it
   );
 
   // Print summary

@@ -6,8 +6,16 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Switch } from '@/components/ui/switch';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Share2, Calendar, RefreshCw, AlertCircle, CheckCircle, Clock, Activity } from 'lucide-react';
+import { Select, SelectOption } from '@/components/ui/select';
+import {
+  Share2,
+  Calendar,
+  RefreshCw,
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  Activity,
+} from 'lucide-react';
 
 export default function SyndicationManagementPage() {
   const [platforms, setPlatforms] = useState<any[]>([]);
@@ -110,9 +118,7 @@ export default function SyndicationManagementPage() {
         }),
       });
 
-      setPlatforms(platforms.map(p => 
-        p.id === platformId ? { ...p, enabled } : p
-      ));
+      setPlatforms(platforms.map(p => (p.id === platformId ? { ...p, enabled } : p)));
     } catch (error) {
       console.error('Failed to update platform:', error);
     }
@@ -136,7 +142,7 @@ export default function SyndicationManagementPage() {
           </Badge>
           <Button
             onClick={() => handleSchedulerControl(schedulerStatus?.isRunning ? 'stop' : 'start')}
-            variant={schedulerStatus?.isRunning ? 'destructive' : 'default'}
+            variant={schedulerStatus?.isRunning ? 'destructive' : 'primary'}
             size="sm"
           >
             {schedulerStatus?.isRunning ? 'Stop' : 'Start'} Scheduler
@@ -157,7 +163,7 @@ export default function SyndicationManagementPage() {
               <p className="text-xs text-muted-foreground">Last 7 days</p>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Success Rate</CardTitle>
@@ -165,16 +171,19 @@ export default function SyndicationManagementPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {analytics.totalSyndications > 0 
-                  ? Math.round((analytics.successfulSyndications / analytics.totalSyndications) * 100)
-                  : 0}%
+                {analytics.totalSyndications > 0
+                  ? Math.round(
+                      (analytics.successfulSyndications / analytics.totalSyndications) * 100
+                    )
+                  : 0}
+                %
               </div>
               <p className="text-xs text-muted-foreground">
                 {analytics.successfulSyndications} successful
               </p>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Failed</CardTitle>
@@ -182,8 +191,8 @@ export default function SyndicationManagementPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{analytics.failedSyndications}</div>
-              <Button 
-                variant="link" 
+              <Button
+                variant="link"
                 className="p-0 h-auto text-xs"
                 onClick={() => handleSchedulerControl('retry')}
               >
@@ -191,19 +200,15 @@ export default function SyndicationManagementPage() {
               </Button>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Active Platforms</CardTitle>
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                {platforms.filter(p => p.enabled).length}
-              </div>
-              <p className="text-xs text-muted-foreground">
-                of {platforms.length} platforms
-              </p>
+              <div className="text-2xl font-bold">{platforms.filter(p => p.enabled).length}</div>
+              <p className="text-xs text-muted-foreground">of {platforms.length} platforms</p>
             </CardContent>
           </Card>
         </div>
@@ -224,12 +229,15 @@ export default function SyndicationManagementPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {platforms.map((platform) => (
-                  <div key={platform.id} className="flex items-center justify-between p-4 border rounded-lg">
+                {platforms.map(platform => (
+                  <div
+                    key={platform.id}
+                    className="flex items-center justify-between p-4 border rounded-lg"
+                  >
                     <div className="flex items-center space-x-4">
                       <Switch
                         checked={platform.enabled}
-                        onCheckedChange={(checked) => handlePlatformToggle(platform.id, checked)}
+                        onCheckedChange={checked => handlePlatformToggle(platform.id, checked)}
                       />
                       <div>
                         <h3 className="font-medium">{platform.name}</h3>
@@ -262,7 +270,7 @@ export default function SyndicationManagementPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {strategies.map((strategy) => (
+                {strategies.map(strategy => (
                   <div key={strategy.id} className="p-4 border rounded-lg">
                     <div className="flex justify-between items-start">
                       <div>
@@ -301,46 +309,49 @@ export default function SyndicationManagementPage() {
             <CardContent className="space-y-4">
               <div>
                 <label className="block text-sm font-medium mb-2">Select Content</label>
-                <Select value={selectedContent} onValueChange={setSelectedContent}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Choose content to syndicate" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="blog-1">Latest Immigration Guide</SelectItem>
-                    <SelectItem value="blog-2">Criminal Defense Tips</SelectItem>
-                    <SelectItem value="news-1">Legal Update: New Immigration Policy</SelectItem>
-                  </SelectContent>
+                <Select value={selectedContent} onChange={e => setSelectedContent(e.target.value)}>
+                  <SelectOption value="">Choose content to syndicate</SelectOption>
+                  <SelectOption value="blog-1">Latest Immigration Guide</SelectOption>
+                  <SelectOption value="blog-2">Criminal Defense Tips</SelectOption>
+                  <SelectOption value="news-1">Legal Update: New Immigration Policy</SelectOption>
                 </Select>
               </div>
 
               <div>
                 <label className="block text-sm font-medium mb-2">Select Platforms</label>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {platforms.filter(p => p.enabled).map((platform) => (
-                    <label key={platform.id} className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        checked={selectedPlatforms.includes(platform.id)}
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setSelectedPlatforms([...selectedPlatforms, platform.id]);
-                          } else {
-                            setSelectedPlatforms(selectedPlatforms.filter(p => p !== platform.id));
-                          }
-                        }}
-                        className="rounded"
-                      />
-                      <span className="text-sm">{platform.name}</span>
-                    </label>
-                  ))}
+                  {platforms
+                    .filter(p => p.enabled)
+                    .map(platform => (
+                      <label key={platform.id} className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          checked={selectedPlatforms.includes(platform.id)}
+                          onChange={e => {
+                            if (e.target.checked) {
+                              setSelectedPlatforms([...selectedPlatforms, platform.id]);
+                            } else {
+                              setSelectedPlatforms(
+                                selectedPlatforms.filter(p => p !== platform.id)
+                              );
+                            }
+                          }}
+                          className="rounded"
+                        />
+                        <span className="text-sm">{platform.name}</span>
+                      </label>
+                    ))}
                 </div>
               </div>
 
               <div className="flex justify-end space-x-4">
-                <Button variant="outline" onClick={() => {
-                  setSelectedContent('');
-                  setSelectedPlatforms([]);
-                }}>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setSelectedContent('');
+                    setSelectedPlatforms([]);
+                  }}
+                >
                   Clear
                 </Button>
                 <Button onClick={handleManualSyndication}>
@@ -383,7 +394,10 @@ export default function SyndicationManagementPage() {
                     <h3 className="font-medium mb-3">Active Jobs</h3>
                     <div className="space-y-2">
                       {schedulerStatus.jobs.map((job: any) => (
-                        <div key={job.name} className="flex items-center justify-between p-3 border rounded">
+                        <div
+                          key={job.name}
+                          className="flex items-center justify-between p-3 border rounded"
+                        >
                           <div>
                             <p className="font-medium text-sm">{job.name}</p>
                             {job.nextRun && (

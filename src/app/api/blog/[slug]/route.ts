@@ -8,7 +8,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
   try {
     const { slug } = params;
     // First try to find in database
-    let post = await getPrismaClient().blogPost.findUnique({
+    let post: any = await getPrismaClient().blogPost.findUnique({
       where: { slug },
       include: {
         translations: {
@@ -145,7 +145,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       structuredData,
     });
   } catch (error) {
-    apiLogger.error('blog-get', error as Error, { slug: params.slug });
+    apiLogger.error('blog-get', error as Error);
     return NextResponse.json({ error: 'Failed to fetch blog post' }, { status: 500 });
   }
 }

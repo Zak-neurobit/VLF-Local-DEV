@@ -1,9 +1,8 @@
-import CaryDivorceNearMeClient from './CaryDivorceNearMeClient';
+import carydivorceNearMeClient from './carydivorceNearMeClient';
 
-export default function CaryDivorceNearMePage() {
-  return <CaryDivorceNearMeClient />;
+export default function carydivorceNearMePage() {
+  return <carydivorceNearMeClient />;
 }
-
 export const metadata = {
   title: 'Abogado de Divorcio Cerca de Mi en Cary, NC | Vasquez Law Firm',
   description:

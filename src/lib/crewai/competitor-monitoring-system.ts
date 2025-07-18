@@ -195,7 +195,7 @@ export class CompetitorMonitoringSystem {
   /**
    * Check competitor activity across all channels
    */
-  private async checkCompetitorActivity(competitorId: string): Promise<void> {
+  async checkCompetitorActivity(competitorId: string): Promise<void> {
     const profile = await this.getCompetitorProfile(competitorId);
     if (!profile) return;
 

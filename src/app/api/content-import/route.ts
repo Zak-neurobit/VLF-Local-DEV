@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
     }
   } catch (error) {
-    apiLogger.error('content-import', error as Error, {});
+    apiLogger.error('content-import', error as Error);
     return NextResponse.json({ error: 'Failed to import content' }, { status: 500 });
   }
 }
@@ -129,7 +129,7 @@ async function importEntireWebsite() {
         }
       } catch (error) {
         importResults.errors.push(`Failed to import page: ${page}`);
-        apiLogger.error('import-page', error as Error, { page });
+        apiLogger.error('import-page', error as Error);
       }
     }
 
@@ -141,7 +141,7 @@ async function importEntireWebsite() {
       ...importResults,
     };
   } catch (error) {
-    apiLogger.error('import-entire-website', error as Error, {});
+    apiLogger.error('import-entire-website', error as Error);
     throw error;
   }
 }

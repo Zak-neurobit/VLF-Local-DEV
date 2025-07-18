@@ -1,9 +1,8 @@
-import CaryPersonalInjuryNearMeClient from './CaryPersonalInjuryNearMeClient';
+import caryPersonalInjuryNearMeClient from './caryPersonalInjuryNearMeClient';
 
-export default function CaryPersonalInjuryNearMePage() {
-  return <CaryPersonalInjuryNearMeClient />;
+export default function caryPersonalInjuryNearMePage() {
+  return <caryPersonalInjuryNearMeClient />;
 }
-
 export const metadata = {
   title: 'Abogado de Lesiones Personales Cerca de Mi en Cary, NC | Vasquez Law Firm',
   description:

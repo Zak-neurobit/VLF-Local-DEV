@@ -5,21 +5,27 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectOption } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { 
-  MapPin, 
-  BarChart3, 
-  MessageSquare, 
-  Camera, 
-  Star, 
-  Clock, 
-  Eye, 
-  Phone, 
-  Globe, 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import {
+  MapPin,
+  BarChart3,
+  MessageSquare,
+  Camera,
+  Star,
+  Clock,
+  Eye,
+  Phone,
+  Globe,
   Navigation,
   TrendingUp,
   Users,
@@ -93,10 +99,7 @@ export default function GMBPage() {
         fetch(`/api/gmb/posts?locationId=${locationId}&limit=10`),
       ]);
 
-      const [analyticsData, postsData] = await Promise.all([
-        analyticsRes.json(),
-        postsRes.json(),
-      ]);
+      const [analyticsData, postsData] = await Promise.all([analyticsRes.json(), postsRes.json()]);
 
       if (analyticsData.success) {
         setAnalytics(analyticsData);
@@ -173,10 +176,7 @@ export default function GMBPage() {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Google My Business Management</h1>
         <div className="flex gap-2">
-          <Button 
-            variant="outline" 
-            onClick={() => handleAutomationControl('restart')}
-          >
+          <Button variant="outline" onClick={() => handleAutomationControl('restart')}>
             <RotateCcw className="h-4 w-4 mr-1" />
             Restart Automation
           </Button>
@@ -192,17 +192,13 @@ export default function GMBPage() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select a location" />
-            </SelectTrigger>
-            <SelectContent>
-              {locations.map((location) => (
-                <SelectItem key={location.id} value={location.id}>
-                  {location.name} - {location.address}
-                </SelectItem>
-              ))}
-            </SelectContent>
+          <Select value={selectedLocation} onChange={e => setSelectedLocation(e.target.value)}>
+            <SelectOption value="">Select a location</SelectOption>
+            {locations.map(location => (
+              <SelectOption key={location.id} value={location.id}>
+                {location.name} - {location.address}
+              </SelectOption>
+            ))}
           </Select>
         </CardContent>
       </Card>
@@ -219,9 +215,11 @@ export default function GMBPage() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="flex items-center gap-2">
-                <div className={`w-3 h-3 rounded-full ${
-                  automationStatus.status === 'active' ? 'bg-green-500' : 'bg-red-500'
-                }`}></div>
+                <div
+                  className={`w-3 h-3 rounded-full ${
+                    automationStatus.status === 'active' ? 'bg-green-500' : 'bg-red-500'
+                  }`}
+                ></div>
                 <span className="font-medium">
                   Status: {automationStatus.status === 'active' ? 'Active' : 'Inactive'}
                 </span>
@@ -239,21 +237,13 @@ export default function GMBPage() {
                 </p>
               </div>
             </div>
-            
+
             <div className="flex gap-2 mt-4">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => handleAutomationControl('start')}
-              >
+              <Button variant="outline" size="sm" onClick={() => handleAutomationControl('start')}>
                 <Play className="h-4 w-4 mr-1" />
                 Start
               </Button>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => handleAutomationControl('stop')}
-              >
+              <Button variant="outline" size="sm" onClick={() => handleAutomationControl('stop')}>
                 <Pause className="h-4 w-4 mr-1" />
                 Stop
               </Button>
@@ -290,9 +280,9 @@ export default function GMBPage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <Globe className="h-4 w-4 text-gray-600" />
-                      <a 
-                        href={selectedLocationData.website} 
-                        target="_blank" 
+                      <a
+                        href={selectedLocationData.website}
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:underline"
                       >
@@ -300,7 +290,7 @@ export default function GMBPage() {
                       </a>
                     </div>
                   </div>
-                  
+
                   <div>
                     <h4 className="font-medium mb-2">Services</h4>
                     <div className="flex flex-wrap gap-2">
@@ -463,7 +453,10 @@ export default function GMBPage() {
                   <CardContent>
                     <div className="space-y-4">
                       {analytics.analytics.metrics.queries.map((query: any, index: number) => (
-                        <div key={index} className="flex justify-between items-center p-3 border rounded-lg">
+                        <div
+                          key={index}
+                          className="flex justify-between items-center p-3 border rounded-lg"
+                        >
                           <span className="font-medium">{query.query}</span>
                           <div className="text-right">
                             <p className="text-sm text-gray-600">{query.impressions} impressions</p>
@@ -520,28 +513,23 @@ export default function GMBPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="post-type">Post Type</Label>
-                    <Select 
-                      value={newPost.type} 
-                      onValueChange={(value) => setNewPost({...newPost, type: value})}
+                    <Select
+                      value={newPost.type}
+                      onChange={e => setNewPost({ ...newPost, type: e.target.value })}
                     >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="update">Update</SelectItem>
-                        <SelectItem value="event">Event</SelectItem>
-                        <SelectItem value="offer">Offer</SelectItem>
-                        <SelectItem value="product">Product</SelectItem>
-                      </SelectContent>
+                      <SelectOption value="update">Update</SelectOption>
+                      <SelectOption value="event">Event</SelectOption>
+                      <SelectOption value="offer">Offer</SelectOption>
+                      <SelectOption value="product">Product</SelectOption>
                     </Select>
                   </div>
-                  
+
                   <div>
                     <Label htmlFor="post-title">Title</Label>
                     <Input
                       id="post-title"
                       value={newPost.title}
-                      onChange={(e) => setNewPost({...newPost, title: e.target.value})}
+                      onChange={e => setNewPost({ ...newPost, title: e.target.value })}
                       placeholder="Enter post title..."
                       maxLength={300}
                     />
@@ -553,7 +541,7 @@ export default function GMBPage() {
                   <Textarea
                     id="post-content"
                     value={newPost.content}
-                    onChange={(e) => setNewPost({...newPost, content: e.target.value})}
+                    onChange={e => setNewPost({ ...newPost, content: e.target.value })}
                     placeholder="Enter post content..."
                     rows={4}
                     maxLength={1500}
@@ -566,35 +554,34 @@ export default function GMBPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="cta-type">Call to Action</Label>
-                    <Select 
-                      value={newPost.callToAction.type} 
-                      onValueChange={(value) => setNewPost({
-                        ...newPost, 
-                        callToAction: {...newPost.callToAction, type: value}
-                      })}
+                    <Select
+                      value={newPost.callToAction.type}
+                      onChange={e =>
+                        setNewPost({
+                          ...newPost,
+                          callToAction: { ...newPost.callToAction, type: e.target.value },
+                        })
+                      }
                     >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="book">Book</SelectItem>
-                        <SelectItem value="learn_more">Learn More</SelectItem>
-                        <SelectItem value="call">Call</SelectItem>
-                        <SelectItem value="sign_up">Sign Up</SelectItem>
-                      </SelectContent>
+                      <SelectOption value="book">Book</SelectOption>
+                      <SelectOption value="learn_more">Learn More</SelectOption>
+                      <SelectOption value="call">Call</SelectOption>
+                      <SelectOption value="sign_up">Sign Up</SelectOption>
                     </Select>
                   </div>
-                  
+
                   {newPost.callToAction.type !== 'call' && (
                     <div>
                       <Label htmlFor="cta-url">CTA URL</Label>
                       <Input
                         id="cta-url"
                         value={newPost.callToAction.url}
-                        onChange={(e) => setNewPost({
-                          ...newPost, 
-                          callToAction: {...newPost.callToAction, url: e.target.value}
-                        })}
+                        onChange={e =>
+                          setNewPost({
+                            ...newPost,
+                            callToAction: { ...newPost.callToAction, url: e.target.value },
+                          })
+                        }
                         placeholder="https://..."
                       />
                     </div>
@@ -617,7 +604,7 @@ export default function GMBPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {posts.map((post) => (
+                  {posts.map(post => (
                     <div key={post.id} className="p-4 border rounded-lg">
                       <div className="flex justify-between items-start mb-2">
                         <h4 className="font-medium">{post.title}</h4>
@@ -626,7 +613,8 @@ export default function GMBPage() {
                       <p className="text-gray-600 text-sm mb-3">{post.content}</p>
                       <div className="flex justify-between items-center text-xs text-gray-500">
                         <span>
-                          Published {formatDistanceToNow(new Date(post.publishedAt), { addSuffix: true })}
+                          Published{' '}
+                          {formatDistanceToNow(new Date(post.publishedAt), { addSuffix: true })}
                         </span>
                         {post.callToAction?.type && (
                           <Badge variant="secondary" className="text-xs">
@@ -669,7 +657,7 @@ export default function GMBPage() {
                       <Input value={selectedLocationData.category} readOnly />
                     </div>
                   </div>
-                  
+
                   <div className="space-y-4">
                     <div>
                       <Label>Address</Label>
@@ -678,14 +666,14 @@ export default function GMBPage() {
                     <div>
                       <Label>Coordinates</Label>
                       <div className="grid grid-cols-2 gap-2">
-                        <Input 
-                          value={selectedLocationData.coordinates.lat} 
-                          readOnly 
+                        <Input
+                          value={selectedLocationData.coordinates.lat}
+                          readOnly
                           placeholder="Latitude"
                         />
-                        <Input 
-                          value={selectedLocationData.coordinates.lng} 
-                          readOnly 
+                        <Input
+                          value={selectedLocationData.coordinates.lng}
+                          readOnly
                           placeholder="Longitude"
                         />
                       </div>
@@ -707,14 +695,17 @@ export default function GMBPage() {
                 <div className="mt-6">
                   <Label>Business Hours</Label>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
-                    {selectedLocationData.hours && Object.entries(selectedLocationData.hours).map(([day, hours]: [string, any]) => (
-                      <div key={day} className="flex justify-between p-2 border rounded">
-                        <span className="capitalize font-medium">{day}</span>
-                        <span className="text-gray-600">
-                          {hours.closed ? 'Closed' : `${hours.open} - ${hours.close}`}
-                        </span>
-                      </div>
-                    ))}
+                    {selectedLocationData.hours &&
+                      Object.entries(selectedLocationData.hours).map(
+                        ([day, hours]: [string, any]) => (
+                          <div key={day} className="flex justify-between p-2 border rounded">
+                            <span className="capitalize font-medium">{day}</span>
+                            <span className="text-gray-600">
+                              {hours.closed ? 'Closed' : `${hours.open} - ${hours.close}`}
+                            </span>
+                          </div>
+                        )
+                      )}
                   </div>
                 </div>
               </CardContent>

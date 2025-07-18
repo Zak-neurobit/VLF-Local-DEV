@@ -1,9 +1,8 @@
-import DurhamCarAccidentsNearMeClient from './DurhamCarAccidentsNearMeClient';
+import durhamCarAccidentsNearMeClient from './durhamCarAccidentsNearMeClient';
 
-export default function DurhamCarAccidentsNearMePage() {
-  return <DurhamCarAccidentsNearMeClient />;
+export default function durhamCarAccidentsNearMePage() {
+  return <durhamCarAccidentsNearMeClient />;
 }
-
 export const metadata = {
   title: 'Abogado de Accidentes de Auto Cerca de Mi en Durham, NC | Vasquez Law Firm',
   description:

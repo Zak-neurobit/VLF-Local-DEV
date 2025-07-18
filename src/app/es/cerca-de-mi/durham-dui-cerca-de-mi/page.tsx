@@ -1,9 +1,8 @@
-import DurhamDuiNearMeClient from './DurhamDuiNearMeClient';
+import durhamduiNearMeClient from './durhamduiNearMeClient';
 
-export default function DurhamDuiNearMePage() {
-  return <DurhamDuiNearMeClient />;
+export default function durhamduiNearMePage() {
+  return <durhamduiNearMeClient />;
 }
-
 export const metadata = {
   title: 'Abogado de DUI Cerca de Mi en Durham, NC | Vasquez Law Firm',
   description:

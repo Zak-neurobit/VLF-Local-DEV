@@ -1,9 +1,8 @@
-import DurhamSpanishSpeakingNearMeClient from './DurhamSpanishSpeakingNearMeClient';
+import durhamSpanishSpeakingNearMeClient from './durhamSpanishSpeakingNearMeClient';
 
-export default function DurhamSpanishSpeakingNearMePage() {
-  return <DurhamSpanishSpeakingNearMeClient />;
+export default function durhamSpanishSpeakingNearMePage() {
+  return <durhamSpanishSpeakingNearMeClient />;
 }
-
 export const metadata = {
   title: 'Abogado que Habla Español Cerca de Mi en Durham, NC | Vasquez Law Firm',
   description:

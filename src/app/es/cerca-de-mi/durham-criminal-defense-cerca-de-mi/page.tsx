@@ -1,9 +1,8 @@
-import DurhamCriminalDefenseNearMeClient from './DurhamCriminalDefenseNearMeClient';
+import durhamCriminalDefenseNearMeClient from './durhamCriminalDefenseNearMeClient';
 
-export default function DurhamCriminalDefenseNearMePage() {
-  return <DurhamCriminalDefenseNearMeClient />;
+export default function durhamCriminalDefenseNearMePage() {
+  return <durhamCriminalDefenseNearMeClient />;
 }
-
 export const metadata = {
   title: 'Abogado de Defensa Criminal Cerca de Mi en Durham, NC | Vasquez Law Firm',
   description:

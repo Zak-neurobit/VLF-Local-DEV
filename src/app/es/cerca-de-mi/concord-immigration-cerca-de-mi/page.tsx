@@ -1,9 +1,8 @@
-import ConcordImmigrationNearMeClient from './ConcordImmigrationNearMeClient';
+import concordimmigrationNearMeClient from './concordimmigrationNearMeClient';
 
-export default function ConcordImmigrationNearMePage() {
-  return <ConcordImmigrationNearMeClient />;
+export default function concordimmigrationNearMePage() {
+  return <concordimmigrationNearMeClient />;
 }
-
 export const metadata = {
   title: 'Abogado de Inmigración Cerca de Mi en Concord, NC | Vasquez Law Firm',
   description:

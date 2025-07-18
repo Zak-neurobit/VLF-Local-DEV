@@ -1,12 +1,10 @@
-'use client';
-
 import { LocationServiceTemplate } from '@/components/templates/LocationServiceTemplate';
 import { getLocationServiceCityBySlug, getLocationServiceByKey } from '@/data/location-services';
 
 export default function KissimmeeInmigracionPage() {
   const cityData = getLocationServiceCityBySlug('kissimmee');
   const serviceData = getLocationServiceByKey('inmigracion');
-  
+
   if (!cityData || !serviceData) {
     return <div>Page not found</div>;
   }
@@ -24,24 +22,29 @@ export default function KissimmeeInmigracionPage() {
 
 export const metadata = {
   title: 'Ley de Inmigración en Kissimmee, FL | Vasquez Law Firm',
-  description: 'Servicios legales de ley de inmigración en Kissimmee, FL. Abogados locales experimentados. Consultas gratuitas. Llame (407) 955-5000.',
-  keywords: 'ley de inmigración Kissimmee, abogado Kissimmee, ley de inmigración FL, abogado español Kissimmee, servicios legales Kissimmee',
+  description:
+    'Servicios legales de ley de inmigración en Kissimmee, FL. Abogados locales experimentados. Consultas gratuitas. Llame (407) 955-5000.',
+  keywords:
+    'ley de inmigración Kissimmee, abogado Kissimmee, ley de inmigración FL, abogado español Kissimmee, servicios legales Kissimmee',
   openGraph: {
     title: 'Ley de Inmigración en Kissimmee, FL | Vasquez Law Firm',
-    description: 'Servicios legales de ley de inmigración en Kissimmee, FL. Abogados locales experimentados. Consultas gratuitas. Llame (407) 955-5000.',
+    description:
+      'Servicios legales de ley de inmigración en Kissimmee, FL. Abogados locales experimentados. Consultas gratuitas. Llame (407) 955-5000.',
     url: 'https://www.vasquezlawnc.com/es/ubicaciones/kissimmee-inmigracion',
-    images: [{
-      url: 'https://www.vasquezlawnc.com/images/kissimmee-inmigracion-og.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Ley de Inmigración en Kissimmee, FL'
-    }]
+    images: [
+      {
+        url: 'https://www.vasquezlawnc.com/images/kissimmee-inmigracion-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Ley de Inmigración en Kissimmee, FL',
+      },
+    ],
   },
   alternates: {
     canonical: 'https://www.vasquezlawnc.com/es/ubicaciones/kissimmee-inmigracion',
     languages: {
       'en-US': 'https://www.vasquezlawnc.com/locations/kissimmee-immigration',
-      'es-ES': 'https://www.vasquezlawnc.com/es/ubicaciones/kissimmee-inmigracion'
-    }
-  }
+      'es-ES': 'https://www.vasquezlawnc.com/es/ubicaciones/kissimmee-inmigracion',
+    },
+  },
 };

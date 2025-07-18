@@ -1,9 +1,8 @@
-import CaryDuiNearMeClient from './CaryDuiNearMeClient';
+import caryduiNearMeClient from './caryduiNearMeClient';
 
-export default function CaryDuiNearMePage() {
-  return <CaryDuiNearMeClient />;
+export default function caryduiNearMePage() {
+  return <caryduiNearMeClient />;
 }
-
 export const metadata = {
   title: 'Abogado de DUI Cerca de Mi en Cary, NC | Vasquez Law Firm',
   description:

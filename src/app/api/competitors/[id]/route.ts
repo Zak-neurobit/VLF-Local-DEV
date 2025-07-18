@@ -16,19 +16,10 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
     const competitor = await prisma.competitor.findUnique({
       where: { id: params.id },
-      include: {
-        activities: {
-          orderBy: { timestamp: 'desc' },
-          take: 50,
-        },
-      },
     });
 
     if (!competitor) {
-      return NextResponse.json(
-        { success: false, error: 'Competitor not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ success: false, error: 'Competitor not found' }, { status: 404 });
     }
 
     return NextResponse.json({
@@ -56,16 +47,19 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       data: {
         name: body.name,
         website: body.website,
+        domain: body.domain || body.website,
         practiceAreas: body.practiceAreas,
         locations: body.locations,
-        socialMedia: body.socialMedia,
-        trackingConfig: body.trackingConfig,
+        checkFrequency: body.checkFrequency,
+        isActive: body.isActive,
+        monitoringConfig: body.monitoringConfig || {},
+        metadata: body.metadata || {},
       },
     });
 
-    logger.info('Competitor updated', { 
+    logger.info('Competitor updated', {
       competitorId: competitor.id,
-      name: competitor.name 
+      name: competitor.name,
     });
 
     return NextResponse.json({

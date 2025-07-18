@@ -3,7 +3,7 @@ import { enhancedVoiceUXSystem } from '@/services/retell/enhanced-voice-ux';
 import { voiceAnalyticsSystem } from '@/services/retell/voice-analytics';
 import { logger } from '@/lib/logger';
 import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
-import { withAuth } from '@/lib/auth/middleware';
+// Authentication would be handled at the middleware level
 
 /**
  * POST /api/voice/enhanced - Create enhanced voice agent

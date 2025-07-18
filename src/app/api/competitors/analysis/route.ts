@@ -12,10 +12,7 @@ export async function POST(request: NextRequest) {
 
     logger.info('Generating competitive analysis', { period, competitorIds });
 
-    const analysis = await competitorMonitoringSystem.generateCompetitiveAnalysis(
-      period,
-      competitorIds
-    );
+    const analysis = await competitorMonitoringSystem.generateCompetitiveAnalysis(period);
 
     return NextResponse.json({
       success: true,

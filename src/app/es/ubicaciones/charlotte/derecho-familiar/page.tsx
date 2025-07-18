@@ -1,14 +1,17 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ContactForm } from '@/components/contact/ContactForm';
+import { ContactForm } from '@/components/forms/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Abogado de Derecho Familiar en Charlotte, NC | Bufete Vasquez',
-  description: 'Abogados de derecho familiar en Charlotte, NC. Divorcio, custodia, pensión alimenticia, adopción. Protegemos a su familia con compasión y experiencia.',
-  keywords: 'abogado derecho familiar Charlotte, divorcio Charlotte, custodia Charlotte, pensión alimenticia Charlotte, adopción Charlotte',
+  description:
+    'Abogados de derecho familiar en Charlotte, NC. Divorcio, custodia, pensión alimenticia, adopción. Protegemos a su familia con compasión y experiencia.',
+  keywords:
+    'abogado derecho familiar Charlotte, divorcio Charlotte, custodia Charlotte, pensión alimenticia Charlotte, adopción Charlotte',
   openGraph: {
     title: 'Abogado de Derecho Familiar en Charlotte, NC | Bufete Vasquez',
-    description: 'Especialistas en derecho familiar en Charlotte, NC. Protegemos los intereses de su familia. Consulta confidencial.',
+    description:
+      'Especialistas en derecho familiar en Charlotte, NC. Protegemos los intereses de su familia. Consulta confidencial.',
     url: 'https://vasquezlawfirm.com/es/ubicaciones/charlotte/derecho-familiar',
     siteName: 'Bufete de Abogados Vasquez',
     locale: 'es_US',
@@ -30,7 +33,8 @@ export default function CharlotteFamilyLawPage() {
               Abogado de Derecho Familiar en Charlotte
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              Protegemos lo más importante para usted: su familia. Con compasión, experiencia y dedicación en cada caso.
+              Protegemos lo más importante para usted: su familia. Con compasión, experiencia y
+              dedicación en cada caso.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -61,7 +65,8 @@ export default function CharlotteFamilyLawPage() {
               Servicios de Derecho Familiar en Charlotte
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Entendemos que los asuntos familiares son profundamente personales. Ofrecemos representación compasiva y efectiva.
+              Entendemos que los asuntos familiares son profundamente personales. Ofrecemos
+              representación compasiva y efectiva.
             </p>
           </div>
 
@@ -70,12 +75,17 @@ export default function CharlotteFamilyLawPage() {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Divorcio</h3>
               <p className="text-gray-600 mb-4">
-                Guiamos a nuestros clientes a través del proceso de divorcio con dignidad y respeto, protegiendo sus intereses.
+                Guiamos a nuestros clientes a través del proceso de divorcio con dignidad y respeto,
+                protegiendo sus intereses.
               </p>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>• Divorcio no disputado (uncontested)</li>
@@ -95,7 +105,8 @@ export default function CharlotteFamilyLawPage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Custodia de Menores</h3>
               <p className="text-gray-600 mb-4">
-                Priorizamos el bienestar de los niños mientras protegemos los derechos parentales de nuestros clientes.
+                Priorizamos el bienestar de los niños mientras protegemos los derechos parentales de
+                nuestros clientes.
               </p>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>• Custodia física y legal</li>
@@ -110,7 +121,11 @@ export default function CharlotteFamilyLawPage() {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Pensión Alimenticia</h3>
@@ -130,12 +145,17 @@ export default function CharlotteFamilyLawPage() {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Adopción</h3>
               <p className="text-gray-600 mb-4">
-                Ayudamos a crear familias a través del proceso legal de adopción con cuidado y atención al detalle.
+                Ayudamos a crear familias a través del proceso legal de adopción con cuidado y
+                atención al detalle.
               </p>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>• Adopción de hijastros</li>
@@ -150,12 +170,17 @@ export default function CharlotteFamilyLawPage() {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Órdenes de Protección</h3>
               <p className="text-gray-600 mb-4">
-                Protegemos a víctimas de violencia doméstica con órdenes de restricción de emergencia y permanentes.
+                Protegemos a víctimas de violencia doméstica con órdenes de restricción de
+                emergencia y permanentes.
               </p>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>• Órdenes de protección de emergencia</li>
@@ -173,7 +198,9 @@ export default function CharlotteFamilyLawPage() {
                   <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Establecimiento de Paternidad</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                Establecimiento de Paternidad
+              </h3>
               <p className="text-gray-600 mb-4">
                 Establecemos legalmente la paternidad para proteger los derechos de padres e hijos.
               </p>
@@ -199,12 +226,21 @@ export default function CharlotteFamilyLawPage() {
               </h2>
               <div className="bg-white p-6 rounded-lg shadow">
                 <p className="text-gray-600 mb-4">
-                  Tenemos amplia experiencia en el Tribunal de Familia de Charlotte y conocemos los procedimientos locales.
+                  Tenemos amplia experiencia en el Tribunal de Familia de Charlotte y conocemos los
+                  procedimientos locales.
                 </p>
                 <div className="space-y-2 text-gray-600">
-                  <p><strong>Dirección:</strong> 832 E 4th St, Charlotte, NC 28202</p>
-                  <p><strong>Mediación:</strong> Participamos en programas de mediación cuando es apropiado</p>
-                  <p><strong>Servicios de apoyo:</strong> Coordinamos con consejeros familiares y especialistas</p>
+                  <p>
+                    <strong>Dirección:</strong> 832 E 4th St, Charlotte, NC 28202
+                  </p>
+                  <p>
+                    <strong>Mediación:</strong> Participamos en programas de mediación cuando es
+                    apropiado
+                  </p>
+                  <p>
+                    <strong>Servicios de apoyo:</strong> Coordinamos con consejeros familiares y
+                    especialistas
+                  </p>
                 </div>
               </div>
 
@@ -213,23 +249,21 @@ export default function CharlotteFamilyLawPage() {
                   Enfoque Bilingüe y Cultural
                 </h3>
                 <p className="text-purple-800">
-                  Entendemos las dinámicas familiares de la comunidad latina y los desafíos únicos 
+                  Entendemos las dinámicas familiares de la comunidad latina y los desafíos únicos
                   que enfrentan las familias inmigrantes en asuntos legales.
                 </p>
               </div>
             </div>
 
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Testimonios de Familias
-              </h2>
-              
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Testimonios de Familias</h2>
+
               <div className="space-y-6">
                 <div className="bg-white p-6 rounded-lg shadow">
                   <h4 className="font-semibold text-gray-900 mb-2">Custodia Exitosa</h4>
                   <p className="text-gray-600 text-sm">
-                    "Después de un divorcio difícil, lograron que mantuviera la custodia de mis hijos. 
-                    Me trataron con respeto y mantuvieron mis intereses como prioridad."
+                    "Después de un divorcio difícil, lograron que mantuviera la custodia de mis
+                    hijos. Me trataron con respeto y mantuvieron mis intereses como prioridad."
                   </p>
                   <p className="text-purple-600 text-sm mt-2">- Carmen L., Charlotte</p>
                 </div>
@@ -237,8 +271,8 @@ export default function CharlotteFamilyLawPage() {
                 <div className="bg-white p-6 rounded-lg shadow">
                   <h4 className="font-semibold text-gray-900 mb-2">Adopción de Hijastro</h4>
                   <p className="text-gray-600 text-sm">
-                    "Hicieron que la adopción de mi hijastro fuera un proceso simple y lleno de alegría. 
-                    Ahora somos oficialmente una familia."
+                    "Hicieron que la adopción de mi hijastro fuera un proceso simple y lleno de
+                    alegría. Ahora somos oficialmente una familia."
                   </p>
                   <p className="text-purple-600 text-sm mt-2">- Roberto M., Concord</p>
                 </div>
@@ -246,8 +280,8 @@ export default function CharlotteFamilyLawPage() {
                 <div className="bg-white p-6 rounded-lg shadow">
                   <h4 className="font-semibold text-gray-900 mb-2">Divorcio Amigable</h4>
                   <p className="text-gray-600 text-sm">
-                    "Nos ayudaron a divorciarnos de manera respetuosa, priorizando el bienestar de nuestros hijos. 
-                    Evitaron una batalla legal costosa."
+                    "Nos ayudaron a divorciarnos de manera respetuosa, priorizando el bienestar de
+                    nuestros hijos. Evitaron una batalla legal costosa."
                   </p>
                   <p className="text-purple-600 text-sm mt-2">- Ana y Luis R., Charlotte</p>
                 </div>
@@ -356,7 +390,8 @@ export default function CharlotteFamilyLawPage() {
               Consulta Confidencial de Derecho Familiar
             </h2>
             <p className="text-xl text-gray-600">
-              Su familia merece la mejor representación. Contáctenos para una consulta privada y confidencial.
+              Su familia merece la mejor representación. Contáctenos para una consulta privada y
+              confidencial.
             </p>
           </div>
           <ContactForm />

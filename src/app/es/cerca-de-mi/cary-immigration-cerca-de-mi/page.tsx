@@ -1,9 +1,8 @@
-import CaryImmigrationNearMeClient from './CaryImmigrationNearMeClient';
+import caryimmigrationNearMeClient from './caryimmigrationNearMeClient';
 
-export default function CaryImmigrationNearMePage() {
-  return <CaryImmigrationNearMeClient />;
+export default function caryimmigrationNearMePage() {
+  return <caryimmigrationNearMeClient />;
 }
-
 export const metadata = {
   title: 'Abogado de Inmigración Cerca de Mi en Cary, NC | Vasquez Law Firm',
   description:

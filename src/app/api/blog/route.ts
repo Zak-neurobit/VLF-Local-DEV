@@ -83,7 +83,7 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (error) {
-    apiLogger.error('blog-list', error as Error, {});
+    apiLogger.error('blog-list', error as Error);
     return NextResponse.json({ error: 'Failed to fetch blog posts' }, { status: 500 });
   }
 }
@@ -106,7 +106,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(post);
   } catch (error) {
-    apiLogger.error('blog-create', error as Error, {});
+    apiLogger.error('blog-create', error as Error);
     return NextResponse.json({ error: 'Failed to create blog post' }, { status: 500 });
   }
 }

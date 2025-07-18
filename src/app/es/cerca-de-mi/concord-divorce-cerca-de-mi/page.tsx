@@ -1,9 +1,8 @@
-import ConcordDivorceNearMeClient from './ConcordDivorceNearMeClient';
+import concorddivorceNearMeClient from './concorddivorceNearMeClient';
 
-export default function ConcordDivorceNearMePage() {
-  return <ConcordDivorceNearMeClient />;
+export default function concorddivorceNearMePage() {
+  return <concorddivorceNearMeClient />;
 }
-
 export const metadata = {
   title: 'Abogado de Divorcio Cerca de Mi en Concord, NC | Vasquez Law Firm',
   description:

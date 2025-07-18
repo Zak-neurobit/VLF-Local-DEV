@@ -1,9 +1,8 @@
-import ConcordCriminalDefenseNearMeClient from './ConcordCriminalDefenseNearMeClient';
+import concordCriminalDefenseNearMeClient from './concordCriminalDefenseNearMeClient';
 
-export default function ConcordCriminalDefenseNearMePage() {
-  return <ConcordCriminalDefenseNearMeClient />;
+export default function concordCriminalDefenseNearMePage() {
+  return <concordCriminalDefenseNearMeClient />;
 }
-
 export const metadata = {
   title: 'Abogado de Defensa Criminal Cerca de Mi en Concord, NC | Vasquez Law Firm',
   description:

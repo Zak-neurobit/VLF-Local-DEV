@@ -1,14 +1,17 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ContactForm } from '@/components/contact/ContactForm';
+import { ContactForm } from '@/components/forms/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Abogado de Defensa Criminal en Charlotte, NC | Bufete Vasquez',
-  description: 'Abogados de defensa criminal en Charlotte, NC. DUI/DWI, delitos graves, delitos menores. Protegemos sus derechos. Disponible 24/7.',
-  keywords: 'abogado defensa criminal Charlotte, DUI Charlotte, delitos graves Charlotte, abogado criminal Charlotte NC',
+  description:
+    'Abogados de defensa criminal en Charlotte, NC. DUI/DWI, delitos graves, delitos menores. Protegemos sus derechos. Disponible 24/7.',
+  keywords:
+    'abogado defensa criminal Charlotte, DUI Charlotte, delitos graves Charlotte, abogado criminal Charlotte NC',
   openGraph: {
     title: 'Abogado de Defensa Criminal en Charlotte, NC | Bufete Vasquez',
-    description: 'Defensa criminal agresiva en Charlotte, NC. Protegemos sus derechos constitucionales. Consulta gratuita.',
+    description:
+      'Defensa criminal agresiva en Charlotte, NC. Protegemos sus derechos constitucionales. Consulta gratuita.',
     url: 'https://vasquezlawfirm.com/es/ubicaciones/charlotte/defensa-criminal',
     siteName: 'Bufete de Abogados Vasquez',
     locale: 'es_US',
@@ -30,7 +33,8 @@ export default function CharlotteCriminalDefensePage() {
               Defensa Criminal en Charlotte, NC
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              Cuando su libertad está en riesgo, necesita un defensor experimentado que luche por sus derechos constitucionales.
+              Cuando su libertad está en riesgo, necesita un defensor experimentado que luche por
+              sus derechos constitucionales.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -47,7 +51,9 @@ export default function CharlotteCriminalDefensePage() {
               </Link>
             </div>
             <p className="mt-4 text-lg text-yellow-300">
-              <strong>Si fue arrestado, llame inmediatamente. Sus primeras decisiones son críticas.</strong>
+              <strong>
+                Si fue arrestado, llame inmediatamente. Sus primeras decisiones son críticas.
+              </strong>
             </p>
           </div>
         </div>
@@ -84,7 +90,8 @@ export default function CharlotteCriminalDefensePage() {
               Casos de Defensa Criminal en Charlotte
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Defendemos clientes en todos los tribunales del condado de Mecklenburg y el distrito occidental de Carolina del Norte.
+              Defendemos clientes en todos los tribunales del condado de Mecklenburg y el distrito
+              occidental de Carolina del Norte.
             </p>
           </div>
 
@@ -93,13 +100,18 @@ export default function CharlotteCriminalDefensePage() {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"
+                    clipRule="evenodd"
+                  />
                   <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3z" />
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">DUI/DWI</h3>
               <p className="text-gray-600 mb-4">
-                Defensa agresiva contra cargos de conducir bajo la influencia en Charlotte y sus alrededores.
+                Defensa agresiva contra cargos de conducir bajo la influencia en Charlotte y sus
+                alrededores.
               </p>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>• Primera ofensa DWI</li>
@@ -114,7 +126,11 @@ export default function CharlotteCriminalDefensePage() {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Delitos Graves (Felonías)</h3>
@@ -134,7 +150,11 @@ export default function CharlotteCriminalDefensePage() {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-.257-.257A6 6 0 0118 8zM2 8a6 6 0 0112 0 6 6 0 01-12 0zm8-4a4 4 0 100 8 4 4 0 000-8z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M18 8a6 6 0 01-7.743 5.743L10 14l-.257-.257A6 6 0 0118 8zM2 8a6 6 0 0112 0 6 6 0 01-12 0zm8-4a4 4 0 100 8 4 4 0 000-8z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Delitos Menores</h3>
@@ -154,7 +174,11 @@ export default function CharlotteCriminalDefensePage() {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Violaciones de Tráfico</h3>
@@ -174,7 +198,11 @@ export default function CharlotteCriminalDefensePage() {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Delitos de Drogas</h3>
@@ -194,7 +222,11 @@ export default function CharlotteCriminalDefensePage() {
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Delitos de Cuello Blanco</h3>
@@ -230,7 +262,8 @@ export default function CharlotteCriminalDefensePage() {
                     <strong>Dirección:</strong> 832 E 4th St, Charlotte, NC 28202
                   </p>
                   <p className="text-gray-600">
-                    Manejamos casos de delitos graves, apelaciones y procesamientos complejos ante todos los jueces superiores.
+                    Manejamos casos de delitos graves, apelaciones y procesamientos complejos ante
+                    todos los jueces superiores.
                   </p>
                 </div>
 
@@ -242,7 +275,8 @@ export default function CharlotteCriminalDefensePage() {
                     <strong>Múltiples ubicaciones</strong> en Charlotte y el condado
                   </p>
                   <p className="text-gray-600">
-                    Experiencia en delitos menores, DWI, violaciones de tráfico y audiencias preliminares.
+                    Experiencia en delitos menores, DWI, violaciones de tráfico y audiencias
+                    preliminares.
                   </p>
                 </div>
 
@@ -254,43 +288,52 @@ export default function CharlotteCriminalDefensePage() {
                     <strong>Dirección:</strong> 401 W Trade St, Charlotte, NC 28202
                   </p>
                   <p className="text-gray-600">
-                    Representación en casos federales complejos incluyendo drogas, armas y delitos de inmigración.
+                    Representación en casos federales complejos incluyendo drogas, armas y delitos
+                    de inmigración.
                   </p>
                 </div>
               </div>
             </div>
 
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Casos Exitosos de Defensa
-              </h2>
-              
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">Casos Exitosos de Defensa</h2>
+
               <div className="space-y-6">
                 <div className="bg-white p-6 rounded-lg shadow">
-                  <h4 className="font-semibold text-gray-900 mb-2">DWI Grave - Charges Dismissed</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">
+                    DWI Grave - Charges Dismissed
+                  </h4>
                   <p className="text-gray-600 text-sm">
-                    Cliente enfrentaba su tercera DWI. Desafiamos la parada de tráfico y logramos que se desestimaran todos los cargos.
+                    Cliente enfrentaba su tercera DWI. Desafiamos la parada de tráfico y logramos
+                    que se desestimaran todos los cargos.
                   </p>
                 </div>
 
                 <div className="bg-white p-6 rounded-lg shadow">
-                  <h4 className="font-semibold text-gray-900 mb-2">Tráfico de Drogas - Probation</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">
+                    Tráfico de Drogas - Probation
+                  </h4>
                   <p className="text-gray-600 text-sm">
-                    Negociamos desde 10 años de prisión hasta libertad condicional para padre de familia sin antecedentes.
+                    Negociamos desde 10 años de prisión hasta libertad condicional para padre de
+                    familia sin antecedentes.
                   </p>
                 </div>
 
                 <div className="bg-white p-6 rounded-lg shadow">
                   <h4 className="font-semibold text-gray-900 mb-2">Asalto Agravado - Not Guilty</h4>
                   <p className="text-gray-600 text-sm">
-                    Jurado encontró a nuestro cliente inocente en caso de autodefensa después de juicio de 3 días.
+                    Jurado encontró a nuestro cliente inocente en caso de autodefensa después de
+                    juicio de 3 días.
                   </p>
                 </div>
 
                 <div className="bg-white p-6 rounded-lg shadow">
-                  <h4 className="font-semibold text-gray-900 mb-2">Fraude Federal - Reduced Sentence</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">
+                    Fraude Federal - Reduced Sentence
+                  </h4>
                   <p className="text-gray-600 text-sm">
-                    Logramos reducir sentencia de 8 años a 18 meses en caso de fraude complejo federal.
+                    Logramos reducir sentencia de 8 años a 18 meses en caso de fraude complejo
+                    federal.
                   </p>
                 </div>
               </div>
@@ -307,7 +350,7 @@ export default function CharlotteCriminalDefensePage() {
               ⚠️ Consecuencias de Inmigración de Casos Criminales
             </h2>
             <p className="text-xl max-w-3xl mx-auto">
-              Si no es ciudadano americano, una condena criminal puede resultar en deportación, 
+              Si no es ciudadano americano, una condena criminal puede resultar en deportación,
               inadmisibilidad, o negación de naturalización.
             </p>
           </div>
@@ -384,9 +427,7 @@ export default function CharlotteCriminalDefensePage() {
                 <span className="text-2xl font-bold text-gray-600">4</span>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">Resolución</h3>
-              <p className="text-gray-600">
-                Negociación favorable o defensa agresiva en juicio.
-              </p>
+              <p className="text-gray-600">Negociación favorable o defensa agresiva en juicio.</p>
             </div>
           </div>
         </div>

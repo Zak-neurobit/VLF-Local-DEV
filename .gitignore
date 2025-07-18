@@ -79,3 +79,7 @@ tools/crewai-studio/venv/
 
 # Backup files
 *.backup
+
+# Google Cloud credentials
+google-credentials.json
+*-credentials.json

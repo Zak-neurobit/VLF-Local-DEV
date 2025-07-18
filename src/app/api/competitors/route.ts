@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { competitorMonitoringSystem } from '@/lib/crewai/competitor-monitoring-system';
 import { logger } from '@/lib/logger';
 import { prisma } from '@/lib/prisma-safe';
-import { withAuth } from '@/lib/auth/middleware';
+// Authentication would be handled at the middleware level
 
 /**
  * GET /api/competitors - List all competitors
@@ -12,12 +12,16 @@ export async function GET(request: NextRequest) {
     const competitors = await prisma.competitor.findMany({
       orderBy: { name: 'asc' },
       include: {
-        activities: {
-          take: 5,
-          orderBy: { timestamp: 'desc' },
+        analyses: {
+          take: 1,
+          orderBy: { analyzedAt: 'desc' },
+          select: {
+            analyzedAt: true,
+            blogPosts: true,
+          },
         },
         _count: {
-          select: { activities: true },
+          select: { analyses: true },
         },
       },
     });
@@ -41,7 +45,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    
+
     // Validate required fields
     if (!body.name || !body.website) {
       return NextResponse.json(
@@ -58,10 +62,12 @@ export async function POST(request: NextRequest) {
       data: {
         name: body.name,
         website: body.website,
+        domain: body.domain || new URL(body.website).hostname,
         practiceAreas: body.practiceAreas || [],
         locations: body.locations || [],
-        socialMedia: body.socialMedia || {},
-        trackingConfig: body.trackingConfig || {
+        checkFrequency: body.checkFrequency || 'weekly',
+        isActive: body.isActive !== false,
+        monitoringConfig: body.monitoringConfig || {
           enabled: true,
           frequency: 'daily',
           priority: 'medium',
@@ -71,12 +77,15 @@ export async function POST(request: NextRequest) {
           trackAds: true,
           trackReviews: true,
         },
+        metadata: body.metadata || {
+          socialMedia: body.socialMedia || {},
+        },
       },
     });
 
-    logger.info('Competitor registered', { 
+    logger.info('Competitor registered', {
       competitorId: competitor.id,
-      name: competitor.name 
+      name: competitor.name,
     });
 
     return NextResponse.json({

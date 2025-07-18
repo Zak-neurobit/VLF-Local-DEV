@@ -1,9 +1,8 @@
-import CharlotteDivorceNearMeClient from './CharlotteDivorceNearMeClient';
+import charlottedivorceNearMeClient from './charlottedivorceNearMeClient';
 
-export default function CharlotteDivorceNearMePage() {
-  return <CharlotteDivorceNearMeClient />;
+export default function charlottedivorceNearMePage() {
+  return <charlottedivorceNearMeClient />;
 }
-
 export const metadata = {
   title: 'Abogado de Divorcio Cerca de Mi en Charlotte, NC | Vasquez Law Firm',
   description:

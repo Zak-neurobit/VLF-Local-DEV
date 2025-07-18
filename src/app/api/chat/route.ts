@@ -5,6 +5,7 @@ import { authOptions } from '@/lib/auth';
 import { getPrismaClient } from '@/lib/prisma';
 import { ConversationChannel, ConversationStatus, MessageRole } from '@prisma/client';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { AgentOrchestrator } from '@/lib/agents/agent-orchestrator';
 import { ghlChatSync } from '@/services/gohighlevel/chat-sync';
 import { ghlService } from '@/services/gohighlevel';
@@ -311,7 +312,7 @@ async function handleChatPOST(request: NextRequest) {
       try {
         agentResponse = await orchestrator.routeMessage(message, agentContext);
       } catch (agentError) {
-        logger.error('Agent orchestrator error:', agentError);
+        logger.error('Agent orchestrator error:', errorToLogMeta(agentError));
         // Fallback to basic response if agent fails
         agentResponse = {
           agent: 'orchestrator',

@@ -5,24 +5,30 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Select, SelectOption } from '@/components/ui/select';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
-import { 
-  Shield, 
-  AlertTriangle, 
-  CheckCircle, 
-  XCircle, 
-  Eye, 
-  Play, 
-  Pause, 
+import {
+  Shield,
+  AlertTriangle,
+  CheckCircle,
+  XCircle,
+  Eye,
+  Play,
+  Pause,
   RotateCcw,
   TrendingUp,
   Clock,
   Lock,
   FileCheck,
   Users,
-  Activity
+  Activity,
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
@@ -130,7 +136,7 @@ export default function SecurityPage() {
       medium: { variant: 'warning', color: 'text-yellow-600' },
       low: { variant: 'secondary', color: 'text-gray-600' },
     };
-    
+
     return variants[severity] || variants.low;
   };
 
@@ -141,7 +147,7 @@ export default function SecurityPage() {
       non_compliant: { variant: 'destructive', icon: XCircle, color: 'text-red-600' },
       not_audited: { variant: 'secondary', icon: Clock, color: 'text-gray-600' },
     };
-    
+
     return variants[status] || variants.not_audited;
   };
 
@@ -158,10 +164,7 @@ export default function SecurityPage() {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Security & Compliance Center</h1>
         <div className="flex gap-2">
-          <Button 
-            variant="outline" 
-            onClick={() => handleMonitoringControl('restart')}
-          >
+          <Button variant="outline" onClick={() => handleMonitoringControl('restart')}>
             <RotateCcw className="h-4 w-4 mr-1" />
             Restart Monitoring
           </Button>
@@ -218,9 +221,10 @@ export default function SecurityPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {complianceData?.status?.overallRisk 
+                {complianceData?.status?.overallRisk
                   ? Math.max(0, 100 - complianceData.status.overallRisk)
-                  : 'N/A'}%
+                  : 'N/A'}
+                %
               </div>
               <p className="text-xs text-muted-foreground">
                 {complianceData?.status?.criticalIssues || 0} critical issues
@@ -234,17 +238,22 @@ export default function SecurityPage() {
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className={`text-2xl font-bold ${
-                (complianceData?.status?.overallRisk || 0) < 30 ? 'text-green-600' :
-                (complianceData?.status?.overallRisk || 0) < 70 ? 'text-yellow-600' :
-                'text-red-600'
-              }`}>
-                {(complianceData?.status?.overallRisk || 0) < 30 ? 'Low' :
-                 (complianceData?.status?.overallRisk || 0) < 70 ? 'Medium' : 'High'}
+              <div
+                className={`text-2xl font-bold ${
+                  (complianceData?.status?.overallRisk || 0) < 30
+                    ? 'text-green-600'
+                    : (complianceData?.status?.overallRisk || 0) < 70
+                      ? 'text-yellow-600'
+                      : 'text-red-600'
+                }`}
+              >
+                {(complianceData?.status?.overallRisk || 0) < 30
+                  ? 'Low'
+                  : (complianceData?.status?.overallRisk || 0) < 70
+                    ? 'Medium'
+                    : 'High'}
               </div>
-              <p className="text-xs text-muted-foreground">
-                Overall security posture
-              </p>
+              <p className="text-xs text-muted-foreground">Overall security posture</p>
             </CardContent>
           </Card>
         </div>
@@ -261,67 +270,68 @@ export default function SecurityPage() {
         <TabsContent value="threats" className="space-y-4">
           {/* Filters */}
           <div className="flex gap-4">
-            <Select value={timeframe} onValueChange={setTimeframe}>
-              <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="Timeframe" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="1h">Last Hour</SelectItem>
-                <SelectItem value="24h">Last 24 Hours</SelectItem>
-                <SelectItem value="7d">Last 7 Days</SelectItem>
-                <SelectItem value="30d">Last 30 Days</SelectItem>
-              </SelectContent>
+            <Select value={timeframe} onChange={e => setTimeframe(e.target.value)}>
+              <SelectOption value="1h">Last Hour</SelectOption>
+              <SelectOption value="24h">Last 24 Hours</SelectOption>
+              <SelectOption value="7d">Last 7 Days</SelectOption>
+              <SelectOption value="30d">Last 30 Days</SelectOption>
             </Select>
 
-            <Select value={severityFilter} onValueChange={setSeverityFilter}>
-              <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="Severity" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Severities</SelectItem>
-                <SelectItem value="critical">Critical</SelectItem>
-                <SelectItem value="high">High</SelectItem>
-                <SelectItem value="medium">Medium</SelectItem>
-                <SelectItem value="low">Low</SelectItem>
-              </SelectContent>
+            <Select value={severityFilter} onChange={e => setSeverityFilter(e.target.value)}>
+              <SelectOption value="all">All Severities</SelectOption>
+              <SelectOption value="critical">Critical</SelectOption>
+              <SelectOption value="high">High</SelectOption>
+              <SelectOption value="medium">Medium</SelectOption>
+              <SelectOption value="low">Low</SelectOption>
             </Select>
           </div>
 
           {/* Threats List */}
           <div className="space-y-4">
             {securityData?.threats?.map((threat: any) => (
-              <Card key={threat.id} className={
-                threat.severity === 'critical' ? 'border-red-500' :
-                threat.severity === 'high' ? 'border-orange-500' :
-                'border-gray-200'
-              }>
+              <Card
+                key={threat.id}
+                className={
+                  threat.severity === 'critical'
+                    ? 'border-red-500'
+                    : threat.severity === 'high'
+                      ? 'border-orange-500'
+                      : 'border-gray-200'
+                }
+              >
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
                       <div className="flex items-center gap-4 mb-2">
-                        <h3 className="font-medium">{threat.type.replace(/_/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}</h3>
-                        <Badge {...getSeverityBadge(threat.severity)}>
-                          {threat.severity}
-                        </Badge>
+                        <h3 className="font-medium">
+                          {threat.type
+                            .replace(/_/g, ' ')
+                            .replace(/\b\w/g, (l: string) => l.toUpperCase())}
+                        </h3>
+                        <Badge {...getSeverityBadge(threat.severity)}>{threat.severity}</Badge>
                         <Badge variant={threat.status === 'active' ? 'destructive' : 'secondary'}>
                           {threat.status}
                         </Badge>
                       </div>
-                      
+
                       <p className="text-gray-700 mb-4">{threat.description}</p>
-                      
+
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
-                          <span className="font-medium">Source IP:</span> {threat.sourceIp || 'Unknown'}
+                          <span className="font-medium">Source IP:</span>{' '}
+                          {threat.sourceIp || 'Unknown'}
                         </div>
                         <div>
-                          <span className="font-medium">Target:</span> {threat.targetResource || 'System'}
+                          <span className="font-medium">Target:</span>{' '}
+                          {threat.targetResource || 'System'}
                         </div>
                         <div>
-                          <span className="font-medium">Detected:</span> {formatDistanceToNow(new Date(threat.timestamp), { addSuffix: true })}
+                          <span className="font-medium">Detected:</span>{' '}
+                          {formatDistanceToNow(new Date(threat.timestamp), { addSuffix: true })}
                         </div>
                         <div>
-                          <span className="font-medium">Count:</span> {threat.count || 1} occurrences
+                          <span className="font-medium">Count:</span> {threat.count || 1}{' '}
+                          occurrences
                         </div>
                       </div>
 
@@ -341,8 +351,8 @@ export default function SecurityPage() {
                       {threat.status === 'active' && (
                         <Dialog>
                           <DialogTrigger asChild>
-                            <Button 
-                              variant="outline" 
+                            <Button
+                              variant="outline"
                               size="sm"
                               onClick={() => setSelectedThreat(threat)}
                             >
@@ -359,7 +369,10 @@ export default function SecurityPage() {
                                 <h4 className="font-medium">{threat.type}</h4>
                                 <p className="text-sm text-gray-600 mt-1">{threat.description}</p>
                                 <p className="text-xs text-gray-500 mt-2">
-                                  Severity: {threat.severity} • {formatDistanceToNow(new Date(threat.timestamp), { addSuffix: true })}
+                                  Severity: {threat.severity} •{' '}
+                                  {formatDistanceToNow(new Date(threat.timestamp), {
+                                    addSuffix: true,
+                                  })}
                                 </p>
                               </div>
 
@@ -369,7 +382,7 @@ export default function SecurityPage() {
                                 </label>
                                 <Textarea
                                   value={responseNotes}
-                                  onChange={(e) => setResponseNotes(e.target.value)}
+                                  onChange={e => setResponseNotes(e.target.value)}
                                   placeholder="Add notes about your response..."
                                   rows={4}
                                 />
@@ -397,9 +410,7 @@ export default function SecurityPage() {
                                   >
                                     Escalate
                                   </Button>
-                                  <Button
-                                    onClick={() => handleThreatResponse('resolve')}
-                                  >
+                                  <Button onClick={() => handleThreatResponse('resolve')}>
                                     Resolve
                                   </Button>
                                 </div>
@@ -422,7 +433,7 @@ export default function SecurityPage() {
               {complianceData.status.frameworks.map((framework: any) => {
                 const statusBadge = getStatusBadge(framework.status);
                 const StatusIcon = statusBadge.icon;
-                
+
                 return (
                   <Card key={framework.id}>
                     <CardContent className="p-6">
@@ -435,37 +446,42 @@ export default function SecurityPage() {
                               {framework.status.replace(/_/g, ' ')}
                             </Badge>
                           </div>
-                          
+
                           <div className="grid grid-cols-3 gap-4 text-sm">
                             <div>
-                              <span className="font-medium">Completion:</span> {framework.completionPercentage}%
+                              <span className="font-medium">Completion:</span>{' '}
+                              {framework.completionPercentage}%
                             </div>
                             <div>
-                              <span className="font-medium">Last Audit:</span> {
-                                framework.lastAudit 
-                                  ? formatDistanceToNow(new Date(framework.lastAudit), { addSuffix: true })
-                                  : 'Never'
-                              }
+                              <span className="font-medium">Last Audit:</span>{' '}
+                              {framework.lastAudit
+                                ? formatDistanceToNow(new Date(framework.lastAudit), {
+                                    addSuffix: true,
+                                  })
+                                : 'Never'}
                             </div>
                             <div>
-                              <span className="font-medium">Framework:</span> {framework.id.toUpperCase()}
+                              <span className="font-medium">Framework:</span>{' '}
+                              {framework.id.toUpperCase()}
                             </div>
                           </div>
 
                           <div className="w-full bg-gray-200 rounded-full h-2 mt-4">
-                            <div 
+                            <div
                               className={`h-2 rounded-full ${
-                                framework.completionPercentage >= 90 ? 'bg-green-600' :
-                                framework.completionPercentage >= 70 ? 'bg-yellow-600' :
-                                'bg-red-600'
+                                framework.completionPercentage >= 90
+                                  ? 'bg-green-600'
+                                  : framework.completionPercentage >= 70
+                                    ? 'bg-yellow-600'
+                                    : 'bg-red-600'
                               }`}
                               style={{ width: `${framework.completionPercentage}%` }}
                             ></div>
                           </div>
                         </div>
 
-                        <Button 
-                          variant="outline" 
+                        <Button
+                          variant="outline"
                           size="sm"
                           onClick={() => runComplianceAudit(framework.id)}
                         >
@@ -495,16 +511,16 @@ export default function SecurityPage() {
                     </p>
                   </div>
                   <div className="space-x-2">
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       size="sm"
                       onClick={() => handleMonitoringControl('start')}
                     >
                       <Play className="h-4 w-4 mr-1" />
                       Start
                     </Button>
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       size="sm"
                       onClick={() => handleMonitoringControl('stop')}
                     >
@@ -557,7 +573,12 @@ export default function SecurityPage() {
                     </div>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-blue-600">
-                        {Math.round((securityData.audit.passed / (securityData.audit.passed + securityData.audit.failed)) * 100)}%
+                        {Math.round(
+                          (securityData.audit.passed /
+                            (securityData.audit.passed + securityData.audit.failed)) *
+                            100
+                        )}
+                        %
                       </div>
                       <p className="text-sm text-gray-600">Success Rate</p>
                     </div>
@@ -565,7 +586,10 @@ export default function SecurityPage() {
 
                   <div className="space-y-3">
                     {securityData.audit.checks?.map((check: any, index: number) => (
-                      <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                      <div
+                        key={index}
+                        className="flex items-center justify-between p-3 border rounded-lg"
+                      >
                         <div className="flex items-center gap-3">
                           {check.passed ? (
                             <CheckCircle className="h-5 w-5 text-green-600" />

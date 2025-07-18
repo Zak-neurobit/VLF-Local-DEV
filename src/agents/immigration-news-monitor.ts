@@ -154,6 +154,7 @@ export class ImmigrationNewsMonitor {
         excerptEs: item.excerptEs,
         content: content.en,
         contentEs: content.es,
+        metaDescription: item.excerpt.substring(0, 160),
         category: 'immigration',
         tags: item.keywords,
         author: 'Vasquez Law Firm',

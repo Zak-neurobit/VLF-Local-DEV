@@ -16,10 +16,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ success: true, status });
   } catch (error) {
     console.error('Failed to get scheduler status:', error);
-    return NextResponse.json(
-      { error: 'Failed to get scheduler status' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to get scheduler status' }, { status: 500 });
   }
 }
 
@@ -48,12 +45,12 @@ export async function POST(request: NextRequest) {
         await syndicationScheduler.start();
         result = 'Scheduler started';
         break;
-      
+
       case 'stop':
         await syndicationScheduler.stop();
         result = 'Scheduler stopped';
         break;
-      
+
       case 'restart':
         await syndicationScheduler.stop();
         await syndicationScheduler.start();
@@ -61,22 +58,19 @@ export async function POST(request: NextRequest) {
         break;
     }
 
-    return NextResponse.json({ 
-      success: true, 
+    return NextResponse.json({
+      success: true,
       message: result,
       status: syndicationScheduler.getStatus(),
     });
   } catch (error) {
     console.error('Failed to control scheduler:', error);
-    return NextResponse.json(
-      { error: 'Failed to control scheduler' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to control scheduler' }, { status: 500 });
   }
 }
 
-// POST /api/syndication/scheduler/retry - Retry failed syndications
-export async function POST(request: NextRequest) {
+// PUT /api/syndication/scheduler/retry - Retry failed syndications
+export async function PUT(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.role?.includes('admin')) {
@@ -86,19 +80,14 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { since } = body;
 
-    await syndicationScheduler.retryFailedSyndications(
-      since ? new Date(since) : undefined
-    );
+    await syndicationScheduler.retryFailedSyndications(since ? new Date(since) : undefined);
 
-    return NextResponse.json({ 
-      success: true, 
+    return NextResponse.json({
+      success: true,
       message: 'Failed syndications queued for retry',
     });
   } catch (error) {
     console.error('Failed to retry syndications:', error);
-    return NextResponse.json(
-      { error: 'Failed to retry syndications' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to retry syndications' }, { status: 500 });
   }
 }

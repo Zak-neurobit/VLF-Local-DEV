@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
           : 'Thank you for subscribing! Check your email to confirm.',
     });
   } catch (error) {
-    apiLogger.error('newsletter-subscription', error as Error, {});
+    apiLogger.error('newsletter-subscription', error as Error);
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -160,7 +160,7 @@ export async function DELETE(req: NextRequest) {
           : 'You have been successfully unsubscribed',
     });
   } catch (error) {
-    apiLogger.error('newsletter-unsubscribe', error as Error, {});
+    apiLogger.error('newsletter-unsubscribe', error as Error);
     return NextResponse.json({ success: false, error: 'Failed to unsubscribe' }, { status: 500 });
   }
 }

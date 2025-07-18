@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    apiLogger.error('socket-webhook', error as Error, {});
+    apiLogger.error('socket-webhook', error as Error);
     return NextResponse.json({ error: 'Failed to process socket event' }, { status: 500 });
   }
 }

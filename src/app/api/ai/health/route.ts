@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
           history: [],
           conversationContext: [],
           metadata: {
-            source: 'api-test' as const,
+            source: 'web_chat' as const,
           },
         };
 
@@ -168,7 +168,7 @@ export async function POST(request: NextRequest) {
           sessionId: `test-${Date.now()}`,
           language,
           history: [],
-          metadata: { source: 'api-test' },
+          metadata: { source: 'web_chat' },
         };
 
         const startTime = Date.now();

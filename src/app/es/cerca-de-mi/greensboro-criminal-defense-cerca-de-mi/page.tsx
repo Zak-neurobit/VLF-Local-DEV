@@ -1,47 +1,35 @@
-'use client';
+import greensuoroCriminalDefenseNearMeClient from './greensuoroCriminalDefenseNearMeClient';
 
-import { NearMeTemplate } from '@/components/templates/NearMeTemplate';
-import { getNearMeCityBySlug, getPracticeAreaByKey } from '@/data/near-me-locations';
-
-export default function GreensboroCriminalDefenseNearMePage() {
-  const cityData = getNearMeCityBySlug('greensboro');
-  const practiceArea = getPracticeAreaByKey('criminal-defense');
-  
-  if (!cityData || !practiceArea) {
-    return <div>Page not found</div>;
-  }
-
-  return (
-    <NearMeTemplate
-      city={cityData.name}
-      state={cityData.state}
-      practiceArea={practiceArea}
-      nearestOffice={cityData.nearestOffice}
-      language="es"
-    />
-  );
+export default function greensuoroCriminalDefenseNearMePage() {
+  return <greensuoroCriminalDefenseNearMeClient />;
 }
-
 export const metadata = {
   title: 'Abogado de Defensa Criminal Cerca de Mi en Greensboro, NC | Vasquez Law Firm',
-  description: 'Encuentre el mejor abogado de defensa criminal cerca de usted en Greensboro, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-  keywords: 'abogado de defensa criminal cerca de mi, abogado de defensa criminal Greensboro, abogado Greensboro, abogado de defensa criminal NC, abogado español Greensboro',
+  description:
+    'Encuentre el mejor abogado de defensa criminal cerca de usted en Greensboro, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
+  keywords:
+    'abogado de defensa criminal cerca de mi, abogado de defensa criminal Greensboro, abogado Greensboro, abogado de defensa criminal NC, abogado español Greensboro',
   openGraph: {
     title: 'Abogado de Defensa Criminal Cerca de Mi en Greensboro, NC | Vasquez Law Firm',
-    description: 'Encuentre el mejor abogado de defensa criminal cerca de usted en Greensboro, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
+    description:
+      'Encuentre el mejor abogado de defensa criminal cerca de usted en Greensboro, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
     url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/greensboro-criminal-defense-cerca-de-mi',
-    images: [{
-      url: 'https://www.vasquezlawnc.com/images/greensboro-criminal-defense-og.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Abogado de Defensa Criminal Cerca de Mi en Greensboro, NC'
-    }]
+    images: [
+      {
+        url: 'https://www.vasquezlawnc.com/images/greensboro-criminal-defense-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Abogado de Defensa Criminal Cerca de Mi en Greensboro, NC',
+      },
+    ],
   },
   alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/greensboro-criminal-defense-cerca-de-mi',
+    canonical:
+      'https://www.vasquezlawnc.com/es/cerca-de-mi/greensboro-criminal-defense-cerca-de-mi',
     languages: {
       'en-US': 'https://www.vasquezlawnc.com/near-me/greensboro-criminal-defense-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/greensboro-criminal-defense-cerca-de-mi'
-    }
-  }
+      'es-ES':
+        'https://www.vasquezlawnc.com/es/cerca-de-mi/greensboro-criminal-defense-cerca-de-mi',
+    },
+  },
 };
