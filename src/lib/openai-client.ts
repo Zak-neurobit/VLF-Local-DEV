@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
 /**
  * OpenAI client placeholder
@@ -24,7 +25,7 @@ export class OpenAIClient {
       // For now, return a placeholder response
       return 'This is a placeholder response from OpenAI';
     } catch (error) {
-      logger.error('OpenAI completion failed', error);
+      logger.error('OpenAI completion failed', errorToLogMeta(error));
       throw error;
     }
   }
@@ -39,7 +40,7 @@ export class OpenAIClient {
         .fill(0)
         .map(() => Math.random());
     } catch (error) {
-      logger.error('OpenAI embedding failed', error);
+      logger.error('OpenAI embedding failed', errorToLogMeta(error));
       throw error;
     }
   }

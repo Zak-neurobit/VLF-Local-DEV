@@ -1,6 +1,7 @@
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 import { WebFetch } from '@/lib/utils/web-fetch';
 import * as cheerio from 'cheerio';
@@ -289,7 +290,7 @@ export class BlogContentDominationAgent {
 
       logger.info('✅ SEO Domination Cycle Complete');
     } catch (error) {
-      logger.error('SEO Domination Cycle Error:', error);
+      logger.error('SEO Domination Cycle Error:', errorToLogMeta(error));
     }
   }
 
@@ -356,7 +357,7 @@ export class BlogContentDominationAgent {
 
         analyses.push(analysis);
       } catch (error) {
-        logger.error(`Failed to analyze competitor ${competitorUrl}:`, error);
+        logger.error(`Failed to analyze competitor ${competitorUrl}:`, errorToLogMeta(error));
       }
     }
 
@@ -402,7 +403,7 @@ export class BlogContentDominationAgent {
       // Sort by potential impact
       topics.sort((a, b) => b.searchVolume - a.searchVolume);
     } catch (error) {
-      logger.error('Failed to identify trending topics:', error);
+      logger.error('Failed to identify trending topics:', errorToLogMeta(error));
     }
 
     return topics;
@@ -462,7 +463,7 @@ Respond with a JSON array of gap opportunities.
       const aiGaps = JSON.parse(response.content.toString());
       aiGaps.forEach((gap: string) => gaps.add(gap));
     } catch (error) {
-      logger.error('Failed to analyze content gaps with AI:', error);
+      logger.error('Failed to analyze content gaps with AI:', errorToLogMeta(error));
     }
 
     return Array.from(gaps);
@@ -556,7 +557,7 @@ Respond with a JSON array of gap opportunities.
 
         logger.info(`✅ Published domination content: ${opportunity.title}`);
       } catch (error) {
-        logger.error(`Failed to create content for ${opportunity.title}:`, error);
+        logger.error(`Failed to create content for ${opportunity.title}:`, errorToLogMeta(error));
       }
     }
   }
@@ -670,7 +671,7 @@ Format as JSON with all sections clearly defined.
       // Update sitemap
       await this.updateSitemap(blogPost);
     } catch (error) {
-      logger.error('Failed to publish content:', error);
+      logger.error('Failed to publish content:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -706,7 +707,7 @@ Format as JSON with all sections clearly defined.
         logger.info(`✅ Optimized: ${post.title} - SEO Score: ${improvements.newSeoScore}`);
       }
     } catch (error) {
-      logger.error('Failed to optimize existing content:', error);
+      logger.error('Failed to optimize existing content:', errorToLogMeta(error));
     }
   }
 
@@ -817,7 +818,7 @@ Format as JSON with all sections clearly defined.
         });
       }
     } catch (error) {
-      logger.error('Failed to identify news opportunities:', error);
+      logger.error('Failed to identify news opportunities:', errorToLogMeta(error));
     }
 
     return opportunities;
@@ -851,7 +852,7 @@ Format as JSON with all sections clearly defined.
 
       return keywordData;
     } catch (error) {
-      logger.error(`Failed to analyze keyword ${keyword}:`, error);
+      logger.error(`Failed to analyze keyword ${keyword}:`, errorToLogMeta(error));
       return null;
     }
   }

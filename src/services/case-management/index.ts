@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { getPrismaClient } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { cache } from '@/lib/cache';
 import { generateCaseNumber } from '@/lib/utils/case-utils';
 import { createNotification } from '@/services/notifications';
@@ -159,7 +160,7 @@ export class CaseManagementService {
       logger.info('Case created successfully', { caseId: newCase.id, caseNumber });
       return newCase;
     } catch (error) {
-      logger.error('Error creating case', error);
+      logger.error('Error creating case', errorToLogMeta(error));
       throw error;
     }
   }
@@ -227,7 +228,7 @@ export class CaseManagementService {
 
       return updatedCase;
     } catch (error) {
-      logger.error('Error updating case', error);
+      logger.error('Error updating case', errorToLogMeta(error));
       throw error;
     }
   }
@@ -273,7 +274,7 @@ export class CaseManagementService {
 
       return result;
     } catch (error) {
-      logger.error('Error getting case details', error);
+      logger.error('Error getting case details', errorToLogMeta(error));
       throw error;
     }
   }
@@ -311,7 +312,7 @@ export class CaseManagementService {
 
       return task;
     } catch (error) {
-      logger.error('Error creating task', error);
+      logger.error('Error creating task', errorToLogMeta(error));
       throw error;
     }
   }
@@ -334,7 +335,7 @@ export class CaseManagementService {
 
       return task;
     } catch (error) {
-      logger.error('Error updating task status', error);
+      logger.error('Error updating task status', errorToLogMeta(error));
       throw error;
     }
   }
@@ -373,7 +374,7 @@ export class CaseManagementService {
 
       return { success: true };
     } catch (error) {
-      logger.error('Error adding case note', error);
+      logger.error('Error adding case note', errorToLogMeta(error));
       throw error;
     }
   }
@@ -428,7 +429,7 @@ export class CaseManagementService {
 
       return cases;
     } catch (error) {
-      logger.error('Error searching cases', error);
+      logger.error('Error searching cases', errorToLogMeta(error));
       throw error;
     }
   }
@@ -448,7 +449,7 @@ export class CaseManagementService {
 
       return report;
     } catch (error) {
-      logger.error('Error generating case report', error);
+      logger.error('Error generating case report', errorToLogMeta(error));
       throw error;
     }
   }
@@ -478,7 +479,10 @@ export class CaseManagementService {
       priority: TaskPriority.medium as TaskPriority,
     };
 
-    const tasksByArea: Record<PracticeArea, Array<{ title: string; type: TaskType; priority: TaskPriority }>> = {
+    const tasksByArea: Record<
+      PracticeArea,
+      Array<{ title: string; type: TaskType; priority: TaskPriority }>
+    > = {
       [PracticeArea.immigration]: [
         {
           ...baseTask,
@@ -763,7 +767,7 @@ export class CaseManagementService {
 
       return timeline;
     } catch (error) {
-      logger.error('Error getting case timeline', error);
+      logger.error('Error getting case timeline', errorToLogMeta(error));
       throw error;
     }
   }
@@ -812,7 +816,7 @@ export class CaseManagementService {
 
       return communications;
     } catch (error) {
-      logger.error('Error getting case communications', error);
+      logger.error('Error getting case communications', errorToLogMeta(error));
       throw error;
     }
   }
@@ -836,7 +840,7 @@ export class CaseManagementService {
         lastPaymentDate: financials.lastPaymentDate ? new Date(financials.lastPaymentDate) : null,
       };
     } catch (error) {
-      logger.error('Error getting case financials', error);
+      logger.error('Error getting case financials', errorToLogMeta(error));
       throw error;
     }
   }
@@ -882,7 +886,7 @@ export class CaseManagementService {
 
       return newDocument;
     } catch (error) {
-      logger.error('Error uploading document', error);
+      logger.error('Error uploading document', errorToLogMeta(error));
       throw error;
     }
   }
@@ -918,7 +922,7 @@ export class CaseManagementService {
 
       return document;
     } catch (error) {
-      logger.error('Error getting document', error);
+      logger.error('Error getting document', errorToLogMeta(error));
       throw error;
     }
   }
@@ -948,7 +952,7 @@ export class CaseManagementService {
 
       return { success: true };
     } catch (error) {
-      logger.error('Error deleting document', error);
+      logger.error('Error deleting document', errorToLogMeta(error));
       throw error;
     }
   }
@@ -983,7 +987,7 @@ export class CaseManagementService {
 
       return cases;
     } catch (error) {
-      logger.error('Error getting cases by user', error);
+      logger.error('Error getting cases by user', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1047,7 +1051,7 @@ export class CaseManagementService {
 
       return updatedCase;
     } catch (error) {
-      logger.error('Error assigning attorney', error);
+      logger.error('Error assigning attorney', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1070,7 +1074,7 @@ export class CaseManagementService {
       // Check if user is the client or assigned attorney
       return caseData.clientId === userId || caseData.attorneyId === userId;
     } catch (error) {
-      logger.error('Error checking case access', error);
+      logger.error('Error checking case access', errorToLogMeta(error));
       return false;
     }
   }
@@ -1100,7 +1104,7 @@ export class CaseManagementService {
 
       return results;
     } catch (error) {
-      logger.error('Error bulk updating case status', error);
+      logger.error('Error bulk updating case status', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1194,7 +1198,7 @@ export class CaseManagementService {
         averageCaseDurationDays: Math.round(avgDuration),
       };
     } catch (error) {
-      logger.error('Error getting case statistics', error);
+      logger.error('Error getting case statistics', errorToLogMeta(error));
       throw error;
     }
   }

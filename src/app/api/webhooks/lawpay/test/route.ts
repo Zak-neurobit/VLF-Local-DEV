@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 
 // Test endpoint to log exactly what LawPay sends
 export async function POST(request: NextRequest) {
@@ -45,7 +46,7 @@ export async function POST(request: NextRequest) {
       data: parsedBody,
     });
   } catch (error) {
-    logger.error('LawPay webhook test error', { error });
+    logger.error('LawPay webhook test error', errorToLogMeta(error));
     return NextResponse.json({
       received: true,
       error: error instanceof Error ? error.message : 'Unknown error',

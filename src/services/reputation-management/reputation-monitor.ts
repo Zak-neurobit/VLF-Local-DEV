@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma-safe';
 import { reviewHarvester } from './review-harvester';
 import { responseGenerator } from './response-generator';
@@ -24,8 +25,14 @@ export class ReputationMonitor extends EventEmitter {
       ratingDropThreshold: 0.5, // Alert if average rating drops by 0.5
       responseTimeTarget: 240, // Target response time in minutes (4 hours)
       criticalKeywords: [
-        'lawsuit', 'sue', 'fraud', 'scam', 'unethical',
-        'malpractice', 'complaint', 'bar association',
+        'lawsuit',
+        'sue',
+        'fraud',
+        'scam',
+        'unethical',
+        'malpractice',
+        'complaint',
+        'bar association',
       ],
     };
   }
@@ -68,11 +75,11 @@ export class ReputationMonitor extends EventEmitter {
 
   private setupEventListeners(): void {
     // Listen to review harvester events
-    reviewHarvester.on('newReviews', async (data) => {
+    reviewHarvester.on('newReviews', async data => {
       await this.processNewReviews(data);
     });
 
-    reviewHarvester.on('urgentReview', async (data) => {
+    reviewHarvester.on('urgentReview', async data => {
       await this.handleUrgentReview(data);
     });
   }
@@ -91,9 +98,12 @@ export class ReputationMonitor extends EventEmitter {
       await reviewHarvester.start();
 
       // Set up monitoring interval
-      this.monitoringInterval = setInterval(async () => {
-        await this.performMonitoringCheck();
-      }, 30 * 60 * 1000); // Every 30 minutes
+      this.monitoringInterval = setInterval(
+        async () => {
+          await this.performMonitoringCheck();
+        },
+        30 * 60 * 1000
+      ); // Every 30 minutes
 
       // Perform initial check
       await this.performMonitoringCheck();
@@ -102,7 +112,7 @@ export class ReputationMonitor extends EventEmitter {
       logger.info('Reputation monitor started successfully');
     } catch (error) {
       this.isMonitoring = false;
-      logger.error('Failed to start reputation monitor:', error);
+      logger.error('Failed to start reputation monitor:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -141,7 +151,7 @@ export class ReputationMonitor extends EventEmitter {
 
       logger.info('Monitoring check completed');
     } catch (error) {
-      logger.error('Monitoring check failed:', error);
+      logger.error('Monitoring check failed:', errorToLogMeta(error));
       this.emit('error', error);
     }
   }
@@ -166,7 +176,7 @@ export class ReputationMonitor extends EventEmitter {
         // Check for alerts
         await this.checkAlertConditions(review);
       } catch (error) {
-        logger.error(`Failed to process review ${review.id}:`, error);
+        logger.error(`Failed to process review ${review.id}:`, errorToLogMeta(error));
       }
     }
   }
@@ -330,7 +340,9 @@ export class ReputationMonitor extends EventEmitter {
     });
 
     if (unansweredReviews.length > 0) {
-      logger.warn(`Found ${unansweredReviews.length} unanswered reviews exceeding response time target`);
+      logger.warn(
+        `Found ${unansweredReviews.length} unanswered reviews exceeding response time target`
+      );
 
       for (const review of unansweredReviews) {
         await this.createResponseReminder(review);
@@ -464,7 +476,9 @@ export class ReputationMonitor extends EventEmitter {
     const now = Date.now();
 
     reviews.forEach(review => {
-      const weekNumber = Math.floor((now - review.publishedAt.getTime()) / (7 * 24 * 60 * 60 * 1000));
+      const weekNumber = Math.floor(
+        (now - review.publishedAt.getTime()) / (7 * 24 * 60 * 60 * 1000)
+      );
       if (!weeks.has(weekNumber)) {
         weeks.set(weekNumber, []);
       }
@@ -572,7 +586,7 @@ export class ReputationMonitor extends EventEmitter {
   private async sendUrgentNotification(data: any): Promise<void> {
     // Implementation would send urgent notifications via multiple channels
     logger.warn('Sending urgent notification:', data);
-    
+
     // Send email
     await this.sendNotification({
       ...data,
@@ -647,10 +661,11 @@ export class ReputationMonitor extends EventEmitter {
       },
     });
 
-    const avgResponseTime = responses.reduce((sum, response) => {
-      const responseTime = response.createdAt.getTime() - response.review.publishedAt.getTime();
-      return sum + responseTime;
-    }, 0) / responses.length;
+    const avgResponseTime =
+      responses.reduce((sum, response) => {
+        const responseTime = response.createdAt.getTime() - response.review.publishedAt.getTime();
+        return sum + responseTime;
+      }, 0) / responses.length;
 
     return {
       totalResponses: responses.length,
@@ -664,21 +679,29 @@ export class ReputationMonitor extends EventEmitter {
 
     // Overall rating recommendations
     if (metrics.averageRating < 4.5) {
-      recommendations.push('Focus on improving service quality to increase average rating above 4.5 stars');
+      recommendations.push(
+        'Focus on improving service quality to increase average rating above 4.5 stars'
+      );
     }
 
     // Response rate recommendations
     if (metrics.responseRate < 0.9) {
-      recommendations.push(`Increase response rate from ${(metrics.responseRate * 100).toFixed(0)}% to 90%+ by implementing auto-response for positive reviews`);
+      recommendations.push(
+        `Increase response rate from ${(metrics.responseRate * 100).toFixed(0)}% to 90%+ by implementing auto-response for positive reviews`
+      );
     }
 
     // Platform-specific recommendations
     platformPerformance.forEach(platform => {
       if (platform.responseRate < 0.8) {
-        recommendations.push(`Improve response rate on ${platform.platformName} (currently ${(platform.responseRate * 100).toFixed(0)}%)`);
+        recommendations.push(
+          `Improve response rate on ${platform.platformName} (currently ${(platform.responseRate * 100).toFixed(0)}%)`
+        );
       }
       if (platform.averageRating < 4.0) {
-        recommendations.push(`Address service issues on ${platform.platformName} (rating: ${platform.averageRating.toFixed(1)})`);
+        recommendations.push(
+          `Address service issues on ${platform.platformName} (rating: ${platform.averageRating.toFixed(1)})`
+        );
       }
     });
 

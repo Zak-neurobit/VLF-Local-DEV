@@ -1,6 +1,7 @@
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { WebFetch } from '@/lib/utils/web-fetch';
 import { getPrismaClient } from '@/lib/prisma';
 import { createCrewLogger } from '@/lib/crews/log-execution';
@@ -255,7 +256,7 @@ Respond in JSON format:
 
       return JSON.parse(response.content.toString());
     } catch (error) {
-      logger.warn('Failed to analyze competitor content', { error });
+      logger.warn('Failed to analyze competitor content', errorToLogMeta(error));
       return {
         topCompetitorContent: [],
         contentGaps: ['Personalized legal advice', 'Local jurisdiction specifics'],
@@ -958,7 +959,7 @@ Provide SEO optimization in this JSON format:
         },
       });
     } catch (error) {
-      logger.warn('Failed to store blog content in database', error);
+      logger.warn('Failed to store blog content in database', errorToLogMeta(error));
     }
 
     return blogResult;

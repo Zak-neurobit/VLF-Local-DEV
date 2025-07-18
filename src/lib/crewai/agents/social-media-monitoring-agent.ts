@@ -1,6 +1,7 @@
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { WebFetch } from '@/lib/utils/web-fetch';
 import { getPrismaClient } from '@/lib/prisma';
 
@@ -122,7 +123,7 @@ export class SocialMediaMonitoringAgent {
         confidenceScore: this.calculateConfidenceScore(socialMediaData, request),
       };
     } catch (error) {
-      logger.error('Social media monitoring error:', error);
+      logger.error('Social media monitoring error:', errorToLogMeta(error));
       throw new Error('Failed to complete social media monitoring');
     }
   }
@@ -137,7 +138,7 @@ export class SocialMediaMonitoringAgent {
         const posts = await this.fetchPlatformData(platform, request);
         allPosts.push(...posts);
       } catch (error) {
-        logger.warn(`Failed to fetch data from ${platform}`, { error });
+        logger.warn(`Failed to fetch data from ${platform}`, errorToLogMeta(error));
       }
     }
 
@@ -164,7 +165,7 @@ export class SocialMediaMonitoringAgent {
         const analyzedPosts = await this.analyzePosts(searchResults, request);
         posts.push(...analyzedPosts);
       } catch (error) {
-        logger.warn(`Failed to search ${platform} for query: ${query}`, { error });
+        logger.warn(`Failed to search ${platform} for query: ${query}`, errorToLogMeta(error));
       }
     }
 
@@ -248,7 +249,7 @@ export class SocialMediaMonitoringAgent {
           analyzedPosts.push(analysis);
         }
       } catch (error) {
-        logger.warn('Failed to analyze post', { url: post.url, error });
+        logger.warn('Failed to analyze post', createErrorLogMeta(error, { url: post.url }));
       }
     }
 
@@ -718,7 +719,7 @@ Enfócate en análisis factual e implicaciones prácticas para profesionales leg
         }
       }
     } catch (error) {
-      logger.warn('Failed to store social media monitoring results', error);
+      logger.warn('Failed to store social media monitoring results', errorToLogMeta(error));
     }
   }
 

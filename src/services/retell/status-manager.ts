@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 import { ghlService } from '@/services/gohighlevel';
 import type { VoiceCallStatus, Prisma } from '@prisma/client';
@@ -204,7 +205,7 @@ export class StatusManager {
         },
       });
     } catch (error) {
-      logger.error('Failed to persist status update:', error);
+      logger.error('Failed to persist status update:', errorToLogMeta(error));
     }
   }
 
@@ -218,7 +219,7 @@ export class StatusManager {
       try {
         callback(status);
       } catch (error) {
-        logger.error('Error notifying status subscriber:', error);
+        logger.error('Error notifying status subscriber:', errorToLogMeta(error));
       }
     });
 
@@ -274,7 +275,7 @@ export class StatusManager {
           break;
       }
     } catch (error) {
-      logger.error('Failed to handle status change:', error);
+      logger.error('Failed to handle status change:', errorToLogMeta(error));
     }
   }
 
@@ -308,7 +309,7 @@ export class StatusManager {
         await ghlService.addNote(call.ghlContactId, statusMessage);
       }
     } catch (error) {
-      logger.error('Failed to update GHL status:', error);
+      logger.error('Failed to update GHL status:', errorToLogMeta(error));
     }
   }
 
@@ -463,7 +464,7 @@ export class StatusManager {
         try {
           await recordingManager.processRecording(callId);
         } catch (error) {
-          logger.error('Failed to process recording:', error);
+          logger.error('Failed to process recording:', errorToLogMeta(error));
         }
       }); // 5 second delay to ensure recording is available
 
@@ -479,7 +480,7 @@ export class StatusManager {
         }
       }
     } catch (error) {
-      logger.error('Failed to trigger post-call processing:', error);
+      logger.error('Failed to trigger post-call processing:', errorToLogMeta(error));
     }
   }
 
@@ -499,7 +500,7 @@ export class StatusManager {
         dueDate: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
       });
     } catch (error) {
-      logger.error('Failed to create failure follow-up:', error);
+      logger.error('Failed to create failure follow-up:', errorToLogMeta(error));
     }
   }
 
@@ -529,7 +530,7 @@ export class StatusManager {
         dueDate: new Date(Date.now() + 4 * 60 * 60 * 1000), // 4 hours
       });
     } catch (error) {
-      logger.error('Failed to schedule no-answer follow-up:', error);
+      logger.error('Failed to schedule no-answer follow-up:', errorToLogMeta(error));
     }
   }
 
@@ -557,11 +558,11 @@ export class StatusManager {
             },
           });
         } catch (error) {
-          logger.error('Failed to retry busy call:', error);
+          logger.error('Failed to retry busy call:', errorToLogMeta(error));
         }
       });
     } catch (error) {
-      logger.error('Failed to schedule busy retry:', error);
+      logger.error('Failed to schedule busy retry:', errorToLogMeta(error));
     }
   }
 
@@ -583,7 +584,7 @@ export class StatusManager {
         });
       }
     } catch (error) {
-      logger.error('Failed to trigger voicemail follow-up:', error);
+      logger.error('Failed to trigger voicemail follow-up:', errorToLogMeta(error));
     }
   }
 
@@ -595,7 +596,7 @@ export class StatusManager {
         where: { retellCallId: callId },
       });
     } catch (error) {
-      logger.error('Failed to get call with contact:', error);
+      logger.error('Failed to get call with contact:', errorToLogMeta(error));
       return null;
     }
   }
@@ -617,7 +618,7 @@ export class StatusManager {
 
       return history;
     } catch (error) {
-      logger.error('Failed to get status history:', error);
+      logger.error('Failed to get status history:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -663,7 +664,7 @@ export class StatusManager {
 
       return analytics;
     } catch (error) {
-      logger.error('Failed to get status analytics:', error);
+      logger.error('Failed to get status analytics:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -698,7 +699,7 @@ export class StatusManager {
 
       return deletedCount.count;
     } catch (error) {
-      logger.error('Failed to cleanup old statuses:', error);
+      logger.error('Failed to cleanup old statuses:', errorToLogMeta(error));
       throw error;
     }
   }

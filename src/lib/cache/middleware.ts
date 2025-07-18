@@ -101,7 +101,7 @@ export function withCache(
 
       return response;
     } catch (error) {
-      logger.error('Cache middleware error:', error);
+      logger.error('Cache middleware error:', errorToLogMeta(error));
       // Fallback to handler on cache error
       return handler(request, context);
     }

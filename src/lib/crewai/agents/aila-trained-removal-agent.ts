@@ -2,6 +2,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import { APISafetyWrapper } from '@/lib/api-safety';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { immigrationKnowledgeBase } from '@/config/agents/knowledge-base/immigration-knowledge';
 
 interface RemovalCaseParams {
@@ -70,7 +71,7 @@ export class AILATrainedRemovalDefenseAgent {
 
       return this.parseAILAAnalysis(response.content as string, params);
     } catch (error) {
-      logger.error('AILA-trained removal analysis failed', error);
+      logger.error('AILA-trained removal analysis failed', errorToLogMeta(error));
       return this.getAILATrainedAnalysis(params);
     }
   }

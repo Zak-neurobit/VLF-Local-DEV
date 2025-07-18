@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getChatSocketServer } from '@/lib/socket/server';
 import { logger, securityLogger } from '@/lib/logger';
+import { createErrorLogMeta } from '@/lib/logger/utils';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
@@ -59,12 +60,14 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     const responseTime = Date.now() - startTime;
 
-    logger.error('Socket health check failed', {
-      error: error.message,
-      responseTime,
-      userAgent: request.headers.get('user-agent'),
-      ip: request.ip || 'unknown',
-    });
+    logger.error(
+      'Socket health check failed',
+      createErrorLogMeta(error, {
+        responseTime,
+        userAgent: request.headers.get('user-agent'),
+        ip: request.ip || 'unknown',
+      })
+    );
 
     return NextResponse.json(
       {
@@ -149,18 +152,20 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     const responseTime = Date.now() - startTime;
 
-    logger.error('Admin socket health check failed', {
-      error: error.message,
-      responseTime,
-      userAgent: request.headers.get('user-agent'),
-      ip: request.ip || 'unknown',
-    });
+    logger.error(
+      'Admin socket health check failed',
+      createErrorLogMeta(error, {
+        responseTime,
+        userAgent: request.headers.get('user-agent'),
+        ip: request.ip || 'unknown',
+      })
+    );
 
     return NextResponse.json(
       {
         status: 'error',
         error: 'Admin health check failed',
-        message: error.message,
+        message: error instanceof Error ? error.message : 'Unknown error',
         responseTime,
         endpoint: 'admin-socket-health',
         timestamp: Date.now(),

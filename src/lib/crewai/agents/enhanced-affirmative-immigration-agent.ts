@@ -2,6 +2,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import { APISafetyWrapper } from '@/lib/api-safety';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
 export class EnhancedAffirmativeImmigrationAgent {
   private model: ChatOpenAI | null = null;
@@ -89,7 +90,7 @@ Priority Category: ${params.priorityCategory || 'To be determined'}`;
 
       return this.parseResponse(response.content as string);
     } catch (error) {
-      logger.error('Family petition analysis failed', error);
+      logger.error('Family petition analysis failed', errorToLogMeta(error));
       return this.getMockAnalysis('family', params);
     }
   }
@@ -122,7 +123,7 @@ English Ability: ${params.englishAbility}`;
 
       return this.parseResponse(response.content as string);
     } catch (error) {
-      logger.error('Naturalization analysis failed', error);
+      logger.error('Naturalization analysis failed', errorToLogMeta(error));
       return this.getMockAnalysis('naturalization', params);
     }
   }
@@ -153,7 +154,7 @@ Unlawful Presence: ${params.unlawfulPresence || 'None'}`;
 
       return this.parseResponse(response.content as string);
     } catch (error) {
-      logger.error('Consular process analysis failed', error);
+      logger.error('Consular process analysis failed', errorToLogMeta(error));
       return this.getMockAnalysis('consular', params);
     }
   }

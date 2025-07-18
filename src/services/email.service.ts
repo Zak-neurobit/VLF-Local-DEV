@@ -1,5 +1,6 @@
 import * as nodemailer from 'nodemailer';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { z } from 'zod';
 import { emailQueue } from '@/lib/queue/bull';
 import pRetry from 'p-retry';
@@ -1051,7 +1052,7 @@ class EmailService {
       await transporter.verify();
       logger.info('SMTP connection verified successfully');
     } catch (error) {
-      logger.error('SMTP connection verification failed', error);
+      logger.error('SMTP connection verification failed', errorToLogMeta(error));
     }
   }
 
@@ -1491,11 +1492,13 @@ class EmailService {
   }
 
   async sendUrgentLeadNotification(data: EmailTemplateData): Promise<EmailResult> {
-    const leadData = data.lead as {
-      practiceArea?: string;
-      score?: number;
-      id?: string;
-    } | undefined;
+    const leadData = data.lead as
+      | {
+          practiceArea?: string;
+          score?: number;
+          id?: string;
+        }
+      | undefined;
     // Send to multiple attorneys for urgent leads
     const attorneyEmails = process.env.URGENT_LEAD_EMAILS?.split(',') || [
       'attorneys@vasquezlawnc.com',

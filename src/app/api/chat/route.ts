@@ -428,7 +428,7 @@ async function handleChatPOST(request: NextRequest) {
         handoff: metadata.handoff,
       });
     } catch (error) {
-      logger.error('OpenAI API error:', error);
+      logger.error('OpenAI API error:', errorToLogMeta(error));
 
       // Save error message to conversation if it exists
       if (conversation) {
@@ -474,7 +474,7 @@ async function handleChatPOST(request: NextRequest) {
       });
     }
   } catch (error) {
-    logger.error('Chat API error:', error);
+    logger.error('Chat API error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -550,7 +550,7 @@ async function handleChatGET(request: NextRequest) {
       },
     });
   } catch (error) {
-    logger.error('Error retrieving conversation:', error);
+    logger.error('Error retrieving conversation:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to retrieve conversation' }, { status: 500 });
   }
 }
@@ -602,7 +602,7 @@ async function handleChatDELETE(request: NextRequest) {
       message: 'Conversation closed successfully',
     });
   } catch (error) {
-    logger.error('Error closing conversation:', error);
+    logger.error('Error closing conversation:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to close conversation' }, { status: 500 });
   }
 }

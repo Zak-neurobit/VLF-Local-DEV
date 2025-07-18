@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       estimatedWait: isEmergency ? '< 5 minutes' : '5-15 minutes',
     });
   } catch (error) {
-    logger.error('Intake API error:', error);
+    logger.error('Intake API error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to process intake' }, { status: 500 });
   }
 }
@@ -84,7 +84,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    logger.error('Intake status API error:', error);
+    logger.error('Intake status API error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to get status' }, { status: 500 });
   }
 }

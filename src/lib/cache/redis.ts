@@ -1,6 +1,7 @@
 import Redis from 'ioredis';
 import { securityLogger } from '@/lib/pino-logger';
 import { performanceLogger, logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
 // Redis connection configuration
 const redisConfig = {
@@ -122,7 +123,7 @@ function getRedis() {
       });
 
       (_redis as Redis).on('error', (error: Error) => {
-        logger.error('Redis connection error:', error);
+        logger.error('Redis connection error:', errorToLogMeta(error));
       });
 
       (_redis as Redis).on('close', () => {
@@ -245,7 +246,7 @@ class CacheManager {
       await this.redis.del(key);
       this.memoryCache.delete(key);
     } catch (error) {
-      logger.error(`Cache delete error for key ${key}:`, error);
+      logger.error(`Cache delete error for key ${key}:`, errorToLogMeta(error));
     }
   }
 
@@ -262,7 +263,7 @@ class CacheManager {
         }
       }
     } catch (error) {
-      logger.error(`Cache delete pattern error for ${pattern}:`, error);
+      logger.error(`Cache delete pattern error for ${pattern}:`, errorToLogMeta(error));
     }
   }
 
@@ -271,7 +272,7 @@ class CacheManager {
       const result = await this.redis.exists(key);
       return result === 1;
     } catch (error) {
-      logger.error(`Cache exists error for key ${key}:`, error);
+      logger.error(`Cache exists error for key ${key}:`, errorToLogMeta(error));
       return false;
     }
   }
@@ -280,7 +281,7 @@ class CacheManager {
     try {
       return await this.redis.ttl(key);
     } catch (error) {
-      logger.error(`Cache TTL error for key ${key}:`, error);
+      logger.error(`Cache TTL error for key ${key}:`, errorToLogMeta(error));
       return -1;
     }
   }
@@ -291,7 +292,7 @@ class CacheManager {
       this.memoryCache.clear();
       logger.info('Cache flushed successfully');
     } catch (error) {
-      logger.error('Cache flush error:', error);
+      logger.error('Cache flush error:', errorToLogMeta(error));
     }
   }
 
@@ -322,7 +323,7 @@ class CacheManager {
         total_commands_processed: (stats.total_commands_processed as string) || 'N/A',
       };
     } catch (error) {
-      logger.error('Cache info error:', error);
+      logger.error('Cache info error:', errorToLogMeta(error));
       return null;
     }
   }

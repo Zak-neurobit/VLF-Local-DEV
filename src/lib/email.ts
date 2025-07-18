@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
 export interface EmailOptions {
   to: string;
@@ -27,7 +28,7 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
     logger.info('Email sent successfully', { to: options.to });
     return true;
   } catch (error) {
-    logger.error('Failed to send email', error);
+    logger.error('Failed to send email', errorToLogMeta(error));
     return false;
   }
 }

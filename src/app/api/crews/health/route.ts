@@ -102,7 +102,7 @@ export async function GET(_request: NextRequest): Promise<NextResponse> {
 
     return NextResponse.json(response);
   } catch (error) {
-    logger.error('Health check failed:', error);
+    logger.error('Health check failed:', errorToLogMeta(error));
     return NextResponse.json(
       {
         status: 'critical',

@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma-safe';
 import { z } from 'zod';
 
@@ -14,11 +15,13 @@ export const SyndicationPlatformSchema = z.object({
   enabled: z.boolean().default(true),
   autoPublish: z.boolean().default(false),
   contentTypes: z.array(z.enum(['blog', 'news', 'case_study', 'guide', 'video'])),
-  schedule: z.object({
-    timezone: z.string().default('America/New_York'),
-    publishTimes: z.array(z.string()), // e.g., ["09:00", "14:00", "17:00"]
-    daysOfWeek: z.array(z.number().min(0).max(6)), // 0 = Sunday, 6 = Saturday
-  }).optional(),
+  schedule: z
+    .object({
+      timezone: z.string().default('America/New_York'),
+      publishTimes: z.array(z.string()), // e.g., ["09:00", "14:00", "17:00"]
+      daysOfWeek: z.array(z.number().min(0).max(6)), // 0 = Sunday, 6 = Saturday
+    })
+    .optional(),
 });
 
 export type SyndicationPlatform = z.infer<typeof SyndicationPlatformSchema>;
@@ -30,12 +33,16 @@ export const ContentTransformationSchema = z.object({
   content: z.string(),
   excerpt: z.string().optional(),
   tags: z.array(z.string()),
-  media: z.array(z.object({
-    type: z.enum(['image', 'video', 'document']),
-    url: z.string(),
-    alt: z.string().optional(),
-    caption: z.string().optional(),
-  })).optional(),
+  media: z
+    .array(
+      z.object({
+        type: z.enum(['image', 'video', 'document']),
+        url: z.string(),
+        alt: z.string().optional(),
+        caption: z.string().optional(),
+      })
+    )
+    .optional(),
   metadata: z.record(z.any()).optional(),
   publishAt: z.date().optional(),
 });
@@ -168,10 +175,10 @@ export class ContentSyndicationEngine {
 
   private registerPlatform(platform: SyndicationPlatform): void {
     this.platforms.set(platform.id, platform);
-    
+
     // Register transformer
     this.transformers.set(platform.id, new ContentTransformer(platform));
-    
+
     // Register publisher
     this.publishers.set(platform.id, this.createPublisher(platform));
   }
@@ -216,7 +223,7 @@ export class ContentSyndicationEngine {
       const targetPlatforms = this.getTargetPlatforms(contentType, requestedPlatforms);
 
       // Create syndication tasks
-      const syndicationTasks = targetPlatforms.map(async (platformId) => {
+      const syndicationTasks = targetPlatforms.map(async platformId => {
         const platform = this.platforms.get(platformId);
         if (!platform || !platform.enabled) {
           return null;
@@ -238,7 +245,7 @@ export class ContentSyndicationEngine {
             return await this.publishNow(platformId, transformedContent);
           }
         } catch (error) {
-          logger.error(`Syndication failed for ${platformId}:`, error);
+          logger.error(`Syndication failed for ${platformId}:`, errorToLogMeta(error));
           return {
             platform: platformId,
             success: false,
@@ -265,7 +272,7 @@ export class ContentSyndicationEngine {
         totalPlatforms: validResults.length,
       };
     } catch (error) {
-      logger.error('Content syndication failed:', error);
+      logger.error('Content syndication failed:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -276,7 +283,7 @@ export class ContentSyndicationEngine {
       case 'blog':
         return await prisma.blogPost.findUnique({
           where: { id: contentId },
-          include: { 
+          include: {
             author: true,
             tags: true,
             media: true,
@@ -295,9 +302,8 @@ export class ContentSyndicationEngine {
 
   private getTargetPlatforms(contentType: string, requestedPlatforms?: string[]): string[] {
     const eligiblePlatforms = Array.from(this.platforms.entries())
-      .filter(([_, platform]) => 
-        platform.enabled && 
-        platform.contentTypes.includes(contentType as any)
+      .filter(
+        ([_, platform]) => platform.enabled && platform.contentTypes.includes(contentType as any)
       )
       .map(([id]) => id);
 
@@ -356,7 +362,7 @@ export class ContentSyndicationEngine {
     }
 
     const result = await publisher.publish(content);
-    
+
     return {
       platform: platformId,
       success: result.success,
@@ -393,7 +399,7 @@ export class ContentSyndicationEngine {
 
     for (let i = 0; i < contentIds.length; i++) {
       const scheduleTime = new Date();
-      scheduleTime.setMinutes(scheduleTime.getMinutes() + (i * staggerMinutes));
+      scheduleTime.setMinutes(scheduleTime.getMinutes() + i * staggerMinutes);
 
       try {
         const result = await this.syndicateContent({
@@ -404,7 +410,10 @@ export class ContentSyndicationEngine {
         });
         results.push(result);
       } catch (error) {
-        logger.error(`Bulk syndication failed for content ${contentIds[i]}:`, error);
+        logger.error(
+          `Bulk syndication failed for content ${contentIds[i]}:`,
+          errorToLogMeta(error)
+        );
       }
     }
 
@@ -556,7 +565,7 @@ abstract class PlatformPublisher {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.platform.apiKey}`,
+        Authorization: `Bearer ${this.platform.apiKey}`,
       },
       body: JSON.stringify(data),
     });
@@ -599,10 +608,7 @@ class LinkedInPublisher extends PlatformPublisher {
         },
       };
 
-      const result = await this.makeApiCall(
-        'https://api.linkedin.com/v2/ugcPosts',
-        postData
-      );
+      const result = await this.makeApiCall('https://api.linkedin.com/v2/ugcPosts', postData);
 
       return {
         success: true,
@@ -650,11 +656,8 @@ class TwitterPublisher extends PlatformPublisher {
   async publish(content: ContentTransformation): Promise<PublishResult> {
     try {
       const tweet = this.composeTweet(content);
-      
-      const result = await this.makeApiCall(
-        'https://api.twitter.com/2/tweets',
-        { text: tweet }
-      );
+
+      const result = await this.makeApiCall('https://api.twitter.com/2/tweets', { text: tweet });
 
       return {
         success: true,
@@ -734,10 +737,7 @@ class AvvoPublisher extends PlatformPublisher {
         },
       };
 
-      const result = await this.makeApiCall(
-        'https://api.avvo.com/v1/legal-guides',
-        postData
-      );
+      const result = await this.makeApiCall('https://api.avvo.com/v1/legal-guides', postData);
 
       return {
         success: true,
@@ -815,7 +815,7 @@ class RedditPublisher extends PlatformPublisher {
   async publish(content: ContentTransformation): Promise<PublishResult> {
     try {
       const subreddit = this.selectSubreddit(content.tags);
-      
+
       const postData = {
         kind: 'link',
         sr: subreddit,
@@ -824,10 +824,7 @@ class RedditPublisher extends PlatformPublisher {
         send_replies: true,
       };
 
-      const result = await this.makeApiCall(
-        'https://oauth.reddit.com/api/submit',
-        postData
-      );
+      const result = await this.makeApiCall('https://oauth.reddit.com/api/submit', postData);
 
       return {
         success: true,
@@ -844,11 +841,11 @@ class RedditPublisher extends PlatformPublisher {
 
   private selectSubreddit(tags: string[]): string {
     const subreddits = this.platform.config?.subreddits || ['r/legaladvice'];
-    
+
     // Logic to select appropriate subreddit based on content tags
     if (tags.includes('immigration')) return 'r/immigration';
     if (tags.includes('north-carolina')) return 'r/NorthCarolina';
-    
+
     return subreddits[0];
   }
 }
@@ -921,11 +918,14 @@ interface SyndicationAnalytics {
   totalSyndications: number;
   successfulSyndications: number;
   failedSyndications: number;
-  platformBreakdown: Record<string, {
-    total: number;
-    successful: number;
-    failed: number;
-  }>;
+  platformBreakdown: Record<
+    string,
+    {
+      total: number;
+      successful: number;
+      failed: number;
+    }
+  >;
   contentTypeBreakdown: Record<string, number>;
   timeSeriesData: Array<{
     date: Date;

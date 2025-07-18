@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    logger.error('Competitive analysis API error:', error);
+    logger.error('Competitive analysis API error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to start competitive analysis' }, { status: 500 });
   }
 }
@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
       completedAt: task.completedAt,
     });
   } catch (error) {
-    logger.error('Competitive analysis status check error:', error);
+    logger.error('Competitive analysis status check error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to check task status' }, { status: 500 });
   }
 }

@@ -50,7 +50,7 @@ export async function GET(_req: NextRequest) {
       mappings,
     });
   } catch (error) {
-    logger.error('Error fetching Retell phone numbers:', error);
+    logger.error('Error fetching Retell phone numbers:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to fetch phone numbers' }, { status: 500 });
   }
 }
@@ -185,7 +185,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
   } catch (error) {
-    logger.error('Error managing Retell phone numbers:', error);
+    logger.error('Error managing Retell phone numbers:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to manage phone numbers' }, { status: 500 });
   }
 }
@@ -231,7 +231,7 @@ export async function DELETE(req: NextRequest) {
       message: 'Phone number released successfully',
     });
   } catch (error) {
-    logger.error('Error releasing Retell phone number:', error);
+    logger.error('Error releasing Retell phone number:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to release phone number' }, { status: 500 });
   }
 }

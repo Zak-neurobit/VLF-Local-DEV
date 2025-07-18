@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
 interface AgentStatus {
   name: string;
@@ -41,7 +42,7 @@ export function SEODominationDashboard() {
         await fetchMetrics();
       }
     } catch (error) {
-      logger.error('Failed to check system status:', error);
+      logger.error('Failed to check system status:', errorToLogMeta(error));
     } finally {
       setLoading(false);
     }
@@ -60,7 +61,7 @@ export function SEODominationDashboard() {
       setMetrics(agentsData);
       setExecutiveSummary(summaryData.summary || '');
     } catch (error) {
-      logger.error('Failed to fetch metrics:', error);
+      logger.error('Failed to fetch metrics:', errorToLogMeta(error));
     }
   };
 
@@ -75,7 +76,6 @@ export function SEODominationDashboard() {
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRunning]);
-
 
   const handleStartStop = async () => {
     setLoading(true);
@@ -96,7 +96,7 @@ export function SEODominationDashboard() {
         }
       }
     } catch (error) {
-      logger.error('Failed to start/stop system:', error);
+      logger.error('Failed to start/stop system:', errorToLogMeta(error));
     } finally {
       setLoading(false);
     }
@@ -110,7 +110,7 @@ export function SEODominationDashboard() {
         body: JSON.stringify({ action: 'emergency', situation }),
       });
     } catch (error) {
-      logger.error('Failed to trigger emergency response:', error);
+      logger.error('Failed to trigger emergency response:', errorToLogMeta(error));
     }
   };
 
@@ -303,7 +303,8 @@ export function SEODominationDashboard() {
             <span className="text-green-500">●</span>
             <span className="font-mono">12:34:56</span>
             <span>
-              📝 BlogContentDomination: Created viral post targeting &quot;immigration lawyer NC&quot;
+              📝 BlogContentDomination: Created viral post targeting &quot;immigration lawyer
+              NC&quot;
             </span>
           </div>
           <div className="flex items-center gap-2 text-sm">

@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma-safe';
 import { syndicationEngine } from './syndication-engine';
 import { z } from 'zod';
@@ -50,7 +51,7 @@ export class CrossPostingManager {
       targetPlatforms: ['avvo', 'justia', 'findlaw'],
       rules: [
         {
-          condition: { 
+          condition: {
             categories: ['guide', 'how-to'],
             minWordCount: 1000,
           },
@@ -103,7 +104,7 @@ export class CrossPostingManager {
       targetPlatforms: ['twitter'],
       rules: [
         {
-          condition: { 
+          condition: {
             importance: 'high',
             categories: ['breaking-news', 'legal-update'],
           },
@@ -128,7 +129,7 @@ export class CrossPostingManager {
       targetPlatforms: ['linkedin', 'medium'],
       rules: [
         {
-          condition: { 
+          condition: {
             outcome: 'successful',
             clientConsent: true,
           },
@@ -184,7 +185,9 @@ export class CrossPostingManager {
 
       // Check if content matches strategy source type
       if (content.type !== strategy.sourceType) {
-        throw new Error(`Content type mismatch. Expected ${strategy.sourceType}, got ${content.type}`);
+        throw new Error(
+          `Content type mismatch. Expected ${strategy.sourceType}, got ${content.type}`
+        );
       }
 
       // Evaluate rules to determine actions
@@ -222,7 +225,7 @@ export class CrossPostingManager {
         platforms: strategy.targetPlatforms,
       };
     } catch (error) {
-      logger.error(`Cross-posting strategy failed:`, error);
+      logger.error(`Cross-posting strategy failed:`, errorToLogMeta(error));
       return {
         success: false,
         executed: false,
@@ -243,9 +246,7 @@ export class CrossPostingManager {
       // Check categories
       if (condition.categories) {
         const contentCategories = content.categories?.map((c: any) => c.slug || c) || [];
-        const hasCategory = condition.categories.some(cat => 
-          contentCategories.includes(cat)
-        );
+        const hasCategory = condition.categories.some(cat => contentCategories.includes(cat));
         if (!hasCategory) return false;
       }
 
@@ -291,28 +292,28 @@ export class CrossPostingManager {
     switch (action) {
       case 'create-summary-post':
         return await this.createSummaryPost(content, platforms, config, schedule);
-      
+
       case 'create-breaking-news-post':
         return await this.createBreakingNewsPost(content, platforms, config, schedule);
-      
+
       case 'submit-as-guide':
         return await this.submitAsGuide(content, platforms, config, schedule);
-      
+
       case 'full-video-upload':
         return await this.uploadFullVideo(content, platforms, config, schedule);
-      
+
       case 'create-shorts':
         return await this.createShorts(content, config.platforms, config, schedule);
-      
+
       case 'create-thread':
         return await this.createThread(content, platforms, config, schedule);
-      
+
       case 'create-professional-article':
         return await this.createProfessionalArticle(content, platforms, config, schedule);
-      
+
       case 'translate-and-post':
         return await this.translateAndPost(content, platforms, config, schedule);
-      
+
       default:
         throw new Error(`Unknown action: ${action}`);
     }
@@ -326,10 +327,10 @@ export class CrossPostingManager {
   ): Promise<any> {
     // Generate summary for social media
     const summary = await this.generateSocialSummary(content);
-    
+
     // Add hashtags
     const hashtags = config.hashtags ? this.generateHashtags(content) : [];
-    
+
     // Create transformed content
     const socialContent = {
       title: content.title,
@@ -340,7 +341,7 @@ export class CrossPostingManager {
 
     // Schedule syndication
     const publishTime = this.calculatePublishTime(schedule);
-    
+
     return await syndicationEngine.syndicateContent({
       contentId: content.id,
       contentType: 'blog',
@@ -363,7 +364,9 @@ export class CrossPostingManager {
     };
 
     // Immediate cross-posting if configured
-    const publishTime = config.crossPostImmediately ? new Date() : this.calculatePublishTime(schedule);
+    const publishTime = config.crossPostImmediately
+      ? new Date()
+      : this.calculatePublishTime(schedule);
 
     return await syndicationEngine.syndicateContent({
       contentId: content.id,
@@ -400,7 +403,7 @@ export class CrossPostingManager {
     }
 
     const publishTime = this.calculatePublishTime(schedule);
-    
+
     return await syndicationEngine.syndicateContent({
       contentId: content.id,
       contentType: 'guide',
@@ -417,11 +420,11 @@ export class CrossPostingManager {
   ): Promise<any> {
     // Break content into thread
     const thread = this.breakIntoThread(content, config.maxTweets);
-    
+
     // Add thread numbering
     if (config.addThreadNumber) {
-      thread.tweets = thread.tweets.map((tweet, index) => 
-        `${index + 1}/${thread.tweets.length} ${tweet}`
+      thread.tweets = thread.tweets.map(
+        (tweet, index) => `${index + 1}/${thread.tweets.length} ${tweet}`
       );
     }
 
@@ -471,23 +474,21 @@ export class CrossPostingManager {
   private async generateSocialSummary(content: any): Promise<string> {
     // Extract key points from content
     const keyPoints = this.extractKeyPoints(content.content);
-    
+
     // Create engaging summary
     const summary = keyPoints.slice(0, 3).join('\n\n');
-    
-    return summary.length > 200 
-      ? summary.substring(0, 197) + '...'
-      : summary;
+
+    return summary.length > 200 ? summary.substring(0, 197) + '...' : summary;
   }
 
   private generateHashtags(content: any): string[] {
     const hashtags: string[] = [];
-    
+
     // Add practice area hashtags
     if (content.practiceArea) {
       hashtags.push(`#${content.practiceArea.replace(/-/g, '')}`);
     }
-    
+
     // Add category hashtags
     content.categories?.forEach((cat: any) => {
       const tag = `#${(cat.name || cat).replace(/\s+/g, '')}`;
@@ -495,30 +496,30 @@ export class CrossPostingManager {
         hashtags.push(tag);
       }
     });
-    
+
     // Add trending legal hashtags
     hashtags.push('#LegalAdvice', '#VasquezLawFirm');
-    
+
     return hashtags.slice(0, 5); // Limit to 5 hashtags
   }
 
   private calculatePublishTime(schedule: any): Date {
     const now = new Date();
-    
+
     if (schedule.immediate) {
       return now;
     }
-    
+
     if (schedule.delay) {
       const publishTime = new Date(now);
       publishTime.setMinutes(publishTime.getMinutes() + schedule.delay);
       return publishTime;
     }
-    
+
     if (schedule.simultaneous) {
       return now;
     }
-    
+
     return now;
   }
 
@@ -531,7 +532,7 @@ export class CrossPostingManager {
       where: { id: authorId },
       select: { name: true, title: true, bio: true },
     });
-    
+
     return author?.bio || `${author?.name}, ${author?.title} at Vasquez Law Firm`;
   }
 
@@ -542,7 +543,7 @@ export class CrossPostingManager {
       'Schedule your appointment now',
       'Learn how we can help with your case',
     ];
-    
+
     return ctas[Math.floor(Math.random() * ctas.length)];
   }
 
@@ -554,14 +555,14 @@ export class CrossPostingManager {
       'personal-injury': 'personal-injury',
       'workers-compensation': 'workers-compensation',
     };
-    
+
     for (const cat of categories) {
       const slug = cat.slug || cat;
       if (categoryMap[slug]) {
         return categoryMap[slug];
       }
     }
-    
+
     return 'general';
   }
 
@@ -570,10 +571,10 @@ export class CrossPostingManager {
       .replace(/<[^>]*>/g, '')
       .split(/[.!?]+/)
       .filter((s: string) => s.trim().length > 0);
-    
+
     const tweets: string[] = [];
     let currentTweet = '';
-    
+
     for (const sentence of sentences) {
       if (currentTweet.length + sentence.length > 250) {
         tweets.push(currentTweet.trim());
@@ -581,19 +582,19 @@ export class CrossPostingManager {
       } else {
         currentTweet += ' ' + sentence;
       }
-      
+
       if (tweets.length >= maxTweets - 1) {
         break;
       }
     }
-    
+
     if (currentTweet.trim()) {
       tweets.push(currentTweet.trim());
     }
-    
+
     // Add link to last tweet
     tweets[tweets.length - 1] += `\n\nRead more: ${content.url}`;
-    
+
     return { tweets, images: [content.featuredImage] };
   }
 
@@ -608,11 +609,7 @@ export class CrossPostingManager {
     };
   }
 
-  private async translateContent(
-    content: any,
-    targetLanguage: string,
-    options: any
-  ): Promise<any> {
+  private async translateContent(content: any, targetLanguage: string, options: any): Promise<any> {
     // Implementation would use translation service
     // For now, return mock translated content
     return {
@@ -631,7 +628,7 @@ export class CrossPostingManager {
       .split(/\n\n+/)
       .filter(p => p.length > 50 && p.length < 200)
       .slice(0, 5);
-    
+
     return points.map(p => `✓ ${p.trim()}`);
   }
 
@@ -645,7 +642,7 @@ export class CrossPostingManager {
         status: 'pending_approval',
       },
     });
-    
+
     return {
       success: true,
       status: 'queued_for_approval',
@@ -668,7 +665,7 @@ export class CrossPostingManager {
   // Get applicable strategies for content
   async getApplicableStrategies(content: any): Promise<string[]> {
     const applicable: string[] = [];
-    
+
     for (const [id, strategy] of this.strategies) {
       if (strategy.sourceType === content.type) {
         const rules = this.evaluateRules(strategy.rules, content);
@@ -677,7 +674,7 @@ export class CrossPostingManager {
         }
       }
     }
-    
+
     return applicable;
   }
 
@@ -685,12 +682,12 @@ export class CrossPostingManager {
   async executeAllStrategies(content: any): Promise<Map<string, CrossPostingResult>> {
     const strategies = await this.getApplicableStrategies(content);
     const results = new Map<string, CrossPostingResult>();
-    
+
     for (const strategyId of strategies) {
       const result = await this.executeStrategy(strategyId, content);
       results.set(strategyId, result);
     }
-    
+
     return results;
   }
 }

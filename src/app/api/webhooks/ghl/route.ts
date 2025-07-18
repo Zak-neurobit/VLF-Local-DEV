@@ -43,7 +43,7 @@ async function handlePOST(request: NextRequest) {
     // Respond quickly to acknowledge receipt
     return NextResponse.json({ received: true });
   } catch (error) {
-    logger.error('GHL webhook error:', error);
+    logger.error('GHL webhook error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 });
   }
 }

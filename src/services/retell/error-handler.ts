@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { securityLogger } from '@/lib/pino-logger';
 import { ghlService } from '@/services/gohighlevel';
 import { getPrismaClient } from '@/lib/prisma';
@@ -231,7 +232,7 @@ export class RetellErrorHandler {
           await this.handleGenericError(retellError, context);
       }
     } catch (error) {
-      logger.error('Failed to process error type:', error);
+      logger.error('Failed to process error type:', errorToLogMeta(error));
     }
   }
 
@@ -462,7 +463,7 @@ export class RetellErrorHandler {
         );
       }
     } catch (error) {
-      logger.error('Failed to update contact with error:', error);
+      logger.error('Failed to update contact with error:', errorToLogMeta(error));
     }
   }
 
@@ -500,7 +501,7 @@ export class RetellErrorHandler {
         });
       }
     } catch (error) {
-      logger.error('Failed to create admin task:', error);
+      logger.error('Failed to create admin task:', errorToLogMeta(error));
     }
   }
 
@@ -529,7 +530,7 @@ export class RetellErrorHandler {
         }
       }
     } catch (error) {
-      logger.error('Failed to create callback task:', error);
+      logger.error('Failed to create callback task:', errorToLogMeta(error));
     }
   }
 
@@ -540,7 +541,7 @@ export class RetellErrorHandler {
       const { RetellAgentManager } = await import('./agent-manager-v2');
       return await RetellAgentManager.getAgentForPracticeArea('general');
     } catch (error) {
-      logger.error('Failed to find alternative agent:', error);
+      logger.error('Failed to find alternative agent:', errorToLogMeta(error));
       return null;
     }
   }
@@ -567,7 +568,7 @@ export class RetellErrorHandler {
         scheduledFor: new Date(Date.now() + delaySeconds * 1000),
       });
     } catch (error) {
-      logger.error('Failed to schedule retry:', error);
+      logger.error('Failed to schedule retry:', errorToLogMeta(error));
     }
   }
 
@@ -614,7 +615,7 @@ export class RetellErrorHandler {
 
       return stats;
     } catch (error) {
-      logger.error('Failed to get error stats:', error);
+      logger.error('Failed to get error stats:', errorToLogMeta(error));
       throw error;
     }
   }

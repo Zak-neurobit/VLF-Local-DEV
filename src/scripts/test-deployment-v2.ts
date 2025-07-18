@@ -51,7 +51,7 @@ class DeploymentTester {
 
       logger.info('✅ All deployment system tests completed successfully!');
     } catch (error) {
-      logger.error('❌ Deployment system tests failed:', error);
+      logger.error('❌ Deployment system tests failed:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -356,7 +356,7 @@ async function main() {
     logger.info('\n🎉 All deployment system tests completed successfully!');
     process.exit(0);
   } catch (error) {
-    logger.error('Deployment system tests failed:', error);
+    logger.error('Deployment system tests failed:', errorToLogMeta(error));
     await tester.cleanup();
     process.exit(1);
   }

@@ -1,6 +1,7 @@
 import OpenAI from 'openai';
 import { t, translations } from '@/lib/translations';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { performance } from 'perf_hooks';
 
 // Enhanced translation service with AI fallback
@@ -91,7 +92,7 @@ export class AITranslationService {
       // Fallback to basic translation rules
       return this.getBasicTranslation(text, targetLanguage);
     } catch (error) {
-      logger.error('Translation error:', error);
+      logger.error('Translation error:', errorToLogMeta(error));
       return this.getBasicTranslation(text, targetLanguage);
     }
   }

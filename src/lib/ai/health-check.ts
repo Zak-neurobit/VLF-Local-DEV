@@ -2,6 +2,7 @@ import { enhancedChatService } from './enhanced-chat-service';
 import { aiTranslationService } from './translation-service';
 import { AgentOrchestrator } from '@/lib/agents/agent-orchestrator';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
 export interface AIServiceHealth {
   status: 'healthy' | 'degraded' | 'unhealthy';
@@ -94,7 +95,7 @@ class AIHealthChecker {
 
       return healthResult;
     } catch (error) {
-      logger.error('AI health check failed:', error);
+      logger.error('AI health check failed:', errorToLogMeta(error));
 
       return {
         status: 'unhealthy',
@@ -201,7 +202,7 @@ export async function getAIHealthStatus(): Promise<'healthy' | 'degraded' | 'unh
     const health = await aiHealthChecker.checkHealth();
     return health.status;
   } catch (error) {
-    logger.error('Quick health check failed:', error);
+    logger.error('Quick health check failed:', errorToLogMeta(error));
     return 'unhealthy';
   }
 }

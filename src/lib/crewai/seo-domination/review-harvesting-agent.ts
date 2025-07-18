@@ -1,6 +1,7 @@
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 import * as cron from 'node-cron';
 import nodemailer from 'nodemailer';
@@ -293,7 +294,7 @@ The Vasquez Law Firm Team`,
 
       logger.info('✅ Review Harvesting Cycle Complete');
     } catch (error) {
-      logger.error('Review Harvesting Cycle Error:', error);
+      logger.error('Review Harvesting Cycle Error:', errorToLogMeta(error));
     }
   }
 
@@ -412,7 +413,7 @@ The Vasquez Law Firm Team`,
 
       logger.info(`📋 Identified ${candidates.length} review candidates`);
     } catch (error) {
-      logger.error('Failed to identify review candidates:', error);
+      logger.error('Failed to identify review candidates:', errorToLogMeta(error));
     }
 
     return candidates;
@@ -441,7 +442,7 @@ The Vasquez Law Firm Team`,
 
         logger.info(`📧 Sent review request to ${candidate.clientName}`);
       } catch (error) {
-        logger.error(`Failed to send request to ${candidate.clientName}:`, error);
+        logger.error(`Failed to send request to ${candidate.clientName}:`, errorToLogMeta(error));
       }
     }
   }
@@ -576,7 +577,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
         }
       }
     } catch (error) {
-      logger.error('Failed to monitor reviews:', error);
+      logger.error('Failed to monitor reviews:', errorToLogMeta(error));
     }
   }
 
@@ -602,7 +603,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
         logger.info(`📤 Sent follow-up #${followUp.attemptNumber} to ${followUp.clientName}`);
       }
     } catch (error) {
-      logger.error('Failed to execute follow-up sequences:', error);
+      logger.error('Failed to execute follow-up sequences:', errorToLogMeta(error));
     }
   }
 
@@ -633,7 +634,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
         logger.info(`🚨 Handled negative review from ${review.reviewerName}`);
       }
     } catch (error) {
-      logger.error('Failed to handle negative reviews:', error);
+      logger.error('Failed to handle negative reviews:', errorToLogMeta(error));
     }
   }
 
@@ -667,7 +668,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
         logger.info(`📣 Amplified 5-star review from ${review.reviewerName}`);
       }
     } catch (error) {
-      logger.error('Failed to amplify positive reviews:', error);
+      logger.error('Failed to amplify positive reviews:', errorToLogMeta(error));
     }
   }
 
@@ -745,7 +746,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
       // Convert to review requests
       return [];
     } catch (error) {
-      logger.error('Failed to identify positive sentiment clients:', error);
+      logger.error('Failed to identify positive sentiment clients:', errorToLogMeta(error));
       return [];
     }
   }
@@ -789,7 +790,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
         html: this.formatEmailHTML(message.body),
       });
     } catch (error) {
-      logger.error(`Failed to send email to ${request.clientEmail}:`, error);
+      logger.error(`Failed to send email to ${request.clientEmail}:`, errorToLogMeta(error));
     }
   }
 
@@ -847,7 +848,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
         },
       });
     } catch (error) {
-      logger.error('Failed to track review request:', error);
+      logger.error('Failed to track review request:', errorToLogMeta(error));
     }
   }
 
@@ -925,7 +926,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
         },
       });
     } catch (error) {
-      logger.error('Failed to create escalation task:', error);
+      logger.error('Failed to create escalation task:', errorToLogMeta(error));
     }
   }
 
@@ -1043,7 +1044,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
           sentAt: new Date(),
         });
       } catch (error) {
-        logger.error(`Failed to send review request to ${client.name}:`, error);
+        logger.error(`Failed to send review request to ${client.name}:`, errorToLogMeta(error));
       }
     }
   }

@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 import crypto from 'crypto';
 import type { Prisma } from '@prisma/client';
@@ -82,7 +83,7 @@ export class SecurityManager {
         Buffer.from(expectedSignature, 'hex')
       );
     } catch (error) {
-      logger.error('Error verifying webhook signature:', error);
+      logger.error('Error verifying webhook signature:', errorToLogMeta(error));
       return false;
     }
   }
@@ -159,7 +160,7 @@ export class SecurityManager {
         shouldBlock: riskLevel === 'high',
       };
     } catch (error) {
-      logger.error('Error validating API request:', error);
+      logger.error('Error validating API request:', errorToLogMeta(error));
       return {
         isValid: false,
         reason: 'Validation error',
@@ -243,7 +244,7 @@ export class SecurityManager {
         period,
       };
     } catch (error) {
-      logger.error('Error checking rate limit:', error);
+      logger.error('Error checking rate limit:', errorToLogMeta(error));
       // Default to allowing the request on error
       return {
         isLimited: false,
@@ -305,7 +306,7 @@ export class SecurityManager {
         shouldBlock: false,
       };
     } catch (error) {
-      logger.error('Error validating phone number:', error);
+      logger.error('Error validating phone number:', errorToLogMeta(error));
       return {
         isValid: false,
         reason: 'Validation error',
@@ -395,7 +396,7 @@ export class SecurityManager {
         await this.sendSecurityAlert(event);
       }
     } catch (error) {
-      logger.error('Failed to log security event:', error);
+      logger.error('Failed to log security event:', errorToLogMeta(error));
     }
   }
 
@@ -453,7 +454,7 @@ export class SecurityManager {
         });
       }
     } catch (error) {
-      logger.error('Failed to send security alert:', error);
+      logger.error('Failed to send security alert:', errorToLogMeta(error));
     }
   }
 
@@ -497,7 +498,7 @@ export class SecurityManager {
 
       return stats;
     } catch (error) {
-      logger.error('Failed to get security stats:', error);
+      logger.error('Failed to get security stats:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -541,7 +542,7 @@ export class SecurityManager {
         shouldBlock: riskLevel === 'high',
       };
     } catch (error) {
-      logger.error('Error validating call config:', error);
+      logger.error('Error validating call config:', errorToLogMeta(error));
       return {
         isValid: false,
         reason: 'Validation error',
@@ -580,7 +581,7 @@ export class SecurityManager {
 
       return deletedCount.count;
     } catch (error) {
-      logger.error('Failed to cleanup security data:', error);
+      logger.error('Failed to cleanup security data:', errorToLogMeta(error));
       throw error;
     }
   }

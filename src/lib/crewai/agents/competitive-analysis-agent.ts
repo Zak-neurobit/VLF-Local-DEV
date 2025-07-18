@@ -1,6 +1,7 @@
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { WebFetch } from '@/lib/utils/web-fetch';
 import { getPrismaClient } from '@/lib/prisma';
 
@@ -121,7 +122,7 @@ export class CompetitiveAnalysisAgent {
         confidenceScore: this.calculateConfidenceScore(competitorProfiles, request.depth),
       };
     } catch (error) {
-      logger.error('Competitive analysis error:', error);
+      logger.error('Competitive analysis error:', errorToLogMeta(error));
       throw new Error('Failed to complete competitive analysis');
     }
   }
@@ -148,7 +149,7 @@ export class CompetitiveAnalysisAgent {
 
         competitors.push(...lawFirmUrls);
       } catch (error) {
-        logger.warn('Failed to search for competitors', { query, error });
+        logger.warn('Failed to search for competitors', createErrorLogMeta(error, { query }));
       }
     }
 
@@ -188,7 +189,10 @@ export class CompetitiveAnalysisAgent {
           profiles.push(profile);
         }
       } catch (error) {
-        logger.warn('Failed to analyze competitor', { url: competitorUrl, error });
+        logger.warn(
+          'Failed to analyze competitor',
+          createErrorLogMeta(error, { url: competitorUrl })
+        );
       }
     }
 
@@ -213,7 +217,7 @@ export class CompetitiveAnalysisAgent {
 
       return this.parseCompetitorProfile(response.content.toString(), url);
     } catch (error) {
-      logger.warn('Failed to analyze competitor website', { url, error });
+      logger.warn('Failed to analyze competitor website', createErrorLogMeta(error, { url }));
       return null;
     }
   }
@@ -511,7 +515,7 @@ Provide recommendations for:
         },
       });
     } catch (error) {
-      logger.warn('Failed to store competitive analysis in database', error);
+      logger.warn('Failed to store competitive analysis in database', errorToLogMeta(error));
     }
   }
 }

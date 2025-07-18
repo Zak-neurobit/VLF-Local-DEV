@@ -630,7 +630,7 @@ async function handlePOST(request: NextRequest) {
 
     return NextResponse.json({ received: true });
   } catch (error) {
-    logger.error('Stripe webhook error:', error);
+    logger.error('Stripe webhook error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 });
   }
 }

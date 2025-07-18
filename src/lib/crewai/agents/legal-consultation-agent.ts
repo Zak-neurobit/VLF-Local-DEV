@@ -1,6 +1,7 @@
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { APISafetyWrapper } from '@/lib/api-safety';
 
 export interface LegalConsultationRequest {
@@ -62,7 +63,7 @@ export class LegalConsultationAgent {
 
       return this.parseResponse(response.content.toString());
     } catch (error) {
-      logger.error('Legal consultation agent error:', error);
+      logger.error('Legal consultation agent error:', errorToLogMeta(error));
       throw new Error('Failed to process legal consultation');
     }
   }

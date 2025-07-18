@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
       message: 'Legal consultation analysis has been queued',
     });
   } catch (error) {
-    logger.error('Legal consultation API error:', error);
+    logger.error('Legal consultation API error:', errorToLogMeta(error));
     return NextResponse.json(
       { error: 'Failed to process legal consultation request' },
       { status: 500 }
@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
       completedAt: task.completedAt,
     });
   } catch (error) {
-    logger.error('Legal consultation status check error:', error);
+    logger.error('Legal consultation status check error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to check task status' }, { status: 500 });
   }
 }

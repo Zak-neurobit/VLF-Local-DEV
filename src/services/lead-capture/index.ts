@@ -1,6 +1,7 @@
 import { ghlService } from '@/services/gohighlevel';
 import { getPrismaClient } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { z } from 'zod';
 import { notificationService } from '@/services/notifications';
 import { emailService } from '@/services/email.service';
@@ -156,7 +157,7 @@ export class LeadCaptureService {
 
       return { lead, contact, ghlContact, score };
     } catch (error) {
-      logger.error('Failed to capture web lead:', error);
+      logger.error('Failed to capture web lead:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -224,7 +225,7 @@ export class LeadCaptureService {
         }
       }
     } catch (error) {
-      logger.error('Failed to trigger nurture campaign:', error);
+      logger.error('Failed to trigger nurture campaign:', errorToLogMeta(error));
     }
   }
 
@@ -253,7 +254,7 @@ export class LeadCaptureService {
         },
       });
     } catch (error) {
-      logger.error('Failed to create lead opportunity:', error);
+      logger.error('Failed to create lead opportunity:', errorToLogMeta(error));
     }
   }
 
@@ -310,7 +311,7 @@ export class LeadCaptureService {
         attorneysNotified: attorneys.length,
       });
     } catch (error) {
-      logger.error('Failed to notify team of urgent lead:', error);
+      logger.error('Failed to notify team of urgent lead:', errorToLogMeta(error));
     }
   }
 
@@ -364,7 +365,7 @@ export class LeadCaptureService {
         pageUrl: 'website-chat',
       });
     } catch (error) {
-      logger.error('Failed to capture chat lead:', error);
+      logger.error('Failed to capture chat lead:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -668,7 +669,7 @@ export class LeadCaptureService {
 
       return { lead, contact, ghlContact, score };
     } catch (error) {
-      logger.error('Failed to capture phone lead:', error);
+      logger.error('Failed to capture phone lead:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -828,7 +829,7 @@ export class LeadCaptureService {
 
       return { score, factors };
     } catch (error) {
-      logger.error('Failed to score lead:', error);
+      logger.error('Failed to score lead:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -910,7 +911,7 @@ export class LeadCaptureService {
         currentWorkload: availableAttorneys[0]._count.leads + 1,
       });
     } catch (error) {
-      logger.error('Failed to assign lead to attorney:', error);
+      logger.error('Failed to assign lead to attorney:', errorToLogMeta(error));
     }
   }
 
@@ -1035,7 +1036,7 @@ export class LeadCaptureService {
         })),
       };
     } catch (error) {
-      logger.error('Failed to get lead analytics:', error);
+      logger.error('Failed to get lead analytics:', errorToLogMeta(error));
       throw error;
     }
   }

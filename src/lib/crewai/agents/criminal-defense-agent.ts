@@ -2,6 +2,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import { APISafetyWrapper } from '@/lib/api-safety';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
 export class CriminalDefenseAgent {
   private model: ChatOpenAI | null = null;
@@ -80,7 +81,7 @@ Provide:
 
       return this.parseCaseAnalysis(response.content as string, params);
     } catch (error) {
-      logger.error('Criminal case analysis failed', error);
+      logger.error('Criminal case analysis failed', errorToLogMeta(error));
       return this.getMockCaseAnalysis(params);
     }
   }
@@ -123,7 +124,7 @@ Breathalyzer Refusal: ${params.breathalyzerRefusal ? 'Yes' : 'No'}`;
 
       return this.parseDUIAnalysis(response.content as string, params);
     } catch (error) {
-      logger.error('DUI analysis failed', error);
+      logger.error('DUI analysis failed', errorToLogMeta(error));
       return this.getMockDUIAnalysis(params);
     }
   }
@@ -161,7 +162,7 @@ Prior Record: ${params.priorRecord || 'None'}`;
 
       return this.parseBailMotion(response.content as string);
     } catch (error) {
-      logger.error('Bail motion preparation failed', error);
+      logger.error('Bail motion preparation failed', errorToLogMeta(error));
       return this.getMockBailMotion(params);
     }
   }

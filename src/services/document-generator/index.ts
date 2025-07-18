@@ -5,6 +5,7 @@ import { z } from 'zod';
 import fs from 'fs/promises';
 import path from 'path';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import pdfParse from 'pdf-parse';
 
 // Document template schema
@@ -67,7 +68,7 @@ export class LegalDocumentGenerator {
 
       logger.info(`Loaded ${this.templates.size} document templates`);
     } catch (error) {
-      logger.error('Failed to initialize document templates:', error);
+      logger.error('Failed to initialize document templates:', errorToLogMeta(error));
     }
   }
 
@@ -89,7 +90,7 @@ export class LegalDocumentGenerator {
         }
       }
     } catch (error) {
-      logger.warn('Could not load file templates:', error);
+      logger.warn('Could not load file templates:', errorToLogMeta(error));
     }
   }
 
@@ -102,7 +103,7 @@ export class LegalDocumentGenerator {
       try {
         return JSON.parse(metadataMatch[1]);
       } catch (error) {
-        logger.error('Failed to parse template metadata:', error);
+        logger.error('Failed to parse template metadata:', errorToLogMeta(error));
       }
     }
     return null;
@@ -133,7 +134,12 @@ export class LegalDocumentGenerator {
     // Conditional helper
     Handlebars.registerHelper(
       'ifEquals',
-      function (this: unknown, arg1: unknown, arg2: unknown, options: { fn: (context: unknown) => unknown; inverse: (context: unknown) => unknown }) {
+      function (
+        this: unknown,
+        arg1: unknown,
+        arg2: unknown,
+        options: { fn: (context: unknown) => unknown; inverse: (context: unknown) => unknown }
+      ) {
         return arg1 === arg2 ? options.fn(this) : options.inverse(this);
       }
     );
@@ -215,7 +221,7 @@ export class LegalDocumentGenerator {
 
       return Buffer.from(pdfBytes);
     } catch (error) {
-      logger.error('Document generation failed:', error);
+      logger.error('Document generation failed:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -406,7 +412,7 @@ export class LegalDocumentGenerator {
         documentName: `${template.name} - ${enhancedData.documentId}`,
       });
     } catch (error) {
-      logger.error('Failed to save document record:', error);
+      logger.error('Failed to save document record:', errorToLogMeta(error));
     }
   }
 
@@ -469,7 +475,7 @@ export class ContractAnalyzer {
         legalCompliance: compliance,
       };
     } catch (error) {
-      logger.error('Contract analysis failed:', error);
+      logger.error('Contract analysis failed:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -479,12 +485,15 @@ export class ContractAnalyzer {
       const data = await pdfParse(buffer);
       return data.text;
     } catch (error) {
-      logger.error('PDF text extraction failed:', error);
+      logger.error('PDF text extraction failed:', errorToLogMeta(error));
       throw new Error('Failed to extract text from PDF');
     }
   }
 
-  private async performAIAnalysis(text: string, options?: unknown): Promise<{
+  private async performAIAnalysis(
+    text: string,
+    options?: unknown
+  ): Promise<{
     summary: string;
     risks: string[];
     recommendations: string[];

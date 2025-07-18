@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import RssParser from 'rss-parser';
 
 // Working RSS feeds for live news
@@ -58,7 +59,7 @@ async function fetchLiveNews(category: string, limit: number): Promise<any[]> {
         newsItems.push(...items);
       }
     } catch (error) {
-      logger.warn(`Failed to fetch from ${feed.name}:`, error);
+      logger.warn(`Failed to fetch from ${feed.name}:`, errorToLogMeta(error));
     }
   }
 
@@ -214,7 +215,7 @@ export async function GET(request: NextRequest) {
       total: newsItems.length,
     });
   } catch (error) {
-    logger.error('Error fetching news ticker items:', error);
+    logger.error('Error fetching news ticker items:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to fetch news items' }, { status: 500 });
   }
 }

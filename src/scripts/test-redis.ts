@@ -2,6 +2,7 @@
 
 import { cache, redis, cacheKeys, CacheTTL } from '@/lib/cache/redis';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
 async function testRedisConnection() {
   logger.info('🔧 Testing Redis connection...');
@@ -99,7 +100,7 @@ async function testRedisConnection() {
     logger.info('\n🎉 All Redis tests completed successfully!');
     logger.info('Redis is properly configured and ready for production use.');
   } catch (error) {
-    logger.error('❌ Redis test failed:', error);
+    logger.error('❌ Redis test failed:', errorToLogMeta(error));
     logger.error('Please ensure Redis is running and properly configured.');
   }
 }
@@ -108,6 +109,6 @@ async function testRedisConnection() {
 testRedisConnection()
   .then(() => process.exit(0))
   .catch(error => {
-    logger.error('Test script failed:', error);
+    logger.error('Test script failed:', errorToLogMeta(error));
     process.exit(1);
   });

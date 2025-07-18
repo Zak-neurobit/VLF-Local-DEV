@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma-safe';
 import { z } from 'zod';
 import { EventEmitter } from 'events';
@@ -11,14 +12,16 @@ export const ReviewPlatformSchema = z.object({
   url: z.string(),
   apiEndpoint: z.string().optional(),
   apiKey: z.string().optional(),
-  scrapeConfig: z.object({
-    reviewsSelector: z.string().optional(),
-    ratingSelector: z.string().optional(),
-    authorSelector: z.string().optional(),
-    dateSelector: z.string().optional(),
-    contentSelector: z.string().optional(),
-    paginationSelector: z.string().optional(),
-  }).optional(),
+  scrapeConfig: z
+    .object({
+      reviewsSelector: z.string().optional(),
+      ratingSelector: z.string().optional(),
+      authorSelector: z.string().optional(),
+      dateSelector: z.string().optional(),
+      contentSelector: z.string().optional(),
+      paginationSelector: z.string().optional(),
+    })
+    .optional(),
   importance: z.enum(['critical', 'high', 'medium', 'low']),
   checkFrequency: z.number().default(1440), // minutes
   enabled: z.boolean().default(true),
@@ -161,11 +164,11 @@ export class ReviewHarvester extends EventEmitter {
 
   private registerPlatform(platform: ReviewPlatform): void {
     this.platforms.set(platform.id, platform);
-    
+
     // Create platform-specific harvester
     const harvester = this.createHarvester(platform);
     this.harvesters.set(platform.id, harvester);
-    
+
     logger.info(`Registered review platform: ${platform.name}`);
   }
 
@@ -198,36 +201,40 @@ export class ReviewHarvester extends EventEmitter {
       await this.harvestAllPlatforms();
 
       // Set up periodic harvesting
-      this.harvestInterval = setInterval(async () => {
-        await this.checkAndHarvestDuePlatforms();
-      }, 30 * 60 * 1000); // Check every 30 minutes
+      this.harvestInterval = setInterval(
+        async () => {
+          await this.checkAndHarvestDuePlatforms();
+        },
+        30 * 60 * 1000
+      ); // Check every 30 minutes
 
       this.emit('started');
       logger.info('Review harvester started successfully');
     } catch (error) {
       this.isRunning = false;
-      logger.error('Failed to start review harvester:', error);
+      logger.error('Failed to start review harvester:', errorToLogMeta(error));
       throw error;
     }
   }
 
   async stop(): Promise<void> {
     logger.info('Stopping review harvester...');
-    
+
     if (this.harvestInterval) {
       clearInterval(this.harvestInterval);
       this.harvestInterval = null;
     }
-    
+
     this.isRunning = false;
     this.emit('stopped');
-    
+
     logger.info('Review harvester stopped');
   }
 
   private async harvestAllPlatforms(): Promise<void> {
-    const enabledPlatforms = Array.from(this.platforms.entries())
-      .filter(([_, platform]) => platform.enabled);
+    const enabledPlatforms = Array.from(this.platforms.entries()).filter(
+      ([_, platform]) => platform.enabled
+    );
 
     logger.info(`Harvesting reviews from ${enabledPlatforms.length} platforms`);
 
@@ -238,20 +245,20 @@ export class ReviewHarvester extends EventEmitter {
     // Log results
     const successful = results.filter(r => r.status === 'fulfilled').length;
     const failed = results.filter(r => r.status === 'rejected').length;
-    
+
     logger.info(`Harvest complete: ${successful} successful, ${failed} failed`);
   }
 
   private async checkAndHarvestDuePlatforms(): Promise<void> {
     const now = new Date();
-    
+
     for (const [id, platform] of this.platforms) {
       if (!platform.enabled) continue;
 
       try {
         // Check if platform is due for harvesting
         const lastHarvest = await this.getLastHarvestTime(id);
-        const minutesSinceLastHarvest = lastHarvest 
+        const minutesSinceLastHarvest = lastHarvest
           ? (now.getTime() - lastHarvest.getTime()) / (1000 * 60)
           : Infinity;
 
@@ -260,7 +267,7 @@ export class ReviewHarvester extends EventEmitter {
           await this.harvestPlatform(id);
         }
       } catch (error) {
-        logger.error(`Error checking platform ${id}:`, error);
+        logger.error(`Error checking platform ${id}:`, errorToLogMeta(error));
       }
     }
   }
@@ -282,10 +289,10 @@ export class ReviewHarvester extends EventEmitter {
 
       // Harvest reviews
       const reviews = await harvester.harvest();
-      
+
       // Process and store reviews
       const processedReviews = await this.processReviews(platformId, reviews);
-      
+
       // Record harvest
       await this.recordHarvest({
         platformId,
@@ -306,7 +313,9 @@ export class ReviewHarvester extends EventEmitter {
         });
       }
 
-      logger.info(`Harvest complete for ${platform.name}: ${processedReviews.new} new, ${processedReviews.updated} updated`);
+      logger.info(
+        `Harvest complete for ${platform.name}: ${processedReviews.new} new, ${processedReviews.updated} updated`
+      );
 
       return {
         success: true,
@@ -316,8 +325,8 @@ export class ReviewHarvester extends EventEmitter {
         reviewsUpdated: processedReviews.updated,
       };
     } catch (error) {
-      logger.error(`Harvest failed for ${platform.name}:`, error);
-      
+      logger.error(`Harvest failed for ${platform.name}:`, errorToLogMeta(error));
+
       await this.recordHarvest({
         platformId,
         reviewsFound: 0,
@@ -336,10 +345,7 @@ export class ReviewHarvester extends EventEmitter {
     }
   }
 
-  private async processReviews(
-    platformId: string,
-    reviews: Review[]
-  ): Promise<ProcessedReviews> {
+  private async processReviews(platformId: string, reviews: Review[]): Promise<ProcessedReviews> {
     let newCount = 0;
     let updatedCount = 0;
     const newReviews: any[] = [];
@@ -365,10 +371,10 @@ export class ReviewHarvester extends EventEmitter {
               keywords: review.keywords || this.extractKeywords(review.content),
             },
           });
-          
+
           newCount++;
           newReviews.push(created);
-          
+
           // Check if review needs immediate attention
           if (this.needsImmediateAttention(review)) {
             this.emit('urgentReview', {
@@ -387,11 +393,11 @@ export class ReviewHarvester extends EventEmitter {
               updatedAt: new Date(),
             },
           });
-          
+
           updatedCount++;
         }
       } catch (error) {
-        logger.error(`Failed to process review ${review.externalId}:`, error);
+        logger.error(`Failed to process review ${review.externalId}:`, errorToLogMeta(error));
       }
     }
 
@@ -406,15 +412,15 @@ export class ReviewHarvester extends EventEmitter {
     // Simple sentiment analysis based on rating and keywords
     if (review.rating >= 4) return 'positive';
     if (review.rating <= 2) return 'negative';
-    
+
     // For 3-star reviews, analyze content
     const positiveWords = ['excellent', 'great', 'amazing', 'professional', 'helpful', 'recommend'];
     const negativeWords = ['terrible', 'awful', 'unprofessional', 'disappointed', 'waste', 'avoid'];
-    
+
     const content = review.content.toLowerCase();
     const positiveCount = positiveWords.filter(word => content.includes(word)).length;
     const negativeCount = negativeWords.filter(word => content.includes(word)).length;
-    
+
     if (positiveCount > negativeCount) return 'positive';
     if (negativeCount > positiveCount) return 'negative';
     return 'neutral';
@@ -422,19 +428,69 @@ export class ReviewHarvester extends EventEmitter {
 
   private extractKeywords(content: string): string[] {
     // Extract important keywords from review content
-    const stopWords = new Set(['the', 'is', 'at', 'which', 'on', 'and', 'a', 'an', 'as', 'are', 'was', 'were', 'been', 'be', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'should', 'could', 'may', 'might', 'must', 'can', 'to', 'of', 'in', 'for', 'with', 'that', 'this', 'it', 'they', 'them', 'their', 'we', 'our', 'us', 'he', 'she', 'him', 'her', 'my', 'your']);
-    
-    const words = content.toLowerCase()
+    const stopWords = new Set([
+      'the',
+      'is',
+      'at',
+      'which',
+      'on',
+      'and',
+      'a',
+      'an',
+      'as',
+      'are',
+      'was',
+      'were',
+      'been',
+      'be',
+      'have',
+      'has',
+      'had',
+      'do',
+      'does',
+      'did',
+      'will',
+      'would',
+      'should',
+      'could',
+      'may',
+      'might',
+      'must',
+      'can',
+      'to',
+      'of',
+      'in',
+      'for',
+      'with',
+      'that',
+      'this',
+      'it',
+      'they',
+      'them',
+      'their',
+      'we',
+      'our',
+      'us',
+      'he',
+      'she',
+      'him',
+      'her',
+      'my',
+      'your',
+    ]);
+
+    const words = content
+      .toLowerCase()
       .replace(/[^\w\s]/g, ' ')
       .split(/\s+/)
       .filter(word => word.length > 3 && !stopWords.has(word));
-    
+
     // Count word frequency
     const wordCount = new Map<string, number>();
     words.forEach(word => {
       wordCount.set(word, (wordCount.get(word) || 0) + 1);
     });
-    
+
     // Return top keywords
     return Array.from(wordCount.entries())
       .sort((a, b) => b[1] - a[1])
@@ -453,11 +509,21 @@ export class ReviewHarvester extends EventEmitter {
 
   private containsUrgentKeywords(content: string): boolean {
     const urgentKeywords = [
-      'lawsuit', 'sue', 'complaint', 'bar association', 'malpractice',
-      'ethics violation', 'disciplinary', 'scam', 'fraud', 'stolen',
-      'emergency', 'urgent', 'immediate',
+      'lawsuit',
+      'sue',
+      'complaint',
+      'bar association',
+      'malpractice',
+      'ethics violation',
+      'disciplinary',
+      'scam',
+      'fraud',
+      'stolen',
+      'emergency',
+      'urgent',
+      'immediate',
     ];
-    
+
     const lowerContent = content.toLowerCase();
     return urgentKeywords.some(keyword => lowerContent.includes(keyword));
   }
@@ -470,21 +536,18 @@ export class ReviewHarvester extends EventEmitter {
   }
 
   private hasChanged(existing: any, newReview: Review): boolean {
-    return (
-      existing.rating !== newReview.rating ||
-      existing.content !== newReview.content
-    );
+    return existing.rating !== newReview.rating || existing.content !== newReview.content;
   }
 
   private async getLastHarvestTime(platformId: string): Promise<Date | null> {
     const lastHarvest = await prisma.reviewHarvest.findFirst({
-      where: { 
+      where: {
         platformId,
         success: true,
       },
       orderBy: { createdAt: 'desc' },
     });
-    
+
     return lastHarvest?.createdAt || null;
   }
 
@@ -504,11 +567,11 @@ export class ReviewHarvester extends EventEmitter {
     endDate?: Date;
   }): Promise<ReviewStatistics> {
     const where: any = {};
-    
+
     if (params?.platformId) {
       where.platformId = params.platformId;
     }
-    
+
     if (params?.startDate || params?.endDate) {
       where.publishedAt = {};
       if (params.startDate) where.publishedAt.gte = params.startDate;
@@ -542,15 +605,11 @@ export class ReviewHarvester extends EventEmitter {
     return {
       total,
       averageRating: avgRating._avg.rating || 0,
-      ratingDistribution: Object.fromEntries(
-        byRating.map(r => [r.rating, r._count])
-      ),
+      ratingDistribution: Object.fromEntries(byRating.map(r => [r.rating, r._count])),
       sentimentDistribution: Object.fromEntries(
         bySentiment.map(s => [s.sentiment || 'unknown', s._count])
       ),
-      platformDistribution: Object.fromEntries(
-        byPlatform.map(p => [p.platformId, p._count])
-      ),
+      platformDistribution: Object.fromEntries(byPlatform.map(p => [p.platformId, p._count])),
     };
   }
 
@@ -563,7 +622,7 @@ export class ReviewHarvester extends EventEmitter {
     maxRating?: number;
   }): Promise<any[]> {
     const where: any = {};
-    
+
     if (params.platformId) where.platformId = params.platformId;
     if (params.sentiment) where.sentiment = params.sentiment;
     if (params.minRating || params.maxRating) {
@@ -601,8 +660,8 @@ abstract class PlatformHarvester {
 
     const response = await fetch(url.toString(), {
       headers: {
-        'Authorization': `Bearer ${this.platform.apiKey}`,
-        'Accept': 'application/json',
+        Authorization: `Bearer ${this.platform.apiKey}`,
+        Accept: 'application/json',
       },
     });
 
@@ -617,7 +676,7 @@ abstract class PlatformHarvester {
     // Try multiple date formats
     const date = new Date(dateString);
     if (!isNaN(date.getTime())) return date;
-    
+
     // Try other formats
     // Implementation would handle various date formats
     return new Date();
@@ -630,7 +689,7 @@ class GoogleReviewHarvester extends PlatformHarvester {
       // Google My Business API implementation
       const accountId = process.env.GOOGLE_BUSINESS_ACCOUNT_ID;
       const locationId = process.env.GOOGLE_BUSINESS_LOCATION_ID;
-      
+
       const response = await this.makeApiCall(
         `https://mybusiness.googleapis.com/v4/accounts/${accountId}/locations/${locationId}/reviews`
       );
@@ -648,7 +707,7 @@ class GoogleReviewHarvester extends PlatformHarvester {
         responded: !!review.reviewReply,
       }));
     } catch (error) {
-      logger.error('Google review harvest failed:', error);
+      logger.error('Google review harvest failed:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -660,18 +719,18 @@ class AvvoReviewHarvester extends PlatformHarvester {
       // Avvo provides RSS feeds for reviews
       const attorneyId = process.env.AVVO_ATTORNEY_ID;
       const feedUrl = `https://www.avvo.com/attorneys/${attorneyId}/reviews.rss`;
-      
+
       const response = await fetch(feedUrl);
       const xmlText = await response.text();
-      
+
       // Parse RSS feed
       // Implementation would use an XML parser
       const reviews: Review[] = [];
-      
+
       // Mock implementation
       return reviews;
     } catch (error) {
-      logger.error('Avvo review harvest failed:', error);
+      logger.error('Avvo review harvest failed:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -682,7 +741,7 @@ class YelpReviewHarvester extends PlatformHarvester {
     try {
       // Yelp Fusion API
       const businessId = process.env.YELP_BUSINESS_ID;
-      
+
       const response = await this.makeApiCall(
         `https://api.yelp.com/v3/businesses/${businessId}/reviews`,
         { limit: 50, sort_by: 'newest' }
@@ -701,7 +760,7 @@ class YelpReviewHarvester extends PlatformHarvester {
         responded: false,
       }));
     } catch (error) {
-      logger.error('Yelp review harvest failed:', error);
+      logger.error('Yelp review harvest failed:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -712,10 +771,10 @@ class FacebookReviewHarvester extends PlatformHarvester {
     try {
       // Facebook Graph API
       const pageId = process.env.FACEBOOK_PAGE_ID;
-      
+
       const response = await this.makeApiCall(
         `https://graph.facebook.com/v18.0/${pageId}/ratings`,
-        { 
+        {
           fields: 'reviewer,rating,review_text,created_time,recommendation_type',
           limit: 100,
         }
@@ -733,19 +792,22 @@ class FacebookReviewHarvester extends PlatformHarvester {
         responded: false,
       }));
     } catch (error) {
-      logger.error('Facebook review harvest failed:', error);
+      logger.error('Facebook review harvest failed:', errorToLogMeta(error));
       throw error;
     }
   }
 
   private convertFacebookRating(rating: number, recommendationType?: string): number {
     if (rating) return rating;
-    
+
     // Convert recommendation to rating
     switch (recommendationType) {
-      case 'positive': return 5;
-      case 'negative': return 1;
-      default: return 3;
+      case 'positive':
+        return 5;
+      case 'negative':
+        return 1;
+      default:
+        return 3;
     }
   }
 }
@@ -754,7 +816,7 @@ class GenericReviewHarvester extends PlatformHarvester {
   async harvest(): Promise<Review[]> {
     // Generic scraping implementation
     logger.warn(`No specific harvester for ${this.platform.name}, using generic harvester`);
-    
+
     // This would implement web scraping using the platform's scrapeConfig
     // For now, return empty array
     return [];

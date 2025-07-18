@@ -20,6 +20,7 @@ import {
   SEOBlogGenerationRequest,
 } from './agents/seo-blog-generation-agent';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { logCrewExecution } from '@/lib/crews/log-execution';
 
 export interface CrewTask {
@@ -374,27 +375,39 @@ export class CrewCoordinator {
 
       switch (step.agent) {
         case 'legal-consultation':
-          stepResult = await this.legalConsultationAgent.analyze(step.data as LegalConsultationRequest);
+          stepResult = await this.legalConsultationAgent.analyze(
+            step.data as LegalConsultationRequest
+          );
           break;
 
         case 'appointment-scheduling':
-          stepResult = await this.appointmentSchedulingAgent.findAvailableSlots(step.data as AppointmentRequest);
+          stepResult = await this.appointmentSchedulingAgent.findAvailableSlots(
+            step.data as AppointmentRequest
+          );
           break;
 
         case 'document-analysis':
-          stepResult = await this.documentAnalysisAgent.analyzeDocument(step.data as DocumentAnalysisRequest);
+          stepResult = await this.documentAnalysisAgent.analyzeDocument(
+            step.data as DocumentAnalysisRequest
+          );
           break;
 
         case 'competitive-analysis':
-          stepResult = await this.competitiveAnalysisAgent.analyzeCompetition(step.data as CompetitorAnalysisRequest);
+          stepResult = await this.competitiveAnalysisAgent.analyzeCompetition(
+            step.data as CompetitorAnalysisRequest
+          );
           break;
 
         case 'social-media-monitoring':
-          stepResult = await this.socialMediaMonitoringAgent.monitorTrendingTopics(step.data as SocialMediaMonitoringRequest);
+          stepResult = await this.socialMediaMonitoringAgent.monitorTrendingTopics(
+            step.data as SocialMediaMonitoringRequest
+          );
           break;
 
         case 'seo-blog-generation':
-          stepResult = await this.seoBlogGenerationAgent.generateSEOBlog(step.data as SEOBlogGenerationRequest);
+          stepResult = await this.seoBlogGenerationAgent.generateSEOBlog(
+            step.data as SEOBlogGenerationRequest
+          );
           break;
 
         default:
@@ -437,7 +450,7 @@ export class CrewCoordinator {
         if (task) {
           // Execute task in background
           this.executeTask(task).catch(error => {
-            logger.error(`Background task execution failed:`, error);
+            logger.error(`Background task execution failed:`, errorToLogMeta(error));
           });
         }
       }

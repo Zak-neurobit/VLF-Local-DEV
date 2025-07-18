@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { getPrismaClient } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { ghlService } from '@/services/gohighlevel';
 
 // Schemas for validation
@@ -59,7 +60,7 @@ export class GHLNotificationService {
         body: validated.body,
       };
     } catch (error) {
-      logger.error('Failed to send SMS via GoHighLevel:', error);
+      logger.error('Failed to send SMS via GoHighLevel:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -108,7 +109,7 @@ export class GHLNotificationService {
         errors,
       };
     } catch (error) {
-      logger.error('Failed to send bulk SMS:', error);
+      logger.error('Failed to send bulk SMS:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -176,7 +177,7 @@ export class GHLNotificationService {
         phone: appointment.clientPhone,
       });
     } catch (error) {
-      logger.error('Failed to send appointment reminder:', error);
+      logger.error('Failed to send appointment reminder:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -227,7 +228,7 @@ Questions? Call 1-844-YO-PELEO or visit vasquezlawnc.com
         phone: caseInfo.clientPhone,
       });
     } catch (error) {
-      logger.error('Failed to send case update:', error);
+      logger.error('Failed to send case update:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -269,7 +270,7 @@ Se habla español`;
         });
       }
     } catch (error) {
-      logger.error('Failed to send welcome message:', error);
+      logger.error('Failed to send welcome message:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -329,7 +330,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         });
       }
     } catch (error) {
-      logger.error('Failed to notify attorneys:', error);
+      logger.error('Failed to notify attorneys:', errorToLogMeta(error));
     }
   }
 
@@ -351,7 +352,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         throw new Error('Campaign ID required for making calls via GoHighLevel');
       }
     } catch (error) {
-      logger.error('Failed to make call via GoHighLevel:', error);
+      logger.error('Failed to make call via GoHighLevel:', errorToLogMeta(error));
       throw error;
     }
   }

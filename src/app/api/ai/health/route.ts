@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { aiHealthChecker } from '@/lib/ai/health-check';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -54,7 +55,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(response, { status: httpStatus });
   } catch (error) {
-    logger.error('AI health check API error:', error);
+    logger.error('AI health check API error:', errorToLogMeta(error));
 
     return NextResponse.json(
       {
@@ -204,7 +205,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(results);
   } catch (error) {
-    logger.error('AI service test API error:', error);
+    logger.error('AI service test API error:', errorToLogMeta(error));
 
     return NextResponse.json(
       {

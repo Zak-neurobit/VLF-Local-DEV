@@ -61,7 +61,12 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
     }));
   };
 
-  const handleNestedInputChange = (section: keyof ClientIntakeRequest, nestedField: string, field: string, value: any) => {
+  const handleNestedInputChange = (
+    section: keyof ClientIntakeRequest,
+    nestedField: string,
+    field: string,
+    value: any
+  ) => {
     setFormData(prev => ({
       ...prev,
       [section]: {
@@ -74,7 +79,11 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
     }));
   };
 
-  const handleArrayInputChange = (section: keyof ClientIntakeRequest, field: string, value: string[]) => {
+  const handleArrayInputChange = (
+    section: keyof ClientIntakeRequest,
+    field: string,
+    value: string[]
+  ) => {
     setFormData(prev => ({
       ...prev,
       [section]: {
@@ -128,10 +137,7 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
           formData.personalInfo.location.state
         );
       case 2:
-        return !!(
-          formData.legalIssue.description &&
-          formData.legalIssue.description.length >= 10
-        );
+        return !!(formData.legalIssue.description && formData.legalIssue.description.length >= 10);
       case 3:
         return true; // Prior experience is optional
       case 4:
@@ -173,7 +179,7 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
 
       if (result.success && result.assessment) {
         setAssessment(result.assessment);
-        
+
         if (onSubmit) {
           onSubmit(result.assessment);
         } else {
@@ -198,7 +204,9 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
           <PersonalInfoStep
             data={formData.personalInfo}
             onChange={(field, value) => handleInputChange('personalInfo', field, value)}
-            onNestedChange={(nested, field, value) => handleNestedInputChange('personalInfo', nested, field, value)}
+            onNestedChange={(nested, field, value) =>
+              handleNestedInputChange('personalInfo', nested, field, value)
+            }
           />
         );
       case 2:
@@ -248,7 +256,9 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
       <div className="mb-8">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-gray-900">Legal Consultation Request</h2>
-          <span className="text-sm text-gray-600">Step {currentStep} of {totalSteps}</span>
+          <span className="text-sm text-gray-600">
+            Step {currentStep} of {totalSteps}
+          </span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
           <div
@@ -259,9 +269,7 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
       </div>
 
       {/* Form Content */}
-      <div className="min-h-[400px]">
-        {renderStep()}
-      </div>
+      <div className="min-h-[400px]">{renderStep()}</div>
 
       {/* Navigation Buttons */}
       <div className="flex justify-between items-center mt-8 pt-6 border-t">
@@ -282,8 +290,8 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
                 index + 1 === currentStep
                   ? 'bg-blue-600'
                   : index + 1 < currentStep
-                  ? 'bg-green-500'
-                  : 'bg-gray-300'
+                    ? 'bg-green-500'
+                    : 'bg-gray-300'
               }`}
             />
           ))}
@@ -318,67 +326,57 @@ function PersonalInfoStep({ data, onChange, onNestedChange }: any) {
   return (
     <div className="space-y-6">
       <h3 className="text-xl font-semibold text-gray-900">Personal Information</h3>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            First Name *
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
           <input
             type="text"
             value={data.firstName}
-            onChange={(e) => onChange('firstName', e.target.value)}
+            onChange={e => onChange('firstName', e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Last Name *
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
           <input
             type="text"
             value={data.lastName}
-            onChange={(e) => onChange('lastName', e.target.value)}
+            onChange={e => onChange('lastName', e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Email Address *
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
           <input
             type="email"
             value={data.email}
-            onChange={(e) => onChange('email', e.target.value)}
+            onChange={e => onChange('email', e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Phone Number *
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
           <input
             type="tel"
             value={data.phone}
-            onChange={(e) => onChange('phone', e.target.value)}
+            onChange={e => onChange('phone', e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Preferred Language
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Language</label>
           <select
             value={data.preferredLanguage}
-            onChange={(e) => onChange('preferredLanguage', e.target.value)}
+            onChange={e => onChange('preferredLanguage', e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="en">English</option>
@@ -389,29 +387,25 @@ function PersonalInfoStep({ data, onChange, onNestedChange }: any) {
 
       <div className="space-y-4">
         <h4 className="text-lg font-medium text-gray-900">Location</h4>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              City *
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">City *</label>
             <input
               type="text"
               value={data.location.city}
-              onChange={(e) => onNestedChange('location', 'city', e.target.value)}
+              onChange={e => onNestedChange('location', 'city', e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              State *
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">State *</label>
             <input
               type="text"
               value={data.location.state}
-              onChange={(e) => onNestedChange('location', 'state', e.target.value)}
+              onChange={e => onNestedChange('location', 'state', e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="e.g., North Carolina"
               required
@@ -419,13 +413,11 @@ function PersonalInfoStep({ data, onChange, onNestedChange }: any) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              ZIP Code
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">ZIP Code</label>
             <input
               type="text"
               value={data.location.zipCode}
-              onChange={(e) => onNestedChange('location', 'zipCode', e.target.value)}
+              onChange={e => onNestedChange('location', 'zipCode', e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -439,14 +431,14 @@ function LegalIssueStep({ data, onChange }: any) {
   return (
     <div className="space-y-6">
       <h3 className="text-xl font-semibold text-gray-900">Legal Issue Information</h3>
-      
+
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Primary Legal Area (if known)
         </label>
         <select
           value={data.primaryArea}
-          onChange={(e) => onChange('primaryArea', e.target.value)}
+          onChange={e => onChange('primaryArea', e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="unknown">Not sure / Need help determining</option>
@@ -464,7 +456,7 @@ function LegalIssueStep({ data, onChange }: any) {
         </label>
         <textarea
           value={data.description}
-          onChange={(e) => onChange('description', e.target.value)}
+          onChange={e => onChange('description', e.target.value)}
           rows={6}
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Please provide as much detail as possible about your legal situation..."
@@ -482,7 +474,7 @@ function LegalIssueStep({ data, onChange }: any) {
           </label>
           <select
             value={data.urgency}
-            onChange={(e) => onChange('urgency', e.target.value)}
+            onChange={e => onChange('urgency', e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="immediate">Immediate (emergency)</option>
@@ -500,7 +492,7 @@ function LegalIssueStep({ data, onChange }: any) {
           <input
             type="text"
             value={data.estimatedValue || ''}
-            onChange={(e) => onChange('estimatedValue', e.target.value)}
+            onChange={e => onChange('estimatedValue', e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="e.g., $10,000 or Unknown"
           />
@@ -513,7 +505,7 @@ function LegalIssueStep({ data, onChange }: any) {
             type="checkbox"
             id="hasDeadlines"
             checked={data.hasDeadlines}
-            onChange={(e) => onChange('hasDeadlines', e.target.checked)}
+            onChange={e => onChange('hasDeadlines', e.target.checked)}
             className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
           <label htmlFor="hasDeadlines" className="text-sm font-medium text-gray-700">
@@ -523,13 +515,11 @@ function LegalIssueStep({ data, onChange }: any) {
 
         {data.hasDeadlines && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Deadline Date
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Deadline Date</label>
             <input
               type="date"
               value={data.deadlineDate || ''}
-              onChange={(e) => onChange('deadlineDate', e.target.value)}
+              onChange={e => onChange('deadlineDate', e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -543,14 +533,14 @@ function PriorExperienceStep({ data, onChange }: any) {
   return (
     <div className="space-y-6">
       <h3 className="text-xl font-semibold text-gray-900">Previous Legal Experience</h3>
-      
+
       <div className="space-y-4">
         <div className="flex items-center">
           <input
             type="checkbox"
             id="hasAttorney"
             checked={data.hasAttorney}
-            onChange={(e) => onChange('hasAttorney', e.target.checked)}
+            onChange={e => onChange('hasAttorney', e.target.checked)}
             className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
           <label htmlFor="hasAttorney" className="text-sm font-medium text-gray-700">
@@ -561,12 +551,12 @@ function PriorExperienceStep({ data, onChange }: any) {
         {data.hasAttorney && (
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Attorney's Name (optional)
+              Attorney{`'`}s Name (optional)
             </label>
             <input
               type="text"
               value={data.priorAttorneyName || ''}
-              onChange={(e) => onChange('priorAttorneyName', e.target.value)}
+              onChange={e => onChange('priorAttorneyName', e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -577,7 +567,7 @@ function PriorExperienceStep({ data, onChange }: any) {
             type="checkbox"
             id="priorCases"
             checked={data.priorCases}
-            onChange={(e) => onChange('priorCases', e.target.checked)}
+            onChange={e => onChange('priorCases', e.target.checked)}
             className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
           <label htmlFor="priorCases" className="text-sm font-medium text-gray-700">
@@ -590,7 +580,7 @@ function PriorExperienceStep({ data, onChange }: any) {
             type="checkbox"
             id="priorDenials"
             checked={data.priorDenials}
-            onChange={(e) => onChange('priorDenials', e.target.checked)}
+            onChange={e => onChange('priorDenials', e.target.checked)}
             className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
           <label htmlFor="priorDenials" className="text-sm font-medium text-gray-700">
@@ -603,7 +593,7 @@ function PriorExperienceStep({ data, onChange }: any) {
             type="checkbox"
             id="priorConvictions"
             checked={data.priorConvictions}
-            onChange={(e) => onChange('priorConvictions', e.target.checked)}
+            onChange={e => onChange('priorConvictions', e.target.checked)}
             className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
           <label htmlFor="priorConvictions" className="text-sm font-medium text-gray-700">
@@ -619,15 +609,13 @@ function FinancialStep({ data, onChange }: any) {
   return (
     <div className="space-y-6">
       <h3 className="text-xl font-semibold text-gray-900">Financial Information</h3>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Employment Status
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Employment Status</label>
           <select
             value={data.employmentStatus}
-            onChange={(e) => onChange('employmentStatus', e.target.value)}
+            onChange={e => onChange('employmentStatus', e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="employed">Employed</option>
@@ -645,7 +633,7 @@ function FinancialStep({ data, onChange }: any) {
           <input
             type="text"
             value={data.monthlyIncome || ''}
-            onChange={(e) => onChange('monthlyIncome', e.target.value)}
+            onChange={e => onChange('monthlyIncome', e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="e.g., $3,000"
           />
@@ -658,7 +646,7 @@ function FinancialStep({ data, onChange }: any) {
             type="checkbox"
             id="hasInsurance"
             checked={data.hasInsurance}
-            onChange={(e) => onChange('hasInsurance', e.target.checked)}
+            onChange={e => onChange('hasInsurance', e.target.checked)}
             className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
           <label htmlFor="hasInsurance" className="text-sm font-medium text-gray-700">
@@ -668,13 +656,11 @@ function FinancialStep({ data, onChange }: any) {
 
         {data.hasInsurance && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Insurance Type
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Insurance Type</label>
             <input
               type="text"
               value={data.insuranceType || ''}
-              onChange={(e) => onChange('insuranceType', e.target.value)}
+              onChange={e => onChange('insuranceType', e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="e.g., Auto, Health, Workers Comp"
             />
@@ -688,7 +674,7 @@ function FinancialStep({ data, onChange }: any) {
         </label>
         <select
           value={data.abilityToPay}
-          onChange={(e) => onChange('abilityToPay', e.target.value)}
+          onChange={e => onChange('abilityToPay', e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="full_payment">Can pay full amount upfront</option>
@@ -701,7 +687,14 @@ function FinancialStep({ data, onChange }: any) {
   );
 }
 
-function GoalsAndQuestionsStep({ goals, questions, onAddGoal, onRemoveGoal, onAddQuestion, onRemoveQuestion }: any) {
+function GoalsAndQuestionsStep({
+  goals,
+  questions,
+  onAddGoal,
+  onRemoveGoal,
+  onAddQuestion,
+  onRemoveQuestion,
+}: any) {
   const [newGoal, setNewGoal] = useState('');
   const [newQuestion, setNewQuestion] = useState('');
 
@@ -722,22 +715,22 @@ function GoalsAndQuestionsStep({ goals, questions, onAddGoal, onRemoveGoal, onAd
   return (
     <div className="space-y-8">
       <h3 className="text-xl font-semibold text-gray-900">Goals and Questions</h3>
-      
+
       <div>
         <h4 className="text-lg font-medium text-gray-900 mb-4">What are your goals? *</h4>
         <p className="text-sm text-gray-600 mb-4">
           Please add at least one goal for your legal matter.
         </p>
-        
+
         <div className="space-y-4">
           <div className="flex space-x-2">
             <input
               type="text"
               value={newGoal}
-              onChange={(e) => setNewGoal(e.target.value)}
+              onChange={e => setNewGoal(e.target.value)}
               placeholder="e.g., Get citizenship, Resolve accident claim, etc."
               className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onKeyPress={(e) => e.key === 'Enter' && handleAddGoal()}
+              onKeyPress={e => e.key === 'Enter' && handleAddGoal()}
             />
             <button
               type="button"
@@ -751,7 +744,10 @@ function GoalsAndQuestionsStep({ goals, questions, onAddGoal, onRemoveGoal, onAd
           {goals.length > 0 && (
             <div className="space-y-2">
               {goals.map((goal: string, index: number) => (
-                <div key={index} className="flex items-center justify-between bg-gray-50 p-3 rounded-md">
+                <div
+                  key={index}
+                  className="flex items-center justify-between bg-gray-50 p-3 rounded-md"
+                >
                   <span className="text-gray-800">{goal}</span>
                   <button
                     type="button"
@@ -772,16 +768,16 @@ function GoalsAndQuestionsStep({ goals, questions, onAddGoal, onRemoveGoal, onAd
         <p className="text-sm text-gray-600 mb-4">
           Do you have any specific questions about your legal situation?
         </p>
-        
+
         <div className="space-y-4">
           <div className="flex space-x-2">
             <input
               type="text"
               value={newQuestion}
-              onChange={(e) => setNewQuestion(e.target.value)}
+              onChange={e => setNewQuestion(e.target.value)}
               placeholder="e.g., How long will this take? What documents do I need?"
               className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onKeyPress={(e) => e.key === 'Enter' && handleAddQuestion()}
+              onKeyPress={e => e.key === 'Enter' && handleAddQuestion()}
             />
             <button
               type="button"
@@ -795,7 +791,10 @@ function GoalsAndQuestionsStep({ goals, questions, onAddGoal, onRemoveGoal, onAd
           {questions.length > 0 && (
             <div className="space-y-2">
               {questions.map((question: string, index: number) => (
-                <div key={index} className="flex items-center justify-between bg-gray-50 p-3 rounded-md">
+                <div
+                  key={index}
+                  className="flex items-center justify-between bg-gray-50 p-3 rounded-md"
+                >
                   <span className="text-gray-800">{question}</span>
                   <button
                     type="button"
@@ -825,7 +824,8 @@ function AssessmentResults({ assessment }: { assessment: CaseAssessmentResult })
         </div>
         <h2 className="text-3xl font-bold text-gray-900">Assessment Complete!</h2>
         <p className="text-gray-600 mt-2">
-          Thank you for providing your information. We've completed an initial assessment of your case.
+          Thank you for providing your information. We{`'`}ve completed an initial assessment of
+          your case.
         </p>
       </div>
 
@@ -833,20 +833,48 @@ function AssessmentResults({ assessment }: { assessment: CaseAssessmentResult })
         <div className="bg-blue-50 p-6 rounded-lg">
           <h3 className="text-lg font-semibold text-blue-900 mb-3">Case Information</h3>
           <div className="space-y-2 text-sm">
-            <p><strong>Assessment ID:</strong> {assessment.assessmentId}</p>
-            <p><strong>Practice Area:</strong> {assessment.practiceArea.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
-            <p><strong>Case Viability:</strong> {assessment.caseAnalysis.viability.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
-            <p><strong>Priority:</strong> {assessment.followUpStrategy.priority.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
+            <p>
+              <strong>Assessment ID:</strong> {assessment.assessmentId}
+            </p>
+            <p>
+              <strong>Practice Area:</strong>{' '}
+              {assessment.practiceArea.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+            </p>
+            <p>
+              <strong>Case Viability:</strong>{' '}
+              {assessment.caseAnalysis.viability
+                .replace('_', ' ')
+                .replace(/\b\w/g, l => l.toUpperCase())}
+            </p>
+            <p>
+              <strong>Priority:</strong>{' '}
+              {assessment.followUpStrategy.priority
+                .replace('_', ' ')
+                .replace(/\b\w/g, l => l.toUpperCase())}
+            </p>
           </div>
         </div>
 
         <div className="bg-green-50 p-6 rounded-lg">
           <h3 className="text-lg font-semibold text-green-900 mb-3">Next Steps</h3>
           <div className="space-y-2 text-sm">
-            <p><strong>Recommended Contact:</strong> {assessment.followUpStrategy.recommendedContact.replace('_', ' ')}</p>
-            <p><strong>Attorney Necessity:</strong> {assessment.recommendations.attorney_necessity.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
-            <p><strong>Estimated Timeframe:</strong> {assessment.caseAnalysis.timeframe}</p>
-            <p><strong>Estimated Costs:</strong> {assessment.costAnalysis.estimatedCosts.total_estimated}</p>
+            <p>
+              <strong>Recommended Contact:</strong>{' '}
+              {assessment.followUpStrategy.recommendedContact.replace('_', ' ')}
+            </p>
+            <p>
+              <strong>Attorney Necessity:</strong>{' '}
+              {assessment.recommendations.attorney_necessity
+                .replace('_', ' ')
+                .replace(/\b\w/g, l => l.toUpperCase())}
+            </p>
+            <p>
+              <strong>Estimated Timeframe:</strong> {assessment.caseAnalysis.timeframe}
+            </p>
+            <p>
+              <strong>Estimated Costs:</strong>{' '}
+              {assessment.costAnalysis.estimatedCosts.total_estimated}
+            </p>
           </div>
         </div>
       </div>
@@ -866,13 +894,15 @@ function AssessmentResults({ assessment }: { assessment: CaseAssessmentResult })
         </p>
         <div className="space-x-4">
           <button
-            onClick={() => window.location.href = '/'}
+            onClick={() => (window.location.href = '/')}
             className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
             Return to Home
           </button>
           <button
-            onClick={() => window.location.href = `/client-dashboard?email=${encodeURIComponent(assessment.clientId)}`}
+            onClick={() =>
+              (window.location.href = `/client-dashboard?email=${encodeURIComponent(assessment.clientId)}`)
+            }
             className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
           >
             View Client Dashboard

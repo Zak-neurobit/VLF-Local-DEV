@@ -1,6 +1,7 @@
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import fs from 'fs';
 
 export interface DocumentAnalysisRequest {
@@ -63,7 +64,7 @@ export class DocumentAnalysisAgent {
 
       return this.parseAnalysisResult(response.content.toString(), request);
     } catch (error) {
-      logger.error('Document analysis agent error:', error);
+      logger.error('Document analysis agent error:', errorToLogMeta(error));
       throw new Error('Failed to analyze document');
     }
   }
@@ -107,7 +108,7 @@ Status: Queued for analysis`;
         throw new Error('Unsupported document format');
       }
     } catch (error) {
-      logger.error('Document text extraction error:', error);
+      logger.error('Document text extraction error:', errorToLogMeta(error));
       throw new Error('Failed to extract document text');
     }
   }

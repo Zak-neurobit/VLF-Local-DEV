@@ -1,5 +1,6 @@
 import { getRetellService, RetellAgent } from './index';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { cache, CacheTTL } from '@/lib/cache';
 import { PrismaClient } from '@prisma/client';
 
@@ -241,7 +242,7 @@ export class RetellAgentManager {
         practiceAreas: Array.from(this.agents.keys()),
       });
     } catch (error) {
-      logger.error('Failed to initialize Retell agents:', error);
+      logger.error('Failed to initialize Retell agents:', errorToLogMeta(error));
     }
   }
 
@@ -317,7 +318,10 @@ export class RetellAgentManager {
       }
     } catch (error) {
       // Log detailed error information
-      const axiosError = error as Error & { response?: { status: number; data?: unknown }; config?: { url?: string; method?: string } };
+      const axiosError = error as Error & {
+        response?: { status: number; data?: unknown };
+        config?: { url?: string; method?: string };
+      };
       if (error instanceof Error && axiosError.response?.status === 404) {
         logger.error('Retell API endpoint not found. Please check API version and endpoints.', {
           endpoint: axiosError.config?.url,
@@ -348,7 +352,7 @@ export class RetellAgentManager {
       const agent = await service.createAgent(config);
       return { agentId: agent.agent_id };
     } catch (error) {
-      logger.error('Failed to create agent:', error);
+      logger.error('Failed to create agent:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -359,7 +363,7 @@ export class RetellAgentManager {
       await service.updateAgent(agentId, config);
       return { success: true };
     } catch (error) {
-      logger.error('Failed to update agent:', error);
+      logger.error('Failed to update agent:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -379,7 +383,7 @@ export class RetellAgentManager {
 
       return { success: true };
     } catch (error) {
-      logger.error('Failed to delete agent:', error);
+      logger.error('Failed to delete agent:', errorToLogMeta(error));
       throw error;
     }
   }

@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma';
 import { generateSlug } from '@/lib/utils';
 
@@ -81,7 +82,7 @@ export class ImmigrationNewsMonitor {
       try {
         await this.checkSource(source);
       } catch (error) {
-        logger.error(`Error checking source ${source.name}:`, error);
+        logger.error(`Error checking source ${source.name}:`, errorToLogMeta(error));
       }
     }
   }
@@ -96,7 +97,7 @@ export class ImmigrationNewsMonitor {
         await this.processNewsItem(item);
       }
     } catch (error) {
-      logger.error(`Failed to check source ${source.name}:`, error);
+      logger.error(`Failed to check source ${source.name}:`, errorToLogMeta(error));
     }
   }
 
@@ -133,7 +134,7 @@ export class ImmigrationNewsMonitor {
       // Notify relevant channels
       await this.notifyChannels(item);
     } catch (error) {
-      logger.error('Error processing news item:', error);
+      logger.error('Error processing news item:', errorToLogMeta(error));
     }
   }
 
@@ -282,7 +283,7 @@ export class ImmigrationNewsMonitor {
     try {
       await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/revalidate?path=/blog/${slug}`);
     } catch (error) {
-      logger.error('Error triggering regeneration:', error);
+      logger.error('Error triggering regeneration:', errorToLogMeta(error));
     }
   }
 }

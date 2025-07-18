@@ -54,7 +54,7 @@ export async function GET(_req: NextRequest) {
       apiKeySet: !!RETELL_CONFIG.apiKey,
     });
   } catch (error) {
-    logger.error('Error fetching Retell agents:', error);
+    logger.error('Error fetching Retell agents:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to fetch agents' }, { status: 500 });
   }
 }
@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
             agentId: agent.agent_id,
           });
         } catch (error) {
-          logger.error(`Failed to create agent ${key}:`, error);
+          logger.error(`Failed to create agent ${key}:`, errorToLogMeta(error));
           results.push({
             agentType: key,
             success: false,
@@ -128,7 +128,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
   } catch (error) {
-    logger.error('Error creating Retell agents:', error);
+    logger.error('Error creating Retell agents:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to create agents' }, { status: 500 });
   }
 }
@@ -160,7 +160,7 @@ export async function DELETE(req: NextRequest) {
       message: 'Agent deleted successfully',
     });
   } catch (error) {
-    logger.error('Error deleting Retell agent:', error);
+    logger.error('Error deleting Retell agent:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to delete agent' }, { status: 500 });
   }
 }

@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
         );
     }
   } catch (error) {
-    logger.error('SEO Domination API Error:', error);
+    logger.error('SEO Domination API Error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
         );
     }
   } catch (error) {
-    logger.error('SEO Domination API Error:', error);
+    logger.error('SEO Domination API Error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

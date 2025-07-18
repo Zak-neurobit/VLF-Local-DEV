@@ -104,7 +104,7 @@ async function handlePOST(request: NextRequest): Promise<NextResponse> {
 
     // Score lead asynchronously (using contact ID for now)
     leadCaptureService.scoreAndPrioritizeLead(result.contact.id).catch(error => {
-      logger.error('Failed to score lead:', error);
+      logger.error('Failed to score lead:', errorToLogMeta(error));
     });
 
     logger.info('Lead captured via API', {
@@ -133,7 +133,7 @@ async function handlePOST(request: NextRequest): Promise<NextResponse> {
       );
     }
 
-    logger.error('Lead capture error:', error);
+    logger.error('Lead capture error:', errorToLogMeta(error));
     return NextResponse.json(
       { error: 'Failed to submit form. Please try again or call us directly.' },
       { status: 500 }
@@ -170,7 +170,7 @@ async function handleGET(request: NextRequest) {
 
     return NextResponse.json(analytics);
   } catch (error) {
-    logger.error('Failed to get lead analytics:', error);
+    logger.error('Failed to get lead analytics:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to retrieve analytics' }, { status: 500 });
   }
 }

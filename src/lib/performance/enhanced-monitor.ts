@@ -1,6 +1,7 @@
 'use client';
 
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { delay } from '@/lib/utils/async';
 
 export interface PerformanceMetrics {
@@ -97,7 +98,7 @@ class EnhancedPerformanceMonitor {
       clsObserver.observe({ entryTypes: ['layout-shift'] });
       this.observers.push(clsObserver);
     } catch (error) {
-      logger.warn('Web Vitals observer setup failed', { error });
+      logger.warn('Web Vitals observer setup failed', errorToLogMeta(error));
     }
   }
 
@@ -130,7 +131,7 @@ class EnhancedPerformanceMonitor {
       resourceObserver.observe({ entryTypes: ['resource'] });
       this.observers.push(resourceObserver);
     } catch (error) {
-      logger.warn('Resource observer setup failed', { error });
+      logger.warn('Resource observer setup failed', errorToLogMeta(error));
     }
   }
 
@@ -148,7 +149,7 @@ class EnhancedPerformanceMonitor {
       navigationObserver.observe({ entryTypes: ['navigation'] });
       this.observers.push(navigationObserver);
     } catch (error) {
-      logger.warn('Navigation observer setup failed', { error });
+      logger.warn('Navigation observer setup failed', errorToLogMeta(error));
     }
   }
 
@@ -244,7 +245,7 @@ Performance Report:
       try {
         observer.disconnect();
       } catch (error) {
-        logger.warn('Failed to disconnect observer', { error });
+        logger.warn('Failed to disconnect observer', errorToLogMeta(error));
       }
     });
 
@@ -282,7 +283,7 @@ Performance Report:
     } catch (error) {
       // Monitoring was aborted or error occurred
       if (!this.memoryMonitoringAbortController.signal.aborted) {
-        logger.error('Memory monitoring error:', error);
+        logger.error('Memory monitoring error:', errorToLogMeta(error));
       }
     }
   }
@@ -306,7 +307,7 @@ Performance Report:
     } catch (error) {
       // Monitoring was aborted or error occurred
       if (!this.realTimeMonitoringAbortController?.signal.aborted) {
-        logger.error('Real-time monitoring error:', error);
+        logger.error('Real-time monitoring error:', errorToLogMeta(error));
       }
     }
   }

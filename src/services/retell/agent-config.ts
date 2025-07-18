@@ -4,6 +4,7 @@
  */
 
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
 // Retell API Configuration
 export const RETELL_CONFIG = {
@@ -261,7 +262,7 @@ export async function initializeRetellAgents() {
 
     return agentConfigs;
   } catch (error) {
-    logger.error('Failed to initialize Retell agents:', error);
+    logger.error('Failed to initialize Retell agents:', errorToLogMeta(error));
     throw error;
   }
 }

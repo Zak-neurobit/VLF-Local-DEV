@@ -1,6 +1,7 @@
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 
 interface GHLCalendarSlot {
@@ -76,7 +77,7 @@ export class AppointmentSchedulingAgent {
 
       return this.parseSchedulingResponse(response.content.toString(), attorneys);
     } catch (error) {
-      logger.error('Appointment scheduling agent error:', error);
+      logger.error('Appointment scheduling agent error:', errorToLogMeta(error));
       throw new Error('Failed to process appointment scheduling');
     }
   }
@@ -154,7 +155,7 @@ export class AppointmentSchedulingAgent {
         ghlContactId: ghlResult.contactId,
       };
     } catch (error) {
-      logger.error('Appointment booking error:', error);
+      logger.error('Appointment booking error:', errorToLogMeta(error));
       return { success: false, error: 'Failed to book appointment' };
     }
   }
@@ -394,7 +395,7 @@ Please analyze and recommend the best appointment slots.
 
       return { success: true, contactId: result.contact.id };
     } catch (error) {
-      logger.error('Failed to create GHL contact:', error);
+      logger.error('Failed to create GHL contact:', errorToLogMeta(error));
       return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
     }
   }
@@ -430,7 +431,7 @@ Please analyze and recommend the best appointment slots.
 
       return null;
     } catch (error) {
-      logger.warn('Failed to search GHL contact:', error);
+      logger.warn('Failed to search GHL contact:', errorToLogMeta(error));
       return null;
     }
   }
@@ -479,7 +480,7 @@ Please analyze and recommend the best appointment slots.
 
       logger.info(`Updated GHL contact: ${contactId}`);
     } catch (error) {
-      logger.error('Failed to update GHL contact:', error);
+      logger.error('Failed to update GHL contact:', errorToLogMeta(error));
       // Don't throw - contact creation was successful
     }
   }
@@ -535,7 +536,7 @@ Please analyze and recommend the best appointment slots.
         opportunityId: result.opportunity.id,
       });
     } catch (error) {
-      logger.error('Failed to add contact to pipeline:', error);
+      logger.error('Failed to add contact to pipeline:', errorToLogMeta(error));
       // Don't throw - contact creation was successful
     }
   }
@@ -599,7 +600,7 @@ Please analyze and recommend the best appointment slots.
 
       return { success: true, appointmentId: result.appointment.id };
     } catch (error) {
-      logger.error('Failed to create GHL appointment:', error);
+      logger.error('Failed to create GHL appointment:', errorToLogMeta(error));
       return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
     }
   }
@@ -640,7 +641,7 @@ Please analyze and recommend the best appointment slots.
         location: 'Charlotte, NC Office',
       }));
     } catch (error) {
-      logger.error('Failed to fetch GHL calendar slots:', error);
+      logger.error('Failed to fetch GHL calendar slots:', errorToLogMeta(error));
       // Return mock data as fallback
       return this.generateMockSlots();
     }

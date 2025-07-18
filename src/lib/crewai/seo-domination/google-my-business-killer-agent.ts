@@ -1,6 +1,7 @@
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 import { google } from 'googleapis';
 import * as cron from 'node-cron';
@@ -309,7 +310,7 @@ export class GoogleMyBusinessKillerAgent {
 
       logger.info('✅ GMB Domination Cycle Complete');
     } catch (error) {
-      logger.error('GMB Domination Cycle Error:', error);
+      logger.error('GMB Domination Cycle Error:', errorToLogMeta(error));
     }
   }
 
@@ -339,11 +340,11 @@ export class GoogleMyBusinessKillerAgent {
           // Track in database
           await this.trackGMBPost(location, localizedPost);
         } catch (error) {
-          logger.error(`Failed to publish to ${location}:`, error);
+          logger.error(`Failed to publish to ${location}:`, errorToLogMeta(error));
         }
       }
     } catch (error) {
-      logger.error('Failed to create GMB posts:', error);
+      logger.error('Failed to create GMB posts:', errorToLogMeta(error));
     }
   }
 
@@ -460,7 +461,7 @@ Format as JSON with: summary, callToAction (actionType, url)
         }
       }
     } catch (error) {
-      logger.error('Failed to monitor reviews:', error);
+      logger.error('Failed to monitor reviews:', errorToLogMeta(error));
     }
   }
 
@@ -532,7 +533,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
         logger.info(`🎯 Countered ${competitor.name}'s GMB strategy`);
       } catch (error) {
-        logger.error(`Failed to analyze competitor ${competitor.name}:`, error);
+        logger.error(`Failed to analyze competitor ${competitor.name}:`, errorToLogMeta(error));
       }
     }
   }
@@ -568,7 +569,10 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
             await this.boostLocalSEO(keyword, location as GMBLocation);
           }
         } catch (error) {
-          logger.error(`Failed to check ranking for ${keyword} in ${location.name}:`, error);
+          logger.error(
+            `Failed to check ranking for ${keyword} in ${location.name}:`,
+            errorToLogMeta(error)
+          );
         }
       }
     }
@@ -596,7 +600,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
         await this.updateBusinessInfo(locationId, optimizations);
         logger.info(`✅ Optimized GMB info for ${location}`);
       } catch (error) {
-        logger.error(`Failed to optimize ${location}:`, error);
+        logger.error(`Failed to optimize ${location}:`, errorToLogMeta(error));
       }
     }
   }
@@ -632,7 +636,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
         logger.info(`✅ Uploaded ${photos.length} optimized photos to ${location}`);
       } catch (error) {
-        logger.error(`Failed to upload photos to ${location}:`, error);
+        logger.error(`Failed to upload photos to ${location}:`, errorToLogMeta(error));
       }
     }
   }
@@ -700,7 +704,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
         },
       });
     } catch (error) {
-      logger.error('Failed to publish GMB post:', error);
+      logger.error('Failed to publish GMB post:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -728,7 +732,10 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       seasonal: { mediaFormat: 'PHOTO', sourceUrl: '/images/seasonal.jpg' },
     };
 
-    return (mediaMap[postType as keyof typeof mediaMap] || { mediaFormat: 'PHOTO', sourceUrl: '/images/default.jpg' }) as unknown as OptimalMedia;
+    return (mediaMap[postType as keyof typeof mediaMap] || {
+      mediaFormat: 'PHOTO',
+      sourceUrl: '/images/default.jpg',
+    }) as unknown as OptimalMedia;
   }
 
   private getTopicType(postType: string): string {
@@ -766,7 +773,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
       return response.data.reviews || [];
     } catch (error) {
-      logger.error('Failed to fetch reviews:', error);
+      logger.error('Failed to fetch reviews:', errorToLogMeta(error));
       return [];
     }
   }
@@ -784,7 +791,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
         },
       });
     } catch (error) {
-      logger.error('Failed to post review response:', error);
+      logger.error('Failed to post review response:', errorToLogMeta(error));
     }
   }
 
@@ -808,7 +815,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
       return response.data;
     } catch (error) {
-      logger.error('Failed to fetch competitor GMB data:', error);
+      logger.error('Failed to fetch competitor GMB data:', errorToLogMeta(error));
       return {} as CompetitorGMBData;
     }
   }
@@ -817,7 +824,9 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
     if (!data) return {} as CompetitorAnalysis;
 
     return {
-      responseRate: this.calculateResponseRate((data as CompetitorGMBData & { reviews: unknown[] }).reviews),
+      responseRate: this.calculateResponseRate(
+        (data as CompetitorGMBData & { reviews: unknown[] }).reviews
+      ),
       strengths: this.identifyStrengths(data),
       weaknesses: this.identifyWeaknesses(data),
     } as unknown as CompetitorAnalysis;
@@ -837,8 +846,10 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
       regularOpeningHours?: { periods?: unknown[] };
     };
     if (typedData.rating && typedData.rating >= 4.5) strengths.push('High rating');
-    if (typedData.userRatingCount && typedData.userRatingCount > 100) strengths.push('Many reviews');
-    if (typedData.regularOpeningHours?.periods && typedData.regularOpeningHours.periods.length > 5) strengths.push('Extended hours');
+    if (typedData.userRatingCount && typedData.userRatingCount > 100)
+      strengths.push('Many reviews');
+    if (typedData.regularOpeningHours?.periods && typedData.regularOpeningHours.periods.length > 5)
+      strengths.push('Extended hours');
     return strengths;
   }
 
@@ -862,7 +873,10 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
     const actions = [];
 
-    const typedAnalysis = analysis as CompetitorAnalysis & { rating?: number; reviewCount?: number };
+    const typedAnalysis = analysis as CompetitorAnalysis & {
+      rating?: number;
+      reviewCount?: number;
+    };
     if (typedAnalysis.rating && typedAnalysis.rating > 4.5) {
       actions.push('Increase review volume with automated requests');
       actions.push('Highlight unique differentiators in posts');
@@ -1068,7 +1082,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
         requestBody: optimizations,
       });
     } catch (error) {
-      logger.error('Failed to update business info:', error);
+      logger.error('Failed to update business info:', errorToLogMeta(error));
     }
   }
 
@@ -1084,7 +1098,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
       return lastUpdate ? lastUpdate.scheduledFor.getTime() : 0;
     } catch (error) {
-      logger.error('Failed to get last photo update:', error);
+      logger.error('Failed to get last photo update:', errorToLogMeta(error));
       return 0;
     }
   }
@@ -1119,7 +1133,9 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
   private async uploadPhoto(locationId: string, photo: GMBPhoto): Promise<void> {
     try {
       // Upload photo to GMB
-      logger.info(`Uploading photo to location ${locationId}: ${(photo as GMBPhoto & { category?: string }).category || 'unknown'}`);
+      logger.info(
+        `Uploading photo to location ${locationId}: ${(photo as GMBPhoto & { category?: string }).category || 'unknown'}`
+      );
 
       // Track upload
       await this.prisma?.contentSchedule.create({
@@ -1132,7 +1148,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
         } as unknown,
       });
     } catch (error) {
-      logger.error('Failed to upload photo:', error);
+      logger.error('Failed to upload photo:', errorToLogMeta(error));
     }
   }
 }

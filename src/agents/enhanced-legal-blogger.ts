@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma';
 import Parser from 'rss-parser';
 import { generateSlug } from '@/lib/utils';
@@ -375,7 +376,7 @@ export class EnhancedLegalBlogger {
       try {
         await this.processFeed(feed);
       } catch (error) {
-        logger.error(`Error processing feed ${feed.name}:`, error);
+        logger.error(`Error processing feed ${feed.name}:`, errorToLogMeta(error));
       }
     }
   }
@@ -405,7 +406,7 @@ export class EnhancedLegalBlogger {
         await this.processItem(item, feed);
       }
     } catch (error) {
-      logger.error(`Failed to process feed ${feed.name}:`, error);
+      logger.error(`Failed to process feed ${feed.name}:`, errorToLogMeta(error));
     }
   }
 
@@ -436,7 +437,7 @@ export class EnhancedLegalBlogger {
       // Create blog post
       await this.createBlogPost(item, feed);
     } catch (error) {
-      logger.error('Error processing feed item:', error);
+      logger.error('Error processing feed item:', errorToLogMeta(error));
     }
   }
 
@@ -454,6 +455,7 @@ export class EnhancedLegalBlogger {
           slug,
           excerpt,
           content,
+          metaDescription: excerpt, // Required field - use excerpt as meta description
           category: feed.category,
           tags: this.extractKeywords(item),
           author: 'Vasquez Law Firm Legal Team',
@@ -481,7 +483,7 @@ export class EnhancedLegalBlogger {
       // Trigger any necessary updates
       await this.notifySystem(post);
     } catch (error) {
-      logger.error('Error creating blog post:', error);
+      logger.error('Error creating blog post:', errorToLogMeta(error));
     }
   }
 
@@ -1160,7 +1162,7 @@ export class EnhancedLegalBlogger {
       //   body: JSON.stringify({ postId: post.id })
       // });
     } catch (error) {
-      logger.error('Error notifying system:', error);
+      logger.error('Error notifying system:', errorToLogMeta(error));
     }
   }
 

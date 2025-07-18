@@ -2,6 +2,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import { APISafetyWrapper } from '@/lib/api-safety';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
 export class RemovalDefenseAgent {
   private model: ChatOpenAI | null = null;
@@ -83,7 +84,7 @@ Provide:
 
       return this.parseAnalysis(response.content as string, params);
     } catch (error) {
-      logger.error('Removal defense analysis failed', error);
+      logger.error('Removal defense analysis failed', errorToLogMeta(error));
       return this.getMockAnalysis(params);
     }
   }
@@ -125,7 +126,7 @@ Criminal History: ${params.criminalHistory || 'None'}`;
 
       return this.parseBondMotion(response.content as string);
     } catch (error) {
-      logger.error('Bond motion preparation failed', error);
+      logger.error('Bond motion preparation failed', errorToLogMeta(error));
       return this.getMockBondMotion(params);
     }
   }

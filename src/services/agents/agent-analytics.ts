@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { cache } from '@/lib/cache';
 
 export interface AgentMetrics {
@@ -85,7 +86,7 @@ export class AgentAnalyticsService {
       // Trigger alerts if needed
       await this.checkAlerts(data);
     } catch (error) {
-      logger.error('Error tracking agent interaction:', error);
+      logger.error('Error tracking agent interaction:', errorToLogMeta(error));
     }
   }
 

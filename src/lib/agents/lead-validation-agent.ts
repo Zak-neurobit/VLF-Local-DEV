@@ -2,6 +2,7 @@ import { Agent } from '@/lib/crewai/base';
 import { z } from 'zod';
 import { GoHighLevelService } from '@/services/gohighlevel';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 
 interface LeadData {
@@ -127,7 +128,7 @@ export class LeadValidationAgent extends Agent {
 
       return validationResult;
     } catch (error) {
-      logger.error('Lead validation error:', error);
+      logger.error('Lead validation error:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -586,7 +587,7 @@ export class LeadValidationAgent extends Agent {
 
       return contact.id;
     } catch (error) {
-      logger.error('Error updating GHL contact:', error);
+      logger.error('Error updating GHL contact:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -633,7 +634,7 @@ export class LeadValidationAgent extends Agent {
         validatedAt: new Date(validation.validationTimestamp),
       });
     } catch (error) {
-      logger.error('Error logging validation:', error);
+      logger.error('Error logging validation:', errorToLogMeta(error));
     }
   }
 

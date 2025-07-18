@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       message: 'Document analysis has been queued',
     });
   } catch (error) {
-    logger.error('Document analysis API error:', error);
+    logger.error('Document analysis API error:', errorToLogMeta(error));
     return NextResponse.json(
       { error: 'Failed to process document analysis request' },
       { status: 500 }
@@ -102,7 +102,7 @@ export async function GET(request: NextRequest) {
       completedAt: task.completedAt,
     });
   } catch (error) {
-    logger.error('Document analysis status check error:', error);
+    logger.error('Document analysis status check error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to check task status' }, { status: 500 });
   }
 }

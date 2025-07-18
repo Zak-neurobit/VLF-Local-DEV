@@ -83,7 +83,7 @@ async function handlePOST(request: NextRequest) {
       metadata: { event: event?.event, callId: event?.call?.call_id },
     });
 
-    logger.error('Retell webhook error:', error);
+    logger.error('Retell webhook error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 });
   }
 }
@@ -129,7 +129,7 @@ async function handleRetellEvent(event: RetellWebhookEvent) {
           try {
             await recordingManager.processRecording(call.call_id as string);
           } catch (error) {
-            logger.error('Failed to process recording:', error);
+            logger.error('Failed to process recording:', errorToLogMeta(error));
           }
         }, 1000); // 1 second delay
       }
@@ -265,7 +265,7 @@ async function handleCallStarted(call: Record<string, unknown>) {
       to: call.to_number,
     });
   } catch (error) {
-    logger.error('Failed to handle call started:', error);
+    logger.error('Failed to handle call started:', errorToLogMeta(error));
   }
 }
 
@@ -393,7 +393,7 @@ async function handleCallEnded(call: Record<string, unknown>) {
       reason: call.disconnection_reason,
     });
   } catch (error) {
-    logger.error('Failed to handle call ended:', error);
+    logger.error('Failed to handle call ended:', errorToLogMeta(error));
   }
 }
 
@@ -428,7 +428,7 @@ async function handleCallAnalyzed(event: Record<string, unknown>) {
       sentiment: (analysis as Record<string, unknown>).sentiment,
     });
   } catch (error) {
-    logger.error('Failed to handle call analysis:', error);
+    logger.error('Failed to handle call analysis:', errorToLogMeta(error));
   }
 }
 
@@ -449,7 +449,7 @@ async function handleTranscriptReady(event: Record<string, unknown>) {
       length: (transcript as string).length,
     });
   } catch (error) {
-    logger.error('Failed to handle transcript ready:', error);
+    logger.error('Failed to handle transcript ready:', errorToLogMeta(error));
   }
 }
 
@@ -469,7 +469,7 @@ async function handleRecordingReady(event: Record<string, unknown>) {
       callId: call_id,
     });
   } catch (error) {
-    logger.error('Failed to handle recording ready:', error);
+    logger.error('Failed to handle recording ready:', errorToLogMeta(error));
   }
 }
 
@@ -503,7 +503,7 @@ async function createFollowUpTask(call: Record<string, unknown>) {
       callId: call.externalCallId as string,
     });
   } catch (error) {
-    logger.error('Failed to create follow-up task:', error);
+    logger.error('Failed to create follow-up task:', errorToLogMeta(error));
   }
 }
 

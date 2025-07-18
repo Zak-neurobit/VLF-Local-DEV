@@ -1,6 +1,7 @@
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 import * as cheerio from 'cheerio';
 import { WebFetch } from '@/lib/utils/web-fetch';
@@ -343,7 +344,7 @@ export class CompetitorSpyAgent {
 
       logger.info('✅ Competitor Spy Cycle Complete');
     } catch (error) {
-      logger.error('Competitor Spy Cycle Error:', error);
+      logger.error('Competitor Spy Cycle Error:', errorToLogMeta(error));
     }
   }
 
@@ -376,7 +377,7 @@ export class CompetitorSpyAgent {
         // Store in database
         await this.storeIntelligence(intel);
       } catch (error) {
-        logger.error(`Failed to gather intelligence on ${competitor.name}:`, error);
+        logger.error(`Failed to gather intelligence on ${competitor.name}:`, errorToLogMeta(error));
       }
     }
 
@@ -400,7 +401,9 @@ export class CompetitorSpyAgent {
         rankings.push({
           keyword,
           position,
-          change: previousRanking ? position - (previousRanking as { position: number }).position : 0,
+          change: previousRanking
+            ? position - (previousRanking as { position: number }).position
+            : 0,
           url: `https://${competitor.domain}/${this.guessRankingPage(keyword, competitor)}`,
         });
       } catch (error) {
@@ -468,7 +471,7 @@ export class CompetitorSpyAgent {
         }
       }
     } catch (error) {
-      logger.error(`Failed to analyze content for ${competitor.domain}:`, error);
+      logger.error(`Failed to analyze content for ${competitor.domain}:`, errorToLogMeta(error));
     }
 
     return content;
@@ -540,7 +543,10 @@ export class CompetitorSpyAgent {
 
       return technical;
     } catch (error) {
-      logger.error(`Failed to analyze technical SEO for ${competitor.domain}:`, error);
+      logger.error(
+        `Failed to analyze technical SEO for ${competitor.domain}:`,
+        errorToLogMeta(error)
+      );
       return {
         siteSpeed: 0,
         mobileScore: 0,
@@ -676,7 +682,10 @@ export class CompetitorSpyAgent {
     return Math.floor(Math.random() * 50) + 1;
   }
 
-  private async getPreviousRanking(domain: string, keyword: string): Promise<{ position: number } | null> {
+  private async getPreviousRanking(
+    domain: string,
+    keyword: string
+  ): Promise<{ position: number } | null> {
     // Fetch from database
     return null;
   }
@@ -720,7 +729,10 @@ export class CompetitorSpyAgent {
     return Math.random() > 0.8;
   }
 
-  private async fetchSocialProfile(competitor: Competitor, platform: string): Promise<SocialMediaProfile | null> {
+  private async fetchSocialProfile(
+    competitor: Competitor,
+    platform: string
+  ): Promise<SocialMediaProfile | null> {
     // Mock social profile data
     return {
       platform,
@@ -942,7 +954,7 @@ export class CompetitorSpyAgent {
 
       return content.newPosts.filter((post: ContentPiece) => post.publishDate > hourAgo);
     } catch (error) {
-      logger.error(`Failed to check new content for ${competitor.name}:`, error);
+      logger.error(`Failed to check new content for ${competitor.name}:`, errorToLogMeta(error));
       return [];
     }
   }

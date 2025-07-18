@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { caseManagement } from '@/services/case-management';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { UserRole, PracticeArea, CaseStatus } from '@prisma/client';
 
 export const runtime = 'nodejs';
@@ -55,7 +56,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ cases });
   } catch (error) {
-    logger.error('Error fetching cases', error);
+    logger.error('Error fetching cases', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to fetch cases' }, { status: 500 });
   }
 }
@@ -82,7 +83,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ case: newCase }, { status: 201 });
   } catch (error) {
-    logger.error('Error creating case', error);
+    logger.error('Error creating case', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to create case' }, { status: 500 });
   }
 }

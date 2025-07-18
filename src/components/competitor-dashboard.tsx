@@ -1,7 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { CompetitorProfile, CompetitorActivity, CompetitiveAnalysis } from '@/lib/crewai/competitor-monitoring-system';
+import {
+  CompetitorProfile,
+  CompetitorActivity,
+  CompetitiveAnalysis,
+} from '@/lib/crewai/competitor-monitoring-system';
 
 interface CompetitorDashboardProps {
   className?: string;
@@ -149,7 +153,7 @@ export default function CompetitorDashboard({ className = '' }: CompetitorDashbo
 
         {/* Tabs */}
         <div className="flex space-x-1 mt-6">
-          {['overview', 'activities', 'analysis'].map((tab) => (
+          {['overview', 'activities', 'analysis'].map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab as any)}
@@ -169,7 +173,7 @@ export default function CompetitorDashboard({ className = '' }: CompetitorDashbo
       <div className="p-6">
         {activeTab === 'overview' && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {competitors.map((competitor) => (
+            {competitors.map(competitor => (
               <CompetitorCard
                 key={competitor.id}
                 competitor={competitor}
@@ -196,7 +200,7 @@ export default function CompetitorDashboard({ className = '' }: CompetitorDashbo
 
             {activities.length === 0 ? (
               <div className="text-center py-12 text-gray-500">
-                No activities recorded yet. Click "Check Now" to start monitoring.
+                No activities recorded yet. Click {`"`}Check Now{`"`} to start monitoring.
               </div>
             ) : (
               <div className="space-y-3">
@@ -208,9 +212,7 @@ export default function CompetitorDashboard({ className = '' }: CompetitorDashbo
           </div>
         )}
 
-        {activeTab === 'analysis' && analysis && (
-          <CompetitiveAnalysisView analysis={analysis} />
-        )}
+        {activeTab === 'analysis' && analysis && <CompetitiveAnalysisView analysis={analysis} />}
       </div>
 
       {/* Add Competitor Form Modal */}
@@ -233,17 +235,19 @@ function CompetitorCard({ competitor, onSelect, onCheck }: any) {
     <div className="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
       <div className="flex justify-between items-start mb-3">
         <h4 className="font-semibold text-gray-900">{competitor.name}</h4>
-        <span className={`px-2 py-1 text-xs rounded-full ${
-          competitor.trackingConfig?.enabled 
-            ? 'bg-green-100 text-green-800' 
-            : 'bg-gray-100 text-gray-800'
-        }`}>
+        <span
+          className={`px-2 py-1 text-xs rounded-full ${
+            competitor.trackingConfig?.enabled
+              ? 'bg-green-100 text-green-800'
+              : 'bg-gray-100 text-gray-800'
+          }`}
+        >
           {competitor.trackingConfig?.enabled ? 'Active' : 'Paused'}
         </span>
       </div>
 
       <p className="text-sm text-gray-600 mb-2">{competitor.website}</p>
-      
+
       <div className="flex flex-wrap gap-1 mb-3">
         {competitor.practiceAreas?.slice(0, 3).map((area: string, index: number) => (
           <span key={index} className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded">
@@ -259,7 +263,7 @@ function CompetitorCard({ competitor, onSelect, onCheck }: any) {
         <span>{competitor._count?.activities || 0} activities</span>
         <div className="flex space-x-2">
           <button
-            onClick={(e) => {
+            onClick={e => {
               e.stopPropagation();
               onCheck();
             }}
@@ -267,10 +271,7 @@ function CompetitorCard({ competitor, onSelect, onCheck }: any) {
           >
             Check Now
           </button>
-          <button
-            onClick={onSelect}
-            className="text-gray-600 hover:text-gray-900"
-          >
+          <button onClick={onSelect} className="text-gray-600 hover:text-gray-900">
             View →
           </button>
         </div>
@@ -287,7 +288,9 @@ function ActivityCard({ activity }: { activity: CompetitorActivity }) {
           <span className="text-2xl">{getActivityIcon(activity.activityType)}</span>
           <div className="flex-1">
             <div className="flex items-center space-x-2 mb-1">
-              <span className={`px-2 py-1 text-xs rounded-full ${getActivityColor(activity.activityType)}`}>
+              <span
+                className={`px-2 py-1 text-xs rounded-full ${getActivityColor(activity.activityType)}`}
+              >
                 {activity.activityType.replace('_', ' ')}
               </span>
               <span className={`px-2 py-1 text-xs rounded-full ${getImpactBadge(activity.impact)}`}>
@@ -299,19 +302,19 @@ function ActivityCard({ activity }: { activity: CompetitorActivity }) {
                 </span>
               )}
             </div>
-            
+
             {activity.details.title && (
               <h5 className="font-medium text-gray-900 mb-1">{activity.details.title}</h5>
             )}
-            
+
             {activity.details.description && (
               <p className="text-sm text-gray-600 mb-2">{activity.details.description}</p>
             )}
-            
+
             {activity.details.url && (
-              <a 
-                href={activity.details.url} 
-                target="_blank" 
+              <a
+                href={activity.details.url}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-blue-600 hover:underline"
               >
@@ -320,7 +323,7 @@ function ActivityCard({ activity }: { activity: CompetitorActivity }) {
             )}
           </div>
         </div>
-        
+
         <span className="text-xs text-gray-500">
           {new Date(activity.timestamp).toLocaleDateString()}
         </span>
@@ -353,7 +356,7 @@ function CompetitiveAnalysisView({ analysis }: { analysis: CompetitiveAnalysis }
       {/* Competitor SWOT Analysis */}
       <div className="space-y-4">
         <h4 className="text-lg font-semibold text-gray-900">Competitor Analysis</h4>
-        {analysis.competitors.map((comp) => (
+        {analysis.competitors.map(comp => (
           <div key={comp.competitorId} className="border rounded-lg p-4">
             <div className="flex justify-between items-center mb-3">
               <h5 className="font-medium text-gray-900">{comp.name}</h5>
@@ -361,7 +364,7 @@ function CompetitiveAnalysisView({ analysis }: { analysis: CompetitiveAnalysis }
                 Score: {comp.overallScore}/100
               </span>
             </div>
-            
+
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <div>
                 <h6 className="text-xs font-medium text-green-700 mb-1">Strengths</h6>
@@ -407,13 +410,15 @@ function CompetitiveAnalysisView({ analysis }: { analysis: CompetitiveAnalysis }
           {analysis.actionItems.map((item, index) => (
             <div key={index} className="flex items-center justify-between border rounded-lg p-3">
               <div className="flex items-center space-x-3">
-                <span className={`px-2 py-1 text-xs rounded-full ${
-                  item.priority === 'high' 
-                    ? 'bg-red-100 text-red-800'
-                    : item.priority === 'medium'
-                    ? 'bg-yellow-100 text-yellow-800'
-                    : 'bg-green-100 text-green-800'
-                }`}>
+                <span
+                  className={`px-2 py-1 text-xs rounded-full ${
+                    item.priority === 'high'
+                      ? 'bg-red-100 text-red-800'
+                      : item.priority === 'medium'
+                        ? 'bg-yellow-100 text-yellow-800'
+                        : 'bg-green-100 text-green-800'
+                  }`}
+                >
                   {item.priority}
                 </span>
                 <span className="text-sm text-gray-900">{item.action}</span>
@@ -437,14 +442,14 @@ function AddCompetitorForm({ onClose, onAdd }: any) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       const response = await fetch('/api/competitors', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      
+
       if (response.ok) {
         onAdd();
       }
@@ -457,7 +462,7 @@ function AddCompetitorForm({ onClose, onAdd }: any) {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 max-w-md w-full">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Add Competitor</h3>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -467,33 +472,29 @@ function AddCompetitorForm({ onClose, onAdd }: any) {
               type="text"
               required
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={e => setFormData({ ...formData, name: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Website URL *
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Website URL *</label>
             <input
               type="url"
               required
               value={formData.website}
-              onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+              onChange={e => setFormData({ ...formData, website: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="https://example.com"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Practice Areas
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Practice Areas</label>
             <select
               multiple
               value={formData.practiceAreas}
-              onChange={(e) => {
+              onChange={e => {
                 const selected = Array.from(e.target.selectedOptions, option => option.value);
                 setFormData({ ...formData, practiceAreas: selected });
               }}
@@ -509,16 +510,19 @@ function AddCompetitorForm({ onClose, onAdd }: any) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Locations
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Locations</label>
             <input
               type="text"
               value={formData.locations.join(', ')}
-              onChange={(e) => setFormData({ 
-                ...formData, 
-                locations: e.target.value.split(',').map(l => l.trim()).filter(Boolean) 
-              })}
+              onChange={e =>
+                setFormData({
+                  ...formData,
+                  locations: e.target.value
+                    .split(',')
+                    .map(l => l.trim())
+                    .filter(Boolean),
+                })
+              }
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Charlotte, Raleigh, Durham"
             />

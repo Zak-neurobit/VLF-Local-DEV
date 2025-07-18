@@ -127,7 +127,7 @@ async function handleGET(_request: NextRequest): Promise<NextResponse> {
 
     return NextResponse.json(response);
   } catch (error) {
-    logger.error('Failed to get crew status:', error);
+    logger.error('Failed to get crew status:', errorToLogMeta(error));
     return NextResponse.json(
       {
         error: 'Failed to get crew status',
@@ -187,7 +187,7 @@ async function handlePOST(_request: NextRequest): Promise<NextResponse> {
         return NextResponse.json({ error: 'Unknown action' }, { status: 400 });
     }
   } catch (error) {
-    logger.error('Failed to process crew action:', error);
+    logger.error('Failed to process crew action:', errorToLogMeta(error));
     return NextResponse.json(
       {
         error: 'Failed to process crew action',

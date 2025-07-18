@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { emailQueue } from '@/lib/queue/bull';
 import { cache, cacheKeys, CacheTTL } from '@/lib/cache';
 import fs from 'fs/promises';
@@ -95,7 +96,7 @@ class EmailService {
       await this.transporter.verify();
       logger.info('Office 365 SMTP connection established');
     } catch (error) {
-      logger.error('Office 365 SMTP connection error:', error);
+      logger.error('Office 365 SMTP connection error:', errorToLogMeta(error));
     }
   }
 
@@ -131,7 +132,7 @@ class EmailService {
         }
       }
     } catch (error) {
-      logger.error('Error loading email templates:', error);
+      logger.error('Error loading email templates:', errorToLogMeta(error));
     }
   }
 
@@ -197,7 +198,7 @@ class EmailService {
         response: info.response,
       };
     } catch (error) {
-      logger.error('Email send error:', error);
+      logger.error('Email send error:', errorToLogMeta(error));
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Failed to send email',

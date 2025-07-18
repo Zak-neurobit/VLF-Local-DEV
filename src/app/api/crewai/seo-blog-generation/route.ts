@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    logger.error('SEO blog generation API error:', error);
+    logger.error('SEO blog generation API error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to start SEO blog generation' }, { status: 500 });
   }
 }
@@ -130,7 +130,7 @@ export async function GET(request: NextRequest) {
       completedAt: task.completedAt,
     });
   } catch (error) {
-    logger.error('SEO blog generation status check error:', error);
+    logger.error('SEO blog generation status check error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to check task status' }, { status: 500 });
   }
 }

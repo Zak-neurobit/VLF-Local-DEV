@@ -1,6 +1,7 @@
 import { ghlService } from '@/services/gohighlevel';
 import { getPrismaClient } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { addDays, subDays, startOfDay, endOfDay } from 'date-fns';
 
 interface CampaignTarget {
@@ -21,7 +22,7 @@ export class CampaignAutomationService {
 
       logger.info('Daily campaign automation completed');
     } catch (error) {
-      logger.error('Daily campaign automation failed:', error);
+      logger.error('Daily campaign automation failed:', errorToLogMeta(error));
     }
   }
 
@@ -105,7 +106,7 @@ export class CampaignAutomationService {
         campaignId,
       });
     } catch (error) {
-      logger.error('Failed to trigger action-based campaign:', error);
+      logger.error('Failed to trigger action-based campaign:', errorToLogMeta(error));
     }
   }
 }

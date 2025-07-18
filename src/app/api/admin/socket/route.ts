@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getChatSocketServer } from '@/lib/socket/server';
 import { logger, securityLogger } from '@/lib/logger';
+import { createErrorLogMeta, errorToLogMeta } from '@/lib/logger/utils';
 import { z } from 'zod';
 
 // Validation schemas
@@ -81,18 +82,20 @@ export async function GET(request: NextRequest) {
       const status = socketServer.getHealthStatus();
       return NextResponse.json(status);
     }
-  } catch (error: any) {
-    logger.error('Admin socket status check failed', {
-      error: error.message,
-      userAgent: request.headers.get('user-agent'),
-      ip: request.ip || 'unknown',
-    });
+  } catch (error) {
+    logger.error(
+      'Admin socket status check failed',
+      createErrorLogMeta(error, {
+        userAgent: request.headers.get('user-agent'),
+        ip: request.ip || 'unknown',
+      })
+    );
 
     return NextResponse.json(
       {
         success: false,
         error: 'Failed to get socket status',
-        message: error.message,
+        message: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 }
     );
@@ -225,18 +228,20 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(result);
-  } catch (error: any) {
-    logger.error('Admin action failed', {
-      error: error.message,
-      userAgent: request.headers.get('user-agent'),
-      ip: request.ip || 'unknown',
-    });
+  } catch (error) {
+    logger.error(
+      'Admin action failed',
+      createErrorLogMeta(error, {
+        userAgent: request.headers.get('user-agent'),
+        ip: request.ip || 'unknown',
+      })
+    );
 
     return NextResponse.json(
       {
         success: false,
         error: 'Admin action failed',
-        message: error.message,
+        message: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 }
     );
@@ -292,18 +297,20 @@ export async function PUT(request: NextRequest) {
       message: 'Configuration updated successfully',
       timestamp: Date.now(),
     });
-  } catch (error: any) {
-    logger.error('Admin configuration update failed', {
-      error: error.message,
-      userAgent: request.headers.get('user-agent'),
-      ip: request.ip || 'unknown',
-    });
+  } catch (error) {
+    logger.error(
+      'Admin configuration update failed',
+      createErrorLogMeta(error, {
+        userAgent: request.headers.get('user-agent'),
+        ip: request.ip || 'unknown',
+      })
+    );
 
     return NextResponse.json(
       {
         success: false,
         error: 'Configuration update failed',
-        message: error.message,
+        message: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 }
     );
@@ -346,8 +353,8 @@ export async function DELETE(request: NextRequest) {
         setTimeout(async () => {
           try {
             await socketServer.shutdown();
-          } catch (error: any) {
-            logger.error('Emergency shutdown failed', { error: error.message });
+          } catch (error) {
+            logger.error('Emergency shutdown failed', errorToLogMeta(error));
           }
         }, 1000);
 
@@ -413,18 +420,20 @@ export async function DELETE(request: NextRequest) {
           { status: 400 }
         );
     }
-  } catch (error: any) {
-    logger.error('Emergency action failed', {
-      error: error.message,
-      userAgent: request.headers.get('user-agent'),
-      ip: request.ip || 'unknown',
-    });
+  } catch (error) {
+    logger.error(
+      'Emergency action failed',
+      createErrorLogMeta(error, {
+        userAgent: request.headers.get('user-agent'),
+        ip: request.ip || 'unknown',
+      })
+    );
 
     return NextResponse.json(
       {
         success: false,
         error: 'Emergency action failed',
-        message: error.message,
+        message: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 }
     );

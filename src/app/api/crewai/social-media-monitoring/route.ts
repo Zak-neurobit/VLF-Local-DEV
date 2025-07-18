@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    logger.error('Social media monitoring API error:', error);
+    logger.error('Social media monitoring API error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to start social media monitoring' }, { status: 500 });
   }
 }
@@ -108,7 +108,7 @@ export async function GET(request: NextRequest) {
       completedAt: task.completedAt,
     });
   } catch (error) {
-    logger.error('Social media monitoring status check error:', error);
+    logger.error('Social media monitoring status check error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to check task status' }, { status: 500 });
   }
 }

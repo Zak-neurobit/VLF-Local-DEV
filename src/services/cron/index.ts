@@ -1,5 +1,6 @@
 import * as cron from 'node-cron';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { appointmentReminderService } from '@/services/appointment-reminders';
 import { campaignAutomationService } from '@/services/campaign-automation';
 import { leadCaptureService } from '@/services/lead-capture';
@@ -98,7 +99,7 @@ export class CronJobService {
 
       logger.info('All cron jobs initialized successfully');
     } catch (error) {
-      logger.error('Failed to initialize cron jobs:', error);
+      logger.error('Failed to initialize cron jobs:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -120,7 +121,7 @@ export class CronJobService {
           await this.logJobExecution(name, 'success', duration);
         } catch (error) {
           const duration = Date.now() - startTime;
-          logger.error(`Failed cron job: ${name}`, { error, duration });
+          logger.error(`Failed cron job: ${name}`, createErrorLogMeta(error, { duration }));
 
           // Log job failure
           await this.logJobExecution(
@@ -192,16 +193,18 @@ export class CronJobService {
         `Lead scoring completed. Scored ${scoredLeads.length} leads, ${highScoreLeads.length} high-score leads assigned`
       );
     } catch (error) {
-      logger.error('Lead scoring failed:', error);
+      logger.error('Lead scoring failed:', errorToLogMeta(error));
       throw error;
     }
   }
 
   // Calculate lead score based on various factors
-  private calculateLeadScore(lead: Lead & {
-    contact?: ContactInfo | null;
-    lastContactAt?: Date | null;
-  }): number {
+  private calculateLeadScore(
+    lead: Lead & {
+      contact?: ContactInfo | null;
+      lastContactAt?: Date | null;
+    }
+  ): number {
     let score = 0;
 
     // Time factor - newer leads score higher
@@ -336,7 +339,7 @@ export class CronJobService {
         attorneyIndex++;
       }
     } catch (error) {
-      logger.error('Failed to assign high-score leads:', error);
+      logger.error('Failed to assign high-score leads:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -366,7 +369,7 @@ export class CronJobService {
         deletedActivities: deletedActivities.count,
       });
     } catch (error) {
-      logger.error('Database cleanup failed:', error);
+      logger.error('Database cleanup failed:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -408,7 +411,7 @@ export class CronJobService {
           where: { id: appointment.id },
           data: {
             metadata: {
-              ...(appointment.metadata as Prisma.JsonObject || {}),
+              ...((appointment.metadata as Prisma.JsonObject) || {}),
               surveySent: true,
               surveySentAt: new Date().toISOString(),
             },
@@ -418,7 +421,7 @@ export class CronJobService {
 
       logger.info(`Sent ${completedAppointments.length} follow-up surveys`);
     } catch (error) {
-      logger.error('Follow-up survey sending failed:', error);
+      logger.error('Follow-up survey sending failed:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -687,7 +690,7 @@ export class CronJobService {
         },
       });
     } catch (error) {
-      logger.error('Analytics aggregation failed:', error);
+      logger.error('Analytics aggregation failed:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -711,7 +714,7 @@ export class CronJobService {
         appointments: counts[3],
       });
     } catch (error) {
-      logger.error('Data backup failed:', error);
+      logger.error('Data backup failed:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -726,7 +729,7 @@ export class CronJobService {
       // Currently, the Document model doesn't have expiryDate or expiryNotificationSent fields
       logger.info('Document expiry check: Feature not yet implemented');
     } catch (error) {
-      logger.error('Document expiry check failed:', error);
+      logger.error('Document expiry check failed:', errorToLogMeta(error));
       throw error;
     }
   }

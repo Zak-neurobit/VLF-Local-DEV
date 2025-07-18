@@ -1,6 +1,7 @@
 import Bull from 'bull';
 import { securityLogger } from '@/lib/pino-logger';
 import { performanceLogger, logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { bullRedis } from '@/lib/cache';
 import { PrismaClient } from '@prisma/client';
 
@@ -175,7 +176,7 @@ emailQueue.process(async job => {
 
     return result;
   } catch (error) {
-    logger.error('Email queue processor error:', error);
+    logger.error('Email queue processor error:', errorToLogMeta(error));
     throw error;
   }
 });
@@ -198,7 +199,7 @@ seoQueue.process(async job => {
     }
     return { success: true };
   } catch (error) {
-    logger.error('SEO task failed:', error);
+    logger.error('SEO task failed:', errorToLogMeta(error));
     throw error;
   }
 });
@@ -221,7 +222,7 @@ documentQueue.process(async job => {
     }
     return { success: true };
   } catch (error) {
-    logger.error('Document processing failed:', error);
+    logger.error('Document processing failed:', errorToLogMeta(error));
     throw error;
   }
 });

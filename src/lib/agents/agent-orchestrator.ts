@@ -9,6 +9,7 @@ import { AILATrainedRemovalDefenseAgent } from '@/lib/crewai/agents/aila-trained
 import { LeadValidationAgent } from '@/lib/agents/lead-validation-agent';
 import { FollowUpAutomationAgent } from '@/lib/agents/follow-up-automation-agent';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { EventEmitter } from 'events';
 import pLimit from 'p-limit';
 
@@ -318,7 +319,7 @@ export class AgentOrchestrator extends EventEmitter {
         this.registerAgentWithType(name, agent, type);
         initResults.success.push(name);
       } catch (error) {
-        logger.error(`Failed to create agent ${name}:`, error);
+        logger.error(`Failed to create agent ${name}:`, errorToLogMeta(error));
         initResults.failed.push(name);
       }
     };
@@ -386,7 +387,7 @@ export class AgentOrchestrator extends EventEmitter {
       this.initializeAgentMetrics(name);
       logger.info(`Successfully registered agent: ${name}`);
     } catch (error) {
-      logger.error(`Failed to register agent ${name}:`, error);
+      logger.error(`Failed to register agent ${name}:`, errorToLogMeta(error));
       // Continue without this agent rather than failing completely
     }
   }
@@ -469,7 +470,7 @@ export class AgentOrchestrator extends EventEmitter {
 
       return response;
     } catch (error) {
-      logger.error('Agent orchestration error:', error);
+      logger.error('Agent orchestration error:', errorToLogMeta(error));
 
       // Update error metrics safely
       try {
@@ -522,7 +523,7 @@ export class AgentOrchestrator extends EventEmitter {
         const message = this.messageQueue.shift();
         if (message) {
           this.processInterAgentMessage(message).catch(error => {
-            logger.error('Error processing inter-agent message:', error);
+            logger.error('Error processing inter-agent message:', errorToLogMeta(error));
           });
         }
       }

@@ -1,5 +1,6 @@
 import { CronJob } from 'cron';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma-safe';
 import { syndicationEngine } from './syndication-engine';
 import { z } from 'zod';
@@ -16,7 +17,7 @@ export class SyndicationScheduler {
 
     try {
       logger.info('Starting syndication scheduler...');
-      
+
       // Process scheduled syndications every minute
       const processJob = new CronJob(
         '* * * * *', // Every minute
@@ -68,29 +69,29 @@ export class SyndicationScheduler {
       this.isRunning = true;
       logger.info('Syndication scheduler started successfully');
     } catch (error) {
-      logger.error('Failed to start syndication scheduler:', error);
+      logger.error('Failed to start syndication scheduler:', errorToLogMeta(error));
       throw error;
     }
   }
 
   async stop(): Promise<void> {
     logger.info('Stopping syndication scheduler...');
-    
+
     for (const [name, job] of this.jobs) {
       job.stop();
       logger.info(`Stopped job: ${name}`);
     }
-    
+
     this.jobs.clear();
     this.isRunning = false;
-    
+
     logger.info('Syndication scheduler stopped');
   }
 
   private async processScheduledSyndications(): Promise<void> {
     try {
       const now = new Date();
-      
+
       // Find all syndications due for publishing
       const dueSyndications = await prisma.scheduledSyndication.findMany({
         where: {
@@ -129,10 +130,15 @@ export class SyndicationScheduler {
             },
           });
 
-          logger.info(`Published to ${scheduled.platformId}: ${result.success ? 'Success' : 'Failed'}`);
+          logger.info(
+            `Published to ${scheduled.platformId}: ${result.success ? 'Success' : 'Failed'}`
+          );
         } catch (error) {
-          logger.error(`Failed to process scheduled syndication ${scheduled.id}:`, error);
-          
+          logger.error(
+            `Failed to process scheduled syndication ${scheduled.id}:`,
+            errorToLogMeta(error)
+          );
+
           await prisma.scheduledSyndication.update({
             where: { id: scheduled.id },
             data: {
@@ -143,7 +149,7 @@ export class SyndicationScheduler {
         }
       }
     } catch (error) {
-      logger.error('Error processing scheduled syndications:', error);
+      logger.error('Error processing scheduled syndications:', errorToLogMeta(error));
     }
   }
 
@@ -184,7 +190,7 @@ export class SyndicationScheduler {
         try {
           // Determine content type based on categories/tags
           const contentType = this.determineContentType(content);
-          
+
           // Auto-syndicate to platforms with autoPublish enabled
           await syndicationEngine.syndicateContent({
             contentId: content.id,
@@ -195,18 +201,19 @@ export class SyndicationScheduler {
 
           logger.info(`Auto-syndicated content: ${content.title}`);
         } catch (error) {
-          logger.error(`Failed to auto-syndicate content ${content.id}:`, error);
+          logger.error(`Failed to auto-syndicate content ${content.id}:`, errorToLogMeta(error));
         }
       }
     } catch (error) {
-      logger.error('Error in auto-syndication:', error);
+      logger.error('Error in auto-syndication:', errorToLogMeta(error));
     }
   }
 
   private determineContentType(content: any): 'blog' | 'news' | 'guide' | 'case_study' {
     // Logic to determine content type based on categories, tags, or content structure
     if (content.categories?.includes('news')) return 'news';
-    if (content.categories?.includes('guide') || content.title.toLowerCase().includes('how to')) return 'guide';
+    if (content.categories?.includes('guide') || content.title.toLowerCase().includes('how to'))
+      return 'guide';
     if (content.categories?.includes('case-study')) return 'case_study';
     return 'blog';
   }
@@ -224,7 +231,7 @@ export class SyndicationScheduler {
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
       yesterday.setHours(0, 0, 0, 0);
-      
+
       const today = new Date();
       today.setHours(0, 0, 0, 0);
 
@@ -237,9 +244,11 @@ export class SyndicationScheduler {
       const report = {
         date: yesterday,
         totalSyndications: analytics.totalSyndications,
-        successRate: analytics.totalSyndications > 0 
-          ? (analytics.successfulSyndications / analytics.totalSyndications * 100).toFixed(2) + '%'
-          : '0%',
+        successRate:
+          analytics.totalSyndications > 0
+            ? ((analytics.successfulSyndications / analytics.totalSyndications) * 100).toFixed(2) +
+              '%'
+            : '0%',
         platformBreakdown: analytics.platformBreakdown,
         contentTypeBreakdown: analytics.contentTypeBreakdown,
         topPerformingPlatforms: this.getTopPerformingPlatforms(analytics.platformBreakdown),
@@ -260,7 +269,7 @@ export class SyndicationScheduler {
 
       logger.info('Daily syndication report generated successfully');
     } catch (error) {
-      logger.error('Failed to generate daily syndication report:', error);
+      logger.error('Failed to generate daily syndication report:', errorToLogMeta(error));
     }
   }
 
@@ -268,7 +277,7 @@ export class SyndicationScheduler {
     return Object.entries(platformBreakdown)
       .map(([platform, stats]: [string, any]) => ({
         platform,
-        successRate: stats.total > 0 ? (stats.successful / stats.total * 100) : 0,
+        successRate: stats.total > 0 ? (stats.successful / stats.total) * 100 : 0,
         total: stats.total,
       }))
       .sort((a, b) => b.successRate - a.successRate)
@@ -279,9 +288,10 @@ export class SyndicationScheduler {
     const recommendations: string[] = [];
 
     // Check overall success rate
-    const overallSuccessRate = analytics.totalSyndications > 0
-      ? (analytics.successfulSyndications / analytics.totalSyndications * 100)
-      : 0;
+    const overallSuccessRate =
+      analytics.totalSyndications > 0
+        ? (analytics.successfulSyndications / analytics.totalSyndications) * 100
+        : 0;
 
     if (overallSuccessRate < 80) {
       recommendations.push('Consider reviewing API configurations as success rate is below 80%');
@@ -289,9 +299,11 @@ export class SyndicationScheduler {
 
     // Check platform-specific issues
     Object.entries(analytics.platformBreakdown).forEach(([platform, stats]: [string, any]) => {
-      const successRate = stats.total > 0 ? (stats.successful / stats.total * 100) : 0;
+      const successRate = stats.total > 0 ? (stats.successful / stats.total) * 100 : 0;
       if (successRate < 70 && stats.total > 5) {
-        recommendations.push(`${platform} has a low success rate (${successRate.toFixed(0)}%). Check API credentials and rate limits.`);
+        recommendations.push(
+          `${platform} has a low success rate (${successRate.toFixed(0)}%). Check API credentials and rate limits.`
+        );
       }
     });
 
@@ -333,7 +345,7 @@ export class SyndicationScheduler {
 
       logger.info(`Cleaned up ${deletedScheduled.count} old failed scheduled syndications`);
     } catch (error) {
-      logger.error('Failed to cleanup old syndication history:', error);
+      logger.error('Failed to cleanup old syndication history:', errorToLogMeta(error));
     }
   }
 
@@ -346,7 +358,7 @@ export class SyndicationScheduler {
   }): Promise<any> {
     try {
       logger.info('Triggering manual syndication', params);
-      
+
       return await syndicationEngine.syndicateContent({
         contentId: params.contentId,
         contentType: params.contentType as any,
@@ -354,7 +366,7 @@ export class SyndicationScheduler {
         scheduleTime: params.scheduleTime,
       });
     } catch (error) {
-      logger.error('Manual syndication failed:', error);
+      logger.error('Manual syndication failed:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -384,11 +396,11 @@ export class SyndicationScheduler {
             },
           });
         } catch (error) {
-          logger.error(`Failed to retry syndication ${failed.id}:`, error);
+          logger.error(`Failed to retry syndication ${failed.id}:`, errorToLogMeta(error));
         }
       }
     } catch (error) {
-      logger.error('Error retrying failed syndications:', error);
+      logger.error('Error retrying failed syndications:', errorToLogMeta(error));
     }
   }
 

@@ -250,7 +250,7 @@ class EnhancedAgentDeployer {
       // Generate deployment report
       await this.generateDeploymentReport();
     } catch (error) {
-      logger.error('Deployment failed:', error);
+      logger.error('Deployment failed:', errorToLogMeta(error));
       await this.rollbackDeployment();
       throw error;
     } finally {
@@ -326,7 +326,7 @@ class EnhancedAgentDeployer {
       };
 
       this.deploymentResults.push(result);
-      logger.error(`❌ ${config.name} deployment failed:`, error);
+      logger.error(`❌ ${config.name} deployment failed:`, errorToLogMeta(error));
 
       if (config.rollbackEnabled) {
         await this.rollbackAgent(config.name);
@@ -568,7 +568,7 @@ class EnhancedAgentDeployer {
         this.deploymentResults[resultIndex].status = 'rolled-back';
       }
     } catch (error) {
-      logger.error(`Failed to rollback ${agentName}:`, error);
+      logger.error(`Failed to rollback ${agentName}:`, errorToLogMeta(error));
     }
   }
 
@@ -676,7 +676,7 @@ async function main() {
     await deployer.deployAllAgents();
     process.exit(0);
   } catch (error) {
-    logger.error('Deployment failed:', error);
+    logger.error('Deployment failed:', errorToLogMeta(error));
     process.exit(1);
   }
 }

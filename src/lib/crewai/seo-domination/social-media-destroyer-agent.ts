@@ -1,6 +1,7 @@
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 import * as cron from 'node-cron';
 import type { BlogContent } from '@/types/content-factory';
@@ -300,7 +301,7 @@ export class SocialMediaDestroyerAgent {
 
       logger.info('✅ Social Media Domination Cycle Complete');
     } catch (error) {
-      logger.error('Social Media Domination Cycle Error:', error);
+      logger.error('Social Media Domination Cycle Error:', errorToLogMeta(error));
     }
   }
 
@@ -325,7 +326,7 @@ export class SocialMediaDestroyerAgent {
         logger.info(`🔥 Created viral campaign: ${opportunity.hook}`);
       }
     } catch (error) {
-      logger.error('Failed to create viral content:', error);
+      logger.error('Failed to create viral content:', errorToLogMeta(error));
     }
   }
 
@@ -436,7 +437,7 @@ Format as JSON with:
 
         logger.info(`📊 Monitored ${competitor.name}: ${activities.length} posts analyzed`);
       } catch (error) {
-        logger.error(`Failed to monitor ${competitor.name}:`, error);
+        logger.error(`Failed to monitor ${competitor.name}:`, errorToLogMeta(error));
       }
     }
 
@@ -463,7 +464,7 @@ Format as JSON with:
 
       logger.info('🤝 Community engagement activities completed');
     } catch (error) {
-      logger.error('Failed to build community engagement:', error);
+      logger.error('Failed to build community engagement:', errorToLogMeta(error));
     }
   }
 
@@ -486,7 +487,7 @@ Format as JSON with:
 
       logger.info('🔗 Backlink generation completed');
     } catch (error) {
-      logger.error('Failed to generate backlinks:', error);
+      logger.error('Failed to generate backlinks:', errorToLogMeta(error));
     }
   }
 
@@ -511,7 +512,7 @@ Format as JSON with:
         await this.trackCrossPosting(post.campaignId);
       }
     } catch (error) {
-      logger.error('Cross-posting strategy failed:', error);
+      logger.error('Cross-posting strategy failed:', errorToLogMeta(error));
     }
   }
 
@@ -538,7 +539,7 @@ Format as JSON with:
         }
       }
     } catch (error) {
-      logger.error('Failed to monitor engagement:', error);
+      logger.error('Failed to monitor engagement:', errorToLogMeta(error));
     }
   }
 
@@ -556,7 +557,7 @@ Format as JSON with:
 
       logger.info(`✅ Posted to Facebook: ${response.data.id}`);
     } catch (error) {
-      logger.error('Facebook posting failed:', error);
+      logger.error('Facebook posting failed:', errorToLogMeta(error));
     }
   }
 
@@ -568,7 +569,7 @@ Format as JSON with:
       // Would use Twitter API client here
       logger.info(`✅ Posted to Twitter: ${content.substring(0, 50)}...`);
     } catch (error) {
-      logger.error('Twitter posting failed:', error);
+      logger.error('Twitter posting failed:', errorToLogMeta(error));
     }
   }
 
@@ -603,7 +604,7 @@ Format as JSON with:
 
       logger.info(`✅ Posted to LinkedIn: ${response.data.id}`);
     } catch (error) {
-      logger.error('LinkedIn posting failed:', error);
+      logger.error('LinkedIn posting failed:', errorToLogMeta(error));
     }
   }
 
@@ -632,7 +633,7 @@ Format as JSON with:
 
       logger.info(`✅ Posted to Instagram: ${publishResponse.data.id}`);
     } catch (error) {
-      logger.error('Instagram posting failed:', error);
+      logger.error('Instagram posting failed:', errorToLogMeta(error));
     }
   }
 
@@ -848,7 +849,9 @@ Format as JSON with:
         comments: (post as CompetitorPost & { comments?: number }).comments || 0,
         shares: (post as CompetitorPost & { shares?: number }).shares || 0,
       },
-      timestamp: new Date((post as CompetitorPost & { created_at?: string | number }).created_at || Date.now()),
+      timestamp: new Date(
+        (post as CompetitorPost & { created_at?: string | number }).created_at || Date.now()
+      ),
       viralPotential: Math.random(), // Would calculate based on engagement rate
     };
   }
@@ -885,7 +888,7 @@ Format as JSON with:
           mediaUrls: socialContent.visualConcept ? [socialContent.visualConcept] : undefined,
         });
       } catch (error) {
-        logger.error(`Failed to publish to ${platform}:`, error);
+        logger.error(`Failed to publish to ${platform}:`, errorToLogMeta(error));
       }
     }
   }
@@ -949,7 +952,9 @@ Format as JSON with:
 
   private async shareInCommunities(content: SocialPost): Promise<void> {
     // Share in relevant online communities
-    logger.info(`Sharing linkable content in communities: ${(content as LinkableContent & { title?: string }).title || 'content'}`);
+    logger.info(
+      `Sharing linkable content in communities: ${(content as LinkableContent & { title?: string }).title || 'content'}`
+    );
   }
 
   private async engageInfluencers(content: SocialPost): Promise<void> {
@@ -962,7 +967,9 @@ Format as JSON with:
     logger.info('Submitting to legal content aggregators');
   }
 
-  private async getScheduledPosts(): Promise<Array<{ platform: string; scheduledFor: Date; content: unknown }>> {
+  private async getScheduledPosts(): Promise<
+    Array<{ platform: string; scheduledFor: Date; content: unknown }>
+  > {
     // Get posts scheduled for cross-posting
     const scheduled = await this.prisma?.contentSchedule.findMany({
       where: {
@@ -1010,7 +1017,9 @@ Format as JSON with:
     }
   }
 
-  private async getRecentPosts(): Promise<Array<{ id: string; status: string; scheduledFor: Date }>> {
+  private async getRecentPosts(): Promise<
+    Array<{ id: string; status: string; scheduledFor: Date }>
+  > {
     // Get posts from the last 24 hours
     return (
       (await this.prisma?.contentSchedule.findMany({
@@ -1022,7 +1031,9 @@ Format as JSON with:
     );
   }
 
-  private async fetchPostEngagement(post: SocialPost): Promise<{ rate: number; likes: number; comments: number; shares: number }> {
+  private async fetchPostEngagement(
+    post: SocialPost
+  ): Promise<{ rate: number; likes: number; comments: number; shares: number }> {
     // Fetch engagement metrics for a post
     return {
       rate: Math.random() * 0.1, // 0-10% engagement rate
@@ -1034,7 +1045,9 @@ Format as JSON with:
 
   private async boostPost(post: SocialPost): Promise<void> {
     // Boost underperforming posts
-    logger.info(`Boosting post: ${(post as SocialPost & { blogPostId?: string }).blogPostId || 'post'}`);
+    logger.info(
+      `Boosting post: ${(post as SocialPost & { blogPostId?: string }).blogPostId || 'post'}`
+    );
 
     // Add engagement prompt
     const boostComment = 'Have you or someone you know experienced this? Share your story below 👇';
@@ -1044,7 +1057,9 @@ Format as JSON with:
 
   private async engageWithComments(post: SocialPost): Promise<void> {
     // Engage with high-comment posts
-    logger.info(`Engaging with comments on post: ${(post as SocialPost & { blogPostId?: string }).blogPostId || 'post'}`);
+    logger.info(
+      `Engaging with comments on post: ${(post as SocialPost & { blogPostId?: string }).blogPostId || 'post'}`
+    );
   }
 
   private async analyzeAndOptimize(): Promise<void> {

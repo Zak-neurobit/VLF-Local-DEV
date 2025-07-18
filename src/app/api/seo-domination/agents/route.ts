@@ -50,7 +50,7 @@ async function handleGET(request: NextRequest) {
       },
     });
   } catch (error) {
-    logger.error('Agent metrics API error:', error);
+    logger.error('Agent metrics API error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to fetch agent metrics' }, { status: 500 });
   }
 }
@@ -186,7 +186,7 @@ async function handlePOST(request: NextRequest) {
       result,
     });
   } catch (error) {
-    logger.error('Agent action API error:', error);
+    logger.error('Agent action API error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to execute agent action' }, { status: 500 });
   }
 }

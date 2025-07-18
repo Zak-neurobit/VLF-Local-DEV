@@ -2,6 +2,7 @@ import OpenAI from 'openai';
 import { AgentOrchestrator, AgentContext, AgentResponse } from '@/lib/agents/agent-orchestrator';
 import { t } from '@/lib/translations';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { performance } from 'perf_hooks';
 import { EventEmitter } from 'events';
 
@@ -301,7 +302,7 @@ export class EnhancedChatService extends EventEmitter {
       // Final fallback
       return this.getFallbackResponse(content, context);
     } catch (error) {
-      logger.error('Enhanced chat service error:', error);
+      logger.error('Enhanced chat service error:', errorToLogMeta(error));
       this.recordFailure();
       return this.getErrorResponse(error, context);
     }
@@ -787,7 +788,7 @@ export class EnhancedChatService extends EventEmitter {
    * Get error response
    */
   private getErrorResponse(error: any, context: EnhancedMessageContext): EnhancedChatResponse {
-    logger.error('Chat service error:', error);
+    logger.error('Chat service error:', errorToLogMeta(error));
 
     const response =
       context.language === 'es'

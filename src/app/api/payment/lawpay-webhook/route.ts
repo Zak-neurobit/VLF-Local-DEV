@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 import crypto from 'crypto';
 
@@ -73,7 +74,7 @@ export async function POST(request: NextRequest) {
       }),
     });
   } catch (error) {
-    logger.error('Payment session creation failed', { error });
+    logger.error('Payment session creation failed', errorToLogMeta(error));
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -116,7 +117,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(payment);
   } catch (error) {
-    logger.error('Payment status check failed', { error });
+    logger.error('Payment status check failed', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to retrieve payment status' }, { status: 500 });
   }
 }

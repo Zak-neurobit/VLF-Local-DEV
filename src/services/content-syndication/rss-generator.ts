@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma-safe';
 import RSS from 'rss';
 import { z } from 'zod';
@@ -15,7 +16,8 @@ export class RSSFeedGenerator {
     this.registerFeed({
       id: 'main-blog',
       title: 'Vasquez Law Firm - Legal Insights & Updates',
-      description: 'Expert legal advice and updates on immigration, criminal defense, family law, and personal injury from Vasquez Law Firm',
+      description:
+        'Expert legal advice and updates on immigration, criminal defense, family law, and personal injury from Vasquez Law Firm',
       feedUrl: 'https://vasquezlawfirm.com/feed',
       siteUrl: 'https://vasquezlawfirm.com',
       language: 'en',
@@ -27,7 +29,8 @@ export class RSSFeedGenerator {
     this.registerFeed({
       id: 'spanish-blog',
       title: 'Vasquez Law Firm - Información Legal en Español',
-      description: 'Asesoramiento legal experto y actualizaciones sobre inmigración, defensa criminal, derecho familiar y lesiones personales',
+      description:
+        'Asesoramiento legal experto y actualizaciones sobre inmigración, defensa criminal, derecho familiar y lesiones personales',
       feedUrl: 'https://vasquezlawfirm.com/es/feed',
       siteUrl: 'https://vasquezlawfirm.com/es',
       language: 'es',
@@ -100,7 +103,8 @@ export class RSSFeedGenerator {
       podcastConfig: {
         author: 'Vasquez Law Firm',
         subtitle: 'Legal insights and advice from experienced attorneys',
-        summary: 'Join the attorneys at Vasquez Law Firm for weekly discussions on immigration, criminal defense, family law, and personal injury topics.',
+        summary:
+          'Join the attorneys at Vasquez Law Firm for weekly discussions on immigration, criminal defense, family law, and personal injury topics.',
         owner: {
           name: 'Vasquez Law Firm',
           email: 'podcast@vasquezlawfirm.com',
@@ -145,21 +149,25 @@ export class RSSFeedGenerator {
             { 'itunes:author': feedConfig.podcastConfig?.author },
             { 'itunes:subtitle': feedConfig.podcastConfig?.subtitle },
             { 'itunes:summary': feedConfig.podcastConfig?.summary },
-            { 'itunes:owner': [
-              { 'itunes:name': feedConfig.podcastConfig?.owner.name },
-              { 'itunes:email': feedConfig.podcastConfig?.owner.email },
-            ]},
+            {
+              'itunes:owner': [
+                { 'itunes:name': feedConfig.podcastConfig?.owner.name },
+                { 'itunes:email': feedConfig.podcastConfig?.owner.email },
+              ],
+            },
             { 'itunes:image': { _attr: { href: feedConfig.podcastConfig?.image } } },
-            { 'itunes:category': [
-              {
-                _attr: { text: feedConfig.podcastConfig?.category },
-              },
-              feedConfig.podcastConfig?.subcategory && {
-                'itunes:category': {
-                  _attr: { text: feedConfig.podcastConfig.subcategory },
+            {
+              'itunes:category': [
+                {
+                  _attr: { text: feedConfig.podcastConfig?.category },
                 },
-              },
-            ].filter(Boolean)},
+                feedConfig.podcastConfig?.subcategory && {
+                  'itunes:category': {
+                    _attr: { text: feedConfig.podcastConfig.subcategory },
+                  },
+                },
+              ].filter(Boolean),
+            },
             { 'itunes:explicit': feedConfig.podcastConfig?.explicit ? 'yes' : 'no' },
           ],
         }),
@@ -182,9 +190,7 @@ export class RSSFeedGenerator {
 
         // Add custom content for different types
         if (item.content) {
-          feedItem.custom_elements = [
-            { 'content:encoded': { _cdata: item.content } },
-          ];
+          feedItem.custom_elements = [{ 'content:encoded': { _cdata: item.content } }];
         }
 
         // Add media enclosures
@@ -202,7 +208,7 @@ export class RSSFeedGenerator {
             type: 'audio/mpeg',
             length: item.audioSize || 0,
           };
-          
+
           feedItem.custom_elements = [
             ...(feedItem.custom_elements || []),
             { 'itunes:duration': item.duration || '00:00' },
@@ -218,7 +224,7 @@ export class RSSFeedGenerator {
 
       return feed.xml({ indent: true });
     } catch (error) {
-      logger.error(`Failed to generate RSS feed ${feedId}:`, error);
+      logger.error(`Failed to generate RSS feed ${feedId}:`, errorToLogMeta(error));
       throw error;
     }
   }
@@ -264,7 +270,7 @@ export class RSSFeedGenerator {
           },
         });
         break;
-      
+
       case 'news':
         content = await prisma.newsArticle.findMany({
           where,
@@ -275,7 +281,7 @@ export class RSSFeedGenerator {
           },
         });
         break;
-      
+
       case 'podcast':
         content = await prisma.podcastEpisode.findMany({
           where,
@@ -295,7 +301,7 @@ export class RSSFeedGenerator {
 
   private transformContentForFeed(item: any, type: string): any {
     const baseUrl = 'https://vasquezlawfirm.com';
-    
+
     switch (type) {
       case 'blog':
         return {
@@ -307,12 +313,14 @@ export class RSSFeedGenerator {
           publishedAt: item.publishedAt,
           author: item.author,
           categories: item.categories?.map((c: any) => c.name) || [],
-          featuredImage: item.featuredImage ? {
-            url: item.featuredImage,
-            mimeType: 'image/jpeg',
-          } : null,
+          featuredImage: item.featuredImage
+            ? {
+                url: item.featuredImage,
+                mimeType: 'image/jpeg',
+              }
+            : null,
         };
-      
+
       case 'news':
         return {
           id: item.id,
@@ -324,7 +332,7 @@ export class RSSFeedGenerator {
           author: item.author,
           categories: ['News'],
         };
-      
+
       case 'podcast':
         return {
           id: item.id,
@@ -342,7 +350,7 @@ export class RSSFeedGenerator {
           seasonNumber: item.seasonNumber,
           explicit: false,
         };
-      
+
       default:
         return item;
     }
@@ -351,19 +359,19 @@ export class RSSFeedGenerator {
   // Generate all feeds
   async generateAllFeeds(): Promise<Map<string, string>> {
     const generatedFeeds = new Map<string, string>();
-    
+
     for (const [feedId, config] of this.feeds) {
       if (!config.enabled) continue;
-      
+
       try {
         const feedXml = await this.generateFeed(feedId);
         generatedFeeds.set(feedId, feedXml);
         logger.info(`Generated RSS feed: ${feedId}`);
       } catch (error) {
-        logger.error(`Failed to generate feed ${feedId}:`, error);
+        logger.error(`Failed to generate feed ${feedId}:`, errorToLogMeta(error));
       }
     }
-    
+
     return generatedFeeds;
   }
 
@@ -372,7 +380,7 @@ export class RSSFeedGenerator {
     for (const [feedId, feedXml] of feeds) {
       const config = this.feeds.get(feedId);
       if (!config) continue;
-      
+
       try {
         // Save to database
         await prisma.rssFeed.upsert({
@@ -388,12 +396,12 @@ export class RSSFeedGenerator {
             content: feedXml,
           },
         });
-        
+
         // Also save to file system for direct serving
         // Implementation would save to public directory
         logger.info(`Saved RSS feed: ${feedId}`);
       } catch (error) {
-        logger.error(`Failed to save feed ${feedId}:`, error);
+        logger.error(`Failed to save feed ${feedId}:`, errorToLogMeta(error));
       }
     }
   }
@@ -431,14 +439,14 @@ export class RSSFeedGenerator {
         return config.contentFilter.type === contentType;
       })
       .map(([id]) => id);
-    
+
     for (const feedId of affectedFeeds) {
       try {
         const feedXml = await this.generateFeed(feedId);
         await this.saveFeeds(new Map([[feedId, feedXml]]));
         logger.info(`Updated feed ${feedId} for new ${contentType} content`);
       } catch (error) {
-        logger.error(`Failed to update feed ${feedId}:`, error);
+        logger.error(`Failed to update feed ${feedId}:`, errorToLogMeta(error));
       }
     }
   }

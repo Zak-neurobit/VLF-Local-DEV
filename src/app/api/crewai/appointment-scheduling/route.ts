@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       );
     }
   } catch (error) {
-    logger.error('Appointment scheduling API error:', error);
+    logger.error('Appointment scheduling API error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to process appointment request' }, { status: 500 });
   }
 }
@@ -183,7 +183,7 @@ async function handleBookAppointment(body: {
       );
     }
   } catch (error) {
-    logger.error('Appointment booking error:', error);
+    logger.error('Appointment booking error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to book appointment' }, { status: 500 });
   }
 }
@@ -218,7 +218,7 @@ export async function GET(request: NextRequest) {
       completedAt: task.completedAt,
     });
   } catch (error) {
-    logger.error('Appointment scheduling status check error:', error);
+    logger.error('Appointment scheduling status check error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to check task status' }, { status: 500 });
   }
 }

@@ -2,6 +2,7 @@ import { getRetellService } from './index';
 import { RetellAgentManager } from './agent-manager-v2';
 import { ghlService } from '@/services/gohighlevel';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 
 interface CallRoutingOptions {
@@ -90,7 +91,7 @@ export class CallRoutingService {
 
       return routeDecision;
     } catch (error) {
-      logger.error('Call routing failed:', error);
+      logger.error('Call routing failed:', errorToLogMeta(error));
 
       // Fallback to general agent
       const fallbackAgentId = await RetellAgentManager.getAgentForPracticeArea('general');
@@ -134,7 +135,7 @@ export class CallRoutingService {
 
       return null;
     } catch (error) {
-      logger.error('Failed to get existing contact info:', error);
+      logger.error('Failed to get existing contact info:', errorToLogMeta(error));
       return null;
     }
   }
@@ -522,7 +523,7 @@ export class CallRoutingService {
         routeDecision,
       };
     } catch (error) {
-      logger.error('Failed to create routed call:', error);
+      logger.error('Failed to create routed call:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -543,7 +544,7 @@ export class CallRoutingService {
 
       return await this.createRoutedCall(options);
     } catch (error) {
-      logger.error('Failed to handle inbound call:', error);
+      logger.error('Failed to handle inbound call:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -606,7 +607,7 @@ export class CallRoutingService {
 
       return analytics;
     } catch (error) {
-      logger.error('Failed to get routing analytics:', error);
+      logger.error('Failed to get routing analytics:', errorToLogMeta(error));
       throw error;
     }
   }

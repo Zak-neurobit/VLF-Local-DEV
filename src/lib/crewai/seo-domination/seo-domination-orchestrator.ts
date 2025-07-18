@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { BlogContentDominationAgent } from './blog-content-domination-agent';
 import { GoogleMyBusinessKillerAgent } from './google-my-business-killer-agent';
 import { SocialMediaDestroyerAgent } from './social-media-destroyer-agent';
@@ -106,7 +107,7 @@ export class SEODominationOrchestrator {
 
       logger.info('✅ SEO DOMINATION SYSTEM FULLY OPERATIONAL - COMPETITORS BEWARE! 🔥');
     } catch (error) {
-      logger.error('Failed to start SEO Domination System:', error);
+      logger.error('Failed to start SEO Domination System:', errorToLogMeta(error));
       this.isRunning = false;
       throw error;
     }
@@ -201,7 +202,7 @@ export class SEODominationOrchestrator {
 
       logger.info('✅ Agent coordination complete - unified front established!');
     } catch (error) {
-      logger.error('Agent coordination failed:', error);
+      logger.error('Agent coordination failed:', errorToLogMeta(error));
     }
   }
 
@@ -229,7 +230,7 @@ export class SEODominationOrchestrator {
       // Store metrics for tracking
       await this.storePerformanceMetrics(metrics);
     } catch (error) {
-      logger.error('Performance monitoring failed:', error);
+      logger.error('Performance monitoring failed:', errorToLogMeta(error));
     }
   }
 
@@ -680,7 +681,7 @@ export class SEODominationOrchestrator {
         },
       });
     } catch (error) {
-      logger.error('Failed to store performance metrics:', error);
+      logger.error('Failed to store performance metrics:', errorToLogMeta(error));
     }
   }
 

@@ -2,6 +2,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import { APISafetyWrapper } from '@/lib/api-safety';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
 export class BusinessImmigrationAgent {
   private model: ChatOpenAI | null = null;
@@ -77,7 +78,7 @@ Provide:
 
       return this.parseVisaAnalysis(response.content as string, params);
     } catch (error) {
-      logger.error('Visa analysis failed', error);
+      logger.error('Visa analysis failed', errorToLogMeta(error));
       return this.getMockVisaAnalysis(params);
     }
   }
@@ -115,7 +116,7 @@ Special Requirements: ${params.specialRequirements || 'None'}`;
 
       return this.parsePERMStrategy(response.content as string);
     } catch (error) {
-      logger.error('PERM strategy preparation failed', error);
+      logger.error('PERM strategy preparation failed', errorToLogMeta(error));
       return this.getMockPERMStrategy(params);
     }
   }
@@ -153,20 +154,23 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
 
       return this.parseH1BAssessment(response.content as string);
     } catch (error) {
-      logger.error('H1B assessment failed', error);
+      logger.error('H1B assessment failed', errorToLogMeta(error));
       return this.getMockH1BAssessment(params);
     }
   }
 
-  private parseVisaAnalysis(content: string, params: {
-    companyName: string;
-    position: string;
-    education: string;
-    experience: string;
-    currentStatus?: string;
-    salary?: string;
-    companySize?: string;
-  }): VisaAnalysis {
+  private parseVisaAnalysis(
+    content: string,
+    params: {
+      companyName: string;
+      position: string;
+      education: string;
+      experience: string;
+      currentStatus?: string;
+      salary?: string;
+      companySize?: string;
+    }
+  ): VisaAnalysis {
     const sections = content.split('\n\n');
 
     return {
@@ -302,10 +306,7 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
       .filter(item => item.length > 0);
   }
 
-  private getMockVisaAnalysis(params: {
-    companyName: string;
-    position: string;
-  }): VisaAnalysis {
+  private getMockVisaAnalysis(params: { companyName: string; position: string }): VisaAnalysis {
     return {
       recommendedVisas: [
         { type: 'H-1B', priority: 'primary', timeline: '4-6 months' },
@@ -333,10 +334,7 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
     };
   }
 
-  private getMockPERMStrategy(params: {
-    companyName: string;
-    position: string;
-  }): PERMStrategy {
+  private getMockPERMStrategy(params: { companyName: string; position: string }): PERMStrategy {
     return {
       jobRequirements: [
         "Bachelor's degree in Computer Science or related field",
@@ -368,10 +366,7 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
     };
   }
 
-  private getMockH1BAssessment(params: {
-    companyName: string;
-    position: string;
-  }): H1BAssessment {
+  private getMockH1BAssessment(params: { companyName: string; position: string }): H1BAssessment {
     return {
       specialtyOccupation: true,
       degreeRelated: true,

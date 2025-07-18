@@ -2,6 +2,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import { APISafetyWrapper } from '@/lib/api-safety';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
 export class EnhancedBusinessImmigrationAgent {
   private model: ChatOpenAI | null = null;
@@ -90,7 +91,7 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
 
       return this.parseResponse(response.content as string);
     } catch (error) {
-      logger.error('H-1B analysis failed', error);
+      logger.error('H-1B analysis failed', errorToLogMeta(error));
       return this.getMockAnalysis('h1b', params);
     }
   }
@@ -123,7 +124,7 @@ Ready for Recruitment: ${params.recruitmentReady ? 'Yes' : 'No'}`;
 
       return this.parseResponse(response.content as string);
     } catch (error) {
-      logger.error('PERM preparation failed', error);
+      logger.error('PERM preparation failed', errorToLogMeta(error));
       return this.getMockAnalysis('perm', params);
     }
   }
@@ -153,7 +154,7 @@ Current Position: ${params.currentPosition || 'N/A'}`;
 
       return this.parseResponse(response.content as string);
     } catch (error) {
-      logger.error('EB-1 assessment failed', error);
+      logger.error('EB-1 assessment failed', errorToLogMeta(error));
       return this.getMockAnalysis('eb1', params);
     }
   }
@@ -185,12 +186,15 @@ Corporate Relationship: ${params.relationship}`;
 
       return this.parseResponse(response.content as string);
     } catch (error) {
-      logger.error('L-1 analysis failed', error);
+      logger.error('L-1 analysis failed', errorToLogMeta(error));
       return this.getMockAnalysis('l1', params);
     }
   }
 
-  private getMockAnalysis(type: string, params: Record<string, unknown>): BusinessImmigrationAnalysis {
+  private getMockAnalysis(
+    type: string,
+    params: Record<string, unknown>
+  ): BusinessImmigrationAnalysis {
     const mockData = {
       h1b: {
         summary: 'H-1B petition requires careful documentation of specialty occupation',

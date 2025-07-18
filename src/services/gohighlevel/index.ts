@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 import { APISafetyWrapper } from '@/lib/api-safety';
 import { envConfig, SERVICE_CONFIGS } from '@/lib/env-config';
@@ -89,7 +90,7 @@ export class GoHighLevelService {
         return await this.createContact(validated);
       }
     } catch (error) {
-      logger.error('Failed to upsert GHL contact:', error);
+      logger.error('Failed to upsert GHL contact:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -118,7 +119,7 @@ export class GoHighLevelService {
       logger.info('GHL contact created', { contactId: contact.id });
       return contact;
     } catch (error) {
-      logger.error('Failed to create GHL contact:', error);
+      logger.error('Failed to create GHL contact:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -144,7 +145,7 @@ export class GoHighLevelService {
       logger.info('GHL contact updated', { contactId: contact.id });
       return contact;
     } catch (error) {
-      logger.error('Failed to update GHL contact:', error);
+      logger.error('Failed to update GHL contact:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -165,7 +166,7 @@ export class GoHighLevelService {
       const contacts = await response.json();
       return contacts.contacts?.[0] || null;
     } catch (error) {
-      logger.error('Failed to find GHL contact:', error);
+      logger.error('Failed to find GHL contact:', errorToLogMeta(error));
       return null;
     }
   }
@@ -212,7 +213,7 @@ export class GoHighLevelService {
 
       return result;
     } catch (error) {
-      logger.error('Failed to send SMS via GHL:', error);
+      logger.error('Failed to send SMS via GHL:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -239,7 +240,7 @@ export class GoHighLevelService {
         message,
       });
     } catch (error) {
-      logger.error('Failed to send SMS by phone:', error);
+      logger.error('Failed to send SMS by phone:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -272,7 +273,7 @@ export class GoHighLevelService {
 
       return await response.json();
     } catch (error) {
-      logger.error('Failed to trigger GHL campaign:', error);
+      logger.error('Failed to trigger GHL campaign:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -312,7 +313,7 @@ export class GoHighLevelService {
         campaignId,
       });
     } catch (error) {
-      logger.error('Failed to add contact to campaign:', error);
+      logger.error('Failed to add contact to campaign:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -376,7 +377,7 @@ export class GoHighLevelService {
           where: { id: appointment.id },
           data: {
             metadata: {
-              ...(currentAppointment.metadata as Record<string, unknown> || {}),
+              ...((currentAppointment.metadata as Record<string, unknown>) || {}),
               reminderSent: true,
               reminderSentAt: new Date().toISOString(),
               ghlContactId: contact.id,
@@ -387,7 +388,7 @@ export class GoHighLevelService {
 
       return contact;
     } catch (error) {
-      logger.error('Failed to send appointment reminder via GHL:', error);
+      logger.error('Failed to send appointment reminder via GHL:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -431,7 +432,7 @@ export class GoHighLevelService {
           logger.warn('Unknown GHL webhook type', { type: event.type });
       }
     } catch (error) {
-      logger.error('Failed to handle GHL webhook:', error);
+      logger.error('Failed to handle GHL webhook:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -460,7 +461,7 @@ export class GoHighLevelService {
         });
       }
     } catch (error) {
-      logger.error('Failed to handle inbound message:', error);
+      logger.error('Failed to handle inbound message:', errorToLogMeta(error));
     }
   }
 
@@ -509,7 +510,7 @@ export class GoHighLevelService {
             data: {
               status: 'confirmed',
               metadata: {
-                ...(appointment.metadata as Record<string, unknown> || {}),
+                ...((appointment.metadata as Record<string, unknown>) || {}),
                 confirmed: true,
                 confirmedAt: new Date().toISOString(),
               },
@@ -549,7 +550,7 @@ export class GoHighLevelService {
         tags: [`completed-${campaignId}`],
       });
     } catch (error) {
-      logger.error('Failed to handle campaign completion:', error);
+      logger.error('Failed to handle campaign completion:', errorToLogMeta(error));
     }
   }
 
@@ -566,7 +567,7 @@ export class GoHighLevelService {
 
       return await response.json();
     } catch (error) {
-      logger.error('Failed to get GHL contact:', error);
+      logger.error('Failed to get GHL contact:', errorToLogMeta(error));
       return null;
     }
   }
@@ -605,7 +606,7 @@ export class GoHighLevelService {
       });
       */
     } catch (error) {
-      logger.error('Failed to sync contact to database:', error);
+      logger.error('Failed to sync contact to database:', errorToLogMeta(error));
     }
   }
 
@@ -647,7 +648,7 @@ export class GoHighLevelService {
       });
       */
     } catch (error) {
-      logger.error('Failed to log SMS:', error);
+      logger.error('Failed to log SMS:', errorToLogMeta(error));
     }
   }
 
@@ -730,7 +731,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return await response.json();
     } catch (error) {
-      logger.error('Failed to get GHL campaigns:', error);
+      logger.error('Failed to get GHL campaigns:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -767,7 +768,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
       logger.info('GHL opportunity created', { opportunityId: opportunity.id });
       return opportunity;
     } catch (error) {
-      logger.error('Failed to create GHL opportunity:', error);
+      logger.error('Failed to create GHL opportunity:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -819,7 +820,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return appointment;
     } catch (error) {
-      logger.error('Failed to schedule GHL appointment:', error);
+      logger.error('Failed to schedule GHL appointment:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -849,7 +850,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return await response.json();
     } catch (error) {
-      logger.error('Failed to get available slots:', error);
+      logger.error('Failed to get available slots:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -892,7 +893,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return appointment;
     } catch (error) {
-      logger.error('Failed to update GHL appointment:', error);
+      logger.error('Failed to update GHL appointment:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -905,7 +906,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         notes: reason ? `Cancelled: ${reason}` : 'Appointment cancelled',
       });
     } catch (error) {
-      logger.error('Failed to cancel GHL appointment:', error);
+      logger.error('Failed to cancel GHL appointment:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -926,7 +927,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return result;
     } catch (error) {
-      logger.error('Failed to trigger call campaign:', error);
+      logger.error('Failed to trigger call campaign:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -966,7 +967,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return task;
     } catch (error) {
-      logger.error('Failed to create GHL task:', error);
+      logger.error('Failed to create GHL task:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -992,7 +993,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return result;
     } catch (error) {
-      logger.error('Failed to add note:', error);
+      logger.error('Failed to add note:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1010,7 +1011,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return await response.json();
     } catch (error) {
-      logger.error('Failed to get contact activities:', error);
+      logger.error('Failed to get contact activities:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1032,7 +1033,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return await response.json();
     } catch (error) {
-      logger.error('Failed to get GHL pipelines:', error);
+      logger.error('Failed to get GHL pipelines:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1061,7 +1062,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return opportunity;
     } catch (error) {
-      logger.error('Failed to move opportunity stage:', error);
+      logger.error('Failed to move opportunity stage:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1082,7 +1083,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
       const contacts = await response.json();
       return contacts.contacts?.[0] || null;
     } catch (error) {
-      logger.error('Failed to find GHL contact by email:', error);
+      logger.error('Failed to find GHL contact by email:', errorToLogMeta(error));
       return null;
     }
   }
@@ -1145,7 +1146,8 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
       // Filter by tags if specified
       if (filters?.tags && filters.tags.length > 0) {
         results.contacts = results.contacts.filter(
-          (contact: { tags?: string[] }) => filters.tags?.some(tag => contact.tags?.includes(tag)) ?? false
+          (contact: { tags?: string[] }) =>
+            filters.tags?.some(tag => contact.tags?.includes(tag)) ?? false
         );
       }
 
@@ -1159,7 +1161,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return results;
     } catch (error) {
-      logger.error('Failed to search contacts:', error);
+      logger.error('Failed to search contacts:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1210,7 +1212,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         locationId: this.config.locationId,
       });
     } catch (error) {
-      logger.error('Failed to get or create contact:', error);
+      logger.error('Failed to get or create contact:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1232,7 +1234,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return await response.json();
     } catch (error) {
-      logger.error('Failed to get calendars:', error);
+      logger.error('Failed to get calendars:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1253,7 +1255,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return await response.json();
     } catch (error) {
-      logger.error('Failed to get custom fields:', error);
+      logger.error('Failed to get custom fields:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1271,7 +1273,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return await response.json();
     } catch (error) {
-      logger.error('Failed to get location settings:', error);
+      logger.error('Failed to get location settings:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1294,7 +1296,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return signature === expectedSignature;
     } catch (error) {
-      logger.error('Failed to validate webhook signature:', error);
+      logger.error('Failed to validate webhook signature:', errorToLogMeta(error));
       return false;
     }
   }
@@ -1310,7 +1312,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
       const status = await this.getServiceStatus();
       return status.status === 'connected';
     } catch (error) {
-      logger.error('Failed to test GHL connection:', error);
+      logger.error('Failed to test GHL connection:', errorToLogMeta(error));
       return false;
     }
   }
@@ -1477,7 +1479,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return result;
     } catch (error) {
-      logger.error('Failed to trigger voice call:', error);
+      logger.error('Failed to trigger voice call:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1518,7 +1520,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       return result;
     } catch (error) {
-      logger.error('Failed to send post-call SMS:', error);
+      logger.error('Failed to send post-call SMS:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1605,7 +1607,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         outcome: callData.outcome,
       });
     } catch (error) {
-      logger.error('Failed to update contact with call outcome:', error);
+      logger.error('Failed to update contact with call outcome:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1706,7 +1708,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         },
       };
     } catch (error) {
-      logger.error('Failed to get contact call analytics:', error);
+      logger.error('Failed to get contact call analytics:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1727,10 +1729,8 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
       };
 
       if (transcript) {
-        (updateData.customFields as Record<string, unknown>)[`call_${callId}_transcript`] = transcript.substring(
-          0,
-          2000
-        ); // Limit transcript length
+        (updateData.customFields as Record<string, unknown>)[`call_${callId}_transcript`] =
+          transcript.substring(0, 2000); // Limit transcript length
       }
 
       await this.updateContact(contactId, updateData);
@@ -1748,7 +1748,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         callId,
       });
     } catch (error) {
-      logger.error('Failed to sync call recording:', error);
+      logger.error('Failed to sync call recording:', errorToLogMeta(error));
       throw error;
     }
   }

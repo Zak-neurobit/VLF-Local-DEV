@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma-safe';
 import { emailService } from '@/services/email.service';
 import { z } from 'zod';
@@ -105,7 +106,14 @@ Warm regards,
 {attorneyTitle}
 Vasquez Law Firm, PLLC
       `,
-      variables: ['clientName', 'caseOutcome', 'platformLinks', 'practiceArea', 'attorneyName', 'attorneyTitle'],
+      variables: [
+        'clientName',
+        'caseOutcome',
+        'platformLinks',
+        'practiceArea',
+        'attorneyName',
+        'attorneyTitle',
+      ],
     });
 
     // Consultation template
@@ -201,7 +209,14 @@ Atentamente,
 {attorneyTitle}
 Vasquez Law Firm, PLLC
       `,
-      variables: ['clientName', 'caseOutcome', 'platformLinks', 'practiceArea', 'attorneyName', 'attorneyTitle'],
+      variables: [
+        'clientName',
+        'caseOutcome',
+        'platformLinks',
+        'practiceArea',
+        'attorneyName',
+        'attorneyTitle',
+      ],
       language: 'es',
     });
   }
@@ -230,7 +245,7 @@ Vasquez Law Firm, PLLC
         await this.scheduleCampaign(campaign, trigger);
       }
     } catch (error) {
-      logger.error('Failed to process review solicitation trigger:', error);
+      logger.error('Failed to process review solicitation trigger:', errorToLogMeta(error));
     }
   }
 
@@ -240,12 +255,15 @@ Vasquez Law Firm, PLLC
 
       // Check conditions
       const conditions = campaign.conditions;
-      
+
       if (conditions.caseOutcome && trigger.data.caseOutcome !== conditions.caseOutcome) {
         return false;
       }
 
-      if (conditions.clientSatisfaction && trigger.data.satisfaction < conditions.clientSatisfaction.min) {
+      if (
+        conditions.clientSatisfaction &&
+        trigger.data.satisfaction < conditions.clientSatisfaction.min
+      ) {
         return false;
       }
 
@@ -263,7 +281,7 @@ Vasquez Law Firm, PLLC
     trigger: CampaignTrigger
   ): Promise<void> {
     const client = trigger.data.client;
-    
+
     // Check if client has opted out
     const optedOut = await this.isOptedOut(client.id);
     if (optedOut) {
@@ -300,7 +318,7 @@ Vasquez Law Firm, PLLC
     if (campaign.timing.followUp1) {
       const followUp1Date = new Date();
       followUp1Date.setDate(followUp1Date.getDate() + campaign.timing.followUp1);
-      
+
       await this.scheduleEmail({
         campaignId: campaign.id,
         clientId: client.id,
@@ -340,7 +358,7 @@ Vasquez Law Firm, PLLC
 
   async sendScheduledEmails(): Promise<void> {
     const now = new Date();
-    
+
     const scheduledEmails = await prisma.scheduledEmail.findMany({
       where: {
         type: 'review_solicitation',
@@ -355,7 +373,7 @@ Vasquez Law Firm, PLLC
     for (const scheduledEmail of scheduledEmails) {
       try {
         await this.sendSolicitationEmail(scheduledEmail);
-        
+
         // Mark as sent
         await prisma.scheduledEmail.update({
           where: { id: scheduledEmail.id },
@@ -365,8 +383,8 @@ Vasquez Law Firm, PLLC
           },
         });
       } catch (error) {
-        logger.error(`Failed to send scheduled email ${scheduledEmail.id}:`, error);
-        
+        logger.error(`Failed to send scheduled email ${scheduledEmail.id}:`, errorToLogMeta(error));
+
         // Mark as failed
         await prisma.scheduledEmail.update({
           where: { id: scheduledEmail.id },
@@ -437,7 +455,7 @@ Vasquez Law Firm, PLLC
 
   private generatePlatformLinks(platforms: string[]): string {
     const links: string[] = [];
-    
+
     const platformUrls: Record<string, string> = {
       google: 'https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review',
       avvo: 'https://www.avvo.com/attorneys/YOUR_AVVO_PROFILE/reviews/write',
@@ -515,7 +533,7 @@ Vasquez Law Firm, PLLC
     const optOut = await prisma.reviewSolicitationOptOut.findUnique({
       where: { clientId },
     });
-    
+
     return !!optOut;
   }
 
@@ -590,20 +608,19 @@ Vasquez Law Firm, PLLC
       emailsSent,
       reviewsReceived,
       conversionRate,
-      averageRating: reviews.length > 0
-        ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
-        : 0,
+      averageRating:
+        reviews.length > 0 ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length : 0,
       platformBreakdown: this.calculatePlatformBreakdown(reviews),
     };
   }
 
   private calculatePlatformBreakdown(reviews: any[]): Record<string, number> {
     const breakdown: Record<string, number> = {};
-    
+
     reviews.forEach(review => {
       breakdown[review.platformId] = (breakdown[review.platformId] || 0) + 1;
     });
-    
+
     return breakdown;
   }
 }

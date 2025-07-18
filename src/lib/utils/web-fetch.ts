@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
 export interface SearchResult {
   url: string;
@@ -44,7 +45,7 @@ export class WebFetch {
         rank: index + 1,
       }));
     } catch (error) {
-      logger.error('Google Search API error:', error);
+      logger.error('Google Search API error:', errorToLogMeta(error));
       return this.getMockSearchResults(query, limit);
     }
   }
@@ -60,7 +61,7 @@ export class WebFetch {
 
       return this.getMockWebContent(url);
     } catch (error) {
-      logger.error(`Failed to fetch content from ${url}:`, error);
+      logger.error(`Failed to fetch content from ${url}:`, errorToLogMeta(error));
       return 'Unable to fetch content from this URL.';
     }
   }
@@ -82,7 +83,7 @@ export class WebFetch {
       const domain = new URL(url).hostname;
       return `${domain} - Legal Services`;
     } catch (error) {
-      logger.warn(`Failed to fetch page title for ${url}:`, error);
+      logger.warn(`Failed to fetch page title for ${url}:`, errorToLogMeta(error));
       return 'Legal Services Website';
     }
   }
@@ -307,7 +308,7 @@ For more information about our services or to schedule a consultation, please co
       const html = await response.text();
       return html;
     } catch (error) {
-      logger.error(`Failed to fetch HTML from ${url}:`, error);
+      logger.error(`Failed to fetch HTML from ${url}:`, errorToLogMeta(error));
       // Return mock HTML content
       return this.getMockWebContent(url);
     }

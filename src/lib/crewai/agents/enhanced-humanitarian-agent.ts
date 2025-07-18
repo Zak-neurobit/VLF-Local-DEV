@@ -2,6 +2,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import { APISafetyWrapper } from '@/lib/api-safety';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
 export class EnhancedHumanitarianAgent {
   private model: ChatOpenAI | null = null;
@@ -90,7 +91,7 @@ Previous Applications: ${params.previousApplications || 'None'}`;
 
       return this.parseResponse(response.content as string);
     } catch (error) {
-      logger.error('Asylum analysis failed', error);
+      logger.error('Asylum analysis failed', errorToLogMeta(error));
       return this.getMockAnalysis('asylum', params);
     }
   }
@@ -121,7 +122,7 @@ Certification: ${params.certificationStatus}`;
 
       return this.parseResponse(response.content as string);
     } catch (error) {
-      logger.error('U visa preparation failed', error);
+      logger.error('U visa preparation failed', errorToLogMeta(error));
       return this.getMockAnalysis('uvisa', params);
     }
   }
@@ -152,7 +153,7 @@ Criminal History: ${params.criminalHistory || 'None'}`;
 
       return this.parseResponse(response.content as string);
     } catch (error) {
-      logger.error('TPS assessment failed', error);
+      logger.error('TPS assessment failed', errorToLogMeta(error));
       return this.getMockAnalysis('tps', params);
     }
   }
@@ -183,7 +184,7 @@ Current Safety: ${params.currentSafety}`;
 
       return this.parseResponse(response.content as string);
     } catch (error) {
-      logger.error('VAWA analysis failed', error);
+      logger.error('VAWA analysis failed', errorToLogMeta(error));
       return this.getMockAnalysis('vawa', params);
     }
   }

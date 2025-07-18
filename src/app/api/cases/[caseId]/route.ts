@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { caseManagement } from '@/services/case-management';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { UserRole } from '@prisma/client';
 import { getPrismaClient } from '@/lib/prisma';
 
@@ -31,7 +32,7 @@ export async function GET(req: NextRequest, { params }: { params: { caseId: stri
 
     return NextResponse.json({ case: caseDetails });
   } catch (error) {
-    logger.error('Error fetching case details', error);
+    logger.error('Error fetching case details', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to fetch case details' }, { status: 500 });
   }
 }
@@ -59,7 +60,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { caseId: st
 
     return NextResponse.json({ case: updatedCase });
   } catch (error) {
-    logger.error('Error updating case', error);
+    logger.error('Error updating case', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to update case' }, { status: 500 });
   }
 }
@@ -85,7 +86,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { caseId: s
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    logger.error('Error archiving case', error);
+    logger.error('Error archiving case', errorToLogMeta(error));
     return NextResponse.json({ error: 'Failed to archive case' }, { status: 500 });
   }
 }

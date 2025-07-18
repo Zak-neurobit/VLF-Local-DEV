@@ -1,5 +1,6 @@
 import { ghlService } from './index';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 
 interface ChatSyncOptions {
@@ -60,7 +61,7 @@ export class GHLChatSyncService {
         isUserMessage,
       });
     } catch (error) {
-      logger.error('Failed to sync chat message to GHL:', error);
+      logger.error('Failed to sync chat message to GHL:', errorToLogMeta(error));
     }
   }
 
@@ -118,7 +119,7 @@ export class GHLChatSyncService {
         messageCount: conversation.messages.length,
       });
     } catch (error) {
-      logger.error('Failed to sync conversation transcript:', error);
+      logger.error('Failed to sync conversation transcript:', errorToLogMeta(error));
     }
   }
 
@@ -159,13 +160,16 @@ export class GHLChatSyncService {
 
       return contact;
     } catch (error) {
-      logger.error('Failed to create chat lead in GHL:', error);
+      logger.error('Failed to create chat lead in GHL:', errorToLogMeta(error));
       throw error;
     }
   }
 
   // Private helper methods
-  private async getOrCreateGHLContact(userId: string, metadata?: Record<string, unknown>): Promise<string | null> {
+  private async getOrCreateGHLContact(
+    userId: string,
+    metadata?: Record<string, unknown>
+  ): Promise<string | null> {
     try {
       // Check cache first
       if (this.contactCache.has(userId)) {
@@ -218,7 +222,7 @@ export class GHLChatSyncService {
 
       return null;
     } catch (error) {
-      logger.error('Failed to get or create GHL contact:', error);
+      logger.error('Failed to get or create GHL contact:', errorToLogMeta(error));
       return null;
     }
   }
@@ -430,9 +434,12 @@ export class GHLChatSyncService {
     return hasAppointmentInterest && hasContactInfo;
   }
 
-  private async triggerFollowUpCampaign(contactId: string, conversation: {
-    messages: Array<{ content: string }>;
-  }) {
+  private async triggerFollowUpCampaign(
+    contactId: string,
+    conversation: {
+      messages: Array<{ content: string }>;
+    }
+  ) {
     const campaignId = process.env.GHL_CHAT_FOLLOWUP_CAMPAIGN_ID;
     if (!campaignId) return;
 
@@ -448,7 +455,7 @@ export class GHLChatSyncService {
         assignedTo: process.env.GHL_DEFAULT_USER_ID,
       });
     } catch (error) {
-      logger.error('Failed to trigger follow-up campaign:', error);
+      logger.error('Failed to trigger follow-up campaign:', errorToLogMeta(error));
     }
   }
 

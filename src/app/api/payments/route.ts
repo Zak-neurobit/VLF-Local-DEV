@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { paymentService } from '@/services/payment';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { z } from 'zod';
 import { withPaymentTracing } from '@/lib/telemetry/api-middleware';
 
@@ -200,7 +201,7 @@ async function handlePOST(request: NextRequest) {
         return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
     }
   } catch (error) {
-    logger.error('Payment API error:', error);
+    logger.error('Payment API error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -274,7 +275,7 @@ async function handleGET(request: NextRequest) {
         return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
     }
   } catch (error) {
-    logger.error('Payment API GET error:', error);
+    logger.error('Payment API GET error:', errorToLogMeta(error));
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

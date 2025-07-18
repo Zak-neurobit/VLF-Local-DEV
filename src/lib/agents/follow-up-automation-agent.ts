@@ -1,6 +1,7 @@
 import { Agent } from '@/lib/crewai/base';
 import { GoHighLevelService } from '@/services/gohighlevel';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 import { delay } from '@/lib/utils/async';
 import { z } from 'zod';
@@ -395,7 +396,7 @@ P.S. Immigration laws change frequently. Follow us for updates: [SOCIAL_LINKS]
 
       logger.info(`Follow-up sequence deployed for contact ${sequence.contactId}`);
     } catch (error) {
-      logger.error('Error deploying follow-up sequence:', error);
+      logger.error('Error deploying follow-up sequence:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -421,7 +422,7 @@ P.S. Immigration laws change frequently. Follow us for updates: [SOCIAL_LINKS]
         // Schedule next step
         await this.scheduleNextStep(sequence, stepIndex + 1);
       } catch (error) {
-        logger.error(`Error executing step ${stepIndex}:`, error);
+        logger.error(`Error executing step ${stepIndex}:`, errorToLogMeta(error));
       }
     });
   }

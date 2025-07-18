@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { EventEmitter } from 'events';
 
 export interface AgentMetrics {
@@ -306,7 +307,7 @@ export class AgentMonitor extends EventEmitter {
 
       return healthStatus;
     } catch (error) {
-      logger.error(`Health check failed for ${instance.agentName}:`, error);
+      logger.error(`Health check failed for ${instance.agentName}:`, errorToLogMeta(error));
 
       return {
         agentName: instance.agentName,
@@ -497,7 +498,7 @@ export class AgentMonitor extends EventEmitter {
 
   private async handleFailure(event: FailureEvent): Promise<void> {
     const { agentName, instanceId, error } = event;
-    logger.error(`Agent ${agentName} (${instanceId}) failed:`, error);
+    logger.error(`Agent ${agentName} (${instanceId}) failed:`, errorToLogMeta(error));
 
     // Mark instance as failed
     const instances = this.agents.get(agentName) || [];

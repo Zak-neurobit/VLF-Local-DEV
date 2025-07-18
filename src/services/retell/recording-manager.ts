@@ -1,6 +1,7 @@
 import { getRetellService } from './index';
 import { ghlService } from '@/services/gohighlevel';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 
 interface RecordingData {
@@ -252,7 +253,7 @@ export class RecordingManager {
 
       return analysis;
     } catch (error) {
-      logger.error('Failed to analyze transcript:', error);
+      logger.error('Failed to analyze transcript:', errorToLogMeta(error));
 
       // Return basic analysis on error
       return {
@@ -360,7 +361,7 @@ export class RecordingManager {
         duration: data.duration,
       });
     } catch (error) {
-      logger.error('Failed to store recording data:', error);
+      logger.error('Failed to store recording data:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -419,7 +420,7 @@ export class RecordingManager {
         tagsAdded: tags.length,
       });
     } catch (error) {
-      logger.error('Failed to sync recording to GHL:', error);
+      logger.error('Failed to sync recording to GHL:', errorToLogMeta(error));
     }
   }
 
@@ -561,7 +562,7 @@ export class RecordingManager {
         taskCount: tasks.length,
       });
     } catch (error) {
-      logger.error('Failed to create follow-up tasks:', error);
+      logger.error('Failed to create follow-up tasks:', errorToLogMeta(error));
     }
   }
 
@@ -579,7 +580,7 @@ export class RecordingManager {
 
       return recording;
     } catch (error) {
-      logger.error('Failed to get recording:', error);
+      logger.error('Failed to get recording:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -605,7 +606,7 @@ export class RecordingManager {
 
       return recordings;
     } catch (error) {
-      logger.error('Failed to get contact recordings:', error);
+      logger.error('Failed to get contact recordings:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -682,7 +683,7 @@ export class RecordingManager {
 
       return analytics;
     } catch (error) {
-      logger.error('Failed to get recording analytics:', error);
+      logger.error('Failed to get recording analytics:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -708,7 +709,7 @@ export class RecordingManager {
 
       return deletedCount.count;
     } catch (error) {
-      logger.error('Failed to cleanup old recordings:', error);
+      logger.error('Failed to cleanup old recordings:', errorToLogMeta(error));
       throw error;
     }
   }

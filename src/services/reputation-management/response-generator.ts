@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma-safe';
 import { z } from 'zod';
 import { openai } from '@/lib/openai-client';
@@ -158,15 +159,15 @@ export class ReviewResponseGenerator {
     try {
       const sentiment = review.sentiment || this.analyzeSentiment(review);
       const language = this.detectLanguage(review.content);
-      
+
       // Select appropriate template
       const template = this.selectTemplate(review, sentiment, language);
-      
+
       // Select tone profile
       const toneProfile = this.selectToneProfile(sentiment, options?.toneOverride);
-      
+
       let responseText: string;
-      
+
       if (options?.useAI !== false) {
         // Generate AI response
         responseText = await this.generateAIResponse(review, template, toneProfile);
@@ -174,13 +175,13 @@ export class ReviewResponseGenerator {
         // Use template-based response
         responseText = this.fillTemplate(template, review);
       }
-      
+
       // Post-process response
       responseText = this.postProcessResponse(responseText, review);
-      
+
       // Check compliance
       const compliance = await this.checkCompliance(responseText);
-      
+
       return {
         success: true,
         response: responseText,
@@ -197,7 +198,7 @@ export class ReviewResponseGenerator {
         },
       };
     } catch (error) {
-      logger.error('Failed to generate review response:', error);
+      logger.error('Failed to generate review response:', errorToLogMeta(error));
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Failed to generate response',
@@ -211,32 +212,28 @@ export class ReviewResponseGenerator {
     language: string
   ): ResponseTemplate | null {
     const templates = Array.from(this.responseTemplates.values());
-    
+
     // Filter by language
-    const languageTemplates = templates.filter(t => 
-      !t.language || t.language === language
-    );
-    
+    const languageTemplates = templates.filter(t => !t.language || t.language === language);
+
     // Filter by sentiment
-    const sentimentTemplates = languageTemplates.filter(t => 
-      t.sentiment === sentiment
-    );
-    
+    const sentimentTemplates = languageTemplates.filter(t => t.sentiment === sentiment);
+
     // Filter by rating
-    const ratingTemplates = sentimentTemplates.filter(t => 
-      !t.rating || t.rating.includes(review.rating)
+    const ratingTemplates = sentimentTemplates.filter(
+      t => !t.rating || t.rating.includes(review.rating)
     );
-    
+
     // Check keywords
     for (const template of ratingTemplates) {
       if (template.keywords) {
-        const hasKeyword = template.keywords.some(keyword => 
+        const hasKeyword = template.keywords.some(keyword =>
           review.content.toLowerCase().includes(keyword.toLowerCase())
         );
         if (hasKeyword) return template;
       }
     }
-    
+
     // Return first matching template or null
     return ratingTemplates[0] || null;
   }
@@ -245,7 +242,7 @@ export class ReviewResponseGenerator {
     if (override && this.toneProfiles.has(override)) {
       return this.toneProfiles.get(override)!;
     }
-    
+
     // Select based on sentiment
     switch (sentiment) {
       case 'negative':
@@ -263,13 +260,14 @@ export class ReviewResponseGenerator {
     toneProfile: ToneProfile
   ): Promise<string> {
     const prompt = this.buildAIPrompt(review, template, toneProfile);
-    
+
     const completion = await openai.createChatCompletion({
       model: 'gpt-4',
       messages: [
         {
           role: 'system',
-          content: 'You are a professional representative of Vasquez Law Firm, responding to online reviews. Always maintain professionalism, show empathy, and never admit fault or discuss specific case details.',
+          content:
+            'You are a professional representative of Vasquez Law Firm, responding to online reviews. Always maintain professionalism, show empathy, and never admit fault or discuss specific case details.',
         },
         {
           role: 'user',
@@ -279,7 +277,7 @@ export class ReviewResponseGenerator {
       temperature: 0.7,
       max_tokens: 200,
     });
-    
+
     return completion.data.choices[0].message?.content || '';
   }
 
@@ -292,17 +290,17 @@ export class ReviewResponseGenerator {
     prompt += `Review: "${review.content}"\n`;
     prompt += `Author: ${review.author}\n`;
     prompt += `Platform: ${review.platformId}\n\n`;
-    
+
     prompt += `Tone Guidelines:\n`;
     toneProfile.guidelines.forEach(guideline => {
       prompt += `- ${guideline}\n`;
     });
-    
+
     if (template) {
       prompt += `\nUse this as inspiration but don't copy exactly:\n`;
       prompt += template.template + '\n';
     }
-    
+
     prompt += `\nRequirements:\n`;
     prompt += `- Keep response under 150 words\n`;
     prompt += `- Thank the reviewer by name\n`;
@@ -310,13 +308,13 @@ export class ReviewResponseGenerator {
     prompt += `- Include a call to action when appropriate\n`;
     prompt += `- Never discuss specific case details\n`;
     prompt += `- Never admit fault or liability\n`;
-    
+
     return prompt;
   }
 
   private fillTemplate(template: ResponseTemplate, review: any): string {
     let response = template.template;
-    
+
     const variables: Record<string, string> = {
       authorName: review.author,
       contactInfo: '(919) 555-0123 or info@vasquezlawfirm.com',
@@ -325,59 +323,63 @@ export class ReviewResponseGenerator {
       positiveAspect: this.extractPositiveAspect(review.content),
       outcome: this.extractOutcome(review.content),
     };
-    
+
     // Replace variables
     template.variables.forEach(variable => {
       const value = variables[variable] || `[${variable}]`;
       response = response.replace(`{${variable}}`, value);
     });
-    
+
     return response;
   }
 
   private postProcessResponse(response: string, review: any): string {
     // Add signature
     response += '\n\n- William Vasquez, Managing Attorney\nVasquez Law Firm, PLLC';
-    
+
     // Ensure proper length
     if (response.length > 500) {
       response = response.substring(0, 497) + '...';
     }
-    
+
     return response;
   }
 
   private async checkCompliance(response: string): Promise<ComplianceCheck> {
     const issues: string[] = [];
-    
+
     // Check for prohibited content
     const prohibited = [
-      'guarantee', 'guaranteed',
-      'definitely win', 'always win',
-      'admission of guilt', 'our fault',
-      'confidential', 'client information',
+      'guarantee',
+      'guaranteed',
+      'definitely win',
+      'always win',
+      'admission of guilt',
+      'our fault',
+      'confidential',
+      'client information',
     ];
-    
+
     prohibited.forEach(term => {
       if (response.toLowerCase().includes(term)) {
         issues.push(`Contains prohibited term: "${term}"`);
       }
     });
-    
+
     // Check for required elements
     if (!response.includes('Thank you') && !response.includes('Gracias')) {
       issues.push('Missing thank you');
     }
-    
+
     // Check length
     if (response.length < 50) {
       issues.push('Response too short');
     }
-    
+
     if (response.length > 500) {
       issues.push('Response too long');
     }
-    
+
     return {
       passed: issues.length === 0,
       issues,
@@ -393,10 +395,10 @@ export class ReviewResponseGenerator {
   private detectLanguage(content: string): string {
     // Simple language detection
     const spanishIndicators = ['gracias', 'abogado', 'caso', 'ayuda', 'excelente', 'recomiendo'];
-    const spanishCount = spanishIndicators.filter(word => 
+    const spanishCount = spanishIndicators.filter(word =>
       content.toLowerCase().includes(word)
     ).length;
-    
+
     return spanishCount >= 2 ? 'es' : 'en';
   }
 
@@ -408,14 +410,14 @@ export class ReviewResponseGenerator {
       { keywords: ['injury', 'accident', 'injured'], name: 'personal injury' },
       { keywords: ['workers comp', 'work injury', 'workplace'], name: 'workers compensation' },
     ];
-    
+
     const lowerContent = content.toLowerCase();
     for (const area of areas) {
       if (area.keywords.some(keyword => lowerContent.includes(keyword))) {
         return area.name;
       }
     }
-    
+
     return 'legal';
   }
 
@@ -426,12 +428,12 @@ export class ReviewResponseGenerator {
       /(?:excellent|outstanding|amazing|great) (?:service|attorney|lawyer|experience)/i,
       /(?:highly|definitely|strongly) recommend/i,
     ];
-    
+
     for (const pattern of positivePatterns) {
       const match = content.match(pattern);
       if (match) return match[0];
     }
-    
+
     return 'you had a positive experience with our firm';
   }
 
@@ -442,12 +444,12 @@ export class ReviewResponseGenerator {
       /charges (?:were )?(?:dropped|dismissed)/i,
       /(?:successful|positive) (?:outcome|result)/i,
     ];
-    
+
     for (const pattern of outcomePatterns) {
       const match = content.match(pattern);
       if (match) return match[0];
     }
-    
+
     return 'successful outcome';
   }
 
@@ -457,29 +459,28 @@ export class ReviewResponseGenerator {
     options?: GenerateOptions
   ): Promise<Map<string, GeneratedResponse>> {
     const results = new Map<string, GeneratedResponse>();
-    
+
     // Process in batches to avoid rate limits
     const batchSize = 5;
     for (let i = 0; i < reviews.length; i += batchSize) {
       const batch = reviews.slice(i, i + batchSize);
-      
-      const batchPromises = batch.map(review => 
-        this.generateResponse(review, options)
-          .then(response => ({ reviewId: review.id, response }))
+
+      const batchPromises = batch.map(review =>
+        this.generateResponse(review, options).then(response => ({ reviewId: review.id, response }))
       );
-      
+
       const batchResults = await Promise.all(batchPromises);
-      
+
       batchResults.forEach(({ reviewId, response }) => {
         results.set(reviewId, response);
       });
-      
+
       // Add delay between batches
       if (i + batchSize < reviews.length) {
         await new Promise(resolve => setTimeout(resolve, 1000));
       }
     }
-    
+
     return results;
   }
 }

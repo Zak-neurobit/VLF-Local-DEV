@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma-safe';
 
 export interface NotificationData {
@@ -27,7 +28,7 @@ export async function createNotification(data: NotificationData): Promise<void> 
     // For now, just log
     logger.info('Notification created', data);
   } catch (error) {
-    logger.error('Failed to create notification', error);
+    logger.error('Failed to create notification', errorToLogMeta(error));
     throw error;
   }
 }
@@ -43,7 +44,7 @@ export async function markNotificationAsRead(
     logger.info('Marking notification as read', { notificationId, userId });
     // TODO: Implement marking as read in database
   } catch (error) {
-    logger.error('Failed to mark notification as read', error);
+    logger.error('Failed to mark notification as read', errorToLogMeta(error));
     throw error;
   }
 }
@@ -57,7 +58,7 @@ export async function getUnreadNotifications(userId: string): Promise<any[]> {
     // TODO: Implement fetching from database
     return [];
   } catch (error) {
-    logger.error('Failed to get unread notifications', error);
+    logger.error('Failed to get unread notifications', errorToLogMeta(error));
     return [];
   }
 }

@@ -69,7 +69,7 @@ async function handlePOST(request: NextRequest) {
       );
     }
   } catch (error) {
-    logger.error('Email API error:', error);
+    logger.error('Email API error:', errorToLogMeta(error));
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -109,7 +109,7 @@ export async function PUT(request: NextRequest) {
       message: 'Email queued successfully',
     });
   } catch (error) {
-    logger.error('Email queue error:', error);
+    logger.error('Email queue error:', errorToLogMeta(error));
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(

@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { cache, cacheKeys, CacheTTL } from '@/lib/cache';
 import { emailQueue } from '@/lib/queue/bull';
 import { getPrismaClient, withTransaction } from '@/lib/prisma';
@@ -189,7 +190,7 @@ class PaymentService {
 
       return result;
     } catch (error) {
-      logger.error('Payment processing error:', error);
+      logger.error('Payment processing error:', errorToLogMeta(error));
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Payment processing failed',
@@ -758,7 +759,7 @@ class PaymentService {
 
       return result;
     } catch (error) {
-      logger.error('Refund processing error:', error);
+      logger.error('Refund processing error:', errorToLogMeta(error));
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Refund processing failed',
@@ -1056,7 +1057,7 @@ class PaymentService {
         nextPaymentDate: paymentPlan.nextPaymentDate || new Date(),
       };
     } catch (error) {
-      logger.error('Error creating payment plan:', error);
+      logger.error('Error creating payment plan:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -1125,7 +1126,7 @@ class PaymentService {
 
       return result;
     } catch (error) {
-      logger.error('Error processing payment plan installment:', error);
+      logger.error('Error processing payment plan installment:', errorToLogMeta(error));
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Payment plan processing failed',

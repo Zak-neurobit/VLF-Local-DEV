@@ -2,6 +2,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import { APISafetyWrapper } from '@/lib/api-safety';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
 export enum LegalPracticeArea {
   REMOVAL_DEFENSE = 'removal_defense',
@@ -95,7 +96,7 @@ Determine:
 
       return this.parseIntakeResult(response.content as string, params);
     } catch (error) {
-      logger.error('Intake processing failed', error);
+      logger.error('Intake processing failed', errorToLogMeta(error));
       return this.getMockIntake(params);
     }
   }

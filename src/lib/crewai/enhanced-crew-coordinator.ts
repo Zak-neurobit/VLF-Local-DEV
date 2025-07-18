@@ -9,6 +9,7 @@ import {
 } from './agents/appointment-scheduling-agent';
 import { DocumentAnalysisAgent, DocumentAnalysisRequest } from './agents/document-analysis-agent';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { EventEmitter } from 'events';
 import pLimit from 'p-limit';
 
@@ -198,7 +199,7 @@ export class CrewCoordinator {
     } catch (error) {
       task.status = 'failed';
       task.error = error instanceof Error ? error.message : 'Unknown error';
-      logger.error(`Task ${task.id} failed:`, error);
+      logger.error(`Task ${task.id} failed:`, errorToLogMeta(error));
       throw error;
     } finally {
       this.activeTasks.delete(task.id);
@@ -229,7 +230,7 @@ export class CrewCoordinator {
         if (task) {
           // Execute task in background
           this.executeTask(task).catch(error => {
-            logger.error(`Background task execution failed:`, error);
+            logger.error(`Background task execution failed:`, errorToLogMeta(error));
           });
         }
       }
@@ -281,7 +282,7 @@ export class CrewCoordinator {
 
       return results.map(result => (result.status === 'fulfilled' ? result.value : result.reason));
     } catch (error) {
-      logger.error('Parallel execution failed:', error);
+      logger.error('Parallel execution failed:', errorToLogMeta(error));
       throw error;
     }
   }
@@ -428,7 +429,10 @@ export class CrewCoordinator {
       try {
         await handler(message);
       } catch (error) {
-        logger.error(`Error processing message ${messageType} for agent ${toAgent}:`, error);
+        logger.error(
+          `Error processing message ${messageType} for agent ${toAgent}:`,
+          errorToLogMeta(error)
+        );
       }
     }
 
@@ -619,7 +623,7 @@ export class CrewCoordinator {
       return results;
     } catch (error) {
       workflow.status = 'failed';
-      logger.error(`Workflow ${workflow.name} failed:`, error);
+      logger.error(`Workflow ${workflow.name} failed:`, errorToLogMeta(error));
       throw error;
     }
   }
@@ -659,13 +663,19 @@ export class CrewCoordinator {
 
       switch (step.agentName) {
         case 'legal-consultation':
-          result = await this.legalConsultationAgent.analyze(step.input as LegalConsultationRequest);
+          result = await this.legalConsultationAgent.analyze(
+            step.input as LegalConsultationRequest
+          );
           break;
         case 'appointment-scheduling':
-          result = await this.appointmentSchedulingAgent.findAvailableSlots(step.input as AppointmentRequest);
+          result = await this.appointmentSchedulingAgent.findAvailableSlots(
+            step.input as AppointmentRequest
+          );
           break;
         case 'document-analysis':
-          result = await this.documentAnalysisAgent.analyzeDocument(step.input as DocumentAnalysisRequest);
+          result = await this.documentAnalysisAgent.analyzeDocument(
+            step.input as DocumentAnalysisRequest
+          );
           break;
         // Add more agent handlers as needed
         default:
@@ -793,7 +803,7 @@ export class CrewCoordinator {
 
   private handleTaskFailed(event: TaskFailedEvent): void {
     const { taskId, agentName, error, executionTime } = event;
-    logger.error(`Task ${taskId} failed by ${agentName}:`, error);
+    logger.error(`Task ${taskId} failed by ${agentName}:`, errorToLogMeta(error));
 
     // Update performance metrics
     this.updateAgentPerformanceMetrics(agentName, false, executionTime);

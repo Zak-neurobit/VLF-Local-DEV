@@ -280,7 +280,7 @@ async function handleGET(request: NextRequest): Promise<NextResponse> {
 
     return NextResponse.json(response);
   } catch (error) {
-    logger.error('Failed to get crew metrics:', error);
+    logger.error('Failed to get crew metrics:', errorToLogMeta(error));
     return NextResponse.json(
       {
         error: 'Failed to get crew metrics',

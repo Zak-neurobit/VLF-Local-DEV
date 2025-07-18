@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 import crypto from 'crypto';
 
@@ -79,7 +80,7 @@ export async function POST(request: NextRequest) {
     // Always return 200 to acknowledge receipt
     return NextResponse.json({ received: true });
   } catch (error) {
-    logger.error('LawPay webhook error', { error });
+    logger.error('LawPay webhook error', errorToLogMeta(error));
 
     // Return 200 even on error to prevent retries
     return NextResponse.json({ received: true });
@@ -118,7 +119,7 @@ async function handlePaymentCreated(data: any) {
 
     logger.info('Payment created in database', { paymentId });
   } catch (error) {
-    logger.error('Failed to create payment record', { error, paymentId, data });
+    logger.error('Failed to create payment record', createErrorLogMeta(error, { paymentId, data }));
   }
 }
 
@@ -202,7 +203,10 @@ async function handlePaymentSucceeded(data: any) {
       },
     });
   } catch (error) {
-    logger.error('Failed to handle payment success', { error, paymentId: payment_id });
+    logger.error(
+      'Failed to handle payment success',
+      createErrorLogMeta(error, { paymentId: payment_id })
+    );
   }
 }
 
@@ -228,7 +232,10 @@ async function handlePaymentFailed(data: any) {
       code: failure_code,
     });
   } catch (error) {
-    logger.error('Failed to handle payment failure', { error, paymentId: payment_id });
+    logger.error(
+      'Failed to handle payment failure',
+      createErrorLogMeta(error, { paymentId: payment_id })
+    );
   }
 }
 
@@ -255,6 +262,9 @@ async function handlePaymentRefunded(data: any) {
       refundId: refund_id,
     });
   } catch (error) {
-    logger.error('Failed to handle payment refund', { error, paymentId: payment_id });
+    logger.error(
+      'Failed to handle payment refund',
+      createErrorLogMeta(error, { paymentId: payment_id })
+    );
   }
 }

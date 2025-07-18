@@ -2,6 +2,7 @@ import { getPrismaClient } from '@/lib/prisma';
 import { ghlService } from '@/services/gohighlevel';
 import { emailService } from '@/services/email';
 import { logger } from '@/lib/logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { addDays, subDays, startOfDay, endOfDay } from 'date-fns';
 
 interface AppointmentWithUser {
@@ -47,7 +48,7 @@ export class AppointmentReminderService {
         await this.sendWeeklyReminder(appointment as AppointmentWithUser);
       }
     } catch (error) {
-      logger.error('Failed to send appointment reminders:', error);
+      logger.error('Failed to send appointment reminders:', errorToLogMeta(error));
     }
   }
 
@@ -122,7 +123,9 @@ export class AppointmentReminderService {
             clientName: user.name || user.email,
             appointmentDate: dateStr,
             appointmentTime: timeStr,
-            attorneyName: (appointment as Appointment & { case?: { attorney?: { name?: string } } }).case?.attorney?.name || 'Your Attorney',
+            attorneyName:
+              (appointment as Appointment & { case?: { attorney?: { name?: string } } }).case
+                ?.attorney?.name || 'Your Attorney',
             appointmentType: appointment.type,
             location: appointment.location || 'Phone consultation',
             notes: appointment.notes,
@@ -147,7 +150,7 @@ export class AppointmentReminderService {
         userId: user.id,
       });
     } catch (error) {
-      logger.error('Failed to send appointment reminder:', error);
+      logger.error('Failed to send appointment reminder:', errorToLogMeta(error));
     }
   }
 
@@ -172,14 +175,16 @@ export class AppointmentReminderService {
             clientName: user.name || user.email,
             appointmentDate: dateStr,
             appointmentTime: timeStr,
-            attorneyName: (appointment as Appointment & { case?: { attorney?: { name?: string } } }).case?.attorney?.name || 'Your Attorney',
+            attorneyName:
+              (appointment as Appointment & { case?: { attorney?: { name?: string } } }).case
+                ?.attorney?.name || 'Your Attorney',
             appointmentType: appointment.type,
             documentsNeeded: this.getRequiredDocuments(appointment.type),
           },
         });
       }
     } catch (error) {
-      logger.error('Failed to send weekly reminder:', error);
+      logger.error('Failed to send weekly reminder:', errorToLogMeta(error));
     }
   }
 
@@ -215,7 +220,7 @@ export class AppointmentReminderService {
 
       return 'Thank you! Your appointment has been confirmed. We look forward to seeing you.';
     } catch (error) {
-      logger.error('Failed to confirm appointment:', error);
+      logger.error('Failed to confirm appointment:', errorToLogMeta(error));
       return 'Sorry, we could not confirm your appointment. Please call our office.';
     }
   }
@@ -268,7 +273,7 @@ export class AppointmentReminderService {
 
       return 'Your appointment has been cancelled. Please call 1-844-YO-PELEO to reschedule.';
     } catch (error) {
-      logger.error('Failed to cancel appointment:', error);
+      logger.error('Failed to cancel appointment:', errorToLogMeta(error));
       return 'Sorry, we could not cancel your appointment. Please call our office.';
     }
   }
@@ -359,7 +364,7 @@ export class AppointmentReminderService {
         });
       }
     } catch (error) {
-      logger.error('Failed to send follow-up survey:', error);
+      logger.error('Failed to send follow-up survey:', errorToLogMeta(error));
     }
   }
 }
