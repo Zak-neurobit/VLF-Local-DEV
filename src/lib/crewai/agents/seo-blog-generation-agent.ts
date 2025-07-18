@@ -152,13 +152,13 @@ export class SEOBlogGenerationAgent {
             voiceSearchFocus: request.voiceSearchFocus || false,
             competitorAnalysis: request.competitorAnalysis || false,
           });
-          
-          aiOverviewScore = (
-            aiOverviewOptimization.aiOverviewMetrics.readinessScore +
-            aiOverviewOptimization.aiOverviewMetrics.answerQuality +
-            aiOverviewOptimization.aiOverviewMetrics.structureScore +
-            aiOverviewOptimization.aiOverviewMetrics.authoritySignals
-          ) / 4;
+
+          aiOverviewScore =
+            (aiOverviewOptimization.aiOverviewMetrics.readinessScore +
+              aiOverviewOptimization.aiOverviewMetrics.answerQuality +
+              aiOverviewOptimization.aiOverviewMetrics.structureScore +
+              aiOverviewOptimization.aiOverviewMetrics.authoritySignals) /
+            4;
         }
 
         // Step 5: Calculate scores and predictions
@@ -327,12 +327,16 @@ The outline should include:
 ${request.includeCallToAction ? '6. Strong call-to-action' : ''}
 ${request.aiOverviewOptimization ? '7. FAQ section with 5-8 common questions' : ''}
 
-${request.aiOverviewOptimization ? `AI OVERVIEW OPTIMIZATION:
+${
+  request.aiOverviewOptimization
+    ? `AI OVERVIEW OPTIMIZATION:
 - Structure headings as questions that match search intent
 - Plan for direct answers in the first sentence of each section
 - Include FAQ section optimized for AI Overview selection
 - Consider voice search queries and conversational language
-` : ''}
+`
+    : ''
+}
 
 Format as structured outline with headings and brief descriptions of content for each section.
 Focus on providing valuable, actionable information while establishing legal expertise and trustworthiness.
@@ -1002,3 +1006,6 @@ Provide SEO optimization in this JSON format:
     return html;
   }
 }
+
+// Export singleton instance
+export const seoAgent = new SEOBlogGenerationAgent();

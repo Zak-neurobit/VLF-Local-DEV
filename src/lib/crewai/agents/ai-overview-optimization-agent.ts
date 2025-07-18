@@ -87,7 +87,9 @@ export class AIOverviewOptimizationAgent {
     });
   }
 
-  async optimizeForAIOverview(request: AIOverviewOptimizationRequest): Promise<AIOverviewOptimization> {
+  async optimizeForAIOverview(
+    request: AIOverviewOptimizationRequest
+  ): Promise<AIOverviewOptimization> {
     return this.crewLogger.logExecution(
       'optimize-for-ai-overview',
       async () => {
@@ -143,7 +145,9 @@ export class AIOverviewOptimizationAgent {
     );
   }
 
-  private async analyzeContentStructure(request: AIOverviewOptimizationRequest): Promise<ContentAnalysis> {
+  private async analyzeContentStructure(
+    request: AIOverviewOptimizationRequest
+  ): Promise<ContentAnalysis> {
     const analysisPrompt = `Analyze this legal content for AI Overview optimization potential:
 
 CONTENT TO ANALYZE:
@@ -255,17 +259,20 @@ Format as JSON:
     }
   }
 
-  private async generateHowToContent(request: AIOverviewOptimizationRequest): Promise<{
-    title: string;
-    steps: Array<{
-      stepNumber: number;
-      title: string;
-      description: string;
-      estimatedTime?: string;
-      requiredDocuments?: string[];
-    }>;
-    schema: object;
-  } | undefined> {
+  private async generateHowToContent(request: AIOverviewOptimizationRequest): Promise<
+    | {
+        title: string;
+        steps: Array<{
+          stepNumber: number;
+          title: string;
+          description: string;
+          estimatedTime?: string;
+          requiredDocuments?: string[];
+        }>;
+        schema: object;
+      }
+    | undefined
+  > {
     // Only generate How-To content for procedural topics
     const proceduralKeywords = ['file', 'apply', 'process', 'steps', 'how to', 'procedure'];
     const hasProceduralIntent = request.targetKeywords.some(keyword =>
@@ -494,7 +501,9 @@ Rewrite the content maintaining all important legal information while optimizing
     if (this.hasListStructures(optimizedContent)) readinessScore += 25;
 
     // Answer Quality Score (0-100)
-    const avgAnswerLength = faqSection.questions.reduce((acc: number, q: any) => acc + q.answerLength, 0) / faqSection.questions.length;
+    const avgAnswerLength =
+      faqSection.questions.reduce((acc: number, q: any) => acc + q.answerLength, 0) /
+      faqSection.questions.length;
     if (avgAnswerLength >= 40 && avgAnswerLength <= 60) answerQuality += 30;
     if (faqSection.questions.every((q: any) => q.voiceSearchOptimized)) answerQuality += 30;
     if (this.hasDirectAnswers(optimizedContent)) answerQuality += 40;
@@ -523,7 +532,7 @@ Rewrite the content maintaining all important legal information while optimizing
   private hasQuestionBasedHeadings(content: string): boolean {
     const questionWords = ['what', 'how', 'when', 'where', 'why', 'can', 'should', 'will', 'do'];
     const headings = content.match(/^#{1,3}\s+(.+)$/gm) || [];
-    return headings.some(heading => 
+    return headings.some(heading =>
       questionWords.some(word => heading.toLowerCase().includes(word))
     );
   }
@@ -539,7 +548,7 @@ Rewrite the content maintaining all important legal information while optimizing
       /^(Yes|No),/m,
       /^The answer is/m,
       /^You (can|should|will|need to)/m,
-      /^To .+, you/m
+      /^To .+, you/m,
     ];
     return answerPatterns.some(pattern => pattern.test(content));
   }
@@ -550,18 +559,20 @@ Rewrite the content maintaining all important legal information while optimizing
   }
 
   private hasConversationalLanguage(content: string): boolean {
-    const conversationalPatterns = [
-      /\byou\b/gi,
-      /\byour\b/gi,
-      /let's/gi,
-      /here's/gi,
-      /what's/gi
-    ];
+    const conversationalPatterns = [/\byou\b/gi, /\byour\b/gi, /let's/gi, /here's/gi, /what's/gi];
     return conversationalPatterns.some(pattern => pattern.test(content));
   }
 
   private hasLogicalFlow(content: string): boolean {
-    const transitionWords = ['first', 'next', 'then', 'finally', 'however', 'therefore', 'additionally'];
+    const transitionWords = [
+      'first',
+      'next',
+      'then',
+      'finally',
+      'however',
+      'therefore',
+      'additionally',
+    ];
     return transitionWords.some(word => content.toLowerCase().includes(word));
   }
 
@@ -570,18 +581,13 @@ Rewrite the content maintaining all important legal information while optimizing
       /\b\d+\s+U\.?S\.?C\.?\s+§?\s*\d+/g,
       /\bCFR\b/g,
       /Form\s+[A-Z]-?\d+/g,
-      /\d+\s+F\.\d+d?\s+\d+/g
+      /\d+\s+F\.\d+d?\s+\d+/g,
     ];
     return citationPatterns.some(pattern => pattern.test(content));
   }
 
   private hasSpecificForms(content: string): boolean {
-    const formPatterns = [
-      /Form\s+[A-Z]-?\d+/g,
-      /I-\d+/g,
-      /N-\d+/g,
-      /AR-\d+/g
-    ];
+    const formPatterns = [/Form\s+[A-Z]-?\d+/g, /I-\d+/g, /N-\d+/g, /AR-\d+/g];
     return formPatterns.some(pattern => pattern.test(content));
   }
 
@@ -595,7 +601,7 @@ Rewrite the content maintaining all important legal information while optimizing
       /attorney-client/gi,
       /legal advice/gi,
       /consult.*attorney/gi,
-      /this information.*not.*legal advice/gi
+      /this information.*not.*legal advice/gi,
     ];
     return disclaimerPatterns.some(pattern => pattern.test(content));
   }
@@ -625,7 +631,9 @@ Rewrite the content maintaining all important legal information while optimizing
         '@type': 'HowToStep',
         name: step.title,
         text: step.description,
-        ...(step.estimatedTime && { estimatedCost: { '@type': 'MonetaryAmount', value: step.estimatedTime } }),
+        ...(step.estimatedTime && {
+          estimatedCost: { '@type': 'MonetaryAmount', value: step.estimatedTime },
+        }),
       })),
     };
   }
@@ -650,7 +658,10 @@ Rewrite the content maintaining all important legal information while optimizing
     const breadcrumbs = [
       { name: 'Home', url: '/' },
       { name: 'Practice Areas', url: '/practice-areas' },
-      { name: request.practiceArea, url: `/${request.practiceArea.toLowerCase().replace(/\s+/g, '-')}` },
+      {
+        name: request.practiceArea,
+        url: `/${request.practiceArea.toLowerCase().replace(/\s+/g, '-')}`,
+      },
     ];
 
     return {
@@ -798,3 +809,6 @@ Guidelines:
     };
   }
 }
+
+// Export singleton instance
+export const aiOverviewAgent = new AIOverviewOptimizationAgent();
