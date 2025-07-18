@@ -5,12 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import CalculatorForm from '@/components/calculators/calculator-form';
 import CalculatorResults from '@/components/calculators/calculator-results';
-import { 
-  Calculator, 
-  Car, 
-  Passport, 
-  Hammer, 
-  Gavel, 
+import {
+  Calculator,
+  Car,
+  Globe,
+  Hammer,
+  Gavel,
   Heart,
   DollarSign,
   Clock,
@@ -27,7 +27,12 @@ const calculatorTypes = [
     description: 'Estimate potential compensation for your personal injury case',
     icon: Car,
     color: 'blue',
-    features: ['Settlement estimation', 'Pain & suffering calculation', 'Economic damages', 'Comparative negligence'],
+    features: [
+      'Settlement estimation',
+      'Pain & suffering calculation',
+      'Economic damages',
+      'Comparative negligence',
+    ],
     practiceArea: 'Personal Injury',
     estimatedTime: '2-4 years',
   },
@@ -35,20 +40,25 @@ const calculatorTypes = [
     id: 'immigration',
     name: 'Immigration Assessment',
     description: 'Assess your immigration case timeline, costs, and success probability',
-    icon: Passport,
+    icon: Globe,
     color: 'green',
-    features: ['Processing times', 'Success probability', 'Cost estimation', 'Requirements checklist'],
+    features: [
+      'Processing times',
+      'Success probability',
+      'Cost estimation',
+      'Requirements checklist',
+    ],
     practiceArea: 'Immigration',
     estimatedTime: '6 months - 10+ years',
   },
   {
     id: 'workers-compensation',
-    name: 'Workers\' Compensation Calculator',
-    description: 'Calculate potential workers\' compensation benefits',
+    name: "Workers' Compensation Calculator",
+    description: "Calculate potential workers' compensation benefits",
     icon: Hammer,
     color: 'orange',
     features: ['Weekly benefits', 'Medical coverage', 'Disability ratings', 'Vocational rehab'],
-    practiceArea: 'Workers\' Compensation',
+    practiceArea: "Workers' Compensation",
     estimatedTime: '6 months - 2 years',
   },
   {
@@ -140,15 +150,11 @@ export default function CalculatorsPage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
-          <Button 
-            variant="outline" 
-            onClick={handleBackToSelection}
-            className="mb-4"
-          >
+          <Button variant="outline" onClick={handleBackToSelection} className="mb-4">
             ← Back to Calculators
           </Button>
         </div>
-        
+
         <CalculatorResults
           result={calculationResult}
           onNewCalculation={handleNewCalculation}
@@ -160,18 +166,14 @@ export default function CalculatorsPage() {
 
   if (selectedCalculator) {
     const calculator = calculatorTypes.find(c => c.id === selectedCalculator);
-    
+
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
-          <Button 
-            variant="outline" 
-            onClick={handleBackToSelection}
-            className="mb-4"
-          >
+          <Button variant="outline" onClick={handleBackToSelection} className="mb-4">
             ← Back to Calculators
           </Button>
-          
+
           {calculator && (
             <div className="mb-6">
               <h1 className="text-3xl font-bold mb-2">{calculator.name}</h1>
@@ -179,11 +181,8 @@ export default function CalculatorsPage() {
             </div>
           )}
         </div>
-        
-        <CalculatorForm
-          calculatorType={selectedCalculator}
-          onResult={handleResultGenerated}
-        />
+
+        <CalculatorForm calculatorType={selectedCalculator} onResult={handleResultGenerated} />
       </div>
     );
   }
@@ -194,8 +193,8 @@ export default function CalculatorsPage() {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-4">Legal Calculators & Assessment Tools</h1>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Get instant estimates for your legal case. Our calculators provide personalized assessments 
-          based on North Carolina law and current legal standards.
+          Get instant estimates for your legal case. Our calculators provide personalized
+          assessments based on North Carolina law and current legal standards.
         </p>
       </div>
 
@@ -206,9 +205,11 @@ export default function CalculatorsPage() {
             <Calculator className="h-8 w-8 text-blue-600" />
           </div>
           <h3 className="font-semibold mb-2">Instant Results</h3>
-          <p className="text-sm text-gray-600">Get immediate estimates tailored to your situation</p>
+          <p className="text-sm text-gray-600">
+            Get immediate estimates tailored to your situation
+          </p>
         </div>
-        
+
         <div className="text-center">
           <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
             <DollarSign className="h-8 w-8 text-green-600" />
@@ -216,7 +217,7 @@ export default function CalculatorsPage() {
           <h3 className="font-semibold mb-2">Free to Use</h3>
           <p className="text-sm text-gray-600">No cost, no obligation assessments</p>
         </div>
-        
+
         <div className="text-center">
           <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
             <Users className="h-8 w-8 text-purple-600" />
@@ -224,7 +225,7 @@ export default function CalculatorsPage() {
           <h3 className="font-semibold mb-2">Expert Guidance</h3>
           <p className="text-sm text-gray-600">Based on decades of legal experience</p>
         </div>
-        
+
         <div className="text-center">
           <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
             <Building className="h-8 w-8 text-orange-600" />
@@ -236,12 +237,15 @@ export default function CalculatorsPage() {
 
       {/* Calculator Selection */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        {calculatorTypes.map((calculator) => {
+        {calculatorTypes.map(calculator => {
           const Icon = calculator.icon;
           const colors = getColorClasses(calculator.color);
-          
+
           return (
-            <Card key={calculator.id} className={`hover:shadow-lg transition-shadow ${colors.border}`}>
+            <Card
+              key={calculator.id}
+              className={`hover:shadow-lg transition-shadow ${colors.border}`}
+            >
               <CardHeader className={colors.bg}>
                 <div className="flex items-center gap-3 mb-3">
                   <div className="p-3 bg-white rounded-lg">
@@ -253,10 +257,10 @@ export default function CalculatorsPage() {
                   </div>
                 </div>
               </CardHeader>
-              
+
               <CardContent className="space-y-4">
                 <p className="text-gray-600">{calculator.description}</p>
-                
+
                 <div className="space-y-2">
                   <h4 className="font-medium text-sm">Key Features:</h4>
                   <ul className="text-sm space-y-1">
@@ -268,13 +272,13 @@ export default function CalculatorsPage() {
                     ))}
                   </ul>
                 </div>
-                
+
                 <div className="flex items-center gap-2 text-sm text-gray-500">
                   <Clock className="h-4 w-4" />
                   <span>Typical timeline: {calculator.estimatedTime}</span>
                 </div>
-                
-                <Button 
+
+                <Button
                   onClick={() => handleCalculatorSelect(calculator.id)}
                   className={`w-full ${colors.button}`}
                 >
@@ -292,10 +296,10 @@ export default function CalculatorsPage() {
         <CardContent className="p-8 text-center">
           <h2 className="text-2xl font-bold mb-4">Need Expert Legal Advice?</h2>
           <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-            While our calculators provide valuable estimates, every case is unique. 
-            Schedule a free consultation to discuss your specific situation with our experienced attorneys.
+            While our calculators provide valuable estimates, every case is unique. Schedule a free
+            consultation to discuss your specific situation with our experienced attorneys.
           </p>
-          <Button 
+          <Button
             onClick={handleScheduleConsultation}
             variant="secondary"
             size="lg"
@@ -311,10 +315,10 @@ export default function CalculatorsPage() {
       <div className="mt-8 p-6 bg-gray-50 rounded-lg">
         <h3 className="font-semibold mb-2">Important Disclaimer</h3>
         <p className="text-sm text-gray-600">
-          These calculators provide estimates based on general legal principles and typical case outcomes. 
-          Actual results may vary significantly based on specific facts, jurisdiction, applicable law changes, 
-          and many other factors. The results should not be considered legal advice. For accurate assessment 
-          of your case, please consult with a qualified attorney.
+          These calculators provide estimates based on general legal principles and typical case
+          outcomes. Actual results may vary significantly based on specific facts, jurisdiction,
+          applicable law changes, and many other factors. The results should not be considered legal
+          advice. For accurate assessment of your case, please consult with a qualified attorney.
         </p>
       </div>
     </div>

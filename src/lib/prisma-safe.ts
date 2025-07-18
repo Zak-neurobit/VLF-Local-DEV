@@ -91,3 +91,4 @@ class SafePrismaClient {
 
 // Export a safe instance
 export const safePrisma = new SafePrismaClient() as unknown as PrismaClient;
+export const prisma = safePrisma;

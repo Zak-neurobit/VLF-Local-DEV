@@ -156,7 +156,7 @@ export class CompetitorMonitoringSystem {
 
     // Set up monitoring interval
     const intervalMs = this.getIntervalMs(profile.trackingConfig.frequency);
-    
+
     const interval = setInterval(async () => {
       try {
         await this.checkCompetitorActivity(competitorId);
@@ -292,7 +292,8 @@ export class CompetitorMonitoringSystem {
       const rankingChanges = await this.simulateRankingCheck(profile);
 
       for (const change of rankingChanges) {
-        if (Math.abs(change.positionChange) >= 3) { // Only track significant changes
+        if (Math.abs(change.positionChange) >= 3) {
+          // Only track significant changes
           const activity: CompetitorActivity = {
             competitorId: profile.id,
             timestamp: new Date(),
@@ -305,8 +306,12 @@ export class CompetitorMonitoringSystem {
               position: change.currentPosition,
               previousPosition: change.previousPosition,
             },
-            impact: Math.abs(change.positionChange) >= 10 ? 'high' : 
-                   Math.abs(change.positionChange) >= 5 ? 'medium' : 'low',
+            impact:
+              Math.abs(change.positionChange) >= 10
+                ? 'high'
+                : Math.abs(change.positionChange) >= 5
+                  ? 'medium'
+                  : 'low',
             requiresResponse: change.currentPosition < 5 && change.positionChange < 0, // They improved to top 5
           };
 
@@ -337,7 +342,8 @@ export class CompetitorMonitoringSystem {
         const posts = await this.simulateSocialScraping(platform, handle);
 
         for (const post of posts) {
-          if (post.engagement > 100) { // Only track high-engagement posts
+          if (post.engagement > 100) {
+            // Only track high-engagement posts
             const activity: CompetitorActivity = {
               competitorId: profile.id,
               timestamp: new Date(),
@@ -350,8 +356,7 @@ export class CompetitorMonitoringSystem {
                 engagement: post.engagement,
                 sentiment: post.sentiment,
               },
-              impact: post.engagement > 1000 ? 'high' : 
-                     post.engagement > 500 ? 'medium' : 'low',
+              impact: post.engagement > 1000 ? 'high' : post.engagement > 500 ? 'medium' : 'low',
               requiresResponse: post.engagement > 500 && post.sentiment === 'positive',
             };
 
@@ -391,8 +396,12 @@ export class CompetitorMonitoringSystem {
             keywords: campaign.targetKeywords,
             url: campaign.landingPage,
           },
-          impact: campaign.estimatedSpend > 5000 ? 'high' :
-                 campaign.estimatedSpend > 1000 ? 'medium' : 'low',
+          impact:
+            campaign.estimatedSpend > 5000
+              ? 'high'
+              : campaign.estimatedSpend > 1000
+                ? 'medium'
+                : 'low',
           requiresResponse: campaign.estimatedSpend > 1000,
         };
 
@@ -419,7 +428,8 @@ export class CompetitorMonitoringSystem {
       const newReviews = await this.simulateReviewMonitoring(profile);
 
       for (const review of newReviews) {
-        if (review.rating >= 4 || review.rating <= 2) { // Track very positive or negative reviews
+        if (review.rating >= 4 || review.rating <= 2) {
+          // Track very positive or negative reviews
           const activity: CompetitorActivity = {
             competitorId: profile.id,
             timestamp: new Date(),
@@ -430,7 +440,8 @@ export class CompetitorMonitoringSystem {
               description: review.content,
               sentiment: review.rating >= 4 ? 'positive' : 'negative',
             },
-            impact: review.verified && (review.rating === 5 || review.rating === 1) ? 'high' : 'medium',
+            impact:
+              review.verified && (review.rating === 5 || review.rating === 1) ? 'high' : 'medium',
             requiresResponse: review.rating === 5 && review.verified, // Learn from their success
           };
 
@@ -464,7 +475,7 @@ export class CompetitorMonitoringSystem {
     // Generate response if needed
     if (activity.requiresResponse) {
       const response = await this.generateCompetitiveResponse(activity);
-      
+
       // Execute automated actions
       if (response.automatedActions?.generateContent) {
         await this.generateResponseContent(activity, response);
@@ -485,7 +496,9 @@ export class CompetitorMonitoringSystem {
   /**
    * Generate competitive response strategy
    */
-  private async generateCompetitiveResponse(activity: CompetitorActivity): Promise<CompetitiveResponse> {
+  private async generateCompetitiveResponse(
+    activity: CompetitorActivity
+  ): Promise<CompetitiveResponse> {
     logger.info('Generating competitive response', {
       activityType: activity.activityType,
       impact: activity.impact,
@@ -503,19 +516,19 @@ export class CompetitorMonitoringSystem {
       case 'content':
         response = await this.generateContentResponse(activity);
         break;
-      
+
       case 'ranking':
         response = await this.generateRankingResponse(activity);
         break;
-      
+
       case 'social':
         response = await this.generateSocialResponse(activity);
         break;
-      
+
       case 'ad':
         response = await this.generateAdResponse(activity);
         break;
-      
+
       case 'review':
         response = await this.generateReviewResponse(activity);
         break;
@@ -527,9 +540,11 @@ export class CompetitorMonitoringSystem {
   /**
    * Generate content response strategy
    */
-  private async generateContentResponse(activity: CompetitorActivity): Promise<CompetitiveResponse> {
+  private async generateContentResponse(
+    activity: CompetitorActivity
+  ): Promise<CompetitiveResponse> {
     const keywords = activity.details.keywords || [];
-    
+
     return {
       activityId: `${activity.competitorId}-${Date.now()}`,
       responseType: 'content',
@@ -566,10 +581,12 @@ export class CompetitorMonitoringSystem {
   /**
    * Generate ranking response strategy
    */
-  private async generateRankingResponse(activity: CompetitorActivity): Promise<CompetitiveResponse> {
+  private async generateRankingResponse(
+    activity: CompetitorActivity
+  ): Promise<CompetitiveResponse> {
     const keyword = activity.details.keywords?.[0] || '';
     const theirPosition = activity.details.position || 0;
-    
+
     return {
       activityId: `${activity.competitorId}-${Date.now()}`,
       responseType: 'seo',
@@ -648,7 +665,7 @@ export class CompetitorMonitoringSystem {
         topics: [],
         keywords: activity.details.keywords || [],
         angles: ['Why choose us', 'Client testimonials', 'Free consultation offer'],
-        headlines: ['Better Results, Better Service', 'NC\'s Trusted Legal Team'],
+        headlines: ['Better Results, Better Service', "NC's Trusted Legal Team"],
       },
       automatedActions: {
         generateContent: false,
@@ -664,25 +681,27 @@ export class CompetitorMonitoringSystem {
    */
   private async generateReviewResponse(activity: CompetitorActivity): Promise<CompetitiveResponse> {
     const isPositive = activity.details.sentiment === 'positive';
-    
+
     return {
       activityId: `${activity.competitorId}-${Date.now()}`,
       responseType: 'pr',
-      strategy: isPositive ? 
-        'Learn from their positive review and improve our service' : 
-        'Capitalize on their negative review by highlighting our strengths',
+      strategy: isPositive
+        ? 'Learn from their positive review and improve our service'
+        : 'Capitalize on their negative review by highlighting our strengths',
       urgency: 'standard',
-      suggestedActions: isPositive ? [
-        'Analyze what clients appreciated',
-        'Implement similar practices if applicable',
-        'Request more reviews from satisfied clients',
-        'Highlight our own positive reviews',
-      ] : [
-        'Ensure we don\'t have similar issues',
-        'Highlight our strengths in those areas',
-        'Create content addressing those pain points',
-        'Reach out to dissatisfied competitor clients ethically',
-      ],
+      suggestedActions: isPositive
+        ? [
+            'Analyze what clients appreciated',
+            'Implement similar practices if applicable',
+            'Request more reviews from satisfied clients',
+            'Highlight our own positive reviews',
+          ]
+        : [
+            "Ensure we don't have similar issues",
+            'Highlight our strengths in those areas',
+            'Create content addressing those pain points',
+            'Reach out to dissatisfied competitor clients ethically',
+          ],
       automatedActions: {
         generateContent: false,
         updateSEO: false,
@@ -716,7 +735,7 @@ export class CompetitorMonitoringSystem {
           wordCount: 1500,
           language: 'en' as const,
           location: 'North Carolina',
-          urgency: response.urgency === 'immediate' ? 'high' : 'medium' as const,
+          urgency: response.urgency === 'immediate' ? 'high' : ('medium' as const),
           includeCallToAction: true,
           competitorContext: {
             competitorName: await this.getCompetitorName(activity.competitorId),
@@ -736,7 +755,6 @@ export class CompetitorMonitoringSystem {
           contentId: generatedContent.id,
           title: generatedContent.title,
         });
-
       } catch (error) {
         logger.error('Failed to generate response content', { error });
       }
@@ -746,11 +764,14 @@ export class CompetitorMonitoringSystem {
   /**
    * Alert team about important competitive activity
    */
-  private async alertTeam(activity: CompetitorActivity, response: CompetitiveResponse): Promise<void> {
+  private async alertTeam(
+    activity: CompetitorActivity,
+    response: CompetitiveResponse
+  ): Promise<void> {
     const competitor = await this.getCompetitorName(activity.competitorId);
-    
+
     const subject = `⚡ Competitive Alert: ${competitor} - ${activity.activityType} activity detected`;
-    
+
     const content = `
       <h2>Competitive Intelligence Alert</h2>
       
@@ -801,7 +822,9 @@ export class CompetitorMonitoringSystem {
   /**
    * Generate competitive analysis report
    */
-  async generateCompetitiveAnalysis(period: 'weekly' | 'monthly' | 'quarterly'): Promise<CompetitiveAnalysis> {
+  async generateCompetitiveAnalysis(
+    period: 'weekly' | 'monthly' | 'quarterly'
+  ): Promise<CompetitiveAnalysis> {
     return this.crewLogger.logExecution(
       'generate-competitive-analysis',
       async () => {
@@ -809,7 +832,7 @@ export class CompetitorMonitoringSystem {
 
         const competitors = await this.getAllCompetitors();
         const activities = await this.getActivitiesForPeriod(period);
-        
+
         const analysis: CompetitiveAnalysis = {
           period,
           competitors: [],
@@ -829,7 +852,10 @@ export class CompetitorMonitoringSystem {
         analysis.marketTrends = this.identifyMarketTrends(activities);
 
         // Generate recommendations
-        analysis.recommendations = this.generateRecommendations(analysis.competitors, analysis.marketTrends);
+        analysis.recommendations = this.generateRecommendations(
+          analysis.competitors,
+          analysis.marketTrends
+        );
 
         // Create action items
         analysis.actionItems = this.createActionItems(analysis.recommendations);
@@ -863,10 +889,9 @@ export class CompetitorMonitoringSystem {
     const highImpactActivities = activities.filter(a => a.impact === 'high').length;
 
     // Calculate overall score (0-100)
-    const overallScore = Math.min(100, 
-      (contentCount * 5) + 
-      (socialEngagement / 100) + 
-      (highImpactActivities * 10)
+    const overallScore = Math.min(
+      100,
+      contentCount * 5 + socialEngagement / 100 + highImpactActivities * 10
     );
 
     return {
@@ -885,7 +910,7 @@ export class CompetitorMonitoringSystem {
    */
   private identifyStrengths(activities: CompetitorActivity[]): string[] {
     const strengths: string[] = [];
-    
+
     const contentFrequency = activities.filter(a => a.activityType === 'content').length;
     if (contentFrequency > 10) {
       strengths.push('High content production frequency');
@@ -910,10 +935,10 @@ export class CompetitorMonitoringSystem {
 
   private identifyWeaknesses(activities: CompetitorActivity[]): string[] {
     const weaknesses: string[] = [];
-    
-    const negativeReviews = activities
-      .filter(a => a.activityType === 'review' && a.details.sentiment === 'negative')
-      .length;
+
+    const negativeReviews = activities.filter(
+      a => a.activityType === 'review' && a.details.sentiment === 'negative'
+    ).length;
     if (negativeReviews > 2) {
       weaknesses.push('Multiple negative reviews');
     }
@@ -930,7 +955,7 @@ export class CompetitorMonitoringSystem {
 
   private identifyOpportunities(activities: CompetitorActivity[]): string[] {
     const opportunities: string[] = [];
-    
+
     const contentGaps = this.findContentGaps(activities);
     if (contentGaps.length > 0) {
       opportunities.push(`Content gaps in: ${contentGaps.join(', ')}`);
@@ -946,17 +971,15 @@ export class CompetitorMonitoringSystem {
 
   private identifyThreats(activities: CompetitorActivity[]): string[] {
     const threats: string[] = [];
-    
-    const aggressiveAds = activities
-      .filter(a => a.activityType === 'ad' && a.impact === 'high')
-      .length;
+
+    const aggressiveAds = activities.filter(
+      a => a.activityType === 'ad' && a.impact === 'high'
+    ).length;
     if (aggressiveAds > 3) {
       threats.push('Aggressive advertising campaigns');
     }
 
-    const rapidGrowth = activities
-      .filter(a => a.impact === 'high')
-      .length > 10;
+    const rapidGrowth = activities.filter(a => a.impact === 'high').length > 10;
     if (rapidGrowth) {
       threats.push('Rapid competitive growth');
     }
@@ -966,27 +989,26 @@ export class CompetitorMonitoringSystem {
 
   private identifyMarketTrends(activities: CompetitorActivity[]): string[] {
     const trends: string[] = [];
-    
+
     // Analyze keyword patterns
-    const allKeywords = activities
-      .flatMap(a => a.details.keywords || [])
-      .filter(k => k);
-    
+    const allKeywords = activities.flatMap(a => a.details.keywords || []).filter(k => k);
+
     const keywordFrequency = this.calculateFrequency(allKeywords);
     const trendingKeywords = Object.entries(keywordFrequency)
       .filter(([_, count]) => count > 3)
       .map(([keyword]) => keyword);
-    
+
     if (trendingKeywords.length > 0) {
       trends.push(`Trending topics: ${trendingKeywords.slice(0, 5).join(', ')}`);
     }
 
     // Analyze content types
-    const videoContent = activities.filter(a => 
-      a.details.title?.toLowerCase().includes('video') ||
-      a.details.description?.toLowerCase().includes('video')
+    const videoContent = activities.filter(
+      a =>
+        a.details.title?.toLowerCase().includes('video') ||
+        a.details.description?.toLowerCase().includes('video')
     ).length;
-    
+
     if (videoContent > 5) {
       trends.push('Increased focus on video content');
     }
@@ -1002,7 +1024,7 @@ export class CompetitorMonitoringSystem {
 
   private generateRecommendations(competitors: any[], trends: string[]): string[] {
     const recommendations: string[] = [];
-    
+
     // Based on competitor analysis
     const avgScore = competitors.reduce((sum, c) => sum + c.overallScore, 0) / competitors.length;
     if (avgScore > 70) {
@@ -1054,7 +1076,7 @@ export class CompetitorMonitoringSystem {
 
   private assessContentImpact(content: any): 'high' | 'medium' | 'low' {
     const highValueKeywords = ['lawyer', 'attorney', 'legal', 'lawsuit', 'consultation'];
-    const hasHighValueKeyword = content.keywords?.some((k: string) => 
+    const hasHighValueKeyword = content.keywords?.some((k: string) =>
       highValueKeywords.some(hvk => k.toLowerCase().includes(hvk))
     );
 
@@ -1067,14 +1089,16 @@ export class CompetitorMonitoringSystem {
   }
 
   private shouldRespondToContent(content: any): boolean {
-    return content.channel === 'website' || 
-           content.channel === 'blog' ||
-           (content.keywords && content.keywords.length > 3);
+    return (
+      content.channel === 'website' ||
+      content.channel === 'blog' ||
+      (content.keywords && content.keywords.length > 3)
+    );
   }
 
   private generateRelatedTopics(keywords: string[]): string[] {
     const topics: string[] = [];
-    
+
     for (const keyword of keywords) {
       topics.push(`${keyword} in North Carolina`);
       topics.push(`How to handle ${keyword}`);
@@ -1087,7 +1111,7 @@ export class CompetitorMonitoringSystem {
 
   private expandKeywords(keywords: string[]): string[] {
     const expanded: string[] = [...keywords];
-    
+
     for (const keyword of keywords) {
       expanded.push(`${keyword} NC`);
       expanded.push(`${keyword} North Carolina`);
@@ -1102,7 +1126,7 @@ export class CompetitorMonitoringSystem {
   private generateLSIKeywords(keyword: string): string[] {
     // Simplified LSI keyword generation
     const lsiMap: Record<string, string[]> = {
-      'immigration': ['green card', 'citizenship', 'visa', 'deportation', 'asylum'],
+      immigration: ['green card', 'citizenship', 'visa', 'deportation', 'asylum'],
       'personal injury': ['car accident', 'slip and fall', 'medical bills', 'insurance claim'],
       'workers compensation': ['work injury', 'workplace accident', 'disability benefits'],
       'family law': ['divorce', 'custody', 'child support', 'alimony', 'separation'],
@@ -1132,56 +1156,77 @@ export class CompetitorMonitoringSystem {
   }
 
   private identifyPracticeArea(activity: CompetitorActivity): string {
-    const content = `${activity.details.title} ${activity.details.description} ${activity.details.keywords?.join(' ')}`.toLowerCase();
-    
-    if (content.includes('immigration') || content.includes('visa') || content.includes('green card')) {
+    const content =
+      `${activity.details.title} ${activity.details.description} ${activity.details.keywords?.join(' ')}`.toLowerCase();
+
+    if (
+      content.includes('immigration') ||
+      content.includes('visa') ||
+      content.includes('green card')
+    ) {
       return 'immigration';
     } else if (content.includes('injury') || content.includes('accident')) {
       return 'personal-injury';
     } else if (content.includes('workers comp') || content.includes('work injury')) {
       return 'workers-compensation';
-    } else if (content.includes('divorce') || content.includes('custody') || content.includes('family')) {
+    } else if (
+      content.includes('divorce') ||
+      content.includes('custody') ||
+      content.includes('family')
+    ) {
       return 'family-law';
-    } else if (content.includes('criminal') || content.includes('dui') || content.includes('arrest')) {
+    } else if (
+      content.includes('criminal') ||
+      content.includes('dui') ||
+      content.includes('arrest')
+    ) {
       return 'criminal-defense';
     }
-    
+
     return 'general';
   }
 
   private calculateFrequency(items: string[]): Record<string, number> {
-    return items.reduce((acc, item) => {
-      acc[item] = (acc[item] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
+    return items.reduce(
+      (acc, item) => {
+        acc[item] = (acc[item] || 0) + 1;
+        return acc;
+      },
+      {} as Record<string, number>
+    );
   }
 
   private findContentGaps(activities: CompetitorActivity[]): string[] {
     const coveredTopics = activities
       .filter(a => a.activityType === 'content')
       .flatMap(a => a.details.keywords || []);
-    
+
     const allTopics = [
-      'immigration law', 'personal injury', 'workers compensation',
-      'family law', 'criminal defense', 'estate planning',
-      'business law', 'real estate law'
+      'immigration law',
+      'personal injury',
+      'workers compensation',
+      'family law',
+      'criminal defense',
+      'estate planning',
+      'business law',
+      'real estate law',
     ];
 
-    return allTopics.filter(topic => 
-      !coveredTopics.some(covered => covered.toLowerCase().includes(topic))
+    return allTopics.filter(
+      topic => !coveredTopics.some(covered => covered.toLowerCase().includes(topic))
     );
   }
 
   private findWeakChannels(activities: CompetitorActivity[]): string[] {
     const channels = ['website', 'blog', 'facebook', 'instagram', 'linkedin', 'youtube', 'tiktok'];
     const activeChannels = [...new Set(activities.map(a => a.channel))];
-    
+
     return channels.filter(channel => !activeChannels.includes(channel));
   }
 
   private calculateDeadline(priority: string): string {
     const now = new Date();
-    
+
     switch (priority) {
       case 'high':
         now.setDate(now.getDate() + 7); // 1 week
@@ -1193,7 +1238,7 @@ export class CompetitorMonitoringSystem {
         now.setDate(now.getDate() + 90); // 3 months
         break;
     }
-    
+
     return now.toISOString().split('T')[0];
   }
 
@@ -1207,7 +1252,7 @@ export class CompetitorMonitoringSystem {
     } else if (action.toLowerCase().includes('review')) {
       return 'Client Relations';
     }
-    
+
     return 'Marketing Director';
   }
 
@@ -1218,13 +1263,15 @@ export class CompetitorMonitoringSystem {
     // Simulate finding new content
     const random = Math.random();
     if (random > 0.7) {
-      return [{
-        channel: 'blog',
-        title: 'Understanding Immigration Law Changes in 2024',
-        url: `${profile.website}/blog/immigration-law-2024`,
-        description: 'Recent changes to immigration law affecting green card applications...',
-        keywords: ['immigration law', 'green card', '2024 changes'],
-      }];
+      return [
+        {
+          channel: 'blog',
+          title: 'Understanding Immigration Law Changes in 2024',
+          url: `${profile.website}/blog/immigration-law-2024`,
+          description: 'Recent changes to immigration law affecting green card applications...',
+          keywords: ['immigration law', 'green card', '2024 changes'],
+        },
+      ];
     }
     return [];
   }
@@ -1233,12 +1280,14 @@ export class CompetitorMonitoringSystem {
     // Simulate ranking changes
     const random = Math.random();
     if (random > 0.8) {
-      return [{
-        keyword: 'immigration lawyer charlotte',
-        previousPosition: 8,
-        currentPosition: 4,
-        positionChange: -4,
-      }];
+      return [
+        {
+          keyword: 'immigration lawyer charlotte',
+          previousPosition: 8,
+          currentPosition: 4,
+          positionChange: -4,
+        },
+      ];
     }
     return [];
   }
@@ -1247,13 +1296,15 @@ export class CompetitorMonitoringSystem {
     // Simulate social posts
     const random = Math.random();
     if (random > 0.6) {
-      return [{
-        title: 'Client Success Story',
-        url: `https://${platform}.com/${handle}/posts/123`,
-        content: 'We helped another family reunite through our immigration services...',
-        engagement: Math.floor(Math.random() * 2000),
-        sentiment: 'positive',
-      }];
+      return [
+        {
+          title: 'Client Success Story',
+          url: `https://${platform}.com/${handle}/posts/123`,
+          content: 'We helped another family reunite through our immigration services...',
+          engagement: Math.floor(Math.random() * 2000),
+          sentiment: 'positive',
+        },
+      ];
     }
     return [];
   }
@@ -1262,14 +1313,16 @@ export class CompetitorMonitoringSystem {
     // Simulate ad campaigns
     const random = Math.random();
     if (random > 0.9) {
-      return [{
-        platform: 'Google Ads',
-        headline: 'Top Immigration Lawyers - Free Consultation',
-        adCopy: 'Expert immigration attorneys. Get your green card faster.',
-        targetKeywords: ['immigration lawyer', 'green card attorney'],
-        landingPage: `${profile.website}/free-consultation`,
-        estimatedSpend: 2000,
-      }];
+      return [
+        {
+          platform: 'Google Ads',
+          headline: 'Top Immigration Lawyers - Free Consultation',
+          adCopy: 'Expert immigration attorneys. Get your green card faster.',
+          targetKeywords: ['immigration lawyer', 'green card attorney'],
+          landingPage: `${profile.website}/free-consultation`,
+          estimatedSpend: 2000,
+        },
+      ];
     }
     return [];
   }
@@ -1278,12 +1331,14 @@ export class CompetitorMonitoringSystem {
     // Simulate new reviews
     const random = Math.random();
     if (random > 0.7) {
-      return [{
-        platform: 'Google',
-        rating: Math.floor(Math.random() * 5) + 1,
-        content: 'Great experience with this law firm...',
-        verified: true,
-      }];
+      return [
+        {
+          platform: 'Google',
+          rating: Math.floor(Math.random() * 5) + 1,
+          content: 'Great experience with this law firm...',
+          verified: true,
+        },
+      ];
     }
     return [];
   }
@@ -1355,3 +1410,4 @@ export class CompetitorMonitoringSystem {
 
 // Export singleton instance
 export const competitorMonitoring = new CompetitorMonitoringSystem();
+export const competitorMonitoringSystem = competitorMonitoring;
