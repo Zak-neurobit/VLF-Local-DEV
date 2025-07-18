@@ -8,10 +8,13 @@ export const metadata: Metadata = {
   keywords:
     'lesiones construcción NC, accidentes construcción Carolina del Norte, compensación laboral construcción, caídas andamios, accidentes maquinaria pesada',
   alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/areas-de-practica/compensacion-laboral/lesiones-construccion',
+    canonical:
+      'https://www.vasquezlawnc.com/es/areas-de-practica/compensacion-laboral/lesiones-construccion',
     languages: {
-      'en-US': 'https://www.vasquezlawnc.com/practice-areas/workers-compensation/construction-site-injuries',
-      'es-ES': 'https://www.vasquezlawnc.com/es/areas-de-practica/compensacion-laboral/lesiones-construccion',
+      'en-US':
+        'https://www.vasquezlawnc.com/practice-areas/workers-compensation/construction-site-injuries',
+      'es-ES':
+        'https://www.vasquezlawnc.com/es/areas-de-practica/compensacion-laboral/lesiones-construccion',
     },
   },
 };
@@ -58,7 +61,8 @@ const services = [
 const faqs = [
   {
     question: '¿Qué beneficios puedo recibir por lesiones de construcción?',
-    answer: 'Compensación médica completa, beneficios de incapacidad, entrenamiento vocacional, y posibles demandas de terceros contra fabricantes de equipos o contratistas generales.',
+    answer:
+      'Compensación médica completa, beneficios de incapacidad, entrenamiento vocacional, y posibles demandas de terceros contra fabricantes de equipos o contratistas generales.',
   },
 ];
 
@@ -68,6 +72,10 @@ export default function LesionesConstructionPage() {
       title="Lesiones de Construcción"
       subtitle="Protegiendo Trabajadores de Construcción Lesionados"
       description="Los sitios de construcción están llenos de peligros. Cuando resulte lesionado, luchamos por la compensación completa y beneficios que merece."
+      content={{
+        introduction:
+          'La construcción es una de las industrias más peligrosas. Caídas, maquinaria pesada y electrocución son riesgos diarios. Luchamos por compensación completa y beneficios a largo plazo para trabajadores lesionados.',
+      }}
       services={services}
       faqs={faqs}
     />

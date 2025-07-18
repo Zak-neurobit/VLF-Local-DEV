@@ -13,22 +13,33 @@ export async function GET(request: NextRequest) {
 
     // Get all strategies
     const strategies = (crossPostingManager as any).strategies;
-    const strategyList = Array.from(strategies.entries()).map(([id, strategy]) => ({
-      id,
-      name: strategy.name,
-      sourceType: strategy.sourceType,
-      targetPlatforms: strategy.targetPlatforms,
-      ruleCount: strategy.rules.length,
-      schedule: strategy.schedule,
-    }));
+    const strategyList = Array.from(strategies.entries()).map(
+      (
+        entry
+      ): {
+        id: string;
+        name: string;
+        sourceType: string;
+        targetPlatforms: string[];
+        ruleCount: number;
+        schedule: any;
+      } => {
+        const [id, strategy] = entry as [string, any];
+        return {
+          id,
+          name: strategy.name,
+          sourceType: strategy.sourceType,
+          targetPlatforms: strategy.targetPlatforms,
+          ruleCount: strategy.rules.length,
+          schedule: strategy.schedule,
+        };
+      }
+    );
 
     return NextResponse.json({ success: true, strategies: strategyList });
   } catch (error) {
     console.error('Failed to get strategies:', error);
-    return NextResponse.json(
-      { error: 'Failed to get strategies' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to get strategies' }, { status: 500 });
   }
 }
 
@@ -44,10 +55,7 @@ export async function POST(request: NextRequest) {
     const { contentId, contentType } = body;
 
     if (!contentId || !contentType) {
-      return NextResponse.json(
-        { error: 'Content ID and type are required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Content ID and type are required' }, { status: 400 });
     }
 
     // Mock content object for testing
@@ -60,16 +68,13 @@ export async function POST(request: NextRequest) {
 
     const applicableStrategies = await crossPostingManager.getApplicableStrategies(content);
 
-    return NextResponse.json({ 
-      success: true, 
+    return NextResponse.json({
+      success: true,
       applicableStrategies,
       count: applicableStrategies.length,
     });
   } catch (error) {
     console.error('Failed to test strategies:', error);
-    return NextResponse.json(
-      { error: 'Failed to test strategies' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to test strategies' }, { status: 500 });
   }
 }

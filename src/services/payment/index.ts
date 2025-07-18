@@ -1,8 +1,8 @@
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { cache, cacheKeys, CacheTTL } from '@/lib/cache';
 import { emailQueue } from '@/lib/queue/bull';
-import { getPrismaClient, withTransaction } from '@/lib/prisma';
+import { getPrismaClient } from '@/lib/prisma';
 import type { PaymentMetadata } from '@/types/services';
 import {
   PaymentGateway,
@@ -13,6 +13,10 @@ import {
   PaymentPlanStatus,
   TrustTransactionType,
   Prisma,
+  Payment,
+  Case,
+  PaymentRefund,
+  TrustLedger,
 } from '@prisma/client';
 import Stripe from 'stripe';
 
@@ -1082,19 +1086,20 @@ class PaymentService {
       }
 
       // Process payment for the monthly amount
-      const paymentIntent: PaymentIntent = {
-        amount: plan.monthlyAmount,
-        currency: 'USD',
-        description: `Payment plan installment - ${plan.id}`,
-        clientEmail: plan.clientEmail,
-        clientName: plan.clientName,
-        caseId: plan.caseId || undefined,
-        metadata: {
-          paymentPlanId: plan.id,
-          installmentNumber:
-            Math.ceil((plan.totalAmount - plan.remainingAmount) / plan.monthlyAmount) + 1,
-        },
-      };
+      // TODO: Implement stored payment method for payment plans
+      // const paymentIntent: PaymentIntent = {
+      //   amount: plan.monthlyAmount,
+      //   currency: 'USD',
+      //   description: `Payment plan installment - ${plan.id}`,
+      //   clientEmail: plan.clientEmail,
+      //   clientName: plan.clientName,
+      //   caseId: plan.caseId || undefined,
+      //   metadata: {
+      //     paymentPlanId: plan.id,
+      //     installmentNumber:
+      //       Math.ceil((plan.totalAmount - plan.remainingAmount) / plan.monthlyAmount) + 1,
+      //   },
+      // };
 
       // This would need the stored payment method, which we'd add to the PaymentPlan model
       // For now, this is a placeholder

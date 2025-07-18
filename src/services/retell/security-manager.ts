@@ -145,9 +145,9 @@ export class SecurityManager {
           type: 'api_request_validation',
           riskLevel,
           details: {
-            origin,
-            userAgent,
-            ip,
+            origin: origin || '',
+            userAgent: userAgent || '',
+            ip: ip || '',
             reasons,
           },
         });
@@ -335,7 +335,7 @@ export class SecurityManager {
       ];
 
       if (sensitiveKeys.some(sensitive => key.toLowerCase().includes(sensitive))) {
-        logger.warn('Skipping sensitive metadata key:', key);
+        logger.warn('Skipping sensitive metadata key', { key });
         continue;
       }
 

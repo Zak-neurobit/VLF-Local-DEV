@@ -54,7 +54,7 @@ export class ReviewHarvester extends EventEmitter {
   private platforms: Map<string, ReviewPlatform> = new Map();
   private harvesters: Map<string, PlatformHarvester> = new Map();
   private isRunning: boolean = false;
-  private harvestInterval: NodeJS.Timer | null = null;
+  private harvestInterval: NodeJS.Timeout | null = null;
 
   constructor() {
     super();
@@ -387,7 +387,7 @@ export class ReviewHarvester extends EventEmitter {
         } else if (this.hasChanged(existing, review)) {
           // Update existing review
           await reviewStubs.update({
-            where: { id: existing.id },
+            where: { id: (existing as any).id },
             data: {
               rating: review.rating,
               content: review.content,
@@ -541,7 +541,7 @@ export class ReviewHarvester extends EventEmitter {
   }
 
   private async getLastHarvestTime(platformId: string): Promise<Date | null> {
-    const lastHarvest = await prisma.reviewHarvest.findFirst({
+    const lastHarvest = await (prisma as any).reviewHarvest.findFirst({
       where: {
         platformId,
         success: true,
@@ -553,7 +553,7 @@ export class ReviewHarvester extends EventEmitter {
   }
 
   private async recordHarvest(data: any): Promise<void> {
-    await prisma.reviewHarvest.create({
+    await (prisma as any).reviewHarvest.create({
       data: {
         ...data,
         createdAt: new Date(),
@@ -606,7 +606,7 @@ export class ReviewHarvester extends EventEmitter {
     return {
       total,
       averageRating: avgRating._avg.rating || 0,
-      ratingDistribution: Object.fromEntries(byRating.map(r => [r.rating, r._count])),
+      ratingDistribution: Object.fromEntries(byRating.map((r: any) => [r.rating, r._count])),
       sentimentDistribution: Object.fromEntries(
         bySentiment.map((s: { sentiment: string | null; _count: number }) => [
           s.sentiment || 'unknown',

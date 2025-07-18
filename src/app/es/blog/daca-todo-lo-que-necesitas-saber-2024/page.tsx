@@ -24,7 +24,8 @@ export default function DacaTodoLoQueNecesitasSaber2024Page() {
     id: 'daca-todo-lo-que-necesitas-saber-2024',
     title: 'DACA: Todo lo que Necesitas Saber en 2024',
     slug: 'daca-todo-lo-que-necesitas-saber-2024',
-    excerpt: 'La guía definitiva sobre DACA en 2024. Renovaciones, requisitos actualizados, derechos laborales y estrategias de protección de un abogado veterano.',
+    excerpt:
+      'La guía definitiva sobre DACA en 2024. Renovaciones, requisitos actualizados, derechos laborales y estrategias de protección de un abogado veterano.',
     content: `
       <div class="prose prose-lg max-w-none">
         <div class="bg-purple-50 border-l-4 border-purple-500 p-6 mb-8">
@@ -536,6 +537,7 @@ export default function DacaTodoLoQueNecesitasSaber2024Page() {
       title: 'Guía Completa de Residencia Permanente 2024',
       slug: 'guia-completa-residencia-permanente-2024',
       excerpt: 'Cómo obtener tu Green Card: todas las opciones y estrategias.',
+      content: '',
       practiceArea: 'immigration' as const,
       language: 'es' as const,
       publishedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
@@ -548,6 +550,7 @@ export default function DacaTodoLoQueNecesitasSaber2024Page() {
       title: 'Deportación: 5 Pasos Urgentes que Debes Tomar HOY',
       slug: 'deportacion-5-pasos-urgentes-que-debes-tomar-hoy',
       excerpt: 'Guía de emergencia si enfrentas deportación. Protege tus derechos.',
+      content: '',
       practiceArea: 'immigration' as const,
       language: 'es' as const,
       publishedAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),

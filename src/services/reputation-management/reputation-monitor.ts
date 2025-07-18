@@ -1,16 +1,25 @@
 import { logger } from '@/lib/logger';
 import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma-safe';
-import { reviewStubs } from '@/lib/prisma-model-stubs';
+import {
+  reviewStubs,
+  reputationTaskStubs,
+  reviewResponseStubs,
+  reviewEscalationStubs,
+  dailyReputationMetricsStubs,
+  reputationAlertStubs,
+  reviewPlatformStubs,
+} from '@/lib/prisma-model-stubs';
 import { reviewHarvester } from './review-harvester';
 import { responseGenerator } from './response-generator';
 import { EventEmitter } from 'events';
 import { z } from 'zod';
+import type { LogMeta } from '@/types/logger';
 
 export class ReputationMonitor extends EventEmitter {
   private isMonitoring: boolean = false;
-  private monitoringInterval: NodeJS.Timer | null = null;
-  private alertThresholds: AlertThresholds;
+  private monitoringInterval: NodeJS.Timeout | null = null;
+  private alertThresholds!: AlertThresholds;
   private responseRules: ResponseRule[] = [];
 
   constructor() {
@@ -113,7 +122,7 @@ export class ReputationMonitor extends EventEmitter {
       logger.info('Reputation monitor started successfully');
     } catch (error) {
       this.isMonitoring = false;
-      logger.error('Failed to start reputation monitor:', errorToLogMeta(error));
+      logger.error('Failed to start reputation monitor', errorToLogMeta(error));
       throw error;
     }
   }
@@ -152,7 +161,7 @@ export class ReputationMonitor extends EventEmitter {
 
       logger.info('Monitoring check completed');
     } catch (error) {
-      logger.error('Monitoring check failed:', errorToLogMeta(error));
+      logger.error('Monitoring check failed', errorToLogMeta(error));
       this.emit('error', error);
     }
   }
@@ -177,7 +186,7 @@ export class ReputationMonitor extends EventEmitter {
         // Check for alerts
         await this.checkAlertConditions(review);
       } catch (error) {
-        logger.error(`Failed to process review ${review.id}:`, errorToLogMeta(error));
+        logger.error(`Failed to process review ${review.id}`, errorToLogMeta(error));
       }
     }
   }
@@ -197,7 +206,7 @@ export class ReputationMonitor extends EventEmitter {
     });
 
     // Create high-priority task
-    await prisma.reputationTask.create({
+    await reputationTaskStubs.create({
       data: {
         type: 'respond_to_review',
         priority: 'urgent',
@@ -276,12 +285,12 @@ export class ReputationMonitor extends EventEmitter {
     });
 
     if (!generatedResponse.success) {
-      logger.error('Failed to generate response:', generatedResponse.error);
+      logger.error('Failed to generate response', { error: generatedResponse.error });
       return;
     }
 
     // Create response task
-    await prisma.reviewResponse.create({
+    await reviewResponseStubs.create({
       data: {
         reviewId: review.id,
         responseText: generatedResponse.response!,
@@ -301,7 +310,7 @@ export class ReputationMonitor extends EventEmitter {
 
   private async escalateReview(review: any, rule: ResponseRule): Promise<void> {
     // Create escalation
-    await prisma.reviewEscalation.create({
+    await reviewEscalationStubs.create({
       data: {
         reviewId: review.id,
         reason: `Triggered rule: ${rule.id}`,
@@ -353,7 +362,7 @@ export class ReputationMonitor extends EventEmitter {
 
   private async createResponseReminder(review: any): Promise<void> {
     // Check if reminder already exists
-    const existingReminder = await prisma.reputationTask.findFirst({
+    const existingReminder = await reputationTaskStubs.findFirst({
       where: {
         reviewId: review.id,
         type: 'response_reminder',
@@ -362,7 +371,7 @@ export class ReputationMonitor extends EventEmitter {
     });
 
     if (!existingReminder) {
-      await prisma.reputationTask.create({
+      await reputationTaskStubs.create({
         data: {
           type: 'response_reminder',
           priority: review.sentiment === 'negative' ? 'high' : 'medium',
@@ -409,7 +418,7 @@ export class ReputationMonitor extends EventEmitter {
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-    const recentReviews = await reviewStubs.findMany({
+    const recentReviews: any[] = await reviewStubs.findMany({
       where: {
         publishedAt: { gte: thirtyDaysAgo },
       },
@@ -446,16 +455,17 @@ export class ReputationMonitor extends EventEmitter {
   }
 
   private async calculateReputationMetrics(): Promise<ReputationMetrics> {
-    const [totalReviews, respondedReviews, avgRating, platformStats] = await Promise.all([
-      reviewStubs.count(),
-      reviewStubs.count({ where: { responded: true } }),
-      reviewStubs.aggregate({ _avg: { rating: true } }),
-      reviewStubs.groupBy({
-        by: ['platformId'],
-        _count: true,
-        _avg: { rating: true },
-      }),
-    ]);
+    const [totalReviews, respondedReviews, avgRating, platformStats]: [number, number, any, any[]] =
+      await Promise.all([
+        reviewStubs.count(),
+        reviewStubs.count({ where: { responded: true } }),
+        reviewStubs.aggregate({ _avg: { rating: true } }),
+        reviewStubs.groupBy({
+          by: ['platformId'],
+          _count: true,
+          _avg: { rating: true },
+        }),
+      ]);
 
     const responseRate = totalReviews > 0 ? respondedReviews / totalReviews : 0;
 
@@ -517,7 +527,7 @@ export class ReputationMonitor extends EventEmitter {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    await prisma.dailyReputationMetrics.upsert({
+    await dailyReputationMetricsStubs.upsert({
       where: {
         date_platformId: {
           date: today,
@@ -560,7 +570,7 @@ export class ReputationMonitor extends EventEmitter {
   }
 
   private async createAlert(alert: ReputationAlert): Promise<void> {
-    await prisma.reputationAlert.create({
+    await reputationAlertStubs.create({
       data: {
         type: alert.type,
         severity: alert.severity,
@@ -598,7 +608,7 @@ export class ReputationMonitor extends EventEmitter {
 
   async generateReputationReport(): Promise<ReputationReport> {
     const metrics = await this.calculateReputationMetrics();
-    const recentAlerts = await prisma.reputationAlert.findMany({
+    const recentAlerts = await reputationAlertStubs.findMany({
       where: {
         createdAt: { gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) },
       },
@@ -619,7 +629,7 @@ export class ReputationMonitor extends EventEmitter {
   }
 
   private async calculatePlatformPerformance(): Promise<any[]> {
-    const platforms = await prisma.reviewPlatform.findMany();
+    const platforms: any[] = await reviewPlatformStubs.findMany();
     const performance = [];
 
     for (const platform of platforms) {
@@ -653,7 +663,7 @@ export class ReputationMonitor extends EventEmitter {
     const last30Days = new Date();
     last30Days.setDate(last30Days.getDate() - 30);
 
-    const responses = await prisma.reviewResponse.findMany({
+    const responses: any[] = await reviewResponseStubs.findMany({
       where: {
         createdAt: { gte: last30Days },
       },
@@ -663,7 +673,7 @@ export class ReputationMonitor extends EventEmitter {
     });
 
     const avgResponseTime =
-      responses.reduce((sum, response) => {
+      responses.reduce((sum: number, response: any) => {
         const responseTime = response.createdAt.getTime() - response.review.publishedAt.getTime();
         return sum + responseTime;
       }, 0) / responses.length;
@@ -671,7 +681,8 @@ export class ReputationMonitor extends EventEmitter {
     return {
       totalResponses: responses.length,
       averageResponseTime: avgResponseTime / (1000 * 60), // Convert to minutes
-      autoResponseRate: responses.filter(r => r.generatedBy === 'ai').length / responses.length,
+      autoResponseRate:
+        responses.filter((r: any) => r.generatedBy === 'ai').length / responses.length,
     };
   }
 

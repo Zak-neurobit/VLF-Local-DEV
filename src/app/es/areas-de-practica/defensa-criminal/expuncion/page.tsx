@@ -46,7 +46,8 @@ const services = [
 const faqs = [
   {
     question: '¿Puedo expungir una condena de DWI?',
-    answer: 'No, las condenas de DWI no son elegibles para expunción en Carolina del Norte. Sin embargo, arrestos DWI que no resultaron en condena pueden ser expungidos.',
+    answer:
+      'No, las condenas de DWI no son elegibles para expunción en Carolina del Norte. Sin embargo, arrestos DWI que no resultaron en condena pueden ser expungidos.',
   },
 ];
 
@@ -56,6 +57,10 @@ export default function ExpuncionPage() {
       title="Expunción de Antecedentes Criminales"
       subtitle="Su Segunda Oportunidad Comienza Aquí"
       description="Un récord criminal no debe definir su futuro. Ayudamos a limpiar antecedentes para nuevas oportunidades de empleo, vivienda y educación."
+      content={{
+        introduction:
+          'Carolina del Norte permite la expunción de ciertos arrestos y condenas. Un récord limpio abre puertas a empleo, vivienda, educación y oportunidades que su pasado no debe cerrar.',
+      }}
       services={services}
       faqs={faqs}
     />

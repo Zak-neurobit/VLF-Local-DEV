@@ -224,7 +224,7 @@ export class RetellAgentManager {
         } catch (error) {
           logger.error(
             `Failed to create/update agent for ${config.practiceArea}:`,
-            error instanceof Error ? error.message : String(error)
+            errorToLogMeta(error)
           );
           // Continue with other agents even if one fails
         }
@@ -328,11 +328,7 @@ export class RetellAgentManager {
           method: axiosError.config?.method,
         });
       } else {
-        logger.error('Failed to create/update agent:', {
-          error: error instanceof Error ? error.message : String(error),
-          status: error instanceof Error ? axiosError.response?.status : undefined,
-          data: error instanceof Error ? axiosError.response?.data : undefined,
-        });
+        logger.error('Failed to create/update agent:', errorToLogMeta(error));
       }
       return null;
     }

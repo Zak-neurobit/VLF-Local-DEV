@@ -958,7 +958,12 @@ export default function GuiaCompensacionLaboralCarolinaNortePage() {
       'Trabajadores Latinos',
       'Beneficios Trabajadores',
     ],
-    featuredImage: '/images/blog/guia-compensacion-laboral-carolina-norte.jpg',
+    featuredImage: {
+      url: '/images/blog/guia-compensacion-laboral-carolina-norte.jpg',
+      alt: 'Guía de Compensación Laboral en Carolina del Norte - Trabajador lesionado',
+      width: 1200,
+      height: 630,
+    },
     views: 0,
   };
 
@@ -993,6 +998,7 @@ export default function GuiaCompensacionLaboralCarolinaNortePage() {
       slug: 'arreglos-lesiones-laborales-carolina-norte',
       excerpt:
         'Aprenda cómo maximizar su arreglo de compensación laboral en NC, incluyendo calificaciones de discapacidad permanente, reclamos de terceros y estrategias de negociación.',
+      content: '',
       practiceArea: 'compensacion-laboral',
       language: 'es' as const,
       publishedAt: new Date('2024-01-18T10:00:00.000Z'),
@@ -1006,6 +1012,7 @@ export default function GuiaCompensacionLaboralCarolinaNortePage() {
       slug: 'reclamos-compensacion-denegados-carolina-norte',
       excerpt:
         'Guía completa para apelar reclamos denegados de compensación laboral en NC, incluyendo razones comunes de denegación y estrategias para ganar apelaciones.',
+      content: '',
       practiceArea: 'compensacion-laboral',
       language: 'es' as const,
       publishedAt: new Date('2024-01-15T10:00:00.000Z'),
@@ -1019,6 +1026,7 @@ export default function GuiaCompensacionLaboralCarolinaNortePage() {
       slug: 'derechos-trabajadores-construccion-carolina-norte',
       excerpt:
         'Conozca sus derechos como trabajador de construcción en NC, incluyendo beneficios de compensación laboral, protecciones de seguridad y reclamos de lesiones de terceros.',
+      content: '',
       practiceArea: 'compensacion-laboral',
       language: 'es' as const,
       publishedAt: new Date('2024-01-12T10:00:00.000Z'),

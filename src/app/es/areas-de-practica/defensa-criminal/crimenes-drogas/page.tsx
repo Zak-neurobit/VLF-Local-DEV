@@ -46,7 +46,8 @@ const services = [
 const faqs = [
   {
     question: '¿Qué es la diferencia entre posesión y tráfico?',
-    answer: 'La diferencia principal es la cantidad. Ciertas cantidades resultan automáticamente en cargos de tráfico con penalidades mucho más severas, incluso sin evidencia de venta.',
+    answer:
+      'La diferencia principal es la cantidad. Ciertas cantidades resultan automáticamente en cargos de tráfico con penalidades mucho más severas, incluso sin evidencia de venta.',
   },
 ];
 
@@ -56,6 +57,10 @@ export default function CrimenesDrogasPage() {
       title="Defensa por Crímenes de Drogas"
       subtitle="Luchando Contra Cargos Que Pueden Destruir Su Vida"
       description="Los cargos de drogas conllevan penalidades severas y consecuencias de por vida. Proporcionamos defensa experta para proteger su libertad y futuro."
+      content={{
+        introduction:
+          'Carolina del Norte impone penalidades severas por crímenes de drogas. Desde posesión simple hasta tráfico, luchamos agresivamente para proteger su libertad, familia y estatus migratorio.',
+      }}
       services={services}
       faqs={faqs}
     />

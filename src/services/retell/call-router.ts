@@ -159,7 +159,7 @@ export class CallRoutingService {
     if (existingContact?.tags) {
       const tags = existingContact.tags;
 
-      if (tags.some(tag => tag.includes('immigration') || tag.includes('visa'))) {
+      if (tags.some((tag: string) => tag.includes('immigration') || tag.includes('visa'))) {
         return 'immigration';
       }
       if (tags.some((tag: string) => tag.includes('injury') || tag.includes('accident'))) {
@@ -554,12 +554,7 @@ export class CallRoutingService {
     try {
       const prisma = getPrismaClient();
 
-      const where: {
-        status?: string;
-        language?: string;
-        practiceArea?: string;
-        urgency?: string;
-      } = {};
+      const where: any = {};
       if (timeRange) {
         where.createdAt = {
           gte: timeRange.start,

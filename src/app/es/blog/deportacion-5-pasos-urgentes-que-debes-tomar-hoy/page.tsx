@@ -24,7 +24,8 @@ export default function Deportacion5PasosUrgentesQueDebesTomarHoyPage() {
     id: 'deportacion-5-pasos-urgentes-que-debes-tomar-hoy',
     title: 'Deportación: 5 Pasos Urgentes que Debes Tomar HOY',
     slug: 'deportacion-5-pasos-urgentes-que-debes-tomar-hoy',
-    excerpt: 'Guía de emergencia militar para enfrentar la deportación. Cada minuto cuenta. Estrategias probadas de abogado veterano que YO PELEO POR TI™.',
+    excerpt:
+      'Guía de emergencia militar para enfrentar la deportación. Cada minuto cuenta. Estrategias probadas de abogado veterano que YO PELEO POR TI™.',
     content: `
       <div class="prose prose-lg max-w-none">
         <div class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
@@ -351,6 +352,7 @@ export default function Deportacion5PasosUrgentesQueDebesTomarHoyPage() {
       title: 'Guía Completa de Residencia Permanente 2024',
       slug: 'guia-completa-residencia-permanente-2024',
       excerpt: 'Todo lo que necesitas saber sobre el proceso de residencia permanente en 2024.',
+      content: '',
       practiceArea: 'immigration' as const,
       language: 'es' as const,
       publishedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
@@ -363,6 +365,7 @@ export default function Deportacion5PasosUrgentesQueDebesTomarHoyPage() {
       title: 'DACA: Todo lo que Necesitas Saber en 2024',
       slug: 'daca-todo-lo-que-necesitas-saber-2024',
       excerpt: 'Guía completa sobre DACA: requisitos, renovación y cambios en 2024.',
+      content: '',
       practiceArea: 'immigration' as const,
       language: 'es' as const,
       publishedAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),

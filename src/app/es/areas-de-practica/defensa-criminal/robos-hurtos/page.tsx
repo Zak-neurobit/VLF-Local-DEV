@@ -46,7 +46,8 @@ const services = [
 const faqs = [
   {
     question: '¿Cuál es la diferencia entre hurto menor y mayor?',
-    answer: 'En NC, hurto menor involucra propiedad valorada en menos de $1,000 (delito menor). Hurto mayor es $1,000+ (felonía). Los límites y penalidades son muy diferentes.',
+    answer:
+      'En NC, hurto menor involucra propiedad valorada en menos de $1,000 (delito menor). Hurto mayor es $1,000+ (felonía). Los límites y penalidades son muy diferentes.',
   },
 ];
 
@@ -56,6 +57,10 @@ export default function RobosHurtosPage() {
       title="Defensa por Robo y Hurto"
       subtitle="Protegiendo Su Futuro Contra Cargos de Propiedad"
       description="Los cargos de robo pueden arruinar oportunidades de empleo y educación. Proporcionamos defensa agresiva para proteger su libertad y reputación."
+      content={{
+        introduction:
+          'Los cargos de robo y hurto van desde shoplifting menor hasta felony armed robbery. Cada nivel tiene consecuencias devastadoras para empleo, educación e inmigración. Luchamos por su futuro.',
+      }}
       services={services}
       faqs={faqs}
     />

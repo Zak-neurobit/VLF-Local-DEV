@@ -189,7 +189,7 @@ export class RetellErrorHandler {
           metadata: {
             details: retellError.details,
             context,
-          } as Record<string, unknown>,
+          } as any,
         },
       });
     } catch (error) {
@@ -329,7 +329,7 @@ export class RetellErrorHandler {
           metadata: {
             errorDetails: retellError.details,
             failureTimestamp: retellError.timestamp,
-          } as Prisma.JsonObject,
+          } as any,
         },
       });
     }
@@ -418,7 +418,7 @@ export class RetellErrorHandler {
             'We apologize, but our voice service is temporarily unavailable. Please call us directly at 1-844-YO-PELEO or reply to this message.',
         });
       } catch (smsError) {
-        logger.error('Failed to send SMS after balance error:', smsError);
+        logger.error('Failed to send SMS after balance error:', errorToLogMeta(smsError));
       }
     }
   }
@@ -555,7 +555,7 @@ export class RetellErrorHandler {
         data: {
           operation,
           delaySeconds,
-          context: context as Record<string, unknown>,
+          context: context as any,
           scheduledFor: new Date(Date.now() + delaySeconds * 1000),
           attempts: 0,
           maxAttempts: 3,
@@ -632,28 +632,17 @@ export class RetellErrorHandler {
           // Import email service dynamically to avoid circular dependencies
           const { emailService } = await import('@/services/email.service');
 
-          await emailService.sendEmail({
-            to: process.env.ADMIN_EMAIL,
-            subject: `Critical Retell Error: ${retellError.type}`,
-            template: 'attorney-notification' as string,
-            data: {
-              subject: `Critical Retell Error: ${retellError.type}`,
-              message: `
-              Critical Retell service error detected:
-              
-              Type: ${retellError.type}
-              Message: ${retellError.message}
-              Time: ${retellError.timestamp.toLocaleString()}
-              Call ID: ${retellError.callId || 'N/A'}
-              Contact ID: ${retellError.contactId || 'N/A'}
-              
-              Please address this issue immediately.
-`,
-            },
+          // Log critical error instead of sending email
+          logger.error('Critical Retell Error - Email would be sent', {
+            type: retellError.type,
+            message: retellError.message,
+            timestamp: retellError.timestamp.toLocaleString(),
+            callId: retellError.callId || 'N/A',
+            contactId: retellError.contactId || 'N/A',
           });
         }
       } catch (notificationError) {
-        logger.error('Failed to send error notification:', notificationError);
+        logger.error('Failed to send error notification:', errorToLogMeta(notificationError));
       }
     }
   }

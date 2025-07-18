@@ -8,10 +8,12 @@ export const metadata: Metadata = {
   keywords:
     'motorista sin seguro NC, uninsured motorist Carolina del Norte, UM UIM coverage, accidente sin seguro, conductor no asegurado Raleigh',
   alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/areas-de-practica/lesiones-personales/motorista-sin-seguro',
+    canonical:
+      'https://www.vasquezlawnc.com/es/areas-de-practica/lesiones-personales/motorista-sin-seguro',
     languages: {
       'en-US': 'https://www.vasquezlawnc.com/practice-areas/personal-injury/uninsured-motorist',
-      'es-ES': 'https://www.vasquezlawnc.com/es/areas-de-practica/lesiones-personales/motorista-sin-seguro',
+      'es-ES':
+        'https://www.vasquezlawnc.com/es/areas-de-practica/lesiones-personales/motorista-sin-seguro',
     },
   },
 };
@@ -46,7 +48,8 @@ const services = [
 const faqs = [
   {
     question: '¿Qué pasa si el conductor que me golpeó no tiene seguro?',
-    answer: 'Si tiene cobertura de motorista sin seguro (UM) en su póliza, puede reclamar compensación de su propio seguro. Esta cobertura es obligatoria en NC a menos que la rechace por escrito.',
+    answer:
+      'Si tiene cobertura de motorista sin seguro (UM) en su póliza, puede reclamar compensación de su propio seguro. Esta cobertura es obligatoria en NC a menos que la rechace por escrito.',
   },
 ];
 
@@ -56,6 +59,10 @@ export default function MotoristaSinSeguroPage() {
       title="Accidentes con Motorista Sin Seguro"
       subtitle="Compensación Cuando el Culpable No Puede Pagar"
       description="No deje que la falta de seguro del culpable le impida obtener compensación. Luchamos para activar todos los beneficios disponibles bajo su propia póliza."
+      content={{
+        introduction:
+          'Millones de conductores manejan sin seguro o con cobertura insuficiente. Cuando le golpean, su propia póliza puede ser su salvación. Navegamos las reglas complejas para maximizar su recuperación.',
+      }}
       services={services}
       faqs={faqs}
     />

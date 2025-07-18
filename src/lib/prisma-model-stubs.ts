@@ -144,3 +144,63 @@ export const securityReportStubs = {
     return { id: 'stub-id', ...args?.data };
   },
 };
+
+// Stub for reputationTask model operations
+export const reputationTaskStubs = {
+  create: async (args?: any) => {
+    logger.warn('Using stub for prisma.reputationTask.create - model not implemented');
+    return { id: 'stub-id', ...args?.data };
+  },
+  findFirst: async (args?: any) => {
+    logger.warn('Using stub for prisma.reputationTask.findFirst - model not implemented');
+    return null;
+  },
+};
+
+// Stub for reviewResponse model operations
+export const reviewResponseStubs = {
+  create: async (args?: any) => {
+    logger.warn('Using stub for prisma.reviewResponse.create - model not implemented');
+    return { id: 'stub-id', ...args?.data };
+  },
+  findMany: async (args?: any) => {
+    logger.warn('Using stub for prisma.reviewResponse.findMany - model not implemented');
+    return [];
+  },
+};
+
+// Stub for reviewEscalation model operations
+export const reviewEscalationStubs = {
+  create: async (args?: any) => {
+    logger.warn('Using stub for prisma.reviewEscalation.create - model not implemented');
+    return { id: 'stub-id', ...args?.data };
+  },
+};
+
+// Stub for dailyReputationMetrics model operations
+export const dailyReputationMetricsStubs = {
+  upsert: async (args?: any) => {
+    logger.warn('Using stub for prisma.dailyReputationMetrics.upsert - model not implemented');
+    return { id: 'stub-id', ...args?.data };
+  },
+};
+
+// Stub for reputationAlert model operations
+export const reputationAlertStubs = {
+  create: async (args?: any) => {
+    logger.warn('Using stub for prisma.reputationAlert.create - model not implemented');
+    return { id: 'stub-id', ...args?.data };
+  },
+  findMany: async (args?: any) => {
+    logger.warn('Using stub for prisma.reputationAlert.findMany - model not implemented');
+    return [];
+  },
+};
+
+// Stub for reviewPlatform model operations
+export const reviewPlatformStubs = {
+  findMany: async (args?: any) => {
+    logger.warn('Using stub for prisma.reviewPlatform.findMany - model not implemented');
+    return [];
+  },
+};

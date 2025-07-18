@@ -8,10 +8,12 @@ export const metadata: Metadata = {
   keywords:
     'pensión alimenticia NC, manutención infantil Carolina del Norte, alimony NC, child support Raleigh, modificación pensión Charlotte, spousal support Durham',
   alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/areas-de-practica/derecho-familia/pension-alimenticia',
+    canonical:
+      'https://www.vasquezlawnc.com/es/areas-de-practica/derecho-familia/pension-alimenticia',
     languages: {
       'en-US': 'https://www.vasquezlawnc.com/practice-areas/family-law/alimony',
-      'es-ES': 'https://www.vasquezlawnc.com/es/areas-de-practica/derecho-familia/pension-alimenticia',
+      'es-ES':
+        'https://www.vasquezlawnc.com/es/areas-de-practica/derecho-familia/pension-alimenticia',
     },
   },
 };
@@ -19,7 +21,8 @@ export const metadata: Metadata = {
 const services = [
   {
     title: 'Manutención Infantil',
-    description: 'Establecimiento, modificación y cumplimiento de órdenes de manutención para niños.',
+    description:
+      'Establecimiento, modificación y cumplimiento de órdenes de manutención para niños.',
     features: [
       'Cálculo según pautas estatales',
       'Desviaciones de pautas',
@@ -46,7 +49,8 @@ const services = [
 const faqs = [
   {
     question: '¿Cómo se calcula la manutención infantil en NC?',
-    answer: 'Carolina del Norte usa pautas que consideran los ingresos de ambos padres, número de niños, costos de seguro médico, y cuidado infantil. También se consideran otros factores como tiempo de crianza.',
+    answer:
+      'Carolina del Norte usa pautas que consideran los ingresos de ambos padres, número de niños, costos de seguro médico, y cuidado infantil. También se consideran otros factores como tiempo de crianza.',
   },
 ];
 
@@ -56,6 +60,10 @@ export default function PensionAlimenticiaPage() {
       title="Pensión Alimenticia y Manutención"
       subtitle="Protegiendo Sus Derechos Financieros y de Sus Hijos"
       description="La manutención infantil y pensión conyugal son cruciales para estabilidad financiera. Luchamos por órdenes justas que protegen a familias."
+      content={{
+        introduction:
+          'Carolina del Norte reconoce varios tipos de pensión alimenticia basados en circunstancias específicas. Analizamos ingresos, gastos, estilo de vida y capacidad de trabajo para asegurar acuerdos justos que protejan su futuro financiero.',
+      }}
       services={services}
       faqs={faqs}
     />

@@ -173,7 +173,9 @@ export class ReviewResponseGenerator {
         responseText = await this.generateAIResponse(review, template, toneProfile);
       } else {
         // Use template-based response
-        responseText = this.fillTemplate(template, review);
+        responseText = template
+          ? this.fillTemplate(template, review)
+          : 'Thank you for your review. We appreciate your feedback.';
       }
 
       // Post-process response
@@ -261,7 +263,7 @@ export class ReviewResponseGenerator {
   ): Promise<string> {
     const prompt = this.buildAIPrompt(review, template, toneProfile);
 
-    const completion = await openai.createChatCompletion({
+    const completion = await openai.chat.completions.create({
       model: 'gpt-4',
       messages: [
         {
@@ -278,7 +280,7 @@ export class ReviewResponseGenerator {
       max_tokens: 200,
     });
 
-    return completion.data.choices[0].message?.content || '';
+    return completion.choices[0].message?.content || '';
   }
 
   private buildAIPrompt(

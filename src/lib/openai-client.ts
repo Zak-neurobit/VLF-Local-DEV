@@ -7,9 +7,28 @@ import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
  */
 export class OpenAIClient {
   private apiKey: string;
+  public chat: {
+    completions: {
+      create: (params: {
+        model: string;
+        messages: Array<{ role: string; content: string }>;
+        temperature?: number;
+        max_tokens?: number;
+      }) => Promise<{
+        choices: Array<{
+          message?: { content?: string };
+        }>;
+      }>;
+    };
+  };
 
   constructor(apiKey: string = process.env.OPENAI_API_KEY || '') {
     this.apiKey = apiKey;
+    this.chat = {
+      completions: {
+        create: this.complete.bind(this),
+      },
+    };
   }
 
   async complete(params: {
@@ -17,13 +36,25 @@ export class OpenAIClient {
     messages: Array<{ role: string; content: string }>;
     temperature?: number;
     max_tokens?: number;
-  }): Promise<string> {
+  }): Promise<{
+    choices: Array<{
+      message?: { content?: string };
+    }>;
+  }> {
     try {
       logger.info('OpenAI completion request', { model: params.model });
 
       // TODO: Implement actual OpenAI API call
       // For now, return a placeholder response
-      return 'This is a placeholder response from OpenAI';
+      return {
+        choices: [
+          {
+            message: {
+              content: 'This is a placeholder response from OpenAI',
+            },
+          },
+        ],
+      };
     } catch (error) {
       logger.error('OpenAI completion failed', errorToLogMeta(error));
       throw error;

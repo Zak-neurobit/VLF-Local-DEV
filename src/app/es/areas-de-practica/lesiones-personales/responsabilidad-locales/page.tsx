@@ -8,10 +8,12 @@ export const metadata: Metadata = {
   keywords:
     'responsabilidad locales NC, resbalones caídas Carolina del Norte, premises liability lawyer, accidentes propiedades, negligencia propietario Raleigh',
   alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/areas-de-practica/lesiones-personales/responsabilidad-locales',
+    canonical:
+      'https://www.vasquezlawnc.com/es/areas-de-practica/lesiones-personales/responsabilidad-locales',
     languages: {
       'en-US': 'https://www.vasquezlawnc.com/practice-areas/personal-injury/premises-liability',
-      'es-ES': 'https://www.vasquezlawnc.com/es/areas-de-practica/lesiones-personales/responsabilidad-locales',
+      'es-ES':
+        'https://www.vasquezlawnc.com/es/areas-de-practica/lesiones-personales/responsabilidad-locales',
     },
   },
 };
@@ -46,7 +48,8 @@ const services = [
 const faqs = [
   {
     question: '¿Tengo un caso si me caí en propiedad ajena?',
-    answer: 'Depende de si el propietario conocía o debería haber conocido la condición peligrosa y falló en advertir o reparar. Debe probarse negligencia del propietario.',
+    answer:
+      'Depende de si el propietario conocía o debería haber conocido la condición peligrosa y falló en advertir o reparar. Debe probarse negligencia del propietario.',
   },
 ];
 
@@ -56,6 +59,10 @@ export default function ResponsabilidadLocalesPage() {
       title="Responsabilidad de Locales"
       subtitle="Cuando Propietarios Negligentes Causan Lesiones"
       description="Los propietarios tienen responsabilidad de mantener sus propiedades seguras. Cuando fallan, luchamos por compensación completa para víctimas lesionadas."
+      content={{
+        introduction:
+          'Los propietarios deben mantener condiciones seguras o advertir sobre peligros. Cuando pisos mojados, escalones rotos o iluminación inadecuada causan lesiones, hay responsabilidad legal.',
+      }}
       services={services}
       faqs={faqs}
     />

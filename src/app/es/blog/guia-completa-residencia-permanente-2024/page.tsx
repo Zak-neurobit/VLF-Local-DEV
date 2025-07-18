@@ -24,7 +24,8 @@ export default function GuiaCompletaResidenciaPermanente2024Page() {
     id: 'guia-completa-residencia-permanente-2024',
     title: 'Guía Completa de Residencia Permanente 2024',
     slug: 'guia-completa-residencia-permanente-2024',
-    excerpt: 'La guía definitiva para obtener tu Green Card en 2024. Requisitos actualizados, tiempos de espera reales y estrategias probadas de abogado veterano.',
+    excerpt:
+      'La guía definitiva para obtener tu Green Card en 2024. Requisitos actualizados, tiempos de espera reales y estrategias probadas de abogado veterano.',
     content: `
       <div class="prose prose-lg max-w-none">
         <div class="bg-green-50 border-l-4 border-green-500 p-6 mb-8">
@@ -528,7 +529,9 @@ export default function GuiaCompletaResidenciaPermanente2024Page() {
       id: 'ciudadania-americana-tu-camino-paso-a-paso',
       title: 'Ciudadanía Americana: Tu Camino Paso a Paso',
       slug: 'ciudadania-americana-tu-camino-paso-a-paso',
-      excerpt: 'Guía completa para convertirte en ciudadano americano. Requisitos, proceso y preparación.',
+      excerpt:
+        'Guía completa para convertirte en ciudadano americano. Requisitos, proceso y preparación.',
+      content: '',
       practiceArea: 'immigration' as const,
       language: 'es' as const,
       publishedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
@@ -541,6 +544,7 @@ export default function GuiaCompletaResidenciaPermanente2024Page() {
       title: 'Deportación: 5 Pasos Urgentes que Debes Tomar HOY',
       slug: 'deportacion-5-pasos-urgentes-que-debes-tomar-hoy',
       excerpt: 'Guía de emergencia para enfrentar procedimientos de deportación.',
+      content: '',
       practiceArea: 'immigration' as const,
       language: 'es' as const,
       publishedAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),

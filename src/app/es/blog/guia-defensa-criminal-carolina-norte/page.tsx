@@ -743,7 +743,12 @@ export default function GuiaDefensaCriminalCarolinaNortePage() {
       'Abogado Hispano',
       'Servicios Bilingües',
     ],
-    featuredImage: '/images/blog/guia-defensa-criminal-carolina-norte.jpg',
+    featuredImage: {
+      url: '/images/blog/guia-defensa-criminal-carolina-norte.jpg',
+      alt: 'Guía de Defensa Criminal en Carolina del Norte - Abogado en tribunal',
+      width: 1200,
+      height: 630,
+    },
     views: 0,
   };
 
@@ -778,6 +783,7 @@ export default function GuiaDefensaCriminalCarolinaNortePage() {
       slug: 'estrategias-defensa-dui-carolina-norte',
       excerpt:
         'Aprenda las estrategias de defensa más efectivas para cargos DUI en NC, desde desafiar la parada hasta cuestionar la precisión del alcoholímetro.',
+      content: '',
       practiceArea: 'defensa-criminal',
       language: 'es' as const,
       publishedAt: new Date('2024-01-10T10:00:00.000Z'),
@@ -791,6 +797,7 @@ export default function GuiaDefensaCriminalCarolinaNortePage() {
       slug: 'leyes-posesion-drogas-carolina-norte',
       excerpt:
         'Guía completa sobre cargos de posesión de drogas en NC, incluyendo penalidades, defensas y qué hacer si es acusado.',
+      content: '',
       practiceArea: 'defensa-criminal',
       language: 'es' as const,
       publishedAt: new Date('2024-01-05T10:00:00.000Z'),
@@ -804,6 +811,7 @@ export default function GuiaDefensaCriminalCarolinaNortePage() {
       slug: 'defensa-cargos-asalto-carolina-norte',
       excerpt:
         'Análisis experto de defensas contra cargos de asalto en Carolina del Norte, incluyendo estrategias de autodefensa y acusaciones falsas.',
+      content: '',
       practiceArea: 'defensa-criminal',
       language: 'es' as const,
       publishedAt: new Date('2024-01-01T10:00:00.000Z'),

@@ -24,7 +24,8 @@ export default function AccidentesAutoQueHacerInmediatamenteDespuesPage() {
     id: 'accidentes-auto-que-hacer-inmediatamente-despues',
     title: 'Accidentes de Auto: Qué Hacer Inmediatamente Después',
     slug: 'accidentes-auto-que-hacer-inmediatamente-despues',
-    excerpt: 'Guía completa de emergencia con los pasos críticos que debes tomar inmediatamente después de un accidente automovilístico para proteger tu salud, tus derechos y tu compensación.',
+    excerpt:
+      'Guía completa de emergencia con los pasos críticos que debes tomar inmediatamente después de un accidente automovilístico para proteger tu salud, tus derechos y tu compensación.',
     content: `
       <div class="prose prose-lg max-w-none">
         <div class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
@@ -332,6 +333,7 @@ export default function AccidentesAutoQueHacerInmediatamenteDespuesPage() {
       title: 'Cómo Obtener Compensación Máxima por Tu Accidente',
       slug: 'compensacion-maxima-accidente',
       excerpt: 'Estrategias probadas para maximizar tu compensación después de un accidente.',
+      content: '',
       practiceArea: 'personal-injury' as const,
       language: 'es' as const,
       publishedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
@@ -344,6 +346,7 @@ export default function AccidentesAutoQueHacerInmediatamenteDespuesPage() {
       title: '7 Errores Fatales al Hacer un Reclamo de Seguro',
       slug: 'errores-fatales-reclamo-seguro',
       excerpt: 'Evita estos errores comunes que pueden destruir tu caso de accidente.',
+      content: '',
       practiceArea: 'personal-injury' as const,
       language: 'es' as const,
       publishedAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),

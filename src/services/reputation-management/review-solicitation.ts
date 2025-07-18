@@ -9,6 +9,7 @@ import {
 } from '@/lib/prisma-model-stubs';
 import { emailService } from '@/services/email.service';
 import { z } from 'zod';
+import type { LogMeta } from '@/types/logger';
 
 export class ReviewSolicitationService {
   private campaigns: Map<string, SolicitationCampaign> = new Map();
@@ -251,7 +252,7 @@ Vasquez Law Firm, PLLC
         await this.scheduleCampaign(campaign, trigger);
       }
     } catch (error) {
-      logger.error('Failed to process review solicitation trigger:', errorToLogMeta(error));
+      logger.error('Failed to process review solicitation trigger', errorToLogMeta(error));
     }
   }
 
@@ -268,7 +269,7 @@ Vasquez Law Firm, PLLC
 
       if (
         conditions.clientSatisfaction &&
-        trigger.data.satisfaction < conditions.clientSatisfaction.min
+        (trigger.data.satisfaction ?? 0) < conditions.clientSatisfaction.min
       ) {
         return false;
       }
@@ -382,18 +383,21 @@ Vasquez Law Firm, PLLC
 
         // Mark as sent
         await scheduledEmailStubs.update({
-          where: { id: scheduledEmail.id },
+          where: { id: (scheduledEmail as any).id },
           data: {
             status: 'sent',
             sentAt: new Date(),
           },
         });
       } catch (error) {
-        logger.error(`Failed to send scheduled email ${scheduledEmail.id}:`, errorToLogMeta(error));
+        logger.error(
+          `Failed to send scheduled email ${(scheduledEmail as any).id}`,
+          errorToLogMeta(error)
+        );
 
         // Mark as failed
         await scheduledEmailStubs.update({
-          where: { id: scheduledEmail.id },
+          where: { id: (scheduledEmail as any).id },
           data: {
             status: 'failed',
             error: error instanceof Error ? error.message : 'Unknown error',
@@ -442,21 +446,21 @@ Vasquez Law Firm, PLLC
       body = body.replace(new RegExp(`{${key}}`, 'g'), value);
     });
 
-    // Send email
+    // Send email with basic options (email service uses template system)
     await emailService.sendEmail({
       to: client.email!,
       subject,
-      text: body,
-      html: this.formatEmailHtml(body, platformLinks),
-      category: 'review_solicitation',
-      metadata: {
-        campaignId: metadata.campaignId,
-        attempt: metadata.attempt,
+      template: 'client-notification', // Use existing template
+      data: {
+        name: client.name || 'Valued Client',
+        email: client.email!,
+        message: body,
+        subject,
       },
     });
 
     // Track email sent
-    await this.trackEmailSent(scheduledEmail.id, client.id, metadata.campaignId);
+    await this.trackEmailSent((scheduledEmail as any).id, client.id, metadata.campaignId);
   }
 
   private generatePlatformLinks(platforms: string[]): string {
@@ -592,15 +596,20 @@ Vasquez Law Firm, PLLC
   }
 
   async getCampaignPerformance(campaignId: string): Promise<CampaignPerformance> {
-    const tracking = await reviewSolicitationTrackingStubs.findMany({
+    const tracking: any[] = await reviewSolicitationTrackingStubs.findMany({
       where: { campaignId },
     });
 
+    const trackingClientIds = tracking.map((t: { clientId: string }) => t.clientId);
+    const earliestDate = new Date(
+      Math.min(...tracking.map((t: { sentAt: Date }) => t.sentAt.getTime()))
+    );
+
     const reviews = await reviewStubs.findMany({
       where: {
-        authorEmail: { in: tracking.map((t: { clientId: string }) => t.clientId) },
+        authorEmail: { in: trackingClientIds },
         publishedAt: {
-          gte: new Date(Math.min(...tracking.map((t: { sentAt: Date }) => t.sentAt.getTime()))),
+          gte: earliestDate,
         },
       },
     });
@@ -626,7 +635,7 @@ Vasquez Law Firm, PLLC
   private calculatePlatformBreakdown(reviews: any[]): Record<string, number> {
     const breakdown: Record<string, number> = {};
 
-    reviews.forEach(review => {
+    reviews.forEach((review: { platformId: string }) => {
       breakdown[review.platformId] = (breakdown[review.platformId] || 0) + 1;
     });
 

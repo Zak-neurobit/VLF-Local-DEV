@@ -198,7 +198,7 @@ export default function AIAgentsPage() {
                         ))}
                       </ul>
                       <Link href={agent.href}>
-                        <Button className="w-full" variant={agent.popular ? 'default' : 'outline'}>
+                        <Button className="w-full" variant={agent.popular ? 'primary' : 'outline'}>
                           {agent.cta}
                         </Button>
                       </Link>

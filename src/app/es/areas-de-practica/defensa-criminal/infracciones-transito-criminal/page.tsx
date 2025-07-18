@@ -8,10 +8,12 @@ export const metadata: Metadata = {
   keywords:
     'infracciones tránsito criminales NC, conducción imprudente Carolina del Norte, carreras callejeras, evasión policial, reckless driving criminal defense',
   alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/areas-de-practica/defensa-criminal/infracciones-transito-criminal',
+    canonical:
+      'https://www.vasquezlawnc.com/es/areas-de-practica/defensa-criminal/infracciones-transito-criminal',
     languages: {
       'en-US': 'https://www.vasquezlawnc.com/practice-areas/criminal-defense/traffic-offenses',
-      'es-ES': 'https://www.vasquezlawnc.com/es/areas-de-practica/defensa-criminal/infracciones-transito-criminal',
+      'es-ES':
+        'https://www.vasquezlawnc.com/es/areas-de-practica/defensa-criminal/infracciones-transito-criminal',
     },
   },
 };
@@ -46,7 +48,8 @@ const services = [
 const faqs = [
   {
     question: '¿Cuál es la diferencia entre multa de tránsito y cargo criminal?',
-    answer: 'Las multas de tránsito son infracciones civiles, mientras que conducción imprudente es un delito menor criminal que puede resultar en cárcel, antecedentes permanentes, y pérdida de licencia.',
+    answer:
+      'Las multas de tránsito son infracciones civiles, mientras que conducción imprudente es un delito menor criminal que puede resultar en cárcel, antecedentes permanentes, y pérdida de licencia.',
   },
 ];
 
@@ -56,6 +59,10 @@ export default function InfraccionesTransitoCriminalPage() {
       title="Infracciones de Tránsito Criminales"
       subtitle="Cuando Multas de Tránsito Se Vuelven Cargos Criminales"
       description="Algunas infracciones de tránsito cruzan la línea hacia lo criminal. Proporcionamos defensa agresiva para proteger su libertad y récord limpio."
+      content={{
+        introduction:
+          'No todas las infracciones de tránsito son simples multas. Conducción imprudente, carreras callejeras y evasión son crímenes que pueden resultar en cárcel y antecedentes permanentes.',
+      }}
       services={services}
       faqs={faqs}
     />

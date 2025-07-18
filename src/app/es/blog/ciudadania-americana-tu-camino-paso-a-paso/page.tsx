@@ -24,7 +24,8 @@ export default function CiudadaniaAmericanaTuCaminoPasoAPasoPage() {
     id: 'ciudadania-americana-tu-camino-paso-a-paso',
     title: 'Ciudadanía Americana: Tu Camino Paso a Paso',
     slug: 'ciudadania-americana-tu-camino-paso-a-paso',
-    excerpt: 'La guía definitiva para convertirte en ciudadano americano en 2024. Requisitos actualizados, preparación para el examen y estrategias de éxito garantizado.',
+    excerpt:
+      'La guía definitiva para convertirte en ciudadano americano en 2024. Requisitos actualizados, preparación para el examen y estrategias de éxito garantizado.',
     content: `
       <div class="prose prose-lg max-w-none">
         <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
@@ -517,6 +518,7 @@ export default function CiudadaniaAmericanaTuCaminoPasoAPasoPage() {
       title: 'Guía Completa de Residencia Permanente 2024',
       slug: 'guia-completa-residencia-permanente-2024',
       excerpt: 'Todo sobre el proceso de obtener tu Green Card en 2024.',
+      content: '',
       practiceArea: 'immigration' as const,
       language: 'es' as const,
       publishedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
@@ -529,6 +531,7 @@ export default function CiudadaniaAmericanaTuCaminoPasoAPasoPage() {
       title: 'DACA: Todo lo que Necesitas Saber en 2024',
       slug: 'daca-todo-lo-que-necesitas-saber-2024',
       excerpt: 'Guía actualizada sobre DACA, renovaciones y cambios en 2024.',
+      content: '',
       practiceArea: 'immigration' as const,
       language: 'es' as const,
       publishedAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),

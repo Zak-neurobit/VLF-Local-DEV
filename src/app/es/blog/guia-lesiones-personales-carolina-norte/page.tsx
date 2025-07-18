@@ -852,7 +852,12 @@ export default function GuiaLesionesPersonalesCarolinaNortePage() {
       'Abogado Hispano',
       'Servicios Bilingües',
     ],
-    featuredImage: '/images/blog/guia-lesiones-personales-carolina-norte.jpg',
+    featuredImage: {
+      url: '/images/blog/guia-lesiones-personales-carolina-norte.jpg',
+      alt: 'Guía de Lesiones Personales en Carolina del Norte - Accidente de auto',
+      width: 1200,
+      height: 630,
+    },
     views: 0,
   };
 
@@ -887,6 +892,7 @@ export default function GuiaLesionesPersonalesCarolinaNortePage() {
       slug: 'arreglo-accidente-auto-carolina-norte',
       excerpt:
         'Aprenda cómo maximizar su arreglo de accidente de auto en NC, incluyendo recolección de evidencia, estrategias de negociación y evitar errores comunes.',
+      content: '',
       practiceArea: 'lesiones-personales',
       language: 'es' as const,
       publishedAt: new Date('2024-01-15T10:00:00.000Z'),
@@ -900,6 +906,7 @@ export default function GuiaLesionesPersonalesCarolinaNortePage() {
       slug: 'leyes-negligencia-medica-carolina-norte',
       excerpt:
         'Guía completa de negligencia médica en NC, incluyendo tipos de casos, límites de daños y cómo probar negligencia.',
+      content: '',
       practiceArea: 'lesiones-personales',
       language: 'es' as const,
       publishedAt: new Date('2024-01-10T10:00:00.000Z'),
@@ -913,6 +920,7 @@ export default function GuiaLesionesPersonalesCarolinaNortePage() {
       slug: 'resbalones-caidas-responsabilidad-carolina-norte',
       excerpt:
         'Análisis experto de responsabilidad de locales y casos de resbalones y caídas en Carolina del Norte, incluyendo probar negligencia y recuperar daños.',
+      content: '',
       practiceArea: 'lesiones-personales',
       language: 'es' as const,
       publishedAt: new Date('2024-01-05T10:00:00.000Z'),

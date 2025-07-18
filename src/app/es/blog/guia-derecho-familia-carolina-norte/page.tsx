@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Article, BlogPosting, WithContext } from 'schema-dts';
+import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
 const blogPost = {
   title: 'Guía Completa del Derecho Familiar en Carolina del Norte 2025: Protegiendo a Su Familia',
@@ -634,8 +635,12 @@ const blogPost = {
 
   **Nota Legal:** Esta guía proporciona información general sobre derecho familiar en Carolina del Norte. Cada caso es único y requiere análisis individual. Para asesoría específica sobre tu situación, programa una consulta con un abogado calificado. La relación abogado-cliente no se establece hasta firmar un acuerdo de representación.
   `,
-  featuredImage: '/images/blog/nc-family-law-guide-es.jpg',
-  featuredImageAlt: 'Abogado hispano de familia en Carolina del Norte protegiendo familias latinas',
+  featuredImage: {
+    url: '/images/blog/nc-family-law-guide-es.jpg',
+    alt: 'Abogado hispano de familia en Carolina del Norte protegiendo familias latinas',
+    width: 1200,
+    height: 630,
+  },
   tags: [
     'derecho familiar',
     'divorcio NC',
@@ -653,16 +658,45 @@ const blogPost = {
   pillarKeyword: 'derecho familiar carolina norte español',
   relatedPosts: [
     {
+      id: 'divorcio-hispanos-carolina-norte',
       title: 'Divorcio Sin Complicaciones: Guía para Hispanos en NC',
       slug: 'divorcio-hispanos-carolina-norte',
+      excerpt:
+        'Guía completa para el proceso de divorcio en Carolina del Norte para familias hispanas.',
+      content: '',
+      practiceArea: 'family-law' as const,
+      language: 'es' as const,
+      publishedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+      readTime: 12,
+      author: DEFAULT_BLOG_AUTHOR,
+      tags: ['divorcio', 'familia', 'hispanos'],
     },
     {
+      id: 'custodia-hijos-carolina-norte',
       title: 'Custodia de Hijos: Protegiendo a Tus Niños en NC',
       slug: 'custodia-hijos-carolina-norte',
+      excerpt:
+        'Todo sobre custodia de hijos en Carolina del Norte: derechos, proceso y protección.',
+      content: '',
+      practiceArea: 'family-law' as const,
+      language: 'es' as const,
+      publishedAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
+      readTime: 15,
+      author: DEFAULT_BLOG_AUTHOR,
+      tags: ['custodia', 'niños', 'familia'],
     },
     {
+      id: 'violencia-domestica-recursos-nc',
       title: 'Violencia Doméstica: Recursos y Protección Legal',
       slug: 'violencia-domestica-recursos-nc',
+      excerpt: 'Recursos legales y protección contra la violencia doméstica en Carolina del Norte.',
+      content: '',
+      practiceArea: 'family-law' as const,
+      language: 'es' as const,
+      publishedAt: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000),
+      readTime: 10,
+      author: DEFAULT_BLOG_AUTHOR,
+      tags: ['violencia doméstica', 'protección', 'recursos'],
     },
   ],
   cta: {
@@ -742,13 +776,52 @@ export const metadata: Metadata = {
 };
 
 export default function GuiaDerechoFamiliaCarolinaNorte() {
+  const categories = [
+    {
+      id: 'family-law',
+      name: { en: 'Family Law', es: 'Derecho Familiar' },
+      slug: { en: 'family-law', es: 'derecho-familiar' },
+      icon: '👨‍👩‍👧‍👦',
+      postCount: 15,
+    },
+    {
+      id: 'personal-injury',
+      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
+      slug: { en: 'personal-injury', es: 'lesiones-personales' },
+      icon: '🏥',
+      postCount: 32,
+    },
+    {
+      id: 'immigration',
+      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
+      slug: { en: 'immigration', es: 'inmigracion' },
+      icon: '🌍',
+      postCount: 45,
+    },
+  ];
+
+  const currentPost = {
+    id: blogPost.slug,
+    title: blogPost.title,
+    slug: blogPost.slug,
+    excerpt: blogPost.excerpt,
+    content: blogPost.content,
+    practiceArea: 'family-law' as const,
+    language: 'es' as const,
+    publishedAt: new Date(blogPost.date),
+    readTime: 20,
+    author: DEFAULT_BLOG_AUTHOR,
+    tags: blogPost.tags,
+    featuredImage: blogPost.featuredImage,
+  };
+
   return (
     <BlogPageTemplate
-      post={blogPost}
+      posts={[]}
+      categories={categories}
+      isArticlePage={true}
+      currentPost={currentPost}
       relatedPosts={blogPost.relatedPosts}
-      cta={blogPost.cta}
-      schema={blogPost.schema}
-      lang="es"
     />
   );
 }
