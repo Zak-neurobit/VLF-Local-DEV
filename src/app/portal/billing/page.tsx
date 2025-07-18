@@ -10,7 +10,9 @@ import PaymentPlans from '@/components/portal/payment-plans';
 export default function BillingPage() {
   const { data: session } = useSession();
   const [billingSummary, setBillingSummary] = useState<any>(null);
-  const [activeTab, setActiveTab] = useState<'summary' | 'invoices' | 'payments' | 'plans'>('summary');
+  const [activeTab, setActiveTab] = useState<'summary' | 'invoices' | 'payments' | 'plans'>(
+    'summary'
+  );
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ export default function BillingPage() {
     try {
       const response = await fetch('/api/portal/billing/summary');
       const data = await response.json();
-      
+
       if (data.success) {
         setBillingSummary(data.summary);
       }
@@ -56,7 +58,7 @@ export default function BillingPage() {
       <div className="bg-white rounded-lg shadow-sm">
         <div className="border-b">
           <nav className="flex space-x-8 px-6">
-            {(['summary', 'invoices', 'payments', 'plans'] as const).map((tab) => (
+            {(['summary', 'invoices', 'payments', 'plans'] as const).map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -74,12 +76,16 @@ export default function BillingPage() {
 
         {/* Tab Content */}
         <div className="p-6">
-          {activeTab === 'summary' && billingSummary && (
-            <BillingSummary summary={billingSummary} />
+          {activeTab === 'summary' && billingSummary && <BillingSummary summary={billingSummary} />}
+          {activeTab === 'invoices' && session?.user?.id && (
+            <InvoiceList clientId={session.user.id} />
           )}
-          {activeTab === 'invoices' && <InvoiceList clientId={session?.user?.id!} />}
-          {activeTab === 'payments' && <PaymentHistory clientId={session?.user?.id!} />}
-          {activeTab === 'plans' && <PaymentPlans clientId={session?.user?.id!} />}
+          {activeTab === 'payments' && session?.user?.id && (
+            <PaymentHistory clientId={session.user.id} />
+          )}
+          {activeTab === 'plans' && session?.user?.id && (
+            <PaymentPlans clientId={session.user.id} />
+          )}
         </div>
       </div>
     </div>

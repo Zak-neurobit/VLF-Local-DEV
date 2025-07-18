@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { BlogPageTemplate } from '@/components/blog/BlogPageTemplate';
+import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Article, BlogPosting, WithContext } from 'schema-dts';
 
 const blogPost = {

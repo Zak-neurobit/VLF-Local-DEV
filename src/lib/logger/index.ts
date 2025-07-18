@@ -146,6 +146,10 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
     info: (message: string, meta?: unknown) => {
       logger.info(message, meta);
     },
+
+    warn: (message: string, meta?: unknown) => {
+      logger.warn(message, meta);
+    },
   };
 
   // Security Logger
@@ -249,6 +253,9 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
     },
     error: (message: string, meta?: unknown) => {
       logger.error(message, meta);
+    },
+    warn: (message: string, meta?: unknown) => {
+      logger.warn(message, meta);
     },
   };
 
@@ -397,6 +404,7 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
       });
     },
     info: (message: string, meta?: unknown) => logger.info(message, meta),
+    warn: (message: string, meta?: unknown) => logger.warn(message, meta),
   };
 
   securityLogger = {
@@ -425,6 +433,7 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
     propChange: () => {},
     info: (message: string, meta?: unknown) => logger.info(message, meta),
     error: (message: string, meta?: unknown) => logger.error(message, meta),
+    warn: (message: string, meta?: unknown) => logger.warn(message, meta),
   };
 
   // Stub out server-only loggers
@@ -433,6 +442,8 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
     disconnection: () => {},
     message: () => {},
     error: () => {},
+    info: () => {},
+    warn: () => {},
   };
 
   dbLogger = {
@@ -456,6 +467,8 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
     disconnection: () => {},
     message: () => {},
     error: () => {},
+    info: () => {},
+    warn: () => {},
   };
 
   dbLogger = {

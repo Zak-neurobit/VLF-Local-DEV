@@ -34,42 +34,83 @@ export interface APILogger {
     data?: unknown,
     error?: unknown
   ): void;
-  error(error: Error, context?: LogMeta): void;
+  error(requestId: string, error: unknown, retry?: number): void;
+  info(message: string, meta?: unknown): void;
+  warn?(message: string, meta?: unknown): void;
 }
 
 export interface SecurityLogger {
-  accessGranted(userId: string, resource: string, action: string, metadata?: LogMeta): void;
-  accessDenied(userId: string, resource: string, action: string, reason: string, metadata?: LogMeta): void;
-  authFailure(username: string, reason: string, ipAddress?: string, metadata?: LogMeta): void;
-  authSuccess(userId: string, method: string, metadata?: LogMeta): void;
-  suspiciousActivity(description: string, severity: 'low' | 'medium' | 'high' | 'critical', metadata?: LogMeta): void;
-  ipBlocked(ipAddress: string, reason: string, duration?: number): void;
-  rateLimitExceeded(identifier: string, limit: number, window: string): void;
+  accessGranted(resource: string, userId?: string): void;
+  accessDenied(resource: string, userId?: string, reason?: string): void;
+  authFailure?(username: string, reason: string, ipAddress?: string, metadata?: LogMeta): void;
+  authSuccess?(userId: string, method: string, metadata?: LogMeta): void;
+  authenticationFailure?(method: string, identifier?: string, reason?: string): void;
+  authenticationSuccess?(method: string, userId: string): void;
+  suspiciousActivity(activity: string, metadata?: unknown): void;
+  ipBlocked?(ipAddress: string, reason: string, duration?: number): void;
+  rateLimitExceeded?(identifier: string, limit: number, window: string): void;
 }
 
 export interface PerformanceLogger {
-  operationStart(operationName: string, metadata?: LogMeta): string;
-  operationEnd(operationId: string, duration?: number, metadata?: LogMeta): void;
-  dbQuery(query: string, duration: number, metadata?: LogMeta): void;
-  apiCall(endpoint: string, method: string, duration: number, statusCode?: number, metadata?: LogMeta): void;
-  slowOperation(operationName: string, duration: number, threshold: number, metadata?: LogMeta): void;
-  resourceUsage(cpu: number, memory: number, metadata?: LogMeta): void;
+  operationStart?(operationName: string, metadata?: LogMeta): string;
+  operationEnd?(operationId: string, duration?: number, metadata?: LogMeta): void;
+  dbQuery?(query: string, duration: number, metadata?: LogMeta): void;
+  apiCall?(
+    endpoint: string,
+    method: string,
+    duration: number,
+    statusCode?: number,
+    metadata?: LogMeta
+  ): void;
+  slowOperation(
+    operationName: string,
+    duration: number,
+    threshold: number,
+    metadata?: LogMeta
+  ): void;
+  resourceUsage?(cpu: number, memory: number, metadata?: LogMeta): void;
+  measure(operation: string, duration: number, metadata?: unknown): void;
+  memoryUsage(): void;
+  stateChange(
+    componentName: string,
+    previousState: unknown,
+    newState: unknown,
+    trigger: string
+  ): void;
+  mount(componentName: string, props?: unknown): void;
+  unmount(componentName: string): void;
+  rerender(componentName: string, reason: string, changes?: unknown): void;
+  propChange(componentName: string, propName: string, oldValue: unknown, newValue: unknown): void;
+  info(message: string, meta?: unknown): void;
+  warn?(message: string, meta?: unknown): void;
+  error(message: string, meta?: unknown): void;
 }
 
 export interface WSLogger {
-  connection(clientId: string, metadata?: LogMeta): void;
-  disconnect(clientId: string, reason?: string, metadata?: LogMeta): void;
-  message(clientId: string, type: string, direction: 'in' | 'out', size?: number, metadata?: LogMeta): void;
-  error(clientId: string, error: Error, metadata?: LogMeta): void;
-  broadcast(eventType: string, recipientCount: number, metadata?: LogMeta): void;
+  connection(clientId: string, metadata?: unknown): void;
+  disconnection?(clientId: string, reason: string, duration: number): void;
+  disconnect?(clientId: string, reason?: string, metadata?: LogMeta): void;
+  message(
+    clientId: string,
+    type: string,
+    direction: 'inbound' | 'outbound' | 'in' | 'out',
+    size: number
+  ): void;
+  error(clientId: string, error: unknown): void;
+  broadcast?(eventType: string, recipientCount: number, metadata?: LogMeta): void;
+  info?(clientId: string, message: string): void;
+  warn?(clientId: string, message: string): void;
 }
 
 export interface DBLogger {
-  query(sql: string, params?: unknown[], duration?: number, metadata?: LogMeta): void;
-  connection(event: 'opened' | 'closed' | 'error', metadata?: LogMeta): void;
-  transaction(action: 'start' | 'commit' | 'rollback', transactionId?: string, metadata?: LogMeta): void;
-  migration(name: string, direction: 'up' | 'down', duration?: number, metadata?: LogMeta): void;
-  error(error: Error, query?: string, metadata?: LogMeta): void;
+  query(query: string, params?: unknown[], duration?: number): void;
+  connection(
+    status: 'connected' | 'disconnected' | 'error' | 'opened' | 'closed',
+    metadata?: unknown
+  ): void;
+  transaction(transactionId: string, status: 'start' | 'commit' | 'rollback'): void;
+  migration(name: string, status: 'start' | 'complete' | 'error' | string, error?: unknown): void;
+  error(operation: string, error: unknown): void;
 }
 
 export interface ComponentLogger {

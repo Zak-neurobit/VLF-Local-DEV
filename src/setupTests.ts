@@ -1,6 +1,11 @@
 import '@testing-library/jest-dom';
 import React from 'react';
 
+// Ensure document.body is clean for each test
+afterEach(() => {
+  document.body.innerHTML = '';
+});
+
 // Mock pino logger
 jest.mock('@/lib/pino-logger', () => ({
   logger: {
