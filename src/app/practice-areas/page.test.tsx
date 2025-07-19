@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, within } from '@/lib/testing/utils';
+import { render, screen, within } from '@/lib/testing/test-utils';
 import PracticeAreasPage from './page';
 
 // Mock next/script

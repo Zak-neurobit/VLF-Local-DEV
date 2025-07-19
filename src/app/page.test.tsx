@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@/lib/testing/utils';
+import { render, screen } from '@/lib/testing/test-utils';
 import Page from './page';
 
 // Mock components

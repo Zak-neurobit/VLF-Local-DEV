@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@/lib/testing/utils';
+import { render, screen, fireEvent, waitFor } from '@/lib/testing/test-utils';
 import { ChatWidget } from './ChatWidget';
 
 // Mock framer-motion

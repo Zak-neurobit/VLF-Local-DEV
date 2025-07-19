@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, within } from '@/lib/testing/utils';
+import { render, screen, fireEvent, waitFor, within } from '@/lib/testing/test-utils';
 import userEvent from '@testing-library/user-event';
 import ResourceLeadCaptureForm from '../index';
 import { useRouter } from 'next/navigation';

@@ -173,9 +173,34 @@ const nextConfig = {
   // Performance monitoring
   productionBrowserSourceMaps: false, // Disable in production for security
 
-  // Bundle analyzer (only in analyze mode)
-  ...(process.env.ANALYZE && {
-    webpack(config) {
+  // Webpack configuration
+  webpack(config, { isServer, webpack }) {
+    // Exclude test files from production builds
+    if (process.env.NODE_ENV === 'production') {
+      // Use webpack's IgnorePlugin to completely ignore test files
+      config.plugins.push(
+        new webpack.IgnorePlugin({
+          resourceRegExp: /\.(test|spec)\.(js|jsx|ts|tsx)$/,
+        })
+      );
+      
+      // Ignore testing utilities directory
+      config.plugins.push(
+        new webpack.IgnorePlugin({
+          resourceRegExp: /\/testing\//,
+        })
+      );
+      
+      // Ignore specific test-related modules
+      config.plugins.push(
+        new webpack.IgnorePlugin({
+          resourceRegExp: /@testing-library/,
+        })
+      );
+    }
+
+    // Bundle analyzer (only in analyze mode)
+    if (process.env.ANALYZE) {
       const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
       config.plugins.push(
         new BundleAnalyzerPlugin({
@@ -183,9 +208,10 @@ const nextConfig = {
           openAnalyzer: true,
         })
       );
-      return config;
-    },
-  }),
+    }
+
+    return config;
+  },
 };
 
 // Sentry configuration options
