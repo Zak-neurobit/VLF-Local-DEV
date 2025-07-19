@@ -170,8 +170,8 @@ const sentryWebpackPluginOptions = {
   // Only upload source maps in production
   silent: true,
 
-  // Automatically upload source maps during build
-  widenClientFileUpload: true,
+  // Disable source map upload
+  widenClientFileUpload: false,
 
   // Transpile SDK for compatibility
   transpileClientSDK: true,
@@ -190,6 +190,10 @@ const sentryWebpackPluginOptions = {
 
   // Skip source map upload if no auth token
   dryRun: !process.env.SENTRY_AUTH_TOKEN,
+
+  // Disable source map upload completely if no token
+  disableServerWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
+  disableClientWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
 };
 
 module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
