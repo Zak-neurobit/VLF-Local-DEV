@@ -71,9 +71,9 @@ export class GoHighLevelService {
   }
 
   // Create or update contact
-  async upsertContact(data: z.infer<typeof ContactSchema>) {
+  async upsertContact(data: z.infer<typeof ContactSchema>): Promise<GHLContact> {
     if (!this.apiWrapper.isAvailable()) {
-      return this.getMockContactResponse(data);
+      return this.getMockContactResponse(data) as GHLContact;
     }
 
     try {
@@ -96,7 +96,7 @@ export class GoHighLevelService {
   }
 
   // Create new contact
-  private async createContact(data: Record<string, unknown>) {
+  private async createContact(data: Record<string, unknown>): Promise<GHLContact> {
     try {
       const response = await fetch(`${this.config.baseUrl}/contacts/`, {
         method: 'POST',
@@ -111,7 +111,7 @@ export class GoHighLevelService {
         throw new Error(`GHL API error: ${response.statusText}`);
       }
 
-      const contact = await response.json();
+      const contact = (await response.json()) as GHLContact;
 
       // Sync with local database
       await this.syncContactToDatabase(contact);
@@ -125,7 +125,7 @@ export class GoHighLevelService {
   }
 
   // Update existing contact
-  async updateContact(contactId: string, data: Record<string, unknown>) {
+  async updateContact(contactId: string, data: Record<string, unknown>): Promise<GHLContact> {
     try {
       const response = await fetch(`${this.config.baseUrl}/contacts/${contactId}`, {
         method: 'PUT',
@@ -137,7 +137,7 @@ export class GoHighLevelService {
         throw new Error(`GHL API error: ${response.statusText}`);
       }
 
-      const contact = await response.json();
+      const contact = (await response.json()) as GHLContact;
 
       // Sync with local database
       await this.syncContactToDatabase(contact);
@@ -151,7 +151,7 @@ export class GoHighLevelService {
   }
 
   // Find contact by phone
-  async findContactByPhone(phone: string) {
+  async findContactByPhone(phone: string): Promise<GHLContact | null> {
     try {
       const response = await fetch(
         `${this.config.baseUrl}/contacts/lookup?phone=${encodeURIComponent(phone)}`,
@@ -163,7 +163,7 @@ export class GoHighLevelService {
         throw new Error(`GHL API error: ${response.statusText}`);
       }
 
-      const contacts = await response.json();
+      const contacts = (await response.json()) as { contacts?: GHLContact[] };
       return contacts.contacts?.[0] || null;
     } catch (error) {
       logger.error('Failed to find GHL contact:', errorToLogMeta(error));
@@ -225,13 +225,13 @@ export class GoHighLevelService {
       let contact = await this.findContactByPhone(phone);
 
       if (!contact) {
-        contact = await this.createContact({
+        contact = (await this.createContact({
           phone,
           firstName: 'Unknown',
           lastName: 'Contact',
           tags: tags || ['sms-recipient'],
           source: 'Website SMS',
-        });
+        })) as GHLContact;
       }
 
       // Send SMS
@@ -296,7 +296,7 @@ export class GoHighLevelService {
       let contact = await this.findContactByPhone(phone);
 
       if (!contact) {
-        contact = await this.createContact({
+        contact = (await this.createContact({
           phone,
           firstName: contactData?.firstName || 'Unknown',
           lastName: contactData?.lastName || 'Contact',
@@ -304,7 +304,7 @@ export class GoHighLevelService {
           tags: contactData?.tags || ['campaign-recipient'],
           source: contactData?.source || 'Website',
           customFields: contactData?.customFields,
-        });
+        })) as GHLContact;
       }
 
       // Trigger campaign
@@ -334,7 +334,7 @@ export class GoHighLevelService {
       const [firstName, ...lastNameParts] = appointment.clientName.split(' ');
       const lastName = lastNameParts.join(' ') || 'Client';
 
-      const contact = await this.upsertContact({
+      const contact = (await this.upsertContact({
         phone: appointment.clientPhone,
         firstName,
         lastName,
@@ -346,7 +346,7 @@ export class GoHighLevelService {
           appointmentType: appointment.type,
           attorneyName: appointment.attorneyName,
         },
-      });
+      })) as GHLContact;
 
       // Use appointment reminder campaign
       const campaignId = process.env.GHL_APPOINTMENT_REMINDER_CAMPAIGN_ID;
@@ -497,7 +497,7 @@ export class GoHighLevelService {
     if (normalized === 'CONFIRM') {
       // Check if contact has pending appointment
       const contact = await this.getContact(contactId);
-      const appointmentId = contact?.customFields?.appointmentId;
+      const appointmentId = contact?.customFields?.appointmentId as string | undefined;
 
       if (appointmentId) {
         const appointment = await getPrismaClient().appointment.findUnique({
@@ -555,7 +555,7 @@ export class GoHighLevelService {
   }
 
   // Get contact
-  async getContact(contactId: string) {
+  async getContact(contactId: string): Promise<GHLContact | null> {
     try {
       const response = await fetch(`${this.config.baseUrl}/contacts/${contactId}`, {
         headers: this.headers,
@@ -565,7 +565,7 @@ export class GoHighLevelService {
         throw new Error(`GHL API error: ${response.statusText}`);
       }
 
-      return await response.json();
+      return (await response.json()) as GHLContact;
     } catch (error) {
       logger.error('Failed to get GHL contact:', errorToLogMeta(error));
       return null;
@@ -1068,7 +1068,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
   }
 
   // Get contact by email
-  async findContactByEmail(email: string) {
+  async findContactByEmail(email: string): Promise<GHLContact | null> {
     try {
       const response = await fetch(
         `${this.config.baseUrl}/contacts/lookup?email=${encodeURIComponent(email)}`,
@@ -1080,7 +1080,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         throw new Error(`GHL API error: ${response.statusText}`);
       }
 
-      const contacts = await response.json();
+      const contacts = (await response.json()) as { contacts?: GHLContact[] };
       return contacts.contacts?.[0] || null;
     } catch (error) {
       logger.error('Failed to find GHL contact by email:', errorToLogMeta(error));
@@ -1141,20 +1141,19 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         throw new Error(`GHL API error: ${response.statusText}`);
       }
 
-      const results = await response.json();
+      const results = (await response.json()) as { contacts: GHLContact[] };
 
       // Filter by tags if specified
       if (filters?.tags && filters.tags.length > 0) {
         results.contacts = results.contacts.filter(
-          (contact: { tags?: string[] }) =>
-            filters.tags?.some(tag => contact.tags?.includes(tag)) ?? false
+          contact => filters.tags?.some(tag => contact.tags?.includes(tag)) ?? false
         );
       }
 
       // Filter by custom field if specified
       if (filters?.customField) {
         results.contacts = results.contacts.filter(
-          (contact: { customFields?: Record<string, unknown> }) =>
+          contact =>
             contact.customFields?.[filters.customField?.key || ''] === filters.customField?.value
         );
       }
@@ -1190,18 +1189,18 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       // If contact exists, update it
       if (contact) {
-        return await this.updateContact(contact.id, {
+        return (await this.updateContact(contact.id, {
           ...data,
           tags: [...(contact.tags || []), ...(data.tags || [])],
           customFields: {
             ...contact.customFields,
             ...data.customFields,
           },
-        });
+        })) as GHLContact;
       }
 
       // Create new contact
-      return await this.createContact({
+      return (await this.createContact({
         firstName: data.firstName || 'Unknown',
         lastName: data.lastName || 'Contact',
         phone: data.phone || '',
@@ -1210,7 +1209,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         source: data.source || 'api',
         customFields: data.customFields || {},
         locationId: this.config.locationId,
-      });
+      })) as GHLContact;
     } catch (error) {
       logger.error('Failed to get or create contact:', errorToLogMeta(error));
       throw error;
@@ -1439,7 +1438,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
         throw new Error('Contact not found');
       }
 
-      const contact = await contactResponse.json();
+      const contact = (await contactResponse.json()) as GHLContact;
 
       // Trigger call via our API endpoint
       const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/ghl/trigger-call`, {
@@ -1672,21 +1671,22 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
 
       // Get call history from custom fields
       const callHistory = {
-        totalCalls: contact.customFields?.totalCalls || 0,
-        lastCallDate: contact.customFields?.lastCallDate,
-        lastCallDuration: contact.customFields?.lastCallDuration,
-        lastCallOutcome: contact.customFields?.lastCallOutcome,
-        lastCallSentiment: contact.customFields?.lastCallSentiment,
-        appointmentsScheduled: contact.customFields?.appointmentsScheduled || 0,
+        totalCalls: (contact.customFields?.totalCalls as number) || 0,
+        lastCallDate: contact.customFields?.lastCallDate as string | undefined,
+        lastCallDuration: (contact.customFields?.lastCallDuration as number) || 0,
+        lastCallOutcome: contact.customFields?.lastCallOutcome as string | undefined,
+        lastCallSentiment: contact.customFields?.lastCallSentiment as string | undefined,
+        appointmentsScheduled: (contact.customFields?.appointmentsScheduled as number) || 0,
       };
 
       // Get activities for more detailed history
       const activities = await this.getContactActivities(contactId);
 
       // Filter call-related activities
-      const callActivities = activities.filter(
-        (activity: { type?: string; body?: string }) =>
-          activity.type === 'call' || (activity.type === 'note' && activity.body?.includes('Call'))
+      const callActivities = (activities as GHLActivity[]).filter(
+        activity =>
+          activity.type === 'call' ||
+          (activity.type === 'note' && activity.description?.includes('Call'))
       );
 
       return {

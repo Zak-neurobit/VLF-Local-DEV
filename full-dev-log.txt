@@ -1,0 +1,22 @@
+  ▲ Next.js 14.2.30
+  - Local:        http://localhost:3000
+  - Environments: .env.local, .env
+  - Experiments (use with caution):
+    · optimizeCss
+
+ ✓ Starting...
+(node:90772) Warning: Setting the NODE_TLS_REJECT_UNAUTHORIZED environment variable to '0' makes TLS connections and HTTPS requests insecure by disabling certificate verification.
+    at getAllowUnauthorized (node:internal/options:104:13)
+    at Object.connect (node:_tls_wrap:1748:29)
+    at Client.connect (node:internal/deps/undici/undici:2507:24)
+    at socket (node:internal/deps/undici/undici:7890:29)
+    at new Promise (<anonymous>)
+    at connect (node:internal/deps/undici/undici:7889:30)
+    at _resume (node:internal/deps/undici/undici:8036:11)
+    at resume (node:internal/deps/undici/undici:7981:7)
+    at Client.<computed> (node:internal/deps/undici/undici:7768:35)
+    at [dispatch] (node:internal/deps/undici/undici:7809:24)
+
+warn  - In order to be able to deminify errors, @sentry/nextjs creates sourcemaps and uploads them to the Sentry server. Depending on your deployment setup, this means your original code may be visible in browser devtools in production. To prevent this, set hideSourceMaps to true in the sentry options in your next.config.js. To disable this warning without changing sourcemap behavior, set hideSourceMaps to false. (In @sentry/nextjs version 8.0.0 and beyond, this option will default to true.) See https://webpack.js.org/configuration/devtool/ and https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/#use-hidden-source-map for more information.
+
+ ✓ Ready in 1099ms

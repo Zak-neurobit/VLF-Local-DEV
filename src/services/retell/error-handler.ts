@@ -451,7 +451,14 @@ export class RetellErrorHandler {
             lastCallError: errorInfo.error,
             lastCallErrorTime: errorInfo.timestamp.toISOString(),
             callErrors: JSON.stringify(
-              [...JSON.parse(contact.customFields?.callErrors || '[]'), errorInfo].slice(-5)
+              [
+                ...JSON.parse(
+                  typeof contact.customFields?.callErrors === 'string'
+                    ? contact.customFields.callErrors
+                    : '[]'
+                ),
+                errorInfo,
+              ].slice(-5)
             ), // Keep last 5 errors
           },
         });

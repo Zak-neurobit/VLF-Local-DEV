@@ -125,11 +125,25 @@ export class CallRoutingService {
           email: contact.email,
           tags: contact.tags || [],
           customFields: contact.customFields || {},
-          preferredLanguage: contact.customFields?.preferredLanguage,
-          practiceArea: contact.customFields?.practiceArea,
-          lastCallDate: contact.customFields?.lastCallDate,
-          callHistory: contact.customFields?.callHistory || [],
-          clientStatus: contact.customFields?.clientStatus || 'prospect',
+          preferredLanguage:
+            typeof contact.customFields?.preferredLanguage === 'string'
+              ? contact.customFields.preferredLanguage
+              : undefined,
+          practiceArea:
+            typeof contact.customFields?.practiceArea === 'string'
+              ? contact.customFields.practiceArea
+              : undefined,
+          lastCallDate:
+            typeof contact.customFields?.lastCallDate === 'string'
+              ? contact.customFields.lastCallDate
+              : undefined,
+          callHistory: Array.isArray(contact.customFields?.callHistory)
+            ? contact.customFields.callHistory
+            : [],
+          clientStatus:
+            typeof contact.customFields?.clientStatus === 'string'
+              ? contact.customFields.clientStatus
+              : 'prospect',
         };
       }
 

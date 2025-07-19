@@ -4,23 +4,16 @@ import { trace, context } from '@opentelemetry/api';
 const isDevelopment = process.env.NODE_ENV === 'development';
 const isTest = process.env.NODE_ENV === 'test';
 
-const transport = isDevelopment
-  ? {
-      target: 'pino-pretty',
-      options: {
-        colorize: true,
-        translateTime: 'HH:MM:ss Z',
-        ignore: 'pid,hostname',
-      },
-    }
-  : undefined;
+// Disable transport in development to avoid thread-stream issues
+// Use simple console output instead
+const transport = undefined;
 
 const baseLogger = pino({
   level: process.env.LOG_LEVEL || (isDevelopment ? 'debug' : 'info'),
   enabled: !isTest,
   transport,
   formatters: {
-    level: (label) => {
+    level: label => {
       return { level: label.toUpperCase() };
     },
   },
@@ -67,55 +60,73 @@ export const createContextualLogger = (context: LogContext) => {
 };
 
 export const logApiRequest = (req: Request, res: Response, duration: number) => {
-  apiLogger.info({
-    method: req.method,
-    url: req.url,
-    status: res.status,
-    duration,
-    userAgent: req.headers.get('user-agent'),
-    ip: req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip'),
-  }, 'API request completed');
+  apiLogger.info(
+    {
+      method: req.method,
+      url: req.url,
+      status: res.status,
+      duration,
+      userAgent: req.headers.get('user-agent'),
+      ip: req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip'),
+    },
+    'API request completed'
+  );
 };
 
 export const logDatabaseQuery = (query: string, duration: number, params?: unknown[]) => {
-  dbLogger.debug({
-    query,
-    duration,
-    params: isDevelopment ? params : undefined,
-  }, 'Database query executed');
+  dbLogger.debug(
+    {
+      query,
+      duration,
+      params: isDevelopment ? params : undefined,
+    },
+    'Database query executed'
+  );
 };
 
 export const logSecurityEvent = (event: string, details: Record<string, unknown>) => {
-  securityLogger.warn({
-    event,
-    ...details,
-  }, `Security event: ${event}`);
+  securityLogger.warn(
+    {
+      event,
+      ...details,
+    },
+    `Security event: ${event}`
+  );
 };
 
 export const logPerformanceMetric = (metric: string, value: number, unit: string = 'ms') => {
-  performanceLogger.info({
-    metric,
-    value,
-    unit,
-  }, `Performance metric: ${metric}`);
+  performanceLogger.info(
+    {
+      metric,
+      value,
+      unit,
+    },
+    `Performance metric: ${metric}`
+  );
 };
 
 export const logError = (error: Error, context?: Record<string, unknown>) => {
-  logger.error({
-    err: {
-      message: error.message,
-      stack: error.stack,
-      name: error.name,
+  logger.error(
+    {
+      err: {
+        message: error.message,
+        stack: error.stack,
+        name: error.name,
+      },
+      ...context,
     },
-    ...context,
-  }, error.message);
+    error.message
+  );
 };
 
 export const logBusinessEvent = (event: string, details: Record<string, unknown>) => {
-  logger.info({
-    businessEvent: event,
-    ...details,
-  }, `Business event: ${event}`);
+  logger.info(
+    {
+      businessEvent: event,
+      ...details,
+    },
+    `Business event: ${event}`
+  );
 };
 
 export default logger;

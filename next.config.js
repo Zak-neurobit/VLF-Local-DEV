@@ -108,6 +108,32 @@ const nextConfig = {
       '@': __dirname + '/src',
     };
 
+    // Handle thread-stream worker issue
+    if (!isServer) {
+      // On client-side, replace thread-stream with a mock
+      config.resolve.alias['thread-stream'] = false;
+      config.resolve.alias['pino'] = 'pino/browser';
+    } else {
+      // On server-side, mark pino and thread-stream as external
+      config.externals = config.externals || [];
+      if (typeof config.externals === 'function') {
+        const originalExternals = config.externals;
+        config.externals = async (context, request, callback) => {
+          if (request === 'pino' || request === 'thread-stream' || request === 'pino-pretty') {
+            return callback(null, `commonjs ${request}`);
+          }
+          return originalExternals(context, request, callback);
+        };
+      } else {
+        config.externals = [
+          ...config.externals,
+          { pino: 'commonjs pino' },
+          { 'thread-stream': 'commonjs thread-stream' },
+          { 'pino-pretty': 'commonjs pino-pretty' },
+        ];
+      }
+    }
+
     return config;
   },
 
