@@ -3,9 +3,6 @@
   "buildCommand": "npm run build",
   "framework": "nextjs",
   "functions": {
-    "src/app/api/ai/paralegal/route.ts": {
-      "runtime": "edge"
-    },
     "src/app/api/**/*.ts": {
       "maxDuration": 30
     }
