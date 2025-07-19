@@ -54,10 +54,10 @@ export default function GoogleMap({
 
     loader
       .load()
-      .then(() => {
-        if (!mapRef.current) return;
+      .then(google => {
+        if (!mapRef.current || !window.google?.maps) return;
 
-        const mapInstance = new google.maps.Map(mapRef.current, {
+        const mapInstance = new window.google.maps.Map(mapRef.current, {
           center: { lat, lng },
           zoom,
           mapTypeControl: false,
@@ -74,11 +74,11 @@ export default function GoogleMap({
         });
 
         // Create marker
-        const marker = new google.maps.Marker({
+        const marker = new window.google.maps.Marker({
           position: { lat, lng },
           map: mapInstance,
           title: officeName || 'Vasquez Law Firm',
-          animation: google.maps.Animation.DROP,
+          animation: window.google.maps.Animation.DROP,
         });
 
         // Create info window
@@ -140,7 +140,7 @@ export default function GoogleMap({
           </div>
         `;
 
-        const infoWindow = new google.maps.InfoWindow({
+        const infoWindow = new window.google.maps.InfoWindow({
           content: infoWindowContent,
         });
 

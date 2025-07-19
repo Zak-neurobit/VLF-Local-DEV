@@ -50,8 +50,8 @@ export default function AllOfficesMap({
 
     loader
       .load()
-      .then(() => {
-        if (!mapRef.current) return;
+      .then(google => {
+        if (!mapRef.current || !window.google?.maps) return;
 
         // Calculate center based on all office locations
         const latSum = offices.reduce((sum, office) => sum + office.lat, 0);
@@ -59,7 +59,7 @@ export default function AllOfficesMap({
         const centerLat = latSum / offices.length;
         const centerLng = lngSum / offices.length;
 
-        const mapInstance = new google.maps.Map(mapRef.current, {
+        const mapInstance = new window.google.maps.Map(mapRef.current, {
           center: { lat: centerLat, lng: centerLng },
           zoom: 6, // Wider zoom to show all offices
           mapTypeControl: false,
@@ -75,16 +75,16 @@ export default function AllOfficesMap({
           ],
         });
 
-        const bounds = new google.maps.LatLngBounds();
+        const bounds = new window.google.maps.LatLngBounds();
         const infoWindows: any[] = []; // Array of google.maps.InfoWindow
 
         // Create markers for each office
         offices.forEach((office, index) => {
-          const marker = new google.maps.Marker({
+          const marker = new window.google.maps.Marker({
             position: { lat: office.lat, lng: office.lng },
             map: mapInstance,
             title: office.name,
-            animation: google.maps.Animation.DROP,
+            animation: window.google.maps.Animation.DROP,
             label: {
               text: (index + 1).toString(),
               color: 'white',
@@ -92,7 +92,7 @@ export default function AllOfficesMap({
             },
           });
 
-          bounds.extend(new google.maps.LatLng(office.lat, office.lng));
+          bounds.extend(new window.google.maps.LatLng(office.lat, office.lng));
 
           // Create info window for each marker
           const infoWindowContent = `
@@ -135,7 +135,7 @@ export default function AllOfficesMap({
             </div>
           `;
 
-          const infoWindow = new google.maps.InfoWindow({
+          const infoWindow = new window.google.maps.InfoWindow({
             content: infoWindowContent,
           });
 

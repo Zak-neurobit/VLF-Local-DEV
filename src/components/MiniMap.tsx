@@ -75,7 +75,7 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
         const centerLat = latSum / officeLocations.length;
         const centerLng = lngSum / officeLocations.length;
 
-        const mapInstance = new google.maps.Map(mapRef.current, {
+        const mapInstance = new window.google.maps.Map(mapRef.current, {
           center: { lat: centerLat, lng: centerLng },
           zoom: 6,
           disableDefaultUI: true,
@@ -99,11 +99,11 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
           ],
         });
 
-        const bounds = new google.maps.LatLngBounds();
+        const bounds = new window.google.maps.LatLngBounds();
 
         // Create simple markers for each office
         officeLocations.forEach(office => {
-          const marker = new google.maps.Marker({
+          const marker = new window.google.maps.Marker({
             position: { lat: office.lat, lng: office.lng },
             map: mapInstance,
             title: office.name,
@@ -116,11 +116,11 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
                   <circle cx="10" cy="10" r="3" fill="#6B1F2E"/>
                 </svg>
               `),
-              scaledSize: new google.maps.Size(20, 20),
+              scaledSize: new window.google.maps.Size(20, 20),
             },
           });
 
-          bounds.extend(new google.maps.LatLng(office.lat, office.lng));
+          bounds.extend(new window.google.maps.LatLng(office.lat, office.lng));
 
           // Add click handler to open location page
           marker.addListener('click', () => {
