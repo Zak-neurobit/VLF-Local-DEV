@@ -4,6 +4,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { officeLocations } from '@/data/locations';
 import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-config';
 
+// Import Google Maps types
+/// <reference types="@types/google.maps" />
+
 interface MiniMapProps {
   height?: string;
   className?: string;

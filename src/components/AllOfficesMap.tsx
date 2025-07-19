@@ -5,6 +5,9 @@ import { logger } from '@/lib/pino-logger';
 import { Loader } from '@googlemaps/js-api-loader';
 import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-config';
 
+// Import Google Maps types
+/// <reference types="@types/google.maps" />
+
 interface Office {
   name: string;
   address: string;
