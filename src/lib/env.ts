@@ -44,8 +44,6 @@ export const env = {
   RETELL_WEBHOOK_SECRET: validatedEnv.RETELL_WEBHOOK_SECRET || '',
 
   // Payment
-  STRIPE_SECRET_KEY: validatedEnv.STRIPE_SECRET_KEY || '',
-  STRIPE_WEBHOOK_SECRET: validatedEnv.STRIPE_WEBHOOK_SECRET || '',
   LAWPAY_PUBLIC_KEY: validatedEnv.LAWPAY_PUBLIC_KEY || '',
   LAWPAY_SECRET_KEY: validatedEnv.LAWPAY_SECRET_KEY || '',
 

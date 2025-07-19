@@ -197,8 +197,6 @@ export const SERVICE_CONFIGS = {
   PAYMENT: {
     name: 'Payment Processing',
     envVars: [
-      { key: 'STRIPE_SECRET_KEY', required: false, description: 'Stripe API key' },
-      { key: 'STRIPE_WEBHOOK_SECRET', required: false, description: 'Stripe webhook secret' },
       { key: 'LAWPAY_PUBLIC_KEY', required: false, description: 'LawPay public key' },
       { key: 'LAWPAY_SECRET_KEY', required: false, description: 'LawPay secret key' },
     ],

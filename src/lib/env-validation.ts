@@ -61,8 +61,6 @@ const envSchema = z.object({
   MOCK_SMS: z.enum(['true', 'false']).optional().default('true'),
 
   // Payment Processing (Optional)
-  STRIPE_SECRET_KEY: z.string().optional(),
-  STRIPE_WEBHOOK_SECRET: z.string().optional(),
   LAWPAY_PUBLIC_KEY: z.string().optional(),
   LAWPAY_SECRET_KEY: z.string().optional(),
 
@@ -179,7 +177,7 @@ export function isServiceConfigured(
     case 'redis':
       return !!(validatedEnv.REDIS_URL && validatedEnv.MOCK_REDIS !== 'true');
     case 'stripe':
-      return !!validatedEnv.STRIPE_SECRET_KEY;
+      return false; // Stripe removed
     case 'google_maps':
       return !!validatedEnv.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
     default:

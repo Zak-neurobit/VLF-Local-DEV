@@ -7,7 +7,6 @@ import { logger } from '@/lib/logger';
 import { prisma } from '@/lib/prisma-safe';
 import { sendEmail } from '@/lib/email';
 import { createNotification } from '@/lib/notifications';
-import Stripe from 'stripe';
 import {
   PaymentStatus as PrismaPaymentStatus,
   InvoiceStatus as PrismaInvoiceStatus,
@@ -18,10 +17,6 @@ import {
   RefundStatus,
   TrustTransactionType,
 } from '@prisma/client';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2023-10-16',
-});
 
 export interface Invoice {
   id: string;
@@ -90,7 +85,6 @@ export interface Payment {
 
   // Transaction Info
   transactionId?: string;
-  stripePaymentIntentId?: string;
   checkNumber?: string;
 
   // Processing
@@ -339,32 +333,23 @@ export class ClientPortalBillingPayments {
     });
 
     try {
-      let stripePaymentIntentId: string | undefined;
       let transactionId: string | undefined;
       let status: PaymentStatus = 'PENDING';
       let processedDate: Date | undefined;
-      let processingFee = 0;
+      const processingFee = 0;
 
       // Process based on payment method
       if (params.paymentMethod === 'CARD' && params.paymentMethodId) {
-        // Process credit card payment via Stripe
-        const paymentIntent = await stripe.paymentIntents.create({
-          amount: Math.round(params.amount * 100), // Convert to cents
-          currency: 'usd',
-          payment_method: params.paymentMethodId,
-          confirm: true,
-          metadata: {
-            clientId: params.clientId,
-            invoiceId: params.invoiceId || '',
-            caseId: params.caseId || '',
-          },
-        });
+        // Card payment processing removed - use alternative gateway
+        throw new Error(
+          'Card payment processing temporarily unavailable. Please use ACH or check payment.'
+        );
 
-        stripePaymentIntentId = paymentIntent.id;
-        transactionId = paymentIntent.id;
-        status = paymentIntent.status === 'succeeded' ? 'SUCCEEDED' : 'FAILED';
-        processedDate = new Date();
-        processingFee = paymentIntent.amount * 0.029 + 30; // Stripe fees
+        // TODO: Integrate with LawPay or Authorize.Net for card processing
+        // transactionId = `CARD-${Date.now()}`;
+        // status = 'PENDING';
+        // processedDate = new Date();
+        // processingFee = params.amount * 0.029 + 30; // Standard processing fees
       } else if (params.paymentMethod === 'ACH') {
         // Process ACH payment
         // In practice, would integrate with ACH processor
@@ -390,7 +375,7 @@ export class ClientPortalBillingPayments {
           status,
           gateway: 'STRIPE',
           gatewayTransactionId: transactionId,
-          gatewayChargeId: stripePaymentIntentId,
+          gatewayChargeId: transactionId,
           processedAt: processedDate,
           description: params.invoiceId
             ? `Payment for Invoice ${params.invoiceId}`
@@ -1003,7 +988,6 @@ export class ClientPortalBillingPayments {
       paymentMethod: data.paymentMethod,
       status: data.status,
       transactionId: data.transactionId,
-      stripePaymentIntentId: data.stripePaymentIntentId,
       checkNumber: data.checkNumber,
       processedDate: data.processedDate,
       processingFee: data.processingFee,

@@ -18,7 +18,6 @@ import {
   PaymentRefund,
   TrustLedger,
 } from '@prisma/client';
-import Stripe from 'stripe';
 
 export interface PaymentIntent {
   amount: number;
@@ -49,7 +48,7 @@ export interface PaymentResult {
   reference?: string;
   amount?: number;
   error?: string;
-  gateway?: 'authorize.net' | 'lawpay' | 'stripe';
+  gateway?: 'authorize.net' | 'lawpay';
 }
 
 export interface TrustAccountTransaction {
@@ -66,7 +65,6 @@ export interface TrustAccountTransaction {
 }
 
 class PaymentService {
-  private stripe: Stripe | null = null;
   private authorizeNetApiUrl: string;
   private lawPayApiUrl = 'https://api.lawpay.com/v1';
 
@@ -75,13 +73,6 @@ class PaymentService {
       process.env.NODE_ENV === 'production'
         ? 'https://api.authorize.net/xml/v1/request.api'
         : 'https://apitest.authorize.net/xml/v1/request.api';
-
-    // Initialize Stripe if configured
-    if (process.env.STRIPE_SECRET_KEY) {
-      this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-        apiVersion: '2023-10-16',
-      });
-    }
   }
 
   /**
@@ -91,7 +82,7 @@ class PaymentService {
     intent: PaymentIntent,
     method: PaymentMethod,
     options: {
-      gateway?: 'authorize.net' | 'lawpay' | 'stripe';
+      gateway?: 'authorize.net' | 'lawpay';
       trustAccount?: boolean;
     } = {}
   ): Promise<PaymentResult> {
@@ -140,9 +131,6 @@ class PaymentService {
       });
 
       switch (gateway) {
-        case 'stripe':
-          result = await this.processStripePayment(intent, method, payment.id);
-          break;
         case 'lawpay':
           result = await this.processLawPayPayment(intent, method, options.trustAccount);
           break;
@@ -198,100 +186,6 @@ class PaymentService {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Payment processing failed',
-      };
-    }
-  }
-
-  /**
-   * Process payment through Stripe
-   */
-  private async processStripePayment(
-    intent: PaymentIntent,
-    method: PaymentMethod,
-    paymentId: string
-  ): Promise<PaymentResult> {
-    if (!this.stripe) {
-      throw new Error('Stripe not configured');
-    }
-
-    try {
-      // Create payment method
-      let paymentMethodId: string;
-
-      if (method.type === 'card') {
-        const [expMonth, expYear] = method.expiryDate?.split('/') || [];
-
-        const paymentMethod = await this.stripe.paymentMethods.create({
-          type: 'card',
-          card: {
-            number: method.cardNumber!,
-            exp_month: parseInt(expMonth),
-            exp_year: parseInt(`20${expYear}`),
-            cvc: method.cvv!,
-          },
-          billing_details: {
-            email: intent.clientEmail,
-            name: intent.clientName,
-          },
-        });
-
-        paymentMethodId = paymentMethod.id;
-      } else {
-        // ACH payment
-        const paymentMethod = await this.stripe.paymentMethods.create({
-          type: 'us_bank_account',
-          us_bank_account: {
-            account_holder_type: 'individual',
-            account_number: method.accountNumber!,
-            routing_number: method.routingNumber!,
-          },
-          billing_details: {
-            email: intent.clientEmail,
-            name: intent.clientName,
-          },
-        });
-
-        paymentMethodId = paymentMethod.id;
-      }
-
-      // Create payment intent
-      const paymentIntent = await this.stripe.paymentIntents.create({
-        amount: Math.round(intent.amount * 100), // Convert to cents
-        currency: intent.currency || 'usd',
-        payment_method: paymentMethodId,
-        description: intent.description,
-        receipt_email: intent.clientEmail,
-        confirm: true,
-        metadata: {
-          paymentId,
-          clientEmail: intent.clientEmail,
-          clientName: intent.clientName,
-          caseId: intent.caseId || '',
-          ...(intent.metadata ? this.flattenMetadataForStripe(intent.metadata) : {}),
-        },
-      });
-
-      if (paymentIntent.status === 'succeeded') {
-        return {
-          success: true,
-          transactionId: paymentIntent.id,
-          chargeId: paymentIntent.latest_charge as string,
-          amount: paymentIntent.amount / 100,
-          gateway: 'stripe',
-        };
-      } else {
-        return {
-          success: false,
-          error: `Payment status: ${paymentIntent.status}`,
-          gateway: 'stripe',
-        };
-      }
-    } catch (error) {
-      const stripeError = error as { type?: string; message?: string; code?: string };
-      return {
-        success: false,
-        error: stripeError.message || 'Stripe payment failed',
-        gateway: 'stripe',
       };
     }
   }
@@ -666,19 +560,6 @@ class PaymentService {
       let result: PaymentResult = { success: false };
 
       switch (payment.gateway) {
-        case PaymentGateway.STRIPE:
-          result = await this.processStripeRefund(
-            {
-              id: payment.id,
-              transactionId: payment.gatewayTransactionId || payment.id,
-              gateway: payment.gateway,
-              amount: payment.amount,
-              gatewayChargeId: payment.gatewayChargeId || payment.gatewayTransactionId || undefined,
-              metadata: payment.metadata as Record<string, unknown>,
-            },
-            refundAmount
-          );
-          break;
         case PaymentGateway.LAWPAY:
           result = await this.processLawPayRefund(
             {
@@ -767,47 +648,6 @@ class PaymentService {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Refund processing failed',
-      };
-    }
-  }
-
-  /**
-   * Process Stripe refund
-   */
-  private async processStripeRefund(
-    payment: {
-      id: string;
-      transactionId: string;
-      gateway: PaymentGateway;
-      amount: number;
-      gatewayChargeId?: string;
-      metadata?: Record<string, unknown>;
-    },
-    amount: number
-  ): Promise<PaymentResult> {
-    if (!this.stripe) {
-      throw new Error('Stripe not configured');
-    }
-
-    try {
-      const refund = await this.stripe.refunds.create({
-        charge: payment.gatewayChargeId,
-        amount: Math.round(amount * 100),
-        reason: 'requested_by_customer',
-      });
-
-      return {
-        success: true,
-        transactionId: refund.id,
-        amount: refund.amount / 100,
-        gateway: 'stripe',
-      };
-    } catch (error) {
-      const stripeError = error as { type?: string; message?: string; code?: string };
-      return {
-        success: false,
-        error: stripeError.message || 'Stripe refund failed',
-        gateway: 'stripe',
       };
     }
   }
@@ -1193,37 +1033,6 @@ class PaymentService {
     });
 
     return transactions;
-  }
-
-  /**
-   * Helper to flatten metadata for Stripe
-   */
-  private flattenMetadataForStripe(metadata: PaymentMetadata): Record<string, string> {
-    const flattened: Record<string, string> = {};
-
-    if (metadata.invoiceNumber) {
-      flattened.invoiceNumber = metadata.invoiceNumber;
-    }
-    if (metadata.description) {
-      flattened.description = metadata.description;
-    }
-    if (metadata.tax !== undefined) {
-      flattened.tax = metadata.tax.toString();
-    }
-    if (metadata.discount !== undefined) {
-      flattened.discount = metadata.discount.toString();
-    }
-    if (metadata.items) {
-      flattened.itemsCount = metadata.items.length.toString();
-      flattened.itemsTotal = metadata.items.reduce((sum, item) => sum + item.amount, 0).toString();
-    }
-    if (metadata.customFields) {
-      Object.entries(metadata.customFields).forEach(([key, value]) => {
-        flattened[`custom_${key}`] = String(value);
-      });
-    }
-
-    return flattened;
   }
 
   /**

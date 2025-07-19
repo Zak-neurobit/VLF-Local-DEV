@@ -68,37 +68,3 @@ export interface ExtractedInfo {
   additionalNotes?: string;
   customData?: Record<string, string | number | boolean>;
 }
-
-// Stripe webhook types
-export interface StripeEventData {
-  object: {
-    id: string;
-    amount_paid?: number;
-    customer_email?: string;
-    payment_intent?: string;
-    charge?: string;
-    last_finalization_error?: {
-      message: string;
-    };
-    attempt_count?: number;
-    subscription?: {
-      id: string;
-      status: string;
-      current_period_end?: number;
-    };
-    metadata?: Record<string, string | number | boolean>;
-    billing_details?: {
-      name?: string;
-      email?: string;
-      phone?: string;
-      address?: {
-        line1?: string;
-        line2?: string;
-        city?: string;
-        state?: string;
-        postal_code?: string;
-        country?: string;
-      };
-    };
-  };
-}
