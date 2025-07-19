@@ -8,13 +8,6 @@ import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-c
 // Import Google Maps types
 /// <reference types="@types/google.maps" />
 
-// Ensure google namespace is available
-declare global {
-  interface Window {
-    google: typeof google;
-  }
-}
-
 interface Office {
   name: string;
   address: string;
