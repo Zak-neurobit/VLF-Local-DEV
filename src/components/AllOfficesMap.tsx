@@ -73,7 +73,7 @@ export default function AllOfficesMap({
         });
 
         const bounds = new window.google.maps.LatLngBounds();
-        const infoWindows: google.maps.InfoWindow[] = [];
+        const infoWindows: any[] = [];
 
         // Create markers for each office
         offices.forEach((office, index) => {
