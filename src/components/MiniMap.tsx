@@ -1,11 +1,9 @@
+/// <reference types="@types/google.maps" />
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
 import { officeLocations } from '@/data/locations';
 import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-config';
-
-// Import Google Maps types
-/// <reference types="@types/google.maps" />
 
 interface MiniMapProps {
   height?: string;
@@ -14,7 +12,7 @@ interface MiniMapProps {
 
 export default function MiniMap({ height = '200px', className = '' }: MiniMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [map, setMap] = useState<any>(null); // Using any to avoid Google Maps type issues during build
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

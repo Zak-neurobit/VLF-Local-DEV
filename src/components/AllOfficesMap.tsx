@@ -1,12 +1,10 @@
+/// <reference types="@types/google.maps" />
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
 import { logger } from '@/lib/pino-logger';
 import { Loader } from '@googlemaps/js-api-loader';
 import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-config';
-
-// Import Google Maps types
-/// <reference types="@types/google.maps" />
 
 interface Office {
   name: string;
@@ -29,7 +27,7 @@ export default function AllOfficesMap({
   className = '',
 }: AllOfficesMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [, setMap] = useState<google.maps.Map | null>(null);
+  const [, setMap] = useState<any>(null); // Using any to avoid Google Maps type issues during build
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

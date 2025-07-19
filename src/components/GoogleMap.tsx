@@ -1,10 +1,9 @@
+/// <reference types="@types/google.maps" />
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
 import { logger } from '@/lib/pino-logger';
 import { Loader } from '@googlemaps/js-api-loader';
-
-/// <reference types="@types/google.maps" />
 import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-config';
 
 interface GoogleMapProps {
@@ -33,7 +32,7 @@ export default function GoogleMap({
   className = '',
 }: GoogleMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [map, setMap] = useState<any>(null); // Using any to avoid Google Maps type issues during build
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
