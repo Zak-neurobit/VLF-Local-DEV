@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { ChevronRight, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -45,7 +45,7 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
     const interval = setInterval(fetchNews, 300000); // Refresh every 5 minutes
 
     return () => clearInterval(interval);
-  }, []);
+  }, [locale]);
 
   useEffect(() => {
     if (!isPaused && newsItems.length > 0) {

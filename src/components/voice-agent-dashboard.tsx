@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 // Removed chart imports - need to install react-chartjs-2
 // Removed chart.js imports - need to install chart.js
 
@@ -18,13 +18,49 @@ import React, { useState, useEffect } from 'react';
 //   Legend
 // );
 
+// Voice analytics types
+interface AgentMetric {
+  agentId: string;
+  agentName: string;
+  totalCalls: number;
+  avgCallDuration: number;
+  successRate: number;
+}
+
+interface CallVolumeData {
+  hour: number;
+  calls: number;
+}
+
+interface VoiceAnalytics {
+  totalCalls: number;
+  totalDuration: number;
+  avgCallDuration: number;
+  successRate: number;
+  agentMetrics: AgentMetric[];
+  callVolumeByHour: CallVolumeData[];
+  commonIssues: Array<{ issue: string; count: number }>;
+  sentimentDistribution: {
+    positive: number;
+    neutral: number;
+    negative: number;
+  };
+}
+
+interface VoiceRecommendation {
+  type: 'performance' | 'quality' | 'training';
+  title: string;
+  description: string;
+  priority: 'high' | 'medium' | 'low';
+}
+
 interface VoiceAgentDashboardProps {
   className?: string;
 }
 
 export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashboardProps) {
-  const [analytics, setAnalytics] = useState<any>(null);
-  const [recommendations, setRecommendations] = useState<any>(null);
+  const [analytics, setAnalytics] = useState<VoiceAnalytics | null>(null);
+  const [recommendations, setRecommendations] = useState<VoiceRecommendation[] | null>(null);
   const [selectedPeriod, setSelectedPeriod] = useState<'daily' | 'weekly' | 'monthly'>('weekly');
   const [selectedAgent, setSelectedAgent] = useState<string>('all');
   const [isLoading, setIsLoading] = useState(true);
@@ -32,11 +68,7 @@ export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashbo
     'overview' | 'quality' | 'insights' | 'recommendations'
   >('overview');
 
-  useEffect(() => {
-    fetchAnalytics();
-  }, [selectedPeriod, selectedAgent]);
-
-  const fetchAnalytics = async () => {
+  const fetchAnalytics = useCallback(async () => {
     setIsLoading(true);
     try {
       const params = new URLSearchParams({
@@ -56,7 +88,11 @@ export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashbo
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [selectedPeriod, selectedAgent]);
+
+  useEffect(() => {
+    fetchAnalytics();
+  }, [fetchAnalytics]);
 
   if (isLoading) {
     return (
@@ -83,7 +119,7 @@ export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashbo
           <div className="flex space-x-3">
             <select
               value={selectedPeriod}
-              onChange={e => setSelectedPeriod(e.target.value as any)}
+              onChange={e => setSelectedPeriod(e.target.value as 'daily' | 'weekly' | 'monthly')}
               className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="daily">Daily</option>
@@ -96,7 +132,7 @@ export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashbo
               className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="all">All Agents</option>
-              {analytics.agentMetrics?.map((agent: any) => (
+              {analytics.agentMetrics?.map(agent => (
                 <option key={agent.agentId} value={agent.agentId}>
                   {agent.agentName}
                 </option>
@@ -110,7 +146,9 @@ export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashbo
           {['overview', 'quality', 'insights', 'recommendations'].map(tab => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab as any)}
+              onClick={() =>
+                setActiveTab(tab as 'overview' | 'quality' | 'insights' | 'recommendations')
+              }
               className={`px-4 py-2 rounded-t-lg capitalize ${
                 activeTab === tab
                   ? 'bg-blue-50 text-blue-700 border-b-2 border-blue-700'
@@ -137,9 +175,9 @@ export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashbo
 }
 
 // Overview Tab Component
-function OverviewTab({ analytics }: { analytics: any }) {
+function OverviewTab({ analytics }: { analytics: VoiceAnalytics }) {
   const callVolumeData = {
-    labels: analytics.callVolumeByHour.map((h: any) => `${h.hour}:00`),
+    labels: analytics.callVolumeByHour.map(h => `${h.hour}:00`),
     datasets: [
       {
         label: 'Call Volume',

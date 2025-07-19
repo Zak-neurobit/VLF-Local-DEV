@@ -1,7 +1,7 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import CaseDetails from '@/components/portal/case-details';
 import CaseTimeline from '@/components/portal/case-timeline';
@@ -19,13 +19,7 @@ export default function CaseDetailPage() {
     'overview'
   );
 
-  useEffect(() => {
-    if (session?.user?.id && caseId) {
-      fetchCaseDetails();
-    }
-  }, [session, caseId]);
-
-  const fetchCaseDetails = async () => {
+  const fetchCaseDetails = useCallback(async () => {
     try {
       const response = await fetch(`/api/portal/cases/${caseId}`);
       const data = await response.json();
@@ -38,7 +32,13 @@ export default function CaseDetailPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [caseId]);
+
+  useEffect(() => {
+    if (session?.user?.id && caseId) {
+      fetchCaseDetails();
+    }
+  }, [session, caseId, fetchCaseDetails]);
 
   if (isLoading) {
     return (

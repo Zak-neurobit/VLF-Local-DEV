@@ -9,6 +9,52 @@ import { logger } from '@/lib/logger';
 import { createCrewLogger } from '@/lib/crews/log-execution';
 import { AIOverviewOptimizationAgent } from './ai-overview-optimization-agent';
 
+// Response type interfaces
+interface EligibilityAnalysis {
+  primaryOption: {
+    pathName: string;
+    eligibility: 'eligible' | 'potentially_eligible' | 'not_eligible';
+    requirements: string[];
+    timeline: string;
+    cost: string;
+  };
+  alternativeOptions: Array<{
+    pathName: string;
+    eligibility: string;
+    notes: string;
+  }>;
+  bars?: string[];
+  waivers?: string[];
+  urgentActions?: string[];
+}
+
+interface LegalAnalysis {
+  applicableLaws: string[];
+  recentChanges: string[];
+  keyForms: string[];
+  evidenceRequired: string[];
+  potentialIssues: string[];
+  remedies: string[];
+  processingOffice: string;
+  estimatedTimeline: string;
+}
+
+interface ImmigrationRecommendations {
+  immediateActions: string[];
+  documentationNeeded: string[];
+  timeline: Array<{
+    phase: string;
+    duration: string;
+    actions: string[];
+  }>;
+  costBreakdown: Array<{
+    item: string;
+    cost: string;
+  }>;
+  riskFactors: string[];
+  successProbability: 'high' | 'moderate' | 'low';
+}
+
 export interface ImmigrationConsultationRequest {
   clientType: 'individual' | 'family' | 'business' | 'employer';
   immigrationGoal:
@@ -148,7 +194,9 @@ export class ImmigrationSpecialistAgent {
     );
   }
 
-  private async analyzeEligibility(request: ImmigrationConsultationRequest): Promise<any> {
+  private async analyzeEligibility(
+    request: ImmigrationConsultationRequest
+  ): Promise<EligibilityAnalysis> {
     const eligibilityPrompt = `Analyze immigration eligibility for this case:
 
 CLIENT PROFILE:
@@ -199,8 +247,8 @@ Provide accurate, current information based on USCIS regulations and procedures.
 
   private async performLegalAnalysis(
     request: ImmigrationConsultationRequest,
-    eligibility: any
-  ): Promise<any> {
+    eligibility: EligibilityAnalysis
+  ): Promise<LegalAnalysis> {
     const legalPrompt = `Perform comprehensive legal analysis for this immigration case:
 
 CASE DETAILS:
@@ -250,9 +298,9 @@ RESPONSE FORMAT (JSON):
 
   private async generateRecommendations(
     request: ImmigrationConsultationRequest,
-    eligibility: any,
-    legalAnalysis: any
-  ): Promise<any> {
+    eligibility: EligibilityAnalysis,
+    legalAnalysis: LegalAnalysis
+  ): Promise<ImmigrationRecommendations> {
     const recommendationsPrompt = `Generate actionable recommendations for this immigration case:
 
 CASE SUMMARY:

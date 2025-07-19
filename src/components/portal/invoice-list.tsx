@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { formatCurrency, formatDate } from '@/lib/utils/format';
 
 interface Invoice {
@@ -33,11 +33,7 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
   const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
   const [filter, setFilter] = useState<'all' | 'pending' | 'paid' | 'overdue'>('all');
 
-  useEffect(() => {
-    fetchInvoices();
-  }, [clientId, filter]);
-
-  const fetchInvoices = async () => {
+  const fetchInvoices = useCallback(async () => {
     try {
       const params = new URLSearchParams({ clientId });
       if (filter !== 'all') {
@@ -46,7 +42,7 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
 
       const response = await fetch(`/api/portal/invoices?${params}`);
       const data = await response.json();
-      
+
       if (data.success) {
         setInvoices(data.invoices);
       }
@@ -55,9 +51,13 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [clientId, filter]);
 
-  const downloadInvoice = async (invoiceId: string) => {
+  useEffect(() => {
+    fetchInvoices();
+  }, [fetchInvoices]);
+
+  const downloadInvoice = useCallback(async (invoiceId: string) => {
     try {
       const response = await fetch(`/api/portal/invoices/${invoiceId}/download`);
       const blob = await response.blob();
@@ -72,7 +72,7 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
     } catch (error) {
       console.error('Failed to download invoice:', error);
     }
-  };
+  }, []);
 
   const getStatusBadge = (status: Invoice['status']) => {
     switch (status) {
@@ -103,7 +103,7 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
     <div className="space-y-6">
       {/* Filters */}
       <div className="flex space-x-2">
-        {(['all', 'pending', 'paid', 'overdue'] as const).map((filterOption) => (
+        {(['all', 'pending', 'paid', 'overdue'] as const).map(filterOption => (
           <button
             key={filterOption}
             onClick={() => setFilter(filterOption)}
@@ -113,7 +113,9 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
                 : 'text-gray-500 hover:text-gray-700'
             }`}
           >
-            {filterOption === 'all' ? 'All Invoices' : filterOption.charAt(0).toUpperCase() + filterOption.slice(1)}
+            {filterOption === 'all'
+              ? 'All Invoices'
+              : filterOption.charAt(0).toUpperCase() + filterOption.slice(1)}
           </button>
         ))}
       </div>
@@ -149,7 +151,7 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {invoices.map((invoice) => (
+              {invoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div>
@@ -170,7 +172,9 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusBadge(invoice.status)}`}>
+                    <span
+                      className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusBadge(invoice.status)}`}
+                    >
                       {invoice.status}
                     </span>
                   </td>
@@ -192,9 +196,7 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
                         Download
                       </button>
                       {invoice.status === 'sent' || invoice.status === 'overdue' ? (
-                        <button className="text-green-600 hover:text-green-900">
-                          Pay
-                        </button>
+                        <button className="text-green-600 hover:text-green-900">Pay</button>
                       ) : null}
                     </div>
                   </td>
@@ -215,16 +217,19 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
                   <h2 className="text-2xl font-bold text-gray-900">
                     Invoice #{selectedInvoice.invoiceNumber}
                   </h2>
-                  <p className="text-gray-600 mt-1">
-                    {selectedInvoice.caseTitle}
-                  </p>
+                  <p className="text-gray-600 mt-1">{selectedInvoice.caseTitle}</p>
                 </div>
                 <button
                   onClick={() => setSelectedInvoice(null)}
                   className="text-gray-400 hover:text-gray-500"
                 >
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
               </div>

@@ -33,7 +33,7 @@ export default function GoogleMap({
   className = '',
 }: GoogleMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<any>(null); // Type will be google.maps.Map
+  const [map, setMap] = useState<google.maps.Map | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -54,7 +54,7 @@ export default function GoogleMap({
 
     loader
       .load()
-      .then(google => {
+      .then(_google => {
         if (!mapRef.current || !window.google?.maps) return;
 
         const mapInstance = new window.google.maps.Map(mapRef.current, {

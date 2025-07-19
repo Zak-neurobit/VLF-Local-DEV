@@ -2,8 +2,26 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { responseGenerator } from '@/services/reputation-management/response-generator';
-import { prisma } from '@/lib/prisma-safe';
+// import { prisma } from '@/lib/prisma-safe';
 import { reviewStubs } from '@/lib/prisma-model-stubs';
+
+// Review type definition
+interface Review {
+  id: string;
+  platform: string;
+  rating: number;
+  reviewText: string;
+  reviewerName: string;
+  responded?: boolean;
+  createdAt: Date;
+}
+
+// Response result type
+interface ResponseResult {
+  success: boolean;
+  message: string;
+  responseId?: string;
+}
 import { z } from 'zod';
 
 // POST /api/reputation/respond - Generate or send review response
@@ -89,7 +107,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function sendResponse(review: any, responseText: string): Promise<any> {
+async function sendResponse(review: Review, responseText: string): Promise<ResponseResult> {
   // Platform-specific response sending logic
   // This would integrate with each platform's API
 
@@ -116,10 +134,10 @@ async function sendResponse(review: any, responseText: string): Promise<any> {
 }
 
 async function scheduleResponse(
-  review: any,
+  review: Review,
   responseText: string,
   scheduleFor: Date
-): Promise<any> {
+): Promise<ResponseResult> {
   // TODO: Create reviewResponse when model is available
   const response = {
     id: 'temp-id',

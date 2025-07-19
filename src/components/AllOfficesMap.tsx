@@ -29,7 +29,7 @@ export default function AllOfficesMap({
   className = '',
 }: AllOfficesMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [, setMap] = useState<any>(null); // Type will be google.maps.Map
+  const [, setMap] = useState<google.maps.Map | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -50,7 +50,7 @@ export default function AllOfficesMap({
 
     loader
       .load()
-      .then(google => {
+      .then(_google => {
         if (!mapRef.current || !window.google?.maps) return;
 
         // Calculate center based on all office locations
@@ -76,7 +76,7 @@ export default function AllOfficesMap({
         });
 
         const bounds = new window.google.maps.LatLngBounds();
-        const infoWindows: any[] = []; // Array of google.maps.InfoWindow
+        const infoWindows: google.maps.InfoWindow[] = [];
 
         // Create markers for each office
         offices.forEach((office, index) => {

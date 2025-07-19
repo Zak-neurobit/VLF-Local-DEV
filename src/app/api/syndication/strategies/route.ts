@@ -4,7 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { crossPostingManager } from '@/services/content-syndication/cross-posting-manager';
 
 // GET /api/syndication/strategies - List cross-posting strategies
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.role?.includes('admin')) {

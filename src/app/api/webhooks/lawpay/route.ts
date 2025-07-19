@@ -5,6 +5,42 @@ import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 import crypto from 'crypto';
 
+// LawPay webhook data types
+interface LawPayWebhookData {
+  event_type?: string;
+  type?: string;
+  event?: string;
+  status?: string;
+  payment_id?: string;
+  id?: string;
+  transaction_id?: string;
+  reference?: string;
+  confirmation_number?: string;
+  amount?: number;
+  total?: number;
+  amount_cents?: number;
+  currency?: string;
+  metadata?: Record<string, unknown>;
+  custom_fields?: Record<string, unknown>;
+  refund_amount?: number;
+  refund_id?: string;
+  refund_transaction_id?: string;
+  failure_reason?: string;
+  failure_code?: string;
+  error?: string;
+  error_code?: string;
+  error_message?: string;
+  declined_reason?: string;
+  customer?: {
+    name?: string;
+    email?: string;
+  };
+  email?: string;
+  customer_email?: string;
+  customer_name?: string;
+  name?: string;
+}
+
 const prisma = getPrismaClient();
 
 // Verify webhook signature
@@ -87,12 +123,17 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function handlePaymentCreated(data: any) {
+async function handlePaymentCreated(data: LawPayWebhookData) {
   // Handle different possible field names from LawPay
   const paymentId = data.payment_id || data.id || data.transaction_id || data.reference;
   const amount = data.amount || data.total || data.amount_cents;
   const currency = data.currency || 'USD';
   const metadata = data.metadata || data.custom_fields || {};
+
+  if (!amount) {
+    logger.error('Payment amount is missing in webhook data', { data });
+    return;
+  }
 
   try {
     // If amount is in cents, convert to dollars
@@ -120,13 +161,23 @@ async function handlePaymentCreated(data: any) {
           status: 'PENDING',
           gateway: 'LAWPAY',
           paymentMethod: 'CARD',
-          description: metadata.description || 'Payment via LawPay',
-          clientEmail: metadata.email || 'unknown@email.com',
-          clientName: metadata.name || 'Unknown',
+          description: (metadata as any).description || 'Payment via LawPay',
+          clientEmail:
+            (metadata as any).email ||
+            data.email ||
+            data.customer_email ||
+            data.customer?.email ||
+            'unknown@email.com',
+          clientName:
+            (metadata as any).name ||
+            data.name ||
+            data.customer_name ||
+            data.customer?.name ||
+            'Unknown',
           metadata: {
             ...metadata,
-            lawpayData: data,
-          },
+            lawpayData: JSON.parse(JSON.stringify(data)),
+          } as any,
         },
       });
     }
@@ -137,12 +188,17 @@ async function handlePaymentCreated(data: any) {
   }
 }
 
-async function handlePaymentSucceeded(data: any) {
+async function handlePaymentSucceeded(data: LawPayWebhookData) {
   // Handle different possible field names from LawPay
   const paymentId = data.payment_id || data.id || data.transaction_id || data.reference;
   const amount = data.amount || data.total || data.amount_cents;
   const transactionId = data.transaction_id || data.id || data.confirmation_number;
   const metadata = data.metadata || data.custom_fields || {};
+
+  if (!amount) {
+    logger.error('Payment amount is missing in success webhook data', { data });
+    return;
+  }
 
   try {
     // Calculate amount in dollars
@@ -170,13 +226,23 @@ async function handlePaymentSucceeded(data: any) {
           gatewayChargeId: transactionId,
           processedAt: new Date(),
           paymentMethod: 'CARD',
-          description: metadata.description || 'Payment via LawPay',
-          clientEmail: metadata.email || 'unknown@email.com',
-          clientName: metadata.name || 'Unknown',
+          description: (metadata as any).description || 'Payment via LawPay',
+          clientEmail:
+            (metadata as any).email ||
+            data.email ||
+            data.customer_email ||
+            data.customer?.email ||
+            'unknown@email.com',
+          clientName:
+            (metadata as any).name ||
+            data.name ||
+            data.customer_name ||
+            data.customer?.name ||
+            'Unknown',
           metadata: {
             ...metadata,
-            lawpayData: data,
-          },
+            lawpayData: JSON.parse(JSON.stringify(data)),
+          } as any,
         },
       });
     } else {
@@ -190,8 +256,8 @@ async function handlePaymentSucceeded(data: any) {
           metadata: {
             ...((existingPayment.metadata as object) || {}),
             ...metadata,
-            lawpayData: data,
-          },
+            lawpayData: JSON.parse(JSON.stringify(data)),
+          } as any,
         },
       });
     }
@@ -203,10 +269,16 @@ async function handlePaymentSucceeded(data: any) {
     });
 
     // Send confirmation email
-    if (metadata?.clientEmail) {
+    const clientEmail =
+      (metadata as any).clientEmail ||
+      (metadata as any).email ||
+      data.email ||
+      data.customer_email ||
+      data.customer?.email;
+    if (clientEmail) {
       // TODO: Queue confirmation email
       logger.info('Payment confirmation email queued', {
-        email: metadata.clientEmail,
+        email: clientEmail,
         paymentId,
       });
     }
@@ -223,10 +295,10 @@ async function handlePaymentSucceeded(data: any) {
   }
 }
 
-async function handlePaymentFailed(data: any) {
+async function handlePaymentFailed(data: LawPayWebhookData) {
   const paymentId = data.payment_id || data.id || data.transaction_id || data.reference;
   const failureReason =
-    data.failure_reason || data.error_message || data.decline_reason || 'Unknown error';
+    data.failure_reason || data.error_message || data.declined_reason || 'Unknown error';
 
   try {
     const existingPayment = await prisma.payment.findFirst({
@@ -242,8 +314,8 @@ async function handlePaymentFailed(data: any) {
           metadata: {
             ...((existingPayment.metadata as object) || {}),
             failureCode: data.failure_code || data.error_code || 'unknown',
-            lawpayData: data,
-          },
+            lawpayData: JSON.parse(JSON.stringify(data)),
+          } as any,
         },
       });
     }
@@ -257,7 +329,7 @@ async function handlePaymentFailed(data: any) {
   }
 }
 
-async function handlePaymentRefunded(data: any) {
+async function handlePaymentRefunded(data: LawPayWebhookData) {
   const paymentId = data.payment_id || data.id || data.transaction_id || data.reference;
   const refundAmount = data.refund_amount || data.amount || 0;
   const refundId = data.refund_id || data.refund_transaction_id || data.id;
@@ -277,8 +349,8 @@ async function handlePaymentRefunded(data: any) {
             ...((existingPayment.metadata as object) || {}),
             refundId,
             refundAmount: refundAmount > 1000 ? refundAmount / 100 : refundAmount,
-            lawpayData: data,
-          },
+            lawpayData: JSON.parse(JSON.stringify(data)),
+          } as any,
         },
       });
     }

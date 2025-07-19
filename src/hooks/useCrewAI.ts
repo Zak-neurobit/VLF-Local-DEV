@@ -24,6 +24,35 @@ export const useCrewAI = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTasks, setActiveTasks] = useState<Map<string, CrewAITaskStatus>>(new Map());
 
+  const pollTaskStatus = useCallback(async (taskId: string) => {
+    const poll = async () => {
+      try {
+        const response = await fetch(`/api/crewai/client-intake?taskId=${taskId}`);
+        if (response.ok) {
+          const status: CrewAITaskStatus = await response.json();
+
+          setActiveTasks(prev => new Map(prev.set(taskId, status)));
+
+          if (status.status === 'completed') {
+            toast.success('Task completed successfully');
+            return; // Stop polling
+          } else if (status.status === 'failed') {
+            toast.error(`Task failed: ${status.error}`);
+            return; // Stop polling
+          }
+
+          // Continue polling if task is still in progress
+          setTimeout(poll, 2000);
+        }
+      } catch (error) {
+        securityLogger.error('Failed to poll task status:', error);
+        setTimeout(poll, 5000); // Retry after longer delay
+      }
+    };
+
+    poll();
+  }, []);
+
   const createLegalConsultationTask = useCallback(
     async (data: {
       userId: string;
@@ -59,7 +88,7 @@ export const useCrewAI = () => {
         setIsLoading(false);
       }
     },
-    []
+    [pollTaskStatus]
   );
 
   const createAppointmentSchedulingTask = useCallback(
@@ -109,7 +138,7 @@ export const useCrewAI = () => {
         setIsLoading(false);
       }
     },
-    []
+    [pollTaskStatus]
   );
 
   const createDocumentAnalysisTask = useCallback(
@@ -167,7 +196,7 @@ export const useCrewAI = () => {
         setIsLoading(false);
       }
     },
-    []
+    [pollTaskStatus]
   );
 
   const createClientIntakeWorkflow = useCallback(
@@ -205,37 +234,8 @@ export const useCrewAI = () => {
         setIsLoading(false);
       }
     },
-    []
+    [pollTaskStatus]
   );
-
-  const pollTaskStatus = useCallback(async (taskId: string) => {
-    const poll = async () => {
-      try {
-        const response = await fetch(`/api/crewai/client-intake?taskId=${taskId}`);
-        if (response.ok) {
-          const status: CrewAITaskStatus = await response.json();
-
-          setActiveTasks(prev => new Map(prev.set(taskId, status)));
-
-          if (status.status === 'completed') {
-            toast.success('Task completed successfully');
-            return; // Stop polling
-          } else if (status.status === 'failed') {
-            toast.error(`Task failed: ${status.error}`);
-            return; // Stop polling
-          }
-
-          // Continue polling if task is still in progress
-          setTimeout(poll, 2000);
-        }
-      } catch (error) {
-        securityLogger.error('Failed to poll task status:', error);
-        setTimeout(poll, 5000); // Retry after longer delay
-      }
-    };
-
-    poll();
-  }, []);
 
   const getTaskStatus = useCallback(
     (taskId: string): CrewAITaskStatus | undefined => {
@@ -245,7 +245,11 @@ export const useCrewAI = () => {
   );
 
   const bookAppointment = useCallback(
-    async (userId: string, slot: { date: string; time: string; duration: number }, appointmentRequest: { type: string; notes?: string }) => {
+    async (
+      userId: string,
+      slot: { date: string; time: string; duration: number },
+      appointmentRequest: { type: string; notes?: string }
+    ) => {
       setIsLoading(true);
       try {
         const response = await fetch('/api/crewai/appointment-scheduling', {
@@ -312,7 +316,7 @@ export const useCrewAI = () => {
         setIsLoading(false);
       }
     },
-    []
+    [pollTaskStatus]
   );
 
   const createSocialMediaMonitoringTask = useCallback(
@@ -353,7 +357,7 @@ export const useCrewAI = () => {
         setIsLoading(false);
       }
     },
-    []
+    [pollTaskStatus]
   );
 
   const createSEOBlogGenerationTask = useCallback(
@@ -398,7 +402,7 @@ export const useCrewAI = () => {
         setIsLoading(false);
       }
     },
-    []
+    [pollTaskStatus]
   );
 
   return {

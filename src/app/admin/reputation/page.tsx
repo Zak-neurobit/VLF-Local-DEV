@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -21,7 +21,7 @@ import {
   TrendingUp,
   Clock,
   Send,
-  Calendar,
+  // Calendar,
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
@@ -35,11 +35,7 @@ export default function ReputationManagementPage() {
   const [sentimentFilter, setSentimentFilter] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    fetchData();
-  }, [platformFilter, sentimentFilter]);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const params = new URLSearchParams();
       if (platformFilter !== 'all') params.append('platformId', platformFilter);
@@ -59,9 +55,13 @@ export default function ReputationManagementPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [platformFilter, sentimentFilter]);
 
-  const handleGenerateResponse = async (review: any) => {
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const handleGenerateResponse = useCallback(async (review: any) => {
     setIsGenerating(true);
     setSelectedReview(review);
 
@@ -85,9 +85,9 @@ export default function ReputationManagementPage() {
     } finally {
       setIsGenerating(false);
     }
-  };
+  }, []);
 
-  const handleSendResponse = async () => {
+  const handleSendResponse = useCallback(async () => {
     if (!selectedReview || !responseText) return;
 
     try {
@@ -110,24 +110,27 @@ export default function ReputationManagementPage() {
     } catch (error) {
       console.error('Failed to send response:', error);
     }
-  };
+  }, [selectedReview, responseText, fetchData]);
 
-  const handleHarvestReviews = async (platformId?: string) => {
-    try {
-      const response = await fetch('/api/reputation/reviews/harvest', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ platformId }),
-      });
+  const handleHarvestReviews = useCallback(
+    async (platformId?: string) => {
+      try {
+        const response = await fetch('/api/reputation/reviews/harvest', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ platformId }),
+        });
 
-      if (response.ok) {
-        alert('Review harvest started!');
-        setTimeout(fetchData, 3000); // Refresh after 3 seconds
+        if (response.ok) {
+          alert('Review harvest started!');
+          setTimeout(fetchData, 3000); // Refresh after 3 seconds
+        }
+      } catch (error) {
+        console.error('Failed to harvest reviews:', error);
       }
-    } catch (error) {
-      console.error('Failed to harvest reviews:', error);
-    }
-  };
+    },
+    [fetchData]
+  );
 
   const getRatingStars = (rating: number) => {
     return '★'.repeat(rating) + '☆'.repeat(5 - rating);

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { syndicationEngine } from '@/services/content-syndication/syndication-engine';
-import { syndicationScheduler } from '@/services/content-syndication/syndication-scheduler';
+// import { syndicationScheduler } from '@/services/content-syndication/syndication-scheduler';
 import { crossPostingManager } from '@/services/content-syndication/cross-posting-manager';
 import { z } from 'zod';
 
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    
+
     const schema = z.object({
       contentId: z.string(),
       contentType: z.enum(['blog', 'news', 'case_study', 'guide', 'video']),
@@ -30,14 +30,11 @@ export async function POST(request: NextRequest) {
 
     if (validatedData.strategy) {
       // Execute specific cross-posting strategy
-      result = await crossPostingManager.executeStrategy(
-        validatedData.strategy,
-        { 
-          id: validatedData.contentId, 
-          type: validatedData.contentType,
-          // Additional content data would be fetched here
-        }
-      );
+      result = await crossPostingManager.executeStrategy(validatedData.strategy, {
+        id: validatedData.contentId,
+        type: validatedData.contentType,
+        // Additional content data would be fetched here
+      });
     } else {
       // Direct syndication
       result = await syndicationEngine.syndicateContent({
@@ -51,18 +48,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, result });
   } catch (error) {
     console.error('Syndication failed:', error);
-    
+
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid request data', details: error.errors },
         { status: 400 }
       );
     }
-    
-    return NextResponse.json(
-      { error: 'Syndication failed' },
-      { status: 500 }
-    );
+
+    return NextResponse.json({ error: 'Syndication failed' }, { status: 500 });
   }
 }
 
@@ -80,10 +74,7 @@ export async function GET(request: NextRequest) {
     const platform = searchParams.get('platform');
 
     if (!startDate || !endDate) {
-      return NextResponse.json(
-        { error: 'Start date and end date are required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Start date and end date are required' }, { status: 400 });
     }
 
     const analytics = await syndicationEngine.getSyndicationAnalytics({
@@ -95,9 +86,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ success: true, analytics });
   } catch (error) {
     console.error('Failed to get syndication analytics:', error);
-    return NextResponse.json(
-      { error: 'Failed to get analytics' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to get analytics' }, { status: 500 });
   }
 }

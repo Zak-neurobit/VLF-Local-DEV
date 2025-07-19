@@ -4,7 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { gmbManager } from '@/services/gmb-optimization/gmb-manager';
 
 // GET /api/gmb/locations - Get all GMB locations
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.role?.includes('admin')) {
@@ -29,10 +29,7 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Failed to get GMB locations:', error);
-    return NextResponse.json(
-      { error: 'Failed to get locations' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to get locations' }, { status: 500 });
   }
 }
 
@@ -48,10 +45,7 @@ export async function PUT(request: NextRequest) {
     const { locationId, updates } = body;
 
     if (!locationId) {
-      return NextResponse.json(
-        { error: 'Location ID is required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Location ID is required' }, { status: 400 });
     }
 
     await gmbManager.updateLocation(locationId, updates);
@@ -62,9 +56,6 @@ export async function PUT(request: NextRequest) {
     });
   } catch (error) {
     console.error('Failed to update GMB location:', error);
-    return NextResponse.json(
-      { error: 'Failed to update location' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to update location' }, { status: 500 });
   }
 }

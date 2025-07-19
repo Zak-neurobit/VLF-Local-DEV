@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { useScrollReveal, useCascadeReveal } from '@/hooks/useScrollReveal';
+// import { useAnimations } from '@/hooks/useAnimations';
 import Image from 'next/image';
 
 // Counter animation on scroll
@@ -80,10 +81,15 @@ interface RevealProps {
   delay?: number;
 }
 
-export function Reveal({ children, className = '', effect = 'slide', delay = 0 }: RevealProps) {
+export function Reveal({
+  children,
+  className = '',
+  effect: _effect = 'slide',
+  delay = 0,
+}: RevealProps) {
   const { ref, controls } = useScrollReveal({ delay });
 
-  const variants = {
+  const _variants = {
     fade: {
       hidden: { opacity: 0 },
       visible: { opacity: 1 },
@@ -219,7 +225,7 @@ export function StickyScrollSection({
 // Scroll-triggered morphing shape
 export function ScrollMorphShape() {
   const ref = React.useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress: _scrollYProgress } = useScroll({
     target: ref,
     offset: ['start end', 'end start'],
   });

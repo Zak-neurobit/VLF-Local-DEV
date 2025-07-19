@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { formatCurrency, formatDate } from '@/lib/utils/format';
 
 interface Payment {
@@ -31,11 +31,7 @@ export default function PaymentHistory({ clientId }: PaymentHistoryProps) {
     end: '',
   });
 
-  useEffect(() => {
-    fetchPayments();
-  }, [clientId, dateRange]);
-
-  const fetchPayments = async () => {
+  const fetchPayments = useCallback(async () => {
     try {
       const params = new URLSearchParams({ clientId });
       if (dateRange.start) params.append('startDate', dateRange.start);
@@ -43,7 +39,7 @@ export default function PaymentHistory({ clientId }: PaymentHistoryProps) {
 
       const response = await fetch(`/api/portal/payments?${params}`);
       const data = await response.json();
-      
+
       if (data.success) {
         setPayments(data.payments);
       }
@@ -52,9 +48,13 @@ export default function PaymentHistory({ clientId }: PaymentHistoryProps) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [clientId, dateRange]);
 
-  const downloadReceipt = async (paymentId: string) => {
+  useEffect(() => {
+    fetchPayments();
+  }, [fetchPayments]);
+
+  const downloadReceipt = useCallback(async (paymentId: string) => {
     try {
       const response = await fetch(`/api/portal/payments/${paymentId}/receipt`);
       const blob = await response.blob();
@@ -69,7 +69,7 @@ export default function PaymentHistory({ clientId }: PaymentHistoryProps) {
     } catch (error) {
       console.error('Failed to download receipt:', error);
     }
-  };
+  }, []);
 
   const getStatusBadge = (status: Payment['status']) => {
     switch (status) {
@@ -122,7 +122,7 @@ export default function PaymentHistory({ clientId }: PaymentHistoryProps) {
               type="date"
               id="start-date"
               value={dateRange.start}
-              onChange={(e) => setDateRange({ ...dateRange, start: e.target.value })}
+              onChange={e => setDateRange({ ...dateRange, start: e.target.value })}
               className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
@@ -134,7 +134,7 @@ export default function PaymentHistory({ clientId }: PaymentHistoryProps) {
               type="date"
               id="end-date"
               value={dateRange.end}
-              onChange={(e) => setDateRange({ ...dateRange, end: e.target.value })}
+              onChange={e => setDateRange({ ...dateRange, end: e.target.value })}
               className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
@@ -151,17 +151,13 @@ export default function PaymentHistory({ clientId }: PaymentHistoryProps) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-white rounded-lg border border-gray-200 p-4">
           <h3 className="text-sm font-medium text-gray-500">Total Payments</h3>
-          <p className="mt-2 text-2xl font-bold text-gray-900">
-            {payments.length}
-          </p>
+          <p className="mt-2 text-2xl font-bold text-gray-900">{payments.length}</p>
         </div>
         <div className="bg-white rounded-lg border border-gray-200 p-4">
           <h3 className="text-sm font-medium text-gray-500">Total Amount</h3>
           <p className="mt-2 text-2xl font-bold text-green-600">
             {formatCurrency(
-              payments
-                .filter(p => p.status === 'completed')
-                .reduce((sum, p) => sum + p.amount, 0)
+              payments.filter(p => p.status === 'completed').reduce((sum, p) => sum + p.amount, 0)
             )}
           </p>
         </div>
@@ -181,7 +177,7 @@ export default function PaymentHistory({ clientId }: PaymentHistoryProps) {
       ) : (
         <div className="bg-white shadow overflow-hidden sm:rounded-md">
           <ul role="list" className="divide-y divide-gray-200">
-            {payments.map((payment) => (
+            {payments.map(payment => (
               <li key={payment.id}>
                 <div className="px-4 py-4 sm:px-6 hover:bg-gray-50">
                   <div className="flex items-center justify-between">
@@ -191,10 +187,10 @@ export default function PaymentHistory({ clientId }: PaymentHistoryProps) {
                       </div>
                       <div className="ml-4">
                         <div className="flex items-center">
-                          <p className="text-sm font-medium text-gray-900">
-                            {payment.description}
-                          </p>
-                          <span className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusBadge(payment.status)}`}>
+                          <p className="text-sm font-medium text-gray-900">{payment.description}</p>
+                          <span
+                            className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusBadge(payment.status)}`}
+                          >
                             {payment.status}
                           </span>
                         </div>
@@ -214,7 +210,7 @@ export default function PaymentHistory({ clientId }: PaymentHistoryProps) {
                           )}
                         </div>
                         <div className="mt-1 text-xs text-gray-400">
-                          {formatDate(payment.processedAt)} • {payment.method.type} 
+                          {formatDate(payment.processedAt)} • {payment.method.type}
                           {payment.method.last4 && ` ending in ${payment.method.last4}`}
                         </div>
                       </div>

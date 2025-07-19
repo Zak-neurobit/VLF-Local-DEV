@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { formatCurrency, formatDate } from '@/lib/utils/format';
 
 interface PaymentPlan {
@@ -33,15 +33,11 @@ export default function PaymentPlans({ clientId }: PaymentPlansProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPlan, setSelectedPlan] = useState<PaymentPlan | null>(null);
 
-  useEffect(() => {
-    fetchPaymentPlans();
-  }, [clientId]);
-
-  const fetchPaymentPlans = async () => {
+  const fetchPaymentPlans = useCallback(async () => {
     try {
       const response = await fetch(`/api/portal/payment-plans?clientId=${clientId}`);
       const data = await response.json();
-      
+
       if (data.success) {
         setPlans(data.plans);
       }
@@ -50,7 +46,11 @@ export default function PaymentPlans({ clientId }: PaymentPlansProps) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [clientId]);
+
+  useEffect(() => {
+    fetchPaymentPlans();
+  }, [fetchPaymentPlans]);
 
   const getStatusBadge = (status: PaymentPlan['status']) => {
     switch (status) {
@@ -94,14 +94,16 @@ export default function PaymentPlans({ clientId }: PaymentPlansProps) {
     <div className="space-y-6">
       {/* Active Plans */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {plans.map((plan) => (
+        {plans.map(plan => (
           <div key={plan.id} className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="flex justify-between items-start mb-4">
               <div>
                 <h3 className="text-lg font-medium text-gray-900">{plan.name}</h3>
                 <p className="text-sm text-gray-500">{plan.caseTitle}</p>
               </div>
-              <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusBadge(plan.status)}`}>
+              <span
+                className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusBadge(plan.status)}`}
+              >
                 {plan.status}
               </span>
             </div>
@@ -138,7 +140,9 @@ export default function PaymentPlans({ clientId }: PaymentPlansProps) {
               </div>
               <div className="flex justify-between text-sm">
                 <dt className="text-gray-500">Payments:</dt>
-                <dd className="text-gray-900">{plan.paymentsMade} of {plan.totalPayments}</dd>
+                <dd className="text-gray-900">
+                  {plan.paymentsMade} of {plan.totalPayments}
+                </dd>
               </div>
               <div className="flex justify-between text-sm">
                 <dt className="text-gray-500">End Date:</dt>
@@ -171,9 +175,7 @@ export default function PaymentPlans({ clientId }: PaymentPlansProps) {
             <div className="p-6">
               <div className="flex justify-between items-start mb-6">
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900">
-                    Payment Schedule
-                  </h2>
+                  <h2 className="text-xl font-bold text-gray-900">Payment Schedule</h2>
                   <p className="text-gray-600 mt-1">
                     {selectedPlan.name} - {selectedPlan.caseTitle}
                   </p>
@@ -183,7 +185,12 @@ export default function PaymentPlans({ clientId }: PaymentPlansProps) {
                   className="text-gray-400 hover:text-gray-500"
                 >
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
               </div>
@@ -213,11 +220,15 @@ export default function PaymentPlans({ clientId }: PaymentPlansProps) {
                           {formatCurrency(payment.amount)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-center">
-                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                            payment.status === 'paid' ? 'bg-green-100 text-green-800' :
-                            payment.status === 'overdue' ? 'bg-red-100 text-red-800' :
-                            'bg-gray-100 text-gray-800'
-                          }`}>
+                          <span
+                            className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                              payment.status === 'paid'
+                                ? 'bg-green-100 text-green-800'
+                                : payment.status === 'overdue'
+                                  ? 'bg-red-100 text-red-800'
+                                  : 'bg-gray-100 text-gray-800'
+                            }`}
+                          >
                             {payment.status}
                           </span>
                         </td>
@@ -226,9 +237,7 @@ export default function PaymentPlans({ clientId }: PaymentPlansProps) {
                   </tbody>
                   <tfoot className="bg-gray-50">
                     <tr>
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                        Total
-                      </td>
+                      <td className="px-6 py-4 text-sm font-medium text-gray-900">Total</td>
                       <td className="px-6 py-4 text-sm text-right font-bold text-gray-900">
                         {formatCurrency(selectedPlan.totalAmount)}
                       </td>

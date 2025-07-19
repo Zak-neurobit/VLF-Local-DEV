@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,26 +9,55 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Calculator, AlertTriangle, CheckCircle, DollarSign, Clock, Info } from 'lucide-react';
+import { Calculator, AlertTriangle, Clock, Info } from 'lucide-react';
+
+// Field type definitions
+interface FieldOption {
+  value: string;
+  label: string;
+}
+
+interface CalculatorField {
+  type: 'number' | 'text' | 'select' | 'boolean' | 'range' | 'date';
+  label: string;
+  required?: boolean;
+  min?: number;
+  max?: number;
+  default?: string | number | boolean;
+  options?: FieldOption[];
+}
+
+interface CalculatorSchema {
+  [key: string]: CalculatorField;
+}
+
+interface CalculatorMetadata {
+  title: string;
+  description: string;
+  disclaimer: string;
+  practiceArea: string;
+  processingTime: string;
+}
+
+interface CalculatorResult {
+  success: boolean;
+  result?: unknown;
+}
 
 interface CalculatorFormProps {
   calculatorType: string;
-  onResult: (result: any) => void;
+  onResult: (result: CalculatorResult) => void;
 }
 
 export default function CalculatorForm({ calculatorType, onResult }: CalculatorFormProps) {
-  const [schema, setSchema] = useState<any>(null);
-  const [metadata, setMetadata] = useState<any>(null);
-  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [schema, setSchema] = useState<CalculatorSchema | null>(null);
+  const [metadata, setMetadata] = useState<CalculatorMetadata | null>(null);
+  const [formData, setFormData] = useState<Record<string, string | number | boolean>>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isCalculating, setIsCalculating] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  useEffect(() => {
-    fetchSchema();
-  }, [calculatorType]);
-
-  const fetchSchema = async () => {
+  const fetchSchema = useCallback(async () => {
     try {
       const response = await fetch(`/api/calculators/${calculatorType}`);
       const data = await response.json();
@@ -38,8 +67,8 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
         setMetadata(data.metadata);
 
         // Initialize form data with defaults
-        const initialData: Record<string, any> = {};
-        Object.entries(data.schema as Record<string, any>).forEach(([key, field]) => {
+        const initialData: Record<string, string | number | boolean> = {};
+        Object.entries(data.schema as CalculatorSchema).forEach(([key, field]) => {
           if (field.default !== undefined) {
             initialData[key] = field.default;
           } else if (field.type === 'boolean') {
@@ -55,9 +84,13 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [calculatorType]);
 
-  const handleInputChange = (field: string, value: any) => {
+  useEffect(() => {
+    fetchSchema();
+  }, [fetchSchema]);
+
+  const handleInputChange = (field: string, value: string | number | boolean) => {
     setFormData(prev => ({
       ...prev,
       [field]: value,
@@ -76,14 +109,19 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
 
-    Object.entries(schema as Record<string, any>).forEach(([key, field]) => {
+    Object.entries(schema as CalculatorSchema).forEach(([key, field]) => {
       const value = formData[key];
 
       if (field.required && (value === undefined || value === null || value === '')) {
         newErrors[key] = `${field.label} is required`;
       }
 
-      if (field.type === 'number' && value !== undefined && value !== null) {
+      if (
+        field.type === 'number' &&
+        value !== undefined &&
+        value !== null &&
+        typeof value === 'number'
+      ) {
         if (field.min !== undefined && value < field.min) {
           newErrors[key] = `${field.label} must be at least ${field.min}`;
         }
@@ -123,7 +161,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
         if (data.details) {
           // Handle validation errors from server
           const serverErrors: Record<string, string> = {};
-          data.details.forEach((detail: any) => {
+          data.details.forEach((detail: { field: string; message: string }) => {
             serverErrors[detail.field] = detail.message;
           });
           setErrors(serverErrors);
@@ -139,7 +177,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
     }
   };
 
-  const renderField = (key: string, field: any) => {
+  const renderField = (key: string, field: CalculatorField) => {
     const value = formData[key];
     const error = errors[key];
 
@@ -154,7 +192,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
             <Input
               id={key}
               type="text"
-              value={value || ''}
+              value={typeof value === 'boolean' ? '' : value || ''}
               onChange={e => handleInputChange(key, e.target.value)}
               className={error ? 'border-red-500' : ''}
             />
@@ -174,7 +212,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
               type="number"
               min={field.min}
               max={field.max}
-              value={value || ''}
+              value={typeof value === 'boolean' ? '' : value || ''}
               onChange={e => handleInputChange(key, parseFloat(e.target.value) || 0)}
               className={error ? 'border-red-500' : ''}
             />
@@ -191,12 +229,12 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
             </Label>
             <select
               id={key}
-              value={value || ''}
+              value={typeof value === 'boolean' ? '' : value || ''}
               onChange={e => handleInputChange(key, e.target.value)}
               className={`flex h-10 w-full appearance-none rounded-md border bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${error ? 'border-red-500' : 'border-input'}`}
             >
               <option value="">Select {field.label}</option>
-              {field.options.map((option: any) => (
+              {field.options?.map(option => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
@@ -212,7 +250,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
             <div className="flex items-center space-x-2">
               <Checkbox
                 id={key}
-                checked={value || false}
+                checked={typeof value === 'boolean' ? value : false}
                 onCheckedChange={checked => handleInputChange(key, checked)}
               />
               <Label htmlFor={key} className="text-sm font-medium">
@@ -236,7 +274,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
               min={field.min || 0}
               max={field.max || 100}
               step={1}
-              value={[value || field.min || 0]}
+              value={[typeof value === 'number' ? value : field.min || 0]}
               onValueChange={values => handleInputChange(key, values[0])}
               className="w-full"
             />
@@ -254,7 +292,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
             <Input
               id={key}
               type="date"
-              value={value || ''}
+              value={typeof value === 'boolean' ? '' : value || ''}
               onChange={e => handleInputChange(key, e.target.value)}
               className={error ? 'border-red-500' : ''}
             />

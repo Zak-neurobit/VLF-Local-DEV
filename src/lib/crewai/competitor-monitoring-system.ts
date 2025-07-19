@@ -8,6 +8,59 @@ import { createCrewLogger } from '@/lib/crews/log-execution';
 import { seoAgent } from './agents/seo-blog-generation-agent';
 import { aiOverviewAgent } from './agents/ai-overview-optimization-agent';
 import { prisma } from '@/lib/prisma-safe';
+
+// Type definitions
+interface CompetitorAnalysis {
+  competitorId: string;
+  name: string;
+  overallScore: number;
+  strengths: string[];
+  weaknesses: string[];
+  opportunities: string[];
+  threats: string[];
+}
+
+interface GeneratedContent {
+  title: string;
+  content: string;
+  keywords?: string[];
+  platform?: string;
+}
+
+interface SimulatedContent {
+  title: string;
+  url: string;
+  publishDate: Date;
+  keywords: string[];
+}
+
+interface SimulatedRanking {
+  keyword: string;
+  position: number;
+  change: number;
+}
+
+interface SimulatedSocialPost {
+  platform: string;
+  content: string;
+  engagement: number;
+  timestamp: Date;
+}
+
+interface SimulatedAd {
+  platform: string;
+  headline: string;
+  description: string;
+  budget: number;
+  keywords: string[];
+}
+
+interface SimulatedReview {
+  platform: string;
+  rating: number;
+  text: string;
+  date: Date;
+}
 import { sendEmail } from '@/lib/email';
 import { createNotification } from '@/lib/notifications';
 
@@ -883,7 +936,7 @@ export class CompetitorMonitoringSystem {
   private async analyzeCompetitor(
     competitor: CompetitorProfile,
     activities: CompetitorActivity[]
-  ): Promise<any> {
+  ): Promise<CompetitorAnalysis> {
     const contentCount = activities.filter(a => a.activityType === 'content').length;
     const socialEngagement = activities
       .filter(a => a.activityType === 'social')
@@ -1024,7 +1077,7 @@ export class CompetitorMonitoringSystem {
     return trends;
   }
 
-  private generateRecommendations(competitors: any[], trends: string[]): string[] {
+  private generateRecommendations(competitors: CompetitorAnalysis[], trends: string[]): string[] {
     const recommendations: string[] = [];
 
     // Based on competitor analysis
@@ -1051,7 +1104,9 @@ export class CompetitorMonitoringSystem {
     return recommendations;
   }
 
-  private createActionItems(recommendations: string[]): Array<any> {
+  private createActionItems(
+    recommendations: string[]
+  ): Array<{ priority: string; action: string; category: string; effort: string; impact: string }> {
     return recommendations.map((rec, index) => ({
       priority: index < 3 ? 'high' : index < 6 ? 'medium' : 'low',
       action: rec,
@@ -1076,7 +1131,10 @@ export class CompetitorMonitoringSystem {
     }
   }
 
-  private assessContentImpact(content: any): 'high' | 'medium' | 'low' {
+  private assessContentImpact(content: {
+    keywords?: string[];
+    content?: string;
+  }): 'high' | 'medium' | 'low' {
     const highValueKeywords = ['lawyer', 'attorney', 'legal', 'lawsuit', 'consultation'];
     const hasHighValueKeyword = content.keywords?.some((k: string) =>
       highValueKeywords.some(hvk => k.toLowerCase().includes(hvk))
@@ -1090,7 +1148,7 @@ export class CompetitorMonitoringSystem {
     return 'low';
   }
 
-  private shouldRespondToContent(content: any): boolean {
+  private shouldRespondToContent(content: { channel?: string; impact?: string }): boolean {
     return (
       content.channel === 'website' ||
       content.channel === 'blog' ||
@@ -1261,7 +1319,7 @@ export class CompetitorMonitoringSystem {
   /**
    * Mock methods for simulation (would be replaced with real implementations)
    */
-  private async simulateContentScraping(profile: CompetitorProfile): Promise<any[]> {
+  private async simulateContentScraping(profile: CompetitorProfile): Promise<SimulatedContent[]> {
     // Simulate finding new content
     const random = Math.random();
     if (random > 0.7) {
@@ -1278,7 +1336,7 @@ export class CompetitorMonitoringSystem {
     return [];
   }
 
-  private async simulateRankingCheck(profile: CompetitorProfile): Promise<any[]> {
+  private async simulateRankingCheck(profile: CompetitorProfile): Promise<SimulatedRanking[]> {
     // Simulate ranking changes
     const random = Math.random();
     if (random > 0.8) {
@@ -1294,7 +1352,10 @@ export class CompetitorMonitoringSystem {
     return [];
   }
 
-  private async simulateSocialScraping(platform: string, handle: string): Promise<any[]> {
+  private async simulateSocialScraping(
+    platform: string,
+    handle: string
+  ): Promise<SimulatedSocialPost[]> {
     // Simulate social posts
     const random = Math.random();
     if (random > 0.6) {
@@ -1311,7 +1372,7 @@ export class CompetitorMonitoringSystem {
     return [];
   }
 
-  private async simulateAdMonitoring(profile: CompetitorProfile): Promise<any[]> {
+  private async simulateAdMonitoring(profile: CompetitorProfile): Promise<SimulatedAd[]> {
     // Simulate ad campaigns
     const random = Math.random();
     if (random > 0.9) {
@@ -1329,7 +1390,7 @@ export class CompetitorMonitoringSystem {
     return [];
   }
 
-  private async simulateReviewMonitoring(profile: CompetitorProfile): Promise<any[]> {
+  private async simulateReviewMonitoring(profile: CompetitorProfile): Promise<SimulatedReview[]> {
     // Simulate new reviews
     const random = Math.random();
     if (random > 0.7) {
@@ -1387,7 +1448,7 @@ export class CompetitorMonitoringSystem {
   private async storeGeneratedContent(
     activity: CompetitorActivity,
     response: CompetitiveResponse,
-    content: any
+    content: GeneratedContent
   ): Promise<void> {
     // Store generated content
     logger.info('Storing generated content', {

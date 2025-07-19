@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { competitorMonitoringSystem } from '@/lib/crewai/competitor-monitoring-system';
+// import { competitorMonitoringSystem } from '@/lib/crewai/competitor-monitoring-system';
 import { logger } from '@/lib/logger';
 import { prisma } from '@/lib/prisma-safe';
 

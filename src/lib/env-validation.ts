@@ -11,7 +11,13 @@ import { securityLogger } from '@/lib/pino-logger';
 const envSchema = z.object({
   // Core Configuration
   NODE_ENV: z.enum(['development', 'test', 'production']).default('production'),
-  NEXT_PUBLIC_APP_URL: z.string().url().min(1, 'NEXT_PUBLIC_APP_URL is required'),
+  NEXT_PUBLIC_APP_URL: z
+    .string()
+    .url()
+    .default('https://www.vasquezlawnc.com')
+    .refine(val => val.length > 0, {
+      message: 'NEXT_PUBLIC_APP_URL is required',
+    }),
 
   // Database (Required)
   DATABASE_URL: z

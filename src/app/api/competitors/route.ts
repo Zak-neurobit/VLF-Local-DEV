@@ -7,7 +7,7 @@ import { prisma } from '@/lib/prisma-safe';
 /**
  * GET /api/competitors - List all competitors
  */
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const competitors = await prisma.competitor.findMany({
       orderBy: { name: 'asc' },

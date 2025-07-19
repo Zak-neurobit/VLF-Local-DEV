@@ -4,7 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { gmbManager } from '@/services/gmb-optimization/gmb-manager';
 
 // GET /api/gmb/automation - Get automation status
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.role?.includes('admin')) {
@@ -19,10 +19,7 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Failed to get automation status:', error);
-    return NextResponse.json(
-      { error: 'Failed to get status' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to get status' }, { status: 500 });
   }
 }
 
@@ -63,9 +60,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Failed to control automation:', error);
-    return NextResponse.json(
-      { error: 'Failed to control automation' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to control automation' }, { status: 500 });
   }
 }

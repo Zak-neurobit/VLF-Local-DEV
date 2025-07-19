@@ -4,7 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { analyticsEngine } from '@/lib/analytics/core/analytics-engine';
 
 // GET /api/analytics/realtime - Get real-time metrics
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.role?.includes('admin')) {
@@ -20,9 +20,6 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Failed to get real-time analytics:', error);
-    return NextResponse.json(
-      { error: 'Failed to get real-time analytics' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to get real-time analytics' }, { status: 500 });
   }
 }

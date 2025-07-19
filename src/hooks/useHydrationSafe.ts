@@ -23,7 +23,7 @@ export function useClientValue<T>(getValue: () => T, serverFallback: T): T {
 
   useEffect(() => {
     setValue(getValue());
-  }, []);
+  }, [getValue]);
 
   return value;
 }
@@ -41,7 +41,7 @@ export function useBrowserAPI<T>(
   useEffect(() => {
     setValue(getBrowserValue());
     setIsReady(true);
-  }, []);
+  }, [getBrowserValue]);
 
   return { value, isReady };
 }

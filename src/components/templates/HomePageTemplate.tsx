@@ -46,7 +46,7 @@ interface HomePageTemplateProps {
 
 export const HomePageTemplate: React.FC<HomePageTemplateProps> = ({
   heroTitle,
-  heroSubtitle,
+  heroSubtitle: _heroSubtitle,
   heroDescription,
   stats,
   practiceAreas,

@@ -1,11 +1,16 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { logger } from '@/lib/logger';
 
 interface ABTestContextType {
   getVariant: (testId: string) => string | null;
-  trackConversion: (testId: string, event: string, value?: number, metadata?: Record<string, any>) => void;
+  trackConversion: (
+    testId: string,
+    event: string,
+    value?: number,
+    metadata?: Record<string, any>
+  ) => void;
   isLoading: boolean;
   userId: string | null;
   sessionId: string;
@@ -35,74 +40,75 @@ export function ABTestProvider({ children, userId }: ABTestProviderProps) {
     setIsLoading(false);
   }, [userId]);
 
-  const getVariant = async (testId: string): Promise<string | null> => {
-    if (!userIdState) return null;
+  const getVariant = useCallback(
+    async (testId: string): Promise<string | null> => {
+      if (!userIdState) return null;
 
-    // Check if we already have a variant for this test
-    if (variants.has(testId)) {
-      return variants.get(testId)!;
-    }
-
-    try {
-      const response = await fetch('/api/ab-testing/assign', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          testId,
-          userId: userIdState,
-          sessionId,
-          userContext: {
-            userAgent: navigator.userAgent,
-            deviceType: getDeviceType(),
-            timestamp: new Date().toISOString(),
-          },
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        if (data.variantId) {
-          setVariants(prev => new Map(prev).set(testId, data.variantId));
-          return data.variantId;
-        }
+      // Check if we already have a variant for this test
+      if (variants.has(testId)) {
+        return variants.get(testId)!;
       }
-    } catch (error) {
-      logger.error('Failed to get A/B test variant', { error, testId });
-    }
 
-    return null;
-  };
+      try {
+        const response = await fetch('/api/ab-testing/assign', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            testId,
+            userId: userIdState,
+            sessionId,
+            userContext: {
+              userAgent: navigator.userAgent,
+              deviceType: getDeviceType(),
+              timestamp: new Date().toISOString(),
+            },
+          }),
+        });
 
-  const trackConversion = async (
-    testId: string, 
-    event: string, 
-    value?: number, 
-    metadata?: Record<string, any>
-  ) => {
-    if (!userIdState) return;
+        if (response.ok) {
+          const data = await response.json();
+          if (data.variantId) {
+            setVariants(prev => new Map(prev).set(testId, data.variantId));
+            return data.variantId;
+          }
+        }
+      } catch (error) {
+        logger.error('Failed to get A/B test variant', { error, testId });
+      }
 
-    const variantId = variants.get(testId);
-    if (!variantId) return;
+      return null;
+    },
+    [userIdState, sessionId, variants]
+  );
 
-    try {
-      await fetch('/api/ab-testing/track', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          testId,
-          variantId,
-          userId: userIdState,
-          sessionId,
-          event,
-          value,
-          metadata,
-          timestamp: new Date().toISOString(),
-        }),
-      });
-    } catch (error) {
-      logger.error('Failed to track A/B test conversion', { error, testId, event });
-    }
-  };
+  const trackConversion = useCallback(
+    async (testId: string, event: string, value?: number, metadata?: Record<string, any>) => {
+      if (!userIdState) return;
+
+      const variantId = variants.get(testId);
+      if (!variantId) return;
+
+      try {
+        await fetch('/api/ab-testing/track', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            testId,
+            variantId,
+            userId: userIdState,
+            sessionId,
+            event,
+            value,
+            metadata,
+            timestamp: new Date().toISOString(),
+          }),
+        });
+      } catch (error) {
+        logger.error('Failed to track A/B test conversion', { error, testId, event });
+      }
+    },
+    [userIdState, sessionId, variants]
+  );
 
   const contextValue: ABTestContextType = {
     getVariant: (testId: string) => variants.get(testId) || null,
@@ -134,13 +140,9 @@ export function ABTestProvider({ children, userId }: ABTestProviderProps) {
     };
 
     fetchActiveVariants();
-  }, [userIdState, isLoading]);
+  }, [userIdState, isLoading, getVariant]);
 
-  return (
-    <ABTestContext.Provider value={contextValue}>
-      {children}
-    </ABTestContext.Provider>
-  );
+  return <ABTestContext.Provider value={contextValue}>{children}</ABTestContext.Provider>;
 }
 
 export function useABTest(testId: string) {
@@ -156,13 +158,15 @@ export function useABTest(testId: string) {
   useEffect(() => {
     const getVariantAndContent = async () => {
       setIsLoading(true);
-      
-      const variantId = await context.getVariant(testId);
+
+      const variantId = context.getVariant(testId);
       setVariant(variantId);
 
       if (variantId) {
         try {
-          const response = await fetch(`/api/ab-testing/content?testId=${testId}&variantId=${variantId}`);
+          const response = await fetch(
+            `/api/ab-testing/content?testId=${testId}&variantId=${variantId}`
+          );
           if (response.ok) {
             const data = await response.json();
             setContent(data.content);
@@ -171,16 +175,19 @@ export function useABTest(testId: string) {
           logger.error('Failed to fetch variant content', { error, testId, variantId });
         }
       }
-      
+
       setIsLoading(false);
     };
 
     getVariantAndContent();
   }, [testId, context]);
 
-  const trackEvent = (event: string, value?: number, metadata?: Record<string, any>) => {
-    context.trackConversion(testId, event, value, metadata);
-  };
+  const trackEvent = useCallback(
+    (event: string, value?: number, metadata?: Record<string, any>) => {
+      context.trackConversion(testId, event, value, metadata);
+    },
+    [testId, context]
+  );
 
   return {
     variant,
@@ -191,10 +198,42 @@ export function useABTest(testId: string) {
   };
 }
 
+// Helper functions
+function generateSessionId(): string {
+  return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
+function getOrCreateAnonymousId(): string {
+  if (typeof window === 'undefined') return `anon_${Date.now()}`;
+
+  const key = 'anonymous_user_id';
+  let id = localStorage.getItem(key);
+
+  if (!id) {
+    id = `anon_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem(key, id);
+  }
+
+  return id;
+}
+
+function getDeviceType(): string {
+  if (typeof window === 'undefined') return 'unknown';
+
+  const userAgent = navigator.userAgent;
+  if (/mobile/i.test(userAgent)) return 'mobile';
+  if (/tablet/i.test(userAgent)) return 'tablet';
+  return 'desktop';
+}
+
 export function useABTestContent<T = Record<string, any>>(
-  testId: string, 
+  testId: string,
   defaultContent: T
-): { content: T; variant: string | null; trackEvent: (event: string, value?: number, metadata?: Record<string, any>) => void } {
+): {
+  content: T;
+  variant: string | null;
+  trackEvent: (event: string, value?: number, metadata?: Record<string, any>) => void;
+} {
   const { variant, content, trackEvent } = useABTest(testId);
 
   const finalContent = content ? { ...defaultContent, ...content } : defaultContent;
@@ -204,37 +243,6 @@ export function useABTestContent<T = Record<string, any>>(
     variant,
     trackEvent,
   };
-}
-
-// Utility functions
-function generateSessionId(): string {
-  return 'sess_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
-}
-
-function getOrCreateAnonymousId(): string {
-  const key = 'vlf_anonymous_id';
-  let anonymousId = localStorage.getItem(key);
-  
-  if (!anonymousId) {
-    anonymousId = 'anon_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
-    localStorage.setItem(key, anonymousId);
-  }
-  
-  return anonymousId;
-}
-
-function getDeviceType(): string {
-  const userAgent = navigator.userAgent.toLowerCase();
-  
-  if (/tablet|ipad|playbook|silk|(android(?!.*mobile))/.test(userAgent)) {
-    return 'tablet';
-  }
-  
-  if (/mobile|iphone|ipod|android|blackberry|opera|mini|windows\sce|palm|smartphone|iemobile/.test(userAgent)) {
-    return 'mobile';
-  }
-  
-  return 'desktop';
 }
 
 // HOC for A/B testing components

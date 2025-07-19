@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ClientIntakeRequest, CaseAssessmentResult } from '@/lib/crewai/ai-powered-client-intake';
 

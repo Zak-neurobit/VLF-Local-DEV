@@ -126,7 +126,7 @@ export default function CompetitorDashboard({ className = '' }: CompetitorDashbo
     }
   };
 
-  const getActivityIcon = (type: string) => {
+  const _getActivityIcon = (type: string) => {
     const icons = {
       content: '📝',
       ranking: '📊',
@@ -138,7 +138,7 @@ export default function CompetitorDashboard({ className = '' }: CompetitorDashbo
     return icons[type as keyof typeof icons] || '📌';
   };
 
-  const getActivityColor = (type: string) => {
+  const _getActivityColor = (type: string) => {
     const colors = {
       content: 'bg-blue-100 text-blue-800',
       ranking: 'bg-green-100 text-green-800',
@@ -150,7 +150,7 @@ export default function CompetitorDashboard({ className = '' }: CompetitorDashbo
     return colors[type as keyof typeof colors] || 'bg-gray-100 text-gray-800';
   };
 
-  const getImpactBadge = (impact: string) => {
+  const _getImpactBadge = (impact: string) => {
     const styles = {
       high: 'bg-red-100 text-red-800',
       medium: 'bg-yellow-100 text-yellow-800',

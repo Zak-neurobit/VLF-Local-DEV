@@ -9,11 +9,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Script from 'next/script';
 
-
 // Particle Field Background
 function ParticleField() {
   const count = 500;
   const mesh = useRef<THREE.Points>(null);
+  // const fbxModel = useRef<THREE.Group>(null);
 
   const particles = new Float32Array(count * 3);
   for (let i = 0; i < count; i++) {

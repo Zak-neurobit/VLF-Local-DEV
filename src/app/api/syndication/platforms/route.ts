@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { syndicationEngine } from '@/services/content-syndication/syndication-engine';
+import {
+  syndicationEngine,
+  SyndicationPlatform,
+} from '@/services/content-syndication/syndication-engine';
 
 // GET /api/syndication/platforms - List available platforms
 export async function GET(request: NextRequest) {
@@ -12,18 +15,16 @@ export async function GET(request: NextRequest) {
     }
 
     // Get all registered platforms
-    const platforms = (syndicationEngine as any).platforms;
-    const platformList = Array.from(platforms.entries() as Iterable<[string, any]>).map(
-      ([id, config]) => ({
-        id,
-        name: config.name,
-        type: config.type,
-        enabled: config.enabled,
-        autoPublish: config.autoPublish,
-        contentTypes: config.contentTypes,
-        hasCredentials: !!(config.apiKey || config.apiSecret),
-      })
-    );
+    const platforms = syndicationEngine.getPlatforms();
+    const platformList = Array.from(platforms.entries()).map(([id, config]) => ({
+      id,
+      name: config.name,
+      type: config.type,
+      enabled: config.enabled,
+      autoPublish: config.autoPublish,
+      contentTypes: config.contentTypes,
+      hasCredentials: !!(config.apiKey || config.apiSecret),
+    }));
 
     return NextResponse.json({ success: true, platforms: platformList });
   } catch (error) {
@@ -48,15 +49,11 @@ export async function PUT(request: NextRequest) {
     }
 
     // Update platform configuration
-    const platforms = (syndicationEngine as any).platforms;
-    const platform = platforms.get(platformId);
+    const success = syndicationEngine.updatePlatform(platformId, config);
 
-    if (!platform) {
+    if (!success) {
       return NextResponse.json({ error: 'Platform not found' }, { status: 404 });
     }
-
-    // Update configuration
-    Object.assign(platform, config);
 
     // Save to database if needed
     // await prisma.platformConfig.upsert(...)
@@ -65,7 +62,7 @@ export async function PUT(request: NextRequest) {
       success: true,
       platform: {
         id: platformId,
-        ...platform,
+        ...config,
       },
     });
   } catch (error) {

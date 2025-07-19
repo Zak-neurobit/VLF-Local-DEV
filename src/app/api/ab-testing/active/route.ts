@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { abTestEngine } from '@/lib/ab-testing/ab-test-engine';
 
 // GET /api/ab-testing/active - Get all active A/B tests
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const activeTests = await abTestEngine.getActiveTests();
 
@@ -19,9 +19,6 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Failed to get active A/B tests:', error);
-    return NextResponse.json(
-      { error: 'Failed to get active tests' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to get active tests' }, { status: 500 });
   }
 }

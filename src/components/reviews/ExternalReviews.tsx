@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { securityLogger } from '@/lib/pino-logger';
 import { Star, MapPin, ExternalLink, RefreshCw, AlertCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -93,49 +93,52 @@ export default function ExternalReviews({
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const isHydrated = useHydrationSafe();
 
-  const fetchReviews = async (forceRefresh = false) => {
-    try {
-      setError(null);
-      if (forceRefresh) {
-        setRefreshing(true);
+  const fetchReviews = useCallback(
+    async (forceRefresh = false) => {
+      try {
+        setError(null);
+        if (forceRefresh) {
+          setRefreshing(true);
+        }
+
+        const params = new URLSearchParams({
+          limit: maxReviews.toString(),
+          ...(forceRefresh && { refresh: 'true' }),
+        });
+
+        const response = await fetch(`/api/reviews?${params}`);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch reviews: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        setReviews(data.reviews || []);
+        setSummary(data.summary || null);
+        setLastUpdated(data.requestedAt || (isHydrated ? new Date().toISOString() : null));
+      } catch (err) {
+        securityLogger.error('Failed to fetch external reviews:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load reviews');
+      } finally {
+        setLoading(false);
+        setRefreshing(false);
       }
+    },
+    [maxReviews, isHydrated]
+  );
 
-      const params = new URLSearchParams({
-        limit: maxReviews.toString(),
-        ...(forceRefresh && { refresh: 'true' }),
-      });
-
-      const response = await fetch(`/api/reviews?${params}`);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch reviews: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-
-      if (data.error) {
-        throw new Error(data.error);
-      }
-
-      setReviews(data.reviews || []);
-      setSummary(data.summary || null);
-      setLastUpdated(data.requestedAt || (isHydrated ? new Date().toISOString() : null));
-    } catch (err) {
-      securityLogger.error('Failed to fetch external reviews:', err);
-      setError(err instanceof Error ? err.message : 'Failed to load reviews');
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
-  };
-
-  const handleRefresh = () => {
+  const handleRefresh = useCallback(() => {
     fetchReviews(true);
-  };
+  }, [fetchReviews]);
 
   // Initial load
   useEffect(() => {
     fetchReviews();
-  }, [maxReviews, fetchReviews]);
+  }, [fetchReviews]);
 
   // Auto-refresh
   useEffect(() => {

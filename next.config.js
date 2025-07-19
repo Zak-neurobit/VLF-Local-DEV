@@ -155,7 +155,8 @@ const nextConfig = {
     ignoreBuildErrors: false, // Strict mode - fail build on TS errors
   },
   eslint: {
-    ignoreDuringBuilds: false, // Strict mode - fail build on ESLint errors
+    // Strict ESLint checking - build will fail on warnings
+    ignoreDuringBuilds: false,
   },
 
   // Experimental features

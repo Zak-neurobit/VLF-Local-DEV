@@ -189,7 +189,7 @@ export class RetellErrorHandler {
           metadata: {
             details: retellError.details,
             context,
-          } as any,
+          },
         },
       });
     } catch (error) {
@@ -329,7 +329,7 @@ export class RetellErrorHandler {
           metadata: {
             errorDetails: retellError.details,
             failureTimestamp: retellError.timestamp,
-          } as any,
+          },
         },
       });
     }
@@ -562,7 +562,7 @@ export class RetellErrorHandler {
         data: {
           operation,
           delaySeconds,
-          context: context as any,
+          context: context,
           scheduledFor: new Date(Date.now() + delaySeconds * 1000),
           attempts: 0,
           maxAttempts: 3,

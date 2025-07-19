@@ -2,7 +2,7 @@
 
 import { cache, redis, cacheKeys, CacheTTL } from '@/lib/cache/redis';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 
 async function testRedisConnection() {
   logger.info('🔧 Testing Redis connection...');

@@ -507,7 +507,7 @@ export class CallRoutingService {
           metadata: {
             routeDecision: routeDecision as unknown,
             originalOptions: options as unknown,
-          } as any,
+          },
         },
       });
 
@@ -568,7 +568,7 @@ export class CallRoutingService {
     try {
       const prisma = getPrismaClient();
 
-      const where: any = {};
+      const where: { createdAt?: { gte: Date; lte: Date } } = {};
       if (timeRange) {
         where.createdAt = {
           gte: timeRange.start,

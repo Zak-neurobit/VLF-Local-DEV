@@ -1,11 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { formatDate } from '@/lib/utils/date';
 
 interface TimelineEvent {
   id: string;
-  type: 'case_filed' | 'document_uploaded' | 'hearing_scheduled' | 'status_changed' | 'message_sent' | 'payment_made' | 'other';
+  type:
+    | 'case_filed'
+    | 'document_uploaded'
+    | 'hearing_scheduled'
+    | 'status_changed'
+    | 'message_sent'
+    | 'payment_made'
+    | 'other';
   title: string;
   description: string;
   date: string;
@@ -30,15 +37,11 @@ export default function CaseTimeline({ caseId }: CaseTimelineProps) {
   const [events, setEvents] = useState<TimelineEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    fetchTimeline();
-  }, [caseId]);
-
-  const fetchTimeline = async () => {
+  const fetchTimeline = useCallback(async () => {
     try {
       const response = await fetch(`/api/portal/cases/${caseId}/timeline`);
       const data = await response.json();
-      
+
       if (data.success) {
         setEvents(data.events);
       }
@@ -47,7 +50,11 @@ export default function CaseTimeline({ caseId }: CaseTimelineProps) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [caseId]);
+
+  useEffect(() => {
+    fetchTimeline();
+  }, [fetchTimeline]);
 
   const getEventIcon = (type: TimelineEvent['type']) => {
     switch (type) {
@@ -119,7 +126,7 @@ export default function CaseTimeline({ caseId }: CaseTimelineProps) {
                   <div>
                     <p className="text-sm font-medium text-gray-900">{event.title}</p>
                     <p className="text-sm text-gray-500 mt-1">{event.description}</p>
-                    
+
                     {/* Event-specific metadata */}
                     {event.metadata && (
                       <div className="mt-2 text-sm text-gray-600">
@@ -130,14 +137,16 @@ export default function CaseTimeline({ caseId }: CaseTimelineProps) {
                           <p>Hearing Type: {event.metadata.hearingType}</p>
                         )}
                         {event.metadata.oldStatus && event.metadata.newStatus && (
-                          <p>Status: {event.metadata.oldStatus} → {event.metadata.newStatus}</p>
+                          <p>
+                            Status: {event.metadata.oldStatus} → {event.metadata.newStatus}
+                          </p>
                         )}
                         {event.metadata.amount && (
                           <p>Amount: ${event.metadata.amount.toLocaleString()}</p>
                         )}
                       </div>
                     )}
-                    
+
                     <p className="text-xs text-gray-400 mt-2">
                       by {event.user.name} ({event.user.role})
                     </p>

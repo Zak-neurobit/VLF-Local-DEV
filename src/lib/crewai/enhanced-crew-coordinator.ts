@@ -9,7 +9,7 @@ import {
 } from './agents/appointment-scheduling-agent';
 import { DocumentAnalysisAgent, DocumentAnalysisRequest } from './agents/document-analysis-agent';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { EventEmitter } from 'events';
 import pLimit from 'p-limit';
 

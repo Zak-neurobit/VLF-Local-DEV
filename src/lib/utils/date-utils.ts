@@ -100,7 +100,7 @@ export function useClientOnly<T>(getValue: () => T, fallback: T): T {
 
   React.useEffect(() => {
     setValue(getValue());
-  }, []);
+  }, [getValue]);
 
   return value;
 }

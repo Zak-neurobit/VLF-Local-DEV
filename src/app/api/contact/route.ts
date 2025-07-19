@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPrismaClient } from '@/lib/prisma';
-import { logger, apiLogger } from '@/lib/logger';
+import { apiLogger } from '@/lib/logger';
 import { emailService } from '@/services/email.service';
 import { contactFormSchema } from '@/lib/validations/forms';
 import { contactFormLimiter } from '@/lib/rate-limiter';
@@ -8,7 +8,7 @@ import { createGHLContact, getPracticeAreaTags } from '@/lib/ghl';
 import { withLeadCaptureTracing } from '@/lib/telemetry/api-middleware';
 
 async function handlePOST(req: NextRequest) {
-  const requestId = apiLogger?.request ? apiLogger.request(req.method, req.url, {}) : 'no-logger';
+  // const requestId = apiLogger?.request ? apiLogger.request(req.method, req.url, {}) : 'no-logger';
 
   try {
     // Apply rate limiting

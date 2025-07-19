@@ -5,20 +5,24 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { 
-  Play, 
-  Pause, 
-  Square, 
-  Plus, 
-  BarChart3, 
-  Users, 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import {
+  Play,
+  Pause,
+  Square,
+  Plus,
+  BarChart3,
+  Users,
   TrendingUp,
   Activity,
   Target,
-  Calendar,
-  Settings,
-  RefreshCw
+  RefreshCw,
 } from 'lucide-react';
 import { ABTestConfig, ABTestResult } from '@/lib/ab-testing/ab-test-engine';
 import { formatDistanceToNow } from 'date-fns';
@@ -39,7 +43,7 @@ export default function ABTestingPage() {
       setIsLoading(true);
       const response = await fetch('/api/ab-testing/tests');
       const data = await response.json();
-      
+
       if (data.success) {
         setTests(data.tests);
       }
@@ -54,7 +58,7 @@ export default function ABTestingPage() {
     try {
       const response = await fetch(`/api/ab-testing/tests/${testId}`);
       const data = await response.json();
-      
+
       if (data.success) {
         setTestResults(data.results);
       }
@@ -80,26 +84,7 @@ export default function ABTestingPage() {
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active': return 'bg-green-500';
-      case 'paused': return 'bg-yellow-500';
-      case 'completed': return 'bg-blue-500';
-      case 'draft': return 'bg-gray-500';
-      default: return 'bg-gray-500';
-    }
-  };
-
-  const calculateWinner = (results: ABTestResult[]) => {
-    if (results.length < 2) return null;
-    
-    const significantResults = results.filter(r => r.statisticalSignificance);
-    if (significantResults.length === 0) return null;
-    
-    return significantResults.reduce((winner, current) => 
-      current.conversionRate > winner.conversionRate ? current : winner
-    );
-  };
+  // Removed unused calculateWinner function - can be added back when needed
 
   if (isLoading) {
     return (
@@ -119,7 +104,7 @@ export default function ABTestingPage() {
             Optimize content and conversions through data-driven testing
           </p>
         </div>
-        
+
         <div className="flex gap-3">
           <Button variant="outline" onClick={fetchTests}>
             <RefreshCw className="h-4 w-4 mr-2" />
@@ -138,8 +123,8 @@ export default function ABTestingPage() {
               </DialogHeader>
               <div className="p-4">
                 <p className="text-gray-600">
-                  A/B test creation form would be implemented here with fields for:
-                  test name, variants, targeting rules, metrics, and duration.
+                  A/B test creation form would be implemented here with fields for: test name,
+                  variants, targeting rules, metrics, and duration.
                 </p>
               </div>
             </DialogContent>
@@ -212,17 +197,19 @@ export default function ABTestingPage() {
         </TabsList>
 
         <TabsContent value="active" className="space-y-4">
-          {tests.filter(t => t.status === 'active').map((test) => (
-            <TestCard 
-              key={test.id} 
-              test={test} 
-              onAction={handleTestAction}
-              onViewResults={() => {
-                setSelectedTest(test.id);
-                fetchTestResults(test.id);
-              }}
-            />
-          ))}
+          {tests
+            .filter(t => t.status === 'active')
+            .map(test => (
+              <TestCard
+                key={test.id}
+                test={test}
+                onAction={handleTestAction}
+                onViewResults={() => {
+                  setSelectedTest(test.id);
+                  fetchTestResults(test.id);
+                }}
+              />
+            ))}
           {tests.filter(t => t.status === 'active').length === 0 && (
             <Card>
               <CardContent className="p-8 text-center">
@@ -233,38 +220,42 @@ export default function ABTestingPage() {
         </TabsContent>
 
         <TabsContent value="completed" className="space-y-4">
-          {tests.filter(t => t.status === 'completed').map((test) => (
-            <TestCard 
-              key={test.id} 
-              test={test} 
-              onAction={handleTestAction}
-              onViewResults={() => {
-                setSelectedTest(test.id);
-                fetchTestResults(test.id);
-              }}
-            />
-          ))}
+          {tests
+            .filter(t => t.status === 'completed')
+            .map(test => (
+              <TestCard
+                key={test.id}
+                test={test}
+                onAction={handleTestAction}
+                onViewResults={() => {
+                  setSelectedTest(test.id);
+                  fetchTestResults(test.id);
+                }}
+              />
+            ))}
         </TabsContent>
 
         <TabsContent value="draft" className="space-y-4">
-          {tests.filter(t => t.status === 'draft').map((test) => (
-            <TestCard 
-              key={test.id} 
-              test={test} 
-              onAction={handleTestAction}
-              onViewResults={() => {
-                setSelectedTest(test.id);
-                fetchTestResults(test.id);
-              }}
-            />
-          ))}
+          {tests
+            .filter(t => t.status === 'draft')
+            .map(test => (
+              <TestCard
+                key={test.id}
+                test={test}
+                onAction={handleTestAction}
+                onViewResults={() => {
+                  setSelectedTest(test.id);
+                  fetchTestResults(test.id);
+                }}
+              />
+            ))}
         </TabsContent>
 
         <TabsContent value="all" className="space-y-4">
-          {tests.map((test) => (
-            <TestCard 
-              key={test.id} 
-              test={test} 
+          {tests.map(test => (
+            <TestCard
+              key={test.id}
+              test={test}
               onAction={handleTestAction}
               onViewResults={() => {
                 setSelectedTest(test.id);
@@ -290,18 +281,27 @@ export default function ABTestingPage() {
   );
 }
 
-function TestCard({ test, onAction, onViewResults }: {
+function TestCard({
+  test,
+  onAction,
+  onViewResults,
+}: {
   test: ABTestConfig;
   onAction: (testId: string, action: string) => void;
   onViewResults: () => void;
 }) {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-500';
-      case 'paused': return 'bg-yellow-500';
-      case 'completed': return 'bg-blue-500';
-      case 'draft': return 'bg-gray-500';
-      default: return 'bg-gray-500';
+      case 'active':
+        return 'bg-green-500';
+      case 'paused':
+        return 'bg-yellow-500';
+      case 'completed':
+        return 'bg-blue-500';
+      case 'draft':
+        return 'bg-gray-500';
+      default:
+        return 'bg-gray-500';
     }
   };
 
@@ -317,11 +317,9 @@ function TestCard({ test, onAction, onViewResults }: {
                 {test.status}
               </Badge>
             </CardTitle>
-            {test.description && (
-              <p className="text-gray-600 mt-1">{test.description}</p>
-            )}
+            {test.description && <p className="text-gray-600 mt-1">{test.description}</p>}
           </div>
-          
+
           <div className="flex gap-2">
             {test.status === 'draft' && (
               <Button size="sm" onClick={() => onAction(test.id, 'start')}>
@@ -354,7 +352,7 @@ function TestCard({ test, onAction, onViewResults }: {
           </div>
         </div>
       </CardHeader>
-      
+
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
@@ -372,18 +370,17 @@ function TestCard({ test, onAction, onViewResults }: {
           <div>
             <p className="text-sm text-gray-600">Duration</p>
             <p className="font-semibold">
-              {test.duration.endDate 
+              {test.duration.endDate
                 ? formatDistanceToNow(test.duration.endDate)
-                : `${test.duration.maxDuration} days max`
-              }
+                : `${test.duration.maxDuration} days max`}
             </p>
           </div>
         </div>
-        
+
         <div className="mt-4">
           <p className="text-sm text-gray-600 mb-2">Variants:</p>
           <div className="flex flex-wrap gap-2">
-            {test.variants.map((variant) => (
+            {test.variants.map(variant => (
               <Badge key={variant.id} variant="secondary">
                 {variant.name} ({variant.weight}%)
               </Badge>
@@ -396,9 +393,12 @@ function TestCard({ test, onAction, onViewResults }: {
 }
 
 function TestResults({ results }: { results: ABTestResult[] }) {
-  const winner = results.length > 1 ? results.reduce((best, current) => 
-    current.conversionRate > best.conversionRate ? current : best
-  ) : null;
+  const winner =
+    results.length > 1
+      ? results.reduce((best, current) =>
+          current.conversionRate > best.conversionRate ? current : best
+        )
+      : null;
 
   return (
     <div className="space-y-6">
@@ -408,10 +408,11 @@ function TestResults({ results }: { results: ABTestResult[] }) {
         <>
           {/* Results Summary */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {results.map((result) => (
-              <Card key={result.variant} className={
-                winner?.variant === result.variant ? 'ring-2 ring-green-500' : ''
-              }>
+            {results.map(result => (
+              <Card
+                key={result.variant}
+                className={winner?.variant === result.variant ? 'ring-2 ring-green-500' : ''}
+              >
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg flex items-center justify-between">
                     Variant {result.variant}
@@ -427,40 +428,47 @@ function TestResults({ results }: { results: ABTestResult[] }) {
                       {(result.conversionRate * 100).toFixed(2)}%
                     </p>
                   </div>
-                  
+
                   <div>
                     <p className="text-sm text-gray-600">Sample Size</p>
                     <p className="font-semibold">{result.sampleSize.toLocaleString()}</p>
                   </div>
-                  
+
                   <div>
                     <p className="text-sm text-gray-600">Uplift</p>
-                    <p className={`font-semibold ${
-                      result.uplift > 0 ? 'text-green-600' : 
-                      result.uplift < 0 ? 'text-red-600' : 'text-gray-600'
-                    }`}>
-                      {result.uplift > 0 ? '+' : ''}{result.uplift.toFixed(1)}%
+                    <p
+                      className={`font-semibold ${
+                        result.uplift > 0
+                          ? 'text-green-600'
+                          : result.uplift < 0
+                            ? 'text-red-600'
+                            : 'text-gray-600'
+                      }`}
+                    >
+                      {result.uplift > 0 ? '+' : ''}
+                      {result.uplift.toFixed(1)}%
                     </p>
                   </div>
-                  
+
                   <div>
                     <p className="text-sm text-gray-600">Statistical Significance</p>
                     <Badge variant={result.statisticalSignificance ? 'default' : 'secondary'}>
                       {result.statisticalSignificance ? 'Significant' : 'Not Significant'}
                     </Badge>
                   </div>
-                  
+
                   <div>
                     <p className="text-sm text-gray-600">Confidence Interval</p>
                     <p className="text-sm">
-                      [{(result.confidenceInterval.lower * 100).toFixed(2)}%, {(result.confidenceInterval.upper * 100).toFixed(2)}%]
+                      [{(result.confidenceInterval.lower * 100).toFixed(2)}%,{' '}
+                      {(result.confidenceInterval.upper * 100).toFixed(2)}%]
                     </p>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
-          
+
           {/* Statistical Summary */}
           <Card>
             <CardHeader>
@@ -485,23 +493,29 @@ function TestResults({ results }: { results: ABTestResult[] }) {
                     </div>
                     <div className="flex justify-between">
                       <span>Best Performing Variant:</span>
-                      <span className="font-medium">
-                        {winner?.variant || 'No clear winner'}
-                      </span>
+                      <span className="font-medium">{winner?.variant || 'No clear winner'}</span>
                     </div>
                   </div>
                 </div>
-                
+
                 <div>
                   <h4 className="font-semibold mb-2">Recommendations</h4>
                   <div className="space-y-1 text-sm text-gray-600">
                     {winner?.statisticalSignificance ? (
-                      <p>✅ Test has reached statistical significance. Consider implementing the winning variant.</p>
+                      <p>
+                        ✅ Test has reached statistical significance. Consider implementing the
+                        winning variant.
+                      </p>
                     ) : (
-                      <p>⏳ Test needs more data to reach statistical significance. Continue running.</p>
+                      <p>
+                        ⏳ Test needs more data to reach statistical significance. Continue running.
+                      </p>
                     )}
                     {results.some(r => r.sampleSize < 1000) && (
-                      <p>📊 Some variants have low sample sizes. Consider running longer for more reliable results.</p>
+                      <p>
+                        📊 Some variants have low sample sizes. Consider running longer for more
+                        reliable results.
+                      </p>
                     )}
                   </div>
                 </div>

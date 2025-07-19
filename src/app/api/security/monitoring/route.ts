@@ -5,14 +5,14 @@ import { securityMonitor } from '@/services/security/security-monitor';
 import { z } from 'zod';
 
 // GET /api/security/monitoring - Get security monitoring status
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.role?.includes('admin')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const searchParams = request.nextUrl.searchParams;
+    const searchParams = _request.nextUrl.searchParams;
     const timeframe = searchParams.get('timeframe') || '24h';
     const severity = searchParams.get('severity');
 
@@ -33,10 +33,7 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Failed to get security monitoring data:', error);
-    return NextResponse.json(
-      { error: 'Failed to get monitoring data' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to get monitoring data' }, { status: 500 });
   }
 }
 
@@ -49,7 +46,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    
+
     const schema = z.object({
       action: z.enum(['start', 'stop', 'restart']),
       detectorIds: z.array(z.string()).optional(),
@@ -76,18 +73,15 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Failed to control security monitoring:', error);
-    
+
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid request data', details: error.errors },
         { status: 400 }
       );
     }
-    
-    return NextResponse.json(
-      { error: 'Failed to control monitoring' },
-      { status: 500 }
-    );
+
+    return NextResponse.json({ error: 'Failed to control monitoring' }, { status: 500 });
   }
 }
 
@@ -100,7 +94,7 @@ export async function PUT(request: NextRequest) {
     }
 
     const body = await request.json();
-    
+
     const schema = z.object({
       threatId: z.string(),
       action: z.enum(['acknowledge', 'resolve', 'escalate', 'ignore']),
@@ -121,17 +115,14 @@ export async function PUT(request: NextRequest) {
     });
   } catch (error) {
     console.error('Failed to respond to threat:', error);
-    
+
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid request data', details: error.errors },
         { status: 400 }
       );
     }
-    
-    return NextResponse.json(
-      { error: 'Failed to respond to threat' },
-      { status: 500 }
-    );
+
+    return NextResponse.json({ error: 'Failed to respond to threat' }, { status: 500 });
   }
 }

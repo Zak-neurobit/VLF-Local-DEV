@@ -1,7 +1,7 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import CaseList from '@/components/portal/case-list';
 import CaseFilters from '@/components/portal/case-filters';
 
@@ -15,13 +15,7 @@ export default function CasesPage() {
     dateRange: null as any,
   });
 
-  useEffect(() => {
-    if (session?.user?.id) {
-      fetchCases();
-    }
-  }, [session, filters]);
-
-  const fetchCases = async () => {
+  const fetchCases = useCallback(async () => {
     try {
       const params = new URLSearchParams();
       if (filters.status.length > 0) {
@@ -37,7 +31,7 @@ export default function CasesPage() {
 
       const response = await fetch(`/api/portal/cases?${params}`);
       const data = await response.json();
-      
+
       if (data.success) {
         setCases(data.cases);
       }
@@ -46,16 +40,20 @@ export default function CasesPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [filters]);
+
+  useEffect(() => {
+    if (session?.user?.id) {
+      fetchCases();
+    }
+  }, [session, fetchCases]);
 
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="bg-white rounded-lg shadow-sm p-6">
         <h1 className="text-2xl font-bold text-gray-900">My Cases</h1>
-        <p className="text-gray-600 mt-2">
-          View and track the progress of your legal cases
-        </p>
+        <p className="text-gray-600 mt-2">View and track the progress of your legal cases</p>
       </div>
 
       {/* Filters */}

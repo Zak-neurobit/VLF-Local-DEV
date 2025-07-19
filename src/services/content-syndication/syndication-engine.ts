@@ -58,6 +58,19 @@ export class ContentSyndicationEngine {
     this.initializePlatforms();
   }
 
+  public getPlatforms(): Map<string, SyndicationPlatform> {
+    return new Map(this.platforms);
+  }
+
+  public updatePlatform(platformId: string, config: Partial<SyndicationPlatform>): boolean {
+    const platform = this.platforms.get(platformId);
+    if (!platform) {
+      return false;
+    }
+    Object.assign(platform, config);
+    return true;
+  }
+
   private initializePlatforms(): void {
     // Social Media Platforms
     this.registerPlatform({

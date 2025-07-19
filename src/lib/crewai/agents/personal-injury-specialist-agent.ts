@@ -9,6 +9,59 @@ import { logger } from '@/lib/logger';
 import { createCrewLogger } from '@/lib/crews/log-execution';
 import { AIOverviewOptimizationAgent } from './ai-overview-optimization-agent';
 
+// Response type interfaces
+interface ViabilityAnalysis {
+  case_viability: 'strong' | 'good' | 'moderate' | 'weak' | 'not_viable';
+  liability_percentage: string;
+  contributory_neg_risk: 'low' | 'moderate' | 'high';
+  evidence_strength: 'strong' | 'moderate' | 'weak';
+  settlement_likelihood: 'high' | 'moderate' | 'low';
+  key_strengths: string[];
+  key_weaknesses: string[];
+  statute_deadline: string;
+  recommended_action: 'immediate' | 'soon' | 'standard';
+}
+
+interface CaseValueAnalysis {
+  economic_damages: {
+    medical_current: string;
+    medical_future: string;
+    lost_wages: string;
+    total_economic: string;
+  };
+  non_economic_damages: {
+    pain_suffering_low: string;
+    pain_suffering_high: string;
+    total_non_economic_range: string;
+  };
+  total_value_range: string;
+  settlement_range: string;
+  trial_range: string;
+  value_drivers: string[];
+  value_detractors: string[];
+}
+
+interface NCLawAnalysis {
+  contributory_negligence_analysis: string;
+  applicable_nc_statutes: string[];
+  recent_case_law: string[];
+  venue_considerations: string;
+  damage_caps: string;
+  unique_nc_rules: string[];
+  strategic_considerations: string[];
+}
+
+interface StrategyRecommendation {
+  immediate_actions: string[];
+  evidence_preservation: string[];
+  medical_recommendations: string[];
+  insurance_strategy: string[];
+  settlement_timeline: string;
+  estimated_duration: string;
+  litigation_recommendation: 'avoid' | 'consider' | 'recommend';
+  negotiation_leverage: string[];
+}
+
 export interface PersonalInjuryConsultationRequest {
   incidentType:
     | 'car_accident'
@@ -160,7 +213,9 @@ export class PersonalInjurySpecialistAgent {
     );
   }
 
-  private async analyzeViability(request: PersonalInjuryConsultationRequest): Promise<any> {
+  private async analyzeViability(
+    request: PersonalInjuryConsultationRequest
+  ): Promise<ViabilityAnalysis> {
     const viabilityPrompt = `Analyze personal injury case viability under North Carolina law:
 
 INCIDENT DETAILS:
@@ -219,7 +274,9 @@ RESPONSE FORMAT (JSON):
     }
   }
 
-  private async calculateCaseValue(request: PersonalInjuryConsultationRequest): Promise<any> {
+  private async calculateCaseValue(
+    request: PersonalInjuryConsultationRequest
+  ): Promise<CaseValueAnalysis> {
     const valuePrompt = `Calculate potential case value for NC personal injury case:
 
 INJURY AND DAMAGES:
@@ -292,7 +349,7 @@ RESPONSE FORMAT (JSON):
     }
   }
 
-  private async analyzeNCLaw(request: PersonalInjuryConsultationRequest): Promise<any> {
+  private async analyzeNCLaw(request: PersonalInjuryConsultationRequest): Promise<NCLawAnalysis> {
     const ncLawPrompt = `Analyze NC-specific legal considerations for this personal injury case:
 
 CASE TYPE: ${request.incidentType}
@@ -349,9 +406,9 @@ RESPONSE FORMAT (JSON):
 
   private async developStrategy(
     request: PersonalInjuryConsultationRequest,
-    viability: any,
-    ncLaw: any
-  ): Promise<any> {
+    viability: ViabilityAnalysis,
+    ncLaw: NCLawAnalysis
+  ): Promise<StrategyRecommendation> {
     const strategyPrompt = `Develop comprehensive strategy for this NC personal injury case:
 
 CASE PROFILE:

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -25,10 +25,10 @@ import {
   RotateCcw,
   TrendingUp,
   Clock,
-  Lock,
+  // Lock,
   FileCheck,
-  Users,
-  Activity,
+  // Users,
+  // Activity,
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
@@ -41,11 +41,7 @@ export default function SecurityPage() {
   const [timeframe, setTimeframe] = useState('24h');
   const [severityFilter, setSeverityFilter] = useState('all');
 
-  useEffect(() => {
-    fetchData();
-  }, [timeframe, severityFilter]);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const params = new URLSearchParams();
       if (timeframe !== '24h') params.append('timeframe', timeframe);
@@ -68,66 +64,79 @@ export default function SecurityPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [timeframe, severityFilter]);
 
-  const handleMonitoringControl = async (action: string) => {
-    try {
-      const response = await fetch('/api/security/monitoring', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action }),
-      });
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
-      if (response.ok) {
-        alert(`Monitoring ${action}ed successfully`);
-        fetchData();
+  const handleMonitoringControl = useCallback(
+    async (action: string) => {
+      try {
+        const response = await fetch('/api/security/monitoring', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action }),
+        });
+
+        if (response.ok) {
+          alert(`Monitoring ${action}ed successfully`);
+          fetchData();
+        }
+      } catch (error) {
+        console.error('Failed to control monitoring:', error);
       }
-    } catch (error) {
-      console.error('Failed to control monitoring:', error);
-    }
-  };
+    },
+    [fetchData]
+  );
 
-  const handleThreatResponse = async (action: string) => {
-    if (!selectedThreat) return;
+  const handleThreatResponse = useCallback(
+    async (action: string) => {
+      if (!selectedThreat) return;
 
-    try {
-      const response = await fetch('/api/security/monitoring', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          threatId: selectedThreat.id,
-          action,
-          notes: responseNotes,
-        }),
-      });
+      try {
+        const response = await fetch('/api/security/monitoring', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            threatId: selectedThreat.id,
+            action,
+            notes: responseNotes,
+          }),
+        });
 
-      if (response.ok) {
-        alert('Threat response recorded');
-        setSelectedThreat(null);
-        setResponseNotes('');
-        fetchData();
+        if (response.ok) {
+          alert('Threat response recorded');
+          setSelectedThreat(null);
+          setResponseNotes('');
+          fetchData();
+        }
+      } catch (error) {
+        console.error('Failed to respond to threat:', error);
       }
-    } catch (error) {
-      console.error('Failed to respond to threat:', error);
-    }
-  };
+    },
+    [selectedThreat, responseNotes, fetchData]
+  );
 
-  const runComplianceAudit = async (framework: string) => {
-    try {
-      const response = await fetch('/api/security/compliance/audit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ framework }),
-      });
+  const runComplianceAudit = useCallback(
+    async (framework: string) => {
+      try {
+        const response = await fetch('/api/security/compliance/audit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ framework }),
+        });
 
-      if (response.ok) {
-        alert('Compliance audit started');
-        setTimeout(fetchData, 3000);
+        if (response.ok) {
+          alert('Compliance audit started');
+          setTimeout(fetchData, 3000);
+        }
+      } catch (error) {
+        console.error('Failed to run compliance audit:', error);
       }
-    } catch (error) {
-      console.error('Failed to run compliance audit:', error);
-    }
-  };
+    },
+    [fetchData]
+  );
 
   const getSeverityBadge = (severity: string) => {
     const variants: Record<string, any> = {

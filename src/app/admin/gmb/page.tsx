@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -9,18 +9,10 @@ import { Select, SelectOption } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+// Dialog components removed - add back when needed
 import {
   MapPin,
-  BarChart3,
   MessageSquare,
-  Camera,
   Star,
   Clock,
   Eye,
@@ -30,7 +22,6 @@ import {
   TrendingUp,
   Users,
   Search,
-  Calendar,
   Edit3,
   Play,
   Pause,
@@ -39,12 +30,102 @@ import {
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
+interface GMBLocation {
+  id: string;
+  name: string;
+  address: string;
+  phone?: string;
+  website?: string;
+  status: string;
+  services?: string[];
+  category?: string;
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
+  hours?: Record<
+    string,
+    {
+      open?: string;
+      close?: string;
+      closed?: boolean;
+    }
+  >;
+}
+
+interface GMBPost {
+  id: string;
+  type: string;
+  title: string;
+  content: string;
+  publishedAt: string;
+  metrics?: {
+    views: number;
+    clicks: number;
+    calls: number;
+  };
+  callToAction?: {
+    type: string;
+    url?: string;
+  };
+}
+
+interface GMBAnalytics {
+  searches: {
+    direct: number;
+    discovery: number;
+    branded: number;
+  };
+  views: {
+    maps: number;
+    search: number;
+    total?: number;
+  };
+  actions: {
+    website: number;
+    directions: number;
+    phone: number;
+  };
+}
+
+interface GMBAnalyticsResponse {
+  success: boolean;
+  analytics?: {
+    metrics: GMBAnalytics & {
+      views: {
+        maps: number;
+        search: number;
+        total: number;
+      };
+      reviews: {
+        averageRating: number;
+        totalReviews: number;
+      };
+      queries: Array<{
+        query: string;
+        impressions: number;
+        clicks: number;
+      }>;
+    };
+  };
+  insights?: string[];
+  recommendations?: string[];
+}
+
+interface AutomationStatus {
+  enabled: boolean;
+  frequency: string;
+  lastRun?: string;
+  nextRun?: string;
+  status?: 'active' | 'inactive';
+}
+
 export default function GMBPage() {
-  const [locations, setLocations] = useState<any[]>([]);
+  const [locations, setLocations] = useState<GMBLocation[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<string>('');
-  const [analytics, setAnalytics] = useState<any>(null);
-  const [posts, setPosts] = useState<any[]>([]);
-  const [automationStatus, setAutomationStatus] = useState<any>(null);
+  const [analytics, setAnalytics] = useState<GMBAnalyticsResponse | null>(null);
+  const [posts, setPosts] = useState<GMBPost[]>([]);
+  const [automationStatus, setAutomationStatus] = useState<AutomationStatus | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [newPost, setNewPost] = useState({
     type: 'update',
@@ -53,17 +134,7 @@ export default function GMBPage() {
     callToAction: { type: 'learn_more', url: '' },
   });
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (selectedLocation) {
-      fetchLocationData(selectedLocation);
-    }
-  }, [selectedLocation]);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const [locationsRes, automationRes] = await Promise.all([
         fetch('/api/gmb/locations'),
@@ -90,9 +161,9 @@ export default function GMBPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [selectedLocation]);
 
-  const fetchLocationData = async (locationId: string) => {
+  const fetchLocationData = useCallback(async (locationId: string) => {
     try {
       const [analyticsRes, postsRes] = await Promise.all([
         fetch(`/api/gmb/analytics?locationId=${locationId}`),
@@ -111,26 +182,29 @@ export default function GMBPage() {
     } catch (error) {
       console.error('Failed to fetch location data:', error);
     }
-  };
+  }, []);
 
-  const handleAutomationControl = async (action: string) => {
-    try {
-      const response = await fetch('/api/gmb/automation', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action }),
-      });
+  const handleAutomationControl = useCallback(
+    async (action: string) => {
+      try {
+        const response = await fetch('/api/gmb/automation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action }),
+        });
 
-      if (response.ok) {
-        alert(`Automation ${action}ed successfully`);
-        fetchData();
+        if (response.ok) {
+          alert(`Automation ${action}ed successfully`);
+          fetchData();
+        }
+      } catch (error) {
+        console.error('Failed to control automation:', error);
       }
-    } catch (error) {
-      console.error('Failed to control automation:', error);
-    }
-  };
+    },
+    [fetchData]
+  );
 
-  const handleCreatePost = async () => {
+  const handleCreatePost = useCallback(async () => {
     if (!selectedLocation || !newPost.title || !newPost.content) {
       alert('Please fill in all required fields');
       return;
@@ -159,7 +233,17 @@ export default function GMBPage() {
     } catch (error) {
       console.error('Failed to create post:', error);
     }
-  };
+  }, [selectedLocation, newPost, fetchLocationData]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  useEffect(() => {
+    if (selectedLocation) {
+      fetchLocationData(selectedLocation);
+    }
+  }, [selectedLocation, fetchLocationData]);
 
   const selectedLocationData = locations.find(l => l.id === selectedLocation);
 
@@ -227,13 +311,17 @@ export default function GMBPage() {
               <div>
                 <span className="text-sm text-gray-600">Last Run:</span>
                 <p className="font-medium">
-                  {formatDistanceToNow(new Date(automationStatus.lastRun), { addSuffix: true })}
+                  {automationStatus.lastRun
+                    ? formatDistanceToNow(new Date(automationStatus.lastRun), { addSuffix: true })
+                    : 'Never'}
                 </p>
               </div>
               <div>
                 <span className="text-sm text-gray-600">Next Run:</span>
                 <p className="font-medium">
-                  {formatDistanceToNow(new Date(automationStatus.nextRun), { addSuffix: true })}
+                  {automationStatus.nextRun
+                    ? formatDistanceToNow(new Date(automationStatus.nextRun), { addSuffix: true })
+                    : 'Not scheduled'}
                 </p>
               </div>
             </div>
@@ -294,7 +382,7 @@ export default function GMBPage() {
                   <div>
                     <h4 className="font-medium mb-2">Services</h4>
                     <div className="flex flex-wrap gap-2">
-                      {selectedLocationData.services.map((service: string, index: number) => (
+                      {selectedLocationData.services?.map((service: string, index: number) => (
                         <Badge key={index} variant="secondary">
                           {service}
                         </Badge>
@@ -314,7 +402,7 @@ export default function GMBPage() {
                       <div>
                         <p className="text-sm text-gray-600">Total Views</p>
                         <p className="text-2xl font-bold text-blue-600">
-                          {analytics.analytics.metrics.views.total}
+                          {analytics?.analytics?.metrics.views.total}
                         </p>
                       </div>
                       <Eye className="h-8 w-8 text-blue-600" />
@@ -328,7 +416,7 @@ export default function GMBPage() {
                       <div>
                         <p className="text-sm text-gray-600">Phone Calls</p>
                         <p className="text-2xl font-bold text-green-600">
-                          {analytics.analytics.metrics.actions.phone}
+                          {analytics?.analytics?.metrics.actions.phone}
                         </p>
                       </div>
                       <Phone className="h-8 w-8 text-green-600" />
@@ -342,7 +430,7 @@ export default function GMBPage() {
                       <div>
                         <p className="text-sm text-gray-600">Directions</p>
                         <p className="text-2xl font-bold text-purple-600">
-                          {analytics.analytics.metrics.actions.directions}
+                          {analytics?.analytics?.metrics.actions.directions}
                         </p>
                       </div>
                       <Navigation className="h-8 w-8 text-purple-600" />
@@ -356,7 +444,7 @@ export default function GMBPage() {
                       <div>
                         <p className="text-sm text-gray-600">Average Rating</p>
                         <p className="text-2xl font-bold text-yellow-600">
-                          {analytics.analytics.metrics.reviews.averageRating}
+                          {analytics?.analytics?.metrics.reviews.averageRating}
                         </p>
                       </div>
                       <Star className="h-8 w-8 text-yellow-600" />
@@ -378,7 +466,7 @@ export default function GMBPage() {
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-2">
-                      {analytics.insights.map((insight: string, index: number) => (
+                      {analytics?.insights?.map((insight: string, index: number) => (
                         <li key={index} className="flex items-start gap-2">
                           <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
                           <span className="text-sm">{insight}</span>
@@ -397,7 +485,7 @@ export default function GMBPage() {
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-2">
-                      {analytics.recommendations.map((rec: string, index: number) => (
+                      {analytics?.recommendations?.map((rec: string, index: number) => (
                         <li key={index} className="flex items-start gap-2">
                           <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
                           <span className="text-sm">{rec}</span>
@@ -422,19 +510,19 @@ export default function GMBPage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div className="text-center p-4 bg-blue-50 rounded-lg">
                         <p className="text-2xl font-bold text-blue-600">
-                          {analytics.analytics.metrics.views.search}
+                          {analytics?.analytics?.metrics.views.search}
                         </p>
                         <p className="text-sm text-gray-600">Search Views</p>
                       </div>
                       <div className="text-center p-4 bg-green-50 rounded-lg">
                         <p className="text-2xl font-bold text-green-600">
-                          {analytics.analytics.metrics.views.maps}
+                          {analytics?.analytics?.metrics.views.maps}
                         </p>
                         <p className="text-sm text-gray-600">Maps Views</p>
                       </div>
                       <div className="text-center p-4 bg-purple-50 rounded-lg">
                         <p className="text-2xl font-bold text-purple-600">
-                          {analytics.analytics.metrics.views.total}
+                          {analytics?.analytics?.metrics.views.total}
                         </p>
                         <p className="text-sm text-gray-600">Total Views</p>
                       </div>
@@ -452,18 +540,25 @@ export default function GMBPage() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {analytics.analytics.metrics.queries.map((query: any, index: number) => (
-                        <div
-                          key={index}
-                          className="flex justify-between items-center p-3 border rounded-lg"
-                        >
-                          <span className="font-medium">{query.query}</span>
-                          <div className="text-right">
-                            <p className="text-sm text-gray-600">{query.impressions} impressions</p>
-                            <p className="text-sm font-medium">{query.clicks} clicks</p>
+                      {analytics?.analytics?.metrics.queries?.map(
+                        (
+                          query: { query: string; impressions: number; clicks: number },
+                          index: number
+                        ) => (
+                          <div
+                            key={index}
+                            className="flex justify-between items-center p-3 border rounded-lg"
+                          >
+                            <span className="font-medium">{query.query}</span>
+                            <div className="text-right">
+                              <p className="text-sm text-gray-600">
+                                {query.impressions} impressions
+                              </p>
+                              <p className="text-sm font-medium">{query.clicks} clicks</p>
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        )
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -477,19 +572,19 @@ export default function GMBPage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div className="text-center p-4 bg-orange-50 rounded-lg">
                         <p className="text-2xl font-bold text-orange-600">
-                          {analytics.analytics.metrics.actions.website}
+                          {analytics?.analytics?.metrics.actions.website}
                         </p>
                         <p className="text-sm text-gray-600">Website Visits</p>
                       </div>
                       <div className="text-center p-4 bg-red-50 rounded-lg">
                         <p className="text-2xl font-bold text-red-600">
-                          {analytics.analytics.metrics.actions.phone}
+                          {analytics?.analytics?.metrics.actions.phone}
                         </p>
                         <p className="text-sm text-gray-600">Phone Calls</p>
                       </div>
                       <div className="text-center p-4 bg-indigo-50 rounded-lg">
                         <p className="text-2xl font-bold text-indigo-600">
-                          {analytics.analytics.metrics.actions.directions}
+                          {analytics?.analytics?.metrics.actions.directions}
                         </p>
                         <p className="text-sm text-gray-600">Direction Requests</p>
                       </div>
@@ -654,7 +749,7 @@ export default function GMBPage() {
                     </div>
                     <div>
                       <Label>Category</Label>
-                      <Input value={selectedLocationData.category} readOnly />
+                      <Input value={selectedLocationData.category || ''} readOnly />
                     </div>
                   </div>
 
@@ -667,12 +762,12 @@ export default function GMBPage() {
                       <Label>Coordinates</Label>
                       <div className="grid grid-cols-2 gap-2">
                         <Input
-                          value={selectedLocationData.coordinates.lat}
+                          value={selectedLocationData.coordinates?.lat || ''}
                           readOnly
                           placeholder="Latitude"
                         />
                         <Input
-                          value={selectedLocationData.coordinates.lng}
+                          value={selectedLocationData.coordinates?.lng || ''}
                           readOnly
                           placeholder="Longitude"
                         />
@@ -684,7 +779,7 @@ export default function GMBPage() {
                 <div className="mt-6">
                   <Label>Services Offered</Label>
                   <div className="flex flex-wrap gap-2 mt-2">
-                    {selectedLocationData.services.map((service: string, index: number) => (
+                    {selectedLocationData.services?.map((service: string, index: number) => (
                       <Badge key={index} variant="outline">
                         {service}
                       </Badge>

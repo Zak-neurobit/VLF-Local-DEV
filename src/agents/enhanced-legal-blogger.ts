@@ -1,8 +1,12 @@
 import { logger } from '@/lib/logger';
 import { errorToLogMeta } from '@/lib/logger/utils';
 import { prisma } from '@/lib/prisma';
+import type { BlogPost } from '@prisma/client';
 import Parser from 'rss-parser';
 import { generateSlug } from '@/lib/utils';
+
+// Type for RSS feed items
+type RSSItem = Parser.Item;
 
 interface RSSFeed {
   name: string;
@@ -13,7 +17,7 @@ interface RSSFeed {
 
 interface BlogTemplate {
   category: string;
-  template: (item: any) => { title: string; content: string; excerpt: string };
+  template: (item: RSSItem) => { title: string; content: string; excerpt: string };
 }
 
 export class EnhancedLegalBlogger {
@@ -235,7 +239,7 @@ export class EnhancedLegalBlogger {
   private templates: BlogTemplate[] = [
     {
       category: 'immigration',
-      template: (item: any) => ({
+      template: (item: RSSItem) => ({
         title: `Immigration Update: ${item.title}`,
         excerpt: `Important immigration law development: ${item.contentSnippet || item.summary || 'Click to read more about this update.'}`,
         content: this.generateImmigrationContent(item),
@@ -243,7 +247,7 @@ export class EnhancedLegalBlogger {
     },
     {
       category: 'executive-orders',
-      template: (item: any) => ({
+      template: (item: RSSItem) => ({
         title: `Executive Order: ${item.title}`,
         excerpt: `New White House executive action on immigration: ${item.contentSnippet || item.summary || 'Learn how this affects you.'}`,
         content: this.generateExecutiveOrderContent(item),
@@ -251,7 +255,7 @@ export class EnhancedLegalBlogger {
     },
     {
       category: 'supreme-court',
-      template: (item: any) => ({
+      template: (item: RSSItem) => ({
         title: `Supreme Court: ${item.title}`,
         excerpt: `Supreme Court immigration case update: ${item.contentSnippet || item.summary || 'Critical legal development.'}`,
         content: this.generateCourtDecisionContent(item, 'Supreme Court'),
@@ -259,7 +263,7 @@ export class EnhancedLegalBlogger {
     },
     {
       category: 'circuit-courts',
-      template: (item: any) => ({
+      template: (item: RSSItem) => ({
         title: `Federal Court Decision: ${item.title}`,
         excerpt: `Circuit court rules on immigration matter: ${item.contentSnippet || item.summary || 'Important precedent set.'}`,
         content: this.generateCourtDecisionContent(item, 'Circuit Court'),
@@ -267,7 +271,7 @@ export class EnhancedLegalBlogger {
     },
     {
       category: 'immigration-courts',
-      template: (item: any) => ({
+      template: (item: RSSItem) => ({
         title: `BIA Decision: ${item.title}`,
         excerpt: `Board of Immigration Appeals ruling: ${item.contentSnippet || item.summary || 'New precedent for immigration cases.'}`,
         content: this.generateBIADecisionContent(item),
@@ -275,7 +279,7 @@ export class EnhancedLegalBlogger {
     },
     {
       category: 'visa-bulletin',
-      template: (item: any) => ({
+      template: (item: RSSItem) => ({
         title: `Visa Bulletin Update: ${item.title}`,
         excerpt: `New priority dates and visa availability: ${item.contentSnippet || item.summary || 'Check your category.'}`,
         content: this.generateVisaBulletinContent(item),
@@ -283,7 +287,7 @@ export class EnhancedLegalBlogger {
     },
     {
       category: 'state-nc',
-      template: (item: any) => ({
+      template: (item: RSSItem) => ({
         title: `North Carolina Immigration Impact: ${item.title}`,
         excerpt: `New NC law or policy affecting immigrants: ${item.contentSnippet || item.summary || 'Learn how this affects you.'}`,
         content: this.generateStateImmigrationContent(item, 'North Carolina'),
@@ -291,7 +295,7 @@ export class EnhancedLegalBlogger {
     },
     {
       category: 'state-fl',
-      template: (item: any) => ({
+      template: (item: RSSItem) => ({
         title: `Florida Immigration Impact: ${item.title}`,
         excerpt: `New FL law or policy affecting immigrants: ${item.contentSnippet || item.summary || 'Learn how this affects you.'}`,
         content: this.generateStateImmigrationContent(item, 'Florida'),
@@ -299,7 +303,7 @@ export class EnhancedLegalBlogger {
     },
     {
       category: 'local-nc',
-      template: (item: any) => ({
+      template: (item: RSSItem) => ({
         title: `NC Local Update: ${item.title}`,
         excerpt: `Local North Carolina news affecting immigrants: ${item.contentSnippet || item.summary || 'Community impact.'}`,
         content: this.generateLocalNewsContent(item, 'North Carolina'),
@@ -307,7 +311,7 @@ export class EnhancedLegalBlogger {
     },
     {
       category: 'local-fl',
-      template: (item: any) => ({
+      template: (item: RSSItem) => ({
         title: `FL Local Update: ${item.title}`,
         excerpt: `Local Florida news affecting immigrants: ${item.contentSnippet || item.summary || 'Community impact.'}`,
         content: this.generateLocalNewsContent(item, 'Florida'),
@@ -315,7 +319,7 @@ export class EnhancedLegalBlogger {
     },
     {
       category: 'legal',
-      template: (item: any) => ({
+      template: (item: RSSItem) => ({
         title: `Legal Update: ${item.title}`,
         excerpt: `Recent legal development: ${item.contentSnippet || item.summary || 'Click to read more.'}`,
         content: this.generateLegalContent(item),
@@ -323,7 +327,7 @@ export class EnhancedLegalBlogger {
     },
     {
       category: 'congress',
-      template: (item: any) => ({
+      template: (item: RSSItem) => ({
         title: `Congressional Immigration Bill: ${item.title}`,
         excerpt: `New immigration legislation in Congress: ${item.contentSnippet || item.summary || 'Track this important bill.'}`,
         content: this.generateCongressionalBillContent(item),
@@ -331,7 +335,7 @@ export class EnhancedLegalBlogger {
     },
     {
       category: 'senate',
-      template: (item: any) => ({
+      template: (item: RSSItem) => ({
         title: `Senate Immigration Update: ${item.title}`,
         excerpt: `Senate action on immigration: ${item.contentSnippet || item.summary || 'Follow this Senate development.'}`,
         content: this.generateSenateBillContent(item),
@@ -410,7 +414,7 @@ export class EnhancedLegalBlogger {
     }
   }
 
-  private async processItem(item: any, feed: RSSFeed) {
+  private async processItem(item: RSSItem, feed: RSSFeed) {
     try {
       // Check if already processed
       const sourceUrl = item.link || item.guid;
@@ -441,7 +445,7 @@ export class EnhancedLegalBlogger {
     }
   }
 
-  private async createBlogPost(item: any, feed: RSSFeed) {
+  private async createBlogPost(item: RSSItem, feed: RSSFeed) {
     const template = this.templates.find(t => t.category === feed.category) || this.templates[0];
     const { title, content, excerpt } = template.template(item);
 
@@ -487,7 +491,7 @@ export class EnhancedLegalBlogger {
     }
   }
 
-  private generateImmigrationContent(item: any): string {
+  private generateImmigrationContent(item: RSSItem): string {
     // Generate content based on VLF brand guidelines
     const content = `
 <article class="legal-update immigration-news">
@@ -626,12 +630,12 @@ export class EnhancedLegalBlogger {
     return content;
   }
 
-  private generateLegalContent(item: any): string {
+  private generateLegalContent(item: RSSItem): string {
     // Similar template for general legal news
     return this.generateImmigrationContent(item); // Reuse for now
   }
 
-  private generateStateImmigrationContent(item: any, state: string): string {
+  private generateStateImmigrationContent(item: RSSItem, state: string): string {
     const stateAbbr = state === 'North Carolina' ? 'NC' : 'FL';
     const offices =
       state === 'North Carolina' ? 'Charlotte, Raleigh, Smithfield, and Goldsboro' : 'Orlando';
@@ -815,7 +819,7 @@ export class EnhancedLegalBlogger {
     return content;
   }
 
-  private generateExecutiveOrderContent(item: any): string {
+  private generateExecutiveOrderContent(item: RSSItem): string {
     const content = `
 <article class="legal-update executive-order">
   <div class="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white p-8 rounded-lg mb-8 shadow-xl">
@@ -876,7 +880,7 @@ export class EnhancedLegalBlogger {
     return content;
   }
 
-  private generateCourtDecisionContent(item: any, courtType: string): string {
+  private generateCourtDecisionContent(item: RSSItem, courtType: string): string {
     const content = `
 <article class="legal-update court-decision">
   <div class="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white p-8 rounded-lg mb-8 shadow-xl">
@@ -926,7 +930,7 @@ export class EnhancedLegalBlogger {
     return content;
   }
 
-  private generateBIADecisionContent(item: any): string {
+  private generateBIADecisionContent(item: RSSItem): string {
     const content = `
 <article class="legal-update bia-decision">
   <div class="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white p-8 rounded-lg mb-8 shadow-xl">
@@ -960,7 +964,7 @@ export class EnhancedLegalBlogger {
     return content;
   }
 
-  private generateVisaBulletinContent(item: any): string {
+  private generateVisaBulletinContent(item: RSSItem): string {
     const content = `
 <article class="legal-update visa-bulletin">
   <div class="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white p-8 rounded-lg mb-8 shadow-xl">
@@ -989,7 +993,7 @@ export class EnhancedLegalBlogger {
     return content;
   }
 
-  private generateLocalNewsContent(item: any, state: string): string {
+  private generateLocalNewsContent(item: RSSItem, state: string): string {
     const content = `
 <article class="legal-update local-news">
   <div class="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white p-8 rounded-lg mb-8 shadow-xl">
@@ -1065,7 +1069,7 @@ export class EnhancedLegalBlogger {
     `;
   }
 
-  private extractKeywords(item: any): string[] {
+  private extractKeywords(item: RSSItem): string[] {
     const keywords = [];
     const title = (item.title || '').toLowerCase();
     const content = (item.contentSnippet || item.summary || '').toLowerCase();
@@ -1130,7 +1134,7 @@ export class EnhancedLegalBlogger {
     return [...new Set(keywords)]; // Remove duplicates
   }
 
-  private isUrgent(item: any): boolean {
+  private isUrgent(item: RSSItem): boolean {
     const title = (item.title || '').toLowerCase();
     const urgentKeywords = [
       'breaking',
@@ -1147,7 +1151,7 @@ export class EnhancedLegalBlogger {
     return urgentKeywords.some(keyword => title.includes(keyword));
   }
 
-  private async notifySystem(post: any) {
+  private async notifySystem(_post: BlogPost) {
     // Trigger various system updates
     try {
       // Regenerate blog listing page
@@ -1166,7 +1170,7 @@ export class EnhancedLegalBlogger {
     }
   }
 
-  private generateCongressionalBillContent(item: any): string {
+  private generateCongressionalBillContent(item: RSSItem): string {
     const content = `
 <article class="legal-update congressional-bill">
   <div class="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white p-8 rounded-lg mb-8 shadow-xl">
@@ -1295,7 +1299,7 @@ export class EnhancedLegalBlogger {
     return content;
   }
 
-  private generateSenateBillContent(item: any): string {
+  private generateSenateBillContent(item: RSSItem): string {
     const content = `
 <article class="legal-update senate-bill">
   <div class="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white p-8 rounded-lg mb-8 shadow-xl">
