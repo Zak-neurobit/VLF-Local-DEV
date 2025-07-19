@@ -1,8 +1,13 @@
-import { openai } from '@ai-sdk/openai';
-import { streamText } from 'ai';
+// Edge runtime route - no Node.js-specific modules allowed
 import { NextRequest, NextResponse } from 'next/server';
 
+// Explicitly declare edge runtime
 export const runtime = 'edge';
+
+// Edge runtime configuration
+export const config = {
+  runtime: 'edge',
+};
 
 const systemPrompt = `You are a professional virtual paralegal assistant for Vasquez Law Firm. 
 You help potential clients understand their legal options and guide them to the right resources.
@@ -30,6 +35,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const { messages } = await req.json();
 
+    // Dynamic import to ensure edge compatibility
+    const { openai } = await import('@ai-sdk/openai');
+    const { streamText } = await import('ai');
+
     const result = await streamText({
       model: openai('gpt-4-turbo'),
       system: systemPrompt,
@@ -45,7 +54,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       status: response.status,
     });
   } catch (error) {
+    // Use console.error for edge runtime compatibility
     console.error('Paralegal API error:', error);
+
+    // Return a proper error response
     return NextResponse.json({ error: 'Error processing request' }, { status: 500 });
   }
 }

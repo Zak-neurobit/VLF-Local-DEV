@@ -3,8 +3,13 @@
   "buildCommand": "npm run build",
   "framework": "nextjs",
   "functions": {
-    "app/api/**.ts": {
+    "src/app/api/ai/paralegal/route.ts": {
+      "runtime": "edge",
       "maxDuration": 30
+    },
+    "src/app/api/**.ts": {
+      "maxDuration": 30,
+      "excludeFiles": ["src/app/api/ai/paralegal/route.ts"]
     }
   },
   "env": {
