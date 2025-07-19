@@ -39,6 +39,7 @@
     "**/test-*.ts",
     "**/test-*.tsx",
     "src/lib/testing/**/*",
-    "src/setupTests.ts"
+    "src/setupTests.ts",
+    "src/setupTestsNode.ts"
   ]
 }

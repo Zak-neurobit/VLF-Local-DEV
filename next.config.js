@@ -183,14 +183,21 @@ const nextConfig = {
           resourceRegExp: /\.(test|spec)\.(js|jsx|ts|tsx)$/,
         })
       );
-      
+
       // Ignore testing utilities directory
       config.plugins.push(
         new webpack.IgnorePlugin({
           resourceRegExp: /\/testing\//,
         })
       );
-      
+
+      // Ignore setup files
+      config.plugins.push(
+        new webpack.IgnorePlugin({
+          resourceRegExp: /setupTests(Node)?\.ts$/,
+        })
+      );
+
       // Ignore specific test-related modules
       config.plugins.push(
         new webpack.IgnorePlugin({
