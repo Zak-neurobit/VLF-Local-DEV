@@ -14,7 +14,7 @@ export function GoogleMyBusinessWidget({
 }: GoogleMyBusinessProps) {
   useEffect(() => {
     // Initialize Google Places widget when component mounts
-    if ((window as Window & { google?: { maps?: typeof google.maps } }).google?.maps) {
+    if ((window as any).google?.maps) {
       initializeWidget();
     }
   }, [placeId]);
