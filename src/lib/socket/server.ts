@@ -4,7 +4,7 @@ import { wsLogger, userFlowLogger, logger, performanceLogger, securityLogger } f
 import type { LogMeta } from '@/types/logger';
 import { getPrismaClient } from '../prisma';
 import { getRetellClient } from '../../services/retell/client';
-import * as jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { EventEmitter } from 'events';
 import { createHash } from 'crypto';
 import os from 'os';
