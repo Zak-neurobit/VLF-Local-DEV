@@ -13,10 +13,11 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('production'),
   NEXT_PUBLIC_APP_URL: z
     .string()
-    .url()
+    .transform(val => (val === '' ? undefined : val))
+    .optional()
     .default('https://www.vasquezlawnc.com')
-    .refine(val => val.length > 0, {
-      message: 'NEXT_PUBLIC_APP_URL is required',
+    .refine(val => z.string().url().safeParse(val).success, {
+      message: 'NEXT_PUBLIC_APP_URL must be a valid URL',
     }),
 
   // Database (Required)

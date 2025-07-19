@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Vercel Environment Variable Setup Script
+# This script helps set up the required NEXT_PUBLIC_APP_URL environment variable
+
+echo "🚀 Vercel Environment Variable Setup"
+echo "===================================="
+echo ""
+echo "The build is failing because NEXT_PUBLIC_APP_URL is not set in Vercel."
+echo ""
+echo "Please follow these steps:"
+echo ""
+echo "1. Go to: https://vercel.com/dashboard"
+echo "2. Select your 'VLF Website' project"
+echo "3. Click 'Settings' → 'Environment Variables'"
+echo "4. Add the following variable:"
+echo ""
+echo "   Key: NEXT_PUBLIC_APP_URL"
+echo "   Value: https://www.vasquezlawnc.com"
+echo "   Environment: ✓ Production ✓ Preview ✓ Development"
+echo ""
+echo "5. Click 'Save'"
+echo "6. Redeploy your project"
+echo ""
+echo "Alternative: If you have Vercel CLI installed, run:"
+echo "vercel env add NEXT_PUBLIC_APP_URL production"
+echo "When prompted, enter: https://www.vasquezlawnc.com"
+echo ""
+echo "📝 Note: This variable has a default in the code, but Vercel's build"
+echo "process requires it to be explicitly set for validation to pass."
