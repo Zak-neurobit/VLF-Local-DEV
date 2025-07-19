@@ -14,7 +14,7 @@ interface MiniMapProps {
 
 export default function MiniMap({ height = '200px', className = '' }: MiniMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [map, setMap] = useState<any>(null); // Type will be google.maps.Map
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

@@ -8,6 +8,13 @@ import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-c
 // Import Google Maps types
 /// <reference types="@types/google.maps" />
 
+// Ensure google namespace is available
+declare global {
+  interface Window {
+    google: typeof google;
+  }
+}
+
 interface Office {
   name: string;
   address: string;
@@ -29,7 +36,7 @@ export default function AllOfficesMap({
   className = '',
 }: AllOfficesMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [, setMap] = useState<google.maps.Map | null>(null);
+  const [, setMap] = useState<any>(null); // Type will be google.maps.Map
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -76,7 +83,7 @@ export default function AllOfficesMap({
         });
 
         const bounds = new google.maps.LatLngBounds();
-        const infoWindows: google.maps.InfoWindow[] = [];
+        const infoWindows: any[] = []; // Array of google.maps.InfoWindow
 
         // Create markers for each office
         offices.forEach((office, index) => {
