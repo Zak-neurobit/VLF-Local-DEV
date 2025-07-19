@@ -4,11 +4,6 @@ import { NextRequest, NextResponse } from 'next/server';
 // Explicitly declare edge runtime
 export const runtime = 'edge';
 
-// Edge runtime configuration
-export const config = {
-  runtime: 'edge',
-};
-
 const systemPrompt = `You are a professional virtual paralegal assistant for Vasquez Law Firm. 
 You help potential clients understand their legal options and guide them to the right resources.
 
