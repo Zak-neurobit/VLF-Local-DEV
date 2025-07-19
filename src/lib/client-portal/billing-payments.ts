@@ -389,8 +389,8 @@ export class ClientPortalBillingPayments {
         },
       });
 
-      // Update invoice if payment succeeded
-      if (params.invoiceId && status === 'SUCCEEDED') {
+      // Update invoice if payment is created (will be marked as paid when processed)
+      if (params.invoiceId) {
         await this.applyPaymentToInvoice(payment.id, params.invoiceId);
       }
 

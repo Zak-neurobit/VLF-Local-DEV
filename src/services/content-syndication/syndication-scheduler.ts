@@ -280,8 +280,8 @@ export class SyndicationScheduler {
   }
 
   private getTopPerformingPlatforms(platformBreakdown: any): any[] {
-    return Object.entries(platformBreakdown)
-      .map(([platform, stats]: [string, any]) => ({
+    return Object.entries(platformBreakdown as Record<string, any>)
+      .map(([platform, stats]) => ({
         platform,
         successRate: stats.total > 0 ? (stats.successful / stats.total) * 100 : 0,
         total: stats.total,
@@ -304,14 +304,16 @@ export class SyndicationScheduler {
     }
 
     // Check platform-specific issues
-    Object.entries(analytics.platformBreakdown).forEach(([platform, stats]: [string, any]) => {
-      const successRate = stats.total > 0 ? (stats.successful / stats.total) * 100 : 0;
-      if (successRate < 70 && stats.total > 5) {
-        recommendations.push(
-          `${platform} has a low success rate (${successRate.toFixed(0)}%). Check API credentials and rate limits.`
-        );
+    Object.entries(analytics.platformBreakdown as Record<string, any>).forEach(
+      ([platform, stats]) => {
+        const successRate = stats.total > 0 ? (stats.successful / stats.total) * 100 : 0;
+        if (successRate < 70 && stats.total > 5) {
+          recommendations.push(
+            `${platform} has a low success rate (${successRate.toFixed(0)}%). Check API credentials and rate limits.`
+          );
+        }
       }
-    });
+    );
 
     // Content type recommendations
     const contentTypes = Object.entries(analytics.contentTypeBreakdown);

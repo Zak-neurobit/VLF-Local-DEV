@@ -389,11 +389,6 @@ class PaymentService {
       return 'lawpay';
     }
 
-    // Stripe if available
-    if (this.stripe) {
-      return 'stripe';
-    }
-
     // Default to Authorize.Net for general payments
     return 'authorize.net';
   }

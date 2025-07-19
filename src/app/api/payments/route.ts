@@ -34,7 +34,7 @@ const processPaymentSchema = z.object({
   }),
   options: z
     .object({
-      gateway: z.enum(['stripe', 'lawpay', 'authorize.net']).optional(),
+      gateway: z.enum(['lawpay', 'authorize.net']).optional(),
       trustAccount: z.boolean().optional(),
     })
     .optional(),

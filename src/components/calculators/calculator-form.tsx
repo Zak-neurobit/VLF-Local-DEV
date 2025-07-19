@@ -39,7 +39,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
 
         // Initialize form data with defaults
         const initialData: Record<string, any> = {};
-        Object.entries(data.schema).forEach(([key, field]: [string, any]) => {
+        Object.entries(data.schema as Record<string, any>).forEach(([key, field]) => {
           if (field.default !== undefined) {
             initialData[key] = field.default;
           } else if (field.type === 'boolean') {
@@ -76,7 +76,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
 
-    Object.entries(schema).forEach(([key, field]: [string, any]) => {
+    Object.entries(schema as Record<string, any>).forEach(([key, field]) => {
       const value = formData[key];
 
       if (field.required && (value === undefined || value === null || value === '')) {

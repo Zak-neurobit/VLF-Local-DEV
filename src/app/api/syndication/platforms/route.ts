@@ -13,30 +13,15 @@ export async function GET(request: NextRequest) {
 
     // Get all registered platforms
     const platforms = (syndicationEngine as any).platforms;
-    const platformList = Array.from(platforms.entries()).map(
-      (
-        entry
-      ): {
-        id: string;
-        name: string;
-        type: string;
-        enabled: boolean;
-        autoPublish: boolean;
-        contentTypes: string[];
-        hasCredentials: boolean;
-      } => {
-        const [id, config] = entry as [string, any];
-        return {
-          id,
-          name: config.name,
-          type: config.type,
-          enabled: config.enabled,
-          autoPublish: config.autoPublish,
-          contentTypes: config.contentTypes,
-          hasCredentials: !!(config.apiKey || config.apiSecret),
-        };
-      }
-    );
+    const platformList = Array.from(platforms.entries()).map(([id, config]) => ({
+      id,
+      name: config.name,
+      type: config.type,
+      enabled: config.enabled,
+      autoPublish: config.autoPublish,
+      contentTypes: config.contentTypes,
+      hasCredentials: !!(config.apiKey || config.apiSecret),
+    }));
 
     return NextResponse.json({ success: true, platforms: platformList });
   } catch (error) {
