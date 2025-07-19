@@ -64,7 +64,10 @@ export const aiEdgeLogger = new EdgeLogger('edge:ai');
 
 // Helper function to check if we're in edge runtime
 export const isEdgeRuntime = (): boolean => {
-  return typeof EdgeRuntime !== 'undefined' || process.env.NEXT_RUNTIME === 'edge';
+  return (
+    (typeof globalThis !== 'undefined' && 'EdgeRuntime' in globalThis) ||
+    process.env.NEXT_RUNTIME === 'edge'
+  );
 };
 
 // Unified logger interface that works in both edge and node runtime
