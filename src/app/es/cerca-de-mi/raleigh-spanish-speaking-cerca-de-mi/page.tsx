@@ -1,7 +1,7 @@
-import raleighSpanishSpeakingNearMeClient from './raleighSpanishSpeakingNearMeClient';
+import RaleighSpanishSpeakingCercaDeMiClient from './raleighSpanishSpeakingNearMeClient';
 
-export default function raleighSpanishSpeakingNearMePage() {
-  return <raleighSpanishSpeakingNearMeClient />;
+export default function RaleighSpanishSpeakingCercaDeMiPage() {
+  return <RaleighSpanishSpeakingCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado que Habla Español Cerca de Mi en Raleigh, NC | Vasquez Law Firm',

@@ -10,7 +10,7 @@ import type {
   ComponentLogger,
   LogMeta,
   WinstonLogInfo,
-} from '@/types/logger';
+} from '../../types/logger';
 
 let logger: Logger;
 let apiLogger: APILogger;
@@ -40,13 +40,13 @@ const isEdgeRuntime =
 
 if (typeof window === 'undefined' && !isEdgeRuntime) {
   // Server-side (Node.js): Use Winston
-  const winston = require('winston');
+  const winston = require('winston') as typeof import('winston');
 
   const isDevelopment = process.env.NODE_ENV === 'development';
   const isProduction = process.env.NODE_ENV === 'production';
 
   // Winston logger configuration with OpenTelemetry trace correlation
-  logger = winston.createLogger({
+  const winstonLogger = winston.createLogger({
     level: isDevelopment ? 'debug' : 'info',
     format: winston.format.combine(
       winston.format.timestamp({
@@ -54,10 +54,6 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
       }),
       winston.format.errors({ stack: true }),
       winston.format.splat(),
-      // Add trace context to all log entries
-      winston.format((info: WinstonLogInfo) => {
-        return addTraceContext(info);
-      })(),
       winston.format.json()
     ),
     defaultMeta: { service: 'vasquez-law-website', component: 'winston' },
@@ -70,7 +66,7 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
 
   // Add file transport in production
   if (isProduction) {
-    logger.add(
+    winstonLogger.add(
       new winston.transports.File({
         filename: 'logs/error.log',
         level: 'error',
@@ -79,7 +75,7 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
       })
     );
 
-    logger.add(
+    winstonLogger.add(
       new winston.transports.File({
         filename: 'logs/combined.log',
         maxsize: 5242880, // 5MB
@@ -87,6 +83,9 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
       })
     );
   }
+
+  // Cast Winston logger to our Logger interface
+  logger = winstonLogger as Logger;
 
   // API Logger
   apiLogger = {
@@ -107,7 +106,7 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
           headers: sanitizeHeaders(headers),
           timestamp: new Date().toISOString(),
           category: 'api_request',
-        })
+        }) as LogMeta
       );
       return requestId;
     },
@@ -122,33 +121,41 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
           responseSize: data ? JSON.stringify(data).length : 0,
           timestamp: new Date().toISOString(),
           category: 'api_response',
-        })
+        }) as LogMeta
       );
     },
 
     error: (requestId: string, error: unknown, retry?: number) => {
+      const errorInfo =
+        error instanceof Error
+          ? {
+              message: error.message,
+              stack: error.stack,
+              code: (error as Error & { code?: string }).code,
+            }
+          : {
+              message: String(error),
+              type: typeof error,
+            };
+
       logger.error(
         'API Error',
         addTraceContext({
           requestId,
-          error: {
-            message: error.message,
-            stack: error.stack,
-            code: (error as Error & { code?: string }).code,
-          },
+          error: errorInfo,
           retry,
           timestamp: new Date().toISOString(),
           category: 'api_error',
-        })
+        }) as LogMeta
       );
     },
 
     info: (message: string, meta?: unknown) => {
-      logger.info(message, meta);
+      logger.info(message, meta as LogMeta);
     },
 
     warn: (message: string, meta?: unknown) => {
-      logger.warn(message, meta);
+      logger.warn(message, meta as LogMeta);
     },
   };
 
@@ -249,13 +256,13 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
       logger.debug(`Prop change: ${componentName}.${propName}`, { oldValue, newValue });
     },
     info: (message: string, meta?: unknown) => {
-      logger.info(message, meta);
+      logger.info(message, meta as LogMeta);
     },
     error: (message: string, meta?: unknown) => {
-      logger.error(message, meta);
+      logger.error(message, meta as LogMeta);
     },
     warn: (message: string, meta?: unknown) => {
-      logger.warn(message, meta);
+      logger.warn(message, meta as LogMeta);
     },
   };
 
@@ -403,13 +410,13 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
         error: error instanceof Error ? error.message : String(error),
       });
     },
-    info: (message: string, meta?: unknown) => logger.info(message, meta),
-    warn: (message: string, meta?: unknown) => logger.warn(message, meta),
+    info: (message: string, meta?: unknown) => logger.info(message, meta as LogMeta),
+    warn: (message: string, meta?: unknown) => logger.warn(message, meta as LogMeta),
   };
 
   securityLogger = {
     suspiciousActivity: (activity: string, metadata?: unknown) =>
-      logger.warn(`Suspicious activity: ${activity}`, metadata),
+      logger.warn(`Suspicious activity: ${activity}`, metadata as LogMeta),
     accessDenied: (resource: string, userId?: string, reason?: string) =>
       logger.warn(`Access denied: ${resource}`, { userId, reason }),
     accessGranted: (resource: string, userId?: string) =>
@@ -422,7 +429,7 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
 
   performanceLogger = {
     measure: (operation: string, duration: number, metadata?: unknown) =>
-      logger.info(`Performance: ${operation} took ${duration}ms`, metadata),
+      logger.info(`Performance: ${operation} took ${duration}ms`, metadata as LogMeta),
     slowOperation: (operation: string, duration: number, threshold: number) =>
       logger.warn(`Slow operation: ${operation} took ${duration}ms (threshold: ${threshold}ms)`),
     memoryUsage: () => {},
@@ -431,9 +438,9 @@ if (typeof window === 'undefined' && !isEdgeRuntime) {
     unmount: () => {},
     rerender: () => {},
     propChange: () => {},
-    info: (message: string, meta?: unknown) => logger.info(message, meta),
-    error: (message: string, meta?: unknown) => logger.error(message, meta),
-    warn: (message: string, meta?: unknown) => logger.warn(message, meta),
+    info: (message: string, meta?: unknown) => logger.info(message, meta as LogMeta),
+    error: (message: string, meta?: unknown) => logger.error(message, meta as LogMeta),
+    warn: (message: string, meta?: unknown) => logger.warn(message, meta as LogMeta),
   };
 
   // Stub out server-only loggers
@@ -509,10 +516,10 @@ function addTraceContext(metadata: Record<string, unknown>): Record<string, unkn
 }
 
 function sanitizePayload(payload: unknown): unknown {
-  if (!payload) return null;
+  if (!payload || typeof payload !== 'object') return payload;
 
   const sensitiveFields = ['password', 'token', 'apiKey', 'ssn', 'creditCard'];
-  const sanitized = { ...payload } as Record<string, unknown>;
+  const sanitized = { ...(payload as Record<string, unknown>) } as Record<string, unknown>;
 
   sensitiveFields.forEach(field => {
     if (sanitized[field]) {
@@ -524,10 +531,10 @@ function sanitizePayload(payload: unknown): unknown {
 }
 
 function sanitizeHeaders(headers: unknown): unknown {
-  if (!headers) return null;
+  if (!headers || typeof headers !== 'object') return headers;
 
   const sensitiveHeaders = ['authorization', 'cookie', 'x-api-key'];
-  const sanitized = { ...headers } as Record<string, unknown>;
+  const sanitized = { ...(headers as Record<string, unknown>) } as Record<string, unknown>;
 
   sensitiveHeaders.forEach(header => {
     if (sanitized[header]) {

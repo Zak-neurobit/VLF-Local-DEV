@@ -350,7 +350,7 @@ export class AgentMonitor extends EventEmitter {
   // Auto-scaling configuration
   async configureAutoScaling(agentName: string, config: AutoScalingConfig): Promise<void> {
     this.autoScalingConfigs.set(agentName, config);
-    logger.info(`Auto-scaling configured for ${agentName}:`, config);
+    logger.info(`Auto-scaling configured for ${agentName}`, { config });
     this.emit('auto-scaling-configured', { agentName, config });
   }
 
@@ -440,7 +440,7 @@ export class AgentMonitor extends EventEmitter {
   // Load balancing
   async enableLoadBalancing(config: LoadBalancingConfig): Promise<void> {
     this.loadBalancingConfig = config;
-    logger.info('Load balancing enabled:', config);
+    logger.info('Load balancing enabled', { config });
     this.emit('load-balancing-enabled', config);
   }
 
@@ -471,7 +471,7 @@ export class AgentMonitor extends EventEmitter {
   // Error detection and recovery
   async configureErrorRecovery(config: ErrorRecoveryConfig): Promise<void> {
     this.errorRecoveryConfig = config;
-    logger.info('Error recovery configured:', config);
+    logger.info('Error recovery configured', { config });
     this.emit('error-recovery-configured', config);
   }
 
@@ -479,7 +479,7 @@ export class AgentMonitor extends EventEmitter {
     const { agentName, instanceId, status } = event;
 
     if (!status.isHealthy) {
-      logger.warn(`Agent ${agentName} (${instanceId}) is unhealthy:`, status.issues);
+      logger.warn(`Agent ${agentName} (${instanceId}) is unhealthy`, { issues: status.issues });
 
       // Attempt recovery
       await this.attemptRecovery(agentName, instanceId);
@@ -621,7 +621,7 @@ export class AgentMonitor extends EventEmitter {
       memoryUsage: number;
     };
   }): Promise<void> {
-    logger.info('Performance tracking enabled:', config);
+    logger.info('Performance tracking enabled', { config });
 
     // Start performance monitoring
     setInterval(async () => {

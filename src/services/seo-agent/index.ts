@@ -1209,8 +1209,11 @@ export class SEOAgent {
 
       return { urls };
     } catch (error) {
-      componentLogger.warn?.('SEOAgent.fetchSitemap failed', { url, error }) ||
+      if (componentLogger.warn) {
+        componentLogger.warn('SEOAgent.fetchSitemap failed', { url, error });
+      } else {
         console.warn('SEOAgent.fetchSitemap failed', { url, error });
+      }
       return { urls: [] };
     }
   }
@@ -1242,8 +1245,11 @@ export class SEOAgent {
           wordCount: $('body').text().split(/\s+/).length,
         });
       } catch (error) {
-        componentLogger.warn?.('Failed to analyze page', { pageUrl, error }) ||
+        if (componentLogger.warn) {
+          componentLogger.warn('Failed to analyze page', { pageUrl, error });
+        } else {
           console.warn('Failed to analyze page', { pageUrl, error });
+        }
       }
     }
 

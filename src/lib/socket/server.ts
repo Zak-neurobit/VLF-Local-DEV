@@ -1,6 +1,7 @@
 import { Server as HTTPServer } from 'http';
 import { Server as SocketIOServer, Socket } from 'socket.io';
 import { wsLogger, userFlowLogger, logger, performanceLogger, securityLogger } from '../logger';
+import type { LogMeta } from '@/types/logger';
 import { getPrismaClient } from '../prisma';
 import { getRetellClient } from '../../services/retell/client';
 import jwt from 'jsonwebtoken';
@@ -141,14 +142,14 @@ export class ChatSocketServer extends EventEmitter {
   private alertConfigs: Map<string, AlertConfig> = new Map();
   private adminSessions: Set<string> = new Set();
   private maintenanceMode: boolean = false;
-  private performanceMetrics: Map<string, number[]> = new Map();
+  // Removed duplicate - performanceMetrics is properly defined later in the file with correct structure
   private messageRateTracker: Map<string, number[]> = new Map();
   private errorRateTracker: Map<string, number[]> = new Map();
   private serverStartTime: number = Date.now();
   private lastHealthCheck: number = 0;
-  private healthCheckInterval: NodeJS.Timer | null = null;
-  private metricsCollectionInterval: NodeJS.Timer | null = null;
-  private alertingInterval: NodeJS.Timer | null = null;
+  private healthCheckInterval: NodeJS.Timeout | null = null;
+  private metricsCollectionInterval: NodeJS.Timeout | null = null;
+  private alertingInterval: NodeJS.Timeout | null = null;
   private adminCommandHistory: AdminCommand[] = [];
   private shutdownInProgress: boolean = false;
   private customRateLimit: Map<string, { maxMessages: number; windowMs: number }> = new Map();
@@ -303,7 +304,8 @@ export class ChatSocketServer extends EventEmitter {
               throw new Error('Invalid admin credentials');
             }
           } catch (error) {
-            securityLogger.authenticationFailure('admin_websocket', undefined, error.message);
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            securityLogger.authenticationFailure('admin_websocket', undefined, errorMessage);
             throw new Error('Admin authentication failed');
           }
         }
@@ -335,7 +337,8 @@ export class ChatSocketServer extends EventEmitter {
 
             wsLogger.info(socket.id, `JWT authentication successful for user ${userId}`);
           } catch (error) {
-            wsLogger.warn(socket.id, `JWT authentication failed: ${error.message}`);
+            const errorMessage = error instanceof Error ? error.message : 'Unknown JWT error';
+            wsLogger.warn(socket.id, `JWT authentication failed: ${errorMessage}`);
             // Continue to try other auth methods
           }
         }
@@ -362,7 +365,9 @@ export class ChatSocketServer extends EventEmitter {
               }
             }
           } catch (error) {
-            wsLogger.warn(socket.id, `Reconnection token authentication failed: ${error.message}`);
+            const errorMessage =
+              error instanceof Error ? error.message : 'Unknown reconnection error';
+            wsLogger.warn(socket.id, `Reconnection token authentication failed: ${errorMessage}`);
           }
         }
 
@@ -413,11 +418,12 @@ export class ChatSocketServer extends EventEmitter {
         const authDuration = performance.now() - startTime;
         performanceLogger.measure('socket_authentication_failed', authDuration, {
           socketId: socket.id,
-          error: error.message,
+          error: error instanceof Error ? error.message : 'Unknown error',
         });
 
-        wsLogger.error(socket.id, `Authentication middleware error: ${error.message}`);
-        next(new Error(`Authentication failed: ${error.message}`));
+        const errorMessage = error instanceof Error ? error.message : 'Unknown middleware error';
+        wsLogger.error(socket.id, `Authentication middleware error: ${errorMessage}`);
+        next(new Error(`Authentication failed: ${errorMessage}`));
       }
     });
   }
@@ -528,14 +534,15 @@ export class ChatSocketServer extends EventEmitter {
 
           // Store user message with database fallback
           if (socketData.conversationId) {
+            const conversationId = socketData.conversationId;
             await this.withDatabaseFallback(
               () =>
                 getPrismaClient().message.create({
                   data: {
-                    conversationId: socketData.conversationId,
+                    conversationId,
                     role: 'user',
                     content,
-                    metadata: { ...metadata, messageId } || { messageId },
+                    metadata: metadata ? { ...metadata, messageId } : { messageId },
                   },
                 }),
               () => {
@@ -563,14 +570,17 @@ export class ChatSocketServer extends EventEmitter {
 
           // Store AI response with database fallback
           if (socketData.conversationId) {
+            const conversationId = socketData.conversationId;
             await this.withDatabaseFallback(
               () =>
                 getPrismaClient().message.create({
                   data: {
-                    conversationId: socketData.conversationId,
+                    conversationId,
                     role: 'assistant',
                     content: response.content,
-                    metadata: { ...response.metadata, messageId } || { messageId },
+                    metadata: response.metadata
+                      ? { ...response.metadata, messageId }
+                      : { messageId },
                   },
                 }),
               () => {
@@ -614,8 +624,11 @@ export class ChatSocketServer extends EventEmitter {
           }
 
           // Check if we need to escalate to human or voice
-          if (response.metadata?.escalate) {
-            await this.handleEscalationWithRetry(socket, response.metadata.escalationType);
+          if (response.metadata?.escalate && response.metadata?.escalationType) {
+            await this.handleEscalationWithRetry(
+              socket,
+              response.metadata.escalationType as string
+            );
           }
         } catch (error) {
           // Update error tracking
@@ -626,7 +639,8 @@ export class ChatSocketServer extends EventEmitter {
 
           this.trackErrorRate(clientId);
 
-          wsLogger.error(clientId, error);
+          const errorForLogging = error instanceof Error ? error.message : 'Unknown error';
+          wsLogger.error(clientId, errorForLogging);
           socket.emit('typing', { isTyping: false });
 
           // Provide specific error messages based on error type
@@ -660,7 +674,7 @@ export class ChatSocketServer extends EventEmitter {
           this.emit('message_error', {
             socketId: clientId,
             messageId,
-            error: error.message,
+            error: error instanceof Error ? error.message : 'Unknown error',
             errorType,
           });
         }
@@ -697,7 +711,9 @@ export class ChatSocketServer extends EventEmitter {
                   conversationId: socketData.conversationId,
                   role: 'assistant',
                   content: response.content,
-                  metadata: { ...response.metadata, source: 'virtual_assistant' },
+                  metadata: response.metadata
+                    ? ({ ...response.metadata, source: 'virtual_assistant' } as any)
+                    : { source: 'virtual_assistant' },
                 },
               });
             }
@@ -733,7 +749,8 @@ export class ChatSocketServer extends EventEmitter {
             socket.emit('error', { message: 'Invalid language' });
           }
         } catch (error) {
-          wsLogger.error(clientId, `Language change error: ${error.message}`);
+          const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+          wsLogger.error(clientId, `Language change error: ${errorMsg}`);
           socket.emit('error', { message: 'Failed to change language' });
         }
       });
@@ -743,7 +760,8 @@ export class ChatSocketServer extends EventEmitter {
         try {
           socket.emit('heartbeat-ack', { timestamp: new Date().toISOString() });
         } catch (error) {
-          wsLogger.error(clientId, `Heartbeat error: ${error.message}`);
+          const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+          wsLogger.error(clientId, `Heartbeat error: ${errorMsg}`);
         }
       });
 
@@ -1088,7 +1106,8 @@ export class ChatSocketServer extends EventEmitter {
         );
       }
 
-      wsLogger.error('db_operation_failed', { operationName, error: error.message });
+      const errorMsg = error instanceof Error ? error.message : 'Unknown database error';
+      logger.error('Database operation failed', { operationName, error: errorMsg });
       return await fallback();
     }
   }
@@ -1116,7 +1135,7 @@ export class ChatSocketServer extends EventEmitter {
           content: msg.content,
           timestamp: msg.timestamp || Date.now(),
         })),
-        userProfile: await this.getUserProfile(socketData.userId),
+        userProfile: (await this.getUserProfile(socketData.userId)) || undefined,
         metadata: {
           source: 'socket' as const,
           quickResponse: undefined,
@@ -1171,7 +1190,8 @@ export class ChatSocketServer extends EventEmitter {
       // Update performance metrics
       this.updatePerformanceMetrics('ai_message_processing', Date.now() - startTime);
 
-      wsLogger.info(socketData.sessionId, 'AI message processed', {
+      logger.info('AI message processed', {
+        sessionId: socketData.sessionId,
         agent: aiResponse.agent,
         intent: aiResponse.intentAnalysis?.primary,
         confidence: aiResponse.confidence,
@@ -1194,7 +1214,11 @@ export class ChatSocketServer extends EventEmitter {
         },
       };
     } catch (error) {
-      wsLogger.error(socketData.sessionId, 'AI processing error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown AI error';
+      wsLogger.error('AI processing error', {
+        sessionId: socketData.sessionId,
+        error: errorMessage,
+      });
 
       // Fallback to basic keyword-based responses
       return this.getBasicResponse(content, socketData);
@@ -1403,7 +1427,11 @@ export class ChatSocketServer extends EventEmitter {
         communicationPreference: 'chat',
       };
     } catch (error) {
-      wsLogger.error('user-profile', 'Error fetching user profile:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      wsLogger.error('Error fetching user profile', {
+        context: 'user-profile',
+        error: errorMessage,
+      });
       return null;
     }
   }
@@ -1455,7 +1483,8 @@ export class ChatSocketServer extends EventEmitter {
         break;
     }
 
-    wsLogger.info(sessionId, 'AI escalation handled', {
+    logger.info('AI escalation handled', {
+      sessionId,
       type: escalation.type,
       reason: escalation.reason,
     });
@@ -1600,7 +1629,8 @@ export class ChatSocketServer extends EventEmitter {
 
       wsLogger.info(socket.id, `Joined room: ${roomId} (${roomType})`);
     } catch (error) {
-      wsLogger.error(socket.id, `Failed to join room ${roomId}: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      wsLogger.error(socket.id, `Failed to join room ${roomId}: ${errorMessage}`);
       throw error;
     }
   }
@@ -1619,7 +1649,8 @@ export class ChatSocketServer extends EventEmitter {
 
       wsLogger.info(socket.id, `Left room: ${roomId}`);
     } catch (error) {
-      wsLogger.error(socket.id, `Failed to leave room ${roomId}: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      wsLogger.error(socket.id, `Failed to leave room ${roomId}: ${errorMessage}`);
       // Don't throw - leaving a room should be non-critical
     }
   }
@@ -1737,7 +1768,7 @@ export class ChatSocketServer extends EventEmitter {
                 conversationId: message.conversationId,
                 role: message.role,
                 content: message.content,
-                metadata: message.metadata || {},
+                metadata: (message.metadata || {}) as any,
               },
             });
 
@@ -1745,15 +1776,17 @@ export class ChatSocketServer extends EventEmitter {
             const index = messages.indexOf(message);
             messages.splice(index, 1);
 
-            wsLogger.info(
-              'retry_success',
-              `Message retry successful for conversation ${message.conversationId}`
-            );
+            logger.info(`Message retry successful for conversation ${message.conversationId}`, {
+              event: 'retry_success',
+              conversationId: message.conversationId,
+            });
           } catch (error) {
-            wsLogger.error('retry_failed', {
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            logger.error('Message retry failed', {
+              event: 'retry_failed',
               conversationId: message.conversationId,
               attempt: message.attempts,
-              error: error.message,
+              error: errorMessage,
             });
 
             // Remove from queue if max attempts reached
@@ -1809,12 +1842,21 @@ export class ChatSocketServer extends EventEmitter {
       if (circuitBreaker.failures >= circuitBreaker.threshold) {
         circuitBreaker.isOpen = true;
         wsLogger.error(
-          'circuit_breaker_opened',
-          `Circuit breaker opened for ${operationName} after ${circuitBreaker.failures} failures`
+          `Circuit breaker opened for ${operationName} after ${circuitBreaker.failures} failures`,
+          {
+            event: 'circuit_breaker_opened',
+            operationName,
+            failures: circuitBreaker.failures,
+          }
         );
       }
 
-      wsLogger.error('circuit_breaker_failure', { operationName, error: error.message });
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      wsLogger.error('Circuit breaker failure', {
+        event: 'circuit_breaker_failure',
+        operationName,
+        error: errorMessage,
+      });
       return await fallback();
     }
   }
@@ -1845,17 +1887,27 @@ export class ChatSocketServer extends EventEmitter {
                 socketData.language === 'es'
                   ? 'Disculpa, estoy experimentando dificultades técnicas. Por favor, intenta de nuevo en un momento.'
                   : "Sorry, I'm experiencing technical difficulties. Please try again in a moment.",
-              metadata: { fallback: true, attempt, messageId },
+              metadata: {
+                fallback: true,
+                attempt,
+                messageId,
+                intent: 'fallback',
+                escalate: false,
+                escalationType: 'none',
+                priority: 'low',
+              } as any,
             };
           },
           this.aiServiceCircuitBreaker,
           'ai_message_processing'
         );
       } catch (error) {
-        wsLogger.error('process_message_attempt_failed', {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        logger.error('Process message attempt failed', {
+          event: 'process_message_attempt_failed',
           messageId,
           attempt,
-          error: error.message,
+          error: errorMessage,
         });
 
         if (attempt === maxRetries) {
@@ -1889,11 +1941,13 @@ export class ChatSocketServer extends EventEmitter {
         await this.handleEscalation(socket, escalationType);
         return;
       } catch (error) {
-        wsLogger.error('escalation_attempt_failed', {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        logger.error('Escalation attempt failed', {
+          event: 'escalation_attempt_failed',
           socketId: socket.id,
           escalationType,
           attempt,
-          error: error.message,
+          error: errorMessage,
         });
 
         if (attempt === maxRetries) {
@@ -1985,7 +2039,7 @@ export class ChatSocketServer extends EventEmitter {
     // Log connection stats every minute
     setInterval(() => {
       const stats = this.generateConnectionStats();
-      wsLogger.info('connection_stats', stats);
+      logger.info('Connection stats', { event: 'connection_stats', ...stats });
       this.emit('connection_stats', stats);
     }, 60 * 1000); // Run every minute
   }
@@ -2216,7 +2270,11 @@ export class ChatSocketServer extends EventEmitter {
 
       this.emit('shutdown_complete', finalStats);
     } catch (error) {
-      logger.error('Error during shutdown', { error: error.message, stack: error.stack });
+      const errorDetails =
+        error instanceof Error
+          ? { message: error.message, stack: error.stack }
+          : { message: 'Unknown shutdown error' };
+      logger.error('Error during shutdown', errorDetails);
       throw error;
     } finally {
       this.shutdownInProgress = false;
@@ -2238,7 +2296,7 @@ export class ChatSocketServer extends EventEmitter {
         type: 'SYSTEM',
         title: notification.title,
         message: notification.message,
-        metadata: notification.metadata,
+        metadata: notification.metadata as any,
         read: false,
       },
     });
@@ -2319,7 +2377,8 @@ export class ChatSocketServer extends EventEmitter {
           const dashboardData = this.generateDashboardData();
           socket.emit('admin:dashboard:data', dashboardData);
         } catch (error) {
-          logger.error('Admin dashboard error', { error: error.message });
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          logger.error('Admin dashboard error', { error: errorMessage });
           socket.emit('admin:error', { message: 'Failed to get dashboard data' });
         }
       });
@@ -2330,7 +2389,8 @@ export class ChatSocketServer extends EventEmitter {
           const connections = Array.from(this.connectionInfo.values());
           socket.emit('admin:connections:data', connections);
         } catch (error) {
-          logger.error('Admin connections error', { error: error.message });
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          logger.error('Admin connections error', { error: errorMessage });
           socket.emit('admin:error', { message: 'Failed to get connections data' });
         }
       });
@@ -2341,7 +2401,8 @@ export class ChatSocketServer extends EventEmitter {
           const metrics = this.getSystemMetrics();
           socket.emit('admin:metrics:data', metrics);
         } catch (error) {
-          logger.error('Admin metrics error', { error: error.message });
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          logger.error('Admin metrics error', { error: errorMessage });
           socket.emit('admin:error', { message: 'Failed to get metrics data' });
         }
       });
@@ -2352,8 +2413,9 @@ export class ChatSocketServer extends EventEmitter {
           await this.executeAdminCommand(command, socketData.userId!);
           socket.emit('admin:command:success', { commandId: command.timestamp });
         } catch (error) {
-          logger.error('Admin command error', { error: error.message, command });
-          socket.emit('admin:error', { message: `Command failed: ${error.message}` });
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          logger.error('Admin command error', { error: errorMessage, command });
+          socket.emit('admin:error', { message: `Command failed: ${errorMessage}` });
         }
       });
 
@@ -2374,7 +2436,8 @@ export class ChatSocketServer extends EventEmitter {
           this.configureAlert(alertConfig);
           socket.emit('admin:alerts:configured', { metric: alertConfig.metric });
         } catch (error) {
-          logger.error('Admin alert config error', { error: error.message });
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          logger.error('Admin alert config error', { error: errorMessage });
           socket.emit('admin:error', { message: 'Failed to configure alert' });
         }
       });
@@ -2385,7 +2448,8 @@ export class ChatSocketServer extends EventEmitter {
           const alertHistory = this.getAlertHistory();
           socket.emit('admin:alerts:history:data', alertHistory);
         } catch (error) {
-          logger.error('Admin alert history error', { error: error.message });
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          logger.error('Admin alert history error', { error: errorMessage });
           socket.emit('admin:error', { message: 'Failed to get alert history' });
         }
       });
@@ -2676,12 +2740,8 @@ export class ChatSocketServer extends EventEmitter {
     const windowMs = 60000; // 1 minute
 
     // Calculate average response time
-    const responseTimeMetrics = this.performanceMetrics.get('response_time') || [];
-    const recentResponseTimes = responseTimeMetrics.filter(time => now - time < windowMs);
-    const avgResponseTime =
-      recentResponseTimes.length > 0
-        ? recentResponseTimes.reduce((sum, time) => sum + time, 0) / recentResponseTimes.length
-        : 0;
+    const responseTimeMetrics = this.performanceMetrics.get('response_time');
+    const avgResponseTime = responseTimeMetrics?.averageTime || 0;
 
     // Calculate message rate
     const messageRates = Array.from(this.messageRateTracker.values())
@@ -2766,7 +2826,11 @@ export class ChatSocketServer extends EventEmitter {
         errorRate: Math.round(errorRate * 100) / 100,
       };
     } catch (error) {
-      wsLogger.error('ai-metrics', 'Error generating AI metrics:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      wsLogger.error('Error generating AI metrics', {
+        context: 'ai-metrics',
+        error: errorMessage,
+      });
       return {
         enhancedChatAvailable: false,
         translationAvailable: false,
@@ -2949,11 +3013,11 @@ export class ChatSocketServer extends EventEmitter {
       value,
       threshold: config.threshold,
       comparison: config.comparison,
-      timestamp: Date.now(),
+      timestamp: new Date().toISOString(),
       severity: this.getAlertSeverity(metric, value, config.threshold),
     };
 
-    logger.warn('Alert triggered', alertData);
+    logger.warn('Alert triggered', alertData satisfies LogMeta);
 
     // Broadcast alert to admin clients
     this.broadcastToAdmins('alert_triggered', alertData);
@@ -2977,7 +3041,14 @@ export class ChatSocketServer extends EventEmitter {
 
   private configureAlert(config: AlertConfig): void {
     this.alertConfigs.set(config.metric, config);
-    logger.info('Alert configured', config);
+    logger.info('Alert configured', {
+      metric: config.metric,
+      threshold: config.threshold,
+      comparison: config.comparison,
+      duration: config.duration,
+      enabled: config.enabled,
+      lastTriggered: config.lastTriggered,
+    } satisfies LogMeta);
   }
 
   private getAlertHistory(): Record<string, unknown>[] {
@@ -3098,12 +3169,10 @@ export class ChatSocketServer extends EventEmitter {
     }
 
     // Clean up performance metrics
-    for (const [metric, values] of this.performanceMetrics) {
-      const recentValues = values.filter(v => now - v < maxAge);
-      if (recentValues.length === 0) {
+    for (const [metric, data] of this.performanceMetrics) {
+      // Remove metrics that haven't been updated in maxAge
+      if (now - data.lastUpdated > maxAge) {
         this.performanceMetrics.delete(metric);
-      } else {
-        this.performanceMetrics.set(metric, recentValues);
       }
     }
   }
@@ -3127,7 +3196,7 @@ export class ChatSocketServer extends EventEmitter {
               conversationId: message.conversationId,
               role: message.role,
               content: message.content,
-              metadata: message.metadata || {},
+              metadata: (message.metadata || {}) as any,
             },
           });
 
@@ -3135,7 +3204,7 @@ export class ChatSocketServer extends EventEmitter {
         } catch (error) {
           logger.error('Failed to process retry queue message', {
             conversationId: message.conversationId,
-            error: error.message,
+            error: error instanceof Error ? error.message : 'Unknown error',
           });
         }
       }
@@ -3153,7 +3222,8 @@ export class ChatSocketServer extends EventEmitter {
           await this.shutdown();
           process.exit(0);
         } catch (error) {
-          logger.error('Shutdown failed', { error: error.message });
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          logger.error('Shutdown failed', { error: errorMessage });
           process.exit(1);
         }
       });
@@ -3165,7 +3235,9 @@ export class ChatSocketServer extends EventEmitter {
       try {
         await this.shutdown();
       } catch (shutdownError) {
-        logger.error('Emergency shutdown failed', { error: shutdownError.message });
+        const errorMessage =
+          shutdownError instanceof Error ? shutdownError.message : 'Unknown error';
+        logger.error('Emergency shutdown failed', { error: errorMessage });
       }
       process.exit(1);
     });
@@ -3176,7 +3248,9 @@ export class ChatSocketServer extends EventEmitter {
       try {
         await this.shutdown();
       } catch (shutdownError) {
-        logger.error('Emergency shutdown failed', { error: shutdownError.message });
+        const errorMessage =
+          shutdownError instanceof Error ? shutdownError.message : 'Unknown error';
+        logger.error('Emergency shutdown failed', { error: errorMessage });
       }
       process.exit(1);
     });
@@ -3252,7 +3326,10 @@ export class ChatSocketServer extends EventEmitter {
     this.adminSetRateLimit({ ...target, maxMessages, windowMs });
   }
 
-  public getPerformanceMetrics(): Map<string, number[]> {
+  public getPerformanceMetrics(): Map<
+    string,
+    { count: number; totalTime: number; averageTime: number; lastUpdated: number }
+  > {
     return new Map(this.performanceMetrics);
   }
 

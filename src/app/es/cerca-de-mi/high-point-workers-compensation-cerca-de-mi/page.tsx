@@ -1,7 +1,7 @@
-import HighPointWorkersCompensationNearMeClient from './HighPointWorkersCompensationNearMeClient';
+import HighPointWorkersCompensationCercaDeMiClient from './HighPointWorkersCompensationNearMeClient';
 
-export default function HighPointWorkersCompensationNearMePage() {
-  return <HighPointWorkersCompensationNearMeClient />;
+export default function HighPointWorkersCompensationCercaDeMiPage() {
+  return <HighPointWorkersCompensationCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Compensación Laboral Cerca de Mi en High Point, NC | Vasquez Law Firm',

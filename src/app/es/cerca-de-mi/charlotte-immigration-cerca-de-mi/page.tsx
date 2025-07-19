@@ -1,7 +1,7 @@
-import charlotteimmigrationNearMeClient from './charlotteimmigrationNearMeClient';
+import CharlotteImmigrationCercaDeMiClient from './charlotteimmigrationNearMeClient';
 
-export default function charlotteimmigrationNearMePage() {
-  return <charlotteimmigrationNearMeClient />;
+export default function CharlotteImmigrationCercaDeMiPage() {
+  return <CharlotteImmigrationCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Inmigración Cerca de Mi en Charlotte, NC | Vasquez Law Firm',

@@ -1,7 +1,7 @@
-import WinstonSalemduiNearMeClient from './WinstonSalemduiNearMeClient';
+import WinstonSalemDuiCercaDeMiClient from './WinstonSalemduiNearMeClient';
 
-export default function WinstonSalemduiNearMePage() {
-  return <WinstonSalemduiNearMeClient />;
+export default function WinstonSalemDuiCercaDeMiPage() {
+  return <WinstonSalemDuiCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de DUI Cerca de Mi en Winston-Salem, NC | Vasquez Law Firm',

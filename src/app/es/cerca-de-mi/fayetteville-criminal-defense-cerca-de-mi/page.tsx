@@ -1,7 +1,7 @@
-import fayettevilleCriminalDefenseNearMeClient from './fayettevilleCriminalDefenseNearMeClient';
+import FayettevilleCriminalDefenseCercaDeMiClient from './fayettevilleCriminalDefenseNearMeClient';
 
-export default function fayettevilleCriminalDefenseNearMePage() {
-  return <fayettevilleCriminalDefenseNearMeClient />;
+export default function FayettevilleCriminalDefenseCercaDeMiPage() {
+  return <FayettevilleCriminalDefenseCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Defensa Criminal Cerca de Mi en Fayetteville, NC | Vasquez Law Firm',

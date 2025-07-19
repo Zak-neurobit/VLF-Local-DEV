@@ -1,7 +1,7 @@
-import greensuoroSpanishSpeakingNearMeClient from './greensuoroSpanishSpeakingNearMeClient';
+import GreensboroSpanishSpeakingCercaDeMiClient from './greensuoroSpanishSpeakingNearMeClient';
 
-export default function greensuoroSpanishSpeakingNearMePage() {
-  return <greensuoroSpanishSpeakingNearMeClient />;
+export default function GreensboroSpanishSpeakingCercaDeMiPage() {
+  return <GreensboroSpanishSpeakingCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado que Habla Español Cerca de Mi en Greensboro, NC | Vasquez Law Firm',

@@ -7,6 +7,53 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+// Define job data interfaces
+interface CallAnalysisJobData {
+  callId: string;
+  transcript: string;
+  metadata: Record<string, unknown>;
+}
+
+interface TranscriptionJobData {
+  callId: string;
+  recordingUrl: string;
+}
+
+interface NotificationJobData {
+  type: string;
+  callId?: string;
+  analysis?: unknown;
+}
+
+interface EmailJobData {
+  to: string | string[];
+  subject: string;
+  template: string;
+  data: Record<string, unknown>;
+  cc?: string | string[];
+  bcc?: string | string[];
+  attachments?: Array<{
+    filename: string;
+    content?: Buffer | string;
+    path?: string;
+    contentType?: string;
+  }>;
+  replyTo?: string;
+  priority?: 'high' | 'normal' | 'low';
+  headers?: Record<string, string>;
+}
+
+interface SEOJobData {
+  type: 'analyze-post' | 'generate-sitemap' | 'check-backlinks';
+  data?: unknown;
+}
+
+interface DocumentJobData {
+  type: 'generate-pdf' | 'extract-text' | 'translate';
+  documentId: string;
+  data?: unknown;
+}
+
 // Shared Redis configuration for all queues
 const redisConfig = {
   host: process.env.REDIS_HOST || 'localhost',
@@ -87,7 +134,7 @@ export const documentQueue = new Bull('document-processing', {
 });
 
 // Queue processors
-callAnalysisQueue.process(async job => {
+callAnalysisQueue.process(async (job: Bull.Job<CallAnalysisJobData>) => {
   const start = Date.now();
   const { callId, transcript, metadata } = job.data;
 
@@ -130,6 +177,7 @@ export async function handleWebhookAsync(event: {
   metadata?: Record<string, unknown>;
   leadId?: string;
   data?: Record<string, unknown>;
+  recordingUrl?: string;
 }) {
   // Instead of processing synchronously, queue the job
   switch (event.type) {
@@ -154,7 +202,7 @@ export async function handleWebhookAsync(event: {
 }
 
 // Email queue processor
-emailQueue.process(async job => {
+emailQueue.process(async (job: Bull.Job<EmailJobData>) => {
   const emailData = job.data;
 
   try {
@@ -168,7 +216,7 @@ emailQueue.process(async job => {
     });
 
     // Send email
-    const result = await emailService.sendEmail(emailData);
+    const result = await emailService.sendEmail(emailData as any);
 
     if (!result.success) {
       throw new Error(result.error || 'Email send failed');
@@ -182,7 +230,7 @@ emailQueue.process(async job => {
 });
 
 // SEO queue processor
-seoQueue.process(async job => {
+seoQueue.process(async (job: Bull.Job<SEOJobData>) => {
   const { type, data } = job.data;
 
   try {
@@ -205,7 +253,7 @@ seoQueue.process(async job => {
 });
 
 // Document queue processor
-documentQueue.process(async job => {
+documentQueue.process(async (job: Bull.Job<DocumentJobData>) => {
   const { type, documentId, data } = job.data;
 
   try {
@@ -248,7 +296,10 @@ export function setupQueueMonitoring() {
     });
 
     queue.on('failed', (job, err) => {
-      logger.error(`Job ${job.id} in queue ${name} failed:`, err);
+      logger.error(`Job ${job.id} in queue ${name} failed:`, {
+        error: err.message,
+        stack: err.stack,
+      });
     });
 
     queue.on('stalled', job => {

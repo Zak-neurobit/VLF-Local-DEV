@@ -1,7 +1,7 @@
-import wilmingtonimmigrationNearMeClient from './wilmingtonimmigrationNearMeClient';
+import WilmingtonImmigrationCercaDeMiClient from './wilmingtonimmigrationNearMeClient';
 
-export default function wilmingtonimmigrationNearMePage() {
-  return <wilmingtonimmigrationNearMeClient />;
+export default function WilmingtonImmigrationCercaDeMiPage() {
+  return <WilmingtonImmigrationCercaDeMiClient />;
 }
 
 export const metadata = {

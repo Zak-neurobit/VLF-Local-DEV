@@ -10,12 +10,26 @@ import { createCrewLogger } from '@/lib/crews/log-execution';
 import { AIOverviewOptimizationAgent } from './ai-overview-optimization-agent';
 
 export interface PersonalInjuryConsultationRequest {
-  incidentType: 'car_accident' | 'motorcycle_accident' | 'truck_accident' | 'slip_fall' | 'medical_malpractice' | 'product_liability' | 'workplace_accident' | 'wrongful_death' | 'other';
+  incidentType:
+    | 'car_accident'
+    | 'motorcycle_accident'
+    | 'truck_accident'
+    | 'slip_fall'
+    | 'medical_malpractice'
+    | 'product_liability'
+    | 'workplace_accident'
+    | 'wrongful_death'
+    | 'other';
   incidentDate: string;
   incidentLocation: string; // NC county/city
   injuryType: 'minor' | 'moderate' | 'severe' | 'catastrophic' | 'wrongful_death';
   medicalTreatment: 'none' | 'emergency_only' | 'ongoing' | 'surgery_required' | 'long_term_care';
-  liabilityClarity: 'clear_other_fault' | 'mostly_other_fault' | 'disputed' | 'shared_fault' | 'unclear';
+  liabilityClarity:
+    | 'clear_other_fault'
+    | 'mostly_other_fault'
+    | 'disputed'
+    | 'shared_fault'
+    | 'unclear';
   insuranceCoverage: {
     hasInsurance: boolean;
     otherPartyInsured: boolean;
@@ -118,7 +132,14 @@ export class PersonalInjurySpecialistAgent {
         const aiOverviewContent = await this.generateAIOverviewContent(request, viabilityAnalysis);
 
         // Step 6: Compile assessment
-        const assessment = this.compileAssessment(request, viabilityAnalysis, valueAnalysis, ncLawAnalysis, strategy, aiOverviewContent);
+        const assessment = this.compileAssessment(
+          request,
+          viabilityAnalysis,
+          valueAnalysis,
+          ncLawAnalysis,
+          strategy,
+          aiOverviewContent
+        );
 
         logger.info('Personal injury case assessment completed', {
           caseViability: assessment.caseViability,
@@ -326,7 +347,11 @@ RESPONSE FORMAT (JSON):
     }
   }
 
-  private async developStrategy(request: PersonalInjuryConsultationRequest, viability: any, ncLaw: any): Promise<any> {
+  private async developStrategy(
+    request: PersonalInjuryConsultationRequest,
+    viability: any,
+    ncLaw: any
+  ): Promise<any> {
     const strategyPrompt = `Develop comprehensive strategy for this NC personal injury case:
 
 CASE PROFILE:
@@ -377,7 +402,10 @@ RESPONSE FORMAT (JSON):
     }
   }
 
-  private async generateAIOverviewContent(request: PersonalInjuryConsultationRequest, viability: any): Promise<any> {
+  private async generateAIOverviewContent(
+    request: PersonalInjuryConsultationRequest,
+    viability: any
+  ): Promise<any> {
     const contentPrompt = `Generate AI Overview optimized content for NC personal injury case:
 
 CASE TYPE: ${request.incidentType}
@@ -478,13 +506,13 @@ RESPONSE FORMAT (JSON):
       },
       timeline: {
         statute_deadline: statuteDeadline.toDateString(),
-        recommended_filing: this.calculateRecommendedFiling(incidentDate, viability.recommended_action),
+        recommended_filing: this.calculateRecommendedFiling(
+          incidentDate,
+          viability.recommended_action
+        ),
         estimated_resolution: this.estimateResolution(viability.settlement_likelihood),
       },
-      risks_challenges: [
-        ...(viability.key_weaknesses || []),
-        ...(value.value_detractors || []),
-      ],
+      risks_challenges: [...(viability.key_weaknesses || []), ...(value.value_detractors || [])],
       settlement_likelihood: viability.settlement_likelihood,
       trial_readiness: this.assessTrialReadiness(viability, value),
       attorney_recommendation: attorneyRecommendation,
@@ -551,11 +579,11 @@ Maintain highest ethical standards and provide accurate legal analysis specific 
   private calculateRecommendedFiling(incidentDate: Date, urgency: string): string {
     const recommended = new Date(incidentDate);
     if (urgency === 'immediate') {
-      recommended.setMonths(recommended.getMonth() + 1);
+      recommended.setMonth(recommended.getMonth() + 1);
     } else if (urgency === 'soon') {
-      recommended.setMonths(recommended.getMonth() + 3);
+      recommended.setMonth(recommended.getMonth() + 3);
     } else {
-      recommended.setMonths(recommended.getMonth() + 6);
+      recommended.setMonth(recommended.getMonth() + 6);
     }
     return recommended.toDateString();
   }
@@ -593,7 +621,7 @@ Maintain highest ethical standards and provide accurate legal analysis specific 
       settlement_likelihood: 'moderate',
       key_strengths: ['Clear incident documentation', 'Medical treatment'],
       key_weaknesses: ['Contributory negligence question'],
-      statute_deadline: new Date(Date.now() + (3 * 365 * 24 * 60 * 60 * 1000)).toDateString(),
+      statute_deadline: new Date(Date.now() + 3 * 365 * 24 * 60 * 60 * 1000).toDateString(),
       recommended_action: 'soon',
     };
   }
@@ -621,7 +649,8 @@ Maintain highest ethical standards and provide accurate legal analysis specific 
 
   private getFallbackNCLaw(request: PersonalInjuryConsultationRequest) {
     return {
-      contributory_negligence_analysis: 'Must evaluate any client fault under pure contributory negligence rule',
+      contributory_negligence_analysis:
+        'Must evaluate any client fault under pure contributory negligence rule',
       applicable_nc_statutes: ['N.C.G.S. § 1-52', 'N.C.G.S. § 20-279.21'],
       relevant_case_law: ['Coleman v. Cooper', 'Hairston v. Alexander Tank'],
       defenses_available: ['Contributory negligence', 'Sudden emergency'],
@@ -633,9 +662,17 @@ Maintain highest ethical standards and provide accurate legal analysis specific 
 
   private getFallbackStrategy(request: PersonalInjuryConsultationRequest) {
     return {
-      immediate_actions: ['Preserve evidence', 'Continue medical treatment', 'Avoid recorded statements'],
+      immediate_actions: [
+        'Preserve evidence',
+        'Continue medical treatment',
+        'Avoid recorded statements',
+      ],
       evidence_preservation: ['Obtain police report', 'Photograph scene', 'Contact witnesses'],
-      medical_strategy: ['Complete treatment', 'Follow doctor recommendations', 'Document injuries'],
+      medical_strategy: [
+        'Complete treatment',
+        'Follow doctor recommendations',
+        'Document injuries',
+      ],
       insurance_approach: ['Report claim', 'Review coverage', 'Avoid quick settlements'],
       expert_witnesses: ['Medical expert', 'Accident reconstruction'],
       discovery_priorities: ['Medical records', 'Employment records', 'Defendant information'],

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { paymentLogger } from '@/lib/pino-logger';
+import { logger } from '@/lib/logger';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Loader2, Bot, User, Phone, Calendar, Globe } from 'lucide-react';
 import { toast } from 'react-hot-toast';
@@ -194,7 +194,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
         }, 1000);
       }
     } catch (error) {
-      paymentLogger.error('Error sending message:', error);
+      logger.error('Error sending message', { error });
 
       // Add error message
       const errorMessage: Message = {
@@ -380,9 +380,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                       pageUrl: window.location.href,
                     }),
                   }).catch(error => {
-                    logger.error('Failed to play AI response audio', {
-                      error: error instanceof Error ? error.message : String(error),
-                    });
+                    logger.error('Failed to play AI response audio', { error });
                   });
 
                   // Send the pending message

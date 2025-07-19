@@ -1,32 +1,22 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Line, Bar, Doughnut } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+// Removed chart imports - need to install react-chartjs-2
+// Removed chart.js imports - need to install chart.js
 
 // Register ChartJS components
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend
-);
+// Chart.js registration disabled - need to install dependencies
+// ChartJS.register(
+//   CategoryScale,
+//   LinearScale,
+//   PointElement,
+//   LineElement,
+//   BarElement,
+//   ArcElement,
+//   Title,
+//   Tooltip,
+//   Legend
+// );
 
 interface VoiceAgentDashboardProps {
   className?: string;
@@ -38,7 +28,9 @@ export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashbo
   const [selectedPeriod, setSelectedPeriod] = useState<'daily' | 'weekly' | 'monthly'>('weekly');
   const [selectedAgent, setSelectedAgent] = useState<string>('all');
   const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'overview' | 'quality' | 'insights' | 'recommendations'>('overview');
+  const [activeTab, setActiveTab] = useState<
+    'overview' | 'quality' | 'insights' | 'recommendations'
+  >('overview');
 
   useEffect(() => {
     fetchAnalytics();
@@ -91,7 +83,7 @@ export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashbo
           <div className="flex space-x-3">
             <select
               value={selectedPeriod}
-              onChange={(e) => setSelectedPeriod(e.target.value as any)}
+              onChange={e => setSelectedPeriod(e.target.value as any)}
               className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="daily">Daily</option>
@@ -100,7 +92,7 @@ export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashbo
             </select>
             <select
               value={selectedAgent}
-              onChange={(e) => setSelectedAgent(e.target.value)}
+              onChange={e => setSelectedAgent(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="all">All Agents</option>
@@ -115,7 +107,7 @@ export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashbo
 
         {/* Tabs */}
         <div className="flex space-x-1">
-          {['overview', 'quality', 'insights', 'recommendations'].map((tab) => (
+          {['overview', 'quality', 'insights', 'recommendations'].map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab as any)}
@@ -136,7 +128,9 @@ export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashbo
         {activeTab === 'overview' && <OverviewTab analytics={analytics} />}
         {activeTab === 'quality' && <QualityTab analytics={analytics} />}
         {activeTab === 'insights' && <InsightsTab analytics={analytics} />}
-        {activeTab === 'recommendations' && <RecommendationsTab recommendations={recommendations} />}
+        {activeTab === 'recommendations' && (
+          <RecommendationsTab recommendations={recommendations} />
+        )}
       </div>
     </div>
   );
@@ -212,12 +206,18 @@ function OverviewTab({ analytics }: { analytics: any }) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-gray-50 p-6 rounded-lg">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Call Volume by Hour</h3>
-          <Bar data={callVolumeData} options={{ responsive: true, maintainAspectRatio: false }} height={300} />
+          {/* Chart disabled - need to install react-chartjs-2 */}
+          <div className="h-[300px] flex items-center justify-center bg-gray-100 rounded">
+            <span className="text-gray-500">Chart visualization available after setup</span>
+          </div>
         </div>
 
         <div className="bg-gray-50 p-6 rounded-lg">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Caller Emotional States</h3>
-          <Doughnut data={emotionalDistributionData} options={{ responsive: true, maintainAspectRatio: false }} height={300} />
+          {/* Chart disabled - need to install react-chartjs-2 */}
+          <div className="h-[300px] flex items-center justify-center bg-gray-100 rounded">
+            <span className="text-gray-500">Chart visualization available after setup</span>
+          </div>
         </div>
       </div>
 
@@ -273,9 +273,11 @@ function OverviewTab({ analytics }: { analytics: any }) {
 // Quality Tab Component
 function QualityTab({ analytics }: { analytics: any }) {
   const performanceTrendData = {
-    labels: analytics.performanceTrend.slice(-7).map((t: any) => 
-      new Date(t.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-    ),
+    labels: analytics.performanceTrend
+      .slice(-7)
+      .map((t: any) =>
+        new Date(t.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+      ),
     datasets: [
       {
         label: 'Quality Score',
@@ -306,17 +308,16 @@ function QualityTab({ analytics }: { analytics: any }) {
           value={`${analytics.averageCompletionRate.toFixed(1)}%`}
           icon="✅"
         />
-        <MetricCard
-          title="Response Time"
-          value={`${analytics.averageResponseTime}ms`}
-          icon="⚡"
-        />
+        <MetricCard title="Response Time" value={`${analytics.averageResponseTime}ms`} icon="⚡" />
       </div>
 
       {/* Performance Trend */}
       <div className="bg-gray-50 p-6 rounded-lg">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">7-Day Quality Trend</h3>
-        <Line data={performanceTrendData} options={{ responsive: true, maintainAspectRatio: false }} height={300} />
+        {/* Chart disabled - need to install react-chartjs-2 */}
+        <div className="h-[300px] flex items-center justify-center bg-gray-100 rounded">
+          <span className="text-gray-500">Chart visualization available after setup</span>
+        </div>
       </div>
 
       {/* Top Issues */}
@@ -360,7 +361,9 @@ function InsightsTab({ analytics }: { analytics: any }) {
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-lg font-semibold text-gray-900">{intent.percentage.toFixed(1)}%</p>
+                <p className="text-lg font-semibold text-gray-900">
+                  {intent.percentage.toFixed(1)}%
+                </p>
               </div>
             </div>
           ))}
@@ -377,12 +380,16 @@ function InsightsTab({ analytics }: { analytics: any }) {
               .slice(0, 5)
               .map((hour: any) => (
                 <div key={hour.hour} className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">{hour.hour}:00 - {hour.hour + 1}:00</span>
+                  <span className="text-sm text-gray-600">
+                    {hour.hour}:00 - {hour.hour + 1}:00
+                  </span>
                   <div className="flex items-center space-x-2">
                     <div className="w-32 bg-gray-200 rounded-full h-2">
                       <div
                         className="bg-blue-600 h-2 rounded-full"
-                        style={{ width: `${(hour.count / Math.max(...analytics.callVolumeByHour.map((h: any) => h.count))) * 100}%` }}
+                        style={{
+                          width: `${(hour.count / Math.max(...analytics.callVolumeByHour.map((h: any) => h.count))) * 100}%`,
+                        }}
                       ></div>
                     </div>
                     <span className="text-sm font-medium text-gray-900">{hour.count}</span>
@@ -402,7 +409,9 @@ function InsightsTab({ analytics }: { analytics: any }) {
                   <div className="w-32 bg-gray-200 rounded-full h-2">
                     <div
                       className="bg-green-600 h-2 rounded-full"
-                      style={{ width: `${(day.count / Math.max(...analytics.callVolumeByDay.map((d: any) => d.count))) * 100}%` }}
+                      style={{
+                        width: `${(day.count / Math.max(...analytics.callVolumeByDay.map((d: any) => d.count))) * 100}%`,
+                      }}
                     ></div>
                   </div>
                   <span className="text-sm font-medium text-gray-900">{day.count}</span>
@@ -418,9 +427,16 @@ function InsightsTab({ analytics }: { analytics: any }) {
         <h3 className="text-lg font-semibold text-blue-900 mb-3">Key Insights</h3>
         <ul className="space-y-2 text-sm text-blue-800">
           <li>• Peak call volume occurs between {findPeakHour(analytics.callVolumeByHour)}:00</li>
-          <li>• {analytics.emotionalDistribution.anxious.toFixed(0)}% of callers show signs of anxiety</li>
-          <li>• Average call resolution takes {Math.round(analytics.averageCallDuration / 60)} minutes</li>
-          <li>• {analytics.topIntents[0]?.intent} is the most common call reason at {analytics.topIntents[0]?.percentage.toFixed(0)}%</li>
+          <li>
+            • {analytics.emotionalDistribution.anxious.toFixed(0)}% of callers show signs of anxiety
+          </li>
+          <li>
+            • Average call resolution takes {Math.round(analytics.averageCallDuration / 60)} minutes
+          </li>
+          <li>
+            • {analytics.topIntents[0]?.intent} is the most common call reason at{' '}
+            {analytics.topIntents[0]?.percentage.toFixed(0)}%
+          </li>
         </ul>
       </div>
     </div>
@@ -448,7 +464,9 @@ function RecommendationsTab({ recommendations }: { recommendations: any }) {
       {/* Agent-Specific Recommendations */}
       {recommendations.agentRecommendations.length > 0 && (
         <div className="bg-gray-50 p-6 rounded-lg">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Agent Training Recommendations</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Agent Training Recommendations
+          </h3>
           <div className="space-y-4">
             {recommendations.agentRecommendations.map((agent: any) => (
               <div key={agent.agentId} className="border-l-4 border-blue-500 pl-4">
@@ -463,7 +481,10 @@ function RecommendationsTab({ recommendations }: { recommendations: any }) {
                     <p className="text-xs font-medium text-gray-500">Recommended Training:</p>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {agent.trainingNeeded.map((training: string, index: number) => (
-                        <span key={index} className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                        <span
+                          key={index}
+                          className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded"
+                        >
                           {training}
                         </span>
                       ))}
@@ -479,7 +500,9 @@ function RecommendationsTab({ recommendations }: { recommendations: any }) {
       {/* Conversation Patterns */}
       {recommendations.conversationPatterns.length > 0 && (
         <div className="bg-gray-50 p-6 rounded-lg">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Conversation Pattern Insights</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Conversation Pattern Insights
+          </h3>
           <div className="space-y-3">
             {recommendations.conversationPatterns.map((pattern: any, index: number) => (
               <div key={index} className="flex items-start space-x-3">
@@ -541,16 +564,22 @@ function RecommendationCard({ recommendation }: { recommendation: any }) {
       <div className="flex items-start justify-between mb-2">
         <h4 className="font-medium text-gray-900">{recommendation.recommendation}</h4>
         <div className="flex space-x-2">
-          <span className={`text-xs px-2 py-1 rounded ${impactColors[recommendation.impact]}`}>
+          <span
+            className={`text-xs px-2 py-1 rounded ${impactColors[recommendation.impact as keyof typeof impactColors]}`}
+          >
             {recommendation.impact} impact
           </span>
-          <span className={`text-xs px-2 py-1 rounded ${effortColors[recommendation.effort]}`}>
+          <span
+            className={`text-xs px-2 py-1 rounded ${effortColors[recommendation.effort as keyof typeof effortColors]}`}
+          >
             {recommendation.effort} effort
           </span>
         </div>
       </div>
       <div className="text-sm text-gray-600">
-        <p>{recommendation.metric}: {recommendation.currentValue} → {recommendation.targetValue}</p>
+        <p>
+          {recommendation.metric}: {recommendation.currentValue} → {recommendation.targetValue}
+        </p>
       </div>
     </div>
   );
@@ -570,6 +599,6 @@ function getIntentIcon(intent: string): string {
 }
 
 function findPeakHour(hourData: any[]): string {
-  const peak = hourData.reduce((max, curr) => curr.count > max.count ? curr : max);
+  const peak = hourData.reduce((max, curr) => (curr.count > max.count ? curr : max));
   return `${peak.hour}:00 - ${peak.hour + 1}:00`;
 }

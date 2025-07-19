@@ -1,7 +1,7 @@
-import wilmingtonCarAccidentsNearMeClient from './wilmingtonCarAccidentsNearMeClient';
+import WilmingtonCarAccidentsCercaDeMiClient from './wilmingtonCarAccidentsNearMeClient';
 
-export default function wilmingtonCarAccidentsNearMePage() {
-  return <wilmingtonCarAccidentsNearMeClient />;
+export default function WilmingtonCarAccidentsCercaDeMiPage() {
+  return <WilmingtonCarAccidentsCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Accidentes de Auto Cerca de Mi en Wilmington, NC | Vasquez Law Firm',

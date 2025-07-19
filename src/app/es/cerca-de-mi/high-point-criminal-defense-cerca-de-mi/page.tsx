@@ -1,7 +1,7 @@
-import HighPointCriminalDefenseNearMeClient from './HighPointCriminalDefenseNearMeClient';
+import HighPointCriminalDefenseCercaDeMiClient from './HighPointCriminalDefenseNearMeClient';
 
-export default function HighPointCriminalDefenseNearMePage() {
-  return <HighPointCriminalDefenseNearMeClient />;
+export default function HighPointCriminalDefenseCercaDeMiPage() {
+  return <HighPointCriminalDefenseCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Defensa Criminal Cerca de Mi en High Point, NC | Vasquez Law Firm',

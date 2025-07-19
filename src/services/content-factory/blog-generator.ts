@@ -2,7 +2,7 @@ import { componentLogger as logger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 import OpenAI from 'openai';
 import { GoogleNewsAPI } from '@/lib/external-apis/google-news';
-import { KeywordResearchAPI } from '@/lib/external-apis/keyword-research';
+import { KeywordResearchAPI, type KeywordData } from '@/lib/external-apis/keyword-research';
 import { TrendAnalyzer } from '@/lib/external-apis/trend-analyzer';
 
 export interface BlogGenerationOptions {
@@ -215,7 +215,11 @@ export class BlogContentGenerator {
 
       // Translate if needed
       if (options.language === 'es') {
-        return await this.translateContent(content, metadata, faqSection);
+        return await this.translateContent(
+          content,
+          { metaDescription: content.metaDescription || '', excerpt: content.excerpt || '' },
+          faqSection
+        );
       }
 
       return {
@@ -270,13 +274,16 @@ export class BlogContentGenerator {
   /**
    * Generate content outline
    */
-  private async generateOutline(options: BlogGenerationOptions, keywordData: {
-    primaryKeyword: string;
-    secondaryKeywords: string[];
-    searchVolume: number;
-    difficulty: number;
-    relatedQuestions: string[];
-  }) {
+  private async generateOutline(
+    options: BlogGenerationOptions,
+    keywordData: {
+      primary: KeywordData;
+      related: KeywordData[];
+      longTail: KeywordData[];
+      competitor: KeywordData[];
+      all: string[];
+    }
+  ) {
     const prompt = `Create a comprehensive blog post outline for: "${options.topic}"
 
 Practice Area: ${options.practiceArea}
@@ -306,13 +313,17 @@ Format the outline with clear hierarchy using H2 and H3 tags.`;
   /**
    * Generate main content
    */
-  private async generateContent(options: BlogGenerationOptions, outline: string, keywordData: {
-    primaryKeyword: string;
-    secondaryKeywords: string[];
-    searchVolume: number;
-    difficulty: number;
-    relatedQuestions: string[];
-  }) {
+  private async generateContent(
+    options: BlogGenerationOptions,
+    outline: string,
+    keywordData: {
+      primary: KeywordData;
+      related: KeywordData[];
+      longTail: KeywordData[];
+      competitor: KeywordData[];
+      all: string[];
+    }
+  ) {
     const prompt = `Write a comprehensive, SEO-optimized blog post based on this outline:
 
 ${outline}
@@ -429,13 +440,16 @@ Add these optimizations while maintaining the flow and quality.`;
   /**
    * Generate FAQ section
    */
-  private async generateFAQSection(options: BlogGenerationOptions, keywordData: {
-    primaryKeyword: string;
-    secondaryKeywords: string[];
-    searchVolume: number;
-    difficulty: number;
-    relatedQuestions: string[];
-  }) {
+  private async generateFAQSection(
+    options: BlogGenerationOptions,
+    keywordData: {
+      primary: KeywordData;
+      related: KeywordData[];
+      longTail: KeywordData[];
+      competitor: KeywordData[];
+      all: string[];
+    }
+  ) {
     const faqPrompt = `Generate 5-7 frequently asked questions and detailed answers about "${options.topic}" for ${options.practiceArea} law in North Carolina.
 
 Include:
@@ -464,11 +478,11 @@ Format as JSON array with 'question' and 'answer' keys.`;
     content: { title: string; content: string },
     options: BlogGenerationOptions,
     keywordData: {
-      primaryKeyword: string;
-      secondaryKeywords: string[];
-      searchVolume: number;
-      difficulty: number;
-      relatedQuestions: string[];
+      primary: KeywordData;
+      related: KeywordData[];
+      longTail: KeywordData[];
+      competitor: KeywordData[];
+      all: string[];
     }
   ) {
     return {
@@ -482,7 +496,7 @@ Format as JSON array with 'question' and 'answer' keys.`;
    * Translate content to Spanish
    */
   private async translateContent(
-    content: { title: string; content: string },
+    content: { title: string; content: string; slug?: string },
     metadata: { metaDescription: string; excerpt: string },
     faqSection: Array<{ question: string; answer: string }>
   ) {
@@ -504,7 +518,7 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
     return {
       ...content,
       ...translated,
-      slug: content.slug + '-es',
+      slug: (content.slug || 'blog-post') + '-es',
     };
   }
 
@@ -557,6 +571,9 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
     source: string;
     views?: number;
     shares?: number;
+    publishedAt?: string | Date;
+    trending?: boolean;
+    location?: string;
   }): number {
     let score = 50; // Base score
 
@@ -596,10 +613,12 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
     if (text.includes('north carolina') || text.includes(' nc ')) score += 20;
 
     // Recency bonus
-    const hoursOld = (Date.now() - new Date(newsItem.publishedAt).getTime()) / (1000 * 60 * 60);
-    if (hoursOld < 24) score += 25;
-    else if (hoursOld < 72) score += 15;
-    else if (hoursOld < 168) score += 5;
+    if (newsItem.publishedAt) {
+      const hoursOld = (Date.now() - new Date(newsItem.publishedAt).getTime()) / (1000 * 60 * 60);
+      if (hoursOld < 24) score += 25;
+      else if (hoursOld < 72) score += 15;
+      else if (hoursOld < 168) score += 5;
+    }
 
     return Math.min(score, 100);
   }

@@ -1,7 +1,7 @@
-import fayettevilleduiNearMeClient from './fayettevilleduiNearMeClient';
+import FayettevilleDuiCercaDeMiClient from './fayettevilleduiNearMeClient';
 
-export default function fayettevilleduiNearMePage() {
-  return <fayettevilleduiNearMeClient />;
+export default function FayettevilleDuiCercaDeMiPage() {
+  return <FayettevilleDuiCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de DUI Cerca de Mi en Fayetteville, NC | Vasquez Law Firm',

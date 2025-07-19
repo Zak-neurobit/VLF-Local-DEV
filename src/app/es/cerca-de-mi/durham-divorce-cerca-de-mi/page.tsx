@@ -1,7 +1,7 @@
-import durhamdivorceNearMeClient from './durhamdivorceNearMeClient';
+import DurhamDivorceCercaDeMiClient from './durhamdivorceNearMeClient';
 
-export default function durhamdivorceNearMePage() {
-  return <durhamdivorceNearMeClient />;
+export default function DurhamDivorceCercaDeMiPage() {
+  return <DurhamDivorceCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Divorcio Cerca de Mi en Durham, NC | Vasquez Law Firm',

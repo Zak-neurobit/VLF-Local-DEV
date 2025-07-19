@@ -27,27 +27,7 @@ export const metadata: Metadata = {
   },
 };
 
-const raleighOfficeSchema = generateLocalBusinessSchema({
-  name: 'Bufete de Abogados Vasquez - Raleigh',
-  address: {
-    streetAddress: '4801 Glenwood Avenue',
-    addressLocality: 'Raleigh',
-    addressRegion: 'NC',
-    postalCode: '27603',
-    addressCountry: 'US',
-  },
-  phone: '(919) 555-0123',
-  description:
-    'Bufete de abogados en Raleigh, NC especializado en inmigración, lesiones personales, defensa criminal y derecho familiar.',
-  languages: ['es', 'en'],
-  servicesOffered: [
-    'Inmigración',
-    'Lesiones Personales',
-    'Defensa Criminal',
-    'Derecho Familiar',
-    'Compensación Laboral',
-  ],
-});
+const raleighOfficeSchema = generateLocalBusinessSchema('raleigh');
 
 export default function RaleighPage() {
   return (

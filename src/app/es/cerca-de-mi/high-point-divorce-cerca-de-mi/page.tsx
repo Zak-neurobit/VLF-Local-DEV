@@ -1,7 +1,7 @@
-import HighPointdivorceNearMeClient from './HighPointdivorceNearMeClient';
+import HighPointDivorceCercaDeMiClient from './HighPointdivorceNearMeClient';
 
-export default function HighPointdivorceNearMePage() {
-  return <HighPointdivorceNearMeClient />;
+export default function HighPointDivorceCercaDeMiPage() {
+  return <HighPointDivorceCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Divorcio Cerca de Mi en High Point, NC | Vasquez Law Firm',

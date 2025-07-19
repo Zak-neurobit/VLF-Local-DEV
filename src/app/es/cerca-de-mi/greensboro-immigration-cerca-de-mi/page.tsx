@@ -1,7 +1,7 @@
-import greensuoroimmigrationNearMeClient from './greensuoroimmigrationNearMeClient';
+import GreensboroImmigrationCercaDeMiClient from './greensuoroimmigrationNearMeClient';
 
-export default function greensuoroimmigrationNearMePage() {
-  return <greensuoroimmigrationNearMeClient />;
+export default function GreensboroImmigrationCercaDeMiPage() {
+  return <GreensboroImmigrationCercaDeMiClient />;
 }
 
 export const metadata = {

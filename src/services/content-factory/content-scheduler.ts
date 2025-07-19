@@ -464,15 +464,31 @@ export class ContentScheduler {
     // Get content
     const content = await this.getContentDetails(contentId, contentType);
 
+    if (!content) {
+      logger.warn('Content not found for publication', { contentId, contentType });
+      return;
+    }
+
     switch (platform) {
       case 'website':
         // Already published via status update
         break;
       case 'facebook':
-        await this.publishToFacebook(content);
+        await this.publishToFacebook({
+          id: content.id,
+          title: content.title,
+          content: content.content || '',
+          excerpt: (content as any).excerpt || undefined,
+          featuredImage: (content as any).featuredImage || undefined,
+        });
         break;
       case 'twitter':
-        await this.publishToTwitter(content);
+        await this.publishToTwitter({
+          id: content.id,
+          title: content.title,
+          content: content.content || '',
+          excerpt: (content as any).excerpt || undefined,
+        });
         break;
       case 'linkedin':
         await syndicator.postToLinkedIn(content as any);
@@ -525,6 +541,7 @@ export class ContentScheduler {
     contentId: string;
     contentType: string;
     platforms: string[];
+    scheduledFor?: Date;
   }) {
     const prisma = getPrismaClient();
 
@@ -533,7 +550,7 @@ export class ContentScheduler {
         contentId: publication.contentId,
         contentType: publication.contentType,
         platforms: publication.platforms,
-        scheduledFor: publication.scheduledFor,
+        scheduledFor: publication.scheduledFor || new Date(),
         publishedAt: new Date(),
         metadata: {
           scheduleId: publication.id,

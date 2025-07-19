@@ -1,7 +1,7 @@
-import carySpanishSpeakingNearMeClient from './carySpanishSpeakingNearMeClient';
+import CarySpanishSpeakingCercaDeMiClient from './carySpanishSpeakingNearMeClient';
 
-export default function carySpanishSpeakingNearMePage() {
-  return <carySpanishSpeakingNearMeClient />;
+export default function CarySpanishSpeakingCercaDeMiPage() {
+  return <CarySpanishSpeakingCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado que Habla Español Cerca de Mi en Cary, NC | Vasquez Law Firm',

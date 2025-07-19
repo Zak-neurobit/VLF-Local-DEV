@@ -72,19 +72,21 @@ export default function ClientPortalLayout({ children }: { children: React.React
         <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 md:pt-16">
           <div className="flex-1 flex flex-col bg-white border-r">
             <nav className="flex-1 px-4 py-4 space-y-1">
-              {navigation.map((item) => {
-                const isActive = pathname === item.href || 
-                  (item.href !== '/portal' && pathname.startsWith(item.href));
-                
+              {navigation.map(item => {
+                const isActive =
+                  pathname === item.href ||
+                  (item.href !== '/portal' && pathname?.startsWith(item.href));
+
                 return (
                   <Link
                     key={item.name}
                     href={item.href}
                     className={`
                       group flex items-center px-3 py-2 text-sm font-medium rounded-md
-                      ${isActive
-                        ? 'bg-blue-50 text-blue-700'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      ${
+                        isActive
+                          ? 'bg-blue-50 text-blue-700'
+                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                       }
                     `}
                   >
@@ -113,13 +115,17 @@ export default function ClientPortalLayout({ children }: { children: React.React
         {/* Mobile menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden fixed inset-0 z-40 pt-16">
-            <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setIsMobileMenuOpen(false)} />
+            <div
+              className="fixed inset-0 bg-gray-600 bg-opacity-75"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
             <nav className="relative flex-1 flex flex-col max-w-xs w-full bg-white">
               <div className="px-4 py-4 space-y-1">
-                {navigation.map((item) => {
-                  const isActive = pathname === item.href || 
-                    (item.href !== '/portal' && pathname.startsWith(item.href));
-                  
+                {navigation.map(item => {
+                  const isActive =
+                    pathname === item.href ||
+                    (item.href !== '/portal' && pathname?.startsWith(item.href));
+
                   return (
                     <Link
                       key={item.name}
@@ -127,9 +133,10 @@ export default function ClientPortalLayout({ children }: { children: React.React
                       onClick={() => setIsMobileMenuOpen(false)}
                       className={`
                         group flex items-center px-3 py-2 text-sm font-medium rounded-md
-                        ${isActive
-                          ? 'bg-blue-50 text-blue-700'
-                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                        ${
+                          isActive
+                            ? 'bg-blue-50 text-blue-700'
+                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                         }
                       `}
                     >
@@ -146,9 +153,7 @@ export default function ClientPortalLayout({ children }: { children: React.React
         {/* Main content */}
         <div className="flex-1 md:pl-64">
           <main className="flex-1 pt-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-              {children}
-            </div>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">{children}</div>
           </main>
         </div>
       </div>

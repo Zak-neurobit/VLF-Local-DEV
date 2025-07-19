@@ -1,7 +1,7 @@
-import charlotteCriminalDefenseNearMeClient from './charlotteCriminalDefenseNearMeClient';
+import CharlotteCriminalDefenseCercaDeMiClient from './charlotteCriminalDefenseNearMeClient';
 
-export default function charlotteCriminalDefenseNearMePage() {
-  return <charlotteCriminalDefenseNearMeClient />;
+export default function CharlotteCriminalDefenseCercaDeMiPage() {
+  return <CharlotteCriminalDefenseCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Defensa Criminal Cerca de Mi en Charlotte, NC | Vasquez Law Firm',

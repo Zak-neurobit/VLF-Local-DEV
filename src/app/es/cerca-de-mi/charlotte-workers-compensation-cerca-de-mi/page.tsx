@@ -1,7 +1,7 @@
-import charlotteWorkersCompensationNearMeClient from './charlotteWorkersCompensationNearMeClient';
+import CharlotteWorkersCompensationCercaDeMiClient from './charlotteWorkersCompensationNearMeClient';
 
-export default function charlotteWorkersCompensationNearMePage() {
-  return <charlotteWorkersCompensationNearMeClient />;
+export default function CharlotteWorkersCompensationCercaDeMiPage() {
+  return <CharlotteWorkersCompensationCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Compensación Laboral Cerca de Mi en Charlotte, NC | Vasquez Law Firm',

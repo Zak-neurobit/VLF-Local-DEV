@@ -98,7 +98,19 @@ class EnhancedSEO {
           },
         ],
         locale,
-        type: ogType as string,
+        type: (ogType || 'website') as
+          | 'article'
+          | 'website'
+          | 'profile'
+          | 'book'
+          | 'music.song'
+          | 'music.album'
+          | 'music.playlist'
+          | 'music.radio_station'
+          | 'video.movie'
+          | 'video.episode'
+          | 'video.tv_show'
+          | 'video.other',
       },
       twitter: {
         card: 'summary_large_image',
@@ -208,17 +220,13 @@ class EnhancedSEO {
         addressCountry: config.address.country,
       },
       attorney:
-        config.attorneys?.map((attorney) => ({
+        config.attorneys?.map(attorney => ({
           '@type': 'Person',
           name: attorney.name,
-          jobTitle: attorney.title,
-          description: attorney.description,
-          image: attorney.image,
-          url: attorney.url,
+          jobTitle: attorney.role,
+          ...(attorney.url && { url: attorney.url }),
         })) || [],
-      practiceArea: config.practiceAreas || [],
-      priceRange: config.priceRange || '$$$',
-      openingHours: config.hours || [],
+      ...(config.areasOfPractice && { practiceArea: config.areasOfPractice }),
     };
   }
 
@@ -235,11 +243,11 @@ class EnhancedSEO {
     return {
       '@context': 'https://schema.org',
       '@type': 'Article',
-      headline: config.title,
+      headline: config.headline,
       description: config.description,
       image: config.image,
-      datePublished: config.publishDate,
-      dateModified: config.modifiedDate,
+      datePublished: config.datePublished,
+      dateModified: config.dateModified,
       author: {
         '@type': 'Person',
         name: config.author.name,
@@ -400,7 +408,7 @@ export default EnhancedSEO;
 export const seoUtils = {
   // Generate meta tags for dynamic content
   generateDynamicMeta: (template: string, data: Record<string, unknown>): string => {
-    return template.replace(/\{\{(\w+)\}\}/g, (match, key) => data[key] || match);
+    return template.replace(/\{\{(\w+)\}\}/g, (match, key) => String(data[key] || match));
   },
 
   // Validate structured data

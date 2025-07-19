@@ -1,7 +1,7 @@
-import fayettevilleWorkersCompensationNearMeClient from './fayettevilleWorkersCompensationNearMeClient';
+import FayettevilleWorkersCompensationCercaDeMiClient from './fayettevilleWorkersCompensationNearMeClient';
 
-export default function fayettevilleWorkersCompensationNearMePage() {
-  return <fayettevilleWorkersCompensationNearMeClient />;
+export default function FayettevilleWorkersCompensationCercaDeMiPage() {
+  return <FayettevilleWorkersCompensationCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Compensación Laboral Cerca de Mi en Fayetteville, NC | Vasquez Law Firm',

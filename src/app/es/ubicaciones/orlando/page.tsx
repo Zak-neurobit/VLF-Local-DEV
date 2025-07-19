@@ -27,27 +27,7 @@ export const metadata: Metadata = {
   },
 };
 
-const orlandoOfficeSchema = generateLocalBusinessSchema({
-  name: 'Bufete de Abogados Vasquez - Orlando',
-  address: {
-    streetAddress: '1000 Legion Place',
-    addressLocality: 'Orlando',
-    addressRegion: 'FL',
-    postalCode: '32803',
-    addressCountry: 'US',
-  },
-  phone: '(407) 555-0123',
-  description:
-    'Bufete de abogados en Orlando, FL especializado en inmigración, lesiones personales, defensa criminal y derecho familiar.',
-  languages: ['es', 'en'],
-  servicesOffered: [
-    'Inmigración',
-    'Lesiones Personales',
-    'Defensa Criminal',
-    'Derecho Familiar',
-    'Compensación Laboral',
-  ],
-});
+const orlandoOfficeSchema = generateLocalBusinessSchema('orlando');
 
 export default function OrlandoPage() {
   return (

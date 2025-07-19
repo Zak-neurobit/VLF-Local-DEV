@@ -1,7 +1,7 @@
-import HighPointimmigrationNearMeClient from './HighPointimmigrationNearMeClient';
+import HighPointImmigrationCercaDeMiClient from './HighPointimmigrationNearMeClient';
 
-export default function HighPointimmigrationNearMePage() {
-  return <HighPointimmigrationNearMeClient />;
+export default function HighPointImmigrationCercaDeMiPage() {
+  return <HighPointImmigrationCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Inmigración Cerca de Mi en High Point, NC | Vasquez Law Firm',

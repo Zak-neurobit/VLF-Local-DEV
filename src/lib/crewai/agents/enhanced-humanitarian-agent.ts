@@ -4,6 +4,17 @@ import { APISafetyWrapper } from '@/lib/api-safety';
 import { logger } from '@/lib/logger';
 import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
+interface HumanitarianAnalysis {
+  summary: string;
+  eligibility: boolean;
+  requirements: string[];
+  timeline: string;
+  risks: string[];
+  strategy: string[];
+  documents: string[];
+  nextSteps: string[];
+}
+
 export class EnhancedHumanitarianAgent {
   private model: ChatOpenAI | null = null;
   private safetyWrapper: APISafetyWrapper;
@@ -193,12 +204,7 @@ Current Safety: ${params.currentSafety}`;
     const mockData = {
       asylum: {
         summary: 'Asylum claim requires immediate attention to one-year deadline',
-        recommendations: [
-          'File I-589 within one year of entry',
-          'Document persecution thoroughly',
-          'Gather country condition evidence',
-          'Consider withholding/CAT as alternatives',
-        ],
+        eligibility: true,
         requirements: [
           'Persecution on account of protected ground',
           'Unable/unwilling to return due to persecution',
@@ -206,26 +212,34 @@ Current Safety: ${params.currentSafety}`;
           'File within one year (or show exception)',
         ],
         timeline: 'Affirmative: 2-5 years; Defensive: varies by court',
+        risks: [
+          'One-year deadline is strictly enforced',
+          'Inconsistencies can destroy credibility',
+          'Particular social group must be carefully defined',
+        ],
+        strategy: [
+          'File I-589 within one year of entry',
+          'Document persecution thoroughly',
+          'Gather country condition evidence',
+          'Consider withholding/CAT as alternatives',
+        ],
+        documents: [
+          'I-589 application',
+          'Country condition evidence',
+          'Personal statement',
+          'Witness affidavits',
+          'Medical/psychological evaluations',
+        ],
         nextSteps: [
           'Complete I-589 with detailed statement',
           'Gather corroborating evidence',
           'Research country conditions',
           'Prepare for credibility assessment',
         ],
-        warnings: [
-          'One-year deadline is strictly enforced',
-          'Inconsistencies can destroy credibility',
-          'Particular social group must be carefully defined',
-        ],
       },
       uvisa: {
         summary: 'U visa eligibility appears strong with proper documentation',
-        recommendations: [
-          'Obtain law enforcement certification promptly',
-          'Document substantial physical/mental harm',
-          'Request bona fide determination',
-          'Include qualifying family members',
-        ],
+        eligibility: true,
         requirements: [
           'Victim of qualifying crime',
           'Suffered substantial harm',
@@ -233,26 +247,34 @@ Current Safety: ${params.currentSafety}`;
           'Admissible to US (or waiver available)',
         ],
         timeline: 'Current wait: 5+ years; Bona fide determination: 6-8 months',
+        risks: [
+          'Certification expires after 6 months',
+          'Wait times are extremely long',
+          'Must maintain cooperation throughout',
+        ],
+        strategy: [
+          'Obtain law enforcement certification promptly',
+          'Document substantial physical/mental harm',
+          'Request bona fide determination',
+          'Include qualifying family members',
+        ],
+        documents: [
+          'I-918 petition',
+          'I-918B law enforcement certification',
+          'Medical records',
+          'Police reports',
+          'Personal statement',
+        ],
         nextSteps: [
           'Get I-918B certified within 6 months',
           'Gather evidence of harm',
           'Document cooperation with law enforcement',
           'Prepare personal statement',
         ],
-        warnings: [
-          'Certification expires after 6 months',
-          'Wait times are extremely long',
-          'Must maintain cooperation throughout',
-        ],
       },
       tps: {
         summary: 'TPS eligibility depends on country designation and presence',
-        recommendations: [
-          'File during initial registration period',
-          'Document continuous presence carefully',
-          'Apply for employment authorization',
-          'Re-register every designation period',
-        ],
+        eligibility: true,
         requirements: [
           'National of designated country',
           'Continuously present since designation date',
@@ -260,26 +282,34 @@ Current Safety: ${params.currentSafety}`;
           'Not subject to criminal bars',
         ],
         timeline: 'Initial: 6-9 months; Re-registration: 3-5 months',
+        risks: [
+          'Must re-register each period',
+          'Late filing requires good cause',
+          'Certain crimes are permanent bars',
+        ],
+        strategy: [
+          'File during initial registration period',
+          'Document continuous presence carefully',
+          'Apply for employment authorization',
+          'Re-register every designation period',
+        ],
+        documents: [
+          'I-821 TPS application',
+          'I-765 work permit application',
+          'Proof of nationality',
+          'Evidence of continuous presence',
+          'Identity documents',
+        ],
         nextSteps: [
           'Confirm country designation status',
           'Gather presence documentation',
           'Complete I-821 and I-765',
           'Prepare biometrics fee',
         ],
-        warnings: [
-          'Must re-register each period',
-          'Late filing requires good cause',
-          'Certain crimes are permanent bars',
-        ],
       },
       vawa: {
         summary: 'VAWA self-petition provides path independent of abuser',
-        recommendations: [
-          'Document abuse comprehensively',
-          'Ensure safety before filing',
-          'Use any credible evidence standard',
-          'Request prima facie determination',
-        ],
+        eligibility: true,
         requirements: [
           'Marriage/relationship to USC/LPR abuser',
           'Abuse occurred',
@@ -287,16 +317,29 @@ Current Safety: ${params.currentSafety}`;
           'Resided with abuser',
         ],
         timeline: 'I-360 processing: 16-21 months',
+        risks: [
+          'Confidentiality protections crucial',
+          'Cannot contact abuser',
+          'Address any criminal issues',
+        ],
+        strategy: [
+          'Document abuse comprehensively',
+          'Ensure safety before filing',
+          'Use any credible evidence standard',
+          'Request prima facie determination',
+        ],
+        documents: [
+          'I-360 self-petition',
+          'Evidence of relationship',
+          'Evidence of abuse',
+          'Police/medical records',
+          'Personal declaration',
+        ],
         nextSteps: [
           'Gather evidence of relationship',
           'Document abuse incidents',
           'Obtain police/medical records',
           'Prepare detailed declaration',
-        ],
-        warnings: [
-          'Confidentiality protections crucial',
-          'Cannot contact abuser',
-          'Address any criminal issues',
         ],
       },
     };
@@ -315,15 +358,18 @@ Current Safety: ${params.currentSafety}`;
       .filter(item => item.length > 0);
   }
 
-  private parseResponse(content: string): unknown {
+  private parseResponse(content: string): HumanitarianAnalysis {
     const sections = content.split('\n\n');
     return {
       summary: sections[0] || '',
-      recommendations: this.extractListItems(sections[1] || ''),
+      eligibility:
+        content.toLowerCase().includes('eligible') || content.toLowerCase().includes('qualify'),
       requirements: this.extractListItems(sections[2] || ''),
       timeline: sections[3] || '',
+      risks: this.extractListItems(sections[5] || ''),
+      strategy: this.extractListItems(sections[1] || ''),
+      documents: this.extractListItems(sections[6] || ''),
       nextSteps: this.extractListItems(sections[4] || ''),
-      warnings: this.extractListItems(sections[5] || ''),
     };
   }
 }

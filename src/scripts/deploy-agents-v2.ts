@@ -512,10 +512,9 @@ class EnhancedAgentDeployer {
     const unhealthyAgents = healthChecks.filter(h => !h.healthy);
 
     if (unhealthyAgents.length > 0) {
-      logger.warn(
-        `⚠️  ${unhealthyAgents.length} agents are unhealthy:`,
-        unhealthyAgents.map(a => a.agent)
-      );
+      logger.warn(`⚠️  ${unhealthyAgents.length} agents are unhealthy:`, {
+        unhealthyAgents: unhealthyAgents.map(a => a.agent),
+      });
     } else {
       logger.info('✅ All agents are healthy');
     }

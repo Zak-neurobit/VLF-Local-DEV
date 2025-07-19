@@ -1,7 +1,7 @@
-import durhamimmigrationNearMeClient from './durhamimmigrationNearMeClient';
+import DurhamImmigrationCercaDeMiClient from './durhamimmigrationNearMeClient';
 
-export default function durhamimmigrationNearMePage() {
-  return <durhamimmigrationNearMeClient />;
+export default function DurhamImmigrationCercaDeMiPage() {
+  return <DurhamImmigrationCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Inmigración Cerca de Mi en Durham, NC | Vasquez Law Firm',

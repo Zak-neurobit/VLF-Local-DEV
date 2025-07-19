@@ -27,25 +27,17 @@ export interface APILogger {
     payload?: unknown,
     headers?: Record<string, unknown>
   ): string;
-  response(
-    requestId: string,
-    statusCode: number,
-    responseTime: number,
-    data?: unknown,
-    error?: unknown
-  ): void;
+  response(requestId: string, statusCode: number, responseTime: number, data?: unknown): void;
   error(requestId: string, error: unknown, retry?: number): void;
   info(message: string, meta?: unknown): void;
-  warn?(message: string, meta?: unknown): void;
+  warn(message: string, meta?: unknown): void;
 }
 
 export interface SecurityLogger {
   accessGranted(resource: string, userId?: string): void;
   accessDenied(resource: string, userId?: string, reason?: string): void;
-  authFailure?(username: string, reason: string, ipAddress?: string, metadata?: LogMeta): void;
-  authSuccess?(userId: string, method: string, metadata?: LogMeta): void;
-  authenticationFailure?(method: string, identifier?: string, reason?: string): void;
-  authenticationSuccess?(method: string, userId: string): void;
+  authenticationFailure(method: string, identifier?: string, reason?: string): void;
+  authenticationSuccess(method: string, userId: string): void;
   suspiciousActivity(activity: string, metadata?: unknown): void;
   ipBlocked?(ipAddress: string, reason: string, duration?: number): void;
   rateLimitExceeded?(identifier: string, limit: number, window: string): void;
@@ -82,24 +74,18 @@ export interface PerformanceLogger {
   rerender(componentName: string, reason: string, changes?: unknown): void;
   propChange(componentName: string, propName: string, oldValue: unknown, newValue: unknown): void;
   info(message: string, meta?: unknown): void;
-  warn?(message: string, meta?: unknown): void;
+  warn(message: string, meta?: unknown): void;
   error(message: string, meta?: unknown): void;
 }
 
 export interface WSLogger {
   connection(clientId: string, metadata?: unknown): void;
-  disconnection?(clientId: string, reason: string, duration: number): void;
-  disconnect?(clientId: string, reason?: string, metadata?: LogMeta): void;
-  message(
-    clientId: string,
-    type: string,
-    direction: 'inbound' | 'outbound' | 'in' | 'out',
-    size: number
-  ): void;
+  disconnection(clientId: string, reason: string, duration: number): void;
+  message(clientId: string, type: string, direction: 'inbound' | 'outbound', size: number): void;
   error(clientId: string, error: unknown): void;
   broadcast?(eventType: string, recipientCount: number, metadata?: LogMeta): void;
-  info?(clientId: string, message: string): void;
-  warn?(clientId: string, message: string): void;
+  info(clientId: string, message: string): void;
+  warn(clientId: string, message: string): void;
 }
 
 export interface DBLogger {

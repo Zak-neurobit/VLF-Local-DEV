@@ -7,6 +7,7 @@ import {
   safeQuerySelectorAll,
   safeReplaceChild,
 } from '@/lib/dom/safe-dom';
+import type { NetworkInformation } from '@/types/network';
 
 // Network status detection for adaptive loading
 export type ConnectionType = '4g' | '3g' | '2g' | 'slow-2g' | 'offline';
@@ -17,8 +18,8 @@ export function useNetworkStatus() {
   const [saveData, setSaveData] = useState(false);
 
   useEffect(() => {
-    if ('connection' in navigator) {
-      const connection = (navigator as Navigator & { connection?: NetworkInformation }).connection;
+    if ('connection' in navigator && navigator.connection) {
+      const connection = navigator.connection as NetworkInformation;
 
       const updateConnectionStatus = () => {
         setEffectiveType(connection.effectiveType || '4g');

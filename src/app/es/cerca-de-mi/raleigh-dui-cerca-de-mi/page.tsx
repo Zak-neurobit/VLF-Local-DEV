@@ -1,7 +1,7 @@
-import raleighduiNearMeClient from './raleighduiNearMeClient';
+import RaleighDuiCercaDeMiClient from './raleighduiNearMeClient';
 
-export default function raleighduiNearMePage() {
-  return <raleighduiNearMeClient />;
+export default function RaleighDuiCercaDeMiPage() {
+  return <RaleighDuiCercaDeMiClient />;
 }
 
 export const metadata = {

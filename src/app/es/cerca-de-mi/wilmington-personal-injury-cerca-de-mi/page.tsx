@@ -1,7 +1,7 @@
-import wilmingtonPersonalInjuryNearMeClient from './wilmingtonPersonalInjuryNearMeClient';
+import WilmingtonPersonalInjuryCercaDeMiClient from './wilmingtonPersonalInjuryNearMeClient';
 
-export default function wilmingtonPersonalInjuryNearMePage() {
-  return <wilmingtonPersonalInjuryNearMeClient />;
+export default function WilmingtonPersonalInjuryCercaDeMiPage() {
+  return <WilmingtonPersonalInjuryCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Lesiones Personales Cerca de Mi en Wilmington, NC | Vasquez Law Firm',

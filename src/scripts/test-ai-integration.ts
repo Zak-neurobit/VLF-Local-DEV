@@ -80,7 +80,7 @@ class AIIntegrationTester {
           history: [],
           conversationContext: [],
           metadata: {
-            source: 'test' as const,
+            source: 'web_chat' as const,
           },
         };
 
@@ -179,7 +179,7 @@ class AIIntegrationTester {
           sessionId: `test-${Date.now()}`,
           language: 'en',
           history: [],
-          metadata: { source: 'test' },
+          metadata: { source: 'web_chat' as const },
         };
 
         const response = await orchestrator.routeMessage(testCase.message, context);
@@ -256,7 +256,7 @@ class AIIntegrationTester {
             timestamp: h.timestamp,
           })),
           metadata: {
-            source: 'test' as const,
+            source: 'web_chat' as const,
           },
         };
 

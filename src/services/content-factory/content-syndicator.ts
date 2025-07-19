@@ -1,4 +1,5 @@
 import { componentLogger as logger } from '@/lib/logger';
+import { Prisma } from '@prisma/client';
 import axios from 'axios';
 import { LinkedInAPI } from '@/lib/external-apis/linkedin';
 import { MediumAPI } from '@/lib/external-apis/medium';
@@ -669,7 +670,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
         status: result.success ? 'success' : 'failed',
         url: result.url,
         externalId: result.postId || result.shareId || result.releaseId,
-        metrics: result as Prisma.JsonObject,
+        metrics: JSON.parse(JSON.stringify(result)),
         syndicatedAt: new Date(),
       },
     });

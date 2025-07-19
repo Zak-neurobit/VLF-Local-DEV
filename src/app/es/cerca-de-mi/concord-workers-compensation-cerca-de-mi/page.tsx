@@ -1,7 +1,7 @@
-import concordWorkersCompensationNearMeClient from './concordWorkersCompensationNearMeClient';
+import ConcordWorkersCompensationCercaDeMiClient from './concordWorkersCompensationNearMeClient';
 
-export default function concordWorkersCompensationNearMePage() {
-  return <concordWorkersCompensationNearMeClient />;
+export default function ConcordWorkersCompensationCercaDeMiPage() {
+  return <ConcordWorkersCompensationCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Compensación Laboral Cerca de Mi en Concord, NC | Vasquez Law Firm',

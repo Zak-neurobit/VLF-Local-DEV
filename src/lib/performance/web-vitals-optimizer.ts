@@ -138,7 +138,9 @@ class WebVitalsOptimizer {
       const observer = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           if (entry.name === 'first-input') {
-            const fid = (entry as PerformanceEventTiming & { processingStart: number }).processingStart - entry.startTime;
+            const fid =
+              (entry as PerformanceEventTiming & { processingStart: number }).processingStart -
+              entry.startTime;
             this.metrics.fid = fid;
             this.logMetric('FID', fid);
           }
@@ -156,7 +158,10 @@ class WebVitalsOptimizer {
       let clsValue = 0;
       const observer = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
-          const layoutShiftEntry = entry as PerformanceEntry & { hadRecentInput?: boolean; value?: number };
+          const layoutShiftEntry = entry as PerformanceEntry & {
+            hadRecentInput?: boolean;
+            value?: number;
+          };
           if (!layoutShiftEntry.hadRecentInput) {
             clsValue += layoutShiftEntry.value || 0;
           }
@@ -211,7 +216,7 @@ class WebVitalsOptimizer {
     logger.info(`Web Vitals - ${name}`, {
       value: Math.round(value),
       rating,
-      timestamp: Date.now(),
+      timestamp: String(Date.now()),
     });
   }
 

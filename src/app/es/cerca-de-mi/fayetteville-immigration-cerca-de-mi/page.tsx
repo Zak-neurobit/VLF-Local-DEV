@@ -1,7 +1,7 @@
-import fayettevilleimmigrationNearMeClient from './fayettevilleimmigrationNearMeClient';
+import FayettevilleImmigrationCercaDeMiClient from './fayettevilleimmigrationNearMeClient';
 
-export default function fayettevilleimmigrationNearMePage() {
-  return <fayettevilleimmigrationNearMeClient />;
+export default function FayettevilleImmigrationCercaDeMiPage() {
+  return <FayettevilleImmigrationCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Inmigración Cerca de Mi en Fayetteville, NC | Vasquez Law Firm',

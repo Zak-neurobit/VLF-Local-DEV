@@ -332,7 +332,7 @@ export class SEODominationOrchestrator {
             break;
         }
       } catch (error) {
-        logger.error(`Failed to deploy: ${opp.action}`, error);
+        logger.error(`Failed to deploy: ${opp.action}`, { error });
       }
     }
   }
@@ -671,7 +671,7 @@ export class SEODominationOrchestrator {
           agentName: 'SEODominationOrchestrator',
           executionType: 'performance_report',
           input: {},
-          output: metrics as Prisma.JsonObject,
+          output: metrics as any,
           duration: 0,
           success: true,
           metadata: {
@@ -770,7 +770,7 @@ export class SEODominationOrchestrator {
       data: {
         agentName: 'SEODominationOrchestrator',
         executionType: 'agent_collaboration',
-        input: synergy as Prisma.JsonObject,
+        input: synergy as any,
         output: { status: 'executed' },
         duration: 1000,
         success: true,

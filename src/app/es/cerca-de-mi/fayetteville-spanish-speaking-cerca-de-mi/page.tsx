@@ -1,7 +1,7 @@
-import fayettevilleSpanishSpeakingNearMeClient from './fayettevilleSpanishSpeakingNearMeClient';
+import FayettevilleSpanishSpeakingCercaDeMiClient from './fayettevilleSpanishSpeakingNearMeClient';
 
-export default function fayettevilleSpanishSpeakingNearMePage() {
-  return <fayettevilleSpanishSpeakingNearMeClient />;
+export default function FayettevilleSpanishSpeakingCercaDeMiPage() {
+  return <FayettevilleSpanishSpeakingCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado que Habla Español Cerca de Mi en Fayetteville, NC | Vasquez Law Firm',

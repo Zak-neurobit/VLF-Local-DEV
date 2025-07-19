@@ -638,7 +638,8 @@ export class EnhancedChatService extends EventEmitter {
     };
 
     const langSuggestions = suggestions[language as 'en' | 'es'] || suggestions.en;
-    return langSuggestions[intent] || langSuggestions.general;
+    const intentSuggestions = langSuggestions[intent as keyof typeof langSuggestions];
+    return intentSuggestions || langSuggestions.general;
   }
 
   /**

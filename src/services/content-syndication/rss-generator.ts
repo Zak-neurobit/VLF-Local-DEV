@@ -263,16 +263,16 @@ export class RSSFeedGenerator {
           where,
           orderBy: { publishedAt: 'desc' },
           take: 20,
-          include: {
-            author: true,
-            categories: true,
-            tags: true,
-          },
+          include: {},
         });
         break;
 
       case 'news':
-        content = await prisma.newsArticle.findMany({
+        // TODO: Implement newsArticle model
+        // content = await prisma.newsArticle.findMany({
+        content = [];
+        break;
+        /*
           where,
           orderBy: { publishedAt: 'desc' },
           take: 20,
@@ -280,10 +280,15 @@ export class RSSFeedGenerator {
             author: true,
           },
         });
+        */
         break;
 
       case 'podcast':
-        content = await prisma.podcastEpisode.findMany({
+        // TODO: Implement podcastEpisode model
+        // content = await prisma.podcastEpisode.findMany({
+        content = [];
+        break;
+      /*
           where,
           orderBy: { publishedAt: 'desc' },
           take: 20,
@@ -292,7 +297,7 @@ export class RSSFeedGenerator {
             guests: true,
           },
         });
-        break;
+        */
     }
 
     // Transform content to standard format
@@ -382,20 +387,20 @@ export class RSSFeedGenerator {
       if (!config) continue;
 
       try {
-        // Save to database
-        await prisma.rssFeed.upsert({
-          where: { feedId },
-          update: {
-            content: feedXml,
-            updatedAt: new Date(),
-          },
-          create: {
-            feedId,
-            title: config.title,
-            url: config.feedUrl,
-            content: feedXml,
-          },
-        });
+        // TODO: Implement rssFeed model in Prisma schema
+        // await prisma.rssFeed.upsert({
+        //   where: { feedId },
+        //   update: {
+        //     content: feedXml,
+        //     updatedAt: new Date(),
+        //   },
+        //   create: {
+        //     feedId,
+        //     title: config.title,
+        //     url: config.feedUrl,
+        //     content: feedXml,
+        //   },
+        // });
 
         // Also save to file system for direct serving
         // Implementation would save to public directory

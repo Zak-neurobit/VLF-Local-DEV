@@ -1,7 +1,7 @@
-import fayettevillePersonalInjuryNearMeClient from './fayettevillePersonalInjuryNearMeClient';
+import FayettevillePersonalInjuryCercaDeMiClient from './fayettevillePersonalInjuryNearMeClient';
 
-export default function fayettevillePersonalInjuryNearMePage() {
-  return <fayettevillePersonalInjuryNearMeClient />;
+export default function FayettevillePersonalInjuryCercaDeMiPage() {
+  return <FayettevillePersonalInjuryCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Lesiones Personales Cerca de Mi en Fayetteville, NC | Vasquez Law Firm',

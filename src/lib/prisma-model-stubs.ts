@@ -204,3 +204,51 @@ export const reviewPlatformStubs = {
     return [];
   },
 };
+
+// Stub for scheduledSyndication model operations
+export const scheduledSyndicationStubs = {
+  findMany: async (args?: any) => {
+    logger.warn('Using stub for prisma.scheduledSyndication.findMany - model not implemented');
+    return [];
+  },
+  create: async (args?: any) => {
+    logger.warn('Using stub for prisma.scheduledSyndication.create - model not implemented');
+    return { id: 'stub-id', status: 'scheduled', ...args?.data };
+  },
+  update: async (args?: any) => {
+    logger.warn('Using stub for prisma.scheduledSyndication.update - model not implemented');
+    return { id: args?.where?.id || 'stub-id', ...args?.data };
+  },
+  deleteMany: async (args?: any) => {
+    logger.warn('Using stub for prisma.scheduledSyndication.deleteMany - model not implemented');
+    return { count: 0 };
+  },
+};
+
+// Stub for syndicationHistory model operations
+export const syndicationHistoryStubs = {
+  findMany: async (args?: any) => {
+    logger.warn('Using stub for prisma.syndicationHistory.findMany - model not implemented');
+    return [];
+  },
+  create: async (args?: any) => {
+    logger.warn('Using stub for prisma.syndicationHistory.create - model not implemented');
+    return { id: 'stub-id', ...args?.data };
+  },
+  deleteMany: async (args?: any) => {
+    logger.warn('Using stub for prisma.syndicationHistory.deleteMany - model not implemented');
+    return { count: 0 };
+  },
+};
+
+// Stub for syndicationReport model operations
+export const syndicationReportStubs = {
+  create: async (args?: any) => {
+    logger.warn('Using stub for prisma.syndicationReport.create - model not implemented');
+    return { id: 'stub-id', ...args?.data };
+  },
+  findMany: async (args?: any) => {
+    logger.warn('Using stub for prisma.syndicationReport.findMany - model not implemented');
+    return [];
+  },
+};

@@ -1,7 +1,7 @@
-import charlotteSpanishSpeakingNearMeClient from './charlotteSpanishSpeakingNearMeClient';
+import CharlotteSpanishSpeakingCercaDeMiClient from './charlotteSpanishSpeakingNearMeClient';
 
-export default function charlotteSpanishSpeakingNearMePage() {
-  return <charlotteSpanishSpeakingNearMeClient />;
+export default function CharlotteSpanishSpeakingCercaDeMiPage() {
+  return <CharlotteSpanishSpeakingCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado que Habla Español Cerca de Mi en Charlotte, NC | Vasquez Law Firm',

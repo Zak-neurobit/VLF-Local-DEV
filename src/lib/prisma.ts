@@ -75,6 +75,34 @@ class MockPrismaClient {
     dbLogger.debug('MockPrisma disconnect called (no-op)');
   }
 
+  conversation = {
+    findUnique: async () => null,
+    findMany: async () => [],
+    create: async (args: { data: Record<string, unknown> }) => ({
+      id: 'mock-' + Date.now(),
+      ...args.data,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }),
+  };
+
+  message = {
+    create: async (args: { data: Record<string, unknown> }) => ({
+      id: 'mock-' + Date.now(),
+      ...args.data,
+      createdAt: new Date(),
+    }),
+    findMany: async () => [],
+  };
+
+  callAnalysis = {
+    create: async (args: { data: Record<string, unknown> }) => ({
+      id: 'mock-' + Date.now(),
+      ...args.data,
+      createdAt: new Date(),
+    }),
+  };
+
   async $transaction(fn: (client: MockPrismaClient) => Promise<unknown>) {
     return fn(this);
   }
@@ -82,6 +110,8 @@ class MockPrismaClient {
   $on() {
     // No-op for mock
   }
+
+  $queryRaw = async () => [];
 }
 
 const prismaClientSingleton = () => {

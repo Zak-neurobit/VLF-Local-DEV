@@ -122,6 +122,30 @@ class SafePrismaClient {
     };
   }
 
+  get scheduledSyndication() {
+    if (this.isAvailable && this.realClient) {
+      return (this.realClient as any).scheduledSyndication;
+    }
+    const { scheduledSyndicationStubs } = require('./prisma-model-stubs');
+    return scheduledSyndicationStubs;
+  }
+
+  get syndicationHistory() {
+    if (this.isAvailable && this.realClient) {
+      return (this.realClient as any).syndicationHistory;
+    }
+    const { syndicationHistoryStubs } = require('./prisma-model-stubs');
+    return syndicationHistoryStubs;
+  }
+
+  get syndicationReport() {
+    if (this.isAvailable && this.realClient) {
+      return (this.realClient as any).syndicationReport;
+    }
+    const { syndicationReportStubs } = require('./prisma-model-stubs');
+    return syndicationReportStubs;
+  }
+
   // Add other models as needed
   async $connect() {
     if (this.realClient) {
@@ -137,7 +161,7 @@ class SafePrismaClient {
 
   async $transaction<T>(fn: (client: PrismaClient) => Promise<T>): Promise<T> {
     if (this.realClient) {
-      return this.realClient.$transaction(fn);
+      return this.realClient.$transaction(fn as any) as Promise<T>;
     }
     // Mock transaction
     return fn(this as unknown as PrismaClient);

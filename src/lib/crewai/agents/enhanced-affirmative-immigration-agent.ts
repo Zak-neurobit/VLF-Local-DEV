@@ -4,6 +4,15 @@ import { APISafetyWrapper } from '@/lib/api-safety';
 import { logger } from '@/lib/logger';
 import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
+interface AffirmativeAnalysis {
+  summary: string;
+  recommendations: string[];
+  requirements: string[];
+  timeline: string;
+  nextSteps: string[];
+  warnings: string[];
+}
+
 export class EnhancedAffirmativeImmigrationAgent {
   private model: ChatOpenAI | null = null;
   private safetyWrapper: APISafetyWrapper;
@@ -256,7 +265,7 @@ Unlawful Presence: ${params.unlawfulPresence || 'None'}`;
       .filter(item => item.length > 0);
   }
 
-  private parseResponse(content: string): unknown {
+  private parseResponse(content: string): AffirmativeAnalysis {
     const sections = content.split('\n\n');
     return {
       summary: sections[0] || '',

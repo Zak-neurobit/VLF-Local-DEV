@@ -145,7 +145,7 @@ export async function deployRegionalAgents() {
 
       logger.info(`✅ ${agent.name} deployed successfully`);
     } catch (error) {
-      logger.error(`Failed to deploy ${agent.name}`, error);
+      logger.error(`Failed to deploy ${agent.name}`, errorToLogMeta(error));
     }
   }
 }

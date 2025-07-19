@@ -1,7 +1,7 @@
-import WinstonSalemimmigrationNearMeClient from './WinstonSalemimmigrationNearMeClient';
+import WinstonSalemImmigrationCercaDeMiClient from './WinstonSalemimmigrationNearMeClient';
 
-export default function WinstonSalemimmigrationNearMePage() {
-  return <WinstonSalemimmigrationNearMeClient />;
+export default function WinstonSalemImmigrationCercaDeMiPage() {
+  return <WinstonSalemImmigrationCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Inmigración Cerca de Mi en Winston-Salem, NC | Vasquez Law Firm',

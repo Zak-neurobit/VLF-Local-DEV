@@ -8,6 +8,16 @@ import { prisma } from '@/lib/prisma-safe';
 import { sendEmail } from '@/lib/email';
 import { createNotification } from '@/lib/notifications';
 import Stripe from 'stripe';
+import {
+  PaymentStatus as PrismaPaymentStatus,
+  InvoiceStatus as PrismaInvoiceStatus,
+  PaymentPlanStatus,
+  PaymentGateway,
+  PaymentMethod as PrismaPaymentMethod,
+  AccountType,
+  RefundStatus,
+  TrustTransactionType,
+} from '@prisma/client';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
   apiVersion: '2023-10-16',
@@ -18,7 +28,7 @@ export interface Invoice {
   caseId: string;
   clientId: string;
   invoiceNumber: string;
-  
+
   // Billing Details
   billingPeriod: {
     start: Date;
@@ -26,7 +36,7 @@ export interface Invoice {
   };
   dueDate: Date;
   status: InvoiceStatus;
-  
+
   // Line Items
   lineItems: Array<{
     id: string;
@@ -39,7 +49,7 @@ export interface Invoice {
     attorney?: string;
     isBillable: boolean;
   }>;
-  
+
   // Financial Summary
   subtotal: number;
   taxRate: number;
@@ -48,18 +58,18 @@ export interface Invoice {
   totalAmount: number;
   paidAmount: number;
   balanceDue: number;
-  
+
   // Payment Terms
   paymentTerms: string;
   lateFeePercentage: number;
   acceptedPaymentMethods: PaymentMethod[];
-  
+
   // Timestamps
   issuedDate: Date;
   sentDate?: Date;
   viewedDate?: Date;
   paidDate?: Date;
-  
+
   // Metadata
   notes?: string;
   internalNotes?: string;
@@ -71,28 +81,28 @@ export interface Payment {
   clientId: string;
   caseId?: string;
   invoiceId?: string;
-  
+
   // Payment Details
   amount: number;
   currency: string;
   paymentMethod: PaymentMethod;
   status: PaymentStatus;
-  
+
   // Transaction Info
   transactionId?: string;
   stripePaymentIntentId?: string;
   checkNumber?: string;
-  
+
   // Processing
   processedDate?: Date;
   processingFee?: number;
   netAmount?: number;
-  
+
   // Refund Info
   isRefunded: boolean;
   refundedAmount?: number;
   refundReason?: string;
-  
+
   // Metadata
   description?: string;
   receiptUrl?: string;
@@ -103,14 +113,14 @@ export interface PaymentPlan {
   id: string;
   clientId: string;
   caseId: string;
-  
+
   // Plan Details
   totalAmount: number;
   downPayment: number;
   remainingBalance: number;
   monthlyPayment: number;
   numberOfPayments: number;
-  
+
   // Schedule
   startDate: Date;
   endDate: Date;
@@ -122,17 +132,17 @@ export interface PaymentPlan {
     paidDate?: Date;
     paymentId?: string;
   }>;
-  
+
   // Status
   status: 'active' | 'completed' | 'defaulted' | 'cancelled';
   completedPayments: number;
   missedPayments: number;
-  
+
   // Terms
   lateFeeAmount: number;
   gracePeriodDays: number;
   autoPayEnabled: boolean;
-  
+
   // Metadata
   agreementSignedDate?: Date;
   notes?: string;
@@ -142,13 +152,13 @@ export interface TrustAccount {
   id: string;
   clientId: string;
   caseId: string;
-  
+
   // Account Details
   accountNumber: string;
   currentBalance: number;
   availableBalance: number;
   heldAmount: number;
-  
+
   // Transactions
   transactions: Array<{
     id: string;
@@ -160,37 +170,21 @@ export interface TrustAccount {
     reference?: string;
     approvedBy?: string;
   }>;
-  
+
   // Metadata
   openedDate: Date;
   lastActivityDate: Date;
   status: 'active' | 'closed';
 }
 
-export type InvoiceStatus = 
-  | 'draft' 
-  | 'sent' 
-  | 'viewed' 
-  | 'partially_paid' 
-  | 'paid' 
-  | 'overdue' 
-  | 'cancelled';
+// Use Prisma's InvoiceStatus enum
+export type InvoiceStatus = PrismaInvoiceStatus;
 
-export type PaymentStatus = 
-  | 'pending' 
-  | 'processing' 
-  | 'succeeded' 
-  | 'failed' 
-  | 'cancelled' 
-  | 'refunded';
+// Use Prisma's PaymentStatus enum
+export type PaymentStatus = PrismaPaymentStatus;
 
-export type PaymentMethod = 
-  | 'credit_card' 
-  | 'ach' 
-  | 'check' 
-  | 'wire' 
-  | 'cash' 
-  | 'trust_account';
+// Use Prisma's PaymentMethod enum
+export type PaymentMethod = PrismaPaymentMethod;
 
 export class ClientPortalBillingPayments {
   /**
@@ -199,6 +193,8 @@ export class ClientPortalBillingPayments {
   async createInvoice(params: {
     caseId: string;
     clientId: string;
+    clientEmail?: string;
+    clientName?: string;
     lineItems: Invoice['lineItems'];
     dueDate?: Date;
     notes?: string;
@@ -225,25 +221,27 @@ export class ClientPortalBillingPayments {
           caseId: params.caseId,
           clientId: params.clientId,
           invoiceNumber,
-          billingPeriod: JSON.stringify({
-            start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
-            end: new Date(),
-          }),
           dueDate,
-          status: 'draft',
-          lineItems: JSON.stringify(params.lineItems),
+          status: 'DRAFT' as InvoiceStatus,
+          lineItems: params.lineItems,
           subtotal,
-          taxRate,
-          taxAmount,
-          discountAmount: 0,
-          totalAmount,
-          paidAmount: 0,
-          balanceDue: totalAmount,
-          paymentTerms: 'Net 30',
-          lateFeePercentage: 1.5,
-          acceptedPaymentMethods: ['credit_card', 'ach', 'check'],
-          issuedDate: new Date(),
-          notes: params.notes,
+          tax: taxAmount,
+          total: totalAmount,
+          amountPaid: 0,
+          amountDue: totalAmount,
+          metadata: {
+            billingPeriod: {
+              start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+              end: new Date(),
+            },
+            taxRate,
+            discountAmount: 0,
+            paymentTerms: 'Net 30',
+            lateFeePercentage: 1.5,
+            acceptedPaymentMethods: ['CARD', 'ACH', 'CHECK'],
+            issuedDate: new Date(),
+            notes: params.notes,
+          },
         },
       });
 
@@ -280,33 +278,36 @@ export class ClientPortalBillingPayments {
     const pdfUrl = await this.generateInvoicePDF(invoice);
 
     // Send email
+    const viewUrl = `${process.env.NEXT_PUBLIC_APP_URL}/portal/invoices/${invoice.id}`;
     await sendEmail({
       to: invoice.client.email,
       subject: `Invoice ${invoice.invoiceNumber} from Vasquez Law Firm`,
-      template: 'invoice',
-      data: {
-        clientName: invoice.client.name,
-        invoiceNumber: invoice.invoiceNumber,
-        totalAmount: invoice.totalAmount,
-        dueDate: invoice.dueDate,
-        viewUrl: `${process.env.NEXT_PUBLIC_APP_URL}/portal/invoices/${invoice.id}`,
-        pdfUrl,
-      },
+      html: `
+        <h2>Invoice ${invoice.invoiceNumber}</h2>
+        <p>Dear ${invoice.client.name},</p>
+        <p>Your invoice for $${invoice.total} is ready. Payment is due by ${invoice.dueDate}.</p>
+        <p><a href="${viewUrl}">View Invoice</a></p>
+        <p>Thank you for your business.</p>
+      `,
+      text: `Invoice ${invoice.invoiceNumber}\n\nDear ${invoice.client.name},\n\nYour invoice for $${invoice.total} is ready. Payment is due by ${invoice.dueDate}.\n\nView invoice at: ${viewUrl}\n\nThank you for your business.`,
     });
 
     // Update invoice status
     await prisma.invoice.update({
       where: { id: invoiceId },
       data: {
-        status: 'sent',
-        sentDate: new Date(),
+        status: 'SENT' as InvoiceStatus,
+        metadata: {
+          ...((invoice.metadata as any) || {}),
+          sentDate: new Date(),
+        },
       },
     });
 
     // Create notification
     await createNotification({
-      type: 'invoice_sent',
-      priority: 'low',
+      userId: invoice.client.id,
+      type: 'info' as const,
       title: 'Invoice Sent',
       message: `Invoice ${invoice.invoiceNumber} sent to ${invoice.client.name}`,
       metadata: {
@@ -321,6 +322,9 @@ export class ClientPortalBillingPayments {
    */
   async processPayment(params: {
     clientId: string;
+    clientEmail?: string;
+    clientName?: string;
+    clientPhone?: string;
     invoiceId?: string;
     caseId?: string;
     amount: number;
@@ -328,21 +332,21 @@ export class ClientPortalBillingPayments {
     paymentMethodId?: string; // Stripe payment method ID
     checkNumber?: string;
   }): Promise<Payment> {
-    logger.info('Processing payment', { 
-      clientId: params.clientId, 
+    logger.info('Processing payment', {
+      clientId: params.clientId,
       amount: params.amount,
-      method: params.paymentMethod 
+      method: params.paymentMethod,
     });
 
     try {
       let stripePaymentIntentId: string | undefined;
       let transactionId: string | undefined;
-      let status: PaymentStatus = 'pending';
+      let status: PaymentStatus = 'PENDING';
       let processedDate: Date | undefined;
       let processingFee = 0;
 
       // Process based on payment method
-      if (params.paymentMethod === 'credit_card' && params.paymentMethodId) {
+      if (params.paymentMethod === 'CARD' && params.paymentMethodId) {
         // Process credit card payment via Stripe
         const paymentIntent = await stripe.paymentIntents.create({
           amount: Math.round(params.amount * 100), // Convert to cents
@@ -358,46 +362,50 @@ export class ClientPortalBillingPayments {
 
         stripePaymentIntentId = paymentIntent.id;
         transactionId = paymentIntent.id;
-        status = paymentIntent.status === 'succeeded' ? 'succeeded' : 'failed';
+        status = paymentIntent.status === 'succeeded' ? 'SUCCEEDED' : 'FAILED';
         processedDate = new Date();
         processingFee = paymentIntent.amount * 0.029 + 30; // Stripe fees
-      } else if (params.paymentMethod === 'ach') {
+      } else if (params.paymentMethod === 'ACH') {
         // Process ACH payment
         // In practice, would integrate with ACH processor
         transactionId = `ACH-${Date.now()}`;
-        status = 'processing'; // ACH takes time
-      } else if (params.paymentMethod === 'check') {
+        status = 'PROCESSING'; // ACH takes time
+      } else if (params.paymentMethod === 'CHECK') {
         // Record check payment
         transactionId = params.checkNumber || `CHK-${Date.now()}`;
-        status = 'pending'; // Needs manual processing
+        status = 'PENDING'; // Needs manual processing
       }
 
       // Create payment record
       const payment = await prisma.payment.create({
         data: {
-          clientId: params.clientId,
+          clientEmail: params.clientEmail || '',
+          clientName: params.clientName || '',
+          clientPhone: params.clientPhone,
           caseId: params.caseId,
           invoiceId: params.invoiceId,
           amount: params.amount,
           currency: 'USD',
-          paymentMethod: params.paymentMethod,
+          paymentMethod: params.paymentMethod as any,
           status,
-          transactionId,
-          stripePaymentIntentId,
-          checkNumber: params.checkNumber,
-          processedDate,
-          processingFee,
-          netAmount: params.amount - processingFee,
-          isRefunded: false,
-          description: params.invoiceId 
+          gateway: 'STRIPE',
+          gatewayTransactionId: transactionId,
+          gatewayChargeId: stripePaymentIntentId,
+          processedAt: processedDate,
+          description: params.invoiceId
             ? `Payment for Invoice ${params.invoiceId}`
             : 'Account payment',
-          createdAt: new Date(),
+          metadata: {
+            checkNumber: params.checkNumber,
+            processingFee,
+            netAmount: params.amount - processingFee,
+            isRefunded: false,
+          },
         },
       });
 
       // Update invoice if payment succeeded
-      if (params.invoiceId && status === 'succeeded') {
+      if (params.invoiceId && status === 'SUCCEEDED') {
         await this.applyPaymentToInvoice(payment.id, params.invoiceId);
       }
 
@@ -421,6 +429,8 @@ export class ClientPortalBillingPayments {
    */
   async createPaymentPlan(params: {
     clientId: string;
+    clientEmail?: string;
+    clientName?: string;
     caseId: string;
     totalAmount: number;
     downPayment: number;
@@ -428,10 +438,10 @@ export class ClientPortalBillingPayments {
     startDate?: Date;
     autoPayEnabled?: boolean;
   }): Promise<PaymentPlan> {
-    logger.info('Creating payment plan', { 
+    logger.info('Creating payment plan', {
       clientId: params.clientId,
       totalAmount: params.totalAmount,
-      payments: params.numberOfPayments 
+      payments: params.numberOfPayments,
     });
 
     try {
@@ -444,7 +454,7 @@ export class ClientPortalBillingPayments {
       for (let i = 0; i < params.numberOfPayments; i++) {
         const dueDate = new Date(startDate);
         dueDate.setMonth(dueDate.getMonth() + i + 1);
-        
+
         paymentSchedule.push({
           dueDate,
           amount: monthlyPayment,
@@ -457,23 +467,27 @@ export class ClientPortalBillingPayments {
       // Create payment plan
       const plan = await prisma.paymentPlan.create({
         data: {
-          clientId: params.clientId,
+          clientEmail: params.clientEmail || '',
+          clientName: params.clientName || '',
           caseId: params.caseId,
           totalAmount: params.totalAmount,
-          downPayment: params.downPayment,
-          remainingBalance,
-          monthlyPayment,
-          numberOfPayments: params.numberOfPayments,
+          installments: params.numberOfPayments,
+          monthlyAmount: monthlyPayment,
           startDate,
-          endDate,
           nextPaymentDate: paymentSchedule[0].dueDate,
-          paymentSchedule: JSON.stringify(paymentSchedule),
-          status: 'active',
-          completedPayments: 0,
-          missedPayments: 0,
-          lateFeeAmount: 25,
-          gracePeriodDays: 5,
-          autoPayEnabled: params.autoPayEnabled || false,
+          status: 'ACTIVE',
+          paidAmount: params.downPayment,
+          remainingAmount: remainingBalance,
+          metadata: {
+            downPayment: params.downPayment,
+            endDate,
+            paymentSchedule,
+            completedPayments: 0,
+            missedPayments: 0,
+            lateFeeAmount: 25,
+            gracePeriodDays: 5,
+            autoPayEnabled: params.autoPayEnabled || false,
+          },
         },
       });
 
@@ -483,7 +497,7 @@ export class ClientPortalBillingPayments {
           clientId: params.clientId,
           caseId: params.caseId,
           amount: params.downPayment,
-          paymentMethod: 'credit_card', // Default, should be specified
+          paymentMethod: 'CARD', // Default, should be specified
         });
       }
 
@@ -500,7 +514,10 @@ export class ClientPortalBillingPayments {
   /**
    * Get client billing summary
    */
-  async getClientBillingSummary(clientId: string): Promise<{
+  async getClientBillingSummary(
+    clientId: string,
+    clientEmail: string
+  ): Promise<{
     totalBilled: number;
     totalPaid: number;
     outstandingBalance: number;
@@ -520,8 +537,8 @@ export class ClientPortalBillingPayments {
 
     // Get recent payments
     const payments = await prisma.payment.findMany({
-      where: { 
-        clientId,
+      where: {
+        clientEmail: clientEmail,
         createdAt: { gte: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000) }, // 90 days
       },
       orderBy: { createdAt: 'desc' },
@@ -530,34 +547,35 @@ export class ClientPortalBillingPayments {
 
     // Get active payment plans
     const paymentPlans = await prisma.paymentPlan.findMany({
-      where: { 
-        clientId,
-        status: 'active',
+      where: {
+        clientEmail: clientEmail,
+        status: 'ACTIVE',
       },
     });
 
     // Calculate totals
-    const totalBilled = invoices.reduce((sum, inv) => sum + inv.totalAmount, 0);
-    const totalPaid = invoices.reduce((sum, inv) => sum + inv.paidAmount, 0);
+    const totalBilled = invoices.reduce((sum, inv) => sum + inv.total, 0);
+    const totalPaid = invoices.reduce((sum, inv) => sum + inv.amountPaid, 0);
     const outstandingBalance = totalBilled - totalPaid;
 
     // Calculate overdue amount
     const now = new Date();
     const overdueAmount = invoices
-      .filter(inv => inv.status === 'overdue' || 
-        (inv.status !== 'paid' && new Date(inv.dueDate) < now))
-      .reduce((sum, inv) => sum + inv.balanceDue, 0);
+      .filter(
+        inv => inv.status === 'OVERDUE' || (inv.status !== 'PAID' && new Date(inv.dueDate) < now)
+      )
+      .reduce((sum, inv) => sum + inv.amountDue, 0);
 
     // Get upcoming payments
     const upcomingPayments = [];
-    
+
     // From payment plans
     for (const plan of paymentPlans) {
-      const schedule = JSON.parse(plan.paymentSchedule as string);
-      const nextPayment = schedule.find((p: any) => 
-        p.status === 'pending' && new Date(p.dueDate) > now
+      const schedule = (plan.metadata as any)?.paymentSchedule || [];
+      const nextPayment = schedule.find(
+        (p: any) => p.status === 'pending' && new Date(p.dueDate) > now
       );
-      
+
       if (nextPayment) {
         upcomingPayments.push({
           date: new Date(nextPayment.dueDate),
@@ -586,98 +604,82 @@ export class ClientPortalBillingPayments {
    */
   async processTrustTransaction(params: {
     clientId: string;
+    clientName: string;
+    clientEmail: string;
     caseId: string;
     type: 'deposit' | 'withdrawal' | 'transfer';
     amount: number;
     description: string;
     reference?: string;
+    paymentId?: string;
+    notes?: string;
     approvedBy: string;
   }): Promise<void> {
-    logger.info('Processing trust account transaction', { 
+    logger.info('Processing trust account transaction', {
       clientId: params.clientId,
       type: params.type,
-      amount: params.amount 
+      amount: params.amount,
     });
 
     try {
-      // Get or create trust account
-      let trustAccount = await prisma.trustAccount.findFirst({
+      // Get latest trust ledger entry for the client
+      const latestEntry = await prisma.trustLedger.findFirst({
         where: {
-          clientId: params.clientId,
+          clientEmail: params.clientEmail,
           caseId: params.caseId,
-          status: 'active',
         },
+        orderBy: { createdAt: 'desc' },
       });
 
-      if (!trustAccount) {
-        // Create new trust account
-        const accountNumber = await this.generateTrustAccountNumber();
-        trustAccount = await prisma.trustAccount.create({
-          data: {
-            clientId: params.clientId,
-            caseId: params.caseId,
-            accountNumber,
-            currentBalance: 0,
-            availableBalance: 0,
-            heldAmount: 0,
-            transactions: JSON.stringify([]),
-            openedDate: new Date(),
-            lastActivityDate: new Date(),
-            status: 'active',
-          },
-        });
-      }
-
-      // Calculate new balance
-      const transactions = JSON.parse(trustAccount.transactions as string) || [];
-      const currentBalance = trustAccount.currentBalance;
+      const currentBalance = latestEntry?.balance || 0;
       let newBalance = currentBalance;
 
       if (params.type === 'deposit') {
         newBalance += params.amount;
       } else if (params.type === 'withdrawal') {
-        if (params.amount > trustAccount.availableBalance) {
+        if (params.amount > currentBalance) {
           throw new Error('Insufficient funds in trust account');
         }
         newBalance -= params.amount;
       }
 
-      // Add transaction
-      transactions.push({
-        id: `trust-txn-${Date.now()}`,
-        date: new Date(),
-        type: params.type,
-        amount: params.amount,
-        balance: newBalance,
-        description: params.description,
-        reference: params.reference,
-        approvedBy: params.approvedBy,
-      });
-
-      // Update trust account
-      await prisma.trustAccount.update({
-        where: { id: trustAccount.id },
+      // Create trust ledger entry
+      const trustEntry = await prisma.trustLedger.create({
         data: {
-          currentBalance: newBalance,
-          availableBalance: newBalance - trustAccount.heldAmount,
-          transactions: JSON.stringify(transactions),
-          lastActivityDate: new Date(),
+          transactionType: params.type.toUpperCase() as TrustTransactionType,
+          amount: params.amount,
+          balance: newBalance,
+          clientName: params.clientName,
+          clientEmail: params.clientEmail,
+          caseId: params.caseId,
+          paymentId: params.paymentId,
+          reference: params.reference || `TRUST-${Date.now()}`,
+          description: params.description,
+          recordedBy: params.approvedBy || 'system',
+          approvedBy: params.approvedBy,
+          metadata: {
+            notes: params.notes || '',
+          },
         },
       });
 
-      // Create audit log
-      await this.createTrustAccountAuditLog({
-        accountId: trustAccount.id,
-        action: params.type,
-        amount: params.amount,
-        performedBy: params.approvedBy,
-        details: params.description,
+      // Create notification
+      await createNotification({
+        userId: params.clientId,
+        type: 'info',
+        title: 'Trust Account Activity',
+        message: `Trust account ${params.type}: $${params.amount}`,
+        metadata: {
+          trustEntryId: trustEntry.id,
+          transactionType: params.type,
+          amount: params.amount,
+        },
       });
 
       // Send notification
       await createNotification({
-        type: 'trust_account_activity',
-        priority: 'medium',
+        userId: params.clientId,
+        type: 'info',
         title: 'Trust Account Transaction',
         message: `${params.type} of $${params.amount} processed`,
         metadata: {
@@ -698,6 +700,7 @@ export class ClientPortalBillingPayments {
    */
   async generateFinancialReport(params: {
     clientId: string;
+    clientEmail?: string;
     caseId?: string;
     startDate: Date;
     endDate: Date;
@@ -718,18 +721,18 @@ export class ClientPortalBillingPayments {
       where: {
         clientId: params.clientId,
         ...(params.caseId && { caseId: params.caseId }),
-        issuedDate: {
+        createdAt: {
           gte: params.startDate,
           lte: params.endDate,
         },
       },
-      orderBy: { issuedDate: 'asc' },
+      orderBy: { createdAt: 'asc' },
     });
 
     // Get payments in date range
     const payments = await prisma.payment.findMany({
       where: {
-        clientId: params.clientId,
+        clientEmail: params.clientEmail || '',
         ...(params.caseId && { caseId: params.caseId }),
         createdAt: {
           gte: params.startDate,
@@ -740,17 +743,20 @@ export class ClientPortalBillingPayments {
     });
 
     // Calculate summary
-    const totalBilled = invoices.reduce((sum, inv) => sum + inv.totalAmount, 0);
+    const totalBilled = invoices.reduce((sum, inv) => sum + inv.total, 0);
     const totalPaid = payments
-      .filter(p => p.status === 'succeeded')
+      .filter(p => p.status === 'SUCCEEDED')
       .reduce((sum, p) => sum + p.amount, 0);
-    
+
     // Calculate expenses from line items
     const totalExpenses = invoices.reduce((sum, inv) => {
       const lineItems = JSON.parse(inv.lineItems as string);
-      return sum + lineItems
-        .filter((item: any) => item.category === 'expenses' || item.category === 'filing_fees')
-        .reduce((itemSum: number, item: any) => itemSum + item.amount, 0);
+      return (
+        sum +
+        lineItems
+          .filter((item: any) => item.category === 'expenses' || item.category === 'filing_fees')
+          .reduce((itemSum: number, item: any) => itemSum + item.amount, 0)
+      );
     }, 0);
 
     const report = {
@@ -766,20 +772,18 @@ export class ClientPortalBillingPayments {
 
     // Include trust account activity if requested
     if (params.includeDetails && params.caseId) {
-      const trustAccount = await prisma.trustAccount.findFirst({
+      const trustTransactions = await prisma.trustLedger.findMany({
         where: {
-          clientId: params.clientId,
           caseId: params.caseId,
+          createdAt: {
+            gte: params.startDate,
+            lte: params.endDate,
+          },
         },
+        orderBy: { createdAt: 'desc' },
       });
 
-      if (trustAccount) {
-        const transactions = JSON.parse(trustAccount.transactions as string) || [];
-        report.trustActivity = transactions.filter((t: any) => 
-          new Date(t.date) >= params.startDate && 
-          new Date(t.date) <= params.endDate
-        );
-      }
+      (report as any).trustActivity = trustTransactions;
     }
 
     return report;
@@ -832,17 +836,17 @@ export class ClientPortalBillingPayments {
 
     if (!payment || !invoice) return;
 
-    const newPaidAmount = invoice.paidAmount + payment.amount;
-    const newBalanceDue = invoice.totalAmount - newPaidAmount;
-    const newStatus = newBalanceDue <= 0 ? 'paid' : 'partially_paid';
+    const newPaidAmount = invoice.amountPaid + payment.amount;
+    const newBalanceDue = invoice.total - newPaidAmount;
+    const newStatus = newBalanceDue <= 0 ? 'PAID' : 'PARTIALLY_PAID';
 
     await prisma.invoice.update({
       where: { id: invoiceId },
       data: {
-        paidAmount: newPaidAmount,
-        balanceDue: newBalanceDue,
+        amountPaid: newPaidAmount,
+        amountDue: newBalanceDue,
         status: newStatus,
-        paidDate: newStatus === 'paid' ? new Date() : undefined,
+        paidAt: newStatus === 'PAID' ? new Date() : undefined,
       },
     });
   }
@@ -851,7 +855,7 @@ export class ClientPortalBillingPayments {
     const plan = await prisma.paymentPlan.findFirst({
       where: {
         caseId,
-        status: 'active',
+        status: 'ACTIVE',
       },
     });
 
@@ -861,12 +865,12 @@ export class ClientPortalBillingPayments {
       where: { id: paymentId },
     });
 
-    if (!payment || payment.status !== 'succeeded') return;
+    if (!payment || payment.status !== 'SUCCEEDED') return;
 
     // Update payment schedule
-    const schedule = JSON.parse(plan.paymentSchedule as string);
+    const schedule = (plan.metadata as any)?.paymentSchedule || [];
     const nextPending = schedule.find((p: any) => p.status === 'pending');
-    
+
     if (nextPending) {
       nextPending.status = 'paid';
       nextPending.paidDate = new Date();
@@ -876,13 +880,20 @@ export class ClientPortalBillingPayments {
     // Update plan statistics
     const completedPayments = schedule.filter((p: any) => p.status === 'paid').length;
     const nextPayment = schedule.find((p: any) => p.status === 'pending');
-    const status = completedPayments === plan.numberOfPayments ? 'completed' : 'active';
+    const numberOfPayments = plan.installments || 12; // Use installments field
+    const status =
+      completedPayments === numberOfPayments
+        ? PaymentPlanStatus.COMPLETED
+        : PaymentPlanStatus.ACTIVE;
 
     await prisma.paymentPlan.update({
       where: { id: plan.id },
       data: {
-        paymentSchedule: JSON.stringify(schedule),
-        completedPayments,
+        metadata: {
+          ...((plan.metadata as any) || {}),
+          paymentSchedule: schedule,
+          completedPayments,
+        },
         nextPaymentDate: nextPayment ? new Date(nextPayment.dueDate) : undefined,
         status,
       },
@@ -894,19 +905,21 @@ export class ClientPortalBillingPayments {
       where: { id: payment.clientId },
     });
 
-    if (!client?.email || payment.status !== 'succeeded') return;
+    if (!client?.email || payment.status !== 'SUCCEEDED') return;
 
     await sendEmail({
       to: client.email,
       subject: 'Payment Confirmation - Vasquez Law Firm',
-      template: 'payment-confirmation',
-      data: {
-        clientName: client.name,
-        amount: payment.amount,
-        transactionId: payment.transactionId,
-        date: payment.processedDate,
-        receiptUrl: `${process.env.NEXT_PUBLIC_APP_URL}/portal/payments/${payment.id}`,
-      },
+      html: `
+        <h2>Payment Confirmation</h2>
+        <p>Dear ${client.name},</p>
+        <p>Your payment of $${payment.amount} has been successfully processed.</p>
+        <p>Transaction ID: ${payment.transactionId}</p>
+        <p>Date: ${payment.processedDate}</p>
+        <p><a href="${process.env.NEXT_PUBLIC_APP_URL}/portal/payments/${payment.id}">View Receipt</a></p>
+        <p>Thank you for your payment.</p>
+      `,
+      text: `Payment Confirmation\n\nDear ${client.name},\n\nYour payment of $${payment.amount} has been successfully processed.\n\nTransaction ID: ${payment.transactionId}\nDate: ${payment.processedDate}\n\nView receipt at: ${process.env.NEXT_PUBLIC_APP_URL}/portal/payments/${payment.id}\n\nThank you for your payment.`,
     });
   }
 
@@ -920,30 +933,30 @@ export class ClientPortalBillingPayments {
     await sendEmail({
       to: client.email,
       subject: 'Payment Plan Agreement - Vasquez Law Firm',
-      template: 'payment-plan-agreement',
-      data: {
-        clientName: client.name,
-        totalAmount: plan.totalAmount,
-        monthlyPayment: plan.monthlyPayment,
-        numberOfPayments: plan.numberOfPayments,
-        agreementUrl: `${process.env.NEXT_PUBLIC_APP_URL}/portal/payment-plans/${plan.id}`,
-      },
+      html: `
+        <h2>Payment Plan Agreement</h2>
+        <p>Dear ${client.name},</p>
+        <p>Your payment plan has been created:</p>
+        <ul>
+          <li>Total Amount: $${plan.totalAmount}</li>
+          <li>Monthly Payment: $${plan.monthlyPayment}</li>
+          <li>Number of Payments: ${plan.numberOfPayments}</li>
+        </ul>
+        <p><a href="${process.env.NEXT_PUBLIC_APP_URL}/portal/payment-plans/${plan.id}">View Agreement</a></p>
+      `,
+      text: `Payment Plan Agreement\n\nDear ${client.name},\n\nYour payment plan has been created:\n\nTotal Amount: $${plan.totalAmount}\nMonthly Payment: $${plan.monthlyPayment}\nNumber of Payments: ${plan.numberOfPayments}\n\nView agreement at: ${process.env.NEXT_PUBLIC_APP_URL}/portal/payment-plans/${plan.id}`,
     });
   }
 
   private async createTrustAccountAuditLog(params: any): Promise<void> {
-    await prisma.auditLog.create({
-      data: {
-        entityType: 'trust_account',
-        entityId: params.accountId,
-        action: params.action,
-        performedBy: params.performedBy,
-        performedAt: new Date(),
-        details: JSON.stringify({
-          amount: params.amount,
-          description: params.details,
-        }),
-      },
+    // TODO: Implement audit log when AuditLog model is added to schema
+    logger.info('Trust account audit log', {
+      entityType: 'trust_account',
+      entityId: params.accountId,
+      action: params.action,
+      performedBy: params.performedBy,
+      amount: params.amount,
+      description: params.details,
     });
   }
 

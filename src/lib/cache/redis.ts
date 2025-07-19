@@ -116,7 +116,7 @@ function getRedis() {
     if (!(_redis instanceof MockRedis)) {
       (_redis as Redis)
         .connect()
-        .catch((err: Error) => logger.error('Redis connection failed:', err));
+        .catch((err: Error) => logger.error('Redis connection failed', errorToLogMeta(err)));
 
       (_redis as Redis).on('connect', () => {
         logger.info('Redis connected successfully');
@@ -146,7 +146,7 @@ function getBullRedis() {
     if (!(_bullRedis instanceof MockRedis)) {
       (_bullRedis as Redis)
         .connect()
-        .catch((err: Error) => logger.error('Bull Redis connection failed:', err));
+        .catch((err: Error) => logger.error('Bull Redis connection failed', errorToLogMeta(err)));
     }
   }
   return _bullRedis;

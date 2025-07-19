@@ -27,27 +27,7 @@ export const metadata: Metadata = {
   },
 };
 
-const smithfieldOfficeSchema = generateLocalBusinessSchema({
-  name: 'Bufete de Abogados Vasquez - Smithfield',
-  address: {
-    streetAddress: '115 South Third Street',
-    addressLocality: 'Smithfield',
-    addressRegion: 'NC',
-    postalCode: '27577',
-    addressCountry: 'US',
-  },
-  phone: '(919) 555-0125',
-  description:
-    'Bufete de abogados en Smithfield, NC especializado en inmigración, lesiones personales, defensa criminal y derecho familiar.',
-  languages: ['es', 'en'],
-  servicesOffered: [
-    'Inmigración',
-    'Lesiones Personales',
-    'Defensa Criminal',
-    'Derecho Familiar',
-    'Compensación Laboral',
-  ],
-});
+const smithfieldOfficeSchema = generateLocalBusinessSchema('smithfield');
 
 export default function SmithfieldPage() {
   return (

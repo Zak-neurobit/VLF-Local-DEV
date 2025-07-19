@@ -1,7 +1,7 @@
-import greensuoroCriminalDefenseNearMeClient from './greensuoroCriminalDefenseNearMeClient';
+import GreensboroCriminalDefenseCercaDeMiClient from './greensuoroCriminalDefenseNearMeClient';
 
-export default function greensuoroCriminalDefenseNearMePage() {
-  return <greensuoroCriminalDefenseNearMeClient />;
+export default function GreensboroCriminalDefenseCercaDeMiPage() {
+  return <GreensboroCriminalDefenseCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Defensa Criminal Cerca de Mi en Greensboro, NC | Vasquez Law Firm',

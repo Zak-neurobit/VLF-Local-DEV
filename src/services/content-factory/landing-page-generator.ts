@@ -76,18 +76,18 @@ export class LandingPageGenerator {
       // Generate page sections
       const sections = await this.generateCityPageSections(
         options,
-        localData,
+        localData as LocalData,
         localKeywords
       );
 
       // Generate hero section
-      const heroSection = await this.generateHeroSection(options, localData);
+      const heroSection = await this.generateHeroSection(options, localData as LocalData);
 
       // Generate local schema
-      const localSchema = await this.generateLocalBusinessSchema(options, localData);
+      const localSchema = await this.generateLocalBusinessSchema(options, localData as LocalData);
 
       // Compile full page content
-      const content = this.compileCityPageContent(heroSection, sections);
+      const content = this.compileCityPageContent(heroSection, sections as PageSection[]);
 
       // Generate metadata
       const metadata = await this.generateCityPageMetadata(options, localKeywords);
@@ -98,7 +98,7 @@ export class LandingPageGenerator {
         return await this.translateLandingPage({
           content,
           ...metadata,
-          sections,
+          sections: sections as PageSection[],
           localSchema,
           heroImage,
         });
@@ -107,7 +107,7 @@ export class LandingPageGenerator {
       return {
         ...metadata,
         content,
-        sections,
+        sections: sections as PageSection[],
         localSchema,
         heroImage: await this.generateHeroImage(options.city, options.practiceArea),
       };
@@ -164,8 +164,8 @@ export class LandingPageGenerator {
       return {
         ...metadata,
         content: content.content || '',
-        sections: content.sections || [],
-        localSchema: null as LocalSchema,
+        sections: (content.sections || []) as PageSection[],
+        localSchema: null as unknown as LocalSchema,
         conversionElements: trackingElements,
         heroImage: await this.generateHeroImage('default', options.practiceArea),
       };
@@ -472,6 +472,19 @@ Format as JSON array with 'question' and 'answer' keys. Answers should be detail
   private async generateMapSection(options: CityPageOptions, localData: LocalData) {
     const nearestOffice = this.getNearestOffice(options.city);
 
+    if (!nearestOffice) {
+      return {
+        type: 'map',
+        title: `Our Offices Serving ${options.city}`,
+        content: `We proudly serve ${options.city} residents with dedicated legal representation.`,
+        mapData: {
+          center: { lat: 35.7796, lng: -78.6382 }, // Default to Raleigh
+          zoom: 10,
+          markers: [],
+        },
+      };
+    }
+
     return {
       type: 'map',
       title: `Visit Our Office Near ${options.city}`,
@@ -697,12 +710,20 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
    * Helper methods
    */
   private compileCityPageContent(heroSection: PageSection, sections: PageSection[]): string {
-    const hero = heroSection as { headline?: string; subheadline?: string; bullets?: string[]; cta?: string; trustIndicators?: string[] };
+    const hero = heroSection as {
+      headline?: string;
+      subheadline?: string;
+      bullets?: string[];
+      cta?: string;
+      trustIndicators?: string[];
+    };
     let content = `# ${hero.headline}\n\n`;
     content += `## ${hero.subheadline}\n\n`;
 
-    // Add benefits
-    content += hero.benefits?.map((b: string) => `- ${b}`).join('\n') + '\n\n';
+    // Add benefits (bullets)
+    if (hero.bullets) {
+      content += hero.bullets.map((b: string) => `- ${b}`).join('\n') + '\n\n';
+    }
 
     // Add sections
     sections.forEach(section => {
@@ -767,7 +788,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
         streetAddress: nearestOffice.address || '6009 Triangle Dr',
         addressLocality: options.city,
         addressRegion: 'NC',
-        postalCode: nearestOffice.zip || '27616',
+        postalCode: (nearestOffice as any).zip || '27616',
         addressCountry: 'US',
       },
       geo: {
@@ -808,10 +829,22 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     return (formatted as Record<string, string>)[practiceArea] || practiceArea;
   }
 
-  private getNearbyOffices(city: string): Array<{ city: string; address: string; coordinates: { lat: number; lng: number }; distance: number }> {
+  private getNearbyOffices(
+    city: string
+  ): Array<{
+    city: string;
+    address: string;
+    coordinates: { lat: number; lng: number };
+    distance: number;
+  }> {
     // Return offices within reasonable distance
     const offices = this.getAllOffices();
-    type OfficeWithDistance = { city: string; address: string; coordinates: { lat: number; lng: number }; distance: number };
+    type OfficeWithDistance = {
+      city: string;
+      address: string;
+      coordinates: { lat: number; lng: number };
+      distance: number;
+    };
     return offices
       .map(office => ({
         ...office,
@@ -821,42 +854,58 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       .sort((a, b) => a.distance - b.distance);
   }
 
-  private getNearestOffice(city: string): { city: string; address: string; coordinates: { lat: number; lng: number }; distance: number } | null {
+  private getNearestOffice(
+    city: string
+  ): {
+    city: string;
+    address: string;
+    coordinates: { lat: number; lng: number };
+    distance: number;
+  } | null {
     const offices = this.getNearbyOffices(city);
     return offices[0] || this.getDefaultOffice();
   }
 
-  private getAllOffices(): Array<{ city: string; address: string; coordinates: { lat: number; lng: number } }> {
+  private getAllOffices(): Array<{
+    city: string;
+    address: string;
+    coordinates: { lat: number; lng: number };
+  }> {
     return [
       {
         city: 'Raleigh',
         address: '123 Main St, Suite 100, Raleigh, NC 27601',
-        phone: '(919) 555-0100',
         coordinates: { lat: 35.7796, lng: -78.6382 },
       },
       {
         city: 'Charlotte',
         address: '456 Trade St, Suite 200, Charlotte, NC 28202',
-        phone: '(704) 555-0200',
         coordinates: { lat: 35.2271, lng: -80.8431 },
       },
       {
         city: 'Goldsboro',
         address: '789 Center St, Goldsboro, NC 27530',
-        phone: '(919) 555-0300',
         coordinates: { lat: 35.3849, lng: -77.9928 },
       },
       {
         city: 'Smithfield',
         address: '321 Market St, Smithfield, NC 27577',
-        phone: '(919) 555-0400',
         coordinates: { lat: 35.5085, lng: -78.3394 },
       },
     ];
   }
 
-  private getDefaultOffice(): { city: string; address: string; coordinates: { lat: number; lng: number }; distance: number } {
-    return this.getAllOffices()[0];
+  private getDefaultOffice(): {
+    city: string;
+    address: string;
+    coordinates: { lat: number; lng: number };
+    distance: number;
+  } {
+    const office = this.getAllOffices()[0];
+    return {
+      ...office,
+      distance: 0,
+    };
   }
 
   private calculateDistance(city1: string, city2: string): number {
@@ -900,19 +949,27 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     // Return practice area specific local data
     const specificData = {
       immigration: {
-        immigrantPopulation: ((localData.demographics as LocalData['demographics'] & { immigrantPopulation?: string })).immigrantPopulation || '15%',
+        immigrantPopulation:
+          (localData.demographics as LocalData['demographics'] & { immigrantPopulation?: string })
+            .immigrantPopulation || '15%',
         commonCountries: ['Mexico', 'India', 'China', 'Philippines'],
         uscisOffice: 'Charlotte USCIS Field Office',
       },
       'personal-injury': {
-        accidentRate: ((localData as LocalData & { crimeStats?: { vehicleAccidents?: string } })).crimeStats?.vehicleAccidents || 'Above state average',
+        accidentRate:
+          (localData as LocalData & { crimeStats?: { vehicleAccidents?: string } }).crimeStats
+            ?.vehicleAccidents || 'Above state average',
         majorHighways: ['I-40', 'I-85', 'I-95'],
-        hospitals: ((localData as LocalData & { hospitals?: string[] })).hospitals || ['Wake Med', 'Duke Health'],
+        hospitals: (localData as LocalData & { hospitals?: string[] }).hospitals || [
+          'Wake Med',
+          'Duke Health',
+        ],
       },
       // Add more practice areas
     };
 
-    return (specificData as Record<string, unknown>)[practiceArea] || {};
+    return ((specificData as Record<string, Record<string, unknown>>)[practiceArea] ||
+      {}) as Record<string, unknown>;
   }
 
   private getRelevantStats(practiceArea: string, localData: LocalData) {
@@ -932,7 +989,11 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       // Add more practice areas
     };
 
-    return (statsMap as Record<string, Array<{ label: string; value: string; context: string }>>)[practiceArea] || [];
+    return (
+      (statsMap as Record<string, Array<{ label: string; value: string; context: string }>>)[
+        practiceArea
+      ] || []
+    );
   }
 
   private getLocalResources(
@@ -945,24 +1006,57 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
         {
           name: 'USCIS Charlotte Field Office',
           type: 'Government',
+          contact: '(800) 375-5283',
           description: 'Immigration services',
         },
-        { name: 'NC Justice Center', type: 'Non-profit', description: 'Immigration advocacy' },
+        {
+          name: 'NC Justice Center',
+          type: 'Non-profit',
+          contact: '(919) 856-2570',
+          description: 'Immigration advocacy',
+        },
         {
           name: `${city} Immigrant Resource Center`,
           type: 'Community',
+          contact: 'Visit website',
           description: 'Local support',
         },
       ],
       'personal-injury': [
-        { name: `${city} Police Department`, type: 'Government', description: 'Accident reports' },
-        { name: 'NC DMV', type: 'Government', description: 'Driving records' },
-        { name: `${city} Medical Center`, type: 'Healthcare', description: 'Medical treatment' },
+        {
+          name: `${city} Police Department`,
+          type: 'Government',
+          contact: 'Call 911',
+          description: 'Accident reports',
+        },
+        {
+          name: 'NC DMV',
+          type: 'Government',
+          contact: '(919) 715-7000',
+          description: 'Driving records',
+        },
+        {
+          name: `${city} Medical Center`,
+          type: 'Healthcare',
+          contact: 'Call 911',
+          description: 'Medical treatment',
+        },
       ],
       // Add more practice areas
     };
 
-    return (resources as Record<string, Array<{ name: string; phone?: string; website?: string; description: string }>>)[practiceArea] || [];
+    return (
+      (
+        resources as Record<
+          string,
+          Array<{ name: string; type: string; contact?: string; description: string }>
+        >
+      )[practiceArea] || []
+    ).map(r => ({
+      name: r.name,
+      type: r.type || 'Resource',
+      contact: r.contact,
+    }));
   }
 
   private getEmotionalTriggers(practiceArea: string): string[] {
@@ -1004,7 +1098,9 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     );
   }
 
-  private async getRelevantStatistics(practiceArea: string): Promise<Array<{ label: string; value: string; context: string }>> {
+  private async getRelevantStatistics(
+    practiceArea: string
+  ): Promise<Array<{ label: string; value: string; context: string }>> {
     // In production, fetch from real data sources
     return this.getRelevantStats(practiceArea, {} as LocalData);
   }
@@ -1069,15 +1165,57 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     });
   }
 
-  private addConversionTracking(conversionElements: ConversionElements): ConversionElements {
+  private addConversionTracking(conversionElements: any): ConversionElements {
+    const tracking = {
+      primaryCTA: { id: 'primary-cta', event: 'click_primary_cta' },
+      secondaryCTA: { id: 'secondary-cta', event: 'click_secondary_cta' },
+      stickyCTA: { id: 'sticky-cta', event: 'click_sticky_cta' },
+      exitCTA: { id: 'exit-cta', event: 'click_exit_cta' },
+    };
+
+    // Convert the simple CTA strings to proper ConversionElements structure
     return {
-      ...conversionElements,
-      tracking: {
-        primaryCTA: { id: 'primary-cta', event: 'click_primary_cta' },
-        secondaryCTA: { id: 'secondary-cta', event: 'click_secondary_cta' },
-        stickyCTA: { id: 'sticky-cta', event: 'click_sticky_cta' },
-        exitCTA: { id: 'exit-cta', event: 'click_exit_cta' },
+      ctaButtons: [
+        {
+          text: conversionElements.primary || 'Get Started',
+          url: '/contact',
+          style: 'primary',
+          trackingId: tracking.primaryCTA.id,
+        },
+        {
+          text: conversionElements.secondary || 'Learn More',
+          url: '/services',
+          style: 'secondary',
+          trackingId: tracking.secondaryCTA.id,
+        },
+        {
+          text: conversionElements.sticky || 'Contact Us',
+          url: '/contact',
+          style: 'sticky',
+          trackingId: tracking.stickyCTA.id,
+        },
+      ],
+      forms: [
+        {
+          type: 'contact',
+          fields: ['name', 'email', 'phone', 'message'],
+          submitUrl: '/api/contact',
+          trackingId: 'contact-form',
+        },
+      ],
+      chatWidget: {
+        enabled: true,
+        position: 'bottom-right',
+        welcomeMessage: 'How can we help you today?',
       },
+      popups: [
+        {
+          type: 'exit-intent',
+          trigger: 'exit',
+          content: conversionElements.exit || "Don't leave yet!",
+          delay: 0,
+        },
+      ],
     };
   }
 

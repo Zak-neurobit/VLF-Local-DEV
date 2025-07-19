@@ -3,7 +3,7 @@
 import { NearMeTemplate } from '@/components/templates/NearMeTemplate';
 import { getNearMeCityBySlug, getPracticeAreaByKey } from '@/data/near-me-locations';
 
-export default function caryduiNearMeClient() {
+export default function CaryDuiNearMeClient() {
   const cityData = getNearMeCityBySlug('cary');
   const practiceArea = getPracticeAreaByKey('dui');
 

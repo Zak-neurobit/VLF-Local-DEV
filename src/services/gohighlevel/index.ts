@@ -402,7 +402,7 @@ export class GoHighLevelService {
         case 'ContactCreate':
         case 'ContactUpdate':
           if (event.data && event.contactId) {
-            await this.syncContactToDatabase(event.data as GHLContact);
+            await this.syncContactToDatabase(event.data as unknown as GHLContact);
           }
           break;
 
@@ -410,8 +410,8 @@ export class GoHighLevelService {
           if (event.data && event.contactId) {
             await this.handleInboundMessage({
               contactId: event.contactId,
-              message: (event.data as GHLInboundMessage).message || '',
-              type: (event.data as GHLInboundMessage).type || 'SMS',
+              message: (event.data as unknown as GHLInboundMessage).message || '',
+              type: (event.data as unknown as GHLInboundMessage).type || 'SMS',
               direction: 'inbound',
               timestamp: event.timestamp,
             });

@@ -11,8 +11,23 @@ import { AIOverviewOptimizationAgent } from './ai-overview-optimization-agent';
 
 export interface ImmigrationConsultationRequest {
   clientType: 'individual' | 'family' | 'business' | 'employer';
-  immigrationGoal: 'green_card' | 'citizenship' | 'visa' | 'work_authorization' | 'family_reunification' | 'asylum' | 'business_investment';
-  currentStatus: 'visitor' | 'student' | 'worker' | 'refugee' | 'asylee' | 'green_card_holder' | 'undocumented' | 'other';
+  immigrationGoal:
+    | 'green_card'
+    | 'citizenship'
+    | 'visa'
+    | 'work_authorization'
+    | 'family_reunification'
+    | 'asylum'
+    | 'business_investment';
+  currentStatus:
+    | 'visitor'
+    | 'student'
+    | 'worker'
+    | 'refugee'
+    | 'asylee'
+    | 'green_card_holder'
+    | 'undocumented'
+    | 'other';
   countryOfOrigin: string;
   timeInUS?: string;
   familyTies?: 'spouse' | 'parent' | 'child' | 'sibling' | 'none';
@@ -93,13 +108,26 @@ export class ImmigrationSpecialistAgent {
         const legalAnalysis = await this.performLegalAnalysis(request, eligibilityAnalysis);
 
         // Step 3: Create recommendations and action plan
-        const recommendations = await this.generateRecommendations(request, eligibilityAnalysis, legalAnalysis);
+        const recommendations = await this.generateRecommendations(
+          request,
+          eligibilityAnalysis,
+          legalAnalysis
+        );
 
         // Step 4: Generate AI Overview optimized content
-        const aiOverviewContent = await this.generateAIOverviewContent(request, eligibilityAnalysis);
+        const aiOverviewContent = await this.generateAIOverviewContent(
+          request,
+          eligibilityAnalysis
+        );
 
         // Step 5: Compile assessment
-        const assessment = this.compileAssessment(request, eligibilityAnalysis, legalAnalysis, recommendations, aiOverviewContent);
+        const assessment = this.compileAssessment(
+          request,
+          eligibilityAnalysis,
+          legalAnalysis,
+          recommendations,
+          aiOverviewContent
+        );
 
         logger.info('Immigration case assessment completed', {
           caseComplexity: assessment.caseComplexity,
@@ -169,7 +197,10 @@ Provide accurate, current information based on USCIS regulations and procedures.
     }
   }
 
-  private async performLegalAnalysis(request: ImmigrationConsultationRequest, eligibility: any): Promise<any> {
+  private async performLegalAnalysis(
+    request: ImmigrationConsultationRequest,
+    eligibility: any
+  ): Promise<any> {
     const legalPrompt = `Perform comprehensive legal analysis for this immigration case:
 
 CASE DETAILS:
@@ -217,7 +248,11 @@ RESPONSE FORMAT (JSON):
     }
   }
 
-  private async generateRecommendations(request: ImmigrationConsultationRequest, eligibility: any, legalAnalysis: any): Promise<any> {
+  private async generateRecommendations(
+    request: ImmigrationConsultationRequest,
+    eligibility: any,
+    legalAnalysis: any
+  ): Promise<any> {
     const recommendationsPrompt = `Generate actionable recommendations for this immigration case:
 
 CASE SUMMARY:
@@ -265,7 +300,10 @@ RESPONSE FORMAT (JSON):
     }
   }
 
-  private async generateAIOverviewContent(request: ImmigrationConsultationRequest, eligibility: any): Promise<any> {
+  private async generateAIOverviewContent(
+    request: ImmigrationConsultationRequest,
+    eligibility: any
+  ): Promise<any> {
     const contentPrompt = `Generate AI Overview optimized content for this immigration case:
 
 CASE TYPE: ${request.immigrationGoal}
@@ -456,14 +494,18 @@ Always maintain the highest ethical standards and encourage consultation with qu
       },
     };
 
-    return feeRanges[complexity as keyof typeof feeRanges]?.[goal as keyof (typeof feeRanges)[typeof complexity]] || '$3,000-$8,000';
+    const complexityKey = complexity as keyof typeof feeRanges;
+    const complexityFees = feeRanges[complexityKey];
+    if (!complexityFees) return '$3,000-$8,000';
+
+    return (complexityFees as any)[goal] || '$3,000-$8,000';
   }
 
   private calculateTotalCosts(governmentFees: string, attorneyFees: string): string {
     // Extract numbers from fee ranges and estimate total
     const govRange = governmentFees.match(/\d+/g) || ['1000'];
     const attRange = attorneyFees.match(/\d+/g) || ['3000'];
-    
+
     const govMin = parseInt(govRange[0]);
     const govMax = parseInt(govRange[1] || govRange[0]);
     const attMin = parseInt(attRange[0]);
@@ -475,11 +517,19 @@ Always maintain the highest ethical standards and encourage consultation with qu
     return `$${totalMin.toLocaleString()}-$${totalMax.toLocaleString()}`;
   }
 
-  private generateConsultationSummary(request: ImmigrationConsultationRequest, eligibility: any, complexity: string): string {
+  private generateConsultationSummary(
+    request: ImmigrationConsultationRequest,
+    eligibility: any,
+    complexity: string
+  ): string {
     return `Based on your ${request.immigrationGoal} goal and ${request.currentStatus} status, you appear to be eligible for ${eligibility.primary_pathway}. This is classified as a ${complexity} case with ${eligibility.likelihood} likelihood of success. The process typically takes ${eligibility.timeframe} and involves ${eligibility.requirements?.length || 0} main requirements. ${request.priorDenials ? 'Given your prior denial history, extra care will be needed in preparing your case.' : ''} Professional legal representation is ${complexity === 'simple' ? 'recommended' : complexity === 'moderate' ? 'strongly recommended' : 'essential'} for this type of case.`;
   }
 
-  private generateNextSteps(request: ImmigrationConsultationRequest, recommendations: any, complexity: string): string[] {
+  private generateNextSteps(
+    request: ImmigrationConsultationRequest,
+    recommendations: any,
+    complexity: string
+  ): string[] {
     const baseSteps = [
       'Schedule consultation with immigration attorney',
       'Begin gathering required documentation',
@@ -522,7 +572,11 @@ Always maintain the highest ethical standards and encourage consultation with qu
 
   private getFallbackRecommendations(request: ImmigrationConsultationRequest) {
     return {
-      immediate_actions: ['Consult immigration attorney', 'Gather documents', 'Review requirements'],
+      immediate_actions: [
+        'Consult immigration attorney',
+        'Gather documents',
+        'Review requirements',
+      ],
       required_documents: ['Passport', 'Birth certificate', 'Supporting evidence'],
       timeline: {
         phase1: '1-2 months - Document preparation',

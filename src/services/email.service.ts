@@ -1178,7 +1178,8 @@ class EmailService {
     } catch (error) {
       const duration = performance.now() - startTime;
 
-      logger.error('Failed to send email', error, {
+      logger.error('Failed to send email', {
+        error,
         to: options.to,
         subject: options.subject,
         template: options.template,

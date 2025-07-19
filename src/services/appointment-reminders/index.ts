@@ -124,8 +124,8 @@ export class AppointmentReminderService {
             appointmentDate: dateStr,
             appointmentTime: timeStr,
             attorneyName:
-              (appointment as Appointment & { case?: { attorney?: { name?: string } } }).case
-                ?.attorney?.name || 'Your Attorney',
+              (appointment as AppointmentWithUser & { case?: { attorney?: { name?: string } } })
+                .case?.attorney?.name || 'Your Attorney',
             appointmentType: appointment.type,
             location: appointment.location || 'Phone consultation',
             notes: appointment.notes,
@@ -176,8 +176,8 @@ export class AppointmentReminderService {
             appointmentDate: dateStr,
             appointmentTime: timeStr,
             attorneyName:
-              (appointment as Appointment & { case?: { attorney?: { name?: string } } }).case
-                ?.attorney?.name || 'Your Attorney',
+              (appointment as AppointmentWithUser & { case?: { attorney?: { name?: string } } })
+                .case?.attorney?.name || 'Your Attorney',
             appointmentType: appointment.type,
             documentsNeeded: this.getRequiredDocuments(appointment.type),
           },

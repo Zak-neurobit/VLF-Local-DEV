@@ -1,7 +1,7 @@
-import raleighCriminalDefenseNearMeClient from './raleighCriminalDefenseNearMeClient';
+import RaleighCriminalDefenseCercaDeMiClient from './raleighCriminalDefenseNearMeClient';
 
-export default function raleighCriminalDefenseNearMePage() {
-  return <raleighCriminalDefenseNearMeClient />;
+export default function RaleighCriminalDefenseCercaDeMiPage() {
+  return <RaleighCriminalDefenseCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Defensa Criminal Cerca de Mi en Raleigh, NC | Vasquez Law Firm',

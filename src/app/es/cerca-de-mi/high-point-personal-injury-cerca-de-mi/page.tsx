@@ -1,7 +1,7 @@
-import HighPointPersonalInjuryNearMeClient from './HighPointPersonalInjuryNearMeClient';
+import HighPointPersonalInjuryCercaDeMiClient from './HighPointPersonalInjuryNearMeClient';
 
-export default function HighPointPersonalInjuryNearMePage() {
-  return <HighPointPersonalInjuryNearMeClient />;
+export default function HighPointPersonalInjuryCercaDeMiPage() {
+  return <HighPointPersonalInjuryCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Lesiones Personales Cerca de Mi en High Point, NC | Vasquez Law Firm',

@@ -1,7 +1,7 @@
-import raleighPersonalInjuryNearMeClient from './raleighPersonalInjuryNearMeClient';
+import RaleighPersonalInjuryCercaDeMiClient from './raleighPersonalInjuryNearMeClient';
 
-export default function raleighPersonalInjuryNearMePage() {
-  return <raleighPersonalInjuryNearMeClient />;
+export default function RaleighPersonalInjuryCercaDeMiPage() {
+  return <RaleighPersonalInjuryCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Lesiones Personales Cerca de Mi en Raleigh, NC | Vasquez Law Firm',

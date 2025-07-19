@@ -1,7 +1,7 @@
-import wilmingtonduiNearMeClient from './wilmingtonduiNearMeClient';
+import WilmingtonDuiCercaDeMiClient from './wilmingtonduiNearMeClient';
 
-export default function wilmingtonduiNearMePage() {
-  return <wilmingtonduiNearMeClient />;
+export default function WilmingtonDuiCercaDeMiPage() {
+  return <WilmingtonDuiCercaDeMiClient />;
 }
 
 export const metadata = {

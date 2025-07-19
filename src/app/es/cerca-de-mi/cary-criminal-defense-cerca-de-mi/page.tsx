@@ -1,7 +1,7 @@
-import caryCriminalDefenseNearMeClient from './caryCriminalDefenseNearMeClient';
+import CaryCriminalDefenseCercaDeMiClient from './caryCriminalDefenseNearMeClient';
 
-export default function caryCriminalDefenseNearMePage() {
-  return <caryCriminalDefenseNearMeClient />;
+export default function CaryCriminalDefenseCercaDeMiPage() {
+  return <CaryCriminalDefenseCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Defensa Criminal Cerca de Mi en Cary, NC | Vasquez Law Firm',

@@ -1,7 +1,7 @@
-import WinstonSalemCarAccidentsNearMeClient from './WinstonSalemCarAccidentsNearMeClient';
+import WinstonSalemCarAccidentsCercaDeMiClient from './WinstonSalemCarAccidentsNearMeClient';
 
-export default function WinstonSalemCarAccidentsNearMePage() {
-  return <WinstonSalemCarAccidentsNearMeClient />;
+export default function WinstonSalemCarAccidentsCercaDeMiPage() {
+  return <WinstonSalemCarAccidentsCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Accidentes de Auto Cerca de Mi en Winston-Salem, NC | Vasquez Law Firm',

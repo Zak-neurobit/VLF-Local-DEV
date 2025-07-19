@@ -1,7 +1,7 @@
-import HighPointduiNearMeClient from './HighPointduiNearMeClient';
+import HighPointDuiCercaDeMiClient from './HighPointduiNearMeClient';
 
-export default function HighPointduiNearMePage() {
-  return <HighPointduiNearMeClient />;
+export default function HighPointDuiCercaDeMiPage() {
+  return <HighPointDuiCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de DUI Cerca de Mi en High Point, NC | Vasquez Law Firm',

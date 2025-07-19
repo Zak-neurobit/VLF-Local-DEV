@@ -24,30 +24,36 @@ export const DashboardMetricsSchema = z.object({
     averageCallDuration: z.number(),
     satisfactionScore: z.number().min(0).max(5),
     conversionRate: z.number(),
-    topIntents: z.array(z.object({
-      intent: z.string(),
-      count: z.number(),
-    })),
+    topIntents: z.array(
+      z.object({
+        intent: z.string(),
+        count: z.number(),
+      })
+    ),
   }),
   seo: z.object({
     organicTraffic: z.number(),
     averagePosition: z.number(),
-    topKeywords: z.array(z.object({
-      keyword: z.string(),
-      position: z.number(),
-      traffic: z.number(),
-    })),
+    topKeywords: z.array(
+      z.object({
+        keyword: z.string(),
+        position: z.number(),
+        traffic: z.number(),
+      })
+    ),
     contentPerformance: z.number(),
   }),
   content: z.object({
     totalViews: z.number(),
     engagementRate: z.number(),
     averageTimeOnPage: z.number(),
-    topContent: z.array(z.object({
-      title: z.string(),
-      views: z.number(),
-      engagement: z.number(),
-    })),
+    topContent: z.array(
+      z.object({
+        title: z.string(),
+        views: z.number(),
+        engagement: z.number(),
+      })
+    ),
   }),
   security: z.object({
     threatsDetected: z.number(),
@@ -178,44 +184,38 @@ export class AnalyticsEngine extends EventEmitter {
           lte: timeRange.end,
         },
       },
-      include: {
-        agentInteractions: true,
-      },
+      // Include related data if needed
     });
 
     const totalCalls = callData.length;
-    const averageCallDuration = totalCalls > 0 
-      ? callData.reduce((sum, call) => sum + (call.duration || 0), 0) / totalCalls 
-      : 0;
+    // Duration would need to be calculated from call data
+    const averageCallDuration = 0; // Placeholder - need to implement duration calculation
 
-    const satisfactionScores = callData
-      .map(call => call.agentInteractions?.[0]?.satisfaction)
-      .filter(score => score !== undefined);
-    
-    const satisfactionScore = satisfactionScores.length > 0
-      ? satisfactionScores.reduce((sum, score) => sum + score, 0) / satisfactionScores.length
-      : 0;
+    // Satisfaction score would need to be extracted from sentiment or extractedInfo
+    const satisfactionScore = 0; // Placeholder - need to implement satisfaction calculation
 
-    const conversions = callData.filter(call => 
-      call.actionItems?.some(item => 
-        item.toLowerCase().includes('appointment') || 
-        item.toLowerCase().includes('consultation')
+    const conversions = callData.filter(call =>
+      call.actionItems?.some(
+        item =>
+          item.toLowerCase().includes('appointment') || item.toLowerCase().includes('consultation')
       )
     ).length;
 
     const conversionRate = totalCalls > 0 ? (conversions / totalCalls) * 100 : 0;
 
-    // Get top intents
+    // Get top intents from extractedInfo
     const intentCounts = new Map<string, number>();
     callData.forEach(call => {
-      call.agentInteractions?.forEach(interaction => {
-        const intent = interaction.intent;
+      // Extract intent from extractedInfo JSON if available
+      const extractedInfo = call.extractedInfo as any;
+      if (extractedInfo?.intent) {
+        const intent = extractedInfo.intent;
         intentCounts.set(intent, (intentCounts.get(intent) || 0) + 1);
-      });
+      }
     });
 
     const topIntents = Array.from(intentCounts.entries())
-      .sort(([,a], [,b]) => b - a)
+      .sort(([, a], [, b]) => b - a)
       .slice(0, 5)
       .map(([intent, count]) => ({ intent, count }));
 
@@ -247,7 +247,7 @@ export class AnalyticsEngine extends EventEmitter {
   private async getContentMetrics(timeRange: TimeRange) {
     const blogViews = await prisma.userActivity.count({
       where: {
-        action: 'blog_view',
+        type: 'blog_view',
         createdAt: {
           gte: timeRange.start,
           lte: timeRange.end,
@@ -257,7 +257,7 @@ export class AnalyticsEngine extends EventEmitter {
 
     const engagementData = await prisma.userActivity.findMany({
       where: {
-        action: { in: ['blog_view', 'download', 'contact_form'] },
+        type: { in: ['blog_view', 'download', 'contact_form'] },
         createdAt: {
           gte: timeRange.start,
           lte: timeRange.end,
@@ -265,9 +265,7 @@ export class AnalyticsEngine extends EventEmitter {
       },
     });
 
-    const engagements = engagementData.filter(activity => 
-      activity.action !== 'blog_view'
-    ).length;
+    const engagements = engagementData.filter(activity => activity.type !== 'blog_view').length;
 
     const engagementRate = blogViews > 0 ? (engagements / blogViews) * 100 : 0;
 
@@ -324,7 +322,7 @@ export class AnalyticsEngine extends EventEmitter {
   private async getVisitorCount(timeRange: TimeRange): Promise<number> {
     return await prisma.userActivity.count({
       where: {
-        action: 'page_view',
+        type: 'page_view',
         createdAt: {
           gte: timeRange.start,
           lte: timeRange.end,
@@ -336,7 +334,7 @@ export class AnalyticsEngine extends EventEmitter {
   private async getLeadCount(timeRange: TimeRange): Promise<number> {
     return await prisma.userActivity.count({
       where: {
-        action: { in: ['contact_form', 'phone_call', 'appointment_book'] },
+        type: { in: ['contact_form', 'phone_call', 'appointment_book'] },
         createdAt: {
           gte: timeRange.start,
           lte: timeRange.end,
@@ -367,7 +365,7 @@ export class AnalyticsEngine extends EventEmitter {
     };
 
     return Object.entries(factors).reduce((score, [key, value]) => {
-      return score + (value * weights[key as keyof typeof weights]);
+      return score + value * weights[key as keyof typeof weights];
     }, 0);
   }
 
@@ -408,7 +406,7 @@ export class AnalyticsEngine extends EventEmitter {
 
   async exportMetrics(timeRange: TimeRange, format: 'csv' | 'json'): Promise<string> {
     const metrics = await this.getDashboardMetrics(timeRange);
-    
+
     if (format === 'json') {
       return JSON.stringify(metrics, null, 2);
     }

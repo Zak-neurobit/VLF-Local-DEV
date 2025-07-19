@@ -294,11 +294,12 @@ export class LegalCalculatorEngine {
     const validatedInputs = WorkersCompInputSchema.parse(inputs);
 
     // NC Workers' Compensation rates (2024)
-    const compensationRates = {
+    const compensationRates: Record<string, number> = {
       temporary_total: 0.6667, // 2/3 of wages
       temporary_partial: 0.6667,
       permanent_partial: 0.6667,
       permanent_total: 0.6667,
+      death: 0.6667, // Death benefits
     };
 
     const maxWeeklyBenefit = 1100; // NC maximum weekly benefit
@@ -326,6 +327,10 @@ export class LegalCalculatorEngine {
       case 'permanent_total':
         // Lifetime benefits - estimate 20 years
         totalCompensation = weeklyBenefit * 52 * 20;
+        break;
+      case 'death':
+        // Death benefits - typically 400 weeks
+        totalCompensation = weeklyBenefit * 400;
         break;
     }
 
@@ -773,7 +778,7 @@ export class LegalCalculatorEngine {
       // Store in database for analytics and lead tracking
       logger.info('Calculator result generated', {
         type: result.calculatorType,
-        timestamp: result.timestamp,
+        timestamp: result.timestamp.toISOString(),
         accuracy: result.estimatedAccuracy,
       });
     } catch (error) {

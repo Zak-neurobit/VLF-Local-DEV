@@ -1,7 +1,7 @@
-import wilmingtonSpanishSpeakingNearMeClient from './wilmingtonSpanishSpeakingNearMeClient';
+import WilmingtonSpanishSpeakingCercaDeMiClient from './wilmingtonSpanishSpeakingNearMeClient';
 
-export default function wilmingtonSpanishSpeakingNearMePage() {
-  return <wilmingtonSpanishSpeakingNearMeClient />;
+export default function WilmingtonSpanishSpeakingCercaDeMiPage() {
+  return <WilmingtonSpanishSpeakingCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado que Habla Español Cerca de Mi en Wilmington, NC | Vasquez Law Firm',

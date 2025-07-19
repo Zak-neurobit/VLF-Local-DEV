@@ -1,7 +1,7 @@
-import concordSpanishSpeakingNearMeClient from './concordSpanishSpeakingNearMeClient';
+import ConcordSpanishSpeakingCercaDeMiClient from './concordSpanishSpeakingNearMeClient';
 
-export default function concordSpanishSpeakingNearMePage() {
-  return <concordSpanishSpeakingNearMeClient />;
+export default function ConcordSpanishSpeakingCercaDeMiPage() {
+  return <ConcordSpanishSpeakingCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado que Habla Español Cerca de Mi en Concord, NC | Vasquez Law Firm',

@@ -1,7 +1,7 @@
-import WinstonSalemCriminalDefenseNearMeClient from './WinstonSalemCriminalDefenseNearMeClient';
+import WinstonSalemCriminalDefenseCercaDeMiClient from './WinstonSalemCriminalDefenseNearMeClient';
 
-export default function WinstonSalemCriminalDefenseNearMePage() {
-  return <WinstonSalemCriminalDefenseNearMeClient />;
+export default function WinstonSalemCriminalDefenseCercaDeMiPage() {
+  return <WinstonSalemCriminalDefenseCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Defensa Criminal Cerca de Mi en Winston-Salem, NC | Vasquez Law Firm',

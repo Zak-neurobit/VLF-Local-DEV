@@ -480,7 +480,7 @@ export class AgentOrchestrator extends EventEmitter {
           this.updateAgentMetrics(agentName, false, Date.now() - startTime);
         }
       } catch (metricsError) {
-        logger.error('Failed to update error metrics:', metricsError);
+        logger.error('Failed to update error metrics', { error: metricsError });
       }
 
       return this.getFallbackResponse(context.language);

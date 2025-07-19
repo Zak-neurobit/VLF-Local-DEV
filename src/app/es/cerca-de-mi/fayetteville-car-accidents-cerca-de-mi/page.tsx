@@ -1,7 +1,7 @@
-import fayettevilleCarAccidentsNearMeClient from './fayettevilleCarAccidentsNearMeClient';
+import FayettevilleCarAccidentsCercaDeMiClient from './fayettevilleCarAccidentsNearMeClient';
 
-export default function fayettevilleCarAccidentsNearMePage() {
-  return <fayettevilleCarAccidentsNearMeClient />;
+export default function FayettevilleCarAccidentsCercaDeMiPage() {
+  return <FayettevilleCarAccidentsCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Accidentes de Auto Cerca de Mi en Fayetteville, NC | Vasquez Law Firm',

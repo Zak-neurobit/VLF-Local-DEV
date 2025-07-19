@@ -1,7 +1,7 @@
-import greensuoroCarAccidentsNearMeClient from './greensuoroCarAccidentsNearMeClient';
+import GreensboroCarAccidentsCercaDeMiClient from './greensboroCarAccidentsNearMeClient';
 
-export default function greensuoroCarAccidentsNearMePage() {
-  return <greensuoroCarAccidentsNearMeClient />;
+export default function GreensboroCarAccidentsCercaDeMiPage() {
+  return <GreensboroCarAccidentsCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Accidentes de Auto Cerca de Mi en Greensboro, NC | Vasquez Law Firm',

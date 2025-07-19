@@ -1,7 +1,7 @@
-import fayettevilledivorceNearMeClient from './fayettevilledivorceNearMeClient';
+import FayettevilleDivorceCercaDeMiClient from './fayettevilledivorceNearMeClient';
 
-export default function fayettevilledivorceNearMePage() {
-  return <fayettevilledivorceNearMeClient />;
+export default function FayettevilleDivorceCercaDeMiPage() {
+  return <FayettevilleDivorceCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Divorcio Cerca de Mi en Fayetteville, NC | Vasquez Law Firm',

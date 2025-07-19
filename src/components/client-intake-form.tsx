@@ -51,11 +51,15 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
 
   const totalSteps = 5;
 
-  const handleInputChange = (section: keyof ClientIntakeRequest, field: string, value: any) => {
+  const handleInputChange = (
+    section: keyof ClientIntakeRequest,
+    field: string,
+    value: any
+  ): void => {
     setFormData(prev => ({
       ...prev,
       [section]: {
-        ...prev[section],
+        ...(prev[section] as any),
         [field]: value,
       },
     }));
@@ -66,13 +70,13 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
     nestedField: string,
     field: string,
     value: any
-  ) => {
+  ): void => {
     setFormData(prev => ({
       ...prev,
       [section]: {
-        ...prev[section],
+        ...((prev[section] as any) || {}),
         [nestedField]: {
-          ...(prev[section] as any)[nestedField],
+          ...((prev[section] as any)[nestedField] || {}),
           [field]: value,
         },
       },
@@ -83,11 +87,11 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
     section: keyof ClientIntakeRequest,
     field: string,
     value: string[]
-  ) => {
+  ): void => {
     setFormData(prev => ({
       ...prev,
       [section]: {
-        ...prev[section],
+        ...(prev[section] as any),
         [field]: value,
       },
     }));
@@ -322,7 +326,13 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
 }
 
 // Step Components
-function PersonalInfoStep({ data, onChange, onNestedChange }: any) {
+interface PersonalInfoStepProps {
+  data: ClientIntakeRequest['personalInfo'];
+  onChange: (field: string, value: any) => void;
+  onNestedChange: (nested: string, field: string, value: any) => void;
+}
+
+function PersonalInfoStep({ data, onChange, onNestedChange }: PersonalInfoStepProps) {
   return (
     <div className="space-y-6">
       <h3 className="text-xl font-semibold text-gray-900">Personal Information</h3>
@@ -427,7 +437,12 @@ function PersonalInfoStep({ data, onChange, onNestedChange }: any) {
   );
 }
 
-function LegalIssueStep({ data, onChange }: any) {
+interface LegalIssueStepProps {
+  data: ClientIntakeRequest['legalIssue'];
+  onChange: (field: string, value: any) => void;
+}
+
+function LegalIssueStep({ data, onChange }: LegalIssueStepProps) {
   return (
     <div className="space-y-6">
       <h3 className="text-xl font-semibold text-gray-900">Legal Issue Information</h3>
@@ -529,7 +544,12 @@ function LegalIssueStep({ data, onChange }: any) {
   );
 }
 
-function PriorExperienceStep({ data, onChange }: any) {
+interface PriorExperienceStepProps {
+  data: ClientIntakeRequest['priorLegalExperience'];
+  onChange: (field: string, value: any) => void;
+}
+
+function PriorExperienceStep({ data, onChange }: PriorExperienceStepProps) {
   return (
     <div className="space-y-6">
       <h3 className="text-xl font-semibold text-gray-900">Previous Legal Experience</h3>
@@ -605,7 +625,12 @@ function PriorExperienceStep({ data, onChange }: any) {
   );
 }
 
-function FinancialStep({ data, onChange }: any) {
+interface FinancialStepProps {
+  data: ClientIntakeRequest['financialSituation'];
+  onChange: (field: string, value: any) => void;
+}
+
+function FinancialStep({ data, onChange }: FinancialStepProps) {
   return (
     <div className="space-y-6">
       <h3 className="text-xl font-semibold text-gray-900">Financial Information</h3>
@@ -687,6 +712,15 @@ function FinancialStep({ data, onChange }: any) {
   );
 }
 
+interface GoalsAndQuestionsStepProps {
+  goals: string[];
+  questions: string[];
+  onAddGoal: (goal: string) => void;
+  onRemoveGoal: (goal: string) => void;
+  onAddQuestion: (question: string) => void;
+  onRemoveQuestion: (question: string) => void;
+}
+
 function GoalsAndQuestionsStep({
   goals,
   questions,
@@ -694,7 +728,7 @@ function GoalsAndQuestionsStep({
   onRemoveGoal,
   onAddQuestion,
   onRemoveQuestion,
-}: any) {
+}: GoalsAndQuestionsStepProps) {
   const [newGoal, setNewGoal] = useState('');
   const [newQuestion, setNewQuestion] = useState('');
 

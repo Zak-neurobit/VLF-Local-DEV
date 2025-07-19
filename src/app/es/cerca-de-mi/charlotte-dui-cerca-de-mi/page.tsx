@@ -1,7 +1,7 @@
-import charlotteduiNearMeClient from './charlotteduiNearMeClient';
+import CharlotteDuiCercaDeMiClient from './charlotteduiNearMeClient';
 
-export default function charlotteduiNearMePage() {
-  return <charlotteduiNearMeClient />;
+export default function CharlotteDuiCercaDeMiPage() {
+  return <CharlotteDuiCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de DUI Cerca de Mi en Charlotte, NC | Vasquez Law Firm',

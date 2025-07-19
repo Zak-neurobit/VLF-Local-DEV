@@ -1,7 +1,7 @@
-import raleighWorkersCompensationNearMeClient from './raleighWorkersCompensationNearMeClient';
+import RaleighWorkersCompensationCercaDeMiClient from './raleighWorkersCompensationNearMeClient';
 
-export default function raleighWorkersCompensationNearMePage() {
-  return <raleighWorkersCompensationNearMeClient />;
+export default function RaleighWorkersCompensationCercaDeMiPage() {
+  return <RaleighWorkersCompensationCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Compensación Laboral Cerca de Mi en Raleigh, NC | Vasquez Law Firm',

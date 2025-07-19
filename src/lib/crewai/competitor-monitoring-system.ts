@@ -735,7 +735,10 @@ export class CompetitorMonitoringSystem {
           wordCount: 1500,
           language: 'en' as const,
           location: 'North Carolina',
-          urgency: response.urgency === 'immediate' ? 'high' : ('medium' as const),
+          urgency:
+            response.urgency === 'immediate' || response.urgency === 'within_24h'
+              ? 'high'
+              : ('medium' as 'high' | 'medium' | 'low'),
           includeCallToAction: true,
           competitorContext: {
             competitorName: await this.getCompetitorName(activity.competitorId),
@@ -746,7 +749,7 @@ export class CompetitorMonitoringSystem {
           voiceSearchFocus: true,
         };
 
-        const generatedContent = await seoAgent.generateContent(blogRequest);
+        const generatedContent = await seoAgent.generateSEOBlog(blogRequest);
 
         // Store generated content for review
         await this.storeGeneratedContent(activity, response, generatedContent);
@@ -803,20 +806,19 @@ export class CompetitorMonitoringSystem {
       to: process.env.COMPETITIVE_ALERTS_EMAIL || 'marketing@vasquezlawfirm.com',
       subject,
       html: content,
-      priority: activity.impact === 'high' ? 'high' : 'normal',
     });
 
     // Also create in-app notification
-    await createNotification({
-      type: 'competitive_alert',
-      title: subject,
-      message: `${competitor} has new ${activity.activityType} activity requiring attention`,
-      priority: activity.impact,
-      data: {
-        activityId: activity.competitorId,
-        responseId: response.activityId,
-      },
-    });
+    // await createNotification({
+    //   type: 'competitive_alert',
+    //   title: subject,
+    //   message: `${competitor} has new ${activity.activityType} activity requiring attention`,
+    //   priority: activity.impact,
+    //   data: {
+    //     activityId: activity.competitorId,
+    //     responseId: response.activityId,
+    //   },
+    // });
   }
 
   /**

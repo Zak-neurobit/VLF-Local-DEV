@@ -1,7 +1,7 @@
-import durhamPersonalInjuryNearMeClient from './durhamPersonalInjuryNearMeClient';
+import DurhamPersonalInjuryCercaDeMiClient from './durhamPersonalInjuryNearMeClient';
 
-export default function durhamPersonalInjuryNearMePage() {
-  return <durhamPersonalInjuryNearMeClient />;
+export default function DurhamPersonalInjuryCercaDeMiPage() {
+  return <DurhamPersonalInjuryCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Lesiones Personales Cerca de Mi en Durham, NC | Vasquez Law Firm',

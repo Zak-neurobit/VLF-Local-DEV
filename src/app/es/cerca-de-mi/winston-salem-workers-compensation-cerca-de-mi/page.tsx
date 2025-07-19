@@ -1,7 +1,7 @@
-import WinstonSalemWorkersCompensationNearMeClient from './WinstonSalemWorkersCompensationNearMeClient';
+import WinstonSalemWorkersCompensationCercaDeMiClient from './WinstonSalemWorkersCompensationNearMeClient';
 
-export default function WinstonSalemWorkersCompensationNearMePage() {
-  return <WinstonSalemWorkersCompensationNearMeClient />;
+export default function WinstonSalemWorkersCompensationCercaDeMiPage() {
+  return <WinstonSalemWorkersCompensationCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Compensación Laboral Cerca de Mi en Winston-Salem, NC | Vasquez Law Firm',

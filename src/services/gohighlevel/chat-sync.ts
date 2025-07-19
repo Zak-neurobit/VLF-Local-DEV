@@ -429,7 +429,7 @@ export class GHLChatSyncService {
         msg.content.toLowerCase().includes('consulta')
     );
 
-    const hasContactInfo = conversation.user.phone || conversation.user.email;
+    const hasContactInfo = !!(conversation.user.phone || conversation.user.email);
 
     return hasAppointmentInterest && hasContactInfo;
   }

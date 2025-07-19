@@ -147,8 +147,11 @@ export class SEOBlogGenerationAgent {
             content: contentHtml,
             practiceArea: request.practiceArea,
             targetKeywords: request.targetKeywords,
-            contentType: request.contentType === 'blog_post' ? 'article' : request.contentType,
-            targetAudience: request.targetAudience,
+            contentType: this.mapContentType(request.contentType),
+            targetAudience:
+              request.targetAudience === 'other_lawyers'
+                ? 'general_public'
+                : request.targetAudience,
             location: request.location,
             voiceSearchFocus: request.voiceSearchFocus || false,
             competitorAnalysis: request.competitorAnalysis || false,
@@ -272,7 +275,7 @@ Respond in JSON format:
       contentGaps: string[];
       differentiationOpportunities: string[];
     }
-  ): Promise<{ outline: string; structure: unknown }> {
+  ): Promise<{ outline: string; structure: Record<string, unknown> }> {
     const outlinePrompt = this.buildOutlinePrompt(request, competitiveAnalysis);
 
     const response = await this.model.invoke([
@@ -388,7 +391,7 @@ Siempre prioriza precisión, utilidad, estándares éticos de práctica legal, y
     return prompts[language];
   }
 
-  private parseContentOutline(outline: string): unknown {
+  private parseContentOutline(outline: string): Record<string, unknown> {
     // Parse the outline into a structured format
     // This is a simplified parser - in production would be more robust
     const lines = outline.split('\n').filter(line => line.trim());
@@ -449,7 +452,7 @@ Siempre prioriza precisión, utilidad, estándares éticos de práctica legal, y
   }
 
   private async generateContent(
-    outline: { outline: string; structure: unknown },
+    outline: { outline: string; structure: Record<string, unknown> },
     request: SEOBlogGenerationRequest
   ): Promise<ContentStructure> {
     const contentPrompt = this.buildContentPrompt(outline, request);
@@ -1005,6 +1008,24 @@ Provide SEO optimization in this JSON format:
     }
 
     return html;
+  }
+
+  private mapContentType(
+    contentType: SEOBlogGenerationRequest['contentType']
+  ): 'article' | 'faq' | 'how_to' | 'legal_guide' | 'service_page' {
+    switch (contentType) {
+      case 'blog_post':
+      case 'news_update':
+        return 'article';
+      case 'case_study':
+        return 'legal_guide';
+      case 'legal_guide':
+        return 'legal_guide';
+      case 'faq':
+        return 'faq';
+      default:
+        return 'article';
+    }
   }
 }
 

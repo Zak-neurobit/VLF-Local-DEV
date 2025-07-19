@@ -15,6 +15,8 @@ import { HoneypotField } from './HoneypotField';
 interface ContactFormProps {
   language?: 'en' | 'es';
   onSuccess?: () => void;
+  source?: string;
+  className?: string;
 }
 
 export function ContactForm({ language = 'en', onSuccess }: ContactFormProps) {

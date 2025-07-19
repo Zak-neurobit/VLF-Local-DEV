@@ -104,7 +104,7 @@ export class AppointmentSchedulingAgent {
       const ghlResult = await this.createGHLContact(request.clientInfo, request);
 
       if (!ghlResult.success) {
-        logger.error('Failed to create GHL contact:', ghlResult.error);
+        logger.error('Failed to create GHL contact:', { error: ghlResult.error });
         return { success: false, error: 'Failed to create contact in CRM' };
       }
 
@@ -112,7 +112,7 @@ export class AppointmentSchedulingAgent {
       const ghlAppointment = await this.createGHLAppointment(ghlResult.contactId!, slot, request);
 
       if (!ghlAppointment.success) {
-        logger.error('Failed to create GHL appointment:', ghlAppointment.error);
+        logger.error('Failed to create GHL appointment:', { error: ghlAppointment.error });
         return { success: false, error: 'Failed to schedule appointment in calendar' };
       }
 

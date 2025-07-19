@@ -11,6 +11,45 @@ interface CompetitorDashboardProps {
   className?: string;
 }
 
+// Helper functions for activity display
+function getActivityIcon(activityType: string): string {
+  const icons: Record<string, string> = {
+    content_published: '📝',
+    website_updated: '🌐',
+    social_media: '📱',
+    ranking_change: '📊',
+    ad_campaign: '📢',
+    new_review: '⭐',
+    service_expansion: '🚀',
+    default: '📌',
+  };
+  return icons[activityType] || icons.default;
+}
+
+function getActivityColor(activityType: string): string {
+  const colors: Record<string, string> = {
+    content_published: 'bg-blue-100 text-blue-800',
+    website_updated: 'bg-green-100 text-green-800',
+    social_media: 'bg-purple-100 text-purple-800',
+    ranking_change: 'bg-yellow-100 text-yellow-800',
+    ad_campaign: 'bg-red-100 text-red-800',
+    new_review: 'bg-indigo-100 text-indigo-800',
+    service_expansion: 'bg-pink-100 text-pink-800',
+    default: 'bg-gray-100 text-gray-800',
+  };
+  return colors[activityType] || colors.default;
+}
+
+function getImpactBadge(impact: string): string {
+  const badges: Record<string, string> = {
+    high: 'bg-red-100 text-red-800',
+    medium: 'bg-yellow-100 text-yellow-800',
+    low: 'bg-green-100 text-green-800',
+    default: 'bg-gray-100 text-gray-800',
+  };
+  return badges[impact] || badges.default;
+}
+
 export default function CompetitorDashboard({ className = '' }: CompetitorDashboardProps) {
   const [competitors, setCompetitors] = useState<any[]>([]);
   const [selectedCompetitor, setSelectedCompetitor] = useState<any | null>(null);

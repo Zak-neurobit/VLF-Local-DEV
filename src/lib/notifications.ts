@@ -1,5 +1,6 @@
 import { logger } from '@/lib/logger';
 import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import type { LogMeta } from '@/types/logger';
 import { prisma } from '@/lib/prisma-safe';
 
 export interface NotificationData {
@@ -26,7 +27,14 @@ export async function createNotification(data: NotificationData): Promise<void> 
     // 4. Sending emails for important notifications
 
     // For now, just log
-    logger.info('Notification created', data);
+    logger.info('Notification created', {
+      userId: data.userId,
+      type: data.type,
+      title: data.title,
+      message: data.message,
+      link: data.link,
+      metadata: data.metadata,
+    } satisfies LogMeta);
   } catch (error) {
     logger.error('Failed to create notification', errorToLogMeta(error));
     throw error;

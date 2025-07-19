@@ -1,7 +1,7 @@
-import HighPointSpanishSpeakingNearMeClient from './HighPointSpanishSpeakingNearMeClient';
+import HighPointSpanishSpeakingCercaDeMiClient from './HighPointSpanishSpeakingNearMeClient';
 
-export default function HighPointSpanishSpeakingNearMePage() {
-  return <HighPointSpanishSpeakingNearMeClient />;
+export default function HighPointSpanishSpeakingCercaDeMiPage() {
+  return <HighPointSpanishSpeakingCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado que Habla Español Cerca de Mi en High Point, NC | Vasquez Law Firm',

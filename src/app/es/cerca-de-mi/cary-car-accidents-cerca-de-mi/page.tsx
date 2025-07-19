@@ -1,7 +1,7 @@
-import caryCarAccidentsNearMeClient from './caryCarAccidentsNearMeClient';
+import CaryCarAccidentsCercaDeMiClient from './caryCarAccidentsNearMeClient';
 
-export default function caryCarAccidentsNearMePage() {
-  return <caryCarAccidentsNearMeClient />;
+export default function CaryCarAccidentsCercaDeMiPage() {
+  return <CaryCarAccidentsCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Accidentes de Auto Cerca de Mi en Cary, NC | Vasquez Law Firm',

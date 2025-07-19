@@ -1,7 +1,7 @@
-import concordCarAccidentsNearMeClient from './concordCarAccidentsNearMeClient';
+import ConcordCarAccidentsCercaDeMiClient from './concordCarAccidentsNearMeClient';
 
-export default function concordCarAccidentsNearMePage() {
-  return <concordCarAccidentsNearMeClient />;
+export default function ConcordCarAccidentsCercaDeMiPage() {
+  return <ConcordCarAccidentsCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Accidentes de Auto Cerca de Mi en Concord, NC | Vasquez Law Firm',

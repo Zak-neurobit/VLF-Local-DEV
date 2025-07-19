@@ -2,6 +2,7 @@ import { EventEmitter } from 'events';
 import { prisma } from '@/lib/prisma-safe';
 import { logger } from '@/lib/logger';
 import { z } from 'zod';
+import { ABTestStatus } from '@prisma/client';
 
 // Schema definitions
 export const ABTestVariantSchema = z.object({
@@ -23,20 +24,26 @@ export const ABTestConfigSchema = z.object({
     userSegments: z.array(z.string()).optional(),
     geoTargeting: z.array(z.string()).optional(),
     deviceTypes: z.array(z.enum(['desktop', 'mobile', 'tablet'])).optional(),
-    timeWindows: z.array(z.object({
-      start: z.string(),
-      end: z.string(),
-      timezone: z.string().optional(),
-    })).optional(),
+    timeWindows: z
+      .array(
+        z.object({
+          start: z.string(),
+          end: z.string(),
+          timezone: z.string().optional(),
+        })
+      )
+      .optional(),
   }),
   metrics: z.object({
     primary: z.string(),
     secondary: z.array(z.string()).optional(),
-    conversionGoals: z.array(z.object({
-      name: z.string(),
-      event: z.string(),
-      value: z.number().optional(),
-    })),
+    conversionGoals: z.array(
+      z.object({
+        name: z.string(),
+        event: z.string(),
+        value: z.number().optional(),
+      })
+    ),
   }),
   duration: z.object({
     startDate: z.date(),
@@ -116,21 +123,21 @@ export class ABTestEngine extends EventEmitter {
       logger.info('A/B test completed', { testId });
     });
 
-    this.on('participant:assigned', (data: { testId: string; userId: string; variantId: string }) => {
-      logger.info('User assigned to A/B test variant', data);
-    });
+    this.on(
+      'participant:assigned',
+      (data: { testId: string; userId: string; variantId: string }) => {
+        logger.info('User assigned to A/B test variant', data);
+      }
+    );
   }
 
   private async loadActiveTests(): Promise<void> {
     try {
-      const activeTests = await prisma.abTest.findMany({
+      const activeTests = await prisma.aBTest.findMany({
         where: {
-          status: 'active',
+          status: ABTestStatus.ACTIVE,
           startDate: { lte: new Date() },
-          OR: [
-            { endDate: null },
-            { endDate: { gte: new Date() } },
-          ],
+          OR: [{ endDate: null }, { endDate: { gte: new Date() } }],
         },
         include: {
           variants: true,
@@ -159,12 +166,12 @@ export class ABTestEngine extends EventEmitter {
       }
 
       // Create test in database
-      const test = await prisma.abTest.create({
+      const test = await prisma.aBTest.create({
         data: {
           id: validatedConfig.id,
           name: validatedConfig.name,
           description: validatedConfig.description,
-          status: validatedConfig.status,
+          status: validatedConfig.status.toUpperCase() as ABTestStatus,
           targetingRules: JSON.stringify(validatedConfig.targetingRules),
           metrics: JSON.stringify(validatedConfig.metrics),
           startDate: validatedConfig.duration.startDate,
@@ -200,10 +207,10 @@ export class ABTestEngine extends EventEmitter {
 
   async startTest(testId: string): Promise<void> {
     try {
-      const test = await prisma.abTest.update({
+      const test = await prisma.aBTest.update({
         where: { id: testId },
-        data: { 
-          status: 'active',
+        data: {
+          status: ABTestStatus.ACTIVE,
           startDate: new Date(),
         },
         include: { variants: true },
@@ -222,9 +229,9 @@ export class ABTestEngine extends EventEmitter {
 
   async pauseTest(testId: string): Promise<void> {
     try {
-      await prisma.abTest.update({
+      await prisma.aBTest.update({
         where: { id: testId },
-        data: { status: 'paused' },
+        data: { status: ABTestStatus.PAUSED },
       });
 
       this.activeTests.delete(testId);
@@ -239,10 +246,10 @@ export class ABTestEngine extends EventEmitter {
 
   async completeTest(testId: string): Promise<void> {
     try {
-      await prisma.abTest.update({
+      await prisma.aBTest.update({
         where: { id: testId },
-        data: { 
-          status: 'completed',
+        data: {
+          status: 'COMPLETED' as any,
           endDate: new Date(),
         },
       });
@@ -258,8 +265,8 @@ export class ABTestEngine extends EventEmitter {
   }
 
   async assignVariant(
-    testId: string, 
-    userId: string, 
+    testId: string,
+    userId: string,
     sessionId: string,
     userContext?: {
       userAgent?: string;
@@ -315,7 +322,7 @@ export class ABTestEngine extends EventEmitter {
 
   async trackEvent(event: ABTestEvent): Promise<void> {
     try {
-      await prisma.abTestEvent.create({
+      await prisma.aBTestEvent.create({
         data: {
           testId: event.testId,
           variantId: event.variantId,
@@ -344,7 +351,7 @@ export class ABTestEngine extends EventEmitter {
 
   async getTestResults(testId: string): Promise<ABTestResult[]> {
     try {
-      const test = await prisma.abTest.findUnique({
+      const test = await prisma.aBTest.findUnique({
         where: { id: testId },
         include: {
           variants: true,
@@ -364,10 +371,10 @@ export class ABTestEngine extends EventEmitter {
         const variantEvents = test.events.filter(e => e.variantId === variant.id);
 
         // Calculate conversion rate for primary metric
-        const conversionEvents = variantEvents.filter(e => 
-          e.event === JSON.parse(test.metrics as string).primary
+        const conversionEvents = variantEvents.filter(
+          e => e.event === JSON.parse(test.metrics as string).primary
         );
-        
+
         const sampleSize = variantParticipants.length;
         const conversions = conversionEvents.length;
         const conversionRate = sampleSize > 0 ? conversions / sampleSize : 0;
@@ -383,18 +390,21 @@ export class ABTestEngine extends EventEmitter {
         const controlVariant = test.variants[0];
         let uplift = 0;
         if (variant.id !== controlVariant.id) {
-          const controlParticipants = test.participants.filter(p => p.variantId === controlVariant.id);
-          const controlEvents = test.events.filter(e => 
-            e.variantId === controlVariant.id && 
-            e.event === JSON.parse(test.metrics as string).primary
+          const controlParticipants = test.participants.filter(
+            p => p.variantId === controlVariant.id
           );
-          const controlConversionRate = controlParticipants.length > 0 
-            ? controlEvents.length / controlParticipants.length 
-            : 0;
-          
-          uplift = controlConversionRate > 0 
-            ? ((conversionRate - controlConversionRate) / controlConversionRate) * 100 
-            : 0;
+          const controlEvents = test.events.filter(
+            e =>
+              e.variantId === controlVariant.id &&
+              e.event === JSON.parse(test.metrics as string).primary
+          );
+          const controlConversionRate =
+            controlParticipants.length > 0 ? controlEvents.length / controlParticipants.length : 0;
+
+          uplift =
+            controlConversionRate > 0
+              ? ((conversionRate - controlConversionRate) / controlConversionRate) * 100
+              : 0;
         }
 
         results.push({
@@ -426,7 +436,7 @@ export class ABTestEngine extends EventEmitter {
     }
 
     // Check database
-    const participant = await prisma.abTestParticipant.findFirst({
+    const participant = await prisma.aBTestParticipant.findFirst({
       where: { testId, userId },
     });
 
@@ -501,14 +511,14 @@ export class ABTestEngine extends EventEmitter {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
       const char = str.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
+      hash = (hash << 5) - hash + char;
       hash = hash & hash; // Convert to 32-bit integer
     }
     return Math.abs(hash);
   }
 
   private async storeAssignment(participant: ABTestParticipant): Promise<void> {
-    await prisma.abTestParticipant.create({
+    await prisma.aBTestParticipant.create({
       data: {
         userId: participant.userId,
         sessionId: participant.sessionId,
@@ -526,7 +536,7 @@ export class ABTestEngine extends EventEmitter {
   private calculateStatistics(conversions: number, sampleSize: number, confidenceLevel: number) {
     const conversionRate = sampleSize > 0 ? conversions / sampleSize : 0;
     const z = confidenceLevel === 0.95 ? 1.96 : confidenceLevel === 0.99 ? 2.58 : 1.645;
-    
+
     const standardError = Math.sqrt((conversionRate * (1 - conversionRate)) / sampleSize);
     const marginOfError = z * standardError;
 
@@ -537,7 +547,7 @@ export class ABTestEngine extends EventEmitter {
 
     // Simplified p-value calculation (would use proper statistical test in production)
     const pValue = sampleSize < 30 ? 1 : Math.max(0.001, 1 - confidenceLevel);
-    const isSignificant = pValue < (1 - confidenceLevel);
+    const isSignificant = pValue < 1 - confidenceLevel;
 
     return { confidenceInterval, pValue, isSignificant };
   }
@@ -568,7 +578,7 @@ export class ABTestEngine extends EventEmitter {
   }
 
   async getAllTests(): Promise<ABTestConfig[]> {
-    const tests = await prisma.abTest.findMany({
+    const tests = await prisma.aBTest.findMany({
       include: { variants: true },
       orderBy: { createdAt: 'desc' },
     });

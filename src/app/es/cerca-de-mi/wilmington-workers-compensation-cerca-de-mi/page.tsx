@@ -1,7 +1,7 @@
-import wilmingtonWorkersCompensationNearMeClient from './wilmingtonWorkersCompensationNearMeClient';
+import WilmingtonWorkersCompensationCercaDeMiClient from './wilmingtonWorkersCompensationNearMeClient';
 
-export default function wilmingtonWorkersCompensationNearMePage() {
-  return <wilmingtonWorkersCompensationNearMeClient />;
+export default function WilmingtonWorkersCompensationCercaDeMiPage() {
+  return <WilmingtonWorkersCompensationCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Compensación Laboral Cerca de Mi en Wilmington, NC | Vasquez Law Firm',

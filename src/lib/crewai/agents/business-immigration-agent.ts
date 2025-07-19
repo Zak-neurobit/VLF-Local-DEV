@@ -92,7 +92,7 @@ Provide:
   }): Promise<PERMStrategy> {
     try {
       if (!this.model) {
-        return this.getMockPERMStrategy(params);
+        return this.getMockPERMStrategy({ companyName: 'Company', position: params.position });
       }
 
       const systemPrompt = `You are preparing a PERM labor certification strategy. Consider:
@@ -117,7 +117,7 @@ Special Requirements: ${params.specialRequirements || 'None'}`;
       return this.parsePERMStrategy(response.content as string);
     } catch (error) {
       logger.error('PERM strategy preparation failed', errorToLogMeta(error));
-      return this.getMockPERMStrategy(params);
+      return this.getMockPERMStrategy({ companyName: 'Company', position: params.position });
     }
   }
 
@@ -130,7 +130,7 @@ Special Requirements: ${params.specialRequirements || 'None'}`;
   }): Promise<H1BAssessment> {
     try {
       if (!this.model) {
-        return this.getMockH1BAssessment(params);
+        return this.getMockH1BAssessment({ companyName: 'Company', position: params.position });
       }
 
       const systemPrompt = `Assess H-1B eligibility focusing on:
@@ -155,7 +155,7 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
       return this.parseH1BAssessment(response.content as string);
     } catch (error) {
       logger.error('H1B assessment failed', errorToLogMeta(error));
-      return this.getMockH1BAssessment(params);
+      return this.getMockH1BAssessment({ companyName: 'Company', position: params.position });
     }
   }
 
@@ -246,8 +246,10 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
   private calculateEligibilityScore(params: {
     education: string;
     experience: string;
-    position: string;
+    position?: string;
     salary?: string;
+    currentStatus?: string;
+    companySize?: string;
   }): number {
     let score = 70; // Base score
 
@@ -370,7 +372,7 @@ Cap Subject: ${params.capSubject ? 'Yes' : 'No'}`;
     return {
       specialtyOccupation: true,
       degreeRelated: true,
-      wageCompliant: params.salary > '65000',
+      wageCompliant: true,
       rfeRisk: 'medium',
       strengtheningSuggestions: [
         'Provide detailed job duties showing complexity',

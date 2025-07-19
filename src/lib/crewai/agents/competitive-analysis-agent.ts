@@ -108,7 +108,17 @@ export class CompetitiveAnalysisAgent {
       );
 
       // Step 5: Store analysis in database
-      await this.storeAnalysis(marketAnalysis, competitorProfiles, recommendations, request);
+      await this.storeAnalysis(
+        marketAnalysis,
+        competitorProfiles,
+        {
+          immediate: recommendations.strategies.marketingTactics,
+          shortTerm: recommendations.strategies.serviceEnhancements,
+          longTerm: recommendations.strategies.competitiveDifferentiators,
+          riskFactors: ['Market saturation', 'Competitive pressure'],
+        },
+        request
+      );
 
       return {
         analysisDate: new Date(),
@@ -489,31 +499,65 @@ Provide recommendations for:
     request: CompetitorAnalysisRequest
   ) {
     try {
-      await getPrismaClient().competitorAnalysis.create({
-        data: {
-          url: `analysis-${Date.now()}`, // Unique identifier for this analysis
-          domain: request.location.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase(),
-          blogPosts: competitors.flatMap(c => c.marketingStrategy.contentTopics),
-          seoData: {
-            practiceArea: request.practiceArea,
-            location: request.location,
-            analysisType: request.analysisType,
-            marketOverview: marketAnalysis,
-            competitors: competitors.map(c => ({
-              name: c.name,
-              website: c.website,
-              marketPosition: c.marketPosition,
-              strengths: c.strengths,
-              weaknesses: c.weaknesses,
-            })),
+      // Store each competitor analysis separately
+      for (const competitor of competitors) {
+        if (!competitor.website) continue;
+
+        // First, create or find the competitor
+        const competitorRecord = await getPrismaClient().competitor.upsert({
+          where: { website: competitor.website },
+          update: {
+            name: competitor.name,
+            lastChecked: new Date(),
+            practiceAreas: [request.practiceArea],
+            locations: [request.location],
+            metadata: {
+              marketPosition: competitor.marketPosition,
+              strengths: competitor.strengths,
+              weaknesses: competitor.weaknesses,
+              clientReviews: competitor.clientReviews,
+            },
           },
-          keywords: competitors.flatMap(c => c.marketingStrategy.seoKeywords),
-          contentGaps: {
-            opportunities: recommendations.opportunities,
-            strategies: recommendations.strategies,
+          create: {
+            name: competitor.name,
+            website: competitor.website,
+            domain: new URL(competitor.website).hostname,
+            practiceAreas: [request.practiceArea],
+            locations: [request.location],
+            metadata: {
+              marketPosition: competitor.marketPosition,
+              strengths: competitor.strengths,
+              weaknesses: competitor.weaknesses,
+              clientReviews: competitor.clientReviews,
+            },
           },
-        },
-      });
+        });
+
+        // Then store the analysis
+        await getPrismaClient().competitorAnalysis.create({
+          data: {
+            competitorId: competitorRecord.id,
+            url: competitor.website,
+            domain: competitorRecord.domain,
+            blogPosts: competitor.marketingStrategy.contentTopics,
+            seoData: {
+              practiceArea: request.practiceArea,
+              location: request.location,
+              analysisType: request.analysisType,
+              marketingStrategy: competitor.marketingStrategy,
+              pricing: competitor.pricing,
+            },
+            keywords: competitor.marketingStrategy.seoKeywords,
+            contentGaps: {
+              marketOverview: marketAnalysis,
+              immediate: recommendations.immediate,
+              shortTerm: recommendations.shortTerm,
+              longTerm: recommendations.longTerm,
+              riskFactors: recommendations.riskFactors,
+            },
+          },
+        });
+      }
     } catch (error) {
       logger.warn('Failed to store competitive analysis in database', errorToLogMeta(error));
     }

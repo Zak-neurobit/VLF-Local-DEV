@@ -152,7 +152,7 @@ export class CrewCoordinator {
       error = err instanceof Error ? err.message : 'Unknown error';
       task.status = 'failed';
       task.error = error;
-      logger.error(`Task ${task.id} failed:`, err);
+      logger.error(`Task ${task.id} failed:`, errorToLogMeta(err));
       throw err;
     } finally {
       const endTime = new Date();

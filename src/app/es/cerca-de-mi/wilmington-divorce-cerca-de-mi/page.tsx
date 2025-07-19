@@ -1,7 +1,7 @@
-import wilmingtondivorceNearMeClient from './wilmingtondivorceNearMeClient';
+import WilmingtonDivorceCercaDeMiClient from './wilmingtondivorceNearMeClient';
 
-export default function wilmingtondivorceNearMePage() {
-  return <wilmingtondivorceNearMeClient />;
+export default function WilmingtonDivorceCercaDeMiPage() {
+  return <WilmingtonDivorceCercaDeMiClient />;
 }
 
 export const metadata = {

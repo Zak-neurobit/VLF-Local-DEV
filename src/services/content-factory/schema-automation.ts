@@ -152,7 +152,7 @@ export class SchemaMarkupAutomation {
       knowsAbout: this.getPracticeAreaTopics(
         (landingPage as GeneratedLandingPage & { practiceArea?: string }).practiceArea || 'legal'
       ),
-      makesOffer: this.generateServiceSchema(
+      makesOffer: this.generateServiceOfferSchema(
         (landingPage as GeneratedLandingPage & { practiceArea?: string }).practiceArea || 'legal'
       ),
     };
@@ -485,8 +485,11 @@ export class SchemaMarkupAutomation {
   /**
    * Helper methods
    */
-  private generateImageSchema(featuredImage?: string, additionalImages?: string[]) {
-    const images = [featuredImage, ...(additionalImages || [])].filter(Boolean);
+  private generateImageSchema(featuredImage?: string, additionalImages?: string[] | unknown[]) {
+    const validImages = additionalImages
+      ? additionalImages.filter((img): img is string => typeof img === 'string')
+      : [];
+    const images = [featuredImage, ...validImages].filter(Boolean);
 
     if (images.length === 0) {
       return `${this.baseUrl}/images/default-legal.jpg`;
@@ -609,6 +612,22 @@ export class SchemaMarkupAutomation {
         description: offer.description,
       },
     }));
+  }
+
+  private generateServiceOfferSchema(practiceArea: string) {
+    return {
+      '@type': 'Service',
+      name: `${this.formatPracticeArea(practiceArea)} Legal Services`,
+      provider: {
+        '@id': `${this.baseUrl}/#organization`,
+      },
+      areaServed: ['North Carolina', 'Florida'],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Services Offered',
+        itemListElement: this.generateServiceOffers(practiceArea),
+      },
+    };
   }
 
   private generateReviewSchema() {
@@ -752,7 +771,20 @@ export class SchemaMarkupAutomation {
       // Add more practice areas...
     };
 
-    return (options as Record<string, string[]>)[practiceArea] || [];
+    const practiceAreaOptions =
+      (options as Record<string, Array<{ name: string; price: string; description: string }>>)[
+        practiceArea
+      ] || [];
+
+    return practiceAreaOptions.map(option => ({
+      '@type': 'Offer',
+      name: option.name,
+      priceSpecification: {
+        '@type': 'PriceSpecification',
+        price: option.price,
+      },
+      description: option.description,
+    }));
   }
 
   private getServiceReviewCount(practiceArea: string): string {

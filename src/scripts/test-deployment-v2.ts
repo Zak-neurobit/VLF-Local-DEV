@@ -2,6 +2,7 @@
 
 import { logger } from '../lib/logger';
 import { errorToLogMeta } from '../lib/logger/utils';
+import type { LogMeta } from '../types/logger';
 import { AgentMonitor } from '../lib/agents/agent-monitor';
 import { AgentOrchestrator } from '../lib/agents/agent-orchestrator';
 import { CrewCoordinator } from '../lib/crewai/enhanced-crew-coordinator';
@@ -229,7 +230,15 @@ class DeploymentTester {
       throw new Error('No health status available for agent');
     }
 
-    logger.info('Agent health status:', healthStatus);
+    logger.info('Agent health status:', {
+      agentName: healthStatus.agentName,
+      isHealthy: healthStatus.isHealthy,
+      lastHealthCheck: healthStatus.lastHealthCheck.toISOString(),
+      healthScore: healthStatus.healthScore,
+      issues: healthStatus.issues,
+      responseTime: healthStatus.responseTime,
+      consecutiveFailures: healthStatus.consecutiveFailures,
+    } satisfies LogMeta);
 
     logger.info('✅ Agent monitoring test passed');
   }
@@ -327,11 +336,11 @@ class DeploymentTester {
     }
 
     logger.info(`Workflow created with ID: ${workflowId}`);
-    logger.info('Workflow status:', workflowStatus.status);
+    logger.info('Workflow status:', { status: workflowStatus.status });
 
     // Get system status
     const systemStatus = this.coordinator.getSystemStatus();
-    logger.info('Coordinator system status:', systemStatus);
+    logger.info('Coordinator system status:', systemStatus as LogMeta);
 
     logger.info('✅ Workflow management test passed');
   }

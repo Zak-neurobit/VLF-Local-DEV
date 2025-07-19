@@ -1,7 +1,7 @@
-import wilmingtonCriminalDefenseNearMeClient from './wilmingtonCriminalDefenseNearMeClient';
+import WilmingtonCriminalDefenseCercaDeMiClient from './wilmingtonCriminalDefenseNearMeClient';
 
-export default function wilmingtonCriminalDefenseNearMePage() {
-  return <wilmingtonCriminalDefenseNearMeClient />;
+export default function WilmingtonCriminalDefenseCercaDeMiPage() {
+  return <WilmingtonCriminalDefenseCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Defensa Criminal Cerca de Mi en Wilmington, NC | Vasquez Law Firm',

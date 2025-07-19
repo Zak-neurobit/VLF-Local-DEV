@@ -4,6 +4,17 @@ import { APISafetyWrapper } from '@/lib/api-safety';
 import { logger } from '@/lib/logger';
 import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 
+interface BusinessImmigrationAnalysis {
+  summary: string;
+  eligibility: boolean;
+  requirements: string[];
+  timeline: string;
+  risks: string[];
+  strategy: string[];
+  documents: string[];
+  nextSteps: string[];
+}
+
 export class EnhancedBusinessImmigrationAgent {
   private model: ChatOpenAI | null = null;
   private safetyWrapper: APISafetyWrapper;
@@ -198,12 +209,7 @@ Corporate Relationship: ${params.relationship}`;
     const mockData = {
       h1b: {
         summary: 'H-1B petition requires careful documentation of specialty occupation',
-        recommendations: [
-          'File LCA with accurate prevailing wage',
-          'Document specialty occupation nature',
-          'Show degree requirement in industry',
-          'Consider premium processing',
-        ],
+        eligibility: true,
         requirements: [
           "Bachelor's degree or equivalent in related field",
           'Specialty occupation position',
@@ -212,6 +218,25 @@ Corporate Relationship: ${params.relationship}`;
           'Prevailing wage compliance',
         ],
         timeline: 'LCA: 7 days; Regular: 4-6 months; Premium: 15 days',
+        risks: [
+          'H-1B cap lottery if not exempt',
+          'RFEs common for generic titles',
+          'Wage level must match duties',
+          'Third-party placement scrutiny',
+        ],
+        strategy: [
+          'File LCA with accurate prevailing wage',
+          'Document specialty occupation nature',
+          'Show degree requirement in industry',
+          'Consider premium processing',
+        ],
+        documents: [
+          'Degree certificates and transcripts',
+          'Job offer letter',
+          'Detailed job description',
+          'Company financial documents',
+          'Organizational chart',
+        ],
         nextSteps: [
           'Determine correct wage level',
           'File LCA with DOL',
@@ -219,21 +244,10 @@ Corporate Relationship: ${params.relationship}`;
           'Maintain Public Access File',
           'Prepare detailed job description',
         ],
-        warnings: [
-          'H-1B cap lottery if not exempt',
-          'RFEs common for generic titles',
-          'Wage level must match duties',
-          'Third-party placement scrutiny',
-        ],
       },
       perm: {
         summary: 'PERM requires strategic planning to avoid audit triggers',
-        recommendations: [
-          'Draft requirements carefully',
-          'Avoid tailoring to foreign national',
-          'Use standard industry requirements',
-          'Document business necessity',
-        ],
+        eligibility: true,
         requirements: [
           'Prevailing wage determination',
           'Recruitment in specified media',
@@ -242,6 +256,25 @@ Corporate Relationship: ${params.relationship}`;
           'Additional recruitment steps',
         ],
         timeline: 'Total 11-15 months: PWD 3-4 + Recruitment 2-3 + Processing 6-8',
+        risks: [
+          'Requirements too specific trigger audits',
+          'Must pay 100% of prevailing wage',
+          'Cannot require foreign language unless justified',
+          'Maintain all recruitment documentation',
+        ],
+        strategy: [
+          'Draft requirements carefully',
+          'Avoid tailoring to foreign national',
+          'Use standard industry requirements',
+          'Document business necessity',
+        ],
+        documents: [
+          'Prevailing wage determination',
+          'Recruitment tear sheets',
+          'Job postings documentation',
+          'Recruitment report',
+          'ETA-9089 form',
+        ],
         nextSteps: [
           'File PWD request (ETA-9141)',
           'Prepare recruitment plan',
@@ -249,21 +282,10 @@ Corporate Relationship: ${params.relationship}`;
           'Create recruitment report template',
           'Set up audit file',
         ],
-        warnings: [
-          'Requirements too specific trigger audits',
-          'Must pay 100% of prevailing wage',
-          'Cannot require foreign language unless justified',
-          'Maintain all recruitment documentation',
-        ],
       },
       eb1: {
         summary: 'EB-1 requires exceptional evidence of extraordinary ability',
-        recommendations: [
-          'Document all achievements comprehensively',
-          'Get strong recommendation letters',
-          'Show sustained acclaim',
-          'Demonstrate impact in field',
-        ],
+        eligibility: true,
         requirements: [
           'EB-1A: Meet 3 of 10 criteria',
           'EB-1B: Outstanding researcher/professor',
@@ -272,6 +294,25 @@ Corporate Relationship: ${params.relationship}`;
           'Sustained national/international acclaim',
         ],
         timeline: 'Processing: 8-12 months; Premium: 15 days',
+        risks: [
+          'Quality over quantity for evidence',
+          'Comparable evidence must truly compare',
+          'Final merits determination is subjective',
+          'Premium processing available',
+        ],
+        strategy: [
+          'Document all achievements comprehensively',
+          'Get strong recommendation letters',
+          'Show sustained acclaim',
+          'Demonstrate impact in field',
+        ],
+        documents: [
+          'Awards and recognition',
+          'Publications and citations',
+          'Media coverage',
+          'Recommendation letters',
+          'Evidence of impact',
+        ],
         nextSteps: [
           'Compile evidence for each criterion',
           'Draft petition letter strategically',
@@ -279,21 +320,10 @@ Corporate Relationship: ${params.relationship}`;
           'Document citations and impact',
           'Organize exhibits clearly',
         ],
-        warnings: [
-          'Quality over quantity for evidence',
-          'Comparable evidence must truly compare',
-          'Final merits determination is subjective',
-          'Premium processing available',
-        ],
       },
       l1: {
         summary: 'L-1 requires qualifying relationship and appropriate role',
-        recommendations: [
-          'Document corporate relationship clearly',
-          'Show one year employment abroad',
-          'Define specialized knowledge (L-1B)',
-          'Detail managerial/executive duties (L-1A)',
-        ],
+        eligibility: true,
         requirements: [
           'Qualifying relationship between entities',
           'One year employment in 3 years',
@@ -302,18 +332,31 @@ Corporate Relationship: ${params.relationship}`;
           'US office requirements if new',
         ],
         timeline: 'Regular: 2-4 months; Premium: 15 days',
+        risks: [
+          'Specialized knowledge bar is high',
+          'Function managers need subordinates',
+          'New office L-1s face scrutiny',
+          'Blanket L may be faster option',
+        ],
+        strategy: [
+          'Document corporate relationship clearly',
+          'Show one year employment abroad',
+          'Define specialized knowledge (L-1B)',
+          'Detail managerial/executive duties (L-1A)',
+        ],
+        documents: [
+          'Corporate documents for both entities',
+          'Organizational charts',
+          'Employment verification abroad',
+          'Detailed job descriptions',
+          'Proof of qualifying relationship',
+        ],
         nextSteps: [
           'Prepare organizational charts',
           'Document qualifying relationship',
           'Detail position abroad and in US',
           'Show continuous employment',
           'Address new office if applicable',
-        ],
-        warnings: [
-          'Specialized knowledge bar is high',
-          'Function managers need subordinates',
-          'New office L-1s face scrutiny',
-          'Blanket L may be faster option',
         ],
       },
     };
@@ -332,15 +375,18 @@ Corporate Relationship: ${params.relationship}`;
       .filter(item => item.length > 0);
   }
 
-  private parseResponse(content: string): unknown {
+  private parseResponse(content: string): BusinessImmigrationAnalysis {
     const sections = content.split('\n\n');
     return {
       summary: sections[0] || '',
-      recommendations: this.extractListItems(sections[1] || ''),
+      eligibility:
+        content.toLowerCase().includes('eligible') || content.toLowerCase().includes('qualify'),
       requirements: this.extractListItems(sections[2] || ''),
       timeline: sections[3] || '',
+      risks: this.extractListItems(sections[5] || ''),
+      strategy: this.extractListItems(sections[1] || ''),
+      documents: this.extractListItems(sections[6] || ''),
       nextSteps: this.extractListItems(sections[4] || ''),
-      warnings: this.extractListItems(sections[5] || ''),
     };
   }
 }

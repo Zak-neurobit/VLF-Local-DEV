@@ -1,7 +1,7 @@
-import greensuoroPersonalInjuryNearMeClient from './greensuoroPersonalInjuryNearMeClient';
+import GreensboroPersonalInjuryCercaDeMiClient from './greensuoroPersonalInjuryNearMeClient';
 
-export default function greensuoroPersonalInjuryNearMePage() {
-  return <greensuoroPersonalInjuryNearMeClient />;
+export default function GreensboroPersonalInjuryCercaDeMiPage() {
+  return <GreensboroPersonalInjuryCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Lesiones Personales Cerca de Mi en Greensboro, NC | Vasquez Law Firm',

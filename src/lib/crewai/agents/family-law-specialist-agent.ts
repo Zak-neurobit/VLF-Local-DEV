@@ -10,7 +10,17 @@ import { createCrewLogger } from '@/lib/crews/log-execution';
 import { AIOverviewOptimizationAgent } from './ai-overview-optimization-agent';
 
 export interface FamilyLawConsultationRequest {
-  caseType: 'divorce' | 'custody' | 'child_support' | 'alimony' | 'adoption' | 'domestic_violence' | 'paternity' | 'modification' | 'contempt' | 'other';
+  caseType:
+    | 'divorce'
+    | 'custody'
+    | 'child_support'
+    | 'alimony'
+    | 'adoption'
+    | 'domestic_violence'
+    | 'paternity'
+    | 'modification'
+    | 'contempt'
+    | 'other';
   maritalStatus: 'married' | 'separated' | 'divorced' | 'never_married';
   separationDate?: string;
   separationLength?: string;
@@ -126,13 +136,25 @@ export class FamilyLawSpecialistAgent {
         const financialAnalysis = await this.analyzeFinancials(request);
 
         // Step 4: Strategy development
-        const strategy = await this.developStrategy(request, ncLawAnalysis, custodyAnalysis, financialAnalysis);
+        const strategy = await this.developStrategy(
+          request,
+          ncLawAnalysis,
+          custodyAnalysis,
+          financialAnalysis
+        );
 
         // Step 5: Generate AI Overview content
         const aiOverviewContent = await this.generateAIOverviewContent(request, ncLawAnalysis);
 
         // Step 6: Compile assessment
-        const assessment = this.compileAssessment(request, ncLawAnalysis, custodyAnalysis, financialAnalysis, strategy, aiOverviewContent);
+        const assessment = this.compileAssessment(
+          request,
+          ncLawAnalysis,
+          custodyAnalysis,
+          financialAnalysis,
+          strategy,
+          aiOverviewContent
+        );
 
         logger.info('Family law case assessment completed', {
           caseComplexity: assessment.caseComplexity,
@@ -371,7 +393,12 @@ RESPONSE FORMAT (JSON):
     }
   }
 
-  private async developStrategy(request: FamilyLawConsultationRequest, ncLaw: any, custody: any, financial: any): Promise<any> {
+  private async developStrategy(
+    request: FamilyLawConsultationRequest,
+    ncLaw: any,
+    custody: any,
+    financial: any
+  ): Promise<any> {
     const strategyPrompt = `Develop comprehensive strategy for NC family law case:
 
 CASE PROFILE:
@@ -429,11 +456,17 @@ RESPONSE FORMAT (JSON):
     }
   }
 
-  private async generateAIOverviewContent(request: FamilyLawConsultationRequest, ncLaw: any): Promise<any> {
+  private async generateAIOverviewContent(
+    request: FamilyLawConsultationRequest,
+    ncLaw: any
+  ): Promise<any> {
     const contentPrompt = `Generate AI Overview optimized content for NC family law:
 
 CASE TYPE: ${request.caseType}
-ISSUES: ${Object.entries(request.issues).filter(([k, v]) => v).map(([k]) => k).join(', ')}
+ISSUES: ${Object.entries(request.issues)
+      .filter(([k, v]) => v)
+      .map(([k]) => k)
+      .join(', ')}
 
 Generate 6-8 FAQ answers optimized for AI Overview (40-60 words each):
 
@@ -509,7 +542,11 @@ RESPONSE FORMAT (JSON):
 
     // Determine attorney necessity
     let attorneyNecessity: 'essential' | 'recommended' | 'helpful' | 'optional';
-    if (request.issues.domesticViolence || request.cooperation === 'hostile' || caseComplexity === 'highly_complex') {
+    if (
+      request.issues.domesticViolence ||
+      request.cooperation === 'hostile' ||
+      caseComplexity === 'highly_complex'
+    ) {
       attorneyNecessity = 'essential';
     } else if (request.hasChildren || caseComplexity === 'complex') {
       attorneyNecessity = 'recommended';
@@ -532,21 +569,29 @@ RESPONSE FORMAT (JSON):
         estimated_cost: strategy.cost_estimate,
         key_priorities: strategy.priorities || [],
       },
-      custody_analysis: custody ? {
-        best_interests_factors: Object.values(custody.best_interests_factors || {}).flat(),
-        likely_outcome: custody.likely_outcome,
-        custody_schedule: custody.recommended_schedule,
-        relocation_issues: request.issues.relocation,
-      } : undefined,
+      custody_analysis: custody
+        ? {
+            best_interests_factors: Object.values(custody.best_interests_factors || {})
+              .flat()
+              .filter((f): f is string => typeof f === 'string'),
+            likely_outcome: custody.likely_outcome || '',
+            custody_schedule: custody.recommended_schedule || '',
+            relocation_issues: request.issues.relocation,
+          }
+        : undefined,
       financial_analysis: {
         alimony_likelihood: financial.alimony_analysis?.entitlement || 'none',
-        property_division: financial.property_division?.distribution_factors?.join(', ') || 'Standard equitable distribution',
+        property_division:
+          financial.property_division?.distribution_factors?.join(', ') ||
+          'Standard equitable distribution',
         child_support_estimate: financial.child_support?.estimated_amount || 'N/A',
         financial_disclosure_needed: financial.financial_disclosures || [],
       },
       nc_law_analysis: {
         applicable_statutes: ncLaw.applicable_statutes || [],
-        separation_requirements: ncLaw.separation_compliant ? 'Met' : 'One year separation required',
+        separation_requirements: ncLaw.separation_compliant
+          ? 'Met'
+          : 'One year separation required',
         grounds_for_divorce: ncLaw.grounds_available || ['No-fault after one year separation'],
         procedural_requirements: ncLaw.procedural_requirements || [],
         court_jurisdiction: ncLaw.court_venue || 'County where parties last resided',
@@ -557,10 +602,7 @@ RESPONSE FORMAT (JSON):
         estimated_resolution: strategy.timeline,
         critical_deadlines: this.identifyCriticalDeadlines(request, ncLaw),
       },
-      risks_challenges: [
-        ...(strategy.risk_mitigation || []),
-        ...(custody?.risk_factors || []),
-      ],
+      risks_challenges: [...(strategy.risk_mitigation || []), ...(custody?.risk_factors || [])],
       alternative_dispute_resolution: this.identifyADROptions(request, strategy),
       attorney_necessity: attorneyNecessity,
       immediate_actions: strategy.immediate_actions || [],
@@ -625,46 +667,48 @@ Maintain highest ethical standards and provide accurate analysis specific to Nor
 
   private identifyCriticalDeadlines(request: FamilyLawConsultationRequest, ncLaw: any): string[] {
     const deadlines: string[] = [];
-    
+
     if (!request.separationDate && request.caseType === 'divorce') {
       deadlines.push('Begin separation to start one-year requirement');
     }
-    
+
     if (request.issues.domesticViolence) {
       deadlines.push('File for protective order if needed (immediately)');
     }
-    
+
     if (request.hasChildren && !request.currentCustody) {
       deadlines.push('Establish temporary custody arrangements');
     }
-    
+
     return deadlines;
   }
 
   private identifyADROptions(request: FamilyLawConsultationRequest, strategy: any): string[] {
     const options: string[] = [];
-    
+
     if (request.cooperation !== 'hostile') {
       options.push('Mediation (required for contested custody in NC)');
     }
-    
+
     if (request.cooperation === 'amicable' || request.cooperation === 'some_disagreement') {
       options.push('Collaborative divorce');
       options.push('Settlement negotiation');
     }
-    
+
     if (request.caseType === 'divorce' && !request.issues.domesticViolence) {
       options.push('Uncontested divorce');
     }
-    
+
     return options;
   }
 
   // Fallback methods
   private getFallbackNCLaw(request: FamilyLawConsultationRequest) {
-    const separationCompliant = request.separationLength === 'over_one_year' || 
-                               (request.separationDate && 
-                                new Date().getTime() - new Date(request.separationDate).getTime() > 365 * 24 * 60 * 60 * 1000);
+    const separationCompliant =
+      request.separationLength === 'over_one_year' ||
+      (request.separationDate &&
+        new Date().getTime() - new Date(request.separationDate).getTime() >
+          365 * 24 * 60 * 60 * 1000);
 
     return {
       separation_compliant: separationCompliant,
@@ -672,7 +716,11 @@ Maintain highest ethical standards and provide accurate analysis specific to Nor
       grounds_available: ['No-fault after one year separation'],
       jurisdiction_proper: true,
       applicable_statutes: ['N.C.G.S. § 50-6', 'N.C.G.S. § 50-13.1'],
-      procedural_requirements: ['File complaint', 'Serve defendant', 'Complete mediation if custody disputed'],
+      procedural_requirements: [
+        'File complaint',
+        'Serve defendant',
+        'Complete mediation if custody disputed',
+      ],
       court_venue: 'District Court',
       estimated_timeline: '3-12 months after separation completed',
     };
@@ -723,8 +771,16 @@ Maintain highest ethical standards and provide accurate analysis specific to Nor
       timeline: '6-12 months',
       cost_estimate: '$3,000-$15,000',
       priorities: ['Child welfare', 'Financial stability', 'Efficient resolution'],
-      immediate_actions: ['Begin separation if needed', 'Gather financial documents', 'Consider temporary arrangements'],
-      risk_mitigation: ['Document everything', 'Maintain stability for children', 'Avoid conflict escalation'],
+      immediate_actions: [
+        'Begin separation if needed',
+        'Gather financial documents',
+        'Consider temporary arrangements',
+      ],
+      risk_mitigation: [
+        'Document everything',
+        'Maintain stability for children',
+        'Avoid conflict escalation',
+      ],
       alternative_options: ['Mediation', 'Collaborative process'],
     };
   }

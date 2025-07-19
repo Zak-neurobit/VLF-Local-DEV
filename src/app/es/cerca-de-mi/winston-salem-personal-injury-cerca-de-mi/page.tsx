@@ -1,7 +1,7 @@
-import WinstonSalemPersonalInjuryNearMeClient from './WinstonSalemPersonalInjuryNearMeClient';
+import WinstonSalemPersonalInjuryCercaDeMiClient from './WinstonSalemPersonalInjuryNearMeClient';
 
-export default function WinstonSalemPersonalInjuryNearMePage() {
-  return <WinstonSalemPersonalInjuryNearMeClient />;
+export default function WinstonSalemPersonalInjuryCercaDeMiPage() {
+  return <WinstonSalemPersonalInjuryCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Lesiones Personales Cerca de Mi en Winston-Salem, NC | Vasquez Law Firm',

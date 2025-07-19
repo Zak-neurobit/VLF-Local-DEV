@@ -772,15 +772,16 @@ export class CompetitorSpyAgent {
   private async storeIntelligence(intel: CompetitorIntelligence): Promise<void> {
     await this.prisma.competitorAnalysis.create({
       data: {
+        competitorId: intel.domain, // Using domain as ID
         domain: intel.domain,
         url: `https://${intel.domain}`,
-        blogPosts: intel.content.newPosts,
+        blogPosts: intel.content.newPosts as any, // Json type
         seoData: {
           rankings: intel.rankings,
           technical: intel.technicalSEO,
-        },
-        backlinks: intel.backlinks,
-        keywords: intel.rankings.map(r => ({ keyword: r.keyword, position: r.position })),
+        } as any, // Json type
+        backlinks: intel.backlinks as any, // Json type
+        keywords: intel.rankings.map(r => ({ keyword: r.keyword, position: r.position })) as any, // Json type
         analyzedAt: new Date(),
       },
     });
@@ -938,7 +939,7 @@ export class CompetitorSpyAgent {
 
   private async sendIntelligenceAlerts(report: DailyIntelligenceReport): Promise<void> {
     if (report.urgentActions.length > 0) {
-      logger.warn('🚨 URGENT Competitor Intelligence:', report.urgentActions);
+      logger.warn('🚨 URGENT Competitor Intelligence:', { urgentActions: report.urgentActions });
 
       // In production, would send email/Slack alerts
     }
@@ -1158,7 +1159,7 @@ Consider our resources and potential impact.
 
     // Alert on significant movements
     if (movements.newEntrants.length > 0) {
-      logger.warn('🚨 New competitors in top 10:', movements.newEntrants);
+      logger.warn('🚨 New competitors in top 10:', { newEntrants: movements.newEntrants });
     }
   }
 
@@ -1312,7 +1313,7 @@ Consider our resources and potential impact.
     }
 
     if (urgentAlerts.length > 0) {
-      logger.error('🚨 URGENT COMPETITIVE ALERTS:', urgentAlerts);
+      logger.error('🚨 URGENT COMPETITIVE ALERTS:', { urgentAlerts });
       // In production, would send immediate notifications
     }
   }

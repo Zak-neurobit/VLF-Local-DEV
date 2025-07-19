@@ -44,16 +44,18 @@ export function sendToAnalytics(metric: WebVitalsMetric) {
       value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
       metric_rating: metric.rating,
       non_interaction: true,
-    });
+    } as any);
   }
 
   // Send to our telemetry system for p99 tracking
   if (typeof window !== 'undefined') {
-    import('../telemetry')
-      .then(({ trackWebVitals }) => {
-        trackWebVitals(metric);
-      })
-      .catch(console.error);
+    // Log metrics for now - telemetry can be implemented later
+    logger.info('[Web Vitals Telemetry]', {
+      name: metric.name,
+      value: metric.value,
+      rating: metric.rating,
+      delta: metric.delta,
+    });
   }
 
   // Also log to console in development
@@ -65,8 +67,11 @@ export function sendToAnalytics(metric: WebVitalsMetric) {
 export function reportWebVitals(onReport?: (metric: WebVitalsMetric) => void) {
   const handleReport = (metric: Metric) => {
     const enhancedMetric: WebVitalsMetric = {
-      ...metric,
+      name: metric.name,
+      value: metric.value,
       rating: getRating(metric.name, metric.value),
+      delta: metric.delta,
+      entries: metric.entries,
     };
 
     sendToAnalytics(enhancedMetric);
@@ -111,7 +116,11 @@ export function observePerformance() {
   try {
     const layoutShiftObserver = new PerformanceObserver(list => {
       for (const entry of list.getEntries()) {
-        const layoutShift = entry as PerformanceEntry & { hadRecentInput?: boolean; value?: number; sources?: unknown[] };
+        const layoutShift = entry as PerformanceEntry & {
+          hadRecentInput?: boolean;
+          value?: number;
+          sources?: unknown[];
+        };
         if (layoutShift.hadRecentInput) continue;
         logger.info('[Performance] Layout shift:', {
           value: layoutShift.value,

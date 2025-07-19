@@ -1,7 +1,7 @@
-import charlotteCarAccidentsNearMeClient from './charlotteCarAccidentsNearMeClient';
+import CharlotteCarAccidentsCercaDeMiClient from './charlotteCarAccidentsNearMeClient';
 
-export default function charlotteCarAccidentsNearMePage() {
-  return <charlotteCarAccidentsNearMeClient />;
+export default function CharlotteCarAccidentsCercaDeMiPage() {
+  return <CharlotteCarAccidentsCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Accidentes de Auto Cerca de Mi en Charlotte, NC | Vasquez Law Firm',

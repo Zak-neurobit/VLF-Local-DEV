@@ -306,7 +306,7 @@ The Vasquez Law Firm Team`,
 
     try {
       // 1. Recent case wins (highest priority)
-      const recentWins = (await this.prisma.case.findMany({
+      const recentWins = (await this.prisma!.case.findMany({
         where: {
           status: 'closed',
           updatedAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) }, // Last 30 days
@@ -336,12 +336,15 @@ The Vasquez Law Firm Team`,
           candidates.push({
             clientId: caseData.client.id,
             clientName: caseData.client.name || 'Valued Client',
-            clientEmail: caseData.client.email,
-            clientPhone: caseData.client.phone,
+            clientEmail: caseData.client.email || undefined,
+            clientPhone: caseData.client.phone || undefined,
             caseType: this.formatCaseType(caseData.practiceArea),
             caseOutcome: 'won',
             lastContactDate: caseData.updatedAt,
-            requestMethod: this.determineRequestMethod(caseData.client),
+            requestMethod: this.determineRequestMethod({
+              email: caseData.client.email || undefined,
+              phone: caseData.client.phone || undefined,
+            }),
             urgency: 'immediate',
             personalizationData: {
               attorneyName: caseData.attorney?.name || 'Your Attorney',
@@ -353,7 +356,7 @@ The Vasquez Law Firm Team`,
       }
 
       // 2. Satisfied long-term clients
-      const longTermClients = (await this.prisma.user.findMany({
+      const longTermClients = (await this.prisma!.user.findMany({
         where: {
           role: 'CLIENT',
           createdAt: { lte: new Date(Date.now() - 180 * 24 * 60 * 60 * 1000) }, // Over 6 months
@@ -389,14 +392,14 @@ The Vasquez Law Firm Team`,
           candidates.push({
             clientId: clientData.id,
             clientName: clientData.name || 'Valued Client',
-            clientEmail: clientData.email,
+            clientEmail: clientData.email || undefined,
             clientPhone: clientData.phone || undefined,
             caseType: latestCase ? this.formatCaseType(latestCase.practiceArea) : 'legal matter',
             caseOutcome: 'resolved',
             lastContactDate: latestCase?.updatedAt || clientData.createdAt,
             requestMethod: this.determineRequestMethod({
-              email: clientData.email,
-              phone: clientData.phone,
+              email: clientData.email ?? undefined,
+              phone: clientData.phone ?? undefined,
             }),
             urgency: 'standard',
             personalizationData: {
@@ -679,7 +682,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     metadata?: { reviewOptOut?: boolean } | null;
   }): Promise<boolean> {
     // Check if already requested recently
-    const recentRequest = await this.prisma.agentExecutionLog.findFirst({
+    const recentRequest = await this.prisma!.agentExecutionLog.findFirst({
       where: {
         agentName: 'ReviewHarvestingAgent',
         // TODO: Fix JSON query when Prisma types are updated
@@ -736,7 +739,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
 
   private async identifyPositiveSentimentClients(): Promise<ReviewRequest[]> {
     try {
-      const positiveCalls = await this.prisma.call.findMany({
+      const positiveCalls = await this.prisma!.call.findMany({
         where: {
           createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
         },
@@ -834,15 +837,15 @@ Return as JSON: { email: { subject, body }, sms: { text } }
 
   private async trackReviewRequest(request: ReviewRequest): Promise<void> {
     try {
-      await this.prisma.agentExecutionLog.create({
+      await this.prisma!.agentExecutionLog.create({
         data: {
           agentName: 'ReviewHarvestingAgent',
           executionType: 'review_request',
           input: {
             ...request,
             lastContactDate: request.lastContactDate.toISOString(),
-          } as Record<string, unknown>,
-          output: { status: 'sent' } as Record<string, unknown>,
+          } as any,
+          output: { status: 'sent' } as any,
           duration: 1000,
           success: true,
         },
@@ -914,7 +917,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
   private async escalateNegativeReview(review: ReviewResponse): Promise<void> {
     // Create urgent task for management
     try {
-      await this.prisma.task.create({
+      await this.prisma!.task.create({
         data: {
           title: `Urgent: Negative Review Response Needed`,
           description: `Negative ${review.rating}-star review from ${review.reviewerName}: "${review.reviewText}"`,

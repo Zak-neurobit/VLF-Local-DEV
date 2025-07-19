@@ -1,7 +1,7 @@
-import WinstonSalemdivorceNearMeClient from './WinstonSalemdivorceNearMeClient';
+import WinstonSalemDivorceCercaDeMiClient from './WinstonSalemdivorceNearMeClient';
 
-export default function WinstonSalemdivorceNearMePage() {
-  return <WinstonSalemdivorceNearMeClient />;
+export default function WinstonSalemDivorceCercaDeMiPage() {
+  return <WinstonSalemDivorceCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Divorcio Cerca de Mi en Winston-Salem, NC | Vasquez Law Firm',

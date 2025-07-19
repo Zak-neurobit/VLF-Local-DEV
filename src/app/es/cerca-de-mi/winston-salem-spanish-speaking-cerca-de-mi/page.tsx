@@ -1,7 +1,7 @@
-import WinstonSalemSpanishSpeakingNearMeClient from './WinstonSalemSpanishSpeakingNearMeClient';
+import WinstonSalemSpanishSpeakingCercaDeMiClient from './WinstonSalemSpanishSpeakingNearMeClient';
 
-export default function WinstonSalemSpanishSpeakingNearMePage() {
-  return <WinstonSalemSpanishSpeakingNearMeClient />;
+export default function WinstonSalemSpanishSpeakingCercaDeMiPage() {
+  return <WinstonSalemSpanishSpeakingCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado que Habla Español Cerca de Mi en Winston-Salem, NC | Vasquez Law Firm',

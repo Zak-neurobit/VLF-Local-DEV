@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+// Removed unused Select imports
 import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -32,11 +32,11 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
     try {
       const response = await fetch(`/api/calculators/${calculatorType}`);
       const data = await response.json();
-      
+
       if (data.success) {
         setSchema(data.schema);
         setMetadata(data.metadata);
-        
+
         // Initialize form data with defaults
         const initialData: Record<string, any> = {};
         Object.entries(data.schema).forEach(([key, field]: [string, any]) => {
@@ -62,7 +62,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
       ...prev,
       [field]: value,
     }));
-    
+
     // Clear error for this field
     if (errors[field]) {
       setErrors(prev => {
@@ -75,14 +75,14 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
-    
+
     Object.entries(schema).forEach(([key, field]: [string, any]) => {
       const value = formData[key];
-      
+
       if (field.required && (value === undefined || value === null || value === '')) {
         newErrors[key] = `${field.label} is required`;
       }
-      
+
       if (field.type === 'number' && value !== undefined && value !== null) {
         if (field.min !== undefined && value < field.min) {
           newErrors[key] = `${field.label} must be at least ${field.min}`;
@@ -92,20 +92,20 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
         }
       }
     });
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
 
     setIsCalculating(true);
-    
+
     try {
       const response = await fetch(`/api/calculators/${calculatorType}`, {
         method: 'POST',
@@ -114,9 +114,9 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
         },
         body: JSON.stringify(formData),
       });
-      
+
       const data = await response.json();
-      
+
       if (data.success) {
         onResult(data.result);
       } else {
@@ -155,7 +155,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
               id={key}
               type="text"
               value={value || ''}
-              onChange={(e) => handleInputChange(key, e.target.value)}
+              onChange={e => handleInputChange(key, e.target.value)}
               className={error ? 'border-red-500' : ''}
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -175,7 +175,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
               min={field.min}
               max={field.max}
               value={value || ''}
-              onChange={(e) => handleInputChange(key, parseFloat(e.target.value) || 0)}
+              onChange={e => handleInputChange(key, parseFloat(e.target.value) || 0)}
               className={error ? 'border-red-500' : ''}
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -189,21 +189,19 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </Label>
-            <Select
+            <select
+              id={key}
               value={value || ''}
-              onValueChange={(val) => handleInputChange(key, val)}
+              onChange={e => handleInputChange(key, e.target.value)}
+              className={`flex h-10 w-full appearance-none rounded-md border bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${error ? 'border-red-500' : 'border-input'}`}
             >
-              <SelectTrigger className={error ? 'border-red-500' : ''}>
-                <SelectValue placeholder={`Select ${field.label}`} />
-              </SelectTrigger>
-              <SelectContent>
-                {field.options.map((option: any) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <option value="">Select {field.label}</option>
+              {field.options.map((option: any) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
             {error && <p className="text-red-500 text-sm">{error}</p>}
           </div>
         );
@@ -215,7 +213,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
               <Checkbox
                 id={key}
                 checked={value || false}
-                onCheckedChange={(checked) => handleInputChange(key, checked)}
+                onCheckedChange={checked => handleInputChange(key, checked)}
               />
               <Label htmlFor={key} className="text-sm font-medium">
                 {field.label}
@@ -239,7 +237,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
               max={field.max || 100}
               step={1}
               value={[value || field.min || 0]}
-              onValueChange={(values) => handleInputChange(key, values[0])}
+              onValueChange={values => handleInputChange(key, values[0])}
               className="w-full"
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -257,7 +255,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
               id={key}
               type="date"
               value={value || ''}
-              onChange={(e) => handleInputChange(key, e.target.value)}
+              onChange={e => handleInputChange(key, e.target.value)}
               className={error ? 'border-red-500' : ''}
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -288,9 +286,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
         <CardContent className="p-8">
           <Alert>
             <AlertTriangle className="h-4 w-4" />
-            <AlertDescription>
-              Calculator not available. Please try again later.
-            </AlertDescription>
+            <AlertDescription>Calculator not available. Please try again later.</AlertDescription>
           </Alert>
         </CardContent>
       </Card>
@@ -305,7 +301,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
           {metadata.title}
         </CardTitle>
         <p className="text-gray-600">{metadata.description}</p>
-        
+
         {metadata.practiceArea && (
           <div className="flex flex-wrap gap-4 text-sm text-gray-500">
             <span className="flex items-center gap-1">
@@ -321,20 +317,15 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
           </div>
         )}
       </CardHeader>
-      
+
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {Object.entries(schema).map(([key, field]) => renderField(key, field))}
           </div>
-          
+
           <div className="border-t pt-6">
-            <Button 
-              type="submit" 
-              disabled={isCalculating}
-              className="w-full"
-              size="lg"
-            >
+            <Button type="submit" disabled={isCalculating} className="w-full" size="lg">
               {isCalculating ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
@@ -348,7 +339,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
               )}
             </Button>
           </div>
-          
+
           {metadata.disclaimer && (
             <Alert>
               <AlertTriangle className="h-4 w-4" />

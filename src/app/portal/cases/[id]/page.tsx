@@ -11,11 +11,13 @@ import CaseMessages from '@/components/portal/case-messages';
 export default function CaseDetailPage() {
   const { data: session } = useSession();
   const params = useParams();
-  const caseId = params.id as string;
-  
+  const caseId = params?.id as string;
+
   const [caseData, setCaseData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'overview' | 'timeline' | 'documents' | 'messages'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'timeline' | 'documents' | 'messages'>(
+    'overview'
+  );
 
   useEffect(() => {
     if (session?.user?.id && caseId) {
@@ -27,7 +29,7 @@ export default function CaseDetailPage() {
     try {
       const response = await fetch(`/api/portal/cases/${caseId}`);
       const data = await response.json();
-      
+
       if (data.success) {
         setCaseData(data.case);
       }
@@ -64,17 +66,20 @@ export default function CaseDetailPage() {
             <p className="text-gray-600 mt-1">Case #{caseData.caseNumber}</p>
           </div>
           <div className="text-right">
-            <span className={`inline-flex px-3 py-1 rounded-full text-sm font-medium ${
-              caseData.status === 'active' ? 'bg-green-100 text-green-800' :
-              caseData.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-              caseData.status === 'closed' ? 'bg-gray-100 text-gray-800' :
-              'bg-blue-100 text-blue-800'
-            }`}>
+            <span
+              className={`inline-flex px-3 py-1 rounded-full text-sm font-medium ${
+                caseData.status === 'active'
+                  ? 'bg-green-100 text-green-800'
+                  : caseData.status === 'pending'
+                    ? 'bg-yellow-100 text-yellow-800'
+                    : caseData.status === 'closed'
+                      ? 'bg-gray-100 text-gray-800'
+                      : 'bg-blue-100 text-blue-800'
+              }`}
+            >
               {caseData.status}
             </span>
-            <p className="text-sm text-gray-500 mt-2">
-              Priority: {caseData.priority}
-            </p>
+            <p className="text-sm text-gray-500 mt-2">Priority: {caseData.priority}</p>
           </div>
         </div>
       </div>
@@ -83,7 +88,7 @@ export default function CaseDetailPage() {
       <div className="bg-white rounded-lg shadow-sm">
         <div className="border-b">
           <nav className="flex space-x-8 px-6">
-            {(['overview', 'timeline', 'documents', 'messages'] as const).map((tab) => (
+            {(['overview', 'timeline', 'documents', 'messages'] as const).map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}

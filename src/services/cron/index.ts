@@ -139,7 +139,7 @@ export class CronJobService {
       this.jobs.set(name, job);
       logger.info(`Scheduled cron job: ${name} with schedule: ${schedule}`);
     } catch (error) {
-      logger.error(`Failed to schedule cron job: ${name}`, error);
+      logger.error(`Failed to schedule cron job: ${name}`, { error });
     }
   }
 
@@ -201,7 +201,11 @@ export class CronJobService {
   // Calculate lead score based on various factors
   private calculateLeadScore(
     lead: Lead & {
-      contact?: ContactInfo | null;
+      contact?: {
+        name: string | null;
+        email: string | null;
+        phone: string | null;
+      } | null;
       lastContactAt?: Date | null;
     }
   ): number {
@@ -242,7 +246,7 @@ export class CronJobService {
     if (lead.contact) {
       if (lead.contact.phone) score += 10;
       if (lead.contact.email) score += 5;
-      if ('name' in lead.contact && lead.contact.name) score += 5;
+      if (lead.contact.name) score += 5;
     }
 
     // Urgency factor

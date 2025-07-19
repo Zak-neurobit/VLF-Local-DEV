@@ -302,7 +302,7 @@ Performance Report:
           });
         }
 
-        await delay(60000, this.realTimeMonitoringAbortController.signal); // Every minute
+        await delay(60000, this.realTimeMonitoringAbortController?.signal); // Every minute
       }
     } catch (error) {
       // Monitoring was aborted or error occurred

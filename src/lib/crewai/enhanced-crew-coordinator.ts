@@ -255,7 +255,12 @@ export class CrewCoordinator {
     this.parallelProcessingConfig = config;
     this.concurrencyLimit = pLimit(config.maxConcurrentTasks);
 
-    logger.info('Parallel processing enabled:', config);
+    logger.info('Parallel processing enabled:', {
+      maxConcurrentTasks: config.maxConcurrentTasks,
+      taskQueueSize: config.taskQueueSize,
+      workerThreads: config.workerThreads,
+      priorityQueues: config.priorityQueues,
+    });
     this.eventEmitter.emit('parallel-processing-enabled', config);
   }
 
@@ -291,7 +296,12 @@ export class CrewCoordinator {
   async setupCommunicationChannels(config: CommunicationConfig): Promise<void> {
     this.communicationConfig = config;
 
-    logger.info('Setting up communication channels:', config);
+    logger.info('Setting up communication channels:', {
+      messageQueue: config.messageQueue,
+      enableDirectMessaging: config.enableDirectMessaging,
+      messageRetention: config.messageRetention,
+      maxMessageSize: config.maxMessageSize,
+    });
 
     // Initialize communication channels for each agent
     const agentNames = [
@@ -373,7 +383,10 @@ export class CrewCoordinator {
     channel.messageHandlers.set('share-information', async (...args: unknown[]) => {
       const message = args[0] as InterAgentMessage & { information: unknown; context: unknown };
       const { information, context } = message;
-      logger.info(`Agent ${agentName} received information sharing:`, information);
+      logger.info(`Agent ${agentName} received information sharing:`, {
+        type: typeof information,
+        hasContent: information !== null && information !== undefined,
+      });
 
       // Store in distributed memory
       await this.storeInDistributedMemory(agentName, `shared-${Date.now()}`, {
@@ -387,7 +400,10 @@ export class CrewCoordinator {
     channel.messageHandlers.set('status-update', async (...args: unknown[]) => {
       const message = args[0] as InterAgentMessage & { status: unknown; details: unknown };
       const { status, details } = message;
-      logger.info(`Agent ${agentName} received status update:`, status);
+      logger.info(`Agent ${agentName} received status update:`, {
+        statusType: typeof status,
+        hasStatus: status !== null && status !== undefined,
+      });
 
       this.eventEmitter.emit('agent-status-update', {
         agentName,
@@ -453,7 +469,13 @@ export class CrewCoordinator {
   async initializeMemorySystem(config: MemoryConfig): Promise<void> {
     this.memoryConfig = config;
 
-    logger.info('Initializing distributed memory system:', config);
+    logger.info('Initializing distributed memory system:', {
+      type: config.type,
+      provider: config.provider,
+      maxMemoryPerAgent: config.maxMemoryPerAgent,
+      ttl: config.ttl,
+      compressionEnabled: config.compressionEnabled,
+    });
 
     // Setup memory cleanup interval
     setInterval(() => {
@@ -795,10 +817,15 @@ export class CrewCoordinator {
 
   private handleTaskCompleted(event: TaskCompletedEvent): void {
     const { taskId, agentName, result, executionTime } = event;
-    logger.info(`Task ${taskId} completed by ${agentName} in ${executionTime}ms`);
-
-    // Update performance metrics
-    this.updateAgentPerformanceMetrics(agentName, true, executionTime);
+    if (executionTime !== undefined) {
+      logger.info(`Task ${taskId} completed by ${agentName} in ${executionTime}ms`);
+      // Update performance metrics
+      this.updateAgentPerformanceMetrics(agentName, true, executionTime);
+    } else {
+      logger.info(`Task ${taskId} completed by ${agentName}`);
+      // Update performance metrics with default value
+      this.updateAgentPerformanceMetrics(agentName, true, 0);
+    }
   }
 
   private handleTaskFailed(event: TaskFailedEvent): void {
@@ -806,7 +833,11 @@ export class CrewCoordinator {
     logger.error(`Task ${taskId} failed by ${agentName}:`, errorToLogMeta(error));
 
     // Update performance metrics
-    this.updateAgentPerformanceMetrics(agentName, false, executionTime);
+    if (executionTime !== undefined) {
+      this.updateAgentPerformanceMetrics(agentName, false, executionTime);
+    } else {
+      this.updateAgentPerformanceMetrics(agentName, false, 0);
+    }
   }
 
   private handleWorkflowStepCompleted(event: WorkflowStepCompletedEvent): void {

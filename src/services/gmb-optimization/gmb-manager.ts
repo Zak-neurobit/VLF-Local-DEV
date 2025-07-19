@@ -15,20 +15,28 @@ const GMBLocationSchema = z.object({
     lat: z.number(),
     lng: z.number(),
   }),
-  hours: z.record(z.object({
-    open: z.string(),
-    close: z.string(),
-    closed: z.boolean().default(false),
-  })),
+  hours: z.record(
+    z.object({
+      open: z.string(),
+      close: z.string(),
+      closed: z.boolean().default(false),
+    })
+  ),
   services: z.array(z.string()),
-  specialHours: z.array(z.object({
-    date: z.date(),
-    type: z.enum(['holiday', 'special_event', 'closed']),
-    hours: z.object({
-      open: z.string().optional(),
-      close: z.string().optional(),
-    }).optional(),
-  })).optional(),
+  specialHours: z
+    .array(
+      z.object({
+        date: z.date(),
+        type: z.enum(['holiday', 'special_event', 'closed']),
+        hours: z
+          .object({
+            open: z.string().optional(),
+            close: z.string().optional(),
+          })
+          .optional(),
+      })
+    )
+    .optional(),
 });
 
 // GMB Post Schema
@@ -36,28 +44,38 @@ const GMBPostSchema = z.object({
   type: z.enum(['update', 'event', 'offer', 'product', 'covid19']),
   title: z.string().max(300),
   content: z.string().max(1500),
-  media: z.array(z.object({
-    type: z.enum(['image', 'video']),
-    url: z.string().url(),
-    altText: z.string().optional(),
-  })).optional(),
-  callToAction: z.object({
-    type: z.enum(['book', 'order', 'shop', 'learn_more', 'sign_up', 'call']),
-    url: z.string().url().optional(),
-  }).optional(),
-  event: z.object({
-    title: z.string(),
-    startDate: z.date(),
-    endDate: z.date(),
-  }).optional(),
-  offer: z.object({
-    title: z.string(),
-    description: z.string(),
-    terms: z.string(),
-    startDate: z.date(),
-    endDate: z.date(),
-    couponCode: z.string().optional(),
-  }).optional(),
+  media: z
+    .array(
+      z.object({
+        type: z.enum(['image', 'video']),
+        url: z.string().url(),
+        altText: z.string().optional(),
+      })
+    )
+    .optional(),
+  callToAction: z
+    .object({
+      type: z.enum(['book', 'order', 'shop', 'learn_more', 'sign_up', 'call']),
+      url: z.string().url().optional(),
+    })
+    .optional(),
+  event: z
+    .object({
+      title: z.string(),
+      startDate: z.date(),
+      endDate: z.date(),
+    })
+    .optional(),
+  offer: z
+    .object({
+      title: z.string(),
+      description: z.string(),
+      terms: z.string(),
+      startDate: z.date(),
+      endDate: z.date(),
+      couponCode: z.string().optional(),
+    })
+    .optional(),
 });
 
 // GMB Analytics Schema
@@ -78,11 +96,13 @@ const GMBAnalyticsSchema = z.object({
       phone: z.number(),
       total: z.number(),
     }),
-    queries: z.array(z.object({
-      query: z.string(),
-      impressions: z.number(),
-      clicks: z.number(),
-    })),
+    queries: z.array(
+      z.object({
+        query: z.string(),
+        impressions: z.number(),
+        clicks: z.number(),
+      })
+    ),
     photos: z.object({
       views: z.number(),
       posted: z.number(),
@@ -149,11 +169,7 @@ export class GMBManager extends EventEmitter {
         website: 'https://vasquezlawfirm.com',
         category: 'Immigration Attorney',
         coordinates: { lat: 28.5383, lng: -81.3792 },
-        services: [
-          'Immigration Law',
-          'Personal Injury',
-          'Workers Compensation',
-        ],
+        services: ['Immigration Law', 'Personal Injury', 'Workers Compensation'],
       },
     ];
 
@@ -162,8 +178,8 @@ export class GMBManager extends EventEmitter {
       this.locations.set(location.id, location);
     }
 
-    logger.info('GMB locations initialized', { 
-      locationCount: this.locations.size 
+    logger.info('GMB locations initialized', {
+      locationCount: this.locations.size,
     });
   }
 
@@ -171,9 +187,12 @@ export class GMBManager extends EventEmitter {
     if (!this.automationEnabled) return;
 
     // Schedule optimization tasks
-    this.optimizationSchedule = setInterval(async () => {
-      await this.runOptimizationCycle();
-    }, 24 * 60 * 60 * 1000); // Daily
+    this.optimizationSchedule = setInterval(
+      async () => {
+        await this.runOptimizationCycle();
+      },
+      24 * 60 * 60 * 1000
+    ); // Daily
 
     // Run initial optimization
     await this.runOptimizationCycle();
@@ -241,7 +260,7 @@ export class GMBManager extends EventEmitter {
     // Update services based on practice areas
     const currentServices = location.services;
     const optimizedServices = await this.getOptimizedServices(location);
-    
+
     if (JSON.stringify(currentServices.sort()) !== JSON.stringify(optimizedServices.sort())) {
       updates.services = optimizedServices;
       hasUpdates = true;
@@ -280,9 +299,9 @@ export class GMBManager extends EventEmitter {
 
     if (post) {
       await this.publishPost(location.id, post);
-      logger.info('Published GMB post', { 
-        locationId: location.id, 
-        type: randomType 
+      logger.info('Published GMB post', {
+        locationId: location.id,
+        type: randomType,
       });
     }
   }
@@ -300,7 +319,7 @@ export class GMBManager extends EventEmitter {
         callToAction: { type: 'learn_more', url: location.website },
       },
       {
-        title: 'Your Rights Matter - We\'re Here to Help',
+        title: "Your Rights Matter - We're Here to Help",
         content: `Don\'t navigate complex legal matters alone. Our dedicated team at ${location.name} specializes in immigration, workers\' compensation, and personal injury cases. We speak both English and Spanish to better serve our diverse community.`,
         callToAction: { type: 'call' },
       },
@@ -322,10 +341,10 @@ export class GMBManager extends EventEmitter {
         callToAction: { type: 'sign_up', url: `${location.website}/events` },
       },
       {
-        title: 'Workers\' Rights Seminar',
+        title: "Workers' Rights Seminar",
         content: `Learn about your rights as a worker in this free seminar. We\'ll cover workers\' compensation, workplace injuries, and how to protect yourself on the job.`,
         event: {
-          title: 'Workers\' Rights Seminar',
+          title: "Workers' Rights Seminar",
           startDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
           endDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000 + 1.5 * 60 * 60 * 1000),
         },
@@ -369,13 +388,7 @@ export class GMBManager extends EventEmitter {
 
   private async optimizePhotos(location: GMBLocation): Promise<void> {
     // Simulate photo optimization
-    const photoCategories = [
-      'exterior',
-      'interior',
-      'team',
-      'at_work',
-      'additional',
-    ];
+    const photoCategories = ['exterior', 'interior', 'team', 'at_work', 'additional'];
 
     for (const category of photoCategories) {
       // Check if photos need updating
@@ -418,7 +431,7 @@ export class GMBManager extends EventEmitter {
 
     // Generate insights
     const insights = await this.generateInsights(analytics);
-    
+
     // Store analytics
     await this.storeAnalytics(location.id, analytics);
 
@@ -438,11 +451,13 @@ export class GMBManager extends EventEmitter {
     const commonQuestions = [
       {
         question: 'Do you offer free consultations?',
-        answer: 'Yes, we offer free consultations for most legal matters. Contact us to schedule your appointment.',
+        answer:
+          'Yes, we offer free consultations for most legal matters. Contact us to schedule your appointment.',
       },
       {
         question: 'What languages do you speak?',
-        answer: 'Our team is fluent in both English and Spanish to better serve our diverse community.',
+        answer:
+          'Our team is fluent in both English and Spanish to better serve our diverse community.',
       },
       {
         question: 'What types of cases do you handle?',
@@ -450,11 +465,13 @@ export class GMBManager extends EventEmitter {
       },
       {
         question: 'How much do you charge?',
-        answer: 'Our fees vary depending on the type of case. Many services are offered on a contingency basis. Contact us for a free consultation to discuss pricing.',
+        answer:
+          'Our fees vary depending on the type of case. Many services are offered on a contingency basis. Contact us for a free consultation to discuss pricing.',
       },
       {
         question: 'How long do cases typically take?',
-        answer: 'Case duration varies significantly depending on the type and complexity. We\'ll provide estimated timelines during your consultation.',
+        answer:
+          "Case duration varies significantly depending on the type and complexity. We'll provide estimated timelines during your consultation.",
       },
     ];
 
@@ -524,7 +541,11 @@ export class GMBManager extends EventEmitter {
     return templates[Math.floor(Math.random() * templates.length)];
   }
 
-  private async respondToReview(locationId: string, reviewId: string, response: string): Promise<void> {
+  private async respondToReview(
+    locationId: string,
+    reviewId: string,
+    response: string
+  ): Promise<void> {
     // Simulate review response
     logger.info('Responding to review', { locationId, reviewId });
   }
@@ -611,7 +632,7 @@ export class GMBManager extends EventEmitter {
 
   private async storePost(locationId: string, post: any): Promise<void> {
     try {
-      await prisma.gmbPost.create({
+      await prisma.gMBPost.create({
         data: {
           locationId,
           type: post.type,
@@ -631,16 +652,23 @@ export class GMBManager extends EventEmitter {
 
   private async storeAnalytics(locationId: string, analytics: any): Promise<void> {
     try {
-      await prisma.gmbAnalytics.create({
-        data: {
-          locationId,
-          period: JSON.stringify(analytics.period),
-          metrics: JSON.stringify(analytics.metrics),
-          insights: JSON.stringify(analytics.insights || []),
-          recommendations: JSON.stringify(analytics.recommendations || []),
-          createdAt: new Date(),
-        },
+      // TODO: Implement gmbAnalytics model
+      // await prisma.gmbAnalytics.create({
+      logger.info('GMB analytics recorded', {
+        locationId,
+        metrics: analytics.metrics,
+        period: analytics.period,
+        date: new Date(),
       });
+      //   data: {
+      //     locationId,
+      //     period: JSON.stringify(analytics.period),
+      //     metrics: JSON.stringify(analytics.metrics),
+      //     insights: JSON.stringify(analytics.insights || []),
+      //     recommendations: JSON.stringify(analytics.recommendations || []),
+      //     createdAt: new Date(),
+      //   },
+      // });
     } catch (error) {
       logger.error('Failed to store GMB analytics', { error: String(error) });
     }
@@ -670,11 +698,13 @@ export class GMBManager extends EventEmitter {
       { date: new Date('2024-07-04'), type: 'holiday' as const }, // July 4th
     ];
 
-    return holidays.filter(h => h.date > new Date()).map(holiday => ({
-      date: holiday.date,
-      type: holiday.type,
-      hours: undefined, // Closed
-    }));
+    return holidays
+      .filter(h => h.date > new Date())
+      .map(holiday => ({
+        date: holiday.date,
+        type: holiday.type,
+        hours: undefined, // Closed
+      }));
   }
 
   private delay(ms: number): Promise<void> {

@@ -11,7 +11,17 @@ interface Message {
   timestamp: Date;
 }
 
-export function ModernChatWidget() {
+interface ModernChatWidgetProps {
+  language?: 'en' | 'es';
+  embedded?: boolean;
+  initialMessage?: string;
+}
+
+export function ModernChatWidget({
+  language = 'en',
+  embedded = false,
+  initialMessage,
+}: ModernChatWidgetProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -47,8 +57,8 @@ export function ModernChatWidget() {
 
     try {
       // Detect language from current page or message
-      const isSpanish = window.location.pathname.startsWith('/es') || 
-                        /[ñáéíóúü]/i.test(messageText);
+      const isSpanish =
+        window.location.pathname.startsWith('/es') || /[ñáéíóúü]/i.test(messageText);
       const language = isSpanish ? 'es' : 'en';
 
       const response = await fetch('/api/chat', {
@@ -68,7 +78,7 @@ export function ModernChatWidget() {
       }
 
       const data = await response.json();
-      
+
       // Store session ID for conversation continuity
       if (data.sessionId) {
         localStorage.setItem('chatSessionId', data.sessionId);
@@ -76,9 +86,11 @@ export function ModernChatWidget() {
 
       const botResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: data.response || (language === 'es' 
-          ? 'Lo siento, no pude procesar tu mensaje. Por favor, intenta de nuevo.'
-          : 'Sorry, I couldn\'t process your message. Please try again.'),
+        text:
+          data.response ||
+          (language === 'es'
+            ? 'Lo siento, no pude procesar tu mensaje. Por favor, intenta de nuevo.'
+            : "Sorry, I couldn't process your message. Please try again."),
         sender: 'bot',
         timestamp: new Date(),
       };
@@ -86,14 +98,14 @@ export function ModernChatWidget() {
       setMessages(prev => [...prev, botResponse]);
     } catch (error) {
       console.error('Chat API error:', error);
-      
+
       // Fallback response
-      const isSpanish = window.location.pathname.startsWith('/es') || 
-                        /[ñáéíóúü]/i.test(messageText);
-      
+      const isSpanish =
+        window.location.pathname.startsWith('/es') || /[ñáéíóúü]/i.test(messageText);
+
       const errorResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: isSpanish 
+        text: isSpanish
           ? 'Disculpa, tuve un problema al procesar tu mensaje. Por favor, intenta de nuevo o llámanos al 1-844-967-3536.'
           : 'I apologize, I had trouble processing your message. Please try again or call us at 1-844-967-3536.',
         sender: 'bot',

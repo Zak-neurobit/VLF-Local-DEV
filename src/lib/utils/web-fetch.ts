@@ -105,7 +105,7 @@ export class WebFetch {
 
       return response.ok;
     } catch (error) {
-      logger.warn(`URL not accessible: ${url}`, error);
+      logger.warn(`URL not accessible: ${url}`, { error });
       return false;
     }
   }

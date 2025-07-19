@@ -715,7 +715,7 @@ Enfócate en análisis factual e implicaciones prácticas para profesionales leg
             },
           });
         } catch (itemError) {
-          logger.warn(`Failed to store trending topic: ${topic.topic}`, itemError);
+          logger.warn(`Failed to store trending topic: ${topic.topic}`, errorToLogMeta(itemError));
         }
       }
     } catch (error) {

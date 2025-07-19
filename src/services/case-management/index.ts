@@ -365,10 +365,12 @@ export class CaseManagementService {
       await getPrismaClient().case.update({
         where: { id: validated.caseId },
         data: {
-          metadata: {
-            ...metadata,
-            notes,
-          } as Prisma.InputJsonValue,
+          metadata: JSON.parse(
+            JSON.stringify({
+              ...metadata,
+              notes,
+            })
+          ),
         },
       });
 

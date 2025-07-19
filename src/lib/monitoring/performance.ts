@@ -98,7 +98,10 @@ class PerformanceMonitor {
     let clsValue = 0;
     const clsObserver = new PerformanceObserver(list => {
       for (const entry of list.getEntries()) {
-        const layoutShift = entry as PerformanceEntry & { hadRecentInput?: boolean; value?: number };
+        const layoutShift = entry as PerformanceEntry & {
+          hadRecentInput?: boolean;
+          value?: number;
+        };
         if (!layoutShift.hadRecentInput) {
           clsValue += layoutShift.value || 0;
         }
@@ -114,7 +117,9 @@ class PerformanceMonitor {
     if (typeof window === 'undefined') return;
 
     setInterval(() => {
-      const performanceWithMemory = performance as Performance & { memory?: { usedJSHeapSize: number; totalJSHeapSize: number; jsHeapSizeLimit: number } };
+      const performanceWithMemory = performance as Performance & {
+        memory?: { usedJSHeapSize: number; totalJSHeapSize: number; jsHeapSizeLimit: number };
+      };
       if (performanceWithMemory.memory) {
         const memory = performanceWithMemory.memory;
         performanceLogger.measure('memory-used', memory.usedJSHeapSize / 1048576, {
@@ -159,14 +164,34 @@ export const Profiler = ({ id, children }: { id: string; children: React.ReactNo
 };
 
 // API timing middleware
-export const apiTimingMiddleware = (config: { method?: string; url?: string }) => {
+interface APIConfig {
+  method?: string;
+  url?: string;
+  metadata?: {
+    startTime?: number;
+    [key: string]: any;
+  };
+}
+
+export const apiTimingMiddleware = (config: APIConfig): APIConfig => {
   config.metadata = config.metadata || {};
   config.metadata.startTime = Date.now();
   return config;
 };
 
+interface APIResponse {
+  config?: APIConfig;
+  status?: number;
+}
+
+interface APIError {
+  config?: APIConfig;
+  response?: { status?: number };
+  message?: string;
+}
+
 export const apiTimingInterceptor = {
-  response: (response: { config?: { method?: string; url?: string }; status?: number }) => {
+  response: (response: APIResponse) => {
     if (response.config?.metadata?.startTime) {
       const duration = Date.now() - response.config.metadata.startTime;
       performanceLogger.measure('api-request', duration, {
@@ -177,7 +202,7 @@ export const apiTimingInterceptor = {
     }
     return response;
   },
-  error: (error: { config?: { method?: string; url?: string }; response?: { status?: number } }) => {
+  error: (error: APIError) => {
     if (error.config?.metadata?.startTime) {
       const duration = Date.now() - error.config.metadata.startTime;
       performanceLogger.measure('api-request-failed', duration, {

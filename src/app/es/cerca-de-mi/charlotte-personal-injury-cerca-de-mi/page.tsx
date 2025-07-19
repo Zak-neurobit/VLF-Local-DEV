@@ -1,7 +1,7 @@
-import charlottePersonalInjuryNearMeClient from './charlottePersonalInjuryNearMeClient';
+import CharlottePersonalInjuryCercaDeMiClient from './charlottePersonalInjuryNearMeClient';
 
-export default function charlottePersonalInjuryNearMePage() {
-  return <charlottePersonalInjuryNearMeClient />;
+export default function CharlottePersonalInjuryCercaDeMiPage() {
+  return <CharlottePersonalInjuryCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Lesiones Personales Cerca de Mi en Charlotte, NC | Vasquez Law Firm',

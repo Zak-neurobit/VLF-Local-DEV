@@ -1,7 +1,7 @@
-import durhamWorkersCompensationNearMeClient from './durhamWorkersCompensationNearMeClient';
+import DurhamWorkersCompensationCercaDeMiClient from './durhamWorkersCompensationNearMeClient';
 
-export default function durhamWorkersCompensationNearMePage() {
-  return <durhamWorkersCompensationNearMeClient />;
+export default function DurhamWorkersCompensationCercaDeMiPage() {
+  return <DurhamWorkersCompensationCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Compensación Laboral Cerca de Mi en Durham, NC | Vasquez Law Firm',

@@ -27,27 +27,7 @@ export const metadata: Metadata = {
   },
 };
 
-const charlotteOfficeSchema = generateLocalBusinessSchema({
-  name: 'Bufete de Abogados Vasquez - Charlotte',
-  address: {
-    streetAddress: '123 South Tryon Street',
-    addressLocality: 'Charlotte',
-    addressRegion: 'NC',
-    postalCode: '28202',
-    addressCountry: 'US',
-  },
-  phone: '(704) 555-0123',
-  description:
-    'Bufete de abogados en Charlotte, NC especializado en inmigración, lesiones personales, defensa criminal y derecho familiar.',
-  languages: ['es', 'en'],
-  servicesOffered: [
-    'Inmigración',
-    'Lesiones Personales',
-    'Defensa Criminal',
-    'Derecho Familiar',
-    'Compensación Laboral',
-  ],
-});
+const charlotteOfficeSchema = generateLocalBusinessSchema('charlotte');
 
 export default function CharlottePage() {
   return (

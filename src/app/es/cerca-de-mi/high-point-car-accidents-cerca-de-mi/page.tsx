@@ -1,7 +1,7 @@
-import HighPointCarAccidentsNearMeClient from './HighPointCarAccidentsNearMeClient';
+import HighPointCarAccidentsCercaDeMiClient from './HighPointCarAccidentsNearMeClient';
 
-export default function HighPointCarAccidentsNearMePage() {
-  return <HighPointCarAccidentsNearMeClient />;
+export default function HighPointCarAccidentsCercaDeMiPage() {
+  return <HighPointCarAccidentsCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Accidentes de Auto Cerca de Mi en High Point, NC | Vasquez Law Firm',

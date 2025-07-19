@@ -1,7 +1,7 @@
-import greensuoroWorkersCompensationNearMeClient from './greensuoroWorkersCompensationNearMeClient';
+import GreensboroWorkersCompensationCercaDeMiClient from './greensuoroWorkersCompensationNearMeClient';
 
-export default function greensuoroWorkersCompensationNearMePage() {
-  return <greensuoroWorkersCompensationNearMeClient />;
+export default function GreensboroWorkersCompensationCercaDeMiPage() {
+  return <GreensboroWorkersCompensationCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Compensación Laboral Cerca de Mi en Greensboro, NC | Vasquez Law Firm',

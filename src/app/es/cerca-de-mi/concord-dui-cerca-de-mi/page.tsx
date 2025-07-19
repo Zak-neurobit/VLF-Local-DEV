@@ -1,7 +1,7 @@
-import concordduiNearMeClient from './concordduiNearMeClient';
+import ConcordDuiCercaDeMiClient from './concordduiNearMeClient';
 
-export default function concordduiNearMePage() {
-  return <concordduiNearMeClient />;
+export default function ConcordDuiCercaDeMiPage() {
+  return <ConcordDuiCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de DUI Cerca de Mi en Concord, NC | Vasquez Law Firm',

@@ -1,7 +1,7 @@
-import greensuoroduiNearMeClient from './greensuoroduiNearMeClient';
+import GreensboroDuiCercaDeMiClient from './greensuoroduiNearMeClient';
 
-export default function greensuoroduiNearMePage() {
-  return <greensuoroduiNearMeClient />;
+export default function GreensboroDuiCercaDeMiPage() {
+  return <GreensboroDuiCercaDeMiClient />;
 }
 
 export const metadata = {

@@ -1,7 +1,7 @@
-import raleighCarAccidentsNearMeClient from './raleighCarAccidentsNearMeClient';
+import RaleighCarAccidentsCercaDeMiClient from './raleighCarAccidentsNearMeClient';
 
-export default function raleighCarAccidentsNearMePage() {
-  return <raleighCarAccidentsNearMeClient />;
+export default function RaleighCarAccidentsCercaDeMiPage() {
+  return <RaleighCarAccidentsCercaDeMiClient />;
 }
 export const metadata = {
   title: 'Abogado de Accidentes de Auto Cerca de Mi en Raleigh, NC | Vasquez Law Firm',
