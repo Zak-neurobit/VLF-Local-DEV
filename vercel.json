@@ -4,12 +4,10 @@
   "framework": "nextjs",
   "functions": {
     "src/app/api/ai/paralegal/route.ts": {
-      "runtime": "edge",
-      "maxDuration": 30
+      "runtime": "edge"
     },
-    "src/app/api/**.ts": {
-      "maxDuration": 30,
-      "excludeFiles": ["src/app/api/ai/paralegal/route.ts"]
+    "src/app/api/**/*.ts": {
+      "maxDuration": 30
     }
   },
   "env": {
