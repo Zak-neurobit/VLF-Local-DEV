@@ -3,6 +3,7 @@ import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { securityLogger } from '@/lib/pino-logger';
 import { ghlService } from '@/services/gohighlevel';
 import { getPrismaClient } from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
 import type { TaskType } from '@prisma/client';
 import type { RetellContext, RetellErrorInfo } from '@/types/gohighlevel';
 import type { AxiosError } from '@/types/axios';
@@ -186,10 +187,12 @@ export class RetellErrorHandler {
           contactId: retellError.contactId,
           recoverable: retellError.recoverable,
           retryAfter: retellError.retryAfter,
-          metadata: {
-            details: retellError.details,
-            context,
-          },
+          metadata: JSON.parse(
+            JSON.stringify({
+              details: retellError.details,
+              context,
+            })
+          ) as Prisma.InputJsonValue,
         },
       });
     } catch (error) {
@@ -326,10 +329,12 @@ export class RetellErrorHandler {
         data: {
           status: 'failed',
           error: retellError.message,
-          metadata: {
-            errorDetails: retellError.details,
-            failureTimestamp: retellError.timestamp,
-          },
+          metadata: JSON.parse(
+            JSON.stringify({
+              errorDetails: retellError.details,
+              failureTimestamp: retellError.timestamp,
+            })
+          ) as Prisma.InputJsonValue,
         },
       });
     }
@@ -562,7 +567,7 @@ export class RetellErrorHandler {
         data: {
           operation,
           delaySeconds,
-          context: context,
+          context: JSON.parse(JSON.stringify(context)) as Prisma.InputJsonValue,
           scheduledFor: new Date(Date.now() + delaySeconds * 1000),
           attempts: 0,
           maxAttempts: 3,

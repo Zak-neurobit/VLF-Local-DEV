@@ -1,8 +1,6 @@
 import { openai } from '@ai-sdk/openai';
-import { apiLogger } from '@/lib/pino-logger';
 import { streamText } from 'ai';
 import { NextRequest, NextResponse } from 'next/server';
-import { withAIAgentTracing } from '@/lib/telemetry/api-middleware';
 
 export const runtime = 'edge';
 
@@ -28,7 +26,7 @@ Guidelines:
 6. Be concise but thorough
 7. Show understanding of their situation`;
 
-async function handlePOST(req: NextRequest): Promise<NextResponse> {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const { messages } = await req.json();
 
@@ -47,10 +45,7 @@ async function handlePOST(req: NextRequest): Promise<NextResponse> {
       status: response.status,
     });
   } catch (error) {
-    apiLogger.error('Paralegal API error:', error);
+    console.error('Paralegal API error:', error);
     return NextResponse.json({ error: 'Error processing request' }, { status: 500 });
   }
 }
-
-// Export with telemetry wrapper
-export const POST = withAIAgentTracing(handlePOST);

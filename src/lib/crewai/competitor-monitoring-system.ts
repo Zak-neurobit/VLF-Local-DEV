@@ -311,15 +311,15 @@ export class CompetitorMonitoringSystem {
           competitorId: profile.id,
           timestamp: new Date(),
           activityType: 'content',
-          channel: content.channel,
+          channel: 'website',
           details: {
             title: content.title,
             url: content.url,
-            description: content.description,
+            description: content.publishDate.toISOString(),
             keywords: content.keywords,
           },
           impact: this.assessContentImpact(content),
-          requiresResponse: this.shouldRespondToContent(content),
+          requiresResponse: this.shouldRespondToContent({ keywords: content.keywords }),
         };
 
         activities.push(activity);
@@ -345,7 +345,7 @@ export class CompetitorMonitoringSystem {
       const rankingChanges = await this.simulateRankingCheck(profile);
 
       for (const change of rankingChanges) {
-        if (Math.abs(change.positionChange) >= 3) {
+        if (Math.abs(change.change) >= 3) {
           // Only track significant changes
           const activity: CompetitorActivity = {
             competitorId: profile.id,
@@ -354,18 +354,18 @@ export class CompetitorMonitoringSystem {
             channel: 'search',
             details: {
               title: `Ranking change for "${change.keyword}"`,
-              description: `Position changed from ${change.previousPosition} to ${change.currentPosition}`,
+              description: `Position changed by ${change.change}`,
+              previousPosition: change.position - change.change,
               keywords: [change.keyword],
-              position: change.currentPosition,
-              previousPosition: change.previousPosition,
+              position: change.position,
             },
             impact:
-              Math.abs(change.positionChange) >= 10
+              Math.abs(change.change) >= 10
                 ? 'high'
-                : Math.abs(change.positionChange) >= 5
+                : Math.abs(change.change) >= 5
                   ? 'medium'
                   : 'low',
-            requiresResponse: change.currentPosition < 5 && change.positionChange < 0, // They improved to top 5
+            requiresResponse: change.position < 5 && change.change < 0, // They improved to top 5
           };
 
           activities.push(activity);
@@ -403,14 +403,15 @@ export class CompetitorMonitoringSystem {
               activityType: 'social',
               channel: platform,
               details: {
-                title: post.title,
-                url: post.url,
+                title: post.content.substring(0, 50) + '...',
+                url: `https://${platform}.com/${handle}/posts`,
                 description: post.content,
                 engagement: post.engagement,
-                sentiment: post.sentiment,
+                sentiment: this.analyzeSentiment(post.content),
               },
               impact: post.engagement > 1000 ? 'high' : post.engagement > 500 ? 'medium' : 'low',
-              requiresResponse: post.engagement > 500 && post.sentiment === 'positive',
+              requiresResponse:
+                post.engagement > 500 && this.analyzeSentiment(post.content) === 'positive',
             };
 
             activities.push(activity);
@@ -445,17 +446,12 @@ export class CompetitorMonitoringSystem {
           channel: campaign.platform,
           details: {
             title: campaign.headline,
-            description: campaign.adCopy,
-            keywords: campaign.targetKeywords,
-            url: campaign.landingPage,
+            description: campaign.description,
+            keywords: campaign.keywords,
+            url: `https://${profile.website}/campaigns/${campaign.platform}`,
           },
-          impact:
-            campaign.estimatedSpend > 5000
-              ? 'high'
-              : campaign.estimatedSpend > 1000
-                ? 'medium'
-                : 'low',
-          requiresResponse: campaign.estimatedSpend > 1000,
+          impact: campaign.budget > 5000 ? 'high' : campaign.budget > 1000 ? 'medium' : 'low',
+          requiresResponse: campaign.budget > 1000,
         };
 
         activities.push(activity);
@@ -490,12 +486,11 @@ export class CompetitorMonitoringSystem {
             channel: review.platform,
             details: {
               title: `${review.rating}-star review on ${review.platform}`,
-              description: review.content,
+              description: review.text,
               sentiment: review.rating >= 4 ? 'positive' : 'negative',
             },
-            impact:
-              review.verified && (review.rating === 5 || review.rating === 1) ? 'high' : 'medium',
-            requiresResponse: review.rating === 5 && review.verified, // Learn from their success
+            impact: review.rating === 5 || review.rating === 1 ? 'high' : 'medium',
+            requiresResponse: review.rating === 5, // Learn from their success
           };
 
           activities.push(activity);
@@ -805,7 +800,20 @@ export class CompetitorMonitoringSystem {
         const generatedContent = await seoAgent.generateSEOBlog(blogRequest);
 
         // Store generated content for review
-        await this.storeGeneratedContent(activity, response, generatedContent);
+        const contentToStore: GeneratedContent = {
+          title: generatedContent.title,
+          content:
+            generatedContent.content.introduction +
+            '\n\n' +
+            generatedContent.content.mainSections
+              .map((s: any) => `## ${s.heading}\n\n${s.content}`)
+              .join('\n\n'),
+          keywords: [
+            generatedContent.seoOptimization.keywords.primary,
+            ...generatedContent.seoOptimization.keywords.secondary,
+          ],
+        };
+        await this.storeGeneratedContent(activity, response, contentToStore);
 
         logger.info('Response content generated successfully', {
           contentId: generatedContent.id,
@@ -1104,11 +1112,14 @@ export class CompetitorMonitoringSystem {
     return recommendations;
   }
 
-  private createActionItems(
-    recommendations: string[]
-  ): Array<{ priority: string; action: string; category: string; effort: string; impact: string }> {
+  private createActionItems(recommendations: string[]): Array<{
+    priority: 'high' | 'medium' | 'low';
+    action: string;
+    deadline: string;
+    assignee?: string;
+  }> {
     return recommendations.map((rec, index) => ({
-      priority: index < 3 ? 'high' : index < 6 ? 'medium' : 'low',
+      priority: (index < 3 ? 'high' : index < 6 ? 'medium' : 'low') as 'high' | 'medium' | 'low',
       action: rec,
       deadline: this.calculateDeadline(index < 3 ? 'high' : index < 6 ? 'medium' : 'low'),
       assignee: this.assignResponsibleParty(rec),
@@ -1140,20 +1151,30 @@ export class CompetitorMonitoringSystem {
       highValueKeywords.some(hvk => k.toLowerCase().includes(hvk))
     );
 
-    if (hasHighValueKeyword && content.channel === 'website') {
+    if (hasHighValueKeyword) {
       return 'high';
-    } else if (content.channel === 'blog' || content.channel === 'website') {
+    } else if (content.keywords && content.keywords.length > 5) {
       return 'medium';
     }
     return 'low';
   }
 
-  private shouldRespondToContent(content: { channel?: string; impact?: string }): boolean {
-    return (
-      content.channel === 'website' ||
-      content.channel === 'blog' ||
-      (content.keywords && content.keywords.length > 3)
-    );
+  private shouldRespondToContent(content: { keywords?: string[] }): boolean {
+    return content.keywords ? content.keywords.length > 3 : false;
+  }
+
+  private analyzeSentiment(text: string): 'positive' | 'negative' | 'neutral' {
+    // Simple sentiment analysis based on keywords
+    const positiveWords = ['great', 'excellent', 'amazing', 'helpful', 'professional', 'success'];
+    const negativeWords = ['poor', 'bad', 'terrible', 'disappointed', 'unprofessional', 'failed'];
+
+    const lowerText = text.toLowerCase();
+    const positiveCount = positiveWords.filter(word => lowerText.includes(word)).length;
+    const negativeCount = negativeWords.filter(word => lowerText.includes(word)).length;
+
+    if (positiveCount > negativeCount) return 'positive';
+    if (negativeCount > positiveCount) return 'negative';
+    return 'neutral';
   }
 
   private generateRelatedTopics(keywords: string[]): string[] {
@@ -1325,10 +1346,9 @@ export class CompetitorMonitoringSystem {
     if (random > 0.7) {
       return [
         {
-          channel: 'blog',
           title: 'Understanding Immigration Law Changes in 2024',
           url: `${profile.website}/blog/immigration-law-2024`,
-          description: 'Recent changes to immigration law affecting green card applications...',
+          publishDate: new Date(),
           keywords: ['immigration law', 'green card', '2024 changes'],
         },
       ];
@@ -1343,9 +1363,8 @@ export class CompetitorMonitoringSystem {
       return [
         {
           keyword: 'immigration lawyer charlotte',
-          previousPosition: 8,
-          currentPosition: 4,
-          positionChange: -4,
+          position: 4,
+          change: -4,
         },
       ];
     }
@@ -1361,11 +1380,10 @@ export class CompetitorMonitoringSystem {
     if (random > 0.6) {
       return [
         {
-          title: 'Client Success Story',
-          url: `https://${platform}.com/${handle}/posts/123`,
+          platform: platform,
           content: 'We helped another family reunite through our immigration services...',
           engagement: Math.floor(Math.random() * 2000),
-          sentiment: 'positive',
+          timestamp: new Date(),
         },
       ];
     }
@@ -1380,10 +1398,9 @@ export class CompetitorMonitoringSystem {
         {
           platform: 'Google Ads',
           headline: 'Top Immigration Lawyers - Free Consultation',
-          adCopy: 'Expert immigration attorneys. Get your green card faster.',
-          targetKeywords: ['immigration lawyer', 'green card attorney'],
-          landingPage: `${profile.website}/free-consultation`,
-          estimatedSpend: 2000,
+          description: 'Expert immigration attorneys. Get your green card faster.',
+          budget: 2000,
+          keywords: ['immigration lawyer', 'green card attorney'],
         },
       ];
     }
@@ -1398,8 +1415,8 @@ export class CompetitorMonitoringSystem {
         {
           platform: 'Google',
           rating: Math.floor(Math.random() * 5) + 1,
-          content: 'Great experience with this law firm...',
-          verified: true,
+          text: 'Great experience with this law firm...',
+          date: new Date(),
         },
       ];
     }
@@ -1452,7 +1469,7 @@ export class CompetitorMonitoringSystem {
   ): Promise<void> {
     // Store generated content
     logger.info('Storing generated content', {
-      contentId: content.id,
+      contentId: content.title,
       activityId: activity.competitorId,
     });
   }

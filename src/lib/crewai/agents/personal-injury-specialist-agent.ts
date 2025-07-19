@@ -669,7 +669,7 @@ Maintain highest ethical standards and provide accurate legal analysis specific 
   }
 
   // Fallback methods
-  private getFallbackViability(request: PersonalInjuryConsultationRequest) {
+  private getFallbackViability(request: PersonalInjuryConsultationRequest): ViabilityAnalysis {
     return {
       case_viability: 'moderate',
       liability_percentage: '75% defendant liable',
@@ -683,7 +683,7 @@ Maintain highest ethical standards and provide accurate legal analysis specific 
     };
   }
 
-  private getFallbackValue(request: PersonalInjuryConsultationRequest) {
+  private getFallbackValue(request: PersonalInjuryConsultationRequest): CaseValueAnalysis {
     return {
       economic_damages: {
         medical_current: '$5,000',
@@ -704,20 +704,20 @@ Maintain highest ethical standards and provide accurate legal analysis specific 
     };
   }
 
-  private getFallbackNCLaw(request: PersonalInjuryConsultationRequest) {
+  private getFallbackNCLaw(request: PersonalInjuryConsultationRequest): NCLawAnalysis {
     return {
       contributory_negligence_analysis:
         'Must evaluate any client fault under pure contributory negligence rule',
       applicable_nc_statutes: ['N.C.G.S. § 1-52', 'N.C.G.S. § 20-279.21'],
-      relevant_case_law: ['Coleman v. Cooper', 'Hairston v. Alexander Tank'],
-      defenses_available: ['Contributory negligence', 'Sudden emergency'],
-      procedural_requirements: ['Rule 7 mediation', 'Expert witness disclosure'],
-      insurance_considerations: ['UM/UIM coverage', 'Medical payments'],
-      venue_factors: ['Local jury attitudes', 'Court scheduling'],
+      recent_case_law: ['Coleman v. Cooper', 'Hairston v. Alexander Tank'],
+      venue_considerations: 'Local jury attitudes and court scheduling',
+      damage_caps: 'No caps on compensatory damages, punitive capped at 3x or $250k',
+      unique_nc_rules: ['Pure contributory negligence', 'Seat belt defense limited'],
+      strategic_considerations: ['Early case evaluation', 'Venue selection', 'Expert retention'],
     };
   }
 
-  private getFallbackStrategy(request: PersonalInjuryConsultationRequest) {
+  private getFallbackStrategy(request: PersonalInjuryConsultationRequest): StrategyRecommendation {
     return {
       immediate_actions: [
         'Preserve evidence',
@@ -725,16 +725,20 @@ Maintain highest ethical standards and provide accurate legal analysis specific 
         'Avoid recorded statements',
       ],
       evidence_preservation: ['Obtain police report', 'Photograph scene', 'Contact witnesses'],
-      medical_strategy: [
+      medical_recommendations: [
         'Complete treatment',
         'Follow doctor recommendations',
         'Document injuries',
       ],
-      insurance_approach: ['Report claim', 'Review coverage', 'Avoid quick settlements'],
-      expert_witnesses: ['Medical expert', 'Accident reconstruction'],
-      discovery_priorities: ['Medical records', 'Employment records', 'Defendant information'],
-      settlement_strategy: 'Prepare strong demand package with full documentation',
-      trial_preparation: ['Witness prep', 'Exhibit organization', 'Jury research'],
+      insurance_strategy: ['Report claim', 'Review coverage', 'Avoid quick settlements'],
+      settlement_timeline: '6-12 months for initial demand',
+      estimated_duration: '12-24 months total',
+      litigation_recommendation: 'avoid',
+      negotiation_leverage: [
+        'Strong liability evidence',
+        'Well-documented injuries',
+        'Economic loss proof',
+      ],
     };
   }
 }

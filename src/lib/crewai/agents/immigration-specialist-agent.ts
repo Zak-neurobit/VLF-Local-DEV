@@ -253,9 +253,9 @@ Provide accurate, current information based on USCIS regulations and procedures.
 
 CASE DETAILS:
 - Immigration Goal: ${request.immigrationGoal}
-- Primary Pathway: ${eligibility.primary_pathway}
+- Primary Pathway: ${eligibility.primaryOption.pathName}
 - Current Status: ${request.currentStatus}
-- Likelihood: ${eligibility.likelihood}
+- Likelihood: ${eligibility.primaryOption.eligibility}
 
 LEGAL ANALYSIS REQUIRED:
 1. Applicable federal immigration statutes and regulations
@@ -305,9 +305,9 @@ RESPONSE FORMAT (JSON):
 
 CASE SUMMARY:
 - Goal: ${request.immigrationGoal}
-- Pathway: ${eligibility.primary_pathway}
+- Pathway: ${eligibility.primaryOption.pathName}
 - Urgency: ${request.urgency}
-- Challenges: ${eligibility.potential_challenges?.join(', ') || 'None identified'}
+- Challenges: ${eligibility.bars?.join(', ') || 'None identified'}
 
 GENERATE RECOMMENDATIONS FOR:
 1. Immediate actions client should take
@@ -320,7 +320,7 @@ GENERATE RECOMMENDATIONS FOR:
 CONSIDERATIONS:
 - Client's urgency level: ${request.urgency}
 - Previous denials: ${request.priorDenials ? 'Yes' : 'No'}
-- Complexity factors: ${eligibility.potential_challenges?.join(', ') || 'Standard case'}
+- Complexity factors: ${eligibility.bars?.join(', ') || 'Standard case'}
 
 RESPONSE FORMAT (JSON):
 {
@@ -570,7 +570,7 @@ Always maintain the highest ethical standards and encourage consultation with qu
     eligibility: any,
     complexity: string
   ): string {
-    return `Based on your ${request.immigrationGoal} goal and ${request.currentStatus} status, you appear to be eligible for ${eligibility.primary_pathway}. This is classified as a ${complexity} case with ${eligibility.likelihood} likelihood of success. The process typically takes ${eligibility.timeframe} and involves ${eligibility.requirements?.length || 0} main requirements. ${request.priorDenials ? 'Given your prior denial history, extra care will be needed in preparing your case.' : ''} Professional legal representation is ${complexity === 'simple' ? 'recommended' : complexity === 'moderate' ? 'strongly recommended' : 'essential'} for this type of case.`;
+    return `Based on your ${request.immigrationGoal} goal and ${request.currentStatus} status, you appear to be eligible for ${eligibility.primaryOption.pathName}. This is classified as a ${complexity} case with ${eligibility.primaryOption.eligibility} eligibility status. The process typically takes ${eligibility.primaryOption.timeline} and involves ${eligibility.primaryOption.requirements?.length || 0} main requirements. ${request.priorDenials ? 'Given your prior denial history, extra care will be needed in preparing your case.' : ''} Professional legal representation is ${complexity === 'simple' ? 'recommended' : complexity === 'moderate' ? 'strongly recommended' : 'essential'} for this type of case.`;
   }
 
   private generateNextSteps(
@@ -592,48 +592,97 @@ Always maintain the highest ethical standards and encourage consultation with qu
       baseSteps.unshift('Contact attorney within 24-48 hours due to urgent timeline');
     }
 
-    return baseSteps.concat(recommendations.immediate_actions?.slice(0, 3) || []);
+    return baseSteps.concat(recommendations.immediateActions?.slice(0, 3) || []);
   }
 
   // Fallback methods for error handling
-  private getFallbackEligibility(request: ImmigrationConsultationRequest) {
+  private getFallbackEligibility(request: ImmigrationConsultationRequest): EligibilityAnalysis {
     return {
-      primary_pathway: `${request.immigrationGoal.replace('_', ' ')} application`,
-      likelihood: 'needs_evaluation',
-      requirements: ['Valid passport', 'Completed forms', 'Supporting evidence'],
-      timeframe: '6-18 months',
-      government_fees: '$1,000-$3,000',
-      potential_challenges: ['Document requirements', 'Processing delays'],
-      alternative_pathways: [],
-    };
-  }
-
-  private getFallbackLegalAnalysis(request: ImmigrationConsultationRequest) {
-    return {
-      applicable_laws: ['Immigration and Nationality Act', '8 CFR Immigration Regulations'],
-      recent_changes: ['Processing time updates', 'Fee adjustments'],
-      success_factors: ['Complete documentation', 'Timely filing'],
-      risk_factors: ['Missing documents', 'Eligibility questions'],
-      strategies: ['Thorough preparation', 'Legal consultation'],
-    };
-  }
-
-  private getFallbackRecommendations(request: ImmigrationConsultationRequest) {
-    return {
-      immediate_actions: [
-        'Consult immigration attorney',
-        'Gather documents',
-        'Review requirements',
-      ],
-      required_documents: ['Passport', 'Birth certificate', 'Supporting evidence'],
-      timeline: {
-        phase1: '1-2 months - Document preparation',
-        phase2: '3-12 months - Application processing',
+      primaryOption: {
+        pathName: `${request.immigrationGoal.replace('_', ' ')} application`,
+        eligibility: 'potentially_eligible',
+        requirements: ['Valid passport', 'Completed forms', 'Supporting evidence'],
+        timeline: '6-18 months',
+        cost: '$1,000-$3,000',
       },
-      interview_prep: ['Review application', 'Prepare supporting documents'],
-      challenge_mitigation: ['Professional legal help', 'Thorough preparation'],
-      attorney_consultation: 'recommended',
+      alternativeOptions: [],
+      bars: ['Document requirements', 'Processing delays'],
+      waivers: [],
+      urgentActions: [],
     };
+  }
+
+  private getFallbackLegalAnalysis(request: ImmigrationConsultationRequest): LegalAnalysis {
+    return {
+      applicableLaws: ['Immigration and Nationality Act', '8 CFR Immigration Regulations'],
+      recentChanges: ['Processing time updates', 'Fee adjustments'],
+      keyForms: ['Forms vary by case type'],
+      evidenceRequired: ['Complete documentation', 'Supporting evidence'],
+      potentialIssues: ['Missing documents', 'Eligibility questions'],
+      remedies: ['Thorough preparation', 'Legal consultation'],
+      processingOffice: 'USCIS',
+      estimatedTimeline: '6-18 months',
+    };
+  }
+
+  private getFallbackRecommendations(
+    request: ImmigrationConsultationRequest
+  ): ImmigrationRecommendations {
+    return {
+      immediateActions: ['Consult immigration attorney', 'Gather documents', 'Review requirements'],
+      documentationNeeded: ['Passport', 'Birth certificate', 'Supporting evidence'],
+      timeline: [
+        {
+          phase: 'Document preparation',
+          duration: '1-2 months',
+          actions: ['Gather required documents', 'Complete forms'],
+        },
+        {
+          phase: 'Application processing',
+          duration: '3-12 months',
+          actions: ['Submit application', 'Respond to requests'],
+        },
+      ],
+      costBreakdown: [
+        {
+          item: 'Government fees',
+          cost: '$1,000-$3,000',
+        },
+        {
+          item: 'Attorney fees',
+          cost: '$3,000-$8,000',
+        },
+      ],
+      riskFactors: ['Missing documents', 'Eligibility questions'],
+      successProbability: 'moderate',
+    };
+  }
+
+  private mapLikelihoodToEligibility(
+    likelihood: string
+  ): 'eligible' | 'potentially_eligible' | 'not_eligible' {
+    switch (likelihood) {
+      case 'high':
+        return 'eligible';
+      case 'moderate':
+      case 'needs_evaluation':
+        return 'potentially_eligible';
+      case 'low':
+      default:
+        return 'not_eligible';
+    }
+  }
+
+  private mapAttorneyToSuccess(attorneyConsultation: string): 'high' | 'moderate' | 'low' {
+    switch (attorneyConsultation) {
+      case 'essential':
+        return 'low';
+      case 'recommended':
+        return 'moderate';
+      case 'optional':
+      default:
+        return 'high';
+    }
   }
 }
 

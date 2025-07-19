@@ -36,15 +36,37 @@ interface VoiceAnalytics {
   totalCalls: number;
   totalDuration: number;
   avgCallDuration: number;
+  averageCallDuration: number;
   successRate: number;
   agentMetrics: AgentMetric[];
   callVolumeByHour: CallVolumeData[];
-  commonIssues: Array<{ issue: string; count: number }>;
+  commonIssues: Array<{
+    issue: string;
+    count: number;
+    frequency?: number;
+    resolutionRate?: number;
+  }>;
   sentimentDistribution: {
     positive: number;
     neutral: number;
     negative: number;
   };
+  emotionalDistribution: {
+    calm: number;
+    anxious: number;
+    frustrated: number;
+    urgent: number;
+    confused: number;
+  };
+  abandonmentRate: number;
+  averageSatisfactionScore: number;
+  performanceTrend: Array<{ date: string; quality: number }>;
+  averageInteractionQuality: number;
+  averageClarityScore: number;
+  averageCompletionRate: number;
+  averageResponseTime: number;
+  topIntents: Array<{ intent: string; count: number; percentage: number }>;
+  callVolumeByDay: Array<{ day: string; count: number }>;
 }
 
 interface VoiceRecommendation {
@@ -181,7 +203,7 @@ function OverviewTab({ analytics }: { analytics: VoiceAnalytics }) {
     datasets: [
       {
         label: 'Call Volume',
-        data: analytics.callVolumeByHour.map((h: any) => h.count),
+        data: analytics.callVolumeByHour.map((h: any) => h.calls),
         backgroundColor: 'rgba(59, 130, 246, 0.5)',
         borderColor: 'rgb(59, 130, 246)',
         borderWidth: 1,

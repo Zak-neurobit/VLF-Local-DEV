@@ -4,6 +4,7 @@ import { ghlService } from '@/services/gohighlevel';
 import { logger } from '@/lib/logger';
 import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
+import type { Prisma } from '@prisma/client';
 
 interface CallRoutingOptions {
   phoneNumber: string;
@@ -504,10 +505,12 @@ export class CallRoutingService {
           priority: routeDecision.priority,
           urgency: options.urgency || 'low',
           routingReason: routeDecision.specialInstructions || 'Standard routing',
-          metadata: {
-            routeDecision: routeDecision as unknown,
-            originalOptions: options as unknown,
-          },
+          metadata: JSON.parse(
+            JSON.stringify({
+              routeDecision,
+              originalOptions: options,
+            })
+          ) as Prisma.InputJsonValue,
         },
       });
 
