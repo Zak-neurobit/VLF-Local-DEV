@@ -25,7 +25,7 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
     }
 
     // Check if Google Maps is already loaded
-    if ((window as typeof window & { google?: { maps?: typeof google.maps } }).google?.maps) {
+    if ((window as any).google?.maps) {
       initializeMap();
       return;
     }
@@ -59,7 +59,7 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
         return;
       }
 
-      if (!(window as typeof window & { google?: { maps?: typeof google.maps } }).google?.maps) {
+      if (!(window as any).google?.maps) {
         setError('Google Maps API not available');
         setLoading(false);
         return;
