@@ -211,6 +211,15 @@ const sentryWebpackPluginOptions = {
   // Disable org/project lookup in CI
   disableLogger: true,
 
+  // Suppress source map upload warnings
+  silent: true,
+
+  // Don't upload source maps in production to avoid exposing them
+  ...(process.env.NODE_ENV === 'production' && {
+    disableServerWebpackPlugin: true,
+    disableClientWebpackPlugin: true,
+  }),
+
   // Auto-instrument API routes and Server Components
   automaticVercelMonitors: true,
 

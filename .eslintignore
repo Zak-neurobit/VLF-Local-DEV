@@ -35,6 +35,9 @@ scripts/
 # Type definition files
 *.d.ts
 
+# Generated Prisma stubs
+src/lib/prisma-model-stubs.ts
+
 # Individual files with parsing issues (will be fixed later)
 src/app/locations/**/*.tsx
 src/app/es/**/*.tsx
