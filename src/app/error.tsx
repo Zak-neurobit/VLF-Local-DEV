@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { logger } from '@/lib/pino-logger';
+import * as Sentry from '@sentry/nextjs';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
@@ -17,7 +18,22 @@ export default function Error({
   useEffect(() => {
     // Log the error to error reporting service
     logger.error(error);
-  }, [error]);
+
+    // Report to Sentry with context
+    Sentry.captureException(error, {
+      tags: {
+        component: 'app-error-boundary',
+        digest: error.digest,
+        language,
+      },
+      level: 'error',
+      contexts: {
+        react: {
+          componentStack: error.stack || 'No stack trace available',
+        },
+      },
+    });
+  }, [error, language]);
 
   const content = {
     en: {
