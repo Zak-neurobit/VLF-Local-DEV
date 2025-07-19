@@ -187,6 +187,9 @@ const sentryWebpackPluginOptions = {
 
   // Auto-instrument API routes and Server Components
   automaticVercelMonitors: true,
+
+  // Skip source map upload if no auth token
+  dryRun: !process.env.SENTRY_AUTH_TOKEN,
 };
 
 module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
