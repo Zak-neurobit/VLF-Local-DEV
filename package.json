@@ -233,6 +233,7 @@
     "@types/bull": "^3.15.9",
     "@types/canvas-confetti": "^1.9.0",
     "@types/google.maps": "^3.58.1",
+    "@types/handlebars": "^4.0.40",
     "@types/jest": "^30.0.0",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20.10.0",
