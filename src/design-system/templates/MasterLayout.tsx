@@ -25,6 +25,15 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
   // Determine current language from pathname
   const currentLanguage: 'en' | 'es' = safePathname.startsWith('/es') ? 'es' : 'en';
 
+  // Debug: Log when MasterLayout renders
+  React.useEffect(() => {
+    console.log('[MasterLayout] Rendered with:', {
+      variant,
+      currentLanguage,
+      pathname: safePathname,
+    });
+  }, [variant, currentLanguage, safePathname]);
+
   const handleLanguageChange = (_lang: 'en' | 'es') => {
     // Language change is handled by LanguageSwitcher component
     // which uses router to navigate to the appropriate path
@@ -51,12 +60,23 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
   return (
     <div className="min-h-screen flex flex-col bg-black">
       {/* News Ticker - Fixed at the very top */}
-      <div className="fixed top-0 left-0 right-0 z-[60]">
+      <div
+        className="fixed top-0 left-0 right-0 z-[9999] block"
+        style={{
+          height: '32px',
+          backgroundColor: '#6B1F2E', // Ensure visible background
+          minHeight: '32px',
+          display: 'block',
+          visibility: 'visible',
+          opacity: 1,
+          transform: 'none',
+        }}
+      >
         <NewsTicker locale={currentLanguage} />
       </div>
 
       {/* Header - Adjusted to account for ticker height */}
-      <div className="fixed top-[32px] left-0 right-0 z-50">
+      <div className="fixed top-[32px] left-0 right-0 z-[90]">
         <ConsistentHeader
           language={currentLanguage}
           setLanguage={handleLanguageChange}
@@ -65,9 +85,8 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
       </div>
 
       {/* Main content area with padding to account for fixed header + ticker */}
-      <div className={variant === 'hero' ? 'pt-[32px]' : 'pt-[132px]'}>
-        {' '}
-        {/* Hero needs ticker space, normal needs ticker + header */}
+      <div className={variant === 'hero' ? 'pt-0' : 'pt-[132px]'}>
+        {/* Hero variant starts from top, normal needs ticker + header space */}
         {/* Breadcrumbs */}
         {showBreadcrumbs && safePathname !== '/' && variant !== 'hero' && (
           <div className="bg-black/50 border-b border-primary/20 backdrop-blur-sm">

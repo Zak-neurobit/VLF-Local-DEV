@@ -24,11 +24,21 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Debug: Log component mount
+  useEffect(() => {
+    console.log('[NewsTicker] Component mounted with locale:', locale);
+    return () => console.log('[NewsTicker] Component unmounted');
+  }, []);
 
   useEffect(() => {
     // Fetch recent news items
     const fetchNews = async () => {
       try {
+        setIsLoading(true);
+        setError(null);
         console.log('[NewsTicker] Fetching news for locale:', locale);
         const response = await fetch(
           `/api/news/ticker?category=immigration&limit=10&locale=${locale}`
@@ -39,10 +49,20 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
           console.log('[NewsTicker] Received data:', data);
           setNewsItems(data.posts || []);
         } else {
-          console.error('[NewsTicker] Failed to fetch news, status:', response.status);
+          const errorText = await response.text();
+          console.error(
+            '[NewsTicker] Failed to fetch news, status:',
+            response.status,
+            'error:',
+            errorText
+          );
+          setError(`Failed to fetch news: ${response.status}`);
         }
       } catch (error) {
         console.error('[NewsTicker] Error fetching news:', error);
+        setError(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -62,13 +82,36 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
     }
   }, [isPaused, newsItems.length]);
 
+  // Debug: Log render state
+  console.log('[NewsTicker] Render state:', { isLoading, error, itemCount: newsItems.length });
+
+  if (isLoading) {
+    return (
+      <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-2 px-4 h-[32px] flex items-center">
+        <div className="max-w-7xl mx-auto text-center text-sm w-full">
+          <span className="text-[#C9974D]">Loading news...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-2 px-4 h-[32px] flex items-center">
+        <div className="max-w-7xl mx-auto text-center text-sm w-full">
+          <span className="text-red-300">Error: {error}</span>
+        </div>
+      </div>
+    );
+  }
+
   if (newsItems.length === 0) {
     console.log('[NewsTicker] No news items to display');
     // Return a placeholder to verify the component is mounting
     return (
-      <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-2 px-4">
-        <div className="max-w-7xl mx-auto text-center text-sm">
-          <span className="text-[#C9974D]">Loading news...</span>
+      <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-2 px-4 h-[32px] flex items-center">
+        <div className="max-w-7xl mx-auto text-center text-sm w-full">
+          <span className="text-[#C9974D]">No news available</span>
         </div>
       </div>
     );
@@ -81,9 +124,17 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
   return (
     <div
       className={cn(
-        'bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-2 px-4 overflow-hidden',
+        'bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-2 px-4 overflow-hidden h-[32px] flex items-center',
+        'shadow-lg', // Add shadow for visibility
         className
       )}
+      style={{
+        // Ensure visibility with inline styles as backup
+        backgroundColor: '#6B1F2E',
+        minHeight: '32px',
+        position: 'relative',
+        zIndex: 100,
+      }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -103,9 +154,7 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
               href={currentItem.url}
               className="group flex items-center space-x-2 hover:text-[#C9974D] transition-colors"
             >
-              <span className="truncate text-sm md:text-base animate-scroll-left">
-                {displayTitle}
-              </span>
+              <span className="truncate text-sm md:text-base">{displayTitle}</span>
               <ChevronRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -129,30 +178,4 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
   );
 }
 
-// Add animation styles
-const tickerStyles = `
-@keyframes scroll-left {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-.animate-scroll-left {
-  animation: scroll-left 20s linear infinite;
-}
-
-.animate-scroll-left:hover {
-  animation-play-state: paused;
-}
-`;
-
-// Inject styles safely
-if (typeof document !== 'undefined' && !document.getElementById('news-ticker-styles')) {
-  const style = document.createElement('style');
-  style.id = 'news-ticker-styles';
-  style.textContent = tickerStyles;
-  document.head.appendChild(style);
-}
+// Animation is handled by Tailwind, removed manual style injection

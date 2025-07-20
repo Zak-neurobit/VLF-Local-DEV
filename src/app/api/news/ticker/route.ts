@@ -86,6 +86,8 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10');
     const locale = searchParams.get('locale') || 'en';
 
+    logger.info(`News ticker request: category=${category}, limit=${limit}, locale=${locale}`);
+
     let newsItems: any[] = [];
 
     // Try to get from database first
@@ -141,6 +143,7 @@ export async function GET(request: NextRequest) {
 
     // If we still don't have news, use static fallback
     if (newsItems.length === 0) {
+      logger.info('Using static news items');
       const staticNews = [
         {
           id: 'static-1',
@@ -194,10 +197,18 @@ export async function GET(request: NextRequest) {
         },
       ];
 
-      return NextResponse.json({
-        posts: staticNews,
-        source: 'static',
-      });
+      return NextResponse.json(
+        {
+          posts: staticNews.slice(0, limit),
+          source: 'static',
+          total: staticNews.length,
+        },
+        {
+          headers: {
+            'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+          },
+        }
+      );
     }
 
     // Determine data source for response
@@ -211,6 +222,25 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     logger.error('Error fetching news ticker items:', createErrorLogMeta(error) as any);
-    return NextResponse.json({ error: 'Failed to fetch news items' }, { status: 500 });
+
+    // Return static fallback on error
+    const fallbackNews = [
+      {
+        id: 'fallback-1',
+        title: 'Immigration Law Updates - Call 1-844-YO-PELEO',
+        titleEs: 'Actualizaciones de Inmigración - Llame 1-844-YO-PELEO',
+        url: '/contact',
+        date: new Date().toISOString(),
+        category: 'immigration',
+        urgent: true,
+        excerpt: 'Get the latest immigration updates',
+      },
+    ];
+
+    return NextResponse.json({
+      posts: fallbackNews,
+      source: 'fallback',
+      error: 'Using fallback data',
+    });
   }
 }
