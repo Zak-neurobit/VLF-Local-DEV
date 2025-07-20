@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import Script from 'next/script';
+import type { ScriptLoadHandler } from '@/types/google-maps';
 
 interface GoogleMyBusinessProps {
   placeId?: string;
@@ -14,7 +15,7 @@ export function GoogleMyBusinessWidget({
 }: GoogleMyBusinessProps) {
   useEffect(() => {
     // Initialize Google Places widget when component mounts
-    if ((window as any).google?.maps) {
+    if (window.google?.maps) {
       initializeWidget();
     }
   }, [placeId]);
@@ -29,7 +30,7 @@ export function GoogleMyBusinessWidget({
       <Script
         src={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`}
         strategy="lazyOnload"
-        onLoad={initializeWidget}
+        onLoad={initializeWidget as ScriptLoadHandler}
       />
       <div id="google-reviews" className="google-reviews-widget">
         {/* Google Reviews will be rendered here */}

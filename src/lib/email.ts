@@ -39,7 +39,7 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
 export async function sendTemplateEmail(
   template: string,
   to: string,
-  data: Record<string, any>
+  _data: Record<string, any>
 ): Promise<boolean> {
   // TODO: Implement template rendering logic
   const html = `<p>Template: ${template}</p>`;

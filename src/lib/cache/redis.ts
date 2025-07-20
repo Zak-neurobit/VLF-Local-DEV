@@ -50,7 +50,7 @@ class MockRedis {
     return 'PONG';
   }
 
-  on(event: string, handler: (...args: unknown[]) => void) {
+  on(_event: string, _handler: (...args: unknown[]) => void) {
     // Mock event handling
   }
 
@@ -95,7 +95,7 @@ class MockRedis {
     return this.store.size;
   }
 
-  async memory(cmd: string, key: string) {
+  async memory(_cmd: string, _key: string) {
     return 1024; // Mock memory usage
   }
 }

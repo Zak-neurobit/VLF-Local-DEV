@@ -4,6 +4,11 @@ import { logger, securityLogger } from '@/lib/logger';
 import { createErrorLogMeta } from '@/lib/logger/utils';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import type {
+  SocketHealthResponse,
+  SocketHealthCheck,
+  AdminSocketHealthResponse,
+} from '@/types/api';
 
 // Health check endpoint specifically for the Socket.IO server
 export async function GET(request: NextRequest) {
@@ -18,7 +23,7 @@ export async function GET(request: NextRequest) {
     const responseTime = Date.now() - startTime;
 
     // Enhanced health check with additional system info
-    const enhancedHealth = {
+    const enhancedHealth: SocketHealthResponse = {
       ...healthStatus,
       responseTime,
       endpoint: 'socket-health',
@@ -28,20 +33,21 @@ export async function GET(request: NextRequest) {
         socket_server: healthStatus.status === 'healthy' ? 'pass' : 'fail',
         response_time: responseTime < 1000 ? 'pass' : 'warn',
         memory_usage: (() => {
-          const system = healthStatus.details.system as any;
-          if (system?.memory?.heapUsed && system?.memory?.heapTotal) {
-            return system.memory.heapUsed / system.memory.heapTotal < 0.9 ? 'pass' : 'warn';
+          const system = healthStatus.details.system as Record<string, unknown>;
+          const memory = system?.memory as { heapUsed?: number; heapTotal?: number };
+          if (memory?.heapUsed && memory?.heapTotal) {
+            return memory.heapUsed / memory.heapTotal < 0.9 ? 'pass' : 'warn';
           }
           return 'unknown';
         })(),
         circuit_breakers: healthStatus.details.circuitBreakers
-          ? Object.values(healthStatus.details.circuitBreakers).every(
-              (cb: any) => cb.status === 'closed'
-            )
+          ? Object.values(
+              healthStatus.details.circuitBreakers as Record<string, { status: string }>
+            ).every(cb => cb.status === 'closed')
             ? 'pass'
             : 'warn'
           : 'unknown',
-      },
+      } satisfies SocketHealthCheck,
     };
 
     // Log health check
@@ -90,7 +96,7 @@ export async function POST(request: NextRequest) {
     // Check admin authentication
     const session = await getServerSession(authOptions);
 
-    if (!session || !session.user || (session.user as any).role !== 'ADMIN') {
+    if (!session || !session.user || (session.user as { role?: string }).role !== 'ADMIN') {
       securityLogger.accessDenied(
         'admin_health_check',
         session?.user?.id,
@@ -116,11 +122,14 @@ export async function POST(request: NextRequest) {
     const adminCommandHistory = socketServer.getAdminCommandHistory();
     const alertConfigs = Array.from(socketServer.getAlertConfigs().entries());
 
-    const detailedHealth = {
+    const detailedHealth: AdminSocketHealthResponse = {
       ...dashboardData,
       responseTime,
       endpoint: 'admin-socket-health',
-      requestedBy: session.user.id,
+      version: process.env.npm_package_version || '1.0.0',
+      environment: process.env.NODE_ENV || 'development',
+      checks: {} as SocketHealthCheck, // Will be populated by spread operator
+      requestedBy: session.user.id!,
       connections: {
         summary: dashboardData.connections,
         detailed: connectionsData,

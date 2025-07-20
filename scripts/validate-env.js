@@ -184,7 +184,7 @@ console.log('\n🔧 Feature Availability:\n');
 
 const features = {
   'Core Website': requiredSet === requiredCount,
-  'SMS/Voice': !!(envVars.TWILIO_ACCOUNT_SID && envVars.TWILIO_AUTH_TOKEN),
+  'SMS/Voice (GoHighLevel)': !!(envVars.GHL_API_KEY && envVars.GHL_LOCATION_ID),
   'CRM Integration': !!(envVars.GHL_API_KEY && envVars.GHL_LOCATION_ID),
   'Voice Agents': !!envVars.RETELL_API_KEY,
   Caching: !!envVars.REDIS_URL,

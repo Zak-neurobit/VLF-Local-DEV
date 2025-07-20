@@ -123,9 +123,7 @@ console.log('\\n🧪 Testing API Configurations...\\n');
 const tests = {
   'Database': () => !!process.env.DATABASE_URL,
   'OpenAI': () => !!process.env.OPENAI_API_KEY,
-  'Twilio Account': () => !!process.env.TWILIO_ACCOUNT_SID,
-  'Twilio Auth': () => !!process.env.TWILIO_AUTH_TOKEN,
-  'Twilio Phone': () => !!process.env.TWILIO_PHONE_NUMBER,
+  'Retell AI': () => !!process.env.RETELL_API_KEY,
   'GoHighLevel API': () => !!process.env.GHL_API_KEY,
   'GoHighLevel Location': () => !!process.env.GHL_LOCATION_ID,
   'NextAuth URL': () => !!process.env.NEXTAUTH_URL,
@@ -157,4 +155,4 @@ console.log('   node scripts/test-apis.js\n');
 console.log('2. Start all services:');
 console.log('   npm run dev\n');
 console.log('3. Test voice system:');
-console.log('   Call your Twilio number after setup\n');
+console.log('   Call your configured phone number after setup\n');

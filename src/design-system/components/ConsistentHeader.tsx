@@ -21,7 +21,7 @@ interface NavigationItem {
 
 export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
   language,
-  setLanguage,
+  _setLanguage,
   variant = 'solid',
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

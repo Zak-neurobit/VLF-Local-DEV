@@ -44,156 +44,116 @@ async function buildVoiceAI() {
   const voiceDir = path.join(process.cwd(), 'src', 'app', 'api', 'voice');
   await fs.mkdir(voiceDir, { recursive: true });
 
-  // Twilio webhook for incoming calls
-  const twilioWebhook = `import { NextRequest, NextResponse } from 'next/server';
-import twilio from 'twilio';
-
-const VoiceResponse = twilio.twiml.VoiceResponse;
+  // Voice webhook for incoming calls (using Retell AI)
+  const voiceWebhook = `import { NextRequest, NextResponse } from 'next/server';
+import { getRetellClient } from '@/services/retell/client';
 
 export async function POST(request: NextRequest) {
-  const formData = await request.formData();
-  const from = formData.get('From') as string;
-  const callSid = formData.get('CallSid') as string;
-
-  const response = new VoiceResponse();
-
-  // Detect language preference
-  const gather = response.gather({
-    input: 'speech dtmf',
-    timeout: 3,
-    language: 'en-US es-MX',
-    action: '/api/voice/handle-language',
-    method: 'POST'
-  });
-
-  gather.say({
-    voice: 'Polly.Joanna',
-    language: 'en-US'
-  }, 'Thank you for calling Vasquez Law Firm. For English, press 1 or say English.');
-
-  gather.say({
-    voice: 'Polly.Penelope',
-    language: 'es-US'
-  }, 'Para español, presione 2 o diga español.');
-
-  return new NextResponse(response.toString(), {
-    headers: { 'Content-Type': 'text/xml' }
-  });
+  try {
+    const { phoneNumber, callId } = await request.json();
+    const retellClient = getRetellClient();
+    
+    // Handle incoming call with Retell AI
+    const response = await retellClient.handleIncomingCall({
+      phoneNumber,
+      callId,
+      agentId: process.env.RETELL_GENERAL_AGENT_ID,
+      greeting: 'Thank you for calling Vasquez Law Firm. How can I help you today? Para español, diga español.'
+    });
+    
+    return NextResponse.json(response);
+  } catch (error) {
+    console.error('Voice webhook error:', error);
+    return NextResponse.json({ error: 'Failed to handle call' }, { status: 500 });
+  }
 }`;
 
-  await fs.writeFile(path.join(voiceDir, 'route.ts'), twilioWebhook);
+  await fs.writeFile(path.join(voiceDir, 'route.ts'), voiceWebhook);
 
   // Language handler
   const languageHandler = `import { NextRequest, NextResponse } from 'next/server';
-import twilio from 'twilio';
-
-const VoiceResponse = twilio.twiml.VoiceResponse;
+import { getRetellClient } from '@/services/retell/client';
 
 export async function POST(request: NextRequest) {
-  const formData = await request.formData();
-  const digits = formData.get('Digits') as string;
-  const speechResult = formData.get('SpeechResult') as string;
-  
-  const response = new VoiceResponse();
-  
-  const isSpanish = digits === '2' || 
-                   speechResult?.toLowerCase().includes('español') ||
-                   speechResult?.toLowerCase().includes('spanish');
-
-  const language = isSpanish ? 'es-US' : 'en-US';
-  const voice = isSpanish ? 'Polly.Penelope' : 'Polly.Joanna';
-
-  const gather = response.gather({
-    input: 'speech dtmf',
-    timeout: 5,
-    language,
-    action: '/api/voice/handle-intent',
-    method: 'POST'
-  });
-
-  if (isSpanish) {
-    gather.say({ voice, language }, 
-      '¿Cómo puedo ayudarle? Puede decir: hacer una cita, hablar con un abogado, ' +
-      'información sobre inmigración, accidente, o caso criminal.'
-    );
-  } else {
-    gather.say({ voice, language }, 
-      'How can I help you today? You can say: schedule appointment, speak to attorney, ' +
-      'immigration help, accident case, or criminal defense.'
-    );
+  try {
+    const { callId, language } = await request.json();
+    const retellClient = getRetellClient();
+    
+    const isSpanish = language?.toLowerCase().includes('spanish') || language?.toLowerCase().includes('español');
+    
+    // Switch to appropriate language agent
+    const agentId = isSpanish 
+      ? process.env.RETELL_SPANISH_AGENT_ID 
+      : process.env.RETELL_GENERAL_AGENT_ID;
+    
+    const response = await retellClient.transferCall({
+      callId,
+      agentId,
+      message: isSpanish 
+        ? '¿Cómo puedo ayudarle? Puede decir: hacer una cita, hablar con un abogado, información sobre inmigración, accidente, o caso criminal.'
+        : 'How can I help you today? You can say: schedule appointment, speak to attorney, immigration help, accident case, or criminal defense.'
+    });
+    
+    return NextResponse.json(response);
+  } catch (error) {
+    console.error('Language handler error:', error);
+    return NextResponse.json({ error: 'Failed to handle language selection' }, { status: 500 });
   }
-
-  return new NextResponse(response.toString(), {
-    headers: { 'Content-Type': 'text/xml' }
-  });
 }`;
 
   await fs.writeFile(path.join(voiceDir, 'handle-language', 'route.ts'), languageHandler);
 
   // Intent handler
   const intentHandler = `import { NextRequest, NextResponse } from 'next/server';
-import twilio from 'twilio';
-
-const VoiceResponse = twilio.twiml.VoiceResponse;
+import { getRetellClient } from '@/services/retell/client';
 
 export async function POST(request: NextRequest) {
-  const formData = await request.formData();
-  const speechResult = formData.get('SpeechResult') as string || '';
-  const language = formData.get('Language') as string || 'en-US';
-  
-  const response = new VoiceResponse();
-  const isSpanish = language.includes('es');
-  const voice = isSpanish ? 'Polly.Penelope' : 'Polly.Joanna';
-
-  const lowerSpeech = speechResult.toLowerCase();
-
-  // Appointment scheduling
-  if (lowerSpeech.includes('appointment') || lowerSpeech.includes('cita')) {
-    response.say({ voice, language },
-      isSpanish 
-        ? 'Le conectaré con nuestro equipo para programar una cita.'
-        : 'I\'ll connect you with our team to schedule an appointment.'
-    );
-    response.dial('+19197906009'); // Office number
+  try {
+    const { callId, intent, language } = await request.json();
+    const retellClient = getRetellClient();
+    
+    const isSpanish = language?.includes('es');
+    let agentId = process.env.RETELL_GENERAL_AGENT_ID;
+    let transferMessage = '';
+    
+    // Route based on intent
+    if (intent.includes('immigration') || intent.includes('inmigración')) {
+      agentId = process.env.RETELL_IMMIGRATION_AGENT_ID;
+      transferMessage = isSpanish 
+        ? 'Le conecto con nuestro especialista en inmigración.'
+        : 'Let me connect you with our immigration specialist.';
+    } else if (intent.includes('injury') || intent.includes('accident') || intent.includes('accidente')) {
+      agentId = process.env.RETELL_PERSONAL_INJURY_AGENT_ID;
+      transferMessage = isSpanish
+        ? 'Le conecto con nuestro abogado de lesiones personales.'
+        : 'Let me connect you with our personal injury attorney.';
+    } else if (intent.includes('criminal') || intent.includes('defense')) {
+      agentId = process.env.RETELL_CRIMINAL_DEFENSE_AGENT_ID;
+      transferMessage = isSpanish
+        ? 'Le conecto con nuestro abogado de defensa criminal.'
+        : 'Let me connect you with our criminal defense attorney.';
+    } else if (intent.includes('workers') || intent.includes('compensation')) {
+      agentId = process.env.RETELL_WORKERS_COMP_AGENT_ID;
+      transferMessage = isSpanish
+        ? 'Le conecto con nuestro abogado de compensación laboral.'
+        : 'Let me connect you with our workers compensation attorney.';
+    } else {
+      transferMessage = isSpanish
+        ? 'Le conectaré con nuestro equipo legal.'
+        : 'Let me connect you with our legal team.';
+    }
+    
+    const response = await retellClient.transferCall({
+      callId,
+      agentId,
+      message: transferMessage
+    });
+    
+    return NextResponse.json(response);
+  } catch (error) {
+    console.error('Intent handler error:', error);
+    return NextResponse.json({ error: 'Failed to handle intent' }, { status: 500 });
   }
-  
-  // Emergency/Urgent
-  else if (lowerSpeech.includes('emergency') || lowerSpeech.includes('urgent') || 
-           lowerSpeech.includes('emergencia') || lowerSpeech.includes('urgente')) {
-    response.say({ voice, language },
-      isSpanish
-        ? 'Entiendo que esto es urgente. Le conecto inmediatamente.'
-        : 'I understand this is urgent. Let me connect you immediately.'
-    );
-    response.dial('+19197906009');
-  }
-  
-  // Immigration
-  else if (lowerSpeech.includes('immigration') || lowerSpeech.includes('inmigración') ||
-           lowerSpeech.includes('visa') || lowerSpeech.includes('green card')) {
-    response.say({ voice, language },
-      isSpanish
-        ? 'Somos expertos en inmigración. Podemos ayudar con visas, tarjetas verdes, ' +
-          'ciudadanía, y defensa de deportación. Le conecto con un abogado de inmigración.'
-        : 'We specialize in immigration law. We can help with visas, green cards, ' +
-          'citizenship, and deportation defense. Let me connect you with an immigration attorney.'
-    );
-    response.dial('+19197906009');
-  }
-  
-  // Default
-  else {
-    response.say({ voice, language },
-      isSpanish
-        ? 'Le conectaré con nuestro equipo legal. Un momento por favor.'
-        : 'Let me connect you with our legal team. One moment please.'
-    );
-    response.dial('+19197906009');
-  }
-
-  return new NextResponse(response.toString(), {
-    headers: { 'Content-Type': 'text/xml' }
-  });
 }`;
 
   await fs.writeFile(path.join(voiceDir, 'handle-intent', 'route.ts'), intentHandler);

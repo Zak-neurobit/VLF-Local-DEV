@@ -180,7 +180,7 @@ export function useABTest(testId: string) {
     };
 
     getVariantAndContent();
-  }, [testId, context.getVariant]); // Fixed dependency - only need getVariant method
+  }, [testId, context]);
 
   const trackEvent = useCallback(
     (event: string, value?: number, metadata?: Record<string, unknown>) => {

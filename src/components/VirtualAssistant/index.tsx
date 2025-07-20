@@ -374,6 +374,9 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
 
   // Initialize everything on mount
   useEffect(() => {
+    // Capture ref values at the beginning to avoid stale closure warnings
+    const stream = streamRef.current;
+
     initializeSpeechRecognition();
     initializeSpeechSynthesis();
 
@@ -387,7 +390,6 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
       if (socketRef.current) {
         socketRef.current.disconnect();
       }
-      const stream = streamRef.current;
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
       }
@@ -410,7 +412,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
         }
       }
     },
-    [initializeSocket, mode]
+    [initializeSocket]
   );
 
   // Execute specialized tasks

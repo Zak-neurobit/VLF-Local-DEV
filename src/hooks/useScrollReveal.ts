@@ -106,17 +106,22 @@ export function useCascadeReveal(itemCount: number, baseDelay: number = 100) {
 
   useEffect(() => {
     if (isInView) {
-      revealedItems.forEach((_, index) => {
-        setTimeout(() => {
+      const timeouts: NodeJS.Timeout[] = [];
+      for (let i = 0; i < itemCount; i++) {
+        const timeout = setTimeout(() => {
           setRevealedItems(prev => {
             const next = [...prev];
-            next[index] = true;
+            next[i] = true;
             return next;
           });
-        }, index * baseDelay);
-      });
+        }, i * baseDelay);
+        timeouts.push(timeout);
+      }
+      return () => {
+        timeouts.forEach(timeout => clearTimeout(timeout));
+      };
     }
-  }, [isInView, itemCount, baseDelay]); // Removed revealedItems to prevent infinite loop
+  }, [isInView, baseDelay, itemCount]);
 
   return {
     containerRef,

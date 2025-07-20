@@ -44,7 +44,7 @@ const mockCache: MockCache = {
   async memory() {
     return 0;
   },
-  async remember<T>(key: string, factory: () => Promise<T>, ttl?: number): Promise<T> {
+  async remember<T>(key: string, factory: () => Promise<T>, _ttl?: number): Promise<T> {
     // Simple implementation: always call factory since this is a stub
     return await factory();
   },

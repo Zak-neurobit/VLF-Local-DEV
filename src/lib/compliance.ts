@@ -4,7 +4,7 @@ import { logger } from '@/lib/pino-logger';
 // TODO: Add AuditLog and Consent models to Prisma schema
 
 export class ComplianceService {
-  static async checkPrivilegeLevel(userId: string, requiredLevel: string): Promise<boolean> {
+  static async checkPrivilegeLevel(_userId: string, _requiredLevel: string): Promise<boolean> {
     return true;
   }
 
@@ -12,7 +12,7 @@ export class ComplianceService {
     logger.info('Audit log:', event);
   }
 
-  static async checkConsent(userId: string, consentType: string): Promise<boolean> {
+  static async checkConsent(_userId: string, _consentType: string): Promise<boolean> {
     return true;
   }
 

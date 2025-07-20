@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
+import { useSafeEffect } from '@/lib/react-fixes/useEffectFix';
+import { withErrorBoundary } from '@/lib/react-fixes/errorBoundaryHOC';
 
 // Dynamic imports for performance
 const ModernHero = dynamic(() => import('../hero/ModernHero'), {
@@ -41,32 +43,44 @@ interface HomePageProps {
   language?: 'en' | 'es';
 }
 
-export default function HomePage({ language: initialLanguage = 'en' }: HomePageProps) {
+const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' }) => {
   const [language, setLanguage] = useState<'en' | 'es'>(initialLanguage);
   const [showVirtualParalegal, setShowVirtualParalegal] = useState(false);
 
-  useEffect(() => {
-    // Only run client-side checks after hydration
-    if (typeof window !== 'undefined') {
-      // Only check browser language if no initial language provided and we're on English version
-      if (initialLanguage === 'en') {
-        const browserLang = navigator.language.toLowerCase();
-        if (browserLang.startsWith('es')) {
-          setLanguage('es');
+  // Memoize callbacks to prevent unnecessary re-renders
+  const handleLanguageChange = useCallback((lang: 'en' | 'es') => {
+    setLanguage(lang);
+  }, []);
+
+  const handleVirtualParalegalToggle = useCallback(() => {
+    setShowVirtualParalegal(prev => !prev);
+  }, []);
+
+  useSafeEffect(
+    isMounted => {
+      // Only run client-side checks after hydration
+      if (typeof window !== 'undefined') {
+        // Only check browser language if no initial language provided and we're on English version
+        if (initialLanguage === 'en') {
+          const browserLang = navigator.language.toLowerCase();
+          if (browserLang.startsWith('es') && isMounted()) {
+            setLanguage('es');
+          }
         }
+
+        // Show virtual paralegal after 10 seconds
+        const timer = setTimeout(() => {
+          if (!sessionStorage.getItem('paralegal-shown') && isMounted()) {
+            setShowVirtualParalegal(true);
+            sessionStorage.setItem('paralegal-shown', 'true');
+          }
+        }, 10000);
+
+        return () => clearTimeout(timer);
       }
-
-      // Show virtual paralegal after 10 seconds
-      const timer = setTimeout(() => {
-        if (!sessionStorage.getItem('paralegal-shown')) {
-          setShowVirtualParalegal(true);
-          sessionStorage.setItem('paralegal-shown', 'true');
-        }
-      }, 10000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [initialLanguage]);
+    },
+    [initialLanguage]
+  );
 
   return (
     <div className="min-h-screen bg-black">
@@ -78,18 +92,22 @@ export default function HomePage({ language: initialLanguage = 'en' }: HomePageP
           className="fixed right-2 sm:right-4 top-16 sm:top-20 z-40 flex gap-1 sm:gap-2 rounded-full bg-black/50 p-1 backdrop-blur-sm"
         >
           <button
-            onClick={() => setLanguage('en')}
+            onClick={() => handleLanguageChange('en')}
             className={`rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all ${
               language === 'en' ? 'bg-primary text-black' : 'text-white hover:text-primary'
             }`}
+            aria-pressed={language === 'en'}
+            aria-label="Switch to English"
           >
             EN
           </button>
           <button
-            onClick={() => setLanguage('es')}
+            onClick={() => handleLanguageChange('es')}
             className={`rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all ${
               language === 'es' ? 'bg-primary text-black' : 'text-white hover:text-primary'
             }`}
+            aria-pressed={language === 'es'}
+            aria-label="Cambiar a Español"
           >
             ES
           </button>
@@ -101,7 +119,7 @@ export default function HomePage({ language: initialLanguage = 'en' }: HomePageP
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 2 }}
-        onClick={() => setShowVirtualParalegal(true)}
+        onClick={handleVirtualParalegalToggle}
         className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary-300 shadow-2xl transition-all hover:scale-110"
         aria-label={language === 'es' ? 'Abrir Asistente de IA' : 'Open AI Assistant'}
       >
@@ -183,4 +201,6 @@ export default function HomePage({ language: initialLanguage = 'en' }: HomePageP
       </div>
     </div>
   );
-}
+};
+
+export default withErrorBoundary(HomePage);

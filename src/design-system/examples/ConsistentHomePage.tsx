@@ -17,7 +17,9 @@ import {
 import { motion } from 'framer-motion';
 
 export default function ConsistentHomePage() {
-  const [language, setLanguage] = useState<'en' | 'es'>('en');
+  // Language state - setLanguage available for future language switching
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [language, _setLanguage] = useState<'en' | 'es'>('en');
 
   const practiceAreas = [
     {

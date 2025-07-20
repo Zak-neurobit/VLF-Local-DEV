@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { aiHealthChecker } from '@/lib/ai/health-check';
 import { logger } from '@/lib/logger';
 import { errorToLogMeta } from '@/lib/logger/utils';
+import type { AIHealthResponse, AITestRequest, AITestResult } from '@/types/api';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -16,10 +17,17 @@ export async function GET(request: NextRequest) {
     // Basic health check
     const health = await aiHealthChecker.checkHealth();
 
-    const response: any = {
+    const response: AIHealthResponse = {
       status: health.status,
       timestamp: health.lastChecked,
       uptime: health.uptime,
+      summary: {
+        chatService: health.services.enhancedChat.available,
+        translationService: health.services.translation.available,
+        agentOrchestrator: health.services.agentOrchestrator.available,
+        openaiConfigured: health.services.enhancedChat.openai,
+        agentCount: health.services.agentOrchestrator.agentCount,
+      },
     };
 
     // Add detailed information if requested
@@ -33,14 +41,7 @@ export async function GET(request: NextRequest) {
       response.diagnostics = diagnosticsResults;
     }
 
-    // Add quick summary for monitoring
-    response.summary = {
-      chatService: health.services.enhancedChat.available,
-      translationService: health.services.translation.available,
-      agentOrchestrator: health.services.agentOrchestrator.available,
-      openaiConfigured: health.services.enhancedChat.openai,
-      agentCount: health.services.agentOrchestrator.agentCount,
-    };
+    // Summary is already included in the response object above
 
     // Log health check request
     logger.info('AI health check requested', {
@@ -78,7 +79,7 @@ export async function GET(request: NextRequest) {
 // POST /api/ai/health/test - Test AI services with custom input
 export async function POST(request: NextRequest) {
   try {
-    const { message, language = 'en', testType = 'all' } = await request.json();
+    const { message, language = 'en', testType = 'all' } = (await request.json()) as AITestRequest;
 
     if (!message || typeof message !== 'string') {
       return NextResponse.json(
@@ -89,12 +90,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const results: any = {
+    const results: AITestResult = {
       timestamp: new Date().toISOString(),
       testMessage: message,
       language,
       testType,
       results: {},
+      overallSuccess: false,
+      successRate: 0,
     };
 
     // Test enhanced chat service
@@ -191,7 +194,7 @@ export async function POST(request: NextRequest) {
 
     // Determine overall success
     const allTests = Object.values(results.results);
-    const successfulTests = allTests.filter((test: any) => test.success);
+    const successfulTests = allTests.filter(test => test.success);
 
     results.overallSuccess = successfulTests.length === allTests.length;
     results.successRate = allTests.length > 0 ? successfulTests.length / allTests.length : 0;

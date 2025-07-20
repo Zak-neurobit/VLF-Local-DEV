@@ -5,6 +5,15 @@ import { gmbManager } from '@/services/gmb-optimization/gmb-manager';
 import { prisma } from '@/lib/prisma-safe';
 import { z } from 'zod';
 import type { GMBPost } from '@prisma/client';
+import type {
+  GMBPostRequest,
+  GMBPostResponse,
+  GMBPostsListResponse,
+  GMBPostMedia,
+  GMBPostCallToAction,
+  GMBPostEvent,
+  GMBPostOffer,
+} from '@/types/api';
 
 // GET /api/gmb/posts - Get GMB posts for a location
 export async function GET(request: NextRequest) {
@@ -18,7 +27,7 @@ export async function GET(request: NextRequest) {
     const locationId = searchParams.get('locationId');
     const limit = parseInt(searchParams.get('limit') || '20');
 
-    const where: any = {};
+    const where: { locationId?: string } = {};
     if (locationId) {
       where.locationId = locationId;
     }
@@ -29,21 +38,25 @@ export async function GET(request: NextRequest) {
       take: limit,
     });
 
-    return NextResponse.json({
+    const response: GMBPostsListResponse = {
       success: true,
-      posts: posts.map((post: GMBPost) => ({
-        id: post.id,
-        locationId: post.locationId,
-        type: post.type,
-        title: post.title,
-        content: post.content,
-        media: JSON.parse((post.media as string) || '[]'),
-        callToAction: JSON.parse((post.callToAction as string) || '{}'),
-        event: JSON.parse((post.event as string) || '{}'),
-        offer: JSON.parse((post.offer as string) || '{}'),
-        publishedAt: post.publishedAt,
-      })),
-    });
+      posts: posts.map(
+        (post: GMBPost): GMBPostResponse => ({
+          id: post.id,
+          locationId: post.locationId,
+          type: post.type,
+          title: post.title,
+          content: post.content,
+          media: JSON.parse((post.media as string) || '[]') as GMBPostMedia[],
+          callToAction: JSON.parse((post.callToAction as string) || '{}') as GMBPostCallToAction,
+          event: JSON.parse((post.event as string) || '{}') as GMBPostEvent,
+          offer: JSON.parse((post.offer as string) || '{}') as GMBPostOffer,
+          publishedAt: post.publishedAt,
+        })
+      ),
+    };
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Failed to get GMB posts:', error);
     return NextResponse.json({ error: 'Failed to get posts' }, { status: 500 });
@@ -58,7 +71,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const body = await request.json();
+    const body = (await request.json()) as GMBPostRequest;
 
     const schema = z.object({
       locationId: z.string(),

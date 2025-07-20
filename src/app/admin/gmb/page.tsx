@@ -791,16 +791,14 @@ export default function GMBPage() {
                   <Label>Business Hours</Label>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                     {selectedLocationData.hours &&
-                      Object.entries(selectedLocationData.hours as Record<string, any>).map(
-                        ([day, hours]) => (
-                          <div key={day} className="flex justify-between p-2 border rounded">
-                            <span className="capitalize font-medium">{day}</span>
-                            <span className="text-gray-600">
-                              {hours.closed ? 'Closed' : `${hours.open} - ${hours.close}`}
-                            </span>
-                          </div>
-                        )
-                      )}
+                      Object.entries(selectedLocationData.hours).map(([day, hours]) => (
+                        <div key={day} className="flex justify-between p-2 border rounded">
+                          <span className="capitalize font-medium">{day}</span>
+                          <span className="text-gray-600">
+                            {hours.closed ? 'Closed' : `${hours.open} - ${hours.close}`}
+                          </span>
+                        </div>
+                      ))}
                   </div>
                 </div>
               </CardContent>

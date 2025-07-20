@@ -23,7 +23,9 @@ interface GoogleReviewsWidgetProps {
 export default function GoogleReviewsWidget({ placeId, apiKey }: GoogleReviewsWidgetProps) {
   const [reviews, setReviews] = useState<GoogleReview[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // Error state for potential future use
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // For now, using static data. In production, you would fetch from Google Places API
@@ -65,7 +67,7 @@ export default function GoogleReviewsWidget({ placeId, apiKey }: GoogleReviewsWi
     );
   }
 
-  if (error) {
+  if (_error) {
     return (
       <Card className="p-6">
         <p className="text-center text-gray-600">Unable to load Google reviews at this time.</p>
@@ -116,7 +118,13 @@ export default function GoogleReviewsWidget({ placeId, apiKey }: GoogleReviewsWi
 
       <div className="bg-gray-50 rounded-lg p-6 text-center">
         <div className="flex items-center justify-center mb-3">
-          <Image src="/images/google-logo.png" alt="Google" width={24} height={24} className="h-6 w-auto mr-3" />
+          <Image
+            src="/images/google-logo.png"
+            alt="Google"
+            width={24}
+            height={24}
+            className="h-6 w-auto mr-3"
+          />
           <div className="flex">
             {[...Array(5)].map((_, i) => (
               <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />

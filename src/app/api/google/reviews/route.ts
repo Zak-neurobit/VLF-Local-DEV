@@ -13,7 +13,9 @@ export async function GET(request: NextRequest) {
     // Parse query parameters
     const page = parseInt(searchParams.get('page') || '1');
     const limit = Math.min(parseInt(searchParams.get('limit') || '10'), 50);
-    const refresh = searchParams.get('refresh') === 'true';
+    // Refresh parameter available for future use
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const _refresh = searchParams.get('refresh') === 'true';
 
     // Validate parameters
     if (page < 1 || limit < 1) {

@@ -39,14 +39,18 @@ export interface EnhancedMessageContext extends AgentContext {
 }
 
 // Enhanced response with socket-specific features
+// Intent analysis type definition
+export interface IntentAnalysis {
+  primary: string;
+  confidence: number;
+  entities: Array<{ type: string; value: string }>;
+}
+
+// Enhanced response with socket-specific features
 export interface EnhancedChatResponse extends AgentResponse {
   processingTime: number;
   model?: string;
-  intentAnalysis?: {
-    primary: string;
-    confidence: number;
-    entities: Array<{ type: string; value: string }>;
-  };
+  intentAnalysis?: IntentAnalysis;
   escalation?: {
     type: 'voice' | 'human' | 'urgent' | 'technical';
     reason: string;
@@ -311,7 +315,10 @@ export class EnhancedChatService extends EventEmitter {
   /**
    * Analyze message intent with enhanced NLP
    */
-  private async analyzeIntent(content: string, context: EnhancedMessageContext) {
+  private async analyzeIntent(
+    content: string,
+    _context: EnhancedMessageContext
+  ): Promise<IntentAnalysis> {
     const lowerContent = content.toLowerCase();
     const entities: Array<{ type: string; value: string }> = [];
 
@@ -552,7 +559,7 @@ export class EnhancedChatService extends EventEmitter {
   private enhanceAgentResponse(
     agentResponse: AgentResponse,
     startTime: number,
-    intentAnalysis: any,
+    intentAnalysis: IntentAnalysis,
     context: EnhancedMessageContext
   ): EnhancedChatResponse {
     const processingTime = performance.now() - startTime;
@@ -576,7 +583,7 @@ export class EnhancedChatService extends EventEmitter {
   private enhanceOpenAIResponse(
     response: string,
     startTime: number,
-    intentAnalysis: any,
+    intentAnalysis: IntentAnalysis,
     context: EnhancedMessageContext
   ): EnhancedChatResponse {
     const processingTime = performance.now() - startTime;
@@ -645,7 +652,10 @@ export class EnhancedChatService extends EventEmitter {
   /**
    * Calculate response confidence
    */
-  private calculateConfidence(agentResponse: AgentResponse, intentAnalysis: any): number {
+  private calculateConfidence(
+    agentResponse: AgentResponse,
+    intentAnalysis: IntentAnalysis
+  ): number {
     let confidence = 0.7; // Base confidence
 
     // Boost confidence for specialized agents
@@ -788,7 +798,7 @@ export class EnhancedChatService extends EventEmitter {
   /**
    * Get error response
    */
-  private getErrorResponse(error: any, context: EnhancedMessageContext): EnhancedChatResponse {
+  private getErrorResponse(error: unknown, context: EnhancedMessageContext): EnhancedChatResponse {
     logger.error('Chat service error:', errorToLogMeta(error));
 
     const response =
@@ -804,7 +814,7 @@ export class EnhancedChatService extends EventEmitter {
       escalation: {
         type: 'technical',
         reason: 'AI service error',
-        metadata: { error: error.message },
+        metadata: { error: error instanceof Error ? error.message : 'Unknown error' },
       },
       actions: [
         {

@@ -274,7 +274,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
 
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account, _profile }) {
       // Log sign-in attempts
       logger.info(`Sign-in attempt: ${user.email} via ${account?.provider}`);
 
@@ -338,7 +338,7 @@ export const authOptions: NextAuthOptions = {
       }
     },
 
-    async signOut({ session, token }) {
+    async signOut({ _session, token }) {
       logger.info(`User signed out: ${token.email}`);
     },
 
@@ -363,11 +363,11 @@ export const authOptions: NextAuthOptions = {
       }
     },
 
-    async linkAccount({ user, account, profile }) {
+    async linkAccount({ user, account, _profile }) {
       logger.info(`Account linked: ${user.email} with ${account.provider}`);
     },
 
-    async session({ session, token }) {
+    async session({ _session, token }) {
       // Update last active timestamp
       if (token.id) {
         const dbConnected = await isDatabaseConnected();

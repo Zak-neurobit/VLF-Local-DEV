@@ -95,7 +95,7 @@ const ComplianceReportSchema = z.object({
 export class ComplianceTracker extends EventEmitter {
   private activeFrameworks: Set<string> = new Set(['ABA', 'CCPA']);
   private complianceChecks: Map<string, ComplianceCheck[]> = new Map();
-  private automatedCheckers: Map<string, () => Promise<ComplianceStatus>> = new Map();
+  private automatedCheckers: Map<string, () => Promise<AutomatedCheckResult>> = new Map();
 
   constructor() {
     super();
@@ -377,12 +377,7 @@ export class ComplianceTracker extends EventEmitter {
     return violations;
   }
 
-  private async checkAuditLoggingConfiguration(): Promise<{
-    allEventsLogged: boolean;
-    retentionMet: boolean;
-    loggedEventTypes: string[];
-    retentionDays: number;
-  }> {
+  private async checkAuditLoggingConfiguration(): Promise<AuditConfigResult> {
     // Check audit log configuration
     const requiredEvents = [
       'user.login',
@@ -403,21 +398,9 @@ export class ComplianceTracker extends EventEmitter {
     };
   }
 
-  private async checkConfidentialityBreaches(): Promise<
-    Array<{
-      id: string;
-      description: string;
-      severity: string;
-      timestamp: Date;
-    }>
-  > {
+  private async checkConfidentialityBreaches(): Promise<SecurityBreach[]> {
     // Check for potential confidentiality breaches
-    const breaches: Array<{
-      id: string;
-      description: string;
-      severity: string;
-      timestamp: Date;
-    }> = [];
+    const breaches: SecurityBreach[] = [];
 
     // Check for documents shared externally
     const externalShares = await documentShareStubs.count({
@@ -439,12 +422,7 @@ export class ComplianceTracker extends EventEmitter {
     return breaches;
   }
 
-  private async checkPrivacyNoticeCompliance(): Promise<{
-    upToDate: boolean;
-    accessible: boolean;
-    lastUpdated: string;
-    requiredElements: boolean;
-  }> {
+  private async checkPrivacyNoticeCompliance(): Promise<PrivacyNoticeStatus> {
     // Check privacy policy compliance
     // This would check your actual privacy policy
     return {
@@ -511,9 +489,9 @@ export class ComplianceTracker extends EventEmitter {
 
     for (const [id, framework] of Object.entries(complianceFrameworks)) {
       const latestReport = (await complianceReportStubs.findFirst({
-        where: { frameworkId: id } as any,
+        where: { frameworkId: id },
         orderBy: { auditDate: 'desc' },
-      })) as any;
+      })) as ComplianceReportData | null;
 
       if (latestReport) {
         frameworks.push({
@@ -527,9 +505,11 @@ export class ComplianceTracker extends EventEmitter {
         totalRisk += latestReport.riskScore || 0;
 
         // Count critical issues
-        const requirements = JSON.parse((latestReport.requirements as string) || '[]');
+        const requirements = JSON.parse(
+          (latestReport.requirements as string) || '[]'
+        ) as ComplianceCheck[];
         criticalIssues += requirements.filter(
-          (r: any) => r.status !== 'compliant' && this.getRequirementSeverity(r.requirementId) >= 9
+          r => r.status !== 'compliant' && this.getRequirementSeverity(r.requirementId) >= 9
         ).length;
       } else {
         frameworks.push({
@@ -564,10 +544,39 @@ interface ComplianceCheck {
   remediationPlan?: string;
 }
 
-interface ComplianceStatus {
+interface AutomatedCheckResult {
   compliant: boolean;
   evidence: string[];
   remediationPlan?: string;
+}
+
+interface AuditConfigResult {
+  allEventsLogged: boolean;
+  retentionMet: boolean;
+  loggedEventTypes: string[];
+  retentionDays: number;
+}
+
+interface PrivacyNoticeStatus {
+  upToDate: boolean;
+  accessible: boolean;
+  lastUpdated: string;
+  requiredElements: boolean;
+}
+
+interface SecurityBreach {
+  id: string;
+  description: string;
+  severity: string;
+  timestamp: Date;
+}
+
+interface ComplianceReportData {
+  status?: string;
+  completionPercentage?: number;
+  auditDate?: Date;
+  riskScore?: number;
+  requirements?: string;
 }
 
 // Export singleton instance

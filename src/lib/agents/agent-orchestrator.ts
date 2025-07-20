@@ -117,7 +117,7 @@ class CrewAIAgentAdapter implements BaseAgent {
     };
   }
 
-  private async handleAppointment(input: string, context: AgentContext): Promise<AgentResponse> {
+  private async handleAppointment(_input: string, _context: AgentContext): Promise<AgentResponse> {
     // For appointment scheduling, we need to parse the input for appointment details
     return {
       agent: 'appointment',

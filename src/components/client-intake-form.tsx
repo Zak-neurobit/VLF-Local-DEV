@@ -54,12 +54,12 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
   const handleInputChange = (
     section: keyof ClientIntakeRequest,
     field: string,
-    value: any
+    value: string | boolean | string[]
   ): void => {
     setFormData(prev => ({
       ...prev,
       [section]: {
-        ...(prev[section] as any),
+        ...(prev[section] as Record<string, unknown>),
         [field]: value,
       },
     }));
@@ -69,21 +69,23 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
     section: keyof ClientIntakeRequest,
     nestedField: string,
     field: string,
-    value: any
+    value: string
   ): void => {
     setFormData(prev => ({
       ...prev,
       [section]: {
-        ...((prev[section] as any) || {}),
+        ...prev[section],
         [nestedField]: {
-          ...((prev[section] as any)[nestedField] || {}),
+          ...(prev[section] as Record<string, any>)?.[nestedField],
           [field]: value,
         },
       },
     }));
   };
 
-  const handleArrayInputChange = (
+  // Array input handler for potential future use
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _handleArrayInputChange = (
     section: keyof ClientIntakeRequest,
     field: string,
     value: string[]
@@ -91,7 +93,7 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
     setFormData(prev => ({
       ...prev,
       [section]: {
-        ...(prev[section] as any),
+        ...(prev[section] as Record<string, unknown>),
         [field]: value,
       },
     }));
@@ -328,8 +330,8 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
 // Step Components
 interface PersonalInfoStepProps {
   data: ClientIntakeRequest['personalInfo'];
-  onChange: (field: string, value: any) => void;
-  onNestedChange: (nested: string, field: string, value: any) => void;
+  onChange: (field: string, value: string) => void;
+  onNestedChange: (nested: string, field: string, value: string) => void;
 }
 
 function PersonalInfoStep({ data, onChange, onNestedChange }: PersonalInfoStepProps) {
@@ -439,7 +441,7 @@ function PersonalInfoStep({ data, onChange, onNestedChange }: PersonalInfoStepPr
 
 interface LegalIssueStepProps {
   data: ClientIntakeRequest['legalIssue'];
-  onChange: (field: string, value: any) => void;
+  onChange: (field: string, value: string | boolean) => void;
 }
 
 function LegalIssueStep({ data, onChange }: LegalIssueStepProps) {
@@ -546,7 +548,7 @@ function LegalIssueStep({ data, onChange }: LegalIssueStepProps) {
 
 interface PriorExperienceStepProps {
   data: ClientIntakeRequest['priorLegalExperience'];
-  onChange: (field: string, value: any) => void;
+  onChange: (field: string, value: string | boolean) => void;
 }
 
 function PriorExperienceStep({ data, onChange }: PriorExperienceStepProps) {
@@ -627,7 +629,7 @@ function PriorExperienceStep({ data, onChange }: PriorExperienceStepProps) {
 
 interface FinancialStepProps {
   data: ClientIntakeRequest['financialSituation'];
-  onChange: (field: string, value: any) => void;
+  onChange: (field: string, value: string | boolean) => void;
 }
 
 function FinancialStep({ data, onChange }: FinancialStepProps) {

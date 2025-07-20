@@ -3,12 +3,13 @@ import { getPrismaClient } from '@/lib/prisma';
 import { apiLogger } from '@/lib/logger';
 import { SEOOptimizationService } from '@/services/seo-optimization';
 import { blogImportService } from '@/services/blog/import-service';
+import type { BlogPost, RelatedPost, BlogPostResponse } from '@/types/api';
 
 export async function GET(req: NextRequest, { params }: { params: { slug: string } }) {
   try {
     const { slug } = params;
     // First try to find in database
-    let post: any = await getPrismaClient().blogPost.findUnique({
+    let post: BlogPost | null = await getPrismaClient().blogPost.findUnique({
       where: { slug },
       include: {
         translations: {
@@ -21,15 +22,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       },
     });
 
-    let relatedPosts: Array<{
-      id: string;
-      title: string;
-      slug: string;
-      excerpt?: string | null;
-      publishedAt: Date | null;
-      category?: string;
-      featuredImage?: string | null;
-    }> = [];
+    let relatedPosts: RelatedPost[] = [];
     let structuredData: Record<string, unknown> | null = null;
 
     if (post) {
@@ -63,7 +56,10 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       });
 
       // Generate structured data
-      structuredData = SEOOptimizationService.generateSchema('BlogPosting', post);
+      structuredData = SEOOptimizationService.generateSchema(
+        'BlogPosting',
+        post as Record<string, unknown>
+      );
     } else {
       // Try to find in imported posts
       const importedPost = await blogImportService.getBlogPost(slug);
@@ -97,19 +93,22 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
         translations: [],
         status: 'published',
         originalId: importedPost.slug,
-      };
+      } satisfies BlogPost;
 
       // Get related posts from imported posts
       const importedRelated = await blogImportService.getRelatedPosts(importedPost, 3);
-      relatedPosts = importedRelated.map(related => ({
-        id: related.slug,
-        title: related.title,
-        slug: related.slug,
-        excerpt: related.metaDescription || related.content.substring(0, 200) + '...',
-        featuredImage: related.featuredImage,
-        publishedAt: new Date(related.publishDate),
-        category: related.categories[0] || 'general',
-      }));
+      relatedPosts = importedRelated.map(
+        related =>
+          ({
+            id: related.slug,
+            title: related.title,
+            slug: related.slug,
+            excerpt: related.metaDescription || related.content.substring(0, 200) + '...',
+            featuredImage: related.featuredImage,
+            publishedAt: new Date(related.publishDate),
+            category: related.categories[0] || 'general',
+          }) satisfies RelatedPost
+      );
 
       // Generate structured data for imported post
       structuredData = {
@@ -139,11 +138,13 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       };
     }
 
-    return NextResponse.json({
-      post,
+    const response: BlogPostResponse = {
+      post: post!,
       relatedPosts,
       structuredData,
-    });
+    };
+
+    return NextResponse.json(response);
   } catch (error) {
     apiLogger.error('blog-get', error as Error);
     return NextResponse.json({ error: 'Failed to fetch blog post' }, { status: 500 });

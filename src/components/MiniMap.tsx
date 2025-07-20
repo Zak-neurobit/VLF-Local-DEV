@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { officeLocations } from '@/data/locations';
 import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-config';
+import type { GoogleMap, ScriptLoadHandler } from '@/types/google-maps';
 
 interface MiniMapProps {
   height?: string;
@@ -11,11 +12,13 @@ interface MiniMapProps {
 
 export default function MiniMap({ height = '200px', className = '' }: MiniMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<any>(null); // Using any to avoid Google Maps type issues during build
+  const [map, setMap] = useState<GoogleMap | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Capture ref value at the beginning to avoid stale closure warning
+    const mapElement = mapRef.current;
     const apiKey = getGoogleMapsApiKey();
 
     if (!apiKey || !isGoogleMapsConfigured()) {
@@ -25,7 +28,7 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
     }
 
     // Check if Google Maps is already loaded
-    if ((window as any).google?.maps) {
+    if (window.google?.maps) {
       initializeMap();
       return;
     }
@@ -43,9 +46,7 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
     script.async = true;
     script.defer = true;
 
-    script.onload = () => {
-      initializeMap();
-    };
+    script.onload = initializeMap as ScriptLoadHandler;
 
     script.onerror = () => {
       setError('Failed to load Google Maps');
@@ -59,7 +60,7 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
         return;
       }
 
-      if (!(window as any).google?.maps) {
+      if (!window.google?.maps) {
         setError('Google Maps API not available');
         setLoading(false);
         return;
@@ -100,6 +101,8 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
 
         // Create simple markers for each office
         officeLocations.forEach(office => {
+          if (!window.google?.maps) return;
+
           const marker = new window.google.maps.Marker({
             position: { lat: office.lat, lng: office.lng },
             map: mapInstance,
@@ -139,9 +142,9 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
     // Cleanup
     return () => {
       // Don't remove the script as it might be used by other components
-      const currentMapRef = mapRef.current;
-      if (map && currentMapRef) {
-        currentMapRef.innerHTML = '';
+      if (map && mapElement) {
+        // Clear the map container
+        mapElement.innerHTML = '';
       }
     };
   }, [map]);

@@ -63,10 +63,9 @@ NEXTAUTH_SECRET="${require('crypto').randomBytes(32).toString('base64')}"
 OPENAI_API_KEY=""
 ANTHROPIC_API_KEY=""
 
-# Twilio (Voice & SMS)
-TWILIO_ACCOUNT_SID=""
-TWILIO_AUTH_TOKEN=""
-TWILIO_PHONE_NUMBER=""
+# Voice & SMS
+# Voice: Handled by Retell AI (RETELL_API_KEY)
+# SMS: Handled by GoHighLevel (GHL_API_KEY)
 
 # GoHighLevel
 GHL_API_KEY=""

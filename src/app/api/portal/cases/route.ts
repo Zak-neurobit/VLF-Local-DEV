@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma-safe';
+import { Prisma, PracticeArea, CaseStatus } from '@prisma/client';
 
 export async function GET(request: NextRequest) {
   try {
@@ -11,26 +12,27 @@ export async function GET(request: NextRequest) {
     }
 
     const searchParams = request.nextUrl.searchParams;
-    const status = searchParams.get('status')?.split(',') || [];
+    const statusParams = searchParams.get('status')?.split(',') || [];
     const practiceArea = searchParams.get('practiceArea');
     const startDate = searchParams.get('startDate');
     const endDate = searchParams.get('endDate');
 
-    const where: {
-      clientId: string;
-      status?: { in: string[] };
-      practiceArea?: string;
-      createdAt?: { gte?: Date; lte?: Date };
-    } = {
+    const where: Prisma.CaseWhereInput = {
       clientId: session.user.id,
     };
 
-    if (status.length > 0) {
-      where.status = { in: status };
+    if (statusParams.length > 0) {
+      // Validate that all statuses are valid CaseStatus values
+      const validStatuses = statusParams.filter((s): s is CaseStatus =>
+        Object.values(CaseStatus).includes(s as CaseStatus)
+      );
+      if (validStatuses.length > 0) {
+        where.status = { in: validStatuses };
+      }
     }
 
-    if (practiceArea) {
-      where.practiceArea = practiceArea;
+    if (practiceArea && Object.values(PracticeArea).includes(practiceArea as PracticeArea)) {
+      where.practiceArea = practiceArea as PracticeArea;
     }
 
     if (startDate || endDate) {
@@ -57,9 +59,15 @@ export async function GET(request: NextRequest) {
       },
     });
 
+    // Define metadata type
+    interface CaseMetadata {
+      title?: string;
+      priority?: string;
+    }
+
     // Transform the data
     const transformedCases = cases.map(c => {
-      const metadata = (c.metadata as { title?: string; priority?: string }) || {};
+      const metadata = (c.metadata as CaseMetadata) || {};
       return {
         id: c.id,
         caseNumber: c.caseNumber,
@@ -67,7 +75,12 @@ export async function GET(request: NextRequest) {
         practiceArea: c.practiceArea,
         status: c.status,
         priority: metadata.priority || 'normal',
-        attorney: c.attorney,
+        attorney: c.attorney
+          ? {
+              name: c.attorney.name,
+              email: c.attorney.email,
+            }
+          : null,
         createdAt: c.createdAt,
         updatedAt: c.updatedAt,
         unreadMessages: 0, // TODO: Implement when CaseMessage model is added

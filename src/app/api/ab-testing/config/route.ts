@@ -5,7 +5,7 @@ import { abTestEngine } from '@/lib/ab-testing/ab-test-engine';
 export const dynamic = 'force-dynamic';
 
 // GET /api/ab-testing/config - Get A/B testing configuration
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     // Return current A/B testing configuration
     const config = await abTestEngine.getActiveTests();

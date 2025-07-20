@@ -228,7 +228,7 @@ export class AnalyticsEngine extends EventEmitter {
     };
   }
 
-  private async getSEOMetrics(timeRange: TimeRange) {
+  private async getSEOMetrics(_timeRange: TimeRange) {
     // Mock SEO data - would integrate with actual SEO APIs
     return {
       organicTraffic: Math.floor(Math.random() * 10000) + 5000,
@@ -283,7 +283,7 @@ export class AnalyticsEngine extends EventEmitter {
     };
   }
 
-  private async getSecurityMetrics(timeRange: TimeRange) {
+  private async getSecurityMetrics(_timeRange: TimeRange) {
     // Would integrate with security monitoring system
     return {
       threatsDetected: Math.floor(Math.random() * 50) + 10,
@@ -309,7 +309,7 @@ export class AnalyticsEngine extends EventEmitter {
     };
   }
 
-  private async getGMBMetrics(timeRange: TimeRange) {
+  private async getGMBMetrics(_timeRange: TimeRange) {
     // Would integrate with GMB API
     return {
       totalViews: Math.floor(Math.random() * 5000) + 2000,
@@ -343,7 +343,7 @@ export class AnalyticsEngine extends EventEmitter {
     });
   }
 
-  private async getAverageResponseTime(timeRange: TimeRange): Promise<number> {
+  private async getAverageResponseTime(_timeRange: TimeRange): Promise<number> {
     // Mock data - would integrate with actual monitoring
     return Math.round((Math.random() * 200 + 50) * 100) / 100;
   }
@@ -369,12 +369,12 @@ export class AnalyticsEngine extends EventEmitter {
     }, 0);
   }
 
-  private async getApiResponseTimes(timeRange: TimeRange): Promise<number> {
+  private async getApiResponseTimes(_timeRange: TimeRange): Promise<number> {
     // Mock data - would integrate with actual monitoring
     return Math.round((Math.random() * 100 + 50) * 100) / 100;
   }
 
-  private async getErrorRate(timeRange: TimeRange): Promise<number> {
+  private async getErrorRate(_timeRange: TimeRange): Promise<number> {
     // Mock data - would integrate with actual monitoring
     return Math.round((Math.random() * 2 + 0.5) * 100) / 100;
   }

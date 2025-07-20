@@ -119,26 +119,43 @@ jest.mock('framer-motion', () => {
   // Create a mock component that strips framer-motion props
   const createMockComponent =
     (tag: string) =>
-    ({ children, ...props }: any) => {
+    ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => {
       // Remove framer-motion specific props to avoid React warnings
       const {
-        initial: _initial,
-        animate: _animate,
-        exit: _exit,
-        transition: _transition,
-        variants: _variants,
-        whileHover: _whileHover,
-        whileTap: _whileTap,
-        whileInView: _whileInView,
-        whileFocus: _whileFocus,
-        drag: _drag,
-        dragConstraints: _dragConstraints,
-        dragElastic: _dragElastic,
-        dragMomentum: _dragMomentum,
-        dragPropagation: _dragPropagation,
-        dragTransition: _dragTransition,
+        initial,
+        animate,
+        exit,
+        transition,
+        variants,
+        whileHover,
+        whileTap,
+        whileInView,
+        whileFocus,
+        drag,
+        dragConstraints,
+        dragElastic,
+        dragMomentum,
+        dragPropagation,
+        dragTransition,
         ...cleanProps
       } = props;
+
+      // Suppress unused variable warnings - these are intentionally destructured to remove them
+      void initial;
+      void animate;
+      void exit;
+      void transition;
+      void variants;
+      void whileHover;
+      void whileTap;
+      void whileInView;
+      void whileFocus;
+      void drag;
+      void dragConstraints;
+      void dragElastic;
+      void dragMomentum;
+      void dragPropagation;
+      void dragTransition;
 
       return React.createElement(tag, cleanProps, children);
     };

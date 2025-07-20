@@ -140,12 +140,6 @@ const apiServices = [
     description: 'CRM integration for lead management and automation',
   },
   {
-    name: 'Twilio',
-    env: 'TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN',
-    url: 'https://console.twilio.com',
-    description: 'SMS notifications and voice calling',
-  },
-  {
     name: 'Retell AI',
     env: 'RETELL_API_KEY',
     url: 'https://retellai.com/dashboard',

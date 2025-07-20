@@ -32,11 +32,6 @@ interface SetupConfig {
     openai?: string;
     anthropic?: string;
     retell?: string;
-    twilio?: {
-      accountSid: string;
-      authToken: string;
-      phoneNumber: string;
-    };
     stripe?: {
       publicKey: string;
       secretKey: string;
@@ -156,16 +151,6 @@ class FullStackSetup {
     const setupRetell = await question('Setup Retell Voice AI? (y/n): ');
     if (setupRetell.toLowerCase() === 'y') {
       this.config.services.retell = await question('Retell API Key: ');
-    }
-
-    console.log('\n📞 Communication Services:');
-    const setupTwilio = await question('Setup Twilio? (y/n): ');
-    if (setupTwilio.toLowerCase() === 'y') {
-      this.config.services.twilio = {
-        accountSid: await question('Twilio Account SID: '),
-        authToken: await question('Twilio Auth Token: '),
-        phoneNumber: await question('Twilio Phone Number: '),
-      };
     }
 
     console.log('\n💳 Payment Services:');
@@ -322,11 +307,9 @@ RETELL_WORKERS_COMP_AGENT_ID=
 RETELL_GENERAL_AGENT_ID=
 
 # ========================================
-# SMS NOTIFICATIONS (TWILIO)
+# SMS NOTIFICATIONS (Handled by GoHighLevel)
 # ========================================
-TWILIO_ACCOUNT_SID=${this.config.services.twilio?.accountSid || ''}
-TWILIO_AUTH_TOKEN=${this.config.services.twilio?.authToken || ''}
-TWILIO_PHONE_NUMBER=${this.config.services.twilio?.phoneNumber || ''}
+# SMS functionality is provided through GoHighLevel integration
 
 # ========================================
 # PAYMENT PROCESSING

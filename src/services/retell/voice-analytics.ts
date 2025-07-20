@@ -10,6 +10,57 @@ import { getRetellService } from './index';
 import { createNotification } from '@/lib/notifications';
 import { cache, CacheTTL } from '@/lib/cache';
 
+// Interface for call metadata structure
+interface CallMetadata {
+  interactionQuality?: number;
+  clarityScore?: number;
+  completionRate?: number;
+  averageResponseTime?: number;
+  emotionalState?: 'calm' | 'anxious' | 'frustrated' | 'urgent' | 'confused';
+  intent?: string;
+  interruptionCount?: number;
+  // Allow additional properties for flexibility
+  [key: string]: unknown;
+}
+
+// Interface for satisfaction score data
+interface SatisfactionScore {
+  score: number;
+  callId: string;
+  timestamp: Date;
+}
+
+// Interface for agent with calls data
+interface AgentWithCalls {
+  agentId: string;
+  name: string;
+  isActive: boolean;
+  calls: Array<{
+    id: string;
+    createdAt: Date;
+    metadata?: CallMetadata | null;
+    recording?: unknown;
+  }>;
+}
+
+// Interface for call with basic properties - matching database schema
+interface CallData {
+  id: string;
+  status: string;
+  duration?: number | null;
+  createdAt: Date;
+  metadata?: unknown; // Database stores as JsonValue, we'll cast when needed
+  transcript?: string | null;
+  agentId?: string;
+}
+
+// Interface for conversation patterns
+interface ConversationPattern {
+  pattern: string;
+  frequency: number;
+  recommendation: string;
+}
+
 export interface VoiceAnalyticsData {
   // Call Metrics
   totalCalls: number;
@@ -148,20 +199,36 @@ export class VoiceAnalyticsSystem {
 
         // Calculate quality metrics - using metadata for now
         const metricsData = calls
-          .map(c => c.metadata as any)
-          .filter(m => m !== null && typeof m === 'object');
+          .map(c => {
+            try {
+              return c.metadata && typeof c.metadata === 'object'
+                ? (c.metadata as CallMetadata)
+                : null;
+            } catch {
+              return null;
+            }
+          })
+          .filter((m): m is CallMetadata => m !== null && typeof m === 'object');
 
         const averageInteractionQuality = this.calculateAverage(
-          metricsData.map((m: any) => m.interactionQuality)
+          metricsData
+            .map(m => m.interactionQuality)
+            .filter((val): val is number => typeof val === 'number')
         );
         const averageClarityScore = this.calculateAverage(
-          metricsData.map((m: any) => m.clarityScore)
+          metricsData
+            .map(m => m.clarityScore)
+            .filter((val): val is number => typeof val === 'number')
         );
         const averageCompletionRate = this.calculateAverage(
-          metricsData.map((m: any) => m.completionRate)
+          metricsData
+            .map(m => m.completionRate)
+            .filter((val): val is number => typeof val === 'number')
         );
         const averageResponseTime = this.calculateAverage(
-          metricsData.map((m: any) => m.averageResponseTime)
+          metricsData
+            .map(m => m.averageResponseTime)
+            .filter((val): val is number => typeof val === 'number')
         );
 
         // Calculate satisfaction metrics
@@ -175,7 +242,7 @@ export class VoiceAnalyticsSystem {
         // Analyze conversation patterns
         const topIntents = await this.analyzeTopIntents(calls);
         const commonIssues = await this.analyzeCommonIssues(calls);
-        const emotionalDistribution = await this.analyzeEmotionalDistribution(metricsData);
+        const emotionalDistribution = this.analyzeEmotionalDistribution(metricsData);
 
         // Calculate performance trends
         const callVolumeByHour = this.calculateCallVolumeByHour(calls);
@@ -476,12 +543,18 @@ export class VoiceAnalyticsSystem {
     return values.reduce((sum, val) => sum + val, 0) / values.length;
   }
 
-  private async fetchSatisfactionScores(params: any): Promise<any[]> {
+  private async fetchSatisfactionScores(params: {
+    startDate: Date;
+    endDate: Date;
+    agentId?: string;
+    practiceArea?: string;
+  }): Promise<SatisfactionScore[]> {
     // In practice, this would fetch from a satisfaction survey system
+    // For now, return empty array with proper typing
     return [];
   }
 
-  private calculateNPS(scores: any[]): number {
+  private calculateNPS(scores: SatisfactionScore[]): number {
     if (scores.length === 0) return 0;
 
     const promoters = scores.filter(s => s.score >= 9).length;
@@ -490,21 +563,35 @@ export class VoiceAnalyticsSystem {
     return ((promoters - detractors) / scores.length) * 100;
   }
 
-  private calculateCSAT(scores: any[]): number {
+  private calculateCSAT(scores: SatisfactionScore[]): number {
     if (scores.length === 0) return 0;
 
     const satisfied = scores.filter(s => s.score >= 4).length; // Assuming 5-point scale
     return (satisfied / scores.length) * 100;
   }
 
-  private async analyzeTopIntents(calls: any[]): Promise<any[]> {
+  private async analyzeTopIntents(calls: CallData[]): Promise<
+    Array<{
+      intent: string;
+      count: number;
+      percentage: number;
+    }>
+  > {
     // Simple intent analysis - in practice would use NLP
     const intents = new Map<string, number>();
 
     // Count intents from metadata
     calls.forEach(call => {
-      const intent = call.metadata?.intent || 'unknown';
-      intents.set(intent, (intents.get(intent) || 0) + 1);
+      try {
+        const metadata =
+          call.metadata && typeof call.metadata === 'object'
+            ? (call.metadata as CallMetadata)
+            : null;
+        const intent = metadata?.intent || 'unknown';
+        intents.set(intent, (intents.get(intent) || 0) + 1);
+      } catch {
+        intents.set('unknown', (intents.get('unknown') || 0) + 1);
+      }
     });
 
     const total = calls.length;
@@ -518,7 +605,13 @@ export class VoiceAnalyticsSystem {
       .slice(0, 10);
   }
 
-  private async analyzeCommonIssues(calls: any[]): Promise<any[]> {
+  private async analyzeCommonIssues(calls: CallData[]): Promise<
+    Array<{
+      issue: string;
+      frequency: number;
+      resolutionRate: number;
+    }>
+  > {
     // Simplified issue analysis
     const issues = [
       { issue: 'Immigration status questions', frequency: 45, resolutionRate: 85 },
@@ -529,12 +622,20 @@ export class VoiceAnalyticsSystem {
     return issues;
   }
 
-  private async analyzeEmotionalDistribution(metrics: any[]): Promise<any> {
+  private analyzeEmotionalDistribution(metrics: CallMetadata[]): {
+    calm: number;
+    anxious: number;
+    frustrated: number;
+    urgent: number;
+    confused: number;
+  } {
     const emotions = { calm: 0, anxious: 0, frustrated: 0, urgent: 0, confused: 0 };
 
-    metrics.forEach((m: any) => {
+    metrics.forEach(m => {
       const emotion = m.emotionalState || 'calm';
-      emotions[emotion as keyof typeof emotions]++;
+      if (emotion in emotions) {
+        emotions[emotion as keyof typeof emotions]++;
+      }
     });
 
     const total = metrics.length || 1;
@@ -548,7 +649,10 @@ export class VoiceAnalyticsSystem {
     };
   }
 
-  private calculateCallVolumeByHour(calls: any[]): any[] {
+  private calculateCallVolumeByHour(calls: CallData[]): Array<{
+    hour: number;
+    count: number;
+  }> {
     const hourCounts = new Array(24).fill(0);
 
     calls.forEach(call => {
@@ -559,7 +663,10 @@ export class VoiceAnalyticsSystem {
     return hourCounts.map((count, hour) => ({ hour, count }));
   }
 
-  private calculateCallVolumeByDay(calls: any[]): any[] {
+  private calculateCallVolumeByDay(calls: CallData[]): Array<{
+    day: string;
+    count: number;
+  }> {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayCounts = new Array(7).fill(0);
 
@@ -574,7 +681,18 @@ export class VoiceAnalyticsSystem {
     }));
   }
 
-  private async calculatePerformanceTrend(params: any): Promise<any[]> {
+  private async calculatePerformanceTrend(params: {
+    startDate: Date;
+    endDate: Date;
+    agentId?: string;
+    practiceArea?: string;
+  }): Promise<
+    Array<{
+      date: Date;
+      quality: number;
+      volume: number;
+    }>
+  > {
     // Simplified trend calculation
     const trend = [];
     const currentDate = new Date(params.endDate);
@@ -593,8 +711,21 @@ export class VoiceAnalyticsSystem {
     return trend.reverse();
   }
 
-  private async calculateAgentMetrics(params: any): Promise<any[]> {
-    const agents = await voiceAgentStubs.findMany({
+  private async calculateAgentMetrics(params: {
+    startDate: Date;
+    endDate: Date;
+    agentId?: string;
+    practiceArea?: string;
+  }): Promise<
+    Array<{
+      agentId: string;
+      agentName: string;
+      totalCalls: number;
+      averageQuality: number;
+      resolutionRate: number;
+    }>
+  > {
+    const agents = (await voiceAgentStubs.findMany({
       where: { isActive: true },
       include: {
         calls: {
@@ -609,60 +740,83 @@ export class VoiceAnalyticsSystem {
           },
         },
       },
-    });
+    })) as AgentWithCalls[];
 
-    return agents.map((agent: any) => {
+    return agents.map(agent => {
       const agentCalls = agent.calls;
-      const metricsData = agentCalls
-        .map((c: any) => c.metrics)
-        .filter(Boolean)
-        .flat();
+      const qualityScores = agentCalls
+        .map(c => {
+          try {
+            const metadata =
+              c.metadata && typeof c.metadata === 'object' ? (c.metadata as CallMetadata) : null;
+            return metadata?.interactionQuality;
+          } catch {
+            return undefined;
+          }
+        })
+        .filter((score): score is number => typeof score === 'number');
 
       return {
         agentId: agent.agentId,
         agentName: agent.name,
         totalCalls: agentCalls.length,
-        averageQuality: this.calculateAverage(metricsData.map((m: any) => m.interactionQuality)),
+        averageQuality: this.calculateAverage(qualityScores),
         resolutionRate: 75 + Math.random() * 20, // Simplified
       };
     });
   }
 
-  private extractKeyTopics(transcript: any): string[] {
+  private extractKeyTopics(transcript: string | null): string[] {
     // Simplified topic extraction
+    if (!transcript) return ['unknown'];
     return ['immigration', 'visa application', 'green card'];
   }
 
-  private analyzeSentiment(transcript: any): 'positive' | 'neutral' | 'negative' {
+  private analyzeSentiment(transcript: string | null): 'positive' | 'neutral' | 'negative' {
     // Simplified sentiment analysis
+    if (!transcript) return 'neutral';
     return 'neutral';
   }
 
-  private extractActionItems(transcript: any): string[] {
+  private extractActionItems(transcript: string | null): string[] {
     // Simplified action item extraction
+    if (!transcript) return [];
     return ['Schedule consultation', 'Send documents checklist'];
   }
 
-  private determineFollowUpRequired(transcript: any): boolean {
+  private determineFollowUpRequired(transcript: string | null): boolean {
     // Simplified follow-up determination
+    if (!transcript) return false;
     return true;
   }
 
-  private analyzeTransferNeed(transcript: any): { recommended: boolean; reason?: string } {
+  private analyzeTransferNeed(transcript: string | null): {
+    recommended: boolean;
+    reason?: string;
+  } {
     // Simplified transfer analysis
+    if (!transcript) return { recommended: false };
     return { recommended: false };
   }
 
-  private identifyQualityIssues(call: any): string[] {
+  private identifyQualityIssues(call: { duration?: number | null; metadata?: unknown }): string[] {
     const issues = [];
+    let metadata: CallMetadata | null = null;
 
-    if (call.metrics?.clarityScore < 70) {
+    try {
+      metadata =
+        call.metadata && typeof call.metadata === 'object' ? (call.metadata as CallMetadata) : null;
+    } catch {
+      metadata = null;
+    }
+
+    if (metadata?.clarityScore && metadata.clarityScore < 70) {
       issues.push('Low clarity score');
     }
-    if (call.metrics?.interruptionCount > 5) {
+    if (metadata?.interruptionCount && (metadata.interruptionCount as number) > 5) {
       issues.push('Excessive interruptions');
     }
-    if (call.duration > 1800) {
+    if (call.duration && call.duration > 1800) {
       // 30 minutes
       issues.push('Call duration too long');
     }
@@ -670,7 +824,13 @@ export class VoiceAnalyticsSystem {
     return issues;
   }
 
-  private generateImprovements(call: any, qualityIssues: string[]): string[] {
+  private generateImprovements(
+    call: {
+      duration?: number | null;
+      metadata?: unknown;
+    },
+    qualityIssues: string[]
+  ): string[] {
     const improvements = [];
 
     if (qualityIssues.includes('Low clarity score')) {
@@ -686,8 +846,10 @@ export class VoiceAnalyticsSystem {
     return improvements;
   }
 
-  private async analyzeConversationPatterns(analytics: VoiceAnalyticsData): Promise<any[]> {
-    const patterns = [];
+  private async analyzeConversationPatterns(
+    analytics: VoiceAnalyticsData
+  ): Promise<ConversationPattern[]> {
+    const patterns: ConversationPattern[] = [];
 
     // Analyze peak hours
     const peakHour = analytics.callVolumeByHour.reduce((max, curr) =>

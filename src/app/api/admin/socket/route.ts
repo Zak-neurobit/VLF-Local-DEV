@@ -3,6 +3,13 @@ import { getChatSocketServer } from '@/lib/socket/server';
 import { logger, securityLogger } from '@/lib/logger';
 import { createErrorLogMeta, errorToLogMeta } from '@/lib/logger/utils';
 import { z } from 'zod';
+import type {
+  AdminAuthResult,
+  AdminAuthError,
+  AdminActionRequest,
+  AdminActionResult,
+  AdminConfigRequest,
+} from '@/types/api';
 
 // Validation schemas
 const AlertConfigSchema = z.object({
@@ -21,7 +28,7 @@ const RateLimitSchema = z.object({
 });
 
 // Admin authentication helper
-async function verifyAdminAccess(request: NextRequest) {
+async function verifyAdminAccess(request: NextRequest): Promise<AdminAuthResult | AdminAuthError> {
   const authHeader = request.headers.get('authorization');
 
   if (!authHeader?.startsWith('Bearer ')) {
@@ -98,11 +105,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: auth.error }, { status: auth.status });
     }
 
-    const body = await request.json();
+    const body = (await request.json()) as AdminActionRequest;
     const { action, data } = body;
 
     const socketServer = getChatSocketServer();
-    const result: any = { success: true };
+    const result: AdminActionResult = { success: true };
 
     switch (action) {
       case 'execute_command':
@@ -130,7 +137,10 @@ export async function POST(request: NextRequest) {
         break;
 
       case 'reset_circuit_breaker':
-        const service = data.service as 'database' | 'aiService' | 'retell';
+        const service = (data as { service: string })?.service as
+          | 'database'
+          | 'aiService'
+          | 'retell';
         if (!['database', 'aiService', 'retell'].includes(service)) {
           throw new Error('Invalid service for circuit breaker reset');
         }
@@ -139,13 +149,13 @@ export async function POST(request: NextRequest) {
         break;
 
       case 'set_maintenance_mode':
-        const { enabled, message } = data;
+        const { enabled, message } = data as { enabled: boolean; message?: string };
         socketServer.setMaintenanceMode(enabled, message);
         result.message = `Maintenance mode ${enabled ? 'enabled' : 'disabled'}`;
         break;
 
       case 'force_disconnect_user':
-        const { userId, reason } = data;
+        const { userId, reason } = data as { userId?: string; reason?: string };
         if (!userId) {
           throw new Error('userId is required');
         }
@@ -154,7 +164,7 @@ export async function POST(request: NextRequest) {
         break;
 
       case 'force_disconnect_socket':
-        const { socketId, reason: socketReason } = data;
+        const { socketId, reason: socketReason } = data as { socketId?: string; reason?: string };
         if (!socketId) {
           throw new Error('socketId is required');
         }
@@ -239,7 +249,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: auth.error }, { status: auth.status });
     }
 
-    const body = await request.json();
+    const body = (await request.json()) as AdminConfigRequest;
     const { config } = body;
 
     const socketServer = getChatSocketServer();

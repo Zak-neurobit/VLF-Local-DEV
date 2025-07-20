@@ -25,10 +25,67 @@ import {
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
+interface Platform {
+  id: string;
+  name: string;
+}
+
+interface Response {
+  responseText: string;
+  sentAt: string;
+}
+
+interface Review {
+  id: string;
+  author: string;
+  rating: number;
+  content: string;
+  publishedAt: string;
+  platform?: Platform;
+  platformId: string;
+  sentiment: 'positive' | 'neutral' | 'negative';
+  responded: boolean;
+  keywords?: string[];
+  url: string;
+  response?: Response;
+}
+
+interface PlatformPerformance {
+  platformId: string;
+  platformName: string;
+  totalReviews: number;
+  averageRating: number;
+  responseRate: number;
+}
+
+interface Alert {
+  id: string;
+  type: string;
+  severity: 'urgent' | 'high' | 'medium' | 'low';
+  message: string;
+  createdAt: string;
+}
+
+interface Statistics {
+  statistics: {
+    averageRating: number;
+    total: number;
+  };
+  report: {
+    metrics: {
+      responseRate: number;
+      respondedReviews: number;
+    };
+    platformPerformance: PlatformPerformance[];
+    recommendations: string[];
+    recentAlerts: Alert[];
+  };
+}
+
 export default function ReputationManagementPage() {
-  const [reviews, setReviews] = useState<any[]>([]);
-  const [statistics, setStatistics] = useState<any>(null);
-  const [selectedReview, setSelectedReview] = useState<any>(null);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [statistics, setStatistics] = useState<Statistics | null>(null);
+  const [selectedReview, setSelectedReview] = useState<Review | null>(null);
   const [responseText, setResponseText] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [platformFilter, setPlatformFilter] = useState('all');
@@ -61,7 +118,7 @@ export default function ReputationManagementPage() {
     fetchData();
   }, [fetchData]);
 
-  const handleGenerateResponse = useCallback(async (review: any) => {
+  const handleGenerateResponse = useCallback(async (review: Review) => {
     setIsGenerating(true);
     setSelectedReview(review);
 
@@ -137,7 +194,10 @@ export default function ReputationManagementPage() {
   };
 
   const getSentimentBadge = (sentiment: string) => {
-    const variants: Record<string, any> = {
+    const variants: Record<
+      string,
+      { variant: 'success' | 'secondary' | 'destructive'; color: string }
+    > = {
       positive: { variant: 'success', color: 'text-green-600' },
       neutral: { variant: 'secondary', color: 'text-gray-600' },
       negative: { variant: 'destructive', color: 'text-red-600' },
@@ -387,7 +447,7 @@ export default function ReputationManagementPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {statistics.report.platformPerformance.map((platform: any) => (
+                    {statistics.report.platformPerformance.map(platform => (
                       <div
                         key={platform.platformId}
                         className="flex items-center justify-between p-4 border rounded-lg"
@@ -458,7 +518,7 @@ export default function ReputationManagementPage() {
 
         <TabsContent value="alerts" className="space-y-4">
           {statistics && statistics.report.recentAlerts.length > 0 ? (
-            statistics.report.recentAlerts.map((alert: any) => (
+            statistics.report.recentAlerts.map(alert => (
               <Card
                 key={alert.id}
                 className={

@@ -15,9 +15,6 @@ async function startSEODomination() {
     const requiredEnvVars = [
       'DATABASE_URL',
       'OPENAI_API_KEY',
-      'TWILIO_ACCOUNT_SID',
-      'TWILIO_AUTH_TOKEN',
-      'TWILIO_PHONE_NUMBER',
       'SMTP_HOST',
       'SMTP_USER',
       'SMTP_PASS',

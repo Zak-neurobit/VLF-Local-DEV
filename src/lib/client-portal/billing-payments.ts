@@ -235,7 +235,7 @@ export class ClientPortalBillingPayments {
             acceptedPaymentMethods: ['CARD', 'ACH', 'CHECK'],
             issuedDate: new Date(),
             notes: params.notes,
-          },
+          } as Record<string, unknown>,
         },
       });
 
@@ -292,9 +292,9 @@ export class ClientPortalBillingPayments {
       data: {
         status: 'SENT' as InvoiceStatus,
         metadata: {
-          ...((invoice.metadata as any) || {}),
+          ...((invoice.metadata as Record<string, unknown>) || {}),
           sentDate: new Date(),
-        },
+        } as Record<string, unknown>,
       },
     });
 
@@ -371,7 +371,7 @@ export class ClientPortalBillingPayments {
           invoiceId: params.invoiceId,
           amount: params.amount,
           currency: 'USD',
-          paymentMethod: params.paymentMethod as any,
+          paymentMethod: params.paymentMethod,
           status,
           gateway: 'STRIPE',
           gatewayTransactionId: transactionId,
@@ -556,10 +556,14 @@ export class ClientPortalBillingPayments {
 
     // From payment plans
     for (const plan of paymentPlans) {
-      const schedule = (plan.metadata as any)?.paymentSchedule || [];
-      const nextPayment = schedule.find(
-        (p: any) => p.status === 'pending' && new Date(p.dueDate) > now
-      );
+      const metadata = plan.metadata as Record<string, unknown>;
+      const schedule =
+        (metadata?.paymentSchedule as Array<{
+          dueDate: string | Date;
+          amount: number;
+          status: string;
+        }>) || [];
+      const nextPayment = schedule.find(p => p.status === 'pending' && new Date(p.dueDate) > now);
 
       if (nextPayment) {
         upcomingPayments.push({
@@ -735,12 +739,15 @@ export class ClientPortalBillingPayments {
 
     // Calculate expenses from line items
     const totalExpenses = invoices.reduce((sum, inv) => {
-      const lineItems = JSON.parse(inv.lineItems as string);
+      const lineItems = JSON.parse(inv.lineItems as string) as Array<{
+        category: string;
+        amount: number;
+      }>;
       return (
         sum +
         lineItems
-          .filter((item: any) => item.category === 'expenses' || item.category === 'filing_fees')
-          .reduce((itemSum: number, item: any) => itemSum + item.amount, 0)
+          .filter(item => item.category === 'expenses' || item.category === 'filing_fees')
+          .reduce((itemSum, item) => itemSum + item.amount, 0)
       );
     }, 0);
 
@@ -768,7 +775,7 @@ export class ClientPortalBillingPayments {
         orderBy: { createdAt: 'desc' },
       });
 
-      (report as any).trustActivity = trustTransactions;
+      (report as Record<string, unknown>).trustActivity = trustTransactions;
     }
 
     return report;
@@ -853,8 +860,16 @@ export class ClientPortalBillingPayments {
     if (!payment || payment.status !== 'SUCCEEDED') return;
 
     // Update payment schedule
-    const schedule = (plan.metadata as any)?.paymentSchedule || [];
-    const nextPending = schedule.find((p: any) => p.status === 'pending');
+    const metadata = plan.metadata as Record<string, unknown>;
+    const schedule =
+      (metadata?.paymentSchedule as Array<{
+        dueDate: string | Date;
+        amount: number;
+        status: string;
+        paidDate?: Date;
+        paymentId?: string;
+      }>) || [];
+    const nextPending = schedule.find(p => p.status === 'pending');
 
     if (nextPending) {
       nextPending.status = 'paid';
@@ -863,8 +878,8 @@ export class ClientPortalBillingPayments {
     }
 
     // Update plan statistics
-    const completedPayments = schedule.filter((p: any) => p.status === 'paid').length;
-    const nextPayment = schedule.find((p: any) => p.status === 'pending');
+    const completedPayments = schedule.filter(p => p.status === 'paid').length;
+    const nextPayment = schedule.find(p => p.status === 'pending');
     const numberOfPayments = plan.installments || 12; // Use installments field
     const status =
       completedPayments === numberOfPayments
@@ -875,10 +890,10 @@ export class ClientPortalBillingPayments {
       where: { id: plan.id },
       data: {
         metadata: {
-          ...((plan.metadata as any) || {}),
+          ...(metadata || {}),
           paymentSchedule: schedule,
           completedPayments,
-        },
+        } as Record<string, unknown>,
         nextPaymentDate: nextPayment ? new Date(nextPayment.dueDate) : undefined,
         status,
       },
@@ -947,82 +962,138 @@ export class ClientPortalBillingPayments {
 
   // Mapping methods
 
-  private mapToInvoice(data: any): Invoice {
+  private mapToInvoice(data: {
+    id: string;
+    caseId: string;
+    clientId: string;
+    invoiceNumber: string;
+    dueDate: Date;
+    status: InvoiceStatus;
+    lineItems: string;
+    subtotal: number;
+    tax: number;
+    total: number;
+    amountPaid: number;
+    amountDue: number;
+    metadata: unknown;
+    createdAt: Date;
+    paidAt?: Date;
+  }): Invoice {
+    const metadata = data.metadata as Record<string, unknown>;
     return {
       id: data.id,
       caseId: data.caseId,
       clientId: data.clientId,
       invoiceNumber: data.invoiceNumber,
-      billingPeriod: JSON.parse(data.billingPeriod),
+      billingPeriod: metadata?.billingPeriod as { start: Date; end: Date },
       dueDate: data.dueDate,
       status: data.status,
       lineItems: JSON.parse(data.lineItems),
       subtotal: data.subtotal,
-      taxRate: data.taxRate,
-      taxAmount: data.taxAmount,
-      discountAmount: data.discountAmount,
-      totalAmount: data.totalAmount,
-      paidAmount: data.paidAmount,
-      balanceDue: data.balanceDue,
-      paymentTerms: data.paymentTerms,
-      lateFeePercentage: data.lateFeePercentage,
-      acceptedPaymentMethods: data.acceptedPaymentMethods,
-      issuedDate: data.issuedDate,
-      sentDate: data.sentDate,
-      viewedDate: data.viewedDate,
-      paidDate: data.paidDate,
-      notes: data.notes,
-      internalNotes: data.internalNotes,
-      attachments: data.attachments || [],
+      taxRate: (metadata?.taxRate as number) || 0,
+      taxAmount: data.tax,
+      discountAmount: (metadata?.discountAmount as number) || 0,
+      totalAmount: data.total,
+      paidAmount: data.amountPaid,
+      balanceDue: data.amountDue,
+      paymentTerms: (metadata?.paymentTerms as string) || 'Net 30',
+      lateFeePercentage: (metadata?.lateFeePercentage as number) || 0,
+      acceptedPaymentMethods: (metadata?.acceptedPaymentMethods as PaymentMethod[]) || [],
+      issuedDate: (metadata?.issuedDate as Date) || data.createdAt,
+      sentDate: metadata?.sentDate as Date,
+      viewedDate: metadata?.viewedDate as Date,
+      paidDate: data.paidAt,
+      notes: metadata?.notes as string,
+      internalNotes: metadata?.internalNotes as string,
+      attachments: (metadata?.attachments as string[]) || [],
     };
   }
 
-  private mapToPayment(data: any): Payment {
+  private mapToPayment(data: {
+    id: string;
+    clientEmail: string;
+    clientName: string;
+    clientPhone?: string;
+    caseId?: string;
+    invoiceId?: string;
+    amount: number;
+    currency: string;
+    paymentMethod: PaymentMethod;
+    status: PaymentStatus;
+    gatewayTransactionId?: string;
+    gatewayChargeId?: string;
+    processedAt?: Date;
+    description?: string;
+    metadata: unknown;
+    createdAt: Date;
+  }): Payment {
+    const metadata = data.metadata as Record<string, unknown>;
     return {
       id: data.id,
-      clientId: data.clientId,
+      clientId: data.clientEmail, // Using email as clientId for compatibility
       caseId: data.caseId,
       invoiceId: data.invoiceId,
       amount: data.amount,
       currency: data.currency,
       paymentMethod: data.paymentMethod,
       status: data.status,
-      transactionId: data.transactionId,
-      checkNumber: data.checkNumber,
-      processedDate: data.processedDate,
-      processingFee: data.processingFee,
-      netAmount: data.netAmount,
-      isRefunded: data.isRefunded,
-      refundedAmount: data.refundedAmount,
-      refundReason: data.refundReason,
+      transactionId: data.gatewayTransactionId,
+      checkNumber: metadata?.checkNumber as string,
+      processedDate: data.processedAt,
+      processingFee: metadata?.processingFee as number,
+      netAmount: metadata?.netAmount as number,
+      isRefunded: (metadata?.isRefunded as boolean) || false,
+      refundedAmount: metadata?.refundedAmount as number,
+      refundReason: metadata?.refundReason as string,
       description: data.description,
-      receiptUrl: data.receiptUrl,
+      receiptUrl: metadata?.receiptUrl as string,
       createdAt: data.createdAt,
     };
   }
 
-  private mapToPaymentPlan(data: any): PaymentPlan {
+  private mapToPaymentPlan(data: {
+    id: string;
+    clientEmail: string;
+    clientName: string;
+    caseId: string;
+    totalAmount: number;
+    installments: number;
+    monthlyAmount: number;
+    startDate: Date;
+    nextPaymentDate?: Date;
+    status: PaymentPlanStatus;
+    paidAmount: number;
+    remainingAmount: number;
+    metadata: unknown;
+    createdAt: Date;
+  }): PaymentPlan {
+    const metadata = data.metadata as Record<string, unknown>;
     return {
       id: data.id,
-      clientId: data.clientId,
+      clientId: data.clientEmail, // Using email as clientId for compatibility
       caseId: data.caseId,
       totalAmount: data.totalAmount,
-      downPayment: data.downPayment,
-      remainingBalance: data.remainingBalance,
-      monthlyPayment: data.monthlyPayment,
-      numberOfPayments: data.numberOfPayments,
+      downPayment: (metadata?.downPayment as number) || 0,
+      remainingBalance: data.remainingAmount,
+      monthlyPayment: data.monthlyAmount,
+      numberOfPayments: data.installments,
       startDate: data.startDate,
-      endDate: data.endDate,
-      nextPaymentDate: data.nextPaymentDate,
-      paymentSchedule: JSON.parse(data.paymentSchedule),
-      status: data.status,
-      completedPayments: data.completedPayments,
-      missedPayments: data.missedPayments,
-      lateFeeAmount: data.lateFeeAmount,
-      gracePeriodDays: data.gracePeriodDays,
-      autoPayEnabled: data.autoPayEnabled,
-      agreementSignedDate: data.agreementSignedDate,
-      notes: data.notes,
+      endDate: (metadata?.endDate as Date) || new Date(),
+      nextPaymentDate: data.nextPaymentDate || new Date(),
+      paymentSchedule: (metadata?.paymentSchedule as PaymentPlan['paymentSchedule']) || [],
+      status:
+        data.status === 'ACTIVE'
+          ? 'active'
+          : data.status === 'COMPLETED'
+            ? 'completed'
+            : 'cancelled',
+      completedPayments: (metadata?.completedPayments as number) || 0,
+      missedPayments: (metadata?.missedPayments as number) || 0,
+      lateFeeAmount: (metadata?.lateFeeAmount as number) || 0,
+      gracePeriodDays: (metadata?.gracePeriodDays as number) || 0,
+      autoPayEnabled: (metadata?.autoPayEnabled as boolean) || false,
+      agreementSignedDate: metadata?.agreementSignedDate as Date,
+      notes: metadata?.notes as string,
     };
   }
 }

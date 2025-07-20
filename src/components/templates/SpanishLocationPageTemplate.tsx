@@ -44,7 +44,7 @@ export const SpanishLocationPageTemplate: React.FC<SpanishLocationPageTemplatePr
   data,
   location,
   content,
-  children,
+  _children,
 }) => {
   // Handle legacy props (location/content pattern)
   if (!data && location && content) {
@@ -96,8 +96,8 @@ export const SpanishLocationPageTemplate: React.FC<SpanishLocationPageTemplatePr
               Abogados de Inmigración y Defensa Criminal en {city}
             </Heading>
             <Text size="xl" color="white" className="mb-8 max-w-3xl mx-auto opacity-90">
-              Sirviendo a {city}, {state} y el área circundante con representación legal experimentada. 
-              Hablamos español perfectamente.
+              Sirviendo a {city}, {state} y el área circundante con representación legal
+              experimentada. Hablamos español perfectamente.
             </Text>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -269,7 +269,8 @@ export const SpanishLocationPageTemplate: React.FC<SpanishLocationPageTemplatePr
                       Servicios Bilingües
                     </Heading>
                     <Text size="base" style={{ color: COLORS.neutral[700] }}>
-                      Servicios legales completos en inglés y español para la comunidad diversa de {city}
+                      Servicios legales completos en inglés y español para la comunidad diversa de{' '}
+                      {city}
                     </Text>
                   </div>
                 </div>
@@ -307,7 +308,8 @@ export const SpanishLocationPageTemplate: React.FC<SpanishLocationPageTemplatePr
                       Representación Accesible
                     </Heading>
                     <Text size="base" style={{ color: COLORS.neutral[700] }}>
-                      Planes de pago y precios transparentes para servir a todos los residentes de {city}
+                      Planes de pago y precios transparentes para servir a todos los residentes de{' '}
+                      {city}
                     </Text>
                   </div>
                 </div>
@@ -432,8 +434,8 @@ export const SpanishLocationPageTemplate: React.FC<SpanishLocationPageTemplatePr
             Obtenga Ayuda Legal en {city} Hoy
           </Heading>
           <Text size="xl" color="white" className="mb-8 opacity-90">
-            No enfrente sus desafíos legales solo. Nuestros abogados experimentados están listos para 
-            luchar por usted. Consulta gratuita • Hablamos español • Planes de pago disponibles
+            No enfrente sus desafíos legales solo. Nuestros abogados experimentados están listos
+            para luchar por usted. Consulta gratuita • Hablamos español • Planes de pago disponibles
           </Text>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button

@@ -25,6 +25,8 @@ interface AgentMetric {
   totalCalls: number;
   avgCallDuration: number;
   successRate: number;
+  averageQuality: number;
+  resolutionRate: number;
 }
 
 interface CallVolumeData {
@@ -82,7 +84,7 @@ interface VoiceAgentDashboardProps {
 
 export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashboardProps) {
   const [analytics, setAnalytics] = useState<VoiceAnalytics | null>(null);
-  const [recommendations, setRecommendations] = useState<VoiceRecommendation[] | null>(null);
+  const [recommendations, setRecommendations] = useState<RecommendationsData | null>(null);
   const [selectedPeriod, setSelectedPeriod] = useState<'daily' | 'weekly' | 'monthly'>('weekly');
   const [selectedAgent, setSelectedAgent] = useState<string>('all');
   const [isLoading, setIsLoading] = useState(true);
@@ -103,7 +105,7 @@ export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashbo
 
       if (data.success) {
         setAnalytics(data.analytics);
-        setRecommendations(data.recommendations);
+        setRecommendations(data.recommendations as RecommendationsData);
       }
     } catch (error) {
       console.error('Failed to fetch voice analytics:', error);
@@ -272,7 +274,7 @@ function OverviewTab({ analytics }: { analytics: VoiceAnalytics }) {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {analytics.agentMetrics.map((agent: any) => (
+              {analytics.agentMetrics.map((agent: AgentMetric) => (
                 <tr key={agent.agentId}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                     {agent.agentName}
@@ -300,7 +302,7 @@ function OverviewTab({ analytics }: { analytics: VoiceAnalytics }) {
 }
 
 // Quality Tab Component
-function QualityTab({ analytics }: { analytics: any }) {
+function QualityTab({ analytics }: { analytics: VoiceAnalytics }) {
   // Chart data would be prepared here once react-chartjs-2 is installed
   // const performanceTrendData = { ... }
 
@@ -339,7 +341,7 @@ function QualityTab({ analytics }: { analytics: any }) {
       <div className="bg-gray-50 p-6 rounded-lg">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Common Issues</h3>
         <div className="space-y-4">
-          {analytics.commonIssues.map((issue: any, index: number) => (
+          {analytics.commonIssues.map((issue, index: number) => (
             <div key={index} className="flex items-center justify-between">
               <div>
                 <p className="font-medium text-gray-900">{issue.issue}</p>
@@ -359,14 +361,14 @@ function QualityTab({ analytics }: { analytics: any }) {
 }
 
 // Insights Tab Component
-function InsightsTab({ analytics }: { analytics: any }) {
+function InsightsTab({ analytics }: { analytics: VoiceAnalytics }) {
   return (
     <div className="space-y-6">
       {/* Top Intents */}
       <div className="bg-gray-50 p-6 rounded-lg">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Top Call Intents</h3>
         <div className="space-y-3">
-          {analytics.topIntents.map((intent: any, index: number) => (
+          {analytics.topIntents.map((intent, index: number) => (
             <div key={index} className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <span className="text-2xl">{getIntentIcon(intent.intent)}</span>
@@ -391,9 +393,9 @@ function InsightsTab({ analytics }: { analytics: any }) {
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Busiest Hours</h3>
           <div className="space-y-2">
             {analytics.callVolumeByHour
-              .sort((a: any, b: any) => b.count - a.count)
+              .sort((a, b) => b.calls - a.calls)
               .slice(0, 5)
-              .map((hour: any) => (
+              .map(hour => (
                 <div key={hour.hour} className="flex items-center justify-between">
                   <span className="text-sm text-gray-600">
                     {hour.hour}:00 - {hour.hour + 1}:00
@@ -403,11 +405,11 @@ function InsightsTab({ analytics }: { analytics: any }) {
                       <div
                         className="bg-blue-600 h-2 rounded-full"
                         style={{
-                          width: `${(hour.count / Math.max(...analytics.callVolumeByHour.map((h: any) => h.count))) * 100}%`,
+                          width: `${(hour.calls / Math.max(...analytics.callVolumeByHour.map(h => h.calls))) * 100}%`,
                         }}
                       ></div>
                     </div>
-                    <span className="text-sm font-medium text-gray-900">{hour.count}</span>
+                    <span className="text-sm font-medium text-gray-900">{hour.calls}</span>
                   </div>
                 </div>
               ))}
@@ -417,7 +419,7 @@ function InsightsTab({ analytics }: { analytics: any }) {
         <div className="bg-gray-50 p-6 rounded-lg">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Call Volume by Day</h3>
           <div className="space-y-2">
-            {analytics.callVolumeByDay.map((day: any) => (
+            {analytics.callVolumeByDay.map(day => (
               <div key={day.day} className="flex items-center justify-between">
                 <span className="text-sm text-gray-600">{day.day}</span>
                 <div className="flex items-center space-x-2">
@@ -425,7 +427,7 @@ function InsightsTab({ analytics }: { analytics: any }) {
                     <div
                       className="bg-green-600 h-2 rounded-full"
                       style={{
-                        width: `${(day.count / Math.max(...analytics.callVolumeByDay.map((d: any) => d.count))) * 100}%`,
+                        width: `${(day.count / Math.max(...analytics.callVolumeByDay.map(d => d.count))) * 100}%`,
                       }}
                     ></div>
                   </div>
@@ -458,8 +460,35 @@ function InsightsTab({ analytics }: { analytics: any }) {
   );
 }
 
+// Define recommendation types
+interface SystemRecommendation {
+  recommendation: string;
+  impact: 'high' | 'medium' | 'low';
+  effort: 'high' | 'medium' | 'low';
+  metric: string;
+  currentValue: string;
+  targetValue: string;
+}
+
+interface AgentRecommendation {
+  agentId: string;
+  recommendations: string[];
+  trainingNeeded: string[];
+}
+
+interface ConversationPattern {
+  pattern: string;
+  recommendation: string;
+}
+
+interface RecommendationsData {
+  systemRecommendations: SystemRecommendation[];
+  agentRecommendations: AgentRecommendation[];
+  conversationPatterns: ConversationPattern[];
+}
+
 // Recommendations Tab Component
-function RecommendationsTab({ recommendations }: { recommendations: any }) {
+function RecommendationsTab({ recommendations }: { recommendations: RecommendationsData | null }) {
   if (!recommendations) {
     return <div className="text-center py-8 text-gray-500">No recommendations available</div>;
   }
@@ -470,7 +499,7 @@ function RecommendationsTab({ recommendations }: { recommendations: any }) {
       <div className="bg-gray-50 p-6 rounded-lg">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">System Improvements</h3>
         <div className="space-y-4">
-          {recommendations.systemRecommendations.map((rec: any, index: number) => (
+          {recommendations.systemRecommendations.map((rec: SystemRecommendation, index: number) => (
             <RecommendationCard key={index} recommendation={rec} />
           ))}
         </div>
@@ -483,11 +512,11 @@ function RecommendationsTab({ recommendations }: { recommendations: any }) {
             Agent Training Recommendations
           </h3>
           <div className="space-y-4">
-            {recommendations.agentRecommendations.map((agent: any) => (
+            {recommendations.agentRecommendations.map((agent: AgentRecommendation) => (
               <div key={agent.agentId} className="border-l-4 border-blue-500 pl-4">
                 <h4 className="font-medium text-gray-900 mb-2">Agent {agent.agentId}</h4>
                 <ul className="space-y-1 text-sm text-gray-600">
-                  {agent.recommendations.map((rec: string, index: number) => (
+                  {agent.recommendations.map((rec, index: number) => (
                     <li key={index}>• {rec}</li>
                   ))}
                 </ul>
@@ -495,7 +524,7 @@ function RecommendationsTab({ recommendations }: { recommendations: any }) {
                   <div className="mt-2">
                     <p className="text-xs font-medium text-gray-500">Recommended Training:</p>
                     <div className="flex flex-wrap gap-1 mt-1">
-                      {agent.trainingNeeded.map((training: string, index: number) => (
+                      {agent.trainingNeeded.map((training, index: number) => (
                         <span
                           key={index}
                           className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded"
@@ -519,15 +548,17 @@ function RecommendationsTab({ recommendations }: { recommendations: any }) {
             Conversation Pattern Insights
           </h3>
           <div className="space-y-3">
-            {recommendations.conversationPatterns.map((pattern: any, index: number) => (
-              <div key={index} className="flex items-start space-x-3">
-                <span className="text-2xl">💡</span>
-                <div className="flex-1">
-                  <p className="font-medium text-gray-900">{pattern.pattern}</p>
-                  <p className="text-sm text-gray-600 mt-1">{pattern.recommendation}</p>
+            {recommendations.conversationPatterns.map(
+              (pattern: ConversationPattern, index: number) => (
+                <div key={index} className="flex items-start space-x-3">
+                  <span className="text-2xl">💡</span>
+                  <div className="flex-1">
+                    <p className="font-medium text-gray-900">{pattern.pattern}</p>
+                    <p className="text-sm text-gray-600 mt-1">{pattern.recommendation}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
           </div>
         </div>
       )}
@@ -536,7 +567,16 @@ function RecommendationsTab({ recommendations }: { recommendations: any }) {
 }
 
 // Helper Components
-function MetricCard({ title, value, subtitle, change, positive, icon }: any) {
+interface MetricCardProps {
+  title: string;
+  value: string | number;
+  subtitle?: string;
+  change?: string;
+  positive?: boolean;
+  icon?: string;
+}
+
+function MetricCard({ title, value, subtitle, change, positive, icon }: MetricCardProps) {
   return (
     <div className="bg-white p-6 rounded-lg border border-gray-200">
       <div className="flex items-center justify-between mb-2">
@@ -561,7 +601,7 @@ function QualityIndicator({ score }: { score: number }) {
   return <span className={`ml-2 ${color}`}>●</span>;
 }
 
-function RecommendationCard({ recommendation }: { recommendation: any }) {
+function RecommendationCard({ recommendation }: { recommendation: SystemRecommendation }) {
   const impactColors = {
     high: 'bg-red-100 text-red-700',
     medium: 'bg-yellow-100 text-yellow-700',
@@ -613,7 +653,7 @@ function getIntentIcon(intent: string): string {
   return icons[intent] || '📞';
 }
 
-function findPeakHour(hourData: any[]): string {
-  const peak = hourData.reduce((max, curr) => (curr.count > max.count ? curr : max));
+function findPeakHour(hourData: CallVolumeData[]): string {
+  const peak = hourData.reduce((max, curr) => (curr.calls > max.calls ? curr : max));
   return `${peak.hour}:00 - ${peak.hour + 1}:00`;
 }

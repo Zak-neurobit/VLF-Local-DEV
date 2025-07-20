@@ -17,11 +17,71 @@ import {
   Activity,
 } from 'lucide-react';
 
+interface Platform {
+  id: string;
+  name: string;
+  enabled: boolean;
+  type: string;
+  autoPublish: boolean;
+  hasCredentials: boolean;
+  contentTypes: string[];
+  postCount?: number;
+  lastSync?: string;
+}
+
+interface Strategy {
+  id: string;
+  name: string;
+  description: string;
+  enabled: boolean;
+  priority: number;
+  platforms: string[];
+  sourceType: string;
+  targetPlatforms: string[];
+  ruleCount: number;
+  schedule: {
+    requiresApproval: boolean;
+    delay?: number;
+  };
+}
+
+interface SchedulerJob {
+  name: string;
+  schedule: string;
+  lastRun?: string;
+  nextRun?: string;
+  running: boolean;
+}
+
+interface SchedulerStatus {
+  running: boolean;
+  lastRun?: string;
+  nextRun?: string;
+  queueLength: number;
+  jobs?: SchedulerJob[];
+}
+
+interface Analytics {
+  totalPosts: number;
+  successRate: number;
+  totalSyndications: number;
+  successfulSyndications: number;
+  failedSyndications: number;
+  platformBreakdown: Record<string, number>;
+  recentPosts: Array<{
+    id: string;
+    title: string;
+    platform: string;
+    status: string;
+    timestamp: string;
+  }>;
+}
+
 export default function SyndicationManagementPage() {
-  const [platforms, setPlatforms] = useState<any[]>([]);
-  const [strategies, setStrategies] = useState<any[]>([]);
-  const [schedulerStatus, setSchedulerStatus] = useState<any>(null);
-  const [analytics, setAnalytics] = useState<any>(null);
+  const [platforms, setPlatforms] = useState<Platform[]>([]);
+  const [strategies, setStrategies] = useState<Strategy[]>([]);
+  const [schedulerStatus, setSchedulerStatus] = useState<SchedulerStatus | null>(null);
+  const [analytics, setAnalytics] = useState<Analytics | null>(null);
   const [selectedContent, setSelectedContent] = useState<string>('');
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -137,15 +197,15 @@ export default function SyndicationManagementPage() {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Content Syndication</h1>
         <div className="flex items-center space-x-4">
-          <Badge variant={schedulerStatus?.isRunning ? 'success' : 'secondary'}>
-            {schedulerStatus?.isRunning ? 'Scheduler Active' : 'Scheduler Stopped'}
+          <Badge variant={schedulerStatus?.running ? 'success' : 'secondary'}>
+            {schedulerStatus?.running ? 'Scheduler Active' : 'Scheduler Stopped'}
           </Badge>
           <Button
-            onClick={() => handleSchedulerControl(schedulerStatus?.isRunning ? 'stop' : 'start')}
-            variant={schedulerStatus?.isRunning ? 'destructive' : 'primary'}
+            onClick={() => handleSchedulerControl(schedulerStatus?.running ? 'stop' : 'start')}
+            variant={schedulerStatus?.running ? 'destructive' : 'primary'}
             size="sm"
           >
-            {schedulerStatus?.isRunning ? 'Stop' : 'Start'} Scheduler
+            {schedulerStatus?.running ? 'Stop' : 'Start'} Scheduler
           </Button>
         </div>
       </div>
@@ -309,7 +369,12 @@ export default function SyndicationManagementPage() {
             <CardContent className="space-y-4">
               <div>
                 <label className="block text-sm font-medium mb-2">Select Content</label>
-                <Select value={selectedContent} onChange={e => setSelectedContent(e.target.value)}>
+                <Select
+                  value={selectedContent}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                    setSelectedContent(e.target.value)
+                  }
+                >
                   <SelectOption value="">Choose content to syndicate</SelectOption>
                   <SelectOption value="blog-1">Latest Immigration Guide</SelectOption>
                   <SelectOption value="blog-2">Criminal Defense Tips</SelectOption>
@@ -375,7 +440,7 @@ export default function SyndicationManagementPage() {
                     <div>
                       <h3 className="font-medium">Scheduler Service</h3>
                       <p className="text-sm text-gray-600">
-                        {schedulerStatus.isRunning ? 'Running' : 'Stopped'}
+                        {schedulerStatus.running ? 'Running' : 'Stopped'}
                       </p>
                     </div>
                     <div className="flex space-x-2">
@@ -393,7 +458,7 @@ export default function SyndicationManagementPage() {
                   <div>
                     <h3 className="font-medium mb-3">Active Jobs</h3>
                     <div className="space-y-2">
-                      {schedulerStatus.jobs.map((job: any) => (
+                      {schedulerStatus.jobs?.map(job => (
                         <div
                           key={job.name}
                           className="flex items-center justify-between p-3 border rounded"

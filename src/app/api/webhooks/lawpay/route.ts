@@ -153,19 +153,23 @@ async function handlePaymentCreated(data: LawPayWebhookData) {
           status: 'PENDING',
           gateway: 'LAWPAY',
           paymentMethod: 'CARD',
-          description: (metadata as Record<string, unknown>).description || 'Payment via LawPay',
-          clientEmail:
-            (metadata as Record<string, unknown>).email ||
-            data.email ||
-            data.customer_email ||
-            data.customer?.email ||
-            'unknown@email.com',
-          clientName:
-            (metadata as Record<string, unknown>).name ||
-            data.name ||
-            data.customer_name ||
-            data.customer?.name ||
-            'Unknown',
+          description: String(
+            (metadata as Record<string, unknown>)?.description || 'Payment via LawPay'
+          ),
+          clientEmail: String(
+            (metadata as Record<string, unknown>)?.email ||
+              data.email ||
+              data.customer_email ||
+              data.customer?.email ||
+              'unknown@email.com'
+          ),
+          clientName: String(
+            (metadata as Record<string, unknown>)?.name ||
+              data.name ||
+              data.customer_name ||
+              data.customer?.name ||
+              'Unknown'
+          ),
           metadata: {
             ...metadata,
             lawpayData: JSON.parse(JSON.stringify(data)),
@@ -218,19 +222,23 @@ async function handlePaymentSucceeded(data: LawPayWebhookData) {
           gatewayChargeId: transactionId,
           processedAt: new Date(),
           paymentMethod: 'CARD',
-          description: (metadata as Record<string, unknown>).description || 'Payment via LawPay',
-          clientEmail:
-            (metadata as Record<string, unknown>).email ||
-            data.email ||
-            data.customer_email ||
-            data.customer?.email ||
-            'unknown@email.com',
-          clientName:
-            (metadata as Record<string, unknown>).name ||
-            data.name ||
-            data.customer_name ||
-            data.customer?.name ||
-            'Unknown',
+          description: String(
+            (metadata as Record<string, unknown>)?.description || 'Payment via LawPay'
+          ),
+          clientEmail: String(
+            (metadata as Record<string, unknown>)?.email ||
+              data.email ||
+              data.customer_email ||
+              data.customer?.email ||
+              'unknown@email.com'
+          ),
+          clientName: String(
+            (metadata as Record<string, unknown>)?.name ||
+              data.name ||
+              data.customer_name ||
+              data.customer?.name ||
+              'Unknown'
+          ),
           metadata: {
             ...metadata,
             lawpayData: JSON.parse(JSON.stringify(data)),

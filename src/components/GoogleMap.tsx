@@ -31,7 +31,9 @@ export default function GoogleMap({
   className = '',
 }: GoogleMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<google.maps.Map | null>(null);
+  // Map state for potential future use (e.g., map controls)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_map, setMap] = useState<google.maps.Map | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

@@ -32,10 +32,103 @@ import {
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
+interface Threat {
+  id: string;
+  type: string;
+  severity: 'critical' | 'high' | 'medium' | 'low';
+  description: string;
+  source: string;
+  detectedAt: string;
+  status: string;
+  responseActions?: string[];
+  sourceIp?: string;
+  targetResource?: string;
+  timestamp: string;
+  count?: number;
+  evidence?: string[];
+}
+
+interface ComplianceRequirement {
+  id: string;
+  name: string;
+  description: string;
+  status: 'compliant' | 'partial' | 'non_compliant' | 'not_audited';
+  lastAudit?: string;
+  nextAudit?: string;
+}
+
+interface ComplianceFramework {
+  name: string;
+  requirements: ComplianceRequirement[];
+  complianceScore: number;
+  lastAudit?: string;
+}
+
+interface Detector {
+  id: string;
+  name: string;
+  type: string;
+  enabled: boolean;
+}
+
+interface SecurityMonitoring {
+  isActive: boolean;
+  lastCheck?: string;
+  checksToday: number;
+  blockedThreats: number;
+  activeDetectors?: number;
+  detectors?: Detector[];
+}
+
+interface SecurityCheck {
+  name: string;
+  passed: boolean;
+}
+
+interface SecurityAudit {
+  passed: number;
+  failed: number;
+  checks?: SecurityCheck[];
+}
+
+interface SecurityData {
+  monitoring?: SecurityMonitoring;
+  metrics?: {
+    totalThreats: number;
+    blockedThreats: number;
+    activeIncidents: number;
+    complianceScore: number;
+  };
+  threats?: Threat[];
+  insights?: string[];
+  recommendations?: string[];
+  audit?: SecurityAudit;
+}
+
+interface ComplianceStatusFramework {
+  id: string;
+  name: string;
+  status: 'compliant' | 'partial' | 'non_compliant' | 'not_audited';
+  completionPercentage: number;
+  lastAudit?: string;
+  timestamp?: string;
+}
+
+interface ComplianceData {
+  frameworks?: ComplianceFramework[];
+  overallScore?: number;
+  lastAudit?: string;
+  status?: {
+    overallRisk: number;
+    criticalIssues: number;
+    frameworks?: ComplianceStatusFramework[];
+  };
+}
+
 export default function SecurityPage() {
-  const [securityData, setSecurityData] = useState<any>(null);
-  const [complianceData, setComplianceData] = useState<any>(null);
-  const [selectedThreat, setSelectedThreat] = useState<any>(null);
+  const [securityData, setSecurityData] = useState<SecurityData | null>(null);
+  const [complianceData, setComplianceData] = useState<ComplianceData | null>(null);
+  const [selectedThreat, setSelectedThreat] = useState<Threat | null>(null);
   const [responseNotes, setResponseNotes] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [timeframe, setTimeframe] = useState('24h');
@@ -139,7 +232,20 @@ export default function SecurityPage() {
   );
 
   const getSeverityBadge = (severity: string) => {
-    const variants: Record<string, any> = {
+    const variants: Record<
+      string,
+      {
+        variant:
+          | 'default'
+          | 'secondary'
+          | 'destructive'
+          | 'outline'
+          | 'success'
+          | 'warning'
+          | 'info';
+        color: string;
+      }
+    > = {
       critical: { variant: 'destructive', color: 'text-red-600' },
       high: { variant: 'destructive', color: 'text-orange-600' },
       medium: { variant: 'warning', color: 'text-yellow-600' },
@@ -150,7 +256,21 @@ export default function SecurityPage() {
   };
 
   const getStatusBadge = (status: string) => {
-    const variants: Record<string, any> = {
+    const variants: Record<
+      string,
+      {
+        variant:
+          | 'default'
+          | 'secondary'
+          | 'destructive'
+          | 'outline'
+          | 'success'
+          | 'warning'
+          | 'info';
+        icon: typeof CheckCircle;
+        color: string;
+      }
+    > = {
       compliant: { variant: 'success', icon: CheckCircle, color: 'text-green-600' },
       partial: { variant: 'warning', icon: AlertTriangle, color: 'text-yellow-600' },
       non_compliant: { variant: 'destructive', icon: XCircle, color: 'text-red-600' },
@@ -215,7 +335,7 @@ export default function SecurityPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-red-600">
-                {securityData.threats?.filter((t: any) => t.status === 'active').length || 0}
+                {securityData.threats?.filter(t => t.status === 'active').length || 0}
               </div>
               <p className="text-xs text-muted-foreground">
                 {securityData.threats?.length || 0} total detected
@@ -297,7 +417,7 @@ export default function SecurityPage() {
 
           {/* Threats List */}
           <div className="space-y-4">
-            {securityData?.threats?.map((threat: any) => (
+            {securityData?.threats?.map(threat => (
               <Card
                 key={threat.id}
                 className={
@@ -439,7 +559,7 @@ export default function SecurityPage() {
         <TabsContent value="compliance" className="space-y-4">
           {complianceData?.status?.frameworks && (
             <div className="space-y-4">
-              {complianceData.status.frameworks.map((framework: any) => {
+              {complianceData.status.frameworks.map(framework => {
                 const statusBadge = getStatusBadge(framework.status);
                 const StatusIcon = statusBadge.icon;
 
@@ -540,7 +660,7 @@ export default function SecurityPage() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  {securityData?.monitoring?.detectors?.map((detector: any) => (
+                  {securityData?.monitoring?.detectors?.map(detector => (
                     <div key={detector.id} className="p-4 border rounded-lg">
                       <div className="flex justify-between items-center">
                         <div>
@@ -594,7 +714,7 @@ export default function SecurityPage() {
                   </div>
 
                   <div className="space-y-3">
-                    {securityData.audit.checks?.map((check: any, index: number) => (
+                    {securityData.audit.checks?.map((check, index) => (
                       <div
                         key={index}
                         className="flex items-center justify-between p-3 border rounded-lg"

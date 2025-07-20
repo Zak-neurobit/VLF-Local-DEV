@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { logger } from '@/lib/pino-logger';
 import { Loader } from '@googlemaps/js-api-loader';
 import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-config';
+import type { GoogleMap, GoogleInfoWindow } from '@/types/google-maps';
 
 interface Office {
   name: string;
@@ -26,7 +27,7 @@ export default function AllOfficesMap({
   className = '',
 }: AllOfficesMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [, setMap] = useState<any>(null); // Using any to avoid Google Maps type issues during build
+  const [, setMap] = useState<GoogleMap | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -73,10 +74,12 @@ export default function AllOfficesMap({
         });
 
         const bounds = new window.google.maps.LatLngBounds();
-        const infoWindows: any[] = [];
+        const infoWindows: GoogleInfoWindow[] = [];
 
         // Create markers for each office
         offices.forEach((office, index) => {
+          if (!window.google?.maps) return;
+
           const marker = new window.google.maps.Marker({
             position: { lat: office.lat, lng: office.lng },
             map: mapInstance,
@@ -131,6 +134,8 @@ export default function AllOfficesMap({
               </a>
             </div>
           `;
+
+          if (!window.google?.maps) return;
 
           const infoWindow = new window.google.maps.InfoWindow({
             content: infoWindowContent,

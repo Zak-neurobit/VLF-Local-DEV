@@ -53,10 +53,9 @@ SMTP_PORT="587"
 SMTP_USER="your-email@gmail.com"
 SMTP_PASS="your-app-password"
 
-# Twilio
-TWILIO_ACCOUNT_SID=""
-TWILIO_AUTH_TOKEN=""
-TWILIO_PHONE_NUMBER=""
+# Voice & SMS
+# Voice: Handled by Retell AI
+# SMS: Handled by GoHighLevel
 
 # OpenAI
 OPENAI_API_KEY=""
@@ -108,10 +107,9 @@ SMTP_PORT=587
 SMTP_USER=
 SMTP_PASS=
 
-# Twilio
-TWILIO_ACCOUNT_SID=
-TWILIO_AUTH_TOKEN=
-TWILIO_PHONE_NUMBER=
+# Voice & SMS
+# Voice: Handled by Retell AI (RETELL_API_KEY)
+# SMS: Handled by GoHighLevel (GHL_API_KEY)
 
 # Stripe
 STRIPE_SECRET_KEY=

@@ -11,7 +11,7 @@ interface RouteParams {
 /**
  * POST /api/competitors/[id]/check - Manually trigger competitor activity check
  */
-export async function POST(request: NextRequest, { params }: RouteParams) {
+export async function POST(_request: NextRequest, { params }: RouteParams) {
   try {
     logger.info('Manual competitor check triggered', { competitorId: params.id });
 
@@ -24,11 +24,11 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       competitorId: params.id,
     });
   } catch (error) {
-    logger.error('Failed to check competitor activity', { 
-      error, 
-      competitorId: params.id 
+    logger.error('Failed to check competitor activity', {
+      error,
+      competitorId: params.id,
     });
-    
+
     return NextResponse.json(
       { success: false, error: 'Failed to check competitor activity' },
       { status: 500 }

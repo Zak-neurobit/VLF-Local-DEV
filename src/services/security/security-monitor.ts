@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma-safe';
 import { securityReportStubs } from '@/lib/prisma-model-stubs';
 import { EventEmitter } from 'events';
 import crypto from 'crypto';
+import type { Prisma } from '@prisma/client';
 import type {
   ThreatDetectorConfig,
   SecurityPolicy,
@@ -29,6 +30,52 @@ interface ScanResult {
   detectorId: string;
   threats: SecurityThreat[];
   timestamp: Date;
+}
+
+interface ComplianceViolation {
+  policyId: string;
+  policyName: string;
+  violation: string;
+  severity: string;
+}
+
+interface ComplianceCheckResult {
+  violations: ComplianceViolation[];
+  compliant: boolean;
+}
+
+interface SecurityReportSummary {
+  totalThreats: number;
+  threatsBySeverity: Record<string, number>;
+  complianceViolations: number;
+  detectorStatus: Array<{
+    id: string;
+    name: string;
+    enabled: boolean;
+    threatCount: number;
+  }>;
+}
+
+interface SecurityReport {
+  timestamp: Date;
+  summary: SecurityReportSummary;
+  threats: SecurityThreat[];
+  compliance: ComplianceCheckResult;
+}
+
+interface ThreatMetadata {
+  targetResource?: string;
+  evidence?: string[];
+  count?: number;
+  [key: string]: unknown;
+}
+
+interface ThreatQueryWhere {
+  createdAt?: {
+    gte: Date;
+  };
+  severity?: string;
+  status?: string;
 }
 
 export class SecurityMonitor extends EventEmitter {
@@ -343,8 +390,8 @@ export class SecurityMonitor extends EventEmitter {
             targetResource: threat.targetResource,
             evidence: threat.evidence,
             count: threat.count,
-            ...threat.metadata,
-          },
+            ...(threat.metadata || {}),
+          } as Prisma.InputJsonValue,
         },
       });
     } catch (error) {
@@ -376,7 +423,7 @@ export class SecurityMonitor extends EventEmitter {
     }
   }
 
-  private async checkCompliance(): Promise<any> {
+  private async checkCompliance(): Promise<ComplianceCheckResult> {
     const violations = [];
 
     for (const [id, policy] of this.securityPolicies) {
@@ -399,8 +446,8 @@ export class SecurityMonitor extends EventEmitter {
 
   private async generateSecurityReport(
     scanResults: ScanResult[],
-    complianceResults: any
-  ): Promise<any> {
+    complianceResults: ComplianceCheckResult
+  ): Promise<SecurityReport> {
     const totalThreats = scanResults.reduce((sum, result) => sum + result.threats.length, 0);
     const threatsBySeverity = scanResults.reduce(
       (acc, result) => {
@@ -430,7 +477,7 @@ export class SecurityMonitor extends EventEmitter {
     };
   }
 
-  private async storeScanResults(report: any): Promise<void> {
+  private async storeScanResults(report: SecurityReport): Promise<void> {
     try {
       await securityReportStubs.create({
         data: {
@@ -482,7 +529,7 @@ export class SecurityMonitor extends EventEmitter {
       status?: string;
     } = {}
   ): Promise<SecurityThreat[]> {
-    const where: any = {};
+    const where: ThreatQueryWhere = {};
 
     // Apply timeframe filter
     if (params.timeframe) {
@@ -517,7 +564,7 @@ export class SecurityMonitor extends EventEmitter {
     });
 
     return threats.map(t => {
-      const metadata = (t.metadata as any) || {};
+      const metadata = (t.metadata as ThreatMetadata) || {};
       return {
         id: t.id,
         type: t.type,
@@ -655,7 +702,7 @@ export class SecurityMonitor extends EventEmitter {
     type: string;
     severity: string;
     description: string;
-    metadata?: any;
+    metadata?: Record<string, unknown>;
   }): Promise<void> {
     try {
       await prisma.securityIncident.create({
@@ -664,7 +711,7 @@ export class SecurityMonitor extends EventEmitter {
           type: incident.type,
           severity: incident.severity,
           description: incident.description,
-          metadata: incident.metadata || {},
+          metadata: (incident.metadata || {}) as Prisma.InputJsonValue,
         },
       });
 
@@ -679,7 +726,7 @@ export class SecurityMonitor extends EventEmitter {
       type: threat.type,
       severity: threat.severity,
       description: `Escalated threat: ${threat.description}`,
-      metadata: { threatId: threat.id, evidence: threat.evidence },
+      metadata: { threatId: threat.id, evidence: threat.evidence } as Record<string, unknown>,
     });
   }
 }

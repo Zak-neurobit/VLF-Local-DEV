@@ -4,6 +4,9 @@ import { AgentOrchestrator } from '@/lib/agents/agent-orchestrator';
 import { logger } from '@/lib/logger';
 import { errorToLogMeta } from '@/lib/logger/utils';
 
+// Import the actual metrics type from agent-orchestrator
+import type { AgentPerformanceMetrics as AgentMetrics } from '@/lib/agents/agent-orchestrator';
+
 export interface AIServiceHealth {
   status: 'healthy' | 'degraded' | 'unhealthy';
   services: {
@@ -22,7 +25,7 @@ export interface AIServiceHealth {
     agentOrchestrator: {
       available: boolean;
       agentCount: number;
-      metrics: Record<string, any>;
+      metrics: Record<string, AgentMetrics>;
     };
   };
   lastChecked: string;

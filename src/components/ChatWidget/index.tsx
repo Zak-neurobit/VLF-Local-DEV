@@ -7,6 +7,7 @@ import { componentLogger, userFlowLogger } from '@/lib/logger';
 import { useErrorHandler } from '@/components/ErrorBoundary';
 import { formatTime, generateId } from '@/lib/utils/date-utils';
 import { useHydrationSafe } from '@/hooks/useHydrationSafe';
+import { LoadingState } from '@/lib/react-fixes/loadingStates';
 
 interface Message {
   id: string;
@@ -39,6 +40,8 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
   const [isTyping, setIsTyping] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState(language);
+  const [connectionError, setConnectionError] = useState<string | null>(null);
+  const [isInitializing, setIsInitializing] = useState(false);
 
   const socketRef = useRef<Socket | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -53,18 +56,27 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
     }
   }, [isHydrated]);
 
-  // Initialize socket connection
+  // Initialize socket connection with proper cleanup
   useEffect(() => {
-    componentLogger.mount('ChatWidget', { userId, language });
+    if (!isOpen) return;
 
-    const initSocket = async () => {
+    let isMounted = true;
+    let socket: Socket | null = null;
+
+    const initializeSocket = async () => {
+      componentLogger.mount('ChatWidget', { userId, language });
+      setIsInitializing(true);
+      setConnectionError(null);
+
       try {
         // Dynamically import socket.io-client to prevent SSR issues
         const { io } = await import('socket.io-client');
 
+        if (!isMounted) return;
+
         // Use the same origin for WebSocket connection
         const socketUrl = window.location.origin;
-        const socket = io(socketUrl, {
+        socket = io(socketUrl, {
           auth: {
             sessionId: sessionId.current,
             language: currentLanguage,
@@ -72,68 +84,86 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
           transports: ['websocket', 'polling'],
         });
 
+        if (!socket) return;
+
         socket.on('connect', () => {
-          setIsConnected(true);
-          socket.emit('chat:init', { userId, language: currentLanguage });
+          if (isMounted && socket) {
+            setIsConnected(true);
+            setConnectionError(null);
+            socket.emit('chat:init', { userId, language: currentLanguage });
+          }
         });
 
         socket.on('disconnect', () => {
-          setIsConnected(false);
+          if (isMounted) {
+            setIsConnected(false);
+          }
         });
 
         socket.on('message', (message: Omit<Message, 'id'>) => {
-          const newMessage: Message = {
-            ...message,
-            id: generateId('msg'),
-          };
-          setMessages(prev => [...prev, newMessage]);
-          componentLogger.stateChange(
-            'ChatWidget',
-            messages.length,
-            messages.length + 1,
-            'new_message'
-          );
-        });
-
-        socket.on('typing', ({ isTyping: typing }) => {
-          setIsTyping(typing);
-        });
-
-        socket.on('escalation', data => {
-          if (onEscalation) {
-            onEscalation(data.type, data);
+          if (isMounted) {
+            const newMessage: Message = {
+              ...message,
+              id: generateId('msg'),
+            };
+            setMessages(prev => [...prev, newMessage]);
+            componentLogger.stateChange('ChatWidget', 'messages', 'updated', 'new_message');
           }
-
-          const escalationMessage: Message = {
-            id: generateId('msg'),
-            role: 'system',
-            content: data.message,
-            timestamp: new Date().toISOString(),
-          };
-          setMessages(prev => [...prev, escalationMessage]);
         });
 
-        socket.on('error', error => {
-          handleError(new Error(error.message), { context: 'socket_error' });
+        socket.on('typing', ({ isTyping: typing }: { isTyping: boolean }) => {
+          if (isMounted) {
+            setIsTyping(typing);
+          }
         });
 
-        socketRef.current = socket;
+        socket.on('escalation', (data: { type: string; message: string }) => {
+          if (isMounted && onEscalation) {
+            onEscalation(data.type, data);
+
+            const escalationMessage: Message = {
+              id: generateId('msg'),
+              role: 'system',
+              content: data.message,
+              timestamp: new Date().toISOString(),
+            };
+            setMessages(prev => [...prev, escalationMessage]);
+          }
+        });
+
+        socket.on('error', (error: { message: string }) => {
+          if (isMounted) {
+            setConnectionError(error.message);
+            handleError(new Error(error.message), { context: 'socket_error' });
+          }
+        });
+
+        if (isMounted) {
+          socketRef.current = socket;
+        }
       } catch (error) {
-        handleError(error as Error, { context: 'socket_init' });
+        if (isMounted) {
+          setConnectionError('Failed to connect to chat service');
+          handleError(error as Error, { context: 'socket_init' });
+        }
+      } finally {
+        if (isMounted) {
+          setIsInitializing(false);
+        }
       }
     };
 
-    if (isOpen) {
-      initSocket();
-    }
+    initializeSocket();
 
     return () => {
+      isMounted = false;
       if (socketRef.current) {
         socketRef.current.disconnect();
-        componentLogger.unmount('ChatWidget');
+        socketRef.current = null;
       }
+      componentLogger.unmount('ChatWidget');
     };
-  }, [isOpen, userId, currentLanguage, handleError, language, messages.length, onEscalation]);
+  }, [isOpen, userId, currentLanguage, handleError, language, onEscalation]);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -173,16 +203,13 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
     }
   };
 
-  const changeLanguage = useCallback(
-    (lang: string) => {
-      setCurrentLanguage(lang);
-      if (socketRef.current) {
-        socketRef.current.emit('language:change', lang);
-      }
-      componentLogger.stateChange('ChatWidget', currentLanguage, lang, 'language_change');
-    },
-    [currentLanguage]
-  );
+  const changeLanguage = useCallback((lang: string) => {
+    setCurrentLanguage(lang);
+    if (socketRef.current) {
+      socketRef.current.emit('language:change', lang);
+    }
+    componentLogger.stateChange('ChatWidget', 'language', lang, 'language_change');
+  }, []);
 
   return (
     <>
@@ -253,47 +280,57 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.map(message => (
-                <div
-                  key={message.id}
-                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
+              <LoadingState
+                isLoading={isInitializing}
+                error={connectionError}
+                retry={() => {
+                  setConnectionError(null);
+                  toggleChat();
+                  toggleChat();
+                }}
+              >
+                {messages.map(message => (
                   <div
-                    className={`max-w-[80%] rounded-lg p-3 ${
-                      message.role === 'user'
-                        ? 'bg-[#6B1F2E] text-white'
-                        : message.role === 'system'
-                          ? 'bg-muted text-muted-foreground italic'
-                          : 'bg-gray-100 text-gray-900'
-                    }`}
+                    key={message.id}
+                    className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
-                    <p className="whitespace-pre-wrap">{message.content}</p>
-                    <p className="text-xs opacity-70 mt-1">
-                      {isHydrated ? formatTime(message.timestamp) : ''}
-                    </p>
-                  </div>
-                </div>
-              ))}
-
-              {isTyping && (
-                <div className="flex justify-start">
-                  <div className="bg-gray-100 rounded-lg p-3">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" />
-                      <div
-                        className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
-                        style={{ animationDelay: '0.1s' }}
-                      />
-                      <div
-                        className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
-                        style={{ animationDelay: '0.2s' }}
-                      />
+                    <div
+                      className={`max-w-[80%] rounded-lg p-3 ${
+                        message.role === 'user'
+                          ? 'bg-[#6B1F2E] text-white'
+                          : message.role === 'system'
+                            ? 'bg-muted text-muted-foreground italic'
+                            : 'bg-gray-100 text-gray-900'
+                      }`}
+                    >
+                      <p className="whitespace-pre-wrap">{message.content}</p>
+                      <p className="text-xs opacity-70 mt-1">
+                        {isHydrated ? formatTime(message.timestamp) : ''}
+                      </p>
                     </div>
                   </div>
-                </div>
-              )}
+                ))}
 
-              <div ref={messagesEndRef} />
+                {isTyping && (
+                  <div className="flex justify-start">
+                    <div className="bg-gray-100 rounded-lg p-3">
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" />
+                        <div
+                          className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
+                          style={{ animationDelay: '0.1s' }}
+                        />
+                        <div
+                          className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
+                          style={{ animationDelay: '0.2s' }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div ref={messagesEndRef} />
+              </LoadingState>
             </div>
 
             {/* Input */}
@@ -334,3 +371,6 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
     </>
   );
 };
+
+// Add display name for debugging
+ChatWidget.displayName = 'ChatWidget';

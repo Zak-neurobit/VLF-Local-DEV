@@ -108,8 +108,11 @@ export class AITranslationService {
     // Try to find exact match in static translations
     const lowerText = text.toLowerCase().trim();
 
+    // Define translation object type that can handle nested objects and arrays
+    type TranslationObject = string | string[] | { [key: string]: TranslationObject };
+
     // Search through all translation sections
-    const searchTranslations = (obj: any, path = ''): string | null => {
+    const searchTranslations = (obj: TranslationObject, path = ''): string | null => {
       if (typeof obj === 'string') {
         return obj === lowerText ? obj : null;
       }

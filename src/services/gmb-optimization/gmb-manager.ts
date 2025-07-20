@@ -3,6 +3,121 @@ import { prisma } from '@/lib/prisma-safe';
 import { EventEmitter } from 'events';
 import { z } from 'zod';
 
+// Additional type definitions for GMB operations
+interface LocationUpdates {
+  description?: string;
+  services?: string[];
+  specialHours?: SpecialHour[];
+  [key: string]: unknown;
+}
+
+interface SpecialHour {
+  date: Date;
+  type: 'holiday' | 'special_event' | 'closed';
+  hours?: {
+    open?: string;
+    close?: string;
+  };
+}
+
+interface GMBPost {
+  type: 'update' | 'event' | 'offer' | 'product' | 'covid19';
+  title: string;
+  content: string;
+  media?: Array<{
+    type: 'image' | 'video';
+    url: string;
+    altText?: string;
+  }>;
+  callToAction?: {
+    type: 'book' | 'order' | 'shop' | 'learn_more' | 'sign_up' | 'call';
+    url?: string;
+  };
+  event?: {
+    title: string;
+    startDate: Date;
+    endDate: Date;
+  };
+  offer?: {
+    title: string;
+    description: string;
+    terms: string;
+    startDate: Date;
+    endDate: Date;
+    couponCode?: string;
+  };
+}
+
+interface Review {
+  id: string;
+  rating: number;
+  text: string;
+  author: string;
+  responded: boolean;
+}
+
+interface AnalyticsPeriod {
+  startDate: Date;
+  endDate: Date;
+}
+
+interface GMBAnalytics {
+  period: AnalyticsPeriod;
+  metrics: {
+    views: {
+      search: number;
+      maps: number;
+      total: number;
+    };
+    actions: {
+      website: number;
+      directions: number;
+      phone: number;
+      total: number;
+    };
+    queries: Array<{
+      query: string;
+      impressions: number;
+      clicks: number;
+    }>;
+    photos: {
+      views: number;
+      posted: number;
+    };
+    reviews: {
+      count: number;
+      averageRating: number;
+      newReviews: number;
+    };
+  };
+}
+
+interface LocationAnalyticsResult {
+  analytics: GMBAnalytics;
+  insights: string[];
+  recommendations: string[];
+}
+
+interface LocationData {
+  id: string;
+  name: string;
+  address: string;
+  phone: string;
+  website: string;
+  category: string;
+  coordinates: { lat: number; lng: number };
+  services: string[];
+  description?: string;
+  hours?: Record<
+    string,
+    {
+      open?: string;
+      close?: string;
+      closed?: boolean;
+    }
+  >;
+}
+
 // GMB Business Location Schema
 const GMBLocationSchema = z.object({
   id: z.string(),
@@ -247,7 +362,7 @@ export class GMBManager extends EventEmitter {
   }
 
   private async optimizeBusinessInfo(location: GMBLocation): Promise<void> {
-    const updates: any = {};
+    const updates: LocationUpdates = {};
     let hasUpdates = false;
 
     // Optimize business description
@@ -283,7 +398,7 @@ export class GMBManager extends EventEmitter {
     const postTypes = ['update', 'event', 'offer'] as const;
     const randomType = postTypes[Math.floor(Math.random() * postTypes.length)];
 
-    let post: any;
+    let post: GMBPost | null = null;
 
     switch (randomType) {
       case 'update':
@@ -306,31 +421,35 @@ export class GMBManager extends EventEmitter {
     }
   }
 
-  private async generateUpdatePost(location: GMBLocation): Promise<any> {
+  private async generateUpdatePost(location: GMBLocation): Promise<GMBPost> {
     const updateTemplates = [
       {
+        type: 'update' as const,
         title: 'Free Legal Consultation Available',
         content: `Need legal help? Our experienced attorneys at ${location.name} are here for you. We offer free consultations for immigration, personal injury, and criminal defense cases. Contact us today to discuss your legal needs.`,
-        callToAction: { type: 'book', url: `${location.website}/contact` },
+        callToAction: { type: 'book' as const, url: `${location.website}/contact` },
       },
       {
+        type: 'update' as const,
         title: 'Serving the Community with Excellence',
         content: `At ${location.name}, we\'re committed to providing exceptional legal services to our community. With years of experience in immigration law, personal injury, and more, we\'re here to protect your rights and fight for your future.`,
-        callToAction: { type: 'learn_more', url: location.website },
+        callToAction: { type: 'learn_more' as const, url: location.website },
       },
       {
+        type: 'update' as const,
         title: "Your Rights Matter - We're Here to Help",
         content: `Don\'t navigate complex legal matters alone. Our dedicated team at ${location.name} specializes in immigration, workers\' compensation, and personal injury cases. We speak both English and Spanish to better serve our diverse community.`,
-        callToAction: { type: 'call' },
+        callToAction: { type: 'call' as const },
       },
     ];
 
     return updateTemplates[Math.floor(Math.random() * updateTemplates.length)];
   }
 
-  private async generateEventPost(location: GMBLocation): Promise<any> {
+  private async generateEventPost(location: GMBLocation): Promise<GMBPost> {
     const events = [
       {
+        type: 'event' as const,
         title: 'Free Immigration Workshop',
         content: `Join us for a free immigration workshop where our experienced attorneys will discuss pathways to legal status, family reunification, and citizenship. Refreshments will be provided.`,
         event: {
@@ -338,9 +457,10 @@ export class GMBManager extends EventEmitter {
           startDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
           endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000),
         },
-        callToAction: { type: 'sign_up', url: `${location.website}/events` },
+        callToAction: { type: 'sign_up' as const, url: `${location.website}/events` },
       },
       {
+        type: 'event' as const,
         title: "Workers' Rights Seminar",
         content: `Learn about your rights as a worker in this free seminar. We\'ll cover workers\' compensation, workplace injuries, and how to protect yourself on the job.`,
         event: {
@@ -348,16 +468,17 @@ export class GMBManager extends EventEmitter {
           startDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
           endDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000 + 1.5 * 60 * 60 * 1000),
         },
-        callToAction: { type: 'sign_up', url: `${location.website}/events` },
+        callToAction: { type: 'sign_up' as const, url: `${location.website}/events` },
       },
     ];
 
     return events[Math.floor(Math.random() * events.length)];
   }
 
-  private async generateOfferPost(location: GMBLocation): Promise<any> {
+  private async generateOfferPost(location: GMBLocation): Promise<GMBPost> {
     const offers = [
       {
+        type: 'offer' as const,
         title: 'No Fee Unless We Win',
         content: `Personal injury cases are handled on a contingency basis - you don\'t pay attorney fees unless we win your case. Free consultations available.`,
         offer: {
@@ -367,9 +488,10 @@ export class GMBManager extends EventEmitter {
           startDate: new Date(),
           endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
         },
-        callToAction: { type: 'book', url: `${location.website}/contact` },
+        callToAction: { type: 'book' as const, url: `${location.website}/contact` },
       },
       {
+        type: 'offer' as const,
         title: 'Free Case Evaluation',
         content: `Unsure if you have a case? Get a free evaluation from our experienced legal team. We\'ll review your situation and explain your options at no cost.`,
         offer: {
@@ -379,7 +501,7 @@ export class GMBManager extends EventEmitter {
           startDate: new Date(),
           endDate: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
         },
-        callToAction: { type: 'book', url: `${location.website}/free-consultation` },
+        callToAction: { type: 'book' as const, url: `${location.website}/free-consultation` },
       },
     ];
 
@@ -489,12 +611,12 @@ export class GMBManager extends EventEmitter {
   }
 
   // Helper methods for API integration (simulated)
-  private async updateLocationInfo(locationId: string, updates: any): Promise<void> {
+  private async updateLocationInfo(locationId: string, updates: LocationUpdates): Promise<void> {
     // Simulate GMB API call
     logger.info('Updating GMB location info', { locationId, updates });
   }
 
-  private async publishPost(locationId: string, post: any): Promise<void> {
+  private async publishPost(locationId: string, post: GMBPost): Promise<void> {
     // Simulate GMB post creation
     await this.storePost(locationId, post);
   }
@@ -504,7 +626,7 @@ export class GMBManager extends EventEmitter {
     logger.info('Uploading photo', { locationId, category });
   }
 
-  private async getRecentReviews(locationId: string): Promise<any[]> {
+  private async getRecentReviews(locationId: string): Promise<Review[]> {
     // Simulate getting recent reviews
     return [
       {
@@ -524,7 +646,7 @@ export class GMBManager extends EventEmitter {
     ];
   }
 
-  private async generateReviewResponse(review: any): Promise<string> {
+  private async generateReviewResponse(review: Review): Promise<string> {
     const responses = {
       negative: [
         `Thank you for your feedback. We're sorry to hear about your experience. We'd like to address your concerns directly. Please contact our office so we can discuss this matter further and work to resolve any issues.`,
@@ -550,7 +672,7 @@ export class GMBManager extends EventEmitter {
     logger.info('Responding to review', { locationId, reviewId });
   }
 
-  private async getAnalytics(locationId: string, period: any): Promise<any> {
+  private async getAnalytics(locationId: string, period: AnalyticsPeriod): Promise<GMBAnalytics> {
     // Simulate analytics data
     return {
       period,
@@ -584,7 +706,7 @@ export class GMBManager extends EventEmitter {
     };
   }
 
-  private async generateInsights(analytics: any): Promise<string[]> {
+  private async generateInsights(analytics: GMBAnalytics): Promise<string[]> {
     const insights = [];
 
     if (analytics.metrics.views.search > analytics.metrics.views.maps) {
@@ -602,7 +724,7 @@ export class GMBManager extends EventEmitter {
     return insights;
   }
 
-  private async generateRecommendations(analytics: any): Promise<string[]> {
+  private async generateRecommendations(analytics: GMBAnalytics): Promise<string[]> {
     const recommendations = [];
 
     if (analytics.metrics.photos.views < 100) {
@@ -630,7 +752,7 @@ export class GMBManager extends EventEmitter {
     logger.info('Adding Q&A', { locationId, question });
   }
 
-  private async storePost(locationId: string, post: any): Promise<void> {
+  private async storePost(locationId: string, post: GMBPost): Promise<void> {
     try {
       await prisma.gMBPost.create({
         data: {
@@ -650,7 +772,7 @@ export class GMBManager extends EventEmitter {
     }
   }
 
-  private async storeAnalytics(locationId: string, analytics: any): Promise<void> {
+  private async storeAnalytics(locationId: string, analytics: GMBAnalytics): Promise<void> {
     try {
       // TODO: Implement gmbAnalytics model
       // await prisma.gmbAnalytics.create({
@@ -691,7 +813,7 @@ export class GMBManager extends EventEmitter {
     return [...new Set(optimizedServices)]; // Remove duplicates
   }
 
-  private async generateSpecialHours(location: GMBLocation): Promise<any[]> {
+  private async generateSpecialHours(location: GMBLocation): Promise<SpecialHour[]> {
     const holidays = [
       { date: new Date('2024-12-25'), type: 'holiday' as const }, // Christmas
       { date: new Date('2024-01-01'), type: 'holiday' as const }, // New Year
@@ -712,7 +834,7 @@ export class GMBManager extends EventEmitter {
   }
 
   // Public methods for external access
-  async getLocationAnalytics(locationId: string): Promise<any> {
+  async getLocationAnalytics(locationId: string): Promise<LocationAnalyticsResult> {
     const analytics = await this.getAnalytics(locationId, {
       startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
       endDate: new Date(),
@@ -732,7 +854,7 @@ export class GMBManager extends EventEmitter {
     return Array.from(this.locations.values());
   }
 
-  async updateLocation(locationId: string, updates: any): Promise<void> {
+  async updateLocation(locationId: string, updates: LocationUpdates): Promise<void> {
     const location = this.locations.get(locationId);
     if (location) {
       Object.assign(location, updates);
@@ -740,7 +862,7 @@ export class GMBManager extends EventEmitter {
     }
   }
 
-  async createCustomPost(locationId: string, postData: any): Promise<void> {
+  async createCustomPost(locationId: string, postData: unknown): Promise<void> {
     const validatedPost = GMBPostSchema.parse(postData);
     await this.publishPost(locationId, validatedPost);
   }
@@ -757,9 +879,16 @@ class GMBLocation {
   public coordinates: { lat: number; lng: number };
   public services: string[];
   public description?: string;
-  public hours?: Record<string, any>;
+  public hours?: Record<
+    string,
+    {
+      open?: string;
+      close?: string;
+      closed?: boolean;
+    }
+  >;
 
-  constructor(data: any) {
+  constructor(data: LocationData) {
     this.id = data.id;
     this.name = data.name;
     this.address = data.address;

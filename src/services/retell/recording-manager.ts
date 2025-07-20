@@ -4,6 +4,38 @@ import { logger } from '@/lib/logger';
 import { errorToLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 
+// Call data interface for Retell API responses (matches RetellCall)
+interface CallData {
+  call_id: string;
+  agent_id?: string;
+  call_status: 'ongoing' | 'ended' | 'error';
+  start_timestamp: number;
+  end_timestamp?: number;
+  transcript?: string;
+  recording_url?: string;
+  metadata?: Record<string, unknown>;
+  from_number?: string;
+  to_number?: string;
+  duration_ms?: number;
+}
+
+// Sync data interface for GHL integration
+interface SyncData {
+  recordingUrl: string;
+  transcript: string;
+  analysis: TranscriptAnalysis;
+  call: CallData;
+}
+
+// Where clause interface for analytics queries
+interface AnalyticsWhereClause {
+  createdAt?: {
+    gte?: Date;
+    lte?: Date;
+  };
+  [key: string]: unknown;
+}
+
 interface RecordingData {
   callId: string;
   recordingUrl: string;
@@ -100,7 +132,7 @@ export class RecordingManager {
   }
 
   // Analyze transcript using AI
-  private async analyzeTranscript(transcript: string, call: any): Promise<TranscriptAnalysis> {
+  private async analyzeTranscript(transcript: string, call: CallData): Promise<TranscriptAnalysis> {
     try {
       // Basic analysis using keywords and patterns
       const analysis: TranscriptAnalysis = {
@@ -367,15 +399,7 @@ export class RecordingManager {
   }
 
   // Sync recording data to GoHighLevel
-  private async syncToGHL(
-    callId: string,
-    data: {
-      recordingUrl: string;
-      transcript: string;
-      analysis: TranscriptAnalysis;
-      call: any;
-    }
-  ): Promise<void> {
+  private async syncToGHL(callId: string, data: SyncData): Promise<void> {
     try {
       // Get GHL contact ID from call metadata
       const ghlContactId = data.call.metadata?.ghlContactId;
@@ -433,7 +457,7 @@ export class RecordingManager {
   }
 
   // Format call note for GHL
-  private formatCallNote(data: { analysis: TranscriptAnalysis; call: any }): string {
+  private formatCallNote(data: { analysis: TranscriptAnalysis; call: CallData }): string {
     const { analysis } = data;
     const duration = Math.round((data.call.duration_ms || 0) / 1000);
 
@@ -514,7 +538,7 @@ export class RecordingManager {
   private async createFollowUpTasks(
     callId: string,
     analysis: TranscriptAnalysis,
-    call: any
+    call: CallData
   ): Promise<void> {
     try {
       const ghlContactId = call.metadata?.ghlContactId;
@@ -616,7 +640,7 @@ export class RecordingManager {
     try {
       const prisma = getPrismaClient();
 
-      const where: any = {};
+      const where: AnalyticsWhereClause = {};
       if (timeRange) {
         where.createdAt = {
           gte: timeRange.start,

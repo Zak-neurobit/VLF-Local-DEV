@@ -3,6 +3,21 @@
 import React, { useState, useEffect } from 'react';
 import { CompetitorActivity, CompetitiveAnalysis } from '@/lib/crewai/competitor-monitoring-system';
 
+// Define competitor data interfaces
+interface CompetitorData {
+  id: string;
+  name: string;
+  website: string;
+  practiceAreas: string[];
+  trackingConfig?: {
+    enabled: boolean;
+  };
+  _count?: {
+    activities: number;
+  };
+  activities?: CompetitorActivity[];
+}
+
 interface CompetitorDashboardProps {
   className?: string;
 }
@@ -47,8 +62,8 @@ function getImpactBadge(impact: string): string {
 }
 
 export default function CompetitorDashboard({ className = '' }: CompetitorDashboardProps) {
-  const [competitors, setCompetitors] = useState<any[]>([]);
-  const [selectedCompetitor, setSelectedCompetitor] = useState<any | null>(null);
+  const [competitors, setCompetitors] = useState<CompetitorData[]>([]);
+  const [selectedCompetitor, setSelectedCompetitor] = useState<CompetitorData | null>(null);
   const [activities, setActivities] = useState<CompetitorActivity[]>([]);
   const [analysis, setAnalysis] = useState<CompetitiveAnalysis | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -234,7 +249,13 @@ export default function CompetitorDashboard({ className = '' }: CompetitorDashbo
 }
 
 // Sub-components
-function CompetitorCard({ competitor, onSelect, onCheck }: any) {
+interface CompetitorCardProps {
+  competitor: CompetitorData;
+  onSelect: () => void;
+  onCheck: () => void;
+}
+
+function CompetitorCard({ competitor, onSelect, onCheck }: CompetitorCardProps) {
   return (
     <div className="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
       <div className="flex justify-between items-start mb-3">
@@ -436,12 +457,24 @@ function CompetitiveAnalysisView({ analysis }: { analysis: CompetitiveAnalysis }
   );
 }
 
-function AddCompetitorForm({ onClose, onAdd }: any) {
-  const [formData, setFormData] = useState({
+interface AddCompetitorFormProps {
+  onClose: () => void;
+  onAdd: () => void;
+}
+
+interface CompetitorFormData {
+  name: string;
+  website: string;
+  practiceAreas: string[];
+  locations: string[];
+}
+
+function AddCompetitorForm({ onClose, onAdd }: AddCompetitorFormProps) {
+  const [formData, setFormData] = useState<CompetitorFormData>({
     name: '',
     website: '',
-    practiceAreas: [] as string[],
-    locations: [] as string[],
+    practiceAreas: [],
+    locations: [],
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
