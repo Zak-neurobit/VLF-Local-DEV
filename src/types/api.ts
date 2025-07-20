@@ -171,14 +171,14 @@ export interface BlogPost {
   updatedAt: Date;
   createdAt: Date;
   readTime?: number;
-  author: string;
+  author: string | null;
   keywords?: string[];
   metaKeywords?: string[];
   featuredImage?: string | null;
   images: string[];
   viewCount: number;
   seoScore: number;
-  faqSection: unknown[];
+  faqSection: unknown;
   translations: Array<{
     id: string;
     slug: string;

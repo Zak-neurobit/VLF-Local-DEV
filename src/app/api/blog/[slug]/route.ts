@@ -9,7 +9,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
   try {
     const { slug } = params;
     // First try to find in database
-    let post: BlogPost | null = await getPrismaClient().blogPost.findUnique({
+    let post: BlogPost | null = (await getPrismaClient().blogPost.findUnique({
       where: { slug },
       include: {
         translations: {
@@ -20,7 +20,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
           },
         },
       },
-    });
+    })) as BlogPost | null;
 
     let relatedPosts: RelatedPost[] = [];
     let structuredData: Record<string, unknown> | null = null;
@@ -82,14 +82,16 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
         updatedAt: new Date(importedPost.modifiedDate || importedPost.publishDate),
         createdAt: new Date(importedPost.publishDate),
         readTime: importedPost.readTime,
-        author: importedPost.author.includes('@') ? 'Vasquez Law Team' : importedPost.author,
+        author: importedPost.author?.includes('@')
+          ? 'Vasquez Law Team'
+          : importedPost.author || 'Vasquez Law Team',
         keywords: importedPost.tags,
         metaKeywords: importedPost.tags,
         featuredImage: importedPost.featuredImage,
         images: [],
         viewCount: Math.floor(Math.random() * 500) + 50, // Mock view count
         seoScore: 85 + Math.floor(Math.random() * 15),
-        faqSection: [],
+        faqSection: null,
         translations: [],
         status: 'published',
         originalId: importedPost.slug,
@@ -119,7 +121,9 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
         image: importedPost.featuredImage || 'https://vasquezlawnc.com/logo.png',
         author: {
           '@type': 'Person',
-          name: importedPost.author.includes('@') ? 'Vasquez Law Team' : importedPost.author,
+          name: importedPost.author?.includes('@')
+            ? 'Vasquez Law Team'
+            : importedPost.author || 'Vasquez Law Team',
         },
         publisher: {
           '@type': 'Organization',

@@ -124,6 +124,7 @@ export async function POST(request: NextRequest) {
 
     const detailedHealth: AdminSocketHealthResponse = {
       ...dashboardData,
+      status: (dashboardData.status as 'healthy' | 'degraded' | 'unhealthy') || 'healthy', // Ensure status is always present
       responseTime,
       endpoint: 'admin-socket-health',
       version: process.env.npm_package_version || '1.0.0',
