@@ -1,7 +1,15 @@
 import { componentLogger, performanceLogger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 import puppeteer from 'puppeteer';
-import { youtube_v3 } from 'googleapis';
+// Lazy load YouTube API to prevent loading during build
+let youtube_v3: any = null;
+const getYoutubeApi = async () => {
+  if (!youtube_v3) {
+    const googleapis = await import('googleapis');
+    youtube_v3 = googleapis.youtube_v3;
+  }
+  return youtube_v3;
+};
 import axios from 'axios';
 
 export interface ScraperConfig {
@@ -43,14 +51,21 @@ export interface ScrapedContent {
 
 export class ContentScraper {
   private config: ScraperConfig;
-  private youtube: youtube_v3.Youtube | null = null;
+  private youtube: any = null;
   private browser: import('puppeteer').Browser | null = null;
 
   constructor(config: ScraperConfig) {
     this.config = config;
-    this.youtube = new youtube_v3.Youtube({
-      auth: config.youtube.apiKey,
-    });
+    // YouTube API will be initialized on first use
+  }
+
+  private async ensureYoutubeInitialized() {
+    if (!this.youtube) {
+      const YT = await getYoutubeApi();
+      this.youtube = new YT.Youtube({
+        auth: this.config.youtube.apiKey,
+      });
+    }
   }
 
   async initialize() {
@@ -69,6 +84,7 @@ export class ContentScraper {
 
     try {
       // Search for videos
+      await this.ensureYoutubeInitialized();
       const searchResponse = await this.youtube.search.list({
         part: ['snippet'],
         q: query,
@@ -80,7 +96,7 @@ export class ContentScraper {
 
       const videoIds =
         (searchResponse.data.items
-          ?.map((item: youtube_v3.Schema$SearchResult) => item.id?.videoId)
+          ?.map((item: any) => item.id?.videoId)
           .filter(Boolean) as string[]) || [];
 
       if (videoIds.length === 0) {
@@ -88,6 +104,7 @@ export class ContentScraper {
       }
 
       // Get video statistics
+      await this.ensureYoutubeInitialized();
       const statsResponse = await this.youtube.videos.list({
         part: ['statistics', 'snippet'],
         id: videoIds,
