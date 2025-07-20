@@ -2,8 +2,10 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { officeLocations } from '@/data/locations';
+import { logger } from '@/lib/pino-logger';
+import { Loader } from '@googlemaps/js-api-loader';
 import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-config';
-import type { GoogleMap, ScriptLoadHandler } from '@/types/google-maps';
+import type { GoogleMap } from '@/types/google-maps';
 
 interface MiniMapProps {
   height?: string;
@@ -17,8 +19,6 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Capture ref value at the beginning to avoid stale closure warning
-    const mapElement = mapRef.current;
     const apiKey = getGoogleMapsApiKey();
 
     if (!apiKey || !isGoogleMapsConfigured()) {
@@ -27,53 +27,24 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
       return;
     }
 
-    // Check if Google Maps is already loaded
-    if (window.google?.maps) {
-      initializeMap();
-      return;
-    }
+    const loader = new Loader({
+      apiKey,
+      version: 'weekly',
+      libraries: ['places'],
+    });
 
-    // Check if script is already being loaded
-    const existingScript = document.querySelector(`script[src*="maps.googleapis.com"]`);
-    if (existingScript) {
-      existingScript.addEventListener('load', initializeMap);
-      return;
-    }
+    loader
+      .load()
+      .then(google => {
+        if (!mapRef.current || !google.maps) return;
 
-    // Load Google Maps script
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=&v=weekly`;
-    script.async = true;
-    script.defer = true;
-
-    script.onload = initializeMap as ScriptLoadHandler;
-
-    script.onerror = () => {
-      setError('Failed to load Google Maps');
-      setLoading(false);
-    };
-
-    document.head.appendChild(script);
-
-    function initializeMap() {
-      if (!mapRef.current) {
-        return;
-      }
-
-      if (!window.google?.maps) {
-        setError('Google Maps API not available');
-        setLoading(false);
-        return;
-      }
-
-      try {
         // Calculate center based on all office locations
         const latSum = officeLocations.reduce((sum, office) => sum + office.lat, 0);
         const lngSum = officeLocations.reduce((sum, office) => sum + office.lng, 0);
         const centerLat = latSum / officeLocations.length;
         const centerLng = lngSum / officeLocations.length;
 
-        const mapInstance = new window.google.maps.Map(mapRef.current, {
+        const mapInstance = new google.maps.Map(mapRef.current, {
           center: { lat: centerLat, lng: centerLng },
           zoom: 6,
           disableDefaultUI: true,
@@ -97,13 +68,13 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
           ],
         });
 
-        const bounds = new window.google.maps.LatLngBounds();
+        const bounds = new google.maps.LatLngBounds();
 
         // Create simple markers for each office
         officeLocations.forEach(office => {
-          if (!window.google?.maps) return;
+          if (!google.maps) return;
 
-          const marker = new window.google.maps.Marker({
+          const marker = new google.maps.Marker({
             position: { lat: office.lat, lng: office.lng },
             map: mapInstance,
             title: office.name,
@@ -116,11 +87,11 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
                   <circle cx="10" cy="10" r="3" fill="#6B1F2E"/>
                 </svg>
               `),
-              scaledSize: new window.google.maps.Size(20, 20),
+              scaledSize: new google.maps.Size(20, 20),
             },
           });
 
-          bounds.extend(new window.google.maps.LatLng(office.lat, office.lng));
+          bounds.extend(new google.maps.LatLng(office.lat, office.lng));
 
           // Add click handler to open location page
           marker.addListener('click', () => {
@@ -133,21 +104,18 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
 
         setMap(mapInstance);
         setLoading(false);
-      } catch (error) {
-        setError('Failed to create map');
+      })
+      .catch(err => {
+        logger.error('Error loading Google Maps:', err);
+        setError('Failed to load Google Maps');
         setLoading(false);
-      }
-    }
+      });
 
     // Cleanup
     return () => {
-      // Don't remove the script as it might be used by other components
-      if (map && mapElement) {
-        // Clear the map container
-        mapElement.innerHTML = '';
-      }
+      // React handles ref cleanup
     };
-  }, [map]);
+  }, []);
 
   // Fallback for when JavaScript is disabled or map fails to load
   const fallbackContent = (

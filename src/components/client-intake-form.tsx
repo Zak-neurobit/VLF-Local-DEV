@@ -71,16 +71,19 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
     field: string,
     value: string
   ): void => {
-    setFormData(prev => ({
-      ...prev,
-      [section]: {
-        ...prev[section],
-        [nestedField]: {
-          ...(prev[section] as Record<string, any>)?.[nestedField],
-          [field]: value,
+    setFormData(prev => {
+      const sectionData = prev[section] as Record<string, any>;
+      return {
+        ...prev,
+        [section]: {
+          ...sectionData,
+          [nestedField]: {
+            ...(sectionData?.[nestedField] || {}),
+            [field]: value,
+          },
         },
-      },
-    }));
+      };
+    });
   };
 
   // Array input handler for potential future use

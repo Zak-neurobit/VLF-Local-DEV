@@ -44,7 +44,7 @@ export const SpanishLocationPageTemplate: React.FC<SpanishLocationPageTemplatePr
   data,
   location,
   content,
-  _children,
+  children,
 }) => {
   // Handle legacy props (location/content pattern)
   if (!data && location && content) {

@@ -274,7 +274,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
 
-    async signIn({ user, account, _profile }) {
+    async signIn({ user, account }) {
       // Log sign-in attempts
       logger.info(`Sign-in attempt: ${user.email} via ${account?.provider}`);
 
@@ -338,7 +338,7 @@ export const authOptions: NextAuthOptions = {
       }
     },
 
-    async signOut({ _session, token }) {
+    async signOut({ token }) {
       logger.info(`User signed out: ${token.email}`);
     },
 

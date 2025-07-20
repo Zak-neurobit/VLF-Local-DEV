@@ -1,41 +1,52 @@
 'use client';
 
-import { useEffect } from 'react';
-import Script from 'next/script';
-import type { ScriptLoadHandler } from '@/types/google-maps';
+import { useEffect, useRef } from 'react';
+import { Loader } from '@googlemaps/js-api-loader';
+import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-config';
+import { logger } from '@/lib/pino-logger';
 
 interface GoogleMyBusinessProps {
   placeId?: string;
-  apiKey?: string;
 }
 
 export function GoogleMyBusinessWidget({
   placeId = 'ChIJN1t_tDeuEmsRUsoyG83frY4', // Replace with your actual place ID
-  apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
 }: GoogleMyBusinessProps) {
+  const widgetRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    // Initialize Google Places widget when component mounts
-    if (window.google?.maps) {
-      initializeWidget();
+    const apiKey = getGoogleMapsApiKey();
+
+    if (!apiKey || !isGoogleMapsConfigured()) {
+      logger.error('Google Maps is not configured for Google My Business widget');
+      return;
     }
+
+    const loader = new Loader({
+      apiKey,
+      version: 'weekly',
+      libraries: ['places'],
+    });
+
+    loader
+      .load()
+      .then(google => {
+        if (!google.maps || !widgetRef.current) return;
+
+        // Implementation would go here
+        // This is a placeholder for the actual Google My Business integration
+        // When implementing, use google.maps.places.PlacesService
+        // to fetch and display Google My Business data
+      })
+      .catch(err => {
+        logger.error('Error loading Google Maps for GMB widget:', err);
+      });
   }, [placeId]);
 
-  const initializeWidget = () => {
-    // Implementation would go here
-    // This is a placeholder for the actual Google My Business integration
-  };
-
   return (
-    <>
-      <Script
-        src={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`}
-        strategy="lazyOnload"
-        onLoad={initializeWidget as ScriptLoadHandler}
-      />
-      <div id="google-reviews" className="google-reviews-widget">
-        {/* Google Reviews will be rendered here */}
-      </div>
-    </>
+    <div ref={widgetRef} id="google-reviews" className="google-reviews-widget">
+      {/* Google Reviews will be rendered here */}
+    </div>
   );
 }
 

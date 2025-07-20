@@ -9,7 +9,6 @@ import { LanguageToggle } from '@/components/LanguageToggle';
 
 interface ConsistentHeaderProps {
   language: 'en' | 'es';
-  setLanguage: (lang: 'en' | 'es') => void;
   variant?: 'solid' | 'transparent';
 }
 
@@ -21,7 +20,6 @@ interface NavigationItem {
 
 export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
   language,
-  _setLanguage,
   variant = 'solid',
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

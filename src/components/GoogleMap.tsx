@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { logger } from '@/lib/pino-logger';
 import { Loader } from '@googlemaps/js-api-loader';
 import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-config';
+import type { GoogleMap } from '@/types/google-maps';
 
 interface GoogleMapProps {
   address: string;
@@ -33,7 +34,7 @@ export default function GoogleMap({
   const mapRef = useRef<HTMLDivElement>(null);
   // Map state for potential future use (e.g., map controls)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_map, setMap] = useState<google.maps.Map | null>(null);
+  const [_map, setMap] = useState<GoogleMap | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -54,10 +55,10 @@ export default function GoogleMap({
 
     loader
       .load()
-      .then(_google => {
-        if (!mapRef.current || !window.google?.maps) return;
+      .then(google => {
+        if (!mapRef.current || !google.maps) return;
 
-        const mapInstance = new window.google.maps.Map(mapRef.current, {
+        const mapInstance = new google.maps.Map(mapRef.current, {
           center: { lat, lng },
           zoom,
           mapTypeControl: false,
@@ -74,11 +75,11 @@ export default function GoogleMap({
         });
 
         // Create marker
-        const marker = new window.google.maps.Marker({
+        const marker = new google.maps.Marker({
           position: { lat, lng },
           map: mapInstance,
           title: officeName || 'Vasquez Law Firm',
-          animation: window.google.maps.Animation.DROP,
+          animation: google.maps.Animation.DROP,
         });
 
         // Create info window
@@ -140,7 +141,7 @@ export default function GoogleMap({
           </div>
         `;
 
-        const infoWindow = new window.google.maps.InfoWindow({
+        const infoWindow = new google.maps.InfoWindow({
           content: infoWindowContent,
         });
 

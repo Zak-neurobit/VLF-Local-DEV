@@ -36,11 +36,6 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
     }
   }, [variant, currentLanguage, safePathname]);
 
-  const handleLanguageChange = (_lang: 'en' | 'es') => {
-    // Language change is handled by LanguageSwitcher component
-    // which uses router to navigate to the appropriate path
-  };
-
   // Generate breadcrumbs
   const getBreadcrumbs = () => {
     const paths = safePathname.split('/').filter(Boolean);
@@ -81,7 +76,6 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
       <div className="fixed top-[32px] left-0 right-0 z-[90]">
         <ConsistentHeader
           language={currentLanguage}
-          setLanguage={handleLanguageChange}
           variant={variant === 'hero' ? 'transparent' : 'solid'}
         />
       </div>
