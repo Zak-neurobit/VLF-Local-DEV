@@ -363,11 +363,11 @@ export const authOptions: NextAuthOptions = {
       }
     },
 
-    async linkAccount({ user, account, _profile }) {
+    async linkAccount({ user, account }) {
       logger.info(`Account linked: ${user.email} with ${account.provider}`);
     },
 
-    async session({ _session, token }) {
+    async session({ token }) {
       // Update last active timestamp
       if (token.id) {
         const dbConnected = await isDatabaseConnected();
