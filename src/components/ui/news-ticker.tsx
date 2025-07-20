@@ -27,10 +27,12 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Debug: Log component mount
+  // Debug: Log component mount only in development
   useEffect(() => {
-    console.log('[NewsTicker] Component mounted with locale:', locale);
-    return () => console.log('[NewsTicker] Component unmounted');
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[NewsTicker] Component mounted with locale:', locale);
+      return () => console.log('[NewsTicker] Component unmounted');
+    }
   }, [locale]);
 
   useEffect(() => {
@@ -39,14 +41,20 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
       try {
         setIsLoading(true);
         setError(null);
-        console.log('[NewsTicker] Fetching news for locale:', locale);
+        if (process.env.NODE_ENV === 'development') {
+          console.log('[NewsTicker] Fetching news for locale:', locale);
+        }
         const response = await fetch(
           `/api/news/ticker?category=immigration&limit=10&locale=${locale}`
         );
-        console.log('[NewsTicker] Response status:', response.status);
+        if (process.env.NODE_ENV === 'development') {
+          console.log('[NewsTicker] Response status:', response.status);
+        }
         if (response.ok) {
           const data = await response.json();
-          console.log('[NewsTicker] Received data:', data);
+          if (process.env.NODE_ENV === 'development') {
+            console.log('[NewsTicker] Received data:', data);
+          }
           setNewsItems(data.posts || []);
         } else {
           const errorText = await response.text();
@@ -82,8 +90,10 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
     }
   }, [isPaused, newsItems.length]);
 
-  // Debug: Log render state
-  console.log('[NewsTicker] Render state:', { isLoading, error, itemCount: newsItems.length });
+  // Debug: Log render state only in development
+  if (process.env.NODE_ENV === 'development') {
+    console.log('[NewsTicker] Render state:', { isLoading, error, itemCount: newsItems.length });
+  }
 
   if (isLoading) {
     return (
@@ -106,7 +116,9 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
   }
 
   if (newsItems.length === 0) {
-    console.log('[NewsTicker] No news items to display');
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[NewsTicker] No news items to display');
+    }
     // Return a placeholder to verify the component is mounting
     return (
       <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-2 px-4 h-[32px] flex items-center">

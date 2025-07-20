@@ -25,13 +25,15 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
   // Determine current language from pathname
   const currentLanguage: 'en' | 'es' = safePathname.startsWith('/es') ? 'es' : 'en';
 
-  // Debug: Log when MasterLayout renders
+  // Debug: Log when MasterLayout renders (only in development)
   React.useEffect(() => {
-    console.log('[MasterLayout] Rendered with:', {
-      variant,
-      currentLanguage,
-      pathname: safePathname,
-    });
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[MasterLayout] Rendered with:', {
+        variant,
+        currentLanguage,
+        pathname: safePathname,
+      });
+    }
   }, [variant, currentLanguage, safePathname]);
 
   const handleLanguageChange = (_lang: 'en' | 'es') => {

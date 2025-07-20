@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
-import { createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import RssParser from 'rss-parser';
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
 
 // Working RSS feeds for live news
 const liveFeeds = [
@@ -72,7 +75,7 @@ async function fetchLiveNews(category: string, limit: number): Promise<NewsItem[
         newsItems.push(...items);
       }
     } catch (error) {
-      logger.warn(`Failed to fetch from ${feed.name}:`, createErrorLogMeta(error));
+      logger.warn(`Failed to fetch from ${feed.name}:`, errorToLogMeta(error));
     }
   }
 
@@ -147,7 +150,7 @@ export async function GET(request: NextRequest) {
 
       logger.info(`Fetched ${newsItems.length} news items from database`);
     } catch (dbError) {
-      logger.warn('Database unavailable, fetching live news:', createErrorLogMeta(dbError));
+      logger.warn('Database unavailable, fetching live news:', errorToLogMeta(dbError));
 
       // If database fails, fetch live news from RSS feeds
       newsItems = await fetchLiveNews(category, limit);
@@ -234,7 +237,7 @@ export async function GET(request: NextRequest) {
       total: newsItems.length,
     });
   } catch (error) {
-    logger.error('Error fetching news ticker items:', createErrorLogMeta(error));
+    logger.error('Error fetching news ticker items:', errorToLogMeta(error));
 
     // Return static fallback on error
     const fallbackNews = [

@@ -1,20 +1,24 @@
 import { NextResponse } from 'next/server';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
+// GET /api/news/ticker/test - Test endpoint to verify ticker API
 export async function GET() {
   return NextResponse.json({
-    message: 'News ticker API is working',
+    status: 'ok',
     timestamp: new Date().toISOString(),
     testData: {
       posts: [
         {
           id: 'test-1',
-          title: 'Test News Item - Immigration Update',
-          titleEs: 'Artículo de Prueba - Actualización de Inmigración',
+          title: 'News Ticker API is Working',
+          titleEs: 'La API del Ticker de Noticias Funciona',
           url: '/test',
           date: new Date().toISOString(),
           category: 'immigration',
           urgent: true,
-          excerpt: 'This is a test news item',
+          excerpt: 'This is a test news item to verify the ticker is working',
         },
       ],
       source: 'test',
