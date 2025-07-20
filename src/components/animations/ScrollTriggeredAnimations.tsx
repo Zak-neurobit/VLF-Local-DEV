@@ -89,24 +89,8 @@ export function Reveal({
 }: RevealProps) {
   const { ref, controls } = useScrollReveal({ delay });
 
-  const _variants = {
-    fade: {
-      hidden: { opacity: 0 },
-      visible: { opacity: 1 },
-    },
-    slide: {
-      hidden: { opacity: 0, y: 50 },
-      visible: { opacity: 1, y: 0 },
-    },
-    scale: {
-      hidden: { opacity: 0, scale: 0.8 },
-      visible: { opacity: 1, scale: 1 },
-    },
-    rotate: {
-      hidden: { opacity: 0, rotate: -10 },
-      visible: { opacity: 1, rotate: 0 },
-    },
-  };
+  // Animation variants would be defined here if needed
+  // Currently using controls from useScrollReveal instead
 
   return (
     <div ref={ref as React.RefObject<HTMLDivElement>} className={className} style={controls}>
@@ -225,11 +209,11 @@ export function StickyScrollSection({
 // Scroll-triggered morphing shape
 export function ScrollMorphShape() {
   const ref = React.useRef<HTMLDivElement>(null);
-  const { scrollYProgress: _scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
-
+  // Scroll progress tracking would be added here if needed for morphing
+  // const { scrollYProgress } = useScroll({
+  //   target: ref,
+  //   offset: ['start end', 'end start'],
+  // });
   // const morphProgress = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.5, 1]);
 
   return (

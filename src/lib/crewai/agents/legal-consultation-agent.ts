@@ -1,7 +1,7 @@
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { APISafetyWrapper } from '@/lib/api-safety';
 
 export interface LegalConsultationRequest {

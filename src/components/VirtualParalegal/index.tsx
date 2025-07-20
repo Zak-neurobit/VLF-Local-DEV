@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useAnimations } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import { useChat } from 'ai/react';
 
@@ -12,13 +12,7 @@ function Avatar3D({ speaking }: { speaking: boolean }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
 
-  // Use suspense boundary or null fallback for FBX model
-  // Note: useFBX hook must be called unconditionally at component top level
-  // If the model doesn't exist, it will throw an error that should be caught by a Suspense boundary
-  // For now, we'll use a fallback approach without the FBX model
-  const fbxModel = null; // Disabled FBX loading to avoid conditional hook usage
-
-  // Since we don't have animations loaded, we'll handle the animation state differently
+  // Animation logic based on speaking state
   useEffect(() => {
     // Animation logic would go here if we had loaded animations
     // For now, we'll just use the speaking prop to control visual feedback
@@ -84,12 +78,12 @@ export default function VirtualParalegal({ language, onClose }: VirtualParalegal
 
   const content = {
     en: {
-      greeting: "Hello! I&apos;m your AI paralegal assistant. How can I help you today?",
-      listening: "I&apos;m listening...",
+      greeting: 'Hello! I&apos;m your AI paralegal assistant. How can I help you today?',
+      listening: 'I&apos;m listening...',
       thinking: 'Let me think about that...',
       askName: 'May I have your name?',
-      askEmail: "What&apos;s your email address?",
-      askPhone: "What&apos;s the best phone number to reach you?",
+      askEmail: 'What&apos;s your email address?',
+      askPhone: 'What&apos;s the best phone number to reach you?',
       askIssue: 'Please briefly describe your legal issue.',
       schedule: 'Schedule Consultation',
       speak: 'Speak',
@@ -242,7 +236,7 @@ export default function VirtualParalegal({ language, onClose }: VirtualParalegal
               {/* Messages */}
               <div className="flex-1 overflow-y-auto p-6">
                 <AnimatePresence initial={false}>
-                  {messages.map((message) => (
+                  {messages.map(message => (
                     <motion.div
                       key={message.id}
                       initial={{ opacity: 0, y: 20 }}

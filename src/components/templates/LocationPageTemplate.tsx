@@ -44,7 +44,7 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({
   data,
   location,
   content,
-  children,
+  children: _children,
 }) => {
   // Handle legacy props (location/content pattern)
   if (!data && location && content) {

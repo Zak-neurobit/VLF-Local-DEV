@@ -2,7 +2,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import { APISafetyWrapper } from '@/lib/api-safety';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 
 export enum LegalPracticeArea {
   REMOVAL_DEFENSE = 'removal_defense',

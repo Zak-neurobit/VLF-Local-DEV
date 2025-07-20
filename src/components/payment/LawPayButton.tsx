@@ -27,7 +27,7 @@ export function LawPayButton({
   clientPhone,
   invoiceNumber,
   trustAccount = false,
-  onSuccess,
+  onSuccess: _onSuccess,
   onError,
   className,
   children = 'Pay Now',

@@ -1,5 +1,5 @@
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { BlogContentDominationAgent } from './blog-content-domination-agent';
 import { GoogleMyBusinessKillerAgent } from './google-my-business-killer-agent';
 import { SocialMediaDestroyerAgent } from './social-media-destroyer-agent';

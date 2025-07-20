@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Also handle GET requests for testing
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   return NextResponse.json({
     status: 'LawPay webhook test endpoint is working',
     timestamp: new Date().toISOString(),

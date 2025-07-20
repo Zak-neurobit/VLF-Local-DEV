@@ -1,7 +1,7 @@
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { WebFetch } from '@/lib/utils/web-fetch';
 import { getPrismaClient } from '@/lib/prisma';
 import { createCrewLogger } from '@/lib/crews/log-execution';

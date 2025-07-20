@@ -1,19 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import {
-  MapPin,
-  Phone,
-  Clock,
-  Star,
-  CheckCircle,
-  ArrowRight,
-  Users,
-  Award,
-  Shield,
-} from 'lucide-react';
+import { MapPin, Phone, Star, CheckCircle, ArrowRight, Users, Award, Shield } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { ContactForm } from '@/components/forms/ContactForm';
 
 interface NearMeTemplateProps {

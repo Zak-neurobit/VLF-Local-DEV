@@ -2,7 +2,7 @@ import React from 'react';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Button } from '@/design-system/components/Button';
 import { Section, Heading, Text } from './TemplateComponents';
-import { COLORS, SPACING } from '@/design-system/constants';
+import { COLORS } from '@/design-system/constants';
 import Link from 'next/link';
 import { Phone } from 'lucide-react';
 

@@ -9,7 +9,7 @@ import { AILATrainedRemovalDefenseAgent } from '@/lib/crewai/agents/aila-trained
 import { LeadValidationAgent } from '@/lib/agents/lead-validation-agent';
 import { FollowUpAutomationAgent } from '@/lib/agents/follow-up-automation-agent';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { EventEmitter } from 'events';
 import pLimit from 'p-limit';
 

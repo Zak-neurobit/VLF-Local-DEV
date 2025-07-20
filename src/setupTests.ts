@@ -122,21 +122,21 @@ jest.mock('framer-motion', () => {
     ({ children, ...props }: any) => {
       // Remove framer-motion specific props to avoid React warnings
       const {
-        initial,
-        animate,
-        exit,
-        transition,
-        variants,
-        whileHover,
-        whileTap,
-        whileInView,
-        whileFocus,
-        drag,
-        dragConstraints,
-        dragElastic,
-        dragMomentum,
-        dragPropagation,
-        dragTransition,
+        initial: _initial,
+        animate: _animate,
+        exit: _exit,
+        transition: _transition,
+        variants: _variants,
+        whileHover: _whileHover,
+        whileTap: _whileTap,
+        whileInView: _whileInView,
+        whileFocus: _whileFocus,
+        drag: _drag,
+        dragConstraints: _dragConstraints,
+        dragElastic: _dragElastic,
+        dragMomentum: _dragMomentum,
+        dragPropagation: _dragPropagation,
+        dragTransition: _dragTransition,
         ...cleanProps
       } = props;
 

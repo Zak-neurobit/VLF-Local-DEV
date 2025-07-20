@@ -2,7 +2,7 @@ import { getRetellService } from './index';
 import { RetellAgentManager } from './agent-manager-v2';
 import { ghlService } from '@/services/gohighlevel';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 import type { Prisma } from '@prisma/client';
 
@@ -71,7 +71,7 @@ export class CallRoutingService {
       const urgency = await this.assessUrgency(options, existingContact);
 
       // 5. Select appropriate agent
-      const agentId = await this.selectAgent(practiceArea, language, urgency);
+      const agentId = await this.selectAgent(practiceArea, language);
 
       // 6. Check agent availability and business hours
       const routeDecision = await this.finalizeRouting({
@@ -277,11 +277,7 @@ export class CallRoutingService {
   }
 
   // Select the best agent for the call
-  private async selectAgent(
-    practiceArea: string,
-    language: 'en' | 'es',
-    urgency: string
-  ): Promise<string> {
+  private async selectAgent(practiceArea: string, language: 'en' | 'es'): Promise<string> {
     // For Spanish speakers, try Spanish-specific agents first
     if (language === 'es') {
       const spanishAgentId = await RetellAgentManager.getAgentForPracticeArea(`${practiceArea}_es`);
@@ -320,7 +316,7 @@ export class CallRoutingService {
     options: CallRoutingOptions;
     existingContact: ExistingContact | null;
   }): Promise<RouteDecision> {
-    const { agentId, practiceArea, language, urgency, options, existingContact } = params;
+    const { agentId, practiceArea, language, urgency, existingContact } = params;
 
     // Get agent information
     const retellService = getRetellService();

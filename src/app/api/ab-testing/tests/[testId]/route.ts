@@ -3,11 +3,11 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { abTestEngine } from '@/lib/ab-testing/ab-test-engine';
 
+// Force dynamic rendering since we need to access session
+export const dynamic = 'force-dynamic';
+
 // GET /api/ab-testing/tests/[testId] - Get A/B test details and results
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { testId: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { testId: string } }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.role?.includes('admin')) {
@@ -24,18 +24,12 @@ export async function GET(
     });
   } catch (error) {
     console.error('Failed to get A/B test results:', error);
-    return NextResponse.json(
-      { error: 'Failed to get test results' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to get test results' }, { status: 500 });
   }
 }
 
 // PATCH /api/ab-testing/tests/[testId] - Update A/B test status
-export async function PATCH(
-  request: NextRequest,
-  { params }: { params: { testId: string } }
-) {
+export async function PATCH(request: NextRequest, { params }: { params: { testId: string } }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.role?.includes('admin')) {
@@ -71,9 +65,6 @@ export async function PATCH(
     });
   } catch (error) {
     console.error('Failed to update A/B test:', error);
-    return NextResponse.json(
-      { error: 'Failed to update test' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to update test' }, { status: 500 });
   }
 }

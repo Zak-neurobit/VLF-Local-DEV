@@ -1,7 +1,7 @@
 import Bull from 'bull';
 import { securityLogger } from '@/lib/pino-logger';
 import { performanceLogger, logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { bullRedis } from '@/lib/cache';
 import { PrismaClient } from '@prisma/client';
 

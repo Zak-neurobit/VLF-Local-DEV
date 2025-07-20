@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { BRAND, SEMANTIC_COLORS } from '../constants';
+import { BRAND } from '../constants';
 
 interface ConsistentFooterProps {
   language: 'en' | 'es';

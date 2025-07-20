@@ -31,7 +31,7 @@ export default function GoogleMap({
   className = '',
 }: GoogleMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<any>(null); // Using any to avoid Google Maps type issues during build
+  const [map, setMap] = useState<google.maps.Map | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -160,11 +160,10 @@ export default function GoogleMap({
       });
 
     // Cleanup
-    // Cleanup
     return () => {
-      // React hook cleanup
+      // React hook cleanup - map instance will be garbage collected
     };
-  }, [lat, lng, zoom, address, officeName, phone, hours, showDirectionsButton, map]);
+  }, [lat, lng, zoom, address, officeName, phone, hours, showDirectionsButton]); // Removed 'map' from dependencies to prevent infinite loop
 
   // Fallback for when JavaScript is disabled or map fails to load
   const fallbackContent = (

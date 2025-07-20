@@ -3,7 +3,6 @@ import { headers } from 'next/headers';
 import { logger } from '@/lib/logger';
 import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
-import crypto from 'crypto';
 
 // LawPay webhook data types
 interface LawPayWebhookData {
@@ -42,13 +41,6 @@ interface LawPayWebhookData {
 }
 
 const prisma = getPrismaClient();
-
-// Verify webhook signature
-function verifyWebhookSignature(payload: string, signature: string, secret: string): boolean {
-  const expectedSignature = crypto.createHmac('sha256', secret).update(payload).digest('hex');
-
-  return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature));
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -161,15 +153,15 @@ async function handlePaymentCreated(data: LawPayWebhookData) {
           status: 'PENDING',
           gateway: 'LAWPAY',
           paymentMethod: 'CARD',
-          description: (metadata as any).description || 'Payment via LawPay',
+          description: (metadata as Record<string, unknown>).description || 'Payment via LawPay',
           clientEmail:
-            (metadata as any).email ||
+            (metadata as Record<string, unknown>).email ||
             data.email ||
             data.customer_email ||
             data.customer?.email ||
             'unknown@email.com',
           clientName:
-            (metadata as any).name ||
+            (metadata as Record<string, unknown>).name ||
             data.name ||
             data.customer_name ||
             data.customer?.name ||
@@ -177,7 +169,7 @@ async function handlePaymentCreated(data: LawPayWebhookData) {
           metadata: {
             ...metadata,
             lawpayData: JSON.parse(JSON.stringify(data)),
-          } as any,
+          },
         },
       });
     }
@@ -226,15 +218,15 @@ async function handlePaymentSucceeded(data: LawPayWebhookData) {
           gatewayChargeId: transactionId,
           processedAt: new Date(),
           paymentMethod: 'CARD',
-          description: (metadata as any).description || 'Payment via LawPay',
+          description: (metadata as Record<string, unknown>).description || 'Payment via LawPay',
           clientEmail:
-            (metadata as any).email ||
+            (metadata as Record<string, unknown>).email ||
             data.email ||
             data.customer_email ||
             data.customer?.email ||
             'unknown@email.com',
           clientName:
-            (metadata as any).name ||
+            (metadata as Record<string, unknown>).name ||
             data.name ||
             data.customer_name ||
             data.customer?.name ||
@@ -242,7 +234,7 @@ async function handlePaymentSucceeded(data: LawPayWebhookData) {
           metadata: {
             ...metadata,
             lawpayData: JSON.parse(JSON.stringify(data)),
-          } as any,
+          },
         },
       });
     } else {
@@ -257,7 +249,7 @@ async function handlePaymentSucceeded(data: LawPayWebhookData) {
             ...((existingPayment.metadata as object) || {}),
             ...metadata,
             lawpayData: JSON.parse(JSON.stringify(data)),
-          } as any,
+          },
         },
       });
     }
@@ -270,8 +262,8 @@ async function handlePaymentSucceeded(data: LawPayWebhookData) {
 
     // Send confirmation email
     const clientEmail =
-      (metadata as any).clientEmail ||
-      (metadata as any).email ||
+      (metadata as Record<string, unknown>).clientEmail ||
+      (metadata as Record<string, unknown>).email ||
       data.email ||
       data.customer_email ||
       data.customer?.email;
@@ -288,7 +280,7 @@ async function handlePaymentSucceeded(data: LawPayWebhookData) {
     logger.info('Payment notification would be created', {
       type: 'PAYMENT_RECEIVED',
       amount: amountInDollars,
-      clientEmail: metadata?.clientEmail,
+      clientEmail: ((metadata as Record<string, unknown>)?.clientEmail as string) || undefined,
     });
   } catch (error) {
     logger.error('Failed to handle payment success', createErrorLogMeta(error, { paymentId }));
@@ -315,7 +307,7 @@ async function handlePaymentFailed(data: LawPayWebhookData) {
             ...((existingPayment.metadata as object) || {}),
             failureCode: data.failure_code || data.error_code || 'unknown',
             lawpayData: JSON.parse(JSON.stringify(data)),
-          } as any,
+          },
         },
       });
     }
@@ -350,7 +342,7 @@ async function handlePaymentRefunded(data: LawPayWebhookData) {
             refundId,
             refundAmount: refundAmount > 1000 ? refundAmount / 100 : refundAmount,
             lawpayData: JSON.parse(JSON.stringify(data)),
-          } as any,
+          },
         },
       });
     }

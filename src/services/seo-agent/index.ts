@@ -6,7 +6,6 @@ import * as cheerio from 'cheerio';
 import { CronJob } from 'cron';
 import axios from 'axios';
 import { URL } from 'url';
-import crypto from 'crypto';
 import type { SchemaOrgFAQ, SchemaMarkup } from '@/types/services';
 
 export interface SEOAgentConfig {
@@ -1159,7 +1158,7 @@ export class SEOAgent {
 
     try {
       // Fetch competitor sitemap
-      const sitemap = await this.fetchSitemap(url);
+      await this.fetchSitemap(url);
 
       // Analyze top performing pages
       const topPages = await this.identifyTopPages(url);

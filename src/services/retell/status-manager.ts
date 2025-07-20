@@ -1,5 +1,5 @@
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 import { ghlService } from '@/services/gohighlevel';
 import type { VoiceCallStatus, Prisma } from '@prisma/client';

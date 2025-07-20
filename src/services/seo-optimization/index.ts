@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { getPrismaClient } from '@/lib/prisma';
 import { componentLogger } from '@/lib/logger';
 
-import type { SchemaOrgOrganization, SchemaOrgPerson, SchemaOrgFAQ } from '@/types/services';
+// Schema types would be imported here when needed
 
 export interface SchemaOrgData {
   '@context': string;
@@ -478,12 +478,11 @@ Sitemap: ${baseUrl}/sitemap-news.xml`;
   }> {
     componentLogger.info('SEOOptimizationService.analyzePage', { url });
 
-    const issues: string[] = [];
-    const suggestions: string[] = [];
-    const score = 100;
-
     // This would typically fetch and analyze the page
     // For now, returning mock data
+    // const issues: string[] = [];
+    // const suggestions: string[] = [];
+    // const score = 100;
     return {
       score: 95,
       issues: ['Meta description could be longer', 'Missing alt text on 2 images'],
@@ -492,7 +491,7 @@ Sitemap: ${baseUrl}/sitemap-news.xml`;
   }
 
   // Generate hreflang tags for multilingual support
-  static generateHreflangTags(currentPath: string, language: 'en' | 'es'): string {
+  static generateHreflangTags(currentPath: string, _language: 'en' | 'es'): string {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vasquezlawnc.com';
 
     const tags: string[] = [];

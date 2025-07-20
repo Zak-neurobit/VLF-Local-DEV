@@ -166,7 +166,8 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         socket.disconnect();
       }
     };
-  }, [socket]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // Socket is intentionally not in deps to prevent reconnection loops
 
   const refreshData = () => {
     if (socket) {

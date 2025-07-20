@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { emailQueue } from '@/lib/queue/bull';
 import { cache, cacheKeys, CacheTTL } from '@/lib/cache';
 import fs from 'fs/promises';

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { getPrismaClient } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { cache } from '@/lib/cache';
 import { generateCaseNumber } from '@/lib/utils/case-utils';
 import { createNotification } from '@/services/notifications';

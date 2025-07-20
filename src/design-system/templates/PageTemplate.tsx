@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { SEMANTIC_COLORS, TYPOGRAPHY, SPACING } from '../constants';
+// Removed unused design token imports
 
 interface PageTemplateProps {
   title: string;

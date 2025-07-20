@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SEMANTIC_COLORS, BRAND } from '../constants';
+import { BRAND } from '../constants';
 
 interface HeroTemplateProps {
   language: 'en' | 'es';

@@ -1,6 +1,6 @@
 import * as nodemailer from 'nodemailer';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { z } from 'zod';
 import { emailQueue } from '@/lib/queue/bull';
 import pRetry from 'p-retry';
@@ -692,7 +692,7 @@ This is an automated security email. If you didn't request a password reset, ple
               ? `
           <h3>Next Steps</h3>
           <ol>
-            ${(data.nextSteps as string[]).map((step: string) => `<li>${step}</li>`).join('')}
+            ${(data.nextSteps as string[]).map(step => `<li>${step}</li>`).join('')}
           </ol>
           `
               : ''
@@ -703,7 +703,7 @@ This is an automated security email. If you didn't request a password reset, ple
               ? `
           <h3>Documents Needed</h3>
           <ul>
-            ${(data.documentsNeeded as string[]).map((doc: string) => `<li>${doc}</li>`).join('')}
+            ${(data.documentsNeeded as string[]).map(doc => `<li>${doc}</li>`).join('')}
           </ul>
           `
               : ''
@@ -736,9 +736,9 @@ Attorney: ${data.attorneyName}
 UPDATE DETAILS
 ${data.updateContent}
 
-${data.nextSteps && data.nextSteps.length > 0 ? `NEXT STEPS\n${(data.nextSteps as string[]).map((step: string, i: number) => `${i + 1}. ${step}`).join('\n')}\n` : ''}
+${data.nextSteps && data.nextSteps.length > 0 ? `NEXT STEPS\n${(data.nextSteps as string[]).map((step, i) => `${i + 1}. ${step}`).join('\n')}\n` : ''}
 
-${data.documentsNeeded && data.documentsNeeded.length > 0 ? `DOCUMENTS NEEDED\n${(data.documentsNeeded as string[]).map((doc: string) => `- ${doc}`).join('\n')}\n` : ''}
+${data.documentsNeeded && data.documentsNeeded.length > 0 ? `DOCUMENTS NEEDED\n${(data.documentsNeeded as string[]).map(doc => `- ${doc}`).join('\n')}\n` : ''}
 
 If you have any questions about this update, please don't hesitate to contact us at 1-844-YO-PELEO (967-3536) or reply to this email.
 
@@ -929,7 +929,7 @@ YO PELEO POR TI™
               ? `
           <h4>Our Recommendations:</h4>
           <ul>
-            ${(data.recommendations as string[]).map((rec: string) => `<li>${rec}</li>`).join('')}
+            ${(data.recommendations as string[]).map(rec => `<li>${rec}</li>`).join('')}
           </ul>
           `
               : ''
@@ -982,7 +982,7 @@ Attorney: ${data.attorneyName}
 Practice Area: ${data.practiceArea}
 ${data.summary ? `\n${data.summary}` : ''}
 
-${data.recommendations && data.recommendations.length > 0 ? `\nOUR RECOMMENDATIONS:\n${(data.recommendations as string[]).map((rec: string) => `- ${rec}`).join('\n')}` : ''}
+${data.recommendations && data.recommendations.length > 0 ? `\nOUR RECOMMENDATIONS:\n${(data.recommendations as string[]).map(rec => `- ${rec}`).join('\n')}` : ''}
 
 ${data.quote ? `\nFEE ESTIMATE\n${data.quote}\nThis estimate is valid for 30 days from the consultation date.` : ''}
 

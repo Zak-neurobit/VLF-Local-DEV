@@ -369,7 +369,7 @@ export class ContentFactory {
       if (contentItem.faqSection) {
         const schemaContent = {
           faqSection: Array.isArray(contentItem.faqSection)
-            ? (contentItem.faqSection as any[])
+            ? (contentItem.faqSection as FAQ[])
             : [],
         };
         await this.schemaAutomation.generateFAQSchema(schemaContent);
@@ -379,7 +379,7 @@ export class ContentFactory {
       if (contentItem.content?.includes('Step 1:') || contentItem.content?.includes('How to')) {
         const schemaContent = {
           faqSection: Array.isArray(contentItem.faqSection)
-            ? (contentItem.faqSection as any[])
+            ? (contentItem.faqSection as FAQ[])
             : [],
         };
         await this.schemaAutomation.generateHowToSchema(schemaContent);

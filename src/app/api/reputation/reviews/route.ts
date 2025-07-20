@@ -4,6 +4,9 @@ import { authOptions } from '@/lib/auth';
 import { reviewHarvester } from '@/services/reputation-management/review-harvester';
 import { z } from 'zod';
 
+// Force dynamic rendering since we need to access session and searchParams
+export const dynamic = 'force-dynamic';
+
 // GET /api/reputation/reviews - Get reviews with filters
 export async function GET(request: NextRequest) {
   try {
@@ -30,10 +33,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ success: true, reviews });
   } catch (error) {
     console.error('Failed to get reviews:', error);
-    return NextResponse.json(
-      { error: 'Failed to get reviews' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to get reviews' }, { status: 500 });
   }
 }
 
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    
+
     const schema = z.object({
       platformId: z.string().optional(),
     });
@@ -66,17 +66,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, result });
   } catch (error) {
     console.error('Failed to harvest reviews:', error);
-    
+
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid request data', details: error.errors },
         { status: 400 }
       );
     }
-    
-    return NextResponse.json(
-      { error: 'Failed to harvest reviews' },
-      { status: 500 }
-    );
+
+    return NextResponse.json({ error: 'Failed to harvest reviews' }, { status: 500 });
   }
 }

@@ -1,9 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Clock, Mail, Car, Calendar, ArrowRight, CheckCircle } from 'lucide-react';
+import { MapPin, Phone, Clock, Mail, Car, ArrowRight, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { ContactForm } from '@/components/forms/ContactForm';
 
 interface OfficeLocationTemplateProps {

@@ -1,7 +1,7 @@
 import { Agent } from '@/lib/crewai/base';
 import { GoHighLevelService } from '@/services/gohighlevel';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
 import { delay } from '@/lib/utils/async';
 import { z } from 'zod';

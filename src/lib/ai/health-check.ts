@@ -2,7 +2,7 @@ import { enhancedChatService } from './enhanced-chat-service';
 import { aiTranslationService } from './translation-service';
 import { AgentOrchestrator } from '@/lib/agents/agent-orchestrator';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 
 export interface AIServiceHealth {
   status: 'healthy' | 'degraded' | 'unhealthy';

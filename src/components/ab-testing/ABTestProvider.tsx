@@ -9,7 +9,7 @@ interface ABTestContextType {
     testId: string,
     event: string,
     value?: number,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ) => void;
   isLoading: boolean;
   userId: string | null;
@@ -82,7 +82,7 @@ export function ABTestProvider({ children, userId }: ABTestProviderProps) {
   );
 
   const trackConversion = useCallback(
-    async (testId: string, event: string, value?: number, metadata?: Record<string, any>) => {
+    async (testId: string, event: string, value?: number, metadata?: Record<string, unknown>) => {
       if (!userIdState) return;
 
       const variantId = variants.get(testId);
@@ -152,7 +152,7 @@ export function useABTest(testId: string) {
   }
 
   const [variant, setVariant] = useState<string | null>(null);
-  const [content, setContent] = useState<Record<string, any> | null>(null);
+  const [content, setContent] = useState<Record<string, unknown> | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -180,10 +180,10 @@ export function useABTest(testId: string) {
     };
 
     getVariantAndContent();
-  }, [testId, context]);
+  }, [testId, context.getVariant]); // Fixed dependency - only need getVariant method
 
   const trackEvent = useCallback(
-    (event: string, value?: number, metadata?: Record<string, any>) => {
+    (event: string, value?: number, metadata?: Record<string, unknown>) => {
       context.trackConversion(testId, event, value, metadata);
     },
     [testId, context]
@@ -226,13 +226,13 @@ function getDeviceType(): string {
   return 'desktop';
 }
 
-export function useABTestContent<T = Record<string, any>>(
+export function useABTestContent<T = Record<string, unknown>>(
   testId: string,
   defaultContent: T
 ): {
   content: T;
   variant: string | null;
-  trackEvent: (event: string, value?: number, metadata?: Record<string, any>) => void;
+  trackEvent: (event: string, value?: number, metadata?: Record<string, unknown>) => void;
 } {
   const { variant, content, trackEvent } = useABTest(testId);
 
@@ -248,7 +248,7 @@ export function useABTestContent<T = Record<string, any>>(
 // HOC for A/B testing components
 export function withABTest<P extends object>(
   testId: string,
-  defaultContent: Record<string, any> = {}
+  defaultContent: Record<string, unknown> = {}
 ) {
   return function ABTestHOC(WrappedComponent: React.ComponentType<P>) {
     const ABTestComponent = (props: P) => {

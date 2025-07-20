@@ -5,7 +5,7 @@ import { z } from 'zod';
 import fs from 'fs/promises';
 import path from 'path';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import pdfParse from 'pdf-parse';
 
 // Document template schema

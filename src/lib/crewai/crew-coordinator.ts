@@ -20,7 +20,7 @@ import {
   SEOBlogGenerationRequest,
 } from './agents/seo-blog-generation-agent';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { logCrewExecution } from '@/lib/crews/log-execution';
 
 export interface CrewTask {

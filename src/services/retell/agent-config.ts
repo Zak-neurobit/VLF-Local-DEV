@@ -4,7 +4,7 @@
  */
 
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 
 // Retell API Configuration
 export const RETELL_CONFIG = {

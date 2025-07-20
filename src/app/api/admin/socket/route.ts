@@ -5,19 +5,6 @@ import { createErrorLogMeta, errorToLogMeta } from '@/lib/logger/utils';
 import { z } from 'zod';
 
 // Validation schemas
-const AdminCommandSchema = z.object({
-  type: z.enum([
-    'disconnect_user',
-    'broadcast_message',
-    'clear_room',
-    'reset_circuit_breaker',
-    'enable_maintenance',
-    'disable_maintenance',
-    'set_rate_limit',
-  ]),
-  payload: z.record(z.unknown()),
-});
-
 const AlertConfigSchema = z.object({
   metric: z.string(),
   threshold: z.number(),

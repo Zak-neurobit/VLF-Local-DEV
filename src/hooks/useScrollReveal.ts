@@ -116,7 +116,7 @@ export function useCascadeReveal(itemCount: number, baseDelay: number = 100) {
         }, index * baseDelay);
       });
     }
-  }, [isInView, itemCount, baseDelay, revealedItems]);
+  }, [isInView, itemCount, baseDelay]); // Removed revealedItems to prevent infinite loop
 
   return {
     containerRef,

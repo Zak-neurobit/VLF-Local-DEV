@@ -2,7 +2,7 @@ import { getPrismaClient } from '@/lib/prisma';
 import { ghlService } from '@/services/gohighlevel';
 import { emailService } from '@/services/email';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { addDays, subDays, startOfDay, endOfDay } from 'date-fns';
 
 interface AppointmentWithUser {

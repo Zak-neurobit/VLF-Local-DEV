@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 import { t, translations } from '@/lib/translations';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { performance } from 'perf_hooks';
 
 // Enhanced translation service with AI fallback

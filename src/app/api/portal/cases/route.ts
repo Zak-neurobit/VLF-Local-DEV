@@ -16,7 +16,12 @@ export async function GET(request: NextRequest) {
     const startDate = searchParams.get('startDate');
     const endDate = searchParams.get('endDate');
 
-    const where: any = {
+    const where: {
+      clientId: string;
+      status?: { in: string[] };
+      practiceArea?: string;
+      createdAt?: { gte?: Date; lte?: Date };
+    } = {
       clientId: session.user.id,
     };
 
@@ -54,7 +59,7 @@ export async function GET(request: NextRequest) {
 
     // Transform the data
     const transformedCases = cases.map(c => {
-      const metadata = (c.metadata as any) || {};
+      const metadata = (c.metadata as { title?: string; priority?: string }) || {};
       return {
         id: c.id,
         caseNumber: c.caseNumber,

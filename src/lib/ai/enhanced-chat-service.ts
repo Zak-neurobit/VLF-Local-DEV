@@ -2,7 +2,7 @@ import OpenAI from 'openai';
 import { AgentOrchestrator, AgentContext, AgentResponse } from '@/lib/agents/agent-orchestrator';
 import { t } from '@/lib/translations';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { performance } from 'perf_hooks';
 import { EventEmitter } from 'events';
 

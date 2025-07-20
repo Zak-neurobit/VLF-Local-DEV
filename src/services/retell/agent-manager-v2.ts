@@ -1,6 +1,6 @@
 import { getRetellService, RetellAgent } from './index';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { cache, CacheTTL } from '@/lib/cache';
 import { PrismaClient } from '@prisma/client';
 

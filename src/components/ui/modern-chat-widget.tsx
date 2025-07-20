@@ -18,9 +18,9 @@ interface ModernChatWidgetProps {
 }
 
 export function ModernChatWidget({
-  language = 'en',
-  embedded = false,
-  initialMessage,
+  language: _language = 'en',
+  embedded: _embedded = false,
+  initialMessage: _initialMessage,
 }: ModernChatWidgetProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -40,7 +40,7 @@ export function ModernChatWidget({
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const handleSendMessage = async () => {
+  const handleSendMessage = useCallback(async () => {
     if (!inputValue.trim()) return;
 
     const userMessage: Message = {
@@ -116,7 +116,7 @@ export function ModernChatWidget({
     } finally {
       setIsTyping(false);
     }
-  };
+  }, [inputValue]);
 
   return (
     <>

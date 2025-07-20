@@ -198,40 +198,9 @@ export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashbo
 
 // Overview Tab Component
 function OverviewTab({ analytics }: { analytics: VoiceAnalytics }) {
-  const callVolumeData = {
-    labels: analytics.callVolumeByHour.map(h => `${h.hour}:00`),
-    datasets: [
-      {
-        label: 'Call Volume',
-        data: analytics.callVolumeByHour.map((h: any) => h.calls),
-        backgroundColor: 'rgba(59, 130, 246, 0.5)',
-        borderColor: 'rgb(59, 130, 246)',
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  const emotionalDistributionData = {
-    labels: ['Calm', 'Anxious', 'Frustrated', 'Urgent', 'Confused'],
-    datasets: [
-      {
-        data: [
-          analytics.emotionalDistribution.calm,
-          analytics.emotionalDistribution.anxious,
-          analytics.emotionalDistribution.frustrated,
-          analytics.emotionalDistribution.urgent,
-          analytics.emotionalDistribution.confused,
-        ],
-        backgroundColor: [
-          'rgba(34, 197, 94, 0.5)',
-          'rgba(251, 191, 36, 0.5)',
-          'rgba(239, 68, 68, 0.5)',
-          'rgba(236, 72, 153, 0.5)',
-          'rgba(147, 51, 234, 0.5)',
-        ],
-      },
-    ],
-  };
+  // Chart data would be prepared here once react-chartjs-2 is installed
+  // const callVolumeData = { ... }
+  // const emotionalDistributionData = { ... }
 
   return (
     <div className="space-y-6">
@@ -332,22 +301,8 @@ function OverviewTab({ analytics }: { analytics: VoiceAnalytics }) {
 
 // Quality Tab Component
 function QualityTab({ analytics }: { analytics: any }) {
-  const performanceTrendData = {
-    labels: analytics.performanceTrend
-      .slice(-7)
-      .map((t: any) =>
-        new Date(t.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-      ),
-    datasets: [
-      {
-        label: 'Quality Score',
-        data: analytics.performanceTrend.slice(-7).map((t: any) => t.quality),
-        borderColor: 'rgb(59, 130, 246)',
-        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-        tension: 0.3,
-      },
-    ],
-  };
+  // Chart data would be prepared here once react-chartjs-2 is installed
+  // const performanceTrendData = { ... }
 
   return (
     <div className="space-y-6">

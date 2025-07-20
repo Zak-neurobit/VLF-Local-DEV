@@ -110,7 +110,7 @@ interface ModernServiceLocationTemplateProps {
 
 export default function ModernServiceLocationTemplate({
   data,
-  language = 'en',
+  language: _language = 'en',
 }: ModernServiceLocationTemplateProps) {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 

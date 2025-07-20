@@ -1,14 +1,6 @@
 import React, { forwardRef } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import {
-  colors,
-  spacing,
-  typography,
-  shadows,
-  borderRadius,
-  transitions,
-} from '@/styles/design-tokens';
 
 const buttonVariants = cva(
   // Base styles

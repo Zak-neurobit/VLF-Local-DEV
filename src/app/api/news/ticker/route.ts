@@ -26,7 +26,20 @@ const liveFeeds = [
   },
 ];
 
-async function fetchLiveNews(category: string, limit: number): Promise<any[]> {
+interface NewsItem {
+  id: string;
+  title: string;
+  titleEs: string | null;
+  url: string;
+  date: string;
+  category: string;
+  urgent: boolean;
+  excerpt: string;
+  source?: string;
+  live?: boolean;
+}
+
+async function fetchLiveNews(category: string, limit: number): Promise<NewsItem[]> {
   const parser = new RssParser({
     timeout: 5000,
     headers: {
@@ -34,7 +47,7 @@ async function fetchLiveNews(category: string, limit: number): Promise<any[]> {
     },
   });
 
-  const newsItems: any[] = [];
+  const newsItems: NewsItem[] = [];
 
   for (const feed of liveFeeds) {
     if (feed.category !== category && category !== 'all') continue;
@@ -59,7 +72,7 @@ async function fetchLiveNews(category: string, limit: number): Promise<any[]> {
         newsItems.push(...items);
       }
     } catch (error) {
-      logger.warn(`Failed to fetch from ${feed.name}:`, createErrorLogMeta(error) as any);
+      logger.warn(`Failed to fetch from ${feed.name}:`, createErrorLogMeta(error));
     }
   }
 
@@ -88,7 +101,7 @@ export async function GET(request: NextRequest) {
 
     logger.info(`News ticker request: category=${category}, limit=${limit}, locale=${locale}`);
 
-    let newsItems: any[] = [];
+    let newsItems: NewsItem[] = [];
 
     // Try to get from database first
     try {
@@ -128,13 +141,13 @@ export async function GET(request: NextRequest) {
         url: `/blog/${post.slug}`,
         date: post.publishedAt ? post.publishedAt.toISOString() : new Date().toISOString(),
         category: post.category,
-        urgent: (post.metadata as any)?.urgent || false,
+        urgent: (post.metadata as Record<string, unknown>)?.urgent === true || false,
         excerpt: locale === 'es' ? post.excerptEs || post.excerpt : post.excerpt,
       }));
 
       logger.info(`Fetched ${newsItems.length} news items from database`);
     } catch (dbError) {
-      logger.warn('Database unavailable, fetching live news:', createErrorLogMeta(dbError) as any);
+      logger.warn('Database unavailable, fetching live news:', createErrorLogMeta(dbError));
 
       // If database fails, fetch live news from RSS feeds
       newsItems = await fetchLiveNews(category, limit);
@@ -221,7 +234,7 @@ export async function GET(request: NextRequest) {
       total: newsItems.length,
     });
   } catch (error) {
-    logger.error('Error fetching news ticker items:', createErrorLogMeta(error) as any);
+    logger.error('Error fetching news ticker items:', createErrorLogMeta(error));
 
     // Return static fallback on error
     const fallbackNews = [

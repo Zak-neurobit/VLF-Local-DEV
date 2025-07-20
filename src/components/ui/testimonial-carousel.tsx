@@ -35,7 +35,8 @@ export function TestimonialCarousel() {
       handleNext();
     }, 5000);
     return () => clearInterval(timer);
-  }, [currentIndex]);
+  }, [currentIndex]); // eslint-disable-next-line react-hooks/exhaustive-deps
+  // handleNext is intentionally omitted to prevent timer reset on every render
 
   const handlePrevious = () => {
     setDirection(-1);

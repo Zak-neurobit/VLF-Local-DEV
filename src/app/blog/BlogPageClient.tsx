@@ -9,7 +9,6 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { getCategoryById, getAllCategories } from '@/lib/blog/categories';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
-import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
 // Dynamic import for client-side only rendering
 const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {

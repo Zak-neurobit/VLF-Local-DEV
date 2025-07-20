@@ -2,17 +2,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import { abTestEngine } from '@/lib/ab-testing/ab-test-engine';
 import { z } from 'zod';
 
+// Force dynamic rendering since we need to access headers
+export const dynamic = 'force-dynamic';
+
 const AssignRequestSchema = z.object({
   testId: z.string(),
   userId: z.string(),
   sessionId: z.string(),
-  userContext: z.object({
-    userAgent: z.string().optional(),
-    ipAddress: z.string().optional(),
-    geoLocation: z.string().optional(),
-    deviceType: z.enum(['desktop', 'mobile', 'tablet']).optional(),
-    timestamp: z.string(),
-  }).optional(),
+  userContext: z
+    .object({
+      userAgent: z.string().optional(),
+      ipAddress: z.string().optional(),
+      geoLocation: z.string().optional(),
+      deviceType: z.enum(['desktop', 'mobile', 'tablet']).optional(),
+      timestamp: z.string(),
+    })
+    .optional(),
 });
 
 // POST /api/ab-testing/assign - Assign user to A/B test variant
@@ -22,14 +27,16 @@ export async function POST(request: NextRequest) {
     const { testId, userId, sessionId, userContext } = AssignRequestSchema.parse(body);
 
     // Get client IP if not provided
-    const ipAddress = userContext?.ipAddress || 
-      request.headers.get('x-forwarded-for')?.split(',')[0] || 
-      request.headers.get('x-real-ip') || 
+    const ipAddress =
+      userContext?.ipAddress ||
+      request.headers.get('x-forwarded-for')?.split(',')[0] ||
+      request.headers.get('x-real-ip') ||
       'unknown';
 
     // Get geo location from headers (if available)
-    const geoLocation = request.headers.get('cf-ipcountry') || 
-      request.headers.get('x-vercel-ip-country') || 
+    const geoLocation =
+      request.headers.get('cf-ipcountry') ||
+      request.headers.get('x-vercel-ip-country') ||
       undefined;
 
     const enhancedUserContext = {
@@ -61,23 +68,20 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Failed to assign A/B test variant:', error);
-    
+
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { 
-          error: 'Invalid request data', 
+        {
+          error: 'Invalid request data',
           details: error.errors.map(e => ({
             field: e.path.join('.'),
             message: e.message,
-          }))
+          })),
         },
         { status: 400 }
       );
     }
-    
-    return NextResponse.json(
-      { error: 'Failed to assign variant' },
-      { status: 500 }
-    );
+
+    return NextResponse.json({ error: 'Failed to assign variant' }, { status: 500 });
   }
 }

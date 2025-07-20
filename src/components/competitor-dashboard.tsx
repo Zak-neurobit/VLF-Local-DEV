@@ -1,11 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import {
-  CompetitorProfile,
-  CompetitorActivity,
-  CompetitiveAnalysis,
-} from '@/lib/crewai/competitor-monitoring-system';
+import { CompetitorActivity, CompetitiveAnalysis } from '@/lib/crewai/competitor-monitoring-system';
 
 interface CompetitorDashboardProps {
   className?: string;
@@ -126,38 +122,7 @@ export default function CompetitorDashboard({ className = '' }: CompetitorDashbo
     }
   };
 
-  const _getActivityIcon = (type: string) => {
-    const icons = {
-      content: '📝',
-      ranking: '📊',
-      social: '💬',
-      ad: '📢',
-      review: '⭐',
-      website_update: '🌐',
-    };
-    return icons[type as keyof typeof icons] || '📌';
-  };
-
-  const _getActivityColor = (type: string) => {
-    const colors = {
-      content: 'bg-blue-100 text-blue-800',
-      ranking: 'bg-green-100 text-green-800',
-      social: 'bg-purple-100 text-purple-800',
-      ad: 'bg-yellow-100 text-yellow-800',
-      review: 'bg-orange-100 text-orange-800',
-      website_update: 'bg-gray-100 text-gray-800',
-    };
-    return colors[type as keyof typeof colors] || 'bg-gray-100 text-gray-800';
-  };
-
-  const _getImpactBadge = (impact: string) => {
-    const styles = {
-      high: 'bg-red-100 text-red-800',
-      medium: 'bg-yellow-100 text-yellow-800',
-      low: 'bg-green-100 text-green-800',
-    };
-    return styles[impact as keyof typeof styles] || styles.low;
-  };
+  // Helper functions for activity display could be added here if needed
 
   if (isLoading) {
     return (

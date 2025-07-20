@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ChevronRight, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -31,7 +31,7 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
   useEffect(() => {
     console.log('[NewsTicker] Component mounted with locale:', locale);
     return () => console.log('[NewsTicker] Component unmounted');
-  }, []);
+  }, [locale]);
 
   useEffect(() => {
     // Fetch recent news items

@@ -92,18 +92,14 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
     timestamp: Date;
   };
   const [messages, setMessages] = useState<InternalMessage[]>([]);
-  const [activeAgent, _setActiveAgent] = useState<string | null>(null);
+  const [activeAgent] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // CrewAI Integration
   const {
-    isLoading: _isLoading,
     createLegalConsultationTask,
     createAppointmentSchedulingTask,
-    createDocumentAnalysisTask,
     createClientIntakeWorkflow,
-    getTaskStatus: _getTaskStatus,
-    bookAppointment: _bookAppointment,
   } = useCrewAI();
 
   // Message handling
@@ -414,7 +410,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
         }
       }
     },
-    [initializeSocket]
+    [initializeSocket, mode]
   );
 
   // Execute specialized tasks

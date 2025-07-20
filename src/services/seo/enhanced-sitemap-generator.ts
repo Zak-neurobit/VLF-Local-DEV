@@ -146,7 +146,6 @@ export class EnhancedSitemapGenerator {
 
     // City pages
     Object.keys(ncCities).forEach(citySlug => {
-      const city = ncCities[citySlug];
       entries.push({
         url: `/locations/nc/${citySlug}`,
         changefreq: 'weekly',

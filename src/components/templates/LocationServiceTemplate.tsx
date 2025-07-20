@@ -1,9 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Clock, Star, CheckCircle, ArrowRight, Users, Award } from 'lucide-react';
+import { MapPin, Phone, Star, CheckCircle, ArrowRight, Users, Award } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { ContactForm } from '@/components/forms/ContactForm';
 
 interface LocationServiceTemplateProps {
@@ -56,29 +55,51 @@ export function LocationServiceTemplate({
       description: service.description[language],
     },
     whyChoose: {
-      title: isSpanish ? `¿Por Qué Elegir Vasquez Law Firm en ${city}?` : `Why Choose Vasquez Law Firm in ${city}?`,
-      reason1: isSpanish ? 'Conocimiento profundo de las leyes locales' : 'Deep knowledge of local laws',
-      reason2: isSpanish ? 'Relaciones establecidas con tribunales locales' : 'Established relationships with local courts',
-      reason3: isSpanish ? 'Disponibilidad para reuniones en persona' : 'Available for in-person meetings',
+      title: isSpanish
+        ? `¿Por Qué Elegir Vasquez Law Firm en ${city}?`
+        : `Why Choose Vasquez Law Firm in ${city}?`,
+      reason1: isSpanish
+        ? 'Conocimiento profundo de las leyes locales'
+        : 'Deep knowledge of local laws',
+      reason2: isSpanish
+        ? 'Relaciones establecidas con tribunales locales'
+        : 'Established relationships with local courts',
+      reason3: isSpanish
+        ? 'Disponibilidad para reuniones en persona'
+        : 'Available for in-person meetings',
       reason4: isSpanish ? 'Comprensión de la comunidad local' : 'Understanding of local community',
     },
     process: {
       title: isSpanish ? 'Nuestro Proceso' : 'Our Process',
-      step1: { title: isSpanish ? 'Consulta Inicial' : 'Initial Consultation', desc: isSpanish ? 'Evaluamos su caso sin costo' : 'We evaluate your case at no cost' },
-      step2: { title: isSpanish ? 'Investigación' : 'Investigation', desc: isSpanish ? 'Recopilamos evidencia y documentos' : 'We gather evidence and documents' },
-      step3: { title: isSpanish ? 'Estrategia' : 'Strategy', desc: isSpanish ? 'Desarrollamos un plan personalizado' : 'We develop a customized plan' },
-      step4: { title: isSpanish ? 'Resolución' : 'Resolution', desc: isSpanish ? 'Trabajamos hacia el mejor resultado' : 'We work toward the best outcome' },
+      step1: {
+        title: isSpanish ? 'Consulta Inicial' : 'Initial Consultation',
+        desc: isSpanish ? 'Evaluamos su caso sin costo' : 'We evaluate your case at no cost',
+      },
+      step2: {
+        title: isSpanish ? 'Investigación' : 'Investigation',
+        desc: isSpanish ? 'Recopilamos evidencia y documentos' : 'We gather evidence and documents',
+      },
+      step3: {
+        title: isSpanish ? 'Estrategia' : 'Strategy',
+        desc: isSpanish ? 'Desarrollamos un plan personalizado' : 'We develop a customized plan',
+      },
+      step4: {
+        title: isSpanish ? 'Resolución' : 'Resolution',
+        desc: isSpanish ? 'Trabajamos hacia el mejor resultado' : 'We work toward the best outcome',
+      },
     },
     location: {
       title: isSpanish ? 'Oficina Más Cercana' : 'Nearest Office',
-      serving: isSpanish ? `Sirviendo a ${city} y Áreas Circundantes` : `Serving ${city} and Surrounding Areas`,
+      serving: isSpanish
+        ? `Sirviendo a ${city} y Áreas Circundantes`
+        : `Serving ${city} and Surrounding Areas`,
       getDirections: isSpanish ? 'Obtener Direcciones' : 'Get Directions',
     },
     cta: {
       title: isSpanish ? `Comience Su Caso en ${city} Hoy` : `Start Your ${city} Case Today`,
       subtitle: isSpanish
         ? 'No espere para proteger sus derechos. Contacte a nuestros abogados locales ahora.'
-        : 'Don\'t wait to protect your rights. Contact our local attorneys now.',
+        : "Don't wait to protect your rights. Contact our local attorneys now.",
     },
   };
 
@@ -107,7 +128,7 @@ export function LocationServiceTemplate({
           'Car accident claims',
           'Slip and fall cases',
           'Medical malpractice',
-          'Workers\' compensation',
+          "Workers' compensation",
           'Product liability',
           'Wrongful death',
         ],
@@ -216,7 +237,7 @@ export function LocationServiceTemplate({
                 {content.location.serving}
               </span>
             </motion.div>
-            
+
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -225,7 +246,7 @@ export function LocationServiceTemplate({
             >
               {content.hero.title}
             </motion.h1>
-            
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -265,21 +286,24 @@ export function LocationServiceTemplate({
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">{content.stats.title}</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[content.stats.stat1, content.stats.stat2, content.stats.stat3, content.stats.stat4].map(
-                (stat, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="text-center"
-                  >
-                    <div className="text-4xl font-bold text-secondary-400 mb-2">{stat.number}</div>
-                    <div className="text-gray-300">{stat.label}</div>
-                  </motion.div>
-                )
-              )}
+              {[
+                content.stats.stat1,
+                content.stats.stat2,
+                content.stats.stat3,
+                content.stats.stat4,
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="text-center"
+                >
+                  <div className="text-4xl font-bold text-secondary-400 mb-2">{stat.number}</div>
+                  <div className="text-gray-300">{stat.label}</div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
@@ -318,7 +342,9 @@ export function LocationServiceTemplate({
                   <CheckCircle className="w-6 h-6 text-green-500 mb-3" />
                   <h3 className="text-lg font-semibold mb-2">{benefit}</h3>
                   <p className="text-gray-600 text-sm">
-                    {isSpanish ? 'Representación experta disponible' : 'Expert representation available'}
+                    {isSpanish
+                      ? 'Representación experta disponible'
+                      : 'Expert representation available'}
                   </p>
                 </motion.div>
               ))}
@@ -364,24 +390,27 @@ export function LocationServiceTemplate({
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">{content.process.title}</h2>
             <div className="grid md:grid-cols-4 gap-8">
-              {[content.process.step1, content.process.step2, content.process.step3, content.process.step4].map(
-                (step, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="text-center"
-                  >
-                    <div className="w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                      {index + 1}
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-                    <p className="text-gray-600">{step.desc}</p>
-                  </motion.div>
-                )
-              )}
+              {[
+                content.process.step1,
+                content.process.step2,
+                content.process.step3,
+                content.process.step4,
+              ].map((step, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="text-center"
+                >
+                  <div className="w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                    {index + 1}
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
+                  <p className="text-gray-600">{step.desc}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
@@ -433,8 +462,12 @@ export function LocationServiceTemplate({
                 <div className="w-full h-full flex items-center justify-center text-gray-600">
                   <div className="text-center">
                     <MapPin className="w-16 h-16 mx-auto mb-4" />
-                    <p>{city}, {state}</p>
-                    <p className="text-sm">{isSpanish ? 'Mapa interactivo disponible' : 'Interactive map available'}</p>
+                    <p>
+                      {city}, {state}
+                    </p>
+                    <p className="text-sm">
+                      {isSpanish ? 'Mapa interactivo disponible' : 'Interactive map available'}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -476,7 +509,10 @@ export function LocationServiceTemplate({
               <h3 className="text-2xl font-bold mb-6 text-center">
                 {isSpanish ? 'Envíenos un Mensaje' : 'Send Us a Message'}
               </h3>
-              <ContactForm language={language} source={`location-${city.toLowerCase()}-${service.key}`} />
+              <ContactForm
+                language={language}
+                source={`location-${city.toLowerCase()}-${service.key}`}
+              />
             </div>
           </div>
         </div>

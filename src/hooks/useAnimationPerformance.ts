@@ -151,7 +151,8 @@ export function useAnimationFrame(callback: (deltaTime: number) => void) {
         cancelAnimationFrame(requestRef.current);
       }
     };
-  }, [callback]);
+  }, [callback]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Callback is intentionally in deps to ensure latest version is used
 }
 
 // Smooth value interpolation

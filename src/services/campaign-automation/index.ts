@@ -1,7 +1,7 @@
 import { ghlService } from '@/services/gohighlevel';
 import { getPrismaClient } from '@/lib/prisma';
 import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { errorToLogMeta } from '@/lib/logger/utils';
 import { addDays, subDays, startOfDay, endOfDay } from 'date-fns';
 
 interface CampaignTarget {

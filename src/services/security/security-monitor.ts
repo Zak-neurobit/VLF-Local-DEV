@@ -3,12 +3,10 @@ import { prisma } from '@/lib/prisma-safe';
 import { securityReportStubs } from '@/lib/prisma-model-stubs';
 import { EventEmitter } from 'events';
 import crypto from 'crypto';
-import { z } from 'zod';
 import type {
   ThreatDetectorConfig,
   SecurityPolicy,
   MonitoringStatus,
-  SecurityMetrics,
   ThreatResponseAction,
 } from '@/lib/security/types';
 
@@ -24,7 +22,7 @@ interface SecurityThreat {
   timestamp: Date;
   evidence: string[];
   count: number;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 interface ScanResult {

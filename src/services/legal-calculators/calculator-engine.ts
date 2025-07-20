@@ -4,8 +4,8 @@ import { z } from 'zod';
 // Calculator result schemas
 const CalculatorResultSchema = z.object({
   calculatorType: z.string(),
-  inputs: z.record(z.any()),
-  results: z.record(z.any()),
+  inputs: z.record(z.unknown()),
+  results: z.record(z.unknown()),
   recommendations: z.array(z.string()),
   disclaimer: z.string(),
   timestamp: z.date(),

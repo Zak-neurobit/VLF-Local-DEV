@@ -55,7 +55,6 @@ export default function ModernHero({ language }: ModernHeroProps) {
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   const content = {
     en: {
@@ -163,27 +162,37 @@ export default function ModernHero({ language }: ModernHeroProps) {
   };
 
   useEffect(() => {
-    setIsLoaded(true);
+    // Dynamically import gsap to avoid SSR issues
+    const animateStats = async () => {
+      const { gsap } = await import('gsap');
 
-    // Animate stats on scroll
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            gsap.to(entry.target, {
-              scale: 1,
-              opacity: 1,
-              duration: 0.5,
-              stagger: 0.1,
-            });
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+      // Animate stats on scroll
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              gsap.to(entry.target, {
+                scale: 1,
+                opacity: 1,
+                duration: 0.5,
+                stagger: 0.1,
+              });
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
 
-    const stats = document.querySelectorAll('.stat-card');
-    stats.forEach(stat => observer.observe(stat));
+      const stats = document.querySelectorAll('.stat-card');
+      stats.forEach(stat => observer.observe(stat));
+
+      return observer;
+    };
+
+    let observer: IntersectionObserver | null = null;
+    animateStats().then(obs => {
+      observer = obs;
+    });
 
     // Testimonial rotation
     const interval = setInterval(() => {
@@ -191,7 +200,7 @@ export default function ModernHero({ language }: ModernHeroProps) {
     }, 5000);
 
     return () => {
-      observer.disconnect();
+      observer?.disconnect();
       clearInterval(interval);
     };
   }, [t.testimonials.length]);
