@@ -103,6 +103,18 @@ class MockPrismaClient {
     }),
   };
 
+  blogPost = {
+    findMany: async () => [],
+    findUnique: async () => null,
+    findFirst: async () => null,
+    create: async (args: { data: Record<string, unknown> }) => ({
+      id: 'mock-' + Date.now(),
+      ...args.data,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }),
+  };
+
   async $transaction(fn: (client: MockPrismaClient) => Promise<unknown>) {
     return fn(this);
   }

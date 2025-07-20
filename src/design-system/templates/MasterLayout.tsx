@@ -6,6 +6,7 @@ import { ConsistentFooter } from '../components/ConsistentFooter';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { NewsTicker } from '@/components/ui/news-ticker';
 
 interface MasterLayoutProps {
   children: React.ReactNode;
@@ -49,62 +50,73 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
 
   return (
     <div className="min-h-screen flex flex-col bg-black">
-      <ConsistentHeader
-        language={currentLanguage}
-        setLanguage={handleLanguageChange}
-        variant={variant === 'hero' ? 'transparent' : 'solid'}
-      />
+      {/* News Ticker - Fixed at the very top */}
+      <div className="fixed top-0 left-0 right-0 z-[60]">
+        <NewsTicker locale={currentLanguage} />
+      </div>
 
-      {/* Breadcrumbs */}
-      {showBreadcrumbs && safePathname !== '/' && variant !== 'hero' && (
-        <div className="bg-black/50 border-b border-primary/20 backdrop-blur-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <nav className="flex" aria-label="Breadcrumb">
-              <ol className="flex items-center space-x-2 text-sm">
-                {getBreadcrumbs().map((crumb, index, array) => (
-                  <li key={crumb.href} className="flex items-center">
-                    {index > 0 && (
-                      <svg
-                        className="flex-shrink-0 h-4 w-4 text-gray-400 mx-2"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    )}
-                    {index === array.length - 1 ? (
-                      <span className="text-gray-300 font-medium">{crumb.name}</span>
-                    ) : (
-                      <Link
-                        href={crumb.href}
-                        className="text-gray-400 hover:text-primary transition-colors"
-                      >
-                        {crumb.name}
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ol>
-            </nav>
+      {/* Header - Adjusted to account for ticker height */}
+      <div className="fixed top-[32px] left-0 right-0 z-50">
+        <ConsistentHeader
+          language={currentLanguage}
+          setLanguage={handleLanguageChange}
+          variant={variant === 'hero' ? 'transparent' : 'solid'}
+        />
+      </div>
+
+      {/* Main content area with padding to account for fixed header + ticker */}
+      <div className={variant === 'hero' ? 'pt-[32px]' : 'pt-[132px]'}>
+        {' '}
+        {/* Hero needs ticker space, normal needs ticker + header */}
+        {/* Breadcrumbs */}
+        {showBreadcrumbs && safePathname !== '/' && variant !== 'hero' && (
+          <div className="bg-black/50 border-b border-primary/20 backdrop-blur-sm">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+              <nav className="flex" aria-label="Breadcrumb">
+                <ol className="flex items-center space-x-2 text-sm">
+                  {getBreadcrumbs().map((crumb, index, array) => (
+                    <li key={crumb.href} className="flex items-center">
+                      {index > 0 && (
+                        <svg
+                          className="flex-shrink-0 h-4 w-4 text-gray-400 mx-2"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      )}
+                      {index === array.length - 1 ? (
+                        <span className="text-gray-300 font-medium">{crumb.name}</span>
+                      ) : (
+                        <Link
+                          href={crumb.href}
+                          className="text-gray-400 hover:text-primary transition-colors"
+                        >
+                          {crumb.name}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            </div>
           </div>
-        </div>
-      )}
-
-      <main className="flex-grow relative">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
-          {children}
-        </motion.div>
-      </main>
-
-      <ConsistentFooter language={currentLanguage} />
+        )}
+        <main className="flex-grow relative">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            {children}
+          </motion.div>
+        </main>
+        <ConsistentFooter language={currentLanguage} />
+      </div>
 
       {/* Background Effects */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">

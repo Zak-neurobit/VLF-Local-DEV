@@ -29,15 +29,20 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
     // Fetch recent news items
     const fetchNews = async () => {
       try {
+        console.log('[NewsTicker] Fetching news for locale:', locale);
         const response = await fetch(
           `/api/news/ticker?category=immigration&limit=10&locale=${locale}`
         );
+        console.log('[NewsTicker] Response status:', response.status);
         if (response.ok) {
           const data = await response.json();
+          console.log('[NewsTicker] Received data:', data);
           setNewsItems(data.posts || []);
+        } else {
+          console.error('[NewsTicker] Failed to fetch news, status:', response.status);
         }
       } catch (error) {
-        console.error('Error fetching news:', error);
+        console.error('[NewsTicker] Error fetching news:', error);
       }
     };
 
@@ -58,7 +63,15 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
   }, [isPaused, newsItems.length]);
 
   if (newsItems.length === 0) {
-    return null;
+    console.log('[NewsTicker] No news items to display');
+    // Return a placeholder to verify the component is mounting
+    return (
+      <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-2 px-4">
+        <div className="max-w-7xl mx-auto text-center text-sm">
+          <span className="text-[#C9974D]">Loading news...</span>
+        </div>
+      </div>
+    );
   }
 
   const currentItem = newsItems[currentIndex];
@@ -136,9 +149,10 @@ const tickerStyles = `
 }
 `;
 
-// Inject styles
-if (typeof document !== 'undefined') {
+// Inject styles safely
+if (typeof document !== 'undefined' && !document.getElementById('news-ticker-styles')) {
   const style = document.createElement('style');
+  style.id = 'news-ticker-styles';
   style.textContent = tickerStyles;
   document.head.appendChild(style);
 }
