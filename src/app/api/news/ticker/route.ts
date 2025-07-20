@@ -145,7 +145,7 @@ export async function GET(request: NextRequest) {
         date: post.publishedAt ? post.publishedAt.toISOString() : new Date().toISOString(),
         category: post.category,
         urgent: (post.metadata as Record<string, unknown>)?.urgent === true || false,
-        excerpt: locale === 'es' ? post.excerptEs || post.excerpt : post.excerpt,
+        excerpt: locale === 'es' ? post.excerptEs || post.excerpt || '' : post.excerpt || '',
       }));
 
       logger.info(`Fetched ${newsItems.length} news items from database`);
