@@ -1,11 +1,15 @@
-'use client';
+import { Metadata } from 'next';
+import OurTeamPageClient from './OurTeamPageClient';
 
-import Script from 'next/script';
-import Image from 'next/image';
-import { Phone, ArrowRight, Users, Award, Heart, Star } from 'lucide-react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
-import { motion } from 'framer-motion';
-import { TRADEMARK } from '@/lib/constants/trademark';
+export const metadata: Metadata = {
+  title: 'Our Team | Vasquez Law Firm',
+  description: 'Meet the dedicated team at Vasquez Law Firm. Our bilingual staff is committed to providing exceptional legal support to our clients.',
+  keywords: 'legal team, law firm staff, bilingual legal support, Vasquez Law Firm team',
+};
+
+export default function OurTeamPage() {
+  return <OurTeamPageClient />;
+}
 
 const staffMembers = [
   {

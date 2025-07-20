@@ -241,7 +241,7 @@ export class RecordingManager {
 
       actionItemPatterns.forEach(pattern => {
         const matches = transcript.match(pattern) || [];
-        matches.forEach(match => {
+        matches.forEach((match: string) => {
           if (match.length > 10 && match.length < 100) {
             analysis.actionItems.push(match.trim());
           }
