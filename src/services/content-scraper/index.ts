@@ -1,7 +1,7 @@
 import { componentLogger, performanceLogger } from '@/lib/logger';
 import { getPrismaClient } from '@/lib/prisma';
 import puppeteer from 'puppeteer';
-import { google, youtube_v3 } from 'googleapis';
+import { youtube_v3 } from 'googleapis';
 import axios from 'axios';
 
 export interface ScraperConfig {
@@ -48,8 +48,7 @@ export class ContentScraper {
 
   constructor(config: ScraperConfig) {
     this.config = config;
-    this.youtube = google.youtube({
-      version: 'v3',
+    this.youtube = new youtube_v3.Youtube({
       auth: config.youtube.apiKey,
     });
   }

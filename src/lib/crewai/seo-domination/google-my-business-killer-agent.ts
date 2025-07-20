@@ -3,7 +3,14 @@ import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { logger } from '@/lib/logger';
 import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
 import { getPrismaClient } from '@/lib/prisma';
-import { google } from 'googleapis';
+// Import only specific Google APIs we need to avoid loading all APIs
+import { mybusinessbusinessinformation_v1, places_v1, google as googleApis } from 'googleapis';
+const google = {
+  auth: googleApis.auth,
+  mybusinessbusinessinformation: (version: string) =>
+    new mybusinessbusinessinformation_v1.Mybusinessbusinessinformation({}),
+  places: (version: string) => new places_v1.Places({}),
+};
 import * as cron from 'node-cron';
 import type {
   GMBReview,
