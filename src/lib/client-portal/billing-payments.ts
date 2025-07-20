@@ -223,19 +223,21 @@ export class ClientPortalBillingPayments {
           total: totalAmount,
           amountPaid: 0,
           amountDue: totalAmount,
-          metadata: {
-            billingPeriod: {
-              start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
-              end: new Date(),
-            },
-            taxRate,
-            discountAmount: 0,
-            paymentTerms: 'Net 30',
-            lateFeePercentage: 1.5,
-            acceptedPaymentMethods: ['CARD', 'ACH', 'CHECK'],
-            issuedDate: new Date(),
-            notes: params.notes,
-          } as Record<string, unknown>,
+          metadata: JSON.parse(
+            JSON.stringify({
+              billingPeriod: {
+                start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+                end: new Date(),
+              },
+              taxRate,
+              discountAmount: 0,
+              paymentTerms: 'Net 30',
+              lateFeePercentage: 1.5,
+              acceptedPaymentMethods: ['CARD', 'ACH', 'CHECK'],
+              issuedDate: new Date(),
+              notes: params.notes,
+            })
+          ),
         },
       });
 
@@ -291,10 +293,12 @@ export class ClientPortalBillingPayments {
       where: { id: invoiceId },
       data: {
         status: 'SENT' as InvoiceStatus,
-        metadata: {
-          ...((invoice.metadata as Record<string, unknown>) || {}),
-          sentDate: new Date(),
-        } as Record<string, unknown>,
+        metadata: JSON.parse(
+          JSON.stringify({
+            ...((invoice.metadata as Record<string, unknown>) || {}),
+            sentDate: new Date(),
+          })
+        ),
       },
     });
 
@@ -380,12 +384,14 @@ export class ClientPortalBillingPayments {
           description: params.invoiceId
             ? `Payment for Invoice ${params.invoiceId}`
             : 'Account payment',
-          metadata: {
-            checkNumber: params.checkNumber,
-            processingFee,
-            netAmount: params.amount - processingFee,
-            isRefunded: false,
-          },
+          metadata: JSON.parse(
+            JSON.stringify({
+              checkNumber: params.checkNumber,
+              processingFee,
+              netAmount: params.amount - processingFee,
+              isRefunded: false,
+            })
+          ),
         },
       });
 
@@ -463,16 +469,18 @@ export class ClientPortalBillingPayments {
           status: 'ACTIVE',
           paidAmount: params.downPayment,
           remainingAmount: remainingBalance,
-          metadata: {
-            downPayment: params.downPayment,
-            endDate,
-            paymentSchedule,
-            completedPayments: 0,
-            missedPayments: 0,
-            lateFeeAmount: 25,
-            gracePeriodDays: 5,
-            autoPayEnabled: params.autoPayEnabled || false,
-          },
+          metadata: JSON.parse(
+            JSON.stringify({
+              downPayment: params.downPayment,
+              endDate,
+              paymentSchedule,
+              completedPayments: 0,
+              missedPayments: 0,
+              lateFeeAmount: 25,
+              gracePeriodDays: 5,
+              autoPayEnabled: params.autoPayEnabled || false,
+            })
+          ),
         },
       });
 
@@ -646,9 +654,11 @@ export class ClientPortalBillingPayments {
           description: params.description,
           recordedBy: params.approvedBy || 'system',
           approvedBy: params.approvedBy,
-          metadata: {
-            notes: params.notes || '',
-          },
+          metadata: JSON.parse(
+            JSON.stringify({
+              notes: params.notes || '',
+            })
+          ),
         },
       });
 
@@ -775,7 +785,7 @@ export class ClientPortalBillingPayments {
         orderBy: { createdAt: 'desc' },
       });
 
-      (report as Record<string, unknown>).trustActivity = trustTransactions;
+      Object.assign(report, { trustActivity: trustTransactions });
     }
 
     return report;
@@ -889,11 +899,13 @@ export class ClientPortalBillingPayments {
     await prisma.paymentPlan.update({
       where: { id: plan.id },
       data: {
-        metadata: {
-          ...(metadata || {}),
-          paymentSchedule: schedule,
-          completedPayments,
-        } as Record<string, unknown>,
+        metadata: JSON.parse(
+          JSON.stringify({
+            ...(metadata || {}),
+            paymentSchedule: schedule,
+            completedPayments,
+          })
+        ),
         nextPaymentDate: nextPayment ? new Date(nextPayment.dueDate) : undefined,
         status,
       },
