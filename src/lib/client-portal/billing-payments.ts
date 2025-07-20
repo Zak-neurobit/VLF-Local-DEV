@@ -16,7 +16,10 @@ import {
   AccountType,
   RefundStatus,
   TrustTransactionType,
+  Prisma,
 } from '@prisma/client';
+
+type JsonValue = Prisma.JsonValue;
 
 export interface Invoice {
   id: string;
@@ -322,7 +325,7 @@ export class ClientPortalBillingPayments {
     clientId: string;
     clientEmail?: string;
     clientName?: string;
-    clientPhone?: string;
+    clientPhone?: string | null;
     invoiceId?: string;
     caseId?: string;
     amount: number;
@@ -976,12 +979,12 @@ export class ClientPortalBillingPayments {
 
   private mapToInvoice(data: {
     id: string;
-    caseId: string;
+    caseId: string | null;
     clientId: string;
     invoiceNumber: string;
     dueDate: Date;
     status: InvoiceStatus;
-    lineItems: string;
+    lineItems: string | JsonValue;
     subtotal: number;
     tax: number;
     total: number;
@@ -989,18 +992,18 @@ export class ClientPortalBillingPayments {
     amountDue: number;
     metadata: unknown;
     createdAt: Date;
-    paidAt?: Date;
+    paidAt?: Date | null;
   }): Invoice {
     const metadata = data.metadata as Record<string, unknown>;
     return {
       id: data.id,
-      caseId: data.caseId,
+      caseId: data.caseId || '',
       clientId: data.clientId,
       invoiceNumber: data.invoiceNumber,
       billingPeriod: metadata?.billingPeriod as { start: Date; end: Date },
       dueDate: data.dueDate,
       status: data.status,
-      lineItems: JSON.parse(data.lineItems),
+      lineItems: typeof data.lineItems === 'string' ? JSON.parse(data.lineItems) : data.lineItems,
       subtotal: data.subtotal,
       taxRate: (metadata?.taxRate as number) || 0,
       taxAmount: data.tax,
@@ -1014,7 +1017,7 @@ export class ClientPortalBillingPayments {
       issuedDate: (metadata?.issuedDate as Date) || data.createdAt,
       sentDate: metadata?.sentDate as Date,
       viewedDate: metadata?.viewedDate as Date,
-      paidDate: data.paidAt,
+      paidDate: data.paidAt || undefined,
       notes: metadata?.notes as string,
       internalNotes: metadata?.internalNotes as string,
       attachments: (metadata?.attachments as string[]) || [],
@@ -1025,17 +1028,17 @@ export class ClientPortalBillingPayments {
     id: string;
     clientEmail: string;
     clientName: string;
-    clientPhone?: string;
-    caseId?: string;
-    invoiceId?: string;
+    clientPhone?: string | null;
+    caseId?: string | null;
+    invoiceId?: string | null;
     amount: number;
     currency: string;
     paymentMethod: PaymentMethod;
     status: PaymentStatus;
-    gatewayTransactionId?: string;
-    gatewayChargeId?: string;
-    processedAt?: Date;
-    description?: string;
+    gatewayTransactionId?: string | null;
+    gatewayChargeId?: string | null;
+    processedAt?: Date | null;
+    description?: string | null;
     metadata: unknown;
     createdAt: Date;
   }): Payment {
@@ -1043,21 +1046,21 @@ export class ClientPortalBillingPayments {
     return {
       id: data.id,
       clientId: data.clientEmail, // Using email as clientId for compatibility
-      caseId: data.caseId,
-      invoiceId: data.invoiceId,
+      caseId: data.caseId || undefined,
+      invoiceId: data.invoiceId || undefined,
       amount: data.amount,
       currency: data.currency,
       paymentMethod: data.paymentMethod,
       status: data.status,
-      transactionId: data.gatewayTransactionId,
+      transactionId: data.gatewayTransactionId || undefined,
       checkNumber: metadata?.checkNumber as string,
-      processedDate: data.processedAt,
+      processedDate: data.processedAt || undefined,
       processingFee: metadata?.processingFee as number,
       netAmount: metadata?.netAmount as number,
       isRefunded: (metadata?.isRefunded as boolean) || false,
       refundedAmount: metadata?.refundedAmount as number,
       refundReason: metadata?.refundReason as string,
-      description: data.description,
+      description: data.description || undefined,
       receiptUrl: metadata?.receiptUrl as string,
       createdAt: data.createdAt,
     };
@@ -1067,12 +1070,12 @@ export class ClientPortalBillingPayments {
     id: string;
     clientEmail: string;
     clientName: string;
-    caseId: string;
+    caseId: string | null;
     totalAmount: number;
     installments: number;
     monthlyAmount: number;
     startDate: Date;
-    nextPaymentDate?: Date;
+    nextPaymentDate?: Date | null;
     status: PaymentPlanStatus;
     paidAmount: number;
     remainingAmount: number;
@@ -1083,7 +1086,7 @@ export class ClientPortalBillingPayments {
     return {
       id: data.id,
       clientId: data.clientEmail, // Using email as clientId for compatibility
-      caseId: data.caseId,
+      caseId: data.caseId || '',
       totalAmount: data.totalAmount,
       downPayment: (metadata?.downPayment as number) || 0,
       remainingBalance: data.remainingAmount,
