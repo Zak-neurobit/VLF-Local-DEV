@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useABTest, useABTestContent } from './ABTestProvider';
-import type { FormSubmitHandler } from '@/types/google-maps';
+import type { FormSubmitHandler } from '@/types/forms';
 
 // Example A/B test component for hero section
 interface HeroSectionProps {
