@@ -402,9 +402,9 @@ export class RecordingManager {
   private async syncToGHL(callId: string, data: SyncData): Promise<void> {
     try {
       // Get GHL contact ID from call metadata
-      const ghlContactId = data.call.metadata?.ghlContactId;
+      const ghlContactId = data.call.metadata?.ghlContactId as string | undefined;
 
-      if (!ghlContactId) {
+      if (!ghlContactId || typeof ghlContactId !== 'string') {
         logger.warn('No GHL contact ID found for call', { callId });
         return;
       }
@@ -541,8 +541,8 @@ export class RecordingManager {
     call: CallData
   ): Promise<void> {
     try {
-      const ghlContactId = call.metadata?.ghlContactId;
-      if (!ghlContactId) return;
+      const ghlContactId = call.metadata?.ghlContactId as string | undefined;
+      if (!ghlContactId || typeof ghlContactId !== 'string') return;
 
       const tasks = [];
 
