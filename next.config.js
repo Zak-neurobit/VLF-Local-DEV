@@ -213,13 +213,17 @@ const nextConfig = {
 
     // Bundle analyzer (only in analyze mode)
     if (process.env.ANALYZE) {
-      const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-      config.plugins.push(
-        new BundleAnalyzerPlugin({
-          analyzerMode: 'static',
-          openAnalyzer: true,
-        })
-      );
+      try {
+        const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+        config.plugins.push(
+          new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            openAnalyzer: true,
+          })
+        );
+      } catch (e) {
+        console.warn('webpack-bundle-analyzer not found, skipping bundle analysis');
+      }
     }
 
     return config;
