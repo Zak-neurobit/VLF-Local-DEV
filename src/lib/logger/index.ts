@@ -39,53 +39,18 @@ const isEdgeRuntime =
   (globalThis as { EdgeRuntime?: unknown }).EdgeRuntime !== undefined;
 
 if (typeof window === 'undefined' && !isEdgeRuntime) {
-  // Server-side (Node.js): Use Winston
-  const winston = require('winston') as typeof import('winston');
-
-  const isDevelopment = process.env.NODE_ENV === 'development';
-  const isProduction = process.env.NODE_ENV === 'production';
-
-  // Winston logger configuration with OpenTelemetry trace correlation
-  const winstonLogger = winston.createLogger({
-    level: isDevelopment ? 'debug' : 'info',
-    format: winston.format.combine(
-      winston.format.timestamp({
-        format: 'YYYY-MM-DD HH:mm:ss',
-      }),
-      winston.format.errors({ stack: true }),
-      winston.format.splat(),
-      winston.format.json()
-    ),
-    defaultMeta: { service: 'vasquez-law-website', component: 'winston' },
-    transports: [
-      new winston.transports.Console({
-        format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
-      }),
-    ],
-  });
-
-  // Add file transport in production
-  if (isProduction) {
-    winstonLogger.add(
-      new winston.transports.File({
-        filename: 'logs/error.log',
-        level: 'error',
-        maxsize: 5242880, // 5MB
-        maxFiles: 5,
-      })
-    );
-
-    winstonLogger.add(
-      new winston.transports.File({
-        filename: 'logs/combined.log',
-        maxsize: 5242880, // 5MB
-        maxFiles: 5,
-      })
-    );
+  // Server-side (Node.js): Use Winston with safe fallback
+  const { createSafeWinstonLogger, createConsoleFallbackLogger } = require('./winston-safe');
+  
+  // Try to create Winston logger, fall back to console if it fails
+  const winstonLogger = createSafeWinstonLogger();
+  
+  if (winstonLogger) {
+    logger = winstonLogger;
+  } else {
+    // Use console fallback
+    logger = createConsoleFallbackLogger();
   }
-
-  // Cast Winston logger to our Logger interface
-  logger = winstonLogger as Logger;
 
   // API Logger
   apiLogger = {

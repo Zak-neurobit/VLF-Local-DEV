@@ -1,4 +1,4 @@
-import { componentLogger as logger } from '@/lib/logger';
+import { componentLogger as logger } from '@/lib/safe-logger';
 import { getPrismaClient } from '@/lib/prisma';
 import OpenAI from 'openai';
 import { GoogleNewsAPI } from '@/lib/external-apis/google-news';
@@ -35,9 +35,14 @@ export class BlogContentGenerator {
   private trendAnalyzer: TrendAnalyzer;
 
   constructor() {
-    this.openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
+    // Delay OpenAI initialization to avoid startup errors
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (apiKey) {
+      this.openai = new OpenAI({ apiKey });
+    } else {
+      // Create a dummy client that will throw on use
+      this.openai = null as any;
+    }
     this.googleNews = new GoogleNewsAPI();
     this.keywordAPI = new KeywordResearchAPI();
     this.trendAnalyzer = new TrendAnalyzer();

@@ -4,16 +4,20 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { SimpleLanguageSwitcher } from '../Navigation/SimpleLanguageSwitcher';
 
 interface HeaderProps {
-  language: 'en' | 'es';
-  setLanguage: (lang: 'en' | 'es') => void;
+  language?: 'en' | 'es';
+  setLanguage?: (lang: 'en' | 'es') => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ language, setLanguage }) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+export const Header: React.FC<HeaderProps> = ({ language: propLanguage, setLanguage }) => {
   const pathname = usePathname();
+  const router = useRouter();
+  // Determine language from URL path
+  const language = pathname?.startsWith('/es') ? 'es' : propLanguage || 'en';
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navigation = {
     en: [
@@ -54,24 +58,13 @@ export const Header: React.FC<HeaderProps> = ({ language, setLanguage }) => {
                 leads@vasquezlawfirm.com
               </a>
             </div>
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => setLanguage('en')}
-                className={`px-2 py-1 text-xs rounded transition-all ${
-                  language === 'en' ? 'bg-primary text-white font-semibold' : 'hover:bg-white/20'
-                }`}
-              >
-                EN
-              </button>
-              <span className="text-primary-400">|</span>
-              <button
-                onClick={() => setLanguage('es')}
-                className={`px-2 py-1 text-xs rounded transition-all ${
-                  language === 'es' ? 'bg-primary text-white font-semibold' : 'hover:bg-white/20'
-                }`}
-              >
-                ES
-              </button>
+            <div className="flex items-center">
+              <SimpleLanguageSwitcher
+                variant="minimal"
+                showFlags={false}
+                showLabels={true}
+                className="text-xs"
+              />
             </div>
           </div>
         </div>

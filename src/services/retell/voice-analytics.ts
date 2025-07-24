@@ -3,7 +3,7 @@
  * Provides comprehensive analytics and insights for voice interactions
  */
 
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { prisma } from '@/lib/prisma-safe';
 import { voiceMetricEventStubs, voiceAgentStubs } from '@/lib/prisma-model-stubs';
 import { getRetellService } from './index';

@@ -3,7 +3,7 @@
  * Handles invoicing, payment processing, and financial tracking
  */
 
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { prisma } from '@/lib/prisma-safe';
 import { sendEmail } from '@/lib/email';
 import { createNotification } from '@/lib/notifications';

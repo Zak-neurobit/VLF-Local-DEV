@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';

@@ -18,13 +18,7 @@ import {
 } from 'lucide-react';
 import { generateOrganizationSchema } from '@/components/SEO/schemas';
 import { TRADEMARK } from '@/lib/constants/trademark';
-import dynamic from 'next/dynamic';
 import { useState } from 'react';
-
-// Dynamic import for client-side only rendering
-const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
-  ssr: false,
-});
 
 interface AboutPageClientProps {
   language?: 'en' | 'es';
@@ -735,8 +729,6 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
           </div>
         </section>
       </div>
-
-      <ChatWidget language={language} />
 
       {/* Structured Data for SEO */}
       <Script

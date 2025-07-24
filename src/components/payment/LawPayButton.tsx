@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { toast } from 'sonner';
 
 interface LawPayButtonProps {

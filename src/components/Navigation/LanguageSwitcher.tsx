@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 import { useState } from 'react';
 import { ChevronDownIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import { HreflangGenerator } from '@/components/SEO/HreflangGenerator';
@@ -70,33 +70,32 @@ export function LanguageSwitcher({
       return;
     }
 
-    let targetUrl: string | null = null;
-
-    if (targetLang === 'es') {
-      targetUrl = getSpanishUrl(safePathname);
-    } else {
-      targetUrl = getEnglishUrl(safePathname);
-    }
-
     try {
-      if (targetUrl) {
-        // Extract pathname from full URL for client-side navigation
-        const url = new URL(targetUrl);
-        router.push(url.pathname + url.search + url.hash);
-      } else {
-        // Fallback: manual URL construction
-        if (targetLang === 'es') {
-          const cleanPath = safePathname.replace(/^\/es/, '') || '/';
-          router.push(`/es${cleanPath}`);
-        } else {
-          const cleanPath = safePathname.replace(/^\/es/, '') || '/';
-          router.push(cleanPath);
+      // Simple and robust language switching logic
+      if (targetLang === 'es') {
+        // Switching to Spanish
+        if (safePathname.startsWith('/es')) {
+          // Already on Spanish path, shouldn't happen
+          return;
         }
+        // Add /es prefix to current path
+        const newPath = `/es${safePathname}`;
+        router.push(newPath);
+      } else {
+        // Switching to English
+        if (!safePathname.startsWith('/es')) {
+          // Already on English path, shouldn't happen
+          return;
+        }
+        // Remove /es prefix from current path
+        const newPath = safePathname.replace(/^\/es/, '') || '/';
+        router.push(newPath);
       }
     } catch (error) {
       logger.error('Error switching language:', error);
-      // Fallback to home page if there's an error
-      router.push(targetLang === 'es' ? '/es' : '/');
+      // More user-friendly fallback: stay on current page
+      setIsOpen(false);
+      return;
     }
 
     setIsOpen(false);
@@ -230,15 +229,13 @@ export function LanguageLinks({ className = '' }: { className?: string }) {
 
   const handleLanguageClick = (entry: typeof hreflangEntries[0], event: React.MouseEvent) => {
     event.preventDefault();
-    try {
-      const url = new URL(entry.href);
-      router.push(url.pathname + url.search + url.hash);
-    } catch (error) {
-      logger.error('Language navigation error:', error);
-      // Fallback to current page redirect if URL parsing fails
-      const targetLang = entry.hreflang as 'en' | 'es';
-      const currentPath = safePathname.replace(/^\/es/, '') || '/';
-      const newPath = targetLang === 'es' ? `/es${currentPath}` : currentPath;
+    const targetLang = entry.hreflang as 'en' | 'es';
+    
+    // Use the same simple logic as the main language switcher
+    if (targetLang === 'es' && !safePathname.startsWith('/es')) {
+      router.push(`/es${safePathname}`);
+    } else if (targetLang === 'en' && safePathname.startsWith('/es')) {
+      const newPath = safePathname.replace(/^\/es/, '') || '/';
       router.push(newPath);
     }
   };

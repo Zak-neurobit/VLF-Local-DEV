@@ -3,7 +3,7 @@
  * Connects VLF Website with HODOS legal practice management system
  */
 
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 
 interface HODOSConfig {
   apiUrl: string;

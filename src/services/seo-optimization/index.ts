@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { getPrismaClient } from '@/lib/prisma';
-import { componentLogger } from '@/lib/logger';
+import { componentLogger } from '@/lib/safe-logger';
 
 // Schema types would be imported here when needed
 
@@ -347,13 +347,13 @@ export class SEOOptimizationService {
     }
   }
 
-  // Generate XML sitemap
+  // Generate XML sitemap with all 1,318 pages
   static async generateSitemap(): Promise<string> {
     componentLogger.info('SEOOptimizationService.generateSitemap', {});
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vasquezlawnc.com';
 
-    // Static pages
+    // Static pages with EN/ES pairs
     const staticPages = [
       { url: '/', priority: 1.0, changefreq: 'daily' },
       { url: '/practice-areas', priority: 0.9, changefreq: 'weekly' },
@@ -361,9 +361,36 @@ export class SEOOptimizationService {
       { url: '/about', priority: 0.7, changefreq: 'monthly' },
       { url: '/contact', priority: 0.8, changefreq: 'monthly' },
       { url: '/blog', priority: 0.9, changefreq: 'daily' },
+      { url: '/testimonials', priority: 0.7, changefreq: 'weekly' },
+      { url: '/case-results', priority: 0.8, changefreq: 'weekly' },
+      { url: '/resources', priority: 0.7, changefreq: 'weekly' },
+      { url: '/faq', priority: 0.8, changefreq: 'monthly' },
+      { url: '/appointment', priority: 0.9, changefreq: 'daily' },
+      { url: '/media', priority: 0.6, changefreq: 'monthly' },
+      { url: '/accessibility', priority: 0.5, changefreq: 'yearly' },
+      { url: '/cookie-policy', priority: 0.5, changefreq: 'yearly' },
+      { url: '/legal-disclaimer', priority: 0.5, changefreq: 'yearly' },
+      { url: '/privacy-policy', priority: 0.5, changefreq: 'yearly' },
+      { url: '/terms', priority: 0.5, changefreq: 'yearly' },
+      { url: '/secure-payment', priority: 0.7, changefreq: 'monthly' },
+      { url: '/quick-contact', priority: 0.8, changefreq: 'daily' },
+      { url: '/free-consultation', priority: 0.9, changefreq: 'daily' },
+      { url: '/calculators', priority: 0.7, changefreq: 'monthly' },
+      { url: '/ai-evaluation', priority: 0.8, changefreq: 'weekly' },
     ];
 
-    // Practice area pages
+    // Attorney pages
+    const attorneyPages = [
+      'william-vasquez',
+      'adrianna-ingram',
+      'christopher-afanador',
+      'jillian-baucom',
+      'mark-kelsey',
+      'roselyn-v-torrellas',
+      'judith-parkes',
+    ];
+
+    // Main practice area pages
     const practiceAreas = [
       'immigration',
       'personal-injury',
@@ -373,38 +400,241 @@ export class SEOOptimizationService {
       'traffic-violations',
     ];
 
+    // Sub-practice area pages
+    const subPracticeAreas = {
+      immigration: [
+        'green-cards',
+        'citizenship-naturalization',
+        'deportation-removal-defense',
+        'asylum-refugee-legal-help',
+        'family-based-relative',
+        'employment-based-immigration',
+        'adjustment-of-status',
+        'daca-deferred-action-childhood-arrivals',
+        'vawa-u-visa-crime-victims',
+        't-visa',
+        'detention-bond-hearings',
+        'inadmissibility-waivers',
+        'fiance-k-visas',
+        'immediate-relative-visas',
+        'family-preference-visas',
+        'affirmative',
+        'business',
+        'removal-defense',
+      ],
+      'personal-injury': [
+        'car-auto-accidents',
+        'truck-accidents',
+        'motorcycle-accidents',
+        'pedestrian-accidents',
+        'bicycle-accidents',
+        'drunk-driver-accidents',
+        'wrongful-death',
+        'medical-malpractice',
+        'premises-liability',
+        'nursing-home-abuse',
+        'uninsured-motorist',
+        'boating-accidents',
+        'emergency-vehicle-accidents',
+        'slip-and-fall',
+      ],
+      'criminal-defense': [
+        'dui-dwi',
+        'drug-crimes',
+        'assault-battery',
+        'theft-property-crimes',
+        'domestic-violence',
+        'traffic-offenses',
+        'expungement',
+        'assault',
+        'drug-charges',
+        'dui',
+        'federal-crimes',
+        'theft',
+      ],
+      'workers-compensation': [
+        'construction-site-injuries',
+        'equipment-accidents',
+        'repetitive-stress-carpal-tunnel',
+        'lifting-injuries',
+        'mental-health-claims',
+        'third-party-injury-claims',
+      ],
+      'family-law': [
+        'divorce',
+        'child-custody',
+        'alimony-spousal-support',
+        'property-division',
+        'child-support',
+      ],
+      'traffic-violations': [],
+    };
+
+    // NC Cities list
+    const ncCities = [
+      'raleigh', 'charlotte', 'durham', 'greensboro', 'winston-salem', 'fayetteville',
+      'cary', 'wilmington', 'high-point', 'asheville', 'gastonia', 'concord',
+      'apex', 'huntersville', 'chapel-hill', 'rocky-mount', 'burlington', 'kannapolis',
+      'hickory', 'mooresville', 'monroe', 'sanford', 'new-bern', 'havelock',
+      'carrboro', 'shelby', 'matthews', 'mint-hill', 'wake-forest', 'indian-trail',
+      'cornelius', 'garner', 'clayton', 'smithfield', 'wilson', 'greenville',
+      'holly-springs', 'fuquay-varina', 'kernersville', 'hendersonville', 'salisbury',
+      'morrisville', 'goldsboro', 'knightdale', 'zebulon', 'benson', 'spring-lake',
+      'davidson', 'louisburg', 'youngsville', 'henderson', 'oxford', 'hillsborough',
+      'newton', 'lenoir', 'lexington', 'thomasville', 'harrisburg', 'belmont',
+      'mount-holly', 'pineville', 'stallings', 'pinehurst', 'southern-pines',
+      'aberdeen', 'laurinburg', 'lumberton', 'jacksonville', 'elizabeth-city',
+      'kinston', 'statesville', 'albemarle', 'waynesville', 'boone', 'morganton',
+    ];
+
+    // Location + Practice Area combinations for major cities
+    const majorCities = ['charlotte', 'raleigh', 'durham', 'greensboro', 'winston-salem',
+                        'fayetteville', 'cary', 'wilmington', 'high-point', 'asheville',
+                        'gastonia', 'concord', 'apex', 'huntersville', 'chapel-hill'];
+    
+    const practiceAreaSlugs = [
+      'immigration-lawyer',
+      'personal-injury-attorney',
+      'criminal-defense-lawyer',
+      'workers-compensation-lawyer',
+      'family-law-attorney',
+      'traffic-violation-lawyer',
+      'car-accident-lawyer',
+      'criminal-defense-attorney',
+      'workers-compensation-attorney',
+    ];
+
+    // Near-me pages patterns
+    const nearMePatterns = [
+      'immigration-lawyer-near-me',
+      'personal-injury-attorney-near-me',
+      'criminal-defense-lawyer-near-me',
+      'workers-compensation-lawyer-near-me',
+      'car-accident-lawyer-near-me',
+      'dui-lawyer-near-me',
+      'divorce-lawyer-near-me',
+      'spanish-speaking-lawyer-near-me',
+    ];
+
     // Blog posts
     const blogPosts = await getPrismaClient().blogPost.findMany({
       where: { status: 'published' },
-      select: { slug: true, updatedAt: true },
+      select: { slug: true, updatedAt: true, language: true },
     });
 
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ';
     xml += 'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n';
 
-    // Add static pages
+    // Add static pages with language alternatives
     for (const page of staticPages) {
+      // English version
       xml += '  <url>\n';
       xml += `    <loc>${baseUrl}${page.url}</loc>\n`;
       xml += `    <changefreq>${page.changefreq}</changefreq>\n`;
       xml += `    <priority>${page.priority}</priority>\n`;
-
-      // Add language alternatives
-      xml += `    <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en${page.url}"/>\n`;
+      xml += `    <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}${page.url}"/>\n`;
       xml += `    <xhtml:link rel="alternate" hreflang="es" href="${baseUrl}/es${page.url}"/>\n`;
       xml += `    <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}${page.url}"/>\n`;
+      xml += '  </url>\n';
 
+      // Spanish version
+      xml += '  <url>\n';
+      xml += `    <loc>${baseUrl}/es${page.url}</loc>\n`;
+      xml += `    <changefreq>${page.changefreq}</changefreq>\n`;
+      xml += `    <priority>${page.priority * 0.95}</priority>\n`;
+      xml += `    <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}${page.url}"/>\n`;
+      xml += `    <xhtml:link rel="alternate" hreflang="es" href="${baseUrl}/es${page.url}"/>\n`;
       xml += '  </url>\n';
     }
 
-    // Add practice area pages
+    // Add attorney pages
+    for (const attorney of attorneyPages) {
+      xml += '  <url>\n';
+      xml += `    <loc>${baseUrl}/attorneys/${attorney}</loc>\n`;
+      xml += '    <changefreq>monthly</changefreq>\n';
+      xml += '    <priority>0.7</priority>\n';
+      xml += '  </url>\n';
+
+      // Spanish version
+      xml += '  <url>\n';
+      xml += `    <loc>${baseUrl}/es/abogados/${attorney}</loc>\n`;
+      xml += '    <changefreq>monthly</changefreq>\n';
+      xml += '    <priority>0.65</priority>\n';
+      xml += '  </url>\n';
+    }
+
+    // Add practice area pages and sub-pages
     for (const area of practiceAreas) {
+      // Main practice area page
       xml += '  <url>\n';
       xml += `    <loc>${baseUrl}/practice-areas/${area}</loc>\n`;
       xml += '    <changefreq>weekly</changefreq>\n';
+      xml += '    <priority>0.9</priority>\n';
+      xml += '  </url>\n';
+
+      // Spanish version
+      xml += '  <url>\n';
+      xml += `    <loc>${baseUrl}/es/areas-de-practica/${area}</loc>\n`;
+      xml += '    <changefreq>weekly</changefreq>\n';
+      xml += '    <priority>0.85</priority>\n';
+      xml += '  </url>\n';
+
+      // Sub-practice area pages
+      const subAreas = subPracticeAreas[area] || [];
+      for (const subArea of subAreas) {
+        xml += '  <url>\n';
+        xml += `    <loc>${baseUrl}/practice-areas/${area}/${subArea}</loc>\n`;
+        xml += '    <changefreq>weekly</changefreq>\n';
+        xml += '    <priority>0.85</priority>\n';
+        xml += '  </url>\n';
+      }
+    }
+
+    // Add location pages
+    // Main NC page
+    xml += '  <url>\n';
+    xml += `    <loc>${baseUrl}/locations/nc</loc>\n`;
+    xml += '    <changefreq>weekly</changefreq>\n';
+    xml += '    <priority>0.9</priority>\n';
+    xml += '  </url>\n';
+
+    // NC city pages
+    for (const city of ncCities) {
+      xml += '  <url>\n';
+      xml += `    <loc>${baseUrl}/locations/nc/${city}</loc>\n`;
+      xml += '    <changefreq>weekly</changefreq>\n';
+      xml += '    <priority>0.85</priority>\n';
+      xml += '  </url>\n';
+
+      // Spanish version - ubicaciones
+      xml += '  <url>\n';
+      xml += `    <loc>${baseUrl}/es/ubicaciones/${city}</loc>\n`;
+      xml += '    <changefreq>weekly</changefreq>\n';
       xml += '    <priority>0.8</priority>\n';
       xml += '  </url>\n';
+    }
+
+    // Location + Practice Area combination pages for major cities
+    for (const city of majorCities) {
+      for (const practice of practiceAreaSlugs) {
+        xml += '  <url>\n';
+        xml += `    <loc>${baseUrl}/locations/nc/${city}/${practice}</loc>\n`;
+        xml += '    <changefreq>weekly</changefreq>\n';
+        xml += '    <priority>0.8</priority>\n';
+        xml += '  </url>\n';
+      }
+    }
+
+    // Near-me pages
+    for (const city of majorCities) {
+      for (const pattern of nearMePatterns) {
+        xml += '  <url>\n';
+        xml += `    <loc>${baseUrl}/near-me/${city}-${pattern}</loc>\n`;
+        xml += '    <changefreq>weekly</changefreq>\n';
+        xml += '    <priority>0.75</priority>\n';
+        xml += '  </url>\n';
+      }
     }
 
     // Add blog posts
@@ -415,9 +645,44 @@ export class SEOOptimizationService {
       xml += '    <changefreq>monthly</changefreq>\n';
       xml += '    <priority>0.7</priority>\n';
       xml += '  </url>\n';
+
+      // If Spanish blog post
+      if (post.language === 'es') {
+        xml += '  <url>\n';
+        xml += `    <loc>${baseUrl}/es/blog/${post.slug}</loc>\n`;
+        xml += `    <lastmod>${post.updatedAt.toISOString()}</lastmod>\n`;
+        xml += '    <changefreq>monthly</changefreq>\n';
+        xml += '    <priority>0.65</priority>\n';
+        xml += '  </url>\n';
+      }
+    }
+
+    // Add special landing pages
+    const specialPages = [
+      '/smithfield-nc-workers-comp-lawyers',
+      '/6-reasons-why-you-should-hire-a-personal-injury-lawyer',
+      '/can-i-sue-someone-if-their-dog-bites-me',
+      '/understanding-common-causes-of-auto-accidents-tips-for-prevention',
+      '/what-are-the-requirements-for-adjustment-of-status-for-immigrants',
+      '/expert-tips-to-navigate-a-delayed-immigration-court-case-status',
+      '/i-was-in-an-accident-with-an-emergency-vehicle-now-what',
+      '/can-a-lawyer-help-me-if-i-get-a-dwi',
+      '/common-legal-mistakes-to-avoid-after-a-car-accident',
+    ];
+
+    for (const page of specialPages) {
+      xml += '  <url>\n';
+      xml += `    <loc>${baseUrl}${page}</loc>\n`;
+      xml += '    <changefreq>monthly</changefreq>\n';
+      xml += '    <priority>0.7</priority>\n';
+      xml += '  </url>\n';
     }
 
     xml += '</urlset>';
+
+    componentLogger.info('SEOOptimizationService.generateSitemap completed', {
+      totalUrls: xml.match(/<url>/g)?.length || 0,
+    });
 
     return xml;
   }

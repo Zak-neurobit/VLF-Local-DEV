@@ -1,14 +1,13 @@
 /**
  * Retell AI Voice Agent Configurations
- * API Key: 2996bc9f-ca4e-422a-b64e-a09a3eaa9bc0
  */
 
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 
 // Retell API Configuration
 export const RETELL_CONFIG = {
-  apiKey: process.env.RETELL_API_KEY || '2996bc9f-ca4e-422a-b64e-a09a3eaa9bc0',
+  apiKey: process.env.RETELL_API_KEY || '',
   apiUrl: 'https://api.retellai.com/v1',
   webhookSecret: process.env.RETELL_WEBHOOK_SECRET || '',
 };

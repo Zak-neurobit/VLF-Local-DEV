@@ -1,5 +1,5 @@
 import { getPrismaClient } from '@/lib/prisma';
-import logger from '@/lib/logger';
+import logger from '@/lib/safe-logger';
 
 interface LogExecutionParams {
   agentName: string;

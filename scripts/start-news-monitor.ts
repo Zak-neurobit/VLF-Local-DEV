@@ -1,77 +1,77 @@
 #!/usr/bin/env tsx
+
+/**
+ * News Monitor Service
+ * Starts the enhanced legal blogger agent to continuously monitor RSS feeds
+ * and populate the database with SEO-optimized blog posts
+ */
+
+import { spawn } from 'child_process';
+import { logger } from '../src/lib/safe-logger';
 import dotenv from 'dotenv';
 import path from 'path';
 
 // Load environment variables
-dotenv.config({ path: path.join(process.cwd(), '.env') });
-dotenv.config({ path: path.join(process.cwd(), '.env.local'), override: true });
+dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
-// Set TLS for Neon
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
-import { enhancedLegalBlogger } from '../src/agents/enhanced-legal-blogger';
-import { logger } from '../src/lib/logger';
+// Verify database connection
 import { prisma } from '../src/lib/prisma';
 
-async function startNewsMonitoring() {
-  logger.info('Starting VLF News Monitoring System...');
+async function startNewsMonitor() {
+  logger.info('🚀 Starting News Monitor Service...');
 
   try {
-    // Test database connection first
-    const postCount = await prisma.blogPost.count();
-    logger.info(`✅ Database connected. Current blog posts: ${postCount}`);
+    // Test database connection
+    await prisma.$connect();
+    logger.info('✅ Database connection established');
 
-    // Start the enhanced legal blogger
-    await enhancedLegalBlogger.start();
-    logger.info('✅ Enhanced Legal Blogger started');
+    // Import and start the enhanced legal blogger
+    const { EnhancedLegalBlogger } = await import('../src/agents/enhanced-legal-blogger');
+    
+    const blogger = new EnhancedLegalBlogger({
+      checkInterval: 30 * 60 * 1000, // 30 minutes
+      maxPostsPerDay: 10,
+      categories: ['immigration', 'personal-injury', 'workers-compensation', 'criminal-defense', 'family-law'],
+      targetLocales: ['en', 'es'],
+    });
 
-    console.log(`
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🚨 YO PELEO™ NOTICIAS - VLF NEWS MONITORING ACTIVE 🚨
+    // Start monitoring
+    logger.info('📡 Starting RSS feed monitoring...');
+    await blogger.start();
 
-Monitoring Sources:
-- Federal Register (DHS, USCIS, DOJ, State Dept)
-- Immigration Policy Organizations
-- Legal News Sources (Law360, JD Supra)
-- Congress & Senate Immigration Bills
-- NC & FL State Immigration News
+    // Log status every 5 minutes
+    setInterval(() => {
+      logger.info('📊 News Monitor Status: Active and monitoring feeds');
+    }, 5 * 60 * 1000);
 
-Features:
-✓ Zero hallucinations - only verified RSS feeds
-✓ Auto-generate SEO-optimized blog posts
-✓ Brand-compliant VLF formatting
-✓ Urgent news prioritization
-✓ Database storage for blog agents
-
-Check Frequency: Every 30 minutes
-Current Blog Posts: ${postCount}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    `);
-
-    // Keep the process running
+    // Handle graceful shutdown
     process.on('SIGINT', async () => {
-      logger.info('Shutting down news monitoring...');
-      await enhancedLegalBlogger.stop();
+      logger.info('⏹️  Shutting down News Monitor...');
+      await blogger.stop();
       await prisma.$disconnect();
       process.exit(0);
     });
 
-    // Log status every hour
-    setInterval(
-      async () => {
-        const now = new Date().toLocaleString();
-        const currentCount = await prisma.blogPost.count();
-        console.log(`\n📡 [${now}] Monitor Status:`);
-        console.log(`   • Status: Active`);
-        console.log(`   • Blog posts: ${currentCount}`);
-      },
-      60 * 60 * 1000
-    );
+    process.on('SIGTERM', async () => {
+      logger.info('⏹️  Shutting down News Monitor...');
+      await blogger.stop();
+      await prisma.$disconnect();
+      process.exit(0);
+    });
+
+    logger.info('✨ News Monitor Service is running!');
+    logger.info('📰 Monitoring RSS feeds every 30 minutes');
+    logger.info('🌐 Creating bilingual content (EN/ES)');
+    logger.info('Press Ctrl+C to stop');
+
   } catch (error) {
-    logger.error('Failed to start news monitoring:', error);
+    logger.error('❌ Failed to start News Monitor:', error);
     process.exit(1);
   }
 }
 
-// Start the monitoring
-startNewsMonitoring().catch(console.error);
+// Start the service
+startNewsMonitor().catch(error => {
+  logger.error('Fatal error:', error);
+  process.exit(1);
+});

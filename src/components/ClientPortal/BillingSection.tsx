@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { paymentLogger } from '@/lib/pino-logger';
+import { paymentLogger } from '@/lib/safe-logger';
 // Removed unused framer-motion import
 import { useRouter } from 'next/navigation';
 import {

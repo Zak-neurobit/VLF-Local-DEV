@@ -6,7 +6,7 @@
 
 import { z } from 'zod';
 
-import { securityLogger } from '@/lib/pino-logger';
+import { securityLogger } from '@/lib/safe-logger';
 // Define the schema for our environment variables
 const envSchema = z.object({
   // Core Configuration

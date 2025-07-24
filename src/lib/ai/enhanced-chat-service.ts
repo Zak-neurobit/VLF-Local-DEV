@@ -1,8 +1,8 @@
 import OpenAI from 'openai';
 import { AgentOrchestrator, AgentContext, AgentResponse } from '@/lib/agents/agent-orchestrator';
 import { t } from '@/lib/translations';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import { performance } from 'perf_hooks';
 import { EventEmitter } from 'events';
 

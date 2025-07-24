@@ -1,6 +1,6 @@
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { createCrewLogger } from '@/lib/crews/log-execution';
 
 export interface AIOverviewOptimizationRequest {

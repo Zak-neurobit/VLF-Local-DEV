@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 // GHL API Configuration
 const GHL_API_KEY = process.env.GHL_API_KEY;
 const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID;

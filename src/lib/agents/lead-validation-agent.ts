@@ -1,8 +1,8 @@
 import { Agent } from '@/lib/crewai/base';
 import { z } from 'zod';
 import { GoHighLevelService } from '@/services/gohighlevel';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import { getPrismaClient } from '@/lib/prisma';
 
 interface LeadData {

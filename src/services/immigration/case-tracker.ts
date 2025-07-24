@@ -1,4 +1,4 @@
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 
 // Immigration case tracker temporarily disabled for launch
 export class ImmigrationCaseTracker {

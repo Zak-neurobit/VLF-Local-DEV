@@ -1,4 +1,4 @@
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { cache } from '@/lib/cache';
 import { googlePlacesService, GoogleReview } from './google-places-service';
 

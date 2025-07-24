@@ -1,5 +1,5 @@
 import { Server as SocketIOServer } from 'socket.io';
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 import { Server as HTTPServer } from 'http';
 
 interface DashboardData {

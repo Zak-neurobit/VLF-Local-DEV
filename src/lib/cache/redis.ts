@@ -1,7 +1,7 @@
 import Redis from 'ioredis';
-import { securityLogger } from '@/lib/pino-logger';
-import { performanceLogger, logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { securityLogger } from '@/lib/safe-logger';
+import { performanceLogger, logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 
 // Redis connection configuration
 const redisConfig = {

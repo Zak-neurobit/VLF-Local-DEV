@@ -1,7 +1,7 @@
 'use client';
 
 import { SessionProvider as NextAuthSessionProvider } from 'next-auth/react';
-import { securityLogger } from '@/lib/pino-logger';
+import { securityLogger } from '@/lib/safe-logger';
 import { ReactNode, useEffect } from 'react';
 
 interface Props {

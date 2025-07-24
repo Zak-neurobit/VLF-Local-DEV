@@ -1,6 +1,6 @@
 import { readFile } from 'fs/promises';
 import path from 'path';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 
 interface TrainingCategory {
   affirmative: string[];

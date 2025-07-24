@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import { getPrismaClient } from '@/lib/prisma';
 import { APISafetyWrapper } from '@/lib/api-safety';
 import { envConfig, SERVICE_CONFIGS } from '@/lib/env-config';

@@ -3,7 +3,7 @@
  * Handles missing environment variables gracefully and logs warnings only once
  */
 
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 
 interface ServiceConfig {
   name: string;

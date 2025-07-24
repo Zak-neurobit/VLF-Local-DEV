@@ -1,6 +1,6 @@
 import { Server as HTTPServer } from 'http';
 import { Server as SocketIOServer, Socket } from 'socket.io';
-import { wsLogger, userFlowLogger, logger, performanceLogger, securityLogger } from '../logger';
+import { wsLogger, userFlowLogger, logger, performanceLogger, securityLogger } from '../safe-logger';
 import type { LogMeta } from '@/types/logger';
 import { getPrismaClient } from '../prisma';
 import { getRetellClient } from '../../services/retell/client';
@@ -217,6 +217,7 @@ export class ChatSocketServer extends EventEmitter {
     this.startMetricsCollection();
     this.startAlerting();
     this.setupGracefulShutdown();
+    this.startSitemapMonitor();
   }
 
   private setupMiddleware() {
@@ -2453,6 +2454,35 @@ export class ChatSocketServer extends EventEmitter {
           socket.emit('admin:error', { message: 'Failed to get alert history' });
         }
       });
+
+      // Sitemap monitoring
+      socket.on('admin:sitemap:stats', async () => {
+        try {
+          const { getSitemapMonitor } = await import('../sitemap/sitemap-monitor');
+          const monitor = getSitemapMonitor();
+          const stats = monitor.getLastStats();
+          socket.emit('admin:sitemap:stats:data', stats);
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          logger.error('Admin sitemap stats error', { error: errorMessage });
+          socket.emit('admin:error', { message: 'Failed to get sitemap stats' });
+        }
+      });
+
+      // Refresh sitemap stats
+      socket.on('admin:sitemap:refresh', async () => {
+        try {
+          const { getSitemapMonitor } = await import('../sitemap/sitemap-monitor');
+          const monitor = getSitemapMonitor();
+          await monitor.updateStats();
+          const stats = monitor.getLastStats();
+          socket.emit('admin:sitemap:stats:data', stats);
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          logger.error('Admin sitemap refresh error', { error: errorMessage });
+          socket.emit('admin:error', { message: 'Failed to refresh sitemap stats' });
+        }
+      });
     });
   }
 
@@ -2945,6 +2975,18 @@ export class ChatSocketServer extends EventEmitter {
     }, 30000); // Every 30 seconds
 
     logger.info('Alerting started');
+  }
+
+  private async startSitemapMonitor(): Promise<void> {
+    try {
+      const { getSitemapMonitor } = await import('../sitemap/sitemap-monitor');
+      const monitor = getSitemapMonitor(this.io);
+      await monitor.start();
+      logger.info('Sitemap monitoring started');
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      logger.error('Failed to start sitemap monitor', { error: errorMessage });
+    }
   }
 
   private checkAlerts(): void {

@@ -1,6 +1,6 @@
 import { getRetellService, RetellService } from './index';
 
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 // Re-export the service as RetellClient for backward compatibility
 export class RetellClient {
   private service: RetellService | null;

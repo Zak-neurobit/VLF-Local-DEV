@@ -1,5 +1,5 @@
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import { prisma } from '@/lib/prisma';
 import { generateSlug } from '@/lib/utils';
 

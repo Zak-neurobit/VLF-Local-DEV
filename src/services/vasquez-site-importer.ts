@@ -1,4 +1,4 @@
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 
 // Vasquez site importer temporarily disabled for launch
 export class VasquezSiteImporter {

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 
 interface ABTestContextType {
   getVariant: (testId: string) => string | null;

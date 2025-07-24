@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCrewAI } from '@/hooks/useCrewAI';
 import { toast } from 'react-hot-toast';

@@ -1,4 +1,4 @@
-import { componentLogger as logger } from '@/lib/logger';
+import { componentLogger as logger } from '@/lib/safe-logger';
 import type { SEOContent } from '@/types/content-factory';
 
 export class SEOAnalyzer {

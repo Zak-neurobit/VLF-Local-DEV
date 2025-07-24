@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 import { Loader } from '@googlemaps/js-api-loader';
 import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-config';
 import type { GoogleMap, GoogleInfoWindow } from '@/types/google-maps';

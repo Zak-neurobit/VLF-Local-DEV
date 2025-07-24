@@ -1,8 +1,8 @@
 'use client';
 
 import React, { Component, ReactNode } from 'react';
-import { logger } from '@/lib/pino-logger';
-import * as Sentry from '@sentry/nextjs';
+import { logger } from '@/lib/safe-logger';
+// import * as Sentry from '@sentry/nextjs';
 
 interface Props {
   children: ReactNode;
@@ -26,6 +26,9 @@ export class ErrorBoundary extends Component<Props, State> {
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     logger.error('ErrorBoundary caught an error:', error, errorInfo);
 
+    // Temporarily disabled Sentry due to missing dependencies
+    // TODO: Re-enable after fixing OpenTelemetry dependencies
+    /*
     // Log to Sentry
     Sentry.captureException(error, {
       contexts: {
@@ -34,6 +37,7 @@ export class ErrorBoundary extends Component<Props, State> {
         },
       },
     });
+    */
   }
 
   render() {

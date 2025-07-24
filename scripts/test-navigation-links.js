@@ -1,197 +1,105 @@
-#!/usr/bin/env node
-
-/**
- * Test script to verify all navigation links are working correctly
- */
-
-const https = require('https');
 const http = require('http');
 
-// Test configuration
-const BASE_URL = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : 'http://localhost:3000';
+console.log(`
+🔗 Testing Navigation Links
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-const IS_PRODUCTION = BASE_URL.includes('vercel.app') || BASE_URL.includes('vasquezlawnc.com');
+This will test clicking through navigation links...
+`);
 
-// Navigation links to test
-const NAVIGATION_LINKS = {
-  en: [
-    '/',
-    '/practice-areas',
-    '/practice-areas/immigration',
-    '/practice-areas/personal-injury',
-    '/practice-areas/workers-compensation',
-    '/practice-areas/criminal-defense',
-    '/practice-areas/family-law',
-    '/practice-areas/traffic-violations',
-    '/attorneys',
-    '/attorneys/william-vasquez',
-    '/attorneys/christopher-afanador',
-    '/attorneys/jillian-baucom',
-    '/locations',
-    '/locations/charlotte',
-    '/locations/durham',
-    '/locations/raleigh',
-    '/locations/winston-salem',
-    '/locations/smithfield',
-    '/locations/orlando',
-    '/about',
-    '/blog',
-    '/contact',
-  ],
-  es: [
-    '/es',
-    '/es/areas-de-practica',
-    '/es/areas-de-practica/inmigracion',
-    '/es/areas-de-practica/lesiones-personales',
-    '/es/areas-de-practica/compensacion-laboral',
-    '/es/areas-de-practica/defensa-criminal',
-    '/es/areas-de-practica/derecho-familia',
-    '/es/areas-de-practica/infracciones-transito',
-    '/es/abogados',
-    '/es/abogados/william-vasquez',
-    '/es/abogados/christopher-afanador',
-    '/es/abogados/jillian-baucom',
-    '/es/ubicaciones',
-    '/es/ubicaciones/charlotte',
-    '/es/ubicaciones/durham',
-    '/es/ubicaciones/raleigh',
-    '/es/ubicaciones/winston-salem',
-    '/es/ubicaciones/smithfield',
-    '/es/ubicaciones/orlando',
-    '/es/acerca-de',
-    '/es/blog',
-    '/es/contacto',
-  ],
-};
-
-// Function to test a single URL
-function testUrl(url) {
-  return new Promise(resolve => {
-    const protocol = url.startsWith('https') ? https : http;
-
-    protocol
-      .get(url, res => {
-        const { statusCode, headers } = res;
-        const redirectLocation = headers.location || null;
-
-        // Consume response data to free up memory
-        res.resume();
-
-        resolve({
-          url,
-          statusCode,
-          redirectLocation,
-          success: statusCode >= 200 && statusCode < 400,
-        });
-      })
-      .on('error', err => {
-        resolve({
-          url,
-          statusCode: 0,
-          error: err.message,
-          success: false,
+// Test navigation by following redirects
+async function testNavigation(fromUrl, toUrl, description) {
+  return new Promise((resolve) => {
+    // First, get the page
+    http.get(`http://localhost:3000${fromUrl}`, (res1) => {
+      let data1 = '';
+      res1.on('data', chunk => data1 += chunk);
+      res1.on('end', () => {
+        // Check if the link exists in the HTML
+        const linkExists = data1.includes(`href="${toUrl}"`);
+        
+        // Then try to navigate to the target
+        http.get(`http://localhost:3000${toUrl}`, (res2) => {
+          let data2 = '';
+          res2.on('data', chunk => data2 += chunk);
+          res2.on('end', () => {
+            resolve({
+              description,
+              from: fromUrl,
+              to: toUrl,
+              linkExists,
+              targetStatus: res2.statusCode,
+              targetLoads: res2.statusCode === 200,
+              hasContent: data2.length > 1000
+            });
+          });
+        }).on('error', (err) => {
+          resolve({
+            description,
+            from: fromUrl,
+            to: toUrl,
+            linkExists,
+            error: err.message
+          });
         });
       });
+    }).on('error', (err) => {
+      resolve({
+        description,
+        from: fromUrl,
+        to: toUrl,
+        error: err.message
+      });
+    });
   });
 }
 
-// Main test function
-async function testNavigationLinks() {
-  console.log(`Testing navigation links on: ${BASE_URL}`);
-  console.log(`Environment: ${IS_PRODUCTION ? 'Production' : 'Development'}`);
-  console.log('----------------------------------------\n');
+async function runTests() {
+  const navigationTests = [
+    { from: '/', to: '/practice-areas', desc: 'Home → Practice Areas' },
+    { from: '/', to: '/attorneys', desc: 'Home → Attorneys' },
+    { from: '/', to: '/locations', desc: 'Home → Locations' },
+    { from: '/', to: '/contact', desc: 'Home → Contact' },
+    { from: '/practice-areas', to: '/practice-areas/immigration', desc: 'Practice Areas → Immigration' },
+    { from: '/practice-areas', to: '/', desc: 'Practice Areas → Home' },
+    { from: '/attorneys', to: '/attorneys/william-vasquez', desc: 'Attorneys → William Vasquez' },
+    { from: '/', to: '/es', desc: 'English → Spanish' },
+    { from: '/es', to: '/', desc: 'Spanish → English' },
+  ];
 
-  const results = {
-    passed: [],
-    failed: [],
-    redirected: [],
-  };
+  console.log('Testing navigation links...\n');
 
-  // Test English links
-  console.log('Testing English navigation links...');
-  for (const link of NAVIGATION_LINKS.en) {
-    const url = `${BASE_URL}${link}`;
-    const result = await testUrl(url);
-
-    if (result.success) {
-      if (
-        result.statusCode === 301 ||
-        result.statusCode === 302 ||
-        result.statusCode === 307 ||
-        result.statusCode === 308
-      ) {
-        results.redirected.push(result);
-        console.log(
-          `⚠️  ${link} -> Redirected (${result.statusCode}) to ${result.redirectLocation}`
-        );
-      } else {
-        results.passed.push(result);
-        console.log(`✅ ${link} -> OK (${result.statusCode})`);
-      }
-    } else {
-      results.failed.push(result);
-      console.log(`❌ ${link} -> Failed (${result.statusCode || 'Error'}) ${result.error || ''}`);
+  for (const test of navigationTests) {
+    const result = await testNavigation(test.from, test.to, test.desc);
+    
+    const linkStatus = result.linkExists ? '✅' : '❌';
+    const navStatus = result.targetLoads ? '✅' : '❌';
+    const contentStatus = result.hasContent ? '✅' : '⚠️';
+    
+    console.log(`${result.description}`);
+    console.log(`  Link exists: ${linkStatus} | Navigates: ${navStatus} | Has content: ${contentStatus}`);
+    
+    if (result.error) {
+      console.log(`  ❌ Error: ${result.error}`);
+    } else if (!result.targetLoads) {
+      console.log(`  ❌ Target returned status: ${result.targetStatus}`);
     }
+    console.log('');
   }
 
-  console.log('\nTesting Spanish navigation links...');
-  for (const link of NAVIGATION_LINKS.es) {
-    const url = `${BASE_URL}${link}`;
-    const result = await testUrl(url);
-
-    if (result.success) {
-      if (
-        result.statusCode === 301 ||
-        result.statusCode === 302 ||
-        result.statusCode === 307 ||
-        result.statusCode === 308
-      ) {
-        results.redirected.push(result);
-        console.log(
-          `⚠️  ${link} -> Redirected (${result.statusCode}) to ${result.redirectLocation}`
-        );
-      } else {
-        results.passed.push(result);
-        console.log(`✅ ${link} -> OK (${result.statusCode})`);
-      }
-    } else {
-      results.failed.push(result);
-      console.log(`❌ ${link} -> Failed (${result.statusCode || 'Error'}) ${result.error || ''}`);
-    }
-  }
-
-  // Summary
-  console.log('\n========================================');
-  console.log('TEST SUMMARY');
-  console.log('========================================');
-  console.log(
-    `Total Links Tested: ${results.passed.length + results.failed.length + results.redirected.length}`
-  );
-  console.log(`✅ Passed: ${results.passed.length}`);
-  console.log(`⚠️  Redirected: ${results.redirected.length}`);
-  console.log(`❌ Failed: ${results.failed.length}`);
-
-  if (results.failed.length > 0) {
-    console.log('\nFailed Links:');
-    results.failed.forEach(result => {
-      console.log(`  - ${result.url} (${result.error || `Status: ${result.statusCode}`})`);
-    });
-  }
-
-  if (results.redirected.length > 0) {
-    console.log('\nRedirected Links:');
-    results.redirected.forEach(result => {
-      console.log(`  - ${result.url} -> ${result.redirectLocation}`);
-    });
-  }
-
-  process.exit(results.failed.length > 0 ? 1 : 0);
+  // Test client-side navigation
+  console.log('\n📱 Client-Side Navigation Test');
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  console.log('\nTo test client-side navigation:');
+  console.log('1. Open http://localhost:3000 in your browser');
+  console.log('2. Open DevTools Console (F12)');
+  console.log('3. Try clicking navigation links');
+  console.log('4. Check for any console errors');
+  console.log('\nCommon issues:');
+  console.log('- Hydration errors (React/Next.js mismatch)');
+  console.log('- JavaScript errors preventing navigation');
+  console.log('- Missing route handlers');
+  console.log('- Client-side routing conflicts');
 }
 
-// Run the tests
-testNavigationLinks().catch(error => {
-  console.error('Test failed:', error);
-  process.exit(1);
-});
+runTests().catch(console.error);

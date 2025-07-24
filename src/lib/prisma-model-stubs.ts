@@ -3,7 +3,7 @@
  * These are used to prevent runtime errors while the actual models are being implemented
  */
 
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 
 // Stub for review model operations
 export const reviewStubs = {

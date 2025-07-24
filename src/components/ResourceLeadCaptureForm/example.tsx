@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { paymentLogger } from '@/lib/pino-logger';
+import { paymentLogger } from '@/lib/safe-logger';
 import ResourceLeadCaptureForm from './index';
 import { FileText, BookOpen, Video, Calculator, CheckCircle } from 'lucide-react';
 

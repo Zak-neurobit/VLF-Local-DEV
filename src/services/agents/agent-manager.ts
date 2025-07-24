@@ -1,7 +1,7 @@
 import { AgentType, AgentConfig } from '@/config/agents/types';
 import { agentConfigs } from '@/config/agents/agent-configs';
 import { agentTrainingData } from '@/config/agents/training-data';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import type { AgentContext } from '@/types/services';
 
 export class AgentManager {

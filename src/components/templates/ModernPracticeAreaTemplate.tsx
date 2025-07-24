@@ -1,11 +1,17 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Button } from '@/design-system/components/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, MessageCircle, ChevronRight, Shield, Award, Clock, Users } from 'lucide-react';
-import { PracticeAreaSchema } from '@/components/SEO/PracticeAreaSchema';
+import dynamic from 'next/dynamic';
+
+// Lazy load schema component
+const PracticeAreaSchema = dynamic(
+  () => import('@/components/SEO/PracticeAreaSchema').then(mod => mod.PracticeAreaSchema),
+  { ssr: true }
+);
 
 interface ModernPracticeAreaTemplateProps {
   title: string;

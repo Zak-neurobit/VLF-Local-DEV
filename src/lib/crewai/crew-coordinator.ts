@@ -19,8 +19,8 @@ import {
   SEOBlogGenerationAgent,
   SEOBlogGenerationRequest,
 } from './agents/seo-blog-generation-agent';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import { logCrewExecution } from '@/lib/crews/log-execution';
 
 export interface CrewTask {

@@ -1,15 +1,9 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Car, Building, Stethoscope, AlertTriangle, DollarSign, CheckCircle } from 'lucide-react';
-
-// Dynamic import for client-side only rendering
-const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
-  ssr: false,
-});
 
 interface PersonalInjuryPageContentProps {
   language: 'en' | 'es';
@@ -262,8 +256,6 @@ export default function PersonalInjuryPageContent({ language }: PersonalInjuryPa
           </motion.div>
         </div>
       </section>
-
-      <ChatWidget language={language} />
     </div>
   );
 }

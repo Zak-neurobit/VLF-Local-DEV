@@ -1,4 +1,4 @@
-import { securityLogger } from '@/lib/pino-logger';
+import { securityLogger } from '@/lib/safe-logger';
 
 // Voice auth temporarily disabled for launch
 export class VoiceAuthService {

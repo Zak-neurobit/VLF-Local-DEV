@@ -1,4 +1,4 @@
-import { componentLogger, performanceLogger } from '@/lib/logger';
+import { componentLogger, performanceLogger } from '@/lib/safe-logger';
 import { getPrismaClient } from '@/lib/prisma';
 import puppeteer from 'puppeteer';
 // Lazy load YouTube API to prevent loading during build

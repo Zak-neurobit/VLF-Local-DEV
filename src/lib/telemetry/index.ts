@@ -1,4 +1,4 @@
-import { apiLogger, performanceLogger } from '@/lib/pino-logger';
+import { apiLogger, performanceLogger } from '@/lib/safe-logger';
 
 /**
  * Telemetry System Index
@@ -10,7 +10,7 @@ export * from './api-middleware';
 
 // Placeholder for telemetry functions that were referenced
 export const trackWebVitals = (metric: { name: string; value: number; id: string; delta: number }) => {
-  performanceLogger.info({ metric }, 'Web vitals tracked');
+  performanceLogger.info('Web vitals tracked', { metric });
 };
 
 export const vlfTelemetry = {
@@ -26,34 +26,34 @@ export const vlfTelemetry = {
 export const sliTracker = {
   recordApiCall: (endpoint: string, duration: number, status: number) => {
     performanceLogger.info(
+      'API call tracked',
       {
         endpoint,
         duration,
         status,
         p99: duration > 50,
-      },
-      'API call tracked'
+      }
     );
   },
   recordDatabaseQuery: (query: string, duration: number) => {
     performanceLogger.info(
+      'Database query tracked',
       {
         query,
         duration,
         p99: duration > 50,
-      },
-      'Database query tracked'
+      }
     );
   },
   recordBusinessProcess: (process: string, duration: number, success: boolean) => {
     performanceLogger.info(
+      'Business process tracked',
       {
         process,
         duration,
         success,
         p99: duration > 50,
-      },
-      'Business process tracked'
+      }
     );
   },
 };

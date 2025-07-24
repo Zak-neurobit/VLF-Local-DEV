@@ -1,6 +1,6 @@
-import { performanceLogger } from '../logger';
+import { performanceLogger } from '../safe-logger';
 
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 interface PerformanceMark {
   name: string;
   startTime: number;

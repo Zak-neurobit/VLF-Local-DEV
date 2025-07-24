@@ -2,7 +2,7 @@
 
 import { onCLS, onFCP, onINP, onLCP, onTTFB, type Metric } from 'web-vitals';
 
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 export interface WebVitalsMetric {
   name: string;
   value: number;

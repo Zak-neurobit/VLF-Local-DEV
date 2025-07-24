@@ -3,7 +3,7 @@
  * Intelligent routing and comprehensive case evaluation using specialized legal agents
  */
 
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { createCrewLogger } from '@/lib/crews/log-execution';
 import { immigrationSpecialist } from './agents/immigration-specialist-agent';
 import { personalInjurySpecialist } from './agents/personal-injury-specialist-agent';

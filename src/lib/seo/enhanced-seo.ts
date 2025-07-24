@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 
 interface SEOConfig {
   title?: string;

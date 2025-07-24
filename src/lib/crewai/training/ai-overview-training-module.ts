@@ -3,7 +3,7 @@
  * Trains CrewAI agents to optimize content for Google's AI Overview
  */
 
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 

@@ -8,8 +8,8 @@ import { CriminalDefenseAgent } from '@/lib/crewai/agents/criminal-defense-agent
 import { AILATrainedRemovalDefenseAgent } from '@/lib/crewai/agents/aila-trained-removal-agent';
 import { LeadValidationAgent } from '@/lib/agents/lead-validation-agent';
 import { FollowUpAutomationAgent } from '@/lib/agents/follow-up-automation-agent';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import { EventEmitter } from 'events';
 import pLimit from 'p-limit';
 

@@ -1,4 +1,4 @@
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 
 // Legal Update Auto-Blogger
 const fs = require('fs').promises;

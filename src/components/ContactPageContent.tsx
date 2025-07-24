@@ -1,18 +1,22 @@
 'use client';
 
-import dynamic from 'next/dynamic';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Phone, MapPin, Clock, MessageCircle, Globe, Building } from 'lucide-react';
 import { ModernPageWrapper } from '@/components/ModernPageWrapper';
-import AllOfficesMap from '@/components/AllOfficesMap';
+import dynamic from 'next/dynamic';
 import { officeLocations } from '@/data/locations';
 import { ContactForm } from '@/components/forms/ContactForm';
 
-// Dynamic import for client-side only rendering
-const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
+// Lazy load the map component for better performance
+const AllOfficesMap = dynamic(() => import('@/components/AllOfficesMap'), {
   ssr: false,
+  loading: () => (
+    <div className="h-96 bg-gray-900 rounded-lg animate-pulse flex items-center justify-center">
+      <p className="text-gray-400">Loading map...</p>
+    </div>
+  ),
 });
 
 interface ContactPageContentProps {
@@ -351,8 +355,6 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
           </div>
         </div>
       </section>
-
-      <ChatWidget language={language} />
     </ModernPageWrapper>
   );
 }

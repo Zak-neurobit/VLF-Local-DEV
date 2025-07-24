@@ -1,5 +1,5 @@
 import { CookbookExtractor } from './cookbook-extractor';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 import type { TrainingData, QueryContext, AnalysisResult, AgentParams } from '@/types/crewai';
@@ -101,7 +101,7 @@ export class AgentTrainer {
     return `import { ChatOpenAI } from '@langchain/openai';
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import { APISafetyWrapper } from '@/lib/api-safety';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 
 export class ${className} {
   private model: ChatOpenAI | null = null;
@@ -890,7 +890,7 @@ Corporate Relationship: \${params.relationship}\`;
 
     const coordinatorPath = path.join(this.agentsPath, '..', 'enhanced-crew-coordinator.ts');
 
-    const updatedCoordinator = `import { logger } from '@/lib/logger';
+    const updatedCoordinator = `import { logger } from '@/lib/safe-logger';
 import { EnhancedAffirmativeImmigrationAgent } from './agents/enhanced-affirmative-immigration-agent';
 import { EnhancedHumanitarianAgent } from './agents/enhanced-humanitarian-agent';
 import { EnhancedBusinessImmigrationAgent } from './agents/enhanced-business-immigration-agent';

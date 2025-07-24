@@ -2,9 +2,11 @@
 
 import React, { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
-import { motion } from 'framer-motion';
 import { useSafeEffect } from '@/lib/react-fixes/useEffectFix';
-import { withErrorBoundary } from '@/lib/react-fixes/errorBoundaryHOC';
+import { withErrorBoundary } from '@/components/ErrorBoundary';
+
+// Lazy load framer-motion to prevent SSR issues
+const motion = typeof window !== 'undefined' ? require('framer-motion').motion : null;
 
 // Dynamic imports for performance
 const ModernHero = dynamic(() => import('../hero/ModernHero'), {
@@ -85,7 +87,7 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
   return (
     <div className="min-h-screen bg-black">
       {/* Language Toggle - Fixed Position (hide on Spanish pages) */}
-      {initialLanguage === 'en' && (
+      {initialLanguage === 'en' && motion && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -115,38 +117,64 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
       )}
 
       {/* Virtual Paralegal Trigger - Fixed Position */}
-      <motion.button
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 2 }}
-        onClick={handleVirtualParalegalToggle}
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary-300 shadow-2xl transition-all hover:scale-110"
-        aria-label={language === 'es' ? 'Abrir Asistente de IA' : 'Open AI Assistant'}
-      >
-        <svg
-          className="h-6 w-6 sm:h-8 sm:w-8 text-black"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+      {motion ? (
+        <motion.button
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 2 }}
+          onClick={handleVirtualParalegalToggle}
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary-300 shadow-2xl transition-all hover:scale-110"
+          aria-label={language === 'es' ? 'Abrir Asistente de IA' : 'Open AI Assistant'}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-          />
-        </svg>
-        <span className="absolute -top-1 -right-1 flex h-4 w-4">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-4 w-4 bg-white"></span>
-        </span>
-      </motion.button>
+          <svg
+            className="h-6 w-6 sm:h-8 sm:w-8 text-black"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+            />
+          </svg>
+          <span className="absolute -top-1 -right-1 flex h-4 w-4">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-4 w-4 bg-white"></span>
+          </span>
+        </motion.button>
+      ) : (
+        <button
+          onClick={handleVirtualParalegalToggle}
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary-300 shadow-2xl transition-all hover:scale-110"
+          aria-label={language === 'es' ? 'Abrir Asistente de IA' : 'Open AI Assistant'}
+        >
+          <svg
+            className="h-6 w-6 sm:h-8 sm:w-8 text-black"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+            />
+          </svg>
+          <span className="absolute -top-1 -right-1 flex h-4 w-4">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-4 w-4 bg-white"></span>
+          </span>
+        </button>
+      )}
 
       {/* Page Sections */}
       <ModernHero language={language} />
 
       {/* Trust Indicators for Spanish */}
-      {language === 'es' && (
+      {language === 'es' && motion && (
         <motion.section
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -181,6 +209,33 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
             </div>
           </div>
         </motion.section>
+      )}
+      {language === 'es' && !motion && (
+        <section className="bg-gradient-to-b from-black to-neutral-950 py-12">
+          <div className="mx-auto max-w-7xl px-4">
+            <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+              {[
+                {
+                  number: '60+',
+                  label: 'Años de Experiencia',
+                },
+                { number: '30K+', label: 'Clientes Ayudados' },
+                { number: '4', label: 'Ubicaciones' },
+                { number: '24/7', label: 'Disponible' },
+              ].map((stat, index) => (
+                <div
+                  key={index}
+                  className="text-center"
+                >
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-black text-primary">
+                    {stat.number}
+                  </div>
+                  <div className="mt-2 text-xs sm:text-sm text-gray-400">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       )}
 
       <FirmHighlights language={language} />

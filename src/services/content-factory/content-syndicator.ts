@@ -1,4 +1,4 @@
-import { componentLogger as logger } from '@/lib/logger';
+import { componentLogger as logger } from '@/lib/safe-logger';
 import { Prisma } from '@prisma/client';
 import axios from 'axios';
 import { LinkedInAPI } from '@/lib/external-apis/linkedin';

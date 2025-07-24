@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { useDeviceCapabilities } from '@/lib/performance/device-detection';
 import { LazyLoadWrapper } from '@/components/ui/loading-states';
-import ErrorBoundary from '@/components/common/ErrorBoundary';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 // Lazy load heavy components
 const OptimizedHeroScene = dynamic(() => import('@/components/hero/OptimizedHeroScene'), {

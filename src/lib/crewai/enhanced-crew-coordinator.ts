@@ -8,8 +8,8 @@ import {
   AppointmentRequest,
 } from './agents/appointment-scheduling-agent';
 import { DocumentAnalysisAgent, DocumentAnalysisRequest } from './agents/document-analysis-agent';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import { EventEmitter } from 'events';
 import pLimit from 'p-limit';
 

@@ -1,14 +1,7 @@
-const { withSentryConfig } = require('@sentry/nextjs');
+// const { withSentryConfig } = require('@sentry/nextjs'); // Temporarily disabled
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Internationalization
-  i18n: {
-    locales: ['en', 'es'],
-    defaultLocale: 'en',
-    localeDetection: false,
-  },
-
   // React strict mode for better development experience
   reactStrictMode: true,
 
@@ -74,10 +67,31 @@ const nextConfig = {
     ];
   },
 
-  // Redirects for Spanish routes
+  // Redirects for Spanish routes and duplicate pages
   async redirects() {
     return [
-      // Add Spanish redirects as needed
+      // Spanish practice areas
+      { source: '/compensacion-laboral', destination: '/es/areas-de-practica/compensacion-laboral', permanent: true },
+      { source: '/defensa-criminal', destination: '/es/areas-de-practica/defensa-criminal', permanent: true },
+      { source: '/derecho-familia', destination: '/es/areas-de-practica/derecho-familia', permanent: true },
+      { source: '/inmigracion', destination: '/es/areas-de-practica/inmigracion', permanent: true },
+      { source: '/lesiones-personales', destination: '/es/areas-de-practica/lesiones-personales', permanent: true },
+      
+      // Payment pages
+      { source: '/make-payment', destination: '/payment', permanent: true },
+      { source: '/hacer-pago', destination: '/es/pago', permanent: true },
+      { source: '/es/make-payment', destination: '/es/pago', permanent: true },
+      { source: '/es/payment', destination: '/es/pago', permanent: true },
+      
+      // Appointment pages
+      { source: '/es/appointments/:path*', destination: '/es/appointment/:path*', permanent: true },
+      
+      // Category pages
+      { source: '/es/criminal-defense/:path*', destination: '/es/areas-de-practica/defensa-criminal/:path*', permanent: true },
+      { source: '/es/immigration/:path*', destination: '/es/areas-de-practica/inmigracion/:path*', permanent: true },
+      { source: '/es/family-law/:path*', destination: '/es/areas-de-practica/derecho-familia/:path*', permanent: true },
+      { source: '/es/personal-injury/:path*', destination: '/es/areas-de-practica/lesiones-personales/:path*', permanent: true },
+      { source: '/es/workers-compensation/:path*', destination: '/es/areas-de-practica/compensacion-laboral/:path*', permanent: true },
     ];
   },
 
@@ -113,13 +127,15 @@ const nextConfig = {
       // On client-side, replace thread-stream with a mock
       config.resolve.alias['thread-stream'] = false;
       config.resolve.alias['pino'] = 'pino/browser';
+      config.resolve.alias['winston'] = false;
+      config.resolve.alias['@dabh/diagnostics'] = false;
     } else {
       // On server-side, mark pino and thread-stream as external
       config.externals = config.externals || [];
       if (typeof config.externals === 'function') {
         const originalExternals = config.externals;
         config.externals = async (context, request, callback) => {
-          if (request === 'pino' || request === 'thread-stream' || request === 'pino-pretty') {
+          if (request === 'pino' || request === 'thread-stream' || request === 'pino-pretty' || request === 'winston' || request === '@dabh/diagnostics') {
             return callback(null, `commonjs ${request}`);
           }
           return originalExternals(context, request, callback);
@@ -130,6 +146,8 @@ const nextConfig = {
           { pino: 'commonjs pino' },
           { 'thread-stream': 'commonjs thread-stream' },
           { 'pino-pretty': 'commonjs pino-pretty' },
+          { winston: 'commonjs winston' },
+          { '@dabh/diagnostics': 'commonjs @dabh/diagnostics' },
         ];
       }
     }
@@ -161,10 +179,12 @@ const nextConfig = {
 
   // Experimental features
   experimental: {
-    // Optimize CSS
-    optimizeCss: true,
+    // Optimize CSS - disabled due to critters issue
+    optimizeCss: false,
     // Enable new image optimization
     optimizePackageImports: ['lucide-react', 'date-fns', '@radix-ui/react-icons'],
+    // Enable instrumentation hook for Sentry
+    instrumentationHook: true,
   },
 
   // Output configuration
@@ -265,4 +285,5 @@ const sentryWebpackPluginOptions = {
   disableClientWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
 };
 
-module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
+// module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
+module.exports = nextConfig; // Temporarily export without Sentry

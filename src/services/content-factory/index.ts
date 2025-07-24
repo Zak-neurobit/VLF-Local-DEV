@@ -1,4 +1,4 @@
-import { componentLogger as logger } from '@/lib/logger';
+import { componentLogger as logger } from '@/lib/safe-logger';
 import { getPrismaClient } from '@/lib/prisma';
 import { BlogContentGenerator } from './blog-generator';
 import { LandingPageGenerator } from './landing-page-generator';

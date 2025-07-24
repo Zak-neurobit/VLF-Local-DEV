@@ -1,4 +1,4 @@
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 
 interface A11yIssue {
   type: 'error' | 'warning' | 'info';

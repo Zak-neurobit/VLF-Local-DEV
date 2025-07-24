@@ -3,7 +3,7 @@
  * AI-powered competitive intelligence and strategic response automation
  */
 
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { createCrewLogger } from '@/lib/crews/log-execution';
 import { seoAgent } from './agents/seo-blog-generation-agent';
 import { aiOverviewAgent } from './agents/ai-overview-optimization-agent';

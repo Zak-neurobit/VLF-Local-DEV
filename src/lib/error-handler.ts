@@ -3,8 +3,9 @@
  * Catches and handles various types of errors gracefully
  */
 
-import { logger } from '@/lib/logger';
-import * as Sentry from '@sentry/nextjs';
+import { logger } from '@/lib/safe-logger';
+// import * as Sentry from '@sentry/nextjs';
+import { Sentry } from '@/lib/sentry-wrapper';
 
 // Import OpenTelemetry trace correlation
 let getTraceContext: (() => { traceId: string; spanId: string } | null) | null = null;

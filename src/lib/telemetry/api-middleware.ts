@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { trace, context, SpanStatusCode, SpanKind } from '@opentelemetry/api';
-import { apiLogger } from '@/lib/pino-logger';
+import { apiLogger } from '@/lib/safe-logger';
 
 export type RouteHandler = (
   request: NextRequest,
@@ -48,6 +48,7 @@ export function withTracing(handler: RouteHandler, options: TracingOptions = {})
         }
 
         apiLogger.info(
+          'API request completed',
           {
             method: request.method,
             path: request.nextUrl.pathname,
@@ -55,8 +56,7 @@ export function withTracing(handler: RouteHandler, options: TracingOptions = {})
             duration,
             traceId: span.spanContext().traceId,
             spanId: span.spanContext().spanId,
-          },
-          'API request completed'
+          }
         );
 
         return response;
@@ -68,14 +68,14 @@ export function withTracing(handler: RouteHandler, options: TracingOptions = {})
         });
 
         apiLogger.error(
+          'API request failed',
           {
             method: request.method,
             path: request.nextUrl.pathname,
             error: error instanceof Error ? error.message : error,
             traceId: span.spanContext().traceId,
             spanId: span.spanContext().spanId,
-          },
-          'API request failed'
+          }
         );
 
         throw error;

@@ -17,8 +17,8 @@ export const resources = {
 
 const initOptions = {
   resources,
-  lng: 'en',
-  fallbackLng: 'en',
+  lng: 'es',
+  fallbackLng: 'es',
   defaultNS,
   ns: ['common'],
   interpolation: {

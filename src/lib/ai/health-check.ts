@@ -1,8 +1,8 @@
 import { enhancedChatService } from './enhanced-chat-service';
 import { aiTranslationService } from './translation-service';
 import { AgentOrchestrator } from '@/lib/agents/agent-orchestrator';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 
 // Import the actual metrics type from agent-orchestrator
 import type { AgentPerformanceMetrics as AgentMetrics } from '@/lib/agents/agent-orchestrator';

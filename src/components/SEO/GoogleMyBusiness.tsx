@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import { getGoogleMapsApiKey, isGoogleMapsConfigured } from '@/lib/google-maps-config';
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 
 interface GoogleMyBusinessProps {
   placeId?: string;

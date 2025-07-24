@@ -1,18 +1,18 @@
 import { PrismaClient } from '@prisma/client';
-import { dbLogger } from './pino-logger';
+import { dbLogger } from './safe-logger';
 
 // Database logging helpers
 const dbLog = {
   query: (query: string, params?: unknown[], duration?: number) => {
     if (process.env.NODE_ENV === 'development') {
-      dbLogger.debug({ query: query.substring(0, 100), duration }, 'Database query');
+      dbLogger.query(query, params as any[], duration);
     }
   },
   error: (operation: string, error: unknown) => {
-    dbLogger.error({ operation, error }, 'Database error');
+    dbLogger.error(`Database error in ${operation}`, error);
   },
   transaction: (id: string, status: string) => {
-    dbLogger.info({ transactionId: id, status }, 'Database transaction');
+    dbLogger.transaction(id, status);
   },
 };
 
@@ -113,6 +113,12 @@ class MockPrismaClient {
       createdAt: new Date(),
       updatedAt: new Date(),
     }),
+    count: async () => 0,
+    update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({
+      id: args.where.id || 'mock',
+      ...args.data,
+      updatedAt: new Date(),
+    }),
   };
 
   async $transaction(fn: (client: MockPrismaClient) => Promise<unknown>) {
@@ -129,17 +135,16 @@ class MockPrismaClient {
 const prismaClientSingleton = () => {
   // Check if DATABASE_URL is available
   if (!process.env.DATABASE_URL) {
-    dbLogger.warn(
-      { databaseUrl: process.env.DATABASE_URL },
-      'DATABASE_URL not found, using mock Prisma client'
-    );
+    dbLogger.warn('DATABASE_URL not found, using mock Prisma client', {
+      databaseUrl: process.env.DATABASE_URL
+    });
     return new MockPrismaClient() as unknown as PrismaClient;
   }
 
-  // Check if it's a local database URL that might not be available
+  // Only use mock client if we're explicitly in a test environment or have no URL
   const dbUrl = process.env.DATABASE_URL;
-  if (dbUrl.includes('localhost') || dbUrl.includes('127.0.0.1')) {
-    dbLogger.warn('Local database URL detected, using mock Prisma client for safety');
+  if (process.env.USE_MOCK_PRISMA === 'true') {
+    dbLogger.warn('Mock Prisma client explicitly requested');
     return new MockPrismaClient() as unknown as PrismaClient;
   }
 
@@ -173,12 +178,12 @@ const prismaClientSingleton = () => {
 
     // Log warnings
     prisma.$on('warn', e => {
-      dbLogger.warn({ message: e.message }, 'Prisma warning');
+      dbLogger.warn('Prisma warning', { message: e.message });
     });
 
     return prisma;
   } catch (error) {
-    dbLogger.error({ error }, 'Failed to create Prisma client');
+    dbLogger.error('Failed to create Prisma client', error);
     return new MockPrismaClient() as unknown as PrismaClient;
   }
 };
@@ -210,9 +215,8 @@ export async function isDatabaseConnected(): Promise<boolean> {
       return false;
     }
 
-    // Skip connection check for local databases
-    const dbUrl = process.env.DATABASE_URL;
-    if (dbUrl.includes('localhost') || dbUrl.includes('127.0.0.1')) {
+    // Skip connection check only if explicitly using mock
+    if (process.env.USE_MOCK_PRISMA === 'true') {
       globalForPrisma.prismaConnectionChecked = false;
       return false;
     }
@@ -228,7 +232,7 @@ export async function isDatabaseConnected(): Promise<boolean> {
     globalForPrisma.prismaConnectionChecked = true;
     return true;
   } catch (error) {
-    dbLogger.warn({ error }, 'Database connection check failed');
+    dbLogger.warn('Database connection check failed', error);
     globalForPrisma.prismaConnectionChecked = false;
     return false;
   }
@@ -271,12 +275,12 @@ export async function safeDbOperation<T>(
   try {
     const isConnected = await isDatabaseConnected();
     if (!isConnected) {
-      dbLogger.warn({ operationName }, 'Database not connected, returning fallback');
+      dbLogger.warn('Database not connected, returning fallback', { operationName });
       return fallback;
     }
     return await operation();
   } catch (error) {
-    dbLogger.error({ operationName, error }, 'Database operation failed');
+    dbLogger.error('Database operation failed', error, { operationName });
     return fallback;
   }
 }

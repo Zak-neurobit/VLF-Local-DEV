@@ -1,4 +1,4 @@
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { prisma } from '@/lib/prisma-safe';
 import { securityReportStubs } from '@/lib/prisma-model-stubs';
 import { EventEmitter } from 'events';

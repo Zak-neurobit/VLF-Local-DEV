@@ -3,7 +3,7 @@
  * Optimizes content for voice assistants and conversational queries
  */
 
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 
 export interface VoiceSearchPattern {
   trigger: string[];

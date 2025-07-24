@@ -1,8 +1,8 @@
 import { getRetellService } from './index';
 import { RetellAgentManager } from './agent-manager-v2';
 import { ghlService } from '@/services/gohighlevel';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import { getPrismaClient } from '@/lib/prisma';
 import type { Prisma } from '@prisma/client';
 

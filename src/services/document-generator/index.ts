@@ -4,8 +4,8 @@ import { getPrismaClient } from '@/lib/prisma';
 import { z } from 'zod';
 import fs from 'fs/promises';
 import path from 'path';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import pdfParse from 'pdf-parse';
 
 // Document template schema

@@ -1,4 +1,4 @@
-import { securityLogger } from '@/lib/pino-logger';
+import { securityLogger } from '@/lib/safe-logger';
 
 // Federal Register Listener
 const axios = require('axios');

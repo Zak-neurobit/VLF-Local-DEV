@@ -1,4 +1,4 @@
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 
 // Compliance module temporarily disabled for launch
 // TODO: Add AuditLog and Consent models to Prisma schema

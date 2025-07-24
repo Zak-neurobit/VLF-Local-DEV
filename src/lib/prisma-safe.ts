@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 // Mock Prisma client that returns safe defaults when database is unavailable
 class SafePrismaClient {
   private realClient: PrismaClient | null = null;

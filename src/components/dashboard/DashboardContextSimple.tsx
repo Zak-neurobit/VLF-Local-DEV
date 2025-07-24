@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState } from 'react';
 
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 interface AgentActivity {
   id: string;
   name: string;

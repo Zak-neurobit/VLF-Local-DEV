@@ -3,7 +3,7 @@
  * Provides improved user experience features for voice interactions
  */
 
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { getRetellService, RetellAgent } from './index';
 import { prisma } from '@/lib/prisma-safe';
 import { voiceAgentStubs, voiceCallMetricsStubs } from '@/lib/prisma-model-stubs';

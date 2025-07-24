@@ -1,14 +1,10 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import Script from 'next/script';
 import Image from 'next/image';
-const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
-  ssr: false,
-});
 import {
   Globe,
   Scale,
@@ -425,8 +421,6 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
           </motion.div>
         </div>
       </section>
-
-      <ChatWidget language={language} />
 
       {/* Structured Data for Attorneys */}
       {attorneys.map(attorney => (

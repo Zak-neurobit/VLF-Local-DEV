@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { securityLogger } from '@/lib/pino-logger';
+import { securityLogger } from '@/lib/safe-logger';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { format } from 'date-fns';
@@ -14,11 +14,6 @@ import {
   BlogCategoryId,
 } from '@/lib/blog/categories';
 import { BlogCategoryStructuredData } from '@/components/Blog/BlogStructuredData';
-import dynamic from 'next/dynamic';
-
-const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
-  ssr: false,
-});
 
 interface BlogPost {
   id: string;
@@ -519,8 +514,6 @@ export default function CategoryPageTemplate({
             </div>
           </div>
         </section>
-
-        <ChatWidget language={language} />
       </div>
     </>
   );

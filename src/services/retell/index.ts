@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { cache, cacheKeys, CacheTTL } from '@/lib/cache';
 import { callAnalysisQueue } from '@/lib/queue/bull';
 

@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { prisma } from '@/lib/prisma-safe';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { z } from 'zod';
 import { ABTestStatus } from '@prisma/client';
 

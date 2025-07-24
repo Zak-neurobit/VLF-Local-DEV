@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Header } from '@/components/Header';
 import MainNav from '@/components/Navigation/MainNav';
 import { Footer } from '@/components/Footer';
@@ -12,8 +12,10 @@ interface PageWrapperProps {
 }
 
 export default function PageWrapper({ children, showNavigation = true }: PageWrapperProps) {
-  const [language, setLanguage] = useState<'en' | 'es'>('en');
   const pathname = usePathname();
+  
+  // Determine language from URL path
+  const language: 'en' | 'es' = pathname?.startsWith('/es') ? 'es' : 'en';
 
   // Don't show navigation on homepage
   const isHomePage = pathname === '/';
@@ -25,10 +27,10 @@ export default function PageWrapper({ children, showNavigation = true }: PageWra
   return (
     <>
       {/* Header with contact info */}
-      <Header language={language} setLanguage={setLanguage} />
+      <Header language={language} />
 
       {/* Main navigation */}
-      <MainNav language={language} setLanguage={setLanguage} />
+      <MainNav />
 
       {/* Page content */}
       {children}

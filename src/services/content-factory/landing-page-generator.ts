@@ -1,4 +1,4 @@
-import { componentLogger as logger } from '@/lib/logger';
+import { componentLogger as logger } from '@/lib/safe-logger';
 import OpenAI from 'openai';
 import { NCDataService } from '@/lib/external-apis/nc-data';
 import { LocalSEOService } from '@/lib/external-apis/local-seo';

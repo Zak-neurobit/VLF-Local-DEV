@@ -1,6 +1,6 @@
 // Comprehensive speed optimization utilities
 import { useEffect, useState } from 'react';
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 import {
   safeAppendChild,
   safeCreateElement,

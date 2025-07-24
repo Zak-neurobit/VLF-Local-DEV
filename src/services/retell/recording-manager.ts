@@ -1,7 +1,7 @@
 import { getRetellService } from './index';
 import { ghlService } from '@/services/gohighlevel';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import { getPrismaClient } from '@/lib/prisma';
 
 // Call data interface for Retell API responses (matches RetellCall)

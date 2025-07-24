@@ -1,4 +1,4 @@
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 
 /**
  * Safe DOM manipulation utilities to prevent "null is not an object" errors

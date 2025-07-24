@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 import { useEffect } from 'react';
 import { HreflangGenerator } from './HreflangGenerator';
 

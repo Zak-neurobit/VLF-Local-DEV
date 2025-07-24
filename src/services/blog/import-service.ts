@@ -1,5 +1,5 @@
 import fs from 'fs/promises';
-import { securityLogger } from '@/lib/pino-logger';
+import { securityLogger } from '@/lib/safe-logger';
 import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';

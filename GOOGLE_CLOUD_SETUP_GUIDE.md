@@ -22,32 +22,27 @@
 Navigate to **APIs & Services > Library** and enable each of these:
 
 1. **Document AI API**
-
    - Search for "Document AI"
    - Click on it and press "Enable"
    - Used for: Analyzing legal documents, OCR
 
 2. **Cloud Natural Language API**
-
    - Search for "Natural Language"
    - Click and enable
    - Used for: Understanding client queries
    - **Note**: If you can't find specific Natural Language roles later, the Editor role will cover this
 
 3. **Cloud Translation API**
-
    - Search for "Cloud Translation API"
    - Click and enable
    - Used for: Spanish/English translations
 
 4. **Cloud Storage API**
-
    - Search for "Cloud Storage"
    - Click and enable
    - Used for: Storing documents
 
 5. **Firestore API**
-
    - Search for "Firestore"
    - Click and enable
    - Used for: Agent memory and learning
@@ -85,17 +80,14 @@ Since some specific API roles might not be visible, use this simplified approach
 If you prefer more granular permissions, try to find these:
 
 1. **For Document AI**
-
    - Search: "Document AI"
    - Select any Document AI related role
 
 2. **For Storage**
-
    - Search: "Storage Object"
    - Select: "Storage Object Admin" or "Storage Object User"
 
 3. **For Firestore**
-
    - Search: "Datastore" or "Firestore"
    - Select: "Cloud Datastore User" or similar
 
@@ -149,7 +141,7 @@ Add these to your `.env.local`:
 ```env
 # Google Cloud Configuration
 GOOGLE_APPLICATION_CREDENTIALS=./google-credentials.json
-GOOGLE_CLOUD_PROJECT=vasquez-law-website
+GOOGLE_CLOUD_PROJECT=vlf-site
 ```
 
 ### Step 10: Enable Billing (Required for APIs)

@@ -3,7 +3,7 @@
  * Provides secure case tracking, document management, and client communication
  */
 
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { prisma } from '@/lib/prisma-safe';
 import { sendEmail } from '@/lib/email';
 import { createNotification } from '@/lib/notifications';

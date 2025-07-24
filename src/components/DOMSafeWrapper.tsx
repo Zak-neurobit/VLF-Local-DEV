@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, ReactNode, useState } from 'react';
 
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 interface DOMSafeWrapperProps {
   children: ReactNode;
   fallback?: ReactNode;

@@ -1,7 +1,7 @@
 import { ghlService } from '@/services/gohighlevel';
 import { getPrismaClient } from '@/lib/prisma';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import { z } from 'zod';
 import { notificationService } from '@/services/notifications';
 import { emailService } from '@/services/email.service';

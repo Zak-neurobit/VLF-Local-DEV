@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 
 interface AnalyticsSocketClient {
   socket: Socket | null;

@@ -1,5 +1,5 @@
 import { OpenAI } from 'openai';
-import { componentLogger, performanceLogger } from '@/lib/logger';
+import { componentLogger, performanceLogger } from '@/lib/safe-logger';
 import { getPrismaClient } from '@/lib/prisma';
 import Queue from 'bull';
 import * as cheerio from 'cheerio';

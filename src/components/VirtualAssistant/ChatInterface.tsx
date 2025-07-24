@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Loader2, Bot, User, Phone, Calendar, Globe } from 'lucide-react';
 import { toast } from 'react-hot-toast';

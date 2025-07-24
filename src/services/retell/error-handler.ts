@@ -1,6 +1,6 @@
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
-import { securityLogger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
+import { securityLogger } from '@/lib/safe-logger';
 import { ghlService } from '@/services/gohighlevel';
 import { getPrismaClient } from '@/lib/prisma';
 import { Prisma } from '@prisma/client';

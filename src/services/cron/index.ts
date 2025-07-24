@@ -1,6 +1,6 @@
 import * as cron from 'node-cron';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/safe-logger';
 import { appointmentReminderService } from '@/services/appointment-reminders';
 import { campaignAutomationService } from '@/services/campaign-automation';
 import { leadCaptureService } from '@/services/lead-capture';

@@ -4,7 +4,7 @@
  * Now using GoHighLevel for SMS instead of Twilio
  */
 
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { ghlNotificationService } from './ghl-notifications';
 
 export interface Notification {

@@ -2,15 +2,20 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronDown, Phone, Globe } from 'lucide-react';
+import { ChevronDown, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
+import { SimpleLanguageSwitcher } from './SimpleLanguageSwitcher';
 
 interface MainNavProps {
-  language: 'en' | 'es';
-  setLanguage: (lang: 'en' | 'es') => void;
+  language?: 'en' | 'es';
+  setLanguage?: (lang: 'en' | 'es') => void;
 }
 
-export default function MainNav({ language, setLanguage }: MainNavProps) {
+export default function MainNav({ language: propLanguage, setLanguage }: MainNavProps) {
+  const pathname = usePathname();
+  // Determine language from URL path
+  const language = pathname?.startsWith('/es') ? 'es' : propLanguage || 'en';
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const navigation = {
@@ -264,7 +269,7 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
+          <Link href={language === 'es' ? '/es' : '/'} className="flex items-center space-x-3">
             <div className="text-3xl font-bold">
               <span className="text-burgundy-700">VLF</span>
               <span className="text-gold-500 text-xl ml-2">YO PELEO™</span>
@@ -322,20 +327,20 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
             </div>
 
             {/* Other Nav Items */}
-            <Link href="/attorneys" className="text-gray-700 hover:text-burgundy-700 font-medium">
+            <Link href={language === 'es' ? '/es/abogados' : '/attorneys'} className="text-gray-700 hover:text-burgundy-700 font-medium">
               {t.attorneys}
             </Link>
-            <Link href="/locations" className="text-gray-700 hover:text-burgundy-700 font-medium">
+            <Link href={language === 'es' ? '/es/ubicaciones' : '/locations'} className="text-gray-700 hover:text-burgundy-700 font-medium">
               {t.locations}
             </Link>
-            <Link href="/blog" className="text-gray-700 hover:text-burgundy-700 font-medium">
+            <Link href={language === 'es' ? '/es/blog' : '/blog'} className="text-gray-700 hover:text-burgundy-700 font-medium">
               {t.blog}
             </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-burgundy-700 font-medium">
+            <Link href={language === 'es' ? '/es/contacto' : '/contact'} className="text-gray-700 hover:text-burgundy-700 font-medium">
               {t.contact}
             </Link>
             <Link
-              href="/make-payment"
+              href={language === 'es' ? '/es/hacer-pago' : '/make-payment'}
               className="text-gray-700 hover:text-burgundy-700 font-medium"
             >
               {t.makePayment}
@@ -345,13 +350,12 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
           {/* Right Side Actions */}
           <div className="flex items-center space-x-4">
             {/* Language Toggle */}
-            <button
-              onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
-              className="flex items-center space-x-2 text-gray-700 hover:text-burgundy-700"
-            >
-              <Globe className="w-5 h-5" />
-              <span>{language === 'en' ? 'ES' : 'EN'}</span>
-            </button>
+            <SimpleLanguageSwitcher
+              variant="toggle"
+              showFlags={false}
+              showLabels={true}
+              className="text-gray-700 hover:text-burgundy-700"
+            />
 
             {/* Phone */}
             <a
@@ -364,7 +368,7 @@ export default function MainNav({ language, setLanguage }: MainNavProps) {
 
             {/* CTA Button */}
             <Link
-              href="/contact"
+              href={language === 'es' ? '/es/contacto' : '/contact'}
               className="bg-gold-500 text-burgundy-900 px-6 py-3 rounded-full font-bold hover:bg-gold-400 transition-colors"
             >
               {t.freeConsultation}
