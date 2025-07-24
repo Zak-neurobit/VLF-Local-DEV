@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getRetellService } from '@/services/retell';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import { callAnalysisQueue } from '@/lib/queue/bull';
 import { getPrismaClient } from '@/lib/prisma';
 import { statusManager } from '@/services/retell/status-manager';
