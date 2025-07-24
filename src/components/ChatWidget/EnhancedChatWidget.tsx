@@ -20,8 +20,8 @@ import {
   AlertCircle,
   ChevronDown
 } from 'lucide-react';
-import { useChat } from '@/hooks/useChat';
-import { useVoiceRecognition } from '@/hooks/useVoiceRecognition';
+import { useChat } from '../../hooks/useChat';
+import { useVoiceRecognition } from '../../hooks/useVoiceRecognition';
 import { cn } from '@/lib/utils';
 import { logger } from '@/lib/safe-logger';
 
