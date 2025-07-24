@@ -1,4 +1,3 @@
-import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
 // Force dynamic rendering for all catch-all routes

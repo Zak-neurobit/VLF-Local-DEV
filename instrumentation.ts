@@ -42,7 +42,7 @@ function patchReadableStream() {
         
         // Check if we can safely enqueue
         if (stream && !controller._closeRequested && controller._started) {
-          return originalEnqueue.apply(this, arguments);
+          return originalEnqueue.call(this, chunk);
         }
       } catch (error) {
         // Log but don't throw - prevents server crashes
@@ -63,7 +63,7 @@ function patchReadableStream() {
         
         // Only close if not already closed/closing
         if (!controller._closeRequested && controller._controlledReadableStream) {
-          return originalClose.apply(this, arguments);
+          return originalClose.call(this);
         }
       } catch (error) {
         if (process.env.NODE_ENV === 'development') {
@@ -83,7 +83,7 @@ function patchReadableStream() {
         
         // Only error if stream is in valid state
         if (controller._controlledReadableStream && !controller._closeRequested) {
-          return originalError.apply(this, arguments);
+          return originalError.call(this, e);
         }
       } catch (error) {
         if (process.env.NODE_ENV === 'development') {

@@ -1,37 +1,12 @@
 // Location page loader - dynamically loads location page content
 // This builds UP the architecture to handle thousands of pages efficiently
 
-import dynamic from 'next/dynamic';
 import { cache } from 'react';
+import { Metadata } from 'next';
 
-// Cache the component loading for performance
-export const loadLocationComponent = cache(async (state: string, city: string, service?: string) => {
-  try {
-    // Build the component path
-    const basePath = `/locations/${state}/${city}`;
-    const componentPath = service ? `${basePath}/${service}/page` : `${basePath}/page`;
-    
-    // Dynamically import the component
-    // This means the component is only loaded when needed, not at build time
-    const Component = dynamic(
-      () => import(`@/app${componentPath}`).catch(() => {
-        // If specific page doesn't exist, return null
-        return null;
-      }),
-      {
-        loading: () => <div>Loading...</div>,
-      }
-    );
-    
-    return Component;
-  } catch (error) {
-    console.error('Error loading location component:', error);
-    return null;
-  }
-});
 
 // Metadata loader for SEO
-export const loadLocationMetadata = cache(async (state: string, city: string, service?: string) => {
+export const loadLocationMetadata = cache(async (state: string, city: string, service?: string): Promise<Metadata> => {
   // This could load from a database or JSON file instead of requiring all pages at build time
   const cityName = city.split('-').map(word => 
     word.charAt(0).toUpperCase() + word.slice(1)
