@@ -1,6 +1,6 @@
 {
   "installCommand": "npm install",
-  "buildCommand": "npm run build:production",
+  "buildCommand": "npm run build:vercel",
   "framework": "nextjs",
   "build": {
     "env": {
