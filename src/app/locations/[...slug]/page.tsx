@@ -72,28 +72,74 @@ export async function generateMetadata({
 
 // Dynamic location page that loads the appropriate component
 export default async function DynamicLocationPage({ params }: { params: { slug: string[] } }) {
-  const [state, city, service] = params.slug;
+  try {
+    // Ensure params exist
+    if (!params || !params.slug || !Array.isArray(params.slug)) {
+      console.error('Invalid params:', params);
+      notFound();
+    }
 
-  if (!state || !city) {
-    notFound();
-  }
+    const [state, city, service] = params.slug;
 
-  // For now, always render the default template
-  // In production, this would load specific components dynamically
-  return (
-    <div className="min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-4">
-          {city
-            .split('-')
-            .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-            .join(' ')}
-          , {state.toUpperCase()}
-        </h1>
-        <p className="text-gray-600">
-          Contact Vasquez Law Firm at 1-844-YO-PELEO for legal assistance in your area.
-        </p>
+    if (!state || !city) {
+      notFound();
+    }
+
+    // For now, always render the default template
+    // In production, this would load specific components dynamically
+    return (
+      <div className="min-h-screen py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <h1 className="text-4xl font-bold mb-4">
+            {city
+              .split('-')
+              .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+              .join(' ')}
+            , {state.toUpperCase()}
+          </h1>
+          <p className="text-gray-600 mb-8">
+            Contact Vasquez Law Firm at 1-844-YO-PELEO for legal assistance in your area.
+          </p>
+          
+          {service && (
+            <div className="mt-8">
+              <h2 className="text-2xl font-semibold mb-4">
+                {service
+                  .split('-')
+                  .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+                  .join(' ')} Services
+              </h2>
+              <p className="text-gray-600">
+                Our experienced attorneys specialize in {service.replace(/-/g, ' ')} cases in {city.replace(/-/g, ' ')}, {state.toUpperCase()}.
+              </p>
+            </div>
+          )}
+
+          <div className="mt-12 bg-blue-50 p-6 rounded-lg">
+            <h3 className="text-xl font-semibold mb-2">Free Consultation</h3>
+            <p className="mb-4">Get expert legal advice for your case.</p>
+            <a
+              href="/contact"
+              className="inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Schedule Consultation
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } catch (error) {
+    console.error('Error in DynamicLocationPage:', error);
+    // Return a fallback page instead of throwing
+    return (
+      <div className="min-h-screen py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <h1 className="text-4xl font-bold mb-4">Location Page</h1>
+          <p className="text-gray-600">
+            We're experiencing technical difficulties. Please contact us at 1-844-YO-PELEO.
+          </p>
+        </div>
+      </div>
+    );
+  }
 }
