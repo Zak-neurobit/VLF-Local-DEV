@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  MessageCircle, 
-  X, 
-  Send, 
-  Mic, 
-  MicOff, 
+import {
+  MessageCircle,
+  X,
+  Send,
+  Mic,
+  MicOff,
   Paperclip,
   Phone,
   Calendar,
@@ -18,10 +18,9 @@ import {
   Loader2,
   CheckCircle,
   AlertCircle,
-  ChevronDown
+  ChevronDown,
 } from 'lucide-react';
-import { useChat } from '../../hooks/useChat';
-import { useVoiceRecognition } from '../../hooks/useVoiceRecognition';
+import { useChat, useVoiceRecognition } from '../../hooks';
 import { cn } from '@/lib/utils';
 import { logger } from '@/lib/safe-logger';
 
@@ -54,7 +53,7 @@ const quickActions: QuickAction[] = [
     labelEs: 'Agendar Consulta',
     icon: <Calendar className="w-4 h-4" />,
     action: 'I need to schedule a consultation',
-    intent: 'appointment_scheduling'
+    intent: 'appointment_scheduling',
   },
   {
     id: 'immigration',
@@ -62,7 +61,7 @@ const quickActions: QuickAction[] = [
     labelEs: 'Ayuda Migratoria',
     icon: <Globe className="w-4 h-4" />,
     action: 'I need help with immigration',
-    intent: 'immigration_inquiry'
+    intent: 'immigration_inquiry',
   },
   {
     id: 'documents',
@@ -70,7 +69,7 @@ const quickActions: QuickAction[] = [
     labelEs: 'Revisar Documentos',
     icon: <FileText className="w-4 h-4" />,
     action: 'I need documents reviewed',
-    intent: 'document_analysis'
+    intent: 'document_analysis',
   },
   {
     id: 'call',
@@ -78,8 +77,8 @@ const quickActions: QuickAction[] = [
     labelEs: 'Solicitar Llamada',
     icon: <Phone className="w-4 h-4" />,
     action: 'I need someone to call me',
-    intent: 'callback_request'
-  }
+    intent: 'callback_request',
+  },
 ];
 
 export function EnhancedChatWidget() {
@@ -92,7 +91,7 @@ export function EnhancedChatWidget() {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [currentAgent, setCurrentAgent] = useState<string>('general');
-  
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -121,15 +120,16 @@ export function EnhancedChatWidget() {
     if (isOpen && messages.length === 0) {
       const welcomeMessage: Message = {
         id: 'welcome',
-        content: locale === 'es' 
-          ? '¡Hola! Soy el asistente legal de Vasquez Law Firm. ¿En qué puedo ayudarte hoy?'
-          : 'Hello! I\'m the Vasquez Law Firm legal assistant. How can I help you today?',
+        content:
+          locale === 'es'
+            ? '¡Hola! Soy el asistente legal de Vasquez Law Firm. ¿En qué puedo ayudarte hoy?'
+            : "Hello! I'm the Vasquez Law Firm legal assistant. How can I help you today?",
         role: 'assistant',
         timestamp: new Date(),
         metadata: {
           agent: 'intake',
-          language: locale
-        }
+          language: locale,
+        },
       };
       setMessages([welcomeMessage]);
     }
@@ -142,7 +142,7 @@ export function EnhancedChatWidget() {
       id: Date.now().toString(),
       content: input,
       role: 'user',
-      timestamp: new Date()
+      timestamp: new Date(),
     };
 
     setMessages(prev => [...prev, userMessage]);
@@ -157,7 +157,7 @@ export function EnhancedChatWidget() {
       formData.append('message', input);
       formData.append('locale', locale);
       formData.append('sessionId', localStorage.getItem('chatSessionId') || '');
-      
+
       if (uploadedFile) {
         formData.append('file', uploadedFile);
         formData.append('intent', 'document_analysis');
@@ -165,7 +165,7 @@ export function EnhancedChatWidget() {
 
       const response = await fetch('/api/chat', {
         method: 'POST',
-        body: formData
+        body: formData,
       });
 
       if (!response.ok) throw new Error('Failed to send message');
@@ -186,8 +186,8 @@ export function EnhancedChatWidget() {
           intent: data.intent,
           confidence: data.confidence,
           agent: data.agent || currentAgent,
-          language: locale
-        }
+          language: locale,
+        },
       };
 
       setMessages(prev => [...prev, assistantMessage]);
@@ -199,16 +199,16 @@ export function EnhancedChatWidget() {
       } else if (data.intent === 'callback_request' && data.callbackScheduled) {
         // Show success notification
       }
-
     } catch (error) {
       logger.error('Chat error:', error);
       const errorMessage: Message = {
         id: Date.now().toString(),
-        content: locale === 'es' 
-          ? 'Lo siento, hubo un error. Por favor intenta de nuevo.'
-          : 'Sorry, there was an error. Please try again.',
+        content:
+          locale === 'es'
+            ? 'Lo siento, hubo un error. Por favor intenta de nuevo.'
+            : 'Sorry, there was an error. Please try again.',
         role: 'assistant',
-        timestamp: new Date()
+        timestamp: new Date(),
       };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
@@ -228,7 +228,11 @@ export function EnhancedChatWidget() {
     if (file) {
       // Validate file size (max 10MB)
       if (file.size > 10 * 1024 * 1024) {
-        alert(locale === 'es' ? 'El archivo es demasiado grande (máx 10MB)' : 'File too large (max 10MB)');
+        alert(
+          locale === 'es'
+            ? 'El archivo es demasiado grande (máx 10MB)'
+            : 'File too large (max 10MB)'
+        );
         return;
       }
       setUploadedFile(file);
@@ -317,7 +321,7 @@ export function EnhancedChatWidget() {
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
-              {messages.map((message) => (
+              {messages.map(message => (
                 <motion.div
                   key={message.id}
                   initial={{ opacity: 0, y: 10 }}
@@ -354,7 +358,7 @@ export function EnhancedChatWidget() {
                   )}
                 </motion.div>
               ))}
-              
+
               {isTyping && (
                 <div className="flex gap-3">
                   <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center">
@@ -381,7 +385,7 @@ export function EnhancedChatWidget() {
                   </div>
                 </div>
               )}
-              
+
               <div ref={messagesEndRef} />
             </div>
 
@@ -392,7 +396,7 @@ export function EnhancedChatWidget() {
                   {locale === 'es' ? 'Acciones rápidas:' : 'Quick actions:'}
                 </p>
                 <div className="grid grid-cols-2 gap-2">
-                  {quickActions.map((action) => (
+                  {quickActions.map(action => (
                     <button
                       key={action.id}
                       onClick={() => handleQuickAction(action)}
@@ -432,14 +436,14 @@ export function EnhancedChatWidget() {
                   <input
                     type="text"
                     value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                    onChange={e => setInput(e.target.value)}
+                    onKeyPress={e => e.key === 'Enter' && handleSendMessage()}
                     placeholder={locale === 'es' ? 'Escribe tu mensaje...' : 'Type your message...'}
                     disabled={isProcessing}
                     className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 disabled:opacity-50"
                   />
                 </div>
-                
+
                 {/* Action Buttons */}
                 <div className="flex items-center gap-1">
                   <input
@@ -457,24 +461,24 @@ export function EnhancedChatWidget() {
                   >
                     <Paperclip className="w-5 h-5" />
                   </button>
-                  
+
                   <button
                     onClick={toggleVoiceRecognition}
                     disabled={isProcessing}
                     className={cn(
                       'p-2 rounded-lg transition disabled:opacity-50',
-                      isListening 
-                        ? 'text-red-500 hover:text-red-700 hover:bg-red-50' 
+                      isListening
+                        ? 'text-red-500 hover:text-red-700 hover:bg-red-50'
                         : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
                     )}
                     title={locale === 'es' ? 'Grabación de voz' : 'Voice recording'}
                   >
                     {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
                   </button>
-                  
+
                   <button
                     onClick={handleSendMessage}
-                    disabled={!input.trim() && !uploadedFile || isProcessing}
+                    disabled={(!input.trim() && !uploadedFile) || isProcessing}
                     className="p-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isProcessing ? (
@@ -485,10 +489,10 @@ export function EnhancedChatWidget() {
                   </button>
                 </div>
               </div>
-              
+
               {/* Legal Disclaimer */}
               <p className="text-xs text-gray-400 mt-2 text-center">
-                {locale === 'es' 
+                {locale === 'es'
                   ? 'Esta conversación no crea una relación abogado-cliente.'
                   : 'This conversation does not create an attorney-client relationship.'}
               </p>
