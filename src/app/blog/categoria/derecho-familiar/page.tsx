@@ -1,0 +1,7 @@
+
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
+// TODO: Implement blog page template for /blog/categoria/derecho-familiar
+export default function Page() {
+  return <div>Coming soon...</div>;
+}

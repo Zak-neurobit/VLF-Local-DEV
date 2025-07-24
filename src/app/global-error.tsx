@@ -1,8 +1,6 @@
 'use client';
 
-import * as Sentry from '@sentry/nextjs';
 import { useEffect } from 'react';
-import { logger } from '@/lib/logger';
 
 interface GlobalErrorProps {
   error: Error & { digest?: string };
@@ -11,13 +9,16 @@ interface GlobalErrorProps {
 
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
   useEffect(() => {
-    // Log error to our internal logger
-    logger.error('Global error boundary caught error', {
+    // Log error to console in client
+    console.error('Global error boundary caught error', {
       message: error.message,
       stack: error.stack,
       digest: error.digest,
     });
 
+    // Temporarily disabled Sentry due to missing dependencies
+    // TODO: Re-enable after fixing OpenTelemetry dependencies
+    /*
     // Report to Sentry
     Sentry.captureException(error, {
       tags: {
@@ -31,6 +32,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
         },
       },
     });
+    */
   }, [error]);
 
   return (

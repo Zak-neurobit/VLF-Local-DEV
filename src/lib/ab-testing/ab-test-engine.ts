@@ -2,7 +2,14 @@ import { EventEmitter } from 'events';
 import { prisma } from '@/lib/prisma-safe';
 import { logger } from '@/lib/safe-logger';
 import { z } from 'zod';
-import { ABTestStatus } from '@prisma/client';
+
+// Define ABTestStatus locally to avoid dependency on Prisma client
+enum ABTestStatus {
+  DRAFT = 'DRAFT',
+  ACTIVE = 'ACTIVE',
+  PAUSED = 'PAUSED',
+  COMPLETED = 'COMPLETED'
+}
 
 // Schema definitions
 export const ABTestVariantSchema = z.object({
@@ -110,7 +117,10 @@ export class ABTestEngine extends EventEmitter {
 
   constructor() {
     super();
-    this.loadActiveTests();
+    // Don't block initialization on database loading
+    this.loadActiveTests().catch(error => {
+      logger.error('Failed to load active tests during initialization', { error });
+    });
     this.setupEventListeners();
   }
 
@@ -133,6 +143,12 @@ export class ABTestEngine extends EventEmitter {
 
   private async loadActiveTests(): Promise<void> {
     try {
+      // Check if prisma client is available
+      if (!prisma || !prisma.aBTest) {
+        logger.warn('Prisma client not available, skipping active tests loading');
+        return;
+      }
+
       const activeTests = await prisma.aBTest.findMany({
         where: {
           status: ABTestStatus.ACTIVE,
@@ -144,14 +160,24 @@ export class ABTestEngine extends EventEmitter {
         },
       });
 
+      if (!activeTests || !Array.isArray(activeTests)) {
+        logger.warn('No active tests found or invalid response');
+        return;
+      }
+
       for (const test of activeTests) {
-        const config = this.dbTestToConfig(test);
-        this.activeTests.set(test.id, config);
+        try {
+          const config = this.dbTestToConfig(test);
+          this.activeTests.set(test.id, config);
+        } catch (configError) {
+          logger.error('Failed to convert test to config', { error: configError, testId: test.id });
+        }
       }
 
       logger.info('Active A/B tests loaded', { count: activeTests.length });
     } catch (error) {
       logger.error('Failed to load active A/B tests', { error });
+      // Don't throw - allow the engine to continue working without pre-loaded tests
     }
   }
 
@@ -249,7 +275,7 @@ export class ABTestEngine extends EventEmitter {
       await prisma.aBTest.update({
         where: { id: testId },
         data: {
-          status: 'COMPLETED' as any,
+          status: ABTestStatus.COMPLETED,
           endDate: new Date(),
         },
       });
@@ -553,37 +579,92 @@ export class ABTestEngine extends EventEmitter {
   }
 
   private dbTestToConfig(dbTest: any): ABTestConfig {
+    if (!dbTest) {
+      throw new Error('Invalid test data: test is null or undefined');
+    }
+
+    // Helper function to safely parse JSON
+    const safeJsonParse = (str: any, defaultValue: any = {}) => {
+      if (!str) return defaultValue;
+      if (typeof str !== 'string') return str;
+      try {
+        return JSON.parse(str);
+      } catch (e) {
+        logger.warn('Failed to parse JSON', { value: str, error: e });
+        return defaultValue;
+      }
+    };
+
     return {
-      id: dbTest.id,
-      name: dbTest.name,
-      description: dbTest.description,
-      status: dbTest.status,
-      variants: dbTest.variants.map((v: any) => ({
-        id: v.id,
-        name: v.name,
-        weight: v.weight,
-        content: JSON.parse(v.content),
-        metadata: JSON.parse(v.metadata || '{}'),
+      id: dbTest.id || '',
+      name: dbTest.name || '',
+      description: dbTest.description || '',
+      status: (dbTest.status || 'DRAFT').toLowerCase() as 'draft' | 'active' | 'paused' | 'completed',
+      variants: (dbTest.variants || []).map((v: any) => ({
+        id: v.id || '',
+        name: v.name || '',
+        weight: v.weight || 0,
+        content: safeJsonParse(v.content, {}),
+        metadata: safeJsonParse(v.metadata, {}),
       })),
-      targetingRules: JSON.parse(dbTest.targetingRules),
-      metrics: JSON.parse(dbTest.metrics),
+      targetingRules: safeJsonParse(dbTest.targetingRules, {
+        traffic: 100,
+        userSegments: [],
+        geoTargeting: [],
+        deviceTypes: [],
+        timeWindows: [],
+      }),
+      metrics: safeJsonParse(dbTest.metrics, {
+        primary: '',
+        secondary: [],
+        conversionGoals: [],
+      }),
       duration: {
-        startDate: dbTest.startDate,
-        endDate: dbTest.endDate,
-        minSampleSize: dbTest.minSampleSize,
-        maxDuration: dbTest.maxDuration,
+        startDate: dbTest.startDate || new Date(),
+        endDate: dbTest.endDate || null,
+        minSampleSize: dbTest.minSampleSize || 1000,
+        maxDuration: dbTest.maxDuration || 30,
       },
-      settings: JSON.parse(dbTest.settings),
+      settings: safeJsonParse(dbTest.settings, {
+        confidenceLevel: 0.95,
+        minDetectableEffect: 0.05,
+        cookieDuration: 30,
+        excludeBots: true,
+        stickyVariants: true,
+      }),
     };
   }
 
   async getAllTests(): Promise<ABTestConfig[]> {
-    const tests = await prisma.aBTest.findMany({
-      include: { variants: true },
-      orderBy: { createdAt: 'desc' },
-    });
+    try {
+      if (!prisma || !prisma.aBTest) {
+        logger.warn('Prisma client not available for getAllTests');
+        return [];
+      }
 
-    return tests.map(test => this.dbTestToConfig(test));
+      const tests = await prisma.aBTest.findMany({
+        include: { variants: true },
+        orderBy: { createdAt: 'desc' },
+      });
+
+      if (!tests || !Array.isArray(tests)) {
+        return [];
+      }
+
+      return tests
+        .map(test => {
+          try {
+            return this.dbTestToConfig(test);
+          } catch (error) {
+            logger.error('Failed to convert test to config in getAllTests', { error, testId: test.id });
+            return null;
+          }
+        })
+        .filter((test): test is ABTestConfig => test !== null);
+    } catch (error) {
+      logger.error('Failed to get all tests', { error });
+      return [];
+    }
   }
 
   async getActiveTests(): Promise<ABTestConfig[]> {

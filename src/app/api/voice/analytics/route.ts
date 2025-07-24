@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { voiceAnalyticsSystem } from '@/services/retell/voice-analytics';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 
 /**
  * GET /api/voice/analytics - Get comprehensive voice analytics

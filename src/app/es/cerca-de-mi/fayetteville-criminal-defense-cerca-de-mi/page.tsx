@@ -1,5 +1,7 @@
 import FayettevilleCriminalDefenseCercaDeMiClient from './fayettevilleCriminalDefenseNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function FayettevilleCriminalDefenseCercaDeMiPage() {
   return <FayettevilleCriminalDefenseCercaDeMiClient />;
 }

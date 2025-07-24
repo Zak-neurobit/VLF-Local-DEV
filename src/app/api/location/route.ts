@@ -1,14 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { apiLogger } from '@/lib/pino-logger';
+import { apiLogger } from '@/lib/safe-logger';
 export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const lat = searchParams.get('lat');
   const lon = searchParams.get('lon');
 
+  // If no coordinates provided, return default office location
   if (!lat || !lon) {
-    return NextResponse.json({ error: 'Latitude and longitude are required' }, { status: 400 });
+    return NextResponse.json({
+      city: 'Charlotte',
+      state: 'NC',
+      timezone: 'America/New_York',
+      coordinates: [35.2271, -80.8431],
+      defaultLocation: true,
+      offices: [
+        { city: 'Charlotte', state: 'NC' },
+        { city: 'Raleigh', state: 'NC' },
+        { city: 'Durham', state: 'NC' },
+        { city: 'Orlando', state: 'FL' }
+      ]
+    });
   }
 
   try {

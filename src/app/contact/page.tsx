@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
+import { SSRSafeMasterLayout } from '@/design-system/templates/SSRSafeMasterLayout';
 import ContactPageContent from '@/components/ContactPageContent';
 import { EventSchema } from '@/components/SEO/EventSchema';
 
@@ -53,7 +53,7 @@ export default function ContactPage() {
   ];
 
   return (
-    <MasterLayout variant="hero" showBreadcrumbs={false}>
+    <SSRSafeMasterLayout variant="hero" showBreadcrumbs={false}>
       <ContactPageContent />
       {/* Add EventSchema for each office showing free consultations available */}
       {offices.map((office, index) => (
@@ -65,6 +65,6 @@ export default function ContactPage() {
           pageType="contact"
         />
       ))}
-    </MasterLayout>
+    </SSRSafeMasterLayout>
   );
 }

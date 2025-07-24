@@ -401,7 +401,7 @@ export class SEOOptimizationService {
     ];
 
     // Sub-practice area pages
-    const subPracticeAreas = {
+    const subPracticeAreas: Record<string, string[]> = {
       immigration: [
         'green-cards',
         'citizenship-naturalization',

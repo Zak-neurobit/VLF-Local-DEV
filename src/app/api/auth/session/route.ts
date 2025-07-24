@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth';
-import { securityLogger } from '@/lib/pino-logger';
+import { securityLogger } from '@/lib/safe-logger';
 import { authOptions } from '@/lib/auth';
 import { NextResponse } from 'next/server';
 import { isDatabaseConnected } from '@/lib/prisma';

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPrismaClient } from '@/lib/prisma';
-import { apiLogger } from '@/lib/logger';
+import { apiLogger } from '@/lib/safe-logger';
 import { z } from 'zod';
 
 const newsletterSchema = z.object({

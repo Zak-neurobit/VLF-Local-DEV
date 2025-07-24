@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { glob } from 'glob';
 import { getPrismaClient } from '../prisma';
 import { ncCities } from '../seo/local-seo-generator';
 
@@ -28,14 +27,36 @@ export class FileSystemPageDiscovery {
     this.baseUrl = baseUrl;
   }
 
+  private findPageFiles(dir: string, files: string[] = []): string[] {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+      const relativePath = path.relative(this.appDir, fullPath);
+      
+      // Skip ignored directories
+      if (entry.isDirectory()) {
+        if (entry.name === 'node_modules' || 
+            entry.name.startsWith('_') || 
+            entry.name === 'api' || 
+            entry.name === '.well-known' ||
+            entry.name === '.next') {
+          continue;
+        }
+        this.findPageFiles(fullPath, files);
+      } else if (entry.isFile() && entry.name.match(/^page\.(tsx|ts|jsx|js)$/)) {
+        files.push(relativePath);
+      }
+    }
+    
+    return files;
+  }
+
   async discoverAllPages(): Promise<Map<string, PagePair>> {
     const pages = new Map<string, PagePair>();
     
     // Find all page.tsx files
-    const pageFiles = await glob('**/page.{tsx,ts,jsx,js}', {
-      cwd: this.appDir,
-      ignore: ['**/node_modules/**', '**/_*/**', '**/api/**', '**/.well-known/**'],
-    });
+    const pageFiles = this.findPageFiles(this.appDir);
 
     console.log(`Found ${pageFiles.length} page files in filesystem`);
 

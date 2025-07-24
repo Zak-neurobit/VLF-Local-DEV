@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';

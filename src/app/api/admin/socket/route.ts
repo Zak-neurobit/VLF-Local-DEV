@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getChatSocketServer } from '@/lib/socket/server';
-import { logger, securityLogger } from '@/lib/logger';
-import { createErrorLogMeta, errorToLogMeta } from '@/lib/logger/utils';
+import { logger, securityLogger } from '@/lib/safe-logger';
+import { createErrorLogMeta, errorToLogMeta } from '@/lib/safe-logger';
 import { z } from 'zod';
 import type {
   AdminAuthResult,

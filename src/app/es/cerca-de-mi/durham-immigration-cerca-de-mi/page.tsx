@@ -1,5 +1,7 @@
 import DurhamImmigrationCercaDeMiClient from './durhamimmigrationNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function DurhamImmigrationCercaDeMiPage() {
   return <DurhamImmigrationCercaDeMiClient />;
 }

@@ -1,5 +1,7 @@
 import CharlotteWorkersCompensationCercaDeMiClient from './charlotteWorkersCompensationNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function CharlotteWorkersCompensationCercaDeMiPage() {
   return <CharlotteWorkersCompensationCercaDeMiClient />;
 }

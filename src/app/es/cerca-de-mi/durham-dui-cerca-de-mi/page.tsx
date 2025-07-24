@@ -1,5 +1,7 @@
 import DurhamDuiCercaDeMiClient from './durhamduiNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function DurhamDuiCercaDeMiPage() {
   return <DurhamDuiCercaDeMiClient />;
 }

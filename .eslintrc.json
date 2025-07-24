@@ -11,6 +11,7 @@
     "jsx-a11y/anchor-is-valid": "off",
     "react-hooks/exhaustive-deps": "warn",
     "react/display-name": "off",
+    "react/no-unescaped-entities": "off",
     "prefer-const": "warn"
   },
   "overrides": [

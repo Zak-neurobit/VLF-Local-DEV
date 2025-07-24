@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { apiLogger } from '@/lib/pino-logger';
+import { apiLogger } from '@/lib/safe-logger';
 import { resourceCatalog } from '@/resources';
 import { ImmigrationProcessGuide } from '@/resources/guides/immigration-process-guide';
 // import { renderToStream } from '@react-pdf/renderer'; // TODO: Install package

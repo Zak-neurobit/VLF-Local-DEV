@@ -1,67 +1,41 @@
-import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
-import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
+import { MasterLayout } from '@/design-system/templates/MasterLayout';
+import FAQPageContent from '@/components/FAQPageContent';
 
 export const metadata: Metadata = {
-  title: 'Preguntas Frecuentes | Bufete de Abogados Vasquez - YO PELEO POR TI™',
+  title: 'Preguntas Frecuentes | Vasquez Law Firm, PLLC',
   description:
-    'Abogados de inmigración, lesiones personales y defensa criminal. Más de 30,000 casos ganados. Consulta gratuita. Disponible 24/7.',
+    'Encuentre respuestas a preguntas legales comunes sobre inmigración, lesiones personales, defensa criminal y más. Obtenga información de abogados experimentados de Carolina del Norte.',
+  keywords:
+    'preguntas frecuentes legales, preguntas de inmigración, FAQ lesiones personales, preguntas defensa criminal, FAQ ley Carolina del Norte',
+  openGraph: {
+    title: 'Preguntas Frecuentes | Vasquez Law Firm',
+    description: 'Encuentre respuestas a preguntas comunes sobre nuestros servicios legales y procesos.',
+    type: 'website',
+    url: 'https://www.vasquezlawnc.com/es/preguntas-frecuentes',
+    images: [
+      {
+        url: 'https://www.vasquezlawnc.com/images/faq-og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Vasquez Law Firm Preguntas Frecuentes',
+      },
+    ],
+  },
+  alternates: {
+    languages: {
+      'en-US': '/faq',
+      'es-US': '/es/preguntas-frecuentes',
+    },
+  },
 };
 
 export const runtime = 'nodejs';
 
 export default function PreguntasFrecuentesPage() {
-  // TODO: Extract content from original file and format properly
-  const post = {
-    id: 'preguntas-frecuentes',
-    title: 'Preguntas Frecuentes',
-    slug: 'preguntas-frecuentes',
-    excerpt: 'Blog post excerpt here - TODO: extract from content',
-    content: `
-      <div class="prose prose-lg max-w-none">
-        <!-- TODO: Migrate content from original file -->
-        <p>This content needs to be migrated from the original file.</p>
-      </div>
-    `,
-    practiceArea: 'general', // TODO: Determine correct practice area
-    language: 'en' as const,
-    publishedAt: new Date(),
-    readTime: 5,
-    author: DEFAULT_BLOG_AUTHOR,
-    tags: [], // TODO: Add relevant tags
-  };
-
-  const categories = [
-    {
-      id: 'immigration',
-      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
-      slug: { en: 'immigration', es: 'inmigracion' },
-      icon: '🌐',
-      postCount: 45,
-    },
-    {
-      id: 'personal-injury',
-      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
-      slug: { en: 'personal-injury', es: 'lesiones-personales' },
-      icon: '🏥',
-      postCount: 32,
-    },
-    {
-      id: 'criminal-defense',
-      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
-      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
-      icon: '⚖️',
-      postCount: 28,
-    },
-  ];
-
   return (
-    <BlogPageTemplate
-      posts={[]}
-      categories={categories}
-      isArticlePage={true}
-      currentPost={post}
-      relatedPosts={[]} // TODO: Add related posts
-    />
+    <MasterLayout variant="hero" showBreadcrumbs={false}>
+      <FAQPageContent language="es" />
+    </MasterLayout>
   );
 }

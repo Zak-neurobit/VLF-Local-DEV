@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { apiLogger } from '@/lib/pino-logger';
+import { apiLogger } from '@/lib/safe-logger';
 // Mock data for the live dashboard
 const mockDashboardData = {
   agents: [

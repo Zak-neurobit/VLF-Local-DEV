@@ -45,7 +45,7 @@ export async function startBullDashboard(port: number = 3001) {
     app.use('/admin/queues', serverAdapter.getRouter());
 
     // Health check endpoint
-    app.get('/health', (req, res) => {
+    app.get('/health', (req: express.Request, res: express.Response) => {
       res.json({ status: 'ok', queues: queues.length });
     });
 

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { enhancedVoiceUXSystem } from '@/services/retell/enhanced-voice-ux';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 
 /**
  * POST /api/voice/conversation - Initialize enhanced conversation

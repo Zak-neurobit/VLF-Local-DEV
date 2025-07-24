@@ -1,8 +1,8 @@
 #!/usr/bin/env ts-node
 
 import { cache, redis, cacheKeys, CacheTTL } from '@/lib/cache/redis';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 
 async function testRedisConnection() {
   logger.info('🔧 Testing Redis connection...');

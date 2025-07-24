@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { BRAND } from '../constants';
-import { LanguageToggle } from '@/components/LanguageToggle';
+import { SimpleLanguageSwitcher } from '@/components/Navigation/SimpleLanguageSwitcher';
 
 interface ConsistentHeaderProps {
   language: 'en' | 'es';
@@ -175,7 +175,12 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                 {BRAND.email}
               </a>
             </div>
-            <LanguageToggle />
+            <SimpleLanguageSwitcher
+              variant="minimal"
+              showFlags={false}
+              showLabels={true}
+              className="text-xs"
+            />
           </div>
         </div>
       </div>

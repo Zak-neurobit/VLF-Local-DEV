@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 import { testGHLConnection, createGHLContact } from '@/lib/ghl';
 
 export async function GET() {

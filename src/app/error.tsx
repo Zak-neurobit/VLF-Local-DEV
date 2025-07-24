@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { logger } from '@/lib/pino-logger';
-import * as Sentry from '@sentry/nextjs';
+import { logger } from '@/lib/safe-logger';
+// import * as Sentry from '@sentry/nextjs';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
@@ -17,8 +17,11 @@ export default function Error({
 
   useEffect(() => {
     // Log the error to error reporting service
-    logger.error(error);
+    logger.error('Application error occurred', error);
 
+    // Temporarily disabled Sentry due to missing dependencies
+    // TODO: Re-enable after fixing OpenTelemetry dependencies
+    /*
     // Report to Sentry with context
     Sentry.captureException(error, {
       tags: {
@@ -33,6 +36,7 @@ export default function Error({
         },
       },
     });
+    */
   }, [error, language]);
 
   const content = {

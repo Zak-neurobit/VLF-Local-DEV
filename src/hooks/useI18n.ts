@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 import { useEffect, useState } from 'react';
 import { getTranslations } from '@/lib/i18n';
 

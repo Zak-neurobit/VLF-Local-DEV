@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import HomePage from '@/components/HomePage';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
+import HomePage from '@/components/HomePage/SSRSafeHomePage';
+import { SSRSafeMasterLayout } from '@/design-system/templates/SSRSafeMasterLayout';
 import ResourceHintsLite from '@/components/ResourceHintsLite';
 
 // Power-packed metadata with urgency and trust signals
@@ -56,9 +56,9 @@ export default function Page() {
   return (
     <>
       <ResourceHintsLite />
-      <MasterLayout variant="hero" showBreadcrumbs={false}>
+      <SSRSafeMasterLayout variant="hero" showBreadcrumbs={false}>
         <HomePage />
-      </MasterLayout>
+      </SSRSafeMasterLayout>
     </>
   );
 }

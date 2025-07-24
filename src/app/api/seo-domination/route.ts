@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import { SEODominationOrchestrator } from '@/lib/crewai/seo-domination/seo-domination-orchestrator';
 
 // Global instance to maintain state

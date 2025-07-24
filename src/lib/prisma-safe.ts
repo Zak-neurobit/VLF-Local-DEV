@@ -146,6 +146,102 @@ class SafePrismaClient {
     return syndicationReportStubs;
   }
 
+  get aBTest() {
+    if (this.isAvailable && this.realClient) {
+      return (this.realClient as any).aBTest;
+    }
+    return {
+      findUnique: async () => null,
+      findFirst: async () => null,
+      findMany: async () => [],
+      create: async (args: { data: Record<string, unknown> }) => ({ 
+        id: 'mock-test-id', 
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        ...args.data 
+      }),
+      update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({
+        id: args.where.id,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        ...args.data,
+      }),
+      delete: async () => ({ id: 'deleted' }),
+      count: async () => 0,
+    };
+  }
+
+  get aBTestVariant() {
+    if (this.isAvailable && this.realClient) {
+      return (this.realClient as any).aBTestVariant;
+    }
+    return {
+      findUnique: async () => null,
+      findFirst: async () => null,
+      findMany: async () => [],
+      create: async (args: { data: Record<string, unknown> }) => ({ 
+        id: 'mock-variant-id',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        ...args.data 
+      }),
+      update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({
+        id: args.where.id,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        ...args.data,
+      }),
+      delete: async () => ({ id: 'deleted' }),
+      count: async () => 0,
+    };
+  }
+
+  get aBTestParticipant() {
+    if (this.isAvailable && this.realClient) {
+      return (this.realClient as any).aBTestParticipant;
+    }
+    return {
+      findUnique: async () => null,
+      findFirst: async () => null,
+      findMany: async () => [],
+      create: async (args: { data: Record<string, unknown> }) => ({ 
+        id: 'mock-participant-id',
+        assignedAt: new Date(),
+        ...args.data 
+      }),
+      update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({
+        id: args.where.id,
+        assignedAt: new Date(),
+        ...args.data,
+      }),
+      delete: async () => ({ id: 'deleted' }),
+      count: async () => 0,
+    };
+  }
+
+  get aBTestEvent() {
+    if (this.isAvailable && this.realClient) {
+      return (this.realClient as any).aBTestEvent;
+    }
+    return {
+      findUnique: async () => null,
+      findFirst: async () => null,
+      findMany: async () => [],
+      create: async (args: { data: Record<string, unknown> }) => ({ 
+        id: 'mock-event-id',
+        timestamp: new Date(),
+        ...args.data 
+      }),
+      update: async (args: { where: { id: string }; data: Record<string, unknown> }) => ({
+        id: args.where.id,
+        timestamp: new Date(),
+        ...args.data,
+      }),
+      delete: async () => ({ id: 'deleted' }),
+      count: async () => 0,
+    };
+  }
+
   // Add other models as needed
   async $connect() {
     if (this.realClient) {

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { paymentLogger } from '@/lib/pino-logger';
+import { paymentLogger } from '@/lib/safe-logger';
 // LawPay API integration
 export async function POST(request: NextRequest) {
   try {

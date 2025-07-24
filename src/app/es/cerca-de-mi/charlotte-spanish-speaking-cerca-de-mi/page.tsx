@@ -1,5 +1,7 @@
 import CharlotteSpanishSpeakingCercaDeMiClient from './charlotteSpanishSpeakingNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function CharlotteSpanishSpeakingCercaDeMiPage() {
   return <CharlotteSpanishSpeakingCercaDeMiClient />;
 }

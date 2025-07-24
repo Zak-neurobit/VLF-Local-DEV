@@ -1,5 +1,7 @@
 import GreensboroImmigrationCercaDeMiClient from './greensuoroimmigrationNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function GreensboroImmigrationCercaDeMiPage() {
   return <GreensboroImmigrationCercaDeMiClient />;
 }

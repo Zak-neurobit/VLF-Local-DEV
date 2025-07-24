@@ -1,4 +1,7 @@
 import { Metadata } from 'next';
+
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 import Script from 'next/script';
 export const metadata: Metadata = {

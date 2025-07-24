@@ -1,5 +1,7 @@
 import WilmingtonDivorceCercaDeMiClient from './wilmingtondivorceNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function WilmingtonDivorceCercaDeMiPage() {
   return <WilmingtonDivorceCercaDeMiClient />;
 }

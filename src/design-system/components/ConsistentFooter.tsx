@@ -27,6 +27,10 @@ export const ConsistentFooter: React.FC<ConsistentFooterProps> = ({ language }) 
       faq: 'FAQ',
       offices: 'Our Offices',
       connect: 'Connect With Us',
+      resources: 'Resources',
+      legalDisclaimer: 'Legal Disclaimer',
+      accessibility: 'Accessibility',
+      cookiePolicy: 'Cookie Policy',
       newsletter: 'Subscribe to our newsletter',
       emailPlaceholder: 'Enter your email',
       subscribe: 'Subscribe',
@@ -55,6 +59,10 @@ export const ConsistentFooter: React.FC<ConsistentFooterProps> = ({ language }) 
       faq: 'Preguntas Frecuentes',
       offices: 'Nuestras Oficinas',
       connect: 'Conéctate Con Nosotros',
+      resources: 'Recursos',
+      legalDisclaimer: 'Aviso Legal',
+      accessibility: 'Accesibilidad',
+      cookiePolicy: 'Política de Cookies',
       newsletter: 'Suscríbete a nuestro boletín',
       emailPlaceholder: 'Ingresa tu correo',
       subscribe: 'Suscribir',
@@ -222,10 +230,18 @@ export const ConsistentFooter: React.FC<ConsistentFooterProps> = ({ language }) 
               </li>
               <li>
                 <Link
-                  href={language === 'es' ? '/es/preguntas-frecuentes' : '/faqs'}
+                  href={language === 'es' ? '/es/preguntas-frecuentes' : '/faq'}
                   className="text-neutral-300 hover:text-primary transition-colors"
                 >
                   {t.faq}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={language === 'es' ? '/es/recursos' : '/resources'}
+                  className="text-neutral-300 hover:text-primary transition-colors"
+                >
+                  {t.resources}
                 </Link>
               </li>
             </ul>
@@ -295,6 +311,24 @@ export const ConsistentFooter: React.FC<ConsistentFooterProps> = ({ language }) 
                 className="hover:text-primary transition-colors"
               >
                 {t.sitemap}
+              </Link>
+              <Link
+                href={language === 'es' ? '/es/aviso-legal' : '/legal-disclaimer'}
+                className="hover:text-primary transition-colors"
+              >
+                {t.legalDisclaimer}
+              </Link>
+              <Link
+                href={language === 'es' ? '/es/accesibilidad' : '/accessibility'}
+                className="hover:text-primary transition-colors"
+              >
+                {t.accessibility}
+              </Link>
+              <Link
+                href={language === 'es' ? '/es/politica-cookies' : '/cookie-policy'}
+                className="hover:text-primary transition-colors"
+              >
+                {t.cookiePolicy}
               </Link>
             </div>
           </div>

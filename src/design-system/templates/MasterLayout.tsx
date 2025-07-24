@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { NewsTicker } from '@/components/ui/news-ticker';
+import { ClientOnlyWrapper } from '@/components/ClientOnlyWrapper';
 
 interface MasterLayoutProps {
   children: React.ReactNode;
@@ -69,7 +70,9 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
           transform: 'none',
         }}
       >
-        <NewsTicker locale={currentLanguage} />
+        <ClientOnlyWrapper>
+          <NewsTicker locale={currentLanguage} />
+        </ClientOnlyWrapper>
       </div>
 
       {/* Header - Adjusted to account for ticker height */}

@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import { securityLogger } from '@/lib/pino-logger';
+import { securityLogger } from '@/lib/safe-logger';
 import type { NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
 // List of supported locales
 const locales = ['en', 'es'];
-const defaultLocale = 'en';
+const defaultLocale = 'en'; // Changed to match next.config.js
 
 // Get the preferred locale from the request
 function getLocale(request: NextRequest): string {
@@ -102,16 +102,12 @@ export async function middleware(request: NextRequest) {
   // Get the preferred locale
   const locale = getLocale(request);
 
-  // TEMPORARILY DISABLED: Automatic locale redirects to debug navigation issues
-  // Uncomment the following block to re-enable automatic Spanish redirects
-  /*
-  // For Spanish, redirect to /es path
-  if (locale === 'es') {
+  // For Spanish, redirect to /es path if not already there
+  if (locale === 'es' && !pathname.startsWith('/es')) {
     const newUrl = new URL(`/es${pathname}`, request.url);
     newUrl.search = request.nextUrl.search;
     return NextResponse.redirect(newUrl);
   }
-  */
 
   // For English (default), continue without prefix
   return NextResponse.next();

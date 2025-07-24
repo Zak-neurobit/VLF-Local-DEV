@@ -1,5 +1,7 @@
 import WinstonSalemDuiCercaDeMiClient from './WinstonSalemduiNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function WinstonSalemDuiCercaDeMiPage() {
   return <WinstonSalemDuiCercaDeMiClient />;
 }

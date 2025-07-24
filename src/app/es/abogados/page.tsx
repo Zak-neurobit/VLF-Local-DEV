@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
-import AttorneysPageContent from '@/components/AttorneysPageContent';
+import AttorneysPageWrapper from '@/components/AttorneysPageWrapper';
 
 export const metadata: Metadata = {
   title: 'Nuestros Abogados - Bufete de Abogados Vasquez - YO PELEO POR TI™',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 export default function AbogadosPage() {
   return (
     <MasterLayout variant="default" showBreadcrumbs={true}>
-      <AttorneysPageContent language="es" />
+      <AttorneysPageWrapper language="es" />
     </MasterLayout>
   );
 }

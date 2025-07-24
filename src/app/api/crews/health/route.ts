@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPrismaClient } from '@/lib/prisma';
 import { CrewCoordinator } from '@/lib/crewai/enhanced-crew-coordinator';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 

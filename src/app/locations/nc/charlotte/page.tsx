@@ -1,6 +1,10 @@
 import { Metadata } from 'next';
+
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 import Link from 'next/link';
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
+
 export const metadata: Metadata = {
   title: "#1 Charlotte Law Firm | Queen City's Elite Legal Team | Vasquez Law",
   description:

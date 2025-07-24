@@ -1,5 +1,7 @@
 import CaryCriminalDefenseCercaDeMiClient from './caryCriminalDefenseNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function CaryCriminalDefenseCercaDeMiPage() {
   return <CaryCriminalDefenseCercaDeMiClient />;
 }

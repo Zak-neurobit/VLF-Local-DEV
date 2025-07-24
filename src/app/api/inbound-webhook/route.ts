@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import * as crypto from 'crypto';
 
 // Force dynamic rendering since we need to access headers

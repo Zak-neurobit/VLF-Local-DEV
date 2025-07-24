@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { securityLogger } from '@/lib/pino-logger';
-export const dynamic = 'force-dynamic';
+import { securityLogger } from '@/lib/safe-logger';
+export const revalidate = 3600; // Revalidate every hour
 
 const mockLatestBlogPosts = [
   {
@@ -72,9 +72,23 @@ export async function GET(request: NextRequest) {
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       .slice(0, limit);
 
-    return NextResponse.json(latestPosts);
+    return NextResponse.json(latestPosts, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200',
+        'CDN-Cache-Control': 'max-age=3600',
+        'Vercel-CDN-Cache-Control': 'max-age=3600',
+      },
+    });
   } catch (error) {
     securityLogger.error('Latest blog posts API error:', error);
-    return NextResponse.json({ error: 'Failed to fetch latest blog posts' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to fetch latest blog posts' },
+      {
+        status: 500,
+        headers: {
+          'Cache-Control': 'no-store',
+        },
+      }
+    );
   }
 }

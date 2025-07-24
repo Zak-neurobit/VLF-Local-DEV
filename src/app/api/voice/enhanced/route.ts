@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { enhancedVoiceUXSystem } from '@/services/retell/enhanced-voice-ux';
 import { voiceAnalyticsSystem } from '@/services/retell/voice-analytics';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 // Authentication would be handled at the middleware level
 
 /**

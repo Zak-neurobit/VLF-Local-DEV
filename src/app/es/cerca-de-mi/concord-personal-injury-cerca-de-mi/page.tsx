@@ -1,5 +1,7 @@
 import ConcordPersonalInjuryCercaDeMiClient from './concordPersonalInjuryNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function ConcordPersonalInjuryCercaDeMiPage() {
   return <ConcordPersonalInjuryCercaDeMiClient />;
 }

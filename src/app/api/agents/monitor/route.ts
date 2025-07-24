@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { prisma } from '@/lib/prisma';
 import { AgentOrchestrator } from '@/lib/agents/agent-orchestrator';
 import { CrewCoordinator } from '@/lib/crewai/crew-coordinator';

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta, createErrorLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta, createErrorLogMeta } from '@/lib/safe-logger';
 import { getPrismaClient } from '@/lib/prisma';
 
 // LawPay webhook data types

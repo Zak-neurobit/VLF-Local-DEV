@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { apiLogger } from '@/lib/pino-logger';
+import { apiLogger } from '@/lib/safe-logger';
 import { blogImportService } from '@/services/blog/import-service';
 
 export async function GET() {

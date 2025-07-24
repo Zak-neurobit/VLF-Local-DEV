@@ -1,5 +1,7 @@
 import CharlotteDuiCercaDeMiClient from './charlotteduiNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function CharlotteDuiCercaDeMiPage() {
   return <CharlotteDuiCercaDeMiClient />;
 }

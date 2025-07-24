@@ -1,160 +1,179 @@
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { Home, Phone, MessageCircle, ArrowLeft, Search } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 export default function NotFound() {
-  const [language, setLanguage] = useState<'en' | 'es'>('en');
+  const pathname = usePathname();
+  const isSpanish = pathname?.startsWith('/es');
 
   const content = {
-    en: {
-      title: '404 - Page Not Found',
-      subtitle: "Oops! The page you're looking for doesn't exist.",
-      description:
-        "It seems you\'ve taken a wrong turn. Don\'t worry, our AI assistant can help you find what you need.",
-      homeButton: 'Go Home',
-      contactButton: 'Contact Us',
-      searchPlaceholder: 'Search for legal services...',
-      aiHelp: 'Get AI Help',
-      suggestions: 'Popular Pages:',
-      pages: [
-        { name: 'Immigration Law', href: '/practice-areas/immigration' },
-        { name: 'Personal Injury', href: '/practice-areas/personal-injury' },
-        { name: 'Free Consultation', href: '/contact' },
-        { name: 'Our Attorneys', href: '/attorneys' },
-      ],
-    },
-    es: {
-      title: '404 - Página No Encontrada',
-      subtitle: '¡Ups! La página que buscas no existe.',
-      description:
-        'Parece que has tomado un camino equivocado. No te preocupes, nuestro asistente de IA puede ayudarte a encontrar lo que necesitas.',
-      homeButton: 'Ir al Inicio',
-      contactButton: 'Contáctanos',
-      searchPlaceholder: 'Buscar servicios legales...',
-      aiHelp: 'Obtener Ayuda IA',
-      suggestions: 'Páginas Populares:',
-      pages: [
-        { name: 'Ley de Inmigración', href: '/practice-areas/immigration' },
-        { name: 'Lesiones Personales', href: '/practice-areas/personal-injury' },
-        { name: 'Consulta Gratis', href: '/contact' },
-        { name: 'Nuestros Abogados', href: '/attorneys' },
-      ],
-    },
+    title: isSpanish ? 'Página No Encontrada' : 'Page Not Found',
+    code: '404',
+    description: isSpanish 
+      ? 'Lo sentimos, la página que busca no existe o ha sido movida.'
+      : 'Sorry, the page you are looking for does not exist or has been moved.',
+    homeButton: isSpanish ? 'Ir al Inicio' : 'Go to Homepage',
+    contactButton: isSpanish ? 'Contáctenos' : 'Contact Us',
+    callButton: isSpanish ? 'Llamar Ahora' : 'Call Now',
+    searchButton: isSpanish ? 'Buscar' : 'Search',
+    suggestedPages: isSpanish ? 'Páginas Sugeridas:' : 'Suggested Pages:',
+    practiceAreas: isSpanish ? 'Áreas de Práctica' : 'Practice Areas',
+    attorneys: isSpanish ? 'Abogados' : 'Attorneys',
+    locations: isSpanish ? 'Ubicaciones' : 'Locations',
+    blog: isSpanish ? 'Blog' : 'Blog',
+    faq: isSpanish ? 'Preguntas Frecuentes' : 'FAQ'
   };
 
-  const t = content[language];
+  const suggestedLinks = [
+    { 
+      href: isSpanish ? '/es/areas-de-practica' : '/practice-areas', 
+      label: content.practiceAreas,
+      description: isSpanish 
+        ? 'Explore nuestros servicios legales'
+        : 'Explore our legal services'
+    },
+    { 
+      href: isSpanish ? '/es/abogados' : '/attorneys', 
+      label: content.attorneys,
+      description: isSpanish 
+        ? 'Conozca a nuestro equipo'
+        : 'Meet our team'
+    },
+    { 
+      href: isSpanish ? '/es/ubicaciones' : '/locations', 
+      label: content.locations,
+      description: isSpanish 
+        ? 'Encuentre una oficina cerca'
+        : 'Find an office near you'
+    },
+    { 
+      href: isSpanish ? '/es/blog' : '/blog', 
+      label: content.blog,
+      description: isSpanish 
+        ? 'Últimas noticias legales'
+        : 'Latest legal news'
+    },
+    { 
+      href: isSpanish ? '/es/preguntas-frecuentes' : '/faq', 
+      label: content.faq,
+      description: isSpanish 
+        ? 'Respuestas a preguntas comunes'
+        : 'Answers to common questions'
+    }
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-4">
       <div className="max-w-4xl w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           className="text-center"
         >
-          {/* Language Toggle */}
-          <div className="flex justify-center gap-2 mb-8">
-            <button
-              onClick={() => setLanguage('en')}
-              className={`px-3 py-1 text-sm rounded ${
-                language === 'en'
-                  ? 'bg-[#C9974D] text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLanguage('es')}
-              className={`px-3 py-1 text-sm rounded ${
-                language === 'es'
-                  ? 'bg-[#C9974D] text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
-            >
-              ES
-            </button>
-          </div>
-
-          {/* 404 Animation */}
-          <motion.div
-            initial={{ scale: 0.8 }}
+          {/* 404 Code */}
+          <motion.h1
+            initial={{ scale: 0.5 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-9xl font-bold text-primary-600 mb-4"
           >
-            <h1 className="text-9xl font-bold text-[#6B1F2E] mb-4">404</h1>
-            <div className="text-6xl mb-4">⚖️</div>
-          </motion.div>
+            {content.code}
+          </motion.h1>
 
-          {/* Content */}
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">{t.title}</h2>
-          <p className="text-xl text-gray-600 mb-2">{t.subtitle}</p>
-          <p className="text-gray-600 mb-8">{t.description}</p>
+          {/* Title */}
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            {content.title}
+          </h2>
 
-          {/* Search Bar */}
-          <div className="max-w-xl mx-auto mb-8">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder={t.searchPlaceholder}
-                className="w-full px-6 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
-              />
-              <button className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 text-[#C9974D] hover:text-[#B08740]">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
+          {/* Description */}
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            {content.description}
+          </p>
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link
-              href="/"
-              className="px-8 py-3 bg-[#6B1F2E] text-white rounded-md font-semibold hover:bg-[#8B2635] transition-colors"
+              href={isSpanish ? '/es' : '/'}
+              className="inline-flex items-center justify-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
             >
-              {t.homeButton}
+              <Home className="w-5 h-5 mr-2" />
+              {content.homeButton}
             </Link>
+            
             <Link
-              href="/contact"
-              className="px-8 py-3 border-2 border-[#C9974D] text-[#C9974D] rounded-md font-semibold hover:bg-[#C9974D] hover:text-white transition-colors"
+              href={isSpanish ? '/es/contacto' : '/contact'}
+              className="inline-flex items-center justify-center px-6 py-3 bg-white text-primary-600 border-2 border-primary-600 rounded-lg hover:bg-primary-50 transition-colors"
             >
-              {t.contactButton}
+              <MessageCircle className="w-5 h-5 mr-2" />
+              {content.contactButton}
             </Link>
-            <button className="px-8 py-3 bg-gradient-to-r from-[#C9974D] to-[#D4A574] text-white rounded-md font-semibold hover:shadow-lg transition-all">
-              🤖 {t.aiHelp}
-            </button>
+            
+            <a
+              href="tel:1-844-965-3536"
+              className="inline-flex items-center justify-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            >
+              <Phone className="w-5 h-5 mr-2" />
+              {content.callButton}
+            </a>
           </div>
 
-          {/* Suggestions */}
-          <div className="bg-gray-50 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">{t.suggestions}</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {t.pages.map((page, index) => (
-                <Link
-                  key={index}
-                  href={page.href}
-                  className="text-[#6B1F2E] hover:text-[#C9974D] hover:underline"
+          {/* Suggested Pages */}
+          <div className="bg-white rounded-2xl shadow-xl p-8">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-6">
+              {content.suggestedPages}
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {suggestedLinks.map((link, index) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index }}
                 >
-                  {page.name} →
-                </Link>
+                  <Link
+                    href={link.href}
+                    className="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors group"
+                  >
+                    <h4 className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
+                      {link.label}
+                    </h4>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {link.description}
+                    </p>
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </div>
 
-          {/* Contact Info */}
-          <div className="mt-8 text-gray-600">
-            <p className="text-sm">📞 1-844-YO-PELEO (967-3536) | 📧 leads@vasquezlawfirm.com</p>
-          </div>
+          {/* Go Back Button */}
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            onClick={() => window.history.back()}
+            className="mt-8 inline-flex items-center text-primary-600 hover:text-primary-700 transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            {isSpanish ? 'Volver' : 'Go Back'}
+          </motion.button>
+        </motion.div>
+
+        {/* Decorative Elements */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.1 }}
+          transition={{ delay: 0.8 }}
+          className="absolute inset-0 overflow-hidden pointer-events-none"
+        >
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200 rounded-full blur-3xl" />
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-primary-300 rounded-full blur-3xl" />
         </motion.div>
       </div>
     </div>

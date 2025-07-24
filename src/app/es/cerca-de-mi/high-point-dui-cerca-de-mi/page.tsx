@@ -1,5 +1,7 @@
 import HighPointDuiCercaDeMiClient from './HighPointduiNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function HighPointDuiCercaDeMiPage() {
   return <HighPointDuiCercaDeMiClient />;
 }

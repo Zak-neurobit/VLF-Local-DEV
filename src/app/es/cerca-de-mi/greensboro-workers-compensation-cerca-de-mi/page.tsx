@@ -1,5 +1,7 @@
 import GreensboroWorkersCompensationCercaDeMiClient from './greensuoroWorkersCompensationNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function GreensboroWorkersCompensationCercaDeMiPage() {
   return <GreensboroWorkersCompensationCercaDeMiClient />;
 }

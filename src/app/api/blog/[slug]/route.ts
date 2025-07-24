@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPrismaClient } from '@/lib/prisma';
-import { apiLogger } from '@/lib/logger';
+import { apiLogger } from '@/lib/safe-logger';
 import { SEOOptimizationService } from '@/services/seo-optimization';
 import { blogImportService } from '@/services/blog/import-service';
 import type { BlogPost, RelatedPost, BlogPostResponse } from '@/types/api';

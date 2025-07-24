@@ -1,5 +1,7 @@
 import WinstonSalemCarAccidentsCercaDeMiClient from './WinstonSalemCarAccidentsNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function WinstonSalemCarAccidentsCercaDeMiPage() {
   return <WinstonSalemCarAccidentsCercaDeMiClient />;
 }

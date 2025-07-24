@@ -447,3 +447,6 @@ export function getAttorneysByOffice(office: string): Attorney[] {
 export function getAttorneysByPracticeArea(area: string): Attorney[] {
   return attorneys.filter(attorney => attorney.practiceAreas.includes(area));
 }
+
+// Alias for backward compatibility
+export const attorneyProfiles = attorneys;

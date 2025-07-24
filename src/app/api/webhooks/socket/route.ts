@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { apiLogger } from '@/lib/logger';
+import { apiLogger } from '@/lib/safe-logger';
 
 export async function POST(req: NextRequest) {
   apiLogger.request(req.method, req.url, {});

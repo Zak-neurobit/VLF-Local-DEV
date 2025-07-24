@@ -1,13 +1,19 @@
 {
   "installCommand": "npm install",
-  "buildCommand": "npm run build",
+  "buildCommand": "npm run build:production",
   "framework": "nextjs",
+  "build": {
+    "env": {
+      "NODE_OPTIONS": "--max-old-space-size=16384",
+      "BUILD_TIME": "true"
+    }
+  },
   "functions": {
     "src/app/api/**/*.ts": {
       "maxDuration": 30
+    },
+    "src/app/locations/[...slug]/page.tsx": {
+      "maxDuration": 30
     }
-  },
-  "env": {
-    "NODE_OPTIONS": "--max-old-space-size=8192"
   }
 }

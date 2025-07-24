@@ -1,5 +1,7 @@
 import CaryImmigrationCercaDeMiClient from './caryimmigrationNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function CaryImmigrationCercaDeMiPage() {
   return <CaryImmigrationCercaDeMiClient />;
 }

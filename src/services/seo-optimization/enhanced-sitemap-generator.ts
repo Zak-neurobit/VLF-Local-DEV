@@ -2,7 +2,6 @@ import { getPrismaClient } from '@/lib/prisma';
 import { componentLogger } from '@/lib/safe-logger';
 import * as fs from 'fs';
 import * as path from 'path';
-import { glob } from 'glob';
 
 export class EnhancedSitemapGenerator {
   private static baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vasquezlawnc.com';
@@ -201,10 +200,30 @@ export class EnhancedSitemapGenerator {
     }
   }
 
+  private static findFilesRecursive(dir: string, pattern: RegExp, files: string[] = []): string[] {
+    try {
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        
+        if (entry.isDirectory()) {
+          this.findFilesRecursive(fullPath, pattern, files);
+        } else if (entry.isFile() && pattern.test(entry.name)) {
+          files.push(fullPath);
+        }
+      }
+    } catch (error) {
+      // Directory might not exist
+    }
+    
+    return files;
+  }
+
   private static async addLocationPages(urlSet: Set<any>) {
     // Dynamically discover all location pages
-    const locationPattern = path.join(process.cwd(), 'src/app/locations/**/*.tsx');
-    const locationFiles = await glob(locationPattern);
+    const locationsDir = path.join(process.cwd(), 'src/app/locations');
+    const locationFiles = this.findFilesRecursive(locationsDir, /page\.tsx$/);
 
     // Process each location file
     for (const file of locationFiles) {

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { reviewAggregator } from '@/services/reviews/review-aggregator';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 
 // Force dynamic rendering since we might need headers or search params
 export const dynamic = 'force-dynamic';

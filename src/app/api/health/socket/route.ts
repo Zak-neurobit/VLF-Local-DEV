@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getChatSocketServer } from '@/lib/socket/server';
-import { logger, securityLogger } from '@/lib/logger';
-import { createErrorLogMeta } from '@/lib/logger/utils';
+import { logger, securityLogger } from '@/lib/safe-logger';
+import { createErrorLogMeta } from '@/lib/safe-logger';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import type {

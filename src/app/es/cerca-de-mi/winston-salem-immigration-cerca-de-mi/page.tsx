@@ -1,5 +1,7 @@
 import WinstonSalemImmigrationCercaDeMiClient from './WinstonSalemimmigrationNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function WinstonSalemImmigrationCercaDeMiPage() {
   return <WinstonSalemImmigrationCercaDeMiClient />;
 }

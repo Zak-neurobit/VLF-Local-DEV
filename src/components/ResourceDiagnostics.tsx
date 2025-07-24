@@ -63,8 +63,9 @@ export function ResourceDiagnostics() {
       scripts.forEach(script => {
         // Scripts don't have a reliable way to check if loaded
         // but we can log them for debugging
-        if (script.src.includes('wb_async') || script.src.includes('pageView')) {
-          console.warn('[Suspicious Script Found]', script.src);
+        const src = (script as HTMLScriptElement).src;
+        if (src && (src.includes('wb_async') || src.includes('pageView'))) {
+          console.warn('[Suspicious Script Found]', src);
         }
       });
 

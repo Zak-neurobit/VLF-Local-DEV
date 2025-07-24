@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPrismaClient } from '@/lib/prisma';
-import { apiLogger } from '@/lib/logger';
+import { apiLogger } from '@/lib/safe-logger';
 import { emailService } from '@/services/email.service';
 import { contactFormSchema } from '@/lib/validations/forms';
 import { contactFormLimiter } from '@/lib/rate-limiter';

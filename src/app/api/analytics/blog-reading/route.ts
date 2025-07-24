@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { apiLogger } from '@/lib/pino-logger';
+import { apiLogger } from '@/lib/safe-logger';
 
 export async function POST(request: Request) {
   try {

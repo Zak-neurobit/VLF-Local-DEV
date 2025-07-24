@@ -1,7 +1,6 @@
 'use client';
 
-import dynamic from 'next/dynamic';
-import { securityLogger } from '@/lib/pino-logger';
+import { securityLogger } from '@/lib/safe-logger';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -9,11 +8,6 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { getCategoryById, getAllCategories } from '@/lib/blog/categories';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
-
-// Dynamic import for client-side only rendering
-const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(mod => mod.ChatWidget), {
-  ssr: false,
-});
 
 interface BlogPost {
   id: string;
@@ -131,17 +125,20 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
         params.append('search', searchQuery.trim());
       }
 
-      const response = await fetch(`/api/blog/import?${params}`);
+      const response = await fetch(`/api/blog?${params}`);
       const data = await response.json();
 
       if (response.ok) {
         const newPosts = data.posts.map((post: Record<string, unknown>) => ({
           ...post,
           publishedAt: new Date(post.publishedAt as string),
+          author: typeof post.author === 'string' 
+            ? { name: post.author, image: null }
+            : post.author as { name: string; image?: string | null },
         }));
 
         setPosts(prevPosts => (page === 1 ? newPosts : [...prevPosts, ...newPosts]));
-        setHasMore(data.hasMore);
+        setHasMore(data.pagination ? page < data.pagination.totalPages : false);
       } else {
         securityLogger.error('Error fetching posts:', data.error);
         setPosts([]);
@@ -164,15 +161,18 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
         limit: '5',
       });
 
-      const response = await fetch(`/api/blog/import?${params}`);
+      const response = await fetch(`/api/blog?${params}`);
       const data = await response.json();
 
       if (response.ok) {
         const posts = data.posts.map((post: Record<string, unknown>) => ({
           ...post,
           publishedAt: new Date(post.publishedAt as string),
+          author: typeof post.author === 'string' 
+            ? { name: post.author, image: null }
+            : post.author as { name: string; image?: string | null },
         }));
-        setPosts(posts);
+        // Don't overwrite all posts, this is just for the sidebar
       }
     } catch (error) {
       securityLogger.error('Error fetching recent posts:', error);
@@ -506,8 +506,6 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
             </div>
           </div>
         </section>
-
-        <ChatWidget language={language} />
       </div>
     </MasterLayout>
   );

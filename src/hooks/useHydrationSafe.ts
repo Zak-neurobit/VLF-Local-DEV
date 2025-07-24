@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 /**
  * Hook to handle hydration-safe rendering
  * Returns true only after the component has mounted on the client

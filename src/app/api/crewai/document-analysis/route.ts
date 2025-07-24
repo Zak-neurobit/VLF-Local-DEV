@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCrewCoordinator } from '@/lib/crewai/crew-coordinator';
 import { DocumentAnalysisRequest } from '@/lib/crewai/agents/document-analysis-agent';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 

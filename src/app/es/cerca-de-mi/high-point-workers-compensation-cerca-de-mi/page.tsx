@@ -1,5 +1,7 @@
 import HighPointWorkersCompensationCercaDeMiClient from './HighPointWorkersCompensationNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function HighPointWorkersCompensationCercaDeMiPage() {
   return <HighPointWorkersCompensationCercaDeMiClient />;
 }

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { apiLogger } from '@/lib/pino-logger';
+import { apiLogger } from '@/lib/safe-logger';
 import { getPrismaClient } from '@/lib/prisma';
-import { requestLogger } from '@/lib/logger';
+import { requestLogger } from '@/lib/safe-logger';
 import { getChatSocketServer } from '@/lib/socket';
 
 export async function GET(request: NextRequest) {

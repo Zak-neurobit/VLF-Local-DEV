@@ -1,4 +1,7 @@
 import { LocationServiceTemplate } from '@/components/templates/LocationServiceTemplate';
+
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 import { getLocationServiceCityBySlug, getLocationServiceByKey } from '@/data/location-services';
 
 export default function DavidsonLesionesPersonalesPage() {

@@ -1,5 +1,7 @@
 import CaryWorkersCompensationCercaDeMiClient from './caryWorkersCompensationNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function CaryWorkersCompensationCercaDeMiPage() {
   return <CaryWorkersCompensationCercaDeMiClient />;
 }

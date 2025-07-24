@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Navigation</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .status { margin: 20px 0; padding: 20px; background: #f0f0f0; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .log { margin: 10px 0; padding: 10px; background: #e9ecef; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>Navigation Test</h1>
+    <div id="status" class="status">Testing...</div>
+    <div id="logs"></div>
+    
+    <h2>Test Links:</h2>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/practice-areas">Practice Areas</a></li>
+        <li><a href="/attorneys">Attorneys</a></li>
+        <li><a href="/contact">Contact</a></li>
+    </ul>
+
+    <script>
+        const status = document.getElementById('status');
+        const logs = document.getElementById('logs');
+        
+        function addLog(message, type = 'info') {
+            const log = document.createElement('div');
+            log.className = 'log';
+            log.textContent = `[${new Date().toISOString()}] ${message}`;
+            logs.appendChild(log);
+        }
+        
+        // Check if navigation is intercepted
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (link && link.href.startsWith(window.location.origin)) {
+                addLog(`Link clicked: ${link.href}`);
+                
+                // Check if default was prevented (indicating client-side navigation)
+                setTimeout(() => {
+                    if (e.defaultPrevented) {
+                        status.className = 'status success';
+                        status.textContent = '✅ Client-side navigation is working!';
+                        addLog('Navigation intercepted successfully', 'success');
+                    }
+                }, 10);
+            }
+        });
+        
+        // Check for page visibility changes (indicating navigation without reload)
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                addLog('Page became visible (possible client-side navigation)');
+            }
+        });
+        
+        // Monitor for history changes
+        let lastUrl = window.location.href;
+        setInterval(() => {
+            if (window.location.href !== lastUrl) {
+                addLog(`URL changed: ${lastUrl} → ${window.location.href}`);
+                lastUrl = window.location.href;
+            }
+        }, 100);
+        
+        addLog('Navigation test initialized');
+    </script>
+</body>
+</html>

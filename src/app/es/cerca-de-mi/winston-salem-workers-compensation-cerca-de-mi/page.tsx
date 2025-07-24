@@ -1,5 +1,7 @@
 import WinstonSalemWorkersCompensationCercaDeMiClient from './WinstonSalemWorkersCompensationNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function WinstonSalemWorkersCompensationCercaDeMiPage() {
   return <WinstonSalemWorkersCompensationCercaDeMiClient />;
 }

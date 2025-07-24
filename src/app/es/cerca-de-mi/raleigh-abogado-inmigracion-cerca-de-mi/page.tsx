@@ -1,4 +1,7 @@
 import { SpanishLocationPageTemplate } from '@/components/templates/SpanishLocationPageTemplate';
+
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

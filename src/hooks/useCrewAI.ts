@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { securityLogger } from '@/lib/pino-logger';
+import { securityLogger } from '@/lib/safe-logger';
 import { toast } from 'react-hot-toast';
 
 export interface CrewAITaskStatus {

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { leadValidationAgent } from '@/lib/agents/lead-validation-agent';
 import { followUpAutomationAgent } from '@/lib/agents/follow-up-automation-agent';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/safe-logger';
 import { z } from 'zod';
 import { getPrismaClient } from '@/lib/prisma';
 

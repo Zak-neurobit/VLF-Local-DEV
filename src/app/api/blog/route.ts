@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPrismaClient } from '@/lib/prisma';
-import { apiLogger } from '@/lib/logger';
+import { apiLogger } from '@/lib/safe-logger';
 
 export async function GET(req: NextRequest) {
   try {
@@ -52,6 +52,7 @@ export async function GET(req: NextRequest) {
           excerpt: true,
           featuredImage: true,
           practiceArea: true,
+          category: true,
           language: true,
           publishedAt: true,
           readTime: true,
@@ -73,8 +74,14 @@ export async function GET(req: NextRequest) {
       )
     );
 
+    // Transform posts to ensure practiceArea is set
+    const transformedPosts = posts.map(post => ({
+      ...post,
+      practiceArea: post.practiceArea || post.category || 'general',
+    }));
+
     return NextResponse.json({
-      posts,
+      posts: transformedPosts,
       pagination: {
         page,
         limit,

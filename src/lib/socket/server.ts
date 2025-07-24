@@ -2980,7 +2980,7 @@ export class ChatSocketServer extends EventEmitter {
   private async startSitemapMonitor(): Promise<void> {
     try {
       const { getSitemapMonitor } = await import('../sitemap/sitemap-monitor');
-      const monitor = getSitemapMonitor(this.io);
+      const monitor = getSitemapMonitor();
       await monitor.start();
       logger.info('Sitemap monitoring started');
     } catch (error) {

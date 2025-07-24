@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { apiLogger } from '@/lib/pino-logger';
+import { apiLogger } from '@/lib/safe-logger';
 import { cache, redis } from '@/lib/cache';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';

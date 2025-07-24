@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import AttorneysPageContent from '@/components/AttorneysPageContent';
+import AttorneysPageWrapper from '@/components/AttorneysPageWrapper';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function AttorneysPage() {
   return (
     <MasterLayout variant="default" showBreadcrumbs={true}>
-      <AttorneysPageContent language="en" />
+      <AttorneysPageWrapper language="en" />
     </MasterLayout>
   );
 }

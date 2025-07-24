@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { logger } from '@/lib/pino-logger';
+import { logger } from '@/lib/safe-logger';
 import { Metadata } from 'next';
 
 // Dynamic imports for each attorney page

@@ -1,5 +1,7 @@
 import RaleighDivorceCercaDeMiClient from './raleighdivorceNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function RaleighDivorceCercaDeMiPage() {
   return <RaleighDivorceCercaDeMiClient />;
 }

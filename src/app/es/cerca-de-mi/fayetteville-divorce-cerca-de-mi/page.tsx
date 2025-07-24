@@ -1,5 +1,7 @@
 import FayettevilleDivorceCercaDeMiClient from './fayettevilledivorceNearMeClient';
 
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 export default function FayettevilleDivorceCercaDeMiPage() {
   return <FayettevilleDivorceCercaDeMiClient />;
 }

@@ -1,4 +1,7 @@
 import { Metadata } from 'next';
+
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 import Script from 'next/script';
 import ModernServiceLocationTemplate from '@/components/templates/ModernServiceLocationTemplate';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';

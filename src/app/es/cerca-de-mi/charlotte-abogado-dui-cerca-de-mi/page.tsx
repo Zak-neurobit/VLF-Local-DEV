@@ -1,4 +1,7 @@
 import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
+
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
 import { Metadata } from 'next';
 import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 

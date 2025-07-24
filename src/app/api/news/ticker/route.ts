@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { logger } from '@/lib/logger';
-import { errorToLogMeta } from '@/lib/logger/utils';
+import { logger } from '@/lib/safe-logger';
+import { errorToLogMeta } from '@/lib/safe-logger';
 import RssParser from 'rss-parser';
 
-// Force dynamic rendering
-export const dynamic = 'force-dynamic';
+// Enable caching with revalidation
+export const revalidate = 300; // 5 minutes cache
 
 // Working RSS feeds for live news
 const liveFeeds = [
@@ -44,22 +44,23 @@ interface NewsItem {
 
 async function fetchLiveNews(category: string, limit: number): Promise<NewsItem[]> {
   const parser = new RssParser({
-    timeout: 5000,
+    timeout: 2000, // Reduced timeout for faster response
     headers: {
       'User-Agent': 'Vasquez Law Firm News Monitor/1.0',
     },
   });
 
   const newsItems: NewsItem[] = [];
+  const relevantFeeds = liveFeeds.filter(
+    feed => feed.category === category || category === 'all'
+  );
 
-  for (const feed of liveFeeds) {
-    if (feed.category !== category && category !== 'all') continue;
-
+  // Fetch all feeds in parallel for better performance
+  const feedPromises = relevantFeeds.map(async feed => {
     try {
       const feedData = await parser.parseURL(feed.url);
-
       if (feedData.items && feedData.items.length > 0) {
-        const items = feedData.items.slice(0, Math.min(3, limit)).map(item => ({
+        return feedData.items.slice(0, Math.min(3, limit)).map(item => ({
           id: `live-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
           title: item.title || 'Immigration News Update',
           titleEs: null, // Would need translation service
@@ -71,13 +72,26 @@ async function fetchLiveNews(category: string, limit: number): Promise<NewsItem[
           source: feed.name,
           live: true,
         }));
-
-        newsItems.push(...items);
       }
+      return [];
     } catch (error) {
       logger.warn(`Failed to fetch from ${feed.name}:`, errorToLogMeta(error));
+      return [];
     }
-  }
+  });
+
+  // Wait for all feeds with a timeout
+  const results = await Promise.allSettled(
+    feedPromises.map(p => 
+      Promise.race([p, new Promise<NewsItem[]>(resolve => setTimeout(() => resolve([]), 2500))])
+    )
+  );
+
+  results.forEach(result => {
+    if (result.status === 'fulfilled' && result.value) {
+      newsItems.push(...result.value);
+    }
+  });
 
   return newsItems.slice(0, limit);
 }
@@ -234,11 +248,20 @@ export async function GET(request: NextRequest) {
     const isLive = newsItems.some(item => item.live);
     const source = isLive ? 'live-rss' : 'database';
 
-    return NextResponse.json({
-      posts: newsItems,
-      source: source,
-      total: newsItems.length,
-    });
+    return NextResponse.json(
+      {
+        posts: newsItems,
+        source: source,
+        total: newsItems.length,
+      },
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+          'CDN-Cache-Control': 'max-age=300',
+          'Vercel-CDN-Cache-Control': 'max-age=300',
+        },
+      }
+    );
   } catch (error) {
     logger.error('Error fetching news ticker items:', errorToLogMeta(error));
 
@@ -256,10 +279,17 @@ export async function GET(request: NextRequest) {
       },
     ];
 
-    return NextResponse.json({
-      posts: fallbackNews,
-      source: 'fallback',
-      error: 'Using fallback data',
-    });
+    return NextResponse.json(
+      {
+        posts: fallbackNews,
+        source: 'fallback',
+        error: 'Using fallback data',
+      },
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
+        },
+      }
+    );
   }
 }

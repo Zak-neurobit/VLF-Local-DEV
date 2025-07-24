@@ -1,133 +1,55 @@
-# Vercel Environment Variables Setup Guide
+# Vercel Environment Variables Setup
 
-This guide will help you configure the necessary environment variables in Vercel for the Vasquez Law Firm website.
+## Required Environment Variables for Production
 
-## Required Environment Variables
+Add these to your Vercel project settings (Settings → Environment Variables):
 
-### 1. Database Configuration
-
+### Database
 ```
-DATABASE_URL = "your-postgres-connection-string"
-```
-
-- Get this from Vercel Postgres or your PostgreSQL provider
-- Format: `postgresql://username:password@host:port/database`
-
-### 2. Authentication
-
-```
-NEXTAUTH_SECRET = "generate-a-secure-32-character-string"
-NEXTAUTH_URL = "https://your-domain.vercel.app"
+DATABASE_URL=your_production_database_url
 ```
 
-- Generate secret: `openssl rand -base64 32`
-- Update URL to your actual domain
-
-### 3. AI Services (Required for full functionality)
-
+### Redis (Optional - will use in-memory if not provided)
 ```
-OPENAI_API_KEY = "sk-..."
+REDIS_URL=your_redis_url
 ```
 
-- Get from: https://platform.openai.com/api-keys
-
-### 4. GoHighLevel Integration (CRM)
-
+### Authentication
 ```
-GHL_API_KEY = "your-api-key"
-GHL_LOCATION_ID = "your-location-id"
-GHL_CALENDAR_ID = "your-calendar-id"
-GHL_MAIN_PIPELINE_ID = "your-pipeline-id"
-GHL_NEW_LEADS_STAGE_ID = "your-stage-id"
-GHL_DEFAULT_USER_ID = "your-user-id"
+NEXTAUTH_URL=https://www.vasquezlawnc.com
+NEXTAUTH_SECRET=your_generated_secret
 ```
 
-- Get from your GoHighLevel account settings
-
-### 5. SMS & Voice Campaigns (GoHighLevel)
-
+### API Keys
 ```
-GHL_APPOINTMENT_REMINDER_CAMPAIGN_ID = "your-campaign-id"
-GHL_CASE_UPDATE_CAMPAIGN_ID = "your-campaign-id"
-GHL_WELCOME_CAMPAIGN_ID = "your-campaign-id"
-GHL_GENERAL_NOTIFICATION_CAMPAIGN_ID = "your-campaign-id"
-GHL_AUTO_RESPONSE_CAMPAIGN_ID = "your-campaign-id"
-GHL_PHONE_ENABLED = "true"
+OPENAI_API_KEY=your_openai_api_key
+GOOGLE_MAPS_API_KEY=your_google_maps_key
 ```
 
-- SMS and calls are now handled through GoHighLevel campaigns
-- Set up campaigns in your GoHighLevel account
-
-### 6. Voice Agent (Retell AI)
-
+### Production Flags
 ```
-RETELL_API_KEY = "your-api-key"
-RETELL_WEBHOOK_SECRET = "your-webhook-secret"
+NODE_ENV=production
+NEXT_PUBLIC_APP_URL=https://www.vasquezlawnc.com
+NEXT_PUBLIC_BASE_URL=https://www.vasquezlawnc.com
 ```
 
-- Get from: https://www.retellai.com
-
-### 7. Email Configuration
-
+## Mock Mode (For Testing Without Services)
 ```
-SMTP_HOST = "smtp.office365.com"
-SMTP_PORT = "587"
-SMTP_USER = "your-email@vasquezlawnc.com"
-SMTP_PASSWORD = "your-password"
-EMAIL_FROM = "noreply@vasquezlawnc.com"
+USE_MOCK_PRISMA=false
+MOCK_REDIS=false
 ```
 
-### 8. Analytics (Optional)
+## Important Notes:
 
-```
-NEXT_PUBLIC_GOOGLE_ANALYTICS = "G-..."
-NEXT_PUBLIC_GOOGLE_VERIFICATION = "verification-code"
-SENTRY_DSN = "your-sentry-dsn"
-```
+1. **Database**: If you don't have a production database yet, you can temporarily use `USE_MOCK_PRISMA=true`
+2. **Redis**: Not required - the app will use in-memory caching if Redis is not available
+3. **OpenAI**: Required for SEO automation features
+4. **Authentication**: Generate NEXTAUTH_SECRET with `openssl rand -base64 32`
 
-## How to Add in Vercel
+## Deployment Checklist:
 
-1. Go to your Vercel project dashboard
-2. Click on "Settings" tab
-3. Navigate to "Environment Variables"
-4. Add each variable:
-   - Key: Variable name (e.g., `DATABASE_URL`)
-   - Value: Your actual value
-   - Environment: Select all (Production, Preview, Development)
-5. Click "Save" for each variable
-
-## Priority Order
-
-1. **Critical (Site won't function properly):**
-
-   - DATABASE_URL
-   - NEXTAUTH_SECRET
-   - NEXTAUTH_URL
-
-2. **Important (Key features won't work):**
-
-   - OPENAI_API_KEY (for AI chat)
-   - SMTP\_\* variables (for contact forms)
-
-3. **Nice to have (Enhanced features):**
-   - GHL\_\* campaign variables (SMS/voice campaigns)
-   - RETELL\_\* variables (AI voice agent)
-   - Analytics variables
-
-## Testing
-
-After adding variables:
-
-1. Trigger a new deployment (push any change or click "Redeploy")
-2. Check the deployment logs for any errors
-3. Test key features:
-   - Contact form submission
-   - AI chat widget
-   - Navigation between pages
-
-## Security Notes
-
-- Never commit these values to Git
-- Use strong, unique passwords
-- Rotate secrets regularly
-- Enable 2FA on all service accounts
+- [ ] Add all required environment variables in Vercel dashboard
+- [ ] Ensure production database is accessible from Vercel
+- [ ] Verify domain settings point to Vercel
+- [ ] Check build logs for any errors
+EOF < /dev/null
