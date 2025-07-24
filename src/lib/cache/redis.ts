@@ -152,8 +152,27 @@ function getBullRedis() {
   return _bullRedis;
 }
 
-export const redis = getRedis() as Redis;
-export const bullRedis = getBullRedis() as Redis;
+// Lazy initialization - don't connect until first use
+let _exportRedis: Redis | null = null;
+let _exportBullRedis: Redis | null = null;
+
+export const redis = new Proxy({} as Redis, {
+  get(_, prop) {
+    if (!_exportRedis) {
+      _exportRedis = getRedis() as Redis;
+    }
+    return (_exportRedis as any)[prop];
+  }
+});
+
+export const bullRedis = new Proxy({} as Redis, {
+  get(_, prop) {
+    if (!_exportBullRedis) {
+      _exportBullRedis = getBullRedis() as Redis;
+    }
+    return (_exportBullRedis as any)[prop];
+  }
+});
 
 class CacheManager {
   private redis: Redis | MockRedis;

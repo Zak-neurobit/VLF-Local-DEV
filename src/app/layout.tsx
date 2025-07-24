@@ -1,5 +1,6 @@
 import '@/lib/stream-polyfill';
 import '@/lib/error-handler'; // Initialize global error handler
+import '@/lib/external-script-guardian'; // Handle external script errors
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { generateEnhancedOrganizationSchema } from '@/components/SEO/enhanced-schemas';
 import type { Metadata } from 'next';
@@ -10,31 +11,31 @@ import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { organizationSchema } from '@/lib/schema';
 import SessionProvider from '@/components/providers/SessionProvider';
 import dynamic from 'next/dynamic';
+import { SimpleChatWidget } from '@/components/VirtualAssistant/SimpleChatWidget';
+import { EnhancedChatWidget } from '@/components/ChatWidget/EnhancedChatWidget';
+import { RetellCallbackWidget } from '@/components/Voice/RetellCallbackWidget';
 import { Toaster } from 'react-hot-toast';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
-import { DynamicHreflang } from '@/components/SEO/DynamicHreflang';
+// Moved DynamicHreflang to HydrationSafeComponents
 import { GlobalReviewSchema } from '@/components/SEO/GlobalReviewSchema';
 import { DynamicBreadcrumbSchema } from '@/components/SEO/DynamicBreadcrumbSchema';
-import { SpeedOptimizer } from '@/components/SpeedOptimizer';
+// Moved SpeedOptimizer to HydrationSafeComponents
 import { DOMSafeWrapper } from '@/components/DOMSafeWrapper';
 import { DOMSafetyInitializer } from '@/components/DOMSafetyInitializer';
 import { HydrationBoundary } from '@/components/HydrationBoundary';
-import { NavigationDebugger } from '@/components/NavigationDebugger';
+// Moved NavigationDebugger to HydrationSafeComponents
+import { SafeDynamicHreflang, SafeSpeedOptimizer, SafePerformanceMonitor, SafeNavigationDebugger } from '@/components/HydrationSafeComponents';
 import { Suspense } from 'react';
+import { ClientNavigation } from '@/components/ClientNavigation';
+import { ExternalScriptGuardian } from '@/components/ExternalScriptGuardian';
+import { ResourceDiagnostics } from '@/components/ResourceDiagnostics';
 
 // Removed SiteLayout import - will handle navigation directly
 
-// Dynamically import VirtualAssistant to avoid SSR issues
-const VirtualAssistant = dynamic(
-  () => import('@/components/VirtualAssistant').then(mod => ({ default: mod.VirtualAssistant })),
-  {
-    ssr: false,
-  }
-);
+// No dynamic imports needed with ClientOnly wrapper
 
-// Dynamically import Performance Monitor
-const PerformanceMonitor = dynamic(() => import('@/components/PerformanceMonitor'), { ssr: false });
+// Performance Monitor now imported from HydrationSafeComponents
 
 const inter = Inter({
   subsets: ['latin'],
@@ -122,8 +123,11 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // Default to English to match middleware defaultLocale
+  const language = 'en';
+  
   return (
-    <html lang="en" className={`${inter.className} ${inter.variable} ${playfairDisplay.variable}`}>
+    <html lang={language} className={`${inter.className} ${inter.variable} ${playfairDisplay.variable}`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -163,7 +167,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-screen bg-white">
         <DOMSafetyInitializer />
-        <SpeedOptimizer />
+        <SafeSpeedOptimizer />
+        <ExternalScriptGuardian />
+        <ResourceDiagnostics />
         <StructuredData data={generateEnhancedOrganizationSchema()} />
         <GlobalReviewSchema />
         <DynamicBreadcrumbSchema />
@@ -184,15 +190,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SessionProvider>
           <ErrorBoundary>
             <DOMSafeWrapper>
-              <DynamicHreflang />
+              <ClientNavigation />
+              <SafeDynamicHreflang />
               {children}
-              <VirtualAssistant language="en" />
-              <PerformanceMonitor />
+              <EnhancedChatWidget />
+              <RetellCallbackWidget />
+              <SafePerformanceMonitor />
             </DOMSafeWrapper>
           </ErrorBoundary>
         </SessionProvider>
         <Suspense fallback={null}>
-          <NavigationDebugger />
+          <SafeNavigationDebugger />
         </Suspense>
         <GoogleAnalytics />
         <SpeedInsights />
