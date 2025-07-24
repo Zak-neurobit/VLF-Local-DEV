@@ -34,7 +34,11 @@ const envSchema = z.object({
 
   // Redis/Caching (Optional with defaults)
   REDIS_URL: z.string().optional(),
-  MOCK_REDIS: z.enum(['true', 'false']).optional().default('true'),
+  MOCK_REDIS: z
+    .string()
+    .optional()
+    .transform(val => val?.trim())
+    .pipe(z.enum(['true', 'false']).optional().default('true')),
 
   // AI Services (Required for chatbot)
   OPENAI_API_KEY: z
@@ -64,8 +68,16 @@ const envSchema = z.object({
   SMTP_PORT: z.string().optional(),
   SMTP_USER: z.string().optional(),
   SMTP_PASSWORD: z.string().optional(),
-  MOCK_EMAIL: z.enum(['true', 'false']).optional().default('true'),
-  MOCK_SMS: z.enum(['true', 'false']).optional().default('true'),
+  MOCK_EMAIL: z
+    .string()
+    .optional()
+    .transform(val => val?.trim())
+    .pipe(z.enum(['true', 'false']).optional().default('true')),
+  MOCK_SMS: z
+    .string()
+    .optional()
+    .transform(val => val?.trim())
+    .pipe(z.enum(['true', 'false']).optional().default('true')),
 
   // Payment Processing (Optional)
   LAWPAY_PUBLIC_KEY: z.string().optional(),
@@ -80,7 +92,11 @@ const envSchema = z.object({
   SENTRY_DSN: z.string().url().optional(),
 
   // Development Flags
-  SKIP_ENV_VALIDATION: z.enum(['true', 'false']).optional().default('false'),
+  SKIP_ENV_VALIDATION: z
+    .string()
+    .optional()
+    .transform(val => val?.trim())
+    .pipe(z.enum(['true', 'false']).optional().default('false')),
 });
 
 // Type for validated environment
@@ -89,7 +105,8 @@ export type ValidatedEnv = z.infer<typeof envSchema>;
 // Validation function with detailed error reporting
 function validateEnv(): ValidatedEnv {
   // Skip validation if explicitly disabled (use with caution)
-  if (process.env.SKIP_ENV_VALIDATION === 'true') {
+  // Trim the value to handle newlines from Vercel environment variables
+  if (process.env.SKIP_ENV_VALIDATION?.trim() === 'true') {
     securityLogger.warn(
       '⚠️  Environment variable validation is skipped. This is not recommended for production.'
     );
