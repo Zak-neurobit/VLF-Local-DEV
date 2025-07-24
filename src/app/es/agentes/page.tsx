@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -121,8 +120,7 @@ const agents = [
 
 export default function AIAgentsPage() {
   return (
-    <MasterLayout>
-      <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50">
         {/* Hero Section */}
         <section className="bg-gradient-to-b from-white to-gray-50 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -314,6 +312,5 @@ export default function AIAgentsPage() {
           </div>
         </section>
       </div>
-    </MasterLayout>
   );
 }

@@ -4,8 +4,6 @@ export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 import Script from 'next/script';
 import ModernLocationTemplate from '@/components/templates/ModernLocationTemplate';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
-
 export const metadata: Metadata = {
   title: 'Winston-Salem Immigration Lawyers | Personal Injury Attorneys - Vasquez Law Firm',
   description:
@@ -110,9 +108,7 @@ export default function WinstonSalemPage() {
 
   return (
     <>
-      <MasterLayout variant="default" showBreadcrumbs={true}>
-        <ModernLocationTemplate data={locationData} />
-      </MasterLayout>
+      <ModernLocationTemplate data={locationData} />
       {/* Structured Data for SEO */}
       <Script
         id="location-structured-data"

@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -101,8 +100,7 @@ export default function CalculatorsPage() {
   const otherCalculators = calculators.filter(calc => !calc.popular);
 
   return (
-    <MasterLayout>
-      <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50">
         {/* Hero Section */}
         <section className="bg-gradient-to-b from-white to-gray-50 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -258,6 +256,5 @@ export default function CalculatorsPage() {
           </div>
         </section>
       </div>
-    </MasterLayout>
   );
 }

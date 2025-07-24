@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import ContactPageContent from '@/components/ContactPageContent';
 
 export const metadata: Metadata = {
@@ -25,8 +24,6 @@ export const metadata: Metadata = {
 
 export default function ContactoPage() {
   return (
-    <MasterLayout variant="default" showBreadcrumbs={true}>
-      <ContactPageContent language="es" />
-    </MasterLayout>
+    <ContactPageContent language="es" />
   );
 }

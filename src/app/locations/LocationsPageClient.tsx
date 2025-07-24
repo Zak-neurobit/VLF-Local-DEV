@@ -16,7 +16,6 @@ import {
   Shield,
   Award,
 } from 'lucide-react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { motion } from 'framer-motion';
 import { TRADEMARK } from '@/lib/constants/trademark';
 import { officeLocations } from '@/data/locations';
@@ -82,8 +81,7 @@ export default function LocationsPageClient({ language = 'en' }: LocationsPageCl
   }
 
   return (
-    <MasterLayout variant="hero" showBreadcrumbs={false}>
-      <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black">
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-black py-24">
           {/* Animated Background */}
@@ -564,6 +562,5 @@ export default function LocationsPageClient({ language = 'en' }: LocationsPageCl
           }}
         />
       </div>
-    </MasterLayout>
   );
 }

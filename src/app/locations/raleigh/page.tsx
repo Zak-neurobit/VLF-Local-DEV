@@ -4,7 +4,6 @@ export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 import Script from 'next/script';
 import ModernLocationTemplate from '@/components/templates/ModernLocationTemplate';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
 export const metadata: Metadata = {
@@ -135,9 +134,7 @@ export default function RaleighPage() {
 
   return (
     <>
-      <MasterLayout variant="default" showBreadcrumbs={true}>
-        <ModernLocationTemplate data={locationData} />
-      </MasterLayout>
+      <ModernLocationTemplate data={locationData} />
       {/* Structured Data for SEO */}
       <Script
         id="raleigh-location-structured-data"

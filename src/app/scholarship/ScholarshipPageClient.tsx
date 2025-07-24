@@ -2,7 +2,6 @@
 
 import Script from 'next/script';
 import { GraduationCap, Calendar, Award, Mail, CheckCircle, ArrowRight } from 'lucide-react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -18,8 +17,7 @@ export default function ScholarshipPageClient() {
   };
 
   return (
-    <MasterLayout>
-      <Script
+    <Script
         async
         src="https://www.scholarshipowl.com/static/widget/dist/widget.bundle.js"
         strategy="lazyOnload"
@@ -298,6 +296,5 @@ export default function ScholarshipPageClient() {
           </motion.div>
         </div>
       </section>
-    </MasterLayout>
   );
 }

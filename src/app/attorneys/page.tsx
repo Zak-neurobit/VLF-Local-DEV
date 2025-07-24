@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 import AttorneysPageWrapper from '@/components/AttorneysPageWrapper';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
-
 export const metadata: Metadata = {
   title: 'Our Attorneys | Immigration & Personal Injury Lawyers | Vasquez Law Firm',
   description:
@@ -12,8 +10,6 @@ export const metadata: Metadata = {
 
 export default function AttorneysPage() {
   return (
-    <MasterLayout variant="default" showBreadcrumbs={true}>
-      <AttorneysPageWrapper language="en" />
-    </MasterLayout>
+    <AttorneysPageWrapper language="en" />
   );
 }

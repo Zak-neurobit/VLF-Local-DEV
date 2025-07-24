@@ -163,9 +163,31 @@ export function EnhancedChatWidget() {
         formData.append('intent', 'document_analysis');
       }
 
-      const response = await fetch('/api/chat', {
+      // Use AILA endpoint for immigration-related queries or document analysis
+      const isImmigrationRelated = input.toLowerCase().includes('immigra') || 
+                                  input.toLowerCase().includes('visa') || 
+                                  input.toLowerCase().includes('green card') ||
+                                  input.toLowerCase().includes('ciudadan') ||
+                                  input.toLowerCase().includes('deporta') ||
+                                  uploadedFile;
+      
+      const endpoint = isImmigrationRelated ? '/api/chat/aila' : '/api/chat';
+      
+      const response = await fetch(endpoint, {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: input,
+          locale,
+          sessionId: localStorage.getItem('chatSessionId') || '',
+          metadata: {
+            hasDocument: !!uploadedFile,
+            fileName: uploadedFile?.name,
+            fileType: uploadedFile?.type,
+          },
+        }),
       });
 
       if (!response.ok) throw new Error('Failed to send message');
@@ -348,6 +370,11 @@ export function EnhancedChatWidget() {
                     {message.metadata?.intent && (
                       <p className="text-xs mt-1 opacity-70">
                         {message.metadata.intent.replace(/_/g, ' ')}
+                      </p>
+                    )}
+                    {message.metadata?.agent === 'AILA' && (
+                      <p className="text-xs mt-1 font-semibold text-primary-700">
+                        AILA Immigration Expert
                       </p>
                     )}
                   </div>

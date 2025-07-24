@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import FAQPageContent from '@/components/FAQPageContent';
 
 export const metadata: Metadata = {
@@ -28,8 +27,6 @@ export const runtime = 'nodejs';
 
 export default function FAQPage() {
   return (
-    <MasterLayout variant="hero" showBreadcrumbs={false}>
-      <FAQPageContent />
-    </MasterLayout>
+    <FAQPageContent />
   );
 }

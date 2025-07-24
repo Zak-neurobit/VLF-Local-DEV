@@ -3,7 +3,6 @@
 import Script from 'next/script';
 import Image from 'next/image';
 import { Phone, ArrowRight, Users, Award, Heart, Star } from 'lucide-react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { motion } from 'framer-motion';
 
 const staffMembers = [
@@ -74,8 +73,7 @@ const teamValues = [
 
 export default function NuestroEquipoPageClient() {
   return (
-    <MasterLayout>
-      <Script
+    <Script
         id="structured-data-team"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -343,6 +341,5 @@ export default function NuestroEquipoPageClient() {
           </motion.div>
         </div>
       </section>
-    </MasterLayout>
   );
 }

@@ -1,6 +1,4 @@
 import { Metadata } from 'next';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
-
 export const metadata: Metadata = {
   title: 'News Ticker Hero Test',
   description: 'Testing the news ticker with hero variant',
@@ -8,8 +6,7 @@ export const metadata: Metadata = {
 
 export default function TestTickerHeroPage() {
   return (
-    <MasterLayout variant="hero" showBreadcrumbs={false}>
-      <div className="min-h-screen bg-gradient-to-b from-black via-[#6B1F2E]/20 to-black">
+    <div className="min-h-screen bg-gradient-to-b from-black via-[#6B1F2E]/20 to-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <h1 className="text-6xl font-bold text-white mb-8 text-center">
             Hero Section with News Ticker
@@ -37,6 +34,5 @@ export default function TestTickerHeroPage() {
           </div>
         </div>
       </div>
-    </MasterLayout>
   );
 }

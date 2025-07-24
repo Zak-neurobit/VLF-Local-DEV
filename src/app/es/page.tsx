@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import HomePage from '@/components/HomePage';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import ResourceHints from '@/components/ResourceHints';
 
 export const metadata: Metadata = {
@@ -60,9 +59,7 @@ export default function EsPage() {
         ]}
         preconnectDomains={['https://fonts.gstatic.com']}
       />
-      <MasterLayout variant="hero" showBreadcrumbs={false}>
-        <HomePage language="es" />
-      </MasterLayout>
+      <HomePage language="es" />
     </>
   );
 }

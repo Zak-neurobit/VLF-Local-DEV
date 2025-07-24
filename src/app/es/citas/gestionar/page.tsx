@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -80,8 +79,7 @@ export default function ManageAppointmentsPage() {
   );
 
   return (
-    <MasterLayout>
-      <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-8">
@@ -293,6 +291,5 @@ export default function ManageAppointmentsPage() {
           </Card>
         </div>
       </div>
-    </MasterLayout>
   );
 }

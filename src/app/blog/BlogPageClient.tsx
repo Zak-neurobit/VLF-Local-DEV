@@ -7,8 +7,6 @@ import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { getCategoryById, getAllCategories } from '@/lib/blog/categories';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
-
 interface BlogPost {
   id: string;
   title: string;
@@ -217,8 +215,7 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
         ];
 
   return (
-    <MasterLayout variant="default" showBreadcrumbs={true}>
-      <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black">
         {/* Hero Section */}
         <section className="bg-black py-16 pt-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -507,6 +504,5 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
           </div>
         </section>
       </div>
-    </MasterLayout>
   );
 }

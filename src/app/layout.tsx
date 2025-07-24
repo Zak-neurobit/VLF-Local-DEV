@@ -11,9 +11,9 @@ import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { organizationSchema } from '@/lib/schema';
 import SessionProvider from '@/components/providers/SessionProvider';
 import dynamic from 'next/dynamic';
-import { SimpleChatWidget } from '@/components/VirtualAssistant/SimpleChatWidget';
 import { EnhancedChatWidget } from '@/components/ChatWidget/EnhancedChatWidget';
 import { RetellCallbackWidget } from '@/components/Voice/RetellCallbackWidget';
+import { UnifiedHeader } from '@/components/UnifiedHeader';
 import { Toaster } from 'react-hot-toast';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
@@ -190,6 +190,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SessionProvider>
           <ErrorBoundary>
             <DOMSafeWrapper>
+              <UnifiedHeader />
               <ClientNavigation />
               <SafeDynamicHreflang />
               {children}

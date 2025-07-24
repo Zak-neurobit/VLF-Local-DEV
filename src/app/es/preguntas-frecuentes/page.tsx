@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import FAQPageContent from '@/components/FAQPageContent';
 
 export const metadata: Metadata = {
@@ -34,8 +33,6 @@ export const runtime = 'nodejs';
 
 export default function PreguntasFrecuentesPage() {
   return (
-    <MasterLayout variant="hero" showBreadcrumbs={false}>
-      <FAQPageContent language="es" />
-    </MasterLayout>
+    <FAQPageContent language="es" />
   );
 }

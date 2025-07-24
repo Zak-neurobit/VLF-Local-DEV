@@ -4,8 +4,6 @@ export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 import Script from 'next/script';
 import ModernServiceLocationTemplate from '@/components/templates/ModernServiceLocationTemplate';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
-
 export const metadata: Metadata = {
   title: 'Raleigh Immigration Lawyer - YO PELEO POR TI™ | Vasquez Law Firm',
   description:
@@ -229,9 +227,7 @@ export default function RaleighImmigrationLawyerPage() {
 
   return (
     <>
-      <MasterLayout variant="default" showBreadcrumbs={true}>
-        <ModernServiceLocationTemplate data={serviceLocationData} />
-      </MasterLayout>
+      <ModernServiceLocationTemplate data={serviceLocationData} />
 
       {/* Local Business Schema */}
       <Script
