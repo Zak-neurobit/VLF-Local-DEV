@@ -9,33 +9,30 @@ export const metadata: Metadata = {
     'Contact Vasquez Law Firm for a free consultation. Available 24/7 with AI assistant. Offices in NC & FL. Call 1-844-YO-PELEO or chat now.',
   keywords:
     'contact immigration lawyer, free consultation, 24/7 legal help, immigration attorney near me, personal injury lawyer contact',
+  openGraph: {
+    title: 'Contact Vasquez Law Firm | Free Consultation Available 24/7',
+    description:
+      'Get immediate legal help. AI assistant available 24/7. Free consultation for immigration, personal injury, criminal defense, and workers comp cases.',
+    url: 'https://www.vasquezlawnc.com/contact',
+    images: [
+      {
+        url: 'https://www.vasquezlawnc.com/og-contact.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Contact Vasquez Law Firm - Available 24/7',
+      },
+    ],
+  },
 };
 
 export default function ContactPage() {
-  // Define all office locations for free consultations
   const offices = [
     {
-      name: 'Smithfield Office',
-      address: {
-        street: '612 S Brightleaf Blvd',
-        city: 'Smithfield',
-        state: 'NC',
-        zip: '27577',
-      },
-    },
-    {
-      name: 'Raleigh Office',
-      address: {
-        street: '4426 Louisburg Road',
-        city: 'Raleigh',
-        state: 'NC',
-        zip: '27616',
-      },
-    },
-    {
       name: 'Charlotte Office',
+      phone: '1-844-YO-PELEO',
+      hours: 'Monday - Friday: 9:00 AM - 5:00 PM',
       address: {
-        street: '5701 Executive Center Dr, Ste 103',
+        street: '4801 E Independence Blvd Suite 200',
         city: 'Charlotte',
         state: 'NC',
         zip: '28212',
@@ -43,6 +40,8 @@ export default function ContactPage() {
     },
     {
       name: 'Orlando Office',
+      phone: '1-844-YO-PELEO',
+      hours: 'Monday - Friday: 9:00 AM - 5:00 PM',
       address: {
         street: '1111 E Amelia Street',
         city: 'Orlando',
@@ -53,18 +52,19 @@ export default function ContactPage() {
   ];
 
   return (
-    <div>
+    <main>
       <ContactPageContent />
-      {/* Add EventSchema for each office showing free consultations available */}
-      {offices.map((office, index) => (
-        <EventSchema
-          key={`contact-event-${index}`}
-          eventType="general"
-          office={office}
-          includeEmergency={index === 0} // Include emergency consultation schema only once
-          pageType="contact"
-        />
-      ))}
-    </div>
+      <div className="sr-only">
+        {offices.map((office, index) => (
+          <EventSchema
+            key={`contact-event-${index}`}
+            eventType="general"
+            office={office}
+            includeEmergency={index === 0}
+            pageType="contact"
+          />
+        ))}
+      </div>
+    </main>
   );
 }
