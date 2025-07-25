@@ -53,7 +53,7 @@ export default function ContactPage() {
   ];
 
   return (
-    <>
+    <div>
       <ContactPageContent />
       {/* Add EventSchema for each office showing free consultations available */}
       {offices.map((office, index) => (
@@ -65,6 +65,6 @@ export default function ContactPage() {
           pageType="contact"
         />
       ))}
-    </>
+    </div>
   );
 }

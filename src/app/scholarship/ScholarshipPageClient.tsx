@@ -17,7 +17,7 @@ export default function ScholarshipPageClient() {
   };
 
   return (
-    <>
+    <div>
       <Script
         async
         src="https://www.scholarshipowl.com/static/widget/dist/widget.bundle.js"
@@ -299,6 +299,6 @@ export default function ScholarshipPageClient() {
           </motion.div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

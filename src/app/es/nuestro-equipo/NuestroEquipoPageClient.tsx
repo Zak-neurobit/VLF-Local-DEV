@@ -74,7 +74,7 @@ const teamValues = [
 
 export default function NuestroEquipoPageClient() {
   return (
-    <>
+    <div>
       <Script
         id="structured-data-team"
         type="application/ld+json"
@@ -343,6 +343,6 @@ export default function NuestroEquipoPageClient() {
           </motion.div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
