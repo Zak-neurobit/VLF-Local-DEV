@@ -4,8 +4,7 @@ import { logger } from '@/lib/safe-logger';
 import { errorToLogMeta } from '@/lib/safe-logger';
 import RssParser from 'rss-parser';
 
-// Enable caching with revalidation
-export const revalidate = 300; // 5 minutes cache
+// Dynamic API route for live news
 
 // Working RSS feeds for live news
 const liveFeeds = [
@@ -51,9 +50,7 @@ async function fetchLiveNews(category: string, limit: number): Promise<NewsItem[
   });
 
   const newsItems: NewsItem[] = [];
-  const relevantFeeds = liveFeeds.filter(
-    feed => feed.category === category || category === 'all'
-  );
+  const relevantFeeds = liveFeeds.filter(feed => feed.category === category || category === 'all');
 
   // Fetch all feeds in parallel for better performance
   const feedPromises = relevantFeeds.map(async feed => {
@@ -82,7 +79,7 @@ async function fetchLiveNews(category: string, limit: number): Promise<NewsItem[
 
   // Wait for all feeds with a timeout
   const results = await Promise.allSettled(
-    feedPromises.map(p => 
+    feedPromises.map(p =>
       Promise.race([p, new Promise<NewsItem[]>(resolve => setTimeout(() => resolve([]), 2500))])
     )
   );

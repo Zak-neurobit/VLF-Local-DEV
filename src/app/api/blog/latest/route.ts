@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { securityLogger } from '@/lib/safe-logger';
-export const revalidate = 3600; // Revalidate every hour
+// Dynamic API route
 
 const mockLatestBlogPosts = [
   {
