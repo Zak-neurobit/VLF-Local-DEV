@@ -15,7 +15,7 @@ interface ConsistentHeaderProps {
 interface NavigationItem {
   name: string;
   href: string;
-  submenu?: { name: string; href: string }[];
+  submenu?: NavigationItem[];
 }
 
 export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
@@ -42,7 +42,56 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
         name: 'Practice Areas',
         href: '/practice-areas',
         submenu: [
-          { name: 'Immigration Law', href: '/practice-areas/immigration' },
+          {
+            name: 'Immigration Law',
+            href: '/practice-areas/immigration',
+            submenu: [
+              { name: 'Affirmative Immigration', href: '/practice-areas/immigration/affirmative' },
+              {
+                name: 'Family-Based Petitions',
+                href: '/practice-areas/immigration/affirmative/family-based-petitions',
+              },
+              { name: 'DACA', href: '/practice-areas/immigration/affirmative/daca' },
+              { name: 'TPS', href: '/practice-areas/immigration/affirmative/tps' },
+              { name: 'Green Cards', href: '/practice-areas/immigration/affirmative/green-cards' },
+              { name: 'Citizenship', href: '/practice-areas/immigration/affirmative/citizenship' },
+              { name: 'Removal Defense', href: '/practice-areas/immigration/removal-defense' },
+              {
+                name: 'Deportation Defense',
+                href: '/practice-areas/immigration/removal-defense/deportation-defense',
+              },
+              { name: 'Asylum', href: '/practice-areas/immigration/removal-defense/asylum' },
+              {
+                name: 'Cancellation of Removal',
+                href: '/practice-areas/immigration/removal-defense/cancellation-of-removal',
+              },
+              {
+                name: 'Bond Hearings',
+                href: '/practice-areas/immigration/removal-defense/bond-hearings',
+              },
+              { name: 'Business Immigration', href: '/practice-areas/immigration/business' },
+              {
+                name: 'PERM Labor Certification',
+                href: '/practice-areas/immigration/business/perm-labor-certification',
+              },
+              { name: 'H-1B Visas', href: '/practice-areas/immigration/business/h1b-visas' },
+              { name: 'L-1 Visas', href: '/practice-areas/immigration/business/l1-visas' },
+              {
+                name: 'E-2 Investor Visas',
+                href: '/practice-areas/immigration/business/e2-investor-visas',
+              },
+              {
+                name: 'EB-5 Investment',
+                href: '/practice-areas/immigration/business/eb5-investment',
+              },
+              { name: 'Waivers', href: '/practice-areas/immigration/inadmissibility-waivers' },
+              {
+                name: 'U Visa / VAWA',
+                href: '/practice-areas/immigration/vawa-u-visa-crime-victims',
+              },
+              { name: 'T Visa', href: '/practice-areas/immigration/t-visa' },
+            ],
+          },
           { name: 'Personal Injury', href: '/practice-areas/personal-injury' },
           { name: "Workers' Compensation", href: '/practice-areas/workers-compensation' },
           { name: 'Criminal Defense', href: '/practice-areas/criminal-defense' },
