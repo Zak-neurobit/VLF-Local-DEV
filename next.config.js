@@ -1,5 +1,14 @@
 // const { withSentryConfig } = require('@sentry/nextjs'); // Temporarily disabled
 
+// Fix for revalidation issues during build
+if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL) {
+  // During build, ensure proper URL is set
+  process.env.NEXT_PUBLIC_APP_URL =
+    process.env.NEXT_PUBLIC_APP_URL || 'https://www.vasquezlawnc.com';
+  // Disable ISR cache to prevent localhost:undefined errors
+  process.env.NEXT_DISABLE_ISR_CACHE = 'true';
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // React strict mode for better development experience

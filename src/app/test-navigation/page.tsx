@@ -25,7 +25,7 @@ export default function TestNavigation() {
   };
 
   return (
-    <div className="min-h-screen bg-white p-8">
+    <div className="min-h-screen bg-gray-900 p-8">
       <h1 className="text-3xl font-bold mb-8">Navigation Test Page</h1>
 
       <div className="grid grid-cols-2 gap-8">
@@ -85,7 +85,7 @@ export default function TestNavigation() {
 
         <div>
           <h2 className="text-xl font-semibold mb-4">Navigation Logs</h2>
-          <div className="bg-gray-100 p-4 rounded h-96 overflow-y-auto">
+          <div className="bg-gray-800 p-4 rounded h-96 overflow-y-auto">
             {logs.length === 0 ? (
               <p className="text-gray-500">No navigation attempts yet</p>
             ) : (

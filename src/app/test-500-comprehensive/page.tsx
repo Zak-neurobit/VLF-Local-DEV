@@ -152,7 +152,7 @@ export default function Test500Comprehensive() {
   };
 
   return (
-    <div className="min-h-screen bg-white p-8">
+    <div className="min-h-screen bg-gray-900 p-8">
       <h1 className="text-3xl font-bold mb-4">Comprehensive 500 Error Testing</h1>
 
       <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded">
@@ -223,7 +223,7 @@ export default function Test500Comprehensive() {
         </div>
       </div>
 
-      <div className="bg-gray-100 p-4 rounded">
+      <div className="bg-gray-800 p-4 rounded">
         <h2 className="text-xl font-semibold mb-4">Test Results:</h2>
         <div className="space-y-2 max-h-96 overflow-y-auto">
           {testResults.length === 0 ? (

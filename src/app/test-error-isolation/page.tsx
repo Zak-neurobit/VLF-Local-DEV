@@ -107,7 +107,7 @@ export default function TestErrorIsolation() {
         </button>
       </div>
 
-      <div className="bg-gray-100 p-4 rounded">
+      <div className="bg-gray-800 p-4 rounded">
         <h2 className="font-bold mb-2">Error Log:</h2>
         <div className="space-y-1 max-h-64 overflow-y-auto">
           {errors.length === 0 ? (

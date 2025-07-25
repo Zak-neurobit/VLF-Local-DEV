@@ -46,50 +46,171 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
             name: 'Immigration Law',
             href: '/practice-areas/immigration',
             submenu: [
-              { name: 'Affirmative Immigration', href: '/practice-areas/immigration/affirmative' },
               {
-                name: 'Family-Based Petitions',
-                href: '/practice-areas/immigration/affirmative/family-based-petitions',
+                name: 'Family-Based Immigration',
+                href: '/practice-areas/immigration/family-based',
+                submenu: [
+                  {
+                    name: 'Family Petitions (I-130)',
+                    href: '/practice-areas/immigration/family-based/petitions',
+                  },
+                  {
+                    name: 'K-1 Fiancé(e) Visa',
+                    href: '/practice-areas/immigration/family-based/k1-visa',
+                  },
+                  {
+                    name: 'Waivers (I-601/I-601A)',
+                    href: '/practice-areas/immigration/family-based/waivers',
+                  },
+                  {
+                    name: 'Naturalization/Citizenship',
+                    href: '/practice-areas/immigration/family-based/naturalization',
+                  },
+                  {
+                    name: 'Removal of Conditions (I-751)',
+                    href: '/practice-areas/immigration/family-based/removal-conditions',
+                  },
+                  {
+                    name: 'Green Card Renewal',
+                    href: '/practice-areas/immigration/family-based/green-card-renewal',
+                  },
+                  {
+                    name: 'Adjustment of Status',
+                    href: '/practice-areas/immigration/family-based/adjustment-status',
+                  },
+                  {
+                    name: 'Consular Processing',
+                    href: '/practice-areas/immigration/family-based/consular-processing',
+                  },
+                ],
               },
-              { name: 'DACA', href: '/practice-areas/immigration/affirmative/daca' },
-              { name: 'TPS', href: '/practice-areas/immigration/affirmative/tps' },
-              { name: 'Green Cards', href: '/practice-areas/immigration/affirmative/green-cards' },
-              { name: 'Citizenship', href: '/practice-areas/immigration/affirmative/citizenship' },
-              { name: 'Removal Defense', href: '/practice-areas/immigration/removal-defense' },
               {
-                name: 'Deportation Defense',
-                href: '/practice-areas/immigration/removal-defense/deportation-defense',
+                name: 'Humanitarian Immigration',
+                href: '/practice-areas/immigration/humanitarian',
+                submenu: [
+                  { name: 'Asylum', href: '/practice-areas/immigration/humanitarian/asylum' },
+                  {
+                    name: 'DACA (Deferred Action)',
+                    href: '/practice-areas/immigration/humanitarian/daca',
+                  },
+                  {
+                    name: 'TPS (Temporary Protected Status)',
+                    href: '/practice-areas/immigration/humanitarian/tps',
+                  },
+                  {
+                    name: 'U Visa (Crime Victims)',
+                    href: '/practice-areas/immigration/humanitarian/u-visa',
+                  },
+                  {
+                    name: 'T Visa (Trafficking Victims)',
+                    href: '/practice-areas/immigration/humanitarian/t-visa',
+                  },
+                  {
+                    name: 'VAWA (Violence Against Women Act)',
+                    href: '/practice-areas/immigration/humanitarian/vawa',
+                  },
+                  {
+                    name: 'Special Immigrant Juvenile Status',
+                    href: '/practice-areas/immigration/humanitarian/sijs',
+                  },
+                  {
+                    name: 'Parole & Humanitarian Parole',
+                    href: '/practice-areas/immigration/humanitarian/parole',
+                  },
+                ],
               },
-              { name: 'Asylum', href: '/practice-areas/immigration/removal-defense/asylum' },
               {
-                name: 'Cancellation of Removal',
-                href: '/practice-areas/immigration/removal-defense/cancellation-of-removal',
+                name: 'Removal Defense',
+                href: '/practice-areas/immigration/removal-defense',
+                submenu: [
+                  {
+                    name: '42A Cancellation (Non-LPR)',
+                    href: '/practice-areas/immigration/removal-defense/42a-cancellation',
+                  },
+                  {
+                    name: '42B Cancellation (LPR)',
+                    href: '/practice-areas/immigration/removal-defense/42b-cancellation',
+                  },
+                  {
+                    name: 'Asylum Defense',
+                    href: '/practice-areas/immigration/removal-defense/asylum-defense',
+                  },
+                  {
+                    name: 'Withholding of Removal',
+                    href: '/practice-areas/immigration/removal-defense/withholding',
+                  },
+                  {
+                    name: 'CAT Protection',
+                    href: '/practice-areas/immigration/removal-defense/cat-protection',
+                  },
+                  {
+                    name: 'Bond Hearings',
+                    href: '/practice-areas/immigration/removal-defense/bond-hearings',
+                  },
+                  {
+                    name: 'Appeals (BIA/Circuit Court)',
+                    href: '/practice-areas/immigration/removal-defense/appeals',
+                  },
+                  {
+                    name: 'Motions to Reopen',
+                    href: '/practice-areas/immigration/removal-defense/motions-reopen',
+                  },
+                  {
+                    name: 'Prosecutorial Discretion',
+                    href: '/practice-areas/immigration/removal-defense/prosecutorial-discretion',
+                  },
+                  {
+                    name: 'Voluntary Departure',
+                    href: '/practice-areas/immigration/removal-defense/voluntary-departure',
+                  },
+                ],
               },
               {
-                name: 'Bond Hearings',
-                href: '/practice-areas/immigration/removal-defense/bond-hearings',
+                name: 'Business Immigration',
+                href: '/practice-areas/immigration/business',
+                submenu: [
+                  {
+                    name: 'H-1B Specialty Occupation',
+                    href: '/practice-areas/immigration/business/h1b-visa',
+                  },
+                  {
+                    name: 'L-1 Intracompany Transfer',
+                    href: '/practice-areas/immigration/business/l1-visa',
+                  },
+                  {
+                    name: 'E-2 Treaty Investor',
+                    href: '/practice-areas/immigration/business/e2-visa',
+                  },
+                  {
+                    name: 'EB-1 Extraordinary Ability',
+                    href: '/practice-areas/immigration/business/eb1-visa',
+                  },
+                  {
+                    name: 'EB-2 Advanced Degree/NIW',
+                    href: '/practice-areas/immigration/business/eb2-visa',
+                  },
+                  {
+                    name: 'EB-3 Skilled Workers',
+                    href: '/practice-areas/immigration/business/eb3-visa',
+                  },
+                  {
+                    name: 'EB-5 Investment',
+                    href: '/practice-areas/immigration/business/eb5-investment',
+                  },
+                  {
+                    name: 'PERM Labor Certification',
+                    href: '/practice-areas/immigration/business/perm',
+                  },
+                  {
+                    name: 'O-1 Extraordinary Ability',
+                    href: '/practice-areas/immigration/business/o1-visa',
+                  },
+                  {
+                    name: 'TN NAFTA Professional',
+                    href: '/practice-areas/immigration/business/tn-visa',
+                  },
+                ],
               },
-              { name: 'Business Immigration', href: '/practice-areas/immigration/business' },
-              {
-                name: 'PERM Labor Certification',
-                href: '/practice-areas/immigration/business/perm-labor-certification',
-              },
-              { name: 'H-1B Visas', href: '/practice-areas/immigration/business/h1b-visas' },
-              { name: 'L-1 Visas', href: '/practice-areas/immigration/business/l1-visas' },
-              {
-                name: 'E-2 Investor Visas',
-                href: '/practice-areas/immigration/business/e2-investor-visas',
-              },
-              {
-                name: 'EB-5 Investment',
-                href: '/practice-areas/immigration/business/eb5-investment',
-              },
-              { name: 'Waivers', href: '/practice-areas/immigration/inadmissibility-waivers' },
-              {
-                name: 'U Visa / VAWA',
-                href: '/practice-areas/immigration/vawa-u-visa-crime-victims',
-              },
-              { name: 'T Visa', href: '/practice-areas/immigration/t-visa' },
             ],
           },
           {
@@ -298,55 +419,170 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
             href: '/es/areas-de-practica/inmigracion',
             submenu: [
               {
-                name: 'Inmigración Afirmativa',
-                href: '/es/areas-de-practica/inmigracion/afirmativa',
+                name: 'Inmigración Familiar',
+                href: '/es/areas-de-practica/inmigracion/familiar',
+                submenu: [
+                  {
+                    name: 'Peticiones Familiares (I-130)',
+                    href: '/es/areas-de-practica/inmigracion/familiar/peticiones',
+                  },
+                  {
+                    name: 'Visa K-1 de Prometido(a)',
+                    href: '/es/areas-de-practica/inmigracion/familiar/visa-k1',
+                  },
+                  {
+                    name: 'Perdones (I-601/I-601A)',
+                    href: '/es/areas-de-practica/inmigracion/familiar/perdones',
+                  },
+                  {
+                    name: 'Naturalización/Ciudadanía',
+                    href: '/es/areas-de-practica/inmigracion/familiar/naturalizacion',
+                  },
+                  {
+                    name: 'Remover Condiciones (I-751)',
+                    href: '/es/areas-de-practica/inmigracion/familiar/remover-condiciones',
+                  },
+                  {
+                    name: 'Renovación de Green Card',
+                    href: '/es/areas-de-practica/inmigracion/familiar/renovacion-green-card',
+                  },
+                  {
+                    name: 'Ajuste de Estatus',
+                    href: '/es/areas-de-practica/inmigracion/familiar/ajuste-estatus',
+                  },
+                  {
+                    name: 'Proceso Consular',
+                    href: '/es/areas-de-practica/inmigracion/familiar/proceso-consular',
+                  },
+                ],
               },
               {
-                name: 'Peticiones Familiares',
-                href: '/es/areas-de-practica/inmigracion/afirmativa/peticiones-familiares',
+                name: 'Inmigración Humanitaria',
+                href: '/es/areas-de-practica/inmigracion/humanitaria',
+                submenu: [
+                  { name: 'Asilo', href: '/es/areas-de-practica/inmigracion/humanitaria/asilo' },
+                  {
+                    name: 'DACA (Acción Diferida)',
+                    href: '/es/areas-de-practica/inmigracion/humanitaria/daca',
+                  },
+                  {
+                    name: 'TPS (Estatus de Protección Temporal)',
+                    href: '/es/areas-de-practica/inmigracion/humanitaria/tps',
+                  },
+                  {
+                    name: 'Visa U (Víctimas de Crimen)',
+                    href: '/es/areas-de-practica/inmigracion/humanitaria/visa-u',
+                  },
+                  {
+                    name: 'Visa T (Víctimas de Tráfico)',
+                    href: '/es/areas-de-practica/inmigracion/humanitaria/visa-t',
+                  },
+                  {
+                    name: 'VAWA (Ley de Violencia Contra la Mujer)',
+                    href: '/es/areas-de-practica/inmigracion/humanitaria/vawa',
+                  },
+                  {
+                    name: 'Estatus Especial de Inmigrante Juvenil',
+                    href: '/es/areas-de-practica/inmigracion/humanitaria/sijs',
+                  },
+                  {
+                    name: 'Parole Humanitario',
+                    href: '/es/areas-de-practica/inmigracion/humanitaria/parole',
+                  },
+                ],
               },
-              { name: 'DACA', href: '/es/areas-de-practica/inmigracion/afirmativa/daca' },
-              { name: 'TPS', href: '/es/areas-de-practica/inmigracion/afirmativa/tps' },
               {
-                name: 'Tarjetas de Residencia',
-                href: '/es/areas-de-practica/inmigracion/afirmativa/tarjetas-residencia',
-              },
-              {
-                name: 'Ciudadanía',
-                href: '/es/areas-de-practica/inmigracion/afirmativa/ciudadania',
-              },
-              {
-                name: 'Defensa contra Deportación',
+                name: 'Defensa de Deportación',
                 href: '/es/areas-de-practica/inmigracion/defensa-deportacion',
-              },
-              {
-                name: 'Asilo',
-                href: '/es/areas-de-practica/inmigracion/defensa-deportacion/asilo',
-              },
-              {
-                name: 'Cancelación de Deportación',
-                href: '/es/areas-de-practica/inmigracion/defensa-deportacion/cancelacion-deportacion',
-              },
-              {
-                name: 'Audiencias de Fianza',
-                href: '/es/areas-de-practica/inmigracion/defensa-deportacion/audiencias-fianza',
+                submenu: [
+                  {
+                    name: 'Cancelación 42A (No-LPR)',
+                    href: '/es/areas-de-practica/inmigracion/defensa-deportacion/cancelacion-42a',
+                  },
+                  {
+                    name: 'Cancelación 42B (LPR)',
+                    href: '/es/areas-de-practica/inmigracion/defensa-deportacion/cancelacion-42b',
+                  },
+                  {
+                    name: 'Defensa de Asilo',
+                    href: '/es/areas-de-practica/inmigracion/defensa-deportacion/defensa-asilo',
+                  },
+                  {
+                    name: 'Suspensión de Deportación',
+                    href: '/es/areas-de-practica/inmigracion/defensa-deportacion/suspension',
+                  },
+                  {
+                    name: 'Protección CAT',
+                    href: '/es/areas-de-practica/inmigracion/defensa-deportacion/proteccion-cat',
+                  },
+                  {
+                    name: 'Audiencias de Fianza',
+                    href: '/es/areas-de-practica/inmigracion/defensa-deportacion/audiencias-fianza',
+                  },
+                  {
+                    name: 'Apelaciones (BIA/Corte de Circuito)',
+                    href: '/es/areas-de-practica/inmigracion/defensa-deportacion/apelaciones',
+                  },
+                  {
+                    name: 'Mociones de Reapertura',
+                    href: '/es/areas-de-practica/inmigracion/defensa-deportacion/mociones-reapertura',
+                  },
+                  {
+                    name: 'Discreción Fiscal',
+                    href: '/es/areas-de-practica/inmigracion/defensa-deportacion/discrecion-fiscal',
+                  },
+                  {
+                    name: 'Salida Voluntaria',
+                    href: '/es/areas-de-practica/inmigracion/defensa-deportacion/salida-voluntaria',
+                  },
+                ],
               },
               {
                 name: 'Inmigración de Negocios',
                 href: '/es/areas-de-practica/inmigracion/negocios',
+                submenu: [
+                  {
+                    name: 'H-1B Ocupación Especializada',
+                    href: '/es/areas-de-practica/inmigracion/negocios/visa-h1b',
+                  },
+                  {
+                    name: 'L-1 Transferencia Intracompañía',
+                    href: '/es/areas-de-practica/inmigracion/negocios/visa-l1',
+                  },
+                  {
+                    name: 'E-2 Inversionista por Tratado',
+                    href: '/es/areas-de-practica/inmigracion/negocios/visa-e2',
+                  },
+                  {
+                    name: 'EB-1 Habilidad Extraordinaria',
+                    href: '/es/areas-de-practica/inmigracion/negocios/visa-eb1',
+                  },
+                  {
+                    name: 'EB-2 Grado Avanzado/NIW',
+                    href: '/es/areas-de-practica/inmigracion/negocios/visa-eb2',
+                  },
+                  {
+                    name: 'EB-3 Trabajadores Calificados',
+                    href: '/es/areas-de-practica/inmigracion/negocios/visa-eb3',
+                  },
+                  {
+                    name: 'EB-5 Inversión',
+                    href: '/es/areas-de-practica/inmigracion/negocios/inversion-eb5',
+                  },
+                  {
+                    name: 'Certificación Laboral PERM',
+                    href: '/es/areas-de-practica/inmigracion/negocios/perm',
+                  },
+                  {
+                    name: 'O-1 Habilidad Extraordinaria',
+                    href: '/es/areas-de-practica/inmigracion/negocios/visa-o1',
+                  },
+                  {
+                    name: 'TN Profesional NAFTA',
+                    href: '/es/areas-de-practica/inmigracion/negocios/visa-tn',
+                  },
+                ],
               },
-              { name: 'Visas H-1B', href: '/es/areas-de-practica/inmigracion/negocios/visas-h1b' },
-              { name: 'Visas L-1', href: '/es/areas-de-practica/inmigracion/negocios/visas-l1' },
-              {
-                name: 'Visas E-2 de Inversionista',
-                href: '/es/areas-de-practica/inmigracion/negocios/visas-e2-inversionista',
-              },
-              {
-                name: 'Exenciones de Inadmisibilidad',
-                href: '/es/areas-de-practica/inmigracion/exenciones-inadmisibilidad',
-              },
-              { name: 'Visa U / VAWA', href: '/es/areas-de-practica/inmigracion/visa-u-vawa' },
-              { name: 'Visa T', href: '/es/areas-de-practica/inmigracion/visa-t' },
             ],
           },
           {

@@ -69,12 +69,12 @@ export default function Debug500Page() {
   };
 
   return (
-    <div className="min-h-screen bg-white p-8">
+    <div className="min-h-screen bg-gray-900 p-8">
       <h1 className="text-3xl font-bold mb-4">Debug 500 Errors</h1>
 
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Current State</h2>
-        <div className="bg-gray-100 p-4 rounded">
+        <div className="bg-gray-800 p-4 rounded">
           <p>Mounted: {mounted ? 'Yes' : 'No'}</p>
           <p>Current Path: {typeof window !== 'undefined' ? window.location.pathname : 'N/A'}</p>
           <p>Errors Captured: {errors.length}</p>

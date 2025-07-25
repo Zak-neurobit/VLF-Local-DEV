@@ -1,148 +1,118 @@
 #!/usr/bin/env node
 
 /**
- * Check which environment variables are configured
- * Run: node scripts/check-env.js
+ * Environment configuration checker
+ * Helps identify missing environment variables that could cause 500 errors
  */
 
-// Define environment variable groups
-const envGroups = {
-  'Core (Required)': {
-    required: true,
-    vars: {
-      NODE_ENV: 'Should be "production" for Vercel',
-      NEXT_PUBLIC_APP_URL: 'Your Vercel app URL (https://...)',
-      NEXTAUTH_URL: 'Same as NEXT_PUBLIC_APP_URL',
-      NEXTAUTH_SECRET: 'Generate with: openssl rand -base64 32',
-      DATABASE_URL: 'PostgreSQL connection string',
-    },
-  },
-  'Mock Services (Temporary)': {
-    required: false,
-    vars: {
-      MOCK_REDIS: 'Set to "true" to run without Redis',
-      MOCK_EMAIL: 'Set to "true" to run without email',
-      MOCK_SMS: 'Set to "true" to run without SMS',
-      SKIP_ENV_VALIDATION: 'Set to "true" during initial setup',
-    },
-  },
-  'AI Features': {
-    required: false,
-    vars: {
-      OPENAI_API_KEY: 'Required for AI chat and content generation',
-    },
-  },
-  'GoHighLevel CRM': {
-    required: false,
-    vars: {
-      GHL_API_KEY: 'GoHighLevel API key',
-      GHL_LOCATION_ID: 'Your GHL location ID',
-      GHL_WEBHOOK_SECRET: 'Webhook validation secret',
-    },
-  },
-  'Voice Services': {
-    required: false,
-    vars: {
-      RETELL_API_KEY: 'Retell AI API key (provided: 2996bc9f-ca4e-422a-b64e-a09a3eaa9bc0)',
-      RETELL_WEBHOOK_SECRET: 'Usually same as API key',
-    },
-  },
-  'Email Configuration': {
-    required: false,
-    vars: {
-      EMAIL_FROM: 'Sender email address',
-      SMTP_HOST: 'SMTP server hostname',
-      SMTP_PORT: 'SMTP port (usually 587)',
-      SMTP_USER: 'SMTP username',
-      SMTP_PASSWORD: 'SMTP password',
-    },
-  },
-  'Google Services': {
-    required: false,
-    vars: {
-      NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: 'For displaying maps',
-      GOOGLE_PLACES_API_KEY: 'For fetching reviews',
-      GOOGLE_ANALYTICS_ID: 'For analytics tracking',
-    },
-  },
-  'Error Tracking': {
-    required: false,
-    vars: {
-      SENTRY_DSN: 'Sentry error tracking DSN',
-    },
-  },
-  'Redis Cache': {
-    required: false,
-    vars: {
-      REDIS_URL: 'Redis connection URL (when MOCK_REDIS=false)',
-    },
-  },
-};
+const fs = require('fs');
+const path = require('path');
 
-// Check environment variables
-console.log('🔍 Checking Environment Variables\n');
-console.log('='.repeat(60));
+// Required environment variables for basic functionality
+const REQUIRED_ENV_VARS = ['DATABASE_URL', 'NEXTAUTH_URL', 'NEXTAUTH_SECRET', 'OPENAI_API_KEY'];
 
-let hasAllRequired = true;
-let totalVars = 0;
-let configuredVars = 0;
+// Optional but recommended variables
+const RECOMMENDED_ENV_VARS = [
+  'REDIS_URL',
+  'GHL_API_KEY',
+  'GHL_LOCATION_ID',
+  'RETELL_API_KEY',
+  'SENTRY_DSN',
+];
 
-Object.entries(envGroups).forEach(([groupName, group]) => {
-  console.log(`\n📁 ${groupName} ${group.required ? '(REQUIRED)' : '(Optional)'}`);
-  console.log('-'.repeat(40));
+// Check if .env.local exists
+const envPath = path.join(process.cwd(), '.env.local');
+const envExists = fs.existsSync(envPath);
 
-  Object.entries(group.vars).forEach(([varName, description]) => {
-    totalVars++;
-    const value = process.env[varName];
-    const isSet = value !== undefined && value !== '';
+console.log('🔍 Checking environment configuration...\n');
 
-    if (isSet) {
-      configuredVars++;
-      console.log(`✅ ${varName}`);
-      // Don't show sensitive values, just show if it's set
-      if (varName.includes('SECRET') || varName.includes('KEY') || varName.includes('PASSWORD')) {
-        console.log(`   Value: [HIDDEN - ${value.length} characters]`);
-      } else {
-        console.log(`   Value: ${value}`);
-      }
-    } else {
-      if (group.required) {
-        hasAllRequired = false;
-        console.log(`❌ ${varName} - MISSING`);
-      } else {
-        console.log(`⚪ ${varName} - Not set`);
-      }
-      console.log(`   Info: ${description}`);
-    }
-  });
-});
-
-// Summary
-console.log('\n' + '='.repeat(60));
-console.log('\n📊 Summary:');
-console.log(`   Total variables: ${totalVars}`);
-console.log(
-  `   Configured: ${configuredVars} (${Math.round((configuredVars / totalVars) * 100)}%)`
-);
-console.log(`   Missing: ${totalVars - configuredVars}`);
-
-if (!hasAllRequired) {
-  console.log('\n⚠️  WARNING: Missing required environment variables!');
-  console.log('   Your deployment may fail without these.\n');
+if (!envExists) {
+  console.log('❌ .env.local file not found!');
+  console.log('   Please create it by copying .env.example:');
+  console.log('   cp .env.example .env.local\n');
 } else {
-  console.log('\n✅ All required environment variables are set!\n');
+  console.log('✅ .env.local file found\n');
 }
 
-// Quick setup reminder
-if (configuredVars < 5) {
-  console.log('💡 Quick Setup Tip:');
-  console.log('   For a minimal working deployment, you need at least:');
-  console.log('   - NODE_ENV=production');
-  console.log('   - NEXT_PUBLIC_APP_URL=https://your-app.vercel.app');
-  console.log('   - NEXTAUTH_URL=https://your-app.vercel.app');
-  console.log('   - NEXTAUTH_SECRET=(generate with: openssl rand -base64 32)');
-  console.log('   - DATABASE_URL=(get from Vercel Postgres or Supabase)');
-  console.log('   - MOCK_REDIS=true');
-  console.log('   - MOCK_EMAIL=true');
-  console.log('   - MOCK_SMS=true\n');
+// Load environment variables
+require('dotenv').config({ path: '.env.local' });
+
+// Check required variables
+console.log('📋 Required Environment Variables:');
+let hasAllRequired = true;
+
+REQUIRED_ENV_VARS.forEach(varName => {
+  const value = process.env[varName];
+  if (!value || value === `your-${varName.toLowerCase().replace(/_/g, '-')}`) {
+    console.log(`   ❌ ${varName} - Not configured`);
+    hasAllRequired = false;
+  } else {
+    console.log(`   ✅ ${varName} - Configured`);
+  }
+});
+
+console.log('\n📋 Recommended Environment Variables:');
+RECOMMENDED_ENV_VARS.forEach(varName => {
+  const value = process.env[varName];
+  if (!value || value === `your-${varName.toLowerCase().replace(/_/g, '-')}`) {
+    console.log(`   ⚠️  ${varName} - Not configured (optional)`);
+  } else {
+    console.log(`   ✅ ${varName} - Configured`);
+  }
+});
+
+// Check for common issues
+console.log('\n🔧 Common Issues Check:');
+
+// Check DATABASE_URL format
+if (process.env.DATABASE_URL) {
+  if (!process.env.DATABASE_URL.startsWith('postgresql://')) {
+    console.log('   ❌ DATABASE_URL should start with postgresql://');
+  } else {
+    console.log('   ✅ DATABASE_URL format looks correct');
+  }
+}
+
+// Check NEXTAUTH_URL matches current environment
+if (process.env.NEXTAUTH_URL) {
+  const isDev = process.env.NODE_ENV === 'development';
+  const isLocalUrl =
+    process.env.NEXTAUTH_URL.includes('localhost') ||
+    process.env.NEXTAUTH_URL.includes('127.0.0.1');
+
+  if (isDev && !isLocalUrl) {
+    console.log('   ⚠️  NEXTAUTH_URL should be http://localhost:3000 for development');
+  } else if (!isDev && isLocalUrl) {
+    console.log('   ⚠️  NEXTAUTH_URL should be your production URL');
+  } else {
+    console.log('   ✅ NEXTAUTH_URL matches environment');
+  }
+}
+
+// Check for mock mode
+const mockMode =
+  process.env.MOCK_REDIS === 'true' ||
+  process.env.MOCK_EMAIL === 'true' ||
+  process.env.MOCK_SMS === 'true';
+
+if (mockMode) {
+  console.log('   ℹ️  Mock mode enabled for some services');
+}
+
+// Summary
+console.log('\n📊 Summary:');
+if (!hasAllRequired) {
+  console.log('   ❌ Missing required environment variables!');
+  console.log('   This will likely cause 500 errors.');
+  console.log('\n   Quick fix for development:');
+  console.log('   1. Copy .env.example to .env.local');
+  console.log('   2. Set at minimum:');
+  console.log('      - DATABASE_URL=postgresql://postgres:password@localhost:5432/vasquez_law');
+  console.log('      - NEXTAUTH_SECRET=$(openssl rand -base64 32)');
+  console.log('      - NEXTAUTH_URL=http://localhost:3000');
+  console.log('      - OPENAI_API_KEY=your-openai-key');
+  process.exit(1);
+} else {
+  console.log('   ✅ All required environment variables are configured!');
+  console.log('   The application should run without 500 errors.');
 }
