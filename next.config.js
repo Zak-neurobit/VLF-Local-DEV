@@ -17,10 +17,18 @@ const nextConfig = {
     optimizePackageImports: ['lucide-react', 'date-fns', '@radix-ui/react-icons'],
     // Enable instrumentation hook for Sentry
     instrumentationHook: true,
+    // Disable ISR to avoid cache issues
+    isrMemoryCacheSize: 0,
   },
 
   // Increase build timeout for generating many pages
   staticPageGenerationTimeout: 180,
+
+  // Force static generation
+  generateBuildId: async () => {
+    // Use timestamp as build ID to force fresh builds
+    return Date.now().toString();
+  },
 
   // Output configuration for better build performance
   output: 'standalone',

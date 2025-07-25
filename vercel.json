@@ -13,5 +13,19 @@
   "github": {
     "silent": false,
     "autoJobCancelation": true
+  },
+  "env": {
+    "NEXT_TELEMETRY_DISABLED": "1",
+    "NODE_ENV": "production",
+    "NEXT_PUBLIC_APP_URL": "https://www.vasquezlawnc.com"
+  },
+  "build": {
+    "env": {
+      "NEXT_TELEMETRY_DISABLED": "1",
+      "NODE_ENV": "production",
+      "SKIP_ENV_VALIDATION": "1",
+      "NEXT_PUBLIC_APP_URL": "https://www.vasquezlawnc.com",
+      "VERCEL_URL": "https://www.vasquezlawnc.com"
+    }
   }
 }

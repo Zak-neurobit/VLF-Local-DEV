@@ -1,57 +1,139 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
-// Enable static generation with ISR
-export const revalidate = 86400; // 24 hours
+// Full static generation - no revalidation
 
 // Generate all known location pages at build time
 export async function generateStaticParams() {
   // Get all location combinations
   const states = ['nc', 'fl'];
   const ncCities = [
-    'charlotte', 'raleigh', 'durham', 'greensboro', 'winston-salem',
-    'cary', 'apex', 'chapel-hill', 'concord', 'cornelius', 'davidson',
-    'fayetteville', 'gastonia', 'hickory', 'high-point', 'huntersville',
-    'indian-trail', 'kannapolis', 'matthews', 'mint-hill', 'monroe',
-    'mooresville', 'smithfield', 'wilmington', 'asheville', 'boone',
-    'burlington', 'carrboro', 'clayton', 'fuquay-varina', 'garner',
-    'goldsboro', 'greenville', 'henderson', 'hendersonville', 'holly-springs',
-    'hope-mills', 'jacksonville', 'kernersville', 'kinston', 'knightdale',
-    'laurinburg', 'lenoir', 'lexington', 'louisburg', 'lumberton',
-    'morganton', 'morrisville', 'mount-airy', 'mount-holly', 'new-bern',
-    'newton', 'oxford', 'pine-level', 'pinehurst', 'pineville', 'princeton',
-    'rocky-mount', 'rolesville', 'roxboro', 'salisbury', 'sanford',
-    'selma', 'shelby', 'southern-pines', 'spring-lake', 'stallings',
-    'statesville', 'thomasville', 'wake-forest', 'warrenton', 'waxhaw',
-    'wendell', 'wilson', 'youngsville', 'zebulon', 'asheboro', 'albemarle',
-    'aberdeen', 'belmont', 'benson', 'elizabeth-city', 'fort-liberty',
-    'four-oaks', 'harrisburg'
+    'charlotte',
+    'raleigh',
+    'durham',
+    'greensboro',
+    'winston-salem',
+    'cary',
+    'apex',
+    'chapel-hill',
+    'concord',
+    'cornelius',
+    'davidson',
+    'fayetteville',
+    'gastonia',
+    'hickory',
+    'high-point',
+    'huntersville',
+    'indian-trail',
+    'kannapolis',
+    'matthews',
+    'mint-hill',
+    'monroe',
+    'mooresville',
+    'smithfield',
+    'wilmington',
+    'asheville',
+    'boone',
+    'burlington',
+    'carrboro',
+    'clayton',
+    'fuquay-varina',
+    'garner',
+    'goldsboro',
+    'greenville',
+    'henderson',
+    'hendersonville',
+    'holly-springs',
+    'hope-mills',
+    'jacksonville',
+    'kernersville',
+    'kinston',
+    'knightdale',
+    'laurinburg',
+    'lenoir',
+    'lexington',
+    'louisburg',
+    'lumberton',
+    'morganton',
+    'morrisville',
+    'mount-airy',
+    'mount-holly',
+    'new-bern',
+    'newton',
+    'oxford',
+    'pine-level',
+    'pinehurst',
+    'pineville',
+    'princeton',
+    'rocky-mount',
+    'rolesville',
+    'roxboro',
+    'salisbury',
+    'sanford',
+    'selma',
+    'shelby',
+    'southern-pines',
+    'spring-lake',
+    'stallings',
+    'statesville',
+    'thomasville',
+    'wake-forest',
+    'warrenton',
+    'waxhaw',
+    'wendell',
+    'wilson',
+    'youngsville',
+    'zebulon',
+    'asheboro',
+    'albemarle',
+    'aberdeen',
+    'belmont',
+    'benson',
+    'elizabeth-city',
+    'fort-liberty',
+    'four-oaks',
+    'harrisburg',
   ];
-  
+
   const flCities = [
-    'orlando', 'tampa', 'miami', 'jacksonville', 'fort-lauderdale',
-    'kissimmee', 'sanford', 'altamonte-springs', 'winter-park',
-    'lake-mary', 'oviedo', 'apopka', 'casselberry', 'longwood',
-    'maitland', 'winter-springs', 'ocoee', 'clermont', 'davenport'
+    'orlando',
+    'tampa',
+    'miami',
+    'jacksonville',
+    'fort-lauderdale',
+    'kissimmee',
+    'sanford',
+    'altamonte-springs',
+    'winter-park',
+    'lake-mary',
+    'oviedo',
+    'apopka',
+    'casselberry',
+    'longwood',
+    'maitland',
+    'winter-springs',
+    'ocoee',
+    'clermont',
+    'davenport',
   ];
-  
+
   const services = [
     'immigration-lawyer',
-    'personal-injury-attorney', 
+    'personal-injury-attorney',
     'criminal-defense-lawyer',
     'workers-comp-attorney',
     'car-accident-lawyer',
     'family-law-attorney',
     'dui-lawyer',
-    'bankruptcy-attorney'
+    'bankruptcy-attorney',
   ];
-  
+
   const params = [];
-  
+
   // Generate state/city combinations
   for (const city of ncCities) {
     params.push({ slug: ['nc', city] });
-    
+
     // Add service pages for major cities
     if (['charlotte', 'raleigh', 'durham', 'greensboro', 'winston-salem'].includes(city)) {
       for (const service of services) {
@@ -59,10 +141,10 @@ export async function generateStaticParams() {
       }
     }
   }
-  
+
   for (const city of flCities) {
     params.push({ slug: ['fl', city] });
-    
+
     // Add service pages for major cities
     if (['orlando', 'tampa', 'miami', 'jacksonville', 'kissimmee'].includes(city)) {
       for (const service of services) {
@@ -70,7 +152,7 @@ export async function generateStaticParams() {
       }
     }
   }
-  
+
   return params;
 }
 
@@ -149,17 +231,19 @@ export default async function LocationPage({ params }: { params: { slug: string[
           <p className="text-gray-600 mb-8">
             Contact Vasquez Law Firm at 1-844-YO-PELEO for legal assistance in your area.
           </p>
-          
+
           {service && (
             <div className="mt-8">
               <h2 className="text-2xl font-semibold mb-4">
                 {service
                   .split('-')
                   .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-                  .join(' ')} Services
+                  .join(' ')}{' '}
+                Services
               </h2>
               <p className="text-gray-600">
-                Our experienced attorneys specialize in {service.replace(/-/g, ' ')} cases in {cityName}, {state.toUpperCase()}.
+                Our experienced attorneys specialize in {service.replace(/-/g, ' ')} cases in{' '}
+                {cityName}, {state.toUpperCase()}.
               </p>
             </div>
           )}
