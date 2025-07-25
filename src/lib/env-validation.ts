@@ -95,7 +95,13 @@ const envSchema = z.object({
   SKIP_ENV_VALIDATION: z
     .string()
     .optional()
-    .transform(val => val?.trim())
+    .transform(val => {
+      const trimmed = val?.trim();
+      // Convert '1' to 'true' and '0' to 'false' for compatibility
+      if (trimmed === '1') return 'true';
+      if (trimmed === '0') return 'false';
+      return trimmed;
+    })
     .pipe(z.enum(['true', 'false']).optional().default('false')),
 });
 
@@ -106,7 +112,8 @@ export type ValidatedEnv = z.infer<typeof envSchema>;
 function validateEnv(): ValidatedEnv {
   // Skip validation if explicitly disabled (use with caution)
   // Trim the value to handle newlines from Vercel environment variables
-  if (process.env.SKIP_ENV_VALIDATION?.trim() === 'true') {
+  const skipValidation = process.env.SKIP_ENV_VALIDATION?.trim();
+  if (skipValidation === 'true' || skipValidation === '1') {
     securityLogger.warn(
       '⚠️  Environment variable validation is skipped. This is not recommended for production.'
     );
