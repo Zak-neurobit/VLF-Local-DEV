@@ -180,6 +180,7 @@
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "express": "^5.1.0",
+    "fast-xml-parser": "^5.2.5",
     "framer-motion": "^12.19.2",
     "googleapis": "^129.0.0",
     "gray-matter": "^4.0.3",

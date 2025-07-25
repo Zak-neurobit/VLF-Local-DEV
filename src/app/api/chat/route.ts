@@ -10,6 +10,7 @@ import { AgentOrchestrator } from '@/lib/agents/agent-orchestrator';
 import { ghlChatSync } from '@/services/gohighlevel/chat-sync';
 import { ghlService } from '@/services/gohighlevel';
 import { withAIAgentTracing, withDatabaseTracing } from '@/lib/telemetry/api-middleware';
+import { appointmentBookingHandler } from '@/lib/chat/appointment-booking-handler';
 
 export const runtime = 'nodejs';
 // Initialize OpenAI client
@@ -290,6 +291,20 @@ async function handleChatPOST(request: NextRequest) {
       quickResponse = COMMON_RESPONSES[language as 'en' | 'es'].emergency;
     }
 
+    // Check for appointment booking intent
+    const appointmentIntent = await appointmentBookingHandler.parseAppointmentIntent(
+      message,
+      language as 'en' | 'es'
+    );
+
+    // Store session data for appointment flow
+    const sessionData = {
+      userId: actualUserId,
+      sessionId: conversation.id,
+      language,
+      bookingFlow: conversation.metadata?.bookingFlow || {},
+    };
+
     try {
       // Initialize agent orchestrator
       const orchestrator = AgentOrchestrator.getInstance();
@@ -313,16 +328,56 @@ async function handleChatPOST(request: NextRequest) {
       } catch (agentError) {
         logger.error('Agent orchestrator error:', errorToLogMeta(agentError));
         // Fallback to basic response if agent fails
-        agentResponse = {
-          agent: 'orchestrator',
-          response: null,
-          actions: [
-            {
-              type: 'show-contact',
-              data: { phone: '(888) 979-8990' },
+        // Handle appointment booking flow
+        if (appointmentIntent.hasAppointmentIntent || sessionData.bookingFlow?.inProgress) {
+          const bookingResponse = await appointmentBookingHandler.handleAppointmentConversation(
+            message,
+            sessionData,
+            language as 'en' | 'es'
+          );
+
+          // Update conversation metadata with booking flow state
+          await prisma.conversation.update({
+            where: { id: conversation.id },
+            data: {
+              metadata: {
+                ...((conversation.metadata as Record<string, unknown>) || {}),
+                bookingFlow: {
+                  ...sessionData.bookingFlow,
+                  ...bookingResponse.data,
+                  inProgress: bookingResponse.requiresMoreInfo,
+                  lastStep: bookingResponse.nextStep,
+                },
+              },
             },
-          ],
-        };
+          });
+
+          agentResponse = {
+            agent: 'appointment_booking',
+            response: bookingResponse.response,
+            actions: bookingResponse.data?.bookingComplete
+              ? [
+                  {
+                    type: 'appointment-booked',
+                    data: {
+                      confirmationNumber: bookingResponse.data.confirmationNumber,
+                    },
+                  },
+                ]
+              : [],
+          };
+        } else {
+          agentResponse = {
+            agent: 'orchestrator',
+            response: null,
+            actions: [
+              {
+                type: 'show-contact',
+                data: { phone: '(888) 979-8990' },
+              },
+            ],
+          };
+        }
       }
 
       let aiResponse: string;

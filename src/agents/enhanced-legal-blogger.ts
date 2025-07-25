@@ -4,352 +4,135 @@ import { prisma } from '@/lib/prisma';
 import type { BlogPost } from '@prisma/client';
 import Parser from 'rss-parser';
 import { generateSlug } from '@/lib/utils';
+import { getEnabledFeeds, type RSSFeed } from '@/lib/rss/feeds-config';
+import { rssFeedMonitor, type FeedItem } from '@/lib/rss/feed-monitor';
 
-// Type for RSS feed items
-type RSSItem = Parser.Item;
-
-interface RSSFeed {
-  name: string;
-  url: string;
-  category: string;
-  priority: number;
-}
+// Type alias removed - using FeedItem from feed-monitor
 
 interface BlogTemplate {
   category: string;
-  template: (item: RSSItem) => { title: string; content: string; excerpt: string };
+  template: (item: FeedItem) => { title: string; content: string; excerpt: string };
 }
 
 export class EnhancedLegalBlogger {
-  private parser: Parser;
   private isRunning = false;
   private checkInterval = 30 * 60 * 1000; // 30 minutes
+  private processedGuids = new Set<string>(); // Track processed items
 
-  // Reputable RSS feeds - NO HALLUCINATIONS
-  // Only verified working feeds included
-  private feeds: RSSFeed[] = [
-    // VERIFIED WORKING FEEDS
-    // Federal Register - Best source for official immigration updates
-    {
-      name: 'Federal Register - DHS',
-      url: 'https://www.federalregister.gov/api/v1/documents.rss?conditions[agencies][]=homeland-security-department',
-      category: 'immigration',
-      priority: 1,
-    },
-    {
-      name: 'Federal Register - USCIS',
-      url: 'https://www.federalregister.gov/api/v1/documents.rss?conditions[agencies][]=citizenship-and-immigration-services',
-      category: 'immigration',
-      priority: 1,
-    },
-    {
-      name: 'Federal Register - State Dept',
-      url: 'https://www.federalregister.gov/api/v1/documents.rss?conditions[agencies][]=state-department&conditions[term]=visa',
-      category: 'immigration',
-      priority: 1,
-    },
-    {
-      name: 'Federal Register - DOJ',
-      url: 'https://www.federalregister.gov/api/v1/documents.rss?conditions[agencies][]=justice-department&conditions[term]=immigration',
-      category: 'immigration',
-      priority: 1,
-    },
-
-    // WORKING NEWS SOURCES - Alternative to government feeds
-    {
-      name: 'Immigration Impact - News',
-      url: 'https://immigrationimpact.com/feed/',
-      category: 'immigration',
-      priority: 2,
-    },
-    {
-      name: 'American Immigration Council',
-      url: 'https://www.americanimmigrationcouncil.org/rss.xml',
-      category: 'immigration',
-      priority: 2,
-    },
-    {
-      name: 'Migration Policy Institute',
-      url: 'https://www.migrationpolicy.org/rss.xml',
-      category: 'immigration',
-      priority: 2,
-    },
-    {
-      name: 'National Immigration Forum',
-      url: 'https://immigrationforum.org/feed/',
-      category: 'immigration',
-      priority: 2,
-    },
-    {
-      name: 'Immigration Legal Resource Center',
-      url: 'https://www.ilrc.org/rss.xml',
-      category: 'immigration',
-      priority: 2,
-    },
-
-    // LEGAL NEWS SOURCES
-    {
-      name: 'Law360 Immigration',
-      url: 'https://www.law360.com/immigration/rss',
-      category: 'immigration',
-      priority: 2,
-    },
-    {
-      name: 'JD Supra Immigration',
-      url: 'https://www.jdsupra.com/rss/immigration.xml',
-      category: 'immigration',
-      priority: 2,
-    },
-
-    // SECONDARY FEEDS (lower priority but still valuable)
-    // Department of Justice
-    {
-      name: 'DOJ Immigration',
-      url: 'https://www.justice.gov/news/rss?topics=257551',
-      category: 'immigration',
-      priority: 2,
-    },
-    // ICE News
-    {
-      name: 'ICE News',
-      url: 'https://www.ice.gov/rss/news/all.xml',
-      category: 'immigration',
-      priority: 2,
-    },
-    // CBP News
-    {
-      name: 'CBP Border News',
-      url: 'https://www.cbp.gov/newsroom/national-media-release/rss.xml',
-      category: 'immigration',
-      priority: 2,
-    },
-
-    // CONGRESS & SENATE - These may have intermittent availability
-    // Congressional Research Service
-    {
-      name: 'Congressional Research Service',
-      url: 'https://crsreports.congress.gov/rss/reports.xml',
-      category: 'congress',
-      priority: 2,
-    },
-    // House Judiciary Committee (Immigration)
-    {
-      name: 'House Judiciary',
-      url: 'https://judiciary.house.gov/news/rss.xml',
-      category: 'congress',
-      priority: 2,
-    },
-    // Senate Judiciary Committee (Immigration)
-    {
-      name: 'Senate Judiciary',
-      url: 'https://www.judiciary.senate.gov/rss/newsroom',
-      category: 'senate',
-      priority: 2,
-    },
-
-    // NORTH CAROLINA STATE & LOCAL NEWS
-    // NC State Bar
-    {
-      name: 'NC State Bar',
-      url: 'https://www.ncbar.gov/news/feed/',
-      category: 'state-nc',
-      priority: 1,
-    },
-    // NC Governor's Office
-    {
-      name: 'NC Governor',
-      url: 'https://governor.nc.gov/news/feed',
-      category: 'state-nc',
-      priority: 2,
-    },
-    // NC General Assembly
-    {
-      name: 'NC Legislature',
-      url: 'https://www.ncleg.gov/News/RSS',
-      category: 'state-nc',
-      priority: 2,
-    },
-    // Charlotte Local News
-    {
-      name: 'Charlotte Observer',
-      url: 'https://www.charlotteobserver.com/news/local/immigration/rss',
-      category: 'local-nc',
-      priority: 2,
-    },
-    // Raleigh News
-    {
-      name: 'News & Observer',
-      url: 'https://www.newsobserver.com/news/local/immigration/rss',
-      category: 'local-nc',
-      priority: 2,
-    },
-    // NC Policy Watch (Immigration)
-    {
-      name: 'NC Policy Watch',
-      url: 'https://ncpolicywatch.com/category/articles/immigration/feed/',
-      category: 'state-nc',
-      priority: 2,
-    },
-
-    // FLORIDA STATE & LOCAL NEWS
-    // Florida Bar
-    {
-      name: 'Florida Bar',
-      url: 'https://www.floridabar.org/news/rss-feed/',
-      category: 'state-fl',
-      priority: 1,
-    },
-    // Florida Governor
-    {
-      name: 'FL Governor',
-      url: 'https://www.flgov.com/feed/',
-      category: 'state-fl',
-      priority: 2,
-    },
-    // Florida Legislature
-    {
-      name: 'FL Legislature',
-      url: 'https://www.flsenate.gov/RSS/Bills',
-      category: 'state-fl',
-      priority: 2,
-    },
-    // Orlando Sentinel
-    {
-      name: 'Orlando Sentinel',
-      url: 'https://www.orlandosentinel.com/news/immigration/rss',
-      category: 'local-fl',
-      priority: 2,
-    },
-    // Miami Herald Immigration
-    {
-      name: 'Miami Herald',
-      url: 'https://www.miamiherald.com/news/local/immigration/rss',
-      category: 'local-fl',
-      priority: 2,
-    },
-    // Tampa Bay Times
-    {
-      name: 'Tampa Bay Times',
-      url: 'https://www.tampabay.com/news/immigration/rss',
-      category: 'local-fl',
-      priority: 2,
-    },
-  ];
+  // Use centralized RSS feed configuration
+  private get feeds(): RSSFeed[] {
+    return getEnabledFeeds();
+  }
 
   private templates: BlogTemplate[] = [
     {
       category: 'immigration',
-      template: (item: RSSItem) => ({
+      template: (item: FeedItem) => ({
         title: `Immigration Update: ${item.title}`,
-        excerpt: `Important immigration law development: ${item.contentSnippet || item.summary || 'Click to read more about this update.'}`,
+        excerpt: `Important immigration law development: ${item.contentSnippet || item.content || 'Click to read more about this update.'}`,
         content: this.generateImmigrationContent(item),
       }),
     },
     {
       category: 'executive-orders',
-      template: (item: RSSItem) => ({
+      template: (item: FeedItem) => ({
         title: `Executive Order: ${item.title}`,
-        excerpt: `New White House executive action on immigration: ${item.contentSnippet || item.summary || 'Learn how this affects you.'}`,
+        excerpt: `New White House executive action on immigration: ${item.contentSnippet || item.content || 'Learn how this affects you.'}`,
         content: this.generateExecutiveOrderContent(item),
       }),
     },
     {
       category: 'supreme-court',
-      template: (item: RSSItem) => ({
+      template: (item: FeedItem) => ({
         title: `Supreme Court: ${item.title}`,
-        excerpt: `Supreme Court immigration case update: ${item.contentSnippet || item.summary || 'Critical legal development.'}`,
+        excerpt: `Supreme Court immigration case update: ${item.contentSnippet || item.content || 'Critical legal development.'}`,
         content: this.generateCourtDecisionContent(item, 'Supreme Court'),
       }),
     },
     {
       category: 'circuit-courts',
-      template: (item: RSSItem) => ({
+      template: (item: FeedItem) => ({
         title: `Federal Court Decision: ${item.title}`,
-        excerpt: `Circuit court rules on immigration matter: ${item.contentSnippet || item.summary || 'Important precedent set.'}`,
+        excerpt: `Circuit court rules on immigration matter: ${item.contentSnippet || item.content || 'Important precedent set.'}`,
         content: this.generateCourtDecisionContent(item, 'Circuit Court'),
       }),
     },
     {
       category: 'immigration-courts',
-      template: (item: RSSItem) => ({
+      template: (item: FeedItem) => ({
         title: `BIA Decision: ${item.title}`,
-        excerpt: `Board of Immigration Appeals ruling: ${item.contentSnippet || item.summary || 'New precedent for immigration cases.'}`,
+        excerpt: `Board of Immigration Appeals ruling: ${item.contentSnippet || item.content || 'New precedent for immigration cases.'}`,
         content: this.generateBIADecisionContent(item),
       }),
     },
     {
       category: 'visa-bulletin',
-      template: (item: RSSItem) => ({
+      template: (item: FeedItem) => ({
         title: `Visa Bulletin Update: ${item.title}`,
-        excerpt: `New priority dates and visa availability: ${item.contentSnippet || item.summary || 'Check your category.'}`,
+        excerpt: `New priority dates and visa availability: ${item.contentSnippet || item.content || 'Check your category.'}`,
         content: this.generateVisaBulletinContent(item),
       }),
     },
     {
       category: 'state-nc',
-      template: (item: RSSItem) => ({
+      template: (item: FeedItem) => ({
         title: `North Carolina Immigration Impact: ${item.title}`,
-        excerpt: `New NC law or policy affecting immigrants: ${item.contentSnippet || item.summary || 'Learn how this affects you.'}`,
+        excerpt: `New NC law or policy affecting immigrants: ${item.contentSnippet || item.content || 'Learn how this affects you.'}`,
         content: this.generateStateImmigrationContent(item, 'North Carolina'),
       }),
     },
     {
       category: 'state-fl',
-      template: (item: RSSItem) => ({
+      template: (item: FeedItem) => ({
         title: `Florida Immigration Impact: ${item.title}`,
-        excerpt: `New FL law or policy affecting immigrants: ${item.contentSnippet || item.summary || 'Learn how this affects you.'}`,
+        excerpt: `New FL law or policy affecting immigrants: ${item.contentSnippet || item.content || 'Learn how this affects you.'}`,
         content: this.generateStateImmigrationContent(item, 'Florida'),
       }),
     },
     {
       category: 'local-nc',
-      template: (item: RSSItem) => ({
+      template: (item: FeedItem) => ({
         title: `NC Local Update: ${item.title}`,
-        excerpt: `Local North Carolina news affecting immigrants: ${item.contentSnippet || item.summary || 'Community impact.'}`,
+        excerpt: `Local North Carolina news affecting immigrants: ${item.contentSnippet || item.content || 'Community impact.'}`,
         content: this.generateLocalNewsContent(item, 'North Carolina'),
       }),
     },
     {
       category: 'local-fl',
-      template: (item: RSSItem) => ({
+      template: (item: FeedItem) => ({
         title: `FL Local Update: ${item.title}`,
-        excerpt: `Local Florida news affecting immigrants: ${item.contentSnippet || item.summary || 'Community impact.'}`,
+        excerpt: `Local Florida news affecting immigrants: ${item.contentSnippet || item.content || 'Community impact.'}`,
         content: this.generateLocalNewsContent(item, 'Florida'),
       }),
     },
     {
       category: 'legal',
-      template: (item: RSSItem) => ({
+      template: (item: FeedItem) => ({
         title: `Legal Update: ${item.title}`,
-        excerpt: `Recent legal development: ${item.contentSnippet || item.summary || 'Click to read more.'}`,
+        excerpt: `Recent legal development: ${item.contentSnippet || item.content || 'Click to read more.'}`,
         content: this.generateLegalContent(item),
       }),
     },
     {
       category: 'congress',
-      template: (item: RSSItem) => ({
+      template: (item: FeedItem) => ({
         title: `Congressional Immigration Bill: ${item.title}`,
-        excerpt: `New immigration legislation in Congress: ${item.contentSnippet || item.summary || 'Track this important bill.'}`,
+        excerpt: `New immigration legislation in Congress: ${item.contentSnippet || item.content || 'Track this important bill.'}`,
         content: this.generateCongressionalBillContent(item),
       }),
     },
     {
       category: 'senate',
-      template: (item: RSSItem) => ({
+      template: (item: FeedItem) => ({
         title: `Senate Immigration Update: ${item.title}`,
-        excerpt: `Senate action on immigration: ${item.contentSnippet || item.summary || 'Follow this Senate development.'}`,
+        excerpt: `Senate action on immigration: ${item.contentSnippet || item.content || 'Follow this Senate development.'}`,
         content: this.generateSenateBillContent(item),
       }),
     },
   ];
 
   constructor() {
-    this.parser = new Parser({
-      timeout: 10000,
-      headers: {
-        'User-Agent': 'Vasquez Law Firm News Monitor/1.0',
-      },
-    });
+    // Parser no longer needed - using centralized feed monitor
   }
 
   async start() {
@@ -376,45 +159,51 @@ export class EnhancedLegalBlogger {
   private async checkAllFeeds() {
     logger.info('Checking all legal news feeds...');
 
-    for (const feed of this.feeds) {
-      try {
-        await this.processFeed(feed);
-      } catch (error) {
-        logger.error(`Error processing feed ${feed.name}:`, errorToLogMeta(error));
-      }
-    }
-  }
-
-  private async processFeed(feed: RSSFeed) {
     try {
-      logger.info(`Processing feed: ${feed.name}`);
+      // Use centralized feed monitor to fetch all feeds
+      const feedResults = await rssFeedMonitor.fetchFeeds(this.feeds);
 
-      // Parse RSS feed
-      const feedData = await this.parser.parseURL(feed.url);
-
-      if (!feedData.items || feedData.items.length === 0) {
-        logger.info(`No items found in feed: ${feed.name}`);
-        return;
-      }
-
-      // Process recent items (last 24 hours)
-      const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-
-      for (const item of feedData.items) {
-        const pubDate = item.pubDate ? new Date(item.pubDate) : new Date();
-
-        if (pubDate < oneDayAgo) {
-          continue; // Skip old items
+      // Process successful feeds
+      for (const result of feedResults) {
+        if (result.status === 'success' && result.items) {
+          await this.processFeedItems(result.items, result.feed);
+        } else if (result.status === 'error') {
+          logger.warn(`Feed failed: ${result.feed.name} - ${result.error}`);
         }
-
-        await this.processItem(item, feed);
       }
     } catch (error) {
-      logger.error(`Failed to process feed ${feed.name}:`, errorToLogMeta(error));
+      logger.error('Error checking feeds:', errorToLogMeta(error));
     }
   }
 
-  private async processItem(item: RSSItem, feed: RSSFeed) {
+  private async processFeedItems(items: FeedItem[], feed: RSSFeed) {
+    logger.info(`Processing ${items.length} items from feed: ${feed.name}`);
+
+    // Process recent items (last 24 hours)
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+
+    for (const item of items) {
+      const pubDate = new Date(item.pubDate);
+
+      if (pubDate < oneDayAgo) {
+        continue; // Skip old items
+      }
+
+      // Check if already processed using guid
+      if (item.guid && this.processedGuids.has(item.guid)) {
+        continue;
+      }
+
+      await this.processItem(item, feed);
+
+      // Track processed items
+      if (item.guid) {
+        this.processedGuids.add(item.guid);
+      }
+    }
+  }
+
+  private async processItem(item: FeedItem, feed: RSSFeed) {
     try {
       // Check if already processed
       const sourceUrl = item.link || item.guid;
@@ -445,7 +234,7 @@ export class EnhancedLegalBlogger {
     }
   }
 
-  private async createBlogPost(item: RSSItem, feed: RSSFeed) {
+  private async createBlogPost(item: FeedItem, feed: RSSFeed) {
     const template = this.templates.find(t => t.category === feed.category) || this.templates[0];
     const { title, content, excerpt } = template.template(item);
 
@@ -491,7 +280,7 @@ export class EnhancedLegalBlogger {
     }
   }
 
-  private generateImmigrationContent(item: RSSItem): string {
+  private generateImmigrationContent(item: FeedItem): string {
     // Generate content based on VLF brand guidelines
     const content = `
 <article class="legal-update immigration-news">
@@ -507,7 +296,7 @@ export class EnhancedLegalBlogger {
 
   <div class="max-w-4xl mx-auto px-4">
     <div class="text-xl text-gray-700 mb-8 leading-relaxed">
-      ${item.contentSnippet || item.summary || 'This update contains important information about recent changes in immigration law.'}
+      ${item.contentSnippet || item.content || 'This update contains important information about recent changes in immigration law.'}
     </div>
 
     <section class="mb-12">
@@ -630,12 +419,12 @@ export class EnhancedLegalBlogger {
     return content;
   }
 
-  private generateLegalContent(item: RSSItem): string {
+  private generateLegalContent(item: FeedItem): string {
     // Similar template for general legal news
     return this.generateImmigrationContent(item); // Reuse for now
   }
 
-  private generateStateImmigrationContent(item: RSSItem, state: string): string {
+  private generateStateImmigrationContent(item: FeedItem, state: string): string {
     const stateAbbr = state === 'North Carolina' ? 'NC' : 'FL';
     const offices =
       state === 'North Carolina' ? 'Charlotte, Raleigh, Smithfield, and Goldsboro' : 'Orlando';
@@ -663,7 +452,7 @@ export class EnhancedLegalBlogger {
     </div>
 
     <div class="text-xl text-gray-700 mb-8 leading-relaxed">
-      ${item.contentSnippet || item.summary || `This ${state} state law update may impact immigrants and their families in various ways.`}
+      ${item.contentSnippet || item.content || `This ${state} state law update may impact immigrants and their families in various ways.`}
     </div>
 
     <section class="mb-12">
@@ -819,7 +608,7 @@ export class EnhancedLegalBlogger {
     return content;
   }
 
-  private generateExecutiveOrderContent(item: RSSItem): string {
+  private generateExecutiveOrderContent(item: FeedItem): string {
     const content = `
 <article class="legal-update executive-order">
   <div class="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white p-8 rounded-lg mb-8 shadow-xl">
@@ -849,7 +638,7 @@ export class EnhancedLegalBlogger {
     <section class="mb-12">
       <h2 class="text-3xl font-bold text-[#6B1F2E] mb-6">What This Executive Order Does</h2>
       <div class="prose prose-lg max-w-none">
-        ${item.contentSnippet || item.summary || 'This executive order addresses immigration policy changes.'}
+        ${item.contentSnippet || item.content || 'This executive order addresses immigration policy changes.'}
       </div>
     </section>
 
@@ -880,7 +669,7 @@ export class EnhancedLegalBlogger {
     return content;
   }
 
-  private generateCourtDecisionContent(item: RSSItem, courtType: string): string {
+  private generateCourtDecisionContent(item: FeedItem, courtType: string): string {
     const content = `
 <article class="legal-update court-decision">
   <div class="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white p-8 rounded-lg mb-8 shadow-xl">
@@ -905,7 +694,7 @@ export class EnhancedLegalBlogger {
     <section class="mb-12">
       <h2 class="text-3xl font-bold text-[#6B1F2E] mb-6">The Court's Decision</h2>
       <div class="prose prose-lg max-w-none">
-        ${item.contentSnippet || item.summary || 'This court decision addresses important immigration law questions.'}
+        ${item.contentSnippet || item.content || 'This court decision addresses important immigration law questions.'}
       </div>
     </section>
 
@@ -930,7 +719,7 @@ export class EnhancedLegalBlogger {
     return content;
   }
 
-  private generateBIADecisionContent(item: RSSItem): string {
+  private generateBIADecisionContent(item: FeedItem): string {
     const content = `
 <article class="legal-update bia-decision">
   <div class="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white p-8 rounded-lg mb-8 shadow-xl">
@@ -952,7 +741,7 @@ export class EnhancedLegalBlogger {
           affects how immigration courts will rule on similar cases.
         </p>
         <div class="prose prose-lg">
-          ${item.contentSnippet || item.summary || 'This BIA decision establishes new precedent for immigration proceedings.'}
+          ${item.contentSnippet || item.content || 'This BIA decision establishes new precedent for immigration proceedings.'}
         </div>
       </div>
     </section>
@@ -964,7 +753,7 @@ export class EnhancedLegalBlogger {
     return content;
   }
 
-  private generateVisaBulletinContent(item: RSSItem): string {
+  private generateVisaBulletinContent(item: FeedItem): string {
     const content = `
 <article class="legal-update visa-bulletin">
   <div class="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white p-8 rounded-lg mb-8 shadow-xl">
@@ -993,7 +782,7 @@ export class EnhancedLegalBlogger {
     return content;
   }
 
-  private generateLocalNewsContent(item: RSSItem, state: string): string {
+  private generateLocalNewsContent(item: FeedItem, state: string): string {
     const content = `
 <article class="legal-update local-news">
   <div class="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white p-8 rounded-lg mb-8 shadow-xl">
@@ -1010,7 +799,7 @@ export class EnhancedLegalBlogger {
     <section class="mb-12">
       <h2 class="text-3xl font-bold text-[#6B1F2E] mb-6">Local Immigration News</h2>
       <div class="prose prose-lg max-w-none">
-        ${item.contentSnippet || item.summary || 'This local development affects immigrant communities in ' + state + '.'}
+        ${item.contentSnippet || item.content || 'This local development affects immigrant communities in ' + state + '.'}
       </div>
     </section>
 
@@ -1069,10 +858,10 @@ export class EnhancedLegalBlogger {
     `;
   }
 
-  private extractKeywords(item: RSSItem): string[] {
+  private extractKeywords(item: FeedItem): string[] {
     const keywords = [];
     const title = (item.title || '').toLowerCase();
-    const content = (item.contentSnippet || item.summary || '').toLowerCase();
+    const content = (item.contentSnippet || item.content || '').toLowerCase();
     const fullText = title + ' ' + content;
 
     // Immigration keywords
@@ -1134,7 +923,7 @@ export class EnhancedLegalBlogger {
     return [...new Set(keywords)]; // Remove duplicates
   }
 
-  private isUrgent(item: RSSItem): boolean {
+  private isUrgent(item: FeedItem): boolean {
     const title = (item.title || '').toLowerCase();
     const urgentKeywords = [
       'breaking',
@@ -1153,15 +942,17 @@ export class EnhancedLegalBlogger {
 
   private async notifySystem(_post: BlogPost) {
     // Trigger various system updates
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+
     try {
       // Regenerate blog listing page
-      await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/revalidate?path=/blog`);
+      await fetch(`${appUrl}/api/revalidate?path=/blog`);
 
       // Update sitemap
-      await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/sitemap/update`);
+      await fetch(`${appUrl}/api/sitemap/update`);
 
       // Notify social media scheduler
-      // await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/social/schedule`, {
+      // await fetch(`${appUrl}/api/social/schedule`, {
       //   method: 'POST',
       //   body: JSON.stringify({ postId: post.id })
       // });
@@ -1170,7 +961,7 @@ export class EnhancedLegalBlogger {
     }
   }
 
-  private generateCongressionalBillContent(item: RSSItem): string {
+  private generateCongressionalBillContent(item: FeedItem): string {
     const content = `
 <article class="legal-update congressional-bill">
   <div class="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white p-8 rounded-lg mb-8 shadow-xl">
@@ -1200,7 +991,7 @@ export class EnhancedLegalBlogger {
     <section class="mb-12">
       <h2 class="text-3xl font-bold text-[#6B1F2E] mb-6">What This Bill Proposes</h2>
       <div class="prose prose-lg max-w-none">
-        ${item.contentSnippet || item.summary || 'This congressional bill addresses immigration reform and policy changes.'}
+        ${item.contentSnippet || item.content || 'This congressional bill addresses immigration reform and policy changes.'}
       </div>
     </section>
 
@@ -1299,7 +1090,7 @@ export class EnhancedLegalBlogger {
     return content;
   }
 
-  private generateSenateBillContent(item: RSSItem): string {
+  private generateSenateBillContent(item: FeedItem): string {
     const content = `
 <article class="legal-update senate-bill">
   <div class="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white p-8 rounded-lg mb-8 shadow-xl">
@@ -1329,7 +1120,7 @@ export class EnhancedLegalBlogger {
     <section class="mb-12">
       <h2 class="text-3xl font-bold text-[#6B1F2E] mb-6">Senate Action Summary</h2>
       <div class="prose prose-lg max-w-none">
-        ${item.contentSnippet || item.summary || 'The Senate is considering immigration policy changes that could affect millions.'}
+        ${item.contentSnippet || item.content || 'The Senate is considering immigration policy changes that could affect millions.'}
       </div>
     </section>
 

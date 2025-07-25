@@ -17,8 +17,6 @@ const nextConfig = {
     optimizePackageImports: ['lucide-react', 'date-fns', '@radix-ui/react-icons'],
     // Enable instrumentation hook for Sentry
     instrumentationHook: true,
-    // Disable ISR memory cache to prevent revalidation issues
-    isrMemoryCacheSize: 0,
   },
 
   // Increase build timeout for generating many pages

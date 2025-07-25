@@ -34,6 +34,8 @@ interface Message {
     confidence?: number;
     agent?: string;
     language?: string;
+    appointmentConfirmation?: string;
+    bookingStep?: string;
   };
 }
 
@@ -52,7 +54,7 @@ const quickActions: QuickAction[] = [
     label: 'Schedule Consultation',
     labelEs: 'Agendar Consulta',
     icon: <Calendar className="w-4 h-4" />,
-    action: 'I need to schedule a consultation',
+    action: 'I need to schedule a consultation appointment',
     intent: 'appointment_scheduling',
   },
   {
@@ -122,8 +124,8 @@ export function EnhancedChatWidget() {
         id: 'welcome',
         content:
           locale === 'es'
-            ? '¡Hola! Soy el asistente legal de Vasquez Law Firm. ¿En qué puedo ayudarte hoy?'
-            : "Hello! I'm the Vasquez Law Firm legal assistant. How can I help you today?",
+            ? '¡Hola! Soy el asistente legal de Vasquez Law Firm. Puedo ayudarte a agendar una cita, responder preguntas sobre inmigración, o conectarte con un abogado. ¿En qué puedo ayudarte hoy?'
+            : "Hello! I'm the Vasquez Law Firm legal assistant. I can help you schedule an appointment, answer immigration questions, or connect you with an attorney. How can I help you today?",
         role: 'assistant',
         timestamp: new Date(),
         metadata: {
@@ -164,15 +166,16 @@ export function EnhancedChatWidget() {
       }
 
       // Use AILA endpoint for immigration-related queries or document analysis
-      const isImmigrationRelated = input.toLowerCase().includes('immigra') || 
-                                  input.toLowerCase().includes('visa') || 
-                                  input.toLowerCase().includes('green card') ||
-                                  input.toLowerCase().includes('ciudadan') ||
-                                  input.toLowerCase().includes('deporta') ||
-                                  uploadedFile;
-      
+      const isImmigrationRelated =
+        input.toLowerCase().includes('immigra') ||
+        input.toLowerCase().includes('visa') ||
+        input.toLowerCase().includes('green card') ||
+        input.toLowerCase().includes('ciudadan') ||
+        input.toLowerCase().includes('deporta') ||
+        uploadedFile;
+
       const endpoint = isImmigrationRelated ? '/api/chat/aila' : '/api/chat';
-      
+
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -215,11 +218,37 @@ export function EnhancedChatWidget() {
       setMessages(prev => [...prev, assistantMessage]);
       setCurrentAgent(data.agent || currentAgent);
 
-      // Handle special intents
-      if (data.intent === 'appointment_scheduling' && data.appointmentUrl) {
-        window.open(data.appointmentUrl, '_blank');
-      } else if (data.intent === 'callback_request' && data.callbackScheduled) {
-        // Show success notification
+      // Handle special intents and actions
+      if (data.actions) {
+        data.actions.forEach((action: any) => {
+          if (action.type === 'appointment-booked' && action.data?.confirmationNumber) {
+            // Show success notification
+            const successMessage: Message = {
+              id: Date.now().toString() + '-confirmation',
+              content:
+                locale === 'es'
+                  ? `✅ Cita confirmada! Número: ${action.data.confirmationNumber}`
+                  : `✅ Appointment confirmed! Number: ${action.data.confirmationNumber}`,
+              role: 'system',
+              timestamp: new Date(),
+              metadata: {
+                appointmentConfirmation: action.data.confirmationNumber,
+              },
+            };
+            setMessages(prev => [...prev, successMessage]);
+          }
+        });
+      }
+
+      // Update booking flow status if in appointment booking
+      if (data.agent === 'appointment_booking') {
+        localStorage.setItem(
+          'chatBookingFlow',
+          JSON.stringify({
+            inProgress: true,
+            lastUpdate: new Date().toISOString(),
+          })
+        );
       }
     } catch (error) {
       logger.error('Chat error:', error);
@@ -376,6 +405,19 @@ export function EnhancedChatWidget() {
                       <p className="text-xs mt-1 font-semibold text-primary-700">
                         AILA Immigration Expert
                       </p>
+                    )}
+                    {message.metadata?.agent === 'appointment_booking' && (
+                      <p className="text-xs mt-1 font-semibold text-blue-700">
+                        Appointment Booking Assistant
+                      </p>
+                    )}
+                    {message.metadata?.appointmentConfirmation && (
+                      <div className="mt-2 p-2 bg-green-50 rounded-lg border border-green-200">
+                        <p className="text-xs font-semibold text-green-800">
+                          {locale === 'es' ? 'Confirmación:' : 'Confirmation:'}{' '}
+                          {message.metadata.appointmentConfirmation}
+                        </p>
+                      </div>
                     )}
                   </div>
                   {message.role === 'user' && (

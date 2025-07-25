@@ -1,0 +1,160 @@
+import { MetadataRoute } from 'next';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import path from 'path';
+import { getPrismaClient } from '@/lib/prisma';
+
+const execAsync = promisify(exec);
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.vasquezlawnc.com';
+  const appDir = path.join(process.cwd(), 'src/app');
+  
+  try {
+    // Find all page files using shell command (more reliable)
+    const { stdout } = await execAsync(
+      `find "${appDir}" \\( -name "page.tsx" -o -name "page.ts" \\) | grep -v node_modules | grep -v "api/" | grep -v "_"`
+    );
+    
+    const pageFiles = stdout.trim().split('\n').filter(Boolean);
+    const sitemapEntries: MetadataRoute.Sitemap = [];
+    const now = new Date();
+    
+    // Process each page file
+    for (const file of pageFiles) {
+      // Convert file path to URL path
+      const relativePath = file.replace(appDir, '').replace(/\/page\.(tsx|ts)$/, '');
+      let urlPath = relativePath || '/';
+      
+      // Clean up the path
+      urlPath = urlPath.replace(/\/\([^)]+\)/g, ''); // Remove route groups
+      
+      // Skip non-public routes
+      if (urlPath.includes('/api/') || urlPath.includes('/_') || 
+          urlPath.includes('/sitemap') || urlPath.includes('/robots') ||
+          urlPath.includes('/webhook') || urlPath.includes('/.well-known') ||
+          urlPath.includes('/socket')) {
+        continue;
+      }
+      
+      sitemapEntries.push({
+        url: `${baseUrl}${urlPath}`,
+        lastModified: now,
+        changeFrequency: getChangeFrequency(urlPath),
+        priority: getPriority(urlPath),
+      });
+    }
+    
+    // Add dynamic blog posts from database
+    try {
+      const prisma = getPrismaClient();
+      const blogPosts = await prisma.blogPost.findMany({
+        where: { status: 'published' },
+        select: { slug: true, updatedAt: true },
+      });
+      
+      for (const post of blogPosts) {
+        sitemapEntries.push({
+          url: `${baseUrl}/blog/${post.slug}`,
+          lastModified: post.updatedAt || now,
+          changeFrequency: 'weekly',
+          priority: 0.6,
+        });
+        
+        // Add Spanish version if it exists
+        sitemapEntries.push({
+          url: `${baseUrl}/es/blog/${post.slug}`,
+          lastModified: post.updatedAt || now,
+          changeFrequency: 'weekly',
+          priority: 0.6,
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching blog posts:', error);
+    }
+    
+    // Sort by priority (highest first) then by URL
+    sitemapEntries.sort((a, b) => {
+      const priorityDiff = (b.priority || 0.5) - (a.priority || 0.5);
+      if (priorityDiff !== 0) return priorityDiff;
+      return a.url.localeCompare(b.url);
+    });
+    
+    console.log(`Generated sitemap with ${sitemapEntries.length} entries`);
+    
+    return sitemapEntries;
+  } catch (error) {
+    console.error('Error generating sitemap:', error);
+    
+    // Fallback to basic sitemap if discovery fails
+    return [
+      {
+        url: baseUrl,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 1.0,
+      },
+      {
+        url: `${baseUrl}/practice-areas`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/attorneys`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/contact`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/blog`,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.7,
+      },
+    ];
+  }
+}
+
+function getChangeFrequency(path: string): MetadataRoute.Sitemap[0]['changeFrequency'] {
+  if (path === '/' || path === '/es') return 'daily';
+  if (path.includes('/blog')) return 'weekly';
+  if (path.includes('/news')) return 'daily';
+  if (path.includes('/attorneys') || path.includes('/abogados')) return 'monthly';
+  if (path.includes('/practice-areas') || path.includes('/areas-de-practica')) return 'monthly';
+  if (path.includes('/locations') || path.includes('/ubicaciones')) return 'weekly';
+  if (path.includes('/near-me') || path.includes('/cerca-de-mi')) return 'weekly';
+  return 'weekly';
+}
+
+function getPriority(path: string): number {
+  if (path === '/' || path === '/es') return 1.0;
+  if (path === '/practice-areas' || path === '/es/areas-de-practica') return 0.95;
+  if (path === '/locations/nc' || path === '/es/ubicaciones/nc') return 0.95;
+  
+  // Main practice area pages
+  if ((path.includes('/practice-areas/') || path.includes('/areas-de-practica/')) && path.split('/').length === 3) return 0.9;
+  
+  // Major city pages
+  const majorCities = ['charlotte', 'raleigh', 'durham', 'greensboro', 'winston-salem'];
+  if (path.includes('/locations/') && majorCities.some(city => path.includes(city))) return 0.9;
+  
+  // Location + practice area combos
+  if (path.includes('/locations/') && (path.includes('-lawyer') || path.includes('-attorney'))) return 0.85;
+  
+  // Sub-practice areas
+  if ((path.includes('/practice-areas/') || path.includes('/areas-de-practica/')) && path.split('/').length === 4) return 0.8;
+  
+  if (path.includes('/attorneys') || path.includes('/abogados')) return 0.8;
+  if (path.includes('/contact') || path.includes('/contacto')) return 0.8;
+  if (path.includes('/blog')) return 0.7;
+  if (path.includes('/near-me') || path.includes('/cerca-de-mi')) return 0.7;
+  
+  return 0.6;
+}

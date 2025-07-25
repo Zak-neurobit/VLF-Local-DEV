@@ -15,7 +15,7 @@ interface ConsistentHeaderProps {
 interface NavigationItem {
   name: string;
   href: string;
-  submenu?: { name: string; href: string }[];
+  submenu?: NavigationItem[];
 }
 
 export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
@@ -42,12 +42,211 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
         name: 'Practice Areas',
         href: '/practice-areas',
         submenu: [
-          { name: 'Immigration Law', href: '/practice-areas/immigration' },
-          { name: 'Personal Injury', href: '/practice-areas/personal-injury' },
-          { name: "Workers' Compensation", href: '/practice-areas/workers-compensation' },
-          { name: 'Criminal Defense', href: '/practice-areas/criminal-defense' },
-          { name: 'Family Law', href: '/practice-areas/family-law' },
-          { name: 'Traffic Violations', href: '/practice-areas/traffic-violations' },
+          {
+            name: 'Immigration Law',
+            href: '/practice-areas/immigration',
+            submenu: [
+              { name: 'Affirmative Immigration', href: '/practice-areas/immigration/affirmative' },
+              {
+                name: 'Family-Based Petitions',
+                href: '/practice-areas/immigration/affirmative/family-based-petitions',
+              },
+              { name: 'DACA', href: '/practice-areas/immigration/affirmative/daca' },
+              { name: 'TPS', href: '/practice-areas/immigration/affirmative/tps' },
+              { name: 'Green Cards', href: '/practice-areas/immigration/affirmative/green-cards' },
+              { name: 'Citizenship', href: '/practice-areas/immigration/affirmative/citizenship' },
+              { name: 'Removal Defense', href: '/practice-areas/immigration/removal-defense' },
+              {
+                name: 'Deportation Defense',
+                href: '/practice-areas/immigration/removal-defense/deportation-defense',
+              },
+              { name: 'Asylum', href: '/practice-areas/immigration/removal-defense/asylum' },
+              {
+                name: 'Cancellation of Removal',
+                href: '/practice-areas/immigration/removal-defense/cancellation-of-removal',
+              },
+              {
+                name: 'Bond Hearings',
+                href: '/practice-areas/immigration/removal-defense/bond-hearings',
+              },
+              { name: 'Business Immigration', href: '/practice-areas/immigration/business' },
+              {
+                name: 'PERM Labor Certification',
+                href: '/practice-areas/immigration/business/perm-labor-certification',
+              },
+              { name: 'H-1B Visas', href: '/practice-areas/immigration/business/h1b-visas' },
+              { name: 'L-1 Visas', href: '/practice-areas/immigration/business/l1-visas' },
+              {
+                name: 'E-2 Investor Visas',
+                href: '/practice-areas/immigration/business/e2-investor-visas',
+              },
+              {
+                name: 'EB-5 Investment',
+                href: '/practice-areas/immigration/business/eb5-investment',
+              },
+              { name: 'Waivers', href: '/practice-areas/immigration/inadmissibility-waivers' },
+              {
+                name: 'U Visa / VAWA',
+                href: '/practice-areas/immigration/vawa-u-visa-crime-victims',
+              },
+              { name: 'T Visa', href: '/practice-areas/immigration/t-visa' },
+            ],
+          },
+          {
+            name: 'Personal Injury',
+            href: '/practice-areas/personal-injury',
+            submenu: [
+              { name: 'Car Accidents', href: '/practice-areas/personal-injury/car-accidents' },
+              {
+                name: 'Motorcycle Accidents',
+                href: '/practice-areas/personal-injury/motorcycle-accidents',
+              },
+              { name: 'Truck Accidents', href: '/practice-areas/personal-injury/truck-accidents' },
+              {
+                name: 'Pedestrian Accidents',
+                href: '/practice-areas/personal-injury/pedestrian-accidents',
+              },
+              {
+                name: 'Bicycle Accidents',
+                href: '/practice-areas/personal-injury/bicycle-accidents',
+              },
+              { name: 'Slip and Fall', href: '/practice-areas/personal-injury/slip-and-fall' },
+              {
+                name: 'Medical Malpractice',
+                href: '/practice-areas/personal-injury/medical-malpractice',
+              },
+              { name: 'Wrongful Death', href: '/practice-areas/personal-injury/wrongful-death' },
+              {
+                name: 'Premises Liability',
+                href: '/practice-areas/personal-injury/premises-liability',
+              },
+              {
+                name: 'Product Liability',
+                href: '/practice-areas/personal-injury/product-liability',
+              },
+            ],
+          },
+          {
+            name: "Workers' Compensation",
+            href: '/practice-areas/workers-compensation',
+            submenu: [
+              {
+                name: 'Construction Injuries',
+                href: '/practice-areas/workers-compensation/construction-injuries',
+              },
+              {
+                name: 'Workplace Accidents',
+                href: '/practice-areas/workers-compensation/workplace-accidents',
+              },
+              {
+                name: 'Repetitive Stress Injuries',
+                href: '/practice-areas/workers-compensation/repetitive-stress-injuries',
+              },
+              {
+                name: 'Occupational Illness',
+                href: '/practice-areas/workers-compensation/occupational-illness',
+              },
+              {
+                name: 'Third-Party Claims',
+                href: '/practice-areas/workers-compensation/third-party-claims',
+              },
+              { name: 'Denied Claims', href: '/practice-areas/workers-compensation/denied-claims' },
+              {
+                name: 'Return to Work',
+                href: '/practice-areas/workers-compensation/return-to-work',
+              },
+              {
+                name: 'Disability Benefits',
+                href: '/practice-areas/workers-compensation/disability-benefits',
+              },
+            ],
+          },
+          {
+            name: 'Criminal Defense',
+            href: '/practice-areas/criminal-defense',
+            submenu: [
+              { name: 'DUI/DWI', href: '/practice-areas/criminal-defense/dui-dwi' },
+              { name: 'Drug Crimes', href: '/practice-areas/criminal-defense/drug-crimes' },
+              {
+                name: 'Assault & Battery',
+                href: '/practice-areas/criminal-defense/assault-battery',
+              },
+              {
+                name: 'Domestic Violence',
+                href: '/practice-areas/criminal-defense/domestic-violence',
+              },
+              {
+                name: 'Theft & Property Crimes',
+                href: '/practice-areas/criminal-defense/theft-property-crimes',
+              },
+              {
+                name: 'White Collar Crimes',
+                href: '/practice-areas/criminal-defense/white-collar-crimes',
+              },
+              { name: 'Federal Crimes', href: '/practice-areas/criminal-defense/federal-crimes' },
+              { name: 'Expungement', href: '/practice-areas/criminal-defense/expungement' },
+              {
+                name: 'Probation Violation',
+                href: '/practice-areas/criminal-defense/probation-violation',
+              },
+              {
+                name: 'Juvenile Defense',
+                href: '/practice-areas/criminal-defense/juvenile-defense',
+              },
+            ],
+          },
+          {
+            name: 'Family Law',
+            href: '/practice-areas/family-law',
+            submenu: [
+              { name: 'Divorce', href: '/practice-areas/family-law/divorce' },
+              { name: 'Child Custody', href: '/practice-areas/family-law/child-custody' },
+              { name: 'Child Support', href: '/practice-areas/family-law/child-support' },
+              {
+                name: 'Alimony/Spousal Support',
+                href: '/practice-areas/family-law/alimony-spousal-support',
+              },
+              { name: 'Property Division', href: '/practice-areas/family-law/property-division' },
+              {
+                name: 'Prenuptial Agreements',
+                href: '/practice-areas/family-law/prenuptial-agreements',
+              },
+              { name: 'Adoption', href: '/practice-areas/family-law/adoption' },
+              {
+                name: 'Domestic Violence Protection',
+                href: '/practice-areas/family-law/domestic-violence-protection',
+              },
+              { name: 'Guardianship', href: '/practice-areas/family-law/guardianship' },
+            ],
+          },
+          {
+            name: 'Traffic Violations',
+            href: '/practice-areas/traffic-violations',
+            submenu: [
+              {
+                name: 'Speeding Tickets',
+                href: '/practice-areas/traffic-violations/speeding-tickets',
+              },
+              {
+                name: 'Reckless Driving',
+                href: '/practice-areas/traffic-violations/reckless-driving',
+              },
+              {
+                name: 'License Suspension',
+                href: '/practice-areas/traffic-violations/license-suspension',
+              },
+              { name: 'CDL Violations', href: '/practice-areas/traffic-violations/cdl-violations' },
+              { name: 'Hit and Run', href: '/practice-areas/traffic-violations/hit-and-run' },
+              {
+                name: 'Driving Without License',
+                href: '/practice-areas/traffic-violations/driving-without-license',
+              },
+              {
+                name: 'Traffic Court Representation',
+                href: '/practice-areas/traffic-violations/traffic-court-representation',
+              },
+            ],
+          },
         ],
       },
       {
@@ -94,12 +293,256 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
         name: 'Áreas de Práctica',
         href: '/es/areas-de-practica',
         submenu: [
-          { name: 'Ley de Inmigración', href: '/es/areas-de-practica/inmigracion' },
-          { name: 'Lesiones Personales', href: '/es/areas-de-practica/lesiones-personales' },
-          { name: 'Compensación Laboral', href: '/es/areas-de-practica/compensacion-laboral' },
-          { name: 'Defensa Criminal', href: '/es/areas-de-practica/defensa-criminal' },
-          { name: 'Derecho Familiar', href: '/es/areas-de-practica/derecho-familia' },
-          { name: 'Infracciones de Tráfico', href: '/es/areas-de-practica/infracciones-transito' },
+          {
+            name: 'Ley de Inmigración',
+            href: '/es/areas-de-practica/inmigracion',
+            submenu: [
+              {
+                name: 'Inmigración Afirmativa',
+                href: '/es/areas-de-practica/inmigracion/afirmativa',
+              },
+              {
+                name: 'Peticiones Familiares',
+                href: '/es/areas-de-practica/inmigracion/afirmativa/peticiones-familiares',
+              },
+              { name: 'DACA', href: '/es/areas-de-practica/inmigracion/afirmativa/daca' },
+              { name: 'TPS', href: '/es/areas-de-practica/inmigracion/afirmativa/tps' },
+              {
+                name: 'Tarjetas de Residencia',
+                href: '/es/areas-de-practica/inmigracion/afirmativa/tarjetas-residencia',
+              },
+              {
+                name: 'Ciudadanía',
+                href: '/es/areas-de-practica/inmigracion/afirmativa/ciudadania',
+              },
+              {
+                name: 'Defensa contra Deportación',
+                href: '/es/areas-de-practica/inmigracion/defensa-deportacion',
+              },
+              {
+                name: 'Asilo',
+                href: '/es/areas-de-practica/inmigracion/defensa-deportacion/asilo',
+              },
+              {
+                name: 'Cancelación de Deportación',
+                href: '/es/areas-de-practica/inmigracion/defensa-deportacion/cancelacion-deportacion',
+              },
+              {
+                name: 'Audiencias de Fianza',
+                href: '/es/areas-de-practica/inmigracion/defensa-deportacion/audiencias-fianza',
+              },
+              {
+                name: 'Inmigración de Negocios',
+                href: '/es/areas-de-practica/inmigracion/negocios',
+              },
+              { name: 'Visas H-1B', href: '/es/areas-de-practica/inmigracion/negocios/visas-h1b' },
+              { name: 'Visas L-1', href: '/es/areas-de-practica/inmigracion/negocios/visas-l1' },
+              {
+                name: 'Visas E-2 de Inversionista',
+                href: '/es/areas-de-practica/inmigracion/negocios/visas-e2-inversionista',
+              },
+              {
+                name: 'Exenciones de Inadmisibilidad',
+                href: '/es/areas-de-practica/inmigracion/exenciones-inadmisibilidad',
+              },
+              { name: 'Visa U / VAWA', href: '/es/areas-de-practica/inmigracion/visa-u-vawa' },
+              { name: 'Visa T', href: '/es/areas-de-practica/inmigracion/visa-t' },
+            ],
+          },
+          {
+            name: 'Lesiones Personales',
+            href: '/es/areas-de-practica/lesiones-personales',
+            submenu: [
+              {
+                name: 'Accidentes de Auto',
+                href: '/es/areas-de-practica/lesiones-personales/accidentes-auto',
+              },
+              {
+                name: 'Accidentes de Motocicleta',
+                href: '/es/areas-de-practica/lesiones-personales/accidentes-motocicleta',
+              },
+              {
+                name: 'Accidentes de Camión',
+                href: '/es/areas-de-practica/lesiones-personales/accidentes-camion',
+              },
+              {
+                name: 'Accidentes de Peatones',
+                href: '/es/areas-de-practica/lesiones-personales/accidentes-peatones',
+              },
+              {
+                name: 'Accidentes de Bicicleta',
+                href: '/es/areas-de-practica/lesiones-personales/accidentes-bicicleta',
+              },
+              {
+                name: 'Resbalones y Caídas',
+                href: '/es/areas-de-practica/lesiones-personales/resbalones-caidas',
+              },
+              {
+                name: 'Negligencia Médica',
+                href: '/es/areas-de-practica/lesiones-personales/negligencia-medica',
+              },
+              {
+                name: 'Muerte Injusta',
+                href: '/es/areas-de-practica/lesiones-personales/muerte-injusta',
+              },
+              {
+                name: 'Responsabilidad de Locales',
+                href: '/es/areas-de-practica/lesiones-personales/responsabilidad-locales',
+              },
+              {
+                name: 'Responsabilidad de Producto',
+                href: '/es/areas-de-practica/lesiones-personales/responsabilidad-producto',
+              },
+            ],
+          },
+          {
+            name: 'Compensación Laboral',
+            href: '/es/areas-de-practica/compensacion-laboral',
+            submenu: [
+              {
+                name: 'Lesiones de Construcción',
+                href: '/es/areas-de-practica/compensacion-laboral/lesiones-construccion',
+              },
+              {
+                name: 'Accidentes Laborales',
+                href: '/es/areas-de-practica/compensacion-laboral/accidentes-laborales',
+              },
+              {
+                name: 'Lesiones por Estrés Repetitivo',
+                href: '/es/areas-de-practica/compensacion-laboral/lesiones-estres-repetitivo',
+              },
+              {
+                name: 'Enfermedades Ocupacionales',
+                href: '/es/areas-de-practica/compensacion-laboral/enfermedades-ocupacionales',
+              },
+              {
+                name: 'Reclamos de Terceros',
+                href: '/es/areas-de-practica/compensacion-laboral/reclamos-terceros',
+              },
+              {
+                name: 'Reclamos Negados',
+                href: '/es/areas-de-practica/compensacion-laboral/reclamos-negados',
+              },
+              {
+                name: 'Regreso al Trabajo',
+                href: '/es/areas-de-practica/compensacion-laboral/regreso-trabajo',
+              },
+              {
+                name: 'Beneficios por Discapacidad',
+                href: '/es/areas-de-practica/compensacion-laboral/beneficios-discapacidad',
+              },
+            ],
+          },
+          {
+            name: 'Defensa Criminal',
+            href: '/es/areas-de-practica/defensa-criminal',
+            submenu: [
+              { name: 'DUI/DWI', href: '/es/areas-de-practica/defensa-criminal/dui-dwi' },
+              {
+                name: 'Delitos de Drogas',
+                href: '/es/areas-de-practica/defensa-criminal/delitos-drogas',
+              },
+              {
+                name: 'Asalto y Agresión',
+                href: '/es/areas-de-practica/defensa-criminal/asalto-agresion',
+              },
+              {
+                name: 'Violencia Doméstica',
+                href: '/es/areas-de-practica/defensa-criminal/violencia-domestica',
+              },
+              {
+                name: 'Robo y Delitos de Propiedad',
+                href: '/es/areas-de-practica/defensa-criminal/robo-delitos-propiedad',
+              },
+              {
+                name: 'Delitos de Cuello Blanco',
+                href: '/es/areas-de-practica/defensa-criminal/delitos-cuello-blanco',
+              },
+              {
+                name: 'Delitos Federales',
+                href: '/es/areas-de-practica/defensa-criminal/delitos-federales',
+              },
+              {
+                name: 'Expunción de Antecedentes',
+                href: '/es/areas-de-practica/defensa-criminal/expuncion-antecedentes',
+              },
+              {
+                name: 'Violación de Libertad Condicional',
+                href: '/es/areas-de-practica/defensa-criminal/violacion-libertad-condicional',
+              },
+              {
+                name: 'Defensa de Menores',
+                href: '/es/areas-de-practica/defensa-criminal/defensa-menores',
+              },
+            ],
+          },
+          {
+            name: 'Derecho Familiar',
+            href: '/es/areas-de-practica/derecho-familia',
+            submenu: [
+              { name: 'Divorcio', href: '/es/areas-de-practica/derecho-familia/divorcio' },
+              {
+                name: 'Custodia de Hijos',
+                href: '/es/areas-de-practica/derecho-familia/custodia-hijos',
+              },
+              {
+                name: 'Manutención de Hijos',
+                href: '/es/areas-de-practica/derecho-familia/manutencion-hijos',
+              },
+              {
+                name: 'Pensión Alimenticia',
+                href: '/es/areas-de-practica/derecho-familia/pension-alimenticia',
+              },
+              {
+                name: 'División de Propiedad',
+                href: '/es/areas-de-practica/derecho-familia/division-propiedad',
+              },
+              {
+                name: 'Acuerdos Prenupciales',
+                href: '/es/areas-de-practica/derecho-familia/acuerdos-prenupciales',
+              },
+              { name: 'Adopción', href: '/es/areas-de-practica/derecho-familia/adopcion' },
+              {
+                name: 'Protección contra Violencia Doméstica',
+                href: '/es/areas-de-practica/derecho-familia/proteccion-violencia-domestica',
+              },
+              { name: 'Tutela Legal', href: '/es/areas-de-practica/derecho-familia/tutela-legal' },
+            ],
+          },
+          {
+            name: 'Infracciones de Tráfico',
+            href: '/es/areas-de-practica/infracciones-transito',
+            submenu: [
+              {
+                name: 'Multas por Exceso de Velocidad',
+                href: '/es/areas-de-practica/infracciones-transito/multas-exceso-velocidad',
+              },
+              {
+                name: 'Conducción Imprudente',
+                href: '/es/areas-de-practica/infracciones-transito/conduccion-imprudente',
+              },
+              {
+                name: 'Suspensión de Licencia',
+                href: '/es/areas-de-practica/infracciones-transito/suspension-licencia',
+              },
+              {
+                name: 'Violaciones CDL',
+                href: '/es/areas-de-practica/infracciones-transito/violaciones-cdl',
+              },
+              {
+                name: 'Atropello y Fuga',
+                href: '/es/areas-de-practica/infracciones-transito/atropello-fuga',
+              },
+              {
+                name: 'Conducir sin Licencia',
+                href: '/es/areas-de-practica/infracciones-transito/conducir-sin-licencia',
+              },
+              {
+                name: 'Representación en Corte de Tráfico',
+                href: '/es/areas-de-practica/infracciones-transito/representacion-corte-trafico',
+              },
+            ],
+          },
         ],
       },
       {
@@ -261,20 +704,46 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 mt-1 w-64 bg-white rounded-lg shadow-xl border border-neutral-200 overflow-hidden z-50"
+                          className="absolute top-full left-0 mt-1 w-80 bg-white rounded-lg shadow-xl border border-neutral-200 overflow-hidden z-50 max-h-96 overflow-y-auto"
                         >
                           <div className="py-2">
                             {item.submenu.map(subItem => (
-                              <Link
-                                key={subItem.name}
-                                href={subItem.href}
-                                className="block px-4 py-2.5 text-sm text-neutral-700 hover:bg-primary/10 hover:text-primary transition-colors"
-                                onClick={() => {
-                                  setActiveDropdown(null);
-                                }}
-                              >
-                                {subItem.name}
-                              </Link>
+                              <div key={subItem.name}>
+                                <Link
+                                  href={subItem.href}
+                                  className={`block px-4 py-2.5 text-sm transition-colors ${
+                                    subItem.submenu
+                                      ? 'font-medium text-neutral-800 hover:bg-primary/5 border-b border-neutral-100'
+                                      : 'text-neutral-700 hover:bg-primary/10 hover:text-primary pl-6'
+                                  }`}
+                                  onClick={() => {
+                                    if (!subItem.submenu) {
+                                      setActiveDropdown(null);
+                                    }
+                                  }}
+                                >
+                                  {subItem.name}
+                                  {subItem.submenu && (
+                                    <span className="text-xs text-primary ml-1">→</span>
+                                  )}
+                                </Link>
+                                {subItem.submenu && (
+                                  <div className="bg-neutral-50/50">
+                                    {subItem.submenu.map(nestedItem => (
+                                      <Link
+                                        key={nestedItem.name}
+                                        href={nestedItem.href}
+                                        className="block px-8 py-1.5 text-xs text-neutral-600 hover:bg-primary/10 hover:text-primary transition-colors border-l-2 border-transparent hover:border-primary"
+                                        onClick={() => {
+                                          setActiveDropdown(null);
+                                        }}
+                                      >
+                                        {nestedItem.name}
+                                      </Link>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
                             ))}
                           </div>
                         </motion.div>
@@ -358,16 +827,42 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                     {item.submenu && (
                       <div className="ml-4 mt-1 space-y-1">
                         {item.submenu.map(subItem => (
-                          <Link
-                            key={subItem.name}
-                            href={subItem.href}
-                            onClick={() => {
-                              setMobileMenuOpen(false);
-                            }}
-                            className="block px-4 py-2 text-sm text-neutral-600 hover:text-primary transition-colors"
-                          >
-                            {subItem.name}
-                          </Link>
+                          <div key={subItem.name}>
+                            <Link
+                              href={subItem.href}
+                              onClick={() => {
+                                if (!subItem.submenu) {
+                                  setMobileMenuOpen(false);
+                                }
+                              }}
+                              className={`block px-4 py-2 text-sm transition-colors ${
+                                subItem.submenu
+                                  ? 'font-medium text-neutral-700 border-b border-neutral-200'
+                                  : 'text-neutral-600 hover:text-primary pl-6'
+                              }`}
+                            >
+                              {subItem.name}
+                              {subItem.submenu && (
+                                <span className="text-xs text-primary ml-1">→</span>
+                              )}
+                            </Link>
+                            {subItem.submenu && (
+                              <div className="ml-4 mt-1 space-y-1 bg-neutral-50/50 rounded">
+                                {subItem.submenu.map(nestedItem => (
+                                  <Link
+                                    key={nestedItem.name}
+                                    href={nestedItem.href}
+                                    onClick={() => {
+                                      setMobileMenuOpen(false);
+                                    }}
+                                    className="block px-4 py-1.5 text-xs text-neutral-600 hover:text-primary transition-colors border-l-2 border-transparent hover:border-primary"
+                                  >
+                                    {nestedItem.name}
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
+                          </div>
                         ))}
                       </div>
                     )}

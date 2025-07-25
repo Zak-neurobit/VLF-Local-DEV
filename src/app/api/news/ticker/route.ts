@@ -2,31 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { logger } from '@/lib/safe-logger';
 import { errorToLogMeta } from '@/lib/safe-logger';
-import RssParser from 'rss-parser';
+import { rssFeedMonitor } from '@/lib/rss/feed-monitor';
 
-// Dynamic API route for live news
-
-// Working RSS feeds for live news
-const liveFeeds = [
-  {
-    name: 'Federal Register - DHS',
-    url: 'https://www.federalregister.gov/api/v1/documents.rss?conditions[agencies][]=homeland-security-department',
-    category: 'immigration',
-    priority: 1,
-  },
-  {
-    name: 'Federal Register - USCIS',
-    url: 'https://www.federalregister.gov/api/v1/documents.rss?conditions[agencies][]=citizenship-and-immigration-services',
-    category: 'immigration',
-    priority: 1,
-  },
-  {
-    name: 'Immigration Impact - News',
-    url: 'https://immigrationimpact.com/feed/',
-    category: 'immigration',
-    priority: 2,
-  },
-];
+// Dynamic API route for live news using centralized RSS feed configuration
 
 interface NewsItem {
   id: string;
@@ -42,55 +20,31 @@ interface NewsItem {
 }
 
 async function fetchLiveNews(category: string, limit: number): Promise<NewsItem[]> {
-  const parser = new RssParser({
-    timeout: 2000, // Reduced timeout for faster response
-    headers: {
-      'User-Agent': 'Vasquez Law Firm News Monitor/1.0',
-    },
-  });
+  try {
+    // Use the centralized RSS feed monitor
+    const feedItems = await rssFeedMonitor.fetchByCategory(
+      category === 'all' ? undefined : category
+    );
 
-  const newsItems: NewsItem[] = [];
-  const relevantFeeds = liveFeeds.filter(feed => feed.category === category || category === 'all');
+    // Convert feed items to news items
+    const newsItems: NewsItem[] = feedItems.slice(0, limit).map((item, index) => ({
+      id: `live-${Date.now()}-${index}-${Math.random().toString(36).substr(2, 9)}`,
+      title: item.title,
+      titleEs: null, // Would need translation service
+      url: item.link,
+      date: item.pubDate,
+      category: item.feedCategory,
+      urgent: isUrgent(item.title),
+      excerpt: (item.contentSnippet || '').substring(0, 150) + '...',
+      source: item.feedName,
+      live: true,
+    }));
 
-  // Fetch all feeds in parallel for better performance
-  const feedPromises = relevantFeeds.map(async feed => {
-    try {
-      const feedData = await parser.parseURL(feed.url);
-      if (feedData.items && feedData.items.length > 0) {
-        return feedData.items.slice(0, Math.min(3, limit)).map(item => ({
-          id: `live-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-          title: item.title || 'Immigration News Update',
-          titleEs: null, // Would need translation service
-          url: item.link || '#',
-          date: item.pubDate || new Date().toISOString(),
-          category: feed.category,
-          urgent: isUrgent(item.title || ''),
-          excerpt: (item.contentSnippet || item.summary || '').substring(0, 150) + '...',
-          source: feed.name,
-          live: true,
-        }));
-      }
-      return [];
-    } catch (error) {
-      logger.warn(`Failed to fetch from ${feed.name}:`, errorToLogMeta(error));
-      return [];
-    }
-  });
-
-  // Wait for all feeds with a timeout
-  const results = await Promise.allSettled(
-    feedPromises.map(p =>
-      Promise.race([p, new Promise<NewsItem[]>(resolve => setTimeout(() => resolve([]), 2500))])
-    )
-  );
-
-  results.forEach(result => {
-    if (result.status === 'fulfilled' && result.value) {
-      newsItems.push(...result.value);
-    }
-  });
-
-  return newsItems.slice(0, limit);
+    return newsItems;
+  } catch (error) {
+    logger.error('Error fetching live news:', errorToLogMeta(error));
+    return [];
+  }
 }
 
 function isUrgent(title: string): boolean {
