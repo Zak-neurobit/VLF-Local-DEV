@@ -73,7 +73,8 @@ const teamValues = [
 
 export default function NuestroEquipoPageClient() {
   return (
-    <Script
+    <>
+      <Script
         id="structured-data-team"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -257,8 +258,8 @@ export default function NuestroEquipoPageClient() {
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 En Vasquez Law Firm, creemos que nuestro equipo es nuestro mayor activo. Fomentamos
-                un ambiente donde cada miembro del equipo puede crecer profesionalmente mientras hace
-                un impacto significativo en las vidas de nuestros clientes.
+                un ambiente donde cada miembro del equipo puede crecer profesionalmente mientras
+                hace un impacto significativo en las vidas de nuestros clientes.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
@@ -341,5 +342,6 @@ export default function NuestroEquipoPageClient() {
           </motion.div>
         </div>
       </section>
+    </>
   );
 }

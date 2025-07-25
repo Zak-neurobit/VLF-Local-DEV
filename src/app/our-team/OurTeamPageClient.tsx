@@ -64,7 +64,8 @@ const teamValues = [
 
 export default function OurTeamPageClient() {
   return (
-    <Script
+    <>
+      <Script
         id="structured-data-team"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -104,9 +105,9 @@ export default function OurTeamPageClient() {
               Meet Our Dedicated Team
             </h1>
             <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
-              Behind every successful case is a team of passionate professionals committed to fighting
-              for your rights. Get to know the people who make {TRADEMARK.YO_PELEO} more than just a
-              motto.
+              Behind every successful case is a team of passionate professionals committed to
+              fighting for your rights. Get to know the people who make {TRADEMARK.YO_PELEO} more
+              than just a motto.
             </p>
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -182,9 +183,7 @@ export default function OurTeamPageClient() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Our Support Staff
-            </h2>
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Our Support Staff</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Meet the dedicated professionals who ensure every client receives the highest level of
               service and support.
@@ -245,8 +244,8 @@ export default function OurTeamPageClient() {
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 At Vasquez Law Firm, we believe that our team is our greatest asset. We foster an
-                environment where every team member can grow professionally while making a meaningful
-                impact on our clients' lives.
+                environment where every team member can grow professionally while making a
+                meaningful impact on our clients' lives.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
@@ -278,9 +277,9 @@ export default function OurTeamPageClient() {
               <div className="bg-primary rounded-xl p-8 text-white">
                 <h3 className="text-2xl font-bold mb-4">Join Our Team</h3>
                 <p className="mb-6">
-                  We're always looking for talented individuals who share our passion for justice and
-                  client service. If you're interested in joining our team, we'd love to hear from
-                  you.
+                  We're always looking for talented individuals who share our passion for justice
+                  and client service. If you're interested in joining our team, we'd love to hear
+                  from you.
                 </p>
                 <a
                   href="/careers"
@@ -328,5 +327,6 @@ export default function OurTeamPageClient() {
           </motion.div>
         </div>
       </section>
+    </>
   );
 }

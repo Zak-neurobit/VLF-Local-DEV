@@ -17,7 +17,8 @@ export default function ScholarshipPageClient() {
   };
 
   return (
-    <Script
+    <>
+      <Script
         async
         src="https://www.scholarshipowl.com/static/widget/dist/widget.bundle.js"
         strategy="lazyOnload"
@@ -65,7 +66,7 @@ export default function ScholarshipPageClient() {
             </motion.div>
           </div>
         </motion.div>
-        
+
         {/* Decorative elements */}
         <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
         <div className="absolute -top-20 -right-20 w-80 h-80 bg-secondary/20 rounded-full blur-3xl"></div>
@@ -85,8 +86,8 @@ export default function ScholarshipPageClient() {
               About Our Scholarship Program
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Vasquez Law Firm is committed to supporting students who demonstrate academic excellence,
-              leadership, and a commitment to serving their communities.
+              Vasquez Law Firm is committed to supporting students who demonstrate academic
+              excellence, leadership, and a commitment to serving their communities.
             </p>
           </motion.div>
 
@@ -176,7 +177,9 @@ export default function ScholarshipPageClient() {
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
-                  <span className="text-gray-700">Currently enrolled or accepted at an accredited college or university</span>
+                  <span className="text-gray-700">
+                    Currently enrolled or accepted at an accredited college or university
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
@@ -237,9 +240,9 @@ export default function ScholarshipPageClient() {
             viewport={{ once: true }}
             className="bg-white rounded-xl shadow-lg p-8"
           >
-            <div 
-              className="scholarshipowl-widget" 
-              data-widget-id="BXjJ7dxqQWK3v2YMfQN1xQ" 
+            <div
+              className="scholarshipowl-widget"
+              data-widget-id="BXjJ7dxqQWK3v2YMfQN1xQ"
               data-widget-type="embedded"
             />
           </motion.div>
@@ -265,13 +268,13 @@ export default function ScholarshipPageClient() {
             <p className="text-white/90 mb-8">
               Subscribe to receive notifications about scholarship opportunities and deadlines.
             </p>
-            
+
             <form onSubmit={handleSubscribe} className="max-w-md mx-auto">
               <div className="flex gap-4">
                 <input
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   className="flex-1 px-6 py-3 rounded-full text-gray-900 focus:outline-none focus:ring-4 focus:ring-white/30"
                   required
@@ -296,5 +299,6 @@ export default function ScholarshipPageClient() {
           </motion.div>
         </div>
       </section>
+    </>
   );
 }

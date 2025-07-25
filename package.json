@@ -18,6 +18,7 @@
     "build:optimized": "prisma generate && node scripts/optimized-build.js",
     "build:production": "prisma generate && NODE_OPTIONS='--max-old-space-size=16384' BUILD_TIME=true next build --config next.config.production.js",
     "build:all": "node scripts/build-all-pages.js",
+    "build:complete": "node scripts/build-complete.js",
     "validate:env": "tsx scripts/validate-env.ts",
     "setup:env": "node scripts/setup-environment.js",
     "start": "next start",
