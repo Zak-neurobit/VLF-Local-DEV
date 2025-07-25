@@ -1,7 +1,5 @@
 import ConcordDuiCercaDeMiClient from './concordduiNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function ConcordDuiCercaDeMiPage() {
   return <ConcordDuiCercaDeMiClient />;
 }

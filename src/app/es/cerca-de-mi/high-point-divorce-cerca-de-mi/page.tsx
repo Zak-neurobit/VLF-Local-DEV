@@ -1,7 +1,5 @@
 import HighPointDivorceCercaDeMiClient from './HighPointdivorceNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function HighPointDivorceCercaDeMiPage() {
   return <HighPointDivorceCercaDeMiClient />;
 }

@@ -1,7 +1,5 @@
 import DurhamCriminalDefenseCercaDeMiClient from './durhamCriminalDefenseNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function DurhamCriminalDefenseCercaDeMiPage() {
   return <DurhamCriminalDefenseCercaDeMiClient />;
 }

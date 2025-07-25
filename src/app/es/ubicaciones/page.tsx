@@ -1,7 +1,5 @@
 import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 import { Metadata } from 'next';
 import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
@@ -19,7 +17,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const runtime = 'nodejs';
 
 export default function UbicacionesPage() {
   // TODO: Extract content from original file and format properly

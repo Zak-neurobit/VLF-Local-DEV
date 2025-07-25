@@ -8,15 +8,17 @@ const nextConfig = {
   // Disable x-powered-by header for security
   poweredByHeader: false,
 
-  // Build optimizations for large projects with dynamic rendering
+  // Build optimizations for large projects with full static generation
   experimental: {
-    // Use less workers to reduce memory usage
-    workerThreads: false,
-    cpus: 2, // Use 2 CPUs for better performance
+    // Use more workers for faster builds
+    workerThreads: true,
+    cpus: 8, // Use all available CPUs on Vercel
     // Enable new image optimization
     optimizePackageImports: ['lucide-react', 'date-fns', '@radix-ui/react-icons'],
     // Enable instrumentation hook for Sentry
     instrumentationHook: true,
+    // Increase build timeout for generating many pages
+    staticPageGenerationTimeout: 180,
   },
   
   // Output configuration for better build performance

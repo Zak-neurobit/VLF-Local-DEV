@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Salem abogado divorce Near Me in Winston | Vasquez Law Firm`,
   description: `Find the best salem abogado divorce near you in Winston. Experienced legal representation.`,

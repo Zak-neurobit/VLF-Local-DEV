@@ -1,32 +1,18 @@
-// Build override to limit static page generation
-// This file helps reduce build time by limiting which pages are statically generated
+// Build override - FULL STATIC GENERATION for ALL pages
+// BUILD UP NOT DOWN - Generate everything!
 
-const ALLOWED_STATIC_PATHS = [
-  '/',
-  '/contact',
-  '/attorneys', 
-  '/practice-areas',
-  '/practice-areas/immigration',
-  '/practice-areas/personal-injury',
-  '/practice-areas/criminal-defense',
-  '/practice-areas/workers-compensation',
-  '/blog',
-  '/about',
-  '/es',
-  '/es/contacto',
-  '/es/abogados',
-  '/es/areas-de-practica',
-];
+console.log('🚀 Full static generation enabled - building ALL pages');
+console.log('📊 No restrictions - every page will be statically generated');
+console.log('⚡ Maximum performance mode activated');
 
-// Override Next.js static generation
-if (process.env.VERCEL) {
-  console.log('🚀 Build override active - limiting static generation to essential pages only');
-  
-  // Set environment variable to limit static generation
-  process.env.LIMIT_STATIC_GENERATION = 'true';
-  process.env.STATIC_GENERATION_WHITELIST = JSON.stringify(ALLOWED_STATIC_PATHS);
-}
+// Remove all environment restrictions
+delete process.env.LIMIT_STATIC_GENERATION;
+delete process.env.STATIC_GENERATION_WHITELIST;
+
+// Force full static generation
+process.env.NEXT_PUBLIC_BUILD_ALL_PAGES = 'true';
+process.env.BUILD_ALL_PAGES = 'true';
 
 module.exports = {
-  ALLOWED_STATIC_PATHS,
+  ALLOWED_STATIC_PATHS: [], // No restrictions - build everything!
 };

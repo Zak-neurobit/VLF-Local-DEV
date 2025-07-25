@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Family Law - Matthews | Vasquez Law Firm`,
   description: `Family Law services in Matthews. Experienced attorneys serving the local community.`,

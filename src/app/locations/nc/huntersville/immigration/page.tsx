@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Immigration - Huntersville | Vasquez Law Firm`,
   description: `Immigration services in Huntersville. Experienced attorneys serving the local community.`,

@@ -5,8 +5,6 @@ import { errorToLogMeta } from '@/lib/safe-logger';
 import type { AIHealthResponse, AITestRequest, AITestResult } from '@/types/api';
 
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
-
 // GET /api/ai/health - Get AI services health status
 export async function GET(request: NextRequest) {
   try {

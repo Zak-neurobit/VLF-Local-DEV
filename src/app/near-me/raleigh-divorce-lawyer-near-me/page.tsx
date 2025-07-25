@@ -1,7 +1,5 @@
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -10,7 +8,6 @@ export const metadata: Metadata = {
     'Find experienced divorce lawyers near you in Raleigh, NC. Free consultation, bilingual services. Call 1-844-YO-PELEO.',
 };
 
-export const runtime = 'nodejs';
 
 export default function RaleighDivorceNearMePage() {
   return (

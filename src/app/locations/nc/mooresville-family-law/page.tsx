@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: ` in Mooresville Derecho Familiar | Vasquez Law Firm`,
   description: `Expert  in Mooresville Derecho Familiar. Experienced legal representation.`,

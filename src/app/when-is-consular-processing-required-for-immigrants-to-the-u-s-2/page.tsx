@@ -19,7 +19,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const runtime = 'nodejs';
 
 export default function WhenIsConsularProcessingRequiredForImmigrantsToTheUS2Page() {
   // TODO: Extract content from original file and format properly

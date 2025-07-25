@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Car accidents Near Me in Charlotte | Vasquez Law Firm`,
   description: `Find the best car accidents near you in Charlotte. Experienced legal representation.`,

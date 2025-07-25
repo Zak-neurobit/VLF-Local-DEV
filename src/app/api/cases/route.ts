@@ -7,7 +7,6 @@ import { errorToLogMeta } from '@/lib/safe-logger';
 import { UserRole, PracticeArea, CaseStatus } from '@prisma/client';
 
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);

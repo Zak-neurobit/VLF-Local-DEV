@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Spanish Speaking Lawyer - Kissimmee | Vasquez Law Firm`,
   description: `Spanish Speaking Lawyer services in Kissimmee. Experienced attorneys serving the local community.`,

@@ -7,7 +7,6 @@ import { RETELL_CONFIG } from '@/services/retell/agent-config';
 import { prisma } from '@/lib/prisma';
 
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
 // Retell API client
 async function retellApiRequest(endpoint: string, options: RequestInit = {}) {
   const response = await fetch(`${RETELL_CONFIG.apiUrl}${endpoint}`, {

@@ -17,7 +17,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const runtime = 'nodejs';
 
 export default function HowIBuiltA6FigureBusinessIn12MonthsAsAFirstGenerationImmigrantPage() {
   // TODO: Extract content from original file and format properly

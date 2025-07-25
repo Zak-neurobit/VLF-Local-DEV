@@ -1,7 +1,5 @@
 import FayettevilleDuiCercaDeMiClient from './fayettevilleduiNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function FayettevilleDuiCercaDeMiPage() {
   return <FayettevilleDuiCercaDeMiClient />;
 }

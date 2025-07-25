@@ -1,7 +1,5 @@
 import WilmingtonDuiCercaDeMiClient from './wilmingtonduiNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function WilmingtonDuiCercaDeMiPage() {
   return <WilmingtonDuiCercaDeMiClient />;
 }

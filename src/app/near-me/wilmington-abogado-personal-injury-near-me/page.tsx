@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Abogado personal injury Near Me in Wilmington | Vasquez Law Firm`,
   description: `Find the best abogado personal injury near you in Wilmington. Experienced legal representation.`,

@@ -1,7 +1,5 @@
 import WilmingtonPersonalInjuryCercaDeMiClient from './wilmingtonPersonalInjuryNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function WilmingtonPersonalInjuryCercaDeMiPage() {
   return <WilmingtonPersonalInjuryCercaDeMiClient />;
 }

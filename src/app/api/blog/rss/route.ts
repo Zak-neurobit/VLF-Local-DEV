@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { apiLogger } from '@/lib/safe-logger';
 import { blogImportService } from '@/services/blog/import-service';
 
-export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);

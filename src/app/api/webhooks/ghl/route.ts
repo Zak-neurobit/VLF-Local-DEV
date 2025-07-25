@@ -6,8 +6,6 @@ import crypto from 'crypto';
 import { withTracing } from '@/lib/telemetry/api-middleware';
 
 // Force dynamic rendering since we need to access headers and searchParams
-export const dynamic = 'force-dynamic';
-
 // Verify GHL webhook signature
 const verifyWebhookSignature = (request: NextRequest, body: string): boolean => {
   const signature = request.headers.get('x-ghl-signature');

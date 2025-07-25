@@ -7,7 +7,6 @@ export const metadata: Metadata = {
   description: 'Legal insights and information from Vasquez Law Firm',
 };
 
-export const runtime = 'nodejs';
 
 export default function ManagePage() {
   // TODO: Extract content from original file and format properly

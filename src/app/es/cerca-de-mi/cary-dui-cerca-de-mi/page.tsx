@@ -1,7 +1,5 @@
 import CaryDuiCercaDeMiClient from './caryduiNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function CaryDuiCercaDeMiPage() {
   return <CaryDuiCercaDeMiClient />;
 }

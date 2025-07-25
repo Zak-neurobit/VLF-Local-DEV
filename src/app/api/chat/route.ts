@@ -12,7 +12,6 @@ import { ghlService } from '@/services/gohighlevel';
 import { withAIAgentTracing, withDatabaseTracing } from '@/lib/telemetry/api-middleware';
 
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
 // Initialize OpenAI client
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',

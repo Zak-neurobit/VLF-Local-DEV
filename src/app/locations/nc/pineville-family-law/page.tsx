@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: ` in Pineville Derecho Familiar | Vasquez Law Firm`,
   description: `Expert  in Pineville Derecho Familiar. Experienced legal representation.`,

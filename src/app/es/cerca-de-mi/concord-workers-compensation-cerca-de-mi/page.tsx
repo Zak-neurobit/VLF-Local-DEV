@@ -1,7 +1,5 @@
 import ConcordWorkersCompensationCercaDeMiClient from './concordWorkersCompensationNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function ConcordWorkersCompensationCercaDeMiPage() {
   return <ConcordWorkersCompensationCercaDeMiClient />;
 }

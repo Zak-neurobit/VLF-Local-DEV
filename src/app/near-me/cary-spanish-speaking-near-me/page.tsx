@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Spanish speaking Near Me in Cary | Vasquez Law Firm`,
   description: `Find the best spanish speaking near you in Cary. Experienced legal representation.`,

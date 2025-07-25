@@ -1,7 +1,5 @@
 import HighPointSpanishSpeakingCercaDeMiClient from './HighPointSpanishSpeakingNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function HighPointSpanishSpeakingCercaDeMiPage() {
   return <HighPointSpanishSpeakingCercaDeMiClient />;
 }

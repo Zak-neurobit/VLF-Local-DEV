@@ -3,8 +3,6 @@ import { abTestEngine } from '@/lib/ab-testing/ab-test-engine';
 import { z } from 'zod';
 
 // Force dynamic rendering since we need to access headers
-export const dynamic = 'force-dynamic';
-
 const AssignRequestSchema = z.object({
   testId: z.string(),
   userId: z.string(),

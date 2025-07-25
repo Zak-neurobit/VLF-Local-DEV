@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { abTestEngine } from '@/lib/ab-testing/ab-test-engine';
 
 // Force dynamic rendering
-export const dynamic = 'force-dynamic';
-
 // GET /api/ab-testing/config - Get A/B testing configuration
 export async function GET(_request: NextRequest) {
   try {

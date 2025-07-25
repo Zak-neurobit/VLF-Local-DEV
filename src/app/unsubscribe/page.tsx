@@ -7,7 +7,6 @@ export const metadata: Metadata = {
   description: 'Manage your email preferences',
 };
 
-export const runtime = 'nodejs';
 
 export default function UnsubscribePage() {
   // TODO: Extract content from original file and format properly

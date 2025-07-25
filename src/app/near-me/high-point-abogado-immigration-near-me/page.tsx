@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Point abogado immigration Near Me in High | Vasquez Law Firm`,
   description: `Find the best point abogado immigration near you in High. Experienced legal representation.`,

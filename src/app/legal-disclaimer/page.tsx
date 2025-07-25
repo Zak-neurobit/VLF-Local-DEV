@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   robots: 'noindex, follow',
 };
 
-export const runtime = 'nodejs';
 
 export default function LegalDisclaimerPage() {
   return (

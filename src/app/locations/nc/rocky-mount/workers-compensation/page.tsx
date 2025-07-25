@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Workers Compensation - Rocky Mount | Vasquez Law Firm`,
   description: `Workers Compensation services in Rocky Mount. Experienced attorneys serving the local community.`,

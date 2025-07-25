@@ -1,7 +1,5 @@
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 import { Metadata } from 'next';
 
 export default function CriminalDefenseAttorneyPage() {

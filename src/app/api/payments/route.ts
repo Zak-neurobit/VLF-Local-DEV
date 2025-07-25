@@ -8,7 +8,6 @@ import { z } from 'zod';
 import { withPaymentTracing } from '@/lib/telemetry/api-middleware';
 
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
 // Validation schemas
 const processPaymentSchema = z.object({
   amount: z.number().positive('Amount must be positive'),

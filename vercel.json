@@ -5,7 +5,8 @@
   "build": {
     "env": {
       "NODE_OPTIONS": "--max-old-space-size=16384",
-      "BUILD_TIME": "true"
+      "BUILD_TIME": "true",
+      "NEXT_PUBLIC_BUILD_ALL_PAGES": "true"
     }
   },
   "functions": {

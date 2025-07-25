@@ -11,7 +11,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const runtime = 'nodejs';
 
 export default function PrivacyPolicyPage() {
   // TODO: Extract content from original file and format properly

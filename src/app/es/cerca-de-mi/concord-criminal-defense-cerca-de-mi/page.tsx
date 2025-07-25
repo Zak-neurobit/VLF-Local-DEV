@@ -1,7 +1,5 @@
 import ConcordCriminalDefenseCercaDeMiClient from './concordCriminalDefenseNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function ConcordCriminalDefenseCercaDeMiPage() {
   return <ConcordCriminalDefenseCercaDeMiClient />;
 }

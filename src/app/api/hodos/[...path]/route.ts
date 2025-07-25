@@ -4,7 +4,6 @@ import { authOptions } from '@/lib/auth';
 import { logger } from '@/lib/safe-logger';
 
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
 const HODOS_API_URL = process.env.HODOS_API_URL || 'http://localhost:3001';
 const HODOS_API_KEY = process.env.HODOS_API_KEY || '';
 

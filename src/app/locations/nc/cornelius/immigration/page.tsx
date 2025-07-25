@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Immigration - Cornelius | Vasquez Law Firm`,
   description: `Immigration services in Cornelius. Experienced attorneys serving the local community.`,

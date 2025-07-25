@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 
 // Force dynamic rendering
-export const dynamic = 'force-dynamic';
-
 // GET /api/news/ticker/test - Test endpoint to verify ticker API
 export async function GET() {
   return NextResponse.json({

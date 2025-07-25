@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server';
 import { apiLogger } from '@/lib/safe-logger';
 import { SEOOptimizationService } from '@/services/seo-optimization';
 
-export const dynamic = 'force-dynamic';
-
 export async function GET() {
   try {
     const seoService = new SEOOptimizationService();

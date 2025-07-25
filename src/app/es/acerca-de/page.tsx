@@ -23,7 +23,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const runtime = 'nodejs';
 
 export default function AcercaDePage() {
   return <AboutPageClient language="es" />;

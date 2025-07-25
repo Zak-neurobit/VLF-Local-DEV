@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Divorce Near Me in Greensboro | Vasquez Law Firm`,
   description: `Find the best divorce near you in Greensboro. Experienced legal representation.`,

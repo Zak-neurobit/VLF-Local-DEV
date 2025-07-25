@@ -8,7 +8,6 @@ import { UserRole } from '@prisma/client';
 import { getPrismaClient } from '@/lib/prisma';
 
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
 export async function GET(req: NextRequest, { params }: { params: { caseId: string } }) {
   try {
     const { caseId } = params;

@@ -8,7 +8,6 @@ export const metadata: Metadata = {
     'Manage CrewAI agents, monitor performance, and control automation for legal services',
 };
 
-export const runtime = 'nodejs';
 
 export default function AgentsPage() {
   // TODO: Extract content from original file and format properly

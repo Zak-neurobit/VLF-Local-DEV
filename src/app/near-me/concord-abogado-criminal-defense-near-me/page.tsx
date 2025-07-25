@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Abogado criminal defense Near Me in Concord | Vasquez Law Firm`,
   description: `Find the best abogado criminal defense near you in Concord. Experienced legal representation.`,

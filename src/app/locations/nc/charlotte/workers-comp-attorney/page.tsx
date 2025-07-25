@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Workers Comp Attorney in Charlotte | Vasquez Law Firm`,
   description: `Expert workers comp attorney in Charlotte. Experienced legal representation.`,

@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Bankruptcy - Mint Hill | Vasquez Law Firm`,
   description: `Bankruptcy services in Mint Hill. Experienced attorneys serving the local community.`,

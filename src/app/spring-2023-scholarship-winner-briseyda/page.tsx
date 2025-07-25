@@ -14,7 +14,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const runtime = 'nodejs';
 
 export default function Spring2023ScholarshipWinnerBriseydaPage() {
   // TODO: Extract content from original file and format properly

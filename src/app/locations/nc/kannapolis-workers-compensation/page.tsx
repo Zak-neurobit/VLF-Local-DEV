@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: ` in Kannapolis Compensacion Laboral | Vasquez Law Firm`,
   description: `Expert  in Kannapolis Compensacion Laboral. Experienced legal representation.`,

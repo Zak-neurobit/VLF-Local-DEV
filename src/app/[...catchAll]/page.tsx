@@ -1,12 +1,13 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
-// Force dynamic rendering for all catch-all routes
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
-export const fetchCache = 'force-no-store';
+// Enable static generation with ISR
+export const revalidate = 3600; // Revalidate every hour
 
-// Don't generate any static params - everything is dynamic
+// Generate all known routes at build time
 export async function generateStaticParams() {
+  // Return an empty array to let Next.js handle routes normally
+  // This prevents the catch-all from interfering with other routes
   return [];
 }
 
@@ -41,22 +42,9 @@ export async function generateMetadata({ params }: { params: { catchAll: string[
   };
 }
 
-// Dynamic route handler
+// Catch-all page handler
 export default async function CatchAllPage({ params }: { params: { catchAll: string[] } }) {
-  const path = params.catchAll.join('/');
-  
-  // For now, show a placeholder
-  // In production, this would dynamically import the appropriate component
-  return (
-    <div className="min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-4">
-          Dynamic Page: {path}
-        </h1>
-        <p className="text-gray-600">
-          This page is being rendered dynamically to optimize build performance.
-        </p>
-      </div>
-    </div>
-  );
+  // This should rarely be hit as most routes should have their own pages
+  // Return 404 for truly unknown routes
+  notFound();
 }

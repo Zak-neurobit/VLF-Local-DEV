@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 import { LocationPageTemplateFixed } from '@/components/locations/LocationPageTemplateFixed';
 
 export const metadata: Metadata = {

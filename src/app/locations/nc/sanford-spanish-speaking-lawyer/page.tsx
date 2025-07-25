@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: ` in Sanford Abogado Espanol | Vasquez Law Firm`,
   description: `Expert  in Sanford Abogado Espanol. Experienced legal representation.`,

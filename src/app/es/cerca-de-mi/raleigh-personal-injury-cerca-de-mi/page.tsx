@@ -1,7 +1,5 @@
 import RaleighPersonalInjuryCercaDeMiClient from './raleighPersonalInjuryNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function RaleighPersonalInjuryCercaDeMiPage() {
   return <RaleighPersonalInjuryCercaDeMiClient />;
 }

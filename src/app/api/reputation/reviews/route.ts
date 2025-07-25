@@ -5,8 +5,6 @@ import { reviewHarvester } from '@/services/reputation-management/review-harvest
 import { z } from 'zod';
 
 // Force dynamic rendering since we need to access session and searchParams
-export const dynamic = 'force-dynamic';
-
 // GET /api/reputation/reviews - Get reviews with filters
 export async function GET(request: NextRequest) {
   try {

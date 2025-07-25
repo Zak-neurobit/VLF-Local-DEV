@@ -1,7 +1,5 @@
 import DurhamDivorceCercaDeMiClient from './durhamdivorceNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function DurhamDivorceCercaDeMiPage() {
   return <DurhamDivorceCercaDeMiClient />;
 }

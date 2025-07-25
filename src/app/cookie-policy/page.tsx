@@ -7,7 +7,6 @@ export const metadata: Metadata = {
     'Learn about how Vasquez Law Firm uses cookies and similar technologies on our website to enhance your browsing experience and provide our services.',
 };
 
-export const runtime = 'nodejs';
 
 export default function CookiePolicyPage() {
   return (

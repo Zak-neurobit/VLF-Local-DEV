@@ -1,7 +1,5 @@
 import { SpanishLocationPageTemplate } from '@/components/templates/SpanishLocationPageTemplate';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -33,7 +31,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const runtime = 'nodejs';
 
 export default function DurhamAbogadodefensacriminalCercaDeMiPage() {
   return (

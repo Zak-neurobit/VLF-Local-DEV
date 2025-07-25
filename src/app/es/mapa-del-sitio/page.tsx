@@ -12,7 +12,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const runtime = 'nodejs';
 
 export default function MapaDelSitioPage() {
   // TODO: Extract content from original file and format properly

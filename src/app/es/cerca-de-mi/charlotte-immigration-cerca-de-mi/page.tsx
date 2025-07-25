@@ -1,7 +1,5 @@
 import CharlotteImmigrationCercaDeMiClient from './charlotteimmigrationNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function CharlotteImmigrationCercaDeMiPage() {
   return <CharlotteImmigrationCercaDeMiClient />;
 }

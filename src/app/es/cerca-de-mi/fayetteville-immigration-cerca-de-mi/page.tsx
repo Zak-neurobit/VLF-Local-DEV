@@ -1,7 +1,5 @@
 import FayettevilleImmigrationCercaDeMiClient from './fayettevilleimmigrationNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function FayettevilleImmigrationCercaDeMiPage() {
   return <FayettevilleImmigrationCercaDeMiClient />;
 }

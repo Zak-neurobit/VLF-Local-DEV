@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Personal Injury - Hickory | Vasquez Law Firm`,
   description: `Personal Injury services in Hickory. Experienced attorneys serving the local community.`,

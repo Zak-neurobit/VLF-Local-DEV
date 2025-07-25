@@ -1,7 +1,5 @@
 import ConcordDivorceCercaDeMiClient from './concorddivorceNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function ConcordDivorceCercaDeMiPage() {
   return <ConcordDivorceCercaDeMiClient />;
 }

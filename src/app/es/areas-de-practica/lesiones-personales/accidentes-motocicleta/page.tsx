@@ -18,7 +18,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const runtime = 'nodejs';
 
 export default function AccidentesMotocicletaPage() {
   // TODO: Extract content from original file and format properly

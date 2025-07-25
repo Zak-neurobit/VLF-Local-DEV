@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Kernersville in Nc | Vasquez Law Firm`,
   description: `Expert kernersville in Nc. Experienced legal representation.`,

@@ -1,7 +1,5 @@
 import WilmingtonWorkersCompensationCercaDeMiClient from './wilmingtonWorkersCompensationNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function WilmingtonWorkersCompensationCercaDeMiPage() {
   return <WilmingtonWorkersCompensationCercaDeMiClient />;
 }

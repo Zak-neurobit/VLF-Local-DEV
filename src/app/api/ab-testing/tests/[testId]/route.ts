@@ -4,8 +4,6 @@ import { authOptions } from '@/lib/auth';
 import { abTestEngine } from '@/lib/ab-testing/ab-test-engine';
 
 // Force dynamic rendering since we need to access session
-export const dynamic = 'force-dynamic';
-
 // GET /api/ab-testing/tests/[testId] - Get A/B test details and results
 export async function GET(request: NextRequest, { params }: { params: { testId: string } }) {
   try {

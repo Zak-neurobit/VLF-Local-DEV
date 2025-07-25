@@ -8,7 +8,6 @@ export const metadata: Metadata = {
     'Abogados de inmigración, lesiones personales y defensa criminal. Más de 30,000 casos ganados. Consulta gratuita. Disponible 24/7.',
 };
 
-export const runtime = 'nodejs';
 
 export default function ConsultaGratuitaPage() {
   // TODO: Extract content from original file and format properly

@@ -14,7 +14,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const runtime = 'nodejs';
 
 export default function CanImmigrantsStillQualifyForTheDacaProgramIn2021AndBeyondPage() {
   // TODO: Extract content from original file and format properly

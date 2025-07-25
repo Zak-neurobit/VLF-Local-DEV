@@ -1,7 +1,5 @@
 import FayettevilleSpanishSpeakingCercaDeMiClient from './fayettevilleSpanishSpeakingNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function FayettevilleSpanishSpeakingCercaDeMiPage() {
   return <FayettevilleSpanishSpeakingCercaDeMiClient />;
 }

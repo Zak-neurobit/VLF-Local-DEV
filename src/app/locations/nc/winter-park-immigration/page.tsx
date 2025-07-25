@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: ` in Winter Park Inmigracion | Vasquez Law Firm`,
   description: `Expert  in Winter Park Inmigracion. Experienced legal representation.`,

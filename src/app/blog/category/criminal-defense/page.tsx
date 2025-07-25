@@ -1,7 +1,5 @@
 import CategoryPageClient from '../CategoryPageClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -10,7 +8,6 @@ export const metadata: Metadata = {
   keywords: 'criminal defense, DUI lawyer, drug charges, assault defense, criminal attorney, criminal defense blog',
 };
 
-export const runtime = 'nodejs';
 
 export default function CriminalDefenseCategoryPage() {
   return <CategoryPageClient category="criminal-defense" language="en" />;

@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Dui - Indian Trail | Vasquez Law Firm`,
   description: `Dui services in Indian Trail. Experienced attorneys serving the local community.`,

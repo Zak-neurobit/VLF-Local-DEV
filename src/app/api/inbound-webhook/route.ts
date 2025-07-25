@@ -4,8 +4,6 @@ import { errorToLogMeta } from '@/lib/safe-logger';
 import * as crypto from 'crypto';
 
 // Force dynamic rendering since we need to access headers
-export const dynamic = 'force-dynamic';
-
 // Verify webhook signature if secret is provided
 const verifyWebhookSignature = (request: NextRequest, body: string): boolean => {
   const signature = request.headers.get('x-webhook-signature');

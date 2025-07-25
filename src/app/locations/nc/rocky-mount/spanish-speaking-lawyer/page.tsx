@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Spanish Speaking Lawyer - Rocky Mount | Vasquez Law Firm`,
   description: `Spanish Speaking Lawyer services in Rocky Mount. Experienced attorneys serving the local community.`,

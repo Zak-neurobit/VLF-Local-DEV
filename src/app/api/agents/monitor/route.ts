@@ -8,7 +8,6 @@ import { CrewCoordinator } from '@/lib/crewai/crew-coordinator';
 // Removed unused import - retellAgentManager
 
 // Force dynamic rendering for real-time monitoring
-export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 interface AgentMetrics {

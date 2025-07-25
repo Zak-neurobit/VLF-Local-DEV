@@ -1,7 +1,5 @@
 import CategoryPageClient from '../CategoryPageClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -10,7 +8,6 @@ export const metadata: Metadata = {
   keywords: 'personal injury, car accident lawyer, slip and fall, medical malpractice, injury attorney, personal injury blog',
 };
 
-export const runtime = 'nodejs';
 
 export default function PersonalInjuryCategoryPage() {
   return <CategoryPageClient category="personal-injury" language="en" />;

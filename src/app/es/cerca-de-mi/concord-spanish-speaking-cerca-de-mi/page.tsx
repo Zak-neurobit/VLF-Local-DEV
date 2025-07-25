@@ -1,7 +1,5 @@
 import ConcordSpanishSpeakingCercaDeMiClient from './concordSpanishSpeakingNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function ConcordSpanishSpeakingCercaDeMiPage() {
   return <ConcordSpanishSpeakingCercaDeMiClient />;
 }

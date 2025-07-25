@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Dui Near Me in Fayetteville | Vasquez Law Firm`,
   description: `Find the best dui near you in Fayetteville. Experienced legal representation.`,

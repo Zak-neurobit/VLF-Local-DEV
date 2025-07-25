@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Chapel Hill in Nc | Vasquez Law Firm`,
   description: `Expert chapel hill in Nc. Experienced legal representation.`,

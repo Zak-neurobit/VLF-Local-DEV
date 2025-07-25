@@ -1,7 +1,5 @@
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -10,7 +8,6 @@ export const metadata: Metadata = {
     'Find experienced immigration lawyers near you in Durham, NC. Free consultation, bilingual services. Call 1-844-YO-PELEO.',
 };
 
-export const runtime = 'nodejs';
 
 export default function DurhamImmigrationNearMePage() {
   return (

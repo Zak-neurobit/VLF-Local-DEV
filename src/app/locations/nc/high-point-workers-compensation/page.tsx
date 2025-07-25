@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: ` in High Point Compensacion Laboral | Vasquez Law Firm`,
   description: `Expert  in High Point Compensacion Laboral. Experienced legal representation.`,

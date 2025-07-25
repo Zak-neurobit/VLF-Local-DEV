@@ -7,7 +7,6 @@ export const metadata: Metadata = {
   description: 'Get instant legal consultation with our AI-powered assistant',
 };
 
-export const runtime = 'nodejs';
 
 export default function AiConsultationPage() {
   // TODO: Extract content from original file and format properly

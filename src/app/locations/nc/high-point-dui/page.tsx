@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: ` in High Point Dui | Vasquez Law Firm`,
   description: `Expert  in High Point Dui. Experienced legal representation.`,

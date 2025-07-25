@@ -3,8 +3,6 @@ import { reviewAggregator } from '@/services/reviews/review-aggregator';
 import { logger } from '@/lib/safe-logger';
 
 // Force dynamic rendering since we might need headers or search params
-export const dynamic = 'force-dynamic';
-
 // GET /api/google/reviews - Get Google reviews
 export async function GET(request: NextRequest) {
   try {

@@ -5,8 +5,6 @@ import { logger } from '@/lib/safe-logger';
 import { errorToLogMeta } from '@/lib/safe-logger';
 import { withDatabaseTracing } from '@/lib/telemetry/api-middleware';
 
-export const dynamic = 'force-dynamic';
-
 interface AgentMetric {
   agentName: string;
   totalExecutions: number;

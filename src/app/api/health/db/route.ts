@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getPrismaClient, isDatabaseConnected } from '@/lib/prisma';
 
-export const dynamic = 'force-dynamic';
-
 export async function GET() {
   const startTime = Date.now();
 

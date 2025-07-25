@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { apiLogger } from '@/lib/safe-logger';
-export const dynamic = 'force-dynamic';
-
 const mockRecentWins = [
   {
     id: 'win-001',

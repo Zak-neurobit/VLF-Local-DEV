@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: ` in Concord Defensa Criminal | Vasquez Law Firm`,
   description: `Expert  in Concord Defensa Criminal. Experienced legal representation.`,

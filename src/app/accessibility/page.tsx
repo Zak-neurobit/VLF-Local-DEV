@@ -7,7 +7,6 @@ export const metadata: Metadata = {
     'Vasquez Law Firm is committed to ensuring digital accessibility for people with disabilities. Learn about our accessibility efforts and how to contact us for assistance.',
 };
 
-export const runtime = 'nodejs';
 
 export default function AccessibilityPage() {
   return (

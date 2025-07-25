@@ -10,7 +10,6 @@ import { retellErrorHandler } from '@/services/retell/error-handler';
 import type { RetellCallAnalysis, RetellCallMetadata } from '@/types/api';
 import { withTracing } from '@/lib/telemetry/api-middleware';
 
-export const dynamic = 'force-dynamic';
 interface RetellWebhookEvent {
   event: string;
   call?: {

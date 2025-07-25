@@ -1,27 +1,77 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
-// Force dynamic rendering for all location pages
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
+// Enable static generation with ISR
 export const revalidate = 86400; // 24 hours
 
-// Only pre-generate a few critical location pages
+// Generate all known location pages at build time
 export async function generateStaticParams() {
-  // Only generate priority locations at build time
-  const priorityLocations = [
-    { state: 'nc', city: 'charlotte' },
-    { state: 'nc', city: 'raleigh' },
-    { state: 'nc', city: 'durham' },
-    { state: 'nc', city: 'greensboro' },
-    { state: 'nc', city: 'winston-salem' },
-    { state: 'fl', city: 'orlando' },
-    { state: 'fl', city: 'tampa' },
+  // Get all location combinations
+  const states = ['nc', 'fl'];
+  const ncCities = [
+    'charlotte', 'raleigh', 'durham', 'greensboro', 'winston-salem',
+    'cary', 'apex', 'chapel-hill', 'concord', 'cornelius', 'davidson',
+    'fayetteville', 'gastonia', 'hickory', 'high-point', 'huntersville',
+    'indian-trail', 'kannapolis', 'matthews', 'mint-hill', 'monroe',
+    'mooresville', 'smithfield', 'wilmington', 'asheville', 'boone',
+    'burlington', 'carrboro', 'clayton', 'fuquay-varina', 'garner',
+    'goldsboro', 'greenville', 'henderson', 'hendersonville', 'holly-springs',
+    'hope-mills', 'jacksonville', 'kernersville', 'kinston', 'knightdale',
+    'laurinburg', 'lenoir', 'lexington', 'louisburg', 'lumberton',
+    'morganton', 'morrisville', 'mount-airy', 'mount-holly', 'new-bern',
+    'newton', 'oxford', 'pine-level', 'pinehurst', 'pineville', 'princeton',
+    'rocky-mount', 'rolesville', 'roxboro', 'salisbury', 'sanford',
+    'selma', 'shelby', 'southern-pines', 'spring-lake', 'stallings',
+    'statesville', 'thomasville', 'wake-forest', 'warrenton', 'waxhaw',
+    'wendell', 'wilson', 'youngsville', 'zebulon', 'asheboro', 'albemarle',
+    'aberdeen', 'belmont', 'benson', 'elizabeth-city', 'fort-liberty',
+    'four-oaks', 'harrisburg'
   ];
-
-  return priorityLocations.map(({ state, city }) => ({
-    slug: [state, city],
-  }));
+  
+  const flCities = [
+    'orlando', 'tampa', 'miami', 'jacksonville', 'fort-lauderdale',
+    'kissimmee', 'sanford', 'altamonte-springs', 'winter-park',
+    'lake-mary', 'oviedo', 'apopka', 'casselberry', 'longwood',
+    'maitland', 'winter-springs', 'ocoee', 'clermont', 'davenport'
+  ];
+  
+  const services = [
+    'immigration-lawyer',
+    'personal-injury-attorney', 
+    'criminal-defense-lawyer',
+    'workers-comp-attorney',
+    'car-accident-lawyer',
+    'family-law-attorney',
+    'dui-lawyer',
+    'bankruptcy-attorney'
+  ];
+  
+  const params = [];
+  
+  // Generate state/city combinations
+  for (const city of ncCities) {
+    params.push({ slug: ['nc', city] });
+    
+    // Add service pages for major cities
+    if (['charlotte', 'raleigh', 'durham', 'greensboro', 'winston-salem'].includes(city)) {
+      for (const service of services) {
+        params.push({ slug: ['nc', city, service] });
+      }
+    }
+  }
+  
+  for (const city of flCities) {
+    params.push({ slug: ['fl', city] });
+    
+    // Add service pages for major cities
+    if (['orlando', 'tampa', 'miami', 'jacksonville', 'kissimmee'].includes(city)) {
+      for (const service of services) {
+        params.push({ slug: ['fl', city, service] });
+      }
+    }
+  }
+  
+  return params;
 }
 
 // Dynamic metadata generation
@@ -39,7 +89,6 @@ export async function generateMetadata({
     };
   }
 
-  // Generate metadata inline to avoid import issues
   const cityName = city
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
@@ -70,32 +119,32 @@ export async function generateMetadata({
   };
 }
 
-// Dynamic location page that loads the appropriate component
-export default async function DynamicLocationPage({ params }: { params: { slug: string[] } }) {
+// Location page component
+export default async function LocationPage({ params }: { params: { slug: string[] } }) {
+  const [state, city, service] = params.slug;
+
+  if (!state || !city) {
+    notFound();
+  }
+
+  // Import the appropriate component based on the location
   try {
-    // Ensure params exist
-    if (!params || !params.slug || !Array.isArray(params.slug)) {
-      console.error('Invalid params:', params);
-      notFound();
-    }
+    // Try to dynamically import the specific location component
+    const locationModule = await import(`@/app/locations/${state}/${city}/page`);
+    const LocationComponent = locationModule.default;
+    return <LocationComponent />;
+  } catch (error) {
+    // If no specific component exists, render the generic template
+    const cityName = city
+      .split('-')
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(' ');
 
-    const [state, city, service] = params.slug;
-
-    if (!state || !city) {
-      notFound();
-    }
-
-    // For now, always render the default template
-    // In production, this would load specific components dynamically
     return (
       <div className="min-h-screen py-12">
         <div className="max-w-7xl mx-auto px-4">
           <h1 className="text-4xl font-bold mb-4">
-            {city
-              .split('-')
-              .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-              .join(' ')}
-            , {state.toUpperCase()}
+            {cityName}, {state.toUpperCase()}
           </h1>
           <p className="text-gray-600 mb-8">
             Contact Vasquez Law Firm at 1-844-YO-PELEO for legal assistance in your area.
@@ -110,7 +159,7 @@ export default async function DynamicLocationPage({ params }: { params: { slug: 
                   .join(' ')} Services
               </h2>
               <p className="text-gray-600">
-                Our experienced attorneys specialize in {service.replace(/-/g, ' ')} cases in {city.replace(/-/g, ' ')}, {state.toUpperCase()}.
+                Our experienced attorneys specialize in {service.replace(/-/g, ' ')} cases in {cityName}, {state.toUpperCase()}.
               </p>
             </div>
           )}
@@ -125,19 +174,6 @@ export default async function DynamicLocationPage({ params }: { params: { slug: 
               Schedule Consultation
             </a>
           </div>
-        </div>
-      </div>
-    );
-  } catch (error) {
-    console.error('Error in DynamicLocationPage:', error);
-    // Return a fallback page instead of throwing
-    return (
-      <div className="min-h-screen py-12">
-        <div className="max-w-7xl mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-4">Location Page</h1>
-          <p className="text-gray-600">
-            We're experiencing technical difficulties. Please contact us at 1-844-YO-PELEO.
-          </p>
         </div>
       </div>
     );

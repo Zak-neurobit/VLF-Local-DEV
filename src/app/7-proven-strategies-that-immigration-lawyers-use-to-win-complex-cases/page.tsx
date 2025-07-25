@@ -21,7 +21,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const runtime = 'nodejs';
 
 export default function SevenProvenStrategiesThatImmigrationLawyersUseToWinComplexCasesPage() {
   // In production, this would be fetched from a CMS or database

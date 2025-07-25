@@ -8,7 +8,6 @@ import { errorToLogMeta } from '@/lib/safe-logger';
 import { withTracing } from '@/lib/telemetry/api-middleware';
 
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
 // Validation schema
 const sendEmailSchema = z.object({
   to: z.union([z.string().email(), z.array(z.string().email())]),

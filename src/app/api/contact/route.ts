@@ -8,8 +8,6 @@ import { createGHLContact, getPracticeAreaTags } from '@/lib/ghl';
 import { withLeadCaptureTracing } from '@/lib/telemetry/api-middleware';
 
 // Force dynamic rendering since we need to access headers and IP
-export const dynamic = 'force-dynamic';
-
 async function handlePOST(req: NextRequest) {
   // const requestId = apiLogger?.request ? apiLogger.request(req.method, req.url, {}) : 'no-logger';
 

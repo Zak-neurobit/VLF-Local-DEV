@@ -8,8 +8,6 @@ interface ProcessWithLoadAvg extends NodeJS.Process {
   loadavg?: () => [number, number, number];
 }
 
-export const dynamic = 'force-dynamic';
-
 async function handleGET(_request: NextRequest): Promise<NextResponse> {
   try {
     const crewCoordinator = CrewCoordinator.getInstance();

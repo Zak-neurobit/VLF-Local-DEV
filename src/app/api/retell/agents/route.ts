@@ -11,8 +11,6 @@ import {
 } from '@/services/retell/agent-config';
 
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
-
 // Retell API client
 async function retellApiRequest(endpoint: string, options: RequestInit = {}) {
   const response = await fetch(`${RETELL_CONFIG.apiUrl}${endpoint}`, {

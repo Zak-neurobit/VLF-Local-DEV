@@ -1,7 +1,5 @@
 import WilmingtonImmigrationCercaDeMiClient from './wilmingtonimmigrationNearMeClient';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export default function WilmingtonImmigrationCercaDeMiPage() {
   return <WilmingtonImmigrationCercaDeMiClient />;
 }

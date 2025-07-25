@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
 export const metadata: Metadata = {
   title: `Abogado workers compensation Near Me in Raleigh | Vasquez Law Firm`,
   description: `Find the best abogado workers compensation near you in Raleigh. Experienced legal representation.`,

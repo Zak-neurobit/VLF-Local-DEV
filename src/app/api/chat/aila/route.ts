@@ -4,8 +4,6 @@ import { getPrismaClient } from '@/lib/prisma';
 import { logger } from '@/lib/safe-logger';
 
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
-
 // Initialize OpenAI client
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
