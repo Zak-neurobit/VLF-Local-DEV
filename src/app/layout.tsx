@@ -13,7 +13,7 @@ import SessionProvider from '@/components/providers/SessionProvider';
 import dynamic from 'next/dynamic';
 import { EnhancedChatWidget } from '@/components/ChatWidget/EnhancedChatWidget';
 import { RetellCallbackWidget } from '@/components/Voice/RetellCallbackWidget';
-import { UnifiedHeader } from '@/components/UnifiedHeader';
+import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Toaster } from 'react-hot-toast';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
@@ -25,7 +25,12 @@ import { DOMSafeWrapper } from '@/components/DOMSafeWrapper';
 import { DOMSafetyInitializer } from '@/components/DOMSafetyInitializer';
 import { HydrationBoundary } from '@/components/HydrationBoundary';
 // Moved NavigationDebugger to HydrationSafeComponents
-import { SafeDynamicHreflang, SafeSpeedOptimizer, SafePerformanceMonitor, SafeNavigationDebugger } from '@/components/HydrationSafeComponents';
+import {
+  SafeDynamicHreflang,
+  SafeSpeedOptimizer,
+  SafePerformanceMonitor,
+  SafeNavigationDebugger,
+} from '@/components/HydrationSafeComponents';
 import { Suspense } from 'react';
 import { ClientNavigation } from '@/components/ClientNavigation';
 import { ExternalScriptGuardian } from '@/components/ExternalScriptGuardian';
@@ -125,9 +130,12 @@ export const viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   // Default to English to match middleware defaultLocale
   const language = 'en';
-  
+
   return (
-    <html lang={language} className={`${inter.className} ${inter.variable} ${playfairDisplay.variable}`}>
+    <html
+      lang={language}
+      className={`${inter.className} ${inter.variable} ${playfairDisplay.variable}`}
+    >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -190,10 +198,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SessionProvider>
           <ErrorBoundary>
             <DOMSafeWrapper>
-              <UnifiedHeader />
-              <ClientNavigation />
-              <SafeDynamicHreflang />
-              {children}
+              <MasterLayout>
+                <ClientNavigation />
+                <SafeDynamicHreflang />
+                {children}
+              </MasterLayout>
               <EnhancedChatWidget />
               <RetellCallbackWidget />
               <SafePerformanceMonitor />
