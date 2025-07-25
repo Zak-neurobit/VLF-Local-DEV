@@ -1,3 +1,4 @@
+import React from 'react';
 import { Metadata } from 'next';
 import ContactPageContent from '@/components/ContactPageContent';
 import { EventSchema } from '@/components/SEO/EventSchema';

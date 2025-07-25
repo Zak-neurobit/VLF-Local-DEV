@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Script from 'next/script';
 import Image from 'next/image';
 import { Phone, ArrowRight, Users, Award, Heart, Star } from 'lucide-react';

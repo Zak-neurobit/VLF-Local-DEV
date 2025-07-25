@@ -1,9 +1,9 @@
 'use client';
 
+import React, { useState } from 'react';
 import Script from 'next/script';
 import { GraduationCap, Calendar, Award, Mail, CheckCircle, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 
 export default function ScholarshipPageClient() {
   const [email, setEmail] = useState('');
