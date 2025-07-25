@@ -1,17 +1,17 @@
 {
-  "installCommand": "npm install",
-  "buildCommand": "npm run build:vercel",
   "framework": "nextjs",
-  "build": {
-    "env": {
-      "NODE_OPTIONS": "--max-old-space-size=16384",
-      "BUILD_TIME": "true",
-      "NEXT_PUBLIC_BUILD_ALL_PAGES": "true"
-    }
-  },
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "regions": ["pdx1"],
   "functions": {
     "src/app/api/**/*.ts": {
-      "maxDuration": 30
+      "maxDuration": 60
     }
+  },
+  "github": {
+    "silent": false,
+    "autoJobCancelation": true
   }
 }

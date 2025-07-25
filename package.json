@@ -13,7 +13,7 @@
     "dev:full": "npm run build:socket && node scripts/dev-server.js",
     "start:production": "node scripts/start-production.js",
     "build:socket": "tsc --project tsconfig.socket.json && mkdir -p dist/lib/socket && cp src/lib/socket/server-setup.js dist/lib/socket/ && cp dist/lib/socket/server.js dist/lib/socket/ 2>/dev/null || true",
-    "build": "prisma generate && NODE_OPTIONS='--max-old-space-size=8192' next build",
+    "build": "echo \"BUILD STARTED $(date)\" && prisma generate && NODE_OPTIONS=\"--max-old-space-size=8192\" next build",
     "build:vercel": "node build-override.js && prisma generate && NODE_OPTIONS='--max-old-space-size=8192' next build",
     "build:optimized": "prisma generate && node scripts/optimized-build.js",
     "build:production": "prisma generate && NODE_OPTIONS='--max-old-space-size=16384' BUILD_TIME=true next build --config next.config.production.js",
