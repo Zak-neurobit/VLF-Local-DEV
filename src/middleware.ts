@@ -52,6 +52,14 @@ export async function middleware(request: NextRequest) {
     pathname.includes('.') || // files with extensions
     pathname.startsWith('/favicon')
   ) {
+    // Add CORS headers for image requests to prevent 401 errors
+    if (pathname.match(/\.(jpg|jpeg|png|gif|webp|svg|ico)$/i)) {
+      const response = NextResponse.next();
+      response.headers.set('Access-Control-Allow-Origin', '*');
+      response.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
+      response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+      return response;
+    }
     return NextResponse.next();
   }
 

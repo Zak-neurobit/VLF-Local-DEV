@@ -1,4 +1,4 @@
-import '@/lib/stream-polyfill';
+// Stream polyfill import removed - using safe stream operations instead
 import '@/lib/error-handler'; // Initialize global error handler
 import '@/lib/external-script-guardian'; // Handle external script errors
 import { StructuredData } from '@/components/SEO/StructuredData';
@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { StreamErrorBoundary } from '@/components/StreamErrorBoundary';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { organizationSchema } from '@/lib/schema';
 import ClientSessionProvider from '@/components/providers/ClientSessionProvider';
@@ -199,16 +200,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </HydrationBoundary>
         <ClientSessionProvider>
           <ErrorBoundary>
-            <DOMSafeWrapper>
-              <MasterLayout>
-                <ClientNavigation />
-                <SafeDynamicHreflang />
-                {children}
-              </MasterLayout>
-              <UnifiedModernChatbot />
-              <SafePerformanceMonitor />
-              <SafePartytownPerformanceMonitor />
-            </DOMSafeWrapper>
+            <StreamErrorBoundary>
+              <DOMSafeWrapper>
+                <MasterLayout>
+                  <ClientNavigation />
+                  <SafeDynamicHreflang />
+                  {children}
+                </MasterLayout>
+                <UnifiedModernChatbot />
+                <SafePerformanceMonitor />
+                <SafePartytownPerformanceMonitor />
+              </DOMSafeWrapper>
+            </StreamErrorBoundary>
           </ErrorBoundary>
         </ClientSessionProvider>
         <Suspense fallback={null}>

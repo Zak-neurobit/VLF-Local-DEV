@@ -1,8 +1,9 @@
-// Edge runtime route - no Node.js-specific modules allowed
 import { NextRequest, NextResponse } from 'next/server';
+import { safeStreamOperations } from '@/lib/stream-polyfill';
 
-// Explicitly declare edge runtime
-export const runtime = 'edge';
+// Use Node.js runtime instead of edge for better compatibility
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 const systemPrompt = `You are a professional virtual paralegal assistant for Vasquez Law Firm. 
 You help potential clients understand their legal options and guide them to the right resources.
@@ -30,7 +31,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const { messages } = await req.json();
 
-    // Dynamic import to ensure edge compatibility
+    // Import AI SDK
     const { openai } = await import('@ai-sdk/openai');
     const { streamText } = await import('ai');
 
@@ -42,17 +43,28 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       maxTokens: 500,
     });
 
-    // Convert the stream response to NextResponse
-    const response = result.toDataStreamResponse();
-    return new NextResponse(response.body, {
-      headers: response.headers,
-      status: response.status,
+    // Get the stream and headers
+    const stream = result.toDataStream();
+
+    // Return streaming response with proper headers
+    return new NextResponse(stream, {
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache, no-transform',
+        Connection: 'keep-alive',
+        'X-Content-Type-Options': 'nosniff',
+      },
     });
   } catch (error) {
-    // Use console.error for edge runtime compatibility
     console.error('Paralegal API error:', error);
 
     // Return a proper error response
-    return NextResponse.json({ error: 'Error processing request' }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: 'Error processing request',
+        details: process.env.NODE_ENV === 'development' ? String(error) : undefined,
+      },
+      { status: 500 }
+    );
   }
 }
