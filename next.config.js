@@ -38,8 +38,6 @@ const nextConfig = {
   // Build optimizations for large projects with full static generation
   experimental: {
     // Next.js 15 experimental features
-    // Enable React 19 support
-    reactCompiler: false, // Temporarily disabled for deployment // Enabled for automatic React optimizations
     // Server Components optimizations
     serverMinification: true,
     serverSourceMaps: false,
@@ -434,36 +432,7 @@ const nextConfig = {
         },
       };
 
-      // Enable module federation for shared dependencies
-      const ModuleFederationPlugin = webpack.container.ModuleFederationPlugin;
-      config.plugins.push(
-        new ModuleFederationPlugin({
-          name: 'vasquezlaw',
-          filename: 'remoteEntry.js',
-          shared: {
-            react: {
-              singleton: true,
-              requiredVersion: false,
-            },
-            'react-dom': {
-              singleton: true,
-              requiredVersion: false,
-            },
-            'next/router': {
-              singleton: true,
-              requiredVersion: false,
-            },
-            'next/link': {
-              singleton: true,
-              requiredVersion: false,
-            },
-            'next/image': {
-              singleton: true,
-              requiredVersion: false,
-            },
-          },
-        })
-      );
+      // Module Federation removed - causing eager consumption errors in production
 
       // Add caching for better build performance
       config.cache = {
