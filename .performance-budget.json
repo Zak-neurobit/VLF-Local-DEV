@@ -1,0 +1,27 @@
+{
+  "bundles": [
+    {
+      "name": "main",
+      "path": ".next/static/chunks/app-*.js",
+      "maxSize": "250 KB"
+    },
+    {
+      "name": "framework",
+      "path": ".next/static/chunks/framework-*.js",
+      "maxSize": "150 KB"
+    },
+    {
+      "name": "pages",
+      "path": ".next/static/chunks/pages/*.js",
+      "maxSize": "100 KB"
+    }
+  ],
+  "metrics": {
+    "LCP": 2500,
+    "FID": 100,
+    "CLS": 0.1,
+    "FCP": 1800,
+    "TTI": 3800,
+    "TBT": 300
+  }
+}

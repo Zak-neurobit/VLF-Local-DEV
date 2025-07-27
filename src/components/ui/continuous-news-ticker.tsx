@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { block } from 'million/react';
 
 interface NewsItem {
   id: string;
@@ -21,10 +22,11 @@ interface ContinuousNewsTickerProps {
   speed?: number; // pixels per second
 }
 
-export function ContinuousNewsTicker({ 
-  className, 
+// Create the original component
+function ContinuousNewsTickerComponent({
+  className,
   locale = 'en',
-  speed = 50 // 50 pixels per second
+  speed = 50, // 50 pixels per second
 }: ContinuousNewsTickerProps) {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -35,10 +37,8 @@ export function ContinuousNewsTicker({
     const fetchNews = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(
-          `/api/news/ticker?category=all&limit=20&locale=${locale}`
-        );
-        
+        const response = await fetch(`/api/news/ticker?category=all&limit=20&locale=${locale}`);
+
         if (response.ok) {
           const data = await response.json();
           // Duplicate items to create seamless loop
@@ -64,7 +64,7 @@ export function ContinuousNewsTicker({
 
     const container = containerRef.current;
     const content = contentRef.current;
-    
+
     // Calculate animation duration based on content width and speed
     const contentWidth = content.scrollWidth / 2; // Divided by 2 because we duplicated content
     const duration = contentWidth / speed; // seconds
@@ -145,3 +145,6 @@ export function ContinuousNewsTicker({
     </div>
   );
 }
+
+// Create and export the block-optimized component
+export const ContinuousNewsTicker = block(ContinuousNewsTickerComponent);

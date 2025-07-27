@@ -10,13 +10,13 @@ const resources = [
   { path: '/resources/glossary', priority: 0.6 },
   { path: '/resources/videos', priority: 0.6 },
   { path: '/resources/calculators', priority: 0.7 },
-  
+
   // Tools and utilities
   { path: '/tools/case-evaluation', priority: 0.8 },
   { path: '/tools/document-checklist', priority: 0.7 },
   { path: '/tools/fee-calculator', priority: 0.7 },
   { path: '/tools/appointment-scheduler', priority: 0.8 },
-  
+
   // Client resources
   { path: '/client-portal', priority: 0.6 },
   { path: '/testimonials', priority: 0.7 },
@@ -25,41 +25,44 @@ const resources = [
 ];
 
 export async function GET() {
-  const headersList = headers();
+  const headersList = await headers();
   const host = headersList.get('host') || 'vasquezlawfirm.com';
   const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
   const baseUrl = `${protocol}://${host}`;
 
-  const entries = resources.map(resource => {
-    const lastmod = new Date().toISOString();
-    const urls = [
-      `  <url>
+  const entries = resources
+    .map(resource => {
+      const lastmod = new Date().toISOString();
+      const urls = [
+        `  <url>
     <loc>${baseUrl}${resource.path}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>${resource.priority}</priority>
   </url>`,
-    ];
-    
-    // Add Spanish version
-    const esPath = resource.path.replace('/resources', '/es/recursos')
-      .replace('/tools', '/es/herramientas')
-      .replace('/client-portal', '/es/portal-cliente')
-      .replace('/testimonials', '/es/testimonios')
-      .replace('/case-results', '/es/resultados')
-      .replace('/reviews', '/es/resenas');
-    
-    if (esPath !== resource.path) {
-      urls.push(`  <url>
+      ];
+
+      // Add Spanish version
+      const esPath = resource.path
+        .replace('/resources', '/es/recursos')
+        .replace('/tools', '/es/herramientas')
+        .replace('/client-portal', '/es/portal-cliente')
+        .replace('/testimonials', '/es/testimonios')
+        .replace('/case-results', '/es/resultados')
+        .replace('/reviews', '/es/resenas');
+
+      if (esPath !== resource.path) {
+        urls.push(`  <url>
     <loc>${baseUrl}${esPath}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>${resource.priority}</priority>
   </url>`);
-    }
-    
-    return urls.join('\n');
-  }).join('\n');
+      }
+
+      return urls.join('\n');
+    })
+    .join('\n');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

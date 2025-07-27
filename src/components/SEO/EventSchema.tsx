@@ -1,5 +1,6 @@
 import React from 'react';
 import Script from 'next/script';
+import type { WithContext, Event } from 'schema-dts';
 import {
   generateConsultationEventSchema,
   generateEmergencyConsultationEvent,
@@ -45,7 +46,7 @@ export function EventSchema({
   pageType = 'default',
 }: EventSchemaProps) {
   // Generate schemas based on props
-  const schemas = [];
+  const schemas: WithContext<Event>[] = [];
 
   // Add emergency consultation (always available)
   if (includeEmergency) {
@@ -210,7 +211,11 @@ export function EventDisplay({
 }) {
   // This would typically fetch from a database
   // For now, we'll generate some upcoming events
-  const upcomingEvents = [];
+  const upcomingEvents: Array<{
+    date: Date;
+    type: keyof typeof CONSULTATION_EVENT_TYPES;
+    isVirtual: boolean;
+  }> = [];
 
   for (let i = 0; i < limit; i++) {
     const date = new Date();

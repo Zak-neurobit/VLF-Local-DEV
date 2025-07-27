@@ -264,7 +264,7 @@ export class SEODominationOrchestrator {
   private async identifyQuickWins(
     competitorData: Record<string, unknown>
   ): Promise<Array<Record<string, unknown>>> {
-    const quickWins = [];
+    const quickWins: Array<Record<string, unknown>> = [];
 
     // Content opportunities
     const contentGaps = (competitorData.contentGaps as string[]) || [];
@@ -435,7 +435,7 @@ export class SEODominationOrchestrator {
   private async identifySynergyOpportunities(
     statuses: AgentStatus[]
   ): Promise<Array<Record<string, unknown>>> {
-    const synergies = [];
+    const synergies: Array<Record<string, unknown>> = [];
 
     // Blog + Social synergy
     synergies.push({

@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Button } from '@/design-system/components/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -161,7 +160,7 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
   ];
 
   return (
-    <MasterLayout variant="hero" showBreadcrumbs={true}>
+    <>
       <div className="min-h-screen bg-black">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-24">
@@ -551,7 +550,7 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
           faqs={faqs}
         />
       </div>
-    </MasterLayout>
+    </>
   );
 };
 

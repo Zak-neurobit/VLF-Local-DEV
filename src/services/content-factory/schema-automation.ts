@@ -801,7 +801,7 @@ export class SchemaMarkupAutomation {
   }
 
   private extractHowToSteps(content: string): Array<{ name: string; text: string }> {
-    const steps = [];
+    const steps: Array<{ name: string; text: string }> = [];
     const stepPattern = /(?:Step\s+\d+:|^\d+\.)\s*([^\n]+)\n([^]*?)(?=(?:Step\s+\d+:|^\d+\.|$))/gim;
 
     let match;
@@ -816,7 +816,7 @@ export class SchemaMarkupAutomation {
   }
 
   private generateSchemaImprovements(schemaItem: Record<string, unknown>): string[] {
-    const improvements = [];
+    const improvements: string[] = [];
     const schema = JSON.parse(schemaItem.schema as string);
 
     // Check for missing required fields

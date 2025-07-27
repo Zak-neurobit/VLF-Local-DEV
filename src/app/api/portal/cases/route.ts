@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     }
 
     const searchParams = request.nextUrl.searchParams;
-    const statusParams = searchParams.get('status')?.split(',') || [];
+    const statusParams: string[] = searchParams.get('status')?.split(',') || [];
     const practiceArea = searchParams.get('practiceArea');
     const startDate = searchParams.get('startDate');
     const endDate = searchParams.get('endDate');

@@ -25,7 +25,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function DurhamAbogadodivorcioCercaDeMiPage() {
   const post = {
     id: 'durham-abogado-divorcio-cerca-de-mi',
@@ -33,7 +32,7 @@ export default function DurhamAbogadodivorcioCercaDeMiPage() {
     slug: 'durham-abogado-divorcio-cerca-de-mi',
     excerpt: 'Abogado de Divorcio experimentado en Durham, NC. Consulta gratuita disponible 24/7.',
     content: `
-      <div class="prose prose-lg max-w-none">
+      <div className="prose prose-lg max-w-none">
         <h1>Abogado de Divorcio Cerca De Mí en Durham, NC</h1>
         
         <p>¿Necesita un abogado de divorcio cerca de usted en Durham? Vasquez Law Firm es su mejor opción. Con más de 60 años de experiencia combinada, nuestro equipo bilingüe está listo para luchar por sus derechos.</p>
@@ -88,18 +87,18 @@ export default function DurhamAbogadodivorcioCercaDeMiPage() {
 
         <h2>📞 Contacte a Su Abogado de Divorcio en Durham Hoy</h2>
         
-        <div class="bg-blue-50 p-6 rounded-lg mt-8">
-          <h3 class="text-xl font-bold text-blue-800 mb-4">📞 Llame Ahora - Consulta Gratuita</h3>
-          <p class="text-lg font-bold text-blue-700">1-844-YO-PELEO (1-844-967-3536)</p>
-          <p class="text-blue-700 mt-2">Disponible 24/7 para emergencias legales</p>
+        <div className="bg-blue-50 p-6 rounded-lg mt-8">
+          <h3 className="text-xl font-bold text-blue-800 mb-4">📞 Llame Ahora - Consulta Gratuita</h3>
+          <p className="text-lg font-bold text-blue-700">1-844-YO-PELEO (1-844-967-3536)</p>
+          <p className="text-blue-700 mt-2">Disponible 24/7 para emergencias legales</p>
         </div>
 
         <h2>⭐ Lo Que Dicen Nuestros Clientes de Durham</h2>
-        <blockquote class="border-l-4 border-blue-500 pl-6 italic text-gray-700">
+        <blockquote className="border-l-4 border-blue-500 pl-6 italic text-gray-700">
           "Vasquez Law Firm me ayudó enormemente con mi caso. Su equipo en Durham fue increíblemente profesional y siempre estuvieron disponibles para responder mis preguntas." - Cliente Satisfecho, Durham
         </blockquote>
 
-        <p class="text-center text-lg font-bold mt-8">🚀 Su futuro comienza con una llamada. ¡Contacte a Vasquez Law Firm hoy mismo\!</p>
+        <p className="text-center text-lg font-bold mt-8">🚀 Su futuro comienza con una llamada. ¡Contacte a Vasquez Law Firm hoy mismo\!</p>
       </div>
     `,
     practiceArea: 'family-law',

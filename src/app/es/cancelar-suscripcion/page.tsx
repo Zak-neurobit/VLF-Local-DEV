@@ -14,7 +14,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function CancelarSuscripcionPage() {
   const post = {
     id: 'cancelar-suscripcion',
@@ -22,7 +21,7 @@ export default function CancelarSuscripcionPage() {
     slug: 'cancelar-suscripcion',
     excerpt: 'Administre sus preferencias de suscripción de correo electrónico',
     content: `
-      <div class="prose prose-lg max-w-none">
+      <div className="prose prose-lg max-w-none">
         <h2>Cancelar Suscripción de Correos Electrónicos</h2>
         
         <p>Lamentamos verlo irse. Si desea cancelar su suscripción a nuestros correos electrónicos, puede hacerlo a continuación.</p>
@@ -38,8 +37,8 @@ export default function CancelarSuscripcionPage() {
           <li><strong>Todos los Correos:</strong> Cancelar toda comunicación por correo electrónico</li>
         </ul>
         
-        <div class="bg-yellow-50 p-6 rounded-lg my-8">
-          <p class="font-semibold mb-2">Nota Importante:</p>
+        <div className="bg-yellow-50 p-6 rounded-lg my-8">
+          <p className="font-semibold mb-2">Nota Importante:</p>
           <p>Si cancela su suscripción a las alertas de casos, es posible que no reciba actualizaciones importantes sobre su caso legal. Recomendamos mantener activas las alertas de casos si tiene un asunto legal pendiente con nosotros.</p>
         </div>
         
@@ -67,7 +66,7 @@ export default function CancelarSuscripcionPage() {
           <li>Correo: <a href="mailto:info@vasquezlawnc.com">info@vasquezlawnc.com</a></li>
         </ul>
         
-        <p class="mt-8 text-sm text-gray-600">Su privacidad es importante para nosotros. Para más información sobre cómo manejamos sus datos, consulte nuestra <a href="/es/politica-privacidad">Política de Privacidad</a>.</p>
+        <p className="mt-8 text-sm text-gray-600">Su privacidad es importante para nosotros. Para más información sobre cómo manejamos sus datos, consulte nuestra <a href="/es/politica-privacidad">Política de Privacidad</a>.</p>
       </div>
     `,
     practiceArea: 'general',

@@ -11,8 +11,7 @@ import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { organizationSchema } from '@/lib/schema';
 import SessionProvider from '@/components/providers/SessionProvider';
 import dynamic from 'next/dynamic';
-import { EnhancedChatWidget } from '@/components/ChatWidget/EnhancedChatWidget';
-import { RetellCallbackWidget } from '@/components/Voice/RetellCallbackWidget';
+import { UnifiedModernChatbot } from '@/components/ChatWidget/UnifiedModernChatbot';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Toaster } from 'react-hot-toast';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -30,11 +29,13 @@ import {
   SafeSpeedOptimizer,
   SafePerformanceMonitor,
   SafeNavigationDebugger,
+  SafePartytownPerformanceMonitor,
 } from '@/components/HydrationSafeComponents';
 import { Suspense } from 'react';
 import { ClientNavigation } from '@/components/ClientNavigation';
 import { ExternalScriptGuardian } from '@/components/ExternalScriptGuardian';
 import { ResourceDiagnostics } from '@/components/ResourceDiagnostics';
+import { PartytownScripts } from '@/components/Partytown';
 
 // Removed SiteLayout import - will handle navigation directly
 
@@ -174,6 +175,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen bg-white">
+        <PartytownScripts />
         <DOMSafetyInitializer />
         <SafeSpeedOptimizer />
         <ExternalScriptGuardian />
@@ -203,9 +205,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <SafeDynamicHreflang />
                 {children}
               </MasterLayout>
-              <EnhancedChatWidget />
-              <RetellCallbackWidget />
+              <UnifiedModernChatbot />
               <SafePerformanceMonitor />
+              <SafePartytownPerformanceMonitor />
             </DOMSafeWrapper>
           </ErrorBoundary>
         </SessionProvider>

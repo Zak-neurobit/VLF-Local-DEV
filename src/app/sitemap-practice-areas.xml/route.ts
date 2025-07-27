@@ -13,7 +13,7 @@ const practiceAreas = [
   { slug: 'immigration/visas', priority: 0.8 },
   { slug: 'immigration/daca', priority: 0.8 },
   { slug: 'immigration/appeals', priority: 0.7 },
-  
+
   // Criminal Defense
   { slug: 'criminal-defense', priority: 0.9 },
   { slug: 'criminal-defense/dui', priority: 0.8 },
@@ -23,7 +23,7 @@ const practiceAreas = [
   { slug: 'criminal-defense/federal-crimes', priority: 0.8 },
   { slug: 'criminal-defense/white-collar', priority: 0.8 },
   { slug: 'criminal-defense/expungement', priority: 0.7 },
-  
+
   // Personal Injury
   { slug: 'personal-injury', priority: 0.9 },
   { slug: 'personal-injury/car-accidents', priority: 0.8 },
@@ -33,7 +33,7 @@ const practiceAreas = [
   { slug: 'personal-injury/medical-malpractice', priority: 0.8 },
   { slug: 'personal-injury/wrongful-death', priority: 0.8 },
   { slug: 'personal-injury/workplace-injuries', priority: 0.8 },
-  
+
   // Family Law
   { slug: 'family-law', priority: 0.9 },
   { slug: 'family-law/divorce', priority: 0.8 },
@@ -45,30 +45,32 @@ const practiceAreas = [
 ];
 
 export async function GET() {
-  const headersList = headers();
+  const headersList = await headers();
   const host = headersList.get('host') || 'vasquezlawfirm.com';
   const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
   const baseUrl = `${protocol}://${host}`;
 
-  const entries = practiceAreas.map(area => {
-    const lastmod = new Date().toISOString();
-    const urls = [
-      `  <url>
+  const entries = practiceAreas
+    .map(area => {
+      const lastmod = new Date().toISOString();
+      const urls = [
+        `  <url>
     <loc>${baseUrl}/practice-areas/${area.slug}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>${area.priority}</priority>
   </url>`,
-      `  <url>
+        `  <url>
     <loc>${baseUrl}/es/areas-de-practica/${area.slug.replace('immigration', 'inmigracion').replace('criminal-defense', 'defensa-criminal').replace('personal-injury', 'lesiones-personales').replace('family-law', 'derecho-familiar')}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>${area.priority}</priority>
   </url>`,
-    ];
-    
-    return urls.join('\n');
-  }).join('\n');
+      ];
+
+      return urls.join('\n');
+    })
+    .join('\n');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

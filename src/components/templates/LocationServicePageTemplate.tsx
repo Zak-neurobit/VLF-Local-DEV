@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Button } from '@/design-system/components/Button';
 import { motion } from 'framer-motion';
 import { Phone, MapPin, Clock, MessageCircle, CheckCircle } from 'lucide-react';
@@ -52,7 +51,7 @@ export function LocationServicePageTemplate({
   });
 
   return (
-    <MasterLayout variant="hero" showBreadcrumbs={true}>
+    <>
       <div className="min-h-screen bg-black">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-20">
@@ -253,7 +252,7 @@ export function LocationServicePageTemplate({
           }}
         />
       </div>
-    </MasterLayout>
+    </>
   );
 }
 

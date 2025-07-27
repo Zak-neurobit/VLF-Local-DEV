@@ -19,7 +19,7 @@ export {
 export { Section } from './Section';
 export { AnimatedStats } from './animated-stats';
 export { InteractiveServices } from './interactive-services';
-export { ModernChatWidget } from './modern-chat-widget';
+// ModernChatWidget removed - use UnifiedModernChatbot from @/components/ChatWidget/UnifiedModernChatbot
 export { ModernHero } from './modern-hero';
 export { ModernNav } from './modern-nav';
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';

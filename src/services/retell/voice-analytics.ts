@@ -336,9 +336,21 @@ export class VoiceAnalyticsSystem {
   ): Promise<VoiceOptimizationRecommendations> {
     logger.info('Generating optimization recommendations');
 
-    const systemRecommendations = [];
-    const agentRecommendations = [];
-    const conversationPatterns = [];
+    const systemRecommendations: Array<{
+      category: 'performance' | 'quality' | 'ux' | 'training';
+      recommendation: string;
+      impact: 'high' | 'medium' | 'low';
+      effort: 'high' | 'medium' | 'low';
+      metric: string;
+      currentValue: number;
+      targetValue: number;
+    }> = [];
+    const agentRecommendations: Array<{
+      agentId: string;
+      recommendations: string[];
+      trainingNeeded: string[];
+    }> = [];
+    const conversationPatterns: ConversationPattern[] = [];
 
     // Performance recommendations
     if (analyticsData.averageResponseTime > 2000) {
@@ -397,8 +409,8 @@ export class VoiceAnalyticsSystem {
 
     // Agent-specific recommendations
     for (const agent of analyticsData.agentMetrics) {
-      const recommendations = [];
-      const trainingNeeded = [];
+      const recommendations: string[] = [];
+      const trainingNeeded: string[] = [];
 
       if (agent.averageQuality < 80) {
         recommendations.push('Focus on improving call quality through active listening techniques');
@@ -494,7 +506,7 @@ export class VoiceAnalyticsSystem {
     const summary = `Voice performance ${params.period} report: ${analytics.totalCalls} calls handled with ${analytics.averageInteractionQuality.toFixed(1)}% quality score.`;
 
     // Identify highlights
-    const highlights = [];
+    const highlights: string[] = [];
     if (analytics.averageInteractionQuality > 85) {
       highlights.push(
         `Excellent interaction quality at ${analytics.averageInteractionQuality.toFixed(1)}%`
@@ -508,7 +520,7 @@ export class VoiceAnalyticsSystem {
     }
 
     // Identify concerns
-    const concerns = [];
+    const concerns: string[] = [];
     if (analytics.abandonmentRate > 10) {
       concerns.push(`High abandonment rate at ${analytics.abandonmentRate.toFixed(1)}%`);
     }
@@ -694,7 +706,11 @@ export class VoiceAnalyticsSystem {
     }>
   > {
     // Simplified trend calculation
-    const trend = [];
+    const trend: Array<{
+      date: Date;
+      quality: number;
+      volume: number;
+    }> = [];
     const currentDate = new Date(params.endDate);
 
     for (let i = 0; i < 30; i++) {
@@ -800,7 +816,7 @@ export class VoiceAnalyticsSystem {
   }
 
   private identifyQualityIssues(call: { duration?: number | null; metadata?: unknown }): string[] {
-    const issues = [];
+    const issues: string[] = [];
     let metadata: CallMetadata | null = null;
 
     try {
@@ -831,7 +847,7 @@ export class VoiceAnalyticsSystem {
     },
     qualityIssues: string[]
   ): string[] {
-    const improvements = [];
+    const improvements: string[] = [];
 
     if (qualityIssues.includes('Low clarity score')) {
       improvements.push('Use simpler language and confirm understanding');

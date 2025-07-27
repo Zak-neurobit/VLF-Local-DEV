@@ -24,6 +24,8 @@ export const metadata: Metadata = {
   },
 };
 
+// Enable ISR with 1 hour revalidation for blog content
+export const revalidate = 3600; // 1 hour in seconds
 
 export default function BlogPageSpanish() {
   return <BlogPageClient language="es" />;

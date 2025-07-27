@@ -273,7 +273,13 @@ class DashboardSocketManager {
   }
 
   private generateRecentActivity() {
-    const activities = [];
+    const activities: Array<{
+      id: string;
+      type: 'content' | 'review' | 'lead' | 'call' | 'social';
+      message: string;
+      timestamp: Date;
+      success: boolean;
+    }> = [];
     for (let i = 0; i < 10; i++) {
       const activity = this.generateRandomActivity();
       activity.timestamp = new Date(Date.now() - i * 3 * 60000); // Space 3 minutes apart

@@ -2,7 +2,6 @@
 
 import Script from 'next/script';
 import { GraduationCap, Calendar, Award, Mail, CheckCircle, ArrowRight } from 'lucide-react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -208,7 +207,7 @@ export default function ScholarshipsPageClient({ language = 'en' }: Scholarships
   const t = content[language];
 
   return (
-    <MasterLayout variant="hero" showBreadcrumbs={false}>
+    <>
       <div className="min-h-screen bg-black">
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-black py-24">
@@ -559,6 +558,6 @@ export default function ScholarshipsPageClient({ language = 'en' }: Scholarships
           }}
         />
       </div>
-    </MasterLayout>
+    </>
   );
 }

@@ -403,7 +403,7 @@ export class CallRoutingService {
     language: 'en' | 'es';
   }): string {
     const { urgency, practiceArea, existingContact, language } = params;
-    const instructions = [];
+    const instructions: string[] = [];
 
     // Urgency instructions
     if (urgency === 'emergency') {

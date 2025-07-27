@@ -22,7 +22,7 @@ export function useTextScramble(
   const [displayText, setDisplayText] = useState(text);
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: !loop });
-  const frameRef = useRef<number>();
+  const frameRef = useRef<number>(0);
   const iterationRef = useRef(0);
 
   useEffect(() => {

@@ -23,7 +23,7 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+  override componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     logger.error('ErrorBoundary caught an error:', error, errorInfo);
 
     // Temporarily disabled Sentry due to missing dependencies
@@ -40,7 +40,7 @@ export class ErrorBoundary extends Component<Props, State> {
     */
   }
 
-  render() {
+  override render() {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">

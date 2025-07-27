@@ -297,7 +297,7 @@ Apply AILA training to provide:
   }
 
   private developStrategy(params: RemovalCaseParams): string[] {
-    const strategies = [];
+    const strategies: string[] = [];
 
     if (params.isDetained) {
       strategies.push(

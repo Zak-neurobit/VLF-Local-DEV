@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { motion } from 'framer-motion';
 import { Phone, MessageCircle, Shield, AlertCircle, CheckCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -99,7 +98,7 @@ export const ModernPracticeAreaTemplateV2: React.FC<ModernPracticeAreaTemplateV2
   ];
 
   return (
-    <MasterLayout variant="default" showBreadcrumbs={true}>
+    <>
       {/* Language Toggle - Fixed Position */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
@@ -370,7 +369,7 @@ export const ModernPracticeAreaTemplateV2: React.FC<ModernPracticeAreaTemplateV2
       <EnhancedCTA variant="chat" size="lg" onClick={() => {}}>
         <MessageCircle className="w-6 h-6" />
       </EnhancedCTA>
-    </MasterLayout>
+    </>
   );
 };
 

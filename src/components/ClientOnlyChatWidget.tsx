@@ -1,2 +1,2 @@
-// Re-export the consolidated ClientOnlyChatWidget
-export { ClientOnlyChatWidget } from './ChatWidget/ConsolidatedChatWidget';
+// Re-export the unified chatbot as ClientOnlyChatWidget
+export { UnifiedModernChatbot as ClientOnlyChatWidget } from './ChatWidget/UnifiedModernChatbot';

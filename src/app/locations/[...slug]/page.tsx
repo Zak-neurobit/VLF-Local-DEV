@@ -128,7 +128,7 @@ export async function generateStaticParams() {
     'bankruptcy-attorney',
   ];
 
-  const params = [];
+  const params: Array<{ slug: string[] }> = [];
 
   // Generate state/city combinations
   for (const city of ncCities) {

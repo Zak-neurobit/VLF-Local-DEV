@@ -483,7 +483,13 @@ export class ComplianceTracker extends EventEmitter {
     overallRisk: number;
     criticalIssues: number;
   }> {
-    const frameworks = [];
+    const frameworks: Array<{
+      id: string;
+      name: string;
+      status: string;
+      completionPercentage: number;
+      lastAudit: Date | null;
+    }> = [];
     let totalRisk = 0;
     let criticalIssues = 0;
 

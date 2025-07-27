@@ -1,0 +1,465 @@
+name: Setup Playwright Configuration
+
+on:
+  workflow_dispatch:
+    inputs:
+      create_config:
+        description: 'Create Playwright configuration files'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  setup-playwright:
+    name: Setup Playwright E2E Testing
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --frozen-lockfile
+
+      - name: Create Playwright configuration
+        if: github.event.inputs.create_config == 'true'
+        run: |
+          # Create playwright.config.ts
+          cat > playwright.config.ts << 'EOF'
+          import { defineConfig, devices } from '@playwright/test';
+
+          /**
+           * @see https://playwright.dev/docs/test-configuration
+           */
+          export default defineConfig({
+            testDir: './tests/e2e',
+            /* Run tests in files in parallel */
+            fullyParallel: true,
+            /* Fail the build on CI if you accidentally left test.only in the source code. */
+            forbidOnly: !!process.env.CI,
+            /* Retry on CI only */
+            retries: process.env.CI ? 2 : 0,
+            /* Opt out of parallel tests on CI. */
+            workers: process.env.CI ? 1 : undefined,
+            /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+            reporter: [
+              ['html'],
+              ['json', { outputFile: 'playwright-results.json' }],
+              ['junit', { outputFile: 'playwright-results.xml' }]
+            ],
+            /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+            use: {
+              /* Base URL to use in actions like `await page.goto('/')`. */
+              baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3000',
+
+              /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+              trace: 'on-first-retry',
+
+              /* Take screenshot on failure */
+              screenshot: 'only-on-failure',
+
+              /* Record video on failure */
+              video: 'retain-on-failure',
+            },
+
+            /* Configure projects for major browsers */
+            projects: [
+              {
+                name: 'chromium',
+                use: { ...devices['Desktop Chrome'] },
+              },
+
+              {
+                name: 'firefox',
+                use: { ...devices['Desktop Firefox'] },
+              },
+
+              {
+                name: 'webkit',
+                use: { ...devices['Desktop Safari'] },
+              },
+
+              /* Test against mobile viewports. */
+              {
+                name: 'Mobile Chrome',
+                use: { ...devices['Pixel 5'] },
+              },
+              {
+                name: 'Mobile Safari',
+                use: { ...devices['iPhone 12'] },
+              },
+
+              /* Test against branded browsers. */
+              // {
+              //   name: 'Microsoft Edge',
+              //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+              // },
+              // {
+              //   name: 'Google Chrome',
+              //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+              // },
+            ],
+
+            /* Run your local dev server before starting the tests */
+            webServer: {
+              command: 'npm start',
+              url: 'http://127.0.0.1:3000',
+              reuseExistingServer: !process.env.CI,
+              timeout: 120 * 1000,
+            },
+          });
+          EOF
+
+      - name: Create test directory structure
+        run: |
+          mkdir -p tests/e2e
+          mkdir -p tests/fixtures
+          mkdir -p tests/utils
+
+      - name: Create sample E2E tests
+        run: |
+          # Create homepage test
+          cat > tests/e2e/homepage.spec.ts << 'EOF'
+          import { test, expect } from '@playwright/test';
+
+          test.describe('Homepage', () => {
+            test('should load successfully', async ({ page }) => {
+              await page.goto('/');
+              
+              // Check that the page loads
+              await expect(page).toHaveTitle(/Vasquez Law Firm/i);
+              
+              // Check for main navigation
+              await expect(page.locator('nav')).toBeVisible();
+              
+              // Check for main content
+              await expect(page.locator('main')).toBeVisible();
+            });
+
+            test('should have working navigation', async ({ page }) => {
+              await page.goto('/');
+              
+              // Test navigation links
+              const aboutLink = page.locator('a[href*="/about"]').first();
+              if (await aboutLink.isVisible()) {
+                await aboutLink.click();
+                await expect(page).toHaveURL(/.*about/);
+              }
+            });
+
+            test('should be responsive', async ({ page }) => {
+              // Test mobile viewport
+              await page.setViewportSize({ width: 375, height: 667 });
+              await page.goto('/');
+              
+              // Check that page loads on mobile
+              await expect(page.locator('body')).toBeVisible();
+              
+              // Test tablet viewport
+              await page.setViewportSize({ width: 768, height: 1024 });
+              await page.reload();
+              
+              await expect(page.locator('body')).toBeVisible();
+            });
+          });
+          EOF
+
+          # Create contact form test
+          cat > tests/e2e/contact-form.spec.ts << 'EOF'
+          import { test, expect } from '@playwright/test';
+
+          test.describe('Contact Form', () => {
+            test('should display contact form', async ({ page }) => {
+              await page.goto('/contact');
+              
+              // Check for form elements
+              await expect(page.locator('form')).toBeVisible();
+              await expect(page.locator('input[type="text"]')).toBeVisible();
+              await expect(page.locator('input[type="email"]')).toBeVisible();
+              await expect(page.locator('textarea')).toBeVisible();
+            });
+
+            test('should validate required fields', async ({ page }) => {
+              await page.goto('/contact');
+              
+              // Try to submit empty form
+              const submitButton = page.locator('button[type="submit"]');
+              if (await submitButton.isVisible()) {
+                await submitButton.click();
+                
+                // Check for validation messages
+                const form = page.locator('form');
+                await expect(form).toBeVisible();
+              }
+            });
+
+            test('should accept valid form submission', async ({ page }) => {
+              await page.goto('/contact');
+              
+              // Fill out form with valid data
+              const nameInput = page.locator('input[name="name"]').first();
+              const emailInput = page.locator('input[name="email"]').first();
+              const messageInput = page.locator('textarea[name="message"]').first();
+              
+              if (await nameInput.isVisible()) {
+                await nameInput.fill('Test User');
+              }
+              if (await emailInput.isVisible()) {
+                await emailInput.fill('test@example.com');
+              }
+              if (await messageInput.isVisible()) {
+                await messageInput.fill('This is a test message for the contact form.');
+              }
+              
+              // Submit form
+              const submitButton = page.locator('button[type="submit"]');
+              if (await submitButton.isVisible()) {
+                await submitButton.click();
+                
+                // Wait for success message or redirect
+                await page.waitForTimeout(2000);
+              }
+            });
+          });
+          EOF
+
+          # Create accessibility test
+          cat > tests/e2e/accessibility.spec.ts << 'EOF'
+          import { test, expect } from '@playwright/test';
+          import AxeBuilder from '@axe-core/playwright';
+
+          test.describe('Accessibility', () => {
+            test('should not have any automatically detectable accessibility issues', async ({ page }) => {
+              await page.goto('/');
+              
+              const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+              
+              expect(accessibilityScanResults.violations).toEqual([]);
+            });
+
+            test('should be navigable with keyboard', async ({ page }) => {
+              await page.goto('/');
+              
+              // Test tab navigation
+              await page.keyboard.press('Tab');
+              
+              // Check that focus is visible
+              const focusedElement = await page.locator(':focus');
+              await expect(focusedElement).toBeVisible();
+            });
+
+            test('should have proper heading structure', async ({ page }) => {
+              await page.goto('/');
+              
+              // Check for h1
+              const h1 = page.locator('h1');
+              await expect(h1).toBeVisible();
+              
+              // Check heading hierarchy
+              const headings = await page.locator('h1, h2, h3, h4, h5, h6').all();
+              expect(headings.length).toBeGreaterThan(0);
+            });
+          });
+          EOF
+
+          # Create SEO test
+          cat > tests/e2e/seo.spec.ts << 'EOF'
+          import { test, expect } from '@playwright/test';
+
+          test.describe('SEO', () => {
+            test('should have proper meta tags', async ({ page }) => {
+              await page.goto('/');
+              
+              // Check title
+              await expect(page).toHaveTitle(/.+/);
+              
+              // Check meta description
+              const metaDescription = page.locator('meta[name="description"]');
+              await expect(metaDescription).toHaveAttribute('content', /.+/);
+              
+              // Check viewport meta tag
+              const viewport = page.locator('meta[name="viewport"]');
+              await expect(viewport).toHaveAttribute('content', /width=device-width/);
+            });
+
+            test('should have structured data', async ({ page }) => {
+              await page.goto('/');
+              
+              // Check for JSON-LD structured data
+              const structuredData = page.locator('script[type="application/ld+json"]');
+              const count = await structuredData.count();
+              
+              if (count > 0) {
+                const content = await structuredData.first().innerHTML();
+                expect(() => JSON.parse(content)).not.toThrow();
+              }
+            });
+
+            test('should have proper Open Graph tags', async ({ page }) => {
+              await page.goto('/');
+              
+              // Check for OG tags
+              const ogTitle = page.locator('meta[property="og:title"]');
+              const ogDescription = page.locator('meta[property="og:description"]');
+              const ogImage = page.locator('meta[property="og:image"]');
+              
+              // At least title should be present
+              await expect(ogTitle).toHaveAttribute('content', /.+/);
+            });
+          });
+          EOF
+
+      - name: Create test utilities
+        run: |
+          # Create test utilities
+          cat > tests/utils/test-helpers.ts << 'EOF'
+          import { Page, expect } from '@playwright/test';
+
+          export class TestHelpers {
+            constructor(private page: Page) {}
+
+            async waitForPageLoad() {
+              await this.page.waitForLoadState('networkidle');
+            }
+
+            async checkPageAccessibility() {
+              // Basic accessibility checks
+              const headings = await this.page.locator('h1, h2, h3, h4, h5, h6').count();
+              expect(headings).toBeGreaterThan(0);
+              
+              const images = await this.page.locator('img').all();
+              for (const img of images) {
+                const alt = await img.getAttribute('alt');
+                expect(alt).toBeTruthy();
+              }
+            }
+
+            async fillContactForm(data: {
+              name: string;
+              email: string;
+              message: string;
+            }) {
+              await this.page.fill('[name="name"]', data.name);
+              await this.page.fill('[name="email"]', data.email);
+              await this.page.fill('[name="message"]', data.message);
+            }
+
+            async checkMobileResponsiveness() {
+              // Test common mobile breakpoints
+              const viewports = [
+                { width: 375, height: 667 }, // iPhone SE
+                { width: 414, height: 896 }, // iPhone 11
+                { width: 768, height: 1024 }, // iPad
+              ];
+
+              for (const viewport of viewports) {
+                await this.page.setViewportSize(viewport);
+                await this.page.reload();
+                await this.waitForPageLoad();
+                
+                // Check that main content is visible
+                await expect(this.page.locator('main')).toBeVisible();
+              }
+            }
+          }
+          EOF
+
+          # Create fixtures
+          cat > tests/fixtures/test-data.ts << 'EOF'
+          export const testUsers = {
+            validUser: {
+              name: 'John Doe',
+              email: 'john.doe@example.com',
+              phone: '+1-555-123-4567',
+            },
+            invalidUser: {
+              name: '',
+              email: 'invalid-email',
+              phone: '123',
+            },
+          };
+
+          export const testContent = {
+            contactMessage: 'This is a test message for the contact form. It contains enough content to test form validation and submission.',
+            shortMessage: 'Test',
+            longMessage: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '.repeat(20),
+          };
+
+          export const pageUrls = {
+            home: '/',
+            about: '/about',
+            contact: '/contact',
+            attorneys: '/attorneys',
+            blog: '/blog',
+            spanish: '/es',
+          };
+          EOF
+
+      - name: Install Playwright and dependencies
+        run: |
+          # Install Playwright
+          npm install --save-dev @playwright/test @axe-core/playwright
+          
+          # Install browsers
+          npx playwright install
+
+      - name: Update package.json scripts
+        run: |
+          # Add Playwright scripts if they don't exist
+          node -e "
+            const fs = require('fs');
+            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            
+            // Add missing scripts
+            if (!pkg.scripts['test:e2e']) {
+              pkg.scripts['test:e2e'] = 'playwright test';
+            }
+            if (!pkg.scripts['test:e2e:ui']) {
+              pkg.scripts['test:e2e:ui'] = 'playwright test --ui';
+            }
+            if (!pkg.scripts['test:e2e:headed']) {
+              pkg.scripts['test:e2e:headed'] = 'playwright test --headed';
+            }
+            if (!pkg.scripts['test:e2e:debug']) {
+              pkg.scripts['test:e2e:debug'] = 'playwright test --debug';
+            }
+            
+            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+
+      - name: Create GitHub workflow summary
+        run: |
+          echo "## 🎭 Playwright E2E Testing Setup Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Files Created:" >> $GITHUB_STEP_SUMMARY
+          echo "- \`playwright.config.ts\` - Main Playwright configuration" >> $GITHUB_STEP_SUMMARY
+          echo "- \`tests/e2e/homepage.spec.ts\` - Homepage tests" >> $GITHUB_STEP_SUMMARY
+          echo "- \`tests/e2e/contact-form.spec.ts\` - Contact form tests" >> $GITHUB_STEP_SUMMARY
+          echo "- \`tests/e2e/accessibility.spec.ts\` - Accessibility tests" >> $GITHUB_STEP_SUMMARY
+          echo "- \`tests/e2e/seo.spec.ts\` - SEO tests" >> $GITHUB_STEP_SUMMARY
+          echo "- \`tests/utils/test-helpers.ts\` - Test utilities" >> $GITHUB_STEP_SUMMARY
+          echo "- \`tests/fixtures/test-data.ts\` - Test data fixtures" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Available Commands:" >> $GITHUB_STEP_SUMMARY
+          echo "- \`npm run test:e2e\` - Run all E2E tests" >> $GITHUB_STEP_SUMMARY
+          echo "- \`npm run test:e2e:ui\` - Run tests with UI mode" >> $GITHUB_STEP_SUMMARY
+          echo "- \`npm run test:e2e:headed\` - Run tests in headed mode" >> $GITHUB_STEP_SUMMARY
+          echo "- \`npm run test:e2e:debug\` - Run tests in debug mode" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Next Steps:" >> $GITHUB_STEP_SUMMARY
+          echo "1. Customize tests based on your application's features" >> $GITHUB_STEP_SUMMARY
+          echo "2. Add more test scenarios for critical user journeys" >> $GITHUB_STEP_SUMMARY
+          echo "3. Configure test data and environment variables" >> $GITHUB_STEP_SUMMARY
+          echo "4. Run \`npm run test:e2e\` to execute the test suite" >> $GITHUB_STEP_SUMMARY
+
+      - name: Test Playwright installation
+        run: |
+          echo "🧪 Testing Playwright installation..."
+          npx playwright --version
+          echo "✅ Playwright installation verified"

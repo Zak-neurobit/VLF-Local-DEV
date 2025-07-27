@@ -17,7 +17,7 @@ interface ScrollRevealOptions {
 }
 
 interface ScrollRevealReturn {
-  ref: React.RefObject<HTMLElement>;
+  ref: React.RefObject<HTMLElement | null>;
   isRevealed: boolean;
   controls: {
     opacity: number;
@@ -61,7 +61,7 @@ export function useScrollReveal({
 
   // Calculate initial transform based on origin
   const getInitialTransform = () => {
-    const transforms = [];
+    const transforms: string[] = [];
 
     switch (origin) {
       case 'bottom':

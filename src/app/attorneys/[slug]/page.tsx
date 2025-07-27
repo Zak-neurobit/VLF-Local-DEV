@@ -2,6 +2,9 @@ import { notFound } from 'next/navigation';
 import { logger } from '@/lib/safe-logger';
 import { Metadata } from 'next';
 
+// Enable ISR with 24 hour revalidation for attorney profiles
+export const revalidate = 86400; // 24 hours in seconds
+
 // Dynamic imports for each attorney page
 const attorneyPages = {
   'adrianna-ingram': () => import('../adrianna-ingram/page').then(mod => mod.default),

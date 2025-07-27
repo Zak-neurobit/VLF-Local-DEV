@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { motion } from 'framer-motion';
 import {
   Clock,
@@ -128,7 +127,7 @@ export const BlogPageTemplate: React.FC<BlogPageTemplateProps> = ({
   // Article Page Layout
   if (isArticlePage && currentPost) {
     return (
-      <MasterLayout variant="default" showBreadcrumbs={true}>
+      <>
         {/* Reading Progress Bar */}
         <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
           <motion.div className="h-full bg-blue-600" style={{ width: `${readingProgress}%` }} />
@@ -235,13 +234,13 @@ export const BlogPageTemplate: React.FC<BlogPageTemplateProps> = ({
             </section>
           )}
         </article>
-      </MasterLayout>
+      </>
     );
   }
 
   // Blog Listing Page
   return (
-    <MasterLayout variant="default" showBreadcrumbs={true}>
+    <>
       <div className="bg-white min-h-screen">
         {/* Header */}
         <section className="py-16 bg-gradient-to-r from-gray-50 to-gray-100">
@@ -360,7 +359,7 @@ export const BlogPageTemplate: React.FC<BlogPageTemplateProps> = ({
           </div>
         </section>
       </div>
-    </MasterLayout>
+    </>
   );
 };
 

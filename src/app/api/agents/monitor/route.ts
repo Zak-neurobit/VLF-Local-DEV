@@ -217,7 +217,8 @@ function generateAlerts(
     tasksByPriority: Record<string, number>;
   }
 ): Array<{ level: 'info' | 'warning' | 'error'; message: string; timestamp: Date }> {
-  const alerts = [];
+  const alerts: Array<{ level: 'info' | 'warning' | 'error'; message: string; timestamp: Date }> =
+    [];
 
   // Check for high error rates
   for (const [agentName, metric] of Object.entries(metrics)) {

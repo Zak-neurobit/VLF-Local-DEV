@@ -14,6 +14,20 @@ export interface ChatResponse {
   error?: string;
 }
 
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  createdAt: Date;
+  metadata?: {
+    quickResponse?: boolean;
+    intent?: string;
+    sentiment?: 'positive' | 'negative' | 'neutral';
+    extractedInfo?: Record<string, string | number | boolean>;
+    timestamp?: string;
+  } | null;
+}
+
 export interface ConversationHistoryResponse {
   conversation: {
     id: string;

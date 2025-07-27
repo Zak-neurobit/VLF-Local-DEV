@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Users, Trophy, Clock, Star } from 'lucide-react';
+import { block } from 'million/react';
 
 interface Stat {
   icon: React.ElementType;
@@ -43,7 +44,8 @@ const stats: Stat[] = [
   },
 ];
 
-function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string }) {
+// Create the original AnimatedNumber component
+function AnimatedNumberComponent({ value, suffix = '' }: { value: number; suffix?: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
@@ -76,6 +78,9 @@ function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string
     </span>
   );
 }
+
+// Create a block-optimized version
+const AnimatedNumber = block(AnimatedNumberComponent);
 
 export function AnimatedStats() {
   return (
@@ -131,7 +136,7 @@ export function AnimatedStats() {
                   transition={{ duration: 0.6 }}
                   className={`inline-flex p-4 rounded-full bg-gradient-to-br ${stat.color} mb-4`}
                 >
-                  <stat.icon className="w-8 h-8 text-white" />
+                  {React.createElement(stat.icon, { className: 'w-8 h-8 text-white' })}
                 </motion.div>
 
                 {/* Number */}

@@ -1,5 +1,4 @@
 import React from 'react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Button } from '@/design-system/components/Button';
 import { Section, Heading, Text } from './TemplateComponents';
 import { COLORS } from '@/design-system/constants';
@@ -24,7 +23,7 @@ export const PracticeAreaTemplate: React.FC<PracticeAreaTemplateProps> = ({
   content,
 }) => {
   return (
-    <MasterLayout>
+    <>
       {/* Hero Section with Consistent Design */}
       <Section
         variant="gradient"
@@ -94,7 +93,7 @@ export const PracticeAreaTemplate: React.FC<PracticeAreaTemplateProps> = ({
           </div>
         </div>
       </Section>
-    </MasterLayout>
+    </>
   );
 };
 

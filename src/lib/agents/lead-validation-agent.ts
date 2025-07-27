@@ -364,7 +364,7 @@ export class LeadValidationAgent extends Agent {
     tier: string,
     _score: number
   ): string[] {
-    const recommendations = [];
+    const recommendations: string[] = [];
 
     if (tier === 'hot') {
       recommendations.push('Schedule immediate consultation within 24 hours');
@@ -393,7 +393,7 @@ export class LeadValidationAgent extends Agent {
   }
 
   private getRejectionReasons(leadData: LeadData): string[] {
-    const reasons = [];
+    const reasons: string[] = [];
 
     if (!leadData.phone || leadData.phone.length < 10) {
       reasons.push('Invalid or missing phone number');
@@ -460,7 +460,7 @@ export class LeadValidationAgent extends Agent {
 
   private identifyPracticeAreas(leadData: { message: string; practiceArea?: string }): string[] {
     const message = leadData.message.toLowerCase();
-    const areas = [];
+    const areas: string[] = [];
 
     const practiceAreaKeywords = {
       'family-immigration': ['family', 'spouse', 'parent', 'child', 'petition', 'i-130'],

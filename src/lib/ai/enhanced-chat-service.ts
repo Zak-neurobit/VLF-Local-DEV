@@ -680,7 +680,7 @@ export class EnhancedChatService extends EventEmitter {
    * Generate follow-up actions
    */
   private generateFollowUpActions(agentResponse: AgentResponse, context: EnhancedMessageContext) {
-    const actions = [];
+    const actions: Array<{ type: string; delay: number; content: string }> = [];
 
     // Add scheduling follow-up for consultation intents
     if (context.metadata.intentAnalysis?.primary === 'consultation') {

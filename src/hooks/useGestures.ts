@@ -150,7 +150,7 @@ export function useShakeDetection(onShake: () => void, threshold = 15) {
 // Long press detection
 export function useLongPress(callback: () => void, delay = 500) {
   const [isPressed, setIsPressed] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const start = () => {
     setIsPressed(true);
@@ -196,7 +196,10 @@ export function useDoubleTap(callback: () => void, delay = 300) {
 
 // Drag to reorder hook
 export function useDragToReorder<T>(items: T[], onReorder: (newItems: T[]) => void) {
-  const handleDragEnd = (result: { source: { index: number }; destination?: { index: number } }) => {
+  const handleDragEnd = (result: {
+    source: { index: number };
+    destination?: { index: number };
+  }) => {
     if (!result.destination) return;
 
     const newItems = Array.from(items);

@@ -64,29 +64,38 @@ jest.mock('@/lib/utils/browser', () => ({
   addWindowListener: jest.fn(() => jest.fn()),
 }));
 
-// Mock Bull queue
-jest.mock('bull', () => {
-  return jest.fn().mockImplementation(() => ({
-    add: jest.fn().mockResolvedValue({ id: '123' }),
-    process: jest.fn(),
-    on: jest.fn(),
-    close: jest.fn(),
-    getJob: jest.fn(),
-    getJobs: jest.fn().mockResolvedValue([]),
-    empty: jest.fn(),
-    clean: jest.fn(),
-    pause: jest.fn(),
-    resume: jest.fn(),
-    isPaused: jest.fn().mockResolvedValue(false),
-    getJobCounts: jest.fn().mockResolvedValue({
-      waiting: 0,
-      active: 0,
-      completed: 0,
-      failed: 0,
-      delayed: 0,
-    }),
-  }));
-});
+// Mock Bull queue - virtual mock since bull package is not installed
+jest.mock(
+  'bull',
+  () => {
+    return jest.fn().mockImplementation(() => ({
+      add: jest.fn().mockResolvedValue({ id: '123' }),
+      process: jest.fn(),
+      on: jest.fn(),
+      close: jest.fn(),
+      getJob: jest.fn(),
+      getJobs: jest.fn().mockResolvedValue([]),
+      empty: jest.fn(),
+      clean: jest.fn(),
+      pause: jest.fn(),
+      resume: jest.fn(),
+      isPaused: jest.fn().mockResolvedValue(false),
+      getJobCounts: jest.fn().mockResolvedValue({
+        waiting: 0,
+        active: 0,
+        completed: 0,
+        failed: 0,
+        delayed: 0,
+      }),
+      getWaitingCount: jest.fn().mockResolvedValue(0),
+      getActiveCount: jest.fn().mockResolvedValue(0),
+      getCompletedCount: jest.fn().mockResolvedValue(0),
+      getFailedCount: jest.fn().mockResolvedValue(0),
+      getDelayedCount: jest.fn().mockResolvedValue(0),
+    }));
+  },
+  { virtual: true }
+);
 
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
@@ -113,6 +122,42 @@ jest.mock('next/image', () => ({
   __esModule: true,
   default: () => null,
 }));
+
+// lucide-react is now mocked via __mocks__/lucide-react.js
+
+// Mock @radix-ui components that might cause issues
+jest.mock('@radix-ui/react-select', () => ({
+  __esModule: true,
+  Root: ({ children }: { children: React.ReactNode }) => children,
+  Trigger: ({ children }: { children: React.ReactNode }) =>
+    React.createElement('div', {}, children),
+  Content: ({ children }: { children: React.ReactNode }) =>
+    React.createElement('div', {}, children),
+  Item: ({ children }: { children: React.ReactNode }) => React.createElement('div', {}, children),
+  Value: ({ children }: { children: React.ReactNode }) => React.createElement('span', {}, children),
+  Icon: () => null,
+  Viewport: ({ children }: { children: React.ReactNode }) =>
+    React.createElement('div', {}, children),
+  ScrollUpButton: () => null,
+  ScrollDownButton: () => null,
+}));
+
+// Mock other potentially problematic imports
+jest.mock(
+  'bullmq',
+  () => ({
+    __esModule: true,
+    Queue: jest.fn().mockImplementation(() => ({
+      add: jest.fn().mockResolvedValue({ id: '123' }),
+      process: jest.fn(),
+      on: jest.fn(),
+      close: jest.fn(),
+    })),
+    Worker: jest.fn(),
+    default: jest.fn(),
+  }),
+  { virtual: true }
+);
 
 // Mock framer-motion
 jest.mock('framer-motion', () => {

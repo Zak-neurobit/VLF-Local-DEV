@@ -2,13 +2,15 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { block } from 'million/react';
 
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg';
   className?: string;
 }
 
-export function LoadingSpinner({ size = 'md', className }: LoadingSpinnerProps) {
+// Create the original LoadingSpinner component
+function LoadingSpinnerComponent({ size = 'md', className }: LoadingSpinnerProps) {
   const sizeClasses = {
     sm: 'h-4 w-4',
     md: 'h-8 w-8',
@@ -27,13 +29,17 @@ export function LoadingSpinner({ size = 'md', className }: LoadingSpinnerProps) 
   );
 }
 
+// Create a block-optimized version
+export const LoadingSpinner = block(LoadingSpinnerComponent);
+
 interface SkeletonProps {
   className?: string;
   variant?: 'text' | 'rectangular' | 'circular';
   animation?: 'pulse' | 'wave' | 'none';
 }
 
-export function Skeleton({
+// Create the original Skeleton component
+function SkeletonComponent({
   className,
   variant = 'rectangular',
   animation = 'pulse',
@@ -59,13 +65,17 @@ export function Skeleton({
   );
 }
 
+// Create a block-optimized version
+export const Skeleton = block(SkeletonComponent);
+
 interface ContentLoaderProps {
   lines?: number;
   showAvatar?: boolean;
   className?: string;
 }
 
-export function ContentLoader({ lines = 3, showAvatar = false, className }: ContentLoaderProps) {
+// Create the original ContentLoader component
+function ContentLoaderComponent({ lines = 3, showAvatar = false, className }: ContentLoaderProps) {
   return (
     <div className={cn('space-y-3', className)}>
       {showAvatar && (
@@ -88,6 +98,9 @@ export function ContentLoader({ lines = 3, showAvatar = false, className }: Cont
     </div>
   );
 }
+
+// Create a block-optimized version
+export const ContentLoader = block(ContentLoaderComponent);
 
 interface LoadingOverlayProps {
   visible: boolean;

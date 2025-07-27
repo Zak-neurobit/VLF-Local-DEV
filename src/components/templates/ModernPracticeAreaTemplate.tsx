@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, memo } from 'react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Button } from '@/design-system/components/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, MessageCircle, ChevronRight, Shield, Award, Clock, Users } from 'lucide-react';
@@ -102,7 +101,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
   ];
 
   return (
-    <MasterLayout variant="hero" showBreadcrumbs={true}>
+    <>
       <div className="min-h-screen bg-black">
         {/* Language Toggle */}
         <motion.div
@@ -647,7 +646,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
           faqs={faqs}
         />
       </div>
-    </MasterLayout>
+    </>
   );
 };
 

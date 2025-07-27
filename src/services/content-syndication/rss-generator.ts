@@ -270,8 +270,6 @@ export class RSSFeedGenerator {
       case 'news':
         // TODO: Implement newsArticle model
         // content = await prisma.newsArticle.findMany({
-        content = [];
-        break;
         /*
           where,
           orderBy: { publishedAt: 'desc' },
@@ -281,6 +279,7 @@ export class RSSFeedGenerator {
           },
         });
         */
+        content = [];
         break;
 
       case 'podcast':

@@ -624,7 +624,7 @@ export class LegalCalculatorEngine {
 
   // Recommendation generators
   private generatePersonalInjuryRecommendations(inputs: any, totalDamages: number): string[] {
-    const recommendations = [];
+    const recommendations: string[] = [];
 
     if (totalDamages > 100000) {
       recommendations.push(
@@ -652,7 +652,7 @@ export class LegalCalculatorEngine {
   }
 
   private generateImmigrationRecommendations(inputs: any, successProbability: number): string[] {
-    const recommendations = [];
+    const recommendations: string[] = [];
 
     if (successProbability < 60) {
       recommendations.push('Your case has complications that require expert legal guidance.');
@@ -676,7 +676,7 @@ export class LegalCalculatorEngine {
   }
 
   private generateWorkersCompRecommendations(inputs: any, totalBenefits: number): string[] {
-    const recommendations = [];
+    const recommendations: string[] = [];
 
     if (inputs.injuryType.includes('permanent')) {
       recommendations.push(
@@ -694,7 +694,7 @@ export class LegalCalculatorEngine {
   }
 
   private generateCriminalDefenseRecommendations(inputs: any, baseSentence: number): string[] {
-    const recommendations = [];
+    const recommendations: string[] = [];
 
     if (inputs.chargeType === 'felony') {
       recommendations.push(
@@ -720,7 +720,7 @@ export class LegalCalculatorEngine {
   }
 
   private generateFamilyLawRecommendations(inputs: any): string[] {
-    const recommendations = [];
+    const recommendations: string[] = [];
 
     if (inputs.childrenCount > 0) {
       recommendations.push('Focus on the best interests of the children in all decisions.');
@@ -749,7 +749,7 @@ export class LegalCalculatorEngine {
   }
 
   private getImmigrationNextSteps(inputs: any): string[] {
-    const steps = [];
+    const steps: string[] = [];
 
     switch (inputs.visaType) {
       case 'family':

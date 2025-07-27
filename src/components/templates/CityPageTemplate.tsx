@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Button } from '@/design-system/components/Button';
 import { motion } from 'framer-motion';
 import {
@@ -102,7 +101,7 @@ export function CityPageTemplate({ city, nearbyOffice, content }: CityPageTempla
   });
 
   return (
-    <MasterLayout variant="hero" showBreadcrumbs={true}>
+    <>
       <div className="min-h-screen bg-black">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-24">
@@ -421,7 +420,7 @@ export function CityPageTemplate({ city, nearbyOffice, content }: CityPageTempla
           }}
         />
       </div>
-    </MasterLayout>
+    </>
   );
 }
 

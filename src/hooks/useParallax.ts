@@ -11,7 +11,7 @@ interface ParallaxOptions {
 }
 
 interface ParallaxReturn {
-  ref: RefObject<HTMLElement>;
+  ref: RefObject<HTMLElement | null>;
   y: MotionValue<number>;
   scale: MotionValue<number>;
   opacity: MotionValue<number>;

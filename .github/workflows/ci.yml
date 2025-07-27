@@ -1,0 +1,485 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop, 'upgrade/**', 'feature/**', 'hotfix/**']
+  pull_request:
+    branches: [main, develop]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '20'
+  CACHE_VERSION: v1
+
+jobs:
+  # Fast validation jobs run in parallel
+  validate:
+    name: Validate Environment & Dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      cache-key: ${{ steps.cache-key.outputs.key }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Generate cache key
+        id: cache-key
+        run: |
+          echo "key=${{ env.CACHE_VERSION }}-${{ runner.os }}-node${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}" >> $GITHUB_OUTPUT
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            .next/cache
+          key: ${{ steps.cache-key.outputs.key }}
+          restore-keys: |
+            ${{ env.CACHE_VERSION }}-${{ runner.os }}-node${{ env.NODE_VERSION }}-
+
+      - name: Install dependencies
+        run: npm ci --frozen-lockfile
+
+      - name: Validate package.json
+        run: npm run validate:env || echo "Environment validation script not found, skipping..."
+
+      - name: Check for vulnerabilities
+        run: npm audit --audit-level=high
+
+  # Quality checks run in parallel
+  lint:
+    name: Lint & Format Check
+    runs-on: ubuntu-latest
+    needs: validate
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            .next/cache
+          key: ${{ needs.validate.outputs.cache-key }}
+
+      - name: Install dependencies
+        run: npm ci --frozen-lockfile
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Check Prettier formatting
+        run: npx prettier --check .
+
+      - name: Check for TypeScript issues
+        run: npm run type-check
+
+  test-unit:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: validate
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        node-version: ['18', '20', '22']
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            .next/cache
+          key: ${{ needs.validate.outputs.cache-key }}
+
+      - name: Install dependencies
+        run: npm ci --frozen-lockfile
+
+      - name: Create test environment
+        run: |
+          cat > .env.test << EOF
+          NODE_ENV=test
+          NEXT_PUBLIC_APP_URL=http://localhost:3000
+          DATABASE_URL=postgresql://test:test@localhost:5432/test
+          NEXTAUTH_URL=http://localhost:3000
+          NEXTAUTH_SECRET=test-secret-key-that-is-at-least-32-characters-long
+          OPENAI_API_KEY=sk-test-key-for-validation-only
+          SKIP_ENV_VALIDATION=true
+          EOF
+
+      - name: Run unit tests
+        run: npm run test:coverage
+
+      - name: Upload coverage to Codecov
+        if: matrix.node-version == '20'
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+
+  security-scan:
+    name: Security Scanning
+    runs-on: ubuntu-latest
+    needs: validate
+    timeout-minutes: 20
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            .next/cache
+          key: ${{ needs.validate.outputs.cache-key }}
+
+      - name: Install dependencies
+        run: npm ci --frozen-lockfile
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          queries: security-extended,security-and-quality
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+      - name: Run dependency vulnerability scan
+        run: npm audit --audit-level=moderate
+
+      - name: Scan for secrets
+        uses: trufflesecurity/trufflehog@main
+        with:
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+          path: ./
+
+  build:
+    name: Build Application
+    runs-on: ubuntu-latest
+    needs: [validate, lint]
+    timeout-minutes: 25
+    env:
+      NODE_OPTIONS: '--max-old-space-size=8192'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            .next/cache
+          key: ${{ needs.validate.outputs.cache-key }}
+
+      - name: Install dependencies
+        run: npm ci --frozen-lockfile
+
+      - name: Create build environment
+        run: |
+          cat > .env.local << EOF
+          NODE_ENV=production
+          NEXT_PUBLIC_APP_URL=https://example.com
+          DATABASE_URL=postgresql://build:build@localhost:5432/build
+          NEXTAUTH_URL=https://example.com
+          NEXTAUTH_SECRET=build-secret-key-that-is-at-least-32-characters-long-for-testing
+          OPENAI_API_KEY=sk-build-key-for-testing-only
+          SKIP_ENV_VALIDATION=true
+          EOF
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      - name: Build application
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            .next/
+            dist/
+          retention-days: 1
+
+  # End-to-end testing with Playwright
+  test-e2e:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    needs: [build, test-unit]
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            .next/cache
+          key: ${{ needs.validate.outputs.cache-key }}
+
+      - name: Install dependencies
+        run: npm ci --frozen-lockfile
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: ./
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox webkit
+
+      - name: Create E2E test environment
+        run: |
+          cat > .env.local << EOF
+          NODE_ENV=test
+          NEXT_PUBLIC_APP_URL=http://localhost:3000
+          DATABASE_URL=postgresql://test:test@localhost:5432/test
+          NEXTAUTH_URL=http://localhost:3000
+          NEXTAUTH_SECRET=e2e-test-secret-key-that-is-at-least-32-characters-long
+          OPENAI_API_KEY=sk-e2e-test-key-for-validation-only
+          SKIP_ENV_VALIDATION=true
+          EOF
+
+      - name: Run database migrations
+        run: npx prisma db push --force-reset
+
+      - name: Start application
+        run: |
+          npm start &
+          sleep 10
+          curl -f http://localhost:3000 || exit 1
+
+      - name: Run E2E tests
+        run: npm run test:e2e
+
+      - name: Upload E2E test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  # Performance testing with Lighthouse
+  performance:
+    name: Performance Testing
+    runs-on: ubuntu-latest
+    needs: [build]
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            .next/cache
+          key: ${{ needs.validate.outputs.cache-key }}
+
+      - name: Install dependencies
+        run: npm ci --frozen-lockfile
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: ./
+
+      - name: Create performance test environment
+        run: |
+          cat > .env.local << EOF
+          NODE_ENV=production
+          NEXT_PUBLIC_APP_URL=http://localhost:3000
+          DATABASE_URL=postgresql://perf:perf@localhost:5432/perf
+          NEXTAUTH_URL=http://localhost:3000
+          NEXTAUTH_SECRET=perf-test-secret-key-that-is-at-least-32-characters-long
+          OPENAI_API_KEY=sk-perf-test-key-for-validation-only
+          SKIP_ENV_VALIDATION=true
+          EOF
+
+      - name: Start application for performance testing
+        run: |
+          npm start &
+          sleep 15
+          curl -f http://localhost:3000 || exit 1
+
+      - name: Install Lighthouse
+        run: npm install -g lighthouse
+
+      - name: Run Lighthouse audit
+        run: |
+          lighthouse http://localhost:3000 \
+            --output=json \
+            --output=html \
+            --output-path=./lighthouse-results \
+            --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+            --preset=desktop
+
+      - name: Check Lighthouse scores
+        run: |
+          node -e "
+            const fs = require('fs');
+            const results = JSON.parse(fs.readFileSync('./lighthouse-results.report.json'));
+            const scores = results.lhr.categories;
+            
+            const thresholds = {
+              performance: 0.85,
+              accessibility: 0.95,
+              'best-practices': 0.90,
+              seo: 0.90
+            };
+            
+            let failed = false;
+            for (const [category, threshold] of Object.entries(thresholds)) {
+              const score = scores[category].score;
+              console.log(\`\${category}: \${Math.round(score * 100)}/100 (threshold: \${Math.round(threshold * 100)})\`);
+              if (score < threshold) {
+                console.error(\`❌ \${category} score \${Math.round(score * 100)} is below threshold \${Math.round(threshold * 100)}\`);
+                failed = true;
+              } else {
+                console.log(\`✅ \${category} score \${Math.round(score * 100)} meets threshold\`);
+              }
+            }
+            
+            if (failed) {
+              console.error('Performance thresholds not met!');
+              process.exit(1);
+            }
+            console.log('All performance thresholds met!');
+          "
+
+      - name: Upload Lighthouse results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-results
+          path: lighthouse-results.*
+          retention-days: 7
+
+  # Quality gate - all checks must pass
+  quality-gate:
+    name: Quality Gate
+    runs-on: ubuntu-latest
+    needs: [lint, test-unit, security-scan, test-e2e, performance]
+    if: always()
+    timeout-minutes: 5
+    steps:
+      - name: Check all jobs status
+        run: |
+          if [[ "${{ needs.lint.result }}" != "success" ]]; then
+            echo "❌ Lint checks failed"
+            exit 1
+          fi
+          if [[ "${{ needs.test-unit.result }}" != "success" ]]; then
+            echo "❌ Unit tests failed"
+            exit 1
+          fi
+          if [[ "${{ needs.security-scan.result }}" != "success" ]]; then
+            echo "❌ Security scan failed"
+            exit 1
+          fi
+          if [[ "${{ needs.test-e2e.result }}" != "success" ]]; then
+            echo "❌ E2E tests failed"
+            exit 1
+          fi
+          if [[ "${{ needs.performance.result }}" != "success" ]]; then
+            echo "❌ Performance tests failed"
+            exit 1
+          fi
+          echo "✅ All quality checks passed!"
+
+      - name: Quality Gate Summary
+        run: |
+          echo "## Quality Gate Results" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Lint & Format | ${{ needs.lint.result == 'success' && '✅ Passed' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Unit Tests | ${{ needs.test-unit.result == 'success' && '✅ Passed' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Security Scan | ${{ needs.security-scan.result == 'success' && '✅ Passed' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| E2E Tests | ${{ needs.test-e2e.result == 'success' && '✅ Passed' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Performance | ${{ needs.performance.result == 'success' && '✅ Passed' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY

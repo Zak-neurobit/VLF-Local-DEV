@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -32,7 +32,6 @@ export const Button: React.FC<ButtonProps> = ({
   className = '',
   type = 'button',
   style,
-  ...rest
 }) => {
   const baseClasses =
     'inline-flex items-center justify-center font-semibold rounded-full transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2';
@@ -66,20 +65,41 @@ export const Button: React.FC<ButtonProps> = ({
     </>
   );
 
-  // Determine component to render
-  const Component = as || (href ? Link : motion.button);
+  // Handle custom component
+  if (as) {
+    const Component = as;
+    return React.createElement(
+      Component,
+      {
+        className: classes,
+        style,
+        onClick,
+        disabled,
+      },
+      content
+    );
+  }
 
-  // Prepare props based on component type
-  const componentProps = {
-    className: classes,
-    style,
-    ...rest,
-    ...(href && { href }),
-    ...(onClick && { onClick }),
-    ...(type && !as && !href && { type }),
-    ...(disabled && { disabled }),
-    ...(!as && !href && { whileTap: { scale: disabled ? 1 : 0.95 } }),
-  };
+  // Handle link
+  if (href) {
+    return (
+      <Link href={href} className={classes} style={style}>
+        {content}
+      </Link>
+    );
+  }
 
-  return <Component {...componentProps}>{content}</Component>;
+  // Handle button
+  return (
+    <motion.button
+      className={classes}
+      style={style}
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
+      whileTap={{ scale: disabled ? 1 : 0.95 }}
+    >
+      {content}
+    </motion.button>
+  );
 };

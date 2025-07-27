@@ -83,7 +83,7 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
                 'data:image/svg+xml;charset=UTF-8,' +
                 encodeURIComponent(`
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="10" cy="10" r="8" fill="#C9974D" stroke="#6B1F2E" stroke-width="2"/>
+                  <circle cx="10" cy="10" r="8" fill="#C9974D" stroke="#6B1F2E" strokeWidth="2"/>
                   <circle cx="10" cy="10" r="3" fill="#6B1F2E"/>
                 </svg>
               `),

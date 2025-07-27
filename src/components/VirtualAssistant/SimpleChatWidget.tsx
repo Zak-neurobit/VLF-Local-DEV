@@ -1,2 +1,2 @@
-// Re-export SimpleChatWidget from the consolidated component
-export { SimpleChatWidget } from '../ChatWidget/ConsolidatedChatWidget';
+// Re-export unified chatbot
+export { UnifiedModernChatbot as SimpleChatWidget } from '@/components/ChatWidget/UnifiedModernChatbot';

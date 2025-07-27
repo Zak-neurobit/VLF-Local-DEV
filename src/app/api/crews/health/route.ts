@@ -269,7 +269,12 @@ interface APIConnectionResult {
 }
 
 async function checkAPIConnections(): Promise<APIConnectionResult> {
-  const connections = [];
+  const connections: Array<{
+    name: string;
+    status: string;
+    latency?: number;
+    error?: string;
+  }> = [];
 
   // Check OpenAI API
   try {

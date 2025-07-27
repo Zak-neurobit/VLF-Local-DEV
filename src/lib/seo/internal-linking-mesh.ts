@@ -175,7 +175,14 @@ export function generateContextualLinks(
 
 // Generate footer mega-links section
 export function generateFooterMegaLinks() {
-  const sections = [];
+  const sections: Array<{
+    title: string;
+    links: Array<{
+      text: string;
+      href: string;
+      priority: boolean;
+    }>;
+  }> = [];
 
   // Major cities section
   const citiesSection = {

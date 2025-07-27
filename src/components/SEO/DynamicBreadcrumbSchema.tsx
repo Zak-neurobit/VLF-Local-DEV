@@ -49,7 +49,7 @@ export function DynamicBreadcrumbSchema() {
   // Generate breadcrumb items
   const paths = pathname.split('/').filter(Boolean);
   const isSpanish = paths[0] === 'es';
-  const items = [];
+  const items: Array<{ name: string; url: string }> = [];
 
   // Add home
   items.push({

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Check, X, Users, Car, Shield, Heart } from 'lucide-react';
 import Link from 'next/link';
+import { block } from 'million/react';
 
 interface Service {
   id: string;
@@ -103,7 +104,7 @@ export function InteractiveServices() {
                     whileHover={{ scale: 1.1 }}
                     className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${service.color}`}
                   >
-                    <service.icon className="w-8 h-8 text-white" />
+                    {React.createElement(service.icon, { className: 'w-8 h-8 text-white' })}
                   </motion.div>
 
                   {/* Floating Badge */}
@@ -196,7 +197,9 @@ export function InteractiveServices() {
                 </button>
                 <div className="flex items-center gap-4">
                   <div className="p-4 bg-white/20 backdrop-blur-sm rounded-2xl">
-                    <selectedService.icon className="w-12 h-12 text-white" />
+                    {React.createElement(selectedService.icon, {
+                      className: 'w-12 h-12 text-white',
+                    })}
                   </div>
                   <div>
                     <h3 className="text-3xl font-bold text-white mb-2">{selectedService.title}</h3>

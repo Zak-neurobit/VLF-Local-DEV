@@ -4,7 +4,8 @@ import { Metadata } from 'next';
 import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
 export const metadata: Metadata = {
-  title: 'Abogado de Defensa Criminal Cerca De Mí Greensboro NC | Disponible 24/7 | Consulta Gratuita',
+  title:
+    'Abogado de Defensa Criminal Cerca De Mí Greensboro NC | Disponible 24/7 | Consulta Gratuita',
   description:
     '¿Busca un abogado de defensa criminal cerca de usted en Greensboro? ⭐ Calificación 5 Estrellas • 60+ Años de Experiencia • Se Habla Español • Citas el Mismo Día • Llame 1-844-YO-PELEO',
   keywords:
@@ -25,15 +26,15 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function GreensboroAbogadodefensacriminalCercaDeMiPage() {
   const post = {
     id: 'greensboro-abogado-defensa-criminal-cerca-de-mi',
     title: 'Abogado de Defensa Criminal Cerca De Mí en Greensboro',
     slug: 'greensboro-abogado-defensa-criminal-cerca-de-mi',
-    excerpt: 'Abogado de Defensa Criminal experimentado en Greensboro, NC. Consulta gratuita disponible 24/7.',
+    excerpt:
+      'Abogado de Defensa Criminal experimentado en Greensboro, NC. Consulta gratuita disponible 24/7.',
     content: `
-      <div class="prose prose-lg max-w-none">
+      <div className="prose prose-lg max-w-none">
         <h1>Abogado de Defensa Criminal Cerca De Mí en Greensboro, NC</h1>
         
         <p>¿Necesita un abogado de defensa criminal cerca de usted en Greensboro? Vasquez Law Firm es su mejor opción. Con más de 60 años de experiencia combinada, nuestro equipo bilingüe está listo para luchar por sus derechos.</p>
@@ -88,18 +89,18 @@ export default function GreensboroAbogadodefensacriminalCercaDeMiPage() {
 
         <h2>📞 Contacte a Su Abogado de Defensa Criminal en Greensboro Hoy</h2>
         
-        <div class="bg-blue-50 p-6 rounded-lg mt-8">
-          <h3 class="text-xl font-bold text-blue-800 mb-4">📞 Llame Ahora - Consulta Gratuita</h3>
-          <p class="text-lg font-bold text-blue-700">1-844-YO-PELEO (1-844-967-3536)</p>
-          <p class="text-blue-700 mt-2">Disponible 24/7 para emergencias legales</p>
+        <div className="bg-blue-50 p-6 rounded-lg mt-8">
+          <h3 className="text-xl font-bold text-blue-800 mb-4">📞 Llame Ahora - Consulta Gratuita</h3>
+          <p className="text-lg font-bold text-blue-700">1-844-YO-PELEO (1-844-967-3536)</p>
+          <p className="text-blue-700 mt-2">Disponible 24/7 para emergencias legales</p>
         </div>
 
         <h2>⭐ Lo Que Dicen Nuestros Clientes de Greensboro</h2>
-        <blockquote class="border-l-4 border-blue-500 pl-6 italic text-gray-700">
+        <blockquote className="border-l-4 border-blue-500 pl-6 italic text-gray-700">
           "Vasquez Law Firm me ayudó enormemente con mi caso. Su equipo en Greensboro fue increíblemente profesional y siempre estuvieron disponibles para responder mis preguntas." - Cliente Satisfecho, Greensboro
         </blockquote>
 
-        <p class="text-center text-lg font-bold mt-8">🚀 Su futuro comienza con una llamada. ¡Contacte a Vasquez Law Firm hoy mismo\!</p>
+        <p className="text-center text-lg font-bold mt-8">🚀 Su futuro comienza con una llamada. ¡Contacte a Vasquez Law Firm hoy mismo\!</p>
       </div>
     `,
     practiceArea: 'criminal-defense',

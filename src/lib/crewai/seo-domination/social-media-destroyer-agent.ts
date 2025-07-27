@@ -673,7 +673,7 @@ Format as JSON with:
 
   private async analyzeCompetitorVirals(): Promise<CompetitorPost[]> {
     // Analyze recent viral posts from competitors
-    const viralPosts = [];
+    const viralPosts: CompetitorPost[] = [];
 
     // In production, would fetch actual data
     viralPosts.push({

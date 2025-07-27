@@ -14,7 +14,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function IfIAmConvictedOfACrimeWillIGetDeportedPage() {
   // TODO: Extract content from original file and format properly
   const post = {
@@ -23,7 +22,7 @@ export default function IfIAmConvictedOfACrimeWillIGetDeportedPage() {
     slug: 'if-i-am-convicted-of-a-crime-will-i-get-deported',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `
-      <div class="prose prose-lg max-w-none">
+      <div className="prose prose-lg max-w-none">
         <!-- TODO: Migrate content from original file -->
         <p>This content needs to be migrated from the original file.</p>
       </div>

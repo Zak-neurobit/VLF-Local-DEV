@@ -8,7 +8,6 @@ export const metadata: Metadata = {
     'Manage CrewAI agents, monitor performance, and control automation for legal services',
 };
 
-
 export default function AgentsPage() {
   // TODO: Extract content from original file and format properly
   const post = {
@@ -17,7 +16,7 @@ export default function AgentsPage() {
     slug: 'agents',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `
-      <div class="prose prose-lg max-w-none">
+      <div className="prose prose-lg max-w-none">
         <!-- TODO: Migrate content from original file -->
         <p>This content needs to be migrated from the original file.</p>
       </div>

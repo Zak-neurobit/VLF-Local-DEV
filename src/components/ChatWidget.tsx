@@ -1,2 +1,2 @@
-// Re-export the consolidated ChatWidget
-export { ChatWidget, SimpleChatWidget } from './ChatWidget/ConsolidatedChatWidget';
+// Re-export from ChatWidget directory
+export { ChatWidget, SimpleChatWidget } from './ChatWidget/index';

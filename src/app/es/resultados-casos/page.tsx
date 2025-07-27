@@ -15,7 +15,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function ResultadosCasosPage() {
   const post = {
     id: 'resultados-casos',
@@ -24,7 +23,7 @@ export default function ResultadosCasosPage() {
     excerpt:
       'Vea nuestros resultados exitosos representando a clientes en casos de inmigración, lesiones personales, defensa criminal y compensación laboral.',
     content: `
-      <div class="prose prose-lg max-w-none">
+      <div className="prose prose-lg max-w-none">
         <h2>Victorias Reales para Clientes Reales</h2>
         
         <p>En el Bufete de Abogados Vasquez, PLLC, medimos nuestro éxito por los resultados que obtenemos para nuestros clientes. Con más de 30,000 casos exitosos, hemos ayudado a miles de familias a superar sus desafíos legales más difíciles.</p>
@@ -73,20 +72,20 @@ export default function ResultadosCasosPage() {
         
         <h3>Lo Que Dicen Nuestros Clientes</h3>
         
-        <blockquote class="border-l-4 border-blue-500 pl-4 my-6">
+        <blockquote className="border-l-4 border-blue-500 pl-4 my-6">
           <p>"El equipo de Vasquez Law Firm luchó incansablemente por mi familia. Después de años de incertidumbre, finalmente tenemos nuestras tarjetas verdes. ¡No hay palabras para expresar nuestra gratitud!"</p>
-          <footer class="text-sm text-gray-600 mt-2">- María G., Cliente de Inmigración</footer>
+          <footer className="text-sm text-gray-600 mt-2">- María G., Cliente de Inmigración</footer>
         </blockquote>
         
-        <blockquote class="border-l-4 border-blue-500 pl-4 my-6">
+        <blockquote className="border-l-4 border-blue-500 pl-4 my-6">
           <p>"Después de mi accidente, no sabía cómo pagaría mis facturas médicas. William y su equipo obtuvieron una compensación que superó mis expectativas. Verdaderamente pelean por ti."</p>
-          <footer class="text-sm text-gray-600 mt-2">- Roberto M., Cliente de Lesiones Personales</footer>
+          <footer className="text-sm text-gray-600 mt-2">- Roberto M., Cliente de Lesiones Personales</footer>
         </blockquote>
         
         <h3>Factores Importantes a Considerar</h3>
         
-        <div class="bg-yellow-50 p-6 rounded-lg my-8">
-          <p class="font-semibold mb-2">Nota Legal:</p>
+        <div className="bg-yellow-50 p-6 rounded-lg my-8">
+          <p className="font-semibold mb-2">Nota Legal:</p>
           <p>Los resultados anteriores no garantizan resultados similares en casos futuros. Cada caso es único y debe evaluarse según sus propios méritos. Los montos de compensación mostrados son brutos y no reflejan honorarios legales o costos.</p>
         </div>
         
@@ -104,7 +103,7 @@ export default function ResultadosCasosPage() {
         
         <p>Si enfrenta un desafío legal, no espere. Nuestro historial habla por sí mismo, pero lo más importante es cómo podemos ayudarle a usted. Llame al <a href="tel:+19193781525">(919) 378-1525</a> para una consulta gratuita y descubra cómo podemos luchar por sus derechos.</p>
         
-        <p class="mt-8 text-center">
+        <p className="mt-8 text-center">
           <strong>YO PELEO POR TI™</strong> - No es solo un lema, es nuestra promesa.
         </p>
       </div>

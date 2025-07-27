@@ -12,7 +12,6 @@ import {
   Users,
   Briefcase,
 } from 'lucide-react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { motion } from 'framer-motion';
 import { TRADEMARK } from '@/lib/constants/trademark';
 import { Attorney } from '@/data/attorneys';
@@ -27,7 +26,7 @@ export function AttorneyPageTemplate({ attorney, language = 'en' }: AttorneyPage
   const isSpanish = language === 'es';
 
   return (
-    <MasterLayout variant="hero" showBreadcrumbs={false}>
+    <>
       <div className="min-h-screen bg-black">
         {/* Hero Section with Modern Design */}
         <section className="relative overflow-hidden bg-black py-24">
@@ -367,6 +366,6 @@ export function AttorneyPageTemplate({ attorney, language = 'en' }: AttorneyPage
         {/* Enhanced Structured Data for SEO */}
         <AttorneySchema attorney={attorney} language={language} />
       </div>
-    </MasterLayout>
+    </>
   );
 }

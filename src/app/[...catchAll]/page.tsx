@@ -1,5 +1,41 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
+import { logMissingRoute, missingRouteRedirects } from '@/lib/route-logger';
+import { headers } from 'next/headers';
+
+// Common redirects map
+const redirects: Record<string, string> = {
+  services: '/practice-areas',
+  testimonials: '/about#testimonials',
+  resources: '/blog',
+  'privacy-policy': '/legal/privacy-policy',
+  'terms-of-service': '/legal/terms-of-service',
+  terms: '/legal/terms-of-service',
+  privacy: '/legal/privacy-policy',
+  servicios: '/es/areas-de-practica',
+  testimonios: '/es/acerca#testimonios',
+  recursos: '/es/blog',
+  privacidad: '/es/legal/politica-de-privacidad',
+  terminos: '/es/legal/terminos-de-servicio',
+
+  // Practice area redirects
+  'family-based': '/practice-areas/immigration/family-based',
+  humanitarian: '/practice-areas/immigration/humanitarian',
+  'product-liability': '/practice-areas/personal-injury/product-liability',
+  'workplace-accidents': '/practice-areas/workers-compensation/workplace-accidents',
+  'brain-injuries': '/practice-areas/personal-injury/brain-injuries',
+  'spinal-cord-injuries': '/practice-areas/personal-injury/spinal-cord-injuries',
+  'wrongful-death': '/practice-areas/personal-injury/wrongful-death',
+  'medical-malpractice': '/practice-areas/personal-injury/medical-malpractice',
+  'slip-and-fall': '/practice-areas/personal-injury/slip-and-fall',
+  'truck-accidents': '/practice-areas/personal-injury/truck-accidents',
+
+  // Spanish practice area redirects
+  'basado-en-familia': '/es/practice-areas/immigration/family-based',
+  humanitario: '/es/practice-areas/immigration/humanitarian',
+  'responsabilidad-producto': '/es/practice-areas/personal-injury/product-liability',
+  'accidentes-trabajo': '/es/practice-areas/workers-compensation/workplace-accidents',
+};
 
 // Full static generation - no revalidation
 
@@ -41,13 +77,81 @@ export async function generateMetadata({
   }
 
   return {
-    title: 'Vasquez Law Firm',
-    description: 'Experienced attorneys serving North Carolina and Florida',
+    title: 'Page Not Found | Vasquez Law Firm',
+    description: 'The page you are looking for does not exist.',
   };
 }
 
 // Catch-all page handler
 export default async function CatchAllPage({ params }: { params: { catchAll: string[] } }) {
+  const path = params.catchAll.join('/');
+  const fullPath = `/${path}`;
+
+  // Get referrer for debugging
+  const headersList = await headers();
+  const referrer = headersList.get('referer') || '';
+
+  // Check for missing route redirects first
+  if (missingRouteRedirects[fullPath]) {
+    redirect(missingRouteRedirects[fullPath]);
+  }
+
+  // Check for common redirects
+  if (redirects[path]) {
+    redirect(redirects[path]);
+  }
+
+  // Handle variations with trailing slashes
+  const pathWithoutSlash = path.endsWith('/') ? path.slice(0, -1) : path;
+  if (redirects[pathWithoutSlash]) {
+    redirect(redirects[pathWithoutSlash]);
+  }
+
+  // Check if it's just the first segment that matches
+  const firstSegment = params.catchAll[0];
+  if (redirects[firstSegment]) {
+    redirect(redirects[firstSegment]);
+  }
+
+  // Handle immigration-update-* routes -> redirect to blog
+  if (path.startsWith('immigration-update-')) {
+    redirect(`/blog/${path}`);
+  }
+
+  // Handle Spanish immigration update routes
+  if (path.startsWith('actualizacion-inmigracion-')) {
+    redirect(`/es/blog/${path}`);
+  }
+
+  // Handle common sub-pages that might be accessed directly
+  if (path.includes('/') && !path.startsWith('blog/') && !path.startsWith('es/')) {
+    // Try to construct practice area paths
+    const segments = params.catchAll;
+    if (segments.length === 2) {
+      const [area, subpage] = segments;
+      // Common practice area mappings
+      const areaMap: Record<string, string> = {
+        immigration: 'immigration',
+        inmigracion: 'immigration',
+        'personal-injury': 'personal-injury',
+        'lesiones-personales': 'personal-injury',
+        'workers-compensation': 'workers-compensation',
+        'compensacion-laboral': 'workers-compensation',
+        'criminal-defense': 'criminal-defense',
+        'defensa-criminal': 'criminal-defense',
+        'family-law': 'family-law',
+        'derecho-familia': 'family-law',
+      };
+
+      if (areaMap[area]) {
+        redirect(`/practice-areas/${areaMap[area]}/${subpage}`);
+      }
+    }
+  }
+
+  // Log missing route for monitoring
+  logMissingRoute(fullPath, referrer);
+
   // This should rarely be hit as most routes should have their own pages
   // Return 404 for truly unknown routes
   notFound();

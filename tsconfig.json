@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES2022",
     "lib": ["dom", "dom.iterable", "esnext"],
     "types": ["node"],
     "allowJs": true,
@@ -22,9 +22,26 @@
     ],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    // TypeScript 5.6+ features - phased adoption
+    "noUncheckedIndexedAccess": false, // TODO: Enable after fixing index access issues
+    "exactOptionalPropertyTypes": false, // TODO: Enable after fixing optional property issues
+    "noPropertyAccessFromIndexSignature": false, // TODO: Enable after fixing property access
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "useUnknownInCatchVariables": false, // TODO: Enable after fixing catch variables
+    // Transitional settings for React 19 compatibility
+    "noImplicitAny": false // Allow implicit any types during React 19 transition
   },
-  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/types/next-extensions.d.ts"
+  ],
   "exclude": [
     "node_modules",
     "backup-untracked-files",

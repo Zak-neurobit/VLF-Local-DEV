@@ -131,8 +131,8 @@ export function useGPUTransform() {
 
 // RAF-based animation loop
 export function useAnimationFrame(callback: (deltaTime: number) => void) {
-  const requestRef = useRef<number>();
-  const previousTimeRef = useRef<number>();
+  const requestRef = useRef<number>(0);
+  const previousTimeRef = useRef<number>(0);
 
   useEffect(() => {
     const animate = (time: number) => {
@@ -158,7 +158,7 @@ export function useAnimationFrame(callback: (deltaTime: number) => void) {
 // Smooth value interpolation
 export function useSmoothValue(targetValue: number, smoothness: number = 0.1) {
   const [currentValue, setCurrentValue] = useState(targetValue);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number>(0);
 
   useEffect(() => {
     const animate = () => {

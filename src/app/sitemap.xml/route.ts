@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 
 export async function GET() {
-  const headersList = headers();
+  const headersList = await headers();
   const host = headersList.get('host') || 'vasquezlawfirm.com';
   const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
   const baseUrl = `${protocol}://${host}`;
@@ -22,7 +22,7 @@ export async function GET() {
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${sitemaps
   .map(
-    (sitemap) => `  <sitemap>
+    sitemap => `  <sitemap>
     <loc>${sitemap.loc}</loc>
     <lastmod>${sitemap.lastmod}</lastmod>
   </sitemap>`

@@ -46,7 +46,7 @@ class BundleOptimizer {
   }
 
   public getOptimizationSuggestions(): string[] {
-    const suggestions = [];
+    const suggestions: string[] = [];
 
     // Large bundle suggestions
     if (this.analysis.totalSize > 1000000) {

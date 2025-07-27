@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import {
   Phone,
@@ -119,7 +118,7 @@ export const HomePageTemplate: React.FC<HomePageTemplateProps> = ({
   ];
 
   return (
-    <MasterLayout variant="hero" showBreadcrumbs={false}>
+    <>
       {/* Hero Section - Full Screen with Parallax */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Animated Background */}
@@ -392,7 +391,7 @@ export const HomePageTemplate: React.FC<HomePageTemplateProps> = ({
           </div>
         </div>
       </motion.div>
-    </MasterLayout>
+    </>
   );
 };
 

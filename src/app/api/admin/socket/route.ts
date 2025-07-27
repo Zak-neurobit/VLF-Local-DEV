@@ -356,7 +356,6 @@ export async function DELETE(request: NextRequest) {
           message: 'Emergency shutdown initiated',
           timestamp: Date.now(),
         });
-        break;
 
       case 'disconnect_all_users':
         // This functionality requires WebSocket connection to filter admin connections
