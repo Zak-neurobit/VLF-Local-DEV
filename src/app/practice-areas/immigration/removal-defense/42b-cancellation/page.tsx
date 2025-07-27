@@ -1,0 +1,18 @@
+import { Metadata } from 'next';
+import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
+
+export const metadata: Metadata = {
+  title: '42B Cancellation (LPR) | Vasquez Law Firm',
+  description: 'Cancellation of removal for lawful permanent residents',
+  keywords: '42b cancellation (lpr), immigration, removal defense, legal services, attorney, lawyer',
+};
+
+export default function 42BCancellationLPRPage() {
+  return (
+    <ModernPracticeAreaTemplateV2
+      practiceArea="immigration"
+      subArea="removal-defense"
+      language="en"
+    />
+  );
+}
