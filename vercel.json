@@ -19,7 +19,8 @@
   },
   "github": {
     "silent": false,
-    "autoJobCancelation": true
+    "autoJobCancelation": true,
+    "deploymentEnabled": true
   },
   "headers": [
     {
