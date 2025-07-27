@@ -9,7 +9,7 @@ import './globals.css';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { organizationSchema } from '@/lib/schema';
-import SessionProvider from '@/components/providers/SessionProvider';
+import ClientSessionProvider from '@/components/providers/ClientSessionProvider';
 import dynamic from 'next/dynamic';
 import { UnifiedModernChatbot } from '@/components/ChatWidget/UnifiedModernChatbot';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
@@ -197,7 +197,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             />
           </div>
         </HydrationBoundary>
-        <SessionProvider>
+        <ClientSessionProvider>
           <ErrorBoundary>
             <DOMSafeWrapper>
               <MasterLayout>
@@ -210,7 +210,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <SafePartytownPerformanceMonitor />
             </DOMSafeWrapper>
           </ErrorBoundary>
-        </SessionProvider>
+        </ClientSessionProvider>
         <Suspense fallback={null}>
           <SafeNavigationDebugger />
         </Suspense>
