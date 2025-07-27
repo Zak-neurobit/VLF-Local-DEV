@@ -13,7 +13,7 @@ interface State {
 }
 
 export class StreamErrorBoundary extends Component<Props, State> {
-  public state: State = {
+  public override state: State = {
     hasError: false,
     error: null,
   };
@@ -23,7 +23,7 @@ export class StreamErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  public override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // Only log streaming-related errors in development
     if (process.env.NODE_ENV === 'development') {
       if (
@@ -38,7 +38,7 @@ export class StreamErrorBoundary extends Component<Props, State> {
     }
   }
 
-  public render() {
+  public override render() {
     if (this.state.hasError) {
       // Check if it's a streaming error
       const isStreamError =

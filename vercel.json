@@ -148,7 +148,8 @@
       "NEXT_TELEMETRY_DISABLED": "1",
       "NODE_ENV": "production",
       "NEXT_PUBLIC_APP_URL": "https://www.vasquezlawnc.com",
-      "NODE_OPTIONS": "--max-old-space-size=8192"
+      "NODE_OPTIONS": "--max-old-space-size=8192",
+      "SKIP_ENV_VALIDATION": "1"
     }
   },
   "crons": [

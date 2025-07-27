@@ -100,9 +100,17 @@ export default async function CatchAllPage({ params }: { params: { catchAll: str
   const path = params.catchAll.join('/');
   const fullPath = `/${path}`;
 
-  // Get referrer for debugging
-  const headersList = await headers();
-  const referrer = headersList.get('referer') || '';
+  // Skip headers access during static generation
+  let referrer = '';
+  if (process.env.NODE_ENV !== 'production' || process.env.NEXT_PHASE !== 'phase-production-build') {
+    try {
+      const headersList = await headers();
+      referrer = headersList.get('referer') || '';
+    } catch (e) {
+      // Headers not available during static generation
+      referrer = '';
+    }
+  }
 
   // Check for missing route redirects first
   if (missingRouteRedirects[fullPath]) {
