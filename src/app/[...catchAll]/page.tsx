@@ -19,9 +19,9 @@ const redirects: Record<string, string> = {
   terminos: '/es/legal/terminos-de-servicio',
 
   // Practice area redirects
-  'family-based': '/practice-areas/immigration/family-based',
-  humanitarian: '/practice-areas/immigration/humanitarian',
-  'product-liability': '/practice-areas/personal-injury/product-liability',
+  'family-based': '/practice-areas/immigration/family-based-relative',
+  humanitarian: '/practice-areas/immigration/asylum-refugee-legal-help',
+  'product-liability': '/areas-de-practica/lesiones-personales/responsabilidad-del-producto',
   'workplace-accidents': '/practice-areas/workers-compensation/workplace-accidents',
   'brain-injuries': '/practice-areas/personal-injury/brain-injuries',
   'spinal-cord-injuries': '/practice-areas/personal-injury/spinal-cord-injuries',
@@ -29,6 +29,19 @@ const redirects: Record<string, string> = {
   'medical-malpractice': '/practice-areas/personal-injury/medical-malpractice',
   'slip-and-fall': '/practice-areas/personal-injury/slip-and-fall',
   'truck-accidents': '/practice-areas/personal-injury/truck-accidents',
+
+  // Workers Comp redirects - fix naming inconsistencies
+  'repetitive-stress-injuries':
+    '/practice-areas/workers-compensation/repetitive-stress-carpal-tunnel',
+  'construction-injuries': '/practice-areas/workers-compensation/construction-site-injuries',
+  'occupational-illness': '/practice-areas/workers-compensation/occupational-diseases',
+  'third-party-claims': '/practice-areas/workers-compensation/third-party-injury-claims',
+  'denied-claims': '/practice-areas/workers-compensation',
+  'return-to-work': '/practice-areas/workers-compensation',
+  'disability-benefits': '/practice-areas/workers-compensation',
+
+  // Criminal Defense redirects
+  'white-collar-crimes': '/practice-areas/criminal-defense/white-collar',
 
   // Spanish practice area redirects
   'basado-en-familia': '/es/practice-areas/immigration/family-based',
