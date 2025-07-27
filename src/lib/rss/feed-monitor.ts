@@ -12,6 +12,7 @@ export interface FeedItem {
   guid?: string;
   categories?: string[];
   author?: string;
+  creator?: string; // Dublin Core creator field
   feedName: string;
   feedCategory: string;
 }
@@ -80,7 +81,8 @@ export class RSSFeedMonitor {
         content: item.content,
         guid: item.guid,
         categories: item.categories,
-        author: item.author || item.creator,
+        author: item.author || (item as any).creator,
+        creator: (item as any).creator,
         feedName: feed.name,
         feedCategory: feed.category,
       }));

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { getHomepageTestimonials } from '@/data/testimonials';
+import { block } from 'million/react';
 
 interface CarouselTestimonial {
   id: string;

@@ -16,7 +16,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function WhoPaysIfWorkersDieFromWorkplaceAccidentsPage() {
   // TODO: Extract content from original file and format properly
   const post = {
@@ -25,7 +24,7 @@ export default function WhoPaysIfWorkersDieFromWorkplaceAccidentsPage() {
     slug: 'who-pays-if-workers-die-from-workplace-accidents',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `
-      <div class="prose prose-lg max-w-none">
+      <div className="prose prose-lg max-w-none">
         <!-- TODO: Migrate content from original file -->
         <p>This content needs to be migrated from the original file.</p>
       </div>

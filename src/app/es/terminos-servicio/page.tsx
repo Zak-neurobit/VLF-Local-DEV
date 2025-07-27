@@ -15,7 +15,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function TerminosServicioPage() {
   const post = {
     id: 'terminos-servicio',
@@ -24,8 +23,8 @@ export default function TerminosServicioPage() {
     excerpt:
       'Términos y condiciones que rigen el uso del sitio web del Bufete de Abogados Vasquez y la relación con nuestros servicios legales.',
     content: `
-      <div class="prose prose-lg max-w-none">
-        <p class="text-sm text-gray-600 mb-8">Última actualización: ${new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+      <div className="prose prose-lg max-w-none">
+        <p className="text-sm text-gray-600 mb-8">Última actualización: ${new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
         
         <h2>Aceptación de los Términos</h2>
         
@@ -44,8 +43,8 @@ export default function TerminosServicioPage() {
           <li>Infracciones de Tránsito</li>
         </ul>
         
-        <div class="bg-yellow-50 p-6 rounded-lg my-8">
-          <p class="font-semibold mb-2">Aviso Importante:</p>
+        <div className="bg-yellow-50 p-6 rounded-lg my-8">
+          <p className="font-semibold mb-2">Aviso Importante:</p>
           <p>La información proporcionada en este sitio web es solo para fines informativos generales y no constituye asesoramiento legal. La comunicación a través de este sitio web no crea una relación abogado-cliente.</p>
         </div>
         
@@ -136,7 +135,7 @@ export default function TerminosServicioPage() {
         
         <p>Si tiene preguntas sobre estos Términos de Servicio, contáctenos:</p>
         
-        <div class="bg-gray-50 p-6 rounded-lg my-8">
+        <div className="bg-gray-50 p-6 rounded-lg my-8">
           <p><strong>Bufete de Abogados Vasquez, PLLC</strong></p>
           <p>6842 Fairview Rd, Charlotte, NC 28210</p>
           <p>Teléfono: <a href="tel:+19193781525">(919) 378-1525</a></p>

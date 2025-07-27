@@ -104,17 +104,20 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
     }
   };
 
-  const fetchAvailableSlots = useCallback(async (date: string) => {
-    try {
-      const response = await fetch(
-        `/api/client/appointments/slots?date=${date}&attorneyId=${formData.attorneyId}`
-      );
-      const data = await response.json();
-      setAvailableSlots(data.slots || []);
-    } catch (error) {
-      logger.error('Error fetching available slots:', error);
-    }
-  }, [formData.attorneyId]);
+  const fetchAvailableSlots = useCallback(
+    async (date: string) => {
+      try {
+        const response = await fetch(
+          `/api/client/appointments/slots?date=${date}&attorneyId=${formData.attorneyId}`
+        );
+        const data = await response.json();
+        setAvailableSlots(data.slots || []);
+      } catch (error) {
+        logger.error('Error fetching available slots:', error);
+      }
+    },
+    [formData.attorneyId]
+  );
 
   useEffect(() => {
     fetchAppointments();
@@ -177,7 +180,7 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
     const startWeek = startOfWeek(start);
     const endWeek = endOfWeek(end);
 
-    const days = [];
+    const days: Date[] = [];
     let day = startWeek;
 
     while (day <= endWeek) {

@@ -1,4 +1,4 @@
-// Re-export everything from the consolidated ChatWidget
-export * from './ConsolidatedChatWidget';
-// Also export a SocketChatWidget for backwards compatibility
-export { SocketChatWidget as ChatWidget } from './ConsolidatedChatWidget';
+// Export unified chatbot
+export { UnifiedModernChatbot } from './UnifiedModernChatbot';
+export { UnifiedModernChatbot as ChatWidget } from './UnifiedModernChatbot';
+export { UnifiedModernChatbot as SimpleChatWidget } from './UnifiedModernChatbot';

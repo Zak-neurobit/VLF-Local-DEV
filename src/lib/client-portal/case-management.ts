@@ -1040,7 +1040,7 @@ export class ClientPortalCaseManagement {
   }
 
   private generateActionItems(caseData: ClientCase): string[] {
-    const items = [];
+    const items: string[] = [];
 
     // Check for missing documents
     if (caseData.currentPhase === 'Document Collection') {

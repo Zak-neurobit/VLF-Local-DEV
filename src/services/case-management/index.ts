@@ -794,7 +794,12 @@ export class CaseManagementService {
 
       // Get communications (this is a simplified version)
       // In production, you'd have a proper communications table
-      const communications = [];
+      const communications: Array<{
+        type: string;
+        timestamp: Date;
+        content: string;
+        createdBy: string;
+      }> = [];
 
       // Get case notes as communications
       const caseWithNotes = await getPrismaClient().case.findUnique({

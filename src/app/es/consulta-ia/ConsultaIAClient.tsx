@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
-import { ModernChatWidget } from '@/components/ui/modern-chat-widget';
+import { UnifiedModernChatbot } from '@/components/ChatWidget/UnifiedModernChatbot';
 
 export default function ConsultaIAClient() {
   const [showChat, setShowChat] = useState(false);
@@ -287,11 +287,7 @@ export default function ConsultaIAClient() {
               </div>
             </div>
             <div className="h-[60vh]">
-              <ModernChatWidget
-                language="es"
-                embedded={true}
-                initialMessage="¡Hola! Soy su asistente legal virtual. ¿En qué puedo ayudarle hoy? Puede preguntarme sobre inmigración, accidentes, defensa criminal, o cualquier tema legal."
-              />
+              <UnifiedModernChatbot language="es" />
             </div>
           </motion.div>
         </div>

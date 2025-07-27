@@ -17,37 +17,31 @@ export async function POST(request: NextRequest) {
       language = 'en',
       topic,
       urgency = 'normal',
-      message
+      message,
     } = body;
 
     // Validate required fields
     if (!name || !phone || !preferredDate || !preferredTime || !topic) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     // Calculate scheduled time
     const scheduledFor = new Date(`${preferredDate} ${preferredTime}`);
-    
+
     // Check if scheduled time is valid (not in the past)
     if (scheduledFor < new Date()) {
-      return NextResponse.json(
-        { error: 'Cannot schedule callback in the past' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Cannot schedule callback in the past' }, { status: 400 });
     }
 
     // Determine appropriate agent
     const agentType = selectVoiceAgent({
       language,
       department: topic,
-      isEmergency: urgency === 'emergency'
+      isEmergency: urgency === 'emergency',
     });
 
     // Create lead if email provided
-    let leadId = null;
+    let leadId: string | null = null;
     if (email || phone) {
       try {
         // First create or update contact
@@ -61,8 +55,8 @@ export async function POST(request: NextRequest) {
             phone: phone || 'unknown',
             email: email || undefined,
             name: name || undefined,
-            source: 'callback_request'
-          }
+            source: 'callback_request',
+          },
         });
 
         // Then create lead
@@ -71,13 +65,14 @@ export async function POST(request: NextRequest) {
             contactId: contact.id,
             source: 'callback_request',
             status: 'new',
-            urgency: urgency === 'emergency' ? 'critical' : urgency === 'urgent' ? 'high' : 'medium',
+            urgency:
+              urgency === 'emergency' ? 'critical' : urgency === 'urgent' ? 'high' : 'medium',
             metadata: {
               preferredLanguage: language,
               topic,
-              message
-            }
-          }
+              message,
+            },
+          },
         });
         leadId = lead.id;
       } catch (dbError) {
@@ -103,19 +98,20 @@ export async function POST(request: NextRequest) {
           language,
           agentType,
           leadId,
-          requestedAt: new Date().toISOString()
-        }
-      }
+          requestedAt: new Date().toISOString(),
+        },
+      },
     });
 
     // Send confirmation email if provided
     if (email) {
       try {
-        const emailContent = language === 'es' 
-          ? {
-              subject: 'Confirmación de Llamada - Vasquez Law Firm',
-              text: `Hola ${name},\n\nHemos recibido su solicitud de llamada.\n\nFecha: ${preferredDate}\nHora: ${preferredTime}\nTema: ${topic}\n\nUno de nuestros representantes le llamará al ${phone} a la hora programada.\n\nSi necesita cambiar la hora, por favor llame al 1-844-YO-PELEO.\n\nGracias,\nVasquez Law Firm`,
-              html: `
+        const emailContent =
+          language === 'es'
+            ? {
+                subject: 'Confirmación de Llamada - Vasquez Law Firm',
+                text: `Hola ${name},\n\nHemos recibido su solicitud de llamada.\n\nFecha: ${preferredDate}\nHora: ${preferredTime}\nTema: ${topic}\n\nUno de nuestros representantes le llamará al ${phone} a la hora programada.\n\nSi necesita cambiar la hora, por favor llame al 1-844-YO-PELEO.\n\nGracias,\nVasquez Law Firm`,
+                html: `
                 <h2>Confirmación de Llamada</h2>
                 <p>Hola ${name},</p>
                 <p>Hemos recibido su solicitud de llamada.</p>
@@ -128,12 +124,12 @@ export async function POST(request: NextRequest) {
                 <p>Uno de nuestros representantes le llamará a la hora programada.</p>
                 <p>Si necesita cambiar la hora, por favor llame al <strong>1-844-YO-PELEO</strong>.</p>
                 <p>Gracias,<br>Vasquez Law Firm</p>
-              `
-            }
-          : {
-              subject: 'Callback Confirmation - Vasquez Law Firm',
-              text: `Hello ${name},\n\nWe have received your callback request.\n\nDate: ${preferredDate}\nTime: ${preferredTime}\nTopic: ${topic}\n\nOne of our representatives will call you at ${phone} at the scheduled time.\n\nIf you need to reschedule, please call 1-844-YO-PELEO.\n\nThank you,\nVasquez Law Firm`,
-              html: `
+              `,
+              }
+            : {
+                subject: 'Callback Confirmation - Vasquez Law Firm',
+                text: `Hello ${name},\n\nWe have received your callback request.\n\nDate: ${preferredDate}\nTime: ${preferredTime}\nTopic: ${topic}\n\nOne of our representatives will call you at ${phone} at the scheduled time.\n\nIf you need to reschedule, please call 1-844-YO-PELEO.\n\nThank you,\nVasquez Law Firm`,
+                html: `
                 <h2>Callback Confirmation</h2>
                 <p>Hello ${name},</p>
                 <p>We have received your callback request.</p>
@@ -146,14 +142,14 @@ export async function POST(request: NextRequest) {
                 <p>One of our representatives will call you at the scheduled time.</p>
                 <p>If you need to reschedule, please call <strong>1-844-YO-PELEO</strong>.</p>
                 <p>Thank you,<br>Vasquez Law Firm</p>
-              `
-            };
+              `,
+              };
 
         await sendEmail({
           to: email,
           subject: emailContent.subject,
           text: emailContent.text,
-          html: emailContent.html
+          html: emailContent.html,
         });
       } catch (emailError) {
         logger.error('Failed to send confirmation email:', errorToLogMeta(emailError));
@@ -179,7 +175,7 @@ export async function POST(request: NextRequest) {
             <tr><td><strong>Message:</strong></td><td>${message || 'None'}</td></tr>
             <tr><td><strong>Task ID:</strong></td><td>${callbackTask.id}</td></tr>
           </table>
-        `
+        `,
       };
 
       await sendEmail(staffNotification);
@@ -191,7 +187,7 @@ export async function POST(request: NextRequest) {
       taskId: callbackTask.id,
       scheduledFor,
       urgency,
-      topic
+      topic,
     });
 
     return NextResponse.json({
@@ -199,15 +195,11 @@ export async function POST(request: NextRequest) {
       message: 'Callback scheduled successfully',
       taskId: callbackTask.id,
       scheduledFor,
-      confirmationSent: !!email
+      confirmationSent: !!email,
     });
-
   } catch (error) {
     logger.error('Error scheduling callback:', errorToLogMeta(error));
-    
-    return NextResponse.json(
-      { error: 'Failed to schedule callback' },
-      { status: 500 }
-    );
+
+    return NextResponse.json({ error: 'Failed to schedule callback' }, { status: 500 });
   }
 }

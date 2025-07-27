@@ -32,7 +32,7 @@ export default function SevenProvenStrategiesThatImmigrationLawyersUseToWinCompl
     excerpt:
       'Discover the expert strategies immigration lawyers use to navigate complex cases successfully. Learn how professional legal support can make the difference in your immigration journey.',
     content: `
-      <div class="prose prose-lg max-w-none">
+      <div className="prose prose-lg max-w-none">
         <p>Immigration law is complex and constantly evolving. Whether you're seeking a green card, fighting deportation, or pursuing citizenship, having an experienced immigration lawyer by your side can make all the difference. Here are seven proven strategies that skilled immigration attorneys use to win even the most challenging cases.</p>
 
         <h2>1. Thorough Case Assessment and Strategy Development</h2>
@@ -69,12 +69,12 @@ export default function SevenProvenStrategiesThatImmigrationLawyersUseToWinCompl
         <h2>Take Action Today</h2>
         <p>Don't let the complexity of immigration law stand between you and your American dream. At Vasquez Law Firm, PLLC, we've helped countless clients overcome seemingly impossible immigration challenges. Our experienced team understands what it takes to win complex cases and reunite families.</p>
 
-        <div class="bg-blue-50 p-6 rounded-lg my-8">
-          <h3 class="text-xl font-bold mb-3">Ready to Start Your Immigration Journey?</h3>
-          <p class="mb-4">Contact us today for a consultation. We'll review your case, explain your options, and develop a winning strategy tailored to your needs.</p>
-          <div class="flex gap-4">
-            <a href="/contact" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700">Schedule Consultation</a>
-            <a href="tel:+18449673536" class="border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-md hover:bg-blue-50">Call 1-844-YO-PELEO</a>
+        <div className="bg-blue-50 p-6 rounded-lg my-8">
+          <h3 className="text-xl font-bold mb-3">Ready to Start Your Immigration Journey?</h3>
+          <p className="mb-4">Contact us today for a consultation. We'll review your case, explain your options, and develop a winning strategy tailored to your needs.</p>
+          <div className="flex gap-4">
+            <a href="/contact" className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700">Schedule Consultation</a>
+            <a href="tel:+18449673536" className="border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-md hover:bg-blue-50">Call 1-844-YO-PELEO</a>
           </div>
         </div>
       </div>

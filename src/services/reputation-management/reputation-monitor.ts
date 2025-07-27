@@ -630,7 +630,13 @@ export class ReputationMonitor extends EventEmitter {
 
   private async calculatePlatformPerformance(): Promise<any[]> {
     const platforms: any[] = await reviewPlatformStubs.findMany();
-    const performance = [];
+    const performance: Array<{
+      platformId: string;
+      platformName: string;
+      totalReviews: number;
+      averageRating: number;
+      responseRate?: number;
+    }> = [];
 
     for (const platform of platforms) {
       const stats = await reviewStubs.aggregate({

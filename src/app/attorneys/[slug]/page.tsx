@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import { logger } from '@/lib/safe-logger';
 import { Metadata } from 'next';
 
+// Full static generation - no revalidation needed
+
 // Dynamic imports for each attorney page
 const attorneyPages = {
   'adrianna-ingram': () => import('../adrianna-ingram/page').then(mod => mod.default),

@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Button } from '@/design-system/components/Button';
 import { motion } from 'framer-motion';
 import {
@@ -127,7 +126,7 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
   });
 
   return (
-    <MasterLayout variant="hero" showBreadcrumbs={true}>
+    <>
       <div className="min-h-screen bg-black">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-20">
@@ -456,8 +455,8 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                 {neighborhood.name} Residents: Get Help Today
               </h2>
               <p className="text-xl text-black/80 mb-8">
-                Don&apos;t wait to get the legal help you need. We&apos;re here for our {neighborhood.name}{' '}
-                neighbors 24/7.
+                Don&apos;t wait to get the legal help you need. We&apos;re here for our{' '}
+                {neighborhood.name} neighbors 24/7.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
@@ -516,6 +515,6 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
           }}
         />
       </div>
-    </MasterLayout>
+    </>
   );
 }

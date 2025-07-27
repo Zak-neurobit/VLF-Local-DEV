@@ -11,7 +11,7 @@ interface HeadingProps {
 }
 
 export function Heading({ children, level = 1, className, as }: HeadingProps) {
-  const Component = (as || `h${level}`) as keyof JSX.IntrinsicElements;
+  const Component = (as || `h${level}`) as keyof React.JSX.IntrinsicElements;
 
   const styles = {
     1: 'text-5xl sm:text-6xl md:text-7xl font-black tracking-tight',
@@ -46,7 +46,7 @@ export function Text({
   className,
   as: elementType = 'p',
 }: TextProps) {
-  const Component = elementType as keyof JSX.IntrinsicElements;
+  const Component = elementType as keyof React.JSX.IntrinsicElements;
 
   const sizes = {
     xs: 'text-xs',

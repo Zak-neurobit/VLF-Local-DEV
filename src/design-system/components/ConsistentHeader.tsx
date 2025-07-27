@@ -25,6 +25,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -940,47 +941,82 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 mt-1 w-80 bg-white rounded-lg shadow-xl border border-neutral-200 overflow-hidden z-50 max-h-96 overflow-y-auto"
+                          className="absolute top-full left-0 mt-1 w-80 bg-white rounded-lg shadow-xl border border-neutral-200 overflow-hidden z-50"
                         >
-                          <div className="py-2">
-                            {item.submenu.map(subItem => (
-                              <div key={subItem.name}>
-                                <Link
-                                  href={subItem.href}
-                                  className={`block px-4 py-2.5 text-sm transition-colors ${
-                                    subItem.submenu
-                                      ? 'font-medium text-neutral-800 hover:bg-primary/5 border-b border-neutral-100'
-                                      : 'text-neutral-700 hover:bg-primary/10 hover:text-primary pl-6'
-                                  }`}
-                                  onClick={() => {
-                                    if (!subItem.submenu) {
-                                      setActiveDropdown(null);
-                                    }
-                                  }}
-                                >
-                                  {subItem.name}
-                                  {subItem.submenu && (
-                                    <span className="text-xs text-primary ml-1">→</span>
-                                  )}
-                                </Link>
-                                {subItem.submenu && (
-                                  <div className="bg-neutral-50/50">
-                                    {subItem.submenu.map(nestedItem => (
-                                      <Link
-                                        key={nestedItem.name}
-                                        href={nestedItem.href}
-                                        className="block px-8 py-1.5 text-xs text-neutral-600 hover:bg-primary/10 hover:text-primary transition-colors border-l-2 border-transparent hover:border-primary"
-                                        onClick={() => {
-                                          setActiveDropdown(null);
-                                        }}
-                                      >
-                                        {nestedItem.name}
-                                      </Link>
-                                    ))}
+                          <div className="max-h-[70vh] overflow-y-auto">
+                            {/* Practice Areas Special Layout */}
+                            {item.name === 'Practice Areas' || item.name === 'Áreas de Práctica' ? (
+                              <div className="grid grid-cols-1">
+                                {item.submenu.map(practice => (
+                                  <div key={practice.name} className="border-b border-neutral-100 last:border-0">
+                                    <Link
+                                      href={practice.href}
+                                      className="block px-4 py-3 text-sm font-semibold text-neutral-800 hover:bg-primary/5 transition-colors"
+                                    >
+                                      {practice.name}
+                                    </Link>
+                                    {practice.submenu && (
+                                      <div className="bg-neutral-50 px-4 pb-2">
+                                        <div className="grid grid-cols-1 gap-1">
+                                          {practice.submenu.map(subCategory => (
+                                            <div 
+                                              key={subCategory.name} 
+                                              className="pl-4 relative"
+                                              onMouseEnter={() => setActiveSubmenu(subCategory.name)}
+                                              onMouseLeave={() => setActiveSubmenu(null)}
+                                            >
+                                              <Link
+                                                href={subCategory.href}
+                                                className="block py-1.5 text-xs font-medium text-neutral-700 hover:text-primary transition-colors flex items-center justify-between"
+                                                onClick={() => setActiveDropdown(null)}
+                                              >
+                                                {subCategory.name}
+                                                {subCategory.submenu && (
+                                                  <span className="text-[10px] text-neutral-400">▶</span>
+                                                )}
+                                              </Link>
+                                              {subCategory.submenu && activeSubmenu === subCategory.name && (
+                                                <div className="absolute left-full top-0 ml-2 w-64 bg-white shadow-lg rounded-md border border-neutral-200 z-50">
+                                                  <div className="py-2">
+                                                    {subCategory.submenu.map(specificCase => (
+                                                      <Link
+                                                        key={specificCase.name}
+                                                        href={specificCase.href}
+                                                        className="block px-4 py-1.5 text-xs text-neutral-600 hover:bg-primary/10 hover:text-primary transition-colors"
+                                                        onClick={() => {
+                                                          setActiveDropdown(null);
+                                                          setActiveSubmenu(null);
+                                                        }}
+                                                      >
+                                                        {specificCase.name}
+                                                      </Link>
+                                                    ))}
+                                                  </div>
+                                                </div>
+                                              )}
+                                            </div>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    )}
                                   </div>
-                                )}
+                                ))}
                               </div>
-                            ))}
+                            ) : (
+                              /* Regular dropdown layout for other menus */
+                              <div className="py-2">
+                                {item.submenu.map(subItem => (
+                                  <Link
+                                    key={subItem.name}
+                                    href={subItem.href}
+                                    className="block px-4 py-2 text-sm text-neutral-700 hover:bg-primary/10 hover:text-primary transition-colors"
+                                    onClick={() => setActiveDropdown(null)}
+                                  >
+                                    {subItem.name}
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         </motion.div>
                       )}

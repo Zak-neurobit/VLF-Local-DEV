@@ -77,7 +77,7 @@ Para análisis de documentos:
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { message, locale = 'en', sessionId, metadata } = body;
+    const { message, locale = 'en', sessionId, userId, metadata } = body;
 
     if (!message) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
@@ -87,11 +87,13 @@ export async function POST(request: NextRequest) {
     const systemPrompt = locale === 'es' ? AILA_SYSTEM_PROMPT_ES : AILA_SYSTEM_PROMPT;
 
     // Check if this is a document analysis request
-    const isDocumentAnalysis = metadata?.hasDocument || message.toLowerCase().includes('document') || 
-                              message.toLowerCase().includes('documento');
+    const isDocumentAnalysis =
+      metadata?.hasDocument ||
+      message.toLowerCase().includes('document') ||
+      message.toLowerCase().includes('documento');
 
     // Enhanced prompt for document analysis
-    const enhancedMessage = isDocumentAnalysis 
+    const enhancedMessage = isDocumentAnalysis
       ? `${message}\n\nPlease analyze this from an immigration law perspective and identify any issues or required actions.`
       : message;
 
@@ -100,13 +102,14 @@ export async function POST(request: NextRequest) {
       model: 'gpt-4-turbo-preview',
       messages: [
         { role: 'system', content: systemPrompt },
-        { role: 'user', content: enhancedMessage }
+        { role: 'user', content: enhancedMessage },
       ],
       temperature: 0.7,
       max_tokens: 1000,
     });
 
-    const aiResponse = completion.choices[0]?.message?.content || 'I apologize, I could not generate a response.';
+    const aiResponse =
+      completion.choices[0]?.message?.content || 'I apologize, I could not generate a response.';
 
     // Log the interaction
     logger.info('AILA chat response generated', {
@@ -117,15 +120,15 @@ export async function POST(request: NextRequest) {
       isDocumentAnalysis,
     });
 
-    // Store conversation in database if sessionId provided
-    if (sessionId) {
+    // Store conversation in database if userId provided
+    if (userId) {
       try {
         const prisma = getPrismaClient();
         await prisma.conversation.create({
           data: {
-            sessionId,
-            channel: 'WEB',
-            status: 'ACTIVE',
+            userId,
+            channel: 'chat',
+            status: 'active',
             metadata: {
               locale,
               agent: 'AILA',
@@ -135,14 +138,14 @@ export async function POST(request: NextRequest) {
               create: [
                 {
                   content: message,
-                  role: 'USER',
+                  role: 'user',
                   metadata: { locale },
                 },
                 {
                   content: aiResponse,
-                  role: 'ASSISTANT',
-                  metadata: { 
-                    locale, 
+                  role: 'assistant',
+                  metadata: {
+                    locale,
                     agent: 'AILA',
                     model: 'gpt-4-turbo-preview',
                   },
@@ -167,9 +170,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     logger.error('AILA chat API error', { error });
-    return NextResponse.json(
-      { error: 'Failed to process message' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to process message' }, { status: 500 });
   }
 }

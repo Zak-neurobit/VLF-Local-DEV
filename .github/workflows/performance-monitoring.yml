@@ -1,0 +1,506 @@
+name: Performance Monitoring
+
+on:
+  schedule:
+    # Run performance tests daily at 3 AM UTC
+    - cron: '0 3 * * *'
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to test'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      test_type:
+        description: 'Type of performance test'
+        required: true
+        default: 'lighthouse'
+        type: choice
+        options:
+          - lighthouse
+          - load-test
+          - bundle-analysis
+          - all
+
+concurrency:
+  group: performance-${{ github.ref }}-${{ github.event.inputs.environment || 'staging' }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # Lighthouse performance auditing
+  lighthouse-audit:
+    name: Lighthouse Performance Audit
+    runs-on: ubuntu-latest
+    if: github.event.inputs.test_type == 'lighthouse' || github.event.inputs.test_type == 'all' || github.event.inputs.test_type == ''
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        device: ['desktop', 'mobile']
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --frozen-lockfile
+
+      - name: Build application
+        env:
+          NODE_OPTIONS: '--max-old-space-size=4096'
+        run: |
+          cat > .env.local << EOF
+          NODE_ENV=production
+          NEXT_PUBLIC_APP_URL=http://localhost:3000
+          DATABASE_URL=postgresql://perf:perf@localhost:5432/perf
+          NEXTAUTH_URL=http://localhost:3000
+          NEXTAUTH_SECRET=perf-test-secret-key-that-is-at-least-32-characters-long
+          OPENAI_API_KEY=sk-perf-test-key-for-validation-only
+          SKIP_ENV_VALIDATION=true
+          EOF
+          
+          npm run build
+
+      - name: Start application
+        run: |
+          npm start &
+          sleep 15
+          
+          # Wait for application to be ready
+          for i in {1..30}; do
+            if curl -f http://localhost:3000 > /dev/null 2>&1; then
+              echo "✅ Application is ready"
+              break
+            fi
+            echo "⏳ Waiting for application... (attempt $i/30)"
+            sleep 5
+          done
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.12.x
+
+      - name: Run Lighthouse audit
+        run: |
+          # Create Lighthouse CI config
+          cat > .lighthouserc.js << 'EOF'
+          module.exports = {
+            ci: {
+              collect: {
+                url: ['http://localhost:3000', 'http://localhost:3000/about', 'http://localhost:3000/contact'],
+                startServerCommand: 'echo "Server already running"',
+                startServerReadyPattern: 'ready',
+                numberOfRuns: 3,
+                settings: {
+                  preset: '${{ matrix.device }}',
+                  chromeFlags: '--no-sandbox --headless --disable-dev-shm-usage',
+                  throttling: {
+                    rttMs: ${{ matrix.device == 'mobile' && '150' || '40' }},
+                    throughputKbps: ${{ matrix.device == 'mobile' && '1638' || '10240' }},
+                    cpuSlowdownMultiplier: ${{ matrix.device == 'mobile' && '4' || '1' }},
+                  }
+                }
+              },
+              assert: {
+                assertions: {
+                  'categories:performance': ['error', {minScore: 0.8}],
+                  'categories:accessibility': ['error', {minScore: 0.95}],
+                  'categories:best-practices': ['error', {minScore: 0.9}],
+                  'categories:seo': ['error', {minScore: 0.9}],
+                  'categories:pwa': ['warn', {minScore: 0.6}]
+                }
+              },
+              upload: {
+                target: 'temporary-public-storage'
+              }
+            }
+          };
+          EOF
+          
+          lhci autorun
+
+      - name: Parse Lighthouse results
+        run: |
+          echo "## 🔍 Lighthouse Results (${{ matrix.device }})" >> $GITHUB_STEP_SUMMARY
+          
+          # Find the latest results
+          results_file=$(find .lighthouseci -name "*.json" | head -1)
+          if [ -f "$results_file" ]; then
+            node -e "
+              const fs = require('fs');
+              const results = JSON.parse(fs.readFileSync('$results_file'));
+              const categories = results.categories;
+              
+              console.log('| Category | Score | Status |');
+              console.log('|----------|-------|--------|');
+              
+              Object.entries(categories).forEach(([key, category]) => {
+                const score = Math.round(category.score * 100);
+                const status = score >= 80 ? '✅' : score >= 60 ? '⚠️' : '❌';
+                console.log(\`| \${category.title} | \${score}/100 | \${status} |\`);
+              });
+            " >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload Lighthouse artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-results-${{ matrix.device }}
+          path: |
+            .lighthouseci/
+            lighthouse-results.*
+          retention-days: 7
+
+  # Bundle size analysis
+  bundle-analysis:
+    name: Bundle Size Analysis
+    runs-on: ubuntu-latest
+    if: github.event.inputs.test_type == 'bundle-analysis' || github.event.inputs.test_type == 'all' || github.event.inputs.test_type == ''
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --frozen-lockfile
+
+      - name: Create bundle analysis build
+        env:
+          ANALYZE: true
+          NODE_OPTIONS: '--max-old-space-size=4096'
+        run: |
+          cat > .env.local << EOF
+          NODE_ENV=production
+          NEXT_PUBLIC_APP_URL=https://example.com
+          DATABASE_URL=postgresql://bundle:bundle@localhost:5432/bundle
+          NEXTAUTH_URL=https://example.com
+          NEXTAUTH_SECRET=bundle-analysis-secret-key-that-is-at-least-32-characters-long
+          OPENAI_API_KEY=sk-bundle-analysis-key-for-validation-only
+          SKIP_ENV_VALIDATION=true
+          EOF
+          
+          npm run analyze
+
+      - name: Analyze bundle size
+        run: |
+          echo "📦 Bundle Size Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Check if bundle analyzer generated results
+          if [ -d ".next/analyze" ]; then
+            echo "✅ Bundle analysis completed" >> $GITHUB_STEP_SUMMARY
+            
+            # Extract key metrics if available
+            if [ -f ".next/analyze/client.html" ]; then
+              echo "📊 Client bundle analysis available" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "⚠️ Bundle analysis files not found" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          # Check build output for bundle sizes
+          if [ -f ".next/build-manifest.json" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Bundle Information" >> $GITHUB_STEP_SUMMARY
+            echo "Build completed successfully with bundle analysis" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Check bundle size limits
+        run: |
+          echo "🎯 Checking bundle size limits..."
+          
+          # Define size limits (in KB)
+          MAX_INITIAL_JS=300
+          MAX_INITIAL_CSS=50
+          
+          # Check if .next/static exists
+          if [ -d ".next/static" ]; then
+            # Find largest JS files
+            largest_js=$(find .next/static -name "*.js" -type f -exec du -k {} + | sort -rn | head -5)
+            echo "Largest JS files:"
+            echo "$largest_js"
+            
+            # Check if any JS file exceeds limit
+            if find .next/static -name "*.js" -type f -size +${MAX_INITIAL_JS}k | grep -q .; then
+              echo "⚠️ Some JS files exceed ${MAX_INITIAL_JS}KB limit"
+            else
+              echo "✅ All JS files within size limits"
+            fi
+            
+            # Find CSS files
+            if find .next/static -name "*.css" -type f | grep -q .; then
+              largest_css=$(find .next/static -name "*.css" -type f -exec du -k {} + | sort -rn | head -3)
+              echo "CSS files:"
+              echo "$largest_css"
+            fi
+          fi
+
+      - name: Upload bundle analysis
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bundle-analysis
+          path: |
+            .next/analyze/
+            .next/static/
+            .next/build-manifest.json
+          retention-days: 7
+
+  # Load testing
+  load-test:
+    name: Load Testing
+    runs-on: ubuntu-latest
+    if: github.event.inputs.test_type == 'load-test' || github.event.inputs.test_type == 'all'
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: loadtest
+          POSTGRES_PASSWORD: loadtest
+          POSTGRES_DB: loadtest
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --frozen-lockfile
+
+      - name: Build application
+        env:
+          NODE_OPTIONS: '--max-old-space-size=4096'
+        run: |
+          cat > .env.local << EOF
+          NODE_ENV=production
+          NEXT_PUBLIC_APP_URL=http://localhost:3000
+          DATABASE_URL=postgresql://loadtest:loadtest@localhost:5432/loadtest
+          NEXTAUTH_URL=http://localhost:3000
+          NEXTAUTH_SECRET=loadtest-secret-key-that-is-at-least-32-characters-long
+          OPENAI_API_KEY=sk-loadtest-key-for-validation-only
+          SKIP_ENV_VALIDATION=true
+          EOF
+          
+          npm run build
+
+      - name: Setup database
+        run: |
+          npx prisma db push --force-reset
+
+      - name: Start application
+        run: |
+          npm start &
+          sleep 15
+          curl -f http://localhost:3000 || exit 1
+
+      - name: Install Artillery
+        run: npm install -g artillery@latest
+
+      - name: Create load test configuration
+        run: |
+          cat > load-test.yml << 'EOF'
+          config:
+            target: 'http://localhost:3000'
+            phases:
+              - duration: 60
+                arrivalRate: 5
+                name: "Warm up"
+              - duration: 120
+                arrivalRate: 10
+                name: "Ramp up load"
+              - duration: 60
+                arrivalRate: 15
+                name: "Sustained load"
+            processor: "./load-test-processor.js"
+          scenarios:
+            - name: "Homepage and navigation"
+              weight: 70
+              flow:
+                - get:
+                    url: "/"
+                - think: 2
+                - get:
+                    url: "/about"
+                - think: 1
+                - get:
+                    url: "/contact"
+            - name: "Blog and attorneys"
+              weight: 20
+              flow:
+                - get:
+                    url: "/blog"
+                - think: 3
+                - get:
+                    url: "/attorneys"
+            - name: "Spanish pages"
+              weight: 10
+              flow:
+                - get:
+                    url: "/es"
+                - think: 2
+                - get:
+                    url: "/es/blog"
+          EOF
+          
+          # Create processor file
+          cat > load-test-processor.js << 'EOF'
+          module.exports = {
+            logHeaders: function(requestParams, context, ee, next) {
+              console.log('Request headers:', requestParams.headers);
+              return next();
+            }
+          };
+          EOF
+
+      - name: Run load test
+        run: |
+          echo "🚀 Starting load test..."
+          artillery run load-test.yml --output load-test-results.json
+
+      - name: Generate load test report
+        run: |
+          artillery report load-test-results.json --output load-test-report.html
+          
+          # Extract key metrics
+          echo "## 🚀 Load Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -f "load-test-results.json" ]; then
+            node -e "
+              const fs = require('fs');
+              const results = JSON.parse(fs.readFileSync('load-test-results.json'));
+              const aggregate = results.aggregate;
+              
+              console.log('| Metric | Value |');
+              console.log('|--------|-------|');
+              console.log(\`| Scenarios completed | \${aggregate.counters?.['scenarios.completed'] || 'N/A'} |\`);
+              console.log(\`| Requests completed | \${aggregate.counters?.['http.requests'] || 'N/A'} |\`);
+              console.log(\`| Mean response time | \${Math.round(aggregate.latency?.mean || 0)}ms |\`);
+              console.log(\`| 95th percentile | \${Math.round(aggregate.latency?.p95 || 0)}ms |\`);
+              console.log(\`| 99th percentile | \${Math.round(aggregate.latency?.p99 || 0)}ms |\`);
+              console.log(\`| Error rate | \${aggregate.rates?.['http.request_rate'] || '0'}/s |\`);
+            " >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Check performance thresholds
+        run: |
+          if [ -f "load-test-results.json" ]; then
+            node -e "
+              const fs = require('fs');
+              const results = JSON.parse(fs.readFileSync('load-test-results.json'));
+              const aggregate = results.aggregate;
+              
+              const thresholds = {
+                meanResponseTime: 2000, // 2 seconds
+                p95ResponseTime: 5000,  // 5 seconds
+                errorRate: 0.01         // 1%
+              };
+              
+              let failed = false;
+              const mean = aggregate.latency?.mean || 0;
+              const p95 = aggregate.latency?.p95 || 0;
+              const errors = aggregate.counters?.['http.codes.500'] || 0;
+              const total = aggregate.counters?.['http.requests'] || 1;
+              const errorRate = errors / total;
+              
+              if (mean > thresholds.meanResponseTime) {
+                console.log(\`❌ Mean response time \${Math.round(mean)}ms exceeds threshold \${thresholds.meanResponseTime}ms\`);
+                failed = true;
+              } else {
+                console.log(\`✅ Mean response time \${Math.round(mean)}ms within threshold\`);
+              }
+              
+              if (p95 > thresholds.p95ResponseTime) {
+                console.log(\`❌ 95th percentile \${Math.round(p95)}ms exceeds threshold \${thresholds.p95ResponseTime}ms\`);
+                failed = true;
+              } else {
+                console.log(\`✅ 95th percentile \${Math.round(p95)}ms within threshold\`);
+              }
+              
+              if (errorRate > thresholds.errorRate) {
+                console.log(\`❌ Error rate \${(errorRate * 100).toFixed(2)}% exceeds threshold \${(thresholds.errorRate * 100).toFixed(2)}%\`);
+                failed = true;
+              } else {
+                console.log(\`✅ Error rate \${(errorRate * 100).toFixed(2)}% within threshold\`);
+              }
+              
+              if (failed) {
+                console.log('Load test thresholds not met!');
+                process.exit(1);
+              } else {
+                console.log('All load test thresholds met!');
+              }
+            "
+          fi
+
+      - name: Upload load test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: load-test-results
+          path: |
+            load-test-results.json
+            load-test-report.html
+          retention-days: 7
+
+  # Performance summary
+  performance-summary:
+    name: Performance Summary
+    runs-on: ubuntu-latest
+    needs: [lighthouse-audit, bundle-analysis, load-test]
+    if: always()
+    timeout-minutes: 5
+    steps:
+      - name: Create performance summary
+        run: |
+          echo "## ⚡ Performance Monitoring Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Test Type | Status | Details |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|--------|---------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Lighthouse Audit | ${{ needs.lighthouse-audit.result == 'success' && '✅ Passed' || needs.lighthouse-audit.result == 'skipped' && '⏭️ Skipped' || '❌ Failed' }} | Core Web Vitals & metrics |" >> $GITHUB_STEP_SUMMARY
+          echo "| Bundle Analysis | ${{ needs.bundle-analysis.result == 'success' && '✅ Passed' || needs.bundle-analysis.result == 'skipped' && '⏭️ Skipped' || '❌ Failed' }} | JavaScript bundle size |" >> $GITHUB_STEP_SUMMARY
+          echo "| Load Testing | ${{ needs.load-test.result == 'success' && '✅ Passed' || needs.load-test.result == 'skipped' && '⏭️ Skipped' || '❌ Failed' }} | Concurrent user simulation |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Overall status
+          if [[ "${{ needs.lighthouse-audit.result }}" == "failure" || "${{ needs.bundle-analysis.result }}" == "failure" || "${{ needs.load-test.result }}" == "failure" ]]; then
+            echo "❌ **Some performance tests failed. Please review and optimize.**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ **All performance tests completed successfully.**" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🎯 **Environment:** ${{ github.event.inputs.environment || 'staging' }}" >> $GITHUB_STEP_SUMMARY
+          echo "🕒 **Completed:** $(date -u)" >> $GITHUB_STEP_SUMMARY

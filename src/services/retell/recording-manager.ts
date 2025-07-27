@@ -544,7 +544,12 @@ export class RecordingManager {
       const ghlContactId = call.metadata?.ghlContactId as string | undefined;
       if (!ghlContactId || typeof ghlContactId !== 'string') return;
 
-      const tasks = [];
+      const tasks: Array<{
+        contactId: string;
+        title: string;
+        body: string;
+        dueDate: Date;
+      }> = [];
 
       // Create tasks based on action items
       for (const actionItem of analysis.actionItems) {

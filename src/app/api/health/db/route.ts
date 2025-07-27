@@ -16,7 +16,7 @@ export async function GET() {
 
     // Try to perform a simple query if connected
     let querySuccess = false;
-    let queryError = null;
+    let queryError: string | null = null;
     let tableCount = 0;
 
     if (isConnected) {

@@ -212,7 +212,7 @@ export class LandingPageGenerator {
     localData: LocalData,
     keywords: string[]
   ) {
-    const sections = [];
+    const sections: any[] = [];
     let order = 0;
 
     // Local expertise section
@@ -480,7 +480,12 @@ Format as JSON array with 'question' and 'answer' keys. Answers should be detail
         mapData: {
           center: { lat: 35.7796, lng: -78.6382 }, // Default to Raleigh
           zoom: 10,
-          markers: [],
+          markers: [] as Array<{
+            city: string;
+            address: string;
+            coordinates: { lat: number; lng: number };
+            distance: number;
+          }>,
         },
       };
     }
@@ -829,9 +834,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     return (formatted as Record<string, string>)[practiceArea] || practiceArea;
   }
 
-  private getNearbyOffices(
-    city: string
-  ): Array<{
+  private getNearbyOffices(city: string): Array<{
     city: string;
     address: string;
     coordinates: { lat: number; lng: number };
@@ -854,9 +857,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       .sort((a, b) => a.distance - b.distance);
   }
 
-  private getNearestOffice(
-    city: string
-  ): {
+  private getNearestOffice(city: string): {
     city: string;
     address: string;
     coordinates: { lat: number; lng: number };

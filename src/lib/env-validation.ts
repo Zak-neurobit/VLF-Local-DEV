@@ -68,6 +68,23 @@ const envSchema = z.object({
   SMTP_PORT: z.string().optional(),
   SMTP_USER: z.string().optional(),
   SMTP_PASSWORD: z.string().optional(),
+  SMTP_PASS: z.string().optional(), // Alias for SMTP_PASSWORD
+  SMTP_SECURE: z
+    .string()
+    .optional()
+    .transform(val => val?.trim())
+    .pipe(z.enum(['true', 'false']).optional().default('false')),
+
+  // Office 365 specific
+  OFFICE365_EMAIL: z.string().optional(),
+  OFFICE365_PASSWORD: z.string().optional(),
+
+  // Email routing
+  CONTACT_EMAIL: z.string().email().optional().default('leads@vasquezlawfirm.com'),
+  ATTORNEY_EMAIL: z.string().email().optional().default('attorneys@vasquezlawnc.com'),
+  URGENT_LEAD_EMAILS: z.string().optional(), // Comma-separated list
+
+  // Development flags
   MOCK_EMAIL: z
     .string()
     .optional()
@@ -78,6 +95,11 @@ const envSchema = z.object({
     .optional()
     .transform(val => val?.trim())
     .pipe(z.enum(['true', 'false']).optional().default('true')),
+  DISABLE_EMAIL_SERVICE: z
+    .string()
+    .optional()
+    .transform(val => val?.trim())
+    .pipe(z.enum(['true', 'false']).optional().default('false')),
 
   // Payment Processing (Optional)
   LAWPAY_PUBLIC_KEY: z.string().optional(),

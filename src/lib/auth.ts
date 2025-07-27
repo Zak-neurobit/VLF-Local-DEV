@@ -4,7 +4,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { getPrismaClient, isDatabaseConnected, safeDbOperation } from '@/lib/prisma';
-import bcrypt from 'bcryptjs';
+import * as argon2 from 'argon2';
 import { emailService } from '@/services/email.service';
 import { env } from '@/lib/env';
 
@@ -122,7 +122,46 @@ export const authOptions: NextAuthOptions = {
             throw new Error('User not found');
           }
 
-          const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+          // Try argon2 first, fall back to bcrypt for migration
+          let isPasswordValid = false;
+
+          // Check if password is hashed with argon2 (starts with $argon2)
+          if (user.password.startsWith('$argon2')) {
+            isPasswordValid = await argon2.verify(user.password, credentials.password);
+          } else {
+            // Legacy bcrypt password - verify and migrate
+            const bcrypt = await import('bcryptjs');
+            isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+
+            // If valid, migrate to argon2
+            if (isPasswordValid && dbConnected) {
+              try {
+                const newHash = await argon2.hash(credentials.password, {
+                  type: argon2.argon2id,
+                  memoryCost: 2 ** 16, // 64 MB
+                  timeCost: 3,
+                  parallelism: 1,
+                });
+
+                await safeDbOperation(
+                  async () => {
+                    const prisma = getPrismaClient();
+                    return await prisma.user.update({
+                      where: { id: user.id },
+                      data: { password: newHash },
+                    });
+                  },
+                  null,
+                  'password-migration'
+                );
+
+                logger.info(`Password migrated to argon2 for user: ${user.email}`);
+              } catch (error) {
+                logger.warn('Failed to migrate password to argon2:', error);
+                // Continue with login even if migration fails
+              }
+            }
+          }
 
           if (!isPasswordValid) {
             throw new Error('Invalid password');

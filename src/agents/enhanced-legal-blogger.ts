@@ -859,7 +859,7 @@ export class EnhancedLegalBlogger {
   }
 
   private extractKeywords(item: FeedItem): string[] {
-    const keywords = [];
+    const keywords: string[] = [];
     const title = (item.title || '').toLowerCase();
     const content = (item.contentSnippet || item.content || '').toLowerCase();
     const fullText = title + ' ' + content;

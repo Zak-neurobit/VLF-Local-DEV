@@ -62,9 +62,10 @@ const buttonVariants = cva(
   }
 );
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+type ButtonOrAnchorProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  React.AnchorHTMLAttributes<HTMLAnchorElement>;
+
+export interface ButtonProps extends ButtonOrAnchorProps, VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   as?: React.ElementType;
   loading?: boolean;
@@ -92,16 +93,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const Comp = as || (asChild ? 'span' : href ? 'a' : 'button');
-
-    return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, fullWidth, className }))}
-        ref={ref}
-        disabled={disabled || loading}
-        href={href}
-        {...props}
-      >
+    const content = (
+      <>
         {loading ? (
           <>
             <svg
@@ -133,7 +126,50 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             {rightIcon && <span className="flex-shrink-0">{rightIcon}</span>}
           </>
         )}
-      </Comp>
+      </>
+    );
+
+    const commonClasses = cn(buttonVariants({ variant, size, fullWidth, className }));
+
+    if (as) {
+      const Component = as;
+      return React.createElement(
+        Component,
+        {
+          className: commonClasses,
+          ref: ref,
+          disabled: disabled || loading,
+          ...props,
+        },
+        content
+      );
+    }
+
+    if (href) {
+      // Filter out button-specific props for anchor element
+      const { type, ...anchorProps } = props as any;
+      return (
+        <a
+          className={commonClasses}
+          href={href}
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          {...anchorProps}
+        >
+          {content}
+        </a>
+      );
+    }
+
+    return (
+      <button
+        className={commonClasses}
+        ref={ref}
+        disabled={disabled || loading}
+        type="button"
+        {...props}
+      >
+        {content}
+      </button>
     );
   }
 );

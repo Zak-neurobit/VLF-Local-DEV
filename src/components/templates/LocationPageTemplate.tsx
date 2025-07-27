@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Button } from '@/design-system/components/Button';
 import { Section, Card, Heading, Text } from './TemplateComponents';
 import { COLORS, BRAND } from '@/design-system/constants';
@@ -49,7 +48,7 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({
   // Handle legacy props (location/content pattern)
   if (!data && location && content) {
     return (
-      <MasterLayout>
+      <>
         <Section className="py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Heading
@@ -64,7 +63,7 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({
             {content}
           </div>
         </Section>
-      </MasterLayout>
+      </>
     );
   }
 
@@ -81,7 +80,7 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({
   } = data || {};
 
   return (
-    <MasterLayout>
+    <>
       {/* Hero Section */}
       <Section
         variant="gradient"
@@ -468,7 +467,7 @@ export const LocationPageTemplate: React.FC<LocationPageTemplateProps> = ({
           </Text>
         </div>
       </Section>
-    </MasterLayout>
+    </>
   );
 };
 

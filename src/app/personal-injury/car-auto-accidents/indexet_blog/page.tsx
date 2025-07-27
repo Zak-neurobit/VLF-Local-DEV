@@ -1,0 +1,78 @@
+import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Raleigh, NC Car Accident Attorneys - Vasquez Law Firm, PLLC',
+  description:
+    'Injured in a crash? Raleigh, NC car accident attorneys fight for maximum compensation. Get expert legal help for your claim. Free consultation available.',
+  openGraph: {
+    title: 'Raleigh, NC Car Accident Attorneys - Vasquez Law Firm, PLLC',
+    description:
+      'Injured in a crash? Raleigh, NC car accident attorneys fight for maximum compensation. Get expert legal help for your claim. Free consultation available.',
+    images: [
+      {
+        url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/04/north-carolina-car-crash-injury-lawyers.jpg',
+      },
+    ],
+  },
+};
+
+export const runtime = 'nodejs';
+
+export default function IndexetBlogPage() {
+  // TODO: Extract content from original file and format properly
+  const post = {
+    id: 'indexet_blog',
+    title: 'Raleigh, NC Car Accident Attorneys',
+    slug: 'indexet_blog',
+    excerpt: 'Blog post excerpt here - TODO: extract from content',
+    content: `
+      <div class="prose prose-lg max-w-none">
+        <!-- TODO: Migrate content from original file -->
+        <p>This content needs to be migrated from the original file.</p>
+      </div>
+    `,
+    practiceArea: 'general', // TODO: Determine correct practice area
+    language: 'en' as const,
+    publishedAt: new Date(),
+    readTime: 5,
+    author: {
+      name: 'Vasquez Law Firm',
+    },
+    tags: [], // TODO: Add relevant tags
+  };
+
+  const categories = [
+    {
+      id: 'immigration',
+      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
+      slug: { en: 'immigration', es: 'inmigracion' },
+      icon: '🌐',
+      postCount: 45,
+    },
+    {
+      id: 'personal-injury',
+      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
+      slug: { en: 'personal-injury', es: 'lesiones-personales' },
+      icon: '🏥',
+      postCount: 32,
+    },
+    {
+      id: 'criminal-defense',
+      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
+      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
+      icon: '⚖️',
+      postCount: 28,
+    },
+  ];
+
+  return (
+    <BlogPageTemplate
+      posts={[]}
+      categories={categories}
+      isArticlePage={true}
+      currentPost={post}
+      relatedPosts={[]} // TODO: Add related posts
+    />
+  );
+}

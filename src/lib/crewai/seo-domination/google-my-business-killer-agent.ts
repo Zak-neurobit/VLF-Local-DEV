@@ -918,7 +918,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
   }
 
   private identifyStrengths(data: CompetitorGMBData): string[] {
-    const strengths = [];
+    const strengths: string[] = [];
     const typedData = data as CompetitorGMBData & {
       rating?: number;
       userRatingCount?: number;
@@ -933,7 +933,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
   }
 
   private identifyWeaknesses(data: CompetitorGMBData): string[] {
-    const weaknesses = [];
+    const weaknesses: string[] = [];
     const typedData = data as CompetitorGMBData & {
       rating?: number;
       userRatingCount?: number;
@@ -950,7 +950,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
   ): Promise<CounterStrategy | null> {
     if (!analysis) return null;
 
-    const actions = [];
+    const actions: string[] = [];
 
     const typedAnalysis = analysis as CompetitorAnalysis & {
       rating?: number;

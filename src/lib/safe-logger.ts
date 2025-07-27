@@ -17,6 +17,55 @@ interface BaseLogger {
   log: (message: string, ...args: any[]) => void;
 }
 
+// Rate limiting for excessive logs
+interface RateLimitConfig {
+  threshold: number;
+  windowMs: number;
+}
+
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const DEFAULT_RATE_LIMIT: RateLimitConfig = {
+  threshold: 100,
+  windowMs: 60000, // 1 minute
+};
+
+// Special rate limits for known spammy messages
+const specialRateLimits: Record<string, RateLimitConfig> = {
+  'orphaned node': { threshold: 10, windowMs: 300000 }, // 10 per 5 minutes
+  'DOM manipulation error': { threshold: 10, windowMs: 300000 },
+  'attempted to remove': { threshold: 10, windowMs: 300000 },
+  'parentNode.removeChild': { threshold: 10, windowMs: 300000 },
+};
+
+function shouldRateLimit(level: string, message: string): boolean {
+  const now = Date.now();
+  const key = `${level}:${message.substring(0, 100)}`;
+
+  // Check for special rate limits
+  let rateLimit = DEFAULT_RATE_LIMIT;
+  for (const [pattern, limit] of Object.entries(specialRateLimits)) {
+    if (message.toLowerCase().includes(pattern.toLowerCase())) {
+      rateLimit = limit;
+      break;
+    }
+  }
+
+  const entry = rateLimitMap.get(key);
+
+  if (!entry || now > entry.resetTime) {
+    // Start new window
+    rateLimitMap.set(key, { count: 1, resetTime: now + rateLimit.windowMs });
+    return false;
+  }
+
+  if (entry.count >= rateLimit.threshold) {
+    return true; // Rate limit exceeded
+  }
+
+  entry.count++;
+  return false;
+}
+
 // Check runtime environment
 const isEdgeRuntime = (): boolean => {
   return (
@@ -35,7 +84,12 @@ const getTimestamp = (): string => {
 };
 
 // Helper to format log messages with consistent structure
-const formatMessage = (prefix: string, level: string, message: string, context?: LogContext): string => {
+const formatMessage = (
+  prefix: string,
+  level: string,
+  message: string,
+  context?: LogContext
+): string => {
   const timestamp = getTimestamp();
   const contextStr = context ? ` ${JSON.stringify(context)}` : '';
   return `[${timestamp}] [${prefix}:${level}] ${message}${contextStr}`;
@@ -82,69 +136,73 @@ const createLogger = (prefix: string) => {
   const shouldLog = (level: string): boolean => {
     if (isTest) return false;
     if (isDevelopment) return true;
-    
+
     const logLevels = { error: 0, warn: 1, info: 2, debug: 3 };
     const currentLevel = process.env.LOG_LEVEL || 'info';
     const levelValue = logLevels[level as keyof typeof logLevels] ?? 2;
     const currentValue = logLevels[currentLevel as keyof typeof logLevels] ?? 2;
-    
+
     return levelValue <= currentValue;
   };
 
-  // Base logging methods with enhanced formatting
+  // Base logging methods with enhanced formatting and rate limiting
   const baseLogger: BaseLogger = {
     info: (message: string, ...args: any[]) => {
-      if (shouldLog('info')) {
+      if (shouldLog('info') && !shouldRateLimit('info', message)) {
         console.log(formatMessage(prefix, 'INFO', message), ...args);
       }
     },
     error: (message: string, ...args: any[]) => {
-      if (shouldLog('error')) {
+      if (shouldLog('error') && !shouldRateLimit('error', message)) {
         // Handle Error objects specially
         if (args[0] instanceof Error) {
           const error = args[0];
-          console.error(formatMessage(prefix, 'ERROR', message, {
-            name: error.name,
-            message: error.message,
-            stack: error.stack,
-          }));
+          console.error(
+            formatMessage(prefix, 'ERROR', message, {
+              name: error.name,
+              message: error.message,
+              stack: error.stack,
+            })
+          );
         } else {
           console.error(formatMessage(prefix, 'ERROR', message), ...args);
         }
       }
     },
     warn: (message: string, ...args: any[]) => {
-      if (shouldLog('warn')) {
+      if (shouldLog('warn') && !shouldRateLimit('warn', message)) {
         console.warn(formatMessage(prefix, 'WARN', message), ...args);
       }
     },
     debug: (message: string, ...args: any[]) => {
-      if (shouldLog('debug')) {
+      if (shouldLog('debug') && !shouldRateLimit('debug', message)) {
         console.debug(formatMessage(prefix, 'DEBUG', message), ...args);
       }
     },
     log: (message: string, ...args: any[]) => {
-      console.log(`[${prefix}] ${message}`, ...args);
+      if (!shouldRateLimit('log', message)) {
+        console.log(`[${prefix}] ${message}`, ...args);
+      }
     },
   };
 
   // Return full-featured logger
   return {
     ...baseLogger,
-    
+
     // Performance monitoring
     measure: (label: string, duration: number, metadata?: any) => {
       baseLogger.info(`Performance: ${label}`, { duration: `${duration}ms`, metadata });
     },
-    
+
     slowOperation: (operation: string, duration: number, threshold: number, metadata?: any) => {
-      baseLogger.warn(`Slow operation: ${operation}`, { 
-        duration: `${duration}ms`, 
-        threshold: `${threshold}ms`, 
-        metadata 
+      baseLogger.warn(`Slow operation: ${operation}`, {
+        duration: `${duration}ms`,
+        threshold: `${threshold}ms`,
+        metadata,
       });
     },
-    
+
     memoryUsage: () => {
       if (!isBrowser && process?.memoryUsage) {
         const usage = process.memoryUsage();
@@ -155,121 +213,121 @@ const createLogger = (prefix: string) => {
         });
       }
     },
-    
+
     // WebSocket operations
     connection: (clientId: string, metadata?: any) => {
       baseLogger.info('WebSocket connection', { clientId, metadata });
     },
-    
+
     disconnection: (clientId: string, reason: string, duration?: number) => {
       baseLogger.info('WebSocket disconnection', { clientId, reason, duration });
     },
-    
+
     message: (clientId: string, type: string, direction: 'inbound' | 'outbound', size?: number) => {
       baseLogger.debug('WebSocket message', { clientId, type, direction, size });
     },
-    
+
     // Security operations
     suspiciousActivity: (activity: string, metadata?: any) => {
       baseLogger.warn('Suspicious activity', { activity, metadata });
     },
-    
+
     authenticationSuccess: (method: string, userId: string) => {
       baseLogger.info('Authentication success', { method, userId });
     },
-    
+
     authenticationFailure: (method: string, identifier?: string, reason?: string) => {
       baseLogger.warn('Authentication failure', { method, identifier, reason });
     },
-    
+
     accessGranted: (resource: string, userId?: string) => {
       baseLogger.info('Access granted', { resource, userId });
     },
-    
+
     accessDenied: (resource: string, userId?: string, reason?: string) => {
       baseLogger.warn('Access denied', { resource, userId, reason });
     },
-    
+
     // User flow tracking
     flowStep: (flowName: string, step: string, userId?: string) => {
       baseLogger.info('User flow step', { flowName, step, userId });
     },
-    
+
     // Component lifecycle (React)
     mount: (component: string, props?: any) => {
       baseLogger.debug('Component mount', { component, props: sanitizePayload(props) });
     },
-    
+
     unmount: (component: string) => {
       baseLogger.debug('Component unmount', { component });
     },
-    
+
     stateChange: (component: string, state: string, value: any, reason?: string) => {
       baseLogger.debug('State change', { component, state, value: sanitizePayload(value), reason });
     },
-    
+
     event: (component: string, event: string, data?: any) => {
       baseLogger.debug('Component event', { component, event, data: sanitizePayload(data) });
     },
-    
+
     rerender: (component: string, reason: string, changes?: any) => {
       baseLogger.debug('Component rerender', { component, reason, changes });
     },
-    
+
     propChange: (component: string, propName: string, oldValue: any, newValue: any) => {
-      baseLogger.debug('Prop change', { 
-        component, 
-        propName, 
-        oldValue: sanitizePayload(oldValue), 
-        newValue: sanitizePayload(newValue) 
+      baseLogger.debug('Prop change', {
+        component,
+        propName,
+        oldValue: sanitizePayload(oldValue),
+        newValue: sanitizePayload(newValue),
       });
     },
-    
+
     // Database operations
     query: (query: string, params?: any[], duration?: number) => {
-      baseLogger.debug('Database query', { 
-        query: query.substring(0, 500), 
-        paramCount: params?.length || 0, 
-        duration: duration ? `${duration}ms` : undefined 
+      baseLogger.debug('Database query', {
+        query: query.substring(0, 500),
+        paramCount: params?.length || 0,
+        duration: duration ? `${duration}ms` : undefined,
       });
     },
-    
+
     transaction: (transactionId: string, status: string) => {
       baseLogger.info('Database transaction', { transactionId, status });
     },
-    
+
     migration: (name: string, status: string, error?: any) => {
       const level = status === 'error' ? 'error' : 'info';
       baseLogger[level]('Database migration', { name, status, error });
     },
-    
+
     // API operations
     request: (endpoint: string, method: string, payload?: any, headers?: any) => {
       const requestId = `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      baseLogger.info('API request', { 
-        requestId, 
-        method, 
-        endpoint, 
-        payload: sanitizePayload(payload), 
-        headers: sanitizeHeaders(headers) 
+      baseLogger.info('API request', {
+        requestId,
+        method,
+        endpoint,
+        payload: sanitizePayload(payload),
+        headers: sanitizeHeaders(headers),
       });
       return requestId;
     },
-    
+
     response: (requestId: string, status: number, duration: number, data?: any) => {
-      baseLogger.info('API response', { 
-        requestId, 
-        status, 
-        duration: `${duration}ms`, 
-        dataSize: data ? JSON.stringify(data).length : 0 
+      baseLogger.info('API response', {
+        requestId,
+        status,
+        duration: `${duration}ms`,
+        dataSize: data ? JSON.stringify(data).length : 0,
       });
     },
-    
+
     // Business events
     businessEvent: (event: string, details: Record<string, unknown>) => {
       baseLogger.info(`Business event: ${event}`, sanitizePayload(details));
     },
-    
+
     // Create child logger with additional context
     child: (childPrefix: string) => createLogger(`${prefix}:${childPrefix}`),
   };
@@ -347,11 +405,11 @@ export const errorToLogMeta = (error: unknown): Record<string, unknown> => {
       ...(error as any),
     };
   }
-  
+
   if (typeof error === 'object' && error !== null) {
     return error as Record<string, unknown>;
   }
-  
+
   return {
     message: String(error),
     type: typeof error,
@@ -359,10 +417,25 @@ export const errorToLogMeta = (error: unknown): Record<string, unknown> => {
 };
 
 // Export enhanced version for compatibility
-export const createErrorLogMeta = (error: unknown, context?: Record<string, unknown>): Record<string, unknown> => {
+export const createErrorLogMeta = (
+  error: unknown,
+  context?: Record<string, unknown>
+): Record<string, unknown> => {
   const errorMeta = errorToLogMeta(error);
   return context ? { ...errorMeta, ...context } : errorMeta;
 };
 
 // Export default logger
 export default logger;
+
+// Cleanup old rate limit entries periodically
+if (typeof globalThis !== 'undefined' && !isTest) {
+  setInterval(() => {
+    const now = Date.now();
+    for (const [key, entry] of rateLimitMap.entries()) {
+      if (now > entry.resetTime) {
+        rateLimitMap.delete(key);
+      }
+    }
+  }, 60000); // Clean up every minute
+}

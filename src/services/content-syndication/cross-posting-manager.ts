@@ -334,7 +334,7 @@ export class CrossPostingManager {
     const summary = await this.generateSocialSummary(content);
 
     // Add hashtags
-    const hashtags = config.hashtags ? this.generateHashtags(content) : [];
+    const hashtags: string[] = config.hashtags ? this.generateHashtags(content) : [];
 
     // Create transformed content
     const socialContent = {
@@ -449,7 +449,7 @@ export class CrossPostingManager {
     config: any,
     schedule: any
   ): Promise<any> {
-    const results = [];
+    const results: any[] = [];
 
     for (const targetLanguage of config.targetLanguages) {
       // Translate content

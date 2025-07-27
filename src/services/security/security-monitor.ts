@@ -424,7 +424,7 @@ export class SecurityMonitor extends EventEmitter {
   }
 
   private async checkCompliance(): Promise<ComplianceCheckResult> {
-    const violations = [];
+    const violations: ComplianceViolation[] = [];
 
     for (const [id, policy] of this.securityPolicies) {
       if (policy.enforced) {
@@ -595,7 +595,7 @@ export class SecurityMonitor extends EventEmitter {
       { name: 'Session Security', check: () => this.checkSessionSecurity() },
     ];
 
-    const results = [];
+    const results: Array<{ name: string; passed: boolean; details?: string }> = [];
     let passed = 0;
     let failed = 0;
 

@@ -15,7 +15,7 @@ export default function Test500Comprehensive() {
   >([]);
   const router = useRouter();
 
-  const addResult = (test: string, result: 'success' | 'error', message: string) => {
+  const addResult = (test: string, result: 'pending' | 'success' | 'error', message: string) => {
     setTestResults(prev => [
       ...prev,
       {

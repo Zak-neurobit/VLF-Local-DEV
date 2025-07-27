@@ -11,7 +11,6 @@ export const metadata: Metadata = {
     'lawyers near me, attorneys near me, law firm near me, abogado cerca de mi, legal help near me',
 };
 
-
 export default function NearMePage() {
   // TODO: Extract content from original file and format properly
   const post = {
@@ -20,7 +19,7 @@ export default function NearMePage() {
     slug: 'near-me',
     excerpt: 'Blog post excerpt here - TODO: extract from content',
     content: `
-      <div class="prose prose-lg max-w-none">
+      <div className="prose prose-lg max-w-none">
         <!-- TODO: Migrate content from original file -->
         <p>This content needs to be migrated from the original file.</p>
       </div>

@@ -610,7 +610,7 @@ export class CrewCoordinator {
     logger.info(`Executing workflow ${workflow.name}`);
 
     try {
-      const results = [];
+      const results: unknown[] = [];
 
       for (let i = 0; i < workflow.steps.length; i++) {
         const step = workflow.steps[i];
@@ -657,7 +657,7 @@ export class CrewCoordinator {
     canExecute: boolean;
     missingDependencies: string[];
   }> {
-    const missingDependencies = [];
+    const missingDependencies: string[] = [];
 
     for (const dependency of step.dependencies) {
       const dependencyIndex = parseInt(dependency.replace('step-', ''));

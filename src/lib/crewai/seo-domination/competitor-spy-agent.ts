@@ -631,7 +631,13 @@ export class CompetitorSpyAgent {
   private async checkKeywordRankings(): Promise<void> {
     logger.info('📈 Checking keyword rankings');
 
-    const rankingChanges = [];
+    const rankingChanges: Array<{
+      keyword: string;
+      ourPosition: number;
+      competitor: string;
+      theirPosition: number;
+      gap: number;
+    }> = [];
 
     for (const keyword of this.MONITORING_TARGETS.keywords) {
       const ourRanking = await this.checkKeywordPosition(keyword, 'vasquezlawfirm.com');
@@ -947,7 +953,6 @@ export class CompetitorSpyAgent {
 
   private async checkForNewContent(competitor: Competitor): Promise<ContentPiece[]> {
     // Check for content published in last hour
-    const recentContent = [];
 
     try {
       const content = await this.analyzeCompetitorContent(competitor);
@@ -1201,7 +1206,12 @@ Consider our resources and potential impact.
   private async identifyCompetitorWeaknesses(
     intelligence: CompetitorIntelligence[]
   ): Promise<void> {
-    const weaknesses = [];
+    const weaknesses: Array<{
+      domain: string;
+      type: string;
+      issue: string;
+      exploitation: string;
+    }> = [];
 
     for (const intel of intelligence) {
       // Technical weaknesses
@@ -1244,7 +1254,12 @@ Consider our resources and potential impact.
    */
   private async generateCounterStrategies(intelligence: CompetitorIntelligence[]): Promise<void> {
     for (const intel of intelligence) {
-      const strategies = [];
+      const strategies: Array<{
+        type: string;
+        action: string;
+        timeline: string;
+        resources: string;
+      }> = [];
 
       // Content counters
       for (const post of intel.content.topPerformers) {
@@ -1275,7 +1290,15 @@ Consider our resources and potential impact.
    * Alert on urgent opportunities that need immediate action
    */
   private async alertOnUrgentOpportunities(intelligence: CompetitorIntelligence[]): Promise<void> {
-    const urgentAlerts = [];
+    const urgentAlerts: Array<{
+      type: string;
+      severity?: 'high' | 'critical';
+      message?: string;
+      action: string;
+      data?: any;
+      competitor?: string;
+      details?: any;
+    }> = [];
 
     for (const intel of intelligence) {
       // New high-value content

@@ -444,7 +444,7 @@ export class ClientPortalBillingPayments {
       const startDate = params.startDate || new Date();
 
       // Generate payment schedule
-      const paymentSchedule = [];
+      const paymentSchedule: Array<{ dueDate: Date; amount: number; status: 'pending' }> = [];
       for (let i = 0; i < params.numberOfPayments; i++) {
         const dueDate = new Date(startDate);
         dueDate.setMonth(dueDate.getMonth() + i + 1);
@@ -563,7 +563,7 @@ export class ClientPortalBillingPayments {
       .reduce((sum, inv) => sum + inv.amountDue, 0);
 
     // Get upcoming payments
-    const upcomingPayments = [];
+    const upcomingPayments: Array<{ date: Date; amount: number; description: string }> = [];
 
     // From payment plans
     for (const plan of paymentPlans) {

@@ -707,7 +707,7 @@ export class GMBManager extends EventEmitter {
   }
 
   private async generateInsights(analytics: GMBAnalytics): Promise<string[]> {
-    const insights = [];
+    const insights: string[] = [];
 
     if (analytics.metrics.views.search > analytics.metrics.views.maps) {
       insights.push('More customers find you through search than maps');
@@ -725,7 +725,7 @@ export class GMBManager extends EventEmitter {
   }
 
   private async generateRecommendations(analytics: GMBAnalytics): Promise<string[]> {
-    const recommendations = [];
+    const recommendations: string[] = [];
 
     if (analytics.metrics.photos.views < 100) {
       recommendations.push('Add more high-quality photos to increase engagement');

@@ -1,8 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import {
-  generateContextualLinks,
-} from '@/lib/seo/internal-linking-mesh';
+import { generateContextualLinks } from '@/lib/seo/internal-linking-mesh';
 
 interface ContentInternalLinksProps {
   content: string;
@@ -159,7 +157,9 @@ export function ContentInternalLinks({
   });
 
   // Add contextual links section
-  const contextualLinks = currentPage ? generateContextualLinks(currentPage, 5) : [];
+  const contextualLinks: Array<{ text: string; href: string; title: string }> = currentPage
+    ? generateContextualLinks(currentPage, 5)
+    : [];
 
   return (
     <div className="content-with-internal-links">
@@ -206,7 +206,7 @@ export function AutoLinkContent({
       }
 
       // Process children of the element
-      const children = React.Children.map(node.props.children, processNode);
+      const children = React.Children.map((node.props as any).children, processNode);
       return React.cloneElement(node, {}, children);
     }
 

@@ -1,12 +1,30 @@
 // const { withSentryConfig } = require('@sentry/nextjs'); // Temporarily disabled
+// const million = require('million/compiler'); // Temporarily disabled - not needed
+const { join } = require('path');
+const { cpSync, existsSync } = require('fs');
 
 // Fix for revalidation issues during build
 if (process.env.NEXT_PHASE === 'phase-production-build' || process.env.VERCEL) {
   // During build, ensure proper URL is set
   process.env.NEXT_PUBLIC_APP_URL =
     process.env.NEXT_PUBLIC_APP_URL || 'https://www.vasquezlawnc.com';
-  // Disable ISR cache to prevent localhost:undefined errors
-  process.env.NEXT_DISABLE_ISR_CACHE = 'true';
+}
+
+// Copy Partytown files to public directory
+const partytownDir = join(__dirname, 'node_modules', '@builder.io', 'partytown', 'lib');
+const publicPartytownDir = join(__dirname, 'public', '~partytown');
+
+try {
+  if (existsSync(partytownDir)) {
+    cpSync(partytownDir, publicPartytownDir, {
+      recursive: true,
+      force: true,
+      filter: src => !src.includes('debug'),
+    });
+    console.log('✅ Partytown files copied to public directory');
+  }
+} catch (err) {
+  console.error('❌ Failed to copy Partytown files:', err);
 }
 
 /** @type {import('next').NextConfig} */
@@ -19,13 +37,30 @@ const nextConfig = {
 
   // Build optimizations for large projects with full static generation
   experimental: {
-    // Use more workers for faster builds
-    workerThreads: true,
-    cpus: 8, // Use all available CPUs on Vercel
-    // Enable new image optimization
-    optimizePackageImports: ['lucide-react', 'date-fns', '@radix-ui/react-icons'],
-    // Enable instrumentation hook for Sentry
-    instrumentationHook: true,
+    // Next.js 15 experimental features
+    // Server Components optimizations
+    serverMinification: true,
+    serverSourceMaps: false,
+    // Optimize package imports
+    optimizePackageImports: [
+      'lucide-react',
+      'date-fns',
+      '@radix-ui/react-icons',
+      '@radix-ui/react-accordion',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-select',
+      '@radix-ui/react-tabs',
+      'framer-motion',
+      'react-icons',
+      '@heroicons/react',
+      'recharts',
+      'react-hook-form',
+      '@react-three/fiber',
+      '@react-three/drei',
+      'clsx',
+      'tailwind-merge',
+    ],
   },
 
   // Increase build timeout for generating many pages
@@ -37,8 +72,8 @@ const nextConfig = {
     return Date.now().toString();
   },
 
-  // Output configuration for better build performance
-  output: 'standalone',
+  // Output configuration - removed 'standalone' as it's not needed for Vercel
+  // Vercel automatically handles the output format
 
   // Disable source maps in production to save memory
   productionBrowserSourceMaps: false,
@@ -46,21 +81,38 @@ const nextConfig = {
   // Compress output
   compress: true,
 
-  // Skip type checking and linting during deployment build
+  // TypeScript and ESLint configuration - production-ready with transitional safety
   typescript: {
-    ignoreBuildErrors: true,
+    // Enable strict checking but allow builds to succeed with non-critical errors
+    // Critical errors (undefined variables, missing imports) will still fail
+    ignoreBuildErrors: false,
+    tsconfigPath: './tsconfig.json',
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    // Enable ESLint but allow builds to continue with warnings
+    ignoreDuringBuilds: false,
+    dirs: ['src'], // Only lint source directories (exclude root-level scripts)
   },
 
-  // Image optimization
+  // Image optimization (updated for Next.js 15)
   images: {
-    domains: [
-      'vasquezlawnc.com',
-      'www.vasquezlawnc.com',
-      'images.unsplash.com',
-      'storage.googleapis.com',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'vasquezlawnc.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.vasquezlawnc.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'storage.googleapis.com',
+      },
     ],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -189,7 +241,7 @@ const nextConfig = {
   },
 
   // Webpack configuration
-  webpack: (config, { isServer, webpack }) => {
+  webpack: (config, { isServer, webpack, dev }) => {
     // Fix for ES modules
     config.resolve.fallback = {
       ...config.resolve.fallback,
@@ -286,11 +338,131 @@ const nextConfig = {
       }
     }
 
+    // Optimize code splitting
+    if (!dev && !isServer) {
+      config.optimization = {
+        ...config.optimization,
+        runtimeChunk: 'single',
+        splitChunks: {
+          chunks: 'all',
+          maxInitialRequests: 25,
+          minSize: 20000,
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            // Framework chunk
+            framework: {
+              name: 'framework',
+              chunks: 'all',
+              test: /[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|use-sync-external-store)[\\/]/,
+              priority: 40,
+              enforce: true,
+            },
+            // Next.js internals
+            lib: {
+              test(module) {
+                return module.size() > 160000 && /node_modules[\\/]/.test(module.identifier());
+              },
+              name(module) {
+                const hash = require('crypto').createHash('sha1');
+                hash.update(module.identifier());
+                return hash.digest('hex').substring(0, 8);
+              },
+              priority: 30,
+              minChunks: 1,
+              reuseExistingChunk: true,
+            },
+            // Common components
+            commons: {
+              name: 'commons',
+              chunks: 'all',
+              minChunks: 2,
+              priority: 20,
+              test(module) {
+                return (
+                  module.resource &&
+                  !module.resource.includes('node_modules') &&
+                  module.resource.includes('src/components')
+                );
+              },
+            },
+            // UI libraries
+            ui: {
+              name: 'ui',
+              test: /[\\/]node_modules[\\/](@radix-ui|framer-motion|react-icons|lucide-react|@heroicons)[\\/]/,
+              priority: 35,
+              reuseExistingChunk: true,
+            },
+            // Form libraries
+            forms: {
+              name: 'forms',
+              test: /[\\/]node_modules[\\/](react-hook-form|@hookform|zod)[\\/]/,
+              priority: 34,
+              reuseExistingChunk: true,
+            },
+            // Analytics and monitoring
+            monitoring: {
+              name: 'monitoring',
+              test: /[\\/]node_modules[\\/](@sentry|@vercel\/analytics|@vercel\/speed-insights)[\\/]/,
+              priority: 33,
+              reuseExistingChunk: true,
+            },
+            // Three.js and 3D libraries
+            three: {
+              name: 'three',
+              test: /[\\/]node_modules[\\/](three|@react-three)[\\/]/,
+              priority: 32,
+              reuseExistingChunk: true,
+            },
+            // Date utilities
+            date: {
+              name: 'date',
+              test: /[\\/]node_modules[\\/](date-fns)[\\/]/,
+              priority: 31,
+              reuseExistingChunk: true,
+            },
+            // Default vendor chunk for remaining modules
+            vendor: {
+              name: 'vendor',
+              test: /[\\/]node_modules[\\/]/,
+              priority: 10,
+              reuseExistingChunk: true,
+            },
+          },
+        },
+      };
+
+      // Module Federation removed - causing eager consumption errors in production
+
+      // Add caching for better build performance
+      config.cache = {
+        type: 'filesystem',
+        buildDependencies: {
+          config: [__filename],
+        },
+      };
+    }
+
     return config;
   },
 
-  // Enable SWC minification
-  swcMinify: true,
+  // SWC minification is now default in Next.js 15
+
+  // Optimize CSS
+  modularizeImports: {
+    '@heroicons/react/24/outline': {
+      transform: '@heroicons/react/24/outline/{{member}}',
+    },
+    '@heroicons/react/24/solid': {
+      transform: '@heroicons/react/24/solid/{{member}}',
+    },
+    'lucide-react': {
+      transform: 'lucide-react/dist/esm/icons/{{member}}',
+    },
+    'react-icons/?(((\\w*)?/?)*)': {
+      transform: 'react-icons/{{ matches.[1] }}/{{ member }}',
+    },
+  },
 
   // Environment variables to expose to the browser
   env: {
@@ -342,4 +514,17 @@ const sentryWebpackPluginOptions = {
 };
 
 // module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
-module.exports = nextConfig; // Temporarily export without Sentry
+// Wrap with Million.js compiler
+// Temporarily disabled Million.js due to memory constraints on Vercel
+// module.exports = million.next(nextConfig, {
+//   auto: true, // Automatically optimize components
+//   telemetry: false, // Disable telemetry
+//   // Only optimize specific components for safety
+//   ignore: [
+//     // Ignore components with complex patterns
+//     'node_modules/@radix-ui',
+//     'node_modules/framer-motion',
+//     'node_modules/@react-three',
+//   ],
+// });
+module.exports = nextConfig;

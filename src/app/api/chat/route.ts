@@ -259,7 +259,7 @@ async function handleChatPOST(request: NextRequest) {
 
     // Check for common questions and provide quick responses
     const lowerMessage = message.toLowerCase();
-    let quickResponse = null;
+    let quickResponse: string | null = null;
 
     if (
       lowerMessage.includes('consultation') ||

@@ -93,7 +93,12 @@ export async function POST(req: NextRequest) {
     }
 
     if (action === 'create-all') {
-      const results = [];
+      const results: Array<{
+        agentType: string;
+        success: boolean;
+        agentId?: string;
+        error?: string;
+      }> = [];
 
       for (const [key] of Object.entries(VOICE_AGENTS)) {
         try {

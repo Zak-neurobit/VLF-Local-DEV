@@ -6,7 +6,7 @@ import { errorToLogMeta } from '@/lib/safe-logger';
 // Test endpoint to log exactly what LawPay sends
 export async function POST(request: NextRequest) {
   try {
-    const headersList = headers();
+    const headersList = await headers();
     const body = await request.text();
 
     // Log all headers

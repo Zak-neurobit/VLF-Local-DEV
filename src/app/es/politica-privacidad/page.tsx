@@ -15,7 +15,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function PoliticaPrivacidadPage() {
   const post = {
     id: 'politica-privacidad',
@@ -24,8 +23,8 @@ export default function PoliticaPrivacidadPage() {
     excerpt:
       'Conozca cómo el Bufete de Abogados Vasquez protege su privacidad y maneja su información personal de manera segura y confidencial.',
     content: `
-      <div class="prose prose-lg max-w-none">
-        <p class="text-sm text-gray-600 mb-8">Última actualización: ${new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+      <div className="prose prose-lg max-w-none">
+        <p className="text-sm text-gray-600 mb-8">Última actualización: ${new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
         
         <h2>Introducción</h2>
         
@@ -73,8 +72,8 @@ export default function PoliticaPrivacidadPage() {
         
         <h2>Confidencialidad Abogado-Cliente</h2>
         
-        <div class="bg-blue-50 p-6 rounded-lg my-8">
-          <p class="font-semibold mb-2">Privilegio Abogado-Cliente:</p>
+        <div className="bg-blue-50 p-6 rounded-lg my-8">
+          <p className="font-semibold mb-2">Privilegio Abogado-Cliente:</p>
           <p>La información compartida con nosotros en el contexto de una relación abogado-cliente está protegida por el privilegio abogado-cliente. Mantenemos la más estricta confidencialidad de acuerdo con las reglas profesionales de conducta y las leyes aplicables.</p>
         </div>
         
@@ -143,7 +142,7 @@ export default function PoliticaPrivacidadPage() {
         
         <p>Si tiene preguntas sobre esta Política de Privacidad o sobre cómo manejamos su información personal, contáctenos:</p>
         
-        <div class="bg-gray-50 p-6 rounded-lg my-8">
+        <div className="bg-gray-50 p-6 rounded-lg my-8">
           <p><strong>Bufete de Abogados Vasquez, PLLC</strong></p>
           <p>6842 Fairview Rd, Charlotte, NC 28210</p>
           <p>Teléfono: <a href="tel:+19193781525">(919) 378-1525</a></p>

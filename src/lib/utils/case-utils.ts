@@ -53,7 +53,11 @@ export function formatCaseTitle(clientName: string, practiceArea: PracticeArea):
 }
 
 export function calculateCaseDeadlines(practiceArea: PracticeArea, caseDetails?: unknown) {
-  const deadlines = [];
+  const deadlines: Array<{
+    title: string;
+    dueDate: Date;
+    priority: 'critical' | 'urgent' | 'high' | 'medium' | 'low';
+  }> = [];
   const now = new Date();
 
   switch (practiceArea) {

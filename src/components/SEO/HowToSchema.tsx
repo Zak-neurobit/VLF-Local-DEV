@@ -158,7 +158,7 @@ function formatDuration(isoDuration: string): string {
   if (!match) return isoDuration;
 
   const [, years, months, days, hours, minutes] = match;
-  const parts = [];
+  const parts: string[] = [];
 
   if (years) parts.push(`${years} year${years !== '1' ? 's' : ''}`);
   if (months) parts.push(`${months} month${months !== '1' ? 's' : ''}`);

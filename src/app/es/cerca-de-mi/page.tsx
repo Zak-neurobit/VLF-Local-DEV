@@ -4,7 +4,8 @@ import { Metadata } from 'next';
 import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
 export const metadata: Metadata = {
-  title: 'Abogados Cerca De Mí en Carolina del Norte | Encuentre Ayuda Legal Cerca de Usted | Vasquez Law Firm',
+  title:
+    'Abogados Cerca De Mí en Carolina del Norte | Encuentre Ayuda Legal Cerca de Usted | Vasquez Law Firm',
   description:
     'Encuentre los mejores abogados cerca de usted en NC. Inmigración, lesiones personales, defensa criminal, compensación laboral. Disponibilidad 24/7. Consulta gratuita. Se habla español.',
   keywords:
@@ -25,15 +26,15 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function CercaDeMiPage() {
   const post = {
     id: 'cerca-de-mi',
     title: 'Encuentre Ayuda Legal Cerca de Usted en Carolina del Norte',
     slug: 'cerca-de-mi',
-    excerpt: 'Encuentre los mejores abogados cerca de usted en Carolina del Norte. Consulta gratuita disponible.',
+    excerpt:
+      'Encuentre los mejores abogados cerca de usted en Carolina del Norte. Consulta gratuita disponible.',
     content: `
-      <div class="prose prose-lg max-w-none">
+      <div className="prose prose-lg max-w-none">
         <h1>Abogados Cerca De Mí en Carolina del Norte</h1>
         
         <p>¿Necesita un abogado cerca de usted en Carolina del Norte? Vasquez Law Firm está aquí para ayudarle con todas sus necesidades legales. Con más de 60 años de experiencia combinada y 30,000+ casos ganados, nuestro equipo de abogados bilingües está listo para representarle.</p>
@@ -84,9 +85,9 @@ export default function CercaDeMiPage() {
         
         <p>No espere más. Su futuro es demasiado importante para dejarlo al azar. Contacte a Vasquez Law Firm hoy mismo y permítanos luchar por sus derechos.</p>
 
-        <div class="bg-blue-50 p-6 rounded-lg mt-8">
-          <h3 class="text-xl font-bold text-blue-800 mb-4">🚨 Emergencia Legal 24/7</h3>
-          <p class="text-blue-700">¿Tiene una emergencia legal? Nuestro equipo está disponible 24 horas al día, 7 días a la semana para casos urgentes de inmigración, defensa criminal, y lesiones graves.</p>
+        <div className="bg-blue-50 p-6 rounded-lg mt-8">
+          <h3 className="text-xl font-bold text-blue-800 mb-4">🚨 Emergencia Legal 24/7</h3>
+          <p className="text-blue-700">¿Tiene una emergencia legal? Nuestro equipo está disponible 24 horas al día, 7 días a la semana para casos urgentes de inmigración, defensa criminal, y lesiones graves.</p>
         </div>
       </div>
     `,

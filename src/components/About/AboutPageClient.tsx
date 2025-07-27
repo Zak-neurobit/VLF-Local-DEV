@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Script from 'next/script';
-import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import {
   Phone,
   ArrowRight,
@@ -289,7 +288,7 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
   ];
 
   return (
-    <MasterLayout variant="hero" showBreadcrumbs={false}>
+    <>
       <div className="min-h-screen bg-black">
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-black py-24">
@@ -775,6 +774,6 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
           __html: JSON.stringify(generateOrganizationSchema()),
         }}
       />
-    </MasterLayout>
+    </>
   );
 }

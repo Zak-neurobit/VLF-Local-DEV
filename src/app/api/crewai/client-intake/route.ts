@@ -71,7 +71,17 @@ export async function GET(request: NextRequest) {
     }
 
     // For multi-step workflows, provide detailed progress
-    let progress = null;
+    let progress: {
+      totalSteps: number;
+      currentStep: number;
+      completedSteps: number;
+      stepProgress: Array<{
+        step: number;
+        agent: string;
+        action: string;
+        status: string;
+      }>;
+    } | null = null;
     if (task.type === 'multi-step' && task.data) {
       const workflow = task.data as {
         steps: Array<{ agent: string; action: string; data: unknown }>;

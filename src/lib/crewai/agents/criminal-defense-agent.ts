@@ -236,7 +236,7 @@ Prior Record: ${params.priorRecord || 'None'}`;
   }
 
   private identifyCollateralConsequences(charges: string): string[] {
-    const consequences = [];
+    const consequences: string[] = [];
     const chargesLower = charges.toLowerCase();
 
     if (chargesLower.includes('dui') || chargesLower.includes('dwi')) {

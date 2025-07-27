@@ -37,6 +37,7 @@ function ParticleField() {
           count={particles.length / 3}
           array={particles}
           itemSize={3}
+          args={[particles, 3]}
         />
       </bufferGeometry>
       <pointsMaterial size={0.02} color="#C9974D" transparent opacity={0.8} />

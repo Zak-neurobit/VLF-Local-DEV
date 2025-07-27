@@ -122,7 +122,7 @@ export class ContentFactory {
   private async generateDailyBlogs() {
     logger.info('Generating daily blog posts', { target: this.config.dailyBlogTarget });
 
-    const blogPosts = [];
+    const blogPosts: any[] = []; // BlogPost type from Prisma
     const prisma = getPrismaClient();
 
     // Get trending topics and news alerts
@@ -199,7 +199,7 @@ export class ContentFactory {
   private async generateLocationPages() {
     logger.info('Generating location-based landing pages');
 
-    const landingPages = [];
+    const landingPages: any[] = []; // LandingPage type from Prisma
     const prisma = getPrismaClient();
 
     // Get cities that don't have pages yet
@@ -266,7 +266,7 @@ export class ContentFactory {
   private async generatePracticeAreaVariations() {
     logger.info('Generating practice area page variations');
 
-    const variations = [];
+    const variations: any[] = [];
     const prisma = getPrismaClient();
 
     for (const practiceArea of this.config.practiceAreas) {

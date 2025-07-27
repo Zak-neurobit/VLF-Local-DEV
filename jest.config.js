@@ -18,6 +18,9 @@ const customJestConfig = {
     '^@services/(.*)$': '<rootDir>/src/services/$1',
     '^@types/(.*)$': '<rootDir>/src/types/$1',
     '^@utils/(.*)$': '<rootDir>/src/utils/$1',
+    // Handle lucide-react specific imports
+    '^lucide-react/dist/esm/icons/(.*)$': 'lucide-react',
+    '^lucide-react$': '<rootDir>/__mocks__/lucide-react.js',
     // Handle CSS imports (with CSS modules)
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
     // Handle CSS imports (without CSS modules)
@@ -25,9 +28,15 @@ const customJestConfig = {
     // Handle image imports
     '^.+\\.(jpg|jpeg|png|gif|webp|avif|ico|bmp|svg)$': '<rootDir>/__mocks__/fileMock.js',
   },
-  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/.next/',
+    '<rootDir>/tools/',
+    '<rootDir>/venv/',
+    '<rootDir>/public/~partytown/',
+  ],
   transformIgnorePatterns: [
-    'node_modules/(?!(.*\\.mjs$|@hookform|@radix-ui|@heroicons|countup.js|react-intersection-observer))',
+    'node_modules/(?!(.*\\.mjs$|@hookform|@radix-ui|@heroicons|countup.js|react-intersection-observer|lucide-react|@builder.io|bullmq))',
   ],
   moduleDirectories: ['node_modules', '<rootDir>/'],
   testMatch: ['**/__tests__/**/*.(test|spec).(ts|tsx|js|jsx)', '**/*.(test|spec).(ts|tsx|js|jsx)'],
@@ -39,10 +48,10 @@ const customJestConfig = {
   ],
   coverageThreshold: {
     global: {
-      branches: 0,
-      functions: 0,
-      lines: 0,
-      statements: 0,
+      branches: 40, // Start with achievable goals
+      functions: 40, // Gradually increase over time
+      lines: 50, // Higher for lines as they're easier
+      statements: 50, // Match lines threshold
     },
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],

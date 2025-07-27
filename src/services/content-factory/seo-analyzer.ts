@@ -570,7 +570,7 @@ export class SEOAnalyzer {
    * Generate SEO recommendations
    */
   async generateRecommendations(content: SEOContent, score: number): Promise<string[]> {
-    const recommendations = [];
+    const recommendations: string[] = [];
 
     if (score < 70) {
       recommendations.push('Consider rewriting title to include primary keyword earlier');

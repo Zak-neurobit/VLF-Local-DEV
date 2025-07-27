@@ -1,0 +1,13 @@
+module.exports = {
+  presets: ['next/babel'],
+  plugins: [
+    ['babel-plugin-react-compiler', {
+      // Standard React Compiler configuration for Next.js
+      compilationMode: 'annotation',
+      // Only compile files that use 'use memo' or other React Compiler hints
+      sources: (filename) => {
+        return filename.includes('src/') && !filename.includes('node_modules');
+      },
+    }],
+  ],
+};

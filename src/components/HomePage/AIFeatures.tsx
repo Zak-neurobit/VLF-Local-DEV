@@ -53,6 +53,7 @@ function AIBrain() {
             count={positions.length / 3}
             array={positions}
             itemSize={3}
+            args={[positions, 3]}
           />
         </bufferGeometry>
         <pointsMaterial size={0.02} color="#E5B568" transparent opacity={0.6} />

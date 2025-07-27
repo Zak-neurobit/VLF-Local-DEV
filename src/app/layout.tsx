@@ -1,4 +1,4 @@
-import '@/lib/stream-polyfill';
+// Stream polyfill import removed - using safe stream operations instead
 import '@/lib/error-handler'; // Initialize global error handler
 import '@/lib/external-script-guardian'; // Handle external script errors
 import { StructuredData } from '@/components/SEO/StructuredData';
@@ -7,12 +7,12 @@ import type { Metadata } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { StreamErrorBoundary } from '@/components/StreamErrorBoundary';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { organizationSchema } from '@/lib/schema';
-import SessionProvider from '@/components/providers/SessionProvider';
+import ClientSessionProvider from '@/components/providers/ClientSessionProvider';
 import dynamic from 'next/dynamic';
-import { EnhancedChatWidget } from '@/components/ChatWidget/EnhancedChatWidget';
-import { RetellCallbackWidget } from '@/components/Voice/RetellCallbackWidget';
+import { UnifiedModernChatbot } from '@/components/ChatWidget/UnifiedModernChatbot';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Toaster } from 'react-hot-toast';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -30,11 +30,13 @@ import {
   SafeSpeedOptimizer,
   SafePerformanceMonitor,
   SafeNavigationDebugger,
+  SafePartytownPerformanceMonitor,
 } from '@/components/HydrationSafeComponents';
 import { Suspense } from 'react';
 import { ClientNavigation } from '@/components/ClientNavigation';
 import { ExternalScriptGuardian } from '@/components/ExternalScriptGuardian';
 import { ResourceDiagnostics } from '@/components/ResourceDiagnostics';
+import { PartytownScripts } from '@/components/Partytown';
 
 // Removed SiteLayout import - will handle navigation directly
 
@@ -174,6 +176,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen bg-white">
+        <PartytownScripts />
         <DOMSafetyInitializer />
         <SafeSpeedOptimizer />
         <ExternalScriptGuardian />
@@ -195,20 +198,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             />
           </div>
         </HydrationBoundary>
-        <SessionProvider>
+        <ClientSessionProvider>
           <ErrorBoundary>
-            <DOMSafeWrapper>
-              <MasterLayout>
-                <ClientNavigation />
-                <SafeDynamicHreflang />
-                {children}
-              </MasterLayout>
-              <EnhancedChatWidget />
-              <RetellCallbackWidget />
-              <SafePerformanceMonitor />
-            </DOMSafeWrapper>
+            <StreamErrorBoundary>
+              <DOMSafeWrapper>
+                <MasterLayout>
+                  <ClientNavigation />
+                  <SafeDynamicHreflang />
+                  {children}
+                </MasterLayout>
+                <UnifiedModernChatbot />
+                <SafePerformanceMonitor />
+                <SafePartytownPerformanceMonitor />
+              </DOMSafeWrapper>
+            </StreamErrorBoundary>
           </ErrorBoundary>
-        </SessionProvider>
+        </ClientSessionProvider>
         <Suspense fallback={null}>
           <SafeNavigationDebugger />
         </Suspense>

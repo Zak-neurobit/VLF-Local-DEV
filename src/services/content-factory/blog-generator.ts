@@ -59,7 +59,14 @@ export class BlogContentGenerator {
   async getTrendingTopics() {
     logger.info('Fetching trending legal topics');
 
-    const topics = [];
+    const topics: Array<{
+      title: string;
+      practiceArea: string;
+      keywords: string[];
+      relevanceScore: number;
+      isVoiceSearch: boolean;
+      source: string;
+    }> = [];
 
     try {
       // Get trending searches related to legal topics
@@ -99,7 +106,8 @@ export class BlogContentGenerator {
           keywords,
           relevanceScore:
             ('score' in topic ? topic.score : undefined) || this.calculateRelevanceScore(topic),
-          isVoiceSearch: ('isVoiceSearch' in topic ? topic.isVoiceSearch : false) || false,
+          isVoiceSearch:
+            (('isVoiceSearch' in topic ? topic.isVoiceSearch : false) as boolean) || false,
           source: topic.source,
         });
       }
@@ -159,7 +167,14 @@ export class BlogContentGenerator {
       'speak to attorney now',
     ];
 
-    const queries = [];
+    const queries: Array<{
+      title: string;
+      practiceArea: string;
+      keywords: string[];
+      searchVolume: number;
+      isVoiceSearch: boolean;
+      relevanceScore: number;
+    }> = [];
 
     for (const practiceArea of this.getPracticeAreas()) {
       for (const pattern of voiceSearchPatterns) {
@@ -692,7 +707,7 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
   private async generateContentImages(content: string): Promise<string[]> {
     // Extract sections that could benefit from images
     const sections = content.split(/^##/m).slice(1);
-    const images = [];
+    const images: string[] = [];
 
     for (let i = 0; i < Math.min(sections.length, 3); i++) {
       const sectionTitle = sections[i].split('\n')[0].trim();

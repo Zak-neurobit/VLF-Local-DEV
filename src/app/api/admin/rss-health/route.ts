@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     const health = await rssFeedMonitor.checkFeedHealth();
 
     // Optionally check disabled feeds
-    let disabledResults = null;
+    let disabledResults: Awaited<ReturnType<typeof rssFeedMonitor.fetchFeeds>> | null = null;
     if (checkDisabled) {
       disabledResults = await rssFeedMonitor.fetchFeeds(DISABLED_FEEDS);
     }

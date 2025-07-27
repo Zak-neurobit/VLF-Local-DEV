@@ -690,8 +690,11 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
     recipients: Array<{ phone: string; firstName?: string; lastName?: string }>,
     campaignId: string
   ) {
-    const results = [];
-    const errors = [];
+    const results: any[] = [];
+    const errors: Array<{
+      recipient: { phone: string; firstName?: string; lastName?: string };
+      error: unknown;
+    }> = [];
 
     for (const recipient of recipients) {
       try {
@@ -1095,8 +1098,8 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
       data: Record<string, unknown>;
     }>
   ) {
-    const results = [];
-    const errors = [];
+    const results: any[] = [];
+    const errors: Array<{ contactId: string; error: unknown }> = [];
 
     for (const update of updates) {
       try {
@@ -1177,7 +1180,7 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
   }) {
     try {
       // Try to find existing contact
-      let contact = null;
+      let contact: import('@/types/gohighlevel').GHLContact | null = null;
 
       if (data.phone) {
         contact = await this.findContactByPhone(data.phone);
@@ -1621,8 +1624,8 @@ Reminder: You have a ${appointment.type} appointment with ${appointment.attorney
       campaignName: string;
     }
   ) {
-    const results = [];
-    const errors = [];
+    const results: Array<{ contactId: string; status: string; callId?: any }> = [];
+    const errors: Array<{ contactId: string; error: unknown }> = [];
 
     for (const contactId of contacts) {
       try {

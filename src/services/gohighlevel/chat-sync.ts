@@ -2,6 +2,7 @@ import { ghlService } from './index';
 import { logger } from '@/lib/safe-logger';
 import { errorToLogMeta } from '@/lib/safe-logger';
 import { getPrismaClient } from '@/lib/prisma';
+import type { GHLContact } from '@/types/gohighlevel';
 
 interface ChatSyncOptions {
   userId: string;
@@ -186,7 +187,7 @@ export class GHLChatSyncService {
       if (!user) return null;
 
       // Find or create GHL contact
-      let ghlContact = null;
+      let ghlContact: GHLContact | null = null;
 
       if (user.phone) {
         ghlContact = await ghlService.findContactByPhone(user.phone);

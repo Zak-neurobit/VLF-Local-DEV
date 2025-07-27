@@ -37,27 +37,30 @@ const Dialog = ({ children, open = false, onOpenChange }: DialogProps) => {
   );
 };
 
-interface DialogTriggerProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface DialogTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
 
 const DialogTrigger = React.forwardRef<HTMLButtonElement, DialogTriggerProps>(
-  ({ children, asChild = false, ...props }, ref) => {
+  ({ children, asChild = false, onClick, ...props }, ref) => {
     const { onOpenChange } = React.useContext(DialogContext);
 
-    if (asChild) {
-      return React.cloneElement(children as React.ReactElement, {
-        onClick: () => onOpenChange(true),
+    const handleClick = React.useCallback(
+      (event: React.MouseEvent<HTMLButtonElement>) => {
+        onClick?.(event);
+        onOpenChange(true);
+      },
+      [onClick, onOpenChange]
+    );
+
+    if (asChild && React.isValidElement(children)) {
+      return React.cloneElement(children as React.ReactElement<any>, {
+        onClick: handleClick,
       });
     }
 
     return (
-      <button
-        ref={ref}
-        onClick={() => onOpenChange(true)}
-        {...props}
-      >
+      <button ref={ref} onClick={handleClick} {...props}>
         {children}
       </button>
     );
@@ -126,30 +129,15 @@ const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
 
 DialogContent.displayName = 'DialogContent';
 
-const DialogHeader = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(
-      'flex flex-col space-y-1.5 text-center sm:text-left',
-      className
-    )}
-    {...props}
-  />
+const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn('flex flex-col space-y-1.5 text-center sm:text-left', className)} {...props} />
 );
 
 DialogHeader.displayName = 'DialogHeader';
 
-const DialogFooter = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
+const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn(
-      'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2',
-      className
-    )}
+    className={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', className)}
     {...props}
   />
 );
@@ -162,10 +150,7 @@ const DialogTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <h2
     ref={ref}
-    className={cn(
-      'text-lg font-semibold leading-none tracking-tight',
-      className
-    )}
+    className={cn('text-lg font-semibold leading-none tracking-tight', className)}
     {...props}
   />
 ));
@@ -176,11 +161,7 @@ const DialogDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <p
-    ref={ref}
-    className={cn('text-sm text-muted-foreground', className)}
-    {...props}
-  />
+  <p ref={ref} className={cn('text-sm text-muted-foreground', className)} {...props} />
 ));
 
 DialogDescription.displayName = 'DialogDescription';

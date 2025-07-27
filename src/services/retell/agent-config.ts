@@ -244,7 +244,8 @@ export function createRetellAgentConfig(agentType: keyof typeof VOICE_AGENTS) {
 // Initialize all agents with Retell
 export async function initializeRetellAgents() {
   try {
-    const agentConfigs = [];
+    const agentConfigs: Array<{ key: string; config: ReturnType<typeof createRetellAgentConfig> }> =
+      [];
 
     for (const [key, agent] of Object.entries(VOICE_AGENTS)) {
       const config = createRetellAgentConfig(key as keyof typeof VOICE_AGENTS);

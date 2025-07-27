@@ -240,7 +240,7 @@ export function generateOptimizedDescription(
   pageType: string,
   variables: Record<string, string>
 ): string {
-  const parts = [];
+  const parts: string[] = [];
 
   // Add opening
   const opening =

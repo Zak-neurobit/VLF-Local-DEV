@@ -1230,7 +1230,13 @@ export class SEOAgent {
     // For now, we'll analyze the homepage and key pages
     const pagesToAnalyze = [url, `${url}/practice-areas`, `${url}/about`, `${url}/blog`];
 
-    const topPages = [];
+    const topPages: Array<{
+      url: string;
+      title: string;
+      metaDescription?: string;
+      h1: string;
+      wordCount: number;
+    }> = [];
     for (const pageUrl of pagesToAnalyze) {
       try {
         const response = await axios.get(pageUrl);

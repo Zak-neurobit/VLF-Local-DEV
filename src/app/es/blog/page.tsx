@@ -24,6 +24,7 @@ export const metadata: Metadata = {
   },
 };
 
+// Full static generation - no revalidation needed
 
 export default function BlogPageSpanish() {
   return <BlogPageClient language="es" />;

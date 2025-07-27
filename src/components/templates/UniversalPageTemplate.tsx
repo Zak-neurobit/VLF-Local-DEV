@@ -4,17 +4,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  ArrowRight, 
-  Phone, 
-  Mail, 
-  MapPin, 
+import {
+  ArrowRight,
+  Phone,
+  Mail,
+  MapPin,
   Clock,
   CheckCircle,
   Star,
   Award,
   Users,
-  Scale
+  Scale,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -26,12 +26,12 @@ interface UniversalPageTemplateProps {
   subtitleEs?: string;
   description: string;
   descriptionEs?: string;
-  
+
   // Hero Section
   heroImage?: string;
   heroVideo?: string;
   heroOverlay?: boolean;
-  
+
   // Features/Services
   features?: Array<{
     icon: React.ReactNode;
@@ -40,7 +40,7 @@ interface UniversalPageTemplateProps {
     description: string;
     descriptionEs?: string;
   }>;
-  
+
   // Benefits
   benefits?: Array<{
     title: string;
@@ -48,7 +48,7 @@ interface UniversalPageTemplateProps {
     description: string;
     descriptionEs?: string;
   }>;
-  
+
   // Process Steps
   processSteps?: Array<{
     number: string;
@@ -57,7 +57,7 @@ interface UniversalPageTemplateProps {
     description: string;
     descriptionEs?: string;
   }>;
-  
+
   // FAQ
   faqs?: Array<{
     question: string;
@@ -65,7 +65,7 @@ interface UniversalPageTemplateProps {
     answer: string;
     answerEs?: string;
   }>;
-  
+
   // CTA
   ctaTitle?: string;
   ctaTitleEs?: string;
@@ -74,14 +74,14 @@ interface UniversalPageTemplateProps {
   ctaButtonText?: string;
   ctaButtonTextEs?: string;
   ctaButtonLink?: string;
-  
+
   // Stats
   stats?: Array<{
     value: string;
     label: string;
     labelEs?: string;
   }>;
-  
+
   // Testimonials
   testimonials?: Array<{
     name: string;
@@ -89,7 +89,7 @@ interface UniversalPageTemplateProps {
     contentEs?: string;
     rating: number;
   }>;
-  
+
   // Related Pages
   relatedPages?: Array<{
     title: string;
@@ -98,10 +98,9 @@ interface UniversalPageTemplateProps {
     descriptionEs?: string;
     link: string;
   }>;
-  
+
   // Meta
   locale?: 'en' | 'es';
-  practiceArea?: string;
   className?: string;
 }
 
@@ -130,18 +129,20 @@ export function UniversalPageTemplate({
   testimonials = [],
   relatedPages = [],
   locale = 'en',
-  practiceArea,
-  className
+  className,
 }: UniversalPageTemplateProps) {
   const isSpanish = locale === 'es';
-  
+
   // Default stats if none provided
-  const defaultStats = stats.length > 0 ? stats : [
-    { value: '25+', label: 'Years Experience', labelEs: 'Años de Experiencia' },
-    { value: '10,000+', label: 'Cases Won', labelEs: 'Casos Ganados' },
-    { value: '98%', label: 'Success Rate', labelEs: 'Tasa de Éxito' },
-    { value: '24/7', label: 'Available', labelEs: 'Disponible' }
-  ];
+  const defaultStats =
+    stats.length > 0
+      ? stats
+      : [
+          { value: '25+', label: 'Years Experience', labelEs: 'Años de Experiencia' },
+          { value: '10,000+', label: 'Cases Won', labelEs: 'Casos Ganados' },
+          { value: '98%', label: 'Success Rate', labelEs: 'Tasa de Éxito' },
+          { value: '24/7', label: 'Available', labelEs: 'Disponible' },
+        ];
 
   return (
     <div className={cn('min-h-screen bg-white', className)}>
@@ -159,20 +160,14 @@ export function UniversalPageTemplate({
             <source src={heroVideo} type="video/mp4" />
           </video>
         ) : (
-          <Image
-            src={heroImage}
-            alt={title}
-            fill
-            className="object-cover"
-            priority
-          />
+          <Image src={heroImage} alt={title} fill className="object-cover" priority />
         )}
-        
+
         {/* Overlay */}
         {heroOverlay && (
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50" />
         )}
-        
+
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
           <motion.div
@@ -181,15 +176,15 @@ export function UniversalPageTemplate({
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-              {isSpanish ? (titleEs || title) : title}
+              {isSpanish ? titleEs || title : title}
             </h1>
             {subtitle && (
               <p className="text-xl md:text-2xl mb-6 text-white/90">
-                {isSpanish ? (subtitleEs || subtitle) : subtitle}
+                {isSpanish ? subtitleEs || subtitle : subtitle}
               </p>
             )}
             <p className="text-lg md:text-xl max-w-3xl mb-8 text-white/80">
-              {isSpanish ? (descriptionEs || description) : description}
+              {isSpanish ? descriptionEs || description : description}
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
@@ -226,7 +221,7 @@ export function UniversalPageTemplate({
                   {stat.value}
                 </div>
                 <div className="text-sm md:text-base text-gray-300">
-                  {isSpanish ? (stat.labelEs || stat.label) : stat.label}
+                  {isSpanish ? stat.labelEs || stat.label : stat.label}
                 </div>
               </motion.div>
             ))}
@@ -248,7 +243,7 @@ export function UniversalPageTemplate({
                 {isSpanish ? 'Nuestros Servicios' : 'Our Services'}
               </h2>
             </motion.div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {features.map((feature, index) => (
                 <motion.div
@@ -263,10 +258,10 @@ export function UniversalPageTemplate({
                     {feature.icon}
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {isSpanish ? (feature.titleEs || feature.title) : feature.title}
+                    {isSpanish ? feature.titleEs || feature.title : feature.title}
                   </h3>
                   <p className="text-gray-600">
-                    {isSpanish ? (feature.descriptionEs || feature.description) : feature.description}
+                    {isSpanish ? feature.descriptionEs || feature.description : feature.description}
                   </p>
                 </motion.div>
               ))}
@@ -289,7 +284,7 @@ export function UniversalPageTemplate({
                 {isSpanish ? 'Nuestro Proceso' : 'Our Process'}
               </h2>
             </motion.div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {processSteps.map((step, index) => (
                 <motion.div
@@ -300,14 +295,12 @@ export function UniversalPageTemplate({
                   transition={{ delay: index * 0.1 }}
                   className="relative"
                 >
-                  <div className="text-6xl font-bold text-primary-100 mb-4">
-                    {step.number}
-                  </div>
+                  <div className="text-6xl font-bold text-primary-100 mb-4">{step.number}</div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {isSpanish ? (step.titleEs || step.title) : step.title}
+                    {isSpanish ? step.titleEs || step.title : step.title}
                   </h3>
                   <p className="text-gray-600">
-                    {isSpanish ? (step.descriptionEs || step.description) : step.description}
+                    {isSpanish ? step.descriptionEs || step.description : step.description}
                   </p>
                   {index < processSteps.length - 1 && (
                     <ArrowRight className="hidden lg:block absolute top-8 -right-4 w-8 h-8 text-primary-300" />
@@ -333,7 +326,7 @@ export function UniversalPageTemplate({
                 {isSpanish ? '¿Por Qué Elegirnos?' : 'Why Choose Us?'}
               </h2>
             </motion.div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {benefits.map((benefit, index) => (
                 <motion.div
@@ -346,10 +339,12 @@ export function UniversalPageTemplate({
                   <CheckCircle className="w-6 h-6 text-primary-600 shrink-0 mt-1" />
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                      {isSpanish ? (benefit.titleEs || benefit.title) : benefit.title}
+                      {isSpanish ? benefit.titleEs || benefit.title : benefit.title}
                     </h3>
                     <p className="text-gray-600">
-                      {isSpanish ? (benefit.descriptionEs || benefit.description) : benefit.description}
+                      {isSpanish
+                        ? benefit.descriptionEs || benefit.description
+                        : benefit.description}
                     </p>
                   </div>
                 </motion.div>
@@ -373,7 +368,7 @@ export function UniversalPageTemplate({
                 {isSpanish ? 'Lo Que Dicen Nuestros Clientes' : 'What Our Clients Say'}
               </h2>
             </motion.div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {testimonials.slice(0, 3).map((testimonial, index) => (
                 <motion.div
@@ -390,15 +385,15 @@ export function UniversalPageTemplate({
                         key={i}
                         className={cn(
                           'w-5 h-5',
-                          i < testimonial.rating
-                            ? 'text-yellow-400 fill-current'
-                            : 'text-gray-300'
+                          i < testimonial.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
                         )}
                       />
                     ))}
                   </div>
                   <p className="text-gray-600 mb-4 italic">
-                    "{isSpanish ? (testimonial.contentEs || testimonial.content) : testimonial.content}"
+                    "
+                    {isSpanish ? testimonial.contentEs || testimonial.content : testimonial.content}
+                    "
                   </p>
                   <p className="font-semibold text-gray-900">- {testimonial.name}</p>
                 </motion.div>
@@ -422,7 +417,7 @@ export function UniversalPageTemplate({
                 {isSpanish ? 'Preguntas Frecuentes' : 'Frequently Asked Questions'}
               </h2>
             </motion.div>
-            
+
             <div className="space-y-4">
               {faqs.map((faq, index) => (
                 <motion.details
@@ -434,11 +429,11 @@ export function UniversalPageTemplate({
                   className="bg-white p-6 rounded-lg shadow-md group"
                 >
                   <summary className="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
-                    {isSpanish ? (faq.questionEs || faq.question) : faq.question}
+                    {isSpanish ? faq.questionEs || faq.question : faq.question}
                     <span className="ml-4 transition-transform group-open:rotate-180">▼</span>
                   </summary>
                   <p className="mt-4 text-gray-600">
-                    {isSpanish ? (faq.answerEs || faq.answer) : faq.answer}
+                    {isSpanish ? faq.answerEs || faq.answer : faq.answer}
                   </p>
                 </motion.details>
               ))}
@@ -461,7 +456,7 @@ export function UniversalPageTemplate({
                 {isSpanish ? 'Páginas Relacionadas' : 'Related Pages'}
               </h2>
             </motion.div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {relatedPages.map((page, index) => (
                 <motion.div
@@ -476,10 +471,10 @@ export function UniversalPageTemplate({
                     className="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow"
                   >
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      {isSpanish ? (page.titleEs || page.title) : page.title}
+                      {isSpanish ? page.titleEs || page.title : page.title}
                     </h3>
                     <p className="text-gray-600 mb-4">
-                      {isSpanish ? (page.descriptionEs || page.description) : page.description}
+                      {isSpanish ? page.descriptionEs || page.description : page.description}
                     </p>
                     <span className="inline-flex items-center text-primary-600 hover:text-primary-700">
                       {isSpanish ? 'Leer más' : 'Learn more'}
@@ -502,14 +497,14 @@ export function UniversalPageTemplate({
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              {isSpanish 
-                ? (ctaTitleEs || ctaTitle || '¿Listo para Comenzar?')
-                : (ctaTitle || 'Ready to Get Started?')}
+              {isSpanish
+                ? ctaTitleEs || ctaTitle || '¿Listo para Comenzar?'
+                : ctaTitle || 'Ready to Get Started?'}
             </h2>
             <p className="text-xl mb-8 text-white/90">
-              {isSpanish 
-                ? (ctaDescriptionEs || ctaDescription || 'Contáctenos hoy para una consulta gratuita')
-                : (ctaDescription || 'Contact us today for a free consultation')}
+              {isSpanish
+                ? ctaDescriptionEs || ctaDescription || 'Contáctenos hoy para una consulta gratuita'
+                : ctaDescription || 'Contact us today for a free consultation'}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

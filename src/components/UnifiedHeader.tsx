@@ -69,9 +69,9 @@ export function UnifiedHeader() {
 
   const toggleLanguage = () => {
     if (isSpanish) {
-      window.location.href = pathname.replace('/es', '') || '/';
+      window.location.href = pathname ? pathname.replace('/es', '') || '/' : '/';
     } else {
-      window.location.href = `/es${pathname}`;
+      window.location.href = pathname ? `/es${pathname}` : '/es';
     }
   };
 
@@ -124,7 +124,7 @@ export function UnifiedHeader() {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
-              {navigation.map((item) => (
+              {navigation.map(item => (
                 <div
                   key={item.name}
                   className="relative"
@@ -152,7 +152,7 @@ export function UnifiedHeader() {
                           transition={{ duration: 0.2 }}
                           className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg py-2 z-50"
                         >
-                          {item.dropdown.map((subItem) => (
+                          {item.dropdown.map(subItem => (
                             <Link
                               key={subItem.name}
                               href={subItem.href}
@@ -199,7 +199,7 @@ export function UnifiedHeader() {
               className="lg:hidden bg-white border-t"
             >
               <div className="px-4 py-4 space-y-3">
-                {navigation.map((item) => (
+                {navigation.map(item => (
                   <div key={item.name}>
                     <Link
                       href={item.href}
@@ -212,7 +212,7 @@ export function UnifiedHeader() {
                     </Link>
                     {item.dropdown && (
                       <div className="ml-4 mt-2 space-y-2">
-                        {item.dropdown.map((subItem) => (
+                        {item.dropdown.map(subItem => (
                           <Link
                             key={subItem.name}
                             href={subItem.href}
