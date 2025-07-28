@@ -11,21 +11,11 @@ export const metadata: Metadata = {
 };
 
 export default function DrugCrimeCasesPage() {
-  const pageData = {
-    practiceArea: 'Drug Crime Cases',
-    title: 'Professional Legal Services',
-    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
-    heroTitle: 'Drug Crime Cases Attorneys',
-    heroSubtitle: 'Experienced legal representation',
-    urgencyLevel: 'medium' as const,
-    emergencyMessage: '',
-    services: [], // TODO: Add services
-    faqs: [], // TODO: Add FAQs
-    testimonials: [], // TODO: Add testimonials
-    statistics: [],
-    processSteps: [],
-    language: 'en' as const,
-  };
-
-  return <PracticeAreaWrapper {...pageData} />;
+  return (
+    <PracticeAreaWrapper
+      practiceArea="criminal-defense"
+      subArea="drug-crime-cases"
+      language="en"
+    />
+  );
 }

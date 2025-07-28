@@ -29,21 +29,11 @@ export const metadata: Metadata = {
 };
 
 export default function EmergencyVehicleAccidentsPage() {
-  const pageData = {
-    practiceArea: 'Emergency Vehicle Accidents',
-    title: 'Professional Legal Services',
-    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
-    heroTitle: 'Emergency Vehicle Accidents Attorneys',
-    heroSubtitle: 'Experienced legal representation',
-    urgencyLevel: 'medium' as const,
-    emergencyMessage: '',
-    services: [], // TODO: Add services
-    faqs: [], // TODO: Add FAQs
-    testimonials: [], // TODO: Add testimonials
-    statistics: [],
-    processSteps: [],
-    language: 'en' as const,
-  };
-
-  return <PracticeAreaWrapper {...pageData} />;
+  return (
+    <PracticeAreaWrapper
+      practiceArea="personal-injury"
+      subArea="emergency-vehicle-accidents"
+      language="en"
+    />
+  );
 }

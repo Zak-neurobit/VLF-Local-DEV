@@ -33,21 +33,11 @@ export const metadata: Metadata = {
 };
 
 export default function ConstructionSiteInjuriesPage() {
-  const pageData = {
-    practiceArea: 'Construction Site Injuries',
-    title: 'Professional Legal Services',
-    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
-    heroTitle: 'Construction Site Injuries Attorneys',
-    heroSubtitle: 'Experienced legal representation',
-    urgencyLevel: 'medium' as const,
-    emergencyMessage: '',
-    services: [], // TODO: Add services
-    faqs: [], // TODO: Add FAQs
-    testimonials: [], // TODO: Add testimonials
-    statistics: [],
-    processSteps: [],
-    language: 'en' as const,
-  };
-
-  return <PracticeAreaWrapper {...pageData} />;
+  return (
+    <PracticeAreaWrapper
+      practiceArea="workers-compensation"
+      subArea="construction-site-injuries"
+      language="en"
+    />
+  );
 }

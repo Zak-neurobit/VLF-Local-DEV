@@ -13,21 +13,11 @@ export const metadata: Metadata = {
 };
 
 export default function TheftLarcenyShopliftingPage() {
-  const pageData = {
-    practiceArea: 'Theft Larceny Shoplifting',
-    title: 'Professional Legal Services',
-    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
-    heroTitle: 'Theft Larceny Shoplifting Attorneys',
-    heroSubtitle: 'Experienced legal representation',
-    urgencyLevel: 'medium' as const,
-    emergencyMessage: '',
-    services: [], // TODO: Add services
-    faqs: [], // TODO: Add FAQs
-    testimonials: [], // TODO: Add testimonials
-    statistics: [],
-    processSteps: [],
-    language: 'en' as const,
-  };
-
-  return <PracticeAreaWrapper {...pageData} />;
+  return (
+    <PracticeAreaWrapper
+      practiceArea="criminal-defense"
+      subArea="theft-larceny-shoplifting"
+      language="en"
+    />
+  );
 }

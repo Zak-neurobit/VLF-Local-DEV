@@ -33,21 +33,11 @@ export const metadata: Metadata = {
 };
 
 export default function ExpungementPage() {
-  const pageData = {
-    practiceArea: 'Expungement',
-    title: 'Professional Legal Services',
-    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
-    heroTitle: 'Expungement Attorneys',
-    heroSubtitle: 'Experienced legal representation',
-    urgencyLevel: 'medium' as const,
-    emergencyMessage: '',
-    services: [], // TODO: Add services
-    faqs: [], // TODO: Add FAQs
-    testimonials: [], // TODO: Add testimonials
-    statistics: [],
-    processSteps: [],
-    language: 'en' as const,
-  };
-
-  return <PracticeAreaWrapper {...pageData} />;
+  return (
+    <PracticeAreaWrapper
+      practiceArea="criminal-defense"
+      subArea="expungement"
+      language="en"
+    />
+  );
 }

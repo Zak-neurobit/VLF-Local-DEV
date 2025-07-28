@@ -14,21 +14,11 @@ export const metadata: Metadata = {
 };
 
 export default function CarAutoAccidentsPage() {
-  const pageData = {
-    practiceArea: 'Car Auto Accidents',
-    title: 'Professional Legal Services',
-    description: 'Experienced attorneys providing comprehensive legal representation with personalized attention to your case.',
-    heroTitle: 'Car Auto Accidents Attorneys',
-    heroSubtitle: 'Experienced legal representation',
-    urgencyLevel: 'medium' as const,
-    emergencyMessage: '',
-    services: [], // TODO: Add services
-    faqs: [], // TODO: Add FAQs
-    testimonials: [], // TODO: Add testimonials
-    statistics: [],
-    processSteps: [],
-    language: 'en' as const,
-  };
-
-  return <PracticeAreaWrapper {...pageData} />;
+  return (
+    <PracticeAreaWrapper
+      practiceArea="personal-injury"
+      subArea="car-auto-accidents"
+      language="en"
+    />
+  );
 }
