@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 
 export const metadata: Metadata = {
   title:
@@ -276,7 +276,7 @@ export default function DetentionBondHearingsPage() {
   };
 
   return (
-    <ModernPracticeAreaTemplateV2
+    <PracticeAreaWrapper
       title="EMERGENCY Immigration Detention & Bond Lawyers"
       subtitle="24/7 Response for Detained Family Members"
       description="Family member detained by ICE? Our former ICE attorneys provide 24/7 emergency response with 91% bond hearing success rate. Immediate facility visits and aggressive bond advocacy to secure release."

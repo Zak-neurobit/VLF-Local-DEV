@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 
 export const metadata: Metadata = {
   title: 'K-1 Fiancé(e) Visa | Vasquez Law Firm',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function K1FianceVisaPage() {
   return (
-    <ModernPracticeAreaTemplateV2
+    <PracticeAreaWrapper
       practiceArea="immigration"
       subArea="family-based"
       language="en"

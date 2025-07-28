@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import StandardizedPracticeAreaTemplate from './StandardizedPracticeAreaTemplate';
 import { practiceAreaContent } from '@/data/practice-area-content';

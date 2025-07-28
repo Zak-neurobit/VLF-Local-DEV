@@ -1,4 +1,4 @@
-import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -27,5 +27,5 @@ export default function ThirdPartyInjuryClaimsPage() {
     language: 'en' as const,
   };
 
-  return <ModernPracticeAreaTemplateV2 {...pageData} />;
+  return <PracticeAreaWrapper {...pageData} />;
 }

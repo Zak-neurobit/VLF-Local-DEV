@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 
 export const metadata: Metadata = {
   title: 'Domestic Violence Protection | Vasquez Law Firm',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function DomesticViolenceProtectionPage() {
   return (
-    <ModernPracticeAreaTemplateV2
+    <PracticeAreaWrapper
       practiceArea="family-law"
       subArea="domestic-violence-protection"
       language="en"

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 
 export const metadata: Metadata = {
   title: 'TN NAFTA Professional | Vasquez Law Firm',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function TNNAFTAProfessionalPage() {
   return (
-    <ModernPracticeAreaTemplateV2
+    <PracticeAreaWrapper
       practiceArea="immigration"
       subArea="business"
       language="en"

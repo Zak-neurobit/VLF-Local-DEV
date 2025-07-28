@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 
 export const metadata: Metadata = {
   title: 'Prenuptial Agreements | Vasquez Law Firm',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function PrenuptialAgreementsPage() {
   return (
-    <ModernPracticeAreaTemplateV2
+    <PracticeAreaWrapper
       practiceArea="family-law"
       subArea="prenuptial-agreements"
       language="en"

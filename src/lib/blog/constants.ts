@@ -7,7 +7,7 @@ import type { BlogAuthor } from '@/types/blog';
 export const DEFAULT_BLOG_AUTHOR: BlogAuthor = {
   id: 'vasquez-law-firm',
   name: 'Vasquez Law Firm',
-  email: 'info@vasquezlawnc.com',
+  email: 'leads@vasquezlawfirm.com',
   bio: 'Expert immigration and personal injury attorneys serving North Carolina and Florida',
   avatar: '/images/authors/vasquez-law-firm.jpg',
   role: 'Law Firm',

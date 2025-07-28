@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 
 export const metadata: Metadata = {
   title:
@@ -275,7 +275,7 @@ export default function TVisaPage() {
   };
 
   return (
-    <ModernPracticeAreaTemplateV2
+    <PracticeAreaWrapper
       title="T Visa Lawyers"
       subtitle="Protecting Human Trafficking Survivors"
       description="Compassionate T visa attorneys providing confidential, trauma-informed legal representation for trafficking survivors. We fight for your protection, safety, and legal status with specialized experience in both labor and sex trafficking cases."

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ModernPracticeAreaTemplateV2 } from '@/components/templates/ModernPracticeAreaTemplateV2';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 
 export const metadata: Metadata = {
   title: 'Truck Accident Lawyers NC & FL | 18-Wheeler Injury Attorneys | Vasquez Law Firm',
@@ -275,7 +275,7 @@ export default function TruckAccidentsPage() {
   };
 
   return (
-    <ModernPracticeAreaTemplateV2
+    <PracticeAreaWrapper
       title="Truck Accident Lawyers"
       subtitle="Fighting Big Trucking Companies for Maximum Compensation"
       description="Expert truck accident attorneys with the resources to take on billion-dollar trucking companies. We secure maximum compensation for catastrophic injuries from 18-wheeler and commercial vehicle crashes."

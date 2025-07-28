@@ -37,7 +37,9 @@ export default function IndexetBlogPage() {
     publishedAt: new Date(),
     readTime: 5,
     author: {
+      id: 'vasquez-law-firm',
       name: 'Vasquez Law Firm',
+      email: 'leads@vasquezlawfirm.com',
     },
     tags: [], // TODO: Add relevant tags
   };
