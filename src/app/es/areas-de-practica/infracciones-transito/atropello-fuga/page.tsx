@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { StandardizedPracticeAreaTemplate } from '@/components/templates/StandardizedPracticeAreaTemplate';
+import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
 
 export const metadata: Metadata = {
   title: 'Atropello y Fuga | Vasquez Law Firm',

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { StandardizedPracticeAreaTemplate } from '@/components/templates/StandardizedPracticeAreaTemplate';
+import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
 
 export const metadata: Metadata = {
   title: 'Regreso al Trabajo | Vasquez Law Firm',
