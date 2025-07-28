@@ -235,7 +235,26 @@ export class EnhancedLegalBlogger {
   }
 
   private async createBlogPost(item: FeedItem, feed: RSSFeed) {
-    const template = this.templates.find(t => t.category === feed.category) || this.templates[0];
+    // Find matching template or use the first one as fallback
+    let template = this.templates.find(t => t.category === feed.category);
+    
+    // If no matching template, use the general immigration template (first one)
+    if (!template && this.templates.length > 0) {
+      template = this.templates[0];
+      logger.warn('Using default template for feed category:', { 
+        category: feed.category,
+        defaultCategory: this.templates[0]?.category 
+      });
+    }
+    
+    if (!template) {
+      logger.error('No templates available:', { 
+        templatesCount: this.templates.length,
+        feedCategory: feed.category 
+      });
+      throw new Error(`No templates available for processing feed`);
+    }
+    
     const { title, content, excerpt } = template.template(item);
 
     const slug = generateSlug(title);

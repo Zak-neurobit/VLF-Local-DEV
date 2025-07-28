@@ -228,7 +228,7 @@ class PaymentService {
             email: intent.clientEmail,
           },
           billTo: {
-            firstName: intent.clientName.split(' ')[0],
+            firstName: intent.clientName.split(' ')[0] || intent.clientName,
             lastName: intent.clientName.split(' ').slice(1).join(' ') || '',
             email: intent.clientEmail,
           },

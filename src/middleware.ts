@@ -16,7 +16,7 @@ function getLocale(request: NextRequest): string {
   );
 
   if (pathnameHasLocale) {
-    return pathname.split('/')[1];
+    return pathname.split('/')[1] || defaultLocale;
   }
 
   // Check cookie for preferred language

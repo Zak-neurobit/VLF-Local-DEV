@@ -402,7 +402,7 @@ export default function GMBPage() {
                       <div>
                         <p className="text-sm text-gray-600">Total Views</p>
                         <p className="text-2xl font-bold text-blue-600">
-                          {analytics?.analytics?.metrics.views.total}
+                          {analytics?.analytics?.metrics?.views?.total || 0}
                         </p>
                       </div>
                       <Eye className="h-8 w-8 text-blue-600" />
@@ -416,7 +416,7 @@ export default function GMBPage() {
                       <div>
                         <p className="text-sm text-gray-600">Phone Calls</p>
                         <p className="text-2xl font-bold text-green-600">
-                          {analytics?.analytics?.metrics.actions.phone}
+                          {analytics?.analytics?.metrics?.actions?.phone || 0}
                         </p>
                       </div>
                       <Phone className="h-8 w-8 text-green-600" />
@@ -430,7 +430,7 @@ export default function GMBPage() {
                       <div>
                         <p className="text-sm text-gray-600">Directions</p>
                         <p className="text-2xl font-bold text-purple-600">
-                          {analytics?.analytics?.metrics.actions.directions}
+                          {analytics?.analytics?.metrics?.actions?.directions || 0}
                         </p>
                       </div>
                       <Navigation className="h-8 w-8 text-purple-600" />
@@ -444,7 +444,7 @@ export default function GMBPage() {
                       <div>
                         <p className="text-sm text-gray-600">Average Rating</p>
                         <p className="text-2xl font-bold text-yellow-600">
-                          {analytics?.analytics?.metrics.reviews.averageRating}
+                          {analytics?.analytics?.metrics?.reviews?.averageRating || 0}
                         </p>
                       </div>
                       <Star className="h-8 w-8 text-yellow-600" />
