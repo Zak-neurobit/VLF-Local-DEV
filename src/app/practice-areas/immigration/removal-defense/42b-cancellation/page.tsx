@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   keywords: '42b cancellation (lpr), immigration, removal defense, legal services, attorney, lawyer',
 };
 
-export default function 42BCancellationLPRPage() {
+export default function FortyTwoBCancellationLPRPage() {
   return (
     <ModernPracticeAreaTemplateV2
       practiceArea="immigration"
