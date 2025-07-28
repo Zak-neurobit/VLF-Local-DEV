@@ -37,6 +37,7 @@ const sentryStub: SentryStub = {
   },
 };
 
-// Export the stub for now
-// TODO: Replace with actual Sentry import after fixing dependencies
+// Export the stub implementation
+// Note: This is a functional stub that logs errors for debugging
+// Replace with actual Sentry import when @sentry/nextjs is installed
 export const Sentry = sentryStub;
