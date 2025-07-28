@@ -5,7 +5,7 @@ import { SmartBreadcrumbs } from '@/components/SEO/SmartBreadcrumbs';
 import { InternalLinkingSection } from '@/components/SEO/InternalLinkingSection';
 import { HowToSchema } from '@/components/SEO/HowToSchema';
 import Link from 'next/link';
-import { Clock, Shield, Scale, Home, DollarSign, FileText } from 'lucide-react';
+// Lucide icons removed - using emoji icons instead
 import { BondHearingsClient } from './BondHearingsClient';
 
 export const metadata: Metadata = {

@@ -5,7 +5,7 @@ import { logger } from '@/lib/safe-logger';
 import { useState } from 'react';
 import { ChevronDownIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import { HreflangGenerator } from '@/components/SEO/HreflangGenerator';
-import { hasSpanishVersion, getSpanishUrl, getEnglishUrl } from '@/components/SEO/DynamicHreflang';
+import { hasSpanishVersion } from '@/components/SEO/DynamicHreflang';
 
 interface LanguageOption {
   code: 'en' | 'es';

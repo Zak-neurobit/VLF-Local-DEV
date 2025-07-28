@@ -9,6 +9,7 @@ interface UseVoiceRecognitionOptions {
 }
 
 export function useVoiceRecognition(options: UseVoiceRecognitionOptions = {}) {
+  const { language: optionsLanguage, onResult, onError, onEnd } = options;
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [interimTranscript, setInterimTranscript] = useState('');
@@ -66,10 +67,10 @@ export function useVoiceRecognition(options: UseVoiceRecognitionOptions = {}) {
 
         if (finalTranscript) {
           setTranscript(prev => prev + finalTranscript);
-          options.onResult?.(finalTranscript.trim(), true);
+          onResult?.(finalTranscript.trim(), true);
         } else if (interim) {
           setInterimTranscript(interim);
-          options.onResult?.(interim, false);
+          onResult?.(interim, false);
         }
       };
 
@@ -77,13 +78,13 @@ export function useVoiceRecognition(options: UseVoiceRecognitionOptions = {}) {
         logger.error('Voice recognition error:', event.error);
         setError(event.error);
         setIsListening(false);
-        options.onError?.(event.error);
+        onError?.(event.error);
       };
 
       recognition.onend = () => {
         logger.info('Voice recognition ended');
         setIsListening(false);
-        options.onEnd?.();
+        onEnd?.();
       };
 
       recognition.start();
@@ -94,7 +95,7 @@ export function useVoiceRecognition(options: UseVoiceRecognitionOptions = {}) {
       setError('Failed to start voice recognition');
       setIsListening(false);
     }
-  }, [isSupported, options]);
+  }, [isSupported, onResult, onError, onEnd]);
 
   const stopListening = useCallback(() => {
     if (recognitionRef.current) {
@@ -129,8 +130,8 @@ export function useVoiceRecognition(options: UseVoiceRecognitionOptions = {}) {
 
   // Legacy interface for backward compatibility
   const start = useCallback(() => {
-    startListening(options.language || currentLanguageRef.current);
-  }, [startListening, options.language]);
+    startListening(optionsLanguage || currentLanguageRef.current);
+  }, [startListening, optionsLanguage]);
 
   const stop = stopListening;
 

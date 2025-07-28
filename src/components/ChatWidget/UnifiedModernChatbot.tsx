@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   MessageCircle,
@@ -13,10 +13,7 @@ import {
   Bot,
   User,
   Loader2,
-  Phone,
   FileText,
-  CheckCircle,
-  AlertCircle,
 } from 'lucide-react';
 import { useSocket } from '@/hooks/useSocket';
 import { sendChatMessage } from '@/services/chat-service';
@@ -99,7 +96,7 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
         },
       ]);
     }
-  }, [isOpen, language]);
+  }, [isOpen, language, messages.length, t]);
 
   // Auto-scroll to bottom
   useEffect(() => {

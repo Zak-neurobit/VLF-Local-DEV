@@ -4,17 +4,15 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { SimpleLanguageSwitcher } from '../Navigation/SimpleLanguageSwitcher';
 
 interface HeaderProps {
   language?: 'en' | 'es';
-  setLanguage?: (lang: 'en' | 'es') => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ language: propLanguage, setLanguage }) => {
+export const Header: React.FC<HeaderProps> = ({ language: propLanguage }) => {
   const pathname = usePathname();
-  const router = useRouter();
   // Determine language from URL path
   const language = pathname?.startsWith('/es') ? 'es' : propLanguage || 'en';
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
