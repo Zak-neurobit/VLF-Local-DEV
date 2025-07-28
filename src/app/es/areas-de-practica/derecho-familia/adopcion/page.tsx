@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 
 export const metadata: Metadata = {
   title: 'Adopción | Vasquez Law Firm',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function AdopcinPage() {
   return (
-    <StandardizedPracticeAreaTemplate
+    <PracticeAreaWrapper
       practiceArea="derecho-familia"
       subArea="adopcion"
       language="es"

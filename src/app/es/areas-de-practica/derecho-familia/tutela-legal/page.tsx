@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 
 export const metadata: Metadata = {
   title: 'Tutela Legal | Vasquez Law Firm',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function TutelaLegalPage() {
   return (
-    <StandardizedPracticeAreaTemplate
+    <PracticeAreaWrapper
       practiceArea="derecho-familia"
       subArea="tutela-legal"
       language="es"

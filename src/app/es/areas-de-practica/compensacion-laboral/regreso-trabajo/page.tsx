@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 
 export const metadata: Metadata = {
   title: 'Regreso al Trabajo | Vasquez Law Firm',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function RegresoalTrabajoPage() {
   return (
-    <StandardizedPracticeAreaTemplate
+    <PracticeAreaWrapper
       practiceArea="compensacion-laboral"
       subArea="regreso-trabajo"
       language="es"

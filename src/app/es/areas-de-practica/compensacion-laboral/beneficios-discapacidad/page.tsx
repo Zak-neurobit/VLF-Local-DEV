@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 
 export const metadata: Metadata = {
   title: 'Beneficios por Discapacidad | Vasquez Law Firm',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function BeneficiosporDiscapacidadPage() {
   return (
-    <StandardizedPracticeAreaTemplate
+    <PracticeAreaWrapper
       practiceArea="compensacion-laboral"
       subArea="beneficios-discapacidad"
       language="es"
