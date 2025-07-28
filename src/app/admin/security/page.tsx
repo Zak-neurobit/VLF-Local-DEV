@@ -252,7 +252,7 @@ export default function SecurityPage() {
       low: { variant: 'secondary', color: 'text-gray-600' },
     };
 
-    return variants[severity] || variants.low;
+    return variants[severity] || variants['low'];
   };
 
   const getStatusBadge = (status: string) => {
@@ -277,7 +277,7 @@ export default function SecurityPage() {
       not_audited: { variant: 'secondary', icon: Clock, color: 'text-gray-600' },
     };
 
-    return variants[status] || variants.not_audited;
+    return variants[status] || variants['not_audited'];
   };
 
   if (isLoading) {
@@ -561,6 +561,7 @@ export default function SecurityPage() {
             <div className="space-y-4">
               {complianceData.status.frameworks.map(framework => {
                 const statusBadge = getStatusBadge(framework.status);
+                if (!statusBadge) return null;
                 const StatusIcon = statusBadge.icon;
 
                 return (

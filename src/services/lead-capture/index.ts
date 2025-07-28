@@ -280,7 +280,7 @@ export class LeadCaptureService {
       // Send SMS notifications
       const smsPromises = attorneys
         .filter(attorney => attorney.phone)
-        .map(attorney => notificationService.sendSMS(attorney.phone!, urgentMessage));
+        .map(attorney => attorney.phone ? notificationService.sendSMS(attorney.phone, urgentMessage) : Promise.resolve());
 
       // Send in-app notifications
       const inAppPromises = attorneys.map(attorney =>

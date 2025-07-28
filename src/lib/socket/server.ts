@@ -300,7 +300,9 @@ export class ChatSocketServer extends EventEmitter {
               authMethod = 'admin_jwt';
 
               this.adminSessions.add(socket.id);
-              securityLogger.authenticationSuccess('admin_websocket', userId!);
+              if (userId) {
+                securityLogger.authenticationSuccess('admin_websocket', userId);
+              }
             } else {
               throw new Error('Invalid admin credentials');
             }
@@ -548,7 +550,9 @@ export class ChatSocketServer extends EventEmitter {
                 }),
               () => {
                 // Fallback: Store in memory for later retry
-                this.storeMessageForRetry(socketData.conversationId!, 'user', content, metadata);
+                if (socketData.conversationId) {
+                  this.storeMessageForRetry(socketData.conversationId, 'user', content, metadata);
+                }
                 return { id: messageId };
               },
               'store_user_message'
@@ -586,12 +590,14 @@ export class ChatSocketServer extends EventEmitter {
                 }),
               () => {
                 // Fallback: Store in memory for later retry
-                this.storeMessageForRetry(
-                  socketData.conversationId!,
-                  'assistant',
-                  response.content,
-                  response.metadata
-                );
+                if (socketData.conversationId) {
+                  this.storeMessageForRetry(
+                    socketData.conversationId,
+                    'assistant',
+                    response.content,
+                    response.metadata
+                  );
+                }
                 return { id: messageId };
               },
               'store_assistant_message'
@@ -1179,7 +1185,7 @@ export class ChatSocketServer extends EventEmitter {
       // Handle escalations
       if (aiResponse.escalation) {
         setTimeout(() => {
-          this.handleAIEscalation(socketData.sessionId, aiResponse.escalation!);
+          this.handleAIEscalation(socketData.sessionId, aiResponse.escalation);
         }, 1000); // Small delay to ensure message is sent first
       }
 

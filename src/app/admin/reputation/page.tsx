@@ -203,7 +203,7 @@ export default function ReputationManagementPage() {
       negative: { variant: 'destructive', color: 'text-red-600' },
     };
 
-    return variants[sentiment] || variants.neutral;
+    return variants[sentiment] || variants['neutral'];
   };
 
   if (isLoading) {

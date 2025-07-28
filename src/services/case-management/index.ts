@@ -297,9 +297,9 @@ export class CaseManagementService {
       });
 
       // Send notification to assigned user
-      if (task.assignedTo) {
+      if (task.assignedTo && task.assignedToId) {
         await createNotification({
-          userId: task.assignedToId!,
+          userId: task.assignedToId,
           type: 'task_assigned',
           title: 'New Task Assigned',
           message: `You have been assigned a new task: ${task.title}`,

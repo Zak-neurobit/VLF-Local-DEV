@@ -129,8 +129,8 @@ export default async function CatchAllPage({ params }: { params: { catchAll: str
   }
 
   // Check if it's just the first segment that matches
-  const firstSegment = params.catchAll[0];
-  if (redirects[firstSegment]) {
+  const firstSegment = params.catchAll?.[0];
+  if (firstSegment && redirects[firstSegment]) {
     redirect(redirects[firstSegment]);
   }
 
@@ -164,7 +164,7 @@ export default async function CatchAllPage({ params }: { params: { catchAll: str
         'derecho-familia': 'family-law',
       };
 
-      if (areaMap[area]) {
+      if (area && areaMap[area]) {
         redirect(`/practice-areas/${areaMap[area]}/${subpage}`);
       }
     }
