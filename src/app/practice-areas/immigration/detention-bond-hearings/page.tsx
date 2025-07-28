@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
+import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
 
 export const metadata: Metadata = {
   title:
@@ -276,15 +276,14 @@ export default function DetentionBondHearingsPage() {
   };
 
   return (
-    <PracticeAreaWrapper
+    <StandardizedPracticeAreaTemplate
       title="EMERGENCY Immigration Detention & Bond Lawyers"
-      subtitle="24/7 Response for Detained Family Members"
       description="Family member detained by ICE? Our former ICE attorneys provide 24/7 emergency response with 91% bond hearing success rate. Immediate facility visits and aggressive bond advocacy to secure release."
       services={services}
       faqs={faqs}
-      urgencyLevel="critical"
-      content={
-        <div className="space-y-12">
+      overview={{
+        content: (
+          <div className="space-y-12">
           {/* Emergency Protocol */}
           <section className="bg-red-900/20 border border-red-500/30 rounded-lg p-8">
             <h2 className="text-3xl font-bold text-red-400 mb-6 flex items-center gap-3">
@@ -424,7 +423,9 @@ export default function DetentionBondHearingsPage() {
             </div>
           </section>
         </div>
-      }
+        ),
+      }}
+      isSpanish={false}
     />
   );
 }
