@@ -282,8 +282,10 @@ export default function DetentionBondHearingsPage() {
       services={services}
       faqs={faqs}
       overview={{
-        content: (
-          <div className="space-y-12">
+        content: "Our immigration detention and bond lawyers provide 24/7 emergency response for families with detained loved ones. With former ICE attorneys on staff and a 91% bond hearing success rate, we fight aggressively to secure your family member's release. We provide immediate facility visits, comprehensive bond hearing representation, and emergency motions to reunite families. Available 365 days a year including holidays and weekends.",
+      }}
+      additionalContent={(
+        <div className="space-y-12">
           {/* Emergency Protocol */}
           <section className="bg-red-900/20 border border-red-500/30 rounded-lg p-8">
             <h2 className="text-3xl font-bold text-red-400 mb-6 flex items-center gap-3">
@@ -423,8 +425,7 @@ export default function DetentionBondHearingsPage() {
             </div>
           </section>
         </div>
-        ),
-      }}
+      )}
       isSpanish={false}
     />
   );
