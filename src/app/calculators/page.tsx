@@ -5,6 +5,22 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import CalculatorForm from '@/components/calculators/calculator-form';
 import CalculatorResults from '@/components/calculators/calculator-results';
+
+interface CalculatorResult {
+  calculatorType: string;
+  inputs: Record<string, unknown>;
+  results: Record<string, unknown>;
+  recommendations: string[];
+  disclaimer: string;
+  timestamp: Date;
+  estimatedAccuracy: number;
+  followUpActions: {
+    action: string;
+    description: string;
+    priority: 'high' | 'medium' | 'low';
+    timeframe?: string;
+  }[];
+}
 import {
   Calculator,
   Car,
@@ -85,14 +101,14 @@ const calculatorTypes = [
 
 export default function CalculatorsPage() {
   const [selectedCalculator, setSelectedCalculator] = useState<string | null>(null);
-  const [calculationResult, setCalculationResult] = useState<any>(null);
+  const [calculationResult, setCalculationResult] = useState<CalculatorResult | null>(null);
 
   const handleCalculatorSelect = (calculatorId: string) => {
     setSelectedCalculator(calculatorId);
     setCalculationResult(null);
   };
 
-  const handleResultGenerated = (result: any) => {
+  const handleResultGenerated = (result: CalculatorResult) => {
     setCalculationResult(result);
   };
 

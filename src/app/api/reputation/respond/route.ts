@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { responseGenerator } from '@/services/reputation-management/response-generator';
 // import { prisma } from '@/lib/prisma-safe';
 import { reviewStubs } from '@/lib/prisma-model-stubs';
+import { logger, errorToLogMeta } from '@/lib/safe-logger';
 
 // Review type definition
 interface Review {
@@ -94,7 +95,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, result });
   } catch (error) {
-    console.error('Failed to process review response:', error);
+    logger.error('Failed to process review response', errorToLogMeta(error));
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -113,7 +114,7 @@ async function sendResponse(review: Review, responseText: string): Promise<Respo
 
   // TODO: Record response when reviewResponse model is available
   // For now, just log the action
-  console.log('Would send response:', {
+  logger.info('Would send response', {
     reviewId: review.id,
     responseText,
     status: 'sent',

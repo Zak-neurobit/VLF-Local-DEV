@@ -4,12 +4,13 @@ export { ComplianceTracker, complianceTracker } from './compliance-tracker';
 // Initialize security services
 import { securityMonitor } from './security-monitor';
 import { complianceTracker } from './compliance-tracker';
+import { securityLogger } from '@/lib/safe-logger';
 
 // Setup event listeners between services
 securityMonitor.on('threat-detected', (threat) => {
   // Log compliance-related threats
   if (threat.type.includes('compliance') || threat.severity === 'critical') {
-    console.log('Compliance-related security threat detected:', threat);
+    securityLogger.warn('Compliance-related security threat detected', threat);
   }
 });
 

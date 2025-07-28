@@ -25,17 +25,21 @@ function getClientIp(headers?: Record<string, string | string[] | undefined>): s
   if (forwardedFor) {
     // x-forwarded-for can contain multiple IPs, get the first one
     const ips = Array.isArray(forwardedFor) ? forwardedFor[0] : forwardedFor;
-    return ips.split(',')[0].trim();
+    if (!ips) return 'unknown';
+    const firstIp = ips.split(',')[0];
+    return firstIp ? firstIp.trim() : 'unknown';
   }
 
   const realIp = headers['x-real-ip'];
   if (realIp) {
-    return Array.isArray(realIp) ? realIp[0] : realIp;
+    const ip = Array.isArray(realIp) ? realIp[0] : realIp;
+    return ip || 'unknown';
   }
 
   const clientIp = headers['x-client-ip'];
   if (clientIp) {
-    return Array.isArray(clientIp) ? clientIp[0] : clientIp;
+    const ip = Array.isArray(clientIp) ? clientIp[0] : clientIp;
+    return ip || 'unknown';
   }
 
   return 'unknown';
@@ -52,7 +56,7 @@ const createSafeAdapter = () => {
     }
     return PrismaAdapter(client);
   } catch (error) {
-    logger.error('Failed to create Prisma adapter:', error);
+    logger.error('Failed to create Prisma adapter:', error instanceof Error ? error.message : String(error));
     return undefined;
   }
 };
@@ -157,7 +161,7 @@ export const authOptions: NextAuthOptions = {
 
                 logger.info(`Password migrated to argon2 for user: ${user.email}`);
               } catch (error) {
-                logger.warn('Failed to migrate password to argon2:', error);
+                logger.warn('Failed to migrate password to argon2:', error instanceof Error ? error.message : String(error));
                 // Continue with login even if migration fails
               }
             }
@@ -177,7 +181,7 @@ export const authOptions: NextAuthOptions = {
             language: user.language,
           };
         } catch (error) {
-          logger.error('Authentication error:', error);
+          logger.error('Authentication error:', error instanceof Error ? error.message : String(error));
           return null;
         }
       },
@@ -286,7 +290,7 @@ export const authOptions: NextAuthOptions = {
               token.language = existingUser.language;
             }
           } catch (error) {
-            logger.warn('Database error during OAuth linking:', error);
+            logger.warn('Database error during OAuth linking:', error instanceof Error ? error.message : String(error));
             // Set default values for OAuth users when DB is unavailable
             token.id = `oauth-${token.email}`;
             token.role = 'CLIENT';
@@ -397,7 +401,7 @@ export const authOptions: NextAuthOptions = {
         });
         logger.info(`Welcome email sent to: ${user.email}`);
       } catch (error) {
-        logger.error('Failed to send welcome email:', error);
+        logger.error('Failed to send welcome email:', error instanceof Error ? error.message : String(error));
         // Don't throw error to prevent user creation from failing
       }
     },

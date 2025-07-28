@@ -10,11 +10,11 @@ export interface LogContext {
 }
 
 interface BaseLogger {
-  info: (message: string, ...args: any[]) => void;
-  error: (message: string, ...args: any[]) => void;
-  warn: (message: string, ...args: any[]) => void;
-  debug: (message: string, ...args: any[]) => void;
-  log: (message: string, ...args: any[]) => void;
+  info: (message: string, ...args: unknown[]) => void;
+  error: (message: string, ...args: unknown[]) => void;
+  warn: (message: string, ...args: unknown[]) => void;
+  debug: (message: string, ...args: unknown[]) => void;
+  log: (message: string, ...args: unknown[]) => void;
 }
 
 // Rate limiting for excessive logs
@@ -147,12 +147,12 @@ const createLogger = (prefix: string) => {
 
   // Base logging methods with enhanced formatting and rate limiting
   const baseLogger: BaseLogger = {
-    info: (message: string, ...args: any[]) => {
+    info: (message: string, ...args: unknown[]) => {
       if (shouldLog('info') && !shouldRateLimit('info', message)) {
         console.log(formatMessage(prefix, 'INFO', message), ...args);
       }
     },
-    error: (message: string, ...args: any[]) => {
+    error: (message: string, ...args: unknown[]) => {
       if (shouldLog('error') && !shouldRateLimit('error', message)) {
         // Handle Error objects specially
         if (args[0] instanceof Error) {
@@ -169,17 +169,17 @@ const createLogger = (prefix: string) => {
         }
       }
     },
-    warn: (message: string, ...args: any[]) => {
+    warn: (message: string, ...args: unknown[]) => {
       if (shouldLog('warn') && !shouldRateLimit('warn', message)) {
         console.warn(formatMessage(prefix, 'WARN', message), ...args);
       }
     },
-    debug: (message: string, ...args: any[]) => {
+    debug: (message: string, ...args: unknown[]) => {
       if (shouldLog('debug') && !shouldRateLimit('debug', message)) {
         console.debug(formatMessage(prefix, 'DEBUG', message), ...args);
       }
     },
-    log: (message: string, ...args: any[]) => {
+    log: (message: string, ...args: unknown[]) => {
       if (!shouldRateLimit('log', message)) {
         console.log(`[${prefix}] ${message}`, ...args);
       }
@@ -191,11 +191,11 @@ const createLogger = (prefix: string) => {
     ...baseLogger,
 
     // Performance monitoring
-    measure: (label: string, duration: number, metadata?: any) => {
+    measure: (label: string, duration: number, metadata?: unknown) => {
       baseLogger.info(`Performance: ${label}`, { duration: `${duration}ms`, metadata });
     },
 
-    slowOperation: (operation: string, duration: number, threshold: number, metadata?: any) => {
+    slowOperation: (operation: string, duration: number, threshold: number, metadata?: unknown) => {
       baseLogger.warn(`Slow operation: ${operation}`, {
         duration: `${duration}ms`,
         threshold: `${threshold}ms`,
@@ -215,7 +215,7 @@ const createLogger = (prefix: string) => {
     },
 
     // WebSocket operations
-    connection: (clientId: string, metadata?: any) => {
+    connection: (clientId: string, metadata?: unknown) => {
       baseLogger.info('WebSocket connection', { clientId, metadata });
     },
 
@@ -228,7 +228,7 @@ const createLogger = (prefix: string) => {
     },
 
     // Security operations
-    suspiciousActivity: (activity: string, metadata?: any) => {
+    suspiciousActivity: (activity: string, metadata?: unknown) => {
       baseLogger.warn('Suspicious activity', { activity, metadata });
     },
 
@@ -254,7 +254,7 @@ const createLogger = (prefix: string) => {
     },
 
     // Component lifecycle (React)
-    mount: (component: string, props?: any) => {
+    mount: (component: string, props?: unknown) => {
       baseLogger.debug('Component mount', { component, props: sanitizePayload(props) });
     },
 
@@ -262,19 +262,19 @@ const createLogger = (prefix: string) => {
       baseLogger.debug('Component unmount', { component });
     },
 
-    stateChange: (component: string, state: string, value: any, reason?: string) => {
+    stateChange: (component: string, state: string, value: unknown, reason?: string) => {
       baseLogger.debug('State change', { component, state, value: sanitizePayload(value), reason });
     },
 
-    event: (component: string, event: string, data?: any) => {
+    event: (component: string, event: string, data?: unknown) => {
       baseLogger.debug('Component event', { component, event, data: sanitizePayload(data) });
     },
 
-    rerender: (component: string, reason: string, changes?: any) => {
+    rerender: (component: string, reason: string, changes?: unknown) => {
       baseLogger.debug('Component rerender', { component, reason, changes });
     },
 
-    propChange: (component: string, propName: string, oldValue: any, newValue: any) => {
+    propChange: (component: string, propName: string, oldValue: unknown, newValue: unknown) => {
       baseLogger.debug('Prop change', {
         component,
         propName,
@@ -284,7 +284,7 @@ const createLogger = (prefix: string) => {
     },
 
     // Database operations
-    query: (query: string, params?: any[], duration?: number) => {
+    query: (query: string, params?: unknown[], duration?: number) => {
       baseLogger.debug('Database query', {
         query: query.substring(0, 500),
         paramCount: params?.length || 0,
@@ -296,13 +296,13 @@ const createLogger = (prefix: string) => {
       baseLogger.info('Database transaction', { transactionId, status });
     },
 
-    migration: (name: string, status: string, error?: any) => {
+    migration: (name: string, status: string, error?: unknown) => {
       const level = status === 'error' ? 'error' : 'info';
       baseLogger[level]('Database migration', { name, status, error });
     },
 
     // API operations
-    request: (endpoint: string, method: string, payload?: any, headers?: any) => {
+    request: (endpoint: string, method: string, payload?: unknown, headers?: unknown) => {
       const requestId = `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       baseLogger.info('API request', {
         requestId,
@@ -314,7 +314,7 @@ const createLogger = (prefix: string) => {
       return requestId;
     },
 
-    response: (requestId: string, status: number, duration: number, data?: any) => {
+    response: (requestId: string, status: number, duration: number, data?: unknown) => {
       baseLogger.info('API response', {
         requestId,
         status,
@@ -375,7 +375,7 @@ export const logApiRequest = (req: Request, res: Response, duration: number) => 
 };
 
 export const logDatabaseQuery = (query: string, duration: number, params?: unknown[]) => {
-  dbLogger.query(query, params as any[], duration);
+  dbLogger.query(query, params, duration);
 };
 
 export const logSecurityEvent = (event: string, details: Record<string, unknown>) => {
@@ -402,7 +402,7 @@ export const errorToLogMeta = (error: unknown): Record<string, unknown> => {
       name: error.name,
       stack: error.stack,
       // Include any custom error properties
-      ...(error as any),
+      ...(error as Record<string, unknown>),
     };
   }
 

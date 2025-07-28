@@ -23,17 +23,17 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    // TypeScript 5.6+ features - phased adoption
-    "noUncheckedIndexedAccess": false, // TODO: Enable after fixing index access issues
-    "exactOptionalPropertyTypes": false, // TODO: Enable after fixing optional property issues
-    "noPropertyAccessFromIndexSignature": false, // TODO: Enable after fixing property access
+    // TypeScript 5.6+ features - enabled for stricter type checking
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noPropertyAccessFromIndexSignature": true,
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
     "noImplicitOverride": true,
     "noFallthroughCasesInSwitch": true,
-    "useUnknownInCatchVariables": false, // TODO: Enable after fixing catch variables
-    // Transitional settings for React 19 compatibility
-    "noImplicitAny": false // Allow implicit any types during React 19 transition
+    "useUnknownInCatchVariables": true,
+    // Strict type checking enabled
+    "noImplicitAny": true
   },
   "include": [
     "next-env.d.ts",

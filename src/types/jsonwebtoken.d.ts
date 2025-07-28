@@ -37,7 +37,7 @@ declare module 'jsonwebtoken' {
     nbf?: number;
     iat?: number;
     jti?: string;
-    [key: string]: any;
+    [key: string]: string | number | boolean | string[] | undefined;
   }
 
   export function sign(
@@ -81,7 +81,7 @@ declare module 'jsonwebtoken' {
   export function decode(
     token: string,
     options?: DecodeOptions
-  ): null | { [key: string]: any } | string;
+  ): null | JwtPayload | string;
 
   export class JsonWebTokenError extends Error {
     inner: Error;

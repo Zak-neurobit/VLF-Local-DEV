@@ -40,8 +40,19 @@ interface CalculatorMetadata {
 }
 
 interface CalculatorResult {
-  success: boolean;
-  result?: unknown;
+  calculatorType: string;
+  inputs: Record<string, unknown>;
+  results: Record<string, unknown>;
+  recommendations: string[];
+  disclaimer: string;
+  timestamp: Date;
+  estimatedAccuracy: number;
+  followUpActions: {
+    action: string;
+    description: string;
+    priority: 'high' | 'medium' | 'low';
+    timeframe?: string;
+  }[];
 }
 
 interface CalculatorFormProps {
@@ -153,9 +164,9 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
+      const data = await response.json() as { success: boolean; result?: CalculatorResult; error?: string; details?: { field: string; message: string }[] };
 
-      if (data.success) {
+      if (data.success && data.result) {
         onResult(data.result);
       } else {
         if (data.details) {

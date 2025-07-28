@@ -6,7 +6,7 @@
 // Create a safe wrapper for ReadableStream operations
 export const safeStreamOperations = {
   // Safely enqueue data to a stream controller
-  enqueue(controller: ReadableStreamDefaultController, chunk: any): void {
+  enqueue(controller: ReadableStreamDefaultController, chunk: unknown): void {
     try {
       // Check if the controller is in a valid state using public APIs
       if (controller.desiredSize !== null && controller.desiredSize >= 0) {
@@ -33,7 +33,7 @@ export const safeStreamOperations = {
   },
 
   // Safely error a stream controller
-  error(controller: ReadableStreamDefaultController, error: any): void {
+  error(controller: ReadableStreamDefaultController, error: unknown): void {
     try {
       controller.error(error);
     } catch (err) {

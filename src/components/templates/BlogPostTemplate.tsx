@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Clock, Calendar, User, ArrowLeft, Share2 } from 'lucide-react';
+import { componentLogger } from '@/lib/safe-logger';
 
 interface BlogPost {
   id: string;
@@ -54,7 +55,7 @@ export const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
           url: window.location.href,
         });
       } catch (error) {
-        console.log('Error sharing:', error);
+        componentLogger.debug('Error sharing', error instanceof Error ? error : { error });
       }
     }
   };

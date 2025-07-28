@@ -17,7 +17,7 @@ declare global {
         language?: string;
         content_id?: string;
         method?: string;
-        [key: string]: any;
+        [key: string]: string | string[] | number | boolean | undefined;
       }
     ) => void;
   }
@@ -29,14 +29,14 @@ declare namespace Gtag {
     page_title?: string;
     page_location?: string;
     send_page_view?: boolean;
-    [key: string]: any;
+    [key: string]: string | number | boolean | string[] | undefined;
   }
 
   interface EventParams {
     event_category?: string;
     event_label?: string;
     value?: number;
-    [key: string]: any;
+    [key: string]: string | number | boolean | string[] | undefined;
   }
 
   interface ControlParams {

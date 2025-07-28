@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { NewsTicker } from '@/components/ui/news-ticker';
 import { ClientOnlyWrapper } from '@/components/ClientOnlyWrapper';
+import { componentLogger } from '@/lib/safe-logger';
 
 interface MasterLayoutProps {
   children: React.ReactNode;
@@ -29,7 +30,7 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
   // Debug: Log when MasterLayout renders (only in development)
   React.useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
-      console.log('[MasterLayout] Rendered with:', {
+      componentLogger.mount('MasterLayout', {
         variant,
         currentLanguage,
         pathname: safePathname,

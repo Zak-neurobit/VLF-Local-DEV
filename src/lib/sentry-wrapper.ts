@@ -2,6 +2,8 @@
  * Sentry wrapper to handle missing dependencies gracefully
  */
 
+import { logger } from './safe-logger';
+
 interface SentryStub {
   captureException: (error: Error, context?: any) => void;
   captureMessage: (message: string, level?: string) => void;
@@ -13,23 +15,23 @@ interface SentryStub {
 // Create a stub implementation
 const sentryStub: SentryStub = {
   captureException: (error: Error, context?: any) => {
-    console.error('[Sentry Stub] Would capture exception:', error, context);
+    logger.error('[Sentry Stub] Would capture exception', { error, context });
   },
   captureMessage: (message: string, level?: string) => {
-    console.log(`[Sentry Stub] Would capture message (${level}):`, message);
+    logger.info(`[Sentry Stub] Would capture message`, { level, message });
   },
   setUser: (user: any) => {
-    console.log('[Sentry Stub] Would set user:', user);
+    logger.debug('[Sentry Stub] Would set user', { user });
   },
   setContext: (name: string, context: any) => {
-    console.log(`[Sentry Stub] Would set context ${name}:`, context);
+    logger.debug('[Sentry Stub] Would set context', { name, context });
   },
   withScope: (callback: (scope: any) => void) => {
     // Create a mock scope
     const mockScope = {
-      setTag: (key: string, value: string) => console.log(`[Sentry Stub] Would set tag ${key}:`, value),
-      setContext: (key: string, context: any) => console.log(`[Sentry Stub] Would set context ${key}:`, context),
-      setLevel: (level: string) => console.log(`[Sentry Stub] Would set level:`, level),
+      setTag: (key: string, value: string) => logger.debug('[Sentry Stub] Would set tag', { key, value }),
+      setContext: (key: string, context: any) => logger.debug('[Sentry Stub] Would set context', { key, context }),
+      setLevel: (level: string) => logger.debug('[Sentry Stub] Would set level', { level }),
     };
     callback(mockScope);
   },

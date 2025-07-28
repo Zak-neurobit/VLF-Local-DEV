@@ -15,7 +15,7 @@ declare module 'next/headers' {
     has(name: string): boolean;
     forEach(
       callbackfn: (value: string, key: string, parent: ReadonlyHeaders) => void,
-      thisArg?: any
+      thisArg?: unknown
     ): void;
     entries(): IterableIterator<[string, string]>;
     keys(): IterableIterator<string>;
@@ -29,13 +29,19 @@ declare module 'pdf-parse/lib/pdf-parse.js' {
   interface PDFData {
     numpages: number;
     numrender: number;
-    info: any;
-    metadata: any;
+    info: Record<string, unknown>;
+    metadata: Record<string, unknown>;
     version: string;
     text: string;
   }
 
-  function PDFParse(buffer: Buffer, options?: any): Promise<PDFData>;
+  interface PDFParseOptions {
+    pagerender?: (pageData: { pageIndex: number; pageInfo: Record<string, unknown>; view: Float32Array }) => Promise<string>;
+    max?: number;
+    version?: string;
+  }
+
+  function PDFParse(buffer: Buffer, options?: PDFParseOptions): Promise<PDFData>;
   export = PDFParse;
 }
 
@@ -59,7 +65,7 @@ declare module 'argon2' {
 declare module 'million/react' {
   import { ComponentType } from 'react';
 
-  export function block<T extends ComponentType<any>>(component: T): T;
+  export function block<T extends ComponentType<unknown>>(component: T): T;
 }
 
 // React forwardRef compatibility

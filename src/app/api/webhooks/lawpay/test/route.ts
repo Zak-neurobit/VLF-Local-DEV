@@ -32,11 +32,7 @@ export async function POST(request: NextRequest) {
       url: request.url,
     };
 
-    // Log to console and logger
-    console.log('\n=== LAWPAY WEBHOOK TEST ===');
-    console.log(JSON.stringify(logData, null, 2));
-    console.log('=========================\n');
-
+    // Log using logger only
     logger.info('LawPay webhook test received', logData);
 
     // Return the data so you can see it in LawPay's interface

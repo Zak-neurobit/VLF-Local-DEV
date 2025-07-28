@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { FileSystemPageDiscovery } from '@/lib/sitemap/page-discovery';
+import { FileSystemPageDiscovery, type DiscoveredPage } from '@/lib/sitemap/page-discovery';
 import { headers } from 'next/headers';
 
 export async function GET() {
@@ -12,7 +12,7 @@ export async function GET() {
   const allPages = await discovery.discoverAllPages();
 
   // Filter for static pages (not blog, attorneys, etc.)
-  const staticPages: any[] = [];
+  const staticPages: DiscoveredPage[] = [];
 
   for (const [, pair] of allPages) {
     if (

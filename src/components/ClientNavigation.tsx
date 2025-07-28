@@ -2,12 +2,13 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { componentLogger } from '@/lib/safe-logger';
 
 export function ClientNavigation() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log('[ClientNavigation] Initializing client-side navigation handler');
+    componentLogger.debug('Initializing client-side navigation handler');
     
     // Intercept all link clicks to use client-side navigation
     const handleClick = (e: MouseEvent) => {
@@ -32,22 +33,22 @@ export function ClientNavigation() {
         
         // Skip non-navigable links
         if (!isInternal || isNewTab || isDownload || isMailto || isTel || hasModifierKey) {
-          console.log('[ClientNavigation] Skipping external/special link:', link.href);
+          componentLogger.debug('Skipping external/special link', { href: link.href });
           return;
         }
         
         // Handle hash-only links
         if (isHash && url.hash) {
-          console.log('[ClientNavigation] Hash navigation:', url.hash);
+          componentLogger.debug('Hash navigation', { hash: url.hash });
           return; // Let browser handle hash navigation
         }
         
         // Prevent default and use Next.js router
         e.preventDefault();
-        console.log('[ClientNavigation] Navigating to:', url.pathname + url.search + url.hash);
+        componentLogger.debug('Navigating to', { path: url.pathname + url.search + url.hash });
         router.push(url.pathname + url.search + url.hash);
       } catch (error) {
-        console.error('[ClientNavigation] Error handling click:', error);
+        componentLogger.error('Error handling click', error instanceof Error ? error : { error });
       }
     };
 
@@ -55,11 +56,11 @@ export function ClientNavigation() {
     document.addEventListener('click', handleClick, true);
     
     // Log current router state
-    console.log('[ClientNavigation] Client-side navigation active');
+    componentLogger.mount('ClientNavigation', { status: 'active' });
 
     return () => {
       document.removeEventListener('click', handleClick, true);
-      console.log('[ClientNavigation] Cleanup client-side navigation handler');
+      componentLogger.unmount('ClientNavigation');
     };
   }, [router]);
 

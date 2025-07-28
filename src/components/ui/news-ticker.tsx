@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ChevronRight, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { componentLogger } from '@/lib/safe-logger';
 
 interface NewsItem {
   id: string;
@@ -30,8 +31,8 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
   // Debug: Log component mount only in development
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
-      console.log('[NewsTicker] Component mounted with locale:', locale);
-      return () => console.log('[NewsTicker] Component unmounted');
+      componentLogger.mount('NewsTicker', { locale });
+      return () => componentLogger.unmount('NewsTicker');
     }
   }, [locale]);
 
@@ -42,32 +43,30 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
         setIsLoading(true);
         setError(null);
         if (process.env.NODE_ENV === 'development') {
-          console.log('[NewsTicker] Fetching news for locale:', locale);
+          componentLogger.debug('Fetching news', { locale });
         }
         const response = await fetch(
           `/api/news/ticker?category=immigration&limit=10&locale=${locale}`
         );
         if (process.env.NODE_ENV === 'development') {
-          console.log('[NewsTicker] Response status:', response.status);
+          componentLogger.debug('Response received', { status: response.status });
         }
         if (response.ok) {
           const data = await response.json();
           if (process.env.NODE_ENV === 'development') {
-            console.log('[NewsTicker] Received data:', data);
+            componentLogger.debug('Received data', { itemCount: data.posts?.length || 0 });
           }
           setNewsItems(data.posts || []);
         } else {
           const errorText = await response.text();
-          console.error(
-            '[NewsTicker] Failed to fetch news, status:',
-            response.status,
-            'error:',
-            errorText
-          );
+          componentLogger.error('Failed to fetch news', {
+            status: response.status,
+            error: errorText
+          });
           setError(`Failed to fetch news: ${response.status}`);
         }
       } catch (error) {
-        console.error('[NewsTicker] Error fetching news:', error);
+        componentLogger.error('Error fetching news', error instanceof Error ? error : { error });
         setError(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
       } finally {
         setIsLoading(false);
@@ -92,7 +91,7 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
 
   // Debug: Log render state only in development
   if (process.env.NODE_ENV === 'development') {
-    console.log('[NewsTicker] Render state:', { isLoading, error, itemCount: newsItems.length });
+    componentLogger.debug('Render state', { isLoading, error, itemCount: newsItems.length });
   }
 
   if (isLoading) {
@@ -117,7 +116,7 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
 
   if (newsItems.length === 0) {
     if (process.env.NODE_ENV === 'development') {
-      console.log('[NewsTicker] No news items to display');
+      componentLogger.debug('No news items to display');
     }
     // Return a placeholder to verify the component is mounting
     return (

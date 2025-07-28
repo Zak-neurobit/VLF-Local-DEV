@@ -1,6 +1,7 @@
 import { CronJob } from 'cron';
 import { generateComprehensiveSitemap } from '@/scripts/generate-sitemap';
 import { getSitemapMonitor } from '@/lib/sitemap/sitemap-monitor';
+import { logger, errorToLogMeta } from '@/lib/safe-logger';
 
 export class SitemapUpdater {
   private job: CronJob;
@@ -10,7 +11,7 @@ export class SitemapUpdater {
     this.job = new CronJob(
       '0 3 * * *',
       async () => {
-        console.log('[Sitemap Updater] Starting daily sitemap update...');
+        logger.info('Sitemap Updater: Starting daily sitemap update');
         try {
           await generateComprehensiveSitemap();
           
@@ -18,9 +19,9 @@ export class SitemapUpdater {
           const monitor = getSitemapMonitor();
           await monitor.updateStats();
           
-          console.log('[Sitemap Updater] Daily sitemap update completed successfully');
+          logger.info('Sitemap Updater: Daily sitemap update completed successfully');
         } catch (error) {
-          console.error('[Sitemap Updater] Failed to update sitemap:', error);
+          logger.error('Sitemap Updater: Failed to update sitemap', errorToLogMeta(error));
         }
       },
       null,
@@ -31,17 +32,17 @@ export class SitemapUpdater {
   
   start() {
     this.job.start();
-    console.log('[Sitemap Updater] Cron job started - will run daily at 3 AM ET');
+    logger.info('Sitemap Updater: Cron job started - will run daily at 3 AM ET');
   }
   
   stop() {
     this.job.stop();
-    console.log('[Sitemap Updater] Cron job stopped');
+    logger.info('Sitemap Updater: Cron job stopped');
   }
   
   // Manual trigger for testing
   async runNow() {
-    console.log('[Sitemap Updater] Running manual sitemap update...');
+    logger.info('Sitemap Updater: Running manual sitemap update');
     await generateComprehensiveSitemap();
     const monitor = getSitemapMonitor();
     await monitor.updateStats();

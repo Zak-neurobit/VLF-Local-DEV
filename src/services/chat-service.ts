@@ -39,7 +39,7 @@ export async function sendChatMessage(params: SendMessageParams): Promise<ChatRe
       metadata: data.metadata,
     };
   } catch (error) {
-    console.error('Chat service error:', error);
+    console.error('Chat service error:', error instanceof Error ? error.message : String(error));
     throw error;
   }
 }

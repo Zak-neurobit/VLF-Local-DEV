@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { performanceLogger } from '@/lib/safe-logger';
 
 export function QwikPerformanceMonitor() {
   useEffect(() => {
@@ -42,13 +43,11 @@ export function QwikPerformanceMonitor() {
             reactResourceCount: reactResources.length,
           };
 
-          console.log('=== Qwik Performance Metrics ===');
-          console.log('Page Load Metrics:', metrics);
-          console.log('JavaScript Bundle Analysis:', jsMetrics);
-          console.log(
-            `JavaScript Reduction: ${((1 - jsMetrics.qwikJsSize / jsMetrics.totalJsSize) * 100).toFixed(2)}%`
-          );
-          console.log('==============================');
+          performanceLogger.info('Qwik Performance Metrics', {
+            pageLoadMetrics: metrics,
+            jsBundleAnalysis: jsMetrics,
+            jsReductionPercent: ((1 - jsMetrics.qwikJsSize / jsMetrics.totalJsSize) * 100).toFixed(2)
+          });
 
           // Send metrics to analytics if needed
           if (window.gtag) {

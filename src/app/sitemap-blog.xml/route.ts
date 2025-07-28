@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { prisma } from '@/lib/prisma';
+import { logger, errorToLogMeta } from '@/lib/safe-logger';
 
 export async function GET() {
   const headersList = await headers();
@@ -61,7 +62,7 @@ ${entries}
       },
     });
   } catch (error) {
-    console.error('Error generating blog sitemap:', error);
+    logger.error('Error generating blog sitemap', errorToLogMeta(error));
 
     // Return empty sitemap on error
     const xml = `<?xml version="1.0" encoding="UTF-8"?>

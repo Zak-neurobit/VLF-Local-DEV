@@ -92,7 +92,7 @@ export async function middleware(request: NextRequest) {
       }
     } catch (error) {
       // Log error but don't block access if auth check fails
-      securityLogger.error('[Middleware] Auth check error:', error);
+      securityLogger.error('[Middleware] Auth check error:', error instanceof Error ? error.message : String(error));
       // Continue to allow the app to work even if auth is broken
     }
   }

@@ -19,8 +19,24 @@ import {
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
+interface CalculatorResult {
+  calculatorType: string;
+  inputs: Record<string, unknown>;
+  results: Record<string, unknown>;
+  recommendations: string[];
+  disclaimer: string;
+  timestamp: Date;
+  estimatedAccuracy: number;
+  followUpActions: {
+    action: string;
+    description: string;
+    priority: 'high' | 'medium' | 'low';
+    timeframe?: string;
+  }[];
+}
+
 interface CalculatorResultsProps {
-  result: any;
+  result: CalculatorResult;
   onNewCalculation: () => void;
   onScheduleConsultation: () => void;
 }

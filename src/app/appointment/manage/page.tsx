@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { format, isPast, isFuture, isToday, parseISO } from 'date-fns';
 import { motion, AnimatePresence } from 'framer-motion';
+import { logger, errorToLogMeta } from '@/lib/safe-logger';
 
 interface Appointment {
   id: string;
@@ -122,7 +123,7 @@ export default function AppointmentManagePage() {
         setAppointments(data.appointments || []);
       }
     } catch (error) {
-      console.error('Error fetching appointments:', error);
+      logger.error('Error fetching appointments', errorToLogMeta(error));
     } finally {
       setLoading(false);
     }
@@ -141,7 +142,7 @@ export default function AppointmentManagePage() {
         setSelectedAppointment(null);
       }
     } catch (error) {
-      console.error('Error cancelling appointment:', error);
+      logger.error('Error cancelling appointment', errorToLogMeta(error));
     }
   };
 
@@ -159,7 +160,7 @@ export default function AppointmentManagePage() {
         setSelectedAppointment(null);
       }
     } catch (error) {
-      console.error('Error rescheduling appointment:', error);
+      logger.error('Error rescheduling appointment', errorToLogMeta(error));
     }
   };
 
