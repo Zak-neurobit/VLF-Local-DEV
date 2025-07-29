@@ -109,6 +109,14 @@ export async function POST(request: NextRequest) {
 
       // Try to book the first available slot
       const selectedSlot = availableSlots[0];
+      
+      if (!selectedSlot) {
+        return NextResponse.json({
+          success: false,
+          error: 'No valid slot found',
+        });
+      }
+      
       const bookingResult = await appointmentBookingHandler.bookAppointment(
         testBooking,
         selectedSlot
