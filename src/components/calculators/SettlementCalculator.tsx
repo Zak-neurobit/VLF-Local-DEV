@@ -214,7 +214,7 @@ export function SettlementCalculator() {
             </div>
           </div>
 
-          <div className="mt-6 bg-[#C9974D] bg-opacity-10 rounded-lg p-4">
+          <div className="mt-6 bg-[#C9974D] bg-current/10 rounded-lg p-4">
             <p className="text-sm font-semibold text-[#6B1F2E] mb-2">Potential Settlement Range:</p>
             <p className="text-2xl font-bold text-[#6B1F2E]">
               {formatCurrency(results.lowRange)} - {formatCurrency(results.highRange)}

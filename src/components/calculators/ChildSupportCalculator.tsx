@@ -276,7 +276,7 @@ export function ChildSupportCalculator() {
             </div>
           </div>
 
-          <div className="mt-6 bg-[#C9974D] bg-opacity-10 rounded-lg p-4">
+          <div className="mt-6 bg-[#C9974D] bg-current/10 rounded-lg p-4">
             <p className="text-sm font-semibold text-[#6B1F2E] mb-2">Payment Schedule:</p>
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>

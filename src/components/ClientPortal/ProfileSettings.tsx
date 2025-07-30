@@ -872,7 +872,7 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                       }
                       className={`flex flex-col items-center gap-2 p-4 rounded-lg border transition-colors ${
                         profileData.preferences.communicationMethod === method.value
-                          ? 'border-[#6B1F2E] bg-[#6B1F2E] bg-opacity-5'
+                          ? 'border-[#6B1F2E] bg-[#6B1F2E] bg-current/5'
                           : 'border-gray-300 hover:border-gray-400'
                       }`}
                     >

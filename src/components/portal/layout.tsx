@@ -116,7 +116,7 @@ export default function ClientPortalLayout({ children }: { children: React.React
         {isMobileMenuOpen && (
           <div className="md:hidden fixed inset-0 z-40 pt-16">
             <div
-              className="fixed inset-0 bg-gray-600 bg-opacity-75"
+              className="fixed inset-0 bg-gray-600/75"
               onClick={() => setIsMobileMenuOpen(false)}
             />
             <nav className="relative flex-1 flex flex-col max-w-xs w-full bg-white">

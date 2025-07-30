@@ -443,7 +443,7 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
             onClick={() => setShowScheduleModal(false)}
           >
             <motion.div
@@ -480,7 +480,7 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                           onClick={() => setFormData({ ...formData, type: type.value })}
                           className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${
                             formData.type === type.value
-                              ? 'border-[#6B1F2E] bg-[#6B1F2E] bg-opacity-5'
+                              ? 'border-[#6B1F2E] bg-[#6B1F2E] bg-current/5'
                               : 'border-gray-300 hover:border-gray-400'
                           }`}
                         >
@@ -611,7 +611,7 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
             onClick={() => setSelectedAppointment(null)}
           >
             <motion.div
