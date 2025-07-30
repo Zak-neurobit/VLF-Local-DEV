@@ -472,46 +472,46 @@ const nextConfig = {
   },
 };
 
-// Sentry configuration options
-const sentryWebpackPluginOptions = {
-  // Organization and project from your Sentry account
-  org: 'vasquez-law-firmpllc',
-  project: 'javascript-nextjs',
-
-  // Only upload source maps in production
-  silent: true,
-
-  // Disable source map upload
-  widenClientFileUpload: false,
-
-  // Transpile SDK for compatibility
-  transpileClientSDK: true,
-
-  // Routes to tunnel Sentry requests through to avoid ad blockers
-  tunnelRoute: '/monitoring',
-
-  // Hide source maps from the client
-  hideSourceMaps: true,
-
-  // Disable org/project lookup in CI
-  disableLogger: true,
-
-  // Don't upload source maps in production to avoid exposing them
-  ...(process.env.NODE_ENV === 'production' && {
-    disableServerWebpackPlugin: true,
-    disableClientWebpackPlugin: true,
-  }),
-
-  // Auto-instrument API routes and Server Components
-  automaticVercelMonitors: true,
-
-  // Skip source map upload if no auth token
-  dryRun: !process.env.SENTRY_AUTH_TOKEN,
-
-  // Disable source map upload completely if no token
-  disableServerWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
-  disableClientWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
-};
+// Sentry configuration options (commented out while Sentry is disabled)
+// const sentryWebpackPluginOptions = {
+//   // Organization and project from your Sentry account
+//   org: 'vasquez-law-firmpllc',
+//   project: 'javascript-nextjs',
+//
+//   // Only upload source maps in production
+//   silent: true,
+//
+//   // Disable source map upload
+//   widenClientFileUpload: false,
+//
+//   // Transpile SDK for compatibility
+//   transpileClientSDK: true,
+//
+//   // Routes to tunnel Sentry requests through to avoid ad blockers
+//   tunnelRoute: '/monitoring',
+//
+//   // Hide source maps from the client
+//   hideSourceMaps: true,
+//
+//   // Disable org/project lookup in CI
+//   disableLogger: true,
+//
+//   // Don't upload source maps in production to avoid exposing them
+//   ...(process.env.NODE_ENV === 'production' && {
+//     disableServerWebpackPlugin: true,
+//     disableClientWebpackPlugin: true,
+//   }),
+//
+//   // Auto-instrument API routes and Server Components
+//   automaticVercelMonitors: true,
+//
+//   // Skip source map upload if no auth token
+//   dryRun: !process.env.SENTRY_AUTH_TOKEN,
+//
+//   // Disable source map upload completely if no token
+//   disableServerWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
+//   disableClientWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
+// };
 
 // module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
 // Wrap with Million.js compiler
