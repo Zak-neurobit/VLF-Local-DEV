@@ -26,6 +26,14 @@ interface EligibilityAnalysis {
   bars?: string[];
   waivers?: string[];
   urgentActions?: string[];
+  // Properties from parsed JSON responses
+  primary_pathway?: string;
+  likelihood?: 'high' | 'moderate' | 'low' | 'needs_evaluation';
+  requirements?: string[];
+  timeframe?: string;
+  government_fees?: string;
+  potential_challenges?: string[];
+  alternative_pathways?: string[];
 }
 
 interface LegalAnalysis {
@@ -37,6 +45,13 @@ interface LegalAnalysis {
   remedies: string[];
   processingOffice: string;
   estimatedTimeline: string;
+  // Properties from parsed JSON responses
+  applicable_laws?: string[];
+  recent_changes?: string[];
+  precedent_cases?: string[];
+  success_factors?: string[];
+  risk_factors?: string[];
+  strategies?: string[];
 }
 
 interface ImmigrationRecommendations {
@@ -53,6 +68,12 @@ interface ImmigrationRecommendations {
   }>;
   riskFactors: string[];
   successProbability: 'high' | 'moderate' | 'low';
+  // Properties from parsed JSON responses
+  immediate_actions?: string[];
+  required_documents?: string[];
+  interview_prep?: string[];
+  challenge_mitigation?: string[];
+  attorney_consultation?: string;
 }
 
 export interface ImmigrationConsultationRequest {
@@ -299,7 +320,7 @@ RESPONSE FORMAT (JSON):
   private async generateRecommendations(
     request: ImmigrationConsultationRequest,
     eligibility: EligibilityAnalysis,
-    legalAnalysis: LegalAnalysis
+    _legalAnalysis: LegalAnalysis
   ): Promise<ImmigrationRecommendations> {
     const recommendationsPrompt = `Generate actionable recommendations for this immigration case:
 
@@ -350,12 +371,20 @@ RESPONSE FORMAT (JSON):
 
   private async generateAIOverviewContent(
     request: ImmigrationConsultationRequest,
-    eligibility: any
-  ): Promise<any> {
+    eligibility: EligibilityAnalysis
+  ): Promise<{
+    faq_answers: Array<{
+      question: string;
+      answer: string;
+      word_count: number;
+      voice_optimized: boolean;
+    }>;
+    content_optimization: string;
+  }> {
     const contentPrompt = `Generate AI Overview optimized content for this immigration case:
 
 CASE TYPE: ${request.immigrationGoal}
-PATHWAY: ${eligibility.primary_pathway}
+PATHWAY: ${eligibility.primary_pathway || eligibility.primaryOption.pathName}
 
 Generate 5-8 FAQ answers optimized for AI Overview (40-60 words each):
 
@@ -404,18 +433,26 @@ RESPONSE FORMAT (JSON):
 
   private compileAssessment(
     request: ImmigrationConsultationRequest,
-    eligibility: any,
-    legalAnalysis: any,
-    recommendations: any,
-    aiOverviewContent: any
+    eligibility: EligibilityAnalysis,
+    legalAnalysis: LegalAnalysis,
+    recommendations: ImmigrationRecommendations,
+    aiOverviewContent: {
+      faq_answers: Array<{
+        question: string;
+        answer: string;
+        word_count: number;
+        voice_optimized: boolean;
+      }>;
+      content_optimization: string;
+    }
   ): ImmigrationAssessment {
     // Determine case complexity
     const complexityFactors = [
       request.priorDenials,
       request.criminalHistory,
-      eligibility.potential_challenges?.length > 2,
+      (eligibility.potential_challenges || eligibility.bars || []).length > 2,
       request.currentStatus === 'undocumented',
-      legalAnalysis.risk_factors?.length > 2,
+      (legalAnalysis.risk_factors || legalAnalysis.potentialIssues || []).length > 2,
     ].filter(Boolean).length;
 
     let caseComplexity: 'simple' | 'moderate' | 'complex' | 'extremely_complex';
@@ -430,31 +467,47 @@ RESPONSE FORMAT (JSON):
     return {
       caseComplexity,
       eligibility: {
-        pathway: eligibility.primary_pathway,
-        likelihood: eligibility.likelihood,
-        requirements: eligibility.requirements || [],
-        timeframe: eligibility.timeframe,
+        pathway: eligibility.primary_pathway || eligibility.primaryOption.pathName,
+        likelihood:
+          eligibility.likelihood ||
+          this.mapEligibilityToLikelihood(eligibility.primaryOption.eligibility),
+        requirements: eligibility.requirements || eligibility.primaryOption.requirements || [],
+        timeframe: eligibility.timeframe || eligibility.primaryOption.timeline,
         costs: {
-          government_fees: eligibility.government_fees,
+          government_fees: eligibility.government_fees || eligibility.primaryOption.cost,
           attorney_fees: attorneyFees,
-          total_estimated: this.calculateTotalCosts(eligibility.government_fees, attorneyFees),
+          total_estimated: this.calculateTotalCosts(
+            eligibility.government_fees || eligibility.primaryOption.cost,
+            attorneyFees
+          ),
         },
       },
       recommendations: {
-        immediate_actions: recommendations.immediate_actions || [],
-        required_documents: recommendations.required_documents || [],
-        potential_challenges: eligibility.potential_challenges || [],
-        alternative_pathways: eligibility.alternative_pathways,
+        immediate_actions:
+          recommendations.immediate_actions || recommendations.immediateActions || [],
+        required_documents:
+          recommendations.required_documents || recommendations.documentationNeeded || [],
+        potential_challenges: eligibility.potential_challenges || eligibility.bars || [],
+        alternative_pathways:
+          eligibility.alternative_pathways ||
+          eligibility.alternativeOptions?.map(opt => opt.pathName),
       },
       legal_analysis: {
-        applicable_laws: legalAnalysis.applicable_laws || [],
+        applicable_laws: legalAnalysis.applicable_laws || legalAnalysis.applicableLaws || [],
         precedent_cases: legalAnalysis.precedent_cases,
         success_factors: legalAnalysis.success_factors || [],
-        risk_factors: legalAnalysis.risk_factors || [],
+        risk_factors: legalAnalysis.risk_factors || legalAnalysis.potentialIssues || [],
       },
       consultation_summary: this.generateConsultationSummary(request, eligibility, caseComplexity),
       next_steps: this.generateNextSteps(request, recommendations, caseComplexity),
-      ai_overview_content: aiOverviewContent,
+      ai_overview_content: {
+        faq_answers: aiOverviewContent.faq_answers.map(faq => ({
+          question: faq.question,
+          answer: faq.answer,
+          voiceOptimized: faq.voice_optimized,
+        })),
+        content_optimization: aiOverviewContent.content_optimization,
+      },
     };
   }
 
@@ -546,7 +599,7 @@ Always maintain the highest ethical standards and encourage consultation with qu
     const complexityFees = feeRanges[complexityKey];
     if (!complexityFees) return '$3,000-$8,000';
 
-    return (complexityFees as any)[goal] || '$3,000-$8,000';
+    return (complexityFees as Record<string, string>)[goal] || '$3,000-$8,000';
   }
 
   private calculateTotalCosts(governmentFees: string, attorneyFees: string): string {
@@ -567,7 +620,7 @@ Always maintain the highest ethical standards and encourage consultation with qu
 
   private generateConsultationSummary(
     request: ImmigrationConsultationRequest,
-    eligibility: any,
+    eligibility: EligibilityAnalysis,
     complexity: string
   ): string {
     return `Based on your ${request.immigrationGoal} goal and ${request.currentStatus} status, you appear to be eligible for ${eligibility.primaryOption.pathName}. This is classified as a ${complexity} case with ${eligibility.primaryOption.eligibility} eligibility status. The process typically takes ${eligibility.primaryOption.timeline} and involves ${eligibility.primaryOption.requirements?.length || 0} main requirements. ${request.priorDenials ? 'Given your prior denial history, extra care will be needed in preparing your case.' : ''} Professional legal representation is ${complexity === 'simple' ? 'recommended' : complexity === 'moderate' ? 'strongly recommended' : 'essential'} for this type of case.`;
@@ -575,7 +628,7 @@ Always maintain the highest ethical standards and encourage consultation with qu
 
   private generateNextSteps(
     request: ImmigrationConsultationRequest,
-    recommendations: any,
+    recommendations: ImmigrationRecommendations,
     complexity: string
   ): string[] {
     const baseSteps = [
@@ -592,7 +645,9 @@ Always maintain the highest ethical standards and encourage consultation with qu
       baseSteps.unshift('Contact attorney within 24-48 hours due to urgent timeline');
     }
 
-    return baseSteps.concat(recommendations.immediateActions?.slice(0, 3) || []);
+    return baseSteps.concat(
+      (recommendations.immediate_actions || recommendations.immediateActions || []).slice(0, 3)
+    );
   }
 
   // Fallback methods for error handling
@@ -609,6 +664,14 @@ Always maintain the highest ethical standards and encourage consultation with qu
       bars: ['Document requirements', 'Processing delays'],
       waivers: [],
       urgentActions: [],
+      // Fallback properties for parsed JSON responses
+      primary_pathway: `${request.immigrationGoal.replace('_', ' ')} application`,
+      likelihood: 'needs_evaluation',
+      requirements: ['Valid passport', 'Completed forms', 'Supporting evidence'],
+      timeframe: '6-18 months',
+      government_fees: '$1,000-$3,000',
+      potential_challenges: ['Document requirements', 'Processing delays'],
+      alternative_pathways: [],
     };
   }
 
@@ -622,6 +685,13 @@ Always maintain the highest ethical standards and encourage consultation with qu
       remedies: ['Thorough preparation', 'Legal consultation'],
       processingOffice: 'USCIS',
       estimatedTimeline: '6-18 months',
+      // Fallback properties for parsed JSON responses
+      applicable_laws: ['Immigration and Nationality Act', '8 CFR Immigration Regulations'],
+      recent_changes: ['Processing time updates', 'Fee adjustments'],
+      precedent_cases: [],
+      success_factors: ['Complete documentation', 'Professional representation'],
+      risk_factors: ['Missing documents', 'Eligibility questions'],
+      strategies: ['Thorough preparation', 'Legal consultation'],
     };
   }
 
@@ -655,6 +725,16 @@ Always maintain the highest ethical standards and encourage consultation with qu
       ],
       riskFactors: ['Missing documents', 'Eligibility questions'],
       successProbability: 'moderate',
+      // Fallback properties for parsed JSON responses
+      immediate_actions: [
+        'Consult immigration attorney',
+        'Gather documents',
+        'Review requirements',
+      ],
+      required_documents: ['Passport', 'Birth certificate', 'Supporting evidence'],
+      interview_prep: ['Review application', 'Prepare for questions'],
+      challenge_mitigation: ['Thorough documentation', 'Professional representation'],
+      attorney_consultation: 'recommended',
     };
   }
 
@@ -670,6 +750,21 @@ Always maintain the highest ethical standards and encourage consultation with qu
       case 'low':
       default:
         return 'not_eligible';
+    }
+  }
+
+  private mapEligibilityToLikelihood(
+    eligibility: 'eligible' | 'potentially_eligible' | 'not_eligible'
+  ): 'high' | 'moderate' | 'low' | 'needs_evaluation' {
+    switch (eligibility) {
+      case 'eligible':
+        return 'high';
+      case 'potentially_eligible':
+        return 'moderate';
+      case 'not_eligible':
+        return 'low';
+      default:
+        return 'needs_evaluation';
     }
   }
 
