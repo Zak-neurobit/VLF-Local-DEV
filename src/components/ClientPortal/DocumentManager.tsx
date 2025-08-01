@@ -109,20 +109,20 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
     filterDocuments();
   }, [filterDocuments]);
 
-
-
   const formatFileSize = (bytes: number) => {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
   };
 
-
   const handleFileUpload = async (files: FileList) => {
     const formData = new FormData();
 
     for (let i = 0; i < files.length; i++) {
-      formData.append('files', files[i]);
+      const file = files[i];
+      if (file) {
+        formData.append('files', file);
+      }
     }
 
     try {
