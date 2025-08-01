@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({
-      analysis: completion.choices[0].message.content,
+      analysis: completion.choices[0]?.message?.content || 'No analysis available',
       documentType: file.type,
       fileName: file.name,
     });

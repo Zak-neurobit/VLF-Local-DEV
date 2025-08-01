@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom';
+import { vi } from 'vitest';
 import React from 'react';
 
 // Ensure document.body is clean for each test
@@ -7,286 +8,222 @@ afterEach(() => {
 });
 
 // Mock pino logger
-jest.mock('@/lib/pino-logger', () => ({
+vi.mock('@/lib/pino-logger', () => ({
   logger: {
-    error: jest.fn(),
-    warn: jest.fn(),
-    info: jest.fn(),
-    debug: jest.fn(),
+    error: vi.fn(),
+    warn: vi.fn(),
+    info: vi.fn(),
+    debug: vi.fn(),
   },
   apiLogger: {
-    error: jest.fn(),
-    warn: jest.fn(),
-    info: jest.fn(),
-    debug: jest.fn(),
+    error: vi.fn(),
+    warn: vi.fn(),
+    info: vi.fn(),
+    debug: vi.fn(),
   },
   dbLogger: {
-    error: jest.fn(),
-    warn: jest.fn(),
-    info: jest.fn(),
-    debug: jest.fn(),
+    error: vi.fn(),
+    warn: vi.fn(),
+    info: vi.fn(),
+    debug: vi.fn(),
   },
   securityLogger: {
-    error: jest.fn(),
-    warn: jest.fn(),
-    info: jest.fn(),
-    debug: jest.fn(),
+    error: vi.fn(),
+    warn: vi.fn(),
+    info: vi.fn(),
+    debug: vi.fn(),
   },
   performanceLogger: {
-    error: jest.fn(),
-    warn: jest.fn(),
-    info: jest.fn(),
-    debug: jest.fn(),
+    error: vi.fn(),
+    warn: vi.fn(),
+    info: vi.fn(),
+    debug: vi.fn(),
   },
 }));
 
 // Mock browser utils
-jest.mock('@/lib/utils/browser', () => ({
+vi.mock('@/lib/utils/browser', () => ({
   isBrowser: true,
   safeWindow: {
     innerWidth: 1024,
     innerHeight: 768,
     location: { href: '', pathname: '', search: '', hash: '' },
     localStorage: {
-      getItem: jest.fn(),
-      setItem: jest.fn(),
-      removeItem: jest.fn(),
-      clear: jest.fn(),
+      getItem: vi.fn(),
+      setItem: vi.fn(),
+      removeItem: vi.fn(),
+      clear: vi.fn(),
     },
     sessionStorage: {
-      getItem: jest.fn(),
-      setItem: jest.fn(),
-      removeItem: jest.fn(),
-      clear: jest.fn(),
+      getItem: vi.fn(),
+      setItem: vi.fn(),
+      removeItem: vi.fn(),
+      clear: vi.fn(),
     },
   },
-  onClient: jest.fn(callback => callback()),
-  addWindowListener: jest.fn(() => jest.fn()),
+  safeDocument: {
+    body: document.body,
+    createElement: document.createElement.bind(document),
+    querySelector: document.querySelector.bind(document),
+    querySelectorAll: document.querySelectorAll.bind(document),
+  },
 }));
 
-// Mock Bull queue - virtual mock since bull package is not installed
-jest.mock(
-  'bull',
-  () => {
-    return jest.fn().mockImplementation(() => ({
-      add: jest.fn().mockResolvedValue({ id: '123' }),
-      process: jest.fn(),
-      on: jest.fn(),
-      close: jest.fn(),
-      getJob: jest.fn(),
-      getJobs: jest.fn().mockResolvedValue([]),
-      empty: jest.fn(),
-      clean: jest.fn(),
-      pause: jest.fn(),
-      resume: jest.fn(),
-      isPaused: jest.fn().mockResolvedValue(false),
-      getJobCounts: jest.fn().mockResolvedValue({
-        waiting: 0,
-        active: 0,
-        completed: 0,
-        failed: 0,
-        delayed: 0,
-      }),
-      getWaitingCount: jest.fn().mockResolvedValue(0),
-      getActiveCount: jest.fn().mockResolvedValue(0),
-      getCompletedCount: jest.fn().mockResolvedValue(0),
-      getFailedCount: jest.fn().mockResolvedValue(0),
-      getDelayedCount: jest.fn().mockResolvedValue(0),
-    }));
-  },
-  { virtual: true }
-);
+// Mock Bull/BullMQ
+vi.mock('bull', () => ({
+  default: vi.fn(() => ({
+    add: vi.fn(),
+    process: vi.fn(),
+    on: vi.fn(),
+    close: vi.fn(),
+  })),
+}));
 
-// Mock next/navigation
-jest.mock('next/navigation', () => ({
+vi.mock('bullmq', () => ({
+  Queue: vi.fn(() => ({
+    add: vi.fn(),
+    close: vi.fn(),
+  })),
+  Worker: vi.fn(() => ({
+    on: vi.fn(),
+    close: vi.fn(),
+  })),
+}));
+
+// Mock Next.js modules
+vi.mock('next/navigation', () => ({
   useRouter: () => ({
-    push: jest.fn(),
-    replace: jest.fn(),
-    prefetch: jest.fn(),
-    back: jest.fn(),
+    push: vi.fn(),
+    replace: vi.fn(),
+    prefetch: vi.fn(),
+    back: vi.fn(),
+    forward: vi.fn(),
+    refresh: vi.fn(),
   }),
   usePathname: () => '/',
   useSearchParams: () => new URLSearchParams(),
-  useParams: () => ({}),
+  redirect: vi.fn(),
+  notFound: vi.fn(),
 }));
 
-// Mock LanguageSwitcher component to avoid import issues in tests
-jest.mock('@/components/LanguageSwitcher', () => ({
-  __esModule: true,
-  LanguageSwitcher: () => null,
-  default: () => null,
+vi.mock('next/link', () => ({
+  default: ({ href, children, ...props }: any) =>
+    React.createElement('a', { href, ...props }, children),
 }));
 
-// Mock next/image
-jest.mock('next/image', () => ({
-  __esModule: true,
-  default: () => null,
+vi.mock('next/image', () => ({
+  default: ({ src, alt, ...props }: any) => React.createElement('img', { src, alt, ...props }),
 }));
 
-// lucide-react is now mocked via __mocks__/lucide-react.js
-
-// Mock @radix-ui components that might cause issues
-jest.mock('@radix-ui/react-select', () => ({
-  __esModule: true,
-  Root: ({ children }: { children: React.ReactNode }) => children,
-  Trigger: ({ children }: { children: React.ReactNode }) =>
-    React.createElement('div', {}, children),
-  Content: ({ children }: { children: React.ReactNode }) =>
-    React.createElement('div', {}, children),
-  Item: ({ children }: { children: React.ReactNode }) => React.createElement('div', {}, children),
-  Value: ({ children }: { children: React.ReactNode }) => React.createElement('span', {}, children),
-  Icon: () => null,
-  Viewport: ({ children }: { children: React.ReactNode }) =>
-    React.createElement('div', {}, children),
-  ScrollUpButton: () => null,
-  ScrollDownButton: () => null,
+// Mock Radix UI components
+vi.mock('@radix-ui/react-dialog', () => ({
+  Root: ({ children }: any) => children,
+  Trigger: ({ children }: any) => children,
+  Content: ({ children }: any) => children,
+  Close: ({ children }: any) => children,
 }));
 
-// Mock other potentially problematic imports
-jest.mock(
-  'bullmq',
-  () => ({
-    __esModule: true,
-    Queue: jest.fn().mockImplementation(() => ({
-      add: jest.fn().mockResolvedValue({ id: '123' }),
-      process: jest.fn(),
-      on: jest.fn(),
-      close: jest.fn(),
-    })),
-    Worker: jest.fn(),
-    default: jest.fn(),
+vi.mock('@radix-ui/react-dropdown-menu', () => ({
+  Root: ({ children }: any) => children,
+  Trigger: ({ children }: any) => children,
+  Content: ({ children }: any) => children,
+  Item: ({ children }: any) => children,
+}));
+
+// Mock Framer Motion
+vi.mock('framer-motion', () => ({
+  motion: {
+    div: ({ children, ...props }: any) => React.createElement('div', props, children),
+    span: ({ children, ...props }: any) => React.createElement('span', props, children),
+    button: ({ children, ...props }: any) => React.createElement('button', props, children),
+    a: ({ children, ...props }: any) => React.createElement('a', props, children),
+  },
+  AnimatePresence: ({ children }: any) => children,
+  useAnimation: () => ({
+    start: vi.fn(),
+    stop: vi.fn(),
   }),
-  { virtual: true }
-);
+  useInView: () => true,
+}));
 
-// Mock framer-motion
-jest.mock('framer-motion', () => {
-  // Create a mock component that strips framer-motion props
-  const createMockComponent =
-    (tag: string) =>
-    ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) => {
-      // Remove framer-motion specific props to avoid React warnings
-      const {
-        initial,
-        animate,
-        exit,
-        transition,
-        variants,
-        whileHover,
-        whileTap,
-        whileInView,
-        whileFocus,
-        drag,
-        dragConstraints,
-        dragElastic,
-        dragMomentum,
-        dragPropagation,
-        dragTransition,
-        ...cleanProps
-      } = props;
+// Mock Lucide React icons
+vi.mock('lucide-react', () => ({
+  ChevronRight: () => null,
+  ChevronLeft: () => null,
+  Menu: () => null,
+  X: () => null,
+  Search: () => null,
+  Phone: () => null,
+  Mail: () => null,
+  MapPin: () => null,
+  Clock: () => null,
+  Calendar: () => null,
+  Check: () => null,
+  AlertCircle: () => null,
+  Info: () => null,
+  Star: () => null,
+  ArrowRight: () => null,
+  ArrowLeft: () => null,
+  Plus: () => null,
+  Minus: () => null,
+  User: () => null,
+  Users: () => null,
+  Home: () => null,
+  Building: () => null,
+  Globe: () => null,
+  Settings: () => null,
+  LogOut: () => null,
+  LogIn: () => null,
+}));
 
-      // Suppress unused variable warnings - these are intentionally destructured to remove them
-      void initial;
-      void animate;
-      void exit;
-      void transition;
-      void variants;
-      void whileHover;
-      void whileTap;
-      void whileInView;
-      void whileFocus;
-      void drag;
-      void dragConstraints;
-      void dragElastic;
-      void dragMomentum;
-      void dragPropagation;
-      void dragTransition;
-
-      return React.createElement(tag, cleanProps, children);
-    };
-
-  return {
-    motion: {
-      div: createMockComponent('div'),
-      nav: createMockComponent('nav'),
-      header: createMockComponent('header'),
-      section: createMockComponent('section'),
-      article: createMockComponent('article'),
-      aside: createMockComponent('aside'),
-      main: createMockComponent('main'),
-      footer: createMockComponent('footer'),
-      h1: createMockComponent('h1'),
-      h2: createMockComponent('h2'),
-      h3: createMockComponent('h3'),
-      h4: createMockComponent('h4'),
-      h5: createMockComponent('h5'),
-      h6: createMockComponent('h6'),
-      p: createMockComponent('p'),
-      span: createMockComponent('span'),
-      a: createMockComponent('a'),
-      button: createMockComponent('button'),
-      form: createMockComponent('form'),
-      input: createMockComponent('input'),
-      textarea: createMockComponent('textarea'),
-      select: createMockComponent('select'),
-      option: createMockComponent('option'),
-      label: createMockComponent('label'),
-      ul: createMockComponent('ul'),
-      ol: createMockComponent('ol'),
-      li: createMockComponent('li'),
-      img: createMockComponent('img'),
-      video: createMockComponent('video'),
-      audio: createMockComponent('audio'),
-      canvas: createMockComponent('canvas'),
-      svg: createMockComponent('svg'),
-      path: createMockComponent('path'),
-      circle: createMockComponent('circle'),
-      rect: createMockComponent('rect'),
-      line: createMockComponent('line'),
-      polyline: createMockComponent('polyline'),
-      polygon: createMockComponent('polygon'),
-    },
-    AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
-  };
+// Mock window.matchMedia
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: vi.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(), // Deprecated
+    removeListener: vi.fn(), // Deprecated
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
 });
 
-// Note: window.location cannot be easily mocked in jsdom
-// Tests that need to mock window.location should do so individually
+// Mock IntersectionObserver
+global.IntersectionObserver = vi.fn(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+  root: null,
+  rootMargin: '',
+  thresholds: [],
+  takeRecords: () => [],
+})) as any;
 
-// Only mock document-related stuff if we're in a jsdom environment
-if (typeof document !== 'undefined') {
-  // Mock document.createElement for download tests
-  const originalCreateElement = document.createElement.bind(document);
+// Mock ResizeObserver
+global.ResizeObserver = vi.fn(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+})) as any;
 
-  document.createElement = jest.fn((tagName: string) => {
-    const element = originalCreateElement(tagName);
+// Mock window methods
+window.scrollTo = vi.fn();
+window.alert = vi.fn();
+window.confirm = vi.fn(() => true);
 
-    if (tagName === 'a') {
-      // Override click method for anchor elements
-      element.click = jest.fn();
-    }
+// Add custom matchers if needed
+expect.extend({
+  toBeInTheDocument(received) {
+    const pass = document.body.contains(received);
+    return {
+      pass,
+      message: () => `expected element ${pass ? 'not ' : ''}to be in the document`,
+    };
+  },
+});
 
-    return element;
-  }) as typeof document.createElement;
-
-  // Mock document.body.appendChild and removeChild with proper implementation
-  const originalAppendChild = document.body.appendChild.bind(document.body);
-  const originalRemoveChild = document.body.removeChild.bind(document.body);
-
-  document.body.appendChild = jest.fn(element => {
-    return originalAppendChild(element);
-  });
-
-  document.body.removeChild = jest.fn(element => {
-    return originalRemoveChild(element);
-  });
-}
-
-// Mock IntersectionObserver if it exists
-if (typeof global !== 'undefined' && !global.IntersectionObserver) {
-  global.IntersectionObserver = jest.fn().mockImplementation(() => ({
-    observe: jest.fn(),
-    unobserve: jest.fn(),
-    disconnect: jest.fn(),
-  }));
-}
+// Global test utilities
+global.React = React;
