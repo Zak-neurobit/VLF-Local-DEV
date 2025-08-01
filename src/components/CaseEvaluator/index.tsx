@@ -403,7 +403,7 @@ export default function CaseEvaluator({ language }: CaseEvaluatorProps) {
 
         {/* Form Content */}
         <AnimatePresence mode="wait">
-          {!showResults && !isCalculating && (
+          {!showResults && !isCalculating && currentStep && (
             <motion.div
               key={step}
               initial={{ opacity: 0, x: 50 }}
