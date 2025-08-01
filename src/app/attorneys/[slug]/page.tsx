@@ -93,7 +93,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  return attorneyMetadata[slug];
+  const metadata = attorneyMetadata[slug as keyof typeof attorneyMetadata];
+
+  // TypeScript safety check - should never happen due to the guard above
+  if (!metadata) {
+    return {
+      title: 'Attorney Not Found | Vasquez Law Firm',
+      description: 'The requested attorney page could not be found.',
+    };
+  }
+
+  return metadata;
 }
 
 export default async function AttorneyPage({ params }: PageProps) {

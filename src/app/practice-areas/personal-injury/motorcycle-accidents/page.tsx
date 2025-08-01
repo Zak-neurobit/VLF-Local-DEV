@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
+import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
 
 export const metadata: Metadata = {
   title: 'Motorcycle Accident Lawyers NC & FL | Biker Injury Attorneys | Vasquez Law Firm',
@@ -281,14 +281,16 @@ export default function MotorcycleAccidentsPage() {
   };
 
   return (
-    <PracticeAreaWrapper
+    <StandardizedPracticeAreaTemplate
       title="Motorcycle Accident Lawyers"
       subtitle="Fighting for Bikers Against Unfair Bias"
       description="Expert motorcycle accident attorneys protecting bikers injured by negligent drivers. We overcome North Carolina's contributory negligence law and fight anti-motorcycle bias to secure maximum compensation."
       services={services}
       faqs={faqs}
-      urgencyLevel="critical"
-      content={
+      overview={{
+        content: content.introduction,
+      }}
+      additionalContent={
         <div className="space-y-12">
           {/* NC Statistics */}
           <section>

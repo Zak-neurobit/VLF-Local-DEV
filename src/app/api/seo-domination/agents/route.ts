@@ -88,7 +88,9 @@ async function getAgentMetrics(prisma: PrismaClient, agentName: string, since: D
     lastActivity: logs[0]?.createdAt || null,
     recentHighlights,
     status:
-      logs.length > 0 && Date.now() - new Date(logs[0].createdAt).getTime() < 60 * 60 * 1000
+      logs.length > 0 &&
+      logs[0] &&
+      Date.now() - new Date(logs[0].createdAt).getTime() < 60 * 60 * 1000
         ? 'active'
         : 'idle',
   };

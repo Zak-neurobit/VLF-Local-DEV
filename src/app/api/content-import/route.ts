@@ -364,7 +364,7 @@ async function optimizeContentForSEO(data: {
     temperature: 0.7,
   });
 
-  const result = JSON.parse(response.choices[0].message.content || '{}');
+  const result = JSON.parse(response.choices[0]?.message?.content || '{}');
   return result;
 }
 
@@ -388,7 +388,7 @@ async function translateContent(content: string, targetLanguage: 'es' | 'en'): P
     temperature: 0.3,
   });
 
-  return response.choices[0].message.content || content;
+  return response.choices[0]?.message?.content || content;
 }
 
 async function optimizeImportedContent() {

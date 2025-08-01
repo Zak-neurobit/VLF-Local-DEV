@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
+import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
 
 export const metadata: Metadata = {
   title: 'Pedestrian Accident Lawyers NC & FL | Hit by Car Attorneys | Vasquez Law Firm',
@@ -283,14 +283,16 @@ export default function PedestrianAccidentsPage() {
   };
 
   return (
-    <PracticeAreaWrapper
+    <StandardizedPracticeAreaTemplate
       title="Pedestrian Accident Lawyers"
       subtitle="Fighting for People Hit by Cars"
       description="Expert pedestrian accident attorneys protecting people injured by negligent drivers. We overcome North Carolina's contributory negligence law and secure maximum compensation for serious pedestrian injuries."
       services={services}
       faqs={faqs}
-      urgencyLevel="high"
-      content={
+      overview={{
+        content: content.introduction,
+      }}
+      additionalContent={
         <div className="space-y-12">
           {/* NC Pedestrian Statistics */}
           <section>

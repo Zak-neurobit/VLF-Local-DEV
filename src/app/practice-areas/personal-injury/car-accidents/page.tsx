@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
+import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
 
 export const metadata: Metadata = {
   title: 'Car Accident Lawyers NC & FL | Auto Collision Attorneys | Vasquez Law Firm',
@@ -19,7 +19,8 @@ export default function CarAccidentsPage() {
   const services = [
     {
       title: 'Rear-End Collision Claims',
-      description: 'Comprehensive representation for rear-end accidents caused by distracted, following too closely, or impaired drivers',
+      description:
+        'Comprehensive representation for rear-end accidents caused by distracted, following too closely, or impaired drivers',
       icon: '🚗',
       features: [
         'Distracted driving rear-end crashes',
@@ -27,12 +28,13 @@ export default function CarAccidentsPage() {
         'Impaired driver rear-end collisions',
         'Weather-related rear-end accidents',
         'Commercial vehicle rear-end crashes',
-        'Multi-vehicle rear-end chain reactions'
-      ]
+        'Multi-vehicle rear-end chain reactions',
+      ],
     },
     {
       title: 'Head-On Collision Representation',
-      description: 'Expert legal assistance for catastrophic head-on collisions with severe injuries and fatalities',
+      description:
+        'Expert legal assistance for catastrophic head-on collisions with severe injuries and fatalities',
       icon: '💥',
       features: [
         'Wrong-way driver accidents',
@@ -40,12 +42,13 @@ export default function CarAccidentsPage() {
         'Impaired driver head-on collisions',
         'Fatigue-related head-on accidents',
         'Medical emergency head-on crashes',
-        'Construction zone head-on collisions'
-      ]
+        'Construction zone head-on collisions',
+      ],
     },
     {
       title: 'Side-Impact & T-Bone Accidents',
-      description: 'Legal representation for dangerous side-impact crashes at intersections and during lane changes',
+      description:
+        'Legal representation for dangerous side-impact crashes at intersections and during lane changes',
       icon: '🔄',
       features: [
         'Intersection T-bone accidents',
@@ -53,12 +56,13 @@ export default function CarAccidentsPage() {
         'Failure to yield crashes',
         'Lane change side-swipe accidents',
         'Blind spot collision cases',
-        'Side-impact rollover accidents'
-      ]
+        'Side-impact rollover accidents',
+      ],
     },
     {
       title: 'Rollover Accident Claims',
-      description: 'Specialized representation for rollover accidents involving vehicle defects and driver negligence',
+      description:
+        'Specialized representation for rollover accidents involving vehicle defects and driver negligence',
       icon: '🔄',
       features: [
         'SUV and truck rollover accidents',
@@ -66,12 +70,13 @@ export default function CarAccidentsPage() {
         'Roof crush injury cases',
         'Electronic stability control failures',
         'Tripped rollover accidents',
-        'Single-vehicle rollover claims'
-      ]
+        'Single-vehicle rollover claims',
+      ],
     },
     {
       title: 'Hit-and-Run Accident Recovery',
-      description: 'Legal assistance for hit-and-run victims through uninsured motorist claims and investigation',
+      description:
+        'Legal assistance for hit-and-run victims through uninsured motorist claims and investigation',
       icon: '🚨',
       features: [
         'Uninsured motorist claim filing',
@@ -79,12 +84,13 @@ export default function CarAccidentsPage() {
         'Surveillance footage analysis',
         'Witness testimony collection',
         'Police report coordination',
-        'Maximum UM/UIM coverage recovery'
-      ]
+        'Maximum UM/UIM coverage recovery',
+      ],
     },
     {
       title: 'Drunk Driving Accident Claims',
-      description: 'Aggressive representation against impaired drivers with enhanced damages and punitive awards',
+      description:
+        'Aggressive representation against impaired drivers with enhanced damages and punitive awards',
       icon: '🍺',
       features: [
         'DUI/DWI accident litigation',
@@ -92,12 +98,13 @@ export default function CarAccidentsPage() {
         'Dram shop liability claims',
         'Social host liability cases',
         'Commercial alcohol liability',
-        'Criminal restitution coordination'
-      ]
+        'Criminal restitution coordination',
+      ],
     },
     {
       title: 'Distracted Driving Accidents',
-      description: 'Cases involving texting, cell phone use, and other forms of distracted driving negligence',
+      description:
+        'Cases involving texting, cell phone use, and other forms of distracted driving negligence',
       icon: '📱',
       features: [
         'Texting while driving accidents',
@@ -105,12 +112,13 @@ export default function CarAccidentsPage() {
         'Hands-free device accident claims',
         'GPS navigation distraction crashes',
         'Eating/drinking while driving accidents',
-        'Passenger distraction collision cases'
-      ]
+        'Passenger distraction collision cases',
+      ],
     },
     {
       title: 'Commercial Vehicle Accidents',
-      description: 'Complex litigation against trucking companies, delivery services, and commercial fleet operators',
+      description:
+        'Complex litigation against trucking companies, delivery services, and commercial fleet operators',
       icon: '🚛',
       features: [
         'Tractor-trailer accident claims',
@@ -118,12 +126,13 @@ export default function CarAccidentsPage() {
         'Commercial van accident litigation',
         'Fleet vehicle crash representation',
         'FMCSA regulation violations',
-        'Commercial insurance negotiations'
-      ]
+        'Commercial insurance negotiations',
+      ],
     },
     {
       title: 'Insurance Bad Faith Claims',
-      description: 'Fighting insurance companies that wrongfully deny, delay, or undervalue legitimate car accident claims',
+      description:
+        'Fighting insurance companies that wrongfully deny, delay, or undervalue legitimate car accident claims',
       icon: '🛡️',
       features: [
         'Claim denial litigation',
@@ -131,84 +140,85 @@ export default function CarAccidentsPage() {
         'Lowball settlement disputes',
         'Coverage dispute resolution',
         'Bad faith damages recovery',
-        'Extra-contractual damages claims'
-      ]
-    }
+        'Extra-contractual damages claims',
+      ],
+    },
   ];
 
   const faqs = [
     {
       question: 'What should I do immediately after a car accident?',
       answer:
-        'Seek medical attention first, call police, document the scene with photos, exchange insurance information, get witness contacts, and avoid admitting fault. Contact us as soon as possible to protect your rights and preserve evidence.'
+        'Seek medical attention first, call police, document the scene with photos, exchange insurance information, get witness contacts, and avoid admitting fault. Contact us as soon as possible to protect your rights and preserve evidence.',
     },
     {
       question: 'How long do I have to file a car accident lawsuit in North Carolina?',
       answer:
-        'North Carolina has a 3-year statute of limitations for personal injury claims from car accidents. However, evidence can disappear quickly, so it\'s important to contact an attorney immediately after your accident.'
+        "North Carolina has a 3-year statute of limitations for personal injury claims from car accidents. However, evidence can disappear quickly, so it's important to contact an attorney immediately after your accident.",
     },
     {
-      question: 'What if the other driver doesn\'t have insurance?',
+      question: "What if the other driver doesn't have insurance?",
       answer:
-        'You can file an uninsured motorist claim with your own insurance company. North Carolina requires UM coverage, and we\'ll help you recover the maximum amount available under your policy.'
+        "You can file an uninsured motorist claim with your own insurance company. North Carolina requires UM coverage, and we'll help you recover the maximum amount available under your policy.",
     },
     {
       question: 'Can I still recover compensation if I was partially at fault?',
       answer:
-        'North Carolina follows contributory negligence law, meaning if you\'re found even 1% at fault, you may recover nothing. However, we know how to prove the other driver was 100% responsible and protect your recovery.'
+        "North Carolina follows contributory negligence law, meaning if you're found even 1% at fault, you may recover nothing. However, we know how to prove the other driver was 100% responsible and protect your recovery.",
     },
     {
       question: 'How much is my car accident case worth?',
       answer:
-        'Case value depends on injury severity, medical costs, lost wages, pain and suffering, and other factors. We\'ve recovered millions for car accident victims, with settlements ranging from thousands to over $1 million.'
+        "Case value depends on injury severity, medical costs, lost wages, pain and suffering, and other factors. We've recovered millions for car accident victims, with settlements ranging from thousands to over $1 million.",
     },
     {
       question: 'Will my case go to trial?',
       answer:
-        'Most car accident cases settle out of court through negotiations. However, we\'re fully prepared to take your case to trial if the insurance company won\'t offer fair compensation. Our trial experience often leads to better settlements.'
-    }
+        "Most car accident cases settle out of court through negotiations. However, we're fully prepared to take your case to trial if the insurance company won't offer fair compensation. Our trial experience often leads to better settlements.",
+    },
   ];
 
   const content = {
     introduction: `Car accidents can change your life in an instant, leaving you with serious injuries, mounting medical bills, and lost income. Our experienced car accident attorneys understand the physical, emotional, and financial toll of auto collisions. We fight aggressively against insurance companies to secure maximum compensation for your injuries, damages, and suffering while you focus on recovery.`,
-    
+
     processTitle: 'Our Car Accident Case Process',
     process: [
       {
         step: '1',
         title: 'Immediate Response & Investigation',
-        description: 'Rapid accident scene investigation and evidence preservation'
+        description: 'Rapid accident scene investigation and evidence preservation',
       },
       {
         step: '2',
         title: 'Medical Treatment Coordination',
-        description: 'Ensuring you receive proper medical care and documentation'
+        description: 'Ensuring you receive proper medical care and documentation',
       },
       {
         step: '3',
         title: 'Insurance Company Negotiations',
-        description: 'Aggressive negotiations for maximum settlement value'
+        description: 'Aggressive negotiations for maximum settlement value',
       },
       {
         step: '4',
         title: 'Litigation & Trial Preparation',
-        description: 'Preparing for trial if fair settlement cannot be reached'
+        description: 'Preparing for trial if fair settlement cannot be reached',
       },
       {
         step: '5',
         title: 'Recovery & Resolution',
-        description: 'Securing compensation and helping you move forward'
+        description: 'Securing compensation and helping you move forward',
       },
     ],
 
     urgencyTitle: '⏰ Evidence Disappears Quickly!',
-    urgencyMessage: 'Skid marks fade, witnesses forget, and surveillance footage gets deleted. Contact us immediately after your accident to preserve crucial evidence and protect your rights.',
+    urgencyMessage:
+      'Skid marks fade, witnesses forget, and surveillance footage gets deleted. Contact us immediately after your accident to preserve crucial evidence and protect your rights.',
 
     successStats: [
       { number: '2,500+', label: 'Car Accident Cases' },
       { number: '96%', label: 'Success Rate' },
       { number: '$15M+', label: 'Total Recovered' },
-      { number: '24/7', label: 'Emergency Response' }
+      { number: '24/7', label: 'Emergency Response' },
     ],
 
     whyChooseTitle: 'Why Choose Our Car Accident Team?',
@@ -220,7 +230,7 @@ export default function CarAccidentsPage() {
       'Aggressive negotiations with insurance companies',
       'Proven trial experience with maximum verdicts',
       'No fees unless we win your case',
-      'Bilingual legal team serving diverse communities'
+      'Bilingual legal team serving diverse communities',
     ],
 
     accidentTypes: {
@@ -234,8 +244,8 @@ export default function CarAccidentsPage() {
             'Distracted driving (texting, phone use)',
             'Following too closely (tailgating)',
             'Sudden stops or traffic changes',
-            'Weather conditions and reduced visibility'
-          ]
+            'Weather conditions and reduced visibility',
+          ],
         },
         {
           type: 'Side-Impact Crashes',
@@ -245,8 +255,8 @@ export default function CarAccidentsPage() {
             'Running red lights or stop signs',
             'Failure to yield right of way',
             'Distracted driving at intersections',
-            'Aggressive driving and speeding'
-          ]
+            'Aggressive driving and speeding',
+          ],
         },
         {
           type: 'Head-On Collisions',
@@ -256,8 +266,8 @@ export default function CarAccidentsPage() {
             'Wrong-way driving (impairment, confusion)',
             'Crossing center line or median',
             'Falling asleep at the wheel',
-            'Medical emergencies while driving'
-          ]
+            'Medical emergencies while driving',
+          ],
         },
         {
           type: 'Single Vehicle Accidents',
@@ -267,29 +277,36 @@ export default function CarAccidentsPage() {
             'Road defects and poor maintenance',
             'Weather conditions (ice, rain, snow)',
             'Vehicle defects and tire blowouts',
-            'Driver impairment or medical emergency'
-          ]
-        }
-      ]
-    }
+            'Driver impairment or medical emergency',
+          ],
+        },
+      ],
+    },
   };
 
   return (
-    <PracticeAreaWrapper
+    <StandardizedPracticeAreaTemplate
       title="Car Accident Lawyers"
       subtitle="Maximum Compensation for Auto Collision Victims"
       description="Expert car accident attorneys fighting for maximum compensation after auto collisions. We handle all types of crashes, deal with insurance companies, and secure the settlement you deserve while you focus on recovery."
       services={services}
       faqs={faqs}
-      urgencyLevel="high"
-      content={
+      overview={{
+        content: content.introduction,
+      }}
+      additionalContent={
         <div className="space-y-12">
           {/* Accident Types Statistics */}
           <section>
-            <h2 className="text-3xl font-bold text-primary mb-8">Types of Car Accidents We Handle</h2>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              Types of Car Accidents We Handle
+            </h2>
             <div className="grid md:grid-cols-2 gap-6">
               {content.accidentTypes.types.map((accident, index) => (
-                <div key={index} className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <div
+                  key={index}
+                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+                >
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-xl font-bold text-primary">{accident.type}</h3>
                     <span className="text-2xl font-bold text-secondary">{accident.percentage}</span>
@@ -311,13 +328,16 @@ export default function CarAccidentsPage() {
 
           {/* North Carolina Laws */}
           <section>
-            <h2 className="text-3xl font-bold text-primary mb-8">North Carolina Car Accident Laws</h2>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              North Carolina Car Accident Laws
+            </h2>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                 <h3 className="text-xl font-bold text-primary mb-4">⚖️ Contributory Negligence</h3>
                 <div className="space-y-3">
                   <p className="text-gray-300 text-sm">
-                    North Carolina follows pure contributory negligence - if you&apos;re found even 1% at fault, you may recover nothing.
+                    North Carolina follows pure contributory negligence - if you&apos;re found even
+                    1% at fault, you may recover nothing.
                   </p>
                   <div className="bg-red-900/20 p-4 rounded-lg border border-red-500/30">
                     <h4 className="font-bold text-red-400 mb-2">Why This Matters:</h4>
@@ -342,7 +362,8 @@ export default function CarAccidentsPage() {
                   </ul>
                   <div className="mt-4 p-3 bg-primary/10 rounded-lg">
                     <p className="text-primary text-sm font-medium">
-                      💡 These minimums are often inadequate for serious injuries. We help maximize all available coverage.
+                      💡 These minimums are often inadequate for serious injuries. We help maximize
+                      all available coverage.
                     </p>
                   </div>
                 </div>
@@ -389,7 +410,9 @@ export default function CarAccidentsPage() {
 
           {/* Compensation Types */}
           <section>
-            <h2 className="text-3xl font-bold text-primary mb-8">Types of Compensation Available</h2>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              Types of Compensation Available
+            </h2>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                 <h3 className="text-xl font-bold text-primary mb-4">💰 Economic Damages</h3>

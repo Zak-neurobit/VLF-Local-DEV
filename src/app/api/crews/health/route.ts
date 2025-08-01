@@ -61,7 +61,7 @@ export async function GET(_request: NextRequest): Promise<NextResponse> {
       ];
 
       return {
-        name: checkNames[index],
+        name: checkNames[index] || 'unknown',
         status: result.status === 'fulfilled' ? 'healthy' : 'unhealthy',
         details:
           result.status === 'fulfilled'
@@ -418,21 +418,35 @@ async function checkDiskSpace(): Promise<DiskSpaceResult> {
   try {
     const { stdout } = await execAsync('df -h /');
     const lines = stdout.trim().split('\n');
+
+    if (lines.length < 2 || !lines[1]) {
+      throw new Error('Unexpected df output format');
+    }
+
     const data = lines[1].split(/\s+/);
 
-    const usagePercent = parseInt(data[4].replace('%', ''));
+    if (data.length < 6) {
+      throw new Error('Unexpected df output format');
+    }
+
+    const usagePercentStr = data[4];
+    if (!usagePercentStr) {
+      throw new Error('Unable to parse disk usage percentage');
+    }
+
+    const usagePercent = parseInt(usagePercentStr.replace('%', ''));
 
     if (usagePercent > 90) {
       throw new Error(`Disk space critical: ${usagePercent}% used`);
     }
 
     return {
-      filesystem: data[0],
-      size: data[1],
-      used: data[2],
-      available: data[3],
+      filesystem: data[0] || 'unknown',
+      size: data[1] || 'unknown',
+      used: data[2] || 'unknown',
+      available: data[3] || 'unknown',
       usagePercent: usagePercent,
-      mountPoint: data[5],
+      mountPoint: data[5] || '/',
       status: 'healthy',
     };
   } catch (error) {

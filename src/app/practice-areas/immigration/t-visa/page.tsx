@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
+import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
 
 export const metadata: Metadata = {
   title:
@@ -275,14 +275,16 @@ export default function TVisaPage() {
   };
 
   return (
-    <PracticeAreaWrapper
+    <StandardizedPracticeAreaTemplate
       title="T Visa Lawyers"
       subtitle="Protecting Human Trafficking Survivors"
       description="Compassionate T visa attorneys providing confidential, trauma-informed legal representation for trafficking survivors. We fight for your protection, safety, and legal status with specialized experience in both labor and sex trafficking cases."
       services={services}
       faqs={faqs}
-      urgencyLevel="critical"
-      content={
+      overview={{
+        content: content.introduction,
+      }}
+      additionalContent={
         <div className="space-y-12">
           {/* Types of Trafficking */}
           <section>

@@ -298,11 +298,12 @@ async function handleChatPOST(request: NextRequest) {
     );
 
     // Store session data for appointment flow
+    const metadata = conversation.metadata as { bookingFlow?: Record<string, unknown> } | null;
     const sessionData = {
       userId: actualUserId,
       sessionId: conversation.id,
       language,
-      bookingFlow: conversation.metadata?.bookingFlow || {},
+      bookingFlow: metadata?.bookingFlow || {},
     };
 
     try {
@@ -406,7 +407,7 @@ async function handleChatPOST(request: NextRequest) {
         });
 
         aiResponse =
-          completion.choices[0].message.content ||
+          completion.choices[0]?.message?.content ||
           'I apologize, but I was unable to generate a response.';
         metadata.model = 'gpt-3.5-turbo';
       } else {

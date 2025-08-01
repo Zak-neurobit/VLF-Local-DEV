@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
+import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
 
 export const metadata: Metadata = {
   title: "Workplace Accident Lawyers NC & FL | Workers' Compensation Attorneys | Vasquez Law Firm",
@@ -288,14 +288,16 @@ export default function WorkplaceAccidentsPage() {
   };
 
   return (
-    <PracticeAreaWrapper
+    <StandardizedPracticeAreaTemplate
       title="Workplace Accident Lawyers"
       subtitle="Maximum Benefits for Injured Workers"
       description="Expert workplace accident attorneys fighting for injured workers' rights. We handle all types of on-the-job injuries, secure maximum benefits, and protect your job while you recover. No fees unless we win."
       services={services}
       faqs={faqs}
-      urgencyLevel="high"
-      content={
+      overview={{
+        content: content.introduction,
+      }}
+      additionalContent={
         <div className="space-y-12">
           {/* Injury Statistics */}
           <section>

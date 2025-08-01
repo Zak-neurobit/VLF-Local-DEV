@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
+import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
 
 export const metadata: Metadata = {
   title: 'Truck Accident Lawyers NC & FL | 18-Wheeler Injury Attorneys | Vasquez Law Firm',
@@ -275,14 +275,16 @@ export default function TruckAccidentsPage() {
   };
 
   return (
-    <PracticeAreaWrapper
+    <StandardizedPracticeAreaTemplate
       title="Truck Accident Lawyers"
       subtitle="Fighting Big Trucking Companies for Maximum Compensation"
       description="Expert truck accident attorneys with the resources to take on billion-dollar trucking companies. We secure maximum compensation for catastrophic injuries from 18-wheeler and commercial vehicle crashes."
       services={services}
       faqs={faqs}
-      urgencyLevel="critical"
-      content={
+      overview={{
+        content: content.introduction,
+      }}
+      additionalContent={
         <div className="space-y-12">
           {/* Federal Regulations */}
           <section>
@@ -418,7 +420,9 @@ export default function TruckAccidentsPage() {
               </div>
               <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                 <h3 className="text-lg font-bold text-primary mb-3">👁️ Blind Spot Accidents</h3>
-                <p className="text-gray-300 text-sm mb-3">Collisions in truck &ldquo;No-Zones&rdquo;</p>
+                <p className="text-gray-300 text-sm mb-3">
+                  Collisions in truck &ldquo;No-Zones&rdquo;
+                </p>
                 <ul className="text-gray-400 text-sm space-y-1">
                   <li>• Large blind spots</li>
                   <li>• Lane change collisions</li>
