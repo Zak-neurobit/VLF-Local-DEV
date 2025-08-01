@@ -1,9 +1,9 @@
 {
   "framework": "nextjs",
-  "installCommand": "npm install --legacy-peer-deps",
-  "buildCommand": "npm run build",
+  "installCommand": "pnpm install",
+  "buildCommand": "pnpm run build",
   "outputDirectory": ".next",
-  "devCommand": "npm run dev",
+  "devCommand": "pnpm run dev",
   "regions": ["pdx1", "iad1", "sfo1"],
   "functions": {
     "src/app/api/**/*.ts": {
