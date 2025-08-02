@@ -203,7 +203,7 @@ export class GHLChatSyncService {
         const lastName = lastNameParts.join(' ') || 'User';
 
         ghlContact = await ghlService.upsertContact({
-          firstName,
+          firstName: firstName || 'Chat',
           lastName,
           email: user.email,
           phone: user.phone || '',

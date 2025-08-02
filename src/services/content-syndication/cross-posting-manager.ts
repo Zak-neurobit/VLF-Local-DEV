@@ -440,7 +440,7 @@ export class CrossPostingManager {
       images: config.includeImages ? thread.images : undefined,
     };
 
-    return await this.publishThread(threadContent, platforms[0], schedule);
+    return await this.publishThread(threadContent, platforms[0] || '', schedule);
   }
 
   private async translateAndPost(
@@ -549,7 +549,7 @@ export class CrossPostingManager {
       'Learn how we can help with your case',
     ];
 
-    return ctas[Math.floor(Math.random() * ctas.length)];
+    return ctas[Math.floor(Math.random() * ctas.length)] || '';
   }
 
   private mapToPracticeArea(categories: any[]): string {

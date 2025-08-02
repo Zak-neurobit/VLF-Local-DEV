@@ -336,7 +336,7 @@ export class GoHighLevelService {
 
       const contact = (await this.upsertContact({
         phone: appointment.clientPhone,
-        firstName,
+        firstName: firstName || 'Client',
         lastName,
         tags: ['appointment-reminder', 'client'],
         customFields: {

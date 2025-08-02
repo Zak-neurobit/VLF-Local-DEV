@@ -322,12 +322,17 @@ export class CronJobService {
       let attorneyIndex = 0;
       for (const lead of leads) {
         // Skip if no attorneys available or all are at capacity
-        if (sortedAttorneys.length === 0 || sortedAttorneys[0]._count.leads >= 10) {
+        const firstAttorney = sortedAttorneys[0];
+        if (sortedAttorneys.length === 0 || !firstAttorney || firstAttorney._count.leads >= 10) {
           logger.warn(`No available attorneys for lead ${lead.id}`);
           continue;
         }
 
         const attorney = sortedAttorneys[attorneyIndex % sortedAttorneys.length];
+        if (!attorney) {
+          logger.warn(`Attorney not found at index ${attorneyIndex}`);
+          continue;
+        }
 
         await prisma.lead.update({
           where: { id: lead.id },

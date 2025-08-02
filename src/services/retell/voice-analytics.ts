@@ -688,8 +688,8 @@ export class VoiceAnalyticsSystem {
     });
 
     return dayCounts.map((count, index) => ({
-      day: days[index],
-      count,
+      day: days[index] || 'Unknown',
+      count: count || 0,
     }));
   }
 

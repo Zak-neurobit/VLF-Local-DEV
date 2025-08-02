@@ -807,8 +807,8 @@ export class SchemaMarkupAutomation {
     let match;
     while ((match = stepPattern.exec(content)) !== null) {
       steps.push({
-        name: match[1].trim(),
-        text: match[2].trim(),
+        name: match[1]?.trim() || '',
+        text: match[2]?.trim() || '',
       });
     }
 

@@ -474,7 +474,7 @@ export class LeadCaptureService {
       // Extract name (basic pattern)
       const nameMatch = content.match(/my name is (\w+)\s*(\w*)/i);
       if (nameMatch) {
-        info.firstName = nameMatch[1];
+        info.firstName = nameMatch[1] || '';
         info.lastName = nameMatch[2] || 'Unknown';
       }
     }
@@ -881,6 +881,10 @@ export class LeadCaptureService {
 
       // Assign to attorney with lowest workload
       const selectedAttorney = availableAttorneys[0];
+      if (!selectedAttorney) {
+        logger.warn('No attorney selected for lead assignment', { leadId });
+        return;
+      }
 
       await prisma.lead.update({
         where: { id: leadId },
@@ -908,7 +912,7 @@ export class LeadCaptureService {
         leadId,
         attorneyId: selectedAttorney.id,
         attorneyName: selectedAttorney.name,
-        currentWorkload: availableAttorneys[0]._count.leads + 1,
+        currentWorkload: availableAttorneys[0]?._count.leads ? availableAttorneys[0]._count.leads + 1 : 1,
       });
     } catch (error) {
       logger.error('Failed to assign lead to attorney:', errorToLogMeta(error));

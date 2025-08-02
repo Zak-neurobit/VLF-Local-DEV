@@ -509,7 +509,7 @@ Remember: You represent Vasquez Law Firm. Be helpful, professional, and always p
           (!prefs.accent || v.accent.toLowerCase().includes(prefs.accent))
       ) || languageVoices[0];
 
-    return optimalVoice.voice_id;
+    return optimalVoice?.voice_id || languageVoices[0]?.voice_id || 'default-voice-id';
   }
 
   /**
@@ -554,7 +554,7 @@ Remember: You represent Vasquez Law Firm. Be helpful, professional, and always p
       const current = context.conversationHistory[i];
       const previous = context.conversationHistory[i - 1];
 
-      if (current.speaker === 'agent' && previous.speaker === 'user') {
+      if (current && previous && current.speaker === 'agent' && previous.speaker === 'user') {
         const responseTime = current.timestamp.getTime() - previous.timestamp.getTime();
         totalResponseTime += responseTime;
         responseCount++;

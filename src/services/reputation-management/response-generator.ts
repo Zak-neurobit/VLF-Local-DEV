@@ -280,7 +280,7 @@ export class ReviewResponseGenerator {
       max_tokens: 200,
     });
 
-    return completion.choices[0].message?.content || '';
+    return completion.choices[0]?.message?.content || '';
   }
 
   private buildAIPrompt(

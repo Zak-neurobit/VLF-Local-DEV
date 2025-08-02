@@ -215,8 +215,8 @@ export class ContentScraper {
           if (link && stats.length >= 2) {
             data.push({
               url: link.href,
-              views: parseInt(stats[0].textContent?.replace(/[^\d]/g, '') || '0'),
-              likes: parseInt(stats[1].textContent?.replace(/[^\d]/g, '') || '0'),
+              views: parseInt(stats[0]?.textContent?.replace(/[^\d]/g, '') || '0'),
+              likes: parseInt(stats[1]?.textContent?.replace(/[^\d]/g, '') || '0'),
             });
           }
         });

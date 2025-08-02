@@ -184,7 +184,7 @@ export class ContentScheduler {
     const calendar = new Map<string, any[]>();
 
     for (const item of scheduled) {
-      const dateKey = item.scheduledFor.toISOString().split('T')[0];
+      const dateKey = item.scheduledFor.toISOString().split('T')[0] || '';
 
       if (!calendar.has(dateKey)) {
         calendar.set(dateKey, []);

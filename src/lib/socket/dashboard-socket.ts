@@ -244,21 +244,28 @@ class DashboardSocketManager {
 
     for (let i = 0; i < weights.length && i < statuses.length; i++) {
       sum += weights[i] || 0;
-      if (random <= sum && statuses[i]) {
-        return statuses[i];
+      const status = statuses[i];
+      if (random <= sum && status) {
+        return status;
       }
     }
 
     return 'idle';
   }
 
-  private generateRandomActivity() {
+  private generateRandomActivity(): {
+    id: string;
+    type: 'content' | 'review' | 'lead' | 'call' | 'social';
+    message: string;
+    timestamp: Date;
+    success: boolean;
+  } {
     const activities = [
       { type: 'content', message: 'New blog post published about workers compensation' },
       { type: 'review', message: 'Responded to positive Google review' },
       { type: 'lead', message: 'New qualified lead from immigration landing page' },
       { type: 'social', message: 'Posted case result to LinkedIn' },
-      { type: 'seo', message: 'Improved ranking for "Charlotte personal injury lawyer"' },
+      { type: 'content', message: 'Improved ranking for "Charlotte personal injury lawyer"' },
     ];
 
     const index = Math.floor(Math.random() * activities.length);
@@ -293,8 +300,10 @@ class DashboardSocketManager {
     }> = [];
     for (let i = 0; i < 10; i++) {
       const activity = this.generateRandomActivity();
-      activity.timestamp = new Date(Date.now() - i * 3 * 60000); // Space 3 minutes apart
-      activities.push(activity);
+      activities.push({
+        ...activity,
+        timestamp: new Date(Date.now() - i * 3 * 60000), // Space 3 minutes apart
+      });
     }
     return activities;
   }

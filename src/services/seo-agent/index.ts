@@ -198,7 +198,7 @@ export class SEOAgent {
         temperature: 0.7,
       });
 
-      const title = titleResponse.choices[0].message.content;
+      const title = titleResponse.choices[0]?.message?.content || 'Untitled Blog Post';
 
       // Generate comprehensive blog content
       const contentPrompt = `Write a comprehensive, SEO-optimized blog post for Vasquez Law Firm.
@@ -231,7 +231,7 @@ export class SEOAgent {
         max_tokens: 4000,
       });
 
-      const blogData = JSON.parse(contentResponse.choices[0].message.content || '{}');
+      const blogData = JSON.parse(contentResponse.choices[0]?.message?.content || '{}');
 
       // Calculate read time
       const wordCount = blogData.content.split(' ').length;
@@ -330,7 +330,7 @@ export class SEOAgent {
       temperature: 0.3,
     });
 
-    const translatedData = JSON.parse(response.choices[0].message.content || '{}');
+    const translatedData = JSON.parse(response.choices[0]?.message?.content || '{}');
 
     return await getPrismaClient().blogPost.create({
       data: {
@@ -408,7 +408,7 @@ export class SEOAgent {
       temperature: 0.5,
     });
 
-    const expanded = JSON.parse(response.choices[0].message.content || '[]');
+    const expanded = JSON.parse(response.choices[0]?.message?.content || '[]');
     return [...new Set([...seedKeywords, ...expanded])];
   }
 
@@ -432,7 +432,7 @@ export class SEOAgent {
       temperature: 0.3,
     });
 
-    return JSON.parse(response.choices[0].message.content || '[]');
+    return JSON.parse(response.choices[0]?.message?.content || '[]');
   }
 
   private async findLongTailKeywords(
@@ -456,7 +456,7 @@ export class SEOAgent {
       temperature: 0.6,
     });
 
-    return JSON.parse(response.choices[0].message.content || '[]');
+    return JSON.parse(response.choices[0]?.message?.content || '[]');
   }
 
   private async findQuestionKeywords(
@@ -485,7 +485,7 @@ export class SEOAgent {
       temperature: 0.5,
     });
 
-    return JSON.parse(response.choices[0].message.content || '[]');
+    return JSON.parse(response.choices[0]?.message?.content || '[]');
   }
 
   private async saveKeywordResearch(data: {
@@ -559,7 +559,7 @@ export class SEOAgent {
       temperature: 0.4,
     });
 
-    return JSON.parse(response.choices[0].message.content || '{}');
+    return JSON.parse(response.choices[0]?.message?.content || '{}');
   }
 
   // ========== SCHEMA MARKUP GENERATION ==========
@@ -1294,7 +1294,7 @@ export class SEOAgent {
       temperature: 0.3,
     });
 
-    return JSON.parse(response.choices[0].message.content || '{}');
+    return JSON.parse(response.choices[0]?.message?.content || '{}');
   }
 
   private async analyzeBacklinks(data: { domain: string }): Promise<{
@@ -1399,7 +1399,7 @@ export class SEOAgent {
       temperature: 0.5,
     });
 
-    return JSON.parse(response.choices[0].message.content || '{}');
+    return JSON.parse(response.choices[0]?.message?.content || '{}');
   }
 
   private async findContentGaps(analysis: {
@@ -1565,7 +1565,7 @@ export class SEOAgent {
       temperature: 0.3,
     });
 
-    const analysis = JSON.parse(response.choices[0].message.content || '{}');
+    const analysis = JSON.parse(response.choices[0]?.message?.content || '{}');
     return analysis.relevant && analysis.score > 7;
   }
 
@@ -1637,7 +1637,7 @@ export class SEOAgent {
       temperature: 0.6,
     });
 
-    return JSON.parse(response.choices[0].message.content || '{}');
+    return JSON.parse(response.choices[0]?.message?.content || '{}');
   }
 
   private async analyzeAndCreateContent(data: {
@@ -1952,7 +1952,7 @@ export class SEOAgent {
       temperature: 0.7,
     });
 
-    return JSON.parse(response.choices[0].message.content || '[]');
+    return JSON.parse(response.choices[0]?.message?.content || '[]');
   }
 
   private async suggestKeywords(topic: string, practiceArea: string): Promise<string[]> {
@@ -1966,7 +1966,7 @@ export class SEOAgent {
       temperature: 0.4,
     });
 
-    return JSON.parse(response.choices[0].message.content || '[]');
+    return JSON.parse(response.choices[0]?.message?.content || '[]');
   }
 
   private async extractNewsKeywords(article: {
@@ -1986,7 +1986,7 @@ export class SEOAgent {
       temperature: 0.3,
     });
 
-    return JSON.parse(response.choices[0].message.content || '[]');
+    return JSON.parse(response.choices[0]?.message?.content || '[]');
   }
 
   async runCompetitorAnalysis() {

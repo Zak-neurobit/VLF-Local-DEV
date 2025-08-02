@@ -514,7 +514,9 @@ export class ReputationMonitor extends EventEmitter {
     // Check if each week is lower than the previous
     let downwardCount = 0;
     for (let i = 1; i < averages.length; i++) {
-      if (averages[i] < averages[i - 1]) {
+      const current = averages[i];
+      const previous = averages[i - 1];
+      if (current !== undefined && previous !== undefined && current < previous) {
         downwardCount++;
       }
     }

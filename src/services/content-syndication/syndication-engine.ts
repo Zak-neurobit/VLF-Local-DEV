@@ -419,7 +419,7 @@ export class ContentSyndicationEngine {
 
       try {
         const result = await this.syndicateContent({
-          contentId: contentIds[i],
+          contentId: contentIds[i] || '',
           contentType: contentType as any,
           platforms,
           scheduleTime,
@@ -483,11 +483,14 @@ export class ContentSyndicationEngine {
             failed: 0,
           };
         }
-        analytics.platformBreakdown[result.platform].total++;
-        if (result.success) {
-          analytics.platformBreakdown[result.platform].successful++;
-        } else {
-          analytics.platformBreakdown[result.platform].failed++;
+        const platformStats = analytics.platformBreakdown[result.platform];
+        if (platformStats) {
+          platformStats.total++;
+          if (result.success) {
+            platformStats.successful++;
+          } else {
+            platformStats.failed++;
+          }
         }
       });
 
@@ -495,7 +498,10 @@ export class ContentSyndicationEngine {
       if (!analytics.contentTypeBreakdown[record.contentType]) {
         analytics.contentTypeBreakdown[record.contentType] = 0;
       }
-      analytics.contentTypeBreakdown[record.contentType]++;
+      const contentTypeCount = analytics.contentTypeBreakdown[record.contentType];
+      if (contentTypeCount !== undefined) {
+        analytics.contentTypeBreakdown[record.contentType] = contentTypeCount + 1;
+      }
     });
 
     return analytics;

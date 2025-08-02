@@ -443,7 +443,13 @@ export class GMBManager extends EventEmitter {
       },
     ];
 
-    return updateTemplates[Math.floor(Math.random() * updateTemplates.length)];
+    const index = Math.floor(Math.random() * updateTemplates.length);
+    return updateTemplates[index] || updateTemplates[0] || {
+      type: 'update' as const,
+      title: 'Legal Services Available',
+      content: `Visit ${location.name} for professional legal assistance.`,
+      callToAction: { type: 'call' as const },
+    };
   }
 
   private async generateEventPost(location: GMBLocation): Promise<GMBPost> {
@@ -472,7 +478,18 @@ export class GMBManager extends EventEmitter {
       },
     ];
 
-    return events[Math.floor(Math.random() * events.length)];
+    const index = Math.floor(Math.random() * events.length);
+    return events[index] || events[0] || {
+      type: 'event' as const,
+      title: 'Legal Event',
+      content: `Join us at ${location.name} for an upcoming event.`,
+      event: {
+        title: 'Legal Information Session',
+        startDate: new Date(),
+        endDate: new Date(),
+      },
+      callToAction: { type: 'sign_up' as const, url: `${location.website}/events` },
+    };
   }
 
   private async generateOfferPost(location: GMBLocation): Promise<GMBPost> {
@@ -505,7 +522,20 @@ export class GMBManager extends EventEmitter {
       },
     ];
 
-    return offers[Math.floor(Math.random() * offers.length)];
+    const index = Math.floor(Math.random() * offers.length);
+    return offers[index] || offers[0] || {
+      type: 'offer' as const,
+      title: 'Special Offer',
+      content: `Take advantage of our special offer at ${location.name}.`,
+      offer: {
+        title: 'Free Consultation',
+        description: 'Get a free legal consultation',
+        terms: 'Limited time offer',
+        startDate: new Date(),
+        endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      },
+      callToAction: { type: 'book' as const, url: `${location.website}/contact` },
+    };
   }
 
   private async optimizePhotos(location: GMBLocation): Promise<void> {
@@ -660,7 +690,8 @@ export class GMBManager extends EventEmitter {
 
     const category = review.rating <= 3 ? 'negative' : 'positive';
     const templates = responses[category];
-    return templates[Math.floor(Math.random() * templates.length)];
+    const index = Math.floor(Math.random() * templates.length);
+    return templates[index] || templates[0] || 'Thank you for your feedback.';
   }
 
   private async respondToReview(

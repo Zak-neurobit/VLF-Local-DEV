@@ -51,8 +51,8 @@ export class LandingPageGenerator {
   }
 
   private getOpenAIContent(response: OpenAI.Chat.Completions.ChatCompletion): string {
-    if (response.choices && response.choices.length > 0 && response.choices[0].message) {
-      return response.choices[0].message.content || '';
+    if (response.choices && response.choices.length > 0 && response.choices[0]?.message?.content) {
+      return response.choices[0].message.content;
     }
     return '';
   }
@@ -469,7 +469,7 @@ Format as JSON array with 'question' and 'answer' keys. Answers should be detail
     return {
       type: 'faq',
       title: `${options.practiceArea} FAQs for ${options.city} Residents`,
-      questions: JSON.parse(response.choices[0].message.content || '[]'),
+      questions: JSON.parse(response.choices[0]?.message?.content || '[]'),
     };
   }
 
@@ -540,7 +540,7 @@ Write with empathy, understanding, and hope. About 800-1000 words total.`;
 
     return {
       content: this.getOpenAIContent(response),
-      sections: this.parseContentSections(response.choices[0].message.content || ''),
+      sections: this.parseContentSections(response.choices[0]?.message?.content || ''),
     };
   }
 
@@ -573,7 +573,7 @@ Use numbers, percentages, and concrete data throughout. About 800-1000 words.`;
 
     return {
       content: this.getOpenAIContent(response),
-      sections: this.parseContentSections(response.choices[0].message.content || ''),
+      sections: this.parseContentSections(response.choices[0]?.message?.content || ''),
     };
   }
 
@@ -603,7 +603,7 @@ Make testimonials specific, varied, and authentic. About 800-1000 words.`;
 
     return {
       content: this.getOpenAIContent(response),
-      sections: this.parseContentSections(response.choices[0].message.content || ''),
+      sections: this.parseContentSections(response.choices[0]?.message?.content || ''),
     };
   }
 
@@ -636,7 +636,7 @@ Answer questions thoroughly while building trust. About 800-1000 words.`;
 
     return {
       content: this.getOpenAIContent(response),
-      sections: this.parseContentSections(response.choices[0].message.content || ''),
+      sections: this.parseContentSections(response.choices[0]?.message?.content || ''),
     };
   }
 
@@ -666,7 +666,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
 
     return {
       content: this.getOpenAIContent(response),
-      sections: this.parseContentSections(response.choices[0].message.content || ''),
+      sections: this.parseContentSections(response.choices[0]?.message?.content || ''),
     };
   }
 
@@ -789,6 +789,14 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     localData: LocalData
   ): Promise<LocalSchema> {
     const nearestOffice = this.getNearestOffice(options.city) || this.getDefaultOffice();
+    
+    // Provide fallback office data if none found
+    const officeData = nearestOffice || {
+      city: 'Charlotte',
+      address: '6211 Monroe Rd, Charlotte, NC 28212',
+      coordinates: { lat: 35.1598, lng: -80.8256 },
+      distance: 0,
+    };
 
     return {
       '@context': 'https://schema.org',
@@ -797,16 +805,16 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
       description: `Professional ${options.practiceArea} legal services in ${options.city}, North Carolina`,
       address: {
         '@type': 'PostalAddress',
-        streetAddress: nearestOffice.address || '6009 Triangle Dr',
+        streetAddress: officeData.address || '6009 Triangle Dr',
         addressLocality: options.city,
         addressRegion: 'NC',
-        postalCode: (nearestOffice as any).zip || '27616',
+        postalCode: (officeData as any).zip || '27616',
         addressCountry: 'US',
       },
       geo: {
         '@type': 'GeoCoordinates',
-        latitude: nearestOffice.coordinates.lat,
-        longitude: nearestOffice.coordinates.lng,
+        latitude: officeData.coordinates.lat,
+        longitude: officeData.coordinates.lng,
       },
       telephone: '1-844-967-3536',
       priceRange: '$$$',
@@ -871,7 +879,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     distance: number;
   } | null {
     const offices = this.getNearbyOffices(city);
-    return offices.length > 0 ? offices[0] : this.getDefaultOffice();
+    return offices.length > 0 && offices[0] ? offices[0] : null;
   }
 
   private getAllOffices(): Array<{
@@ -908,10 +916,20 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     address: string;
     coordinates: { lat: number; lng: number };
     distance: number;
-  } {
+  } | null {
     const office = this.getAllOffices()[0];
+    if (!office) {
+      return {
+        city: 'Charlotte',
+        address: '6211 Monroe Rd, Charlotte, NC 28212',
+        coordinates: { lat: 35.2271, lng: -80.8431 },
+        distance: 0,
+      };
+    }
     return {
-      ...office,
+      city: office.city,
+      address: office.address,
+      coordinates: office.coordinates,
       distance: 0,
     };
   }
@@ -1161,7 +1179,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
 
     return sections.map((section, index) => {
       const lines = section.split('\n');
-      const title = lines[0].trim();
+      const title = lines[0]?.trim() || '';
       const sectionContent = lines.slice(1).join('\n').trim();
 
       return {

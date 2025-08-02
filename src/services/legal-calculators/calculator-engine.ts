@@ -306,7 +306,7 @@ export class LegalCalculatorEngine {
     const avgWeeklyWage = validatedInputs.weeklyWage;
 
     const weeklyBenefit = Math.min(
-      avgWeeklyWage * compensationRates[validatedInputs.injuryType],
+      avgWeeklyWage * (compensationRates[validatedInputs.injuryType] || 0.6667),
       maxWeeklyBenefit
     );
 
@@ -423,7 +423,7 @@ export class LegalCalculatorEngine {
     // Adjust for prior record
     const priorLevelMultipliers = [1, 1.2, 1.4, 1.6, 1.8, 2.0];
     const priorLevel = Math.min(validatedInputs.priorConvictions, 5);
-    baseSentence *= priorLevelMultipliers[priorLevel];
+    baseSentence *= priorLevelMultipliers[priorLevel] || 1;
 
     // Adjust for circumstances
     if (validatedInputs.circumstances === 'aggravating') {

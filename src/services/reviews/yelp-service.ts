@@ -197,6 +197,10 @@ export class YelpService {
         }
 
         const business = businesses[0];
+        if (!business) {
+          logger.warn(`No business found for ${office.key}`);
+          continue;
+        }
 
         // Then get the reviews
         const reviews = await this.getBusinessReviews(business.id);

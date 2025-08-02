@@ -31,7 +31,7 @@ export class ContentSyndicator {
     this.prAPI = new PRNewsWireAPI();
     this.directoryAPI = new LegalDirectoryAPI();
     this.platforms = [];
-    this.baseUrl = this.baseUrl || 'https://vasquezlawnc.com';
+    this.baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vasquezlawnc.com';
   }
 
   async initialize(platforms: string[]) {
@@ -483,7 +483,7 @@ Read the full article: ${this.baseUrl}/blog/${content.slug}
       `Expert Analysis: ${content.title} - Vasquez Law Firm`,
     ];
 
-    return templates[0]; // Use most professional template for PR
+    return templates[0] || `${content.title} - Vasquez Law Firm`; // Use most professional template for PR
   }
 
   private async createPRBody(content: BlogContent): Promise<string> {
@@ -746,7 +746,7 @@ Read the full article: ${this.baseUrl}/blog/${content.slug}
     // Try to extract from content
     const points = this.extractKeyPoints(content.content, 3);
 
-    return points[index] || defaultPoints[index];
+    return points[index] || defaultPoints[index] || 'Legal expertise you can trust';
   }
 
   private extractKeyPoints(content: string, count: number): string[] {

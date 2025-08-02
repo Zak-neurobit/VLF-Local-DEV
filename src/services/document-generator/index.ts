@@ -101,7 +101,7 @@ export class LegalDocumentGenerator {
     const metadataMatch = content.match(/{{!--\s*METADATA:\s*(.+?)\s*--}}/s);
     if (metadataMatch) {
       try {
-        return JSON.parse(metadataMatch[1]);
+        return JSON.parse(metadataMatch[1] || '{}');
       } catch (error) {
         logger.error('Failed to parse template metadata:', errorToLogMeta(error));
       }

@@ -567,7 +567,7 @@ class EnhancedAgentDeployer {
 
       // Update deployment result
       const resultIndex = this.deploymentResults.findIndex(r => r.agent === agentName);
-      if (resultIndex !== -1) {
+      if (resultIndex !== -1 && this.deploymentResults[resultIndex]) {
         this.deploymentResults[resultIndex].status = 'rolled-back';
       }
     } catch (error) {

@@ -794,7 +794,7 @@ export class ChatSocketServer extends EventEmitter {
       // Handle disconnect
       socket.on('disconnect', async reason => {
         try {
-          const sessionDuration = Date.now() - parseInt(socketData.sessionId.split('_')[1]);
+          const sessionDuration = Date.now() - parseInt(socketData.sessionId.split('_')[1] || '0');
           const connectionInfo = this.connectionInfo.get(clientId);
 
           wsLogger.disconnection(clientId, reason, sessionDuration);
@@ -1184,9 +1184,12 @@ export class ChatSocketServer extends EventEmitter {
 
       // Handle escalations
       if (aiResponse.escalation) {
-        setTimeout(() => {
-          this.handleAIEscalation(socketData.sessionId, aiResponse.escalation);
-        }, 1000); // Small delay to ensure message is sent first
+        const escalation = aiResponse.escalation;
+        if (escalation) {
+          setTimeout(() => {
+            this.handleAIEscalation(socketData.sessionId, escalation);
+          }, 1000); // Small delay to ensure message is sent first
+        }
       }
 
       // Handle follow-up actions

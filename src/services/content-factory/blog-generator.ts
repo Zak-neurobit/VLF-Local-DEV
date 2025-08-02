@@ -49,8 +49,9 @@ export class BlogContentGenerator {
   }
 
   private getOpenAIContent(response: OpenAI.Chat.Completions.ChatCompletion): string {
-    if (response.choices && response.choices.length > 0 && response.choices[0].message) {
-      return response.choices[0].message.content || '';
+    const firstChoice = response.choices?.[0];
+    if (firstChoice?.message?.content) {
+      return firstChoice.message.content;
     }
     return '';
   }
@@ -397,7 +398,7 @@ Format as JSON with keys: title, metaDescription, excerpt, slug`;
       max_tokens: 500,
     });
 
-    const metadata = JSON.parse(titleResponse.choices[0].message.content || '{}');
+    const metadata = JSON.parse(this.getOpenAIContent(titleResponse) || '{}');
 
     return {
       title: metadata.title,
@@ -545,10 +546,10 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
       max_tokens: 4000,
     });
 
-    const content = this.getOpenAIContent(response);
+    const translatedContent = this.getOpenAIContent(response);
     let translated;
     try {
-      translated = JSON.parse(content || '{}');
+      translated = JSON.parse(translatedContent || '{}');
     } catch {
       translated = {};
     }

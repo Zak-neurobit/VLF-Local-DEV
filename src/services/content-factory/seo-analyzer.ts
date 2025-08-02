@@ -39,8 +39,9 @@ export class SEOAnalyzer {
     let totalWeight = 0;
 
     for (const [metric, score] of Object.entries(scores)) {
-      totalScore += score * (weights as Record<string, number>)[metric];
-      totalWeight += (weights as Record<string, number>)[metric];
+      const weight = (weights as Record<string, number>)[metric] || 0;
+      totalScore += score * weight;
+      totalWeight += weight;
     }
 
     const finalScore = Math.round(totalScore / totalWeight);
@@ -209,6 +210,9 @@ export class SEOAnalyzer {
 
     // Check primary keyword density (1-2% optimal)
     const primaryKeyword = keywords[0];
+    if (!primaryKeyword) {
+      return score;
+    }
     const primaryCount = (
       text.toLowerCase().match(new RegExp(primaryKeyword.toLowerCase(), 'g')) || []
     ).length;
@@ -379,7 +383,7 @@ export class SEOAnalyzer {
     // Check anchor text diversity
     const anchorTexts = internalLinks.map((link: string) => {
       const match = link.match(/\[([^\]]+)\]/);
-      return match ? match[1].toLowerCase() : '';
+      return match?.[1]?.toLowerCase() || '';
     });
 
     const uniqueAnchors = new Set(anchorTexts).size;
