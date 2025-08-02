@@ -20,6 +20,7 @@ import { sendChatMessage } from '@/services/chat-service';
 import { scheduleGHLAppointment } from '@/services/gohighlevel/appointments';
 import { createGHLContact, addGHLNote } from '@/services/gohighlevel/contacts';
 import { uploadToGHL } from '@/services/gohighlevel/documents';
+import { RetellVoiceChat } from '@/components/Voice/RetellVoiceChat';
 
 interface Message {
   id: string;
@@ -490,15 +491,26 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
                 >
                   <Paperclip className="w-5 h-5" />
                 </button>
-                <button
-                  onClick={isRecording ? stopRecording : startRecording}
-                  className={`p-2 transition-colors ${
-                    isRecording ? 'text-red-500 animate-pulse' : 'text-gray-400 hover:text-white'
-                  }`}
-                  disabled={isLoading}
-                >
-                  {isRecording ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-                </button>
+                <RetellVoiceChat
+                  language={language}
+                  onTranscript={(transcript) => {
+                    // Add voice transcript as a message
+                    const voiceMessage: Message = {
+                      id: Date.now().toString(),
+                      content: transcript,
+                      sender: 'user',
+                      timestamp: new Date(),
+                      type: 'voice',
+                    };
+                    setMessages(prev => [...prev, voiceMessage]);
+                    // Send to chat service
+                    handleSendMessage(transcript);
+                  }}
+                  onResponse={(response) => {
+                    // Handle AI voice response if needed
+                    console.log('Voice response:', response);
+                  }}
+                />
                 <button
                   onClick={handleScheduleAppointment}
                   className="p-2 text-gray-400 hover:text-white transition-colors"
