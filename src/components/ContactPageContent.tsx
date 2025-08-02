@@ -281,7 +281,7 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
                   <div className="h-48 w-full overflow-hidden bg-gradient-to-r from-neutral-800 to-neutral-900 flex items-center justify-center">
                     {officeImages[location.city] ? (
                       <Image
-                        src={officeImages[location.city]}
+                        src={officeImages[location.city] || '/images/offices/default-office.jpg'}
                         alt={`${location.city} office exterior`}
                         width={400}
                         height={300}

@@ -152,7 +152,10 @@ export default function CaseEvaluator({ onComplete }: CaseEvaluatorProps) {
   };
 
   const handleSelect = (value: string) => {
-    setFormData({ ...formData, [steps[step].field]: value });
+    const currentStep = steps[step];
+    if (!currentStep) return;
+    
+    setFormData({ ...formData, [currentStep.field]: value });
     setTimeout(handleNext, 300);
   };
 
@@ -197,9 +200,9 @@ export default function CaseEvaluator({ onComplete }: CaseEvaluatorProps) {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                <h3 className="text-2xl font-bold mb-6">{steps[step].title}</h3>
+                <h3 className="text-2xl font-bold mb-6">{steps[step]?.title || ''}</h3>
                 <div className="space-y-3">
-                  {steps[step].options.map(option => (
+                  {(steps[step]?.options || []).map(option => (
                     <motion.button
                       key={option.value}
                       whileHover={{ scale: 1.02 }}

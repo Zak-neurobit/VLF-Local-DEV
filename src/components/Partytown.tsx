@@ -11,7 +11,7 @@ export function PartytownScripts() {
       // Forward necessary functions that third-party scripts might need
       forward={partytownConfig.forwardedFunctions}
       // Configuration options
-      resolveUrl={(url, location) => {
+      resolveUrl={(url: URL, location: Location) => {
         // Check if this URL should be proxied
         const shouldProxy = partytownConfig.workerScripts.some(domain => url.href.includes(domain));
 

@@ -24,6 +24,10 @@ export function LocationServicePageTemplate({
   slug,
 }: LocationServicePageTemplateProps) {
   const serviceContent = getServiceContent(service, city);
+  
+  if (!serviceContent) {
+    return null;
+  }
 
   // Generate schemas
   const breadcrumbSchema = generateEnhancedBreadcrumbSchema([

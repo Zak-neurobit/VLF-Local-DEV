@@ -764,7 +764,9 @@ Format as JSON with all sections clearly defined.
       missingTopics,
       contentGaps: missingTopics, // Same as missing topics for now
       averageWordCount: Math.round(avgWordCount),
-      lastPostDate: (posts[0] as BlogPost & { date?: string })?.date || 'unknown',
+      lastPostDate: posts.length > 0 && posts[0] && (posts[0] as any).date 
+        ? (posts[0] as any).date 
+        : 'unknown',
       updateFrequency: `${posts.length} posts`,
     };
   }
@@ -877,7 +879,8 @@ Format as JSON with all sections clearly defined.
       `${keyword} Laws in NC: What You Must Know`,
     ];
 
-    return templates[Math.floor(Math.random() * templates.length)];
+    const selected = templates[Math.floor(Math.random() * templates.length)];
+    return selected || `${keyword}: Expert Legal Guide`;
   }
 
   private generateRelatedKeywords(keyword: string): string[] {

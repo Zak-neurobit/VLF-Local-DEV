@@ -16,10 +16,13 @@ export class RateLimiter {
     // Clean old attempts
     const validAttempts = attempts.filter(time => now - time < this.windowMs);
 
-    if (validAttempts.length >= this.maxAttempts) {
+    if (validAttempts.length >= this.maxAttempts && validAttempts.length > 0) {
       const oldestAttempt = validAttempts[0];
-      const retryAfter = Math.ceil((oldestAttempt + this.windowMs - now) / 1000);
-      return { allowed: false, retryAfter };
+      if (oldestAttempt !== undefined) {
+        const retryAfter = Math.ceil((oldestAttempt + this.windowMs - now) / 1000);
+        return { allowed: false, retryAfter };
+      }
+      return { allowed: false, retryAfter: 60 }; // Default retry after 60 seconds
     }
 
     validAttempts.push(now);

@@ -57,9 +57,9 @@ class AIHealthChecker {
       const services = {
         enhancedChat: {
           available: chatHealth.status === 'healthy',
-          openai: chatHealth.services.openai,
-          orchestrator: chatHealth.services.orchestrator,
-          circuitBreaker: chatHealth.services.circuitBreaker,
+          openai: chatHealth.services.openai || false,
+          orchestrator: chatHealth.services.orchestrator || false,
+          circuitBreaker: chatHealth.services.circuitBreaker || false,
         },
         translation: {
           available: true,

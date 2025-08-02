@@ -77,8 +77,12 @@ class PerformanceMonitor {
     // Observe Largest Contentful Paint
     const lcpObserver = new PerformanceObserver(list => {
       const entries = list.getEntries();
-      const lastEntry = entries[entries.length - 1];
-      performanceLogger.measure('LCP', lastEntry.startTime);
+      if (entries.length > 0) {
+        const lastEntry = entries[entries.length - 1];
+        if (lastEntry) {
+          performanceLogger.measure('LCP', lastEntry.startTime);
+        }
+      }
     });
     lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
     this.observers.push(lcpObserver);

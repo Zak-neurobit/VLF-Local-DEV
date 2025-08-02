@@ -25,6 +25,10 @@ export function TestimonialsSection({}: TestimonialsSectionProps = {}) {
   };
 
   const currentTestimonial = testimonials[currentIndex];
+  
+  if (!currentTestimonial || testimonials.length === 0) {
+    return null;
+  }
 
   const slideVariants = {
     enter: (direction: number) => ({

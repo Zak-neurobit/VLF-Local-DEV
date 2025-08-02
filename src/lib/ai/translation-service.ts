@@ -167,7 +167,7 @@ export class AITranslationService {
       max_tokens: Math.min(text.length * 2, 1000), // Reasonable token limit
     });
 
-    const translation = completion.choices[0].message.content?.trim();
+    const translation = completion.choices[0]?.message?.content?.trim();
 
     if (!translation) {
       throw new Error('Empty translation response');

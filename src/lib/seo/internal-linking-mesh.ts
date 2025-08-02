@@ -108,31 +108,35 @@ export function generateContextualLinks(
     PRACTICE_AREAS.forEach(area => {
       if (links.length < maxLinks) {
         const anchorVariation =
-          LINK_TYPES.location[Math.floor(Math.random() * LINK_TYPES.location.length)];
+          LINK_TYPES.location[Math.floor(Math.random() * LINK_TYPES.location.length)] || '{service} in {location}';
         const text = anchorVariation
           .replace('{service}', area.name)
           .replace('{location}', currentPage.location || 'North Carolina');
 
-        links.push({
-          text,
-          href: `/locations/nc/${currentPage.location?.toLowerCase().replace(/ /g, '-')}/${area.slug}`,
-          title: `${area.name} services available in ${currentPage.location}`,
-        });
+        if (currentPage.location) {
+          links.push({
+            text,
+            href: `/locations/nc/${currentPage.location.toLowerCase().replace(/ /g, '-')}/${area.slug}`,
+            title: `${area.name} services available in ${currentPage.location}`,
+          });
+        }
       }
     });
 
     // Add near me links
     if (currentPage.location && links.length < maxLinks) {
       const nearMeVariation =
-        LINK_TYPES.nearMe[Math.floor(Math.random() * LINK_TYPES.nearMe.length)];
-      const service = NEAR_ME_SERVICES[Math.floor(Math.random() * NEAR_ME_SERVICES.length)];
+        LINK_TYPES.nearMe[Math.floor(Math.random() * LINK_TYPES.nearMe.length)] || '{service} Near Me';
+      const service = NEAR_ME_SERVICES[Math.floor(Math.random() * NEAR_ME_SERVICES.length)] || { service: 'Legal Services', slug: 'legal-services' };
       const text = nearMeVariation.replace('{service}', service.service);
 
-      links.push({
-        text,
-        href: `/near-me/${currentPage.location.toLowerCase().replace(/ /g, '-')}-${service.slug}-near-me`,
-        title: `Find ${service.service} near you in ${currentPage.location}`,
-      });
+      if (currentPage.location) {
+        links.push({
+          text,
+          href: `/near-me/${currentPage.location.toLowerCase().replace(/ /g, '-')}-${service.slug}-near-me`,
+          title: `Find ${service.service} near you in ${currentPage.location}`,
+        });
+      }
     }
   }
 
@@ -142,7 +146,7 @@ export function generateContextualLinks(
     topCities.forEach(city => {
       if (links.length < maxLinks) {
         const locationVariation =
-          LINK_TYPES.location[Math.floor(Math.random() * LINK_TYPES.location.length)];
+          LINK_TYPES.location[Math.floor(Math.random() * LINK_TYPES.location.length)] || '{service} in {location}';
         const text = locationVariation
           .replace('{service}', currentPage.service || 'Legal Services')
           .replace('{location}', city.name);
@@ -159,8 +163,8 @@ export function generateContextualLinks(
   // Add emergency links
   if (links.length < maxLinks) {
     const emergencyVariation =
-      LINK_TYPES.emergency[Math.floor(Math.random() * LINK_TYPES.emergency.length)];
-    const randomService = PRACTICE_AREAS[Math.floor(Math.random() * PRACTICE_AREAS.length)];
+      LINK_TYPES.emergency[Math.floor(Math.random() * LINK_TYPES.emergency.length)] || 'Emergency {service}';
+    const randomService = PRACTICE_AREAS[Math.floor(Math.random() * PRACTICE_AREAS.length)] || { name: 'Legal Services', slug: 'legal-services' };
     const text = emergencyVariation.replace('{service}', randomService.name);
 
     links.push({
@@ -312,7 +316,7 @@ export function generateRelatedLinks(
     if (currentArea) {
       // Add sub-pages from same practice area
       currentArea.subPages.forEach(sub => {
-        if (sub.slug !== currentSlug && related.length < limit / 2) {
+        if (sub.slug !== currentSlug && related.length < Math.floor(limit / 2)) {
           related.push({
             text: sub.name,
             href: `/practice-areas/${currentArea.slug}/${sub.slug}`,
@@ -382,7 +386,7 @@ export function generateAnchorText(
   };
 
   const options = variations[targetType as keyof typeof variations] || [`${targetName}`];
-  return options[variation % options.length];
+  return options[variation % options.length] || targetName;
 }
 
 // Generate hub page links

@@ -82,10 +82,10 @@ export function CityPageTemplate({ city, nearbyOffice, content }: CityPageTempla
   const localBusinessSchema = generateEnhancedLocalBusinessSchema({
     name: `Vasquez Law Firm - ${city.name}`,
     address: {
-      street: getOfficeAddress(nearbyOffice).street,
+      street: getOfficeAddress(nearbyOffice)?.street || '',
       city: city.name,
       state: 'NC',
-      zip: getOfficeAddress(nearbyOffice).zip,
+      zip: getOfficeAddress(nearbyOffice)?.zip || '',
     },
     phone: '+1-844-967-3536',
     geo: getOfficeCoordinates(nearbyOffice),
@@ -312,7 +312,7 @@ export function CityPageTemplate({ city, nearbyOffice, content }: CityPageTempla
                       <h4 className="font-semibold text-white">{nearbyOffice} Office</h4>
                       <p className="text-sm text-gray-300 mt-2">
                         <MapPin className="w-4 h-4 inline-block mr-1 text-primary" />
-                        {getOfficeAddress(nearbyOffice).full}
+                        {getOfficeAddress(nearbyOffice)?.full || ''}
                       </p>
                     </div>
                     <div>
@@ -322,7 +322,7 @@ export function CityPageTemplate({ city, nearbyOffice, content }: CityPageTempla
                       </p>
                     </div>
                     <a
-                      href={`https://maps.google.com/maps?q=${encodeURIComponent(getOfficeAddress(nearbyOffice).full)}`}
+                      href={`https://maps.google.com/maps?q=${encodeURIComponent(getOfficeAddress(nearbyOffice)?.full || '')}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-semibold text-black bg-primary rounded-full hover:bg-primary-300 transition-all duration-300 transform hover:scale-105"

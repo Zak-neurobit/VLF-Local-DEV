@@ -614,13 +614,17 @@ export class CrewCoordinator {
 
       for (let i = 0; i < workflow.steps.length; i++) {
         const step = workflow.steps[i];
+        if (!step) {
+          logger.error(`Step at index ${i} not found in workflow`);
+          continue;
+        }
         workflow.currentStep = i;
 
         // Check dependencies
         const dependencyResults = await this.checkStepDependencies(step, results);
         if (!dependencyResults.canExecute) {
           throw new Error(
-            `Step ${step.id} dependencies not met: ${dependencyResults.missingDependencies.join(', ')}`
+            `Step ${step?.id || 'unknown'} dependencies not met: ${dependencyResults.missingDependencies.join(', ')}`
           );
         }
 
@@ -629,11 +633,13 @@ export class CrewCoordinator {
         results.push(stepResult);
 
         // Update workflow context
-        workflow.context[step.id] = stepResult;
+        if (step?.id) {
+          workflow.context[step.id] = stepResult;
+        }
 
         this.eventEmitter.emit('workflow-step-completed', {
           workflowId,
-          stepId: step.id,
+          stepId: step?.id || 'unknown',
           result: stepResult,
         });
       }

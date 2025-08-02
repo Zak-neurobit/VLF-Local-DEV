@@ -371,6 +371,10 @@ export class CrewCoordinator {
 
     for (let i = workflow.currentStep; i < workflow.steps.length; i++) {
       const step = workflow.steps[i];
+      if (!step) {
+        logger.error(`Step at index ${i} not found in workflow`);
+        continue;
+      }
       let stepResult;
 
       switch (step.agent) {
@@ -411,12 +415,14 @@ export class CrewCoordinator {
           break;
 
         default:
-          throw new Error(`Unknown agent: ${step.agent}`);
+          throw new Error(`Unknown agent: ${step?.agent || 'undefined'}`);
       }
 
-      results.push(stepResult);
-      workflow.currentStep = i + 1;
-      workflow.results = results;
+      if (step) {
+        results.push(stepResult);
+        workflow.currentStep = i + 1;
+        workflow.results = results;
+      }
     }
 
     return {

@@ -232,8 +232,10 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
       let finalTranscript = '';
 
       for (let i = event.resultIndex; i < event.results.length; i++) {
-        const transcript = event.results[i][0].transcript;
-        if (event.results[i].isFinal) {
+        const result = event.results[i];
+        if (!result || !result[0]) continue;
+        const transcript = result[0].transcript;
+        if (result.isFinal) {
           finalTranscript += transcript;
         } else {
           interimTranscript += transcript;
@@ -366,7 +368,7 @@ export const VirtualAssistant: React.FC<VirtualAssistantProps> = ({
   useEffect(() => {
     if (voiceEnabled && messages.length > 0) {
       const lastMessage = messages[messages.length - 1];
-      if (lastMessage.sender === 'assistant' && lastMessage.text) {
+      if (lastMessage && lastMessage.sender === 'assistant' && lastMessage.text) {
         speak(lastMessage.text);
       }
     }

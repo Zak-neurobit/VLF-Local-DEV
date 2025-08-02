@@ -442,7 +442,7 @@ Format as JSON with: summary, callToAction (actionType, url)
         url: 'https://vasquezlawfirm.com',
       },
       media: media ? [{ mediaFormat: 'PHOTO', sourceUrl: media.url }] : undefined,
-      event: postType === 'community_event' ? await this.generateEventDetails(topic) : undefined,
+      event: postType === 'community_event' && topic ? await this.generateEventDetails(topic) : undefined,
     };
 
     return gmbPost;
@@ -1027,7 +1027,7 @@ Replace [CASE_TYPE] with the relevant practice area based on the review content.
 
     // Publish to relevant location
     const locationKey = location.name.toLowerCase().replace(/\s+/g, '');
-    const locationId = this.LOCATION_IDS[locationKey as keyof typeof this.LOCATION_IDS];
+    const locationId = this.LOCATION_IDS[locationKey as keyof typeof this.LOCATION_IDS] || null;
 
     if (locationId) {
       await this.publishGMBPost(locationId, post);

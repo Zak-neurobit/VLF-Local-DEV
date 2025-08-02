@@ -95,7 +95,7 @@ export class BlogImportService {
 
     return categories
       .map(cat => categoryMap[cat])
-      .filter(Boolean)
+      .filter((value): value is string => Boolean(value))
       .filter((value, index, self) => self.indexOf(value) === index);
   }
 

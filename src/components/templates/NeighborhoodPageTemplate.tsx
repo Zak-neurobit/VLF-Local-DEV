@@ -113,7 +113,7 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
       street: `Serving ${neighborhood.name} area`,
       city: neighborhood.city,
       state: 'NC',
-      zip: neighborhood.zipCodes[0],
+      zip: neighborhood.zipCodes[0] || '',
     },
     phone: '+1-844-967-3536',
     amenities: [

@@ -142,6 +142,7 @@ export class ContentFactory {
 
       // Generate blog for the most relevant topic
       const topic = topics[0];
+      if (!topic) continue;
 
       for (const language of this.config.languages) {
         const blogPost = await this.blogGenerator.generateBlogPost({
@@ -150,7 +151,7 @@ export class ContentFactory {
           language,
           targetKeywords: topic.keywords,
           includeLocalCaseStudy: true,
-          optimizeForVoiceSearch: Boolean((topic as { isVoiceSearch?: boolean }).isVoiceSearch),
+          optimizeForVoiceSearch: Boolean((topic as { isVoiceSearch?: boolean }).isVoiceSearch || false),
         });
 
         // Save to database
@@ -400,7 +401,14 @@ export class ContentFactory {
         id: string;
         model?: string;
       };
+      
+      if (optimalTimes.length === 0) {
+        logger.warn('No optimal publishing times available');
+        continue;
+      }
+      
       const timeSlot = optimalTimes[i % optimalTimes.length];
+      if (!timeSlot) continue;
 
       await this.scheduler.schedulePublication({
         contentId: item.id,
@@ -552,7 +560,8 @@ export class ContentFactory {
 
   private extractTopicFromTitle(title: string): string {
     // Simple topic extraction - could be enhanced with NLP
-    return title.split(':')[0].trim();
+    const parts = title.split(':');
+    return parts[0]?.trim() || title.trim();
   }
 
   private extractBestKeywords(content: unknown[]): string[] {
@@ -606,8 +615,9 @@ export class ContentFactory {
   private calculateAverage(items: unknown[], field: string): number {
     if (!items || items.length === 0) return 0;
     const sum = items.reduce((acc: number, item) => {
-      const value = item ? (item as Record<string, number>)[field] : undefined;
-      return acc + (value || 0);
+      if (!item || typeof item !== 'object') return acc;
+      const value = (item as Record<string, unknown>)[field];
+      return acc + (typeof value === 'number' ? value : 0);
     }, 0);
     return Math.round(sum / items.length);
   }

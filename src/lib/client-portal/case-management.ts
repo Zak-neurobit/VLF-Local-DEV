@@ -749,7 +749,7 @@ export class ClientPortalCaseManagement {
 
     let sequence = 1;
     if (lastCase) {
-      const lastSequence = parseInt(lastCase.caseNumber.split('-')[2]);
+      const lastSequence = parseInt(lastCase.caseNumber.split('-')[2] || '0');
       sequence = lastSequence + 1;
     }
 

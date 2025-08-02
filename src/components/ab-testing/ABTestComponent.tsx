@@ -242,6 +242,7 @@ export function ABTestWrapper({
   if (isLoading) {
     // Show default variant while loading
     const DefaultComponent = variants[defaultVariant];
+    if (!DefaultComponent) return null;
     return <DefaultComponent {...componentProps} />;
   }
 
@@ -250,6 +251,7 @@ export function ABTestWrapper({
 
   if (!SelectedComponent) {
     const DefaultComponent = variants[defaultVariant];
+    if (!DefaultComponent) return null;
     return <DefaultComponent {...componentProps} />;
   }
 

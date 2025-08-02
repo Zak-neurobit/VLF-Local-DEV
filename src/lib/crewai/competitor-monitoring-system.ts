@@ -1320,7 +1320,7 @@ export class CompetitorMonitoringSystem {
         break;
     }
 
-    return now.toISOString().split('T')[0];
+    return now.toISOString().split('T')[0] || '';
   }
 
   private assignResponsibleParty(action: string): string {

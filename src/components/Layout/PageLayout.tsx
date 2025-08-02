@@ -34,7 +34,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <NewsTicker locale={language} />
-      <Header language={language} setLanguage={handleLanguageChange} />
+      <Header language={language} />
       <main className="flex-grow">{children}</main>
       <Footer language={language} />
     </div>

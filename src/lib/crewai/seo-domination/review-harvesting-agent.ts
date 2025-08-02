@@ -461,12 +461,15 @@ The Vasquez Law Firm Team`,
       ''
     );
 
-    // Get base templates
+    // Get base templates with safe fallback
+    const emailTemplateKey = templateKey as keyof typeof this.REQUEST_TEMPLATES.email;
     const emailTemplate =
-      this.REQUEST_TEMPLATES.email[templateKey as keyof typeof this.REQUEST_TEMPLATES.email] ||
+      (emailTemplateKey in this.REQUEST_TEMPLATES.email ? this.REQUEST_TEMPLATES.email[emailTemplateKey] : undefined) ||
       this.REQUEST_TEMPLATES.email.standard;
+    
+    const smsTemplateKey = templateKey as keyof typeof this.REQUEST_TEMPLATES.sms;
     const smsTemplate =
-      this.REQUEST_TEMPLATES.sms[templateKey as keyof typeof this.REQUEST_TEMPLATES.sms] ||
+      (smsTemplateKey in this.REQUEST_TEMPLATES.sms ? this.REQUEST_TEMPLATES.sms[smsTemplateKey] : undefined) ||
       this.REQUEST_TEMPLATES.sms.standard;
 
     // Generate review links
@@ -893,7 +896,7 @@ Return as JSON: { email: { subject, body }, sms: { text } }
     const template = templateArray[Math.floor(Math.random() * templateArray.length)];
 
     // Personalize response
-    return template.replace(/{reviewerName}/g, review.reviewerName || 'there');
+    return template ? template.replace(/{reviewerName}/g, review.reviewerName || 'there') : 'Thank you for your feedback!';
   }
 
   private async postReviewResponse(
@@ -973,7 +976,9 @@ Return as JSON: { email: { subject, body }, sms: { text } }
 
   private async respondToNegativeReview(review: { reviewerName?: string }): Promise<void> {
     const response = this.RESPONSE_TEMPLATES.negative.general[0];
-    logger.info(`Responded to negative review: ${response.substring(0, 50)}...`);
+    if (response) {
+      logger.info(`Responded to negative review: ${response.substring(0, 50)}...`);
+    }
   }
 
   private async createInternalTask(review: { reviewerName?: string }): Promise<void> {

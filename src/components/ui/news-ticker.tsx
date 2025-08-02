@@ -129,6 +129,9 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
   }
 
   const currentItem = newsItems[currentIndex];
+  if (!currentItem) {
+    return null;
+  }
   const displayTitle =
     locale === 'es' && currentItem.titleEs ? currentItem.titleEs : currentItem.title;
 
@@ -152,7 +155,7 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-4 flex-1">
           <div className="flex items-center space-x-2 shrink-0">
-            {currentItem.urgent && <AlertCircle className="w-4 h-4 text-[#C9974D] animate-pulse" />}
+            {currentItem?.urgent && <AlertCircle className="w-4 h-4 text-[#C9974D] animate-pulse" />}
             <span className="text-[#C9974D] font-bold text-sm uppercase tracking-wider flex items-center">
               YO PELEO™ NOTICIAS
               <span className="mx-2 text-white/50">|</span>
@@ -162,7 +165,7 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
 
           <div className="flex-1 overflow-hidden">
             <Link
-              href={currentItem.url}
+              href={currentItem?.url || '#'}
               className="group flex items-center space-x-2 hover:text-[#C9974D] transition-colors"
             >
               <span className="truncate text-sm md:text-base">{displayTitle}</span>

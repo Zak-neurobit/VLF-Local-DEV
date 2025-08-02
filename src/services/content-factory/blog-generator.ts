@@ -48,6 +48,13 @@ export class BlogContentGenerator {
     this.trendAnalyzer = new TrendAnalyzer();
   }
 
+  private getOpenAIContent(response: OpenAI.Chat.Completions.ChatCompletion): string {
+    if (response.choices && response.choices.length > 0 && response.choices[0].message) {
+      return response.choices[0].message.content || '';
+    }
+    return '';
+  }
+
   async initialize() {
     logger.info('Initializing Blog Content Generator');
     // Initialize any necessary connections or caches
@@ -105,9 +112,9 @@ export class BlogContentGenerator {
           practiceArea,
           keywords,
           relevanceScore:
-            ('score' in topic ? topic.score : undefined) || this.calculateRelevanceScore(topic),
+            ('score' in topic && typeof topic.score === 'number' ? topic.score : 0) || this.calculateRelevanceScore(topic),
           isVoiceSearch:
-            (('isVoiceSearch' in topic ? topic.isVoiceSearch : false) as boolean) || false,
+            ('isVoiceSearch' in topic && typeof topic.isVoiceSearch === 'boolean' ? topic.isVoiceSearch : false),
           source: topic.source,
         });
       }
@@ -327,7 +334,7 @@ Format the outline with clear hierarchy using H2 and H3 tags.`;
       max_tokens: 1000,
     });
 
-    return response.choices[0].message.content;
+    return this.getOpenAIContent(response);
   }
 
   /**
@@ -369,7 +376,7 @@ Write the content in markdown format with proper headings.`;
       max_tokens: 3000,
     });
 
-    const content = response.choices[0].message.content || '';
+    const content = this.getOpenAIContent(response);
 
     // Generate title and meta elements
     const titlePrompt = `Based on this content, create:
@@ -429,7 +436,7 @@ Make it specific to NC laws and regulations. Format as a new section with markdo
       max_tokens: 800,
     });
 
-    return content + '\n\n' + response.choices[0].message.content;
+    return content + '\n\n' + this.getOpenAIContent(response);
   }
 
   /**
@@ -454,7 +461,7 @@ Add these optimizations while maintaining the flow and quality.`;
       max_tokens: 1500,
     });
 
-    return response.choices[0].message.content + '\n\n' + content;
+    return this.getOpenAIContent(response) + '\n\n' + content;
   }
 
   /**
@@ -488,7 +495,12 @@ Format as JSON array with 'question' and 'answer' keys.`;
       max_tokens: 1500,
     });
 
-    return JSON.parse(response.choices[0].message.content || '[]');
+    const content = this.getOpenAIContent(response);
+    try {
+      return JSON.parse(content || '[]');
+    } catch {
+      return [];
+    }
   }
 
   /**
@@ -533,7 +545,13 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
       max_tokens: 4000,
     });
 
-    const translated = JSON.parse(response.choices[0].message.content || '{}');
+    const content = this.getOpenAIContent(response);
+    let translated;
+    try {
+      translated = JSON.parse(content || '{}');
+    } catch {
+      translated = {};
+    }
 
     return {
       ...content,
@@ -710,7 +728,9 @@ Content: ${JSON.stringify({ content, metadata, faqSection })}`;
     const images: string[] = [];
 
     for (let i = 0; i < Math.min(sections.length, 3); i++) {
-      const sectionTitle = sections[i].split('\n')[0].trim();
+      const section = sections[i];
+      if (!section) continue;
+      const sectionTitle = section.split('\n')[0]?.trim() || `section-${i}`;
       images.push(`/images/blog/content/${sectionTitle.toLowerCase().replace(/\s+/g, '-')}.jpg`);
     }
 

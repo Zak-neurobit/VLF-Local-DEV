@@ -60,10 +60,12 @@ export function usePinchZoom() {
       if (e.touches.length === 2) {
         const touch1 = e.touches[0];
         const touch2 = e.touches[1];
-        initialDistance = Math.hypot(
-          touch2.clientX - touch1.clientX,
-          touch2.clientY - touch1.clientY
-        );
+        if (touch1 && touch2) {
+          initialDistance = Math.hypot(
+            touch2.clientX - touch1.clientX,
+            touch2.clientY - touch1.clientY
+          );
+        }
       }
     };
 
@@ -72,13 +74,15 @@ export function usePinchZoom() {
         e.preventDefault();
         const touch1 = e.touches[0];
         const touch2 = e.touches[1];
-        const currentDistance = Math.hypot(
-          touch2.clientX - touch1.clientX,
-          touch2.clientY - touch1.clientY
-        );
+        if (touch1 && touch2) {
+          const currentDistance = Math.hypot(
+            touch2.clientX - touch1.clientX,
+            touch2.clientY - touch1.clientY
+          );
 
-        currentScale = Math.min(Math.max(currentDistance / initialDistance, 0.5), 3);
-        setScale(currentScale);
+          currentScale = Math.min(Math.max(currentDistance / initialDistance, 0.5), 3);
+          setScale(currentScale);
+        }
       }
     };
 
@@ -204,7 +208,9 @@ export function useDragToReorder<T>(items: T[], onReorder: (newItems: T[]) => vo
 
     const newItems = Array.from(items);
     const [reorderedItem] = newItems.splice(result.source.index, 1);
-    newItems.splice(result.destination.index, 0, reorderedItem);
+    if (reorderedItem !== undefined) {
+      newItems.splice(result.destination.index, 0, reorderedItem);
+    }
 
     onReorder(newItems);
   };

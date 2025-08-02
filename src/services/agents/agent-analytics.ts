@@ -118,7 +118,7 @@ export class AgentAnalyticsService {
 
     // Update top intents
     const intentIndex = metrics.topIntents.findIndex(i => i.intent === data.intent);
-    if (intentIndex >= 0) {
+    if (intentIndex >= 0 && metrics.topIntents[intentIndex]) {
       metrics.topIntents[intentIndex].count++;
     } else {
       metrics.topIntents.push({ intent: data.intent, count: 1 });

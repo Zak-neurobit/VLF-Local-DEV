@@ -76,7 +76,7 @@ export function ContentInternalLinks({
 
     // Sort keywords by length (longest first) to avoid partial matches
     const sortedMappings = [...KEYWORD_MAPPINGS].sort(
-      (a, b) => b.keywords[0].length - a.keywords[0].length
+      (a, b) => (b.keywords[0]?.length || 0) - (a.keywords[0]?.length || 0)
     );
 
     sortedMappings.forEach(mapping => {

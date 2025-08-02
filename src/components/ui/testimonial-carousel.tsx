@@ -119,7 +119,7 @@ export function TestimonialCarousel() {
                 <div className="glass-card p-8 md:p-12 rounded-3xl h-full flex flex-col justify-center">
                   {/* Rating */}
                   <div className="flex justify-center mb-4">
-                    {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
+                    {[...Array(testimonials[currentIndex]?.rating || 0)].map((_, i) => (
                       <motion.div
                         key={i}
                         initial={{ opacity: 0, scale: 0 }}
@@ -133,16 +133,16 @@ export function TestimonialCarousel() {
 
                   {/* Content */}
                   <p className="text-lg md:text-xl text-gray-700 text-center mb-8 italic">
-                    &quot;{testimonials[currentIndex].content}&quot;
+                    &quot;{testimonials[currentIndex]?.content || ''}&quot;
                   </p>
 
                   {/* Author */}
                   <div className="text-center">
                     <h4 className="text-xl font-bold text-[#6B1F2E] mb-1">
-                      {testimonials[currentIndex].name}
+                      {testimonials[currentIndex]?.name || ''}
                     </h4>
-                    <p className="text-gray-600 mb-2">{testimonials[currentIndex].role}</p>
-                    <span className="modern-badge">{testimonials[currentIndex].caseType}</span>
+                    <p className="text-gray-600 mb-2">{testimonials[currentIndex]?.role || ''}</p>
+                    <span className="modern-badge">{testimonials[currentIndex]?.caseType || ''}</span>
                   </div>
                 </div>
               </motion.div>

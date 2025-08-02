@@ -548,7 +548,7 @@ export class EnhancedChatService extends EventEmitter {
     });
 
     return (
-      completion.choices[0].message.content ||
+      completion.choices[0]?.message?.content ||
       'I apologize, but I was unable to generate a response.'
     );
   }

@@ -296,6 +296,10 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
 
   const t = content[language];
   const activeResults = t.categories[activeCategory];
+  
+  if (!activeResults) {
+    return null;
+  }
 
   return (
     <section ref={ref} className="relative overflow-hidden bg-black py-24">

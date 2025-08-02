@@ -30,8 +30,15 @@ function getLocale(request: NextRequest): string {
   if (acceptLanguage) {
     const detectedLocale = acceptLanguage
       .split(',')
-      .map(lang => lang.split(';')[0].split('-')[0].trim())
-      .find(lang => locales.includes(lang));
+      .map(lang => {
+        const parts = lang.split(';')[0];
+        if (parts) {
+          const langCode = parts.split('-')[0];
+          return langCode ? langCode.trim() : '';
+        }
+        return '';
+      })
+      .filter(lang => lang && locales.includes(lang))[0];
 
     if (detectedLocale) {
       return detectedLocale;

@@ -25,7 +25,8 @@ export function formatDate(date: string | Date, options?: Intl.DateTimeFormatOpt
   if (typeof window === 'undefined') {
     // Server-side: return ISO date portion
     const dateObj = typeof date === 'string' ? new Date(date) : date;
-    return dateObj.toISOString().split('T')[0];
+    const isoString = dateObj.toISOString();
+    return isoString.split('T')[0] || isoString;
   }
 
   // Client-side: format with locale
@@ -40,7 +41,12 @@ export function formatTime(date: string | Date, options?: Intl.DateTimeFormatOpt
   if (typeof window === 'undefined') {
     // Server-side: return ISO time portion
     const dateObj = typeof date === 'string' ? new Date(date) : date;
-    return dateObj.toISOString().split('T')[1].split('.')[0];
+    const isoString = dateObj.toISOString();
+    const timePart = isoString.split('T')[1];
+    if (timePart) {
+      return timePart.split('.')[0] || timePart;
+    }
+    return isoString;
   }
 
   // Client-side: format with locale

@@ -330,7 +330,7 @@ export function LocationServiceTemplate({
               {isSpanish ? 'Servicios Incluidos' : 'Services Included'}
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
-              {benefitsList[language].map((benefit, index) => (
+              {(benefitsList?.[language] || []).map((benefit, index) => (
                 <motion.div
                   key={benefit}
                   initial={{ opacity: 0, y: 20 }}

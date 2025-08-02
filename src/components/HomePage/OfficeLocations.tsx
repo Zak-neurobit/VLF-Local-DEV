@@ -166,7 +166,7 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
                 {/* Office Photo */}
                 <div className="relative h-48 overflow-hidden">
                   <Image
-                    src={officeImages[office.city]}
+                    src={officeImages[office.city] || '/images/offices/default-office.jpg'}
                     alt={`${office.city} office exterior`}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"

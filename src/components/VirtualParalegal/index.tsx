@@ -121,12 +121,13 @@ export default function VirtualParalegal({ language, onClose }: VirtualParalegal
       recognitionRef.current.onresult = (event: SpeechRecognitionEvent) => {
         const transcript = Array.from(event.results)
           .map(result => result[0])
-          .map(result => result.transcript)
+          .filter(result => result !== null && result !== undefined)
+          .map(result => result!.transcript)
           .join('');
 
         setTranscript(transcript);
 
-        if (event.results[0].isFinal) {
+        if (event.results[0]?.isFinal) {
           handleInputChange({
             target: { value: transcript },
           } as React.ChangeEvent<HTMLInputElement>);

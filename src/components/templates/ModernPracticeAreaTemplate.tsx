@@ -280,13 +280,13 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                     className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-8 border border-primary/20"
                   >
                     <h3 className="text-2xl font-bold text-primary mb-4">
-                      {services[activeService].title}
+                      {services[activeService]?.title || ''}
                     </h3>
                     <p className="text-lg text-gray-300 mb-6">
-                      {services[activeService].description}
+                      {services[activeService]?.description || ''}
                     </p>
-                    {services[activeService].features &&
-                      services[activeService].features.length > 0 && (
+                    {services[activeService]?.features &&
+                      services[activeService]?.features.length > 0 && (
                         <div>
                           <h4 className="text-lg font-semibold text-white mb-3">
                             {language === 'en' ? 'What We Handle:' : 'Lo Que Manejamos:'}

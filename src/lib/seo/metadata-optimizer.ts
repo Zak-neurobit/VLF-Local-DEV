@@ -210,7 +210,7 @@ export function generateOptimizedTitle(
       template = '{trust} Lawyers NC | Vasquez Law Firm';
     }
   } else if (Array.isArray(templates)) {
-    template = templates[Math.floor(Math.random() * templates.length)];
+    template = templates[Math.floor(Math.random() * templates.length)] || '{trust} Lawyers NC | Vasquez Law Firm';
   } else {
     template = '{trust} Lawyers NC | Vasquez Law Firm';
   }
@@ -218,7 +218,7 @@ export function generateOptimizedTitle(
   // Replace power word placeholders
   Object.keys(POWER_WORDS).forEach(category => {
     const words = POWER_WORDS[category as keyof typeof POWER_WORDS];
-    const word = words[Math.floor(Math.random() * words.length)];
+    const word = words[Math.floor(Math.random() * words.length)] || words[0] || '';
     template = template.replace(new RegExp(`{${category}}`, 'g'), word);
   });
 
@@ -246,17 +246,17 @@ export function generateOptimizedDescription(
   const opening =
     DESCRIPTION_ENHANCERS.openings[
       Math.floor(Math.random() * DESCRIPTION_ENHANCERS.openings.length)
-    ];
+    ] || 'Stop searching and start winning with';
   parts.push(opening);
 
   // Add main content based on page type
   if (pageType === 'practiceArea') {
     parts.push(
-      `NC's most ${POWER_WORDS.aggression[0].toLowerCase()} ${variables.service || 'legal'} team.`
+      `NC's most ${(POWER_WORDS.aggression[0] || 'aggressive').toLowerCase()} ${variables.service || 'legal'} team.`
     );
   } else if (pageType === 'location') {
     parts.push(
-      `${variables.city || 'North Carolina'}'s ${POWER_WORDS.trust[0].toLowerCase()} law firm.`
+      `${variables.city || 'North Carolina'}'s ${(POWER_WORDS.trust[0] || 'trusted').toLowerCase()} law firm.`
     );
   } else {
     parts.push("North Carolina's premier legal team.");
@@ -266,29 +266,31 @@ export function generateOptimizedDescription(
   const credibility =
     DESCRIPTION_ENHANCERS.credibility[
       Math.floor(Math.random() * DESCRIPTION_ENHANCERS.credibility.length)
-    ];
+    ] || '60+ years combined experience';
   parts.push(credibility + '.');
 
   // Add local trust with variables
   let localTrust =
     DESCRIPTION_ENHANCERS.localTrust[
       Math.floor(Math.random() * DESCRIPTION_ENHANCERS.localTrust.length)
-    ];
+    ] || 'Serving all of North Carolina';
   Object.entries(variables).forEach(([key, value]) => {
-    localTrust = localTrust.replace(`{${key}}`, value);
+    if (localTrust) {
+      localTrust = localTrust.replace(`{${key}}`, value);
+    }
   });
   parts.push(localTrust + '.');
 
   // Add urgency
   const urgency =
-    DESCRIPTION_ENHANCERS.urgency[Math.floor(Math.random() * DESCRIPTION_ENHANCERS.urgency.length)];
+    DESCRIPTION_ENHANCERS.urgency[Math.floor(Math.random() * DESCRIPTION_ENHANCERS.urgency.length)] || 'Available 24/7 for emergencies';
   parts.push(urgency + '.');
 
   // Add call to action
   const cta =
     DESCRIPTION_ENHANCERS.callToAction[
       Math.floor(Math.random() * DESCRIPTION_ENHANCERS.callToAction.length)
-    ];
+    ] || 'Free consultation - Call 1-844-YO-PELEO';
   parts.push(cta);
 
   const description = parts.join(' ');
@@ -317,9 +319,9 @@ export function optimizeMetadata(
   const optimizedDescription = generateOptimizedDescription(pageType, vars);
 
   // Enhance keywords with power words
-  const currentKeywords = (currentMetadata.keywords as string) || '';
+  const currentKeywords = typeof currentMetadata.keywords === 'string' ? currentMetadata.keywords : '';
   const enhancedKeywords = [
-    ...currentKeywords.split(',').map(k => k.trim()),
+    ...currentKeywords.split(',').map(k => k.trim()).filter(k => k.length > 0),
     ...POWER_WORDS.trust.slice(0, 2).map(w => `${w.toLowerCase()} lawyers`),
     ...POWER_WORDS.urgency.slice(0, 2).map(w => `${w.toLowerCase()} legal help`),
     `best ${vars.service || 'lawyers'} ${vars.city || 'NC'}`.toLowerCase(),
@@ -358,9 +360,9 @@ export function generateABTestMetadata(
       // More aggressive variant
       const aggressiveVars = {
         ...variables,
-        trust: POWER_WORDS.trust[0],
-        aggression: POWER_WORDS.aggression[0],
-        urgency: POWER_WORDS.urgency[0],
+        trust: POWER_WORDS.trust[0] || 'Trusted',
+        aggression: POWER_WORDS.aggression[0] || 'Aggressive',
+        urgency: POWER_WORDS.urgency[0] || 'Immediate',
       };
       return optimizeMetadata(baseMetadata, pageType, subType, aggressiveVars);
     },
@@ -368,9 +370,9 @@ export function generateABTestMetadata(
       // Local-focused variant
       const localVars = {
         ...variables,
-        locality: POWER_WORDS.locality[0],
-        trust: POWER_WORDS.trust[1],
-        expertise: POWER_WORDS.expertise[0],
+        locality: POWER_WORDS.locality[0] || 'Local',
+        trust: POWER_WORDS.trust[1] || 'Proven',
+        expertise: POWER_WORDS.expertise[0] || 'Expert',
       };
       return optimizeMetadata(baseMetadata, pageType, subType, localVars);
     },

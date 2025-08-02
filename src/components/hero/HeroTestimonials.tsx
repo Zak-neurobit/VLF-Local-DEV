@@ -16,6 +16,8 @@ export default function HeroTestimonials({ testimonials }: HeroTestimonialsProps
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   useEffect(() => {
+    if (testimonials.length === 0) return;
+    
     // Testimonial rotation
     const interval = setInterval(() => {
       setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
@@ -25,6 +27,15 @@ export default function HeroTestimonials({ testimonials }: HeroTestimonialsProps
       clearInterval(interval);
     };
   }, [testimonials.length]);
+
+  if (testimonials.length === 0) {
+    return null;
+  }
+
+  const currentTestimonialData = testimonials[currentTestimonial];
+  if (!currentTestimonialData) {
+    return null;
+  }
 
   return (
     <motion.div
@@ -43,9 +54,9 @@ export default function HeroTestimonials({ testimonials }: HeroTestimonialsProps
           className="mx-auto max-w-2xl px-4 text-center"
         >
           <p className="italic text-gray-300">
-            &quot;{testimonials[currentTestimonial].text}&quot;
+            &quot;{currentTestimonialData.text}&quot;
           </p>
-          <p className="mt-2 text-sm text-[#C9974D]">- {testimonials[currentTestimonial].author}</p>
+          <p className="mt-2 text-sm text-[#C9974D]">- {currentTestimonialData.author}</p>
         </motion.div>
       </AnimatePresence>
     </motion.div>

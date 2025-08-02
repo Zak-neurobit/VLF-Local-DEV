@@ -71,7 +71,7 @@ export default function CalculatorResults({
               <div>
                 <p className="text-sm text-gray-600">Economic Damages</p>
                 <p className="text-2xl font-bold text-blue-600">
-                  {formatCurrency(result.results.economicDamages)}
+                  {formatCurrency(Number(result.results.economicDamages) || 0)}
                 </p>
               </div>
               <DollarSign className="h-8 w-8 text-blue-600" />
@@ -85,7 +85,7 @@ export default function CalculatorResults({
               <div>
                 <p className="text-sm text-gray-600">Pain & Suffering</p>
                 <p className="text-2xl font-bold text-purple-600">
-                  {formatCurrency(result.results.painAndSufferingAmount)}
+                  {formatCurrency(Number(result.results.painAndSufferingAmount) || 0)}
                 </p>
               </div>
               <TrendingUp className="h-8 w-8 text-purple-600" />
@@ -99,7 +99,7 @@ export default function CalculatorResults({
               <div>
                 <p className="text-sm text-gray-600">Total Estimated Value</p>
                 <p className="text-2xl font-bold text-green-600">
-                  {formatCurrency(result.results.adjustedTotal)}
+                  {formatCurrency(Number(result.results.adjustedTotal) || 0)}
                 </p>
               </div>
               <Target className="h-8 w-8 text-green-600" />
@@ -117,19 +117,19 @@ export default function CalculatorResults({
             <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
               <span className="font-medium">Conservative Estimate:</span>
               <span className="text-xl font-bold text-orange-600">
-                {formatCurrency(result.results.settlementRange.low)}
+                {formatCurrency(Number((result.results.settlementRange as any)?.low) || 0)}
               </span>
             </div>
             <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
               <span className="font-medium">Optimistic Estimate:</span>
               <span className="text-xl font-bold text-green-600">
-                {formatCurrency(result.results.settlementRange.high)}
+                {formatCurrency(Number((result.results.settlementRange as any)?.high) || 0)}
               </span>
             </div>
             <div className="flex justify-between items-center p-4 bg-blue-50 rounded-lg">
               <span className="font-medium">Estimated Net to Client:</span>
               <span className="text-xl font-bold text-blue-600">
-                {formatCurrency(result.results.estimatedNettoClient)}
+                {formatCurrency(Number(result.results.estimatedNettoClient) || 0)}
               </span>
             </div>
           </div>
@@ -147,7 +147,7 @@ export default function CalculatorResults({
               <div>
                 <p className="text-sm text-gray-600">Success Probability</p>
                 <p className="text-2xl font-bold text-green-600">
-                  {result.results.successProbability}%
+                  {Number(result.results.successProbability) || 0}%
                 </p>
               </div>
               <Percent className="h-8 w-8 text-green-600" />
@@ -161,7 +161,7 @@ export default function CalculatorResults({
               <div>
                 <p className="text-sm text-gray-600">Estimated Timeline</p>
                 <p className="text-2xl font-bold text-blue-600">
-                  {result.results.estimatedTimeframe} mo
+                  {Number(result.results.estimatedTimeframe) || 0} mo
                 </p>
               </div>
               <Clock className="h-8 w-8 text-blue-600" />
@@ -175,7 +175,7 @@ export default function CalculatorResults({
               <div>
                 <p className="text-sm text-gray-600">Total Cost</p>
                 <p className="text-2xl font-bold text-purple-600">
-                  {formatCurrency(result.results.estimatedCost.total)}
+                  {formatCurrency(Number((result.results.estimatedCost as any)?.total) || 0)}
                 </p>
               </div>
               <DollarSign className="h-8 w-8 text-purple-600" />
@@ -192,35 +192,38 @@ export default function CalculatorResults({
           <div className="space-y-3">
             <div className="flex justify-between">
               <span>Attorney Fees:</span>
-              <span className="font-medium">{formatCurrency(result.results.estimatedCost.attorney)}</span>
+              <span className="font-medium">{formatCurrency(Number((result.results.estimatedCost as any)?.attorney) || 0)}</span>
             </div>
             <div className="flex justify-between">
               <span>Filing Fees:</span>
-              <span className="font-medium">{formatCurrency(result.results.estimatedCost.filing)}</span>
+              <span className="font-medium">{formatCurrency(Number((result.results.estimatedCost as any)?.filing) || 0)}</span>
             </div>
             <hr />
             <div className="flex justify-between font-bold">
               <span>Total:</span>
-              <span>{formatCurrency(result.results.estimatedCost.total)}</span>
+              <span>{formatCurrency(Number((result.results.estimatedCost as any)?.total) || 0)}</span>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {result.results.nextSteps && (
+      {(() => {
+        const nextSteps = result.results.nextSteps;
+        return nextSteps && Array.isArray(nextSteps) && nextSteps.length > 0 ? (
         <Card>
           <CardHeader>
             <CardTitle>Next Steps</CardTitle>
           </CardHeader>
           <CardContent>
             <ol className="list-decimal list-inside space-y-2">
-              {result.results.nextSteps.map((step: string, index: number) => (
+              {(nextSteps as string[]).map((step: string, index: number) => (
                 <li key={index} className="text-sm">{step}</li>
               ))}
             </ol>
           </CardContent>
         </Card>
-      )}
+        ) : null;
+      })()}
     </div>
   );
 
@@ -233,7 +236,7 @@ export default function CalculatorResults({
               <div>
                 <p className="text-sm text-gray-600">Weekly Benefit</p>
                 <p className="text-2xl font-bold text-blue-600">
-                  {formatCurrency(result.results.weeklyBenefit)}
+                  {formatCurrency(Number(result.results.weeklyBenefit) || 0)}
                 </p>
               </div>
               <Calendar className="h-8 w-8 text-blue-600" />
@@ -247,7 +250,7 @@ export default function CalculatorResults({
               <div>
                 <p className="text-sm text-gray-600">Total Compensation</p>
                 <p className="text-2xl font-bold text-green-600">
-                  {formatCurrency(result.results.totalCompensation)}
+                  {formatCurrency(Number(result.results.totalCompensation) || 0)}
                 </p>
               </div>
               <DollarSign className="h-8 w-8 text-green-600" />
@@ -261,7 +264,7 @@ export default function CalculatorResults({
               <div>
                 <p className="text-sm text-gray-600">Medical Benefits</p>
                 <p className="text-2xl font-bold text-purple-600">
-                  {formatCurrency(result.results.medicalBenefits)}
+                  {formatCurrency(Number(result.results.medicalBenefits) || 0)}
                 </p>
               </div>
               <FileText className="h-8 w-8 text-purple-600" />
@@ -275,7 +278,7 @@ export default function CalculatorResults({
               <div>
                 <p className="text-sm text-gray-600">Total Benefits</p>
                 <p className="text-2xl font-bold text-orange-600">
-                  {formatCurrency(result.results.totalBenefits)}
+                  {formatCurrency(Number(result.results.totalBenefits) || 0)}
                 </p>
               </div>
               <Target className="h-8 w-8 text-orange-600" />
@@ -292,15 +295,15 @@ export default function CalculatorResults({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <p className="font-medium">Benefit Duration:</p>
-              <p className="text-gray-600">{result.results.duration} weeks</p>
+              <p className="text-gray-600">{String(result.results.duration || 0)} weeks</p>
             </div>
             <div>
               <p className="font-medium">Medical Coverage:</p>
-              <p className="text-gray-600">{result.results.maxMedicalBenefit}</p>
+              <p className="text-gray-600">{String(result.results.maxMedicalBenefit || 'N/A')}</p>
             </div>
             <div>
               <p className="font-medium">Vocational Rehabilitation:</p>
-              <p className="text-gray-600">{result.results.vocationalRehab}</p>
+              <p className="text-gray-600">{String(result.results.vocationalRehab || 'N/A')}</p>
             </div>
           </div>
         </CardContent>
@@ -317,7 +320,7 @@ export default function CalculatorResults({
               <div>
                 <p className="text-sm text-gray-600">Estimated Sentence</p>
                 <p className="text-2xl font-bold text-red-600">
-                  {result.results.estimatedSentenceMonths} months
+                  {Number(result.results.estimatedSentenceMonths) || 0} months
                 </p>
               </div>
               <Clock className="h-8 w-8 text-red-600" />
@@ -331,7 +334,7 @@ export default function CalculatorResults({
               <div>
                 <p className="text-sm text-gray-600">Probation Likelihood</p>
                 <p className="text-2xl font-bold text-green-600">
-                  {result.results.probationLikelihood}%
+                  {Number(result.results.probationLikelihood) || 0}%
                 </p>
               </div>
               <Percent className="h-8 w-8 text-green-600" />
@@ -345,7 +348,7 @@ export default function CalculatorResults({
               <div>
                 <p className="text-sm text-gray-600">Total Costs</p>
                 <p className="text-2xl font-bold text-blue-600">
-                  {formatCurrency(result.results.estimatedCosts.total)}
+                  {formatCurrency(Number((result.results.estimatedCosts as any)?.total) || 0)}
                 </p>
               </div>
               <DollarSign className="h-8 w-8 text-blue-600" />
@@ -360,7 +363,7 @@ export default function CalculatorResults({
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-            {result.results.possibleOutcomes.map((outcome: string, index: number) => (
+            {Array.isArray(result.results.possibleOutcomes) && (result.results.possibleOutcomes as string[]).map((outcome: string, index: number) => (
               <Badge key={index} variant="outline" className="justify-center p-2">
                 {outcome}
               </Badge>
@@ -384,7 +387,7 @@ export default function CalculatorResults({
                   <div>
                     <p className="text-sm text-gray-600">Monthly Child Support</p>
                     <p className="text-2xl font-bold text-blue-600">
-                      {formatCurrency(result.results.monthlyChildSupport)}
+                      {formatCurrency(Number(result.results.monthlyChildSupport) || 0)}
                     </p>
                   </div>
                   <DollarSign className="h-8 w-8 text-blue-600" />
@@ -398,7 +401,7 @@ export default function CalculatorResults({
                   <div>
                     <p className="text-sm text-gray-600">Annual Support</p>
                     <p className="text-2xl font-bold text-green-600">
-                      {formatCurrency(result.results.annualSupport)}
+                      {formatCurrency(Number(result.results.annualSupport) || 0)}
                     </p>
                   </div>
                   <Calendar className="h-8 w-8 text-green-600" />
@@ -412,7 +415,7 @@ export default function CalculatorResults({
                   <div>
                     <p className="text-sm text-gray-600">Income Share</p>
                     <p className="text-2xl font-bold text-purple-600">
-                      {result.results.payorIncomeShare.toFixed(1)}%
+                      {(Number(result.results.payorIncomeShare) || 0).toFixed(1)}%
                     </p>
                   </div>
                   <Percent className="h-8 w-8 text-purple-600" />
@@ -430,7 +433,7 @@ export default function CalculatorResults({
                   <div>
                     <p className="text-sm text-gray-600">Monthly Support</p>
                     <p className="text-2xl font-bold text-blue-600">
-                      {formatCurrency(result.results.recommendedMonthlySupport)}
+                      {formatCurrency(Number(result.results.recommendedMonthlySupport) || 0)}
                     </p>
                   </div>
                   <DollarSign className="h-8 w-8 text-blue-600" />
@@ -444,7 +447,7 @@ export default function CalculatorResults({
                   <div>
                     <p className="text-sm text-gray-600">Duration</p>
                     <p className="text-2xl font-bold text-green-600">
-                      {result.results.estimatedDurationYears} years
+                      {Number(result.results.estimatedDurationYears) || 0} years
                     </p>
                   </div>
                   <Clock className="h-8 w-8 text-green-600" />
@@ -458,7 +461,7 @@ export default function CalculatorResults({
                   <div>
                     <p className="text-sm text-gray-600">Total Amount</p>
                     <p className="text-2xl font-bold text-purple-600">
-                      {formatCurrency(result.results.totalSupportAmount)}
+                      {formatCurrency(Number(result.results.totalSupportAmount) || 0)}
                     </p>
                   </div>
                   <Target className="h-8 w-8 text-purple-600" />
@@ -476,7 +479,7 @@ export default function CalculatorResults({
                   <div>
                     <p className="text-sm text-gray-600">Net Marital Estate</p>
                     <p className="text-2xl font-bold text-blue-600">
-                      {formatCurrency(result.results.netMaritalEstate)}
+                      {formatCurrency(Number(result.results.netMaritalEstate) || 0)}
                     </p>
                   </div>
                   <DollarSign className="h-8 w-8 text-blue-600" />
@@ -490,7 +493,7 @@ export default function CalculatorResults({
                   <div>
                     <p className="text-sm text-gray-600">Estimated Share</p>
                     <p className="text-2xl font-bold text-green-600">
-                      {formatCurrency(result.results.estimatedShare)}
+                      {formatCurrency(Number(result.results.estimatedShare) || 0)}
                     </p>
                   </div>
                   <Target className="h-8 w-8 text-green-600" />

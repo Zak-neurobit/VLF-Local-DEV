@@ -23,6 +23,7 @@ export class ContentSyndicator {
   private prAPI: PRNewsWireAPI;
   private directoryAPI: LegalDirectoryAPI;
   private platforms: string[];
+  private baseUrl: string;
 
   constructor() {
     this.linkedInAPI = new LinkedInAPI();
@@ -30,6 +31,7 @@ export class ContentSyndicator {
     this.prAPI = new PRNewsWireAPI();
     this.directoryAPI = new LegalDirectoryAPI();
     this.platforms = [];
+    this.baseUrl = this.baseUrl || 'https://vasquezlawnc.com';
   }
 
   async initialize(platforms: string[]) {
@@ -108,7 +110,7 @@ export class ContentSyndicator {
         title: content.title,
         content: await this.convertToMediumFormat(content),
         tags: this.getMediumTags(content),
-        canonicalUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}`,
+        canonicalUrl: `${this.baseUrl}/blog/${content.slug}`,
         publishStatus: 'public',
         license: 'all-rights-reserved',
       };
@@ -151,7 +153,7 @@ export class ContentSyndicator {
             media: [
               {
                 status: 'READY',
-                originalUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}`,
+                originalUrl: `${this.baseUrl}/blog/${content.slug}`,
                 title: {
                   text: content.title,
                 },
@@ -368,7 +370,7 @@ export class ContentSyndicator {
         category: formatMap.category || formatMap.practiceArea,
         tags: formatMap.tags || formatMap.keywords,
         author: formatMap.author,
-        url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}`,
+        url: `${this.baseUrl}/blog/${content.slug}`,
       };
     }
 
@@ -376,7 +378,7 @@ export class ContentSyndicator {
     return {
       title: content.title,
       content: content.content,
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}`,
+      url: `${this.baseUrl}/blog/${content.slug}`,
     };
   }
 
@@ -385,13 +387,13 @@ export class ContentSyndicator {
     let mediumContent = content.content;
 
     // Add canonical link
-    mediumContent = `*Originally published at [Vasquez Law Firm](${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug})*\n\n${mediumContent}`;
+    mediumContent = `*Originally published at [Vasquez Law Firm](${this.baseUrl}/blog/${content.slug})*\n\n${mediumContent}`;
 
     // Add author bio
     mediumContent += `\n\n---\n\n**About Vasquez Law Firm**\n\n${this.getCompanyBoilerplate()}`;
 
     // Add CTA
-    mediumContent += `\n\n[Schedule a Free Consultation](${process.env.NEXT_PUBLIC_BASE_URL}/free-consultation) | Call 1-844-YO-PELEO`;
+    mediumContent += `\n\n[Schedule a Free Consultation](${this.baseUrl}/free-consultation) | Call 1-844-YO-PELEO`;
 
     return mediumContent;
   }
@@ -422,7 +424,7 @@ export class ContentSyndicator {
 
     const intro = intros[Math.floor(Math.random() * intros.length)];
 
-    return `${intro}\n\n${content.excerpt}\n\nRead more: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}\n\n#LegalAdvice #${this.formatHashtag(content.practiceArea)} #NorthCarolinaLaw #VasquezLawFirm`;
+    return `${intro}\n\n${content.excerpt}\n\nRead more: ${this.baseUrl}/blog/${content.slug}\n\n#LegalAdvice #${this.formatHashtag(content.practiceArea)} #NorthCarolinaLaw #VasquezLawFirm`;
   }
 
   private async postToLinkedInCompanyPage(content: BlogContent) {
@@ -466,7 +468,7 @@ Our ${content.author || 'legal team'} breaks down everything you need to know.
 ✅ ${this.extractKeyPoint(content, 1)}
 ✅ ${this.extractKeyPoint(content, 2)}
 
-Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
+Read the full article: ${this.baseUrl}/blog/${content.slug}
 
 💬 Have questions? Comment below or call 1-844-YO-PELEO
 
@@ -508,7 +510,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     prBody += `"${this.generateAttorneyQuote(content)}" said ${content.author || 'William Vasquez, Managing Attorney at Vasquez Law Firm'}.\n\n`;
 
     // Call to action
-    prBody += `The full guide is available at ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}. `;
+    prBody += `The full guide is available at ${this.baseUrl}/blog/${content.slug}. `;
     prBody += `Individuals seeking legal assistance can contact Vasquez Law Firm at 1-844-YO-PELEO (1-844-967-3536) for a free consultation.\n\n`;
 
     return prBody;
@@ -540,7 +542,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
       summary: content.excerpt,
       callToAction: {
         actionType: 'LEARN_MORE',
-        url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}`,
+        url: `${this.baseUrl}/blog/${content.slug}`,
       },
       media: [
         {
@@ -630,7 +632,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
       title: `Guest Post: ${content.title}`,
       content: await this.formatAsGuestPost(content),
       authorBio: this.getAuthorBio(content.author || 'William Vasquez'),
-      backlink: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}`,
+      backlink: `${this.baseUrl}/blog/${content.slug}`,
     };
 
     // Submit to sites (mock for now)
@@ -833,7 +835,7 @@ Read the full article: ${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}
     const intro = `*Editor's Note: This guest post provides valuable insights on ${content.practiceArea} law from the experienced team at Vasquez Law Firm.*\n\n`;
 
     // Add author resource box
-    const resourceBox = `\n\n---\n\n**About the Author**\n\n${this.getAuthorBio(content.author || 'William Vasquez')}\n\nThis article originally appeared on the [Vasquez Law Firm blog](${process.env.NEXT_PUBLIC_BASE_URL}/blog/${content.slug}).`;
+    const resourceBox = `\n\n---\n\n**About the Author**\n\n${this.getAuthorBio(content.author || 'William Vasquez')}\n\nThis article originally appeared on the [Vasquez Law Firm blog](${this.baseUrl}/blog/${content.slug}).`;
 
     return intro + guestContent + resourceBox;
   }

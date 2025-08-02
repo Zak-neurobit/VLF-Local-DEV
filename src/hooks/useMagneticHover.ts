@@ -37,7 +37,9 @@ export function useMagneticHover({
   const y = useSpring(0, springConfig);
 
   const scale = useTransform([x, y], ([latestX, latestY]: number[]) => {
-    const distance = Math.sqrt(latestX * latestX + latestY * latestY);
+    const safeX = latestX || 0;
+    const safeY = latestY || 0;
+    const distance = Math.sqrt(safeX * safeX + safeY * safeY);
     return 1 + (distance / radius) * 0.1;
   });
 

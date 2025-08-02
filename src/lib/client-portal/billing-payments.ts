@@ -456,7 +456,7 @@ export class ClientPortalBillingPayments {
         });
       }
 
-      const endDate = paymentSchedule[paymentSchedule.length - 1].dueDate;
+      const endDate = paymentSchedule[paymentSchedule.length - 1]?.dueDate || new Date();
 
       // Create payment plan
       const plan = await prisma.paymentPlan.create({
@@ -468,7 +468,7 @@ export class ClientPortalBillingPayments {
           installments: params.numberOfPayments,
           monthlyAmount: monthlyPayment,
           startDate,
-          nextPaymentDate: paymentSchedule[0].dueDate,
+          nextPaymentDate: paymentSchedule[0]?.dueDate || new Date(),
           status: 'ACTIVE',
           paidAmount: params.downPayment,
           remainingAmount: remainingBalance,
@@ -807,7 +807,7 @@ export class ClientPortalBillingPayments {
 
     let sequence = 1;
     if (lastInvoice) {
-      const lastSequence = parseInt(lastInvoice.invoiceNumber.split('-')[2]);
+      const lastSequence = parseInt(lastInvoice.invoiceNumber.split('-')[2] || '0');
       sequence = lastSequence + 1;
     }
 

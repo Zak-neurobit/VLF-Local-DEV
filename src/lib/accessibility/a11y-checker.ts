@@ -175,6 +175,8 @@ class AccessibilityChecker {
     for (let i = 1; i < headingLevels.length; i++) {
       const current = headingLevels[i];
       const previous = headingLevels[i - 1];
+      
+      if (current === undefined || previous === undefined) continue;
 
       if (current > previous + 1) {
         this.addIssue({

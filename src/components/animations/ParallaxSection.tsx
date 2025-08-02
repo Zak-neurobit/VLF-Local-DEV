@@ -32,6 +32,7 @@ export function ParallaxSection({ children, className = '', layers = 3 }: Parall
       {React.Children.map(children, (child, index) => {
         if (index >= layers) return null;
         const effect = layerEffects[index];
+        if (!effect) return null;
 
         return (
           <motion.div

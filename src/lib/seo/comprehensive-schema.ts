@@ -34,24 +34,30 @@ export function generateEnhancedAttorneySchema(attorney: {
       name: 'Vasquez Law Firm, PLLC',
       url: 'https://vasquezlawnc.com',
     },
-    alumniOf: attorney.education?.map(edu => ({
-      '@type': 'EducationalOrganization',
-      name: edu.name,
-      hasCredential: {
-        '@type': 'EducationalOccupationalCredential',
-        credentialCategory: edu.degree,
-        dateCreated: edu.year,
-      },
-    })),
+    alumniOf: attorney.education
+      ? attorney.education.map(edu => ({
+          '@type': 'EducationalOrganization',
+          name: edu.name,
+          hasCredential: {
+            '@type': 'EducationalOccupationalCredential',
+            credentialCategory: edu.degree,
+            dateCreated: edu.year,
+          },
+        }))
+      : undefined,
     knowsAbout: attorney.knowsAbout,
-    knowsLanguage: attorney.languages?.map(lang => ({
-      '@type': 'Language',
-      name: lang,
-    })),
-    memberOf: attorney.memberOf?.map(org => ({
-      '@type': 'Organization',
-      name: org,
-    })),
+    knowsLanguage: attorney.languages
+      ? attorney.languages.map(lang => ({
+          '@type': 'Language',
+          name: lang,
+        }))
+      : undefined,
+    memberOf: attorney.memberOf
+      ? attorney.memberOf.map(org => ({
+          '@type': 'Organization',
+          name: org,
+        }))
+      : undefined,
     award: attorney.award,
     hasOccupation: {
       '@type': 'Occupation',
@@ -159,10 +165,11 @@ export function generateEnhancedBreadcrumbSchema(
     image?: string;
   }>
 ) {
+  const lastItem = items.length > 0 ? items[items.length - 1] : null;
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    '@id': `${items[items.length - 1].url}#breadcrumb`,
+    '@id': `${lastItem ? lastItem.url : 'https://www.vasquezlawnc.com'}#breadcrumb`,
     itemListElement: items.map((item, index) => ({
       '@type': 'ListItem',
       position: index + 1,
@@ -307,10 +314,12 @@ export function generateServiceSchema(service: {
       '@type': 'AdministrativeArea',
       name: area,
     })),
-    availableLanguage: service.availableLanguages?.map(lang => ({
-      '@type': 'Language',
-      name: lang,
-    })),
+    availableLanguage: service.availableLanguages
+      ? service.availableLanguages.map(lang => ({
+          '@type': 'Language',
+          name: lang,
+        }))
+      : undefined,
     priceRange: service.priceRange || '$$',
     url: service.url,
     image: service.image,
@@ -379,23 +388,29 @@ export function generateEnhancedLocalBusinessSchema(business: {
       },
       hasMap: `https://www.google.com/maps/place/?q=place_id:${business.placeId}`,
     }),
-    openingHoursSpecification: business.hours?.map(spec => ({
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: spec.days,
-      opens: spec.opens,
-      closes: spec.closes,
-    })),
-    department: business.departments?.map(dept => ({
-      '@type': 'Organization',
-      name: dept.name,
-      telephone: dept.telephone,
-      email: dept.email,
-    })),
-    amenityFeature: business.amenities?.map(amenity => ({
-      '@type': 'LocationFeatureSpecification',
-      name: amenity,
-      value: true,
-    })),
+    openingHoursSpecification: business.hours
+      ? business.hours.map(spec => ({
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: spec.days,
+          opens: spec.opens,
+          closes: spec.closes,
+        }))
+      : undefined,
+    department: business.departments
+      ? business.departments.map(dept => ({
+          '@type': 'Organization',
+          name: dept.name,
+          telephone: dept.telephone,
+          email: dept.email,
+        }))
+      : undefined,
+    amenityFeature: business.amenities
+      ? business.amenities.map(amenity => ({
+          '@type': 'LocationFeatureSpecification',
+          name: amenity,
+          value: true,
+        }))
+      : undefined,
     paymentAccepted: business.paymentAccepted,
     priceRange: '$$',
     image: [

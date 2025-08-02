@@ -415,7 +415,7 @@ export class ABTestEngine extends EventEmitter {
         // Calculate uplift compared to control (first variant)
         const controlVariant = test.variants[0];
         let uplift = 0;
-        if (variant.id !== controlVariant.id) {
+        if (controlVariant && variant.id !== controlVariant.id) {
           const controlParticipants = test.participants.filter(
             p => p.variantId === controlVariant.id
           );
@@ -530,7 +530,7 @@ export class ABTestEngine extends EventEmitter {
     }
 
     // Fallback to first variant
-    return variants[0].id;
+    return variants[0]?.id || '';
   }
 
   private hashString(str: string): number {

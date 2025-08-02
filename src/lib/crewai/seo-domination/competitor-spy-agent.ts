@@ -401,8 +401,8 @@ export class CompetitorSpyAgent {
         rankings.push({
           keyword,
           position,
-          change: previousRanking
-            ? position - (previousRanking as { position: number }).position
+          change: previousRanking && previousRanking.position !== undefined
+            ? position - previousRanking.position
             : 0,
           url: `https://${competitor.domain}/${this.guessRankingPage(keyword, competitor)}`,
         });
@@ -488,7 +488,7 @@ export class CompetitorSpyAgent {
         {
           sourceUrl: 'https://charlotteobserver.com/article123',
           targetUrl: `https://${competitor.domain}`,
-          anchorText: competitor.practiceAreas[0].replace('_', ' ') + ' lawyer',
+          anchorText: (competitor.practiceAreas[0] || 'legal').replace('_', ' ') + ' lawyer',
           domainAuthority: 75,
           isDoFollow: true,
           dateFound: new Date(),
@@ -1183,7 +1183,7 @@ Consider our resources and potential impact.
           if (!opportunities.has(domain)) {
             opportunities.set(domain, new Set());
           }
-          opportunities.get(domain)!.add(intel.domain);
+          opportunities.get(domain)?.add(intel.domain);
         }
       }
     }

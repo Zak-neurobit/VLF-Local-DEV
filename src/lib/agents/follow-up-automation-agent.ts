@@ -199,10 +199,10 @@ export class FollowUpAutomationAgent extends Agent {
 
     return {
       firstName: contact?.firstName || 'Friend',
-      practiceArea: this.formatPracticeArea(data.practiceAreas[0]),
+      practiceArea: this.formatPracticeArea(data.practiceAreas[0] || 'immigration'),
       urgencyText: this.getUrgencyText(data.urgencyLevel, data.languagePreference),
       caseValueText: this.getCaseValueText(data.leadScore, data.languagePreference),
-      attorneyName: this.assignAttorney(data.practiceAreas[0]),
+      attorneyName: this.assignAttorney(data.practiceAreas[0] || 'immigration'),
       nextStepCTA: this.getNextStepCTA(data.tier, data.languagePreference),
     };
   }
@@ -405,6 +405,10 @@ P.S. Immigration laws change frequently. Follow us for updates: [SOCIAL_LINKS]
     if (stepIndex >= sequence.steps.length) return;
 
     const step = sequence.steps[stepIndex];
+    if (!step) {
+      logger.error(`Step at index ${stepIndex} not found in sequence`);
+      return;
+    }
 
     // Schedule the action based on the delay
     delay(step.delay * 60 * 1000).then(async () => {
@@ -444,7 +448,7 @@ P.S. Immigration laws change frequently. Follow us for updates: [SOCIAL_LINKS]
         // Email sending via GHL - would need to implement this method
         logger.info('Would send email:', {
           contactId: sequence.contactId,
-          subject: content.split('\n')[0].replace('Subject: ', ''),
+          subject: content.split('\n')[0]?.replace('Subject: ', '') || '',
           body: content.split('\n').slice(2).join('\n'),
         });
         break;
@@ -532,7 +536,7 @@ P.S. Immigration laws change frequently. Follow us for updates: [SOCIAL_LINKS]
       success: true,
       sequenceId: sequence.contactId,
       tasksCreated: sequence.steps.length,
-      firstFollowUp: new Date(Date.now() + (sequence.steps[0]?.delay || 0) * 60 * 1000),
+      firstFollowUp: new Date(Date.now() + ((sequence.steps[0]?.delay || 0) * 60 * 1000)),
     };
   }
 }

@@ -692,6 +692,7 @@ Format as JSON with:
     data: { trending: string[]; news: unknown[]; competitorHits: unknown[] }
   ): Promise<ViralContentStrategy> {
     const template = this.VIRAL_TEMPLATES[contentType as keyof typeof this.VIRAL_TEMPLATES];
+    const defaultHooks = ['Discover the truth about...'];
 
     return {
       contentType: contentType as
@@ -701,7 +702,7 @@ Format as JSON with:
         | 'trending'
         | 'interactive'
         | 'humorous',
-      hook: template.hooks[0],
+      hook: template?.hooks?.[0] || defaultHooks[0] || 'Discover the truth about...',
       structure: this.generateContentStructure(contentType),
       expectedEngagement: this.predictEngagement(contentType, data),
       targetAudience: this.identifyTargetAudience(contentType),

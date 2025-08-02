@@ -362,7 +362,7 @@ export function NearMeTemplate({
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              {serviceList[language].map((service, index) => (
+              {(serviceList && serviceList[language] ? serviceList[language] : []).map((service, index) => (
                 <motion.div
                   key={service}
                   initial={{ opacity: 0, y: 20 }}

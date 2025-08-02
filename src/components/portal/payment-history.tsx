@@ -164,7 +164,7 @@ export default function PaymentHistory({ clientId }: PaymentHistoryProps) {
         <div className="bg-white rounded-lg border border-gray-200 p-4">
           <h3 className="text-sm font-medium text-gray-500">Last Payment</h3>
           <p className="mt-2 text-sm text-gray-900">
-            {payments.length > 0 ? formatDate(payments[0].processedAt) : 'No payments'}
+            {payments.length > 0 && payments[0] ? formatDate(payments[0].processedAt) : 'No payments'}
           </p>
         </div>
       </div>

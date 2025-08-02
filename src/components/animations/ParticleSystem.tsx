@@ -68,7 +68,7 @@ export function ParticleSystem({
       },
       life: 1,
       opacity: 1,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: colors[Math.floor(Math.random() * colors.length)] || '#6B1F2E',
     }));
 
     // Mouse tracking

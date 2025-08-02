@@ -762,7 +762,10 @@ export class AgentOrchestrator extends EventEmitter {
 
       // Skip weekends
       if (dayOfWeek !== 0 && dayOfWeek !== 6) {
-        dates.push(today.toISOString().split('T')[0]);
+        const dateStr = today.toISOString().split('T')[0];
+        if (dateStr) {
+          dates.push(dateStr);
+        }
       }
 
       daysAdded++;

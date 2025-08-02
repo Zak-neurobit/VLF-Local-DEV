@@ -74,8 +74,8 @@ export function RetellCallbackWidget({
     phone: '',
     email: '',
     preferredTime: '',
-    preferredDate: new Date().toISOString().split('T')[0],
-    language: locale,
+    preferredDate: new Date().toISOString().split('T')[0] || '',
+    language: locale ?? 'en',
     topic: 'general',
     urgency: 'normal',
     message: ''

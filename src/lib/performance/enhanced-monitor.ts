@@ -68,8 +68,12 @@ class EnhancedPerformanceMonitor {
       // LCP Observer
       const lcpObserver = new PerformanceObserver(list => {
         const entries = list.getEntries();
-        const lastEntry = entries[entries.length - 1];
-        this.metrics.lcp = lastEntry.startTime;
+        if (entries.length > 0) {
+          const lastEntry = entries[entries.length - 1];
+          if (lastEntry) {
+            this.metrics.lcp = lastEntry.startTime;
+          }
+        }
       });
       lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
       this.observers.push(lcpObserver);

@@ -550,7 +550,7 @@ Enfócate en análisis factual e implicaciones prácticas para profesionales leg
       post => post.engagement.likes + post.engagement.shares + post.engagement.comments > 100
     );
 
-    const highRelevance = practiceAreaRelevance[0]?.relevanceScore > 0.8;
+    const highRelevance = (practiceAreaRelevance[0]?.relevanceScore ?? 0) > 0.8;
 
     if (hasUrgentContent && highEngagement) return 'urgent';
     if (hasUrgentContent || (highEngagement && highRelevance)) return 'high';
@@ -567,7 +567,7 @@ Enfócate en análisis factual e implicaciones prácticas para profesionales leg
       actionableKeywords.some(keyword => post.content.toLowerCase().includes(keyword))
     );
 
-    const sufficientRelevance = practiceAreaRelevance[0]?.relevanceScore > 0.5;
+    const sufficientRelevance = (practiceAreaRelevance[0]?.relevanceScore ?? 0) > 0.5;
     const sufficientEngagement = posts.length >= 3;
 
     return hasActionableContent && sufficientRelevance && sufficientEngagement;
@@ -654,7 +654,7 @@ Enfócate en análisis factual e implicaciones prácticas para profesionales leg
     ];
 
     const riskAlerts = negativeTopics
-      .filter(topic => topic.practiceAreaRelevance[0]?.relevanceScore > 0.6)
+      .filter(topic => (topic.practiceAreaRelevance[0]?.relevanceScore ?? 0) > 0.6)
       .map(topic => `Risk alert: ${topic.topic}`)
       .slice(0, 3);
 

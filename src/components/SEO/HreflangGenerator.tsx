@@ -182,7 +182,7 @@ export class HreflangGenerator {
    */
   private static getCleanPath(pathname: string): string {
     // Remove query parameters and hash
-    const pathWithoutQuery = pathname.split('?')[0].split('#')[0];
+    const pathWithoutQuery = pathname.split('?')[0]?.split('#')[0] || pathname;
 
     // If it's not a Spanish path, just clean it up
     if (!pathWithoutQuery.startsWith('/es')) {

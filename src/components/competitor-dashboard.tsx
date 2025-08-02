@@ -34,7 +34,7 @@ function getActivityIcon(activityType: string): string {
     service_expansion: '🚀',
     default: '📌',
   };
-  return icons[activityType] || icons.default;
+  return icons[activityType] ?? icons.default ?? '📌';
 }
 
 function getActivityColor(activityType: string): string {
@@ -48,7 +48,7 @@ function getActivityColor(activityType: string): string {
     service_expansion: 'bg-pink-100 text-pink-800',
     default: 'bg-gray-100 text-gray-800',
   };
-  return colors[activityType] || colors.default;
+  return colors[activityType] ?? colors.default ?? 'bg-gray-100 text-gray-800';
 }
 
 function getImpactBadge(impact: string): string {
@@ -58,7 +58,7 @@ function getImpactBadge(impact: string): string {
     low: 'bg-green-100 text-green-800',
     default: 'bg-gray-100 text-gray-800',
   };
-  return badges[impact] || badges.default;
+  return badges[impact] ?? badges.default ?? 'bg-gray-100 text-gray-800';
 }
 
 export default function CompetitorDashboard({ className = '' }: CompetitorDashboardProps) {

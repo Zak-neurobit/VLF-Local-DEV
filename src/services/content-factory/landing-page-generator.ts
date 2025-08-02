@@ -50,6 +50,13 @@ export class LandingPageGenerator {
     this.localSEOService = new LocalSEOService();
   }
 
+  private getOpenAIContent(response: OpenAI.Chat.Completions.ChatCompletion): string {
+    if (response.choices && response.choices.length > 0 && response.choices[0].message) {
+      return response.choices[0].message.content || '';
+    }
+    return '';
+  }
+
   async initialize() {
     logger.info('Initializing Landing Page Generator');
   }
@@ -276,7 +283,7 @@ Format as JSON with keys: headline, subheadline, benefits, cta, trustIndicators`
       max_tokens: 500,
     });
 
-    const heroData = JSON.parse(response.choices[0].message.content || '{}');
+    const heroData = JSON.parse(this.getOpenAIContent(response) || '{}');
     return { ...heroData, order: 0 };
   }
 
@@ -305,7 +312,7 @@ Make it specific and authentic, not generic. About 200-300 words.`;
     return {
       type: 'local-expertise',
       title: `Your Trusted ${options.city} ${this.formatPracticeArea(options.practiceArea)} Lawyers`,
-      content: response.choices[0].message.content || '',
+      content: this.getOpenAIContent(response),
     };
   }
 
@@ -338,7 +345,7 @@ About 300-400 words. Make it specific to ${options.city}.`;
     return {
       type: 'practice-area',
       title: `${this.formatPracticeArea(options.practiceArea)} Services in ${options.city}`,
-      content: response.choices[0].message.content || '',
+      content: this.getOpenAIContent(response),
     };
   }
 
@@ -369,7 +376,7 @@ Make it visual and impactful. Include 4-6 key statistics.`;
     return {
       type: 'statistics',
       title: `${options.city} by the Numbers`,
-      content: response.choices[0].message.content || '',
+      content: this.getOpenAIContent(response),
       visualData: stats,
     };
   }
@@ -399,7 +406,7 @@ Make them authentic, specific, and emotionally compelling. Vary the length and s
     return {
       type: 'testimonials',
       title: `What ${options.city} Clients Say About Us`,
-      content: response.choices[0].message.content || '',
+      content: this.getOpenAIContent(response),
     };
   }
 
@@ -430,7 +437,7 @@ Make it genuinely helpful, not just promotional.`;
     return {
       type: 'resources',
       title: `${options.city} Legal Resources`,
-      content: response.choices[0].message.content || '',
+      content: this.getOpenAIContent(response),
       resources,
     };
   }
@@ -532,7 +539,7 @@ Write with empathy, understanding, and hope. About 800-1000 words total.`;
     });
 
     return {
-      content: response.choices[0].message.content || '',
+      content: this.getOpenAIContent(response),
       sections: this.parseContentSections(response.choices[0].message.content || ''),
     };
   }
@@ -565,7 +572,7 @@ Use numbers, percentages, and concrete data throughout. About 800-1000 words.`;
     });
 
     return {
-      content: response.choices[0].message.content || '',
+      content: this.getOpenAIContent(response),
       sections: this.parseContentSections(response.choices[0].message.content || ''),
     };
   }
@@ -595,7 +602,7 @@ Make testimonials specific, varied, and authentic. About 800-1000 words.`;
     });
 
     return {
-      content: response.choices[0].message.content || '',
+      content: this.getOpenAIContent(response),
       sections: this.parseContentSections(response.choices[0].message.content || ''),
     };
   }
@@ -628,7 +635,7 @@ Answer questions thoroughly while building trust. About 800-1000 words.`;
     });
 
     return {
-      content: response.choices[0].message.content || '',
+      content: this.getOpenAIContent(response),
       sections: this.parseContentSections(response.choices[0].message.content || ''),
     };
   }
@@ -658,7 +665,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     });
 
     return {
-      content: response.choices[0].message.content || '',
+      content: this.getOpenAIContent(response),
       sections: this.parseContentSections(response.choices[0].message.content || ''),
     };
   }
@@ -864,7 +871,7 @@ Professional, informative, and trustworthy tone. About 800-1000 words.`;
     distance: number;
   } | null {
     const offices = this.getNearbyOffices(city);
-    return offices[0] || this.getDefaultOffice();
+    return offices.length > 0 ? offices[0] : this.getDefaultOffice();
   }
 
   private getAllOffices(): Array<{

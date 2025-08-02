@@ -540,6 +540,10 @@ class EnhancedAgentDeployer {
     }
 
     const lastSnapshot = this.deploymentSnapshots[this.deploymentSnapshots.length - 1];
+    if (!lastSnapshot) {
+      logger.error('Unable to retrieve last snapshot');
+      return;
+    }
 
     // Rollback each deployed agent
     for (const result of this.deploymentResults) {
@@ -602,10 +606,8 @@ class EnhancedAgentDeployer {
       if (!groups.has(priority)) {
         groups.set(priority, []);
       }
-      const group = groups.get(priority);
-      if (group) {
-        group.push(agent);
-      }
+      const group = groups.get(priority)!;
+      group.push(agent);
     });
 
     // Sort by priority (ascending)
@@ -651,7 +653,7 @@ class EnhancedAgentDeployer {
 
     const totalDeploymentTime = this.deploymentResults
       .filter(r => r.deploymentTime)
-      .reduce((sum, r) => sum + r.deploymentTime!, 0);
+      .reduce((sum, r) => sum + (r.deploymentTime || 0), 0);
 
     logger.info(`⏱️  Total Deployment Time: ${totalDeploymentTime}ms`);
 

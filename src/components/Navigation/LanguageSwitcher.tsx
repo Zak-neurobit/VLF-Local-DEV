@@ -153,8 +153,8 @@ export function LanguageSwitcher({
         aria-label="Select language"
       >
         <GlobeAltIcon className="w-4 h-4" />
-        {showFlags && <span>{currentLanguage.flag}</span>}
-        {showLabels && <span>{currentLanguage.name}</span>}
+        {showFlags && currentLanguage && <span>{currentLanguage.flag}</span>}
+        {showLabels && currentLanguage && <span>{currentLanguage.name}</span>}
         <ChevronDownIcon className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 

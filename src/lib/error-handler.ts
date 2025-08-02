@@ -195,11 +195,14 @@ class GlobalErrorHandler {
   // Get error statistics
   getErrorStats() {
     const groups = this.groupSimilarErrors();
-    const stats = Array.from(groups.entries()).map(([key, items]) => ({
-      error: key,
-      count: items.length,
-      lastOccurred: items[items.length - 1].context.timestamp,
-    }));
+    const stats = Array.from(groups.entries()).map(([key, items]) => {
+      const lastItem = items.length > 0 ? items[items.length - 1] : null;
+      return {
+        error: key,
+        count: items.length,
+        lastOccurred: lastItem ? lastItem.context.timestamp : undefined,
+      };
+    });
 
     return stats.sort((a, b) => b.count - a.count);
   }

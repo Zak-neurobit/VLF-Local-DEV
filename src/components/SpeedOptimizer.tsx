@@ -58,6 +58,8 @@ export function SpeedOptimizer() {
       const lcpObserver = new PerformanceObserver(list => {
         const entries = list.getEntries();
         const lastEntry = entries[entries.length - 1];
+        if (!lastEntry) return;
+        
         logger.info('LCP:', lastEntry.startTime);
 
         // Send to analytics

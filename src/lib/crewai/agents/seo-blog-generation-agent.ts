@@ -705,7 +705,7 @@ Provide SEO optimization in this JSON format:
   }
 
   private generateFallbackSEO(request: SEOBlogGenerationRequest): SEOOptimization {
-    const primaryKeyword = request.targetKeywords[0];
+    const primaryKeyword = request.targetKeywords[0] || 'legal services';
 
     return {
       title: `${request.practiceArea} ${primaryKeyword} | Vasquez Law Firm`,
@@ -781,7 +781,7 @@ Provide SEO optimization in this JSON format:
     let score = 0;
 
     // Title optimization (20 points)
-    if (seo.title.includes(request.targetKeywords[0])) score += 20;
+    if (request.targetKeywords[0] && seo.title.includes(request.targetKeywords[0])) score += 20;
 
     // Meta description (15 points)
     if (seo.metaDescription.length >= 120 && seo.metaDescription.length <= 155) score += 15;

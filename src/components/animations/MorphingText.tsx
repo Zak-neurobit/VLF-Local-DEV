@@ -18,12 +18,12 @@ export function MorphingText({
   type = 'morph',
 }: MorphingTextProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const currentText = texts[currentIndex];
+  const currentText = texts[currentIndex] || '';
 
   // Call all hooks unconditionally at the top level
-  const scrambleResult = useTextScramble(currentText);
-  const glitchResult = useGlitchText(currentText);
-  const typewriterResult = useTypewriter(currentText);
+  const scrambleResult = useTextScramble(currentText || '');
+  const glitchResult = useGlitchText(currentText || '');
+  const typewriterResult = useTypewriter(currentText || '');
 
   useEffect(() => {
     const timer = setInterval(() => {

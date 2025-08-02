@@ -305,7 +305,7 @@ export class AppointmentBookingHandler {
     // Filter by time preference
     if (preferences.time) {
       filteredSlots = filteredSlots.filter(slot => {
-        const hour = parseInt(slot.time.split(':')[0]);
+        const hour = parseInt(slot.time.split(':')[0] || '0');
         if (preferences.time === 'morning' && hour >= 9 && hour < 12) return true;
         if (preferences.time === 'afternoon' && hour >= 12 && hour < 17) return true;
         if (preferences.time === 'evening' && hour >= 17 && hour < 20) return true;
@@ -382,7 +382,7 @@ export class AppointmentBookingHandler {
           if (Math.random() > 0.3) {
             // 70% availability
             slots.push({
-              date: current.toISOString().split('T')[0],
+              date: current.toISOString().split('T')[0] || '',
               time,
               calendarId: 'mock-calendar',
               attorneyName: 'William Vasquez',

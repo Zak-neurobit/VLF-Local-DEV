@@ -29,8 +29,9 @@ export default function LazySection({
     if (!ref.current) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !isInView) {
+      (entries) => {
+        const entry = entries[0];
+        if (entry && entry.isIntersecting && !isInView) {
           setIsInView(true);
           onInView?.();
           observer.disconnect();
@@ -85,8 +86,9 @@ export function useLazyLoad(options?: IntersectionObserverInit) {
     if (!ref.current) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+      (entries) => {
+        const entry = entries[0];
+        if (entry && entry.isIntersecting) {
           setIsInView(true);
           observer.disconnect();
         }

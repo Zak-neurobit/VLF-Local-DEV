@@ -616,7 +616,7 @@ export class AutonomousCrewSystem {
       max_tokens: agent.maxTokens,
     });
 
-    const content = response.choices[0].message.content || '';
+    const content = response.choices[0]?.message?.content || '';
 
     // Process the result based on task type
     await this.processTaskResult(task, content);

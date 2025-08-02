@@ -112,7 +112,9 @@ export class HreflangUtils {
 
     entries.forEach(entry => {
       const langCode = entry.hreflang.split('-')[0]; // Extract 'en' or 'es' from 'en-US' or 'es-MX'
-      alternates[langCode] = entry.href;
+      if (langCode) {
+        alternates[langCode] = entry.href;
+      }
     });
 
     return alternates;
@@ -166,7 +168,7 @@ export class HreflangUtils {
       const parts = pathname.split('/');
       const stateOrCity = parts[parts.length - 1];
 
-      if (this.BILINGUAL_LOCATIONS.includes(stateOrCity)) {
+      if (stateOrCity && this.BILINGUAL_LOCATIONS.includes(stateOrCity)) {
         if (parts.length === 3) {
           // City page
           entries.push(

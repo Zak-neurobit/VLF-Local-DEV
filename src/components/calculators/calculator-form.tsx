@@ -286,7 +286,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
               max={field.max || 100}
               step={1}
               value={[typeof value === 'number' ? value : field.min || 0]}
-              onValueChange={values => handleInputChange(key, values[0])}
+              onValueChange={values => handleInputChange(key, values[0] ?? field.min ?? 0)}
               className="w-full"
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}

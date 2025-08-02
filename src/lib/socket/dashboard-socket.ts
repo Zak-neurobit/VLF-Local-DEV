@@ -227,7 +227,7 @@ class DashboardSocketManager {
     };
 
     const taskList = tasks[type as keyof typeof tasks] || tasks.seo;
-    return taskList[Math.floor(Math.random() * taskList.length)];
+    return taskList[Math.floor(Math.random() * taskList.length)] || 'Processing task...';
   }
 
   private getRandomStatus(): 'idle' | 'working' | 'completed' | 'error' {
@@ -242,9 +242,9 @@ class DashboardSocketManager {
     const random = Math.random();
     let sum = 0;
 
-    for (let i = 0; i < weights.length; i++) {
-      sum += weights[i];
-      if (random <= sum) {
+    for (let i = 0; i < weights.length && i < statuses.length; i++) {
+      sum += weights[i] || 0;
+      if (random <= sum && statuses[i]) {
         return statuses[i];
       }
     }
@@ -261,7 +261,18 @@ class DashboardSocketManager {
       { type: 'seo', message: 'Improved ranking for "Charlotte personal injury lawyer"' },
     ];
 
-    const activity = activities[Math.floor(Math.random() * activities.length)];
+    const index = Math.floor(Math.random() * activities.length);
+    const activity = activities[index];
+    
+    if (!activity) {
+      return {
+        id: `activity-${Date.now()}-${Math.random()}`,
+        type: 'content',
+        message: 'System activity',
+        timestamp: new Date(),
+        success: true,
+      };
+    }
 
     return {
       id: `activity-${Date.now()}-${Math.random()}`,

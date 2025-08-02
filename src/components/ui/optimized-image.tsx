@@ -122,7 +122,7 @@ export function useImageLazyLoad(threshold = 0.1) {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry?.isIntersecting) {
           setIsIntersecting(true);
           observer.disconnect();
         }

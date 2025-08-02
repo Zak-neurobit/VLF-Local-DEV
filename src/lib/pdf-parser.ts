@@ -2,7 +2,7 @@
 export async function parsePDF(buffer: Buffer): Promise<{ text: string; numpages: number }> {
   try {
     // Dynamic import to avoid initialization issues
-    const pdfParse = await import('pdf-parse/lib/pdf-parse.js');
+    const pdfParse = await import('pdf-parse/lib/pdf-parse.js' as any);
 
     // Use the parser without the test file
     const options = {

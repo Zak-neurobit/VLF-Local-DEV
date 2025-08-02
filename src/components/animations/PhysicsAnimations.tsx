@@ -76,7 +76,7 @@ export function GravitySimulation() {
           vx: (Math.random() - 0.5) * 10,
           vy: (Math.random() - 0.5) * 10,
           radius: Math.random() * 5 + 2,
-          color: colors[Math.floor(Math.random() * colors.length)],
+          color: colors[Math.floor(Math.random() * colors.length)] || '#6B1F2E',
           life: 1,
         });
       }
@@ -90,6 +90,7 @@ export function GravitySimulation() {
 
       for (let i = particles.length - 1; i >= 0; i--) {
         const particle = particles[i];
+        if (!particle) continue;
 
         // Apply physics
         particle.vy += gravity;

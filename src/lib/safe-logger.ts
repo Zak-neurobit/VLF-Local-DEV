@@ -397,13 +397,21 @@ export const logBusinessEvent = (event: string, details: Record<string, unknown>
 // Error to log metadata helper
 export const errorToLogMeta = (error: unknown): Record<string, unknown> => {
   if (error instanceof Error) {
-    return {
+    const errorObj: Record<string, unknown> = {
       message: error.message,
       name: error.name,
       stack: error.stack,
-      // Include any custom error properties
-      ...(error as Record<string, unknown>),
     };
+    
+    // Include any custom error properties
+    const errorAsAny = error as any;
+    Object.keys(errorAsAny).forEach(key => {
+      if (!(key in errorObj) && key !== 'message' && key !== 'name' && key !== 'stack') {
+        errorObj[key] = errorAsAny[key];
+      }
+    });
+    
+    return errorObj;
   }
 
   if (typeof error === 'object' && error !== null) {

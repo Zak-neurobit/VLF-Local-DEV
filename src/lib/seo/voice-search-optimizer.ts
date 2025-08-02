@@ -169,10 +169,10 @@ export class VoiceSearchOptimizer {
     const sections = content.split(/^#{1,3}\s+/gm);
     
     for (let i = 0; i < sections.length - 1; i++) {
-      const heading = sections[i].trim();
+      const heading = sections[i]?.trim();
       const sectionContent = sections[i + 1];
 
-      if (this.isAlreadyQuestion(heading)) {
+      if (heading && sectionContent && this.isAlreadyQuestion(heading)) {
         const directAnswer = this.extractDirectAnswer(sectionContent);
         if (directAnswer) {
           const voiceLength = directAnswer.split(' ').length;

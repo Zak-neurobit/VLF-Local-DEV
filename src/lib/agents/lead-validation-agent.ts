@@ -516,7 +516,7 @@ export class LeadValidationAgent extends Agent {
       if (!contact) {
         const nameParts = (leadData.name || 'Unknown').split(' ');
         contact = await this.ghl.upsertContact({
-          firstName: nameParts[0],
+          firstName: nameParts[0] || 'Unknown',
           lastName: nameParts.slice(1).join(' '),
           email: leadData.email || '',
           phone: leadData.phone || '',
@@ -532,7 +532,7 @@ export class LeadValidationAgent extends Agent {
       // Update contact with validation data
       const fallbackNameParts = (leadData.name || 'Unknown').split(' ');
       contact = await this.ghl.upsertContact({
-        firstName: contact.firstName || fallbackNameParts[0],
+        firstName: contact.firstName || fallbackNameParts[0] || 'Unknown',
         lastName: contact.lastName || fallbackNameParts.slice(1).join(' '),
         email: leadData.email || '',
         phone: leadData.phone || '',
@@ -566,9 +566,9 @@ export class LeadValidationAgent extends Agent {
 
       await this.ghl.createOpportunity({
         contactId: contact.id,
-        name: `${leadData.name} - ${validation.practiceAreas[0]}`,
+        name: `${leadData.name} - ${validation.practiceAreas[0] || 'General'}`,
         pipelineId: process.env.GHL_PIPELINE_ID!,
-        stageId: pipelineStages[validation.tier],
+        stageId: pipelineStages[validation.tier] || pipelineStages.cold || 'cold-leads-stage',
         value: validation.estimatedCaseValue,
       });
 
