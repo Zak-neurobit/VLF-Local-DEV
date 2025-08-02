@@ -1,10 +1,10 @@
 import { MetadataRoute } from 'next';
-import { getAllCities } from '@/lib/location-utils';
+import { HIGH_PRIORITY_LOCATIONS } from '@/lib/location-utils';
 import { practiceAreas } from '@/data/practice-areas';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vasquezlawnc.com';
-  
+
   // Core pages
   const corePages = [
     '',
@@ -64,10 +64,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/attorneys/roselyn-torrellas',
   ];
 
-  const spanishAttorneyPages = attorneyPages.map(page => `/es${page.replace('/attorneys', '/abogados')}`);
+  const spanishAttorneyPages = attorneyPages.map(
+    page => `/es${page.replace('/attorneys', '/abogados')}`
+  );
 
-  // Near me pages
-  const cities = getAllCities();
+  // Near me pages - using high priority locations only to optimize build
+  const cities = HIGH_PRIORITY_LOCATIONS;
   const nearMePages: string[] = [];
   const spanishNearMePages: string[] = [];
 
@@ -87,21 +89,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     services.forEach(service => {
       nearMePages.push(`/near-me/${citySlug}-${service}-near-me`);
-      
+
       // Spanish near me pages
       const spanishServiceMap: Record<string, string> = {
-        'immigration': 'abogado-inmigracion',
+        immigration: 'abogado-inmigracion',
         'personal-injury': 'abogado-lesiones-personales',
         'workers-compensation': 'abogado-compensacion-laboral',
         'criminal-defense': 'abogado-defensa-criminal',
         'family-law': 'abogado-derecho-familia',
         'car-accidents': 'abogado-accidente-auto',
-        'dui': 'abogado-dui',
-        'divorce': 'abogado-divorcio',
+        dui: 'abogado-dui',
+        divorce: 'abogado-divorcio',
         'spanish-speaking': 'abogado-que-habla-español',
       };
-      
-      spanishNearMePages.push(`/cerca-de-mi/${citySlug}-${spanishServiceMap[service] || service}-cerca-de-mi`);
+
+      spanishNearMePages.push(
+        `/cerca-de-mi/${citySlug}-${spanishServiceMap[service] || service}-cerca-de-mi`
+      );
     });
   });
 
@@ -122,9 +126,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: route.includes('blog') ? 'daily' : 'weekly',
-    priority: route === '' || route === '/es' ? 1.0 : 
-             route.includes('practice-areas') || route.includes('areas-de-practica') ? 0.9 :
-             route.includes('near-me') || route.includes('cerca-de-mi') ? 0.8 :
-             0.7,
+    priority:
+      route === '' || route === '/es'
+        ? 1.0
+        : route.includes('practice-areas') || route.includes('areas-de-practica')
+          ? 0.9
+          : route.includes('near-me') || route.includes('cerca-de-mi')
+            ? 0.8
+            : 0.7,
   }));
 }
