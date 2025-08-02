@@ -64,7 +64,7 @@ const nextConfig = {
   },
 
   // Increase build timeout for generating many pages
-  staticPageGenerationTimeout: 180,
+  staticPageGenerationTimeout: 600, // Increased to 10 minutes
 
   // Force static generation
   generateBuildId: async () => {

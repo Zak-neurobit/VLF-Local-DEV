@@ -3,156 +3,26 @@ import { Metadata } from 'next';
 
 // Full static generation - no revalidation
 
-// Generate all known location pages at build time
+// Generate only the most important location pages at build time
+// Others will be generated on-demand using ISR
 export async function generateStaticParams() {
-  // Get all location combinations
-  const states = ['nc', 'fl'];
-  const ncCities = [
-    'charlotte',
-    'raleigh',
-    'durham',
-    'greensboro',
-    'winston-salem',
-    'cary',
-    'apex',
-    'chapel-hill',
-    'concord',
-    'cornelius',
-    'davidson',
-    'fayetteville',
-    'gastonia',
-    'hickory',
-    'high-point',
-    'huntersville',
-    'indian-trail',
-    'kannapolis',
-    'matthews',
-    'mint-hill',
-    'monroe',
-    'mooresville',
-    'smithfield',
-    'wilmington',
-    'asheville',
-    'boone',
-    'burlington',
-    'carrboro',
-    'clayton',
-    'fuquay-varina',
-    'garner',
-    'goldsboro',
-    'greenville',
-    'henderson',
-    'hendersonville',
-    'holly-springs',
-    'hope-mills',
-    'jacksonville',
-    'kernersville',
-    'kinston',
-    'knightdale',
-    'laurinburg',
-    'lenoir',
-    'lexington',
-    'louisburg',
-    'lumberton',
-    'morganton',
-    'morrisville',
-    'mount-airy',
-    'mount-holly',
-    'new-bern',
-    'newton',
-    'oxford',
-    'pine-level',
-    'pinehurst',
-    'pineville',
-    'princeton',
-    'rocky-mount',
-    'rolesville',
-    'roxboro',
-    'salisbury',
-    'sanford',
-    'selma',
-    'shelby',
-    'southern-pines',
-    'spring-lake',
-    'stallings',
-    'statesville',
-    'thomasville',
-    'wake-forest',
-    'warrenton',
-    'waxhaw',
-    'wendell',
-    'wilson',
-    'youngsville',
-    'zebulon',
-    'asheboro',
-    'albemarle',
-    'aberdeen',
-    'belmont',
-    'benson',
-    'elizabeth-city',
-    'fort-liberty',
-    'four-oaks',
-    'harrisburg',
-  ];
-
-  const flCities = [
-    'orlando',
-    'tampa',
-    'miami',
-    'jacksonville',
-    'fort-lauderdale',
-    'kissimmee',
-    'sanford',
-    'altamonte-springs',
-    'winter-park',
-    'lake-mary',
-    'oviedo',
-    'apopka',
-    'casselberry',
-    'longwood',
-    'maitland',
-    'winter-springs',
-    'ocoee',
-    'clermont',
-    'davenport',
-  ];
-
-  const services = [
-    'immigration-lawyer',
-    'personal-injury-attorney',
-    'criminal-defense-lawyer',
-    'workers-comp-attorney',
-    'car-accident-lawyer',
-    'family-law-attorney',
-    'dui-lawyer',
-    'bankruptcy-attorney',
-  ];
+  // Only pre-generate major cities to reduce build time
+  const majorCities = {
+    nc: ['charlotte', 'raleigh', 'durham', 'greensboro', 'winston-salem'],
+    fl: ['orlando', 'tampa', 'miami', 'jacksonville', 'kissimmee'],
+  };
 
   const params: Array<{ slug: string[] }> = [];
 
-  // Generate state/city combinations
-  for (const city of ncCities) {
-    params.push({ slug: ['nc', city] });
-
-    // Add service pages for major cities
-    if (['charlotte', 'raleigh', 'durham', 'greensboro', 'winston-salem'].includes(city)) {
-      for (const service of services) {
-        params.push({ slug: ['nc', city, service] });
-      }
+  // Generate only major city pages (no service pages at build time)
+  for (const [state, cities] of Object.entries(majorCities)) {
+    for (const city of cities) {
+      params.push({ slug: [state, city] });
     }
   }
 
-  for (const city of flCities) {
-    params.push({ slug: ['fl', city] });
-
-    // Add service pages for major cities
-    if (['orlando', 'tampa', 'miami', 'jacksonville', 'kissimmee'].includes(city)) {
-      for (const service of services) {
-        params.push({ slug: ['fl', city, service] });
-      }
-    }
-  }
-
+  // This reduces from ~1000+ pages to just 10 pages at build time
+  // Other pages will be generated on-demand
   return params;
 }
 

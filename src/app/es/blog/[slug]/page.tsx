@@ -11,7 +11,12 @@ interface BlogPostPageProps {
 
 export async function generateStaticParams() {
   try {
-    const posts = await prisma.blogPost.findMany({
+    // Add timeout protection for database queries during build
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error('Database query timeout')), 5000)
+    );
+
+    const postsPromise = prisma.blogPost.findMany({
       where: {
         status: 'published',
         language: 'es',
@@ -19,16 +24,20 @@ export async function generateStaticParams() {
       select: {
         slug: true,
       },
+      take: 100, // Limit to first 100 posts to prevent excessive build time
     });
+
+    const posts = await Promise.race([postsPromise, timeoutPromise]).catch(() => []);
 
     // Filter out slugs that are too long to prevent filesystem errors
     return posts
       .filter(post => post.slug.length <= 200)
-      .map((post) => ({
+      .map(post => ({
         slug: post.slug,
       }));
   } catch (error) {
     console.error('Error generating static params for Spanish blog posts:', error);
+    // Return empty array to allow build to continue
     return [];
   }
 }
@@ -52,11 +61,20 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
     return {
       title: `${post.titleEs || post.title} | Blog de Vasquez Law Firm`,
-      description: post.metaDescription || post.excerptEs || post.excerpt || post.contentEs?.substring(0, 160) || post.content.substring(0, 160),
+      description:
+        post.metaDescription ||
+        post.excerptEs ||
+        post.excerpt ||
+        post.contentEs?.substring(0, 160) ||
+        post.content.substring(0, 160),
       keywords: post.metaKeywords.join(', '),
       openGraph: {
         title: post.titleEs || post.title,
-        description: post.excerptEs || post.excerpt || post.contentEs?.substring(0, 160) || post.content.substring(0, 160),
+        description:
+          post.excerptEs ||
+          post.excerpt ||
+          post.contentEs?.substring(0, 160) ||
+          post.content.substring(0, 160),
         type: 'article',
         publishedTime: post.publishedAt?.toISOString(),
         authors: [post.author || 'Vasquez Law Firm'],
