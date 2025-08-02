@@ -37,18 +37,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const practiceAreaPages: string[] = [];
   const spanishPracticeAreaPages: string[] = [];
 
-  Object.entries(practiceAreas).forEach(([key, area]) => {
+  practiceAreas.forEach(area => {
     // Main practice area page
-    practiceAreaPages.push(`/practice-areas/${key}`);
+    practiceAreaPages.push(`/practice-areas/${area.key}`);
     spanishPracticeAreaPages.push(`/es/areas-de-practica/${area.slug.es}`);
-
-    // Sub-practice area pages
-    if (area.subAreas) {
-      Object.entries(area.subAreas).forEach(([subKey, subArea]) => {
-        practiceAreaPages.push(`/practice-areas/${key}/${subKey}`);
-        spanishPracticeAreaPages.push(`/es/areas-de-practica/${area.slug.es}/${subArea.slug.es}`);
-      });
-    }
   });
 
   // Attorney pages

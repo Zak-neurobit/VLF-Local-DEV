@@ -24,15 +24,15 @@ export const RetellVoiceChat: React.FC<RetellVoiceChatProps> = ({
 
   const startVoiceCall = async () => {
     setIsConnecting(true);
-    
+
     try {
       // Get access token from our API
       const response = await fetch('/api/retell/create-call', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           language,
-          agentId: process.env.NEXT_PUBLIC_RETELL_AGENT_ID 
+          agentId: process.env.NEXT_PUBLIC_RETELL_AGENT_ID,
         }),
       });
 
@@ -45,9 +45,9 @@ export const RetellVoiceChat: React.FC<RetellVoiceChatProps> = ({
       // Initialize Retell Web Client
       if (typeof window !== 'undefined' && (window as any).RetellWebClient) {
         const RetellWebClient = (window as any).RetellWebClient;
-        
+
         webClientRef.current = new RetellWebClient();
-        
+
         // Set up event listeners
         webClientRef.current.on('call_started', () => {
           console.log('Call started');
@@ -59,7 +59,7 @@ export const RetellVoiceChat: React.FC<RetellVoiceChatProps> = ({
         webClientRef.current.on('call_ended', () => {
           console.log('Call ended');
           setIsConnected(false);
-          toast.info(language === 'es' ? 'Llamada finalizada' : 'Call ended');
+          toast(language === 'es' ? 'Llamada finalizada' : 'Call ended');
         });
 
         webClientRef.current.on('agent_start_talking', () => {
@@ -102,16 +102,13 @@ export const RetellVoiceChat: React.FC<RetellVoiceChatProps> = ({
           sampleRate: 24000,
           enableUpdate: true,
         });
-
       } else {
         throw new Error('Retell SDK not loaded');
       }
     } catch (error) {
       console.error('Failed to start voice call:', error);
       toast.error(
-        language === 'es' 
-          ? 'No se pudo iniciar la llamada de voz' 
-          : 'Failed to start voice call'
+        language === 'es' ? 'No se pudo iniciar la llamada de voz' : 'Failed to start voice call'
       );
       setIsConnecting(false);
     }
@@ -179,15 +176,13 @@ export const RetellVoiceChat: React.FC<RetellVoiceChatProps> = ({
               animate={{ scale: 1, opacity: 1 }}
               onClick={toggleMute}
               className={`p-3 rounded-full transition-all ${
-                isMuted 
-                  ? 'bg-red-500 text-white' 
-                  : 'bg-gray-700 text-white hover:bg-gray-600'
+                isMuted ? 'bg-red-500 text-white' : 'bg-gray-700 text-white hover:bg-gray-600'
               }`}
               title={language === 'es' ? 'Silenciar/Activar' : 'Mute/Unmute'}
             >
               {isMuted ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
             </motion.button>
-            
+
             <motion.button
               key="end"
               initial={{ scale: 0.9, opacity: 0 }}
