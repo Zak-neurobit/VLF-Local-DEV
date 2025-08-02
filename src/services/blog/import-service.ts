@@ -69,12 +69,20 @@ export class BlogImportService {
   }
 
   private generateSlug(filename: string): string {
-    return filename
+    const slug = filename
       .replace('.json', '')
       .replace('.md', '')
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
+    
+    // Limit slug length to prevent filesystem errors
+    // Max safe length for most filesystems is 255 chars, but we'll use 200 to be safe
+    if (slug.length > 200) {
+      return slug.substring(0, 200).replace(/-+$/, '');
+    }
+    
+    return slug;
   }
 
   private mapCategoriesToPracticeAreas(categories: string[]): string[] {
@@ -162,6 +170,15 @@ export class BlogImportService {
 
   async importAllBlogPosts(): Promise<ImportedBlogPost[]> {
     try {
+      // Check if directory exists
+      try {
+        await fs.access(this.blogPostsDir);
+      } catch {
+        // Directory doesn't exist, return sample posts
+        securityLogger.info('Blog import directory does not exist, using sample posts');
+        return this.generateSamplePosts();
+      }
+
       const files = await fs.readdir(this.blogPostsDir);
       const jsonFiles = files.filter(file => file.endsWith('.json'));
 
@@ -187,15 +204,22 @@ export class BlogImportService {
       return this.cachedPosts.get(slug)!;
     }
 
-    // Try to find and import the post
-    const files = await fs.readdir(this.blogPostsDir);
-    for (const file of files) {
-      if (file.endsWith('.json')) {
-        const post = await this.importBlogPost(file);
-        if (post && post.slug === slug) {
-          return post;
+    try {
+      // Check if directory exists
+      await fs.access(this.blogPostsDir);
+      
+      // Try to find and import the post
+      const files = await fs.readdir(this.blogPostsDir);
+      for (const file of files) {
+        if (file.endsWith('.json')) {
+          const post = await this.importBlogPost(file);
+          if (post && post.slug === slug) {
+            return post;
+          }
         }
       }
+    } catch (error) {
+      securityLogger.debug('Blog import directory not accessible:', error);
     }
 
     return null;

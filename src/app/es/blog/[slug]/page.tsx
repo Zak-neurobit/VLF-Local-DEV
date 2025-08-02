@@ -21,9 +21,12 @@ export async function generateStaticParams() {
       },
     });
 
-    return posts.map((post) => ({
-      slug: post.slug,
-    }));
+    // Filter out slugs that are too long to prevent filesystem errors
+    return posts
+      .filter(post => post.slug.length <= 200)
+      .map((post) => ({
+        slug: post.slug,
+      }));
   } catch (error) {
     console.error('Error generating static params for Spanish blog posts:', error);
     return [];
