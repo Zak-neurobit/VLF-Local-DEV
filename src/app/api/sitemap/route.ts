@@ -1,12 +1,17 @@
 import { NextResponse } from 'next/server';
+
+export const dynamic = 'force-static';
+export const revalidate = false;
+
+const baseUrl = 'https://www.vasquezlawnc.com';
 import { getPrismaClient } from '@/lib/prisma';
 
 export async function GET() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.vasquezlawnc.com';
-  
+
   try {
     const prisma = getPrismaClient();
-    
+
     // Get published blog posts
     const blogPosts = await prisma.blogPost.findMany({
       where: { status: 'published' },
@@ -32,13 +37,19 @@ export async function GET() {
     // Generate XML
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${staticPages.map(page => `  <url>
+${staticPages
+  .map(
+    page => `  <url>
     <loc>${baseUrl}${page.url}</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
-  </url>`).join('\n')}
-${blogPosts.map(post => `  <url>
+  </url>`
+  )
+  .join('\n')}
+${blogPosts
+  .map(
+    post => `  <url>
     <loc>${baseUrl}/blog/${post.slug}</loc>
     <lastmod>${post.updatedAt.toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
@@ -49,7 +60,9 @@ ${blogPosts.map(post => `  <url>
     <lastmod>${post.updatedAt.toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
-  </url>`).join('\n')}
+  </url>`
+  )
+  .join('\n')}
 </urlset>`;
 
     return new NextResponse(xml, {
@@ -60,7 +73,7 @@ ${blogPosts.map(post => `  <url>
     });
   } catch (error) {
     console.error('Sitemap generation error:', error);
-    
+
     // Return basic sitemap on error
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

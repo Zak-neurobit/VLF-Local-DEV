@@ -1,4 +1,9 @@
 import { NextResponse } from 'next/server';
+
+export const dynamic = 'force-static';
+export const revalidate = false;
+
+const baseUrl = 'https://www.vasquezlawnc.com';
 import { apiLogger } from '@/lib/safe-logger';
 import { blogImportService } from '@/services/blog/import-service';
 
