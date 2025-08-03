@@ -1,35 +1,51 @@
-import DurhamWorkersCompensationCercaDeMiClient from './durhamWorkersCompensationNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function DurhamWorkersCompensationCercaDeMiPage() {
-  return <DurhamWorkersCompensationCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado de Compensación Laboral Cerca de Mi en Durham, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Durham Workers Compensation Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de compensación laboral cerca de usted en Durham, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-  keywords:
-    'abogado de compensación laboral cerca de mi, abogado de compensación laboral Durham, abogado Durham, abogado de compensación laboral NC, abogado español Durham',
+    'Encuentra abogados de workers compensation en Durham, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
+  keywords: 'workers compensation Durham, abogado near me, Durham NC workers compensation',
   openGraph: {
-    title: 'Abogado de Compensación Laboral Cerca de Mi en Durham, NC | Vasquez Law Firm',
+    title: 'Workers Compensation Abogados in Durham, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de compensación laboral cerca de usted en Durham, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/durham-workers-compensation-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/durham-workers-compensation-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado de Compensación Laboral Cerca de Mi en Durham, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical:
-      'https://www.vasquezlawnc.com/es/cerca-de-mi/durham-workers-compensation-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/durham-workers-compensation-near-me',
-      'es-ES':
-        'https://www.vasquezlawnc.com/es/cerca-de-mi/durham-workers-compensation-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de workers compensation en Durham? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/durham-workers-compensation.jpg'],
   },
 };
+
+export default function DurhamWorkersCompensationNearMePage() {
+  componentLogger.info('durham-compensacion-laboral-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '0 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '25 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '140 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Durham"
+      service="Workers Compensation"
+      language="es"
+      coordinates={{ lat: 35.994, lng: -78.8986 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

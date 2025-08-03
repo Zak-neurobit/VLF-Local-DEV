@@ -1,35 +1,52 @@
-import GreensboroSpanishSpeakingCercaDeMiClient from './greensuoroSpanishSpeakingNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function GreensboroSpanishSpeakingCercaDeMiPage() {
-  return <GreensboroSpanishSpeakingCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado que Habla Español Cerca de Mi en Greensboro, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Greensboro Spanish Speaking Services Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado que habla español cerca de usted en Greensboro, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
+    'Encuentra abogados de spanish speaking services en Greensboro, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
   keywords:
-    'abogado que habla español cerca de mi, abogado que habla español Greensboro, abogado Greensboro, abogado que habla español NC, abogado español Greensboro',
+    'spanish speaking services Greensboro, abogado near me, Greensboro NC spanish speaking services',
   openGraph: {
-    title: 'Abogado que Habla Español Cerca de Mi en Greensboro, NC | Vasquez Law Firm',
+    title: 'Spanish Speaking Services Abogados in Greensboro, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado que habla español cerca de usted en Greensboro, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/greensboro-spanish-speaking-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/greensboro-spanish-speaking-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado que Habla Español Cerca de Mi en Greensboro, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical:
-      'https://www.vasquezlawnc.com/es/cerca-de-mi/greensboro-spanish-speaking-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/greensboro-immigration-near-me',
-      'es-ES':
-        'https://www.vasquezlawnc.com/es/cerca-de-mi/greensboro-spanish-speaking-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de spanish speaking services en Greensboro? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/greensboro-spanish-speaking-services.jpg'],
   },
 };
+
+export default function GreensboroSpanishSpeakingServicesNearMePage() {
+  componentLogger.info('greensboro-spanish-speaking-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '55 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '80 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '90 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Greensboro"
+      service="Spanish Speaking Services"
+      language="es"
+      coordinates={{ lat: 36.0726, lng: -79.792 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

@@ -1,35 +1,51 @@
-import RaleighWorkersCompensationCercaDeMiClient from './raleighWorkersCompensationNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function RaleighWorkersCompensationCercaDeMiPage() {
-  return <RaleighWorkersCompensationCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado de Compensación Laboral Cerca de Mi en Raleigh, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Raleigh Workers Compensation Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de compensación laboral cerca de usted en Raleigh, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-  keywords:
-    'abogado de compensación laboral cerca de mi, abogado de compensación laboral Raleigh, abogado Raleigh, abogado de compensación laboral NC, abogado español Raleigh',
+    'Encuentra abogados de workers compensation en Raleigh, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
+  keywords: 'workers compensation Raleigh, abogado near me, Raleigh NC workers compensation',
   openGraph: {
-    title: 'Abogado de Compensación Laboral Cerca de Mi en Raleigh, NC | Vasquez Law Firm',
+    title: 'Workers Compensation Abogados in Raleigh, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de compensación laboral cerca de usted en Raleigh, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/raleigh-workers-compensation-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/raleigh-workers-compensation-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado de Compensación Laboral Cerca de Mi en Raleigh, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical:
-      'https://www.vasquezlawnc.com/es/cerca-de-mi/raleigh-workers-compensation-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/raleigh-workers-compensation-near-me',
-      'es-ES':
-        'https://www.vasquezlawnc.com/es/cerca-de-mi/raleigh-workers-compensation-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de workers compensation en Raleigh? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/raleigh-workers-compensation.jpg'],
   },
 };
+
+export default function RaleighWorkersCompensationNearMePage() {
+  componentLogger.info('raleigh-compensacion-laboral-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '0 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '25 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '165 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Raleigh"
+      service="Workers Compensation"
+      language="es"
+      coordinates={{ lat: 35.7796, lng: -78.6382 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

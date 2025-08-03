@@ -1,146 +1,51 @@
-import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
-
 import { Metadata } from 'next';
-import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
 export const metadata: Metadata = {
-  title: 'Abogado de Inmigración Cerca De Mí Wilmington NC | Disponible 24/7 | Consulta Gratuita',
+  title: 'Wilmington Immigration Cerca De Mi | Vasquez Law Firm',
   description:
-    '¿Busca un abogado de inmigración cerca de usted en Wilmington? ⭐ Calificación 5 Estrellas • 60+ Años de Experiencia • Se Habla Español • Citas el Mismo Día • Llame 1-844-YO-PELEO',
-  keywords:
-    'abogado de inmigracion cerca de mi, abogado de deportacion cerca de mi, abogado de ciudadania cerca de mi, abogado de inmigración wilmington nc cerca de mi, mejor abogado de inmigración cerca de mi, abogado de inmigración que habla español cerca de mi, abogado de inmigración de emergencia cerca de mi',
+    'Encuentra abogados de immigration en Wilmington, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
+  keywords: 'immigration Wilmington, abogado near me, Wilmington NC immigration',
   openGraph: {
-    title: 'Abogado de Inmigración Cerca De Mí en Wilmington | Vasquez Law Firm',
+    title: 'Immigration Abogados in Wilmington, NC - Free Consultation',
     description:
-      'Ayuda Legal de Emergencia 24/7 en Wilmington. Consulta Gratuita. 30,000+ Casos Ganados. Se Habla Español.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/wilmington-abogado-inmigracion-cerca-de-mi',
-    images: [
-      {
-        url: '/images/wilmington-office-hero.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Vasquez Law Firm Wilmington - Abogado de Inmigración Cerca de Usted',
-      },
-    ],
+      '¿Necesitas un abogado de immigration en Wilmington? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/wilmington-immigration.jpg'],
   },
 };
 
-export default function WilmingtonAbogadoinmigracionCercaDeMiPage() {
-  const post = {
-    id: 'wilmington-abogado-inmigracion-cerca-de-mi',
-    title: 'Abogado de Inmigración Cerca De Mí en Wilmington',
-    slug: 'wilmington-abogado-inmigracion-cerca-de-mi',
-    excerpt:
-      'Abogado de Inmigración experimentado en Wilmington, NC. Consulta gratuita disponible 24/7.',
-    content: `
-      <div className="prose prose-lg max-w-none">
-        <h1>Abogado de Inmigración Cerca De Mí en Wilmington, NC</h1>
-        
-        <p>¿Necesita un abogado de inmigración cerca de usted en Wilmington? Vasquez Law Firm es su mejor opción. Con más de 60 años de experiencia combinada, nuestro equipo bilingüe está listo para luchar por sus derechos.</p>
+export default function WilmingtonImmigrationNearMePage() {
+  componentLogger.info('wilmington-abogado-inmigracion-cerca-de-miPage.render', {});
 
-        <h2>🌐 Servicios de Abogado de Inmigración en Wilmington</h2>
-        
-        <p>Nuestros servicios especializados incluyen:</p>
-        <ul>
-          <li>Deportación</li>
-          <li>Residencia permanente</li>
-          <li>Ciudadanía</li>
-          <li>Visas familiares</li>
-          <li>Visas de trabajo</li>
-        </ul>
-
-        <h2>🏙️ Por Qué Elegir Nuestros Servicios en Wilmington</h2>
-        
-        <h3>Experiencia Local</h3>
-        <p>Conocemos las cortes de Wilmington y tenemos relaciones establecidas con el sistema legal local.</p>
-
-        <h3>Servicio Bilingüe Completo</h3>
-        <p>Todo nuestro personal habla español e inglés fluidamente. No necesitará un intérprete para comunicarse con nosotros.</p>
-
-        <h3>Disponibilidad 24/7</h3>
-        <p>Emergencias legales pueden ocurrir en cualquier momento. Estamos disponibles 24 horas al día para casos urgentes.</p>
-
-        <h3>Consulta Gratuita</h3>
-        <p>Evaluamos su caso sin costo alguno y le explicamos todas sus opciones legales.</p>
-
-        <h2>📍 Sirviendo el Área de Wilmington</h2>
-        <p>Nuestros abogados están disponibles para clientes en Wilmington y áreas circundantes.</p>
-
-        <h2>🚨 Casos de Emergencia Legal</h2>
-        <p>Si usted está enfrentando una situación legal urgente, no espere:</p>
-        <ul>
-          <li>🚨 Arrestos</li>
-          <li>🚨 Accidentes graves</li>
-          <li>🚨 Detención por ICE</li>
-          <li>🚨 Órdenes judiciales</li>
-        </ul>
-        
-        <p><strong>¡Llame INMEDIATAMENTE\! 📞 1-844-YO-PELEO</strong></p>
-
-        <h2>💼 Historial de Éxito Comprobado</h2>
-        <ul>
-          <li>✅ 30,000+ casos ganados</li>
-          <li>✅ 95% tasa de éxito</li>
-          <li>✅ Millones en compensación obtenida</li>
-          <li>✅ Décadas de experiencia</li>
-          <li>✅ Calificación 5 estrellas</li>
-        </ul>
-
-        <h2>📞 Contacte a Su Abogado de Inmigración en Wilmington Hoy</h2>
-        
-        <div className="bg-blue-50 p-6 rounded-lg mt-8">
-          <h3 className="text-xl font-bold text-blue-800 mb-4">📞 Llame Ahora - Consulta Gratuita</h3>
-          <p className="text-lg font-bold text-blue-700">1-844-YO-PELEO (1-844-967-3536)</p>
-          <p className="text-blue-700 mt-2">Disponible 24/7 para emergencias legales</p>
-        </div>
-
-        <h2>⭐ Lo Que Dicen Nuestros Clientes de Wilmington</h2>
-        <blockquote className="border-l-4 border-blue-500 pl-6 italic text-gray-700">
-          "Vasquez Law Firm me ayudó enormemente con mi caso. Su equipo en Wilmington fue increíblemente profesional y siempre estuvieron disponibles para responder mis preguntas." - Cliente Satisfecho, Wilmington
-        </blockquote>
-
-        <p className="text-center text-lg font-bold mt-8">🚀 Su futuro comienza con una llamada. ¡Contacte a Vasquez Law Firm hoy mismo\!</p>
-      </div>
-    `,
-    practiceArea: 'immigration',
-    language: 'es' as const,
-    publishedAt: new Date(),
-    readTime: 10,
-    author: DEFAULT_BLOG_AUTHOR,
-    tags: ['inmigracion', 'wilmington', 'abogado', 'cerca-de-mi'],
-  };
-
-  const categories = [
+  const nearbyOffices = [
     {
-      id: 'immigration',
-      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
-      slug: { en: 'immigration', es: 'inmigracion' },
-      icon: '🌐',
-      postCount: 45,
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '130 miles',
     },
     {
-      id: 'personal-injury',
-      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
-      slug: { en: 'personal-injury', es: 'lesiones-personales' },
-      icon: '🏥',
-      postCount: 32,
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '155 miles',
     },
     {
-      id: 'criminal-defense',
-      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
-      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
-      icon: '⚖️',
-      postCount: 28,
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '200 miles',
     },
   ];
 
   return (
-    <BlogPageTemplate
-      posts={[]}
-      categories={categories}
-      isArticlePage={true}
-      currentPost={post}
-      relatedPosts={[]}
+    <NearMePageClient
+      city="Wilmington"
+      service="Immigration"
+      language="es"
+      coordinates={{ lat: 34.2257, lng: -77.9447 }}
+      nearbyOffices={nearbyOffices}
     />
   );
 }

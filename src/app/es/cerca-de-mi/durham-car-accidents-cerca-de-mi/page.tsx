@@ -1,33 +1,51 @@
-import DurhamCarAccidentsCercaDeMiClient from './durhamCarAccidentsNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function DurhamCarAccidentsCercaDeMiPage() {
-  return <DurhamCarAccidentsCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado de Accidentes de Auto Cerca de Mi en Durham, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Durham Car Accident Lawyer Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de accidentes de auto cerca de usted en Durham, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-  keywords:
-    'abogado de accidentes de auto cerca de mi, abogado de accidentes de auto Durham, abogado Durham, abogado de accidentes de auto NC, abogado español Durham',
+    'Encuentra abogados de car accident lawyer en Durham, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
+  keywords: 'car accident lawyer Durham, abogado near me, Durham NC car accident lawyer',
   openGraph: {
-    title: 'Abogado de Accidentes de Auto Cerca de Mi en Durham, NC | Vasquez Law Firm',
+    title: 'Car Accident Lawyer Abogados in Durham, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de accidentes de auto cerca de usted en Durham, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/durham-car-accidents-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/durham-car-accidents-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado de Accidentes de Auto Cerca de Mi en Durham, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/durham-car-accidents-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/durham-car-accidents-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/durham-car-accidents-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de car accident lawyer en Durham? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/durham-car-accident-lawyer.jpg'],
   },
 };
+
+export default function DurhamCarAccidentLawyerNearMePage() {
+  componentLogger.info('durham-car-accidents-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '0 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '25 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '140 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Durham"
+      service="Car Accident Lawyer"
+      language="es"
+      coordinates={{ lat: 35.994, lng: -78.8986 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

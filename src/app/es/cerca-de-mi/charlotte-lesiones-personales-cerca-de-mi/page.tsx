@@ -1,33 +1,52 @@
-import CharlottePersonalInjuryCercaDeMiClient from './charlottePersonalInjuryNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function CharlottePersonalInjuryCercaDeMiPage() {
-  return <CharlottePersonalInjuryCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado de Lesiones Personales Cerca de Mi en Charlotte, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Charlotte Personal Injury Lawyer Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de lesiones personales cerca de usted en Charlotte, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
+    'Encuentra abogados de personal injury lawyer en Charlotte, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
   keywords:
-    'abogado de lesiones personales cerca de mi, abogado de lesiones personales Charlotte, abogado Charlotte, abogado de lesiones personales NC, abogado español Charlotte',
+    'personal injury lawyer Charlotte, abogado near me, Charlotte NC personal injury lawyer',
   openGraph: {
-    title: 'Abogado de Lesiones Personales Cerca de Mi en Charlotte, NC | Vasquez Law Firm',
+    title: 'Personal Injury Lawyer Abogados in Charlotte, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de lesiones personales cerca de usted en Charlotte, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/charlotte-personal-injury-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/charlotte-personal-injury-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado de Lesiones Personales Cerca de Mi en Charlotte, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/charlotte-personal-injury-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/charlotte-personal-injury-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/charlotte-personal-injury-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de personal injury lawyer en Charlotte? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/charlotte-personal-injury-lawyer.jpg'],
   },
 };
+
+export default function CharlottePersonalInjuryLawyerNearMePage() {
+  componentLogger.info('charlotte-lesiones-personales-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '0 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '165 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '140 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Charlotte"
+      service="Personal Injury Lawyer"
+      language="es"
+      coordinates={{ lat: 35.2271, lng: -80.8431 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

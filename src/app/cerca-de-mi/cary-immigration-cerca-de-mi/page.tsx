@@ -1,22 +1,51 @@
 import { Metadata } from 'next';
 import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
 export const metadata: Metadata = {
-  title: 'Cary Immigration Cerca De Mi | Vasquez Law Firm',
-  description: 'Page content for Cary Immigration Cerca De Mi',
+  title: 'Cary Immigration Near Me | Vasquez Law Firm',
+  description:
+    'Find experienced immigration lawyers in Cary, NC. Free consultation, no upfront fees. We fight for your rights.',
+  keywords: 'immigration Cary, attorney near me, Cary NC immigration',
+  openGraph: {
+    title: 'Immigration Lawyers in Cary, NC - Free Consultation',
+    description:
+      'Need a immigration lawyer in Cary? Get the legal help you deserve. No fee unless we win.',
+    images: ['/images/cary-immigration.jpg'],
+  },
 };
 
-export default function caryimmigrationcercademiPage() {
+export default function CaryImmigrationNearMePage() {
   componentLogger.info('cary-immigration-cerca-de-miPage.render', {});
 
+  const nearbyOffices = [
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '10 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '30 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '160 miles',
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-6">Cary Immigration Cerca De Mi</h1>
-        <p className="text-lg text-gray-600">
-          This page is under development.
-        </p>
-      </div>
-    </div>
+    <NearMePageClient
+      city="Cary"
+      service="Immigration"
+      language="en"
+      coordinates={{ lat: 35.7915, lng: -78.7811 }}
+      nearbyOffices={nearbyOffices}
+    />
   );
 }

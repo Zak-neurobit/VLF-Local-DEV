@@ -1,33 +1,51 @@
-import HighPointDivorceCercaDeMiClient from './HighPointdivorceNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function HighPointDivorceCercaDeMiPage() {
-  return <HighPointDivorceCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado de Divorcio Cerca de Mi en High Point, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'High Legal Services Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de divorcio cerca de usted en High Point, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-  keywords:
-    'abogado de divorcio cerca de mi, abogado de divorcio High Point, abogado High Point, abogado de divorcio NC, abogado español High Point',
+    'Encuentra abogados de legal services en High, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
+  keywords: 'legal services High, abogado near me, High NC legal services',
   openGraph: {
-    title: 'Abogado de Divorcio Cerca de Mi en High Point, NC | Vasquez Law Firm',
+    title: 'Legal Services Abogados in High, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de divorcio cerca de usted en High Point, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/high-point-divorce-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/high-point-divorce-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado de Divorcio Cerca de Mi en High Point, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/high-point-divorce-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/high-point-divorce-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/high-point-divorce-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de legal services en High? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/high-legal-services.jpg'],
   },
 };
+
+export default function HighLegalServicesNearMePage() {
+  componentLogger.info('high-point-divorce-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '0 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '25 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '165 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="High"
+      service="Legal Services"
+      language="es"
+      coordinates={{ lat: 35.7796, lng: -78.6382 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

@@ -1,33 +1,52 @@
-import GreensboroPersonalInjuryCercaDeMiClient from './greensuoroPersonalInjuryNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function GreensboroPersonalInjuryCercaDeMiPage() {
-  return <GreensboroPersonalInjuryCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Attorney de Personal Injury Cerca de Mi en Greensboro, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Greensboro Personal Injury Lawyer Near Me | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de lesiones personales cerca de usted en Greensboro, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
+    'Find experienced personal injury lawyer lawyers in Greensboro, NC. Free consultation, no upfront fees. We fight for your rights.',
   keywords:
-    'abogado de lesiones personales cerca de mi, abogado de lesiones personales Greensboro, abogado Greensboro, abogado de lesiones personales NC, abogado español Greensboro',
+    'personal injury lawyer Greensboro, attorney near me, Greensboro NC personal injury lawyer',
   openGraph: {
-    title: 'Attorney de Personal Injury Cerca de Mi en Greensboro, NC | Vasquez Law Firm',
+    title: 'Personal Injury Lawyer Lawyers in Greensboro, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de lesiones personales cerca de usted en Greensboro, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/greensboro-personal-injury-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/greensboro-personal-injury-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Attorney de Personal Injury Cerca de Mi en Greensboro, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/greensboro-personal-injury-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/greensboro-personal-injury-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/greensboro-personal-injury-cerca-de-mi',
-    },
+      'Need a personal injury lawyer lawyer in Greensboro? Get the legal help you deserve. No fee unless we win.',
+    images: ['/images/greensboro-personal-injury-lawyer.jpg'],
   },
 };
+
+export default function GreensboroPersonalInjuryLawyerNearMePage() {
+  componentLogger.info('greensboro-lesiones-personales-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '55 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '80 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '90 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Greensboro"
+      service="Personal Injury Lawyer"
+      language="en"
+      coordinates={{ lat: 36.0726, lng: -79.792 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

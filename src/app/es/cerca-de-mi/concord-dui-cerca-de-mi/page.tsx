@@ -1,33 +1,51 @@
-import ConcordDuiCercaDeMiClient from './concordduiNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function ConcordDuiCercaDeMiPage() {
-  return <ConcordDuiCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado de DUI Cerca de Mi en Concord, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Concord DUI DWI Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de dui cerca de usted en Concord, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-  keywords:
-    'abogado de dui cerca de mi, abogado de dui Concord, abogado Concord, abogado de dui NC, abogado español Concord',
+    'Encuentra abogados de dui dwi en Concord, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
+  keywords: 'dui dwi Concord, abogado near me, Concord NC dui dwi',
   openGraph: {
-    title: 'Abogado de DUI Cerca de Mi en Concord, NC | Vasquez Law Firm',
+    title: 'DUI DWI Abogados in Concord, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de dui cerca de usted en Concord, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/concord-dui-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/concord-dui-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado de DUI Cerca de Mi en Concord, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/concord-dui-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/concord-dui-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/concord-dui-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de dui dwi en Concord? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/concord-dui-dwi.jpg'],
   },
 };
+
+export default function ConcordDUIDWINearMePage() {
+  componentLogger.info('concord-dui-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '20 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '120 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '145 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Concord"
+      service="DUI DWI"
+      language="es"
+      coordinates={{ lat: 35.4088, lng: -80.5795 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

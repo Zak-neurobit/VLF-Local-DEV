@@ -1,33 +1,51 @@
-import ConcordDivorceCercaDeMiClient from './concorddivorceNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function ConcordDivorceCercaDeMiPage() {
-  return <ConcordDivorceCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado de Divorcio Cerca de Mi en Concord, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Concord Divorce Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de divorcio cerca de usted en Concord, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-  keywords:
-    'abogado de divorcio cerca de mi, abogado de divorcio Concord, abogado Concord, abogado de divorcio NC, abogado español Concord',
+    'Encuentra abogados de divorce en Concord, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
+  keywords: 'divorce Concord, abogado near me, Concord NC divorce',
   openGraph: {
-    title: 'Abogado de Divorcio Cerca de Mi en Concord, NC | Vasquez Law Firm',
+    title: 'Divorce Abogados in Concord, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de divorcio cerca de usted en Concord, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/concord-divorce-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/concord-divorce-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado de Divorcio Cerca de Mi en Concord, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/concord-divorce-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/concord-divorce-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/concord-divorce-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de divorce en Concord? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/concord-divorce.jpg'],
   },
 };
+
+export default function ConcordDivorceNearMePage() {
+  componentLogger.info('concord-divorce-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '20 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '120 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '145 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Concord"
+      service="Divorce"
+      language="es"
+      coordinates={{ lat: 35.4088, lng: -80.5795 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

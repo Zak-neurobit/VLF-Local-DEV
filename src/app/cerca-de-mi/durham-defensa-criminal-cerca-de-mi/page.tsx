@@ -1,33 +1,51 @@
-import DurhamCriminalDefenseCercaDeMiClient from './durhamCriminalDefenseNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function DurhamCriminalDefenseCercaDeMiPage() {
-  return <DurhamCriminalDefenseCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Attorney de Criminal Defense Cerca de Mi en Durham, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Durham Criminal Defense Near Me | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de defensa criminal cerca de usted en Durham, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-  keywords:
-    'abogado de defensa criminal cerca de mi, abogado de defensa criminal Durham, abogado Durham, abogado de defensa criminal NC, abogado español Durham',
+    'Find experienced criminal defense lawyers in Durham, NC. Free consultation, no upfront fees. We fight for your rights.',
+  keywords: 'criminal defense Durham, attorney near me, Durham NC criminal defense',
   openGraph: {
-    title: 'Attorney de Criminal Defense Cerca de Mi en Durham, NC | Vasquez Law Firm',
+    title: 'Criminal Defense Lawyers in Durham, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de defensa criminal cerca de usted en Durham, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/durham-criminal-defense-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/durham-criminal-defense-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Attorney de Criminal Defense Cerca de Mi en Durham, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/durham-criminal-defense-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/durham-criminal-defense-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/durham-criminal-defense-cerca-de-mi',
-    },
+      'Need a criminal defense lawyer in Durham? Get the legal help you deserve. No fee unless we win.',
+    images: ['/images/durham-criminal-defense.jpg'],
   },
 };
+
+export default function DurhamCriminalDefenseNearMePage() {
+  componentLogger.info('durham-defensa-criminal-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '0 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '25 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '140 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Durham"
+      service="Criminal Defense"
+      language="en"
+      coordinates={{ lat: 35.994, lng: -78.8986 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

@@ -1,33 +1,51 @@
-import ConcordPersonalInjuryCercaDeMiClient from './concordPersonalInjuryNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function ConcordPersonalInjuryCercaDeMiPage() {
-  return <ConcordPersonalInjuryCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado de Lesiones Personales Cerca de Mi en Concord, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Concord Personal Injury Lawyer Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de lesiones personales cerca de usted en Concord, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-  keywords:
-    'abogado de lesiones personales cerca de mi, abogado de lesiones personales Concord, abogado Concord, abogado de lesiones personales NC, abogado español Concord',
+    'Encuentra abogados de personal injury lawyer en Concord, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
+  keywords: 'personal injury lawyer Concord, abogado near me, Concord NC personal injury lawyer',
   openGraph: {
-    title: 'Abogado de Lesiones Personales Cerca de Mi en Concord, NC | Vasquez Law Firm',
+    title: 'Personal Injury Lawyer Abogados in Concord, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de lesiones personales cerca de usted en Concord, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/concord-personal-injury-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/concord-personal-injury-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado de Lesiones Personales Cerca de Mi en Concord, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/concord-personal-injury-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/concord-personal-injury-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/concord-personal-injury-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de personal injury lawyer en Concord? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/concord-personal-injury-lawyer.jpg'],
   },
 };
+
+export default function ConcordPersonalInjuryLawyerNearMePage() {
+  componentLogger.info('concord-lesiones-personales-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '20 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '120 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '145 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Concord"
+      service="Personal Injury Lawyer"
+      language="es"
+      coordinates={{ lat: 35.4088, lng: -80.5795 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

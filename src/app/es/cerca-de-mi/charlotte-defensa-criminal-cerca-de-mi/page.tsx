@@ -1,33 +1,51 @@
-import CharlotteCriminalDefenseCercaDeMiClient from './charlotteCriminalDefenseNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function CharlotteCriminalDefenseCercaDeMiPage() {
-  return <CharlotteCriminalDefenseCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado de Defensa Criminal Cerca de Mi en Charlotte, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Charlotte Criminal Defense Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de defensa criminal cerca de usted en Charlotte, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-  keywords:
-    'abogado de defensa criminal cerca de mi, abogado de defensa criminal Charlotte, abogado Charlotte, abogado de defensa criminal NC, abogado español Charlotte',
+    'Encuentra abogados de criminal defense en Charlotte, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
+  keywords: 'criminal defense Charlotte, abogado near me, Charlotte NC criminal defense',
   openGraph: {
-    title: 'Abogado de Defensa Criminal Cerca de Mi en Charlotte, NC | Vasquez Law Firm',
+    title: 'Criminal Defense Abogados in Charlotte, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de defensa criminal cerca de usted en Charlotte, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/charlotte-criminal-defense-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/charlotte-criminal-defense-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado de Defensa Criminal Cerca de Mi en Charlotte, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/charlotte-criminal-defense-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/charlotte-criminal-defense-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/charlotte-criminal-defense-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de criminal defense en Charlotte? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/charlotte-criminal-defense.jpg'],
   },
 };
+
+export default function CharlotteCriminalDefenseNearMePage() {
+  componentLogger.info('charlotte-defensa-criminal-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '0 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '165 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '140 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Charlotte"
+      service="Criminal Defense"
+      language="es"
+      coordinates={{ lat: 35.2271, lng: -80.8431 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

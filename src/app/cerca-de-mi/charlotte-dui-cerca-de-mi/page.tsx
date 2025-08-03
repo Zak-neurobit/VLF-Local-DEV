@@ -1,22 +1,51 @@
 import { Metadata } from 'next';
 import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
 export const metadata: Metadata = {
-  title: 'Charlotte Dui Cerca De Mi | Vasquez Law Firm',
-  description: 'Page content for Charlotte Dui Cerca De Mi',
+  title: 'Charlotte DUI DWI Near Me | Vasquez Law Firm',
+  description:
+    'Find experienced dui dwi lawyers in Charlotte, NC. Free consultation, no upfront fees. We fight for your rights.',
+  keywords: 'dui dwi Charlotte, attorney near me, Charlotte NC dui dwi',
+  openGraph: {
+    title: 'DUI DWI Lawyers in Charlotte, NC - Free Consultation',
+    description:
+      'Need a dui dwi lawyer in Charlotte? Get the legal help you deserve. No fee unless we win.',
+    images: ['/images/charlotte-dui-dwi.jpg'],
+  },
 };
 
-export default function charlotteduicercademiPage() {
+export default function CharlotteDUIDWINearMePage() {
   componentLogger.info('charlotte-dui-cerca-de-miPage.render', {});
 
+  const nearbyOffices = [
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '0 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '165 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '140 miles',
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-6">Charlotte Dui Cerca De Mi</h1>
-        <p className="text-lg text-gray-600">
-          This page is under development.
-        </p>
-      </div>
-    </div>
+    <NearMePageClient
+      city="Charlotte"
+      service="DUI DWI"
+      language="en"
+      coordinates={{ lat: 35.2271, lng: -80.8431 }}
+      nearbyOffices={nearbyOffices}
+    />
   );
 }

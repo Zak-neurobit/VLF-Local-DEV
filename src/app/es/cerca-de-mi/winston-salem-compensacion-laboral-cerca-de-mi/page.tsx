@@ -1,35 +1,51 @@
-import WinstonSalemWorkersCompensationCercaDeMiClient from './WinstonSalemWorkersCompensationNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function WinstonSalemWorkersCompensationCercaDeMiPage() {
-  return <WinstonSalemWorkersCompensationCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado de Compensación Laboral Cerca de Mi en Winston-Salem, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Winston Legal Services Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de compensación laboral cerca de usted en Winston-Salem, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-  keywords:
-    'abogado de compensación laboral cerca de mi, abogado de compensación laboral Winston-Salem, abogado Winston-Salem, abogado de compensación laboral NC, abogado español Winston-Salem',
+    'Encuentra abogados de legal services en Winston, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
+  keywords: 'legal services Winston, abogado near me, Winston NC legal services',
   openGraph: {
-    title: 'Abogado de Compensación Laboral Cerca de Mi en Winston-Salem, NC | Vasquez Law Firm',
+    title: 'Legal Services Abogados in Winston, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de compensación laboral cerca de usted en Winston-Salem, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/winston-salem-workers-compensation-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/winston-salem-workers-compensation-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado de Compensación Laboral Cerca de Mi en Winston-Salem, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical:
-      'https://www.vasquezlawnc.com/es/cerca-de-mi/winston-salem-workers-compensation-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/winston-salem-workers-compensation-near-me',
-      'es-ES':
-        'https://www.vasquezlawnc.com/es/cerca-de-mi/winston-salem-workers-compensation-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de legal services en Winston? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/winston-legal-services.jpg'],
   },
 };
+
+export default function WinstonLegalServicesNearMePage() {
+  componentLogger.info('winston-salem-compensacion-laboral-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '0 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '25 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '165 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Winston"
+      service="Legal Services"
+      language="es"
+      coordinates={{ lat: 35.7796, lng: -78.6382 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

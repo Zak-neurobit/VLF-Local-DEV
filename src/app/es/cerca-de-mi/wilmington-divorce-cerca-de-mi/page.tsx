@@ -1,34 +1,51 @@
-import WilmingtonDivorceCercaDeMiClient from './wilmingtondivorceNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function WilmingtonDivorceCercaDeMiPage() {
-  return <WilmingtonDivorceCercaDeMiClient />;
-}
-
-export const metadata = {
-  title: 'Abogado de Divorcio Cerca de Mi en Wilmington, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Wilmington Divorce Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de divorcio cerca de usted en Wilmington, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-  keywords:
-    'abogado de divorcio cerca de mi, abogado de divorcio Wilmington, abogado Wilmington, abogado de divorcio NC, abogado español Wilmington',
+    'Encuentra abogados de divorce en Wilmington, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
+  keywords: 'divorce Wilmington, abogado near me, Wilmington NC divorce',
   openGraph: {
-    title: 'Abogado de Divorcio Cerca de Mi en Wilmington, NC | Vasquez Law Firm',
+    title: 'Divorce Abogados in Wilmington, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de divorcio cerca de usted en Wilmington, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/wilmington-divorce-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/wilmington-divorce-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado de Divorcio Cerca de Mi en Wilmington, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/wilmington-divorce-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/wilmington-divorce-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/wilmington-divorce-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de divorce en Wilmington? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/wilmington-divorce.jpg'],
   },
 };
+
+export default function WilmingtonDivorceNearMePage() {
+  componentLogger.info('wilmington-divorce-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '130 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '155 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '200 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Wilmington"
+      service="Divorce"
+      language="es"
+      coordinates={{ lat: 34.2257, lng: -77.9447 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

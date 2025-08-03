@@ -1,35 +1,51 @@
-import GreensboroCriminalDefenseCercaDeMiClient from './greensuoroCriminalDefenseNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function GreensboroCriminalDefenseCercaDeMiPage() {
-  return <GreensboroCriminalDefenseCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado de Defensa Criminal Cerca de Mi en Greensboro, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Greensboro Criminal Defense Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de defensa criminal cerca de usted en Greensboro, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-  keywords:
-    'abogado de defensa criminal cerca de mi, abogado de defensa criminal Greensboro, abogado Greensboro, abogado de defensa criminal NC, abogado español Greensboro',
+    'Encuentra abogados de criminal defense en Greensboro, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
+  keywords: 'criminal defense Greensboro, abogado near me, Greensboro NC criminal defense',
   openGraph: {
-    title: 'Abogado de Defensa Criminal Cerca de Mi en Greensboro, NC | Vasquez Law Firm',
+    title: 'Criminal Defense Abogados in Greensboro, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de defensa criminal cerca de usted en Greensboro, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/greensboro-criminal-defense-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/greensboro-criminal-defense-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado de Defensa Criminal Cerca de Mi en Greensboro, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical:
-      'https://www.vasquezlawnc.com/es/cerca-de-mi/greensboro-criminal-defense-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/greensboro-criminal-defense-near-me',
-      'es-ES':
-        'https://www.vasquezlawnc.com/es/cerca-de-mi/greensboro-criminal-defense-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de criminal defense en Greensboro? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/greensboro-criminal-defense.jpg'],
   },
 };
+
+export default function GreensboroCriminalDefenseNearMePage() {
+  componentLogger.info('greensboro-defensa-criminal-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '55 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '80 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '90 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Greensboro"
+      service="Criminal Defense"
+      language="es"
+      coordinates={{ lat: 36.0726, lng: -79.792 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

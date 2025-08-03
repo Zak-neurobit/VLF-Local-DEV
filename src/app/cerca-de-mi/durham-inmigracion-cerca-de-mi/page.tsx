@@ -1,33 +1,51 @@
-import DurhamImmigrationCercaDeMiClient from './durhamimmigrationNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function DurhamImmigrationCercaDeMiPage() {
-  return <DurhamImmigrationCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Attorney de Immigration Cerca de Mi en Durham, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Durham Immigration Near Me | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de inmigración cerca de usted en Durham, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-  keywords:
-    'abogado de inmigración cerca de mi, abogado de inmigración Durham, abogado Durham, abogado de inmigración NC, abogado español Durham',
+    'Find experienced immigration lawyers in Durham, NC. Free consultation, no upfront fees. We fight for your rights.',
+  keywords: 'immigration Durham, attorney near me, Durham NC immigration',
   openGraph: {
-    title: 'Attorney de Immigration Cerca de Mi en Durham, NC | Vasquez Law Firm',
+    title: 'Immigration Lawyers in Durham, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de inmigración cerca de usted en Durham, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/durham-immigration-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/durham-immigration-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Attorney de Immigration Cerca de Mi en Durham, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/durham-immigration-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/durham-immigration-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/durham-immigration-cerca-de-mi',
-    },
+      'Need a immigration lawyer in Durham? Get the legal help you deserve. No fee unless we win.',
+    images: ['/images/durham-immigration.jpg'],
   },
 };
+
+export default function DurhamImmigrationNearMePage() {
+  componentLogger.info('durham-inmigracion-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '0 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '25 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '140 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Durham"
+      service="Immigration"
+      language="en"
+      coordinates={{ lat: 35.994, lng: -78.8986 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

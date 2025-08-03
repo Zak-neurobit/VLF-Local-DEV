@@ -1,34 +1,51 @@
-import RaleighImmigrationCercaDeMiClient from './raleighimmigrationNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function RaleighImmigrationCercaDeMiPage() {
-  return <RaleighImmigrationCercaDeMiClient />;
-}
-
-export const metadata = {
-  title: 'Abogado de Inmigración Cerca de Mi en Raleigh, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Raleigh Immigration Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de inmigración cerca de usted en Raleigh, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-  keywords:
-    'abogado de inmigración cerca de mi, abogado de inmigración Raleigh, abogado Raleigh, abogado de inmigración NC, abogado español Raleigh',
+    'Encuentra abogados de immigration en Raleigh, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
+  keywords: 'immigration Raleigh, abogado near me, Raleigh NC immigration',
   openGraph: {
-    title: 'Abogado de Inmigración Cerca de Mi en Raleigh, NC | Vasquez Law Firm',
+    title: 'Immigration Abogados in Raleigh, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de inmigración cerca de usted en Raleigh, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/raleigh-immigration-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/raleigh-immigration-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado de Inmigración Cerca de Mi en Raleigh, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/raleigh-immigration-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/raleigh-immigration-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/raleigh-immigration-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de immigration en Raleigh? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/raleigh-immigration.jpg'],
   },
 };
+
+export default function RaleighImmigrationNearMePage() {
+  componentLogger.info('raleigh-inmigracion-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '0 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '25 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '165 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Raleigh"
+      service="Immigration"
+      language="es"
+      coordinates={{ lat: 35.7796, lng: -78.6382 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

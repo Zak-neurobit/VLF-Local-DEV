@@ -1,33 +1,51 @@
-import CaryPersonalInjuryCercaDeMiClient from './caryPersonalInjuryNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function CaryPersonalInjuryCercaDeMiPage() {
-  return <CaryPersonalInjuryCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Attorney de Personal Injury Cerca de Mi en Cary, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Cary Personal Injury Lawyer Near Me | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de lesiones personales cerca de usted en Cary, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-  keywords:
-    'abogado de lesiones personales cerca de mi, abogado de lesiones personales Cary, abogado Cary, abogado de lesiones personales NC, abogado español Cary',
+    'Find experienced personal injury lawyer lawyers in Cary, NC. Free consultation, no upfront fees. We fight for your rights.',
+  keywords: 'personal injury lawyer Cary, attorney near me, Cary NC personal injury lawyer',
   openGraph: {
-    title: 'Attorney de Personal Injury Cerca de Mi en Cary, NC | Vasquez Law Firm',
+    title: 'Personal Injury Lawyer Lawyers in Cary, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de lesiones personales cerca de usted en Cary, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/cary-personal-injury-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/cary-personal-injury-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Attorney de Personal Injury Cerca de Mi en Cary, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/cary-personal-injury-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/cary-personal-injury-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/cary-personal-injury-cerca-de-mi',
-    },
+      'Need a personal injury lawyer lawyer in Cary? Get the legal help you deserve. No fee unless we win.',
+    images: ['/images/cary-personal-injury-lawyer.jpg'],
   },
 };
+
+export default function CaryPersonalInjuryLawyerNearMePage() {
+  componentLogger.info('cary-lesiones-personales-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '10 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '30 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '160 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Cary"
+      service="Personal Injury Lawyer"
+      language="en"
+      coordinates={{ lat: 35.7915, lng: -78.7811 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

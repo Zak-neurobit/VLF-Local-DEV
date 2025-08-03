@@ -1,35 +1,51 @@
-import CharlotteWorkersCompensationCercaDeMiClient from './charlotteWorkersCompensationNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function CharlotteWorkersCompensationCercaDeMiPage() {
-  return <CharlotteWorkersCompensationCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Attorney de Workers Compensation Cerca de Mi en Charlotte, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Charlotte Workers Compensation Near Me | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de compensación laboral cerca de usted en Charlotte, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-  keywords:
-    'abogado de compensación laboral cerca de mi, abogado de compensación laboral Charlotte, abogado Charlotte, abogado de compensación laboral NC, abogado español Charlotte',
+    'Find experienced workers compensation lawyers in Charlotte, NC. Free consultation, no upfront fees. We fight for your rights.',
+  keywords: 'workers compensation Charlotte, attorney near me, Charlotte NC workers compensation',
   openGraph: {
-    title: 'Attorney de Workers Compensation Cerca de Mi en Charlotte, NC | Vasquez Law Firm',
+    title: 'Workers Compensation Lawyers in Charlotte, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de compensación laboral cerca de usted en Charlotte, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/charlotte-workers-compensation-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/charlotte-workers-compensation-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Attorney de Workers Compensation Cerca de Mi en Charlotte, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical:
-      'https://www.vasquezlawnc.com/es/cerca-de-mi/charlotte-workers-compensation-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/charlotte-workers-compensation-near-me',
-      'es-ES':
-        'https://www.vasquezlawnc.com/es/cerca-de-mi/charlotte-workers-compensation-cerca-de-mi',
-    },
+      'Need a workers compensation lawyer in Charlotte? Get the legal help you deserve. No fee unless we win.',
+    images: ['/images/charlotte-workers-compensation.jpg'],
   },
 };
+
+export default function CharlotteWorkersCompensationNearMePage() {
+  componentLogger.info('charlotte-compensacion-laboral-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '0 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '165 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '140 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Charlotte"
+      service="Workers Compensation"
+      language="en"
+      coordinates={{ lat: 35.2271, lng: -80.8431 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

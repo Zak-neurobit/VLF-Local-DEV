@@ -1,35 +1,51 @@
-import WilmingtonWorkersCompensationCercaDeMiClient from './wilmingtonWorkersCompensationNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function WilmingtonWorkersCompensationCercaDeMiPage() {
-  return <WilmingtonWorkersCompensationCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado de Compensación Laboral Cerca de Mi en Wilmington, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Wilmington Workers Compensation Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de compensación laboral cerca de usted en Wilmington, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-  keywords:
-    'abogado de compensación laboral cerca de mi, abogado de compensación laboral Wilmington, abogado Wilmington, abogado de compensación laboral NC, abogado español Wilmington',
+    'Encuentra abogados de workers compensation en Wilmington, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
+  keywords: 'workers compensation Wilmington, abogado near me, Wilmington NC workers compensation',
   openGraph: {
-    title: 'Abogado de Compensación Laboral Cerca de Mi en Wilmington, NC | Vasquez Law Firm',
+    title: 'Workers Compensation Abogados in Wilmington, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de compensación laboral cerca de usted en Wilmington, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/wilmington-workers-compensation-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/wilmington-workers-compensation-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado de Compensación Laboral Cerca de Mi en Wilmington, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical:
-      'https://www.vasquezlawnc.com/es/cerca-de-mi/wilmington-workers-compensation-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/wilmington-workers-compensation-near-me',
-      'es-ES':
-        'https://www.vasquezlawnc.com/es/cerca-de-mi/wilmington-workers-compensation-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de workers compensation en Wilmington? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/wilmington-workers-compensation.jpg'],
   },
 };
+
+export default function WilmingtonWorkersCompensationNearMePage() {
+  componentLogger.info('wilmington-compensacion-laboral-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '130 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '155 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '200 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Wilmington"
+      service="Workers Compensation"
+      language="es"
+      coordinates={{ lat: 34.2257, lng: -77.9447 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

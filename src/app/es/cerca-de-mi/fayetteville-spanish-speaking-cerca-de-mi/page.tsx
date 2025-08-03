@@ -1,35 +1,52 @@
-import FayettevilleSpanishSpeakingCercaDeMiClient from './fayettevilleSpanishSpeakingNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function FayettevilleSpanishSpeakingCercaDeMiPage() {
-  return <FayettevilleSpanishSpeakingCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado que Habla Español Cerca de Mi en Fayetteville, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Fayetteville Spanish Speaking Services Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado que habla español cerca de usted en Fayetteville, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
+    'Encuentra abogados de spanish speaking services en Fayetteville, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
   keywords:
-    'abogado que habla español cerca de mi, abogado que habla español Fayetteville, abogado Fayetteville, abogado que habla español NC, abogado español Fayetteville',
+    'spanish speaking services Fayetteville, abogado near me, Fayetteville NC spanish speaking services',
   openGraph: {
-    title: 'Abogado que Habla Español Cerca de Mi en Fayetteville, NC | Vasquez Law Firm',
+    title: 'Spanish Speaking Services Abogados in Fayetteville, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado que habla español cerca de usted en Fayetteville, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/fayetteville-spanish-speaking-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/fayetteville-spanish-speaking-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado que Habla Español Cerca de Mi en Fayetteville, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical:
-      'https://www.vasquezlawnc.com/es/cerca-de-mi/fayetteville-spanish-speaking-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/fayetteville-immigration-near-me',
-      'es-ES':
-        'https://www.vasquezlawnc.com/es/cerca-de-mi/fayetteville-spanish-speaking-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de spanish speaking services en Fayetteville? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/fayetteville-spanish-speaking-services.jpg'],
   },
 };
+
+export default function FayettevilleSpanishSpeakingServicesNearMePage() {
+  componentLogger.info('fayetteville-spanish-speaking-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '65 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '90 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '130 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Fayetteville"
+      service="Spanish Speaking Services"
+      language="es"
+      coordinates={{ lat: 35.0527, lng: -78.8784 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

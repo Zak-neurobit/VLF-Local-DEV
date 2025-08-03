@@ -1,33 +1,52 @@
-import ConcordSpanishSpeakingCercaDeMiClient from './concordSpanishSpeakingNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function ConcordSpanishSpeakingCercaDeMiPage() {
-  return <ConcordSpanishSpeakingCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado que Habla Español Cerca de Mi en Concord, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Concord Spanish Speaking Services Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado que habla español cerca de usted en Concord, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
+    'Encuentra abogados de spanish speaking services en Concord, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
   keywords:
-    'abogado que habla español cerca de mi, abogado que habla español Concord, abogado Concord, abogado que habla español NC, abogado español Concord',
+    'spanish speaking services Concord, abogado near me, Concord NC spanish speaking services',
   openGraph: {
-    title: 'Abogado que Habla Español Cerca de Mi en Concord, NC | Vasquez Law Firm',
+    title: 'Spanish Speaking Services Abogados in Concord, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado que habla español cerca de usted en Concord, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/concord-spanish-speaking-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/concord-spanish-speaking-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado que Habla Español Cerca de Mi en Concord, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/concord-spanish-speaking-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/concord-immigration-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/concord-spanish-speaking-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de spanish speaking services en Concord? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/concord-spanish-speaking-services.jpg'],
   },
 };
+
+export default function ConcordSpanishSpeakingServicesNearMePage() {
+  componentLogger.info('concord-spanish-speaking-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '20 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '120 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '145 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Concord"
+      service="Spanish Speaking Services"
+      language="es"
+      coordinates={{ lat: 35.4088, lng: -80.5795 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

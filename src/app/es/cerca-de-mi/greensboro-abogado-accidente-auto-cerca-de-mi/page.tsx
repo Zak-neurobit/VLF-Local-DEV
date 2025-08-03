@@ -1,147 +1,51 @@
-import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
-
 import { Metadata } from 'next';
-import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
 export const metadata: Metadata = {
-  title:
-    'Abogado de Accidente de Auto Cerca De Mí Greensboro NC | Disponible 24/7 | Consulta Gratuita',
+  title: 'Greensboro Car Accident Lawyer Cerca De Mi | Vasquez Law Firm',
   description:
-    '¿Busca un abogado de accidente de auto cerca de usted en Greensboro? ⭐ Calificación 5 Estrellas • 60+ Años de Experiencia • Se Habla Español • Citas el Mismo Día • Llame 1-844-YO-PELEO',
-  keywords:
-    'abogado de accidente de auto cerca de mi, abogado de accidentes automovilisticos cerca de mi, abogado de colisiones cerca de mi, abogado de accidente de auto greensboro nc cerca de mi, mejor abogado de accidente de auto cerca de mi, abogado de accidente de auto que habla español cerca de mi, abogado de accidente de auto de emergencia cerca de mi',
+    'Encuentra abogados de car accident lawyer en Greensboro, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
+  keywords: 'car accident lawyer Greensboro, abogado near me, Greensboro NC car accident lawyer',
   openGraph: {
-    title: 'Abogado de Accidente de Auto Cerca De Mí en Greensboro | Vasquez Law Firm',
+    title: 'Car Accident Lawyer Abogados in Greensboro, NC - Free Consultation',
     description:
-      'Ayuda Legal de Emergencia 24/7 en Greensboro. Consulta Gratuita. 30,000+ Casos Ganados. Se Habla Español.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/greensboro-abogado-accidente-auto-cerca-de-mi',
-    images: [
-      {
-        url: '/images/greensboro-office-hero.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Vasquez Law Firm Greensboro - Abogado de Accidente de Auto Cerca de Usted',
-      },
-    ],
+      '¿Necesitas un abogado de car accident lawyer en Greensboro? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/greensboro-car-accident-lawyer.jpg'],
   },
 };
 
-export default function GreensboroAbogadoaccidenteautoCercaDeMiPage() {
-  const post = {
-    id: 'greensboro-abogado-accidente-auto-cerca-de-mi',
-    title: 'Abogado de Accidente de Auto Cerca De Mí en Greensboro',
-    slug: 'greensboro-abogado-accidente-auto-cerca-de-mi',
-    excerpt:
-      'Abogado de Accidente de Auto experimentado en Greensboro, NC. Consulta gratuita disponible 24/7.',
-    content: `
-      <div className="prose prose-lg max-w-none">
-        <h1>Abogado de Accidente de Auto Cerca De Mí en Greensboro, NC</h1>
-        
-        <p>¿Necesita un abogado de accidente de auto cerca de usted en Greensboro? Vasquez Law Firm es su mejor opción. Con más de 60 años de experiencia combinada, nuestro equipo bilingüe está listo para luchar por sus derechos.</p>
+export default function GreensboroCarAccidentLawyerNearMePage() {
+  componentLogger.info('greensboro-abogado-accidente-auto-cerca-de-miPage.render', {});
 
-        <h2>🚗 Servicios de Abogado de Accidente de Auto en Greensboro</h2>
-        
-        <p>Nuestros servicios especializados incluyen:</p>
-        <ul>
-          <li>Accidentes de auto</li>
-          <li>Colisiones traseras</li>
-          <li>Accidentes de intersección</li>
-          <li>Lesiones por latigazo</li>
-          <li>Daños a la propiedad</li>
-        </ul>
-
-        <h2>🏙️ Por Qué Elegir Nuestros Servicios en Greensboro</h2>
-        
-        <h3>Experiencia Local</h3>
-        <p>Conocemos las cortes de Greensboro y tenemos relaciones establecidas con el sistema legal local.</p>
-
-        <h3>Servicio Bilingüe Completo</h3>
-        <p>Todo nuestro personal habla español e inglés fluidamente. No necesitará un intérprete para comunicarse con nosotros.</p>
-
-        <h3>Disponibilidad 24/7</h3>
-        <p>Emergencias legales pueden ocurrir en cualquier momento. Estamos disponibles 24 horas al día para casos urgentes.</p>
-
-        <h3>Consulta Gratuita</h3>
-        <p>Evaluamos su caso sin costo alguno y le explicamos todas sus opciones legales.</p>
-
-        <h2>📍 Sirviendo el Área de Greensboro</h2>
-        <p>Nuestros abogados están disponibles para clientes en Greensboro y áreas circundantes.</p>
-
-        <h2>🚨 Casos de Emergencia Legal</h2>
-        <p>Si usted está enfrentando una situación legal urgente, no espere:</p>
-        <ul>
-          <li>🚨 Arrestos</li>
-          <li>🚨 Accidentes graves</li>
-          <li>🚨 Detención por ICE</li>
-          <li>🚨 Órdenes judiciales</li>
-        </ul>
-        
-        <p><strong>¡Llame INMEDIATAMENTE\! 📞 1-844-YO-PELEO</strong></p>
-
-        <h2>💼 Historial de Éxito Comprobado</h2>
-        <ul>
-          <li>✅ 30,000+ casos ganados</li>
-          <li>✅ 95% tasa de éxito</li>
-          <li>✅ Millones en compensación obtenida</li>
-          <li>✅ Décadas de experiencia</li>
-          <li>✅ Calificación 5 estrellas</li>
-        </ul>
-
-        <h2>📞 Contacte a Su Abogado de Accidente de Auto en Greensboro Hoy</h2>
-        
-        <div className="bg-blue-50 p-6 rounded-lg mt-8">
-          <h3 className="text-xl font-bold text-blue-800 mb-4">📞 Llame Ahora - Consulta Gratuita</h3>
-          <p className="text-lg font-bold text-blue-700">1-844-YO-PELEO (1-844-967-3536)</p>
-          <p className="text-blue-700 mt-2">Disponible 24/7 para emergencias legales</p>
-        </div>
-
-        <h2>⭐ Lo Que Dicen Nuestros Clientes de Greensboro</h2>
-        <blockquote className="border-l-4 border-blue-500 pl-6 italic text-gray-700">
-          "Vasquez Law Firm me ayudó enormemente con mi caso. Su equipo en Greensboro fue increíblemente profesional y siempre estuvieron disponibles para responder mis preguntas." - Cliente Satisfecho, Greensboro
-        </blockquote>
-
-        <p className="text-center text-lg font-bold mt-8">🚀 Su futuro comienza con una llamada. ¡Contacte a Vasquez Law Firm hoy mismo\!</p>
-      </div>
-    `,
-    practiceArea: 'personal-injury',
-    language: 'es' as const,
-    publishedAt: new Date(),
-    readTime: 10,
-    author: DEFAULT_BLOG_AUTHOR,
-    tags: ['accidente', 'greensboro', 'abogado', 'cerca-de-mi'],
-  };
-
-  const categories = [
+  const nearbyOffices = [
     {
-      id: 'immigration',
-      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
-      slug: { en: 'immigration', es: 'inmigracion' },
-      icon: '🌐',
-      postCount: 45,
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '55 miles',
     },
     {
-      id: 'personal-injury',
-      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
-      slug: { en: 'personal-injury', es: 'lesiones-personales' },
-      icon: '🏥',
-      postCount: 32,
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '80 miles',
     },
     {
-      id: 'criminal-defense',
-      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
-      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
-      icon: '⚖️',
-      postCount: 28,
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '90 miles',
     },
   ];
 
   return (
-    <BlogPageTemplate
-      posts={[]}
-      categories={categories}
-      isArticlePage={true}
-      currentPost={post}
-      relatedPosts={[]}
+    <NearMePageClient
+      city="Greensboro"
+      service="Car Accident Lawyer"
+      language="es"
+      coordinates={{ lat: 36.0726, lng: -79.792 }}
+      nearbyOffices={nearbyOffices}
     />
   );
 }

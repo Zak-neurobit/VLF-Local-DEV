@@ -1,33 +1,52 @@
-import DurhamSpanishSpeakingCercaDeMiClient from './durhamSpanishSpeakingNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function DurhamSpanishSpeakingCercaDeMiPage() {
-  return <DurhamSpanishSpeakingCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado que Habla Español Cerca de Mi en Durham, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Durham Spanish Speaking Services Cerca De Mi | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado que habla español cerca de usted en Durham, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
+    'Encuentra abogados de spanish speaking services en Durham, NC. Consulta gratuita, sin cargos por adelantado. Luchamos por tus derechos.',
   keywords:
-    'abogado que habla español cerca de mi, abogado que habla español Durham, abogado Durham, abogado que habla español NC, abogado español Durham',
+    'spanish speaking services Durham, abogado near me, Durham NC spanish speaking services',
   openGraph: {
-    title: 'Abogado que Habla Español Cerca de Mi en Durham, NC | Vasquez Law Firm',
+    title: 'Spanish Speaking Services Abogados in Durham, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado que habla español cerca de usted en Durham, NC. Consultas gratuitas 24/7. Llame (919) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/durham-spanish-speaking-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/durham-spanish-speaking-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado que Habla Español Cerca de Mi en Durham, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/durham-spanish-speaking-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/durham-immigration-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/durham-spanish-speaking-cerca-de-mi',
-    },
+      '¿Necesitas un abogado de spanish speaking services en Durham? Consulta gratuita. No pagas si no ganamos.',
+    images: ['/images/durham-spanish-speaking-services.jpg'],
   },
 };
+
+export default function DurhamSpanishSpeakingServicesNearMePage() {
+  componentLogger.info('durham-spanish-speaking-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '0 miles',
+    },
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '25 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '140 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Durham"
+      service="Spanish Speaking Services"
+      language="es"
+      coordinates={{ lat: 35.994, lng: -78.8986 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}

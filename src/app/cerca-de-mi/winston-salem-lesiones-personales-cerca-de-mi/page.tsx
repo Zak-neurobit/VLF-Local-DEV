@@ -1,35 +1,51 @@
-import WinstonSalemPersonalInjuryCercaDeMiClient from './WinstonSalemPersonalInjuryNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
+import NearMePageClient from '@/components/cerca-de-mi/NearMePageClient';
 
-export default function WinstonSalemPersonalInjuryCercaDeMiPage() {
-  return <WinstonSalemPersonalInjuryCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Attorney de Personal Injury Cerca de Mi en Winston-Salem, NC | Vasquez Law Firm',
+export const metadata: Metadata = {
+  title: 'Winston Legal Services Near Me | Vasquez Law Firm',
   description:
-    'Encuentre el mejor abogado de lesiones personales cerca de usted en Winston-Salem, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-  keywords:
-    'abogado de lesiones personales cerca de mi, abogado de lesiones personales Winston-Salem, abogado Winston-Salem, abogado de lesiones personales NC, abogado español Winston-Salem',
+    'Find experienced legal services lawyers in Winston, NC. Free consultation, no upfront fees. We fight for your rights.',
+  keywords: 'legal services Winston, attorney near me, Winston NC legal services',
   openGraph: {
-    title: 'Attorney de Personal Injury Cerca de Mi en Winston-Salem, NC | Vasquez Law Firm',
+    title: 'Legal Services Lawyers in Winston, NC - Free Consultation',
     description:
-      'Encuentre el mejor abogado de lesiones personales cerca de usted en Winston-Salem, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/winston-salem-personal-injury-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/winston-salem-personal-injury-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Attorney de Personal Injury Cerca de Mi en Winston-Salem, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical:
-      'https://www.vasquezlawnc.com/es/cerca-de-mi/winston-salem-personal-injury-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/winston-salem-personal-injury-near-me',
-      'es-ES':
-        'https://www.vasquezlawnc.com/es/cerca-de-mi/winston-salem-personal-injury-cerca-de-mi',
-    },
+      'Need a legal services lawyer in Winston? Get the legal help you deserve. No fee unless we win.',
+    images: ['/images/winston-legal-services.jpg'],
   },
 };
+
+export default function WinstonLegalServicesNearMePage() {
+  componentLogger.info('winston-salem-lesiones-personales-cerca-de-miPage.render', {});
+
+  const nearbyOffices = [
+    {
+      name: 'Raleigh Office',
+      address: '1234 Main St, Raleigh, NC 27601',
+      phone: '(919) 555-0123',
+      distance: '0 miles',
+    },
+    {
+      name: 'Durham Office',
+      address: '567 Duke St, Durham, NC 27701',
+      phone: '(919) 555-0124',
+      distance: '25 miles',
+    },
+    {
+      name: 'Charlotte Main Office',
+      address: '3500 Cameron Blvd, Charlotte, NC 28211',
+      phone: '(704) 555-0123',
+      distance: '165 miles',
+    },
+  ];
+
+  return (
+    <NearMePageClient
+      city="Winston"
+      service="Legal Services"
+      language="en"
+      coordinates={{ lat: 35.7796, lng: -78.6382 }}
+      nearbyOffices={nearbyOffices}
+    />
+  );
+}
