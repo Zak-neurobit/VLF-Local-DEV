@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
-import { headers } from 'next/headers';
 
 export const dynamic = 'force-static';
+
+const baseUrl = 'https://www.vasquezlawnc.com';
 
 const landingPages = [
   // Location-based landing pages
@@ -36,11 +37,6 @@ const landingPages = [
 ];
 
 export async function GET() {
-  const headersList = await headers();
-  const host = headersList.get('host') || 'vasquezlawfirm.com';
-  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-  const baseUrl = `${protocol}://${host}`;
-
   const entries = landingPages
     .map(page => {
       const lastmod = new Date().toISOString();

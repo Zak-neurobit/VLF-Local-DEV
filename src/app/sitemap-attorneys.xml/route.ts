@@ -1,15 +1,11 @@
 import { NextResponse } from 'next/server';
-import { headers } from 'next/headers';
 import { attorneyProfiles } from '@/data/attorneys';
 
 export const dynamic = 'force-static';
 
-export async function GET() {
-  const headersList = await headers();
-  const host = headersList.get('host') || 'vasquezlawfirm.com';
-  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-  const baseUrl = `${protocol}://${host}`;
+const baseUrl = 'https://www.vasquezlawnc.com';
 
+export async function GET() {
   const entries = attorneyProfiles
     .map(attorney => {
       const urls = [

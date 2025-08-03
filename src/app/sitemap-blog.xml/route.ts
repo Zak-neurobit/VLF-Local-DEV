@@ -1,16 +1,12 @@
 import { NextResponse } from 'next/server';
-import { headers } from 'next/headers';
 import { prisma } from '@/lib/prisma';
 import { logger, errorToLogMeta } from '@/lib/safe-logger';
 
 export const dynamic = 'force-static';
 
-export async function GET() {
-  const headersList = await headers();
-  const host = headersList.get('host') || 'vasquezlawfirm.com';
-  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-  const baseUrl = `${protocol}://${host}`;
+const baseUrl = 'https://www.vasquezlawnc.com';
 
+export async function GET() {
   try {
     // Fetch all published blog posts
     const posts = await prisma.blogPost.findMany({

@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
-import { headers } from 'next/headers';
 
 export const dynamic = 'force-static';
+
+const baseUrl = 'https://www.vasquezlawnc.com';
 
 const resources = [
   // Legal resources
@@ -27,11 +28,6 @@ const resources = [
 ];
 
 export async function GET() {
-  const headersList = await headers();
-  const host = headersList.get('host') || 'vasquezlawfirm.com';
-  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-  const baseUrl = `${protocol}://${host}`;
-
   const entries = resources
     .map(resource => {
       const lastmod = new Date().toISOString();
