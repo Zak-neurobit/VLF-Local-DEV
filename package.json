@@ -17,6 +17,7 @@
     "build:socket": "tsc --project tsconfig.socket.json && mkdir -p dist/lib/socket && cp src/lib/socket/server-setup.js dist/lib/socket/ && cp dist/lib/socket/server.js dist/lib/socket/ 2>/dev/null || true",
     "build": "echo \"BUILD STARTED $(date)\" && pnpm exec prisma generate && pnpm run setup:partytown && NODE_OPTIONS=\"--max-old-space-size=8192\" next build",
     "build:netlify": "echo \"NETLIFY BUILD STARTED\" && echo \"Memory: $NODE_OPTIONS\" && node scripts/handle-api-routes.js backup && pnpm exec prisma generate && pnpm run setup:partytown && NETLIFY=true next build && node scripts/handle-api-routes.js restore",
+    "build:minimal": "echo \"MINIMAL BUILD STARTED\" && node scripts/handle-api-routes.js backup && NETLIFY=true next build",
     "netlify": "netlify",
     "build:vercel": "node build-override.js && pnpm exec prisma generate && pnpm run setup:partytown && NODE_OPTIONS='--max-old-space-size=8192' next build",
     "build:optimized": "pnpm exec prisma generate && pnpm run setup:partytown && node scripts/optimized-build.js",
