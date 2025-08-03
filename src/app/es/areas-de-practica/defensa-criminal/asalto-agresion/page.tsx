@@ -2,8 +2,12 @@ import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Link from 'next/link';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
-  title: 'Abogados de Defensa por Asalto y Agresión en NC | Proteja Su Libertad | YO PELEO POR TI™',
+  title:
+    'Abogados de Defensa por Asalto y Agresión en NC | Proteja Su Libertad | YO PELEO POR TI™',
   description:
     'Abogados expertos en defensa por asalto y agresión en Carolina del Norte. Defensa agresiva contra cargos de asalto simple, agravado y agresión. Consulta GRATIS 24/7.',
   keywords:
@@ -137,10 +141,10 @@ const content = (
     <h2 className="text-3xl font-bold mb-6">Defensa Agresiva Contra Cargos de Asalto y Agresión</h2>
 
     <p className="mb-6">
-      Los cargos de asalto y agresión pueden destruir su reputación, carrera y libertad. Desde peleas
-      simples hasta asalto agravado con armas, estos casos requieren defensa experta inmediata. En
-      Vasquez Law Firm, entendemos que las situaciones pueden escalar rápidamente, y que buenas
-      personas pueden enfrentar cargos serios por malentendidos o autodefensa.
+      Los cargos de asalto y agresión pueden destruir su reputación, carrera y libertad. Desde
+      peleas simples hasta asalto agravado con armas, estos casos requieren defensa experta
+      inmediata. En Vasquez Law Firm, entendemos que las situaciones pueden escalar rápidamente, y
+      que buenas personas pueden enfrentar cargos serios por malentendidos o autodefensa.
     </p>
 
     <div className="bg-red-50 border-l-4 border-red-600 p-6 mb-8 text-black">
@@ -227,8 +231,8 @@ const content = (
         <div>
           <h4 className="font-bold">Asalto contra Oficial Público</h4>
           <p>
-            Asalto contra policía, EMT, bomberos. Penalidades aumentadas automáticamente, tratamiento
-            severo en corte.
+            Asalto contra policía, EMT, bomberos. Penalidades aumentadas automáticamente,
+            tratamiento severo en corte.
           </p>
         </div>
       </div>

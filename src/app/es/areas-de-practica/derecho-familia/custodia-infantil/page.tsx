@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Link from 'next/link';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Abogados de Custodia Infantil en NC | Protegemos a Sus Hijos | YO PELEO POR TI™',
   description:
@@ -15,10 +18,12 @@ export const metadata: Metadata = {
     images: [{ url: '/images/family-law-child-custody.jpg', width: 1200, height: 630 }],
   },
   alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/areas-de-practica/derecho-familia/custodia-infantil',
+    canonical:
+      'https://www.vasquezlawnc.com/es/areas-de-practica/derecho-familia/custodia-infantil',
     languages: {
       'en-US': 'https://www.vasquezlawnc.com/practice-areas/family-law/child-custody',
-      'es-ES': 'https://www.vasquezlawnc.com/es/areas-de-practica/derecho-familia/custodia-infantil',
+      'es-ES':
+        'https://www.vasquezlawnc.com/es/areas-de-practica/derecho-familia/custodia-infantil',
     },
   },
 };
@@ -26,8 +31,7 @@ export const metadata: Metadata = {
 const services = [
   {
     title: 'Custodia Física',
-    description:
-      'Determinación de dónde vivirán los niños y cuánto tiempo pasarán con cada padre.',
+    description: 'Determinación de dónde vivirán los niños y cuánto tiempo pasarán con cada padre.',
     features: [
       'Custodia física primaria',
       'Custodia física conjunta',
@@ -78,8 +82,7 @@ const services = [
   },
   {
     title: 'Derechos de Visita',
-    description:
-      'Establecimiento y protección de tiempo de crianza para padres no custodios.',
+    description: 'Establecimiento y protección de tiempo de crianza para padres no custodios.',
     features: [
       'Horarios de visita regulares',
       'Visitas de fin de semana extendidas',
@@ -91,8 +94,7 @@ const services = [
   },
   {
     title: 'Custodia de Emergencia',
-    description:
-      'Acción legal inmediata cuando los niños están en peligro o riesgo inmediato.',
+    description: 'Acción legal inmediata cuando los niños están en peligro o riesgo inmediato.',
     features: [
       'Órdenes de custodia de emergencia',
       'Órdenes de protección para niños',
@@ -104,8 +106,7 @@ const services = [
   },
   {
     title: 'Derechos de Abuelos',
-    description:
-      'Representación para abuelos que buscan visitas o custodia de sus nietos.',
+    description: 'Representación para abuelos que buscan visitas o custodia de sus nietos.',
     features: [
       'Derechos de visita de abuelos',
       'Custodia por abuelos',
@@ -173,18 +174,30 @@ const content = (
         <h4 className="font-bold text-primary mb-3">Custodia Física</h4>
         <p className="text-sm mb-3">Determina dónde vive el niño día a día.</p>
         <ul className="space-y-2 text-sm">
-          <li>• <strong>Primaria:</strong> El niño vive principalmente con un padre</li>
-          <li>• <strong>Conjunta:</strong> El niño pasa tiempo significativo con ambos</li>
-          <li>• <strong>Exclusiva:</strong> Un padre tiene todo el tiempo físico</li>
+          <li>
+            • <strong>Primaria:</strong> El niño vive principalmente con un padre
+          </li>
+          <li>
+            • <strong>Conjunta:</strong> El niño pasa tiempo significativo con ambos
+          </li>
+          <li>
+            • <strong>Exclusiva:</strong> Un padre tiene todo el tiempo físico
+          </li>
         </ul>
       </div>
       <div className="bg-white/10 p-6 rounded-lg">
         <h4 className="font-bold text-primary mb-3">Custodia Legal</h4>
         <p className="text-sm mb-3">Determina quién toma decisiones importantes.</p>
         <ul className="space-y-2 text-sm">
-          <li>• <strong>Conjunta:</strong> Ambos padres toman decisiones juntos</li>
-          <li>• <strong>Exclusiva:</strong> Un padre toma todas las decisiones</li>
-          <li>• <strong>Limitada:</strong> Decisiones específicas para cada padre</li>
+          <li>
+            • <strong>Conjunta:</strong> Ambos padres toman decisiones juntos
+          </li>
+          <li>
+            • <strong>Exclusiva:</strong> Un padre toma todas las decisiones
+          </li>
+          <li>
+            • <strong>Limitada:</strong> Decisiones específicas para cada padre
+          </li>
         </ul>
       </div>
     </div>
@@ -249,8 +262,8 @@ const content = (
         <div>
           <h3 className="text-xl font-semibold mb-2">Presentación de Petición</h3>
           <p className="text-gray-300">
-            Presentamos documentos legales formales solicitando custodia específica y
-            arreglos de visita.
+            Presentamos documentos legales formales solicitando custodia específica y arreglos de
+            visita.
           </p>
         </div>
       </div>

@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Script from 'next/script';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Slip and Fall Lawyer NC | Premises Liability Attorney | Vasquez Law Firm',
   description:
@@ -36,7 +39,8 @@ export const metadata: Metadata = {
     canonical: 'https://www.vasquezlawfirm.com/practice-areas/personal-injury/slip-and-fall',
     languages: {
       'en-US': 'https://www.vasquezlawfirm.com/practice-areas/personal-injury/slip-and-fall',
-      'es-ES': 'https://www.vasquezlawfirm.com/es/areas-de-practica/lesiones-personales/resbalones-y-caidas',
+      'es-ES':
+        'https://www.vasquezlawfirm.com/es/areas-de-practica/lesiones-personales/resbalones-y-caidas',
     },
   },
 };
@@ -85,7 +89,7 @@ export default function SlipAndFallPage() {
     {
       title: 'Workplace Slip & Falls',
       description:
-        'Beyond workers\' comp, third-party claims may provide additional compensation for workplace accidents.',
+        "Beyond workers' comp, third-party claims may provide additional compensation for workplace accidents.",
       features: [
         'Construction site falls',
         'Office building accidents',
@@ -130,7 +134,7 @@ export default function SlipAndFallPage() {
         'We must show the owner knew or should have known about the dangerous condition and failed to fix it or warn visitors. We gather evidence including surveillance footage, incident reports, and witness statements.',
     },
     {
-      question: 'What if I didn\'t report the fall immediately?',
+      question: "What if I didn't report the fall immediately?",
       answer:
         'While immediate reporting is best, you can still pursue a claim. Seek medical attention first, then report the incident as soon as possible. We can help gather evidence even after the fact.',
     },
@@ -194,9 +198,7 @@ export default function SlipAndFallPage() {
 
             {/* Common Hazards Section */}
             <section>
-              <h2 className="text-3xl font-bold mb-6 text-primary">
-                Common Slip & Fall Hazards
-              </h2>
+              <h2 className="text-3xl font-bold mb-6 text-primary">Common Slip & Fall Hazards</h2>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="bg-gradient-to-br from-red-500/20 to-red-600/10 rounded-lg p-6">
                   <h3 className="text-lg font-bold text-red-400 mb-3">Indoor Hazards</h3>
@@ -245,7 +247,8 @@ export default function SlipAndFallPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Get Medical Attention</h3>
                     <p className="text-gray-300">
-                      Your health comes first. Seek immediate medical care and follow all treatment recommendations. This also documents your injuries.
+                      Your health comes first. Seek immediate medical care and follow all treatment
+                      recommendations. This also documents your injuries.
                     </p>
                   </div>
                 </div>
@@ -254,7 +257,8 @@ export default function SlipAndFallPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Report the Incident</h3>
                     <p className="text-gray-300">
-                      Notify the property owner, manager, or supervisor immediately. Get a copy of any incident report filed.
+                      Notify the property owner, manager, or supervisor immediately. Get a copy of
+                      any incident report filed.
                     </p>
                   </div>
                 </div>
@@ -263,7 +267,8 @@ export default function SlipAndFallPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Document Everything</h3>
                     <p className="text-gray-300">
-                      Take photos of the hazard, your injuries, and the surrounding area. Get contact information from witnesses.
+                      Take photos of the hazard, your injuries, and the surrounding area. Get
+                      contact information from witnesses.
                     </p>
                   </div>
                 </div>
@@ -272,7 +277,8 @@ export default function SlipAndFallPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Preserve Evidence</h3>
                     <p className="text-gray-300">
-                      Keep the clothes and shoes you were wearing. Don\'t post on social media about the accident.
+                      Keep the clothes and shoes you were wearing. Don\'t post on social media about
+                      the accident.
                     </p>
                   </div>
                 </div>
@@ -281,7 +287,8 @@ export default function SlipAndFallPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Call an Attorney</h3>
                     <p className="text-gray-300">
-                      Contact us before giving statements to insurance companies. We protect your rights and maximize your compensation.
+                      Contact us before giving statements to insurance companies. We protect your
+                      rights and maximize your compensation.
                     </p>
                   </div>
                 </div>

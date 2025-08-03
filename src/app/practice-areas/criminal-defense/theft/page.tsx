@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Script from 'next/script';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Theft Charges Lawyer NC | Larceny & Shoplifting Defense | Vasquez Law Firm',
   description:
@@ -28,8 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Theft & Larceny Defense Lawyer NC | Protect Your Future',
-    description:
-      'Charged with theft? Experienced defense attorneys for all theft crimes in NC.',
+    description: 'Charged with theft? Experienced defense attorneys for all theft crimes in NC.',
     images: ['/images/practice-areas/theft-defense-hero.jpg'],
   },
   alternates: {
@@ -125,7 +127,7 @@ export default function TheftPage() {
 
   const faqs = [
     {
-      question: 'What\'s the difference between misdemeanor and felony larceny in NC?',
+      question: "What's the difference between misdemeanor and felony larceny in NC?",
       answer:
         'In North Carolina, theft of property worth less than $1,000 is misdemeanor larceny. Theft over $1,000, theft of firearms, or theft from the person is felony larceny with much harsher penalties.',
     },
@@ -135,7 +137,7 @@ export default function TheftPage() {
         'Yes, even misdemeanor shoplifting can result in up to 120 days in jail. However, first offenders often qualify for deferred prosecution or community service alternatives we can negotiate.',
     },
     {
-      question: 'What about the store\'s civil demand letter?',
+      question: "What about the store's civil demand letter?",
       answer:
         'Many stores send civil demand letters seeking hundreds of dollars beyond the criminal case. We advise on whether to pay these demands and can negotiate on your behalf.',
     },
@@ -282,22 +284,22 @@ export default function TheftPage() {
                 <div className="bg-gradient-to-br from-red-500/20 to-red-600/10 rounded-lg p-6">
                   <h3 className="text-lg font-bold text-red-400 mb-3">Employment Impact</h3>
                   <p className="text-sm text-gray-300">
-                    Theft convictions are "crimes of dishonesty" that employers view as 
+                    Theft convictions are "crimes of dishonesty" that employers view as
                     disqualifying for any position involving money, property, or trust.
                   </p>
                 </div>
                 <div className="bg-gradient-to-br from-red-500/20 to-red-600/10 rounded-lg p-6">
                   <h3 className="text-lg font-bold text-red-400 mb-3">Professional Licenses</h3>
                   <p className="text-sm text-gray-300">
-                    Nurses, teachers, real estate agents, and other professionals can lose 
-                    licenses over theft convictions, ending careers.
+                    Nurses, teachers, real estate agents, and other professionals can lose licenses
+                    over theft convictions, ending careers.
                   </p>
                 </div>
                 <div className="bg-gradient-to-br from-red-500/20 to-red-600/10 rounded-lg p-6">
                   <h3 className="text-lg font-bold text-red-400 mb-3">Immigration</h3>
                   <p className="text-sm text-gray-300">
-                    Theft crimes are "crimes involving moral turpitude" that can lead to 
-                    deportation or denial of citizenship.
+                    Theft crimes are "crimes involving moral turpitude" that can lead to deportation
+                    or denial of citizenship.
                   </p>
                 </div>
               </div>
@@ -309,7 +311,9 @@ export default function TheftPage() {
                 Know Your Rights: Retailer Detention & Civil Demands
               </h2>
               <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
-                <h3 className="text-xl font-bold text-primary mb-4">What Stores Can and Cannot Do:</h3>
+                <h3 className="text-xl font-bold text-primary mb-4">
+                  What Stores Can and Cannot Do:
+                </h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <h4 className="text-lg font-semibold text-green-400 mb-2">Stores CAN:</h4>

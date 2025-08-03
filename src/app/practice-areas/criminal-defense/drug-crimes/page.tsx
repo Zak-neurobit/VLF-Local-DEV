@@ -1,6 +1,9 @@
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Drug Crime Defense Lawyers NC & FL | Possession & Trafficking | Vasquez Law Firm',
   description:
@@ -25,10 +28,6 @@ export const metadata: Metadata = {
 
 export default function DrugCrimesPage() {
   return (
-    <PracticeAreaWrapper
-      practiceArea="criminal-defense"
-      subArea="drug-crimes"
-      language="en"
-    />
+    <PracticeAreaWrapper practiceArea="criminal-defense" subArea="drug-crimes" language="en" />
   );
 }

@@ -1,10 +1,15 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Citizenship & Naturalization Lawyers | Become a U.S. Citizen',
-  description: 'Expert naturalization attorneys helping you become a U.S. citizen. We handle N-400 applications, citizenship tests, oath ceremonies, and complex cases.',
-  keywords: 'citizenship lawyer, naturalization, N-400, citizenship test, become US citizen, naturalization attorney',
+  description:
+    'Expert naturalization attorneys helping you become a U.S. citizen. We handle N-400 applications, citizenship tests, oath ceremonies, and complex cases.',
+  keywords:
+    'citizenship lawyer, naturalization, N-400, citizenship test, become US citizen, naturalization attorney',
 };
 
 export default function CitizenshipPage() {
@@ -15,9 +20,7 @@ export default function CitizenshipPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center text-white">
             <h1 className="text-5xl font-bold mb-6">U.S. Citizenship & Naturalization</h1>
-            <p className="text-xl mb-8">
-              Complete Your American Dream - Become a U.S. Citizen
-            </p>
+            <p className="text-xl mb-8">Complete Your American Dream - Become a U.S. Citizen</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
@@ -40,8 +43,10 @@ export default function CitizenshipPage() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Citizenship Eligibility Requirements</h2>
-            
+            <h2 className="text-3xl font-bold text-center mb-12">
+              Citizenship Eligibility Requirements
+            </h2>
+
             <div className="bg-white p-8 rounded-lg shadow-lg mb-8">
               <h3 className="text-2xl font-bold mb-6 text-blue-800">Basic Requirements</h3>
               <div className="space-y-4">
@@ -60,7 +65,9 @@ export default function CitizenshipPage() {
                   </div>
                   <div className="ml-4">
                     <h4 className="font-bold">Green Card Status</h4>
-                    <p className="text-gray-600">Be a lawful permanent resident (green card holder)</p>
+                    <p className="text-gray-600">
+                      Be a lawful permanent resident (green card holder)
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -69,7 +76,9 @@ export default function CitizenshipPage() {
                   </div>
                   <div className="ml-4">
                     <h4 className="font-bold">Continuous Residence</h4>
-                    <p className="text-gray-600">5 years as LPR (or 3 years if married to U.S. citizen)</p>
+                    <p className="text-gray-600">
+                      5 years as LPR (or 3 years if married to U.S. citizen)
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -87,7 +96,9 @@ export default function CitizenshipPage() {
                   </div>
                   <div className="ml-4">
                     <h4 className="font-bold">Good Moral Character</h4>
-                    <p className="text-gray-600">Demonstrate good moral character for required period</p>
+                    <p className="text-gray-600">
+                      Demonstrate good moral character for required period
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -96,7 +107,9 @@ export default function CitizenshipPage() {
                   </div>
                   <div className="ml-4">
                     <h4 className="font-bold">English & Civics</h4>
-                    <p className="text-gray-600">Pass English and U.S. civics tests (with some exceptions)</p>
+                    <p className="text-gray-600">
+                      Pass English and U.S. civics tests (with some exceptions)
+                    </p>
                   </div>
                 </div>
               </div>
@@ -139,7 +152,8 @@ export default function CitizenshipPage() {
                 <div className="ml-4">
                   <h3 className="text-xl font-semibold mb-2">Eligibility Review</h3>
                   <p className="text-gray-600">
-                    We assess your eligibility and identify any potential issues or bars to naturalization.
+                    We assess your eligibility and identify any potential issues or bars to
+                    naturalization.
                   </p>
                 </div>
               </div>
@@ -172,7 +186,8 @@ export default function CitizenshipPage() {
                 <div className="ml-4">
                   <h3 className="text-xl font-semibold mb-2">Interview Preparation</h3>
                   <p className="text-gray-600">
-                    Comprehensive preparation for English and civics tests, plus interview questions.
+                    Comprehensive preparation for English and civics tests, plus interview
+                    questions.
                   </p>
                 </div>
               </div>
@@ -214,15 +229,21 @@ export default function CitizenshipPage() {
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-semibold text-gray-700">Speaking</h4>
-                    <p className="text-sm text-gray-600">Conversation with USCIS officer during interview</p>
+                    <p className="text-sm text-gray-600">
+                      Conversation with USCIS officer during interview
+                    </p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-700">Reading</h4>
-                    <p className="text-sm text-gray-600">Read one sentence about American history or civics</p>
+                    <p className="text-sm text-gray-600">
+                      Read one sentence about American history or civics
+                    </p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-700">Writing</h4>
-                    <p className="text-sm text-gray-600">Write one sentence when dictated by officer</p>
+                    <p className="text-sm text-gray-600">
+                      Write one sentence when dictated by officer
+                    </p>
                   </div>
                 </div>
               </div>
@@ -231,11 +252,15 @@ export default function CitizenshipPage() {
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-semibold text-gray-700">American Government</h4>
-                    <p className="text-sm text-gray-600">Principles of democracy, system of government, rule of law</p>
+                    <p className="text-sm text-gray-600">
+                      Principles of democracy, system of government, rule of law
+                    </p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-700">American History</h4>
-                    <p className="text-sm text-gray-600">Colonial period, independence, 1800s, recent history</p>
+                    <p className="text-sm text-gray-600">
+                      Colonial period, independence, 1800s, recent history
+                    </p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-700">Geography & Symbols</h4>
@@ -265,17 +290,23 @@ export default function CitizenshipPage() {
               <div className="bg-white p-6 rounded-lg shadow text-center">
                 <div className="text-3xl mb-3">🗳️</div>
                 <h3 className="font-bold mb-2">Voting Rights</h3>
-                <p className="text-sm text-gray-600">Vote in federal elections and have a voice in democracy</p>
+                <p className="text-sm text-gray-600">
+                  Vote in federal elections and have a voice in democracy
+                </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow text-center">
                 <div className="text-3xl mb-3">📘</div>
                 <h3 className="font-bold mb-2">U.S. Passport</h3>
-                <p className="text-sm text-gray-600">Travel with U.S. passport and government protection</p>
+                <p className="text-sm text-gray-600">
+                  Travel with U.S. passport and government protection
+                </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow text-center">
                 <div className="text-3xl mb-3">👨‍👩‍👧‍👦</div>
                 <h3 className="font-bold mb-2">Family Petitions</h3>
-                <p className="text-sm text-gray-600">Sponsor more family members with shorter wait times</p>
+                <p className="text-sm text-gray-600">
+                  Sponsor more family members with shorter wait times
+                </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow text-center">
                 <div className="text-3xl mb-3">💼</div>
@@ -306,26 +337,29 @@ export default function CitizenshipPage() {
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-lg font-bold mb-3 text-blue-800">Criminal History</h3>
                 <p className="text-gray-600">
-                  We analyze your criminal record and determine if you meet good moral character requirements. 
-                  Many convictions have exceptions or waiting periods.
+                  We analyze your criminal record and determine if you meet good moral character
+                  requirements. Many convictions have exceptions or waiting periods.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-lg font-bold mb-3 text-blue-800">Extended Trips Abroad</h3>
                 <p className="text-gray-600">
-                  We help document that you maintained continuous residence despite lengthy trips and didn't abandon your permanent residence.
+                  We help document that you maintained continuous residence despite lengthy trips
+                  and didn't abandon your permanent residence.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-lg font-bold mb-3 text-blue-800">Tax Issues</h3>
                 <p className="text-gray-600">
-                  We work with tax professionals to resolve any outstanding tax obligations that could affect your application.
+                  We work with tax professionals to resolve any outstanding tax obligations that
+                  could affect your application.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-lg font-bold mb-3 text-blue-800">Previous Denials</h3>
                 <p className="text-gray-600">
-                  We review prior applications to identify and address the reasons for denial in your new application.
+                  We review prior applications to identify and address the reasons for denial in
+                  your new application.
                 </p>
               </div>
             </div>
@@ -365,7 +399,8 @@ export default function CitizenshipPage() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Become a U.S. Citizen?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Take the final step in your American journey. Our experienced attorneys will guide you to citizenship.
+            Take the final step in your American journey. Our experienced attorneys will guide you
+            to citizenship.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

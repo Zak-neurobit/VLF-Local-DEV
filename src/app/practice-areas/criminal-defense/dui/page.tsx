@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Script from 'next/script';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'DUI Lawyer NC | DWI Attorney | License & Freedom Defense | Vasquez Law Firm',
   description:
@@ -111,7 +114,7 @@ export default function DUIPage() {
     {
       title: 'Underage DUI Defense',
       description:
-        'Zero tolerance means zero room for error. We protect young drivers\' futures from one mistake.',
+        "Zero tolerance means zero room for error. We protect young drivers' futures from one mistake.",
       features: [
         'University disciplinary defense',
         'License saving strategies',
@@ -184,11 +187,13 @@ export default function DUIPage() {
                   <h3 className="text-xl font-bold text-primary mb-3">Level 5 (Least Serious)</h3>
                   <div className="grid md:grid-cols-2 gap-4 text-gray-300">
                     <div>
-                      <strong>Jail:</strong> 24 hours - 60 days<br />
+                      <strong>Jail:</strong> 24 hours - 60 days
+                      <br />
                       <strong>Fine:</strong> Up to $200
                     </div>
                     <div>
-                      <strong>License:</strong> 1 year revocation<br />
+                      <strong>License:</strong> 1 year revocation
+                      <br />
                       <strong>Assessment:</strong> Required
                     </div>
                   </div>
@@ -197,11 +202,13 @@ export default function DUIPage() {
                   <h3 className="text-xl font-bold text-red-400 mb-3">Level 1 (Most Serious)</h3>
                   <div className="grid md:grid-cols-2 gap-4 text-gray-300">
                     <div>
-                      <strong>Jail:</strong> 30 days - 24 months<br />
+                      <strong>Jail:</strong> 30 days - 24 months
+                      <br />
                       <strong>Fine:</strong> Up to $4,000
                     </div>
                     <div>
-                      <strong>License:</strong> Permanent revocation possible<br />
+                      <strong>License:</strong> Permanent revocation possible
+                      <br />
                       <strong>Vehicle:</strong> May be seized
                     </div>
                   </div>
@@ -211,9 +218,7 @@ export default function DUIPage() {
 
             {/* Defense Strategies Section */}
             <section>
-              <h2 className="text-3xl font-bold mb-6 text-primary">
-                How We Defend Your DUI Case
-              </h2>
+              <h2 className="text-3xl font-bold mb-6 text-primary">How We Defend Your DUI Case</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div className="flex items-start">
@@ -221,7 +226,8 @@ export default function DUIPage() {
                     <div>
                       <h3 className="text-xl font-semibold mb-2">Challenge the Stop</h3>
                       <p className="text-gray-300">
-                        Police need reasonable suspicion. We scrutinize dashcam footage to find illegal stops.
+                        Police need reasonable suspicion. We scrutinize dashcam footage to find
+                        illegal stops.
                       </p>
                     </div>
                   </div>
@@ -239,7 +245,8 @@ export default function DUIPage() {
                     <div>
                       <h3 className="text-xl font-semibold mb-2">Question Field Tests</h3>
                       <p className="text-gray-300">
-                        Medical conditions, injuries, and nerves affect performance. We provide context.
+                        Medical conditions, injuries, and nerves affect performance. We provide
+                        context.
                       </p>
                     </div>
                   </div>

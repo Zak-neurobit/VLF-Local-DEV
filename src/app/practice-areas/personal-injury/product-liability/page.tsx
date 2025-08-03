@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Product Liability | Vasquez Law Firm',
   description: 'Claims for injuries caused by defective products',
@@ -9,10 +12,6 @@ export const metadata: Metadata = {
 
 export default function ProductLiabilityPage() {
   return (
-    <PracticeAreaWrapper
-      practiceArea="personal-injury"
-      subArea="product-liability"
-      language="en"
-    />
+    <PracticeAreaWrapper practiceArea="personal-injury" subArea="product-liability" language="en" />
   );
 }

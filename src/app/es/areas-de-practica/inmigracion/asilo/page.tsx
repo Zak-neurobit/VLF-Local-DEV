@@ -2,6 +2,9 @@ import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
 import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Abogados de Inmigración de Asilo en Charlotte, NC - Vasquez Law Firm, PLLC',
   description:

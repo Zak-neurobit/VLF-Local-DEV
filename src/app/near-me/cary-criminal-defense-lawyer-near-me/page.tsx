@@ -2,12 +2,14 @@ import { LocationPageTemplate } from '@/components/templates/LocationPageTemplat
 
 import { Metadata } from 'next';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Criminal Defense Lawyer Near Me in Cary | Vasquez Law Firm',
   description:
     'Find experienced criminal defense lawyers near you in Cary. Free consultation available.',
 };
-
 
 export default function NearMePage() {
   return (

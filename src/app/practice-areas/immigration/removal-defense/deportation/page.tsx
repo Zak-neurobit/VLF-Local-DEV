@@ -1,10 +1,15 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Deportation Defense Lawyers | Fight Removal Proceedings',
-  description: 'Experienced deportation defense attorneys fighting removal proceedings. We protect your rights and explore all legal options to keep you in the United States.',
-  keywords: 'deportation defense, removal proceedings, immigration court, deportation lawyer, ICE detention',
+  description:
+    'Experienced deportation defense attorneys fighting removal proceedings. We protect your rights and explore all legal options to keep you in the United States.',
+  keywords:
+    'deportation defense, removal proceedings, immigration court, deportation lawyer, ICE detention',
 };
 
 export default function DeportationDefensePage() {
@@ -15,9 +20,7 @@ export default function DeportationDefensePage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center text-white">
             <h1 className="text-5xl font-bold mb-6">Deportation Defense</h1>
-            <p className="text-xl mb-8">
-              Fighting to Keep You and Your Family Together
-            </p>
+            <p className="text-xl mb-8">Fighting to Keep You and Your Family Together</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
@@ -43,11 +46,14 @@ export default function DeportationDefensePage() {
             <h2 className="text-3xl font-bold mb-8">Understanding Deportation Proceedings</h2>
             <div className="prose prose-lg max-w-none">
               <p className="text-gray-600 mb-6">
-                Deportation (removal) proceedings are initiated when the government believes you can be removed from the United States. 
-                These proceedings are serious and require immediate legal attention to protect your rights and explore all available defenses.
+                Deportation (removal) proceedings are initiated when the government believes you can
+                be removed from the United States. These proceedings are serious and require
+                immediate legal attention to protect your rights and explore all available defenses.
               </p>
-              
-              <h3 className="text-2xl font-semibold mb-4 mt-8">Common Reasons for Deportation Proceedings</h3>
+
+              <h3 className="text-2xl font-semibold mb-4 mt-8">
+                Common Reasons for Deportation Proceedings
+              </h3>
               <ul className="space-y-3 text-gray-600">
                 <li className="flex items-start">
                   <span className="text-red-700 mr-2">•</span>
@@ -112,7 +118,9 @@ export default function DeportationDefensePage() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">The Deportation Defense Process</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">
+              The Deportation Defense Process
+            </h2>
             <div className="space-y-8">
               <div className="flex items-start">
                 <div className="flex-shrink-0 w-12 h-12 bg-red-700 text-white rounded-full flex items-center justify-center font-bold">
@@ -121,7 +129,8 @@ export default function DeportationDefensePage() {
                 <div className="ml-4">
                   <h3 className="text-xl font-semibold mb-2">Initial Assessment</h3>
                   <p className="text-gray-600">
-                    We review your Notice to Appear, analyze charges, and identify all possible defenses.
+                    We review your Notice to Appear, analyze charges, and identify all possible
+                    defenses.
                   </p>
                 </div>
               </div>
@@ -169,8 +178,8 @@ export default function DeportationDefensePage() {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6 text-red-900">Time is Critical</h2>
             <p className="text-xl text-gray-700 mb-8">
-              The sooner you contact us, the more options we have to defend your case. 
-              Don't wait - every day matters in deportation proceedings.
+              The sooner you contact us, the more options we have to defend your case. Don't wait -
+              every day matters in deportation proceedings.
             </p>
             <div className="bg-white p-8 rounded-lg shadow-lg">
               <h3 className="text-2xl font-bold mb-4">What to Do If You're Facing Deportation</h3>
@@ -202,7 +211,8 @@ export default function DeportationDefensePage() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Don't Face This Alone</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Our experienced deportation defense attorneys are ready to fight for you and your family.
+            Our experienced deportation defense attorneys are ready to fight for you and your
+            family.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

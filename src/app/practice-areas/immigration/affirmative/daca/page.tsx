@@ -1,10 +1,15 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'DACA Lawyers | Deferred Action for Childhood Arrivals',
-  description: 'Expert DACA attorneys helping Dreamers. Initial DACA applications, renewals, advance parole, and path to permanent status. Protect your future in America.',
-  keywords: 'DACA lawyer, DACA renewal, Dreamers, deferred action, childhood arrivals, DACA attorney',
+  description:
+    'Expert DACA attorneys helping Dreamers. Initial DACA applications, renewals, advance parole, and path to permanent status. Protect your future in America.',
+  keywords:
+    'DACA lawyer, DACA renewal, Dreamers, deferred action, childhood arrivals, DACA attorney',
 };
 
 export default function DACAPage() {
@@ -15,9 +20,7 @@ export default function DACAPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center text-white">
             <h1 className="text-5xl font-bold mb-6">DACA Services</h1>
-            <p className="text-xl mb-8">
-              Protecting Dreamers and Their Future in America
-            </p>
+            <p className="text-xl mb-8">Protecting Dreamers and Their Future in America</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
@@ -41,7 +44,8 @@ export default function DACAPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-lg font-semibold text-yellow-800">
-              ⚠️ Important: DACA's legal status continues to evolve. Contact us for the latest updates and how they affect your case.
+              ⚠️ Important: DACA's legal status continues to evolve. Contact us for the latest
+              updates and how they affect your case.
             </p>
           </div>
         </div>
@@ -53,10 +57,11 @@ export default function DACAPage() {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold mb-8">Understanding DACA</h2>
             <p className="text-lg text-gray-600 mb-6">
-              Deferred Action for Childhood Arrivals (DACA) provides temporary protection from deportation and work authorization 
-              for individuals who came to the United States as children.
+              Deferred Action for Childhood Arrivals (DACA) provides temporary protection from
+              deportation and work authorization for individuals who came to the United States as
+              children.
             </p>
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white p-8 rounded-lg shadow-lg">
                 <h3 className="text-xl font-bold mb-4 text-blue-800">DACA Benefits</h3>
@@ -83,7 +88,7 @@ export default function DACAPage() {
                   </li>
                 </ul>
               </div>
-              
+
               <div className="bg-white p-8 rounded-lg shadow-lg">
                 <h3 className="text-xl font-bold mb-4 text-blue-800">Current Status</h3>
                 <ul className="space-y-2 text-gray-600">
@@ -124,33 +129,37 @@ export default function DACAPage() {
                 <div className="border-l-4 border-blue-600 pl-4">
                   <h3 className="font-bold text-lg">Age Requirements</h3>
                   <p className="text-gray-600">
-                    • Under 31 as of June 15, 2012<br />
-                    • At least 15 years old when applying (unless in removal proceedings)
+                    • Under 31 as of June 15, 2012
+                    <br />• At least 15 years old when applying (unless in removal proceedings)
                   </p>
                 </div>
                 <div className="border-l-4 border-blue-600 pl-4">
                   <h3 className="font-bold text-lg">Arrival & Presence</h3>
                   <p className="text-gray-600">
-                    • Came to U.S. before 16th birthday<br />
-                    • Continuously resided since June 15, 2007<br />
-                    • Present in U.S. on June 15, 2012
+                    • Came to U.S. before 16th birthday
+                    <br />
+                    • Continuously resided since June 15, 2007
+                    <br />• Present in U.S. on June 15, 2012
                   </p>
                 </div>
                 <div className="border-l-4 border-blue-600 pl-4">
                   <h3 className="font-bold text-lg">Education Requirements</h3>
                   <p className="text-gray-600">
-                    • Currently in school, OR<br />
-                    • Graduated/obtained GED, OR<br />
-                    • Honorably discharged veteran
+                    • Currently in school, OR
+                    <br />
+                    • Graduated/obtained GED, OR
+                    <br />• Honorably discharged veteran
                   </p>
                 </div>
                 <div className="border-l-4 border-blue-600 pl-4">
                   <h3 className="font-bold text-lg">Criminal History</h3>
                   <p className="text-gray-600">
-                    • No felony convictions<br />
-                    • No significant misdemeanors<br />
-                    • No more than 3 misdemeanors<br />
-                    • No threat to public safety
+                    • No felony convictions
+                    <br />
+                    • No significant misdemeanors
+                    <br />
+                    • No more than 3 misdemeanors
+                    <br />• No threat to public safety
                   </p>
                 </div>
               </div>
@@ -178,7 +187,7 @@ export default function DACAPage() {
                   <li>• Biometrics guidance</li>
                 </ul>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <div className="text-3xl mb-3">🔄</div>
                 <h3 className="text-xl font-bold mb-3 text-blue-800">DACA Renewal</h3>
@@ -192,13 +201,11 @@ export default function DACAPage() {
                   <li>• Update information</li>
                 </ul>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <div className="text-3xl mb-3">✈️</div>
                 <h3 className="text-xl font-bold mb-3 text-blue-800">Advance Parole</h3>
-                <p className="text-gray-600 text-sm mb-3">
-                  Travel permission for DACA recipients
-                </p>
+                <p className="text-gray-600 text-sm mb-3">Travel permission for DACA recipients</p>
                 <ul className="space-y-1 text-sm text-gray-600">
                   <li>• Emergency travel</li>
                   <li>• Educational purposes</li>
@@ -215,30 +222,36 @@ export default function DACAPage() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Beyond DACA: Paths to Permanent Status</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">
+              Beyond DACA: Paths to Permanent Status
+            </h2>
             <div className="space-y-6">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-lg font-bold mb-3 text-blue-800">Marriage to U.S. Citizen</h3>
                 <p className="text-gray-600">
-                  DACA recipients who marry U.S. citizens may be eligible for green cards, especially if they entered with inspection or have advance parole.
+                  DACA recipients who marry U.S. citizens may be eligible for green cards,
+                  especially if they entered with inspection or have advance parole.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-lg font-bold mb-3 text-blue-800">Employment-Based Options</h3>
                 <p className="text-gray-600">
-                  Some DACA recipients may qualify for employment-based green cards through sponsoring employers.
+                  Some DACA recipients may qualify for employment-based green cards through
+                  sponsoring employers.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-lg font-bold mb-3 text-blue-800">Family Petitions</h3>
                 <p className="text-gray-600">
-                  U.S. citizen siblings or parents (once 21) can petition, though wait times vary by country.
+                  U.S. citizen siblings or parents (once 21) can petition, though wait times vary by
+                  country.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-lg font-bold mb-3 text-blue-800">Other Relief Options</h3>
                 <p className="text-gray-600">
-                  Asylum, U visas, VAWA, or other forms of relief may be available depending on individual circumstances.
+                  Asylum, U visas, VAWA, or other forms of relief may be available depending on
+                  individual circumstances.
                 </p>
               </div>
             </div>
@@ -281,9 +294,7 @@ export default function DACAPage() {
                   </div>
                   <div className="ml-4">
                     <h3 className="text-lg font-semibold mb-1">Days After Filing</h3>
-                    <p className="text-gray-600 text-sm">
-                      Receive biometrics appointment notice
-                    </p>
+                    <p className="text-gray-600 text-sm">Receive biometrics appointment notice</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -292,9 +303,7 @@ export default function DACAPage() {
                   </div>
                   <div className="ml-4">
                     <h3 className="text-lg font-semibold mb-1">Days for Processing</h3>
-                    <p className="text-gray-600 text-sm">
-                      Average processing time (may vary)
-                    </p>
+                    <p className="text-gray-600 text-sm">Average processing time (may vary)</p>
                   </div>
                 </div>
               </div>
@@ -369,7 +378,8 @@ export default function DACAPage() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Protect Your DACA Status</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Don't risk losing your work authorization or protection. Our experienced DACA attorneys are here to help.
+            Don't risk losing your work authorization or protection. Our experienced DACA attorneys
+            are here to help.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

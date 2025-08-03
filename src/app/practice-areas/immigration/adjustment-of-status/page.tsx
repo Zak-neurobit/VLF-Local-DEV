@@ -1,8 +1,12 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
-  title: 'Adjustment of Status Lawyers NC & FL | Green Card Applications | Expert Immigration Help | Vasquez Law Firm',
+  title:
+    'Adjustment of Status Lawyers NC & FL | Green Card Applications | Expert Immigration Help | Vasquez Law Firm',
   description:
     'Expert adjustment of status attorneys with 94% approval rate. Family-based, employment-based green cards. I-485 applications, waivers, interviews. Free consultation. Call 1-844-YO-PELEO',
   keywords:
@@ -19,7 +23,8 @@ export default function AdjustmentOfStatusPage() {
   const services = [
     {
       title: 'Family-Based Adjustment of Status',
-      description: 'Adjust status to permanent resident through marriage to US citizen or lawful permanent resident',
+      description:
+        'Adjust status to permanent resident through marriage to US citizen or lawful permanent resident',
       icon: '👨‍👩‍👧‍👦',
       features: [
         'Marriage-based I-485 applications',
@@ -27,12 +32,13 @@ export default function AdjustmentOfStatusPage() {
         'Family preference category adjustments',
         'K-1 fiancé to permanent resident adjustments',
         'Evidence of bona fide marriage preparation',
-        'Joint interview preparation and representation'
-      ]
+        'Joint interview preparation and representation',
+      ],
     },
     {
       title: 'Employment-Based Adjustment',
-      description: 'Permanent residence through employment opportunities and extraordinary ability petitions',
+      description:
+        'Permanent residence through employment opportunities and extraordinary ability petitions',
       icon: '💼',
       features: [
         'EB-1 extraordinary ability adjustments',
@@ -40,12 +46,13 @@ export default function AdjustmentOfStatusPage() {
         'EB-3 skilled worker adjustments',
         'National Interest Waiver (NIW) cases',
         'PERM labor certification coordination',
-        'Priority date tracking and optimization'
-      ]
+        'Priority date tracking and optimization',
+      ],
     },
     {
       title: 'I-485 Application Preparation',
-      description: 'Complete Form I-485 preparation with comprehensive documentation and evidence gathering',
+      description:
+        'Complete Form I-485 preparation with comprehensive documentation and evidence gathering',
       icon: '📋',
       features: [
         'Comprehensive I-485 form preparation',
@@ -53,8 +60,8 @@ export default function AdjustmentOfStatusPage() {
         'Medical examination coordination',
         'Biometrics appointment scheduling',
         'Timeline management and tracking',
-        'Application package optimization'
-      ]
+        'Application package optimization',
+      ],
     },
     {
       title: 'Inadmissibility Waivers',
@@ -66,8 +73,8 @@ export default function AdjustmentOfStatusPage() {
         'Health-related waiver assistance',
         'Fraud/misrepresentation waivers',
         'Extreme hardship documentation',
-        'Provisional unlawful presence waivers'
-      ]
+        'Provisional unlawful presence waivers',
+      ],
     },
     {
       title: 'Adjustment Interview Preparation',
@@ -79,8 +86,8 @@ export default function AdjustmentOfStatusPage() {
         'Question and answer preparation',
         'Cultural competency training',
         'Anxiety management techniques',
-        'Attorney accompaniment to interviews'
-      ]
+        'Attorney accompaniment to interviews',
+      ],
     },
     {
       title: 'Derivative Beneficiary Cases',
@@ -92,12 +99,13 @@ export default function AdjustmentOfStatusPage() {
         'Age-out protection strategies',
         'Family unity maintenance',
         'Coordinated family processing',
-        'Child Status Protection Act guidance'
-      ]
+        'Child Status Protection Act guidance',
+      ],
     },
     {
       title: 'Concurrent Filing Strategy',
-      description: 'Strategic concurrent filing of petitions and adjustment applications for efficiency',
+      description:
+        'Strategic concurrent filing of petitions and adjustment applications for efficiency',
       icon: '⚡',
       features: [
         'I-130/I-485 concurrent filing',
@@ -105,12 +113,13 @@ export default function AdjustmentOfStatusPage() {
         'Timeline optimization strategies',
         'Priority date utilization',
         'Work authorization expediting',
-        'Travel document coordination'
-      ]
+        'Travel document coordination',
+      ],
     },
     {
       title: 'Work Authorization & Travel',
-      description: 'Employment authorization and travel document assistance during adjustment process',
+      description:
+        'Employment authorization and travel document assistance during adjustment process',
       icon: '✈️',
       features: [
         'I-765 work authorization applications',
@@ -118,8 +127,8 @@ export default function AdjustmentOfStatusPage() {
         'Renewal application management',
         'Emergency travel authorization',
         'Employer verification assistance',
-        'Document replacement services'
-      ]
+        'Document replacement services',
+      ],
     },
     {
       title: 'Adjustment Appeals & Motions',
@@ -131,84 +140,87 @@ export default function AdjustmentOfStatusPage() {
         'Federal court litigation',
         'Denial analysis and strategy',
         'Additional evidence submissions',
-        'Policy violation arguments'
-      ]
-    }
+        'Policy violation arguments',
+      ],
+    },
   ];
 
   const faqs = [
     {
       question: 'What is adjustment of status and who is eligible?',
       answer:
-        'Adjustment of status allows certain individuals already in the US to change from temporary status to permanent resident without leaving the country. Eligibility depends on having an approved petition, available visa number, and meeting admissibility requirements.'
+        'Adjustment of status allows certain individuals already in the US to change from temporary status to permanent resident without leaving the country. Eligibility depends on having an approved petition, available visa number, and meeting admissibility requirements.',
     },
     {
       question: 'How long does the adjustment of status process take?',
       answer:
-        'Processing times vary by category and USCIS office, typically ranging from 8-24 months. Family-based cases often process faster than employment-based cases. We track all case timelines and provide regular updates.'
+        'Processing times vary by category and USCIS office, typically ranging from 8-24 months. Family-based cases often process faster than employment-based cases. We track all case timelines and provide regular updates.',
     },
     {
       question: 'Can I work while my adjustment of status is pending?',
       answer:
-        'Yes, you can apply for work authorization (EAD) with your I-485 application. The EAD typically takes 3-5 months to process and allows legal employment while your case is pending.'
+        'Yes, you can apply for work authorization (EAD) with your I-485 application. The EAD typically takes 3-5 months to process and allows legal employment while your case is pending.',
     },
     {
       question: 'What happens if I travel while my case is pending?',
       answer:
-        'Traveling without advance parole can abandon your adjustment application. You must obtain advance parole (I-131) before any international travel. We handle all travel document applications to protect your case.'
+        'Traveling without advance parole can abandon your adjustment application. You must obtain advance parole (I-131) before any international travel. We handle all travel document applications to protect your case.',
     },
     {
       question: 'Do I need an interview for adjustment of status?',
       answer:
-        'Most adjustment cases require an interview, especially marriage-based cases. Employment-based cases may be waived. We provide comprehensive interview preparation including mock interviews and document coaching.'
+        'Most adjustment cases require an interview, especially marriage-based cases. Employment-based cases may be waived. We provide comprehensive interview preparation including mock interviews and document coaching.',
     },
     {
       question: 'What if my adjustment of status is denied?',
       answer:
-        'Denials can often be appealed or overcome with motions to reopen. We analyze denial reasons and develop strategies to address deficiencies, file appeals, or explore alternative options to achieve permanent residence.'
-    }
+        'Denials can often be appealed or overcome with motions to reopen. We analyze denial reasons and develop strategies to address deficiencies, file appeals, or explore alternative options to achieve permanent residence.',
+    },
   ];
 
   const content = {
     introduction: `Adjusting status from temporary to permanent resident is one of the most important steps in your immigration journey. Our adjustment of status attorneys have successfully helped thousands of clients obtain green cards with a 94% approval rate, handling everything from family-based to employment-based cases with precision and expertise.`,
-    
+
     processTitle: 'Our Adjustment of Status Process',
     process: [
       {
         step: '1',
         title: 'Eligibility Assessment & Strategy',
-        description: 'Comprehensive evaluation of eligibility and development of optimal filing strategy'
+        description:
+          'Comprehensive evaluation of eligibility and development of optimal filing strategy',
       },
       {
         step: '2',
         title: 'Petition & Application Preparation',
-        description: 'Expert preparation of I-485 and supporting forms with complete documentation'
+        description: 'Expert preparation of I-485 and supporting forms with complete documentation',
       },
       {
         step: '3',
         title: 'Filing & Case Management',
-        description: 'Strategic filing and ongoing case management with timeline tracking'
+        description: 'Strategic filing and ongoing case management with timeline tracking',
       },
       {
         step: '4',
         title: 'Interview Preparation & Representation',
-        description: 'Comprehensive interview preparation and skilled attorney representation'
+        description: 'Comprehensive interview preparation and skilled attorney representation',
       },
       {
         step: '5',
         title: 'Green Card Approval & Follow-up',
-        description: 'Final approval processing and assistance with next steps including citizenship'
-      }
+        description:
+          'Final approval processing and assistance with next steps including citizenship',
+      },
     ],
 
     urgencyTitle: 'Priority Date Current? Act Now!',
-    urgencyMessage: 'When your priority date becomes current, you have a limited window to file your adjustment application. Don&apos;t miss your opportunity for permanent residence.',
+    urgencyMessage:
+      'When your priority date becomes current, you have a limited window to file your adjustment application. Don&apos;t miss your opportunity for permanent residence.',
 
     successStats: [
       { number: '12,000+', label: 'Green Cards Obtained' },
       { number: '94%', label: 'Approval Rate' },
       { number: '8-24', label: 'Months Average Processing' },
-      { number: '100%', label: 'Interview Preparation Success' }
+      { number: '100%', label: 'Interview Preparation Success' },
     ],
 
     whyChooseTitle: 'Why Choose Our Adjustment Team?',
@@ -220,7 +232,7 @@ export default function AdjustmentOfStatusPage() {
       'Bilingual attorneys and staff fluent in Spanish',
       'Priority date tracking and strategic timing advice',
       'Complete family immigration coordination',
-      'Concurrent filing expertise for faster processing'
+      'Concurrent filing expertise for faster processing',
     ],
 
     adjustmentCategories: {
@@ -230,28 +242,40 @@ export default function AdjustmentOfStatusPage() {
           title: 'Immediate Relatives',
           description: 'Spouses, parents, and unmarried children under 21 of US citizens',
           processing: '8-12 months',
-          benefits: ['No visa number wait', 'Fastest processing', 'Concurrent filing allowed']
+          benefits: ['No visa number wait', 'Fastest processing', 'Concurrent filing allowed'],
         },
         {
           title: 'Family Preference',
           description: 'Other family relationships with longer wait times',
           processing: '12-24 months',
-          benefits: ['F1, F2, F3, F4 categories', 'Priority date required', 'Derivative benefits available']
+          benefits: [
+            'F1, F2, F3, F4 categories',
+            'Priority date required',
+            'Derivative benefits available',
+          ],
         },
         {
           title: 'Employment-Based',
           description: 'Job-based permanent residence for skilled workers',
           processing: '10-18 months',
-          benefits: ['EB-1, EB-2, EB-3 categories', 'Labor certification may be required', 'Premium processing available']
+          benefits: [
+            'EB-1, EB-2, EB-3 categories',
+            'Labor certification may be required',
+            'Premium processing available',
+          ],
         },
         {
           title: 'Special Categories',
           description: 'Asylum, diversity visa, and other special programs',
           processing: '6-15 months',
-          benefits: ['Refugee/asylee adjustments', 'Diversity visa winners', 'Special immigrant categories']
-        }
-      ]
-    }
+          benefits: [
+            'Refugee/asylee adjustments',
+            'Diversity visa winners',
+            'Special immigrant categories',
+          ],
+        },
+      ],
+    },
   };
 
   return (
@@ -265,10 +289,15 @@ export default function AdjustmentOfStatusPage() {
         <div className="space-y-12">
           {/* Adjustment Categories */}
           <section>
-            <h2 className="text-3xl font-bold text-primary mb-8">Adjustment of Status Categories</h2>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              Adjustment of Status Categories
+            </h2>
             <div className="grid md:grid-cols-2 gap-6">
               {content.adjustmentCategories.categories.map((category, index) => (
-                <div key={index} className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <div
+                  key={index}
+                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+                >
                   <h3 className="text-xl font-bold text-primary mb-3">{category.title}</h3>
                   <p className="text-gray-300 mb-4">{category.description}</p>
                   <div className="mb-4">
@@ -290,7 +319,9 @@ export default function AdjustmentOfStatusPage() {
 
           {/* Required Documents */}
           <section>
-            <h2 className="text-3xl font-bold text-primary mb-8">Required Documents for Adjustment</h2>
+            <h2 className="text-3xl font-bold text-primary mb-8">
+              Required Documents for Adjustment
+            </h2>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                 <h3 className="text-xl font-bold text-primary mb-4">📋 Core Documents</h3>

@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Motorcycle Accident Lawyers NC & FL | Biker Injury Attorneys | Vasquez Law Firm',
   description:

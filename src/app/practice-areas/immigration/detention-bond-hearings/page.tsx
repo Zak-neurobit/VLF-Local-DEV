@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title:
     'EMERGENCY Immigration Detention & Bond Lawyers NC & FL | 24/7 ICE Response | Vasquez Law Firm',
@@ -282,9 +285,10 @@ export default function DetentionBondHearingsPage() {
       services={services}
       faqs={faqs}
       overview={{
-        content: "Our immigration detention and bond lawyers provide 24/7 emergency response for families with detained loved ones. With former ICE attorneys on staff and a 91% bond hearing success rate, we fight aggressively to secure your family member's release. We provide immediate facility visits, comprehensive bond hearing representation, and emergency motions to reunite families. Available 365 days a year including holidays and weekends.",
+        content:
+          "Our immigration detention and bond lawyers provide 24/7 emergency response for families with detained loved ones. With former ICE attorneys on staff and a 91% bond hearing success rate, we fight aggressively to secure your family member's release. We provide immediate facility visits, comprehensive bond hearing representation, and emergency motions to reunite families. Available 365 days a year including holidays and weekends.",
       }}
-      additionalContent={(
+      additionalContent={
         <div className="space-y-12">
           {/* Emergency Protocol */}
           <section className="bg-red-900/20 border border-red-500/30 rounded-lg p-8">
@@ -425,7 +429,7 @@ export default function DetentionBondHearingsPage() {
             </div>
           </section>
         </div>
-      )}
+      }
       isSpanish={false}
     />
   );

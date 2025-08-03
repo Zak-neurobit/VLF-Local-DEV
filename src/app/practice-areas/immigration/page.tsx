@@ -5,6 +5,9 @@ import { SmartBreadcrumbs } from '@/components/SEO/SmartBreadcrumbs';
 import { InternalLinkingSection } from '@/components/SEO/InternalLinkingSection';
 import { HowToSchema } from '@/components/SEO/HowToSchema';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'EMERGENCY Deportation Defense NC | Elite Immigration Lawyers Fighting ICE 24/7',
   description:

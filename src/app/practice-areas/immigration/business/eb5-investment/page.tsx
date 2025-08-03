@@ -1,12 +1,24 @@
-import { Metadata } from 'next'
-import Link from 'next/link'
-import { FaBriefcase, FaDollarSign, FaMapMarkerAlt, FaUsers, FaChartBar, FaShieldAlt } from 'react-icons/fa'
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
+import { Metadata } from 'next';
+import Link from 'next/link';
+import {
+  FaBriefcase,
+  FaDollarSign,
+  FaMapMarkerAlt,
+  FaUsers,
+  FaChartBar,
+  FaShieldAlt,
+} from 'react-icons/fa';
 
 export const metadata: Metadata = {
   title: 'EB5 Investment Immigration | Investor Green Card | Vasquez Law Firm',
-  description: 'Expert EB5 investment immigration services. Obtain US permanent residency through investment. Regional centers and direct investment options.',
-  keywords: 'EB5 visa, investment immigration, investor green card, regional center, TEA, targeted employment area, EB5 direct investment',
-}
+  description:
+    'Expert EB5 investment immigration services. Obtain US permanent residency through investment. Regional centers and direct investment options.',
+  keywords:
+    'EB5 visa, investment immigration, investor green card, regional center, TEA, targeted employment area, EB5 direct investment',
+};
 
 const eb5Options = [
   {
@@ -18,14 +30,14 @@ const eb5Options = [
       'Lower investment amount in TEAs',
       'Indirect job creation counts',
       'Passive investment allowed',
-      'Professional management'
+      'Professional management',
     ],
     considerations: [
       'Less control over investment',
       'Dependent on regional center success',
       'Due diligence critical',
-      'Project viability varies'
-    ]
+      'Project viability varies',
+    ],
   },
   {
     title: 'Direct Investment',
@@ -36,16 +48,16 @@ const eb5Options = [
       'Full control of business',
       'Direct management role',
       'Choose any location',
-      'Build your own venture'
+      'Build your own venture',
     ],
     considerations: [
       'Higher investment required',
       'Must create 10 direct jobs',
       'Active management needed',
-      'Higher risk and responsibility'
-    ]
-  }
-]
+      'Higher risk and responsibility',
+    ],
+  },
+];
 
 const eb5Process = [
   {
@@ -54,9 +66,9 @@ const eb5Process = [
       'Select investment project or business',
       'Conduct due diligence',
       'Transfer investment funds',
-      'File I-526 petition'
+      'File I-526 petition',
     ],
-    timeline: '24-36 months processing'
+    timeline: '24-36 months processing',
   },
   {
     phase: 'Conditional Green Card',
@@ -64,9 +76,9 @@ const eb5Process = [
       'Adjustment of status or consular processing',
       'Receive 2-year conditional green card',
       'Begin job creation period',
-      'Monitor investment progress'
+      'Monitor investment progress',
     ],
-    timeline: '6-12 months'
+    timeline: '6-12 months',
   },
   {
     phase: 'Permanent Residency',
@@ -74,29 +86,29 @@ const eb5Process = [
       'File I-829 petition',
       'Prove job creation',
       'Document sustained investment',
-      'Receive permanent green card'
+      'Receive permanent green card',
     ],
-    timeline: '24-36 months'
-  }
-]
+    timeline: '24-36 months',
+  },
+];
 
 const jobCreationRequirements = [
   {
     title: 'Direct Jobs',
     description: 'W-2 employees working directly for the enterprise',
-    applicable: 'Direct investment & some regional centers'
+    applicable: 'Direct investment & some regional centers',
   },
   {
     title: 'Indirect Jobs',
     description: 'Jobs created in related businesses due to investment',
-    applicable: 'Regional center projects only'
+    applicable: 'Regional center projects only',
   },
   {
     title: 'Induced Jobs',
     description: 'Jobs from increased spending by direct/indirect employees',
-    applicable: 'Regional center projects only'
-  }
-]
+    applicable: 'Regional center projects only',
+  },
+];
 
 const dueDiligenceChecklist = [
   'Regional center track record and USCIS approval status',
@@ -106,8 +118,8 @@ const dueDiligenceChecklist = [
   'Developer experience and project history',
   'Securities offering documents review',
   'Immigration attorney project assessment',
-  'Third-party market studies'
-]
+  'Third-party market studies',
+];
 
 export default function EB5InvestmentPage() {
   return (
@@ -119,8 +131,8 @@ export default function EB5InvestmentPage() {
             <FaDollarSign className="text-6xl mx-auto mb-6" />
             <h1 className="text-4xl md:text-5xl font-bold mb-6">EB5 Investment Immigration</h1>
             <p className="text-xl max-w-3xl mx-auto mb-8">
-              Secure permanent residency for you and your family through strategic investment 
-              in the US economy. Create jobs, build wealth, and achieve the American Dream.
+              Secure permanent residency for you and your family through strategic investment in the
+              US economy. Create jobs, build wealth, and achieve the American Dream.
             </p>
             <Link
               href="/contact"
@@ -140,9 +152,9 @@ export default function EB5InvestmentPage() {
               Investment Path to US Permanent Residency
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The EB5 immigrant investor program provides a direct path to US permanent 
-              residency through job-creating investments, offering flexibility for 
-              investors and their families to live, work, and study anywhere in America.
+              The EB5 immigrant investor program provides a direct path to US permanent residency
+              through job-creating investments, offering flexibility for investors and their
+              families to live, work, and study anywhere in America.
             </p>
           </div>
 
@@ -189,7 +201,7 @@ export default function EB5InvestmentPage() {
                   </div>
                 </div>
                 <p className="text-gray-600 mb-6">{option.description}</p>
-                
+
                 <div className="mb-6">
                   <h4 className="font-semibold text-gray-900 mb-3">Benefits:</h4>
                   <ul className="space-y-2">
@@ -201,7 +213,7 @@ export default function EB5InvestmentPage() {
                     ))}
                   </ul>
                 </div>
-                
+
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-3">Considerations:</h4>
                   <ul className="space-y-2">
@@ -253,7 +265,8 @@ export default function EB5InvestmentPage() {
           <div className="max-w-4xl mx-auto">
             <div className="bg-blue-50 border-l-4 border-blue-600 p-6 mb-8">
               <p className="text-lg font-semibold text-blue-900">
-                Each EB5 investment must create or preserve at least 10 full-time jobs for US workers
+                Each EB5 investment must create or preserve at least 10 full-time jobs for US
+                workers
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -311,7 +324,7 @@ export default function EB5InvestmentPage() {
                     'Real estate transactions',
                     'Inheritance or gifts',
                     'Investment returns',
-                    'Loan proceeds (secured)'
+                    'Loan proceeds (secured)',
                   ].map((source, idx) => (
                     <li key={idx} className="flex items-center">
                       <span className="text-green-600 mr-2">✓</span>
@@ -329,7 +342,7 @@ export default function EB5InvestmentPage() {
                     'Business records',
                     'Property deeds',
                     'Gift affidavits',
-                    'Loan documents'
+                    'Loan documents',
                   ].map((doc, idx) => (
                     <li key={idx} className="flex items-center">
                       <span className="text-blue-600 mr-2">📄</span>
@@ -373,13 +386,11 @@ export default function EB5InvestmentPage() {
       {/* CTA Section */}
       <section className="py-16 bg-blue-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-6">
-            Invest in Your Family's Future
-          </h2>
+          <h2 className="text-3xl font-bold mb-6">Invest in Your Family's Future</h2>
           <p className="text-xl mb-8">
-            Navigate the complex EB5 process with experienced attorneys who understand 
-            both immigration law and investment strategy. We guide you from project 
-            selection through permanent residency.
+            Navigate the complex EB5 process with experienced attorneys who understand both
+            immigration law and investment strategy. We guide you from project selection through
+            permanent residency.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -398,5 +409,5 @@ export default function EB5InvestmentPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }

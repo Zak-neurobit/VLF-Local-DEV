@@ -1,6 +1,9 @@
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'NC Child Custody Lawyer | Custody & Visitation Attorney | Vasquez Law Firm',
   description:
@@ -33,11 +36,5 @@ export const metadata: Metadata = {
 };
 
 export default function ChildCustodyPage() {
-  return (
-    <PracticeAreaWrapper
-      practiceArea="family-law"
-      subArea="child-custody"
-      language="en"
-    />
-  );
+  return <PracticeAreaWrapper practiceArea="family-law" subArea="child-custody" language="en" />;
 }

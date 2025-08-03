@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Script from 'next/script';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Assault Charges Lawyer NC | Battery Defense Attorney | Vasquez Law Firm',
   description:
@@ -28,8 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Assault & Battery Defense Lawyer NC | Protect Your Freedom',
-    description:
-      'Charged with assault? Expert defense attorneys for all assault charges in NC.',
+    description: 'Charged with assault? Expert defense attorneys for all assault charges in NC.',
     images: ['/images/practice-areas/assault-defense-hero.jpg'],
   },
   alternates: {
@@ -125,7 +127,7 @@ export default function AssaultPage() {
 
   const faqs = [
     {
-      question: 'What\'s the difference between assault and battery in NC?',
+      question: "What's the difference between assault and battery in NC?",
       answer:
         'North Carolina combines assault and battery into one offense. Assault includes both attempting to cause harm (traditional assault) and actually causing harm (traditional battery).',
     },
@@ -137,7 +139,7 @@ export default function AssaultPage() {
     {
       question: 'What is "assault on a female" in NC?',
       answer:
-        'A specific charge when a male 18+ assaults a female. It\'s always a Class A1 misdemeanor with enhanced penalties, even for minor contact. We challenge these aggressively.',
+        "A specific charge when a male 18+ assaults a female. It's always a Class A1 misdemeanor with enhanced penalties, even for minor contact. We challenge these aggressively.",
     },
     {
       question: 'Will I go to jail for simple assault?',
@@ -168,7 +170,9 @@ export default function AssaultPage() {
               </h2>
               <div className="space-y-4">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
-                  <h3 className="text-xl font-bold text-primary mb-3">Class 2 Misdemeanor - Simple Assault</h3>
+                  <h3 className="text-xl font-bold text-primary mb-3">
+                    Class 2 Misdemeanor - Simple Assault
+                  </h3>
                   <div className="grid md:grid-cols-2 gap-4 text-gray-300">
                     <div>
                       <strong>Examples:</strong> Minor physical contact, threats, attempted battery
@@ -179,7 +183,9 @@ export default function AssaultPage() {
                   </div>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
-                  <h3 className="text-xl font-bold text-primary mb-3">Class A1 Misdemeanor - Assault on Female/Child</h3>
+                  <h3 className="text-xl font-bold text-primary mb-3">
+                    Class A1 Misdemeanor - Assault on Female/Child
+                  </h3>
                   <div className="grid md:grid-cols-2 gap-4 text-gray-300">
                     <div>
                       <strong>Examples:</strong> Male assaulting female, assault on child under 12
@@ -190,7 +196,9 @@ export default function AssaultPage() {
                   </div>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-red-500/30">
-                  <h3 className="text-xl font-bold text-red-400 mb-3">Felony Assault - Serious Cases</h3>
+                  <h3 className="text-xl font-bold text-red-400 mb-3">
+                    Felony Assault - Serious Cases
+                  </h3>
                   <div className="grid md:grid-cols-2 gap-4 text-gray-300">
                     <div>
                       <strong>Examples:</strong> Deadly weapon, serious injury, strangulation
@@ -241,13 +249,16 @@ export default function AssaultPage() {
               </h2>
               <div className="space-y-4 text-gray-300">
                 <p>
-                  <strong className="text-green-400">Stand Your Ground:</strong> No duty to retreat before using force if you reasonably believe it necessary to defend yourself.
+                  <strong className="text-green-400">Stand Your Ground:</strong> No duty to retreat
+                  before using force if you reasonably believe it necessary to defend yourself.
                 </p>
                 <p>
-                  <strong className="text-green-400">Castle Doctrine:</strong> Enhanced right to use force, including deadly force, to protect your home, vehicle, or workplace.
+                  <strong className="text-green-400">Castle Doctrine:</strong> Enhanced right to use
+                  force, including deadly force, to protect your home, vehicle, or workplace.
                 </p>
                 <p>
-                  <strong className="text-green-400">Proportional Force:</strong> Force used must be reasonable and proportional to the threat faced.
+                  <strong className="text-green-400">Proportional Force:</strong> Force used must be
+                  reasonable and proportional to the threat faced.
                 </p>
               </div>
             </section>
@@ -298,11 +309,14 @@ export default function AssaultPage() {
               </h2>
               <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                 <p className="text-gray-300 mb-4">
-                  Assault charges often come with protective orders that can force you from your home and prohibit contact with family.
+                  Assault charges often come with protective orders that can force you from your
+                  home and prohibit contact with family.
                 </p>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="text-lg font-bold text-primary mb-2">Restrictions May Include:</h3>
+                    <h3 className="text-lg font-bold text-primary mb-2">
+                      Restrictions May Include:
+                    </h3>
                     <ul className="space-y-1 text-gray-300">
                       <li>• No contact with alleged victim</li>
                       <li>• Stay away from home/work</li>

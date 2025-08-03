@@ -3,6 +3,9 @@ import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPractic
 import Script from 'next/script';
 import Link from 'next/link';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Mejores Abogados de Compensación Laboral en Carolina del Norte | YO PELEO POR TI™',
   description:

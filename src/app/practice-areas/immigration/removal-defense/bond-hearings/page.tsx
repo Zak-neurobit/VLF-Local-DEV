@@ -5,6 +5,10 @@ import { SmartBreadcrumbs } from '@/components/SEO/SmartBreadcrumbs';
 import { InternalLinkingSection } from '@/components/SEO/InternalLinkingSection';
 import { HowToSchema } from '@/components/SEO/HowToSchema';
 import Link from 'next/link';
+
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 // Lucide icons removed - using emoji icons instead
 import { BondHearingsClient } from './BondHearingsClient';
 
@@ -39,10 +43,13 @@ export const metadata: Metadata = {
     images: ['/images/practice-areas/bond-hearings-hero.jpg'],
   },
   alternates: {
-    canonical: 'https://www.vasquezlawfirm.com/practice-areas/immigration/removal-defense/bond-hearings',
+    canonical:
+      'https://www.vasquezlawfirm.com/practice-areas/immigration/removal-defense/bond-hearings',
     languages: {
-      'en-US': 'https://www.vasquezlawfirm.com/practice-areas/immigration/removal-defense/bond-hearings',
-      'es-ES': 'https://www.vasquezlawfirm.com/es/areas-de-practica/inmigracion/defensa-de-remocion/audiencias-de-fianza',
+      'en-US':
+        'https://www.vasquezlawfirm.com/practice-areas/immigration/removal-defense/bond-hearings',
+      'es-ES':
+        'https://www.vasquezlawfirm.com/es/areas-de-practica/inmigracion/defensa-de-remocion/audiencias-de-fianza',
     },
   },
 };
@@ -100,7 +107,7 @@ export default function BondHearingsPage() {
     {
       title: 'Parole & Humanitarian Release',
       description:
-        'Medical issues? Family emergencies? We secure humanitarian parole and other release options when traditional bonds aren\'t available.',
+        "Medical issues? Family emergencies? We secure humanitarian parole and other release options when traditional bonds aren't available.",
       features: [
         'Medical parole applications',
         'Humanitarian parole requests',
@@ -128,7 +135,7 @@ export default function BondHearingsPage() {
     {
       title: 'Detention Appeals',
       description:
-        'Fighting mandatory detention or special circumstances? Our appellate team challenges detention decisions at every level until you\'re free.',
+        "Fighting mandatory detention or special circumstances? Our appellate team challenges detention decisions at every level until you're free.",
       features: [
         'BIA bond appeals',
         'Circuit court challenges',
@@ -160,7 +167,7 @@ export default function BondHearingsPage() {
     {
       question: 'Can you visit me in detention?',
       answer:
-        'YES! Our attorneys regularly visit all NC detention facilities. We\'ll meet with you to prepare your strongest case and keep your family updated throughout the process.',
+        "YES! Our attorneys regularly visit all NC detention facilities. We'll meet with you to prepare your strongest case and keep your family updated throughout the process.",
     },
     {
       question: 'What if I have a criminal record?',
@@ -202,7 +209,8 @@ export default function BondHearingsPage() {
                 ⚠️ DETAINED BY ICE? TIME IS CRITICAL ⚠️
               </h2>
               <p className="text-xl text-center text-white mb-6">
-                Every day in detention is a day too many. We mobilize IMMEDIATELY to fight for your release.
+                Every day in detention is a day too many. We mobilize IMMEDIATELY to fight for your
+                release.
               </p>
               <BondHearingsClient />
             </section>
@@ -216,25 +224,29 @@ export default function BondHearingsPage() {
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-green-500/30">
                   <h3 className="text-xl font-bold text-green-400 mb-3">Former ICE Officers</h3>
                   <p className="text-gray-300">
-                    We know EXACTLY what ICE attorneys will argue because we used to work with them. This insider knowledge helps us destroy their detention arguments.
+                    We know EXACTLY what ICE attorneys will argue because we used to work with them.
+                    This insider knowledge helps us destroy their detention arguments.
                   </p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-blue-500/30">
                   <h3 className="text-xl font-bold text-blue-400 mb-3">24/7 Emergency Response</h3>
                   <p className="text-gray-300">
-                    ICE doesn't wait for business hours to detain people. Neither do we. Our emergency team files motions nights, weekends, and holidays.
+                    ICE doesn't wait for business hours to detain people. Neither do we. Our
+                    emergency team files motions nights, weekends, and holidays.
                   </p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-yellow-500/30">
                   <h3 className="text-xl font-bold text-yellow-400 mb-3">Aggressive Tactics</h3>
                   <p className="text-gray-300">
-                    We don't ask nicely for bonds - we DEMAND them. Our courtroom presence and preparation overwhelm government attorneys and impress judges.
+                    We don't ask nicely for bonds - we DEMAND them. Our courtroom presence and
+                    preparation overwhelm government attorneys and impress judges.
                   </p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-purple-500/30">
                   <h3 className="text-xl font-bold text-purple-400 mb-3">Multi-Level Strategy</h3>
                   <p className="text-gray-300">
-                    Immigration court says no? We go federal. Still no? Appeals court. We never stop fighting until you're home with your family.
+                    Immigration court says no? We go federal. Still no? Appeals court. We never stop
+                    fighting until you're home with your family.
                   </p>
                 </div>
               </div>
@@ -249,7 +261,8 @@ export default function BondHearingsPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Immediate Action (0-24 hours)</h3>
                     <p className="text-gray-300">
-                      Call us and we spring into action. Emergency consultation, detention facility contact, and immediate motion preparation begin within hours.
+                      Call us and we spring into action. Emergency consultation, detention facility
+                      contact, and immediate motion preparation begin within hours.
                     </p>
                   </div>
                 </div>
@@ -258,7 +271,8 @@ export default function BondHearingsPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Motion Filing (24-48 hours)</h3>
                     <p className="text-gray-300">
-                      Emergency bond motion filed with immigration court. We push for the earliest possible hearing date and prepare overwhelming evidence.
+                      Emergency bond motion filed with immigration court. We push for the earliest
+                      possible hearing date and prepare overwhelming evidence.
                     </p>
                   </div>
                 </div>
@@ -267,7 +281,8 @@ export default function BondHearingsPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Bond Hearing (2-7 days)</h3>
                     <p className="text-gray-300">
-                      We dominate the courtroom with prepared witnesses, evidence packages, and aggressive advocacy that judges can't ignore.
+                      We dominate the courtroom with prepared witnesses, evidence packages, and
+                      aggressive advocacy that judges can't ignore.
                     </p>
                   </div>
                 </div>
@@ -276,7 +291,8 @@ export default function BondHearingsPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Release Process (Same day)</h3>
                     <p className="text-gray-300">
-                      Bond granted? We coordinate immediate payment and release. Most clients are home with family within hours of winning their hearing.
+                      Bond granted? We coordinate immediate payment and release. Most clients are
+                      home with family within hours of winning their hearing.
                     </p>
                   </div>
                 </div>
@@ -320,13 +336,17 @@ export default function BondHearingsPage() {
                   'Atlanta City Detention Center',
                   'Local County Jails with ICE Contracts',
                 ].map((facility, index) => (
-                  <div key={index} className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20">
+                  <div
+                    key={index}
+                    className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20"
+                  >
                     <p className="font-semibold text-primary">{facility}</p>
                   </div>
                 ))}
               </div>
               <p className="mt-4 text-gray-300">
-                No matter where ICE is holding you, our attorneys will visit, prepare your case, and fight for your release.
+                No matter where ICE is holding you, our attorneys will visit, prepare your case, and
+                fight for your release.
               </p>
             </section>
 
@@ -350,7 +370,7 @@ export default function BondHearingsPage() {
             '@type': 'LegalService',
             name: 'Immigration Bond Hearings - Vasquez Law Firm',
             description:
-              'Emergency immigration bond hearing representation. Get released from ICE detention fast with NC\'s most aggressive bond attorneys.',
+              "Emergency immigration bond hearing representation. Get released from ICE detention fast with NC's most aggressive bond attorneys.",
             provider: {
               '@type': 'Attorney',
               name: 'Vasquez Law Firm, PLLC',
@@ -363,7 +383,8 @@ export default function BondHearingsPage() {
             serviceType: 'Immigration Bond Hearings',
             availableChannel: {
               '@type': 'ServiceChannel',
-              serviceUrl: 'https://www.vasquezlawfirm.com/practice-areas/immigration/removal-defense/bond-hearings',
+              serviceUrl:
+                'https://www.vasquezlawfirm.com/practice-areas/immigration/removal-defense/bond-hearings',
               servicePhone: '+1-844-967-3536',
               availableLanguage: ['English', 'Spanish'],
             },

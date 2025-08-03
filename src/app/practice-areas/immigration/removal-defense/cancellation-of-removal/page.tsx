@@ -5,6 +5,9 @@ import { SmartBreadcrumbs } from '@/components/SEO/SmartBreadcrumbs';
 import { InternalLinkingSection } from '@/components/SEO/InternalLinkingSection';
 import { HowToSchema } from '@/components/SEO/HowToSchema';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Cancellation of Removal Attorney NC | Stop Deportation & Get Green Card',
   description:
@@ -181,7 +184,9 @@ export default function CancellationOfRemovalPage() {
               </h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-white/5 rounded-lg p-6">
-                  <h3 className="text-xl font-bold text-green-400 mb-4">Non-LPR Cancellation (42B)</h3>
+                  <h3 className="text-xl font-bold text-green-400 mb-4">
+                    Non-LPR Cancellation (42B)
+                  </h3>
                   <ul className="space-y-3 text-gray-300">
                     <li className="flex items-start">
                       <span className="text-green-400 mr-2">✓</span>
@@ -243,9 +248,9 @@ export default function CancellationOfRemovalPage() {
                 How We Prove "Extreme Hardship" & Win Your Case
               </h2>
               <p className="text-lg text-gray-300 mb-6">
-                Extreme hardship is the make-or-break factor. We don't just claim hardship - we PROVE it 
-                with overwhelming evidence that judges cannot deny. Our 96% approval rate comes from knowing 
-                exactly what wins these cases.
+                Extreme hardship is the make-or-break factor. We don't just claim hardship - we
+                PROVE it with overwhelming evidence that judges cannot deny. Our 96% approval rate
+                comes from knowing exactly what wins these cases.
               </p>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-red-500/30">
@@ -294,7 +299,7 @@ export default function CancellationOfRemovalPage() {
                   <div className="ml-6">
                     <h3 className="text-xl font-bold text-primary mb-2">Free Case Evaluation</h3>
                     <p className="text-gray-300">
-                      We analyze your eligibility, identify strengths, and develop winning strategy. 
+                      We analyze your eligibility, identify strengths, and develop winning strategy.
                       Same-day consultations available for urgent cases.
                     </p>
                   </div>
@@ -304,10 +309,12 @@ export default function CancellationOfRemovalPage() {
                     2
                   </div>
                   <div className="ml-6">
-                    <h3 className="text-xl font-bold text-primary mb-2">Evidence Collection Blitz</h3>
+                    <h3 className="text-xl font-bold text-primary mb-2">
+                      Evidence Collection Blitz
+                    </h3>
                     <p className="text-gray-300">
-                      We gather 10+ years of proof, medical records, hardship documentation, and expert 
-                      evaluations. Our team knows what judges need to see.
+                      We gather 10+ years of proof, medical records, hardship documentation, and
+                      expert evaluations. Our team knows what judges need to see.
                     </p>
                   </div>
                 </div>
@@ -318,7 +325,7 @@ export default function CancellationOfRemovalPage() {
                   <div className="ml-6">
                     <h3 className="text-xl font-bold text-primary mb-2">File & Get Work Permit</h3>
                     <p className="text-gray-300">
-                      Application filed with immigration court. You receive work authorization while 
+                      Application filed with immigration court. You receive work authorization while
                       case is pending - legally work and support your family!
                     </p>
                   </div>
@@ -328,10 +335,12 @@ export default function CancellationOfRemovalPage() {
                     4
                   </div>
                   <div className="ml-6">
-                    <h3 className="text-xl font-bold text-primary mb-2">Hearing Preparation Intensive</h3>
+                    <h3 className="text-xl font-bold text-primary mb-2">
+                      Hearing Preparation Intensive
+                    </h3>
                     <p className="text-gray-300">
-                      Mock trials, witness prep, and evidence perfection. We leave nothing to chance. 
-                      You'll be ready for every question.
+                      Mock trials, witness prep, and evidence perfection. We leave nothing to
+                      chance. You'll be ready for every question.
                     </p>
                   </div>
                 </div>
@@ -342,7 +351,7 @@ export default function CancellationOfRemovalPage() {
                   <div className="ml-6">
                     <h3 className="text-xl font-bold text-primary mb-2">Win & Get Green Card!</h3>
                     <p className="text-gray-300">
-                      Judge grants cancellation = IMMEDIATE GREEN CARD. No additional applications. 
+                      Judge grants cancellation = IMMEDIATE GREEN CARD. No additional applications.
                       From facing deportation to permanent resident in one decision!
                     </p>
                   </div>
@@ -357,30 +366,38 @@ export default function CancellationOfRemovalPage() {
               </h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-green-900/20 border border-green-500 rounded-lg p-6">
-                  <h3 className="text-xl font-bold text-green-400 mb-2">Single Mother of 3 - APPROVED</h3>
+                  <h3 className="text-xl font-bold text-green-400 mb-2">
+                    Single Mother of 3 - APPROVED
+                  </h3>
                   <p className="text-gray-300">
-                    15 years in US, 3 US citizen children. We proved eldest daughter's severe asthma 
+                    15 years in US, 3 US citizen children. We proved eldest daughter's severe asthma
                     requires US medical care. Judge cried during testimony. Green card granted!
                   </p>
                 </div>
                 <div className="bg-green-900/20 border border-green-500 rounded-lg p-6">
-                  <h3 className="text-xl font-bold text-green-400 mb-2">Construction Worker - APPROVED</h3>
+                  <h3 className="text-xl font-bold text-green-400 mb-2">
+                    Construction Worker - APPROVED
+                  </h3>
                   <p className="text-gray-300">
-                    DUI arrest made him removable. We showed 12 years of hard work, US citizen wife's 
-                    depression, and son's autism needs. Complete rehabilitation proven. Won!
+                    DUI arrest made him removable. We showed 12 years of hard work, US citizen
+                    wife's depression, and son's autism needs. Complete rehabilitation proven. Won!
                   </p>
                 </div>
                 <div className="bg-green-900/20 border border-green-500 rounded-lg p-6">
-                  <h3 className="text-xl font-bold text-green-400 mb-2">Business Owner - APPROVED</h3>
+                  <h3 className="text-xl font-bold text-green-400 mb-2">
+                    Business Owner - APPROVED
+                  </h3>
                   <p className="text-gray-300">
-                    Employed 8 US workers. We proved business closure would devastate employees and 
+                    Employed 8 US workers. We proved business closure would devastate employees and
                     community. Wife's diabetes complications in Mexico would be fatal. Granted!
                   </p>
                 </div>
                 <div className="bg-green-900/20 border border-green-500 rounded-lg p-6">
-                  <h3 className="text-xl font-bold text-green-400 mb-2">VAWA Survivor - APPROVED</h3>
+                  <h3 className="text-xl font-bold text-green-400 mb-2">
+                    VAWA Survivor - APPROVED
+                  </h3>
                   <p className="text-gray-300">
-                    Abusive ex-husband tried to get her deported. We filed VAWA cancellation, proved 
+                    Abusive ex-husband tried to get her deported. We filed VAWA cancellation, proved
                     abuse, and won in just 3 years presence. Now safe with green card!
                   </p>
                 </div>
@@ -389,11 +406,9 @@ export default function CancellationOfRemovalPage() {
 
             {/* Call to Action */}
             <section className="bg-gradient-to-r from-primary to-primary-300 rounded-lg p-8 text-black text-center">
-              <h2 className="text-3xl font-bold mb-4">
-                Your American Dream Doesn't End Here
-              </h2>
+              <h2 className="text-3xl font-bold mb-4">Your American Dream Doesn't End Here</h2>
               <p className="text-xl mb-6">
-                You've built a life here. Your family depends on you. Don't let deportation destroy 
+                You've built a life here. Your family depends on you. Don't let deportation destroy
                 everything. With our 96% success rate, your green card is within reach.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

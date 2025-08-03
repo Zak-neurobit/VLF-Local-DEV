@@ -2,12 +2,14 @@ import { LocationPageTemplate } from '@/components/templates/LocationPageTemplat
 
 import { Metadata } from 'next';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Workers Compensation Lawyer Near Me in Raleigh | Vasquez Law Firm',
   description:
     'Find experienced workers compensation lawyers near you in Raleigh, NC. Free consultation, bilingual services. Call 1-844-YO-PELEO.',
 };
-
 
 export default function RaleighWorkersCompensationNearMePage() {
   return (

@@ -1,10 +1,15 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Cancellation of Removal Lawyers | Stop Deportation',
-  description: 'Experienced attorneys helping long-term residents qualify for cancellation of removal. Stop deportation and get your green card. Free consultation.',
-  keywords: 'cancellation of removal, 42A, 42B, stop deportation, immigration court relief, green card through cancellation',
+  description:
+    'Experienced attorneys helping long-term residents qualify for cancellation of removal. Stop deportation and get your green card. Free consultation.',
+  keywords:
+    'cancellation of removal, 42A, 42B, stop deportation, immigration court relief, green card through cancellation',
 };
 
 export default function CancellationOfRemovalPage() {
@@ -15,9 +20,7 @@ export default function CancellationOfRemovalPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center text-white">
             <h1 className="text-5xl font-bold mb-6">Cancellation of Removal</h1>
-            <p className="text-xl mb-8">
-              Turn Your Deportation Case into a Path to Legal Status
-            </p>
+            <p className="text-xl mb-8">Turn Your Deportation Case into a Path to Legal Status</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
@@ -40,7 +43,9 @@ export default function CancellationOfRemovalPage() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Types of Cancellation of Removal</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">
+              Types of Cancellation of Removal
+            </h2>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white p-8 rounded-lg shadow-lg">
                 <h3 className="text-2xl font-bold mb-4 text-red-800">For LPRs (42A)</h3>
@@ -49,26 +54,58 @@ export default function CancellationOfRemovalPage() {
                 </p>
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    <svg
+                      className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                     5 years as an LPR
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    <svg
+                      className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                     7 years continuous residence
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    <svg
+                      className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                     No aggravated felony conviction
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    <svg
+                      className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                     Merit a favorable discretion
                   </li>
@@ -81,26 +118,58 @@ export default function CancellationOfRemovalPage() {
                 </p>
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    <svg
+                      className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                     10 years continuous physical presence
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    <svg
+                      className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                     Good moral character
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    <svg
+                      className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                     USC/LPR spouse, parent, or child
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    <svg
+                      className="w-5 h-5 text-green-600 mr-2 mt-1 flex-shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                     Exceptional hardship to qualifying relative
                   </li>
@@ -246,7 +315,8 @@ export default function CancellationOfRemovalPage() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">You May Qualify for a Green Card</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Don't let deportation end your American dream. Cancellation of removal could be your path to permanent residence.
+            Don't let deportation end your American dream. Cancellation of removal could be your
+            path to permanent residence.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

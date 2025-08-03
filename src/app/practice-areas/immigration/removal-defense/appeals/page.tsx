@@ -1,10 +1,15 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Immigration Appeals Lawyers | BIA & Federal Court Appeals',
-  description: 'Expert immigration appeals attorneys. We handle BIA appeals, federal court petitions, motions to reopen, and administrative appeals. Don\'t give up - appeal.',
-  keywords: 'immigration appeals, BIA appeal, federal court appeal, motion to reopen, immigration appeal lawyer, circuit court',
+  description:
+    "Expert immigration appeals attorneys. We handle BIA appeals, federal court petitions, motions to reopen, and administrative appeals. Don't give up - appeal.",
+  keywords:
+    'immigration appeals, BIA appeal, federal court appeal, motion to reopen, immigration appeal lawyer, circuit court',
 };
 
 export default function AppealsPage() {
@@ -15,9 +20,7 @@ export default function AppealsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center text-white">
             <h1 className="text-5xl font-bold mb-6">Immigration Appeals</h1>
-            <p className="text-xl mb-8">
-              Your Case Isn't Over - Fight Unfavorable Decisions
-            </p>
+            <p className="text-xl mb-8">Your Case Isn't Over - Fight Unfavorable Decisions</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
@@ -40,10 +43,14 @@ export default function AppealsPage() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Types of Immigration Appeals We Handle</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">
+              Types of Immigration Appeals We Handle
+            </h2>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h3 className="text-2xl font-bold mb-4 text-red-800">Board of Immigration Appeals (BIA)</h3>
+                <h3 className="text-2xl font-bold mb-4 text-red-800">
+                  Board of Immigration Appeals (BIA)
+                </h3>
                 <p className="text-gray-600 mb-4">
                   Appeal unfavorable immigration judge decisions to the BIA.
                 </p>
@@ -66,7 +73,7 @@ export default function AppealsPage() {
                   </li>
                 </ul>
               </div>
-              
+
               <div className="bg-white p-8 rounded-lg shadow-lg">
                 <h3 className="text-2xl font-bold mb-4 text-red-800">Federal Court Appeals</h3>
                 <p className="text-gray-600 mb-4">
@@ -91,9 +98,11 @@ export default function AppealsPage() {
                   </li>
                 </ul>
               </div>
-              
+
               <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h3 className="text-2xl font-bold mb-4 text-red-800">USCIS Administrative Appeals</h3>
+                <h3 className="text-2xl font-bold mb-4 text-red-800">
+                  USCIS Administrative Appeals
+                </h3>
                 <p className="text-gray-600 mb-4">
                   Appeal denied applications to the Administrative Appeals Office.
                 </p>
@@ -116,9 +125,11 @@ export default function AppealsPage() {
                   </li>
                 </ul>
               </div>
-              
+
               <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h3 className="text-2xl font-bold mb-4 text-red-800">Motions to Reopen/Reconsider</h3>
+                <h3 className="text-2xl font-bold mb-4 text-red-800">
+                  Motions to Reopen/Reconsider
+                </h3>
                 <p className="text-gray-600 mb-4">
                   Request case reopening based on new evidence or legal errors.
                 </p>
@@ -159,7 +170,8 @@ export default function AppealsPage() {
                 <div className="ml-4">
                   <h3 className="text-xl font-semibold mb-2">Case Review & Analysis</h3>
                   <p className="text-gray-600">
-                    We thoroughly review the record, identify legal errors, and assess appeal viability.
+                    We thoroughly review the record, identify legal errors, and assess appeal
+                    viability.
                   </p>
                 </div>
               </div>
@@ -266,7 +278,8 @@ export default function AppealsPage() {
             <h2 className="text-3xl font-bold mb-6 text-red-900">⏰ Time is Critical</h2>
             <div className="bg-white p-8 rounded-lg shadow-lg">
               <p className="text-xl text-gray-700 mb-6">
-                Most immigration appeals have strict deadlines - typically 30 days from the decision date.
+                Most immigration appeals have strict deadlines - typically 30 days from the decision
+                date.
               </p>
               <div className="grid md:grid-cols-3 gap-4 mb-8">
                 <div className="bg-red-100 p-4 rounded">
@@ -322,7 +335,8 @@ export default function AppealsPage() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Don't Accept Defeat</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            An unfavorable decision doesn't have to be final. Our appellate attorneys know how to win on appeal.
+            An unfavorable decision doesn't have to be final. Our appellate attorneys know how to
+            win on appeal.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

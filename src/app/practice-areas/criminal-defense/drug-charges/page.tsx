@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Script from 'next/script';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Drug Charges Lawyer NC | Drug Crime Defense Attorney | Vasquez Law Firm',
   description:
@@ -36,7 +39,8 @@ export const metadata: Metadata = {
     canonical: 'https://www.vasquezlawfirm.com/practice-areas/criminal-defense/drug-charges',
     languages: {
       'en-US': 'https://www.vasquezlawfirm.com/practice-areas/criminal-defense/drug-charges',
-      'es-ES': 'https://www.vasquezlawfirm.com/es/areas-de-practica/defensa-criminal/cargos-de-drogas',
+      'es-ES':
+        'https://www.vasquezlawfirm.com/es/areas-de-practica/defensa-criminal/cargos-de-drogas',
     },
   },
 };
@@ -125,7 +129,7 @@ export default function DrugChargesPage() {
 
   const faqs = [
     {
-      question: 'What\'s the difference between possession and trafficking?',
+      question: "What's the difference between possession and trafficking?",
       answer:
         'In NC, trafficking is based on weight: 10 lbs of marijuana, 28g of cocaine, 4g of heroin triggers trafficking charges with mandatory prison time. Possession is any amount below trafficking thresholds.',
     },
@@ -140,7 +144,7 @@ export default function DrugChargesPage() {
         'Not necessarily. First offenders often qualify for probation, drug court, or deferred prosecution. We fight for alternatives that protect your record and freedom.',
     },
     {
-      question: 'What about my driver\'s license?',
+      question: "What about my driver's license?",
       answer:
         'Drug convictions trigger automatic license suspension in NC. We can help you get limited driving privileges and work toward full restoration.',
     },
@@ -208,9 +212,7 @@ export default function DrugChargesPage() {
 
             {/* Defense Strategies Section */}
             <section>
-              <h2 className="text-3xl font-bold mb-6 text-primary">
-                How We Defend Drug Charges
-              </h2>
+              <h2 className="text-3xl font-bold mb-6 text-primary">How We Defend Drug Charges</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Constitutional Defenses</h3>

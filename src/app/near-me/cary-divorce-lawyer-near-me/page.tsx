@@ -2,12 +2,14 @@ import { LocationPageTemplate } from '@/components/templates/LocationPageTemplat
 
 import { Metadata } from 'next';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Divorce Lawyer Near Me in Cary | Vasquez Law Firm',
   description:
     'Find experienced divorce lawyers near you in Cary, NC. Free consultation, bilingual services. Call 1-844-YO-PELEO.',
 };
-
 
 export default function CaryDivorceNearMePage() {
   return (

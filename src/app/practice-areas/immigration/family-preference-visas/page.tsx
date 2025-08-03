@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title:
     'Family Preference Visas Lawyers NC & FL | F1, F2A, F2B, F3, F4 Immigration | Vasquez Law Firm',

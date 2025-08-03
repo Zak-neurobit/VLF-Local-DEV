@@ -1,12 +1,24 @@
-import { Metadata } from 'next'
-import Link from 'next/link'
-import { FaHandshake, FaFileAlt, FaSearch, FaClock, FaExclamationTriangle, FaChartBar } from 'react-icons/fa'
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
+import { Metadata } from 'next';
+import Link from 'next/link';
+import {
+  FaHandshake,
+  FaFileAlt,
+  FaSearch,
+  FaClock,
+  FaExclamationTriangle,
+  FaChartBar,
+} from 'react-icons/fa';
 
 export const metadata: Metadata = {
   title: 'PERM Labor Certification | Employment Green Card Process | Vasquez Law Firm',
-  description: 'Expert PERM labor certification services for employment-based green cards. Navigate the complex DOL recruitment process with experienced immigration attorneys.',
-  keywords: 'PERM labor certification, employment green card, EB2, EB3, prevailing wage, recruitment, I-140 petition, DOL',
-}
+  description:
+    'Expert PERM labor certification services for employment-based green cards. Navigate the complex DOL recruitment process with experienced immigration attorneys.',
+  keywords:
+    'PERM labor certification, employment green card, EB2, EB3, prevailing wage, recruitment, I-140 petition, DOL',
+};
 
 const permProcess = [
   {
@@ -18,8 +30,8 @@ const permProcess = [
       'File ETA-9141 with DOL',
       'Specify job requirements',
       'Receive wage determination',
-      'Valid for 1 year from certification'
-    ]
+      'Valid for 1 year from certification',
+    ],
   },
   {
     step: '2',
@@ -30,8 +42,8 @@ const permProcess = [
       '30-180 days before filing',
       'Newspaper advertisements (2 Sundays)',
       'Job order with State Workforce Agency',
-      'Additional recruitment steps'
-    ]
+      'Additional recruitment steps',
+    ],
   },
   {
     step: '3',
@@ -42,8 +54,8 @@ const permProcess = [
       'Must file within 180 days',
       'No qualified US workers found',
       'Complete recruitment report',
-      'Possible audit response'
-    ]
+      'Possible audit response',
+    ],
   },
   {
     step: '4',
@@ -54,10 +66,10 @@ const permProcess = [
       'File within 180 days of approval',
       'Premium processing available',
       'Concurrent filing possible',
-      'Priority date established'
-    ]
-  }
-]
+      'Priority date established',
+    ],
+  },
+];
 
 const recruitmentRequirements = [
   {
@@ -65,8 +77,8 @@ const recruitmentRequirements = [
     requirements: [
       'Job order with State Workforce Agency (30 days)',
       'Newspaper advertisement (2 Sunday editions)',
-      'Posted notice at worksite (10 consecutive days)'
-    ]
+      'Posted notice at worksite (10 consecutive days)',
+    ],
   },
   {
     category: 'Professional Positions (Additional)',
@@ -74,8 +86,8 @@ const recruitmentRequirements = [
       'One professional journal advertisement',
       'Two additional recruitment steps from DOL list',
       'Campus recruitment (if applicable)',
-      'Trade or professional organization posting'
-    ]
+      'Trade or professional organization posting',
+    ],
   },
   {
     category: 'Documentation Requirements',
@@ -83,52 +95,52 @@ const recruitmentRequirements = [
       'Applications received and reviewed',
       'Reasons for rejection documented',
       'Interview summaries maintained',
-      'Good faith recruitment effort proven'
-    ]
-  }
-]
+      'Good faith recruitment effort proven',
+    ],
+  },
+];
 
 const auditConsiderations = [
   'Inconsistencies in job requirements',
-  'Wage levels below market rate', 
+  'Wage levels below market rate',
   'Unclear job duties or requirements',
   'Recruitment deficiencies',
   'Company layoffs in similar positions',
-  'Timing issues with recruitment'
-]
+  'Timing issues with recruitment',
+];
 
 const eb2eb3Comparison = [
   {
     category: 'EB2 - Advanced Degree/Exceptional Ability',
     requirements: [
-      'Master\'s degree or higher',
-      'Bachelor\'s + 5 years progressive experience',
+      "Master's degree or higher",
+      "Bachelor's + 5 years progressive experience",
       'Exceptional ability in sciences/arts/business',
-      'Job requires advanced degree or exceptional ability'
+      'Job requires advanced degree or exceptional ability',
     ],
     benefits: [
       'Faster priority dates (typically)',
       'National Interest Waiver possibility',
       'Higher wage levels acceptable',
-      'Advanced positions qualify'
-    ]
+      'Advanced positions qualify',
+    ],
   },
   {
     category: 'EB3 - Skilled Workers/Professionals',
     requirements: [
-      'Bachelor\'s degree minimum',
+      "Bachelor's degree minimum",
       'At least 2 years training/experience',
-      'Job requires bachelor\'s or equivalent',
-      'Skilled worker position'
+      "Job requires bachelor's or equivalent",
+      'Skilled worker position',
     ],
     benefits: [
       'Broader range of positions qualify',
       'Less stringent education requirements',
       'More flexible job descriptions',
-      'Lower wage level requirements'
-    ]
-  }
-]
+      'Lower wage level requirements',
+    ],
+  },
+];
 
 const commonChallenges = [
   {
@@ -138,8 +150,8 @@ const commonChallenges = [
       'Comprehensive documentation prep',
       'Detailed recruitment records',
       'Expert legal response drafting',
-      'Compliance verification'
-    ]
+      'Compliance verification',
+    ],
   },
   {
     title: 'Qualified US Worker Applications',
@@ -148,8 +160,8 @@ const commonChallenges = [
       'Careful job requirement drafting',
       'Detailed interview documentation',
       'Good faith recruitment demonstration',
-      'Legitimate business reasons for rejection'
-    ]
+      'Legitimate business reasons for rejection',
+    ],
   },
   {
     title: 'Job Requirements Justification',
@@ -158,10 +170,10 @@ const commonChallenges = [
       'Industry standard analysis',
       'Business necessity documentation',
       'Competitive analysis',
-      'Expert witness testimony'
-    ]
-  }
-]
+      'Expert witness testimony',
+    ],
+  },
+];
 
 export default function PERMLaborCertificationPage() {
   return (
@@ -173,9 +185,9 @@ export default function PERMLaborCertificationPage() {
             <FaHandshake className="text-6xl mx-auto mb-6" />
             <h1 className="text-4xl md:text-5xl font-bold mb-6">PERM Labor Certification</h1>
             <p className="text-xl max-w-3xl mx-auto mb-8">
-              Navigate the complex PERM process with confidence. Our expert attorneys 
-              guide employers through every step of the labor certification process 
-              to secure green cards for valuable employees.
+              Navigate the complex PERM process with confidence. Our expert attorneys guide
+              employers through every step of the labor certification process to secure green cards
+              for valuable employees.
             </p>
             <Link
               href="/contact"
@@ -195,8 +207,8 @@ export default function PERMLaborCertificationPage() {
             <div>
               <h3 className="text-lg font-semibold text-yellow-800">PERM Processing Alert</h3>
               <p className="text-yellow-700">
-                Current PERM processing times are 12-18 months. Audit rates remain high at approximately 30%. 
-                Early preparation and expert guidance are essential for success.
+                Current PERM processing times are 12-18 months. Audit rates remain high at
+                approximately 30%. Early preparation and expert guidance are essential for success.
               </p>
             </div>
           </div>
@@ -211,9 +223,9 @@ export default function PERMLaborCertificationPage() {
               Your Gateway to Employment-Based Green Cards
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              PERM labor certification is the first step in most employment-based 
-              immigration cases, requiring employers to demonstrate that no qualified 
-              US workers are available for the position.
+              PERM labor certification is the first step in most employment-based immigration cases,
+              requiring employers to demonstrate that no qualified US workers are available for the
+              position.
             </p>
           </div>
 
@@ -308,7 +320,7 @@ export default function PERMLaborCertificationPage() {
             {eb2eb3Comparison.map((category, index) => (
               <div key={index} className="bg-gray-50 rounded-lg p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">{category.category}</h3>
-                
+
                 <div className="mb-6">
                   <h4 className="font-semibold text-gray-900 mb-3">Requirements:</h4>
                   <ul className="space-y-2">
@@ -320,7 +332,7 @@ export default function PERMLaborCertificationPage() {
                     ))}
                   </ul>
                 </div>
-                
+
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-3">Benefits:</h4>
                   <ul className="space-y-2">
@@ -384,7 +396,7 @@ export default function PERMLaborCertificationPage() {
               ))}
             </div>
             <p className="text-red-700 mt-4 text-sm">
-              Our experienced attorneys help minimize audit risk through strategic case preparation 
+              Our experienced attorneys help minimize audit risk through strategic case preparation
               and comprehensive documentation.
             </p>
           </div>
@@ -394,9 +406,7 @@ export default function PERMLaborCertificationPage() {
       {/* Services Offered */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Our PERM Services
-          </h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Our PERM Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
               <FaSearch className="text-3xl text-blue-600 mx-auto mb-3" />
@@ -429,9 +439,9 @@ export default function PERMLaborCertificationPage() {
             Secure Green Cards for Your Valuable Employees
           </h2>
           <p className="text-xl mb-8">
-            Don't navigate the complex PERM process alone. Our experienced attorneys 
-            will guide you through every step, from recruitment to approval, ensuring 
-            compliance and maximizing success rates.
+            Don't navigate the complex PERM process alone. Our experienced attorneys will guide you
+            through every step, from recruitment to approval, ensuring compliance and maximizing
+            success rates.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -450,5 +460,5 @@ export default function PERMLaborCertificationPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }

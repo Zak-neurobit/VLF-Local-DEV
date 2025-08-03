@@ -6,6 +6,9 @@ import { InternalLinkingSection } from '@/components/SEO/InternalLinkingSection'
 import { GreenCardsClient } from './GreenCardsClient';
 import { Shield, Award, Clock, Users, Globe, Briefcase, Heart, Star } from 'lucide-react';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Green Card Attorney NC | Permanent Residency & Adjustment of Status',
   description:
@@ -40,7 +43,8 @@ export const metadata: Metadata = {
     canonical: 'https://www.vasquezlawfirm.com/practice-areas/immigration/affirmative/green-cards',
     languages: {
       'en-US': 'https://www.vasquezlawfirm.com/practice-areas/immigration/affirmative/green-cards',
-      'es-ES': 'https://www.vasquezlawfirm.com/es/areas-de-practica/inmigracion/afirmativa/tarjetas-verdes',
+      'es-ES':
+        'https://www.vasquezlawfirm.com/es/areas-de-practica/inmigracion/afirmativa/tarjetas-verdes',
     },
   },
   robots: {
@@ -128,7 +132,7 @@ export default function GreenCardsPage() {
     {
       title: 'Green Card Renewal & Issues',
       description:
-        'Maintain your permanent resident status and resolve complications. Don\'t risk losing your green card.',
+        "Maintain your permanent resident status and resolve complications. Don't risk losing your green card.",
       features: [
         'Green card renewal (I-90)',
         'Replace lost/stolen cards',
@@ -152,7 +156,7 @@ export default function GreenCardsPage() {
         'Yes! Most adjustment of status applicants can apply for a work permit (EAD) which typically arrives in 3-5 months. This allows unrestricted employment while your green card processes.',
     },
     {
-      question: 'What\'s the difference between adjustment of status and consular processing?',
+      question: "What's the difference between adjustment of status and consular processing?",
       answer:
         'Adjustment of status allows you to get your green card while remaining in the U.S. Consular processing requires attending an interview at a U.S. embassy abroad. The best option depends on your current status and location.',
     },
@@ -164,7 +168,7 @@ export default function GreenCardsPage() {
     {
       question: 'What if I have a criminal record or immigration violations?',
       answer:
-        'Don\'t give up. Many issues can be overcome with proper legal strategy, waivers, or alternative pathways. We\'ve successfully handled cases others said were impossible. Every situation deserves expert analysis.',
+        "Don't give up. Many issues can be overcome with proper legal strategy, waivers, or alternative pathways. We've successfully handled cases others said were impossible. Every situation deserves expert analysis.",
     },
     {
       question: 'How much does the green card process cost?',
@@ -202,8 +206,10 @@ export default function GreenCardsPage() {
 
             {/* Green Card Categories Overview */}
             <section>
-              <h2 className="text-3xl font-bold mb-8 text-primary">Green Card Categories & Processing Times</h2>
-              
+              <h2 className="text-3xl font-bold mb-8 text-primary">
+                Green Card Categories & Processing Times
+              </h2>
+
               {/* Family-Based Categories */}
               <div className="mb-8">
                 <h3 className="text-2xl font-bold mb-4 text-green-400 flex items-center">
@@ -212,17 +218,46 @@ export default function GreenCardsPage() {
                 </h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   {[
-                    { category: 'Immediate Relatives', time: '12-18 months', desc: 'Spouses, parents, children under 21 of U.S. citizens' },
-                    { category: 'F1 - Unmarried Adult Children', time: '7-8 years', desc: 'Unmarried sons/daughters 21+ of citizens' },
-                    { category: 'F2A - Spouses/Children of LPRs', time: '2-3 years', desc: 'Spouses and children under 21 of green card holders' },
-                    { category: 'F2B - Unmarried Adult Children of LPRs', time: '7-8 years', desc: 'Unmarried sons/daughters 21+ of LPRs' },
-                    { category: 'F3 - Married Children', time: '12-13 years', desc: 'Married children of U.S. citizens' },
-                    { category: 'F4 - Siblings', time: '13-23 years', desc: 'Brothers/sisters of adult U.S. citizens' },
+                    {
+                      category: 'Immediate Relatives',
+                      time: '12-18 months',
+                      desc: 'Spouses, parents, children under 21 of U.S. citizens',
+                    },
+                    {
+                      category: 'F1 - Unmarried Adult Children',
+                      time: '7-8 years',
+                      desc: 'Unmarried sons/daughters 21+ of citizens',
+                    },
+                    {
+                      category: 'F2A - Spouses/Children of LPRs',
+                      time: '2-3 years',
+                      desc: 'Spouses and children under 21 of green card holders',
+                    },
+                    {
+                      category: 'F2B - Unmarried Adult Children of LPRs',
+                      time: '7-8 years',
+                      desc: 'Unmarried sons/daughters 21+ of LPRs',
+                    },
+                    {
+                      category: 'F3 - Married Children',
+                      time: '12-13 years',
+                      desc: 'Married children of U.S. citizens',
+                    },
+                    {
+                      category: 'F4 - Siblings',
+                      time: '13-23 years',
+                      desc: 'Brothers/sisters of adult U.S. citizens',
+                    },
                   ].map((cat, index) => (
-                    <div key={index} className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-green-500/30">
+                    <div
+                      key={index}
+                      className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-green-500/30"
+                    >
                       <div className="flex justify-between items-start mb-2">
                         <h4 className="font-bold text-green-400">{cat.category}</h4>
-                        <span className="text-xs bg-green-500/20 px-2 py-1 rounded">{cat.time}</span>
+                        <span className="text-xs bg-green-500/20 px-2 py-1 rounded">
+                          {cat.time}
+                        </span>
                       </div>
                       <p className="text-sm text-gray-400">{cat.desc}</p>
                     </div>
@@ -238,13 +273,32 @@ export default function GreenCardsPage() {
                 </h3>
                 <div className="grid md:grid-cols-3 gap-4">
                   {[
-                    { category: 'EB-1', time: '8-16 months', desc: 'Extraordinary ability, executives, researchers' },
-                    { category: 'EB-2', time: '1-3 years*', desc: 'Advanced degrees, exceptional ability, NIW' },
-                    { category: 'EB-3', time: '2-4 years*', desc: 'Skilled workers, professionals, other workers' },
-                    { category: 'EB-4', time: '6-12 months', desc: 'Special immigrants, religious workers' },
+                    {
+                      category: 'EB-1',
+                      time: '8-16 months',
+                      desc: 'Extraordinary ability, executives, researchers',
+                    },
+                    {
+                      category: 'EB-2',
+                      time: '1-3 years*',
+                      desc: 'Advanced degrees, exceptional ability, NIW',
+                    },
+                    {
+                      category: 'EB-3',
+                      time: '2-4 years*',
+                      desc: 'Skilled workers, professionals, other workers',
+                    },
+                    {
+                      category: 'EB-4',
+                      time: '6-12 months',
+                      desc: 'Special immigrants, religious workers',
+                    },
                     { category: 'EB-5', time: '2-3 years', desc: 'Investors creating jobs' },
                   ].map((cat, index) => (
-                    <div key={index} className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-blue-500/30">
+                    <div
+                      key={index}
+                      className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-blue-500/30"
+                    >
                       <div className="flex justify-between items-start mb-2">
                         <h4 className="font-bold text-blue-400">{cat.category}</h4>
                         <span className="text-xs bg-blue-500/20 px-2 py-1 rounded">{cat.time}</span>
@@ -253,13 +307,17 @@ export default function GreenCardsPage() {
                     </div>
                   ))}
                 </div>
-                <p className="text-xs text-gray-500 mt-2">*Country of birth affects wait times, especially for India/China</p>
+                <p className="text-xs text-gray-500 mt-2">
+                  *Country of birth affects wait times, especially for India/China
+                </p>
               </div>
             </section>
 
             {/* Process Comparison */}
             <section>
-              <h2 className="text-3xl font-bold mb-6 text-primary">Adjustment of Status vs. Consular Processing</h2>
+              <h2 className="text-3xl font-bold mb-6 text-primary">
+                Adjustment of Status vs. Consular Processing
+              </h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-gradient-to-br from-purple-900/20 to-purple-700/20 backdrop-blur-sm rounded-lg p-6 border border-purple-500/30">
                   <h3 className="text-xl font-bold text-purple-400 mb-4 flex items-center">
@@ -325,14 +383,54 @@ export default function GreenCardsPage() {
               <h2 className="text-3xl font-bold mb-6 text-primary">Typical Green Card Timeline</h2>
               <div className="space-y-4">
                 {[
-                  { phase: 'Petition Filing', time: 'Month 1', desc: 'I-130/I-140 filed with USCIS', icon: '📄' },
-                  { phase: 'Initial Approval', time: 'Months 6-12', desc: 'Petition approved by USCIS', icon: '✅' },
-                  { phase: 'Priority Date', time: 'Varies', desc: 'Wait for visa availability (if required)', icon: '📅' },
-                  { phase: 'Application', time: 'When current', desc: 'File I-485 or DS-260', icon: '📋' },
-                  { phase: 'Biometrics', time: '1-2 months later', desc: 'Fingerprints and background check', icon: '🖐️' },
-                  { phase: 'EAD/AP', time: '3-5 months', desc: 'Work permit and travel document', icon: '💳' },
-                  { phase: 'Interview', time: '8-14 months', desc: 'Final interview at USCIS/embassy', icon: '🎤' },
-                  { phase: 'Approval', time: '2-4 weeks', desc: 'Green card arrives by mail', icon: '🎉' },
+                  {
+                    phase: 'Petition Filing',
+                    time: 'Month 1',
+                    desc: 'I-130/I-140 filed with USCIS',
+                    icon: '📄',
+                  },
+                  {
+                    phase: 'Initial Approval',
+                    time: 'Months 6-12',
+                    desc: 'Petition approved by USCIS',
+                    icon: '✅',
+                  },
+                  {
+                    phase: 'Priority Date',
+                    time: 'Varies',
+                    desc: 'Wait for visa availability (if required)',
+                    icon: '📅',
+                  },
+                  {
+                    phase: 'Application',
+                    time: 'When current',
+                    desc: 'File I-485 or DS-260',
+                    icon: '📋',
+                  },
+                  {
+                    phase: 'Biometrics',
+                    time: '1-2 months later',
+                    desc: 'Fingerprints and background check',
+                    icon: '🖐️',
+                  },
+                  {
+                    phase: 'EAD/AP',
+                    time: '3-5 months',
+                    desc: 'Work permit and travel document',
+                    icon: '💳',
+                  },
+                  {
+                    phase: 'Interview',
+                    time: '8-14 months',
+                    desc: 'Final interview at USCIS/embassy',
+                    icon: '🎤',
+                  },
+                  {
+                    phase: 'Approval',
+                    time: '2-4 weeks',
+                    desc: 'Green card arrives by mail',
+                    icon: '🎉',
+                  },
                 ].map((phase, index) => (
                   <div key={index} className="flex items-center">
                     <div className="flex-shrink-0 w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center text-2xl">
@@ -341,7 +439,9 @@ export default function GreenCardsPage() {
                     <div className="ml-4 flex-grow">
                       <div className="flex justify-between items-start">
                         <h3 className="text-xl font-semibold">{phase.phase}</h3>
-                        <span className="text-sm text-primary bg-primary/10 px-3 py-1 rounded-full">{phase.time}</span>
+                        <span className="text-sm text-primary bg-primary/10 px-3 py-1 rounded-full">
+                          {phase.time}
+                        </span>
                       </div>
                       <p className="text-gray-400 mt-1">{phase.desc}</p>
                     </div>
@@ -352,15 +452,41 @@ export default function GreenCardsPage() {
 
             {/* Benefits of Having a Green Card */}
             <section className="bg-gradient-to-r from-green-900/20 to-green-700/20 backdrop-blur-sm rounded-lg p-8 border border-green-500/30">
-              <h2 className="text-3xl font-bold mb-6 text-center text-green-400">Benefits of Permanent Residency</h2>
+              <h2 className="text-3xl font-bold mb-6 text-center text-green-400">
+                Benefits of Permanent Residency
+              </h2>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
-                  { benefit: 'Live Permanently', desc: 'Reside anywhere in the U.S. without visa restrictions', icon: '🏠' },
-                  { benefit: 'Work Freedom', desc: 'Work for any employer or start your own business', icon: '💼' },
-                  { benefit: 'Travel Freely', desc: 'Come and go from the U.S. with reentry rights', icon: '✈️' },
-                  { benefit: 'Sponsor Family', desc: 'Petition for spouse and unmarried children', icon: '👨‍👩‍👧‍👦' },
-                  { benefit: 'Path to Citizenship', desc: 'Apply for naturalization after 3-5 years', icon: '🇺🇸' },
-                  { benefit: 'Benefits Access', desc: 'Eligible for many government benefits', icon: '🏛️' },
+                  {
+                    benefit: 'Live Permanently',
+                    desc: 'Reside anywhere in the U.S. without visa restrictions',
+                    icon: '🏠',
+                  },
+                  {
+                    benefit: 'Work Freedom',
+                    desc: 'Work for any employer or start your own business',
+                    icon: '💼',
+                  },
+                  {
+                    benefit: 'Travel Freely',
+                    desc: 'Come and go from the U.S. with reentry rights',
+                    icon: '✈️',
+                  },
+                  {
+                    benefit: 'Sponsor Family',
+                    desc: 'Petition for spouse and unmarried children',
+                    icon: '👨‍👩‍👧‍👦',
+                  },
+                  {
+                    benefit: 'Path to Citizenship',
+                    desc: 'Apply for naturalization after 3-5 years',
+                    icon: '🇺🇸',
+                  },
+                  {
+                    benefit: 'Benefits Access',
+                    desc: 'Eligible for many government benefits',
+                    icon: '🏛️',
+                  },
                 ].map((item, index) => (
                   <div key={index} className="text-center">
                     <div className="text-4xl mb-3">{item.icon}</div>
@@ -373,7 +499,9 @@ export default function GreenCardsPage() {
 
             {/* Success Metrics */}
             <section>
-              <h2 className="text-3xl font-bold mb-6 text-center text-primary">Our Green Card Success Record</h2>
+              <h2 className="text-3xl font-bold mb-6 text-center text-primary">
+                Our Green Card Success Record
+              </h2>
               <div className="grid md:grid-cols-4 gap-6 text-center">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/30">
                   <Star className="h-8 w-8 text-yellow-400 mx-auto mb-3" />
@@ -400,27 +528,36 @@ export default function GreenCardsPage() {
 
             {/* Common Obstacles */}
             <section>
-              <h2 className="text-3xl font-bold mb-6 text-primary">Overcoming Common Green Card Obstacles</h2>
+              <h2 className="text-3xl font-bold mb-6 text-primary">
+                Overcoming Common Green Card Obstacles
+              </h2>
               <div className="grid md:grid-cols-2 gap-6">
                 {[
                   {
                     obstacle: 'Unlawful Presence',
-                    solution: 'We prepare strong I-601/I-601A waivers showing extreme hardship to qualifying relatives',
+                    solution:
+                      'We prepare strong I-601/I-601A waivers showing extreme hardship to qualifying relatives',
                   },
                   {
                     obstacle: 'Criminal History',
-                    solution: 'Strategic case presentation and rehabilitation evidence to overcome admissibility issues',
+                    solution:
+                      'Strategic case presentation and rehabilitation evidence to overcome admissibility issues',
                   },
                   {
                     obstacle: 'Public Charge',
-                    solution: 'Comprehensive financial packages with affidavits of support and asset documentation',
+                    solution:
+                      'Comprehensive financial packages with affidavits of support and asset documentation',
                   },
                   {
                     obstacle: 'Prior Denials',
-                    solution: 'Analyze denial reasons and build stronger cases addressing all concerns',
+                    solution:
+                      'Analyze denial reasons and build stronger cases addressing all concerns',
                   },
                 ].map((item, index) => (
-                  <div key={index} className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-red-500/30">
+                  <div
+                    key={index}
+                    className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-red-500/30"
+                  >
                     <h3 className="text-xl font-bold text-red-400 mb-3">{item.obstacle}</h3>
                     <p className="text-gray-300">{item.solution}</p>
                   </div>
@@ -434,7 +571,8 @@ export default function GreenCardsPage() {
                 Start Your Green Card Journey Today
               </h2>
               <p className="text-lg text-center mb-6 max-w-2xl mx-auto">
-                Don't navigate the complex green card process alone. With our 95% approval rate and comprehensive support, your American dream is within reach.
+                Don't navigate the complex green card process alone. With our 95% approval rate and
+                comprehensive support, your American dream is within reach.
               </p>
               <GreenCardsClient />
             </section>

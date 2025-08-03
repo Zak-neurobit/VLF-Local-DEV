@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Asylum & Refugee Lawyers NC | URGENT Protection from Persecution | Vasquez Law Firm',
   description:
@@ -212,7 +215,7 @@ export default function AsylumRefugeePage() {
 
     urgencyTitle: 'URGENT: One-Year Asylum Deadline Approaching?',
     urgencyMessage:
-      "You have only ONE YEAR from arrival to file asylum applications (with limited exceptions). Don&apos;t wait - contact us immediately for emergency consultation.",
+      'You have only ONE YEAR from arrival to file asylum applications (with limited exceptions). Don&apos;t wait - contact us immediately for emergency consultation.',
 
     successStats: [
       { number: '3,000+', label: 'Asylum Cases Won' },

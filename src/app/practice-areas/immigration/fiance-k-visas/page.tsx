@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Fiancé K-1 Visa Lawyers NC & FL | K-1/K-2/K-3 Immigration Attorneys | Vasquez Law Firm',
   description:

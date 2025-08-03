@@ -6,6 +6,9 @@ import { InternalLinkingSection } from '@/components/SEO/InternalLinkingSection'
 import { FamilyBasedPetitionsClient } from './FamilyBasedPetitionsClient';
 import { Users, Clock, Shield, Award, Heart, Globe, FileText, CheckCircle } from 'lucide-react';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Family Immigration Lawyer NC | Family-Based Petitions & Green Cards',
   description:
@@ -37,10 +40,13 @@ export const metadata: Metadata = {
     images: ['/images/practice-areas/family-immigration-hero.jpg'],
   },
   alternates: {
-    canonical: 'https://www.vasquezlawfirm.com/practice-areas/immigration/affirmative/family-based-petitions',
+    canonical:
+      'https://www.vasquezlawfirm.com/practice-areas/immigration/affirmative/family-based-petitions',
     languages: {
-      'en-US': 'https://www.vasquezlawfirm.com/practice-areas/immigration/affirmative/family-based-petitions',
-      'es-ES': 'https://www.vasquezlawfirm.com/es/areas-de-practica/inmigracion/afirmativa/peticiones-familiares',
+      'en-US':
+        'https://www.vasquezlawfirm.com/practice-areas/immigration/affirmative/family-based-petitions',
+      'es-ES':
+        'https://www.vasquezlawfirm.com/es/areas-de-practica/inmigracion/afirmativa/peticiones-familiares',
     },
   },
   robots: {
@@ -154,7 +160,7 @@ export default function FamilyBasedPetitionsPage() {
     {
       question: 'What if my family member entered illegally?',
       answer:
-        'Illegal entry doesn\'t always prevent family immigration. Options may include waivers, consular processing, or adjustment through special programs. We analyze each case individually to find the best solution.',
+        "Illegal entry doesn't always prevent family immigration. Options may include waivers, consular processing, or adjustment through special programs. We analyze each case individually to find the best solution.",
     },
     {
       question: 'Can same-sex couples petition for immigration benefits?',
@@ -164,12 +170,12 @@ export default function FamilyBasedPetitionsPage() {
     {
       question: 'What happens if my petition is denied?',
       answer:
-        'Don\'t lose hope. Denials can often be overcome through appeals, motions to reopen, or refiling with additional evidence. We analyze denial reasons and develop strategies to succeed on the next attempt.',
+        "Don't lose hope. Denials can often be overcome through appeals, motions to reopen, or refiling with additional evidence. We analyze denial reasons and develop strategies to succeed on the next attempt.",
     },
     {
       question: 'Do I need a lawyer for family petitions?',
       answer:
-        'While not required, having an experienced attorney significantly increases approval chances and prevents costly mistakes. We\'ve seen too many families separated due to DIY errors. Our 95% approval rate speaks for itself.',
+        "While not required, having an experienced attorney significantly increases approval chances and prevents costly mistakes. We've seen too many families separated due to DIY errors. Our 95% approval rate speaks for itself.",
     },
   ];
 
@@ -203,14 +209,16 @@ export default function FamilyBasedPetitionsPage() {
             {/* Who Can You Petition Section */}
             <section>
               <h2 className="text-3xl font-bold mb-8 text-primary">Who Can You Petition For?</h2>
-              
+
               {/* Immediate Relatives */}
               <div className="mb-8">
                 <h3 className="text-2xl font-bold mb-4 text-green-400 flex items-center">
                   <CheckCircle className="mr-2 h-6 w-6" />
                   Immediate Relatives (No Wait Times)
                 </h3>
-                <p className="text-gray-300 mb-4">U.S. citizens can petition for immediate relatives without annual limits:</p>
+                <p className="text-gray-300 mb-4">
+                  U.S. citizens can petition for immediate relatives without annual limits:
+                </p>
                 <div className="grid md:grid-cols-3 gap-4">
                   <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-green-500/30 text-center">
                     <Heart className="h-8 w-8 text-green-400 mx-auto mb-2" />
@@ -238,16 +246,48 @@ export default function FamilyBasedPetitionsPage() {
                 </h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   {[
-                    { code: 'F1', title: 'Adult Children of Citizens', desc: 'Unmarried sons/daughters 21+', wait: '7-8 years' },
-                    { code: 'F2A', title: 'Spouses/Children of LPRs', desc: 'Spouses & children under 21', wait: '2-3 years' },
-                    { code: 'F2B', title: 'Adult Children of LPRs', desc: 'Unmarried sons/daughters 21+', wait: '7-8 years' },
-                    { code: 'F3', title: 'Married Children of Citizens', desc: 'Married sons/daughters any age', wait: '12-13 years' },
-                    { code: 'F4', title: 'Siblings of Citizens', desc: 'Brothers/sisters if petitioner 21+', wait: '13-23 years' },
+                    {
+                      code: 'F1',
+                      title: 'Adult Children of Citizens',
+                      desc: 'Unmarried sons/daughters 21+',
+                      wait: '7-8 years',
+                    },
+                    {
+                      code: 'F2A',
+                      title: 'Spouses/Children of LPRs',
+                      desc: 'Spouses & children under 21',
+                      wait: '2-3 years',
+                    },
+                    {
+                      code: 'F2B',
+                      title: 'Adult Children of LPRs',
+                      desc: 'Unmarried sons/daughters 21+',
+                      wait: '7-8 years',
+                    },
+                    {
+                      code: 'F3',
+                      title: 'Married Children of Citizens',
+                      desc: 'Married sons/daughters any age',
+                      wait: '12-13 years',
+                    },
+                    {
+                      code: 'F4',
+                      title: 'Siblings of Citizens',
+                      desc: 'Brothers/sisters if petitioner 21+',
+                      wait: '13-23 years',
+                    },
                   ].map((category, index) => (
-                    <div key={index} className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-blue-500/30">
+                    <div
+                      key={index}
+                      className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-blue-500/30"
+                    >
                       <div className="flex justify-between items-start mb-2">
-                        <h4 className="font-bold text-blue-400">{category.code}: {category.title}</h4>
-                        <span className="text-xs bg-blue-500/20 px-2 py-1 rounded">{category.wait}</span>
+                        <h4 className="font-bold text-blue-400">
+                          {category.code}: {category.title}
+                        </h4>
+                        <span className="text-xs bg-blue-500/20 px-2 py-1 rounded">
+                          {category.wait}
+                        </span>
                       </div>
                       <p className="text-sm text-gray-400">{category.desc}</p>
                     </div>
@@ -258,7 +298,9 @@ export default function FamilyBasedPetitionsPage() {
 
             {/* Special Programs */}
             <section>
-              <h2 className="text-3xl font-bold mb-6 text-primary">Special Family Immigration Programs</h2>
+              <h2 className="text-3xl font-bold mb-6 text-primary">
+                Special Family Immigration Programs
+              </h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-gradient-to-br from-purple-900/20 to-purple-700/20 backdrop-blur-sm rounded-lg p-6 border border-purple-500/30">
                   <h3 className="text-xl font-bold text-purple-400 mb-3 flex items-center">
@@ -274,8 +316,7 @@ export default function FamilyBasedPetitionsPage() {
                 </div>
                 <div className="bg-gradient-to-br from-orange-900/20 to-orange-700/20 backdrop-blur-sm rounded-lg p-6 border border-orange-500/30">
                   <h3 className="text-xl font-bold text-orange-400 mb-3 flex items-center">
-                    <Globe className="mr-2 h-6 w-6" />
-                    V Visa Program
+                    <Globe className="mr-2 h-6 w-6" />V Visa Program
                   </h3>
                   <ul className="space-y-2 text-gray-300">
                     <li>• For long-waiting family members</li>
@@ -292,12 +333,42 @@ export default function FamilyBasedPetitionsPage() {
               <h2 className="text-3xl font-bold mb-6 text-primary">The Family Petition Process</h2>
               <div className="space-y-4">
                 {[
-                  { step: '1', title: 'Initial Consultation', desc: 'Assess eligibility and choose the right petition type', time: 'Week 1' },
-                  { step: '2', title: 'Document Collection', desc: 'Gather relationship evidence, financial documents, and translations', time: 'Weeks 2-4' },
-                  { step: '3', title: 'Petition Filing (I-130)', desc: 'Submit petition with supporting evidence to USCIS', time: 'Week 5' },
-                  { step: '4', title: 'USCIS Processing', desc: 'Wait for petition approval and respond to any requests', time: '6-12 months' },
-                  { step: '5', title: 'NVC Processing', desc: 'Complete visa application and submit civil documents', time: '2-4 months' },
-                  { step: '6', title: 'Interview & Approval', desc: 'Attend interview at embassy or USCIS office', time: '1-2 months' },
+                  {
+                    step: '1',
+                    title: 'Initial Consultation',
+                    desc: 'Assess eligibility and choose the right petition type',
+                    time: 'Week 1',
+                  },
+                  {
+                    step: '2',
+                    title: 'Document Collection',
+                    desc: 'Gather relationship evidence, financial documents, and translations',
+                    time: 'Weeks 2-4',
+                  },
+                  {
+                    step: '3',
+                    title: 'Petition Filing (I-130)',
+                    desc: 'Submit petition with supporting evidence to USCIS',
+                    time: 'Week 5',
+                  },
+                  {
+                    step: '4',
+                    title: 'USCIS Processing',
+                    desc: 'Wait for petition approval and respond to any requests',
+                    time: '6-12 months',
+                  },
+                  {
+                    step: '5',
+                    title: 'NVC Processing',
+                    desc: 'Complete visa application and submit civil documents',
+                    time: '2-4 months',
+                  },
+                  {
+                    step: '6',
+                    title: 'Interview & Approval',
+                    desc: 'Attend interview at embassy or USCIS office',
+                    time: '1-2 months',
+                  },
                 ].map((item, index) => (
                   <div key={index} className="flex items-start">
                     <div className="flex-shrink-0 w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold">
@@ -306,7 +377,9 @@ export default function FamilyBasedPetitionsPage() {
                     <div className="ml-4 flex-grow">
                       <div className="flex justify-between items-start">
                         <h3 className="text-xl font-semibold">{item.title}</h3>
-                        <span className="text-sm text-primary bg-primary/10 px-3 py-1 rounded-full">{item.time}</span>
+                        <span className="text-sm text-primary bg-primary/10 px-3 py-1 rounded-full">
+                          {item.time}
+                        </span>
                       </div>
                       <p className="text-gray-400 mt-1">{item.desc}</p>
                     </div>
@@ -317,7 +390,9 @@ export default function FamilyBasedPetitionsPage() {
 
             {/* Success Metrics */}
             <section className="bg-gradient-to-r from-primary/20 to-primary-dark/20 backdrop-blur-sm rounded-lg p-8 border border-primary/30">
-              <h2 className="text-3xl font-bold mb-6 text-center">Our Family Immigration Success</h2>
+              <h2 className="text-3xl font-bold mb-6 text-center">
+                Our Family Immigration Success
+              </h2>
               <div className="grid md:grid-cols-4 gap-6 text-center">
                 <div>
                   <div className="text-4xl font-bold text-primary mb-2">10,000+</div>
@@ -345,31 +420,40 @@ export default function FamilyBasedPetitionsPage() {
                 {[
                   {
                     title: 'Prior Immigration Violations',
-                    solution: 'We prepare waivers and find creative solutions for unlawful presence, visa overstays, and prior removals.',
+                    solution:
+                      'We prepare waivers and find creative solutions for unlawful presence, visa overstays, and prior removals.',
                     icon: Shield,
                     color: 'red',
                   },
                   {
                     title: 'Public Charge Issues',
-                    solution: 'Strong affidavit of support preparation and co-sponsor coordination to meet financial requirements.',
+                    solution:
+                      'Strong affidavit of support preparation and co-sponsor coordination to meet financial requirements.',
                     icon: Award,
                     color: 'green',
                   },
                   {
                     title: 'Document Challenges',
-                    solution: 'We obtain missing documents from any country and handle translations/authentications.',
+                    solution:
+                      'We obtain missing documents from any country and handle translations/authentications.',
                     icon: FileText,
                     color: 'blue',
                   },
                   {
                     title: 'Relationship Evidence',
-                    solution: 'Strategic evidence compilation to prove bona fide relationships for skeptical officers.',
+                    solution:
+                      'Strategic evidence compilation to prove bona fide relationships for skeptical officers.',
                     icon: Heart,
                     color: 'purple',
                   },
                 ].map((challenge, index) => (
-                  <div key={index} className={`bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-${challenge.color}-500/30`}>
-                    <h3 className={`text-xl font-bold text-${challenge.color}-400 mb-3 flex items-center`}>
+                  <div
+                    key={index}
+                    className={`bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-${challenge.color}-500/30`}
+                  >
+                    <h3
+                      className={`text-xl font-bold text-${challenge.color}-400 mb-3 flex items-center`}
+                    >
                       <challenge.icon className="mr-2 h-6 w-6" />
                       {challenge.title}
                     </h3>
@@ -385,7 +469,8 @@ export default function FamilyBasedPetitionsPage() {
                 Don't Let Immigration Law Keep Your Family Apart
               </h2>
               <p className="text-lg text-center mb-6 max-w-2xl mx-auto">
-                Every day matters when you're separated from loved ones. Our experienced team will expedite your case and fight for your family's future together.
+                Every day matters when you're separated from loved ones. Our experienced team will
+                expedite your case and fight for your family's future together.
               </p>
               <FamilyBasedPetitionsClient />
             </section>

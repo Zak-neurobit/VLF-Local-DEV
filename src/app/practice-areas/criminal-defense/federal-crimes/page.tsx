@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Script from 'next/script';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Federal Criminal Defense Lawyer NC | FBI, DEA, ATF Cases | Vasquez Law Firm',
   description:
@@ -36,7 +39,8 @@ export const metadata: Metadata = {
     canonical: 'https://www.vasquezlawfirm.com/practice-areas/criminal-defense/federal-crimes',
     languages: {
       'en-US': 'https://www.vasquezlawfirm.com/practice-areas/criminal-defense/federal-crimes',
-      'es-ES': 'https://www.vasquezlawfirm.com/es/areas-de-practica/defensa-criminal/crimenes-federales',
+      'es-ES':
+        'https://www.vasquezlawfirm.com/es/areas-de-practica/defensa-criminal/crimenes-federales',
     },
   },
 };
@@ -72,7 +76,7 @@ export default function FederalCrimesPage() {
     {
       title: 'Federal Weapons Charges',
       description:
-        'ATF charges and firearms violations carry severe penalties. We challenge every aspect of the government\'s case.',
+        "ATF charges and firearms violations carry severe penalties. We challenge every aspect of the government's case.",
       features: [
         'Felon in possession',
         'Federal gun trafficking',
@@ -132,7 +136,7 @@ export default function FederalCrimesPage() {
     {
       question: 'I received a target letter. What should I do?',
       answer:
-        'Do NOT ignore it or try to explain yourself. A target letter means you\'re under federal investigation. Contact us immediately - early intervention can prevent charges or reduce severity.',
+        "Do NOT ignore it or try to explain yourself. A target letter means you're under federal investigation. Contact us immediately - early intervention can prevent charges or reduce severity.",
     },
     {
       question: 'What are federal sentencing guidelines?',
@@ -213,7 +217,8 @@ export default function FederalCrimesPage() {
               </h2>
               <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                 <p className="text-gray-300 mb-4">
-                  Federal sentences are calculated using a complex point system. We fight to reduce your exposure at every level:
+                  Federal sentences are calculated using a complex point system. We fight to reduce
+                  your exposure at every level:
                 </p>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
@@ -287,7 +292,8 @@ export default function FederalCrimesPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Investigation Phase</h3>
                     <p className="text-gray-300">
-                      Federal agencies investigate for months or years. You may not know you're under investigation until it's too late.
+                      Federal agencies investigate for months or years. You may not know you're
+                      under investigation until it's too late.
                     </p>
                   </div>
                 </div>
@@ -296,7 +302,8 @@ export default function FederalCrimesPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Target Letter/Contact</h3>
                     <p className="text-gray-300">
-                      First sign of trouble. This is your chance to intervene before charges. Never talk without an attorney.
+                      First sign of trouble. This is your chance to intervene before charges. Never
+                      talk without an attorney.
                     </p>
                   </div>
                 </div>
@@ -305,7 +312,8 @@ export default function FederalCrimesPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Grand Jury</h3>
                     <p className="text-gray-300">
-                      Secret proceedings where prosecutors present evidence. We can sometimes influence this process.
+                      Secret proceedings where prosecutors present evidence. We can sometimes
+                      influence this process.
                     </p>
                   </div>
                 </div>
@@ -314,7 +322,8 @@ export default function FederalCrimesPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Indictment & Arrest</h3>
                     <p className="text-gray-300">
-                      If indicted, you'll be arrested. We can arrange voluntary surrender and fight for pretrial release.
+                      If indicted, you'll be arrested. We can arrange voluntary surrender and fight
+                      for pretrial release.
                     </p>
                   </div>
                 </div>

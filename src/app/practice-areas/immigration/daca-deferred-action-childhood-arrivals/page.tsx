@@ -1,8 +1,12 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
-  title: 'DACA Lawyers NC & FL | Deferred Action Childhood Arrivals | Expert Dreamer Protection | Vasquez Law Firm',
+  title:
+    'DACA Lawyers NC & FL | Deferred Action Childhood Arrivals | Expert Dreamer Protection | Vasquez Law Firm',
   description:
     'Expert DACA attorneys for Dreamers. Initial applications, renewals, work permits, travel authorization. 98% approval rate. Time-sensitive deadlines. Call 1-844-YO-PELEO',
   keywords:
@@ -19,7 +23,8 @@ export default function DacaPage() {
   const services = [
     {
       title: 'Initial DACA Applications',
-      description: 'Complete assistance with first-time DACA applications and work authorization for eligible Dreamers',
+      description:
+        'Complete assistance with first-time DACA applications and work authorization for eligible Dreamers',
       icon: '📝',
       features: [
         'Comprehensive eligibility assessment',
@@ -27,12 +32,13 @@ export default function DacaPage() {
         'Supporting document gathering',
         'Personal statement development',
         'Evidence organization and presentation',
-        'USCIS fee guidance and assistance'
-      ]
+        'USCIS fee guidance and assistance',
+      ],
     },
     {
       title: 'DACA Renewals (Critical Timing)',
-      description: 'Time-sensitive renewal applications to maintain protection and work authorization - deadlines are strict',
+      description:
+        'Time-sensitive renewal applications to maintain protection and work authorization - deadlines are strict',
       icon: '🔄',
       features: [
         'Renewal timeline management (120-150 days before expiration)',
@@ -40,12 +46,13 @@ export default function DacaPage() {
         'Continuous residence verification',
         'Employment history documentation',
         'Travel record compilation',
-        'Emergency late renewal assistance'
-      ]
+        'Emergency late renewal assistance',
+      ],
     },
     {
       title: 'Work Authorization (EAD)',
-      description: 'Employment Authorization Document applications and renewals for DACA recipients',
+      description:
+        'Employment Authorization Document applications and renewals for DACA recipients',
       icon: '💼',
       features: [
         'Form I-765 preparation and filing',
@@ -53,12 +60,13 @@ export default function DacaPage() {
         'Social Security number coordination',
         'Driver license eligibility guidance',
         'Professional licensing support',
-        'Employer verification assistance'
-      ]
+        'Employer verification assistance',
+      ],
     },
     {
       title: 'Advance Parole Travel Authorization',
-      description: 'Critical travel authorization for emergencies - traveling without approval terminates DACA',
+      description:
+        'Critical travel authorization for emergencies - traveling without approval terminates DACA',
       icon: '✈️',
       features: [
         'Form I-131 advance parole applications',
@@ -66,12 +74,13 @@ export default function DacaPage() {
         'Educational travel authorization',
         'Employment-related travel permits',
         'Humanitarian travel documentation',
-        'Re-entry procedure guidance'
-      ]
+        'Re-entry procedure guidance',
+      ],
     },
     {
       title: 'DACA Eligibility Assessment',
-      description: 'Comprehensive evaluation of DACA eligibility requirements and potential obstacles',
+      description:
+        'Comprehensive evaluation of DACA eligibility requirements and potential obstacles',
       icon: '🔍',
       features: [
         'Age requirement verification',
@@ -79,12 +88,13 @@ export default function DacaPage() {
         'Continuous presence analysis',
         'Education/military service review',
         'Criminal background assessment',
-        'Timeline reconstruction assistance'
-      ]
+        'Timeline reconstruction assistance',
+      ],
     },
     {
       title: 'Family Derivative Benefits',
-      description: 'Guidance on benefits and protections available to DACA recipients\' family members',
+      description:
+        "Guidance on benefits and protections available to DACA recipients' family members",
       icon: '👨‍👩‍👧‍👦',
       features: [
         'Spouse work authorization options',
@@ -92,8 +102,8 @@ export default function DacaPage() {
         'Family unity planning',
         'Future petition preparation',
         'Adjustment of status pathways',
-        'Family emergency protocols'
-      ]
+        'Family emergency protocols',
+      ],
     },
     {
       title: 'DACA Termination Defense',
@@ -105,12 +115,13 @@ export default function DacaPage() {
         'Fraud allegation defense',
         'Administrative error corrections',
         'Due process protection',
-        'Appeal and litigation support'
-      ]
+        'Appeal and litigation support',
+      ],
     },
     {
       title: 'Future Immigration Planning',
-      description: 'Strategic planning for permanent residence and citizenship pathways for DACA recipients',
+      description:
+        'Strategic planning for permanent residence and citizenship pathways for DACA recipients',
       icon: '🌟',
       features: [
         'Marriage-based petition guidance',
@@ -118,8 +129,8 @@ export default function DacaPage() {
         'Registry eligibility assessment',
         'Cancellation of removal preparation',
         'Asylum claim evaluation',
-        'Long-term immigration strategy'
-      ]
+        'Long-term immigration strategy',
+      ],
     },
     {
       title: 'DACA Litigation Support',
@@ -131,84 +142,86 @@ export default function DacaPage() {
         'Federal court representation',
         'Injunction protection advocacy',
         'Policy change navigation',
-        'Constitutional challenge support'
-      ]
-    }
+        'Constitutional challenge support',
+      ],
+    },
   ];
 
   const faqs = [
     {
       question: 'What are the current DACA eligibility requirements?',
       answer:
-        'You must: be under 31 as of June 15, 2012; have arrived before age 16 and before June 15, 2007; continuously resided in the US since June 15, 2007; be in school, graduated, have a GED, or be an honorably discharged veteran; pass background checks.'
+        'You must: be under 31 as of June 15, 2012; have arrived before age 16 and before June 15, 2007; continuously resided in the US since June 15, 2007; be in school, graduated, have a GED, or be an honorably discharged veteran; pass background checks.',
     },
     {
       question: 'How long does DACA protection last and when should I renew?',
       answer:
-        'DACA protection lasts 2 years. You should file renewal applications 120-150 days before expiration. Missing the deadline means losing work authorization and deportation protection. We track all client deadlines automatically.'
+        'DACA protection lasts 2 years. You should file renewal applications 120-150 days before expiration. Missing the deadline means losing work authorization and deportation protection. We track all client deadlines automatically.',
     },
     {
       question: 'Can I travel outside the US with DACA status?',
       answer:
-        'NEVER travel without advance parole approval - it automatically terminates your DACA. With advance parole, you can travel for educational, employment, or humanitarian reasons. We handle all advance parole applications.'
+        'NEVER travel without advance parole approval - it automatically terminates your DACA. With advance parole, you can travel for educational, employment, or humanitarian reasons. We handle all advance parole applications.',
     },
     {
       question: 'What happens if my DACA application is denied?',
       answer:
-        'Denials can often be appealed or refiled with additional evidence. Common denial reasons include incomplete applications, criminal issues, or timeline problems. We have extensive experience overturning DACA denials.'
+        'Denials can often be appealed or refiled with additional evidence. Common denial reasons include incomplete applications, criminal issues, or timeline problems. We have extensive experience overturning DACA denials.',
     },
     {
       question: 'Can DACA recipients get green cards or become citizens?',
       answer:
-        'DACA doesn\'t directly lead to permanent residence, but recipients may qualify through marriage to US citizens, certain employment categories, asylum, or other relief. We help plan long-term immigration strategies.'
+        "DACA doesn't directly lead to permanent residence, but recipients may qualify through marriage to US citizens, certain employment categories, asylum, or other relief. We help plan long-term immigration strategies.",
     },
     {
       question: 'What if I have a criminal record - can I still get DACA?',
       answer:
-        'Minor traffic violations usually don\'t disqualify you, but felonies and significant misdemeanors do. We carefully analyze criminal history and can often find solutions or waivers for borderline cases.'
-    }
+        "Minor traffic violations usually don't disqualify you, but felonies and significant misdemeanors do. We carefully analyze criminal history and can often find solutions or waivers for borderline cases.",
+    },
   ];
 
   const content = {
     introduction: `As a DACA recipient (Dreamer), you have protection from deportation and work authorization, but these benefits are time-sensitive and require careful legal management. Our DACA attorneys have helped thousands of Dreamers navigate initial applications, renewals, and complex immigration challenges with a 98% approval rate.`,
-    
+
     processTitle: 'Our DACA Process',
     process: [
       {
         step: '1',
         title: 'Eligibility Assessment & Documentation',
-        description: 'Comprehensive review of DACA requirements and gathering of supporting evidence'
+        description:
+          'Comprehensive review of DACA requirements and gathering of supporting evidence',
       },
       {
         step: '2',
         title: 'Application Preparation & Filing',
-        description: 'Expert preparation of I-821D forms with complete documentation package'
+        description: 'Expert preparation of I-821D forms with complete documentation package',
       },
       {
         step: '3',
         title: 'Biometrics & Background Check',
-        description: 'Guidance through USCIS biometrics appointment and background check process'
+        description: 'Guidance through USCIS biometrics appointment and background check process',
       },
       {
         step: '4',
         title: 'Decision & Work Authorization',
-        description: 'Processing of approval and immediate work authorization assistance'
+        description: 'Processing of approval and immediate work authorization assistance',
       },
       {
         step: '5',
         title: 'Renewal Management & Future Planning',
-        description: 'Ongoing renewal tracking and long-term immigration strategy development'
-      }
+        description: 'Ongoing renewal tracking and long-term immigration strategy development',
+      },
     ],
 
     urgencyTitle: 'DACA Renewal Deadline Approaching?',
-    urgencyMessage: 'DACA renewals must be filed 120-150 days before expiration. Missing deadlines means losing work authorization and deportation protection. Don\'t wait - contact us immediately.',
+    urgencyMessage:
+      "DACA renewals must be filed 120-150 days before expiration. Missing deadlines means losing work authorization and deportation protection. Don't wait - contact us immediately.",
 
     successStats: [
       { number: '8,000+', label: 'DACA Cases Approved' },
       { number: '98%', label: 'Approval Rate' },
       { number: '2', label: 'Years Protection Period' },
-      { number: '150', label: 'Days Before Expiration to Renew' }
+      { number: '150', label: 'Days Before Expiration to Renew' },
     ],
 
     whyChooseTitle: 'Why Choose Our DACA Team?',
@@ -220,7 +233,7 @@ export default function DacaPage() {
       'Emergency late renewal assistance available',
       'Complete work authorization support',
       'Advance parole travel authorization expertise',
-      'Long-term immigration planning for permanent residence'
+      'Long-term immigration planning for permanent residence',
     ],
 
     dacaRequirements: {
@@ -229,25 +242,43 @@ export default function DacaPage() {
         {
           title: 'Age Requirement',
           description: 'Must have been under 31 years old as of June 15, 2012',
-          details: ['Born on or after June 16, 1981', 'At least 15 years old when applying (with exceptions)', 'Age calculated as of June 15, 2012']
+          details: [
+            'Born on or after June 16, 1981',
+            'At least 15 years old when applying (with exceptions)',
+            'Age calculated as of June 15, 2012',
+          ],
         },
         {
           title: 'Arrival & Residence',
           description: 'Came to US before 16th birthday and before June 15, 2007',
-          details: ['Entered US before June 15, 2007', 'Arrived before 16th birthday', 'Continuously resided since June 15, 2007']
+          details: [
+            'Entered US before June 15, 2007',
+            'Arrived before 16th birthday',
+            'Continuously resided since June 15, 2007',
+          ],
         },
         {
           title: 'Education/Military Service',
           description: 'Currently in school, graduated, have GED, or honorably discharged veteran',
-          details: ['High school diploma or GED', 'Currently enrolled in school', 'Honorably discharged from military', 'Working toward educational credential']
+          details: [
+            'High school diploma or GED',
+            'Currently enrolled in school',
+            'Honorably discharged from military',
+            'Working toward educational credential',
+          ],
         },
         {
           title: 'Criminal Background',
           description: 'Must pass background check with no serious criminal history',
-          details: ['No felony convictions', 'No significant misdemeanors', 'No more than 3 misdemeanors', 'No threat to national security']
-        }
-      ]
-    }
+          details: [
+            'No felony convictions',
+            'No significant misdemeanors',
+            'No more than 3 misdemeanors',
+            'No threat to national security',
+          ],
+        },
+      ],
+    },
   };
 
   return (
@@ -278,7 +309,8 @@ export default function DacaPage() {
               <div className="bg-yellow-900/30 rounded-lg p-6">
                 <h3 className="text-xl font-bold text-yellow-400 mb-4">Emergency DACA Help</h3>
                 <p className="text-white mb-4">
-                  <strong>Renewal deadline approaching?</strong><br />
+                  <strong>Renewal deadline approaching?</strong>
+                  <br />
                   Call our DACA emergency line:
                 </p>
                 <a href="tel:1-844-967-3536" className="text-2xl font-bold text-yellow-400">
@@ -296,7 +328,10 @@ export default function DacaPage() {
             <h2 className="text-3xl font-bold text-primary mb-8">DACA Eligibility Requirements</h2>
             <div className="grid md:grid-cols-2 gap-6">
               {content.dacaRequirements.requirements.map((req, index) => (
-                <div key={index} className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
+                <div
+                  key={index}
+                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+                >
                   <h3 className="text-xl font-bold text-primary mb-3">{req.title}</h3>
                   <p className="text-gray-300 mb-4">{req.description}</p>
                   <ul className="space-y-1">
@@ -318,7 +353,9 @@ export default function DacaPage() {
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                 <h3 className="text-xl font-bold text-primary mb-3">🛡️ Deportation Protection</h3>
-                <p className="text-gray-300 mb-4">Protection from removal proceedings for 2 years</p>
+                <p className="text-gray-300 mb-4">
+                  Protection from removal proceedings for 2 years
+                </p>
                 <ul className="text-sm text-gray-400 space-y-1">
                   <li>• Deferred action from deportation</li>
                   <li>• Relief from immigration enforcement</li>
@@ -328,7 +365,9 @@ export default function DacaPage() {
               </div>
               <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                 <h3 className="text-xl font-bold text-primary mb-3">💼 Work Authorization</h3>
-                <p className="text-gray-300 mb-4">Legal employment authorization in the United States</p>
+                <p className="text-gray-300 mb-4">
+                  Legal employment authorization in the United States
+                </p>
                 <ul className="text-sm text-gray-400 space-y-1">
                   <li>• Employment Authorization Document (EAD)</li>
                   <li>• Social Security number eligibility</li>
@@ -356,11 +395,15 @@ export default function DacaPage() {
               <div className="grid md:grid-cols-4 gap-6">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-primary mb-2">150</div>
-                  <div className="text-sm text-gray-300">Days before expiration - start renewal process</div>
+                  <div className="text-sm text-gray-300">
+                    Days before expiration - start renewal process
+                  </div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-primary mb-2">120</div>
-                  <div className="text-sm text-gray-300">Days before expiration - latest recommended filing</div>
+                  <div className="text-sm text-gray-300">
+                    Days before expiration - latest recommended filing
+                  </div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-primary mb-2">4-6</div>

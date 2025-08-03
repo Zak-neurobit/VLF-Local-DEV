@@ -5,6 +5,9 @@ import { SmartBreadcrumbs } from '@/components/SEO/SmartBreadcrumbs';
 import { InternalLinkingSection } from '@/components/SEO/InternalLinkingSection';
 import { HowToSchema } from '@/components/SEO/HowToSchema';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'URGENT Removal Defense Attorney NC | Stop Deportation NOW 24/7',
   description:
@@ -94,7 +97,7 @@ export default function RemovalDefensePage() {
     {
       title: 'Immigration Appeals',
       description:
-        'Lost your case? We don\'t give up. Our appellate team reverses bad decisions at the BIA, Circuit Courts, and beyond. We find the errors and fight until you win.',
+        "Lost your case? We don't give up. Our appellate team reverses bad decisions at the BIA, Circuit Courts, and beyond. We find the errors and fight until you win.",
       features: [
         'Board of Immigration Appeals',
         'Federal circuit court appeals',
@@ -138,12 +141,12 @@ export default function RemovalDefensePage() {
     {
       question: 'How much does removal defense cost?',
       answer:
-        'We offer flexible payment plans and NEVER let cost prevent emergency defense. Your life and family are priceless. Call for a free consultation and we\'ll work it out.',
+        "We offer flexible payment plans and NEVER let cost prevent emergency defense. Your life and family are priceless. Call for a free consultation and we'll work it out.",
     },
     {
       question: 'Can you get me out of detention?',
       answer:
-        'YES. We file emergency bond motions and often get clients released within days. Our attorneys visit all NC detention centers and fight until you\'re free.',
+        "YES. We file emergency bond motions and often get clients released within days. Our attorneys visit all NC detention centers and fight until you're free.",
     },
   ];
 
@@ -237,8 +240,8 @@ export default function RemovalDefensePage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Immediate Response</h3>
                     <p className="text-gray-300">
-                      Call us and we mobilize INSTANTLY. Emergency motions filed within hours,
-                      not days. We stop the clock on your deportation.
+                      Call us and we mobilize INSTANTLY. Emergency motions filed within hours, not
+                      days. We stop the clock on your deportation.
                     </p>
                   </div>
                 </div>
@@ -257,8 +260,8 @@ export default function RemovalDefensePage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Courtroom Domination</h3>
                     <p className="text-gray-300">
-                      Our trial attorneys are feared by prosecutors. We don't just present your
-                      case - we command the courtroom and fight until you win.
+                      Our trial attorneys are feared by prosecutors. We don't just present your case
+                      - we command the courtroom and fight until you win.
                     </p>
                   </div>
                 </div>

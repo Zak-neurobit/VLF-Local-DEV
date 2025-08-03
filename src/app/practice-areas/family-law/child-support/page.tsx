@@ -2,16 +2,19 @@ import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Script from 'next/script';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Child Support Lawyer NC | Support Modification Attorney | Vasquez Law Firm',
   description:
-    'Need help with child support in NC? Experienced attorneys for support establishment, modification, enforcement. Protect your children\'s financial future. Free consultation.',
+    "Need help with child support in NC? Experienced attorneys for support establishment, modification, enforcement. Protect your children's financial future. Free consultation.",
   keywords:
     'child support lawyer NC, child support attorney North Carolina, support modification Raleigh, child support enforcement Charlotte, support calculator NC, back child support Durham, support arrears attorney',
   openGraph: {
     title: 'Child Support Lawyer NC | Fair Support for Your Children',
     description:
-      'Expert child support attorneys in NC. We help establish, modify, and enforce support orders that protect your children\'s needs.',
+      "Expert child support attorneys in NC. We help establish, modify, and enforce support orders that protect your children's needs.",
     url: 'https://www.vasquezlawfirm.com/practice-areas/family-law/child-support',
     siteName: 'Vasquez Law Firm, PLLC',
     images: [
@@ -36,7 +39,8 @@ export const metadata: Metadata = {
     canonical: 'https://www.vasquezlawfirm.com/practice-areas/family-law/child-support',
     languages: {
       'en-US': 'https://www.vasquezlawfirm.com/practice-areas/family-law/child-support',
-      'es-ES': 'https://www.vasquezlawfirm.com/es/areas-de-practica/derecho-familiar/manutencion-infantil',
+      'es-ES':
+        'https://www.vasquezlawfirm.com/es/areas-de-practica/derecho-familiar/manutencion-infantil',
     },
   },
 };
@@ -63,7 +67,7 @@ export default function ChildSupportPage() {
       features: [
         'Job loss/income reduction',
         'Income increases',
-        'Child\'s needs changes',
+        "Child's needs changes",
         'Healthcare changes',
         'Custody modifications',
         'Emancipation issues',
@@ -72,7 +76,7 @@ export default function ChildSupportPage() {
     {
       title: 'Support Enforcement',
       description:
-        'When the other parent won\'t pay, we use every legal tool to collect what your children deserve.',
+        "When the other parent won't pay, we use every legal tool to collect what your children deserve.",
       features: [
         'Wage garnishment',
         'Asset seizure',
@@ -127,15 +131,15 @@ export default function ChildSupportPage() {
     {
       question: 'How is child support calculated in North Carolina?',
       answer:
-        'NC uses guidelines based on both parents\' incomes, number of children, custody arrangement, and expenses like health insurance and daycare. We ensure all relevant factors are considered.',
+        "NC uses guidelines based on both parents' incomes, number of children, custody arrangement, and expenses like health insurance and daycare. We ensure all relevant factors are considered.",
     },
     {
       question: 'Can child support be modified?',
       answer:
-        'Yes, if there\'s a substantial change in circumstances - typically 15% or more change in support amount. Changes include job loss, income changes, or custody modifications.',
+        "Yes, if there's a substantial change in circumstances - typically 15% or more change in support amount. Changes include job loss, income changes, or custody modifications.",
     },
     {
-      question: 'What if the other parent won\'t pay?',
+      question: "What if the other parent won't pay?",
       answer:
         'NC has strong enforcement tools: wage garnishment, asset seizure, license suspension, passport denial, and even jail for contempt. We pursue all available remedies.',
     },
@@ -167,10 +171,14 @@ export default function ChildSupportPage() {
                 North Carolina Child Support Guidelines
               </h2>
               <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
-                <h3 className="text-xl font-bold text-primary mb-4">Key Factors in Support Calculations:</h3>
+                <h3 className="text-xl font-bold text-primary mb-4">
+                  Key Factors in Support Calculations:
+                </h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <h4 className="text-lg font-semibold text-primary mb-2">Income Considerations</h4>
+                    <h4 className="text-lg font-semibold text-primary mb-2">
+                      Income Considerations
+                    </h4>
                     <ul className="space-y-1 text-gray-300">
                       <li>• Gross income from all sources</li>
                       <li>• Bonuses and commissions</li>
@@ -279,7 +287,9 @@ export default function ChildSupportPage() {
               </h2>
               <div className="space-y-4">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
-                  <h3 className="text-xl font-bold text-primary mb-3">Administrative Enforcement</h3>
+                  <h3 className="text-xl font-bold text-primary mb-3">
+                    Administrative Enforcement
+                  </h3>
                   <div className="grid md:grid-cols-2 gap-4 text-gray-300">
                     <ul className="space-y-1">
                       <li>• Wage garnishment (automatic)</li>
@@ -320,19 +330,22 @@ export default function ChildSupportPage() {
                 <div className="bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg p-6">
                   <h3 className="text-lg font-bold text-primary mb-3">Special Needs Children</h3>
                   <p className="text-sm text-gray-300">
-                    Support may continue past 18 and include therapy, medical equipment, specialized care, and educational needs.
+                    Support may continue past 18 and include therapy, medical equipment, specialized
+                    care, and educational needs.
                   </p>
                 </div>
                 <div className="bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg p-6">
                   <h3 className="text-lg font-bold text-primary mb-3">Military Parents</h3>
                   <p className="text-sm text-gray-300">
-                    BAH and other allowances count as income. Deployment doesn\'t excuse support obligations.
+                    BAH and other allowances count as income. Deployment doesn\'t excuse support
+                    obligations.
                   </p>
                 </div>
                 <div className="bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg p-6">
                   <h3 className="text-lg font-bold text-primary mb-3">Interstate Cases</h3>
                   <p className="text-sm text-gray-300">
-                    UIFSA allows enforcement across state lines. We handle complex multi-state support issues.
+                    UIFSA allows enforcement across state lines. We handle complex multi-state
+                    support issues.
                   </p>
                 </div>
               </div>
@@ -351,7 +364,7 @@ export default function ChildSupportPage() {
             '@type': 'LegalService',
             name: 'Child Support Legal Services - Vasquez Law Firm',
             description:
-              'Experienced child support attorneys in North Carolina. We handle support establishment, modification, and enforcement to protect children\'s financial needs.',
+              "Experienced child support attorneys in North Carolina. We handle support establishment, modification, and enforcement to protect children's financial needs.",
             provider: {
               '@type': 'Attorney',
               name: 'Vasquez Law Firm, PLLC',

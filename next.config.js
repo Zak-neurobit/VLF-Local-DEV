@@ -63,7 +63,12 @@ const nextConfig = {
     ],
     // Reduce memory usage during build
     workerThreads: false,
-    cpus: 2,
+    cpus: 1,
+    // Additional memory optimizations
+    craCompat: false,
+    esmExternals: true,
+    fullySpecified: false,
+    outputFileTracingRoot: undefined,
   },
 
   // Build optimizations to reduce memory usage
@@ -88,11 +93,35 @@ const nextConfig = {
     // Reduce parallelism to save memory
     config.parallelism = 1;
 
+    // Additional memory optimizations
+    config.optimization = {
+      ...config.optimization,
+      minimize: !dev,
+      concatenateModules: true,
+      sideEffects: false,
+      usedExports: true,
+      // Limit memory usage
+      minimizer: config.optimization.minimizer?.map(minimizer => {
+        if (minimizer.constructor.name === 'TerserPlugin') {
+          minimizer.options.parallel = 1;
+          minimizer.options.terserOptions = {
+            ...minimizer.options.terserOptions,
+            compress: {
+              ...minimizer.options.terserOptions?.compress,
+              drop_console: true,
+              drop_debugger: true,
+            },
+          };
+        }
+        return minimizer;
+      }),
+    };
+
     return config;
   },
 
   // Increase build timeout for generating many pages
-  staticPageGenerationTimeout: 600, // Increased to 10 minutes
+  staticPageGenerationTimeout: 300, // 5 minutes per page
 
   // Force static generation
   generateBuildId: async () => {

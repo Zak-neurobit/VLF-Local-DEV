@@ -8,6 +8,9 @@ import Link from 'next/link';
 import { ChevronRight, Award, Users, Clock, Shield } from 'lucide-react';
 import { AffirmativeClient } from './AffirmativeClient';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Affirmative Immigration Services NC | Family Petitions, Green Cards & Citizenship',
   description:
@@ -211,11 +214,7 @@ export default function AffirmativeImmigrationPage() {
               </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {services.map((service, index) => (
-                  <Link
-                    key={index}
-                    href={service.link || '#'}
-                    className="group block"
-                  >
+                  <Link key={index} href={service.link || '#'} className="group block">
                     <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20 hover:border-primary/40 transition-all duration-300 h-full">
                       <h3 className="text-xl font-bold text-primary mb-3 group-hover:text-primary-light transition-colors">
                         {service.title}
@@ -243,7 +242,8 @@ export default function AffirmativeImmigrationPage() {
                     95% Approval Rate
                   </h3>
                   <p className="text-gray-300">
-                    Our meticulous preparation and expert knowledge result in one of the highest approval rates in North Carolina for affirmative immigration cases.
+                    Our meticulous preparation and expert knowledge result in one of the highest
+                    approval rates in North Carolina for affirmative immigration cases.
                   </p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-blue-500/30">
@@ -252,7 +252,8 @@ export default function AffirmativeImmigrationPage() {
                     Bilingual Team
                   </h3>
                   <p className="text-gray-300">
-                    Full legal services in English and Spanish. We ensure nothing gets lost in translation when building your case.
+                    Full legal services in English and Spanish. We ensure nothing gets lost in
+                    translation when building your case.
                   </p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-yellow-500/30">
@@ -261,7 +262,8 @@ export default function AffirmativeImmigrationPage() {
                     Fast Processing
                   </h3>
                   <p className="text-gray-300">
-                    We know every day matters. Our efficient systems and priority processing get your applications filed quickly and accurately.
+                    We know every day matters. Our efficient systems and priority processing get
+                    your applications filed quickly and accurately.
                   </p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-purple-500/30">
@@ -270,7 +272,8 @@ export default function AffirmativeImmigrationPage() {
                     Comprehensive Support
                   </h3>
                   <p className="text-gray-300">
-                    From initial consultation through final approval, we handle every aspect of your case with attention to detail and personal care.
+                    From initial consultation through final approval, we handle every aspect of your
+                    case with attention to detail and personal care.
                   </p>
                 </div>
               </div>
@@ -287,7 +290,8 @@ export default function AffirmativeImmigrationPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Free Consultation & Assessment</h3>
                     <p className="text-gray-300">
-                      We evaluate your eligibility and identify the best pathway for your immigration goals.
+                      We evaluate your eligibility and identify the best pathway for your
+                      immigration goals.
                     </p>
                   </div>
                 </div>
@@ -296,7 +300,8 @@ export default function AffirmativeImmigrationPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Document Preparation</h3>
                     <p className="text-gray-300">
-                      Our team gathers and prepares all required documents, ensuring nothing is missed.
+                      Our team gathers and prepares all required documents, ensuring nothing is
+                      missed.
                     </p>
                   </div>
                 </div>
@@ -305,7 +310,8 @@ export default function AffirmativeImmigrationPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Application Filing</h3>
                     <p className="text-gray-300">
-                      We file your applications with USCIS, using our expertise to avoid delays and RFEs.
+                      We file your applications with USCIS, using our expertise to avoid delays and
+                      RFEs.
                     </p>
                   </div>
                 </div>
@@ -314,7 +320,8 @@ export default function AffirmativeImmigrationPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Case Management & Updates</h3>
                     <p className="text-gray-300">
-                      We monitor your case, respond to any requests, and keep you informed at every step.
+                      We monitor your case, respond to any requests, and keep you informed at every
+                      step.
                     </p>
                   </div>
                 </div>
@@ -327,7 +334,8 @@ export default function AffirmativeImmigrationPage() {
                 Start Your Immigration Journey Today
               </h2>
               <p className="text-lg text-center mb-6 max-w-2xl mx-auto">
-                Don't wait to secure your future in America. Our experienced team is ready to guide you through every step of the affirmative immigration process.
+                Don't wait to secure your future in America. Our experienced team is ready to guide
+                you through every step of the affirmative immigration process.
               </p>
               <AffirmativeClient />
             </section>

@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Custodia de Hijos | Vasquez Law Firm',
   description: 'Representación legal en casos de custodia de menores',
@@ -9,10 +12,6 @@ export const metadata: Metadata = {
 
 export default function CustodiadeHijosPage() {
   return (
-    <PracticeAreaWrapper
-      practiceArea="derecho-familia"
-      subArea="custodia-hijos"
-      language="es"
-    />
+    <PracticeAreaWrapper practiceArea="derecho-familia" subArea="custodia-hijos" language="es" />
   );
 }

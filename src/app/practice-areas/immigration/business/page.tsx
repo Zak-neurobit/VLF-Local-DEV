@@ -1,68 +1,115 @@
-import { Metadata } from 'next'
-import Link from 'next/link'
-import { FaBriefcase, FaGlobe, FaChartLine, FaUserTie, FaHandshake, FaBuilding } from 'react-icons/fa'
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
+import { Metadata } from 'next';
+import Link from 'next/link';
+import {
+  FaBriefcase,
+  FaGlobe,
+  FaChartLine,
+  FaUserTie,
+  FaHandshake,
+  FaBuilding,
+} from 'react-icons/fa';
 
 export const metadata: Metadata = {
   title: 'Business Immigration Services | Vasquez Law Firm PLLC',
-  description: 'Comprehensive business immigration services including H1B, L1, E2, EB5 visas, and PERM labor certification. Expert legal guidance for employers and foreign professionals.',
-  keywords: 'business immigration, H1B visa, L1 visa, E2 investor visa, EB5 investment, PERM labor certification, employment visas',
-}
+  description:
+    'Comprehensive business immigration services including H1B, L1, E2, EB5 visas, and PERM labor certification. Expert legal guidance for employers and foreign professionals.',
+  keywords:
+    'business immigration, H1B visa, L1 visa, E2 investor visa, EB5 investment, PERM labor certification, employment visas',
+};
 
 const businessVisaTypes = [
   {
     title: 'H1B Specialty Occupation Visas',
-    description: 'For professionals in specialty occupations requiring theoretical and practical application of specialized knowledge.',
+    description:
+      'For professionals in specialty occupations requiring theoretical and practical application of specialized knowledge.',
     link: '/practice-areas/immigration/business/h1b-visas',
     icon: <FaUserTie className="text-4xl text-blue-600" />,
-    highlights: ['Tech professionals', 'Healthcare workers', 'Engineers', 'Financial analysts']
+    highlights: ['Tech professionals', 'Healthcare workers', 'Engineers', 'Financial analysts'],
   },
   {
     title: 'L1 Intracompany Transfer Visas',
-    description: 'For multinational companies transferring executives, managers, or specialized knowledge employees.',
+    description:
+      'For multinational companies transferring executives, managers, or specialized knowledge employees.',
     link: '/practice-areas/immigration/business/l1-visas',
     icon: <FaGlobe className="text-4xl text-blue-600" />,
-    highlights: ['L1A executives/managers', 'L1B specialized knowledge', 'Blanket L petitions', 'New office petitions']
+    highlights: [
+      'L1A executives/managers',
+      'L1B specialized knowledge',
+      'Blanket L petitions',
+      'New office petitions',
+    ],
   },
   {
     title: 'E2 Treaty Investor Visas',
-    description: 'For nationals of treaty countries making substantial investments in US businesses.',
+    description:
+      'For nationals of treaty countries making substantial investments in US businesses.',
     link: '/practice-areas/immigration/business/e2-investor-visas',
     icon: <FaChartLine className="text-4xl text-blue-600" />,
-    highlights: ['Business investors', 'Startup founders', 'Franchise owners', 'Essential employees']
+    highlights: [
+      'Business investors',
+      'Startup founders',
+      'Franchise owners',
+      'Essential employees',
+    ],
   },
   {
     title: 'EB5 Investment Immigration',
-    description: 'Path to permanent residency through significant investment and job creation in the US economy.',
+    description:
+      'Path to permanent residency through significant investment and job creation in the US economy.',
     link: '/practice-areas/immigration/business/eb5-investment',
     icon: <FaBriefcase className="text-4xl text-blue-600" />,
-    highlights: ['Direct investment', 'Regional centers', 'Job creation requirements', 'Source of funds']
+    highlights: [
+      'Direct investment',
+      'Regional centers',
+      'Job creation requirements',
+      'Source of funds',
+    ],
   },
   {
     title: 'PERM Labor Certification',
-    description: 'First step in employment-based green card process, certifying no qualified US workers are available.',
+    description:
+      'First step in employment-based green card process, certifying no qualified US workers are available.',
     link: '/practice-areas/immigration/business/perm-labor-certification',
     icon: <FaHandshake className="text-4xl text-blue-600" />,
-    highlights: ['Prevailing wage determination', 'Recruitment process', 'EB2/EB3 categories', 'Audit response']
-  }
-]
+    highlights: [
+      'Prevailing wage determination',
+      'Recruitment process',
+      'EB2/EB3 categories',
+      'Audit response',
+    ],
+  },
+];
 
 const employerServices = [
   {
     title: 'Compliance & Best Practices',
     description: 'Ensure your company meets all immigration compliance requirements.',
-    features: ['I-9 compliance', 'E-Verify guidance', 'LCA compliance', 'Immigration policies']
+    features: ['I-9 compliance', 'E-Verify guidance', 'LCA compliance', 'Immigration policies'],
   },
   {
     title: 'Strategic Immigration Planning',
     description: 'Develop long-term immigration strategies for your workforce.',
-    features: ['Workforce planning', 'Succession planning', 'Global mobility programs', 'Cost optimization']
+    features: [
+      'Workforce planning',
+      'Succession planning',
+      'Global mobility programs',
+      'Cost optimization',
+    ],
   },
   {
     title: 'Mergers & Acquisitions Support',
     description: 'Navigate immigration implications of corporate restructuring.',
-    features: ['Due diligence', 'Transfer strategies', 'Compliance assessment', 'Employee communications']
-  }
-]
+    features: [
+      'Due diligence',
+      'Transfer strategies',
+      'Compliance assessment',
+      'Employee communications',
+    ],
+  },
+];
 
 export default function BusinessImmigrationPage() {
   return (
@@ -74,8 +121,8 @@ export default function BusinessImmigrationPage() {
             <FaBuilding className="text-6xl mx-auto mb-6" />
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Business Immigration Services</h1>
             <p className="text-xl max-w-3xl mx-auto mb-8">
-              Empowering businesses and professionals to achieve their American dream through 
-              expert immigration solutions tailored to your unique needs.
+              Empowering businesses and professionals to achieve their American dream through expert
+              immigration solutions tailored to your unique needs.
             </p>
             <Link
               href="/contact"
@@ -95,8 +142,8 @@ export default function BusinessImmigrationPage() {
               Comprehensive Business Immigration Solutions
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From startups to Fortune 500 companies, we provide strategic immigration counsel 
-              to help businesses build and maintain their global workforce while ensuring full 
+              From startups to Fortune 500 companies, we provide strategic immigration counsel to
+              help businesses build and maintain their global workforce while ensuring full
               compliance with immigration laws.
             </p>
           </div>
@@ -131,13 +178,18 @@ export default function BusinessImmigrationPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {businessVisaTypes.map((visa, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition duration-300">
+              <div
+                key={index}
+                className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition duration-300"
+              >
                 <div className="mb-4">{visa.icon}</div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{visa.title}</h3>
                 <p className="text-gray-600 mb-4">{visa.description}</p>
                 <ul className="mb-6">
                   {visa.highlights.map((highlight, idx) => (
-                    <li key={idx} className="text-sm text-gray-600 mb-1">• {highlight}</li>
+                    <li key={idx} className="text-sm text-gray-600 mb-1">
+                      • {highlight}
+                    </li>
                   ))}
                 </ul>
                 <Link
@@ -185,8 +237,14 @@ export default function BusinessImmigrationPage() {
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              'Technology', 'Healthcare', 'Finance', 'Manufacturing',
-              'Energy', 'Hospitality', 'Education', 'Retail'
+              'Technology',
+              'Healthcare',
+              'Finance',
+              'Manufacturing',
+              'Energy',
+              'Hospitality',
+              'Education',
+              'Retail',
             ].map((industry, index) => (
               <div key={index} className="text-center p-4 bg-gray-50 rounded-lg">
                 <div className="font-semibold text-gray-900">{industry}</div>
@@ -199,12 +257,10 @@ export default function BusinessImmigrationPage() {
       {/* CTA Section */}
       <section className="py-16 bg-blue-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-6">
-            Ready to Build Your Global Workforce?
-          </h2>
+          <h2 className="text-3xl font-bold mb-6">Ready to Build Your Global Workforce?</h2>
           <p className="text-xl mb-8">
-            Let our experienced immigration attorneys help you navigate the complex world 
-            of business immigration with confidence and success.
+            Let our experienced immigration attorneys help you navigate the complex world of
+            business immigration with confidence and success.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -223,5 +279,5 @@ export default function BusinessImmigrationPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }

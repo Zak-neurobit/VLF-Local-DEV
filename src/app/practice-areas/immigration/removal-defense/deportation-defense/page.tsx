@@ -5,6 +5,9 @@ import { SmartBreadcrumbs } from '@/components/SEO/SmartBreadcrumbs';
 import { InternalLinkingSection } from '@/components/SEO/InternalLinkingSection';
 import { HowToSchema } from '@/components/SEO/HowToSchema';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Emergency Deportation Defense Lawyer NC | Stop ICE NOW 24/7',
   description:
@@ -123,7 +126,7 @@ export default function DeportationDefensePage() {
     {
       question: 'ICE is at my door RIGHT NOW. What do I do?',
       answer:
-        'DO NOT OPEN THE DOOR. Stay silent. Do not sign anything. Call us IMMEDIATELY at 1-844-YO-PELEO. Put the phone on speaker so we can invoke your rights. We\'ve stopped arrests in progress.',
+        "DO NOT OPEN THE DOOR. Stay silent. Do not sign anything. Call us IMMEDIATELY at 1-844-YO-PELEO. Put the phone on speaker so we can invoke your rights. We've stopped arrests in progress.",
     },
     {
       question: 'My family member was just detained by ICE. Can you help?',
@@ -138,12 +141,12 @@ export default function DeportationDefensePage() {
     {
       question: 'How fast can you respond to an emergency?',
       answer:
-        'IMMEDIATELY. We have attorneys on-call 24/7. We\'ve filed emergency motions at midnight, appeared at detention centers on weekends, and stopped deportations with hours to spare.',
+        "IMMEDIATELY. We have attorneys on-call 24/7. We've filed emergency motions at midnight, appeared at detention centers on weekends, and stopped deportations with hours to spare.",
     },
     {
       question: 'What makes you different from other immigration lawyers?',
       answer:
-        'AGGRESSION + EXPERIENCE. We have former ICE officers on our team. We know their tactics, weaknesses, and fears. We don\'t just defend - we attack and dominate. 30,000+ wins prove it.',
+        "AGGRESSION + EXPERIENCE. We have former ICE officers on our team. We know their tactics, weaknesses, and fears. We don't just defend - we attack and dominate. 30,000+ wins prove it.",
     },
   ];
 
@@ -210,10 +213,13 @@ export default function DeportationDefensePage() {
               </h2>
               <div className="space-y-6">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border-l-4 border-red-500">
-                  <h3 className="text-xl font-bold text-red-400 mb-3">Phase 1: Immediate Intervention</h3>
+                  <h3 className="text-xl font-bold text-red-400 mb-3">
+                    Phase 1: Immediate Intervention
+                  </h3>
                   <p className="text-gray-300 mb-3">
-                    The moment you call, we spring into action. Emergency motions filed, ICE contacted, 
-                    rights invoked. We create an immediate legal shield around you and your family.
+                    The moment you call, we spring into action. Emergency motions filed, ICE
+                    contacted, rights invoked. We create an immediate legal shield around you and
+                    your family.
                   </p>
                   <ul className="space-y-2 text-gray-300">
                     <li>• Emergency stay of removal filings</li>
@@ -224,9 +230,11 @@ export default function DeportationDefensePage() {
                 </div>
 
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border-l-4 border-yellow-500">
-                  <h3 className="text-xl font-bold text-yellow-400 mb-3">Phase 2: Aggressive Defense Build</h3>
+                  <h3 className="text-xl font-bold text-yellow-400 mb-3">
+                    Phase 2: Aggressive Defense Build
+                  </h3>
                   <p className="text-gray-300 mb-3">
-                    We don't just respond - we counterattack. Our team builds overwhelming defenses 
+                    We don't just respond - we counterattack. Our team builds overwhelming defenses
                     that expose government errors, procedural violations, and paths to relief.
                   </p>
                   <ul className="space-y-2 text-gray-300">
@@ -238,9 +246,11 @@ export default function DeportationDefensePage() {
                 </div>
 
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border-l-4 border-green-500">
-                  <h3 className="text-xl font-bold text-green-400 mb-3">Phase 3: Courtroom Domination</h3>
+                  <h3 className="text-xl font-bold text-green-400 mb-3">
+                    Phase 3: Courtroom Domination
+                  </h3>
                   <p className="text-gray-300 mb-3">
-                    When we enter that courtroom, we own it. Judges know our reputation. Government 
+                    When we enter that courtroom, we own it. Judges know our reputation. Government
                     attorneys fear us. We fight with everything we have until you win.
                   </p>
                   <ul className="space-y-2 text-gray-300">
@@ -260,17 +270,22 @@ export default function DeportationDefensePage() {
               </h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-gradient-to-br from-red-900/20 to-black rounded-lg p-6 border border-red-500/30">
-                  <h3 className="text-2xl font-bold text-red-400 mb-3">Former ICE Officers = Inside Knowledge</h3>
+                  <h3 className="text-2xl font-bold text-red-400 mb-3">
+                    Former ICE Officers = Inside Knowledge
+                  </h3>
                   <p className="text-gray-300">
-                    We have their playbook because we wrote it. Former immigration enforcement 
-                    officers now use their insider knowledge to destroy government cases from within.
+                    We have their playbook because we wrote it. Former immigration enforcement
+                    officers now use their insider knowledge to destroy government cases from
+                    within.
                   </p>
                 </div>
                 <div className="bg-gradient-to-br from-yellow-900/20 to-black rounded-lg p-6 border border-yellow-500/30">
-                  <h3 className="text-2xl font-bold text-yellow-400 mb-3">98% Win Rate = Proven Dominance</h3>
+                  <h3 className="text-2xl font-bold text-yellow-400 mb-3">
+                    98% Win Rate = Proven Dominance
+                  </h3>
                   <p className="text-gray-300">
-                    30,000+ deportations stopped. We don't get these results by playing nice. 
-                    We fight harder, prepare better, and never give up until our clients are safe.
+                    30,000+ deportations stopped. We don't get these results by playing nice. We
+                    fight harder, prepare better, and never give up until our clients are safe.
                   </p>
                 </div>
               </div>
@@ -285,21 +300,21 @@ export default function DeportationDefensePage() {
                 <div className="bg-green-900/20 border border-green-500 rounded-lg p-4">
                   <span className="text-green-400 font-bold">VICTORY:</span>
                   <span className="text-white ml-2">
-                    Emergency stay granted for Charlotte family. Father of 3 US citizens released from 
-                    detention after our midnight filing. Family reunited within 48 hours.
+                    Emergency stay granted for Charlotte family. Father of 3 US citizens released
+                    from detention after our midnight filing. Family reunited within 48 hours.
                   </span>
                 </div>
                 <div className="bg-green-900/20 border border-green-500 rounded-lg p-4">
                   <span className="text-green-400 font-bold">VICTORY:</span>
                   <span className="text-white ml-2">
-                    Workplace raid in Durham - all 23 workers released. Our rapid response team arrived 
-                    during the raid, invoked rights, and prevented all deportations.
+                    Workplace raid in Durham - all 23 workers released. Our rapid response team
+                    arrived during the raid, invoked rights, and prevented all deportations.
                   </span>
                 </div>
                 <div className="bg-green-900/20 border border-green-500 rounded-lg p-4">
                   <span className="text-green-400 font-bold">VICTORY:</span>
                   <span className="text-white ml-2">
-                    15-year-old deportation order vacated. Client now applying for green card. 
+                    15-year-old deportation order vacated. Client now applying for green card.
                     Government attorneys withdrew opposition after our motion exposed fatal errors.
                   </span>
                 </div>
@@ -314,11 +329,22 @@ export default function DeportationDefensePage() {
               <div className="bg-black rounded-lg p-6 text-white">
                 <h3 className="text-xl font-bold mb-4 text-red-400">If ICE Comes:</h3>
                 <ol className="space-y-3 text-lg">
-                  <li><strong>1.</strong> DO NOT OPEN THE DOOR unless they have a warrant signed by a judge</li>
-                  <li><strong>2.</strong> REMAIN SILENT - You have the right not to answer questions</li>
-                  <li><strong>3.</strong> DO NOT SIGN anything without speaking to a lawyer</li>
-                  <li><strong>4.</strong> DO NOT LIE or provide false documents</li>
-                  <li><strong>5.</strong> CALL US IMMEDIATELY: 1-844-YO-PELEO (1-844-967-3536)</li>
+                  <li>
+                    <strong>1.</strong> DO NOT OPEN THE DOOR unless they have a warrant signed by a
+                    judge
+                  </li>
+                  <li>
+                    <strong>2.</strong> REMAIN SILENT - You have the right not to answer questions
+                  </li>
+                  <li>
+                    <strong>3.</strong> DO NOT SIGN anything without speaking to a lawyer
+                  </li>
+                  <li>
+                    <strong>4.</strong> DO NOT LIE or provide false documents
+                  </li>
+                  <li>
+                    <strong>5.</strong> CALL US IMMEDIATELY: 1-844-YO-PELEO (1-844-967-3536)
+                  </li>
                 </ol>
                 <div className="mt-6 text-center">
                   <p className="text-xl font-bold text-yellow-400">

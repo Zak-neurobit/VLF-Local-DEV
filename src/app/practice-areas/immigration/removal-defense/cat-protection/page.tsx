@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'CAT Protection | Vasquez Law Firm',
   description: 'Protection under Convention Against Torture',
@@ -8,11 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function CATProtectionPage() {
-  return (
-    <PracticeAreaWrapper
-      practiceArea="immigration"
-      subArea="removal-defense"
-      language="en"
-    />
-  );
+  return <PracticeAreaWrapper practiceArea="immigration" subArea="removal-defense" language="en" />;
 }

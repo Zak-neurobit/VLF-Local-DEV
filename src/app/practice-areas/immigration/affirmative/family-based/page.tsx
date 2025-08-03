@@ -1,10 +1,15 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Family Immigration Lawyer | Family-Based Petitions & Visas',
-  description: 'Reunite with your family through immigration. We handle spouse visas, parent petitions, sibling petitions, K-1 fiancé visas, and family green cards.',
-  keywords: 'family immigration, family petition, spouse visa, K1 visa, parent petition, sibling petition, family green card',
+  description:
+    'Reunite with your family through immigration. We handle spouse visas, parent petitions, sibling petitions, K-1 fiancé visas, and family green cards.',
+  keywords:
+    'family immigration, family petition, spouse visa, K1 visa, parent petition, sibling petition, family green card',
 };
 
 export default function FamilyBasedImmigrationPage() {
@@ -15,9 +20,7 @@ export default function FamilyBasedImmigrationPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center text-white">
             <h1 className="text-5xl font-bold mb-6">Family-Based Immigration</h1>
-            <p className="text-xl mb-8">
-              Bringing Families Together Through Legal Immigration
-            </p>
+            <p className="text-xl mb-8">Bringing Families Together Through Legal Immigration</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
@@ -41,12 +44,16 @@ export default function FamilyBasedImmigrationPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">Who Can You Petition For?</h2>
-            
+
             <div className="space-y-8">
               {/* Immediate Relatives */}
               <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h3 className="text-2xl font-bold mb-4 text-blue-800">Immediate Relatives (No Wait Times)</h3>
-                <p className="text-gray-600 mb-4">U.S. citizens can petition for immediate relatives without numerical limits:</p>
+                <h3 className="text-2xl font-bold mb-4 text-blue-800">
+                  Immediate Relatives (No Wait Times)
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  U.S. citizens can petition for immediate relatives without numerical limits:
+                </p>
                 <div className="grid md:grid-cols-3 gap-6">
                   <div className="text-center">
                     <div className="text-4xl mb-2">💑</div>
@@ -56,7 +63,9 @@ export default function FamilyBasedImmigrationPage() {
                   <div className="text-center">
                     <div className="text-4xl mb-2">👶</div>
                     <h4 className="font-bold mb-2">Children Under 21</h4>
-                    <p className="text-sm text-gray-600">Unmarried biological or adopted children</p>
+                    <p className="text-sm text-gray-600">
+                      Unmarried biological or adopted children
+                    </p>
                   </div>
                   <div className="text-center">
                     <div className="text-4xl mb-2">👵</div>
@@ -68,12 +77,16 @@ export default function FamilyBasedImmigrationPage() {
 
               {/* Family Preference */}
               <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h3 className="text-2xl font-bold mb-4 text-blue-800">Family Preference Categories</h3>
+                <h3 className="text-2xl font-bold mb-4 text-blue-800">
+                  Family Preference Categories
+                </h3>
                 <p className="text-gray-600 mb-4">Subject to annual limits and wait times:</p>
                 <div className="space-y-4">
                   <div className="border-l-4 border-blue-600 pl-4">
                     <h4 className="font-bold">F1: Adult Children of U.S. Citizens</h4>
-                    <p className="text-gray-600">Unmarried sons and daughters (21+) of U.S. citizens</p>
+                    <p className="text-gray-600">
+                      Unmarried sons and daughters (21+) of U.S. citizens
+                    </p>
                   </div>
                   <div className="border-l-4 border-blue-600 pl-4">
                     <h4 className="font-bold">F2A: Spouses/Children of Green Card Holders</h4>
@@ -102,12 +115,16 @@ export default function FamilyBasedImmigrationPage() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Special Family Immigration Programs</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">
+              Special Family Immigration Programs
+            </h2>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <div className="text-3xl mb-3">💍</div>
                 <h3 className="text-xl font-bold mb-3 text-blue-800">K-1 Fiancé(e) Visa</h3>
-                <p className="text-gray-600 mb-3">For engaged couples planning to marry in the U.S.</p>
+                <p className="text-gray-600 mb-3">
+                  For engaged couples planning to marry in the U.S.
+                </p>
                 <ul className="space-y-1 text-sm text-gray-600">
                   <li>• Must marry within 90 days</li>
                   <li>• Includes K-2 for children</li>
@@ -224,25 +241,29 @@ export default function FamilyBasedImmigrationPage() {
               <div className="bg-white p-6 rounded-lg shadow">
                 <h3 className="font-bold mb-3 text-blue-800">Documentation Issues</h3>
                 <p className="text-gray-600 text-sm">
-                  We help obtain missing birth certificates, marriage records, and other vital documents from any country.
+                  We help obtain missing birth certificates, marriage records, and other vital
+                  documents from any country.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow">
                 <h3 className="font-bold mb-3 text-blue-800">Prior Immigration Violations</h3>
                 <p className="text-gray-600 text-sm">
-                  We identify waivers and solutions for unlawful presence, misrepresentation, or other issues.
+                  We identify waivers and solutions for unlawful presence, misrepresentation, or
+                  other issues.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow">
                 <h3 className="font-bold mb-3 text-blue-800">Public Charge Concerns</h3>
                 <p className="text-gray-600 text-sm">
-                  We prepare strong affidavits of support and overcome financial eligibility requirements.
+                  We prepare strong affidavits of support and overcome financial eligibility
+                  requirements.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow">
                 <h3 className="font-bold mb-3 text-blue-800">Long Wait Times</h3>
                 <p className="text-gray-600 text-sm">
-                  We explore all options to expedite cases and keep families together during processing.
+                  We explore all options to expedite cases and keep families together during
+                  processing.
                 </p>
               </div>
             </div>
@@ -278,7 +299,8 @@ export default function FamilyBasedImmigrationPage() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Reunite Your Family?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Don't let immigration law keep you apart. Our experienced attorneys will guide you through every step.
+            Don't let immigration law keep you apart. Our experienced attorneys will guide you
+            through every step.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

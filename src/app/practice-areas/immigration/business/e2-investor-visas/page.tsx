@@ -1,19 +1,55 @@
-import { Metadata } from 'next'
-import Link from 'next/link'
-import { FaChartLine, FaGlobe, FaHandshake, FaDollarSign, FaClipboardCheck, FaUserTie } from 'react-icons/fa'
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
+import { Metadata } from 'next';
+import Link from 'next/link';
+import {
+  FaChartLine,
+  FaGlobe,
+  FaHandshake,
+  FaDollarSign,
+  FaClipboardCheck,
+  FaUserTie,
+} from 'react-icons/fa';
 
 export const metadata: Metadata = {
   title: 'E2 Investor Visa Services | Treaty Investor Visas | Vasquez Law Firm',
-  description: 'Expert E2 investor visa services for entrepreneurs and investors. Start or buy a US business with experienced immigration attorneys.',
-  keywords: 'E2 visa, investor visa, treaty investor, E2 investment amount, franchise E2, startup visa, business immigration',
-}
+  description:
+    'Expert E2 investor visa services for entrepreneurs and investors. Start or buy a US business with experienced immigration attorneys.',
+  keywords:
+    'E2 visa, investor visa, treaty investor, E2 investment amount, franchise E2, startup visa, business immigration',
+};
 
 const treatyCountries = [
-  'Argentina', 'Australia', 'Austria', 'Belgium', 'Canada', 'Chile', 'Colombia', 
-  'Czech Republic', 'Denmark', 'France', 'Germany', 'Ireland', 'Israel', 'Italy', 
-  'Japan', 'Mexico', 'Netherlands', 'Norway', 'Pakistan', 'Philippines', 'Poland', 
-  'South Korea', 'Spain', 'Sweden', 'Switzerland', 'Taiwan', 'Turkey', 'United Kingdom'
-]
+  'Argentina',
+  'Australia',
+  'Austria',
+  'Belgium',
+  'Canada',
+  'Chile',
+  'Colombia',
+  'Czech Republic',
+  'Denmark',
+  'France',
+  'Germany',
+  'Ireland',
+  'Israel',
+  'Italy',
+  'Japan',
+  'Mexico',
+  'Netherlands',
+  'Norway',
+  'Pakistan',
+  'Philippines',
+  'Poland',
+  'South Korea',
+  'Spain',
+  'Sweden',
+  'Switzerland',
+  'Taiwan',
+  'Turkey',
+  'United Kingdom',
+];
 
 const e2Requirements = [
   {
@@ -24,8 +60,8 @@ const e2Requirements = [
       'Treaty country citizenship required',
       'Dual nationals may qualify',
       'Company must be 50%+ owned by treaty nationals',
-      'Check current treaty country list'
-    ]
+      'Check current treaty country list',
+    ],
   },
   {
     title: 'Substantial Investment',
@@ -35,8 +71,8 @@ const e2Requirements = [
       'No fixed minimum amount',
       'Proportional to business type',
       'Generally $100,000+ recommended',
-      'Must be at-risk capital'
-    ]
+      'Must be at-risk capital',
+    ],
   },
   {
     title: 'Active Business',
@@ -46,8 +82,8 @@ const e2Requirements = [
       'Not passive investments',
       'Must generate income',
       'Create US jobs',
-      'Viable business plan required'
-    ]
+      'Viable business plan required',
+    ],
   },
   {
     title: 'Control & Direction',
@@ -57,61 +93,61 @@ const e2Requirements = [
       'At least 50% ownership',
       'Operational control',
       'Management position',
-      'Active involvement required'
-    ]
-  }
-]
+      'Active involvement required',
+    ],
+  },
+];
 
 const businessTypes = [
   {
     title: 'Franchises',
     description: 'Established business models with proven success',
-    examples: ['Restaurants', 'Retail stores', 'Service businesses', 'Hotels']
+    examples: ['Restaurants', 'Retail stores', 'Service businesses', 'Hotels'],
   },
   {
     title: 'Startups',
     description: 'New ventures with growth potential',
-    examples: ['Tech companies', 'E-commerce', 'Professional services', 'Manufacturing']
+    examples: ['Tech companies', 'E-commerce', 'Professional services', 'Manufacturing'],
   },
   {
     title: 'Existing Businesses',
     description: 'Purchase and operate established companies',
-    examples: ['Acquisition targets', 'Management buyouts', 'Business expansions', 'Turnarounds']
-  }
-]
+    examples: ['Acquisition targets', 'Management buyouts', 'Business expansions', 'Turnarounds'],
+  },
+];
 
 const e2Process = [
   {
     step: '1',
     title: 'Business Selection & Planning',
     description: 'Identify suitable business opportunity and develop comprehensive business plan',
-    timeline: '2-4 weeks'
+    timeline: '2-4 weeks',
   },
   {
     step: '2',
     title: 'Investment & Documentation',
     description: 'Make investment, secure premises, hire employees, and gather evidence',
-    timeline: '4-8 weeks'
+    timeline: '4-8 weeks',
   },
   {
     step: '3',
     title: 'E2 Application Preparation',
     description: 'Compile comprehensive E2 visa application with supporting documents',
-    timeline: '2-3 weeks'
+    timeline: '2-3 weeks',
   },
   {
     step: '4',
     title: 'Consular Processing',
     description: 'Submit application to US consulate and prepare for interview',
-    timeline: '4-8 weeks'
+    timeline: '4-8 weeks',
   },
   {
     step: '5',
     title: 'Visa Approval & Entry',
     description: 'Receive E2 visa stamp and enter US to manage business',
-    timeline: '1-2 weeks'
-  }
-]
+    timeline: '1-2 weeks',
+  },
+];
 
 export default function E2InvestorVisasPage() {
   return (
@@ -123,9 +159,9 @@ export default function E2InvestorVisasPage() {
             <FaChartLine className="text-6xl mx-auto mb-6" />
             <h1 className="text-4xl md:text-5xl font-bold mb-6">E2 Treaty Investor Visas</h1>
             <p className="text-xl max-w-3xl mx-auto mb-8">
-              Turn your entrepreneurial vision into reality in the United States. 
-              The E2 visa allows treaty country nationals to invest in and manage 
-              US businesses with renewable visa status.
+              Turn your entrepreneurial vision into reality in the United States. The E2 visa allows
+              treaty country nationals to invest in and manage US businesses with renewable visa
+              status.
             </p>
             <Link
               href="/contact"
@@ -145,9 +181,8 @@ export default function E2InvestorVisasPage() {
               Your Path to US Business Ownership
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The E2 treaty investor visa provides a flexible immigration solution for 
-              entrepreneurs and investors seeking to develop and direct business enterprises 
-              in the United States.
+              The E2 treaty investor visa provides a flexible immigration solution for entrepreneurs
+              and investors seeking to develop and direct business enterprises in the United States.
             </p>
           </div>
 
@@ -239,13 +274,18 @@ export default function E2InvestorVisasPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {businessTypes.map((type, index) => (
-              <div key={index} className="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition duration-300">
+              <div
+                key={index}
+                className="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition duration-300"
+              >
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{type.title}</h3>
                 <p className="text-gray-600 mb-4">{type.description}</p>
                 <h4 className="font-semibold text-gray-900 mb-2">Examples:</h4>
                 <ul className="space-y-1">
                   {type.examples.map((example, idx) => (
-                    <li key={idx} className="text-sm text-gray-600">• {example}</li>
+                    <li key={idx} className="text-sm text-gray-600">
+                      • {example}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -285,14 +325,20 @@ export default function E2InvestorVisasPage() {
           </h2>
           <div className="max-w-4xl mx-auto">
             <div className="bg-gray-50 rounded-lg p-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Substantial Investment Analysis</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                Substantial Investment Analysis
+              </h3>
               <div className="space-y-4">
                 <div className="border-l-4 border-blue-600 pl-4">
                   <h4 className="font-semibold text-gray-900">Small Businesses ($100K - $200K)</h4>
-                  <p className="text-gray-600">Service businesses, small retail, consulting firms</p>
+                  <p className="text-gray-600">
+                    Service businesses, small retail, consulting firms
+                  </p>
                 </div>
                 <div className="border-l-4 border-blue-600 pl-4">
-                  <h4 className="font-semibold text-gray-900">Medium Enterprises ($200K - $500K)</h4>
+                  <h4 className="font-semibold text-gray-900">
+                    Medium Enterprises ($200K - $500K)
+                  </h4>
                   <p className="text-gray-600">Restaurants, franchises, manufacturing startups</p>
                 </div>
                 <div className="border-l-4 border-blue-600 pl-4">
@@ -301,7 +347,8 @@ export default function E2InvestorVisasPage() {
                 </div>
               </div>
               <p className="text-sm text-gray-500 mt-6">
-                * Investment amounts are guidelines. Substantiality is determined relative to the business type.
+                * Investment amounts are guidelines. Substantiality is determined relative to the
+                business type.
               </p>
             </div>
           </div>
@@ -338,12 +385,10 @@ export default function E2InvestorVisasPage() {
       {/* CTA Section */}
       <section className="py-16 bg-blue-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-6">
-            Ready to Invest in Your American Dream?
-          </h2>
+          <h2 className="text-3xl font-bold mb-6">Ready to Invest in Your American Dream?</h2>
           <p className="text-xl mb-8">
-            Our E2 visa experts will guide you through business selection, investment 
-            structuring, and visa approval to ensure your success.
+            Our E2 visa experts will guide you through business selection, investment structuring,
+            and visa approval to ensure your success.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -362,5 +407,5 @@ export default function E2InvestorVisasPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }

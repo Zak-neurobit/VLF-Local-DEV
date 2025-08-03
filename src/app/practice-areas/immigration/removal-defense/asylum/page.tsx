@@ -5,6 +5,9 @@ import { SmartBreadcrumbs } from '@/components/SEO/SmartBreadcrumbs';
 import { InternalLinkingSection } from '@/components/SEO/InternalLinkingSection';
 import { HowToSchema } from '@/components/SEO/HowToSchema';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Asylum Attorney NC | Political Asylum & Refugee Protection Lawyers',
   description:
@@ -136,7 +139,7 @@ export default function AsylumPage() {
     {
       question: 'What if I missed the one-year asylum deadline?',
       answer:
-        'Don\'t give up! We prove extraordinary circumstances or changed country conditions that excuse late filing. Plus, withholding of removal and CAT have NO deadlines. We find solutions.',
+        "Don't give up! We prove extraordinary circumstances or changed country conditions that excuse late filing. Plus, withholding of removal and CAT have NO deadlines. We find solutions.",
     },
     {
       question: 'How do you prove persecution?',
@@ -196,42 +199,42 @@ export default function AsylumPage() {
                 <div className="bg-gradient-to-br from-red-900/20 to-black rounded-lg p-6 border border-red-500/30">
                   <h3 className="text-xl font-bold text-red-400 mb-3">Political Opinion</h3>
                   <p className="text-gray-300">
-                    Government targets you for opposing regime, supporting democracy, or political 
+                    Government targets you for opposing regime, supporting democracy, or political
                     activism. We prove systematic persecution and future danger.
                   </p>
                 </div>
                 <div className="bg-gradient-to-br from-purple-900/20 to-black rounded-lg p-6 border border-purple-500/30">
                   <h3 className="text-xl font-bold text-purple-400 mb-3">Religious Faith</h3>
                   <p className="text-gray-300">
-                    Persecuted for practicing your religion, converting, or religious minority 
+                    Persecuted for practicing your religion, converting, or religious minority
                     status. We document systematic religious oppression.
                   </p>
                 </div>
                 <div className="bg-gradient-to-br from-pink-900/20 to-black rounded-lg p-6 border border-pink-500/30">
                   <h3 className="text-xl font-bold text-pink-400 mb-3">LGBTQ+ Identity</h3>
                   <p className="text-gray-300">
-                    Targeted for sexual orientation or gender identity. We prove criminalization, 
+                    Targeted for sexual orientation or gender identity. We prove criminalization,
                     violence, and government-sanctioned persecution.
                   </p>
                 </div>
                 <div className="bg-gradient-to-br from-yellow-900/20 to-black rounded-lg p-6 border border-yellow-500/30">
                   <h3 className="text-xl font-bold text-yellow-400 mb-3">Race/Ethnicity</h3>
                   <p className="text-gray-300">
-                    Ethnic cleansing, racial violence, or minority persecution. We document 
-                    patterns of racial targeting and government complicity.
+                    Ethnic cleansing, racial violence, or minority persecution. We document patterns
+                    of racial targeting and government complicity.
                   </p>
                 </div>
                 <div className="bg-gradient-to-br from-green-900/20 to-black rounded-lg p-6 border border-green-500/30">
                   <h3 className="text-xl font-bold text-green-400 mb-3">Social Group</h3>
                   <p className="text-gray-300">
-                    Family, profession, or social characteristics make you a target. We prove 
+                    Family, profession, or social characteristics make you a target. We prove
                     particular social group membership and persecution nexus.
                   </p>
                 </div>
                 <div className="bg-gradient-to-br from-blue-900/20 to-black rounded-lg p-6 border border-blue-500/30">
                   <h3 className="text-xl font-bold text-blue-400 mb-3">Gender-Based</h3>
                   <p className="text-gray-300">
-                    FGM, honor killings, domestic violence with no state protection. We prove 
+                    FGM, honor killings, domestic violence with no state protection. We prove
                     government failure to protect and cultural persecution.
                   </p>
                 </div>
@@ -251,8 +254,8 @@ export default function AsylumPage() {
                   <div className="ml-6">
                     <h3 className="text-xl font-bold text-green-400 mb-2">Initial Consultation</h3>
                     <p className="text-gray-300">
-                      Share your story in a safe, confidential setting. We assess your case strength, 
-                      identify the best protection path, and begin building your evidence.
+                      Share your story in a safe, confidential setting. We assess your case
+                      strength, identify the best protection path, and begin building your evidence.
                     </p>
                   </div>
                 </div>
@@ -263,8 +266,9 @@ export default function AsylumPage() {
                   <div className="ml-6">
                     <h3 className="text-xl font-bold text-yellow-400 mb-2">Evidence Collection</h3>
                     <p className="text-gray-300">
-                      We gather country condition evidence, coordinate expert witnesses, obtain medical/
-                      psychological evaluations, and build an overwhelming case for protection.
+                      We gather country condition evidence, coordinate expert witnesses, obtain
+                      medical/ psychological evaluations, and build an overwhelming case for
+                      protection.
                     </p>
                   </div>
                 </div>
@@ -275,8 +279,9 @@ export default function AsylumPage() {
                   <div className="ml-6">
                     <h3 className="text-xl font-bold text-orange-400 mb-2">Application Filing</h3>
                     <p className="text-gray-300">
-                      I-589 filed with supporting evidence. For defensive cases, we file with immigration 
-                      court. Work authorization clock starts ticking - employment coming soon!
+                      I-589 filed with supporting evidence. For defensive cases, we file with
+                      immigration court. Work authorization clock starts ticking - employment coming
+                      soon!
                     </p>
                   </div>
                 </div>
@@ -287,8 +292,8 @@ export default function AsylumPage() {
                   <div className="ml-6">
                     <h3 className="text-xl font-bold text-red-400 mb-2">Interview/Hearing Prep</h3>
                     <p className="text-gray-300">
-                      Intensive preparation including mock interviews, testimony practice, and evidence 
-                      review. You'll be ready for every question. Confidence wins cases.
+                      Intensive preparation including mock interviews, testimony practice, and
+                      evidence review. You'll be ready for every question. Confidence wins cases.
                     </p>
                   </div>
                 </div>
@@ -299,8 +304,8 @@ export default function AsylumPage() {
                   <div className="ml-6">
                     <h3 className="text-xl font-bold text-primary mb-2">Win Your Freedom</h3>
                     <p className="text-gray-300">
-                      Asylum granted! You're safe, can work freely, petition for family, and apply for 
-                      green card in one year. From persecution to protection - you're home.
+                      Asylum granted! You're safe, can work freely, petition for family, and apply
+                      for green card in one year. From persecution to protection - you're home.
                     </p>
                   </div>
                 </div>
@@ -377,8 +382,9 @@ export default function AsylumPage() {
                     Venezuelan Journalist - GRANTED
                   </h3>
                   <p className="text-gray-300">
-                    Exposed government corruption, received death threats. We proved systematic 
-                    targeting of journalists with expert testimony. Now safe and continuing her work.
+                    Exposed government corruption, received death threats. We proved systematic
+                    targeting of journalists with expert testimony. Now safe and continuing her
+                    work.
                   </p>
                 </div>
                 <div className="bg-green-900/20 border border-green-500 rounded-lg p-6">
@@ -386,8 +392,9 @@ export default function AsylumPage() {
                     LGBTQ+ Activist from Uganda - GRANTED
                   </h3>
                   <p className="text-gray-300">
-                    Faced life imprisonment under anti-gay laws. We documented government persecution 
-                    and violence. Judge granted asylum in 15 minutes. Living openly and freely.
+                    Faced life imprisonment under anti-gay laws. We documented government
+                    persecution and violence. Judge granted asylum in 15 minutes. Living openly and
+                    freely.
                   </p>
                 </div>
                 <div className="bg-green-900/20 border border-green-500 rounded-lg p-6">
@@ -395,8 +402,9 @@ export default function AsylumPage() {
                     Chinese Christian - GRANTED
                   </h3>
                   <p className="text-gray-300">
-                    Underground church leader arrested multiple times. We proved religious persecution 
-                    with church testimony. Entire family now protected and worshipping freely.
+                    Underground church leader arrested multiple times. We proved religious
+                    persecution with church testimony. Entire family now protected and worshipping
+                    freely.
                   </p>
                 </div>
                 <div className="bg-green-900/20 border border-green-500 rounded-lg p-6">
@@ -404,7 +412,7 @@ export default function AsylumPage() {
                     Afghan Interpreter - GRANTED + CAT
                   </h3>
                   <p className="text-gray-300">
-                    Worked with US forces, Taliban threatened family. Won both asylum and CAT 
+                    Worked with US forces, Taliban threatened family. Won both asylum and CAT
                     protection. Proved certain torture if returned. Hero finally safe.
                   </p>
                 </div>
@@ -417,8 +425,8 @@ export default function AsylumPage() {
                 Don't Wait - Your Safety Depends on Acting Now
               </h2>
               <p className="text-xl text-center text-white mb-6">
-                One-year deadline for asylum. Evidence takes time to gather. Every day matters. 
-                With our 94% success rate and former asylum officers, your protection is within reach.
+                One-year deadline for asylum. Evidence takes time to gather. Every day matters. With
+                our 94% success rate and former asylum officers, your protection is within reach.
               </p>
               <div className="text-center">
                 <a

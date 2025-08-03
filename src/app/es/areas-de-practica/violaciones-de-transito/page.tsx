@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Script from 'next/script';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Mejores Abogados de Multas de Tránsito en NC | Salve Su Licencia | YO PELEO POR TI™',
   description:
@@ -206,37 +209,42 @@ export default function ViolacionesTransitoPage() {
                 ¿Por Qué Luchar Contra Su Multa de Tránsito?
               </h2>
               <p className="text-lg mb-6">
-                Esa multa de velocidad &quot;simple&quot; puede costar miles en tarifas de seguro aumentadas,
-                arriesgar su licencia, e incluso afectar el empleo. No la pague simplemente - luche
-                contra ella con abogados experimentados que saben cómo ganar.
+                Esa multa de velocidad &quot;simple&quot; puede costar miles en tarifas de seguro
+                aumentadas, arriesgar su licencia, e incluso afectar el empleo. No la pague
+                simplemente - luche contra ella con abogados experimentados que saben cómo ganar.
               </p>
 
               <div className="grid md:grid-cols-2 gap-6 mt-8">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Salve Su Licencia</h3>
                   <p className="text-gray-300">
-                    Múltiples multas pueden llevar a suspensión. Protegemos sus privilegios de conducir con
-                    estrategias probadas de defensa.
+                    Múltiples multas pueden llevar a suspensión. Protegemos sus privilegios de
+                    conducir con estrategias probadas de defensa.
                   </p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
-                  <h3 className="text-xl font-bold text-primary mb-3">Tarifas de Seguro Más Bajas</h3>
+                  <h3 className="text-xl font-bold text-primary mb-3">
+                    Tarifas de Seguro Más Bajas
+                  </h3>
                   <p className="text-gray-300">
-                    Incluso una multa puede aumentar tarifas en 30%+. Luchamos para mantener puntos fuera de
-                    su récord.
+                    Incluso una multa puede aumentar tarifas en 30%+. Luchamos para mantener puntos
+                    fuera de su récord.
                   </p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
-                  <h3 className="text-xl font-bold text-primary mb-3">Representación Conveniente</h3>
+                  <h3 className="text-xl font-bold text-primary mb-3">
+                    Representación Conveniente
+                  </h3>
                   <p className="text-gray-300">
-                    Aparecemos en corte por usted. No hay trabajo perdido, no hay viajes largos, no hay
-                    molestias.
+                    Aparecemos en corte por usted. No hay trabajo perdido, no hay viajes largos, no
+                    hay molestias.
                   </p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
                   <h3 className="text-xl font-bold text-primary mb-3">Tarifas Fijas Asequibles</h3>
                   <p className="text-gray-300">
-                    Precios claros y directos que a menudo son menos que lo que sería su aumento de seguro.
+                    Precios claros y directos que a menudo son menos que lo que sería su aumento de
+                    seguro.
                   </p>
                 </div>
               </div>
@@ -248,8 +256,8 @@ export default function ViolacionesTransitoPage() {
                 Entendiendo el Sistema de Puntos de NC
               </h2>
               <p className="text-lg mb-6">
-                Carolina del Norte usa tanto puntos DMV (afectando su licencia) como puntos de seguro
-                (afectando sus tarifas). Aquí está lo que cuestan las violaciones comunes:
+                Carolina del Norte usa tanto puntos DMV (afectando su licencia) como puntos de
+                seguro (afectando sus tarifas). Aquí está lo que cuestan las violaciones comunes:
               </p>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20">
@@ -276,14 +284,18 @@ export default function ViolacionesTransitoPage() {
                     <li>• Accidente culpable: 3 puntos (60% aumento)</li>
                     <li>• DWI: 12 puntos (340% aumento)</li>
                   </ul>
-                  <p className="mt-4 text-sm text-gray-400">Puntos permanecen en seguro por 3 años</p>
+                  <p className="mt-4 text-sm text-gray-400">
+                    Puntos permanecen en seguro por 3 años
+                  </p>
                 </div>
               </div>
             </section>
 
             {/* Process Section */}
             <section>
-              <h2 className="text-3xl font-bold mb-6 text-primary">Nuestro Proceso de Defensa de Tránsito</h2>
+              <h2 className="text-3xl font-bold mb-6 text-primary">
+                Nuestro Proceso de Defensa de Tránsito
+              </h2>
               <div className="space-y-4">
                 <div className="flex items-start">
                   <span className="text-primary text-2xl font-bold mr-4">1.</span>
@@ -309,8 +321,8 @@ export default function ViolacionesTransitoPage() {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Nosotros Manejamos Todo</h3>
                     <p className="text-gray-300">
-                      Aparecemos en corte, negociamos con fiscales, y luchamos por el mejor resultado
-                      posible.
+                      Aparecemos en corte, negociamos con fiscales, y luchamos por el mejor
+                      resultado posible.
                     </p>
                   </div>
                 </div>
@@ -334,7 +346,8 @@ export default function ViolacionesTransitoPage() {
               </h2>
               <p className="text-lg mb-8">
                 ¿Recibió una multa en cualquier lugar de Carolina del Norte? Lo tenemos cubierto.
-                Nuestros abogados aparecen regularmente en cortes de tránsito en todos los 100 condados.
+                Nuestros abogados aparecen regularmente en cortes de tránsito en todos los 100
+                condados.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20">

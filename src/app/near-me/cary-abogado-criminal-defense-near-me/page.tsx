@@ -1,5 +1,8 @@
 import { Metadata } from 'next';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: `Abogado criminal defense Near Me in Cary | Vasquez Law Firm`,
   description: `Find the best abogado criminal defense near you in Cary. Experienced legal representation.`,
@@ -10,12 +13,15 @@ export default function CaryAbogadocriminaldefensePage() {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-4">Abogado criminal defense Near Me in Cary</h1>
       <p className="text-lg mb-6">
-        Looking for a abogado criminal defense near you in Cary? Vasquez Law Firm provides experienced legal representation right in your neighborhood.
+        Looking for a abogado criminal defense near you in Cary? Vasquez Law Firm provides
+        experienced legal representation right in your neighborhood.
       </p>
       <div className="space-y-4">
         <section>
           <h2 className="text-2xl font-semibold mb-3">Local Legal Services</h2>
-          <p>We understand the importance of having a lawyer who knows your community and local laws.</p>
+          <p>
+            We understand the importance of having a lawyer who knows your community and local laws.
+          </p>
         </section>
         <section>
           <h2 className="text-2xl font-semibold mb-3">Why Choose Us</h2>

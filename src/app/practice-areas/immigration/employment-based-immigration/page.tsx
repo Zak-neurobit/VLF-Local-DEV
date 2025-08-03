@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title:
     'Employment-Based Immigration Lawyers NC & FL | H-1B, PERM, EB-1/2/3 Experts | Vasquez Law Firm',
@@ -325,8 +328,8 @@ export default function EmploymentBasedImmigrationPage() {
                 <div>
                   <h3 className="text-xl font-bold text-primary mb-3">Current vs. Retrogressed</h3>
                   <p className="text-gray-300 text-sm">
-                    When your priority date is &ldquo;current,&rdquo; you can file for adjustment of status.
-                    When retrogressed, you must wait for your date to become current again.
+                    When your priority date is &ldquo;current,&rdquo; you can file for adjustment of
+                    status. When retrogressed, you must wait for your date to become current again.
                   </p>
                 </div>
                 <div>

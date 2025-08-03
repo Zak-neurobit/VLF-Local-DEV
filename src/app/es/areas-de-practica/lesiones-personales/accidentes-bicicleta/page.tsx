@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Link from 'next/link';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Abogados de Accidentes de Bicicleta en NC | Máxima Compensación | YO PELEO POR TI™',
   description:
@@ -15,10 +18,12 @@ export const metadata: Metadata = {
     images: [{ url: '/images/personal-injury-bicycle-accidents.jpg', width: 1200, height: 630 }],
   },
   alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/areas-de-practica/lesiones-personales/accidentes-bicicleta',
+    canonical:
+      'https://www.vasquezlawnc.com/es/areas-de-practica/lesiones-personales/accidentes-bicicleta',
     languages: {
       'en-US': 'https://www.vasquezlawnc.com/practice-areas/personal-injury/bicycle-accidents',
-      'es-ES': 'https://www.vasquezlawnc.com/es/areas-de-practica/lesiones-personales/accidentes-bicicleta',
+      'es-ES':
+        'https://www.vasquezlawnc.com/es/areas-de-practica/lesiones-personales/accidentes-bicicleta',
     },
   },
 };
@@ -147,7 +152,9 @@ const faqs = [
 
 const content = (
   <>
-    <h2 className="text-3xl font-bold mb-6">Justicia Para Ciclistas Lesionados en Carolina del Norte</h2>
+    <h2 className="text-3xl font-bold mb-6">
+      Justicia Para Ciclistas Lesionados en Carolina del Norte
+    </h2>
 
     <p className="mb-6">
       Los ciclistas enfrentan riesgos únicos en las carreteras de Carolina del Norte. Sin la

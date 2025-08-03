@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'K-1 Fiancé(e) Visa | Vasquez Law Firm',
   description: 'Visa for foreign fiancé(e)s of US citizens',
@@ -8,11 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function K1FianceVisaPage() {
-  return (
-    <PracticeAreaWrapper
-      practiceArea="immigration"
-      subArea="family-based"
-      language="en"
-    />
-  );
+  return <PracticeAreaWrapper practiceArea="immigration" subArea="family-based" language="en" />;
 }
