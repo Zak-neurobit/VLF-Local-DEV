@@ -39,8 +39,6 @@ console.log('NETLIFY:', process.env.NETLIFY || 'not set');
 console.log('NEXT_PUBLIC_APP_URL:', process.env.NEXT_PUBLIC_APP_URL || 'not set');
 
 // Debug: Check sitemap.xml route
-const fs = require('fs');
-const path = require('path');
 const sitemapPath = path.join(process.cwd(), 'src/app/sitemap.xml/route.ts');
 if (fs.existsSync(sitemapPath)) {
   const content = fs.readFileSync(sitemapPath, 'utf8');
