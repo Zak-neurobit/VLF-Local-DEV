@@ -1,8 +1,4 @@
 import { Metadata } from 'next';
-
-// Temporarily force dynamic rendering to reduce build memory usage
-export const dynamic = 'force-dynamic';
-export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: `Point criminal defense Near Me in High | Vasquez Law Firm`,
   description: `Find the best point criminal defense near you in High. Experienced legal representation.`,

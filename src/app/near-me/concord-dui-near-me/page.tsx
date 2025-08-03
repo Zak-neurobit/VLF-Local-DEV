@@ -1,8 +1,4 @@
 import { Metadata } from 'next';
-
-// Temporarily force dynamic rendering to reduce build memory usage
-export const dynamic = 'force-dynamic';
-export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: `Dui Near Me in Concord | Vasquez Law Firm`,
   description: `Find the best dui near you in Concord. Experienced legal representation.`,

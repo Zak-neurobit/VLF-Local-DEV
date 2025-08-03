@@ -1,8 +1,4 @@
 import { Metadata } from 'next';
-
-// Temporarily force dynamic rendering to reduce build memory usage
-export const dynamic = 'force-dynamic';
-export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: `Spanish speaking Near Me in Raleigh | Vasquez Law Firm`,
   description: `Find the best spanish speaking near you in Raleigh. Experienced legal representation.`,

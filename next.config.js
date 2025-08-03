@@ -61,14 +61,9 @@ const nextConfig = {
       'clsx',
       'tailwind-merge',
     ],
-    // Reduce memory usage during build
-    workerThreads: false,
-    cpus: 1,
-    // Additional memory optimizations
-    craCompat: false,
-    esmExternals: true,
-    fullySpecified: false,
-    outputFileTracingRoot: undefined,
+    // For Netlify: Use more resources
+    workerThreads: true,
+    cpus: 4,
   },
 
   // Build optimizations to reduce memory usage
@@ -121,7 +116,7 @@ const nextConfig = {
   },
 
   // Increase build timeout for generating many pages
-  staticPageGenerationTimeout: 300, // 5 minutes per page
+  staticPageGenerationTimeout: 600, // 10 minutes per page
 
   // Force static generation
   generateBuildId: async () => {
@@ -129,8 +124,8 @@ const nextConfig = {
     return Date.now().toString();
   },
 
-  // Output configuration
-  output: 'standalone',
+  // Output configuration - static export for Netlify
+  output: process.env.NETLIFY ? 'export' : 'standalone',
 
   // Disable source maps in production to save memory
   productionBrowserSourceMaps: false,

@@ -1,10 +1,6 @@
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 
 import { Metadata } from 'next';
-
-// Temporarily force dynamic rendering to reduce build memory usage
-export const dynamic = 'force-dynamic';
-export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Divorce Lawyer Near Me in Wilmington | Vasquez Law Firm',
   description:

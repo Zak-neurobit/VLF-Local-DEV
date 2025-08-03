@@ -5,10 +5,6 @@ import { SmartBreadcrumbs } from '@/components/SEO/SmartBreadcrumbs';
 import { InternalLinkingSection } from '@/components/SEO/InternalLinkingSection';
 import { FamilyBasedPetitionsClient } from './FamilyBasedPetitionsClient';
 import { Users, Clock, Shield, Award, Heart, Globe, FileText, CheckCircle } from 'lucide-react';
-
-// Temporarily force dynamic rendering to reduce build memory usage
-export const dynamic = 'force-dynamic';
-export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Family Immigration Lawyer NC | Family-Based Petitions & Green Cards',
   description:

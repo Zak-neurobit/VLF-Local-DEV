@@ -5,10 +5,6 @@ import { SmartBreadcrumbs } from '@/components/SEO/SmartBreadcrumbs';
 import { InternalLinkingSection } from '@/components/SEO/InternalLinkingSection';
 import { GreenCardsClient } from './GreenCardsClient';
 import { Shield, Award, Clock, Users, Globe, Briefcase, Heart, Star } from 'lucide-react';
-
-// Temporarily force dynamic rendering to reduce build memory usage
-export const dynamic = 'force-dynamic';
-export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Green Card Attorney NC | Permanent Residency & Adjustment of Status',
   description:

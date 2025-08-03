@@ -7,10 +7,6 @@ import { HowToSchema } from '@/components/SEO/HowToSchema';
 import Link from 'next/link';
 import { ChevronRight, Award, Users, Clock, Shield } from 'lucide-react';
 import { AffirmativeClient } from './AffirmativeClient';
-
-// Temporarily force dynamic rendering to reduce build memory usage
-export const dynamic = 'force-dynamic';
-export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: 'Affirmative Immigration Services NC | Family Petitions, Green Cards & Citizenship',
   description:

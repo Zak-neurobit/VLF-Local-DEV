@@ -1,8 +1,4 @@
 import { Metadata } from 'next';
-
-// Temporarily force dynamic rendering to reduce build memory usage
-export const dynamic = 'force-dynamic';
-export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: `Salem immigration Near Me in Winston | Vasquez Law Firm`,
   description: `Find the best salem immigration near you in Winston. Experienced legal representation.`,

@@ -16,6 +16,7 @@
     "verify:deployment": "tsx scripts/verify-deployment.ts",
     "build:socket": "tsc --project tsconfig.socket.json && mkdir -p dist/lib/socket && cp src/lib/socket/server-setup.js dist/lib/socket/ && cp dist/lib/socket/server.js dist/lib/socket/ 2>/dev/null || true",
     "build": "echo \"BUILD STARTED $(date)\" && pnpm exec prisma generate && pnpm run setup:partytown && NODE_OPTIONS=\"--max-old-space-size=8192\" next build",
+    "build:netlify": "echo \"NETLIFY BUILD STARTED\" && pnpm exec prisma generate && pnpm run setup:partytown && NODE_OPTIONS=\"--max-old-space-size=32768\" NETLIFY=true next build",
     "build:vercel": "node build-override.js && pnpm exec prisma generate && pnpm run setup:partytown && NODE_OPTIONS='--max-old-space-size=8192' next build",
     "build:optimized": "pnpm exec prisma generate && pnpm run setup:partytown && node scripts/optimized-build.js",
     "build:production": "pnpm exec prisma generate && pnpm run setup:partytown && NODE_OPTIONS='--max-old-space-size=4096' BUILD_TIME=true next build --config next.config.production.js",

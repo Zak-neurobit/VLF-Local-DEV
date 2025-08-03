@@ -1,8 +1,4 @@
 import { Metadata } from 'next';
-
-// Temporarily force dynamic rendering to reduce build memory usage
-export const dynamic = 'force-dynamic';
-export const revalidate = 3600; // 1 hour cache
 export const metadata: Metadata = {
   title: `Criminal defense Near Me in Fayetteville | Vasquez Law Firm`,
   description: `Find the best criminal defense near you in Fayetteville. Experienced legal representation.`,
