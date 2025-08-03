@@ -1,9 +1,9 @@
 [build]
-  command = "NODE_OPTIONS='--max-old-space-size=65536' npm run build:netlify"
+  command = "npm run build:simple"
   publish = "out"
 
 [build.environment]
-  NODE_VERSION = "22.11.0"
+  NODE_VERSION = "20.11.1"
   NEXT_TELEMETRY_DISABLED = "1"
 
 # Build settings optimized for large static sites
