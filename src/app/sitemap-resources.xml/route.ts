@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 
+export const dynamic = 'force-static';
+
 const resources = [
   // Legal resources
   { path: '/resources', priority: 0.7 },

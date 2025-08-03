@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 
+export const dynamic = 'force-static';
+
 const practiceAreas = [
   // Immigration
   { slug: 'immigration', priority: 0.9 },

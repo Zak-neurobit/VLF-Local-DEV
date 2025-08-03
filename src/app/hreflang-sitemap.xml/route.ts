@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-static';
+
 export async function GET() {
   // Redirect to the actual hreflang sitemap API route
   return NextResponse.redirect(

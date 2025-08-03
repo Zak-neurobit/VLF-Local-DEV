@@ -3,6 +3,8 @@ import { headers } from 'next/headers';
 import { prisma } from '@/lib/prisma';
 import { logger, errorToLogMeta } from '@/lib/safe-logger';
 
+export const dynamic = 'force-static';
+
 export async function GET() {
   const headersList = await headers();
   const host = headersList.get('host') || 'vasquezlawfirm.com';

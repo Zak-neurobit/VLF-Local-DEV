@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 
+export const dynamic = 'force-static';
+
 const landingPages = [
   // Location-based landing pages
   { path: '/locations/houston', priority: 0.8 },
