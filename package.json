@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "engines": {
-    "node": ">=22.0.0",
-    "pnpm": ">=10.0.0"
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
   },
   "packageManager": "pnpm@10.13.1",
   "scripts": {
@@ -18,7 +18,7 @@
     "build": "echo \"BUILD STARTED $(date)\" && pnpm exec prisma generate && pnpm run setup:partytown && NODE_OPTIONS=\"--max-old-space-size=8192\" next build",
     "build:netlify": "echo \"NETLIFY BUILD STARTED\" && echo \"Memory: $NODE_OPTIONS\" && node scripts/handle-api-routes.js backup && pnpm exec prisma generate && pnpm run setup:partytown && NETLIFY=true next build && node scripts/handle-api-routes.js restore",
     "build:minimal": "echo \"MINIMAL BUILD STARTED\" && node scripts/handle-api-routes.js backup && NETLIFY=true next build",
-    "build:simple": "echo \"SIMPLE BUILD STARTED\" && node scripts/handle-api-routes.js backup && NETLIFY=true next build --config next.config.simple.js",
+    "build:simple": "node scripts/prepare-netlify-build.js && echo \"SIMPLE BUILD STARTED\" && node scripts/handle-api-routes.js backup && NETLIFY=true next build --config next.config.simple.js",
     "netlify": "netlify",
     "build:vercel": "node build-override.js && pnpm exec prisma generate && pnpm run setup:partytown && NODE_OPTIONS='--max-old-space-size=8192' next build",
     "build:optimized": "pnpm exec prisma generate && pnpm run setup:partytown && node scripts/optimized-build.js",
