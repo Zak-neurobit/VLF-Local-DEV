@@ -61,6 +61,34 @@ const nextConfig = {
       'clsx',
       'tailwind-merge',
     ],
+    // Reduce memory usage during build
+    workerThreads: false,
+    cpus: 2,
+  },
+
+  // Build optimizations to reduce memory usage
+  webpack: (config, { dev, isServer }) => {
+    // Production optimizations
+    if (!dev && !isServer) {
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        cacheGroups: {
+          default: false,
+          vendors: false,
+          // Only create commons chunk
+          commons: {
+            name: 'commons',
+            chunks: 'all',
+            minChunks: 2,
+          },
+        },
+      };
+    }
+
+    // Reduce parallelism to save memory
+    config.parallelism = 1;
+
+    return config;
   },
 
   // Increase build timeout for generating many pages
@@ -72,8 +100,8 @@ const nextConfig = {
     return Date.now().toString();
   },
 
-  // Output configuration - removed 'standalone' as it's not needed for Vercel
-  // Vercel automatically handles the output format
+  // Output configuration
+  output: 'standalone',
 
   // Disable source maps in production to save memory
   productionBrowserSourceMaps: false,
