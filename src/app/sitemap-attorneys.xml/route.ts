@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { attorneyProfiles } from '@/data/attorneys';
 
 export const dynamic = 'force-static';
+export const revalidate = false;
 
 const baseUrl = 'https://www.vasquezlawnc.com';
 

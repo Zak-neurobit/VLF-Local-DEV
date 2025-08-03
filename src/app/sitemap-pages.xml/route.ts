@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { FileSystemPageDiscovery, type DiscoveredPage } from '@/lib/sitemap/page-discovery';
 
 export const dynamic = 'force-static';
+export const revalidate = false;
 
 const baseUrl = 'https://www.vasquezlawnc.com';
 

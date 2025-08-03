@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import RSS from 'rss';
 
 export const dynamic = 'force-static';
+export const revalidate = false;
 
 const baseUrl = 'https://www.vasquezlawnc.com';
 
