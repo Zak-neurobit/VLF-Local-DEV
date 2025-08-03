@@ -212,3 +212,6 @@ dist/
 
 # Keep important root files
 !index.html
+
+# Local Netlify folder
+.netlify

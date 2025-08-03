@@ -12,7 +12,17 @@ interface LocationPageClientProps {
   language?: 'en' | 'es';
 }
 
-const officeInfo = {
+const officeInfo: Record<
+  string,
+  Record<
+    string,
+    {
+      address: string;
+      phone: string;
+      hours: string;
+    }
+  >
+> = {
   NC: {
     Charlotte: {
       address: '3500 Cameron Blvd, Charlotte, NC 28211',
@@ -44,7 +54,7 @@ const officeInfo = {
   },
 };
 
-const serviceDescriptions = {
+const serviceDescriptions: Record<string, Record<string, string>> = {
   immigration: {
     en: 'Expert immigration attorneys helping with visas, green cards, citizenship, and deportation defense.',
     es: 'Abogados expertos en inmigración ayudando con visas, tarjetas verdes, ciudadanía y defensa contra deportación.',
