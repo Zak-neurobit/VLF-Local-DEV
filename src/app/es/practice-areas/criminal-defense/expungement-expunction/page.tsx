@@ -1,16 +1,21 @@
-import { UniversalPageTemplate } from '@/components/templates/UniversalPageTemplate';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Expungement Expunction | Vasquez Law Firm',
-  description: 'Página en español para expungement-expunction',
+  title: '',
+  description: '',
+  openGraph: {
+    title: '',
+    description: '',
+  },
 };
 
-export default function Page() {
+export default function ExpungementExpunctionPage() {
   return (
-    <UniversalPageTemplate
-      title="Expungement Expunction"
-      description="Esta página necesita ser traducida al español."
+    <PracticeAreaWrapper
+      practiceArea="criminal-defense"
+      subArea="expungement-expunction"
+      language="en"
     />
   );
 }

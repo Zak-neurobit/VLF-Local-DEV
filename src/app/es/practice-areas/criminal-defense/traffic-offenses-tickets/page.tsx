@@ -1,16 +1,21 @@
-import { UniversalPageTemplate } from '@/components/templates/UniversalPageTemplate';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Traffic Offenses Tickets | Vasquez Law Firm',
-  description: 'Página en español para traffic-offenses-tickets',
+  title: '',
+  description: '',
+  openGraph: {
+    title: '',
+    description: '',
+  },
 };
 
-export default function Page() {
+export default function TrafficOffensesTicketsPage() {
   return (
-    <UniversalPageTemplate
-      title="Traffic Offenses Tickets"
-      description="Esta página necesita ser traducida al español."
+    <PracticeAreaWrapper
+      practiceArea="criminal-defense"
+      subArea="traffic-offenses-tickets"
+      language="en"
     />
   );
 }

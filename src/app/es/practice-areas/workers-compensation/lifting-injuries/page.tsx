@@ -1,16 +1,26 @@
-import { UniversalPageTemplate } from '@/components/templates/UniversalPageTemplate';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Lifting Injuries | Vasquez Law Firm',
-  description: 'Página en español para lifting-injuries',
+  title: 'NC Lifting Injury Workers Comp Abogado | Back Injury Abogado',
+  description:
+    'Suffered a lifting injury at work in North Carolina? Our workers comp attorneys fight denied claims and get maximum benefits for back and spine injuries.',
+  keywords: [
+    'lifting injury lawyer NC',
+    'back injury workers comp attorney',
+    'spine injury workplace lawyer',
+    'herniated disc workers compensation',
+    'lifting accident attorney NC',
+    'workplace back injury lawyer',
+  ],
 };
 
-export default function Page() {
+export default function LiftingInjuriesPage() {
   return (
-    <UniversalPageTemplate
-      title="Lifting Injuries"
-      description="Esta página necesita ser traducida al español."
+    <PracticeAreaWrapper
+      practiceArea="workers-compensation"
+      subArea="lifting-injuries"
+      language="en"
     />
   );
 }

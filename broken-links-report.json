@@ -1,0 +1,749 @@
+{
+  "summary": {
+    "total": 106
+  },
+  "issues": [
+    {
+      "sourceFile": "src/components/SpeedOptimizer.tsx",
+      "link": "/manifest.json",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/components/SpeedOptimizer.tsx",
+      "link": "/icons/icon-192x192.png",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/layout.tsx",
+      "link": "/favicon.ico",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/layout.tsx",
+      "link": "/apple-touch-icon.png",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/layout.tsx",
+      "link": "/manifest.json",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/layout.tsx",
+      "link": "/sitemap.xml",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/layout.tsx",
+      "link": "/blog/rss.xml",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/layout.tsx",
+      "link": "/hreflang-sitemap.xml",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/components/qwik/QwikHeader.tsx",
+      "link": "/en",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/components/portal/dashboard.tsx",
+      "link": "/portal/documents?filter=pending",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/components/portal/dashboard.tsx",
+      "link": "/portal/messages?filter=unread",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/components/portal/dashboard.tsx",
+      "link": "/portal/appointments",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/components/portal/dashboard.tsx",
+      "link": "/portal/activity",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/components/portal/dashboard.tsx",
+      "link": "/portal/appointments/new",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/components/portal/dashboard.tsx",
+      "link": "/portal/documents/upload",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/components/portal/dashboard.tsx",
+      "link": "/portal/messages/new",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/components/SEO/SEOMonitor.tsx",
+      "link": "/sitemap.xml",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/components/SEO/SEOMonitor.tsx",
+      "link": "/robots.txt",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/test-routing/page.tsx",
+      "link": "/locations/fl/orlando",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/test-routing/page.tsx",
+      "link": "/locations/fl/tampa",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/test-routing/page.tsx",
+      "link": "/locations/fl/miami",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/test-routing/page.tsx",
+      "link": "/locations/fl/orlando/workers-compensation",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/secure-payment/page.tsx",
+      "link": "/make-payment",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/portal/page.tsx",
+      "link": "/portal/documents",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/portal/page.tsx",
+      "link": "/portal/messages",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/auto-accident-form",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/witness-statement",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/property-damage-checklist",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/medical-treatment-log",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/insurance-claim-checklist",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/medical-records-request",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/lost-wages-form",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/pain-journal",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/workplace-injury-checklist",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/return-to-work",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/character-reference",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/court-appearance-checklist",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/evidence-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/witness-list",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/know-your-rights",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/miranda-rights",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/bail-information",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/expungement-eligibility",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/general-affidavit",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/sworn-declaration",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/witness-affidavit",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/general-poa",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/medical-poa",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/limited-poa",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/fee-agreement",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/payment-plan",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/legal-forms/page.tsx",
+      "link": "/forms/financial-affidavit",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/immigration-guides/page.tsx",
+      "link": "/resources/family-petition-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/immigration-guides/page.tsx",
+      "link": "/resources/marriage-green-card-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/immigration-guides/page.tsx",
+      "link": "/resources/h1b-visa-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/immigration-guides/page.tsx",
+      "link": "/resources/eb2-niw-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/immigration-guides/page.tsx",
+      "link": "/resources/asylum-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/immigration-guides/page.tsx",
+      "link": "/resources/vawa-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/immigration-guides/page.tsx",
+      "link": "/resources/citizenship-complete-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/immigration-guides/page.tsx",
+      "link": "/resources/know-your-rights-card",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/resources/immigration-guides/page.tsx",
+      "link": "/resources/immigration-court-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/test-routing/page.tsx",
+      "link": "/locations/fl/orlando",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/test-routing/page.tsx",
+      "link": "/locations/fl/tampa",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/test-routing/page.tsx",
+      "link": "/locations/fl/miami",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/test-routing/page.tsx",
+      "link": "/locations/fl/orlando/workers-compensation",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/secure-payment/page.tsx",
+      "link": "/make-payment",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/portal/page.tsx",
+      "link": "/portal/documents",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/portal/page.tsx",
+      "link": "/portal/messages",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/dashboard/page.tsx",
+      "link": "/es/dashboard/configuracion",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/dashboard/page.tsx",
+      "link": "/es/citas/nueva",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/dashboard/page.tsx",
+      "link": "/es/dashboard/documentos/subir",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/dashboard/page.tsx",
+      "link": "/es/dashboard/mensajes",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/dashboard/page.tsx",
+      "link": "/es/dashboard/casos",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/dashboard/page.tsx",
+      "link": "/es/citas",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/ubicaciones/smithfield/page.tsx",
+      "link": "/es/ubicaciones/smithfield/inmigracion",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/ubicaciones/smithfield/page.tsx",
+      "link": "/es/ubicaciones/smithfield/lesiones-personales",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/ubicaciones/smithfield/page.tsx",
+      "link": "/es/ubicaciones/smithfield/defensa-criminal",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/ubicaciones/smithfield/page.tsx",
+      "link": "/es/ubicaciones/smithfield/derecho-familiar",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/ubicaciones/smithfield/page.tsx",
+      "link": "/es/ubicaciones/smithfield/compensacion-laboral",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/ubicaciones/raleigh/page.tsx",
+      "link": "/es/ubicaciones/raleigh/inmigracion",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/ubicaciones/raleigh/page.tsx",
+      "link": "/es/ubicaciones/raleigh/lesiones-personales",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/ubicaciones/raleigh/page.tsx",
+      "link": "/es/ubicaciones/raleigh/defensa-criminal",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/ubicaciones/raleigh/page.tsx",
+      "link": "/es/ubicaciones/raleigh/derecho-familiar",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/ubicaciones/raleigh/page.tsx",
+      "link": "/es/ubicaciones/raleigh/compensacion-laboral",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/ubicaciones/orlando/page.tsx",
+      "link": "/es/ubicaciones/orlando/inmigracion",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/ubicaciones/orlando/page.tsx",
+      "link": "/es/ubicaciones/orlando/lesiones-personales",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/ubicaciones/orlando/page.tsx",
+      "link": "/es/ubicaciones/orlando/defensa-criminal",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/ubicaciones/orlando/page.tsx",
+      "link": "/es/ubicaciones/orlando/derecho-familiar",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/ubicaciones/orlando/page.tsx",
+      "link": "/es/ubicaciones/orlando/compensacion-laboral",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/resources/immigration-guides/page.tsx",
+      "link": "/resources/family-petition-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/resources/immigration-guides/page.tsx",
+      "link": "/resources/marriage-green-card-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/resources/immigration-guides/page.tsx",
+      "link": "/resources/h1b-visa-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/resources/immigration-guides/page.tsx",
+      "link": "/resources/eb2-niw-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/resources/immigration-guides/page.tsx",
+      "link": "/resources/asylum-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/resources/immigration-guides/page.tsx",
+      "link": "/resources/vawa-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/resources/immigration-guides/page.tsx",
+      "link": "/resources/citizenship-complete-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/resources/immigration-guides/page.tsx",
+      "link": "/resources/know-your-rights-card",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/resources/immigration-guides/page.tsx",
+      "link": "/resources/immigration-court-guide",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/citas/gestionar/page.tsx",
+      "link": "/es/citas/nueva",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/citas/gestionar/page.tsx",
+      "link": "/es/citas/nueva",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/citas/gestionar/page.tsx",
+      "link": "/es/recursos/preparacion-cita",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/citas/gestionar/page.tsx",
+      "link": "/es/recursos/citas-virtuales",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/areas-de-practica/multas-de-transito/page.tsx",
+      "link": "/es/areas-de-practica/multas-de-transito/exceso-de-velocidad",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/areas-de-practica/multas-de-transito/page.tsx",
+      "link": "/es/areas-de-practica/multas-de-transito/conduccion-imprudente",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/areas-de-practica/lesiones-personales/page.tsx",
+      "link": "/es/areas-de-practica/lesiones-personales/accidentes-auto",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    },
+    {
+      "sourceFile": "src/app/es/areas-de-practica/lesiones-personales/page.tsx",
+      "link": "/es/areas-de-practica/lesiones-personales/resbalones-caidas",
+      "type": "internal",
+      "valid": false,
+      "issue": "Page not found"
+    }
+  ]
+}

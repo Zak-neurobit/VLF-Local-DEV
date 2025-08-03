@@ -1,16 +1,21 @@
-import { UniversalPageTemplate } from '@/components/templates/UniversalPageTemplate';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Alimony Spousal Support | Vasquez Law Firm',
-  description: 'Página en español para alimony-spousal-support',
+  title: '',
+  description: '',
+  openGraph: {
+    title: '',
+    description: '',
+  },
 };
 
-export default function Page() {
+export default function AlimonySpousalSupportPage() {
   return (
-    <UniversalPageTemplate
-      title="Alimony Spousal Support"
-      description="Esta página necesita ser traducida al español."
+    <PracticeAreaWrapper
+      practiceArea="family-law"
+      subArea="alimony-spousal-support"
+      language="en"
     />
   );
 }

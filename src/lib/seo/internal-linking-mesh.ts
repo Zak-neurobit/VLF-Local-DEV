@@ -108,7 +108,8 @@ export function generateContextualLinks(
     PRACTICE_AREAS.forEach(area => {
       if (links.length < maxLinks) {
         const anchorVariation =
-          LINK_TYPES.location[Math.floor(Math.random() * LINK_TYPES.location.length)] || '{service} in {location}';
+          LINK_TYPES.location[Math.floor(Math.random() * LINK_TYPES.location.length)] ||
+          '{service} in {location}';
         const text = anchorVariation
           .replace('{service}', area.name)
           .replace('{location}', currentPage.location || 'North Carolina');
@@ -126,8 +127,12 @@ export function generateContextualLinks(
     // Add near me links
     if (currentPage.location && links.length < maxLinks) {
       const nearMeVariation =
-        LINK_TYPES.nearMe[Math.floor(Math.random() * LINK_TYPES.nearMe.length)] || '{service} Near Me';
-      const service = NEAR_ME_SERVICES[Math.floor(Math.random() * NEAR_ME_SERVICES.length)] || { service: 'Legal Services', slug: 'legal-services' };
+        LINK_TYPES.nearMe[Math.floor(Math.random() * LINK_TYPES.nearMe.length)] ||
+        '{service} Near Me';
+      const service = NEAR_ME_SERVICES[Math.floor(Math.random() * NEAR_ME_SERVICES.length)] || {
+        service: 'Legal Services',
+        slug: 'legal-services',
+      };
       const text = nearMeVariation.replace('{service}', service.service);
 
       if (currentPage.location) {
@@ -146,7 +151,8 @@ export function generateContextualLinks(
     topCities.forEach(city => {
       if (links.length < maxLinks) {
         const locationVariation =
-          LINK_TYPES.location[Math.floor(Math.random() * LINK_TYPES.location.length)] || '{service} in {location}';
+          LINK_TYPES.location[Math.floor(Math.random() * LINK_TYPES.location.length)] ||
+          '{service} in {location}';
         const text = locationVariation
           .replace('{service}', currentPage.service || 'Legal Services')
           .replace('{location}', city.name);
@@ -163,8 +169,12 @@ export function generateContextualLinks(
   // Add emergency links
   if (links.length < maxLinks) {
     const emergencyVariation =
-      LINK_TYPES.emergency[Math.floor(Math.random() * LINK_TYPES.emergency.length)] || 'Emergency {service}';
-    const randomService = PRACTICE_AREAS[Math.floor(Math.random() * PRACTICE_AREAS.length)] || { name: 'Legal Services', slug: 'legal-services' };
+      LINK_TYPES.emergency[Math.floor(Math.random() * LINK_TYPES.emergency.length)] ||
+      'Emergency {service}';
+    const randomService = PRACTICE_AREAS[Math.floor(Math.random() * PRACTICE_AREAS.length)] || {
+      name: 'Legal Services',
+      slug: 'legal-services',
+    };
     const text = emergencyVariation.replace('{service}', randomService.name);
 
     links.push({
@@ -178,7 +188,7 @@ export function generateContextualLinks(
 }
 
 // Generate footer mega-links section
-export function generateFooterMegaLinks() {
+export function generateFooterMegaLinks(language: 'en' | 'es' = 'en') {
   const sections: Array<{
     title: string;
     links: Array<{
@@ -190,10 +200,10 @@ export function generateFooterMegaLinks() {
 
   // Major cities section
   const citiesSection = {
-    title: 'Legal Services by City',
+    title: language === 'es' ? 'Servicios Legales por Ciudad' : 'Legal Services by City',
     links: NC_CITIES.slice(0, 10).map(city => ({
-      text: `Lawyers in ${city.name}`,
-      href: `/locations/nc/${city.slug}`,
+      text: language === 'es' ? `Abogados en ${city.name}` : `Lawyers in ${city.name}`,
+      href: language === 'es' ? `/es/ubicaciones/nc/${city.slug}` : `/locations/nc/${city.slug}`,
       priority: city.population > 100000,
     })),
   };
@@ -201,29 +211,64 @@ export function generateFooterMegaLinks() {
 
   // Practice areas section
   const practiceSection = {
-    title: 'Practice Areas',
-    links: PRACTICE_AREAS.flatMap(area => [
-      {
-        text: area.name,
-        href: `/practice-areas/${area.slug}`,
-        priority: true,
-      },
-      ...area.subPages.slice(0, 2).map(sub => ({
-        text: sub.name,
-        href: `/practice-areas/${area.slug}/${sub.slug}`,
-        priority: false,
-      })),
-    ]),
+    title: language === 'es' ? 'Áreas de Práctica' : 'Practice Areas',
+    links: PRACTICE_AREAS.flatMap(area => {
+      const areaNames: Record<string, { en: string; es: string }> = {
+        'Immigration Law': { en: 'Immigration Law', es: 'Ley de Inmigración' },
+        'Personal Injury': { en: 'Personal Injury', es: 'Lesiones Personales' },
+        'Criminal Defense': { en: 'Criminal Defense', es: 'Defensa Criminal' },
+        'Workers Compensation': { en: 'Workers Compensation', es: 'Compensación Laboral' },
+        'Family Law': { en: 'Family Law', es: 'Derecho Familiar' },
+        'Traffic Violations': { en: 'Traffic Violations', es: 'Infracciones de Tráfico' },
+      };
+
+      const areaSlugMap: Record<string, string> = {
+        immigration: 'inmigracion',
+        'personal-injury': 'lesiones-personales',
+        'criminal-defense': 'defensa-criminal',
+        'workers-compensation': 'compensacion-laboral',
+        'family-law': 'derecho-familia',
+        'traffic-violations': 'infracciones-transito',
+      };
+
+      const areaName = areaNames[area.name]?.[language] || area.name;
+      const areaSlug = language === 'es' ? areaSlugMap[area.slug] || area.slug : area.slug;
+
+      return [
+        {
+          text: areaName,
+          href:
+            language === 'es'
+              ? `/es/areas-de-practica/${areaSlug}`
+              : `/practice-areas/${area.slug}`,
+          priority: true,
+        },
+        ...area.subPages.slice(0, 2).map(sub => ({
+          text: sub.name,
+          href:
+            language === 'es'
+              ? `/es/areas-de-practica/${areaSlug}/${sub.slug}`
+              : `/practice-areas/${area.slug}/${sub.slug}`,
+          priority: false,
+        })),
+      ];
+    }),
   };
   sections.push(practiceSection);
 
   // Near me section
   const nearMeSection = {
-    title: 'Find Lawyers Near You',
+    title: language === 'es' ? 'Encuentra Abogados Cerca de Ti' : 'Find Lawyers Near You',
     links: NEAR_ME_CITIES.slice(0, 5).flatMap(city =>
       NEAR_ME_SERVICES.slice(0, 2).map(service => ({
-        text: `${service.service} Near ${city.name}`,
-        href: `/near-me/${city.slug}-${service.slug}-near-me`,
+        text:
+          language === 'es'
+            ? `${service.service} Cerca de ${city.name}`
+            : `${service.service} Near ${city.name}`,
+        href:
+          language === 'es'
+            ? `/es/cerca-de-mi/${city.slug}-${service.slug}-cerca-de-mi`
+            : `/near-me/${city.slug}-${service.slug}-near-me`,
         priority: false,
       }))
     ),
@@ -232,29 +277,46 @@ export function generateFooterMegaLinks() {
 
   // Emergency section
   const emergencySection = {
-    title: '24/7 Emergency Legal Help',
+    title: language === 'es' ? 'Ayuda Legal de Emergencia 24/7' : '24/7 Emergency Legal Help',
     links: [
       {
-        text: '🚨 Deportation Emergency',
-        href: '/practice-areas/immigration/deportation-removal-defense?emergency=true',
+        text: language === 'es' ? '🚨 Emergencia de Deportación' : '🚨 Deportation Emergency',
+        href:
+          language === 'es'
+            ? '/es/areas-de-practica/inmigracion/defensa-deportacion?emergency=true'
+            : '/practice-areas/immigration/deportation-removal-defense?emergency=true',
         priority: true,
       },
       {
-        text: '🚗 Car Accident Emergency',
-        href: '/practice-areas/personal-injury/car-accidents?emergency=true',
+        text:
+          language === 'es' ? '🚗 Emergencia de Accidente de Auto' : '🚗 Car Accident Emergency',
+        href:
+          language === 'es'
+            ? '/es/areas-de-practica/lesiones-personales/accidentes-de-auto?emergency=true'
+            : '/practice-areas/personal-injury/car-accidents?emergency=true',
         priority: true,
       },
       {
-        text: '⚖️ Criminal Arrest Help',
-        href: '/practice-areas/criminal-defense?emergency=true',
+        text: language === 'es' ? '⚖️ Ayuda por Arresto Criminal' : '⚖️ Criminal Arrest Help',
+        href:
+          language === 'es'
+            ? '/es/areas-de-practica/defensa-criminal?emergency=true'
+            : '/practice-areas/criminal-defense?emergency=true',
         priority: true,
       },
       {
-        text: '🏥 Work Injury Emergency',
-        href: '/practice-areas/workers-compensation?emergency=true',
+        text: language === 'es' ? '🏥 Emergencia de Lesión Laboral' : '🏥 Work Injury Emergency',
+        href:
+          language === 'es'
+            ? '/es/areas-de-practica/compensacion-laboral?emergency=true'
+            : '/practice-areas/workers-compensation?emergency=true',
         priority: true,
       },
-      { text: '📞 Call Now: 1-844-YO-PELEO', href: 'tel:18449673536', priority: true },
+      {
+        text: language === 'es' ? '📞 Llama Ahora: 1-844-YO-PELEO' : '📞 Call Now: 1-844-YO-PELEO',
+        href: 'tel:18449673536',
+        priority: true,
+      },
     ],
   };
   sections.push(emergencySection);

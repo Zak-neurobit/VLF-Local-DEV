@@ -15,7 +15,7 @@ export const metadata: Metadata = generateAttorneyMetadata({
   descriptionEs:
     'William J. Vásquez es el socio fundador de Vasquez Law Firm. Veterano de la Fuerza Aérea de EE.UU. con más de 35 años de experiencia en derecho de inmigración y defensa criminal. YO PELEO POR TI™',
   slug: 'william-vasquez',
-  photo: '/images/attorneys/william-vasquez.jpg',
+  photo: '/images/attorneys/WV-Headshot.JPEG',
   specialties: [
     'immigration law',
     'criminal defense',

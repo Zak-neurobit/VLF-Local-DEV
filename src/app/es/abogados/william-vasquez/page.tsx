@@ -15,7 +15,7 @@ export const metadata: Metadata = generateAttorneyMetadata({
   descriptionEs:
     'William Vásquez es nativo de Queens, NY y un veterano condecorado de la Fuerza Aérea de EE.UU. Con más de una década de experiencia legal, se especializa en ley de inmigración y defensa criminal.',
   slug: 'william-vasquez',
-  photo: '/william-vasquez-cutout.png',
+  photo: '/images/attorneys/WV-Headshot.JPEG',
   specialties: [
     'immigration law',
     'criminal defense',

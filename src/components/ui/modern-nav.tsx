@@ -4,34 +4,68 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Phone, Globe, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 interface NavItem {
-  label: string;
-  href: string;
-  submenu?: { label: string; href: string }[];
+  label: { en: string; es: string };
+  href: { en: string; es: string };
+  submenu?: { label: { en: string; es: string }; href: { en: string; es: string } }[];
 }
 
 const navItems: NavItem[] = [
-  { label: 'Inicio', href: '/' },
   {
-    label: 'Áreas de Práctica',
-    href: '/practice-areas',
+    label: { en: 'Home', es: 'Inicio' },
+    href: { en: '/', es: '/es' },
+  },
+  {
+    label: { en: 'Practice Areas', es: 'Áreas de Práctica' },
+    href: { en: '/practice-areas', es: '/es/areas-de-practica' },
     submenu: [
-      { label: 'Inmigración', href: '/practice-areas/immigration' },
-      { label: 'Lesiones Personales', href: '/practice-areas/personal-injury' },
-      { label: 'Defensa Criminal', href: '/practice-areas/criminal-defense' },
-      { label: 'Derecho Familiar', href: '/practice-areas/family-law' },
+      {
+        label: { en: 'Immigration', es: 'Inmigración' },
+        href: { en: '/practice-areas/immigration', es: '/es/areas-de-practica/inmigracion' },
+      },
+      {
+        label: { en: 'Personal Injury', es: 'Lesiones Personales' },
+        href: {
+          en: '/practice-areas/personal-injury',
+          es: '/es/areas-de-practica/lesiones-personales',
+        },
+      },
+      {
+        label: { en: 'Criminal Defense', es: 'Defensa Criminal' },
+        href: {
+          en: '/practice-areas/criminal-defense',
+          es: '/es/areas-de-practica/defensa-criminal',
+        },
+      },
+      {
+        label: { en: 'Family Law', es: 'Derecho Familiar' },
+        href: { en: '/practice-areas/family-law', es: '/es/areas-de-practica/derecho-familia' },
+      },
     ],
   },
-  { label: 'Sobre Nosotros', href: '/about' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Contacto', href: '/contact' },
+  {
+    label: { en: 'About Us', es: 'Sobre Nosotros' },
+    href: { en: '/about', es: '/es/acerca-de' },
+  },
+  {
+    label: { en: 'Blog', es: 'Blog' },
+    href: { en: '/blog', es: '/es/blog' },
+  },
+  {
+    label: { en: 'Contact', es: 'Contacto' },
+    href: { en: '/contact', es: '/es/contacto' },
+  },
 ];
 
 export function ModernNav() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const pathname = usePathname();
+  const isSpanish = pathname?.startsWith('/es');
+  const language: 'en' | 'es' = isSpanish ? 'es' : 'en';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,7 +89,7 @@ export function ModernNav() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3">
+            <Link href={language === 'es' ? '/es' : '/'} className="flex items-center gap-3">
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -75,22 +109,22 @@ export function ModernNav() {
             <div className="hidden lg:flex items-center gap-8">
               {navItems.map(item => (
                 <div
-                  key={item.label}
+                  key={item.label[language]}
                   className="relative"
-                  onMouseEnter={() => item.submenu && setActiveDropdown(item.label)}
+                  onMouseEnter={() => item.submenu && setActiveDropdown(item.label[language])}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <Link
-                    href={item.href}
+                    href={item.href[language]}
                     className="flex items-center gap-1 text-gray-700 hover:text-[#6B1F2E] font-medium transition-colors animated-underline"
                   >
-                    {item.label}
+                    {item.label[language]}
                     {item.submenu && <ChevronDown className="w-4 h-4" />}
                   </Link>
 
                   {/* Dropdown Menu */}
                   <AnimatePresence>
-                    {item.submenu && activeDropdown === item.label && (
+                    {item.submenu && activeDropdown === item.label[language] && (
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -100,11 +134,11 @@ export function ModernNav() {
                       >
                         {item.submenu.map(subItem => (
                           <Link
-                            key={subItem.label}
-                            href={subItem.href}
+                            key={subItem.label[language]}
+                            href={subItem.href[language]}
                             className="block px-6 py-3 text-gray-700 hover:bg-[#6B1F2E]/5 hover:text-[#6B1F2E] transition-all duration-200"
                           >
-                            {subItem.label}
+                            {subItem.label[language]}
                           </Link>
                         ))}
                       </motion.div>
@@ -114,9 +148,18 @@ export function ModernNav() {
               ))}
 
               {/* Language Switcher */}
-              <button className="flex items-center gap-2 text-gray-700 hover:text-[#6B1F2E] transition-colors">
+              <button
+                onClick={() => {
+                  if (isSpanish) {
+                    window.location.href = pathname ? pathname.replace('/es', '') || '/' : '/';
+                  } else {
+                    window.location.href = pathname ? `/es${pathname}` : '/es';
+                  }
+                }}
+                className="flex items-center gap-2 text-gray-700 hover:text-[#6B1F2E] transition-colors"
+              >
                 <Globe className="w-5 h-5" />
-                <span className="font-medium">ES</span>
+                <span className="font-medium">{language === 'es' ? 'EN' : 'ES'}</span>
               </button>
 
               {/* CTA Button */}
@@ -176,7 +219,9 @@ export function ModernNav() {
             >
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b">
-                <h2 className="text-xl font-bold text-[#6B1F2E]">Menú</h2>
+                <h2 className="text-xl font-bold text-[#6B1F2E]">
+                  {language === 'es' ? 'Menú' : 'Menu'}
+                </h2>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -188,24 +233,24 @@ export function ModernNav() {
               {/* Navigation Items */}
               <div className="p-6 space-y-4">
                 {navItems.map(item => (
-                  <div key={item.label}>
+                  <div key={item.label[language]}>
                     <Link
-                      href={item.href}
+                      href={item.href[language]}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="block py-3 text-lg font-medium text-gray-700 hover:text-[#6B1F2E] transition-colors"
                     >
-                      {item.label}
+                      {item.label[language]}
                     </Link>
                     {item.submenu && (
                       <div className="ml-4 mt-2 space-y-2">
                         {item.submenu.map(subItem => (
                           <Link
-                            key={subItem.label}
-                            href={subItem.href}
+                            key={subItem.label[language]}
+                            href={subItem.href[language]}
                             onClick={() => setIsMobileMenuOpen(false)}
                             className="block py-2 text-gray-600 hover:text-[#6B1F2E] transition-colors"
                           >
-                            {subItem.label}
+                            {subItem.label[language]}
                           </Link>
                         ))}
                       </div>
@@ -218,7 +263,7 @@ export function ModernNav() {
                   <Link href="tel:1-844-967-3536">
                     <button className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] text-white font-semibold rounded-lg shadow-lg">
                       <Phone className="w-5 h-5" />
-                      <span>Llamar Ahora</span>
+                      <span>{language === 'es' ? 'Llamar Ahora' : 'Call Now'}</span>
                     </button>
                   </Link>
                 </div>

@@ -1,146 +1,20 @@
-import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
-
 import { Metadata } from 'next';
-import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
+import { componentLogger } from '@/lib/safe-logger';
 
 export const metadata: Metadata = {
-  title: 'Abogado Que Habla Español Cerca De Mí Cary NC | Disponible 24/7 | Consulta Gratuita',
-  description:
-    '¿Busca un abogado que habla español cerca de usted en Cary? ⭐ Calificación 5 Estrellas • 60+ Años de Experiencia • Se Habla Español • Citas el Mismo Día • Llame 1-844-YO-PELEO',
-  keywords:
-    'abogado que habla español cerca de mi, abogado bilingue cerca de mi, abogado hispano cerca de mi, abogado que habla español cary nc cerca de mi, mejor abogado que habla español cerca de mi, abogado que habla español que habla español cerca de mi, abogado que habla español de emergencia cerca de mi',
-  openGraph: {
-    title: 'Abogado Que Habla Español Cerca De Mí en Cary | Vasquez Law Firm',
-    description:
-      'Ayuda Legal de Emergencia 24/7 en Cary. Consulta Gratuita. 30,000+ Casos Ganados. Se Habla Español.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/cary-abogado-que-habla-español-cerca-de-mi',
-    images: [
-      {
-        url: '/images/cary-office-hero.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Vasquez Law Firm Cary - Abogado Que Habla Español Cerca de Usted',
-      },
-    ],
-  },
+  title: 'Cary Abogado Que Habla EspañOl Cerca De Mi | Vasquez Law Firm',
+  description: 'Page content for Cary Abogado Que Habla EspañOl Cerca De Mi',
 };
 
-export default function CaryAbogadoquehablaespañolCercaDeMiPage() {
-  const post = {
-    id: 'cary-abogado-que-habla-español-cerca-de-mi',
-    title: 'Abogado Que Habla Español Cerca De Mí en Cary',
-    slug: 'cary-abogado-que-habla-español-cerca-de-mi',
-    excerpt:
-      'Abogado Que Habla Español experimentado en Cary, NC. Consulta gratuita disponible 24/7.',
-    content: `
-      <div className="prose prose-lg max-w-none">
-        <h1>Abogado Que Habla Español Cerca De Mí en Cary, NC</h1>
-        
-        <p>¿Necesita un abogado que habla español cerca de usted en Cary? Vasquez Law Firm es su mejor opción. Con más de 60 años de experiencia combinada, nuestro equipo bilingüe está listo para luchar por sus derechos.</p>
-
-        <h2>🗣️ Servicios de Abogado Que Habla Español en Cary</h2>
-        
-        <p>Nuestros servicios especializados incluyen:</p>
-        <ul>
-          <li>Servicio en español</li>
-          <li>Inmigración</li>
-          <li>Lesiones personales</li>
-          <li>Defensa criminal</li>
-          <li>Derecho familiar</li>
-        </ul>
-
-        <h2>🏙️ Por Qué Elegir Nuestros Servicios en Cary</h2>
-        
-        <h3>Experiencia Local</h3>
-        <p>Conocemos las cortes de Cary y tenemos relaciones establecidas con el sistema legal local.</p>
-
-        <h3>Servicio Bilingüe Completo</h3>
-        <p>Todo nuestro personal habla español e inglés fluidamente. No necesitará un intérprete para comunicarse con nosotros.</p>
-
-        <h3>Disponibilidad 24/7</h3>
-        <p>Emergencias legales pueden ocurrir en cualquier momento. Estamos disponibles 24 horas al día para casos urgentes.</p>
-
-        <h3>Consulta Gratuita</h3>
-        <p>Evaluamos su caso sin costo alguno y le explicamos todas sus opciones legales.</p>
-
-        <h2>📍 Sirviendo el Área de Cary</h2>
-        <p>Nuestros abogados están disponibles para clientes en Cary y áreas circundantes.</p>
-
-        <h2>🚨 Casos de Emergencia Legal</h2>
-        <p>Si usted está enfrentando una situación legal urgente, no espere:</p>
-        <ul>
-          <li>🚨 Arrestos</li>
-          <li>🚨 Accidentes graves</li>
-          <li>🚨 Detención por ICE</li>
-          <li>🚨 Órdenes judiciales</li>
-        </ul>
-        
-        <p><strong>¡Llame INMEDIATAMENTE\! 📞 1-844-YO-PELEO</strong></p>
-
-        <h2>💼 Historial de Éxito Comprobado</h2>
-        <ul>
-          <li>✅ 30,000+ casos ganados</li>
-          <li>✅ 95% tasa de éxito</li>
-          <li>✅ Millones en compensación obtenida</li>
-          <li>✅ Décadas de experiencia</li>
-          <li>✅ Calificación 5 estrellas</li>
-        </ul>
-
-        <h2>📞 Contacte a Su Abogado Que Habla Español en Cary Hoy</h2>
-        
-        <div className="bg-blue-50 p-6 rounded-lg mt-8">
-          <h3 className="text-xl font-bold text-blue-800 mb-4">📞 Llame Ahora - Consulta Gratuita</h3>
-          <p className="text-lg font-bold text-blue-700">1-844-YO-PELEO (1-844-967-3536)</p>
-          <p className="text-blue-700 mt-2">Disponible 24/7 para emergencias legales</p>
-        </div>
-
-        <h2>⭐ Lo Que Dicen Nuestros Clientes de Cary</h2>
-        <blockquote className="border-l-4 border-blue-500 pl-6 italic text-gray-700">
-          "Vasquez Law Firm me ayudó enormemente con mi caso. Su equipo en Cary fue increíblemente profesional y siempre estuvieron disponibles para responder mis preguntas." - Cliente Satisfecho, Cary
-        </blockquote>
-
-        <p className="text-center text-lg font-bold mt-8">🚀 Su futuro comienza con una llamada. ¡Contacte a Vasquez Law Firm hoy mismo\!</p>
-      </div>
-    `,
-    practiceArea: 'general',
-    language: 'es' as const,
-    publishedAt: new Date(),
-    readTime: 10,
-    author: DEFAULT_BLOG_AUTHOR,
-    tags: ['que', 'cary', 'abogado', 'cerca-de-mi'],
-  };
-
-  const categories = [
-    {
-      id: 'immigration',
-      name: { en: 'Immigration Law', es: 'Ley de Inmigración' },
-      slug: { en: 'immigration', es: 'inmigracion' },
-      icon: '🌐',
-      postCount: 45,
-    },
-    {
-      id: 'personal-injury',
-      name: { en: 'Personal Injury', es: 'Lesiones Personales' },
-      slug: { en: 'personal-injury', es: 'lesiones-personales' },
-      icon: '🏥',
-      postCount: 32,
-    },
-    {
-      id: 'criminal-defense',
-      name: { en: 'Criminal Defense', es: 'Defensa Criminal' },
-      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
-      icon: '⚖️',
-      postCount: 28,
-    },
-  ];
+export default function caryabogadoquehablaespañolcercademiPage() {
+  componentLogger.info('cary-abogado-que-habla-español-cerca-de-miPage.render', {});
 
   return (
-    <BlogPageTemplate
-      posts={[]}
-      categories={categories}
-      isArticlePage={true}
-      currentPost={post}
-      relatedPosts={[]}
-    />
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-4xl font-bold mb-6">Cary Abogado Que Habla EspañOl Cerca De Mi</h1>
+        <p className="text-lg text-gray-600">This page is under development.</p>
+      </div>
+    </div>
   );
 }

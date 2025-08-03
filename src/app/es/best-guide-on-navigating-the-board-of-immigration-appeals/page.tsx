@@ -1,22 +1,75 @@
+import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
-import { componentLogger } from '@/lib/safe-logger';
+import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
 export const metadata: Metadata = {
-  title: 'Best Guide On Navigating The Board Of Immigration Appeals | Vasquez Law Firm',
-  description: 'Página en español para Best Guide On Navigating The Board Of Immigration Appeals',
+  title: 'Best Guide on Navigating the Board of Inmigración Appeals - Vasquez Law Firm, PLLC',
+  description:
+    'Master the appeal process with expert advice on the Board of Inmigración Appeals. Learn how to navigate complexities and boost your chances of success.',
+  openGraph: {
+    title: 'Best Guide on Navigating the Board of Inmigración Appeals - Vasquez Law Firm, PLLC',
+    description:
+      'Master the appeal process with expert advice on the Board of Inmigración Appeals. Learn how to navigate complexities and boost your chances of success.',
+    images: [
+      {
+        url: 'https://www.vasquezlawnc.com/wp-content/uploads/2025/01/How-to-Navigate-the-Complexities-of-the-Board-of-Inmigración-Appeals.jpg',
+      },
+    ],
+  },
 };
 
-export default function bestguideonnavigatingtheboardofimmigrationappealsPage() {
-  componentLogger.info('best-guide-on-navigating-the-board-of-immigration-appealsPage.render', {});
+export default function BestGuideOnNavigatingTheBoardOfInmigraciónAppealsPage() {
+  // TODO: Extract content from original file and format properly
+  const post = {
+    id: 'best-guide-on-navigating-the-board-of-immigration-appeals',
+    title: 'How to Navigate the Complexities of the Board of Inmigración Appeals?',
+    slug: 'best-guide-on-navigating-the-board-of-immigration-appeals',
+    excerpt: 'Blog post excerpt here - TODO: extract from content',
+    content: `
+      <div className="prose prose-lg max-w-none">
+        <!-- TODO: Migrate content from original file -->
+        <p>This content needs to be migrated from the original file.</p>
+      </div>
+    `,
+    practiceArea: 'general', // TODO: Determine correct practice area
+    language: 'en' as const,
+    publishedAt: new Date(),
+    readTime: 5,
+    author: DEFAULT_BLOG_AUTHOR,
+    tags: [], // TODO: Add relevant tags
+  };
+
+  const categories = [
+    {
+      id: 'immigration',
+      name: { en: 'Inmigración Law', es: 'Ley de Inmigración' },
+      slug: { en: 'immigration', es: 'inmigracion' },
+      icon: '🌐',
+      postCount: 45,
+    },
+    {
+      id: 'personal-injury',
+      name: { en: 'Lesiones Personales', es: 'Lesiones Personales' },
+      slug: { en: 'personal-injury', es: 'lesiones-personales' },
+      icon: '🏥',
+      postCount: 32,
+    },
+    {
+      id: 'criminal-defense',
+      name: { en: 'Defensa Criminal', es: 'Defensa Criminal' },
+      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
+      icon: '⚖️',
+      postCount: 28,
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-6">Best Guide On Navigating The Board Of Immigration Appeals</h1>
-        <p className="text-lg text-gray-600">
-          Esta página está en desarrollo.
-        </p>
-      </div>
-    </div>
+    <BlogPageTemplate
+      posts={[]}
+      categories={categories}
+      isArticlePage={true}
+      currentPost={post}
+      relatedPosts={[]} // TODO: Add related posts
+    />
   );
 }

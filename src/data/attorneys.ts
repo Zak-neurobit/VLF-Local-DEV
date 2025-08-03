@@ -43,7 +43,7 @@ export const attorneys: Attorney[] = [
     slug: 'william-vasquez',
     title: 'Attorney and Founder',
     titleEs: 'Director Ejecutivo y Abogado Principal',
-    image: '/william-vasquez-cutout.png',
+    image: '/images/attorneys/WV-Headshot.JPEG',
     practiceAreas: [
       'Immigration Law',
       'Criminal Defense',

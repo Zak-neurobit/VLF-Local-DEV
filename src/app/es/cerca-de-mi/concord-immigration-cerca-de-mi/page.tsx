@@ -1,33 +1,20 @@
-import ConcordImmigrationCercaDeMiClient from './concordimmigrationNearMeClient';
+import { Metadata } from 'next';
+import { componentLogger } from '@/lib/safe-logger';
 
-export default function ConcordImmigrationCercaDeMiPage() {
-  return <ConcordImmigrationCercaDeMiClient />;
-}
-export const metadata = {
-  title: 'Abogado de Inmigración Cerca de Mi en Concord, NC | Vasquez Law Firm',
-  description:
-    'Encuentre el mejor abogado de inmigración cerca de usted en Concord, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-  keywords:
-    'abogado de inmigración cerca de mi, abogado de inmigración Concord, abogado Concord, abogado de inmigración NC, abogado español Concord',
-  openGraph: {
-    title: 'Abogado de Inmigración Cerca de Mi en Concord, NC | Vasquez Law Firm',
-    description:
-      'Encuentre el mejor abogado de inmigración cerca de usted en Concord, NC. Consultas gratuitas 24/7. Llame (704) 533-7000.',
-    url: 'https://www.vasquezlawnc.com/es/cerca-de-mi/concord-immigration-cerca-de-mi',
-    images: [
-      {
-        url: 'https://www.vasquezlawnc.com/images/concord-immigration-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Abogado de Inmigración Cerca de Mi en Concord, NC',
-      },
-    ],
-  },
-  alternates: {
-    canonical: 'https://www.vasquezlawnc.com/es/cerca-de-mi/concord-immigration-cerca-de-mi',
-    languages: {
-      'en-US': 'https://www.vasquezlawnc.com/near-me/concord-immigration-near-me',
-      'es-ES': 'https://www.vasquezlawnc.com/es/cerca-de-mi/concord-immigration-cerca-de-mi',
-    },
-  },
+export const metadata: Metadata = {
+  title: 'Concord Inmigración Cerca De Mi | Vasquez Law Firm',
+  description: 'Page content for Concord Inmigración Cerca De Mi',
 };
+
+export default function concordimmigrationcercademiPage() {
+  componentLogger.info('concord-immigration-cerca-de-miPage.render', {});
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-4xl font-bold mb-6">Concord Inmigración Cerca De Mi</h1>
+        <p className="text-lg text-gray-600">This page is under development.</p>
+      </div>
+    </div>
+  );
+}

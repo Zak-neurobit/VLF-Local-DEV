@@ -1,0 +1,4 @@
+// TODO: Implement location page template for /es/ubicaciones/nc/holly-springs
+export default function Page() {
+  return <div>Coming soon...</div>;
+}

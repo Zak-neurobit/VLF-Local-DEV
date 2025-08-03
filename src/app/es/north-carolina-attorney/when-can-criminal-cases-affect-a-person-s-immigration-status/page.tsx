@@ -1,22 +1,71 @@
+import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 import { Metadata } from 'next';
-import { componentLogger } from '@/lib/safe-logger';
+import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 
 export const metadata: Metadata = {
-  title: 'When Can Criminal Cases Affect A Person S Immigration Status | Vasquez Law Firm',
-  description: 'Página en español para When Can Criminal Cases Affect A Person S Immigration Status',
+  title: 'Page not found - Vasquez Law Firm, PLLC',
+  description:
+    "Meet No Results Found - Experienced immigration and personal injury attorney at Vasquez Law Firm. 10+ years fighting for clients' rights. Free consultation.",
+  openGraph: {
+    title: 'Page not found - Vasquez Law Firm, PLLC',
+    description:
+      "Meet No Results Found - Experienced immigration and personal injury attorney at Vasquez Law Firm. 10+ years fighting for clients' rights. Free consultation.",
+    images: [{ url: '/images/og-default.jpg' }],
+  },
 };
 
-export default function whencancriminalcasesaffectapersonsimmigrationstatusPage() {
-  componentLogger.info('when-can-criminal-cases-affect-a-person-s-immigration-statusPage.render', {});
+export default function WhenCanCriminalCasesAffectAPersonSInmigraciónStatusPage() {
+  // TODO: Extract content from original file and format properly
+  const post = {
+    id: 'when-can-criminal-cases-affect-a-person-s-immigration-status',
+    title: 'No Results Found',
+    slug: 'when-can-criminal-cases-affect-a-person-s-immigration-status',
+    excerpt: 'Blog post excerpt here - TODO: extract from content',
+    content: `
+      <div className="prose prose-lg max-w-none">
+        <!-- TODO: Migrate content from original file -->
+        <p>This content needs to be migrated from the original file.</p>
+      </div>
+    `,
+    practiceArea: 'general', // TODO: Determine correct practice area
+    language: 'en' as const,
+    publishedAt: new Date(),
+    readTime: 5,
+    author: DEFAULT_BLOG_AUTHOR,
+    tags: [], // TODO: Add relevant tags
+  };
+
+  const categories = [
+    {
+      id: 'immigration',
+      name: { en: 'Inmigración Law', es: 'Ley de Inmigración' },
+      slug: { en: 'immigration', es: 'inmigracion' },
+      icon: '🌐',
+      postCount: 45,
+    },
+    {
+      id: 'personal-injury',
+      name: { en: 'Lesiones Personales', es: 'Lesiones Personales' },
+      slug: { en: 'personal-injury', es: 'lesiones-personales' },
+      icon: '🏥',
+      postCount: 32,
+    },
+    {
+      id: 'criminal-defense',
+      name: { en: 'Defensa Criminal', es: 'Defensa Criminal' },
+      slug: { en: 'criminal-defense', es: 'defensa-criminal' },
+      icon: '⚖️',
+      postCount: 28,
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-6">When Can Criminal Cases Affect A Person S Immigration Status</h1>
-        <p className="text-lg text-gray-600">
-          Esta página está en desarrollo.
-        </p>
-      </div>
-    </div>
+    <BlogPageTemplate
+      posts={[]}
+      categories={categories}
+      isArticlePage={true}
+      currentPost={post}
+      relatedPosts={[]} // TODO: Add related posts
+    />
   );
 }

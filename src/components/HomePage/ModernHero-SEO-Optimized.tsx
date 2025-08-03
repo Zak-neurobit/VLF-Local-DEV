@@ -196,9 +196,12 @@ export default function ModernHero({ language }: ModernHeroProps) {
     });
 
     // Testimonial rotation
-    const interval = t.testimonials && t.testimonials.length > 0 ? setInterval(() => {
-      setCurrentTestimonial(prev => (prev + 1) % t.testimonials.length);
-    }, 5000) : undefined;
+    const interval =
+      t.testimonials && t.testimonials.length > 0
+        ? setInterval(() => {
+            setCurrentTestimonial(prev => (prev + 1) % t.testimonials.length);
+          }, 5000)
+        : undefined;
 
     return () => {
       observer?.disconnect();
@@ -289,7 +292,7 @@ export default function ModernHero({ language }: ModernHeroProps) {
                 }}
               >
                 <Image
-                  src="/william-vasquez-cutout.png"
+                  src="/images/attorneys/WV-Headshot.JPEG"
                   alt="William Vasquez - Immigration Lawyer and Personal Injury Attorney - Founding Partner at Vasquez Law Firm"
                   width={400}
                   height={533}

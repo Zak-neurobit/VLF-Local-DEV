@@ -1,0 +1,22 @@
+{
+  "generated": "2025-08-03T02:26:35.175Z",
+  "statistics": {
+    "totalPages": 6578,
+    "englishPages": 3287,
+    "spanishPages": 3291,
+    "pairedPages": 2855,
+    "missingTranslations": 868
+  },
+  "categoryBreakdown": {
+    "static": 30,
+    "locations": 4075,
+    "practiceAreas": 796,
+    "blog": 108,
+    "nearMe": 1064,
+    "attorneys": 42,
+    "resources": 22,
+    "other": 441
+  },
+  "targetGoal": 6562,
+  "completionPercentage": 100
+}

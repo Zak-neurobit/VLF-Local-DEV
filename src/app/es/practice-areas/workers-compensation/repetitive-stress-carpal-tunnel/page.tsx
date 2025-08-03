@@ -1,16 +1,21 @@
-import { UniversalPageTemplate } from '@/components/templates/UniversalPageTemplate';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Repetitive Stress Carpal Tunnel | Vasquez Law Firm',
-  description: 'Página en español para repetitive-stress-carpal-tunnel',
+  title: '',
+  description: '',
+  openGraph: {
+    title: '',
+    description: '',
+  },
 };
 
-export default function Page() {
+export default function RepetitiveStressCarpalTunnelPage() {
   return (
-    <UniversalPageTemplate
-      title="Repetitive Stress Carpal Tunnel"
-      description="Esta página necesita ser traducida al español."
+    <PracticeAreaWrapper
+      practiceArea="workers-compensation"
+      subArea="repetitive-stress-carpal-tunnel"
+      language="en"
     />
   );
 }
