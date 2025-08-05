@@ -35,19 +35,16 @@ const nextConfig = {
   // Disable x-powered-by header for security
   poweredByHeader: false,
 
-  // Build optimizations for large projects with full static generation
+  // Build optimizations for large projects with limited memory
   experimental: {
-    // Next.js 15 experimental features
-    // Server Components optimizations
-    serverMinification: true,
+    // Reduce memory usage during build
+    workerThreads: false, // Disable worker threads to save memory
+    serverMinification: false, // Reduce build-time memory usage
     serverSourceMaps: false,
     // Optimize package imports
     optimizePackageImports: [
       'lucide-react',
       'date-fns',
-      '@radix-ui/react-icons',
-      '@radix-ui/react-accordion',
-      '@radix-ui/react-dialog',
       '@radix-ui/react-dropdown-menu',
       '@radix-ui/react-select',
       '@radix-ui/react-tabs',
