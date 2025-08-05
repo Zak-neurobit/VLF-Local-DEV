@@ -3,11 +3,12 @@ import { securityLogger } from '@/lib/safe-logger';
 import { performanceLogger, logger } from '@/lib/safe-logger';
 import { errorToLogMeta } from '@/lib/safe-logger';
 
-// Redis connection configuration
+// Redis connection configuration (DEPRECATED - Always use MockRedis)
+// This project no longer uses Redis. All caching is handled at the application level.
 const redisConfig = {
-  host: process.env.REDIS_HOST || 'localhost',
-  port: parseInt(process.env.REDIS_PORT || '6379'),
-  password: process.env.REDIS_PASSWORD || undefined,
+  host: 'localhost',
+  port: 6379,
+  password: undefined,
   retryStrategy: (times: number) => {
     const delay = Math.min(times * 50, 2000);
     return delay;
@@ -106,48 +107,18 @@ let _bullRedis: Redis | MockRedis | null = null;
 
 function getRedis() {
   if (!_redis) {
-    _redis =
-      process.env.MOCK_REDIS === 'true' ||
-      (process.env.NODE_ENV === 'production' && !process.env.REDIS_HOST)
-        ? (new MockRedis() as MockRedis)
-        : new Redis(redisConfig);
-
-    // Only connect if not mock
-    if (!(_redis instanceof MockRedis)) {
-      (_redis as Redis)
-        .connect()
-        .catch((err: Error) => logger.error('Redis connection failed', errorToLogMeta(err)));
-
-      (_redis as Redis).on('connect', () => {
-        logger.info('Redis connected successfully');
-      });
-
-      (_redis as Redis).on('error', (error: Error) => {
-        logger.error('Redis connection error:', errorToLogMeta(error));
-      });
-
-      (_redis as Redis).on('close', () => {
-        logger.warn('Redis connection closed');
-      });
-    }
+    // Always use MockRedis - this project no longer uses Redis
+    _redis = new MockRedis() as MockRedis;
+    logger.info('Using in-memory cache (MockRedis)');
   }
   return _redis;
 }
 
 function getBullRedis() {
   if (!_bullRedis) {
-    _bullRedis =
-      process.env.MOCK_REDIS === 'true' ||
-      (process.env.NODE_ENV === 'production' && !process.env.REDIS_HOST)
-        ? (new MockRedis() as MockRedis)
-        : new Redis(redisConfig);
-
-    // Only connect if not mock
-    if (!(_bullRedis instanceof MockRedis)) {
-      (_bullRedis as Redis)
-        .connect()
-        .catch((err: Error) => logger.error('Bull Redis connection failed', errorToLogMeta(err)));
-    }
+    // Always use MockRedis for Bull queues
+    _bullRedis = new MockRedis() as MockRedis;
+    logger.info('Using in-memory cache for Bull queues (MockRedis)');
   }
   return _bullRedis;
 }
@@ -162,7 +133,7 @@ export const redis = new Proxy({} as Redis, {
       _exportRedis = getRedis() as Redis;
     }
     return (_exportRedis as any)[prop];
-  }
+  },
 });
 
 export const bullRedis = new Proxy({} as Redis, {
@@ -171,7 +142,7 @@ export const bullRedis = new Proxy({} as Redis, {
       _exportBullRedis = getBullRedis() as Redis;
     }
     return (_exportBullRedis as any)[prop];
-  }
+  },
 });
 
 class CacheManager {

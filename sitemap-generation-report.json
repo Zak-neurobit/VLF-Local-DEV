@@ -1,21 +1,21 @@
 {
-  "generated": "2025-08-03T02:26:35.175Z",
+  "generated": "2025-08-04T03:26:13.689Z",
   "statistics": {
     "totalPages": 6578,
     "englishPages": 3287,
     "spanishPages": 3291,
-    "pairedPages": 2855,
-    "missingTranslations": 868
+    "pairedPages": 2776,
+    "missingTranslations": 1026
   },
   "categoryBreakdown": {
     "static": 30,
-    "locations": 4075,
-    "practiceAreas": 796,
+    "locations": 4555,
+    "practiceAreas": 797,
     "blog": 108,
-    "nearMe": 1064,
+    "nearMe": 582,
     "attorneys": 42,
-    "resources": 22,
-    "other": 441
+    "resources": 24,
+    "other": 440
   },
   "targetGoal": 6562,
   "completionPercentage": 100

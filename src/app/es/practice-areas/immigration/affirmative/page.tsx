@@ -6,7 +6,7 @@ import { InternalLinkingSection } from '@/components/SEO/InternalLinkingSection'
 import { HowToSchema } from '@/components/SEO/HowToSchema';
 import Link from 'next/link';
 import { ChevronRight, Award, Users, Clock, Shield } from 'lucide-react';
-
+import { AffirmativeClient } from './AffirmativeClient';
 export const metadata: Metadata = {
   title: 'Affirmative Inmigración Services NC | Family Petitions, Green Cards & Citizenship',
   description:
@@ -73,7 +73,7 @@ export default function AffirmativeInmigraciónPage() {
         'I-130 petition preparation',
         'Document translation and authentication',
       ],
-      link: '/areas-de-practica/immigration/affirmative/family-based-petitions',
+      link: '/practice-areas/immigration/affirmative/family-based-petitions',
     },
     {
       title: 'Green Card Applications',
@@ -87,7 +87,7 @@ export default function AffirmativeInmigraciónPage() {
         'Work and travel permits',
         'Medical exam coordination',
       ],
-      link: '/areas-de-practica/immigration/affirmative/green-cards',
+      link: '/practice-areas/immigration/affirmative/green-cards',
     },
     {
       title: 'Citizenship & Naturalization',
@@ -101,7 +101,7 @@ export default function AffirmativeInmigraciónPage() {
         'Expedited processing when available',
         'Certificate replacements',
       ],
-      link: '/areas-de-practica/immigration/affirmative/citizenship',
+      link: '/practice-areas/immigration/affirmative/citizenship',
     },
     {
       title: 'DACA Services',
@@ -115,7 +115,7 @@ export default function AffirmativeInmigraciónPage() {
         'Status violation assessment',
         'Future pathway planning',
       ],
-      link: '/areas-de-practica/immigration/affirmative/daca',
+      link: '/practice-areas/immigration/affirmative/daca',
     },
     {
       title: 'Temporary Protected Status (TPS)',
@@ -129,7 +129,7 @@ export default function AffirmativeInmigraciónPage() {
         'Country designation updates',
         'Status maintenance guidance',
       ],
-      link: '/areas-de-practica/immigration/affirmative/tps',
+      link: '/practice-areas/immigration/affirmative/tps',
     },
     {
       title: 'Work Permits & Employment Authorization',
@@ -333,15 +333,7 @@ export default function AffirmativeInmigraciónPage() {
                 Don't wait to secure your future in America. Our experienced team is ready to guide
                 you through every step of the affirmative immigration process.
               </p>
-              <div className="text-center">
-                <Link
-                  href="/es/contacto"
-                  className="inline-flex items-center bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
-                >
-                  Comience Su Consulta Gratis
-                  <ChevronRight className="ml-2 h-5 w-5" />
-                </Link>
-              </div>
+              <AffirmativeClient />
             </section>
 
             <InternalLinkingSection

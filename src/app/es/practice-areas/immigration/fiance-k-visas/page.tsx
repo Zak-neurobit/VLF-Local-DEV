@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
-
 export const metadata: Metadata = {
   title: 'Fiancé K-1 Visa Abogados NC & FL | K-1/K-2/K-3 Inmigración Abogados | Vasquez Law Firm',
   description:

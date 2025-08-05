@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-
 export const metadata: Metadata = {
   title: `Point criminal defense Near Me in High | Vasquez Law Firm`,
   description: `Find the best point criminal defense near you in High. Experienced legal representation.`,

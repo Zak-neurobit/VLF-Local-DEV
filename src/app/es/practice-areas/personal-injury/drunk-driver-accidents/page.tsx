@@ -1,6 +1,5 @@
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
-
 export const metadata: Metadata = {
   title: 'NC Drunk Driver Accident Abogado | DWI Victim Abogado | Vasquez Law Firm',
   description:

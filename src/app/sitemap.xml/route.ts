@@ -8,12 +8,13 @@ const baseUrl = 'https://www.vasquezlawnc.com';
 export async function GET() {
   // Sub-sitemaps for better organization and performance
   const sitemaps = [
-    { loc: `${baseUrl}/sitemap-pages.xml`, lastmod: new Date().toISOString() },
-    { loc: `${baseUrl}/sitemap-blog.xml`, lastmod: new Date().toISOString() },
-    { loc: `${baseUrl}/sitemap-attorneys.xml`, lastmod: new Date().toISOString() },
+    { loc: `${baseUrl}/sitemap-complete.xml`, lastmod: new Date().toISOString() },
+    { loc: `${baseUrl}/sitemap-locations.xml`, lastmod: new Date().toISOString() },
     { loc: `${baseUrl}/sitemap-practice-areas.xml`, lastmod: new Date().toISOString() },
-    { loc: `${baseUrl}/sitemap-resources.xml`, lastmod: new Date().toISOString() },
-    { loc: `${baseUrl}/sitemap-landing-pages.xml`, lastmod: new Date().toISOString() },
+    { loc: `${baseUrl}/sitemap-blog.xml`, lastmod: new Date().toISOString() },
+    { loc: `${baseUrl}/sitemap-near-me.xml`, lastmod: new Date().toISOString() },
+    { loc: `${baseUrl}/sitemap-attorneys.xml`, lastmod: new Date().toISOString() },
+    { loc: `${baseUrl}/sitemap-en.xml`, lastmod: new Date().toISOString() },
     { loc: `${baseUrl}/sitemap-es.xml`, lastmod: new Date().toISOString() },
   ];
 

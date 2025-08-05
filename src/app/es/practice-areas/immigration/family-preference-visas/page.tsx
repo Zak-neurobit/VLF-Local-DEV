@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
-
 export const metadata: Metadata = {
   title:
     'Family Preference Visas Abogados NC & FL | F1, F2A, F2B, F3, F4 Inmigración | Vasquez Law Firm',

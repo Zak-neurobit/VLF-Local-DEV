@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Script from 'next/script';
-
 export const metadata: Metadata = {
   title: 'Top Lesiones Personales Abogados in NC | No Fee Unless We Win | Vasquez Law Firm',
   description:

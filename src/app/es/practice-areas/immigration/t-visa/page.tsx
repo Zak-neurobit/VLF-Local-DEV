@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
-
 export const metadata: Metadata = {
   title:
     'T Visa Abogados NC & FL | Human Trafficking Victim Inmigración Abogados | Vasquez Law Firm',

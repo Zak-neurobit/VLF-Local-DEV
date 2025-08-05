@@ -1,16 +1,21 @@
-import { UniversalPageTemplate } from '@/components/templates/UniversalPageTemplate';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Third Party Injury Claims | Vasquez Law Firm',
-  description: 'Página en español para third-party-injury-claims',
+  title: '',
+  description: '',
+  openGraph: {
+    title: '',
+    description: '',
+  },
 };
 
-export default function Page() {
+export default function ThirdPartyInjuryClaimsPage() {
   return (
-    <UniversalPageTemplate
-      title="Third Party Injury Claims"
-      description="Esta página necesita ser traducida al español."
+    <PracticeAreaWrapper
+      practiceArea="workers-compensation"
+      subArea="third-party-injury-claims"
+      language="en"
     />
   );
 }

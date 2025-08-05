@@ -19,7 +19,7 @@ export default function KissimmeeInmigraciónPage() {
           <p>We offer expert legal representation in immigration.</p>
         </section>
         <section>
-          <h2 className="text-2xl font-semibold mb-3">Contacto Us</h2>
+          <h2 className="text-2xl font-semibold mb-3">Contact Us</h2>
           <p>Get in touch with our Kissimmee office today for a consultation.</p>
         </section>
       </div>

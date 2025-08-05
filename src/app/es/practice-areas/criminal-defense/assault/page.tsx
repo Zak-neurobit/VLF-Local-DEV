@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Script from 'next/script';
-
 export const metadata: Metadata = {
   title: 'Assault Charges Abogado NC | Battery Defense Abogado | Vasquez Law Firm',
   description:

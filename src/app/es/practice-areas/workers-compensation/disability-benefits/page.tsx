@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
-
 export const metadata: Metadata = {
   title: 'Disability Benefits | Vasquez Law Firm',
   description: 'Securing disability benefits for workplace injuries',

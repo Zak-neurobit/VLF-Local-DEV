@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
-
 export const metadata: Metadata = {
   title: 'Denied Claims | Vasquez Law Firm',
   description: 'Appealing denied workers compensation claims',

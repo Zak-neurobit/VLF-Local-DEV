@@ -1,6 +1,5 @@
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
-
 export const metadata: Metadata = {
   title: 'Drug Crime Defense Abogados NC & FL | Possession & Trafficking | Vasquez Law Firm',
   description:

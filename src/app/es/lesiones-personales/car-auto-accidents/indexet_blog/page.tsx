@@ -87,7 +87,7 @@ export default function IndexetBlogPage() {
           <li><strong>Call the Police:</strong> An official accident report provides crucial evidence</li>
           <li><strong>Document Everything:</strong> Take photos, get witness information, and keep all records</li>
           <li><strong>Don't Admit Fault:</strong> Even saying "I'm sorry" can be used against you</li>
-          <li><strong>Contacto an Abogado:</strong> Before speaking with insurance companies, get legal advice</li>
+          <li><strong>Contact an Abogado:</strong> Before speaking with insurance companies, get legal advice</li>
         </ol>
 
         <h3>How Vasquez Law Firm Can Help</h3>
@@ -118,9 +118,9 @@ export default function IndexetBlogPage() {
         
         <p>In North Carolina, you generally have three years from the date of the accident to file a personal injury lawsuit. However, certain circumstances can shorten this deadline. Don't wait - evidence can disappear, witnesses' memories fade, and your rights may be lost.</p>
 
-        <h3>Contacto Our Raleigh Car Accident Abogados Today</h3>
+        <h3>Contact Our Raleigh Car Accident Abogados Today</h3>
         
-        <p>If you or a loved one has been injured in a car accident, don't face the insurance companies alone. Contacto Vasquez Law Firm today for a free consultation. We'll review your case, explain your rights, and fight tirelessly to get you the compensation you deserve.</p>
+        <p>If you or a loved one has been injured in a car accident, don't face the insurance companies alone. Contact Vasquez Law Firm today for a free consultation. We'll review your case, explain your rights, and fight tirelessly to get you the compensation you deserve.</p>
         
         <p>Call us at (888) 888-8888 or fill out our online form. We're available 24/7 to take your call. Remember, there's no fee unless we win your case.</p>
       </div>

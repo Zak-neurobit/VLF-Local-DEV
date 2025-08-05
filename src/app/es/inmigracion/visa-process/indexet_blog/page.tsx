@@ -141,7 +141,7 @@ export default function IndexetBlogPage() {
         
         <p>Don't navigate the complex immigration system alone. Whether you're seeking to bring family members to the U.S., pursue employment opportunities, or invest in the American dream, Vasquez Law Firm is here to help.</p>
         
-        <p>Contacto us today at (888) 888-8888 to schedule a consultation. Our experienced immigration attorneys will evaluate your situation, explain your options, and develop a strategy to achieve your immigration goals. Se habla español.</p>
+        <p>Contact us today at (888) 888-8888 to schedule a consultation. Our experienced immigration attorneys will evaluate your situation, explain your options, and develop a strategy to achieve your immigration goals. Se habla español.</p>
       </div>
     `,
     practiceArea: 'immigration',

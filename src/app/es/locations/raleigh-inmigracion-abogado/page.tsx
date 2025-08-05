@@ -1,16 +1,6 @@
-import { UniversalPageTemplate } from '@/components/templates/UniversalPageTemplate';
-import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
-export const metadata: Metadata = {
-  title: 'Raleigh Immigration Lawyer | Vasquez Law Firm',
-  description: 'Página en español para raleigh-immigration-lawyer',
-};
-
-export default function Page() {
-  return (
-    <UniversalPageTemplate
-      title="Raleigh Immigration Lawyer"
-      description="Esta página necesita ser traducida al español."
-    />
-  );
+// This page redirects to the correct URL structure
+export default function RaleighInmigraciónAbogadoRedirect() {
+  redirect('/ubicaciones/raleigh/immigration-lawyer');
 }

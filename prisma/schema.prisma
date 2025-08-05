@@ -440,10 +440,9 @@ model Contact {
   @@index([smsOptIn, smsOptOut])
 }
 
-// Enhanced SMS Logging for GHL and Twilio Integration
+// SMS Logging for GHL Integration
 model SmsLog {
   id            String       @id @default(cuid())
-  twilioSid     String?      @unique // For Twilio integration
   ghlContactId  String?
   ghlMessageId  String?      @unique
   contactId     String?
@@ -466,7 +465,6 @@ model SmsLog {
   metadata      Json         @default("{}")
   createdAt     DateTime     @default(now())
 
-  @@index([twilioSid])
   @@index([ghlContactId])
   @@index([ghlMessageId])
   @@index([contactId])
@@ -495,7 +493,6 @@ model PhoneNumber {
 // Call Logging
 model CallLog {
   id           String        @id @default(cuid())
-  twilioSid    String?       @unique // For Twilio integration
   contactId    String?
   contact      Contact?      @relation(fields: [contactId], references: [id])
   fromNumber   String
@@ -511,7 +508,6 @@ model CallLog {
   endedAt      DateTime?
   createdAt    DateTime      @default(now())
 
-  @@index([twilioSid])
   @@index([contactId])
   @@index([externalId])
   @@index([createdAt])
@@ -1366,7 +1362,7 @@ model ErrorLog {
   id String @id @default(cuid())
 
   // Error details
-  service   String // retell, ghl, twilio, etc.
+  service   String // retell, ghl, etc.
   errorType String
   message   String
   code      String?

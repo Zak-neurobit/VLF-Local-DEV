@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
-
 export const metadata: Metadata = {
   title: 'VAWA & U Visa Abogados NC & FL | Crime Victim Inmigración Protection | Vasquez Law Firm',
   description:

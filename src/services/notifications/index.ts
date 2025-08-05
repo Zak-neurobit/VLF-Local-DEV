@@ -1,7 +1,7 @@
 /**
  * Notification Service
  * Handles email, SMS, and in-app notifications
- * Now using GoHighLevel for SMS instead of Twilio
+ * Using GoHighLevel for SMS
  */
 
 import { logger } from '@/lib/safe-logger';

@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-
 export const metadata: Metadata = {
   title: `Personal injury Near Me in Greensboro | Vasquez Law Firm`,
   description: `Find the best personal injury near you in Greensboro. Experienced legal representation.`,

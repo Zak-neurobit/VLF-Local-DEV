@@ -12,13 +12,7 @@ const path = require('path');
 const REQUIRED_ENV_VARS = ['DATABASE_URL', 'NEXTAUTH_URL', 'NEXTAUTH_SECRET', 'OPENAI_API_KEY'];
 
 // Optional but recommended variables
-const RECOMMENDED_ENV_VARS = [
-  'REDIS_URL',
-  'GHL_API_KEY',
-  'GHL_LOCATION_ID',
-  'RETELL_API_KEY',
-  'SENTRY_DSN',
-];
+const RECOMMENDED_ENV_VARS = ['GHL_API_KEY', 'GHL_LOCATION_ID', 'RETELL_API_KEY', 'SENTRY_DSN'];
 
 // Check if .env.local exists
 const envPath = path.join(process.cwd(), '.env.local');

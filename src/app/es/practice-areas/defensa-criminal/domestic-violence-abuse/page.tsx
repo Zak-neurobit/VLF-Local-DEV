@@ -1,16 +1,21 @@
-import { UniversalPageTemplate } from '@/components/templates/UniversalPageTemplate';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Domestic Violence Abuse | Vasquez Law Firm',
-  description: 'Página en español para domestic-violence-abuse',
+  title: '',
+  description: '',
+  openGraph: {
+    title: '',
+    description: '',
+  },
 };
 
-export default function Page() {
+export default function DomesticViolenceAbusePage() {
   return (
-    <UniversalPageTemplate
-      title="Domestic Violence Abuse"
-      description="Esta página necesita ser traducida al español."
+    <PracticeAreaWrapper
+      practiceArea="criminal-defense"
+      subArea="domestic-violence-abuse"
+      language="en"
     />
   );
 }

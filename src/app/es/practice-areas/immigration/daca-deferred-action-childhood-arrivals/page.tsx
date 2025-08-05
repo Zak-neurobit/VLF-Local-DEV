@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
-
 export const metadata: Metadata = {
   title:
     'DACA Abogados NC & FL | Deferred Action Childhood Arrivals | Expert Dreamer Protection | Vasquez Law Firm',

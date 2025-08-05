@@ -1,7 +1,6 @@
 import { LocationPageTemplate } from '@/components/templates/LocationPageTemplate';
 
 import { Metadata } from 'next';
-
 export const metadata: Metadata = {
   title: 'Compensación Laboral Abogado Near Me in Winston | Vasquez Law Firm',
   description:
@@ -19,19 +18,19 @@ export default function WinstonWorkersCompensationNearMePage() {
             title: 'Inmigración Law',
             icon: '🌐',
             services: ['Green Cards', 'Citizenship', 'Work Visas', 'Deportation Defense'],
-            link: '/areas-de-practica/immigration-law',
+            link: '/practice-areas/immigration-law',
           },
           {
             title: 'Lesiones Personales',
             icon: '🏥',
             services: ['Car Accidents', 'Slip & Fall', 'Medical Malpractice', 'Wrongful Death'],
-            link: '/areas-de-practica/personal-injury',
+            link: '/practice-areas/personal-injury',
           },
           {
             title: 'Defensa Criminal',
             icon: '⚖️',
             services: ['DUI/DWI', 'Drug Charges', 'Assault', 'Theft Crimes'],
-            link: '/areas-de-practica/criminal-defense',
+            link: '/practice-areas/criminal-defense',
           },
         ],
         localInfo: {

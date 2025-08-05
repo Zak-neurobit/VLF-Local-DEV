@@ -1,6 +1,5 @@
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
-
 export const metadata: Metadata = {
   title: 'NC Traffic Ticket Abogado | Speeding & Moving Violations Abogado',
   description:

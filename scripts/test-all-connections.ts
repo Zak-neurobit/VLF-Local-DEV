@@ -4,7 +4,7 @@ import { logger } from '../src/lib/logger';
 import { getPrismaClient } from '../src/lib/prisma';
 import { getRetellClient } from '../src/services/retell/client';
 import { OpenAI } from 'openai';
-// import twilio from 'twilio'; // Not used - using GoHighLevel instead
+// Twilio has been removed - using GoHighLevel for SMS
 // import Stripe from 'stripe'; // Not used - using LawPay instead
 // import sgMail from '@sendgrid/mail'; // Not used - using Office 365 instead
 import * as Sentry from '@sentry/nextjs';

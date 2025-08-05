@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Script from 'next/script';
-
 export const metadata: Metadata = {
   title:
     'Best Derecho Familiar Abogado in North Carolina | Divorce & Custody Abogados | Vasquez Law Firm',

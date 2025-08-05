@@ -79,24 +79,9 @@ try {
   console.error('❌ Failed to generate Prisma client:', error.message);
 }
 
-// Check Redis connection
-console.log('🔍 Checking Redis connection...');
-try {
-  execSync('redis-cli ping', { stdio: 'ignore' });
-  console.log('✅ Redis is running\n');
-} catch (error) {
-  console.log('⚠️  Redis is not running. Starting Docker container...');
-  try {
-    execSync('docker-compose up -d redis', { stdio: 'inherit' });
-    console.log('✅ Redis started in Docker\n');
-  } catch (dockerError) {
-    console.log('⚠️  Redis not available. Some features may be limited.');
-    console.log('To install Redis:');
-    console.log('- Mac: brew install redis');
-    console.log('- Ubuntu: sudo apt-get install redis-server');
-    console.log('- Windows: Use WSL or Docker\n');
-  }
-}
+// Note: Redis has been removed from this project
+console.log('ℹ️  Redis is no longer required for this project');
+console.log('   All caching is handled at the application level\n');
 
 // Create required directories
 const directories = ['logs', 'uploads', 'temp', '.next/cache'];

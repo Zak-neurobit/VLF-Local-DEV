@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
-
 export const metadata: Metadata = {
   title: 'Adoption | Vasquez Law Firm',
   description: 'Legal assistance with adoption proceedings',

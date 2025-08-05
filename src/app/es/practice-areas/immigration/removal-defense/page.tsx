@@ -4,7 +4,6 @@ import Script from 'next/script';
 import { SmartBreadcrumbs } from '@/components/SEO/SmartBreadcrumbs';
 import { InternalLinkingSection } from '@/components/SEO/InternalLinkingSection';
 import { HowToSchema } from '@/components/SEO/HowToSchema';
-
 export const metadata: Metadata = {
   title: 'URGENT Removal Defense Abogado NC | Stop Deportation NOW 24/7',
   description:

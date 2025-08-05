@@ -2284,7 +2284,7 @@ function handleAction(action: Action) {
     const voiceAgentPath = path.join(this.srcDir, 'lib', 'voice-agent.js');
 
     const voiceCode = `// Voice AI Agent for phone calls
-const twilio = require('twilio');
+// Note: Twilio has been removed - using Retell AI for voice calls
 
 class VoiceAgent {
   constructor() {

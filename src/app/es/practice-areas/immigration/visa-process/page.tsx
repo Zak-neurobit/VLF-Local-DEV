@@ -1,6 +1,5 @@
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
-
 export const metadata: Metadata = {
   title: 'Raleigh, NC Immigrant Visa Abogados - Vasquez Law Firm, PLLC',
   description:

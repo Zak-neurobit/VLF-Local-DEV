@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
-
 export const metadata: Metadata = {
   title: 'Occupational Illness | Vasquez Law Firm',
   description: 'Compensation for work-related illnesses and diseases',

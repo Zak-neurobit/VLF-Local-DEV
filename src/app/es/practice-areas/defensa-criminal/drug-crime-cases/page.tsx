@@ -1,16 +1,17 @@
-import { UniversalPageTemplate } from '@/components/templates/UniversalPageTemplate';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Drug Crime Cases | Vasquez Law Firm',
-  description: 'Página en español para drug-crime-cases',
+  title: '',
+  description: '',
+  openGraph: {
+    title: '',
+    description: '',
+  },
 };
 
-export default function Page() {
+export default function DrugCrimeCasesPage() {
   return (
-    <UniversalPageTemplate
-      title="Drug Crime Cases"
-      description="Esta página necesita ser traducida al español."
-    />
+    <PracticeAreaWrapper practiceArea="criminal-defense" subArea="drug-crime-cases" language="en" />
   );
 }

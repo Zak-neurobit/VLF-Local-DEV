@@ -5,9 +5,9 @@ import { SEOOptimizationService } from '@/services/seo-optimization';
 import { blogImportService } from '@/services/blog/import-service';
 import type { BlogPost, RelatedPost, BlogPostResponse } from '@/types/api';
 
-export async function GET(req: NextRequest, { params }: { params: { slug: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   try {
-    const { slug } = params;
+    const { slug } = await params;
     // First try to find in database
     let post: BlogPost | null = (await getPrismaClient().blogPost.findUnique({
       where: { slug },

@@ -2,7 +2,6 @@ import { BlogPageTemplate } from '@/components/templates/BlogPageTemplate';
 
 import { Metadata } from 'next';
 import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
-
 export const metadata: Metadata = {
   title: 'Inmigración Abogado Near Me Charlotte NC | 24/7 Available | Free Consultation',
   description:

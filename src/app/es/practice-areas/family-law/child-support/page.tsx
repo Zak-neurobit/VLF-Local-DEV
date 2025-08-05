@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Script from 'next/script';
-
 export const metadata: Metadata = {
   title: 'Child Support Abogado NC | Support Modification Abogado | Vasquez Law Firm',
   description:

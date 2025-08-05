@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
-
 export const metadata: Metadata = {
   title: 'White Collar Crimes | Vasquez Law Firm',
   description: 'Defense against fraud, embezzlement, and financial crimes',

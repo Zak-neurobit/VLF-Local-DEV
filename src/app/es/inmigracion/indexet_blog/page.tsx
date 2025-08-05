@@ -5,11 +5,11 @@ import { DEFAULT_BLOG_AUTHOR } from '@/lib/blog/constants';
 export const metadata: Metadata = {
   title: 'Raleigh, NC Family-Based Inmigración Abogados - Vasquez Law Firm, PLLC',
   description:
-    'Need a trusted family-based immigration lawyer in Raleigh, NC? Our experienced attorneys help reunite families with reliable legal guidance. Contacto us today!',
+    'Need a trusted family-based immigration lawyer in Raleigh, NC? Our experienced attorneys help reunite families with reliable legal guidance. Contact us today!',
   openGraph: {
     title: 'Raleigh, NC Family-Based Inmigración Abogados - Vasquez Law Firm, PLLC',
     description:
-      'Need a trusted family-based immigration lawyer in Raleigh, NC? Our experienced attorneys help reunite families with reliable legal guidance. Contacto us today!',
+      'Need a trusted family-based immigration lawyer in Raleigh, NC? Our experienced attorneys help reunite families with reliable legal guidance. Contact us today!',
     images: [
       {
         url: 'https://www.vasquezlawnc.com/wp-content/uploads/2024/04/charlotte-nc-immigration-attorneys.jpg',

@@ -1,16 +1,21 @@
-import { UniversalPageTemplate } from '@/components/templates/UniversalPageTemplate';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Pedestrian Hit By Car | Vasquez Law Firm',
-  description: 'Página en español para pedestrian-hit-by-car',
+  title: '',
+  description: '',
+  openGraph: {
+    title: '',
+    description: '',
+  },
 };
 
-export default function Page() {
+export default function PedestrianHitByCarPage() {
   return (
-    <UniversalPageTemplate
-      title="Pedestrian Hit By Car"
-      description="Esta página necesita ser traducida al español."
+    <PracticeAreaWrapper
+      practiceArea="personal-injury"
+      subArea="pedestrian-hit-by-car"
+      language="en"
     />
   );
 }

@@ -1,3 +1,6 @@
+// Temporarily force dynamic rendering to reduce build memory usage
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour cache
 import { Metadata } from 'next';
 import Link from 'next/link';
 import {
@@ -22,7 +25,7 @@ const businessVisaTypes = [
     title: 'H1B Specialty Occupation Visas',
     description:
       'For professionals in specialty occupations requiring theoretical and practical application of specialized knowledge.',
-    link: '/areas-de-practica/immigration/business/h1b-visas',
+    link: '/practice-areas/immigration/business/h1b-visas',
     icon: <FaUserTie className="text-4xl text-blue-600" />,
     highlights: ['Tech professionals', 'Healthcare workers', 'Engineers', 'Financial analysts'],
   },
@@ -30,7 +33,7 @@ const businessVisaTypes = [
     title: 'L1 Intracompany Transfer Visas',
     description:
       'For multinational companies transferring executives, managers, or specialized knowledge employees.',
-    link: '/areas-de-practica/immigration/business/l1-visas',
+    link: '/practice-areas/immigration/business/l1-visas',
     icon: <FaGlobe className="text-4xl text-blue-600" />,
     highlights: [
       'L1A executives/managers',
@@ -43,7 +46,7 @@ const businessVisaTypes = [
     title: 'E2 Treaty Investor Visas',
     description:
       'For nationals of treaty countries making substantial investments in US businesses.',
-    link: '/areas-de-practica/immigration/business/e2-investor-visas',
+    link: '/practice-areas/immigration/business/e2-investor-visas',
     icon: <FaChartLine className="text-4xl text-blue-600" />,
     highlights: [
       'Business investors',
@@ -56,7 +59,7 @@ const businessVisaTypes = [
     title: 'EB5 Investment Inmigración',
     description:
       'Path to permanent residency through significant investment and job creation in the US economy.',
-    link: '/areas-de-practica/immigration/business/eb5-investment',
+    link: '/practice-areas/immigration/business/eb5-investment',
     icon: <FaBriefcase className="text-4xl text-blue-600" />,
     highlights: [
       'Direct investment',
@@ -69,7 +72,7 @@ const businessVisaTypes = [
     title: 'PERM Labor Certification',
     description:
       'First step in employment-based green card process, certifying no qualified US workers are available.',
-    link: '/areas-de-practica/immigration/business/perm-labor-certification',
+    link: '/practice-areas/immigration/business/perm-labor-certification',
     icon: <FaHandshake className="text-4xl text-blue-600" />,
     highlights: [
       'Prevailing wage determination',

@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
-
 export const metadata: Metadata = {
   title: 'DUI DWI Defense Abogados NC & FL | Drunk Driving Abogado | Vasquez Law Firm',
   description:

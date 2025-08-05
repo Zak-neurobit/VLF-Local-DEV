@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
-
 export const metadata: Metadata = {
   title: 'Return to Work | Vasquez Law Firm',
   description: 'Navigating return to work after workplace injury',

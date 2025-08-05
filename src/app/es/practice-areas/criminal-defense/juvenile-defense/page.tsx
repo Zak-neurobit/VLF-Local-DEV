@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
-
 export const metadata: Metadata = {
   title: 'Juvenile Defense | Vasquez Law Firm',
   description: 'Criminal defense for minors in juvenile court',

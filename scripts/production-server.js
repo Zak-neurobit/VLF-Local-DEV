@@ -4,7 +4,6 @@ const { createServer } = require('http');
 const { parse } = require('url');
 const next = require('next');
 const { Server } = require('socket.io');
-const Redis = require('ioredis');
 
 // Configuration
 const dev = process.env.NODE_ENV !== 'production';
@@ -12,13 +11,8 @@ const hostname = '0.0.0.0';
 const port = parseInt(process.env.PORT || '3000', 10);
 const wsPort = parseInt(process.env.WS_PORT || '3001', 10);
 
-// Redis for scaling WebSocket across multiple instances
-const redis = new Redis({
-  host: process.env.REDIS_HOST || 'localhost',
-  port: process.env.REDIS_PORT || 6379,
-  password: process.env.REDIS_PASSWORD,
-  retryStrategy: times => Math.min(times * 50, 2000),
-});
+// Note: Redis has been removed from this project
+// WebSocket scaling would need to be handled at the infrastructure level
 
 // Next.js app
 const app = next({ dev, hostname, port });

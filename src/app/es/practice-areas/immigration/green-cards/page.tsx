@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
-
 export const metadata: Metadata = {
   title: 'Green Card Abogados North Carolina | Permanent Residence - Vasquez Law Firm',
   description:

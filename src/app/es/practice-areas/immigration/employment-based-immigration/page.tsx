@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
-
 export const metadata: Metadata = {
   title:
     'Employment-Based Inmigración Abogados NC & FL | H-1B, PERM, EB-1/2/3 Experts | Vasquez Law Firm',

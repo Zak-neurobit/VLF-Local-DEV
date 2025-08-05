@@ -1,16 +1,21 @@
-import { UniversalPageTemplate } from '@/components/templates/UniversalPageTemplate';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Drunk Driver Liability | Vasquez Law Firm',
-  description: 'Página en español para drunk-driver-liability',
+  title: '',
+  description: '',
+  openGraph: {
+    title: '',
+    description: '',
+  },
 };
 
-export default function Page() {
+export default function DrunkDriverLiabilityPage() {
   return (
-    <UniversalPageTemplate
-      title="Drunk Driver Liability"
-      description="Esta página necesita ser traducida al español."
+    <PracticeAreaWrapper
+      practiceArea="personal-injury"
+      subArea="drunk-driver-liability"
+      language="en"
     />
   );
 }

@@ -1,0 +1,140 @@
+version: '3.8'
+
+services:
+  # NOTE: PostgreSQL and Redis have been removed.
+  # This project uses Neon PostgreSQL cloud database.
+  # No local database containers are needed.
+
+  # LocalStack (simulates AWS services locally)
+  localstack:
+    image: localstack/localstack:latest
+    container_name: vlf-localstack
+    ports:
+      - "4566:4566"  # AWS service endpoint
+      - "4571:4571"  # ElasticSearch
+    environment:
+      - SERVICES=s3,sqs,sns,lambda,cloudfront,secretsmanager,events
+      - DEBUG=1
+      - LAMBDA_EXECUTOR=docker
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "${TMPDIR:-/tmp}/localstack:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+  # Next.js Application
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    container_name: vlf-nextjs
+    ports:
+      - "3000:3000"
+      - "3001:3001"  # WebSocket
+    environment:
+      NODE_ENV: development
+      # DATABASE_URL should be set in .env.local pointing to Neon
+      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: local-development-secret-change-in-production
+      AWS_ENDPOINT: http://localstack:4566
+      S3_BUCKET: vlf-local-static
+      MOCK_REDIS: true
+    depends_on:
+      - localstack
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+    command: npm run dev:docker
+
+  # CrewAI Agents Container
+  crewai-agents:
+    build:
+      context: .
+      dockerfile: Dockerfile.agents.local
+    container_name: vlf-crewai-agents
+    ports:
+      - "8080:8080"
+    environment:
+      ENVIRONMENT: local
+      # DATABASE_URL should be set in .env.local pointing to Neon
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      AWS_ENDPOINT: http://localstack:4566
+      MOCK_REDIS: true
+    # No database dependencies - using Neon cloud
+    volumes:
+      - ./src/agents:/app/src/agents
+      - ./scripts:/app/scripts
+
+  # Mock Retell AI Voice Service
+  retell-mock:
+    image: node:20-alpine
+    container_name: vlf-retell-mock
+    working_dir: /app
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./test/mocks/retell:/app
+    command: node server.js
+
+  # Mock GHL Service
+  ghl-mock:
+    image: node:20-alpine
+    container_name: vlf-ghl-mock
+    working_dir: /app
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./test/mocks/ghl:/app
+    command: node server.js
+
+  # Monitoring Stack
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: vlf-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: vlf-grafana
+    ports:
+      - "3003:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+
+  # Test Runner Container
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: vlf-test-runner
+    environment:
+      NODE_ENV: test
+      # DATABASE_URL should be set for test environment pointing to Neon test DB
+      MOCK_REDIS: true
+    depends_on:
+      - nextjs
+      - crewai-agents
+    volumes:
+      - ./src:/app/src
+      - ./test:/app/test
+      - test_results:/app/test-results
+    command: npm run test:all
+
+volumes:
+  prometheus_data:
+  grafana_data:
+  test_results:
+
+networks:
+  default:
+    name: vlf-network

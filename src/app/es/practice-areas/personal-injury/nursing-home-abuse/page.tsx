@@ -1,6 +1,5 @@
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
-
 export const metadata: Metadata = {
   title: 'Nursing Home Abuse Abogados NC & FL | Elder Neglect Abogados | Vasquez Law Firm',
   description:

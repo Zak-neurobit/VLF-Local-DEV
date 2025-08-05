@@ -1,6 +1,5 @@
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
-
 export const metadata: Metadata = {
   title: 'Medical Malpractice Abogados NC & FL | Hospital Negligence | Vasquez Law Firm',
   description:

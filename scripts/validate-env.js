@@ -39,9 +39,6 @@ const optionalVars = {
   // Retell AI (handles voice calls)
   RETELL_API_KEY: 'Required for voice agents and calls',
 
-  // Redis
-  REDIS_URL: 'Recommended for caching',
-
   // Payment
   STRIPE_SECRET_KEY: 'Required for Stripe payments',
   STRIPE_PUBLISHABLE_KEY: 'Required for Stripe payments',

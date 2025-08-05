@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
-
 export const metadata: Metadata = {
   title:
     'Immediate Relative Visas Abogados NC & FL | Spouses, Parents, Children | No Wait Times | Vasquez Law Firm',

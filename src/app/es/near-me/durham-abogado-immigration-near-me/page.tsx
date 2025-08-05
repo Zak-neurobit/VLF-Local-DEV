@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-
 export const metadata: Metadata = {
   title: `Abogado immigration Near Me in Durham | Vasquez Law Firm`,
   description: `Find the best abogado immigration near you in Durham. Experienced legal representation.`,

@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
 import Script from 'next/script';
-
 export const metadata: Metadata = {
   title: 'Federal Defensa Criminal Abogado NC | FBI, DEA, ATF Cases | Vasquez Law Firm',
   description:

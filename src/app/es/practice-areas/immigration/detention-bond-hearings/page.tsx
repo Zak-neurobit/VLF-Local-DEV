@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
-
 export const metadata: Metadata = {
   title:
     'EMERGENCY Inmigración Detention & Bond Abogados NC & FL | 24/7 ICE Response | Vasquez Law Firm',

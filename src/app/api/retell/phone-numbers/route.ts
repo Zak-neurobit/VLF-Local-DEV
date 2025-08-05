@@ -160,7 +160,7 @@ export async function POST(req: NextRequest) {
       }
 
       // Store the Retell configuration
-      // Note: Voice calls are handled directly by Retell, not Twilio
+      // Note: Voice calls are handled directly by Retell
       if (prisma) {
         await prisma.phoneNumber.update({
           where: { number: phoneNumber },

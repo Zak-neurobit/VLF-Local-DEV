@@ -1,16 +1,21 @@
-import { UniversalPageTemplate } from '@/components/templates/UniversalPageTemplate';
+import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Equitable Distribution Property Debt Division | Vasquez Law Firm',
-  description: 'Página en español para equitable-distribution-property-debt-division',
+  title: '',
+  description: '',
+  openGraph: {
+    title: '',
+    description: '',
+  },
 };
 
-export default function Page() {
+export default function EquitableDistributionPropertyDebtDivisionPage() {
   return (
-    <UniversalPageTemplate
-      title="Equitable Distribution Property Debt Division"
-      description="Esta página necesita ser traducida al español."
+    <PracticeAreaWrapper
+      practiceArea="family-law"
+      subArea="equitable-distribution-property-debt-division"
+      language="en"
     />
   );
 }

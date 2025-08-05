@@ -28,7 +28,7 @@ export default function RaleighLesionesPersonalesPage() {
           </ul>
         </section>
         <section>
-          <h2 className="text-2xl font-semibold mb-3">Contacto Us Today</h2>
+          <h2 className="text-2xl font-semibold mb-3">Contact Us Today</h2>
           <p>
             Don't wait - reach out to our Raleigh Lesiones Personales office for immediate
             assistance.

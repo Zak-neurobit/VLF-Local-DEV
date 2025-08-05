@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import StandardizedPracticeAreaTemplate from '@/components/templates/StandardizedPracticeAreaTemplate';
-
 export const metadata: Metadata = {
   title: "Workplace Accident Abogados NC & FL | Workers' Compensation Abogados | Vasquez Law Firm",
   description:

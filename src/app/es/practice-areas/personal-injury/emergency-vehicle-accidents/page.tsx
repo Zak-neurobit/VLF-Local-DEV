@@ -1,6 +1,5 @@
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
-
 export const metadata: Metadata = {
   title: 'Emergency Vehicle Accident Abogado NC | Fire Truck, Ambulance & Police Car Accidents',
   description:

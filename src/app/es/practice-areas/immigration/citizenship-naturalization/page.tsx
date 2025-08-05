@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
-
 export const metadata: Metadata = {
   title: 'Citizenship & Naturalization Abogados NC & FL | Become US Citizen | Vasquez Law Firm',
   description:

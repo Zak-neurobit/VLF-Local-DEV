@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
-
 export const metadata: Metadata = {
   title:
     'Inadmissibility Waivers Abogados NC & FL | I-601, I-601A, Criminal, Fraud Waivers | Vasquez Law Firm',

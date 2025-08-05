@@ -1,6 +1,5 @@
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
 import { Metadata } from 'next';
-
 export const metadata: Metadata = {
   title: 'Premises Liability & Slip and Fall Abogados NC & FL | Vasquez Law Firm',
   description:

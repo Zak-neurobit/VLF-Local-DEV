@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import PracticeAreaWrapper from '@/components/templates/PracticeAreaWrapper';
-
 export const metadata: Metadata = {
   title: 'Guardianship | Vasquez Law Firm',
   description: 'Establishing legal guardianship for minors or incapacitated adults',

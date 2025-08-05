@@ -63,9 +63,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { catchAll: string[] };
+  params: Promise<{ catchAll: string[] }>;
 }): Promise<Metadata> {
-  const path = params.catchAll.join('/');
+  const { catchAll } = await params;
+  const path = catchAll.join('/');
 
   // Handle location pages
   if (path.startsWith('locations/') || path.startsWith('ubicaciones/')) {
@@ -96,8 +97,13 @@ export async function generateMetadata({
 }
 
 // Catch-all page handler
-export default async function CatchAllPage({ params }: { params: { catchAll: string[] } }) {
-  const path = params.catchAll.join('/');
+export default async function CatchAllPage({
+  params,
+}: {
+  params: Promise<{ catchAll: string[] }>;
+}) {
+  const { catchAll } = await params;
+  const path = catchAll.join('/');
   const fullPath = `/${path}`;
 
   // Skip headers access during static generation
@@ -132,7 +138,7 @@ export default async function CatchAllPage({ params }: { params: { catchAll: str
   }
 
   // Check if it's just the first segment that matches
-  const firstSegment = params.catchAll?.[0];
+  const firstSegment = catchAll?.[0];
   if (firstSegment && redirects[firstSegment]) {
     redirect(redirects[firstSegment]);
   }
@@ -150,7 +156,7 @@ export default async function CatchAllPage({ params }: { params: { catchAll: str
   // Handle common sub-pages that might be accessed directly
   if (path.includes('/') && !path.startsWith('blog/') && !path.startsWith('es/')) {
     // Try to construct practice area paths
-    const segments = params.catchAll;
+    const segments = catchAll;
     if (segments.length === 2) {
       const [area, subpage] = segments;
       // Common practice area mappings

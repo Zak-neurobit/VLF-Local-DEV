@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { ModernPracticeAreaTemplate } from '@/components/templates/ModernPracticeAreaTemplate';
-
 export const metadata: Metadata = {
   title: 'Deportation & Removal Defense Abogados NC & FL | Emergency Help 24/7 | Vasquez Law Firm',
   description:
