@@ -1,5 +1,5 @@
 [build]
-  command = "node scripts/netlify-build.js"
+  command = "pnpm exec next build && pnpm exec next export"
   publish = "out"
 
 [build.environment]
