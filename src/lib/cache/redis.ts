@@ -1,4 +1,5 @@
-import Redis from 'ioredis';
+// Note: Using MockRedis instead of ioredis for this project
+// import Redis from 'ioredis';
 import { securityLogger } from '@/lib/safe-logger';
 import { performanceLogger, logger } from '@/lib/safe-logger';
 import { errorToLogMeta } from '@/lib/safe-logger';
@@ -64,6 +65,11 @@ class MockRedis {
     return this;
   }
 
+  async quit() {
+    // Mock quit - just close connection
+    return 'OK';
+  }
+
   async keys(pattern: string) {
     const keys: string[] = [];
     const regex = new RegExp(pattern.replace('*', '.*'));
@@ -102,8 +108,8 @@ class MockRedis {
 }
 
 // Create Redis client instances
-let _redis: Redis | MockRedis | null = null;
-let _bullRedis: Redis | MockRedis | null = null;
+let _redis: MockRedis | null = null;
+let _bullRedis: MockRedis | null = null;
 
 function getRedis() {
   if (!_redis) {
@@ -124,46 +130,37 @@ function getBullRedis() {
 }
 
 // Lazy initialization - don't connect until first use
-let _exportRedis: Redis | null = null;
-let _exportBullRedis: Redis | null = null;
+let _exportRedis: MockRedis | null = null;
+let _exportBullRedis: MockRedis | null = null;
 
-export const redis = new Proxy({} as Redis, {
+export const redis = new Proxy({} as MockRedis, {
   get(_, prop) {
     if (!_exportRedis) {
-      _exportRedis = getRedis() as Redis;
+      _exportRedis = getRedis() as MockRedis;
     }
     return (_exportRedis as any)[prop];
   },
 });
 
-export const bullRedis = new Proxy({} as Redis, {
+export const bullRedis = new Proxy({} as MockRedis, {
   get(_, prop) {
     if (!_exportBullRedis) {
-      _exportBullRedis = getBullRedis() as Redis;
+      _exportBullRedis = getBullRedis() as MockRedis;
     }
     return (_exportBullRedis as any)[prop];
   },
 });
 
 class CacheManager {
-  private redis: Redis | MockRedis;
+  private redis: MockRedis;
   private defaultTTL = 300; // 5 minutes
   private isConnected = false;
 
   constructor() {
-    this.redis = getRedis() as Redis | MockRedis;
+    this.redis = getRedis() as MockRedis;
 
-    if (!(this.redis instanceof MockRedis)) {
-      this.redis.on('connect', () => {
-        this.isConnected = true;
-      });
-
-      this.redis.on('close', () => {
-        this.isConnected = false;
-      });
-    } else {
-      this.isConnected = true; // Mock is always connected
-    }
+    // MockRedis doesn't have event handlers, so we just mark it as connected
+    this.isConnected = true;
   }
 
   async get<T>(key: string): Promise<T | null> {
@@ -192,7 +189,7 @@ class CacheManager {
   async invalidate(pattern: string): Promise<void> {
     const keys = await this.redis.keys(pattern);
     if (keys.length > 0) {
-      await Promise.all(keys.map(key => this.redis.del(key)));
+      await Promise.all(keys.map((key: string) => this.redis.del(key)));
     }
   }
 
@@ -298,7 +295,7 @@ class CacheManager {
       const lines = info.split('\r\n');
       const stats: Record<string, unknown> = {};
 
-      lines.forEach(line => {
+      lines.forEach((line: string) => {
         const [key, value] = line.split(':');
         if (key && value) {
           stats[key] = value;

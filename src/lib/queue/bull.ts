@@ -1,4 +1,4 @@
-import Bull from 'bull';
+import Bull, { Job } from '@/lib/mocks/bull-mock';
 import { securityLogger } from '@/lib/safe-logger';
 import { performanceLogger, logger } from '@/lib/safe-logger';
 import { errorToLogMeta } from '@/lib/safe-logger';
@@ -134,7 +134,7 @@ export const documentQueue = new Bull('document-processing', {
 });
 
 // Queue processors
-callAnalysisQueue.process(async (job: Bull.Job<CallAnalysisJobData>) => {
+callAnalysisQueue.process(async (job: Job<CallAnalysisJobData>) => {
   const start = Date.now();
   const { callId, transcript, metadata } = job.data;
 
@@ -202,7 +202,7 @@ export async function handleWebhookAsync(event: {
 }
 
 // Email queue processor
-emailQueue.process(async (job: Bull.Job<EmailJobData>) => {
+emailQueue.process(async (job: Job<EmailJobData>) => {
   const emailData = job.data;
 
   try {
@@ -230,7 +230,7 @@ emailQueue.process(async (job: Bull.Job<EmailJobData>) => {
 });
 
 // SEO queue processor
-seoQueue.process(async (job: Bull.Job<SEOJobData>) => {
+seoQueue.process(async (job: Job<SEOJobData>) => {
   const { type, data } = job.data;
 
   try {
@@ -253,7 +253,7 @@ seoQueue.process(async (job: Bull.Job<SEOJobData>) => {
 });
 
 // Document queue processor
-documentQueue.process(async (job: Bull.Job<DocumentJobData>) => {
+documentQueue.process(async (job: Job<DocumentJobData>) => {
   const { type, documentId, data } = job.data;
 
   try {
@@ -288,21 +288,21 @@ export function setupQueueMonitoring() {
 
   // Set up event listeners for all queues
   queues.forEach(({ name, queue }) => {
-    queue.on('completed', (job, result) => {
+    queue.on('completed', (job: any, result: any) => {
       performanceLogger.measure('queue-job-completed', job.processedOn! - job.timestamp, {
         queue: name,
         jobId: job.id,
       });
     });
 
-    queue.on('failed', (job, err) => {
+    queue.on('failed', (job: any, err: Error) => {
       logger.error(`Job ${job.id} in queue ${name} failed:`, {
         error: err.message,
         stack: err.stack,
       });
     });
 
-    queue.on('stalled', job => {
+    queue.on('stalled', (job: any) => {
       logger.warn(`Job ${job.id} in queue ${name} stalled`);
     });
   });

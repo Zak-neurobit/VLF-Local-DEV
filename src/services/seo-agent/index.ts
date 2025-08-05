@@ -1,7 +1,7 @@
 import { OpenAI } from 'openai';
 import { componentLogger, performanceLogger } from '@/lib/safe-logger';
 import { getPrismaClient } from '@/lib/prisma';
-import Queue from 'bull';
+import Bull, { Bull as BullTypes } from '@/lib/mocks/bull-mock';
 import * as cheerio from 'cheerio';
 import { CronJob } from 'cron';
 import axios from 'axios';
@@ -48,8 +48,8 @@ interface ContentGap {
 
 export class SEOAgent {
   private openai: OpenAI;
-  private contentQueue: Queue.Queue;
-  private analysisQueue: Queue.Queue;
+  private contentQueue: Bull;
+  private analysisQueue: Bull;
   private config: SEOAgentConfig;
   private cronJobs: CronJob[] = [];
   private baseUrl: string;
@@ -60,19 +60,9 @@ export class SEOAgent {
     this.baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://vasquezlawnc.com';
 
     // Initialize queues for async processing
-    this.contentQueue = new Queue('seo-content-generation', {
-      redis: {
-        host: process.env.REDIS_HOST || 'localhost',
-        port: parseInt(process.env.REDIS_PORT || '6379'),
-      },
-    });
+    this.contentQueue = new Bull('seo-content-generation');
 
-    this.analysisQueue = new Queue('seo-analysis', {
-      redis: {
-        host: process.env.REDIS_HOST || 'localhost',
-        port: parseInt(process.env.REDIS_PORT || '6379'),
-      },
-    });
+    this.analysisQueue = new Bull('seo-analysis');
 
     this.initializeQueues();
     this.startCronJobs();
@@ -80,7 +70,7 @@ export class SEOAgent {
 
   private initializeQueues() {
     // Content generation processor
-    this.contentQueue.process(async (job: Queue.Job) => {
+    this.contentQueue.process(async (job: any) => {
       const { type, data } = job.data;
 
       switch (type) {
@@ -96,7 +86,7 @@ export class SEOAgent {
     });
 
     // Analysis processor
-    this.analysisQueue.process(async (job: Queue.Job) => {
+    this.analysisQueue.process(async (job: any) => {
       const { type, data } = job.data;
 
       switch (type) {

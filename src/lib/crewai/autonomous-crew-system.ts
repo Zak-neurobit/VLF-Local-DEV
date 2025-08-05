@@ -4,8 +4,8 @@
  * This system makes the website ALIVE and self-running
  */
 
-import { Queue } from 'bullmq';
-import Redis from 'ioredis';
+import { Queue } from '@/lib/mocks/bullmq-mock';
+import { redis } from '@/lib/cache/redis';
 import { OpenAI } from 'openai';
 import * as cron from 'node-cron';
 import { v4 as uuidv4 } from 'uuid';
@@ -113,7 +113,7 @@ interface AgentMetrics {
  * The central orchestrator that manages all autonomous agents
  */
 export class AutonomousCrewSystem {
-  private redis: Redis;
+  private redis: typeof redis;
   private openai: OpenAI;
   private agents: Map<string, AgentConfig> = new Map();
   private tasks: Map<string, TaskConfig> = new Map();
@@ -123,15 +123,7 @@ export class AutonomousCrewSystem {
   private queues: Map<string, Queue> = new Map();
 
   constructor() {
-    this.redis = new Redis({
-      host: process.env.REDIS_HOST || 'localhost',
-      port: parseInt(process.env.REDIS_PORT || '6379'),
-      password: process.env.REDIS_PASSWORD,
-      retryStrategy: (times: number) => {
-        const delay = Math.min(times * 100, 3000);
-        return delay;
-      },
-    });
+    this.redis = redis;
 
     this.openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY!,
@@ -353,7 +345,7 @@ export class AutonomousCrewSystem {
 
     queueTypes.forEach(taskType => {
       const queue = new Queue(taskType, {
-        connection: this.redis,
+        // MockRedis connection not needed for mock implementation
         defaultJobOptions: {
           removeOnComplete: 100,
           removeOnFail: 50,

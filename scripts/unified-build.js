@@ -136,7 +136,7 @@ async function build() {
     console.log(chalk.yellow('📋 Validating environment...'));
     const validateEnvPath = path.join(__dirname, 'validate-env.js');
     if (fs.existsSync(validateEnvPath)) {
-      await runCommand('node', [validateEnvPath]);
+      await runCommand('node', [`"${validateEnvPath}"`]);
     }
 
     // 3. Generate Prisma client
@@ -147,7 +147,7 @@ async function build() {
     console.log(chalk.yellow('🎉 Setting up Partytown...'));
     const partytownPath = path.join(__dirname, 'setup-partytown.js');
     if (fs.existsSync(partytownPath)) {
-      await runCommand('node', [partytownPath]);
+      await runCommand('node', [`"${partytownPath}"`]);
     }
 
     // 5. Run pre-build scripts

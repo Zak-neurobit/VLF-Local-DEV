@@ -115,7 +115,7 @@ class GHLMockService {
     let contacts = Array.from(this.contacts.values());
 
     if (filters?.tag) {
-      contacts = contacts.filter(c => c.tags.includes(filters.tag));
+      contacts = contacts.filter(c => c.tags.includes(filters.tag!));
     }
 
     return contacts;
@@ -257,13 +257,13 @@ export function handleGHLMockRequest(req: NextRequest, pathname: string) {
       return ghlMock.listContacts(tag ? { tag } : undefined);
     }
     if (method === 'GET' && parts.length === 2) {
-      return ghlMock.getContact(parts[1]);
+      return ghlMock.getContact(parts[1]!);
     }
     if (method === 'POST' && parts.length === 1) {
       return req.json().then(data => ghlMock.createContact(data));
     }
     if (method === 'PUT' && parts.length === 2) {
-      return req.json().then(data => ghlMock.updateContact(parts[1], data));
+      return req.json().then(data => ghlMock.updateContact(parts[1]!, data));
     }
   }
 
@@ -283,13 +283,13 @@ export function handleGHLMockRequest(req: NextRequest, pathname: string) {
   if (parts[0] === 'opportunities') {
     if (method === 'GET' && parts.length === 1) {
       const contactId = new URL(req.url).searchParams.get('contactId');
-      return ghlMock.getOpportunities(contactId);
+      return ghlMock.getOpportunities(contactId || undefined);
     }
     if (method === 'POST' && parts.length === 1) {
       return req.json().then(data => ghlMock.createOpportunity(data));
     }
     if (method === 'PUT' && parts.length === 2) {
-      return req.json().then(data => ghlMock.updateOpportunity(parts[1], data));
+      return req.json().then(data => ghlMock.updateOpportunity(parts[1]!, data));
     }
   }
 
@@ -299,7 +299,7 @@ export function handleGHLMockRequest(req: NextRequest, pathname: string) {
     parts.length === 3 &&
     parts[2] === 'trigger'
   ) {
-    return req.json().then(data => ghlMock.triggerWorkflow(parts[1], data.contactId));
+    return req.json().then(data => ghlMock.triggerWorkflow(parts[1]!, data.contactId));
   }
 
   return null;

@@ -2,7 +2,7 @@ import { createBullBoard } from '@bull-board/api';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { ExpressAdapter } from '@bull-board/express';
 import express from 'express';
-import { Queue } from 'bullmq';
+import { Queue } from '@/lib/mocks/bullmq-mock';
 import { logger } from '@/lib/safe-logger';
 
 // Import your queue configurations

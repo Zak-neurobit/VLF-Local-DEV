@@ -1,6 +1,14 @@
 import { NextResponse } from 'next/server';
-// import { prisma } from '@/lib/prisma';
+import { getPrismaClient } from '@/lib/prisma';
 import { logger, errorToLogMeta } from '@/lib/safe-logger';
+
+const prisma = getPrismaClient();
+
+interface BlogPostMetadata {
+  translations?: {
+    es?: boolean;
+  };
+}
 
 export const dynamic = 'force-static';
 export const revalidate = false;
@@ -22,9 +30,9 @@ export async function GET() {
     });
 
     const entries = posts
-      .map(post => {
+      .map((post: { slug: string; updatedAt: Date | null; createdAt: Date; metadata: unknown }) => {
         const lastmod = (post.updatedAt || post.createdAt).toISOString();
-        const metadata = post.metadata as any;
+        const metadata = post.metadata as BlogPostMetadata;
         const hasSpanish = metadata?.translations?.es;
 
         const urls = [

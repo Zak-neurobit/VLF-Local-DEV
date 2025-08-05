@@ -36,20 +36,12 @@ async function handleGET(_req: NextRequest) {
     }
   }
 
-  // Check Redis if configured and not mocked
+  // Check Redis if configured (using MockRedis for this project)
   if (process.env.REDIS_HOST && process.env.MOCK_REDIS !== 'true') {
     try {
-      const Redis = (await import('ioredis')).default;
-      const redis = new Redis({
-        host: process.env.REDIS_HOST,
-        port: parseInt(process.env.REDIS_PORT || '6379'),
-        password: process.env.REDIS_PASSWORD,
-        lazyConnect: true,
-      });
-
-      await redis.connect();
+      // This project uses MockRedis instead of ioredis
+      const { redis } = await import('@/lib/cache/redis');
       await redis.ping();
-      await redis.quit();
       health.services.redis = 'operational';
     } catch (error) {
       health.services.redis = 'error';

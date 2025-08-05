@@ -160,16 +160,16 @@ export function handleRetellMockRequest(req: NextRequest, pathname: string) {
       return retellMock.listAgents();
     }
     if (method === 'GET' && parts.length === 2) {
-      return retellMock.getAgent(parts[1]);
+      return retellMock.getAgent(parts[1]!);
     }
     if (method === 'POST' && parts.length === 1) {
       return req.json().then(data => retellMock.createAgent(data));
     }
     if (method === 'PUT' && parts.length === 2) {
-      return req.json().then(data => retellMock.updateAgent(parts[1], data));
+      return req.json().then(data => retellMock.updateAgent(parts[1]!, data));
     }
     if (method === 'DELETE' && parts.length === 2) {
-      return retellMock.deleteAgent(parts[1]);
+      return retellMock.deleteAgent(parts[1]!);
     }
   }
 
@@ -178,13 +178,13 @@ export function handleRetellMockRequest(req: NextRequest, pathname: string) {
       return retellMock.listCalls();
     }
     if (method === 'GET' && parts.length === 2) {
-      return retellMock.getCall(parts[1]);
+      return retellMock.getCall(parts[1]!);
     }
     if (method === 'POST' && parts.length === 1) {
       return req.json().then(data => retellMock.createCall(data));
     }
     if (method === 'POST' && parts.length === 3 && parts[2] === 'end') {
-      return retellMock.endCall(parts[1]);
+      return retellMock.endCall(parts[1]!);
     }
   }
 
