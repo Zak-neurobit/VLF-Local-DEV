@@ -4,7 +4,9 @@ node_modules
 *.log
 .env.local
 .env
-.env.*
+.env.development
+.env.test
+!.env.production
 !.env.example
 coverage
 .coverage
