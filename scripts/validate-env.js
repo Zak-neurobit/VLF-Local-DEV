@@ -10,6 +10,13 @@ const path = require('path');
 
 console.log('🔍 Validating environment variables...\n');
 
+// Skip validation if explicitly disabled
+if (process.env.SKIP_ENV_VALIDATION === 'true') {
+  console.log('⚠️  Environment validation SKIPPED (SKIP_ENV_VALIDATION=true)');
+  console.log('✅ Proceeding with deployment...\n');
+  process.exit(0);
+}
+
 // Define required and optional environment variables
 const requiredVars = {
   // Database
@@ -65,32 +72,41 @@ const optionalVars = {
 };
 
 // Load environment variables
+// On Vercel, use process.env directly; locally, use .env.production
 const envPath = path.join(process.cwd(), '.env.production');
 const envExamplePath = path.join(process.cwd(), 'env.production.example');
 
-if (!fs.existsSync(envPath)) {
-  console.error('❌ .env.production not found!');
-  console.log('Please create it from env.production.example:');
-  console.log('  cp env.production.example .env.production');
-  process.exit(1);
-}
+let envVars = {};
 
-// Parse environment file
-const envContent = fs.readFileSync(envPath, 'utf-8');
-const envVars = {};
-
-envContent.split('\n').forEach(line => {
-  if (line && !line.startsWith('#')) {
-    const [key, ...valueParts] = line.split('=');
-    if (key && valueParts.length > 0) {
-      const value = valueParts
-        .join('=')
-        .trim()
-        .replace(/^["']|["']$/g, '');
-      envVars[key.trim()] = value;
-    }
+// Check if we're in a CI/cloud environment (Vercel, Netlify, etc.)
+if (process.env.VERCEL || process.env.CI || process.env.NETLIFY) {
+  console.log('🌐 Running in cloud environment - using system environment variables');
+  envVars = process.env;
+} else {
+  // Local development - require .env.production file
+  if (!fs.existsSync(envPath)) {
+    console.error('❌ .env.production not found!');
+    console.log('Please create it from env.production.example:');
+    console.log('  cp env.production.example .env.production');
+    process.exit(1);
   }
-});
+
+  // Parse environment file
+  const envContent = fs.readFileSync(envPath, 'utf-8');
+
+  envContent.split('\n').forEach(line => {
+    if (line && !line.startsWith('#')) {
+      const [key, ...valueParts] = line.split('=');
+      if (key && valueParts.length > 0) {
+        const value = valueParts
+          .join('=')
+          .trim()
+          .replace(/^["']|["']$/g, '');
+        envVars[key.trim()] = value;
+      }
+    }
+  });
+}
 
 console.log('📋 Checking required variables...\n');
 
