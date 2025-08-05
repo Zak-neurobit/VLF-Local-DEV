@@ -108,4 +108,4 @@ process.on('warning', (warning) => {
   }
 });
 
-main().
+main();
