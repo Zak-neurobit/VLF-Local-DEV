@@ -1,6 +1,0 @@
-
-> vasquez-law-website@1.0.0 build
-> echo "BUILD STARTED $(date)" && prisma generate && npm run setup:partytown && NODE_OPTIONS="--max-old-space-size=8192" next build
-
-BUILD STARTED Sat Jul 26 02:37:27 EDT 2025
-sh: prisma: command not found

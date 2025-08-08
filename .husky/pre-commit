@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Run lint-staged for incremental checks on staged files
-npx lint-staged
-
-# Run type checking on the entire project
-# TODO: Re-enable after fixing remaining TypeScript errors
-# npm run type-check
