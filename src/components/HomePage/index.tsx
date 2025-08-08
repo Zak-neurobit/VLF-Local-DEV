@@ -116,59 +116,7 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
         </motion.div>
       )}
 
-      {/* Virtual Paralegal Trigger - Fixed Position */}
-      {motion ? (
-        <motion.button
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 2 }}
-          onClick={handleVirtualParalegalToggle}
-          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary-300 shadow-2xl transition-all hover:scale-110"
-          aria-label={language === 'es' ? 'Abrir Asistente de IA' : 'Open AI Assistant'}
-        >
-          <svg
-            className="h-6 w-6 sm:h-8 sm:w-8 text-black"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-            />
-          </svg>
-          <span className="absolute -top-1 -right-1 flex h-4 w-4">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-4 w-4 bg-white"></span>
-          </span>
-        </motion.button>
-      ) : (
-        <button
-          onClick={handleVirtualParalegalToggle}
-          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary-300 shadow-2xl transition-all hover:scale-110"
-          aria-label={language === 'es' ? 'Abrir Asistente de IA' : 'Open AI Assistant'}
-        >
-          <svg
-            className="h-6 w-6 sm:h-8 sm:w-8 text-black"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-            />
-          </svg>
-          <span className="absolute -top-1 -right-1 flex h-4 w-4">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-4 w-4 bg-white"></span>
-          </span>
-        </button>
-      )}
+      {/* Virtual Paralegal Trigger - Removed to prevent duplicate chat widgets */}
 
       {/* Page Sections */}
       <ModernHero language={language} />

@@ -827,7 +827,9 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
   return (
     <header
       className={`transition-all duration-300 ${
-        isTransparent ? 'bg-transparent' : 'bg-white shadow-md'
+        isTransparent 
+          ? 'bg-transparent' 
+          : 'backdrop-blur-lg bg-gradient-to-b from-white/15 to-white/10 border-b border-white/10 shadow-xl'
       }`}
     >
       {/* Top Contact Bar */}
@@ -867,7 +869,11 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
 
       {/* Main Navigation */}
       <nav
-        className={`transition-all duration-300 ${isTransparent ? 'bg-transparent' : 'bg-white'}`}
+        className={`transition-all duration-300 relative ${
+          isTransparent 
+            ? 'bg-transparent' 
+            : 'backdrop-blur-xl bg-gradient-to-r from-white/25 via-white/30 to-white/25 border-b border-white/20 shadow-lg'
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
@@ -941,7 +947,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 mt-1 w-80 bg-white rounded-lg shadow-xl border border-neutral-200 overflow-hidden z-50"
+                          className="absolute top-full left-0 mt-1 w-80 backdrop-blur-xl bg-white/80 rounded-lg shadow-xl border border-white/30 overflow-hidden z-50"
                         >
                           <div className="max-h-[70vh] overflow-y-auto">
                             {/* Practice Areas Special Layout */}
@@ -976,7 +982,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                                                 )}
                                               </Link>
                                               {subCategory.submenu && activeSubmenu === subCategory.name && (
-                                                <div className="absolute left-full top-0 ml-2 w-64 bg-white shadow-lg rounded-md border border-neutral-200 z-50">
+                                                <div className="absolute left-full top-0 ml-2 w-64 backdrop-blur-xl bg-white/80 shadow-lg rounded-md border border-white/30 z-50">
                                                   <div className="py-2">
                                                     {subCategory.submenu.map(specificCase => (
                                                       <Link
@@ -1042,7 +1048,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
               className={`lg:hidden p-2 rounded-md transition-colors ${
                 isTransparent
                   ? 'text-white hover:bg-white/20'
-                  : 'text-neutral-700 hover:bg-neutral-100'
+                  : 'text-neutral-700 hover:bg-white/40'
               }`}
               aria-label="Toggle menu"
             >
@@ -1075,7 +1081,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden bg-white border-t border-neutral-200 shadow-lg"
+              className="lg:hidden backdrop-blur-xl bg-white/80 border-t border-white/30 shadow-lg"
             >
               <div className="px-4 py-6 space-y-1">
                 {navigation[language].map(item => (
