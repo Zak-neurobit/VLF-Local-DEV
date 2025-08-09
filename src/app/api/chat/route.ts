@@ -397,7 +397,7 @@ async function handleChatPOST(request: NextRequest) {
       } else if (hasOpenAI) {
         // Fallback to OpenAI for general queries
         const completion = await openai.chat.completions.create({
-          model: 'gpt-3.5-turbo',
+          model: 'gpt-4.1',
           messages: history as OpenAI.Chat.ChatCompletionMessageParam[],
           temperature: 0.7,
           max_tokens: 500,
@@ -406,7 +406,7 @@ async function handleChatPOST(request: NextRequest) {
         aiResponse =
           completion.choices[0]?.message?.content ||
           'I apologize, but I was unable to generate a response.';
-        metadata.model = 'gpt-3.5-turbo';
+        metadata.model = 'gpt-4.1';
       } else {
         // Use simple chatbot when OpenAI is not available
         if (quickResponse) {

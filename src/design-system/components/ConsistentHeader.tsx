@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { BRAND } from '../constants';
@@ -836,10 +837,10 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
       <div
         className={`transition-all duration-300 ${
           isTransparent ? 'bg-black/20 backdrop-blur-sm' : 'bg-secondary'
-        } text-white py-2`}
+        } text-white py-1`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center text-sm">
+          <div className="flex justify-center items-center text-sm">
             <div className="flex items-center space-x-4">
               <a
                 href={`tel:${BRAND.phoneNumeric}`}
@@ -856,13 +857,14 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                 <span className="mr-1">✉️</span>
                 {BRAND.email}
               </a>
+              <span className="hidden sm:inline text-primary mx-4">•</span>
+              <SimpleLanguageSwitcher
+                variant="minimal"
+                showFlags={false}
+                showLabels={true}
+                className="text-xs"
+              />
             </div>
-            <SimpleLanguageSwitcher
-              variant="minimal"
-              showFlags={false}
-              showLabels={true}
-              className="text-xs"
-            />
           </div>
         </div>
       </div>
@@ -876,24 +878,22 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link href={language === 'es' ? '/es' : '/'} className="flex items-center">
-              <div className="flex flex-col">
-                <h1
-                  className={`text-2xl font-bold transition-colors ${
-                    isTransparent ? 'text-white' : 'text-secondary'
-                  }`}
-                >
-                  {BRAND.name}
-                </h1>
-                <p className="text-xs text-primary font-bold tracking-wider">{BRAND.tagline}</p>
-              </div>
+              <Image
+                src="/images/vasquez-logo.png"
+                alt="Vasquez Law Firm"
+                width={200}
+                height={70}
+                className="h-12 w-auto"
+                priority
+              />
             </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center">
-              <div className="flex space-x-8">
+              <div className="flex space-x-6">
                 {navigation[language].map(item => (
                   <div
                     key={item.name}
@@ -903,14 +903,12 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                   >
                     <Link
                       href={item.href}
-                      className={`relative text-sm font-medium transition-colors duration-200 py-2 flex items-center gap-1 ${
+                      className={`relative text-sm font-semibold transition-all duration-200 py-2 flex items-center gap-1 ${
                         pathname === item.href || (item.submenu && pathname?.startsWith(item.href))
-                          ? isTransparent
-                            ? 'text-primary'
-                            : 'text-secondary'
+                          ? 'text-[#C9974D] scale-105'
                           : isTransparent
-                            ? 'text-white hover:text-primary'
-                            : 'text-neutral-700 hover:text-primary'
+                            ? 'text-[#C9974D] hover:text-white hover:scale-105'
+                            : 'text-[#C9974D] hover:text-[#B08740] hover:scale-105'
                       }`}
                     >
                       {item.name}
@@ -933,7 +931,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                         (item.submenu && pathname?.startsWith(item.href))) && (
                         <motion.div
                           layoutId="navbar-indicator"
-                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#C9974D]"
                           transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
                         />
                       )}
@@ -1034,7 +1032,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
               {/* CTA Button */}
               <Link
                 href={language === 'es' ? '/es/contacto' : '/contact'}
-                className="ml-8 px-6 py-2.5 bg-gradient-to-r from-primary to-primary-600 text-secondary text-sm font-bold rounded-full hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
+                className="ml-8 px-6 py-2.5 bg-gradient-to-r from-[#C9974D] to-[#B08740] text-white text-sm font-bold rounded-full hover:from-[#B08740] hover:to-[#906431] transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
               >
                 {language === 'es' ? 'Consulta Gratis' : 'Free Consultation'}
               </Link>
@@ -1045,10 +1043,10 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
               onClick={() => {
                 setMobileMenuOpen(!mobileMenuOpen);
               }}
-              className={`lg:hidden p-2 rounded-md transition-colors ${
+              className={`lg:hidden p-2 rounded-md transition-colors text-[#C9974D] ${
                 isTransparent
-                  ? 'text-white hover:bg-white/20'
-                  : 'text-neutral-700 hover:bg-white/40'
+                  ? 'hover:bg-white/20'
+                  : 'hover:bg-[#C9974D]/10'
               }`}
               aria-label="Toggle menu"
             >
@@ -1096,8 +1094,8 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                       }}
                       className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors ${
                         pathname === item.href || (item.submenu && pathname?.startsWith(item.href))
-                          ? 'bg-primary/10 text-secondary'
-                          : 'text-neutral-700 hover:bg-neutral-50 hover:text-primary'
+                          ? 'bg-[#C9974D]/10 text-[#C9974D]'
+                          : 'text-[#906431] hover:bg-[#C9974D]/5 hover:text-[#C9974D]'
                       }`}
                     >
                       {item.name}
@@ -1152,7 +1150,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                     onClick={() => {
                       setMobileMenuOpen(false);
                     }}
-                    className="block w-full px-4 py-3 bg-gradient-to-r from-primary to-primary-600 text-secondary text-center font-bold rounded-full hover:from-primary-600 hover:to-primary-700 transition-all shadow-md"
+                    className="block w-full px-4 py-3 bg-gradient-to-r from-[#C9974D] to-[#B08740] text-white text-center font-bold rounded-full hover:from-[#B08740] hover:to-[#906431] transition-all shadow-md"
                   >
                     {language === 'es' ? 'Consulta Gratis' : 'Free Consultation'}
                   </Link>
