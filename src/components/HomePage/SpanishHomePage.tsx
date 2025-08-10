@@ -33,24 +33,12 @@ const PracticeAreasShowcase = dynamic(() => import('./PracticeAreasShowcase'), {
   loading: () => <div className="h-96 bg-black" />,
 });
 
-const VirtualParalegal = dynamic(() => import('../VirtualParalegal'), {
-  loading: () => null,
-});
+// VirtualParalegal component removed - no longer needed
 
 export default function SpanishHomePage() {
-  const [showVirtualParalegal, setShowVirtualParalegal] = useState(false);
+  // VirtualParalegal state removed
 
-  useEffect(() => {
-    // Show virtual paralegal after 10 seconds
-    const timer = setTimeout(() => {
-      if (!sessionStorage.getItem('paralegal-shown')) {
-        setShowVirtualParalegal(true);
-        sessionStorage.setItem('paralegal-shown', 'true');
-      }
-    }, 10000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  // VirtualParalegal auto-show logic removed
 
   return (
     <div className="min-h-screen bg-black">
@@ -101,10 +89,7 @@ export default function SpanishHomePage() {
       <ResultsShowcase language="es" />
       <TestimonialsSection language="es" />
 
-      {/* Virtual Paralegal Modal */}
-      {showVirtualParalegal && (
-        <VirtualParalegal language="es" onClose={() => setShowVirtualParalegal(false)} />
-      )}
+      {/* Virtual Paralegal Modal - removed */}
 
       {/* Background Effects */}
       <div className="fixed inset-0 -z-10 overflow-hidden">

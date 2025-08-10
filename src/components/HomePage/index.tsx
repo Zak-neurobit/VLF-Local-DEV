@@ -37,9 +37,10 @@ const PracticeAreasShowcase = dynamic(() => import('./PracticeAreasShowcase'), {
   loading: () => <div className="h-96 bg-black" />,
 });
 
-const VirtualParalegal = dynamic(() => import('../VirtualParalegal'), {
-  loading: () => null,
-});
+// BACKUP: VirtualParalegal temporarily disabled - component saved in _backup_virtualparalegal/
+// const VirtualParalegal = dynamic(() => import('../VirtualParalegal'), {
+//   loading: () => null,
+// });
 
 interface HomePageProps {
   language?: 'en' | 'es';
@@ -47,16 +48,18 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' }) => {
   const [language, setLanguage] = useState<'en' | 'es'>(initialLanguage);
-  const [showVirtualParalegal, setShowVirtualParalegal] = useState(false);
+  // BACKUP: VirtualParalegal state disabled
+  // const [showVirtualParalegal, setShowVirtualParalegal] = useState(false);
 
   // Memoize callbacks to prevent unnecessary re-renders
   const handleLanguageChange = useCallback((lang: 'en' | 'es') => {
     setLanguage(lang);
   }, []);
 
-  const handleVirtualParalegalToggle = useCallback(() => {
-    setShowVirtualParalegal(prev => !prev);
-  }, []);
+  // BACKUP: VirtualParalegal toggle disabled
+  // const handleVirtualParalegalToggle = useCallback(() => {
+  //   setShowVirtualParalegal(prev => !prev);
+  // }, []);
 
   useSafeEffect(
     isMounted => {
@@ -70,15 +73,15 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
           }
         }
 
-        // Show virtual paralegal after 10 seconds
-        const timer = setTimeout(() => {
-          if (!sessionStorage.getItem('paralegal-shown') && isMounted()) {
-            setShowVirtualParalegal(true);
-            sessionStorage.setItem('paralegal-shown', 'true');
-          }
-        }, 10000);
-
-        return () => clearTimeout(timer);
+        // BACKUP: VirtualParalegal auto-show disabled
+        // const timer = setTimeout(() => {
+        //   if (!sessionStorage.getItem('paralegal-shown') && isMounted()) {
+        //     setShowVirtualParalegal(true);
+        //     sessionStorage.setItem('paralegal-shown', 'true');
+        //   }
+        // }, 10000);
+        //
+        // return () => clearTimeout(timer);
       }
     },
     [initialLanguage]
@@ -192,10 +195,10 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
       <ResultsShowcase language={language} />
       <TestimonialsSection language={language} />
 
-      {/* Virtual Paralegal Modal */}
-      {showVirtualParalegal && (
+      {/* BACKUP: Virtual Paralegal Modal - temporarily disabled */}
+      {/* {showVirtualParalegal && (
         <VirtualParalegal language={language} onClose={() => setShowVirtualParalegal(false)} />
-      )}
+      )} */}
 
       {/* Background Effects */}
       <div className="fixed inset-0 -z-10 overflow-hidden">

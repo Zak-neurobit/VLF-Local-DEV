@@ -92,7 +92,7 @@ const nextConfig = {
       '@radix-ui/react-dialog',
       '@radix-ui/react-dropdown-menu',
     ],
-    serverComponentsExternalPackages: [],
+    serverComponentsExternalPackages: ['puppeteer'],
   },
 
   // Image optimization

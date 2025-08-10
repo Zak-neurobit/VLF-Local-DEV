@@ -30,9 +30,7 @@ const PracticeAreasShowcase = dynamic(() => import('./PracticeAreasShowcase'), {
   loading: () => <div className="h-96 bg-black" />,
 });
 
-const VirtualParalegal = dynamic(() => import('../VirtualParalegal'), {
-  loading: () => null,
-});
+// VirtualParalegal component removed - no longer needed
 
 interface QwikOptimizedHomePageProps {
   language?: 'en' | 'es';
@@ -42,16 +40,14 @@ const QwikOptimizedHomePage: React.FC<QwikOptimizedHomePageProps> = ({
   language: initialLanguage = 'en',
 }) => {
   const [language, setLanguage] = useState<'en' | 'es'>(initialLanguage);
-  const [showVirtualParalegal, setShowVirtualParalegal] = useState(false);
+  // VirtualParalegal state removed
 
   // Memoize callbacks to prevent unnecessary re-renders
   const handleLanguageChange = useCallback((lang: 'en' | 'es') => {
     setLanguage(lang);
   }, []);
 
-  const handleVirtualParalegalToggle = useCallback(() => {
-    setShowVirtualParalegal(prev => !prev);
-  }, []);
+  // VirtualParalegal toggle handler removed
 
   useSafeEffect(
     isMounted => {
@@ -65,15 +61,7 @@ const QwikOptimizedHomePage: React.FC<QwikOptimizedHomePageProps> = ({
           }
         }
 
-        // Show virtual paralegal after 10 seconds
-        const timer = setTimeout(() => {
-          if (!sessionStorage.getItem('paralegal-shown') && isMounted()) {
-            setShowVirtualParalegal(true);
-            sessionStorage.setItem('paralegal-shown', 'true');
-          }
-        }, 10000);
-
-        return () => clearTimeout(timer);
+        // VirtualParalegal auto-show logic removed
       }
     },
     [initialLanguage]
@@ -147,10 +135,7 @@ const QwikOptimizedHomePage: React.FC<QwikOptimizedHomePageProps> = ({
       <ResultsShowcase language={language} />
       <TestimonialsSection language={language} />
 
-      {/* Virtual Paralegal Modal */}
-      {showVirtualParalegal && (
-        <VirtualParalegal language={language} onClose={() => setShowVirtualParalegal(false)} />
-      )}
+      {/* Virtual Paralegal Modal - removed */}
 
       {/* Background Effects */}
       <div className="fixed inset-0 -z-10 overflow-hidden">

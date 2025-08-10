@@ -52,7 +52,7 @@ export interface ScrapedContent {
 export class ContentScraper {
   private config: ScraperConfig;
   private youtube: any = null;
-  // Puppeteer browser removed - web scraping functionality disabled
+  private browser: import('puppeteer').Browser | null = null;
 
   constructor(config: ScraperConfig) {
     this.config = config;
@@ -69,8 +69,10 @@ export class ContentScraper {
   }
 
   async initialize() {
-    // Puppeteer initialization removed - web scraping functionality disabled
-    componentLogger.info('ContentScraper.initialize - Puppeteer removed, web scraping disabled');
+    this.browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
   }
 
   async scrapeYouTube(query: string): Promise<ScrapedContent[]> {
@@ -171,10 +173,106 @@ export class ContentScraper {
   }
 
   async scrapeTikTok(hashtag: string): Promise<ScrapedContent[]> {
-    componentLogger.info('ContentScraper.scrapeTikTok - Disabled (Puppeteer removed)', { hashtag });
-    // TikTok scraping functionality removed with Puppeteer
-    // This would need to be reimplemented using TikTok's official API or another solution
-    return [];
+    componentLogger.info('ContentScraper.scrapeTikTok', { hashtag });
+
+    if (!this.browser) {
+      throw new Error('Browser not initialized');
+    }
+
+    try {
+      const page = await this.browser.newPage();
+
+      // Set cookies for authentication
+      await page.setCookie({
+        name: 'sessionid',
+        value: this.config.tiktok.sessionId,
+        domain: '.tiktok.com',
+      });
+
+      // Navigate to hashtag page
+      await page.goto(`https://www.tiktok.com/tag/${hashtag}`, {
+        waitUntil: 'networkidle2',
+      });
+
+      // Wait for content to load
+      await page.waitForSelector('[data-e2e="challenge-item"]', { timeout: 10000 });
+
+      // Extract video data
+      interface TikTokVideoData {
+        url: string;
+        views: number;
+        likes: number;
+      }
+
+      const videos = await page.evaluate((): { url: string; views: number; likes: number }[] => {
+        const items = document.querySelectorAll('[data-e2e="challenge-item"]');
+        const data: { url: string; views: number; likes: number }[] = [];
+
+        items.forEach(item => {
+          const link = item.querySelector('a');
+          const stats = item.querySelectorAll('[data-e2e="video-views"], [data-e2e="video-likes"]');
+
+          if (link && stats.length >= 2) {
+            data.push({
+              url: link.href,
+              views: parseInt(stats[0]?.textContent?.replace(/[^\d]/g, '') || '0'),
+              likes: parseInt(stats[1]?.textContent?.replace(/[^\d]/g, '') || '0'),
+            });
+          }
+        });
+
+        return data;
+      });
+
+      const content: ScrapedContent[] = [];
+
+      // Get detailed information for top videos
+      for (const video of videos.slice(0, 10)) {
+        await page.goto(video.url as string, { waitUntil: 'networkidle2' });
+
+        const details = await page.evaluate(() => {
+          const title = document.querySelector('[data-e2e="browse-video-desc"]')?.textContent || '';
+          const author = document.querySelector('[data-e2e="browse-username"]')?.textContent || '';
+          const comments = document.querySelector('[data-e2e="comment-count"]')?.textContent || '0';
+          const shares = document.querySelector('[data-e2e="share-count"]')?.textContent || '0';
+
+          return {
+            title,
+            author,
+            comments: parseInt(comments.replace(/[^\d]/g, '') || '0'),
+            shares: parseInt(shares.replace(/[^\d]/g, '') || '0'),
+          };
+        });
+
+        const relevanceScore = await this.calculateRelevance(details.title, '', hashtag);
+
+        content.push({
+          platform: 'tiktok',
+          url: video.url,
+          title: details.title,
+          description: '',
+          engagement: {
+            views: video.views as number,
+            likes: video.likes as number,
+            comments: details.comments,
+            shares: details.shares,
+          },
+          publishedAt: new Date(), // TikTok doesn't easily provide publish date
+          author: details.author,
+          hashtags: this.extractHashtags(details.title),
+          relevanceScore,
+          practiceArea: await this.detectPracticeArea(details.title),
+        });
+      }
+
+      await page.close();
+      await this.saveScrapedContent(content);
+
+      return content;
+    } catch (error) {
+      componentLogger.error('ContentScraper.scrapeTikTok failed', { error, hashtag });
+      throw error;
+    }
   }
 
   async scrapeInstagram(hashtag: string): Promise<ScrapedContent[]> {
@@ -314,24 +412,173 @@ export class ContentScraper {
     };
     totalPosts: number;
   }> {
-    componentLogger.info('ContentScraper.scrapeCompetitorWebsite - Disabled (Puppeteer removed)', { url });
-    // Competitor website scraping functionality removed with Puppeteer
-    // This would need to be reimplemented using alternative methods
-    return {
-      url,
-      title: '',
-      description: '',
-      keywords: [],
-      headings: { h1: [], h2: [], h3: [] },
-      images: [],
-      links: [],
-      structuredData: {},
-      blogPosts: [],
-      seoData: {
-        schemas: [],
-      },
-      totalPosts: 0,
-    };
+    componentLogger.info('ContentScraper.scrapeCompetitorWebsite', { url });
+
+    if (!this.browser) {
+      throw new Error('Browser not initialized');
+    }
+
+    try {
+      const page = await this.browser.newPage();
+      await page.goto(url, { waitUntil: 'networkidle2' });
+
+      // Extract all blog posts
+      const blogPosts = await page.evaluate(
+        (): Array<{
+          title: string;
+          url: string;
+          excerpt: string;
+          publishDate: string;
+        }> => {
+          const posts: Array<{
+            title: string;
+            url: string;
+            excerpt: string;
+            publishDate: string;
+          }> = [];
+
+          // Common blog selectors
+          const selectors = [
+            'article',
+            '.blog-post',
+            '.post',
+            '[class*="blog"]',
+            '[class*="article"]',
+          ];
+
+          for (const selector of selectors) {
+            const elements = document.querySelectorAll(selector);
+
+            elements.forEach(element => {
+              const title = element.querySelector('h1, h2, h3')?.textContent?.trim();
+              const link = element.querySelector('a')?.href;
+              const excerpt = element.querySelector('p')?.textContent?.trim();
+              const date = element.querySelector('time, [class*="date"]')?.textContent?.trim();
+
+              if (title && link) {
+                posts.push({
+                  title,
+                  url: link,
+                  excerpt: excerpt || '',
+                  publishDate: date || '',
+                });
+              }
+            });
+
+            if (posts.length > 0) break;
+          }
+
+          return posts;
+        }
+      );
+
+      // Extract meta tags for SEO analysis
+      const seoData = await page.evaluate(() => {
+        const title = document.querySelector('title')?.textContent;
+        const metaDescription = document
+          .querySelector('meta[name="description"]')
+          ?.getAttribute('content');
+        const metaKeywords = document
+          .querySelector('meta[name="keywords"]')
+          ?.getAttribute('content');
+        const canonical = document.querySelector('link[rel="canonical"]')?.getAttribute('href');
+        const ogTitle = document
+          .querySelector('meta[property="og:title"]')
+          ?.getAttribute('content');
+        const ogDescription = document
+          .querySelector('meta[property="og:description"]')
+          ?.getAttribute('content');
+
+        // Schema.org structured data
+        const schemas = Array.from(document.querySelectorAll('script[type="application/ld+json"]'))
+          .map(script => {
+            try {
+              return JSON.parse(script.textContent || '');
+            } catch {
+              return null;
+            }
+          })
+          .filter(Boolean);
+
+        return {
+          title: title || undefined,
+          metaDescription: metaDescription || undefined,
+          metaKeywords: metaKeywords || undefined,
+          canonical: canonical || undefined,
+          ogTitle: ogTitle || undefined,
+          ogDescription: ogDescription || undefined,
+          schemas,
+        };
+      });
+
+      // Extract general page data
+      const pageData = await page.evaluate(() => {
+        const title = document.querySelector('title')?.textContent || '';
+        const metaDescription =
+          document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+        const metaKeywords =
+          document.querySelector('meta[name="keywords"]')?.getAttribute('content') || '';
+
+        // Extract headings
+        const h1s = Array.from(document.querySelectorAll('h1')).map(h => h.textContent || '');
+        const h2s = Array.from(document.querySelectorAll('h2')).map(h => h.textContent || '');
+        const h3s = Array.from(document.querySelectorAll('h3')).map(h => h.textContent || '');
+
+        // Extract images
+        const images = Array.from(document.querySelectorAll('img')).map(img => ({
+          src: img.src,
+          alt: img.alt || '',
+        }));
+
+        // Extract links
+        const links = Array.from(document.querySelectorAll('a[href]')).map(link => {
+          const anchor = link as HTMLAnchorElement;
+          return {
+            href: anchor.href,
+            text: anchor.textContent || '',
+          };
+        });
+
+        return {
+          title,
+          description: metaDescription,
+          keywords: metaKeywords ? metaKeywords.split(',').map(k => k.trim()) : [],
+          headings: { h1: h1s, h2: h2s, h3: h3s },
+          images,
+          links,
+          structuredData: {} as Record<string, unknown>,
+        };
+      });
+
+      await page.close();
+
+      // Save competitor analysis
+      const urlObj = new URL(url);
+      // TODO: First create or find competitor record
+      // For now, skip saving to database
+      componentLogger.info('Competitor analysis completed', {
+        url,
+        domain: urlObj.hostname,
+        blogPostCount: blogPosts.length,
+      });
+
+      return {
+        url,
+        title: pageData.title,
+        description: pageData.description,
+        keywords: pageData.keywords,
+        headings: pageData.headings,
+        images: pageData.images,
+        links: pageData.links,
+        structuredData: pageData.structuredData,
+        blogPosts,
+        seoData,
+        totalPosts: blogPosts.length,
+      };
+    } catch (error) {
+      componentLogger.error('ContentScraper.scrapeCompetitorWebsite failed', { error, url });
+      throw error;
+    }
   }
 
   private async calculateRelevance(
@@ -451,7 +698,8 @@ export class ContentScraper {
   }
 
   async close() {
-    // Puppeteer browser close removed - no longer needed
-    componentLogger.info('ContentScraper.close - No browser to close (Puppeteer removed)');
+    if (this.browser) {
+      await this.browser.close();
+    }
   }
 }

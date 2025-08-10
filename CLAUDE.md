@@ -28,3 +28,4 @@ When I seem stuck or overly complex, your redirection helps me stay on track. To
 ## Communication Guidelines
 
 - im not a techie, so always use simple terms where you can. If you use a tech specific word, define it in brackets next to it.
+- Create a folder called Zak-backup where you store the back up of everything i'm asking you to remove from the website, if i say revert it back you should be able to bring it back to the exact state that it was in.
