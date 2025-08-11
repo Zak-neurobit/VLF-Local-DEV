@@ -178,10 +178,15 @@ export default function PracticeAreasShowcase({ language }: PracticeAreasShowcas
   const areas = practiceAreas[language];
 
   return (
-    <section ref={containerRef} className="relative bg-black py-24 overflow-hidden">
+    <section ref={containerRef} className="relative bg-mesh-dark py-24 overflow-hidden">
+      {/* Floating gradient orbs */}
+      <div className="gradient-orb-gold w-96 h-96 top-20 right-10 animate-float-orb opacity-50" />
+      <div className="gradient-orb-burgundy w-80 h-80 bottom-1/3 left-20 animate-float-orb-reverse opacity-40" />
+      <div className="gradient-orb-mixed w-72 h-72 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-30" />
+      
       {/* Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#6B1F2E]/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-burgundy-900/5 to-transparent" />
         <motion.div style={{ y }} className="absolute inset-0 opacity-20">
           <div className="h-full w-full bg-[url('/images/grid.svg')] bg-center" />
         </motion.div>

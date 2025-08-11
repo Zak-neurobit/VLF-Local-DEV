@@ -92,16 +92,22 @@ export default function FirmHighlights({ language }: FirmHighlightsProps) {
   const t = content[language];
 
   return (
-    <section className="relative py-24 bg-gradient-to-b from-black via-[#0a0a0a] to-black">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="relative py-24 bg-mesh-light overflow-hidden">
+      {/* Floating gradient orbs */}
+      <div className="gradient-orb-burgundy w-80 h-80 top-10 left-0 animate-float-orb opacity-30" />
+      <div className="gradient-orb-gold w-96 h-96 bottom-10 right-0 animate-float-orb-reverse opacity-25" />
+      <div className="gradient-orb-mixed w-64 h-64 top-1/3 right-1/3 opacity-20" />
+      
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{t.title}</h2>
-          <p className="text-xl text-[#C9974D]">{t.subtitle}</p>
+          <h2 className="text-4xl md:text-5xl font-bold heading-serif text-gray-900 mb-4">{t.title}</h2>
+          <div className="divider-professional mx-auto"></div>
+          <p className="text-xl text-gradient-gold font-semibold">{t.subtitle}</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -114,20 +120,20 @@ export default function FirmHighlights({ language }: FirmHighlightsProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-[#6B1F2E]/10 to-[#C9974D]/10 border border-[#C9974D]/20 p-8 hover:border-[#C9974D]/50 transition-all duration-300"
+                className="card-professional group relative overflow-hidden hover:border-gold-400"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-[#6B1F2E]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-br from-gold-50 to-transparent opacity-0 group-hover:opacity-100 transition-professional" />
 
                 <div className="relative z-10">
-                  <div className="mb-4 inline-flex p-3 rounded-lg bg-[#C9974D]/20">
-                    <Icon className="h-8 w-8 text-[#C9974D]" />
+                  <div className="mb-4 inline-flex p-3 rounded-lg bg-gradient-to-br from-gold-100 to-gold-50 group-hover:from-gold-200 group-hover:to-gold-100 transition-professional">
+                    <Icon className="h-8 w-8 text-burgundy-700 animate-float" />
                   </div>
 
-                  <h3 className="text-xl font-bold text-white mb-2">{highlight.title}</h3>
-                  <p className="text-gray-300">{highlight.description}</p>
+                  <h3 className="text-xl font-bold heading-serif text-gray-900 mb-2 group-hover:text-burgundy-700 transition-professional">{highlight.title}</h3>
+                  <p className="text-gray-600 text-professional">{highlight.description}</p>
                 </div>
 
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#6B1F2E] to-[#C9974D] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-burgundy-700 to-gold-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
               </motion.div>
             );
           })}
@@ -136,7 +142,7 @@ export default function FirmHighlights({ language }: FirmHighlightsProps) {
 
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-[#C9974D]/5 blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-gradient-to-r from-gold-100/20 to-burgundy-100/20 blur-3xl animate-pulse" />
       </div>
     </section>
   );

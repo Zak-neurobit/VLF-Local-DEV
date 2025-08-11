@@ -130,6 +130,7 @@
     "next-auth": "^4.24.5",
     "node-cron": "^4.2.0",
     "nodemailer": "^6.9.8",
+    "ogl": "^1.0.11",
     "openai": "^4.24.0",
     "p-limit": "^6.2.0",
     "p-retry": "^6.2.1",

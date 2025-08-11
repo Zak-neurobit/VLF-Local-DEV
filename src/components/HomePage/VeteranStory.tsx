@@ -105,17 +105,17 @@ export default function VeteranStory({ language }: VeteranStoryProps) {
   return (
     <section
       ref={containerRef}
-      className="relative overflow-hidden bg-gradient-to-b from-black via-[#0a0a0a] to-black py-24"
+      className="relative overflow-hidden bg-mesh-dark py-24"
     >
-      {/* Parallax Background Elements */}
+      {/* Enhanced Parallax Background Elements with stronger brand colors */}
       <motion.div style={{ y: y1 }} className="absolute inset-0">
-        <div className="absolute top-20 left-10 h-64 w-64 rounded-full bg-[#6B1F2E]/10 blur-3xl" />
+        <div className="gradient-orb-burgundy w-96 h-96 top-20 left-10 opacity-70 animate-float-orb" />
       </motion.div>
       <motion.div style={{ y: y2 }} className="absolute inset-0">
-        <div className="absolute bottom-20 right-10 h-96 w-96 rounded-full bg-[#C9974D]/10 blur-3xl" />
+        <div className="gradient-orb-gold w-80 h-80 bottom-20 right-10 opacity-60 animate-float-orb-reverse" />
       </motion.div>
       <motion.div style={{ y: y3 }} className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-3xl" />
+        <div className="gradient-orb-mixed w-72 h-72 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-50" />
       </motion.div>
 
       <motion.div style={{ opacity, scale }} className="relative z-10 mx-auto max-w-7xl px-4">

@@ -45,7 +45,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ item, isActive, language, onClose }
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, y: 10 }}
       transition={{ duration: 0.2 }}
-      className="absolute left-0 mt-2 w-full bg-white shadow-2xl rounded-lg overflow-hidden z-50 border border-gold-200"
+      className="absolute left-0 mt-2 w-full bg-white shadow-2xl rounded-lg overflow-hidden z-50"
       style={{ minWidth: '900px' }}
     >
       <div className="grid grid-cols-5 gap-0">
@@ -62,10 +62,10 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ item, isActive, language, onClose }
             >
               <Link
                 href={area.href[language]}
-                className={`flex items-center justify-between py-3 px-3 rounded-lg text-sm font-medium transition-professional ${
+                className={`flex items-center justify-between py-3 px-3 rounded-lg text-sm font-medium transition-all duration-200 ${
                   activeCategory === area.label[language]
-                    ? 'bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] text-white shadow-md'
-                    : 'text-gray-700 hover:bg-gray-50 hover:border-l-4 hover:border-gold-400'
+                    ? 'bg-[#6B1F2E] text-white'
+                    : 'text-gray-700 hover:bg-gray-100'
                 }`}
                 onClick={onClose}
               >
@@ -95,7 +95,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ item, isActive, language, onClose }
                     <div key={category.label[language]} className="space-y-3">
                       <Link
                         href={category.href[language]}
-                        className="block text-sm font-semibold text-gray-900 hover:text-[#6B1F2E] transition-professional underline-gold"
+                        className="block text-sm font-semibold text-gray-900 hover:text-[#6B1F2E] transition-colors"
                         onClick={onClose}
                       >
                         {category.label[language]}
@@ -160,33 +160,22 @@ export function ProfessionalNavigation() {
 
   return (
     <>
-      {/* Top Gradient Bar */}
-      <div className="fixed top-0 left-0 right-0 z-40 gradient-bar-primary animate-gradient">
-        <div className="py-1 px-4">
-          <div className="max-w-7xl mx-auto flex justify-center items-center">
-            <p className="text-xs font-bold text-white tracking-widest uppercase">
-              {language === 'es' ? 'Más de 60 años de excelencia legal' : 'Over 60 Years of Legal Excellence'}
-            </p>
-          </div>
-        </div>
-      </div>
-      
-      {/* Secondary Info Bar */}
-      <div className="fixed top-7 left-0 right-0 z-40 gradient-bar-secondary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+      {/* Top Bar */}
+      <div className="bg-[#1a1a1a] text-white py-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center space-x-4">
-              <a href="tel:1-844-967-3536" className="flex items-center text-gold-400 hover:text-gold-300 transition-colors font-bold">
+              <a href="tel:1-844-967-3536" className="flex items-center hover:text-[#188bf6]">
                 <Phone className="w-4 h-4 mr-1" />
-                <span>1-844-YO-PELEO</span>
+                <span className="font-semibold">1-844-YO-PELEO</span>
               </a>
-              <span className="hidden sm:inline text-gray-200 font-medium">
+              <span className="hidden sm:inline text-gray-300">
                 {language === 'es' ? 'Consulta Gratis 24/7' : 'Free Consultation 24/7'}
               </span>
             </div>
             <button
               onClick={toggleLanguage}
-              className="flex items-center space-x-1 text-gold-400 hover:text-gold-300 transition-colors font-semibold"
+              className="flex items-center space-x-1 hover:text-[#188bf6] transition-colors"
               aria-label="Toggle language"
             >
               <Globe className="w-4 h-4" />
@@ -199,13 +188,13 @@ export function ProfessionalNavigation() {
       {/* Main Navigation */}
       <motion.nav
         initial={{ y: -100 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className={`fixed top-20 left-4 right-4 sm:left-8 sm:right-8 lg:left-[50%] lg:right-auto lg:transform lg:-translate-x-1/2 w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] lg:w-full max-w-6xl z-50 transition-all duration-300 rounded-2xl floating-nav ${
-          isScrolled ? 'floating-nav-scrolled top-14 scale-[0.97]' : ''
+        className={`sticky top-0 z-40 transition-all duration-300 ${
+          isScrolled ? 'bg-white/95 backdrop-blur-lg shadow-lg' : 'bg-white shadow-md'
         }`}
       >
-        <div className="px-6 sm:px-8 lg:px-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href={language === 'es' ? '/es' : '/'} className="flex items-center gap-3">
@@ -214,21 +203,14 @@ export function ProfessionalNavigation() {
                 whileTap={{ scale: 0.98 }}
                 className="flex items-center"
               >
-                <div className="flex items-center gap-3">
-                  <Image
-                    src="/images/vasquez-law-firm-logo.png"
-                    alt="Vasquez Law Firm"
-                    width={220}
-                    height={60}
-                    className="h-12 w-auto transition-professional group-hover:scale-105"
-                    priority
-                  />
-                  <div className="hidden sm:block border-l-2 border-gold-500 pl-3">
-                    <p className="text-xs font-bold text-burgundy-700 uppercase tracking-wider">
-                      {language === 'es' ? 'Excelencia Legal' : 'Legal Excellence'}
-                    </p>
-                  </div>
-                </div>
+                <Image
+                  src="/images/vasquez-law-firm-logo.png"
+                  alt="Vasquez Law Firm"
+                  width={220}
+                  height={60}
+                  className="h-12 w-auto"
+                  priority
+                />
               </motion.div>
             </Link>
 
@@ -243,8 +225,8 @@ export function ProfessionalNavigation() {
                 >
                   <Link
                     href={item.href[language]}
-                    className={`flex items-center gap-1 text-gray-800 hover:text-[#6B1F2E] font-semibold transition-professional underline-gold py-2 ${
-                      pathname === item.href[language] ? 'text-[#6B1F2E] font-bold' : 'font-medium'
+                    className={`flex items-center gap-1 text-gray-700 hover:text-[#6B1F2E] font-medium transition-colors py-2 ${
+                      pathname === item.href[language] ? 'text-[#6B1F2E]' : ''
                     }`}
                   >
                     {item.label[language]}
@@ -270,7 +252,7 @@ export function ProfessionalNavigation() {
                 <motion.button
                   // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
                   whileTap={{ scale: 0.95 }}
-                  className="btn-gold flex items-center gap-2 font-bold shadow-lg"
+                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <Phone className="w-5 h-5" />
                   <span>{language === 'es' ? 'Consulta Gratis' : 'Free Consultation'}</span>
@@ -299,10 +281,10 @@ export function ProfessionalNavigation() {
         {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed inset-0 z-60 lg:hidden"
+            className="fixed inset-0 z-50 lg:hidden"
           >
             {/* Backdrop */}
             <motion.div
@@ -394,7 +376,7 @@ export function ProfessionalNavigation() {
                 {/* Mobile CTA */}
                 <div className="pt-6 border-t">
                   <Link href="tel:1-844-967-3536">
-                    <button className="w-full btn-gold flex items-center justify-center gap-2 font-semibold animate-pulse">
+                    <button className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] text-white font-semibold rounded-lg shadow-lg">
                       <Phone className="w-5 h-5" />
                       <span>{language === 'es' ? 'Llamar Ahora' : 'Call Now'}</span>
                     </button>

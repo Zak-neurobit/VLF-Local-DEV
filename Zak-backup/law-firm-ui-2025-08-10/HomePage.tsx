@@ -10,31 +10,31 @@ const motion = typeof window !== 'undefined' ? require('framer-motion').motion :
 
 // Dynamic imports for performance
 const ModernHero = dynamic(() => import('../hero/ModernHero'), {
-  loading: () => <div className="h-screen bg-mesh-dark" />,
+  loading: () => <div className="h-screen bg-black" />,
   ssr: false,
 });
 
 const OfficeLocations = dynamic(() => import('./OfficeLocations'), {
-  loading: () => <div className="h-96 bg-gradient-subtle-dark" />,
+  loading: () => <div className="h-96 bg-black" />,
 });
 
 const ResultsShowcase = dynamic(() => import('./ResultsShowcase'), {
-  loading: () => <div className="h-96 bg-gradient-subtle-dark" />,
+  loading: () => <div className="h-96 bg-black" />,
 });
 
 const FirmHighlights = dynamic(() => import('./FirmHighlights'), {
-  loading: () => <div className="h-96 bg-gradient-subtle-dark" />,
+  loading: () => <div className="h-96 bg-black" />,
 });
 
 const TestimonialsSection = dynamic(
   () => import('./TestimonialsSection').then(mod => ({ default: mod.TestimonialsSection })),
   {
-    loading: () => <div className="h-96 bg-gradient-subtle-dark" />,
+    loading: () => <div className="h-96 bg-black" />,
   }
 );
 
 const PracticeAreasShowcase = dynamic(() => import('./PracticeAreasShowcase'), {
-  loading: () => <div className="h-96 bg-gradient-subtle-dark" />,
+  loading: () => <div className="h-96 bg-black" />,
 });
 
 // BACKUP: VirtualParalegal temporarily disabled - component saved in _backup_virtualparalegal/
@@ -88,17 +88,13 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
   );
 
   return (
-    <div className="min-h-screen bg-mesh-dark relative overflow-hidden">
-      {/* Floating gradient orbs */}
-      <div className="gradient-orb-gold w-96 h-96 top-20 left-10 animate-float-orb" />
-      <div className="gradient-orb-burgundy w-80 h-80 bottom-20 right-10 animate-float-orb-reverse" />
-      <div className="gradient-orb-mixed w-64 h-64 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+    <div className="min-h-screen bg-black">
       {/* Language Toggle - Fixed Position (hide on Spanish pages) */}
       {initialLanguage === 'en' && motion && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="fixed right-2 sm:right-4 top-16 sm:top-20 z-40 flex gap-1 sm:gap-2 rounded-full bg-black/70 p-1 backdrop-blur-md border border-gold-400/20"
+          className="fixed right-2 sm:right-4 top-16 sm:top-20 z-40 flex gap-1 sm:gap-2 rounded-full bg-black/50 p-1 backdrop-blur-sm"
         >
           <button
             onClick={() => handleLanguageChange('en')}
@@ -134,7 +130,7 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-b from-black/95 via-burgundy-950/10 to-black py-12 relative"
+          className="bg-gradient-to-b from-black to-neutral-950 py-12"
         >
           <div className="mx-auto max-w-7xl px-4">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
@@ -166,7 +162,7 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
         </motion.section>
       )}
       {language === 'es' && !motion && (
-        <section className="bg-gradient-to-b from-black/95 via-burgundy-950/10 to-black py-12 relative">
+        <section className="bg-gradient-to-b from-black to-neutral-950 py-12">
           <div className="mx-auto max-w-7xl px-4">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
               {[

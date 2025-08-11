@@ -408,7 +408,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
       { name: 'Blog', href: '/blog' },
       { name: 'Scholarship', href: '/scholarship' },
       { name: 'Contact', href: '/contact' },
-      { name: 'Payment', href: '/make-payment' },
+      { name: 'Payment', href: 'https://secure.lawpay.com/pages/vasquezlawfirm/operating1' },
     ],
     es: [
       { name: 'Inicio', href: '/es' },
@@ -819,7 +819,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
       { name: 'Blog', href: '/es/blog' },
       { name: 'Beca', href: '/es/becas' },
       { name: 'Contacto', href: '/es/contacto' },
-      { name: 'Pago', href: '/es/pago' },
+      { name: 'Pago', href: 'https://secure.lawpay.com/pages/vasquezlawfirm/operating1' },
     ],
   };
 
@@ -830,13 +830,13 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
       className={`transition-all duration-300 ${
         isTransparent 
           ? 'bg-transparent' 
-          : 'backdrop-blur-lg bg-gradient-to-b from-white/15 to-white/10 border-b border-white/10 shadow-xl'
+          : 'bg-white border-b border-gray-200 shadow-lg'
       }`}
     >
       {/* Top Contact Bar */}
       <div
         className={`transition-all duration-300 ${
-          isTransparent ? 'bg-black/20 backdrop-blur-sm' : 'bg-secondary'
+          isTransparent ? 'bg-black/80' : 'bg-secondary'
         } text-white py-1`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -874,7 +874,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
         className={`transition-all duration-300 relative ${
           isTransparent 
             ? 'bg-transparent' 
-            : 'backdrop-blur-xl bg-gradient-to-r from-white/25 via-white/30 to-white/25 border-b border-white/20 shadow-lg'
+            : 'bg-white border-b border-gray-200 shadow-md'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -901,41 +901,56 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                     onMouseEnter={() => item.submenu && setActiveDropdown(item.name)}
                     onMouseLeave={() => setActiveDropdown(null)}
                   >
-                    <Link
-                      href={item.href}
-                      className={`relative text-sm font-semibold transition-all duration-200 py-2 flex items-center gap-1 ${
-                        pathname === item.href || (item.submenu && pathname?.startsWith(item.href))
-                          ? 'text-[#C9974D] scale-105'
-                          : isTransparent
+                    {item.href.startsWith('http') ? (
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`relative text-sm font-semibold transition-all duration-200 py-2 flex items-center gap-1 ${
+                          isTransparent
                             ? 'text-[#C9974D] hover:text-white hover:scale-105'
-                            : 'text-[#C9974D] hover:text-[#B08740] hover:scale-105'
-                      }`}
-                    >
-                      {item.name}
-                      {item.submenu && (
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 9l-7 7-7-7"
+                            : 'text-gray-700 hover:text-[#6B1F2E] hover:scale-105'
+                        }`}
+                      >
+                        {item.name}
+                      </a>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        className={`relative text-sm font-semibold transition-all duration-200 py-2 flex items-center gap-1 ${
+                          pathname === item.href || (item.submenu && pathname?.startsWith(item.href))
+                            ? 'text-[#6B1F2E] scale-105'
+                            : isTransparent
+                              ? 'text-[#C9974D] hover:text-white hover:scale-105'
+                              : 'text-gray-700 hover:text-[#6B1F2E] hover:scale-105'
+                        }`}
+                      >
+                        {item.name}
+                        {item.submenu && (
+                          <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        )}
+                        {(pathname === item.href ||
+                          (item.submenu && pathname?.startsWith(item.href))) && (
+                          <motion.div
+                            layoutId="navbar-indicator"
+                            className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#C9974D]"
+                            transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
                           />
-                        </svg>
-                      )}
-                      {(pathname === item.href ||
-                        (item.submenu && pathname?.startsWith(item.href))) && (
-                        <motion.div
-                          layoutId="navbar-indicator"
-                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#C9974D]"
-                          transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
-                        />
-                      )}
-                    </Link>
+                        )}
+                      </Link>
+                    )}
 
                     {/* Dropdown Menu */}
                     <AnimatePresence>
@@ -945,7 +960,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 mt-1 w-80 backdrop-blur-xl bg-white/80 rounded-lg shadow-xl border border-white/30 overflow-hidden z-50"
+                          className="absolute top-full left-0 mt-1 w-80 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-50"
                         >
                           <div className="max-h-[70vh] overflow-y-auto">
                             {/* Practice Areas Special Layout */}
@@ -980,7 +995,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                                                 )}
                                               </Link>
                                               {subCategory.submenu && activeSubmenu === subCategory.name && (
-                                                <div className="absolute left-full top-0 ml-2 w-64 backdrop-blur-xl bg-white/80 shadow-lg rounded-md border border-white/30 z-50">
+                                                <div className="absolute left-full top-0 ml-2 w-64 bg-white shadow-lg rounded-md border border-gray-200 z-50">
                                                   <div className="py-2">
                                                     {subCategory.submenu.map(specificCase => (
                                                       <Link
@@ -1079,27 +1094,39 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden backdrop-blur-xl bg-white/80 border-t border-white/30 shadow-lg"
+              className="lg:hidden bg-white border-t border-gray-200 shadow-lg"
             >
               <div className="px-4 py-6 space-y-1">
                 {navigation[language].map(item => (
                   <div key={item.name}>
-                    <Link
-                      href={item.href}
-                      onClick={() => {
-                        // Only close menu if no submenu
-                        if (!item.submenu) {
-                          setMobileMenuOpen(false);
-                        }
-                      }}
-                      className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors ${
-                        pathname === item.href || (item.submenu && pathname?.startsWith(item.href))
-                          ? 'bg-[#C9974D]/10 text-[#C9974D]'
-                          : 'text-[#906431] hover:bg-[#C9974D]/5 hover:text-[#C9974D]'
-                      }`}
-                    >
-                      {item.name}
-                    </Link>
+                    {item.href.startsWith('http') ? (
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors text-[#906431] hover:bg-[#C9974D]/5 hover:text-[#C9974D]`}
+                      >
+                        {item.name}
+                      </a>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        onClick={() => {
+                          // Only close menu if no submenu
+                          if (!item.submenu) {
+                            setMobileMenuOpen(false);
+                          }
+                        }}
+                        className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors ${
+                          pathname === item.href || (item.submenu && pathname?.startsWith(item.href))
+                            ? 'bg-[#C9974D]/10 text-[#C9974D]'
+                            : 'text-[#906431] hover:bg-[#C9974D]/5 hover:text-[#C9974D]'
+                        }`}
+                      >
+                        {item.name}
+                      </Link>
+                    )}
                     {item.submenu && (
                       <div className="ml-4 mt-1 space-y-1">
                         {item.submenu.map(subItem => (

@@ -46,8 +46,13 @@ export function TestimonialsSection({}: TestimonialsSectionProps = {}) {
   };
 
   return (
-    <section className="py-20 bg-black relative overflow-hidden">
-      {/* Background Effects */}
+    <section className="py-20 bg-mesh-light relative overflow-hidden">
+      {/* Enhanced Background Effects with floating orbs */}
+      <div className="absolute inset-0 -z-10">
+        <div className="gradient-orb-gold w-80 h-80 top-0 left-1/4 animate-float-orb opacity-40" />
+        <div className="gradient-orb-burgundy w-72 h-72 bottom-0 right-1/4 animate-float-orb-reverse opacity-30" />
+        <div className="gradient-orb-mixed w-96 h-96 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20" />
+      </div>
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-black to-secondary/5" />
         <motion.div
@@ -85,7 +90,7 @@ export function TestimonialsSection({}: TestimonialsSectionProps = {}) {
               transition={{ delay: index * 0.1 }}
               className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-primary/30 transition-all"
             >
-              <Quote className="h-8 w-8 text-primary/30 mb-4" />
+              <Quote className="h-8 w-8 text-gold-400/30 mb-4" />
 
               {/* Rating */}
               <div className="flex mb-4">
@@ -126,7 +131,7 @@ export function TestimonialsSection({}: TestimonialsSectionProps = {}) {
               >
                 <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 h-full flex flex-col justify-between">
                   <div>
-                    <Quote className="h-8 w-8 text-primary/30 mb-4" />
+                    <Quote className="h-8 w-8 text-gold-400/30 mb-4" />
 
                     {/* Rating */}
                     <div className="flex mb-4">

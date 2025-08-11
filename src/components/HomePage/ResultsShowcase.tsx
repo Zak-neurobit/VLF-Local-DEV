@@ -302,7 +302,11 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
   }
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-black py-24">
+    <section ref={ref} className="relative overflow-hidden bg-mesh-dark py-24">
+      {/* Floating gradient orbs */}
+      <div className="gradient-orb-gold w-72 h-72 top-10 right-20 animate-float-orb opacity-60" />
+      <div className="gradient-orb-burgundy w-96 h-96 bottom-0 left-0 animate-float-orb-reverse opacity-50" />
+      
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-[url('/images/justice-pattern.svg')] bg-center" />
