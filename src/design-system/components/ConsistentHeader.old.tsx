@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { BRAND } from '../constants';
 import { SimpleLanguageSwitcher } from '@/components/Navigation/SimpleLanguageSwitcher';
@@ -24,7 +25,9 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const [dropdownTimeout, setDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -34,6 +37,80 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (dropdownTimeout) {
+        clearTimeout(dropdownTimeout);
+      }
+    };
+  }, [dropdownTimeout]);
+
+  // Auto-close dropdown after 30 seconds to prevent stuck states
+  useEffect(() => {
+    if (activeDropdown) {
+      const autoCloseTimeout = setTimeout(() => {
+        setActiveDropdown(null);
+        setActiveSubmenu(null);
+      }, 30000); // Auto close after 30 seconds
+
+      return () => clearTimeout(autoCloseTimeout);
+    }
+  }, [activeDropdown]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      // Check if click is outside the navigation area
+      if (!target.closest('.desktop-navigation') && !target.closest('.mobile-navigation')) {
+        setActiveDropdown(null);
+        setActiveSubmenu(null);
+        if (dropdownTimeout) {
+          clearTimeout(dropdownTimeout);
+          setDropdownTimeout(null);
+        }
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [dropdownTimeout]);
+
+  const handleDropdownToggle = (itemName: string) => {
+    if (activeDropdown === itemName) {
+      setActiveDropdown(null);
+      setActiveSubmenu(null);
+    } else {
+      setActiveDropdown(itemName);
+      setActiveSubmenu(null);
+    }
+    // Clear any existing timeout
+    if (dropdownTimeout) {
+      clearTimeout(dropdownTimeout);
+      setDropdownTimeout(null);
+    }
+  };
+
+  const handleDropdownMouseEnter = (itemName: string) => {
+    // Clear any pending close timeout
+    if (dropdownTimeout) {
+      clearTimeout(dropdownTimeout);
+      setDropdownTimeout(null);
+    }
+    setActiveDropdown(itemName);
+    setActiveSubmenu(null);
+  };
+
+  const handleDropdownMouseLeave = () => {
+    // Delay before closing to allow movement between elements
+    const timeout = setTimeout(() => {
+      setActiveDropdown(null);
+      setActiveSubmenu(null);
+    }, 150); // Small delay to allow moving between menu and dropdown
+    setDropdownTimeout(timeout);
+  };
 
   const navigation: { en: NavigationItem[]; es: NavigationItem[] } = {
     en: [
@@ -881,6 +958,10 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
             <Link 
               href={language === 'es' ? '/es' : '/'} 
               className="flex items-center cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href = language === 'es' ? '/es' : '/';
+              }}
             >
               <Image
                 src="/images/vasquez-logo.png"
@@ -898,7 +979,23 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                 {navigation[language].map(item => (
                   <div
                     key={item.name}
-                    className="relative group"
+                    className="relative"
+                    onMouseEnter={() => {
+                      if (item.submenu) {
+                        handleDropdownMouseEnter(item.name);
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      if (item.submenu) {
+                        handleDropdownMouseLeave();
+                      }
+                    }}
+                    onClick={(e) => {
+                      if (item.submenu) {
+                        e.stopPropagation();
+                        handleDropdownToggle(item.name);
+                      }
+                    }}
                   >
                     {item.href.startsWith('http') ? (
                       <a
@@ -923,6 +1020,12 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                               ? 'text-[#C9974D] hover:text-white hover:scale-105'
                               : 'text-gray-700 hover:text-[#6B1F2E] hover:scale-105'
                         }`}
+                        onClick={(e) => {
+                          if (item.name === 'Home' || item.name === 'Inicio') {
+                            e.preventDefault();
+                            window.location.href = item.href;
+                          }
+                        }}
                       >
                         {item.name}
                         {item.submenu && (
@@ -942,14 +1045,32 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                         )}
                         {(pathname === item.href ||
                           (item.submenu && pathname?.startsWith(item.href))) && (
-                          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#C9974D]" />
+                          <motion.div
+                            layoutId="navbar-indicator"
+                            className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#C9974D]"
+                            transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
+                          />
                         )}
                       </Link>
                     )}
 
-                    {/* Dropdown Menu - CSS Hover */}
-                    {item.submenu && (
-                      <div className="absolute top-full left-0 -mt-1 pt-1 w-[600px] bg-transparent pointer-events-none group-hover:pointer-events-auto opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[500]">
+                    {/* Dropdown Menu */}
+                    <AnimatePresence>
+                      {item.submenu && activeDropdown === item.name && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute top-full left-0 -mt-1 pt-1 w-[600px] bg-transparent pointer-events-auto z-[500]"
+                          onMouseEnter={() => {
+                            handleDropdownMouseEnter(item.name);
+                          }}
+                          onMouseLeave={() => {
+                            handleDropdownMouseLeave();
+                          }}
+                          onClick={(e) => e.stopPropagation()}
+                        >
                           <div className="bg-white rounded-xl shadow-2xl border border-gold-200 overflow-hidden relative z-[510]"
                           style={{
                             background: 'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(249,250,251,0.98) 100%)',
@@ -976,28 +1097,35 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                                           {practice.submenu.map(subCategory => (
                                             <div 
                                               key={subCategory.name} 
-                                              className="pl-4 relative group/sub"
+                                              className="pl-4 relative"
+                                              onMouseEnter={() => setActiveSubmenu(subCategory.name)}
+                                              onMouseLeave={() => setActiveSubmenu(null)}
                                             >
                                               <Link
                                                 href={subCategory.href}
-                                                className="block py-2 text-sm font-medium text-gray-600 hover:text-burgundy-700 hover:translate-x-1 transition-all duration-200 flex items-center justify-between"
+                                                className="block py-2 text-sm font-medium text-gray-600 hover:text-burgundy-700 hover:translate-x-1 transition-all duration-200 flex items-center justify-between group"
+                                                onClick={() => setActiveDropdown(null)}
                                               >
                                                 <span className="flex items-center">
-                                                  <span className="w-1.5 h-1.5 bg-gold-400 rounded-full mr-2 opacity-0 group-hover/sub:opacity-100 transition-opacity"></span>
+                                                  <span className="w-1.5 h-1.5 bg-gold-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                                   {subCategory.name}
                                                 </span>
                                                 {subCategory.submenu && (
                                                   <span className="text-xs text-gold-500">▶</span>
                                                 )}
                                               </Link>
-                                              {subCategory.submenu && (
-                                                <div className="absolute left-full top-0 ml-2 w-64 bg-white shadow-lg rounded-md border border-gray-200 z-[160] opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-200">
+                                              {subCategory.submenu && activeSubmenu === subCategory.name && (
+                                                <div className="absolute left-full top-0 ml-2 w-64 bg-white shadow-lg rounded-md border border-gray-200 z-[160]">
                                                   <div className="py-2">
                                                     {subCategory.submenu.map(specificCase => (
                                                       <Link
                                                         key={specificCase.name}
                                                         href={specificCase.href}
                                                         className="block px-4 py-1.5 text-xs text-neutral-600 hover:bg-primary/10 hover:text-primary transition-colors"
+                                                        onClick={() => {
+                                                          setActiveDropdown(null);
+                                                          setActiveSubmenu(null);
+                                                        }}
                                                       >
                                                         {specificCase.name}
                                                       </Link>
@@ -1021,6 +1149,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                                     key={subItem.name}
                                     href={subItem.href}
                                     className="block px-6 py-3 text-base font-medium text-gray-700 hover:bg-gold-50 hover:text-burgundy-700 hover:translate-x-2 transition-all duration-200 group"
+                                    onClick={() => setActiveDropdown(null)}
                                   >
                                     <span className="flex items-center">
                                       <span className="w-1.5 h-1.5 bg-gold-400 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
@@ -1031,9 +1160,10 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                               </div>
                             )}
                           </div>
-                        </div>
-                      </div>
-                    )}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 ))}
               </div>
@@ -1081,8 +1211,15 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
         </div>
 
         {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-gray-200 shadow-lg transition-all duration-200">
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="lg:hidden bg-white border-t border-gray-200 shadow-lg"
+            >
               <div className="px-4 py-6 space-y-1">
                 {navigation[language].map(item => (
                   <div key={item.name}>
@@ -1170,8 +1307,9 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                   </Link>
                 </div>
               </div>
-            </div>
+            </motion.div>
           )}
+        </AnimatePresence>
       </nav>
     </header>
   );

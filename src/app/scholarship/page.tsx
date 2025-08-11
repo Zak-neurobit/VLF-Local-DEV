@@ -2,9 +2,9 @@ import { Metadata } from 'next';
 import ScholarshipPageClient from './ScholarshipPageClient';
 
 export const metadata: Metadata = {
-  title: 'Scholarship Program | Vasquez Law Firm',
-  description: 'Apply for the Vasquez Law Firm Scholarship Program. Supporting future leaders in our community.',
-  keywords: 'scholarship, legal scholarship, Vasquez Law Firm scholarship, student support',
+  title: 'DACA Dreamer Scholarship | Vasquez Law Firm',
+  description: 'Apply for the $1,000 Vasquez Law Firm DACA Dreamer Scholarship. Supporting DACA recipients pursuing higher education with a 3.5+ GPA. Two winners per semester.',
+  keywords: 'DACA scholarship, Dreamer scholarship, Vasquez Law Firm scholarship, DACA student support, immigration scholarship, college scholarship',
 };
 
 export default function ScholarshipPage() {
