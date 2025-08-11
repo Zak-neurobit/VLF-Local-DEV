@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { block } from 'million/react';
 
 interface NewsItem {
   id: string;
@@ -21,7 +22,8 @@ interface ContinuousNewsTickerProps {
   speed?: number; // pixels per second
 }
 
-export function ContinuousNewsTicker({
+// Create the original component
+function ContinuousNewsTickerComponent({
   className,
   locale = 'en',
   speed = 50, // 50 pixels per second
@@ -144,3 +146,5 @@ export function ContinuousNewsTicker({
   );
 }
 
+// Create and export the block-optimized component
+export const ContinuousNewsTicker = block(ContinuousNewsTickerComponent);

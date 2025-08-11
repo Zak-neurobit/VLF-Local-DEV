@@ -883,7 +883,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
               className="flex items-center cursor-pointer"
             >
               <Image
-                src="/images/vasquez-logo.png"
+                src="/images/LOGO_TRANS.PNG"
                 alt="Vasquez Law Firm"
                 width={200}
                 height={70}

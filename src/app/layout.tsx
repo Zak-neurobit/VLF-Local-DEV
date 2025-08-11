@@ -33,7 +33,7 @@ import {
   SafePartytownPerformanceMonitor,
 } from '@/components/HydrationSafeComponents';
 import { Suspense } from 'react';
-import { ClientNavigation } from '@/components/ClientNavigation';
+// import { ClientNavigation } from '@/components/ClientNavigation'; // Removed - was intercepting navigation
 import { ExternalScriptGuardian } from '@/components/ExternalScriptGuardian';
 import { ResourceDiagnostics } from '@/components/ResourceDiagnostics';
 import { PartytownScripts } from '@/components/Partytown';
@@ -203,7 +203,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <StreamErrorBoundary>
               <DOMSafeWrapper>
                 <MasterLayout>
-                  <ClientNavigation />
+                  {/* <ClientNavigation /> Removed - was intercepting all navigation */}
                   <SafeDynamicHreflang />
                   {children}
                 </MasterLayout>

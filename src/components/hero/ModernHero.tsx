@@ -1,26 +1,17 @@
 'use client';
 
-import React, { useEffect, useState, Suspense, lazy } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/design-system/Button';
 import { Heading, Text } from '@/components/design-system/Typography';
 import { TRADEMARK } from '@/lib/constants/trademark';
 
-// Lazy load Aurora effect with dynamic import
-const Aurora = lazy(() => import('@/components/effects/Aurora'));
-
-// Toggle for Aurora effect - can be controlled via environment variable or prop
-const ENABLE_AURORA = process.env.NEXT_PUBLIC_ENABLE_AURORA !== 'false'; // Default to true
-
 interface ModernHeroProps {
   language: 'en' | 'es';
-  enableAurora?: boolean; // Optional prop to override environment variable
 }
 
-export default function ModernHero({ language, enableAurora }: ModernHeroProps) {
-  // Determine if Aurora should be shown
-  const showAurora = enableAurora !== undefined ? enableAurora : ENABLE_AURORA;
+export default function ModernHero({ language }: ModernHeroProps) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
   const content = {
@@ -74,25 +65,10 @@ export default function ModernHero({ language, enableAurora }: ModernHeroProps) 
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-mesh-dark pt-[92px]">
-      {/* Aurora Effect Background - Toggle with showAurora */}
-      {showAurora && (
-        <Suspense fallback={null}>
-          <Aurora 
-            amplitude={0.8}
-            blend={0.6}
-            speed={0.5}
-          />
-        </Suspense>
-      )}
-      
-      {/* Original Floating gradient orbs - Show when Aurora is disabled */}
-      {!showAurora && (
-        <>
-          <div className="gradient-orb-burgundy w-96 h-96 top-0 right-0 animate-float-orb opacity-60" />
-          <div className="gradient-orb-gold w-80 h-80 bottom-20 left-10 animate-float-orb-reverse opacity-50" />
-          <div className="gradient-orb-mixed w-72 h-72 top-1/2 right-1/3 opacity-40" />
-        </>
-      )}
+      {/* Floating gradient orbs background */}
+      <div className="gradient-orb-burgundy w-96 h-96 top-0 right-0 animate-float-orb opacity-60" />
+      <div className="gradient-orb-gold w-80 h-80 bottom-20 left-10 animate-float-orb-reverse opacity-50" />
+      <div className="gradient-orb-mixed w-72 h-72 top-1/2 right-1/3 opacity-40" />
       
       {/* Animated Background */}
       <div className="absolute inset-0">
