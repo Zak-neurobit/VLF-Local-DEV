@@ -837,10 +837,10 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
       <div
         className={`transition-all duration-300 ${
           isTransparent ? 'bg-black/80' : 'bg-secondary'
-        } text-white py-1`}
+        } text-white py-0.5`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center items-center text-sm">
+          <div className="flex justify-center items-center text-xs">
             <div className="flex items-center space-x-4">
               <a
                 href={`tel:${BRAND.phoneNumeric}`}
@@ -880,13 +880,20 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <Link href={language === 'es' ? '/es' : '/'} className="flex items-center">
+            <Link 
+              href={language === 'es' ? '/es' : '/'} 
+              className="flex items-center cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href = language === 'es' ? '/es' : '/';
+              }}
+            >
               <Image
                 src="/images/vasquez-logo.png"
                 alt="Vasquez Law Firm"
                 width={200}
                 height={70}
-                className="h-12 w-auto"
+                className="h-12 w-auto cursor-pointer"
                 priority
               />
             </Link>
@@ -898,8 +905,14 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                   <div
                     key={item.name}
                     className="relative"
-                    onMouseEnter={() => item.submenu && setActiveDropdown(item.name)}
-                    onMouseLeave={() => setActiveDropdown(null)}
+                    onMouseEnter={() => {
+                      if (item.submenu) {
+                        setActiveDropdown(item.name);
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      setActiveDropdown(null);
+                    }}
                   >
                     {item.href.startsWith('http') ? (
                       <a
@@ -917,13 +930,19 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                     ) : (
                       <Link
                         href={item.href}
-                        className={`relative text-sm font-semibold transition-all duration-200 py-2 flex items-center gap-1 ${
+                        className={`relative text-sm font-semibold transition-all duration-200 py-2 flex items-center gap-1 cursor-pointer ${
                           pathname === item.href || (item.submenu && pathname?.startsWith(item.href))
                             ? 'text-[#6B1F2E] scale-105'
                             : isTransparent
                               ? 'text-[#C9974D] hover:text-white hover:scale-105'
                               : 'text-gray-700 hover:text-[#6B1F2E] hover:scale-105'
                         }`}
+                        onClick={(e) => {
+                          if (item.name === 'Home' || item.name === 'Inicio') {
+                            e.preventDefault();
+                            window.location.href = item.href;
+                          }
+                        }}
                       >
                         {item.name}
                         {item.submenu && (
@@ -960,23 +979,32 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 mt-1 w-80 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-50"
+                          className="absolute top-full left-0 mt-0 pt-2 w-[600px] bg-transparent"
+                          onMouseEnter={() => setActiveDropdown(item.name)}
+                          onMouseLeave={() => setActiveDropdown(null)}
+                        >
+                          <div className="bg-white rounded-xl shadow-2xl border border-gold-200 overflow-hidden"
+                          style={{
+                            background: 'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(249,250,251,0.98) 100%)',
+                            backdropFilter: 'blur(20px)',
+                            boxShadow: '0 20px 40px rgba(107, 31, 46, 0.1), 0 10px 20px rgba(201, 151, 77, 0.08)'
+                          }}
                         >
                           <div className="max-h-[70vh] overflow-y-auto">
                             {/* Practice Areas Special Layout */}
                             {item.name === 'Practice Areas' || item.name === 'Áreas de Práctica' ? (
-                              <div className="grid grid-cols-1">
+                              <div className="grid grid-cols-2 gap-0">
                                 {item.submenu.map(practice => (
-                                  <div key={practice.name} className="border-b border-neutral-100 last:border-0">
+                                  <div key={practice.name} className="border-b border-neutral-100 border-r last:border-r-0 even:border-r-0">
                                     <Link
                                       href={practice.href}
-                                      className="block px-4 py-3 text-sm font-semibold text-neutral-800 hover:bg-primary/5 transition-colors"
+                                      className="block px-6 py-4 text-base font-bold text-burgundy-800 hover:bg-gold-50 hover:text-gold-700 transition-all duration-200"
                                     >
                                       {practice.name}
                                     </Link>
                                     {practice.submenu && (
-                                      <div className="bg-neutral-50 px-4 pb-2">
-                                        <div className="grid grid-cols-1 gap-1">
+                                      <div className="bg-gradient-to-r from-gray-50 to-white px-6 pb-3">
+                                        <div className="grid grid-cols-1 gap-2">
                                           {practice.submenu.map(subCategory => (
                                             <div 
                                               key={subCategory.name} 
@@ -986,16 +1014,19 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                                             >
                                               <Link
                                                 href={subCategory.href}
-                                                className="block py-1.5 text-xs font-medium text-neutral-700 hover:text-primary transition-colors flex items-center justify-between"
+                                                className="block py-2 text-sm font-medium text-gray-600 hover:text-burgundy-700 hover:translate-x-1 transition-all duration-200 flex items-center justify-between group"
                                                 onClick={() => setActiveDropdown(null)}
                                               >
-                                                {subCategory.name}
+                                                <span className="flex items-center">
+                                                  <span className="w-1.5 h-1.5 bg-gold-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                                  {subCategory.name}
+                                                </span>
                                                 {subCategory.submenu && (
-                                                  <span className="text-[10px] text-neutral-400">▶</span>
+                                                  <span className="text-xs text-gold-500">▶</span>
                                                 )}
                                               </Link>
                                               {subCategory.submenu && activeSubmenu === subCategory.name && (
-                                                <div className="absolute left-full top-0 ml-2 w-64 bg-white shadow-lg rounded-md border border-gray-200 z-50">
+                                                <div className="absolute left-full top-0 ml-2 w-64 bg-white shadow-lg rounded-md border border-gray-200 z-[160]">
                                                   <div className="py-2">
                                                     {subCategory.submenu.map(specificCase => (
                                                       <Link
@@ -1023,19 +1054,23 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                               </div>
                             ) : (
                               /* Regular dropdown layout for other menus */
-                              <div className="py-2">
+                              <div className="py-4">
                                 {item.submenu.map(subItem => (
                                   <Link
                                     key={subItem.name}
                                     href={subItem.href}
-                                    className="block px-4 py-2 text-sm text-neutral-700 hover:bg-primary/10 hover:text-primary transition-colors"
+                                    className="block px-6 py-3 text-base font-medium text-gray-700 hover:bg-gold-50 hover:text-burgundy-700 hover:translate-x-2 transition-all duration-200 group"
                                     onClick={() => setActiveDropdown(null)}
                                   >
-                                    {subItem.name}
+                                    <span className="flex items-center">
+                                      <span className="w-1.5 h-1.5 bg-gold-400 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                      {subItem.name}
+                                    </span>
                                   </Link>
                                 ))}
                               </div>
                             )}
+                          </div>
                           </div>
                         </motion.div>
                       )}

@@ -104,11 +104,25 @@ export const RetellVoiceChat: React.FC<RetellVoiceChatProps> = ({
           if (!analyzerRef.current) return;
           
           const dataArray = new Uint8Array(analyzerRef.current.frequencyBinCount);
-          analyzerRef.current.getByteFrequencyData(dataArray);
+          // Use time domain data for better speech detection
+          analyzerRef.current.getByteTimeDomainData(dataArray);
           
-          // Calculate average audio level
-          const average = dataArray.reduce((sum, value) => sum + value, 0) / dataArray.length;
-          setAudioLevel(average / 255); // Normalize to 0-1
+          // Calculate RMS (Root Mean Square) for better voice detection
+          let sum = 0;
+          for (let i = 0; i < dataArray.length; i++) {
+            const normalized = (dataArray[i] - 128) / 128; // Normalize to -1 to 1
+            sum += normalized * normalized;
+          }
+          const rms = Math.sqrt(sum / dataArray.length);
+          
+          // Scale and clamp the value (multiply by 4 for more sensitivity)
+          const level = Math.min(1, rms * 4);
+          setAudioLevel(level);
+          
+          // Debug logging (remove after testing)
+          if (level > 0.05) {
+            console.log('Audio level detected:', level);
+          }
           
           animationFrameRef.current = requestAnimationFrame(monitorAudioLevel);
         };

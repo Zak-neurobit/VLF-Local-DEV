@@ -73,7 +73,7 @@ export default function ModernHero({ language, enableAurora }: ModernHeroProps) 
   }, [t.rotatingWords.length]);
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-mesh-dark">
+    <section className="relative min-h-screen overflow-hidden bg-mesh-dark pt-[92px]">
       {/* Aurora Effect Background - Toggle with showAurora */}
       {showAurora && (
         <Suspense fallback={null}>

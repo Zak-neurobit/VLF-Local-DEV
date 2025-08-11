@@ -35,19 +35,20 @@ export const VoiceCallModal: React.FC<VoiceCallModalProps> = ({
     if (!isConnected || !isOpen) return;
 
     const interval = setInterval(() => {
-      // Only animate if there's actual audio (audioLevel > 0)
-      if (audioLevel > 0) {
-        setAnimatedBars(bars.map(() => {
+      // Animate bars based on audio level (more sensitive)
+      if (audioLevel > 0.01) { // Lower threshold for detection
+        setAnimatedBars(bars.map((_, index) => {
           // Create wave effect based on actual audio level
-          const baseHeight = audioLevel;
-          const variation = Math.random() * 30; // Add some variation
-          return Math.min(100, baseHeight + variation - 15);
+          const baseHeight = audioLevel * 100; // Convert to percentage
+          const waveOffset = Math.sin((index / bars.length) * Math.PI * 2 + Date.now() / 200) * 10;
+          const variation = Math.random() * 20; // Add some variation
+          return Math.min(100, Math.max(10, baseHeight + waveOffset + variation));
         }));
       } else {
         // No audio - show minimal bars
         setAnimatedBars(bars.map(() => 5));
       }
-    }, 100);
+    }, 50); // Faster update rate for smoother animation
 
     return () => clearInterval(interval);
   }, [isConnected, isOpen, bars, audioLevel]);

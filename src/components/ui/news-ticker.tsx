@@ -96,8 +96,8 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
 
   if (isLoading) {
     return (
-      <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-2 px-4 h-[32px] flex items-center">
-        <div className="max-w-7xl mx-auto text-center text-sm w-full">
+      <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-0.5 px-4 h-[20px] flex items-center">
+        <div className="max-w-7xl mx-auto text-center text-[10px] w-full">
           <span className="text-[#C9974D]">Loading news...</span>
         </div>
       </div>
@@ -106,8 +106,8 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
 
   if (error) {
     return (
-      <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-2 px-4 h-[32px] flex items-center">
-        <div className="max-w-7xl mx-auto text-center text-sm w-full">
+      <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-0.5 px-4 h-[20px] flex items-center">
+        <div className="max-w-7xl mx-auto text-center text-[10px] w-full">
           <span className="text-red-300">Error: {error}</span>
         </div>
       </div>
@@ -120,8 +120,8 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
     }
     // Return a placeholder to verify the component is mounting
     return (
-      <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-2 px-4 h-[32px] flex items-center">
-        <div className="max-w-7xl mx-auto text-center text-sm w-full">
+      <div className="bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-0.5 px-4 h-[20px] flex items-center">
+        <div className="max-w-7xl mx-auto text-center text-[10px] w-full">
           <span className="text-[#C9974D]">No news available</span>
         </div>
       </div>
@@ -138,14 +138,14 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
   return (
     <div
       className={cn(
-        'bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-2 px-4 overflow-hidden h-[32px] flex items-center',
+        'bg-gradient-to-r from-[#6B1F2E] to-[#8b2635] text-white py-0.5 px-4 overflow-hidden h-[20px] flex items-center',
         'shadow-lg', // Add shadow for visibility
         className
       )}
       style={{
         // Ensure visibility with inline styles as backup
         backgroundColor: '#6B1F2E',
-        minHeight: '32px',
+        minHeight: '20px',
         position: 'relative',
         zIndex: 100,
       }}
@@ -155,8 +155,8 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-4 flex-1">
           <div className="flex items-center space-x-2 shrink-0">
-            {currentItem?.urgent && <AlertCircle className="w-4 h-4 text-[#C9974D] animate-pulse" />}
-            <span className="text-[#C9974D] font-bold text-sm uppercase tracking-wider flex items-center">
+            {currentItem?.urgent && <AlertCircle className="w-3 h-3 text-[#C9974D] animate-pulse" />}
+            <span className="text-[#C9974D] font-bold text-[10px] uppercase tracking-wider flex items-center">
               YO PELEO™ NOTICIAS
               <span className="mx-2 text-white/50">|</span>
               {locale === 'es' ? 'Últimas Actualizaciones' : 'Latest Updates'}
@@ -168,8 +168,8 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
               href={currentItem?.url || '#'}
               className="group flex items-center space-x-2 hover:text-[#C9974D] transition-colors"
             >
-              <span className="truncate text-sm md:text-base">{displayTitle}</span>
-              <ChevronRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
+              <span className="truncate text-[10px] md:text-xs">{displayTitle}</span>
+              <ChevronRight className="w-3 h-3 shrink-0 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </div>

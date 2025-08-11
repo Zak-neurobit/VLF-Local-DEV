@@ -62,9 +62,9 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
       <div
         className="fixed top-0 left-0 right-0 z-[9999] block"
         style={{
-          height: '32px',
+          height: '20px',
           backgroundColor: '#6B1F2E', // Ensure visible background
-          minHeight: '32px',
+          minHeight: '20px',
           display: 'block',
           visibility: 'visible',
           opacity: 1,
@@ -77,7 +77,7 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
       </div>
 
       {/* Header - Adjusted to account for ticker height */}
-      <div className="fixed top-[32px] left-0 right-0 z-[90]">
+      <div className="fixed top-[20px] left-0 right-0 z-[200]">
         <ConsistentHeader
           language={currentLanguage}
           variant={variant === 'hero' ? 'transparent' : 'solid'}
@@ -85,7 +85,7 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
       </div>
 
       {/* Main content area with padding to account for fixed header + ticker */}
-      <div className={variant === 'hero' ? 'pt-0' : 'pt-[132px]'}>
+      <div className={variant === 'hero' ? 'pt-0' : 'pt-[116px]'}>
         {/* Hero variant starts from top, normal needs ticker + header space */}
         {/* Breadcrumbs */}
         {showBreadcrumbs && safePathname !== '/' && variant !== 'hero' && (

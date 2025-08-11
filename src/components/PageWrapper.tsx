@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Header } from '@/components/Header';
-import MainNav from '@/components/Navigation/MainNav';
 import { Footer } from '@/components/Footer';
 import { usePathname } from 'next/navigation';
 
@@ -28,9 +27,6 @@ export default function PageWrapper({ children, showNavigation = true }: PageWra
     <>
       {/* Header with contact info */}
       <Header language={language} />
-
-      {/* Main navigation */}
-      <MainNav />
 
       {/* Page content */}
       {children}
