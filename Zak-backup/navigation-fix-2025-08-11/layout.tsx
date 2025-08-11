@@ -179,9 +179,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-white">
         <NavigationProgress />
         <PartytownScripts />
-        {/* <DOMSafetyInitializer /> Temporarily disabled - may be blocking navigation */}
+        <DOMSafetyInitializer />
         <SafeSpeedOptimizer />
-        {/* <ExternalScriptGuardian /> Temporarily disabled - may be blocking navigation */}
+        <ExternalScriptGuardian />
         <ResourceDiagnostics />
         <StructuredData data={generateEnhancedOrganizationSchema()} />
         <GlobalReviewSchema />
@@ -203,15 +203,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ClientSessionProvider>
           <ErrorBoundary>
             <StreamErrorBoundary>
-              {/* DOMSafeWrapper temporarily disabled - was blocking navigation clicks */}
-              <MasterLayout>
-                {/* <ClientNavigation /> Removed - was intercepting all navigation */}
-                <SafeDynamicHreflang />
-                {children}
-              </MasterLayout>
-              <UnifiedModernChatbot />
-              <SafePerformanceMonitor />
-              <SafePartytownPerformanceMonitor />
+              <DOMSafeWrapper>
+                <MasterLayout>
+                  {/* <ClientNavigation /> Removed - was intercepting all navigation */}
+                  <SafeDynamicHreflang />
+                  {children}
+                </MasterLayout>
+                <UnifiedModernChatbot />
+                <SafePerformanceMonitor />
+                <SafePartytownPerformanceMonitor />
+              </DOMSafeWrapper>
             </StreamErrorBoundary>
           </ErrorBoundary>
         </ClientSessionProvider>

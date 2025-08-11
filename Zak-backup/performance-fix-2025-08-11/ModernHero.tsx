@@ -65,8 +65,10 @@ export default function ModernHero({ language }: ModernHeroProps) {
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-mesh-dark pt-[92px]">
-      {/* Floating gradient orb background - Reduced for performance */}
-      <div className="gradient-orb-mixed w-96 h-96 top-1/4 right-1/4 animate-float-orb opacity-50" />
+      {/* Floating gradient orbs background */}
+      <div className="gradient-orb-burgundy w-96 h-96 top-0 right-0 animate-float-orb opacity-60" />
+      <div className="gradient-orb-gold w-80 h-80 bottom-20 left-10 animate-float-orb-reverse opacity-50" />
+      <div className="gradient-orb-mixed w-72 h-72 top-1/2 right-1/3 opacity-40" />
       
       {/* Animated Background */}
       <div className="absolute inset-0">
@@ -78,17 +80,22 @@ export default function ModernHero({ language }: ModernHeroProps) {
         />
       </div>
 
-      {/* Particles Effect - Reduced for performance */}
+      {/* Particles Effect */}
       <div className="absolute inset-0">
-        {[...Array(15)].map((_, i) => (
-          <div
+        {[...Array(50)].map((_, i) => (
+          <motion.div
             key={i}
-            className="absolute h-1 w-1 rounded-full bg-primary/10 animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${3 + Math.random() * 2}s`,
+            className="absolute h-1 w-1 rounded-full bg-primary/20"
+            initial={{
+              x: Math.random() * 1920,
+              y: Math.random() * 1080,
+            }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{
+              duration: Math.random() * 5 + 5,
+              repeat: Infinity,
+              delay: Math.random() * 5,
+              ease: 'linear',
             }}
           />
         ))}
