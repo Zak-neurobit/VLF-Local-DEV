@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 
 export function NavigationProgress() {
@@ -8,30 +8,73 @@ export function NavigationProgress() {
   const [progress, setProgress] = useState(0);
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const currentPath = useRef(pathname);
+  const progressInterval = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
-    // Start loading
-    setIsLoading(true);
-    setProgress(30);
+    // Listen for any link clicks to start loading immediately
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const link = target.closest('a');
+      
+      if (!link || !link.href) return;
+      
+      try {
+        const url = new URL(link.href);
+        const currentUrl = new URL(window.location.href);
+        
+        // Check if it's an internal navigation
+        const isInternal = url.hostname === currentUrl.hostname;
+        const isNewTab = link.target === '_blank';
+        const isSamePage = url.pathname === currentUrl.pathname && url.hash === currentUrl.hash;
+        const isHashOnly = url.pathname === currentUrl.pathname && url.hash;
+        
+        if (isInternal && !isNewTab && !isSamePage && !isHashOnly) {
+          // Start loading immediately on click
+          setIsLoading(true);
+          setProgress(10);
+          
+          // Progressive loading animation
+          let currentProgress = 10;
+          progressInterval.current = setInterval(() => {
+            currentProgress += Math.random() * 10;
+            if (currentProgress > 85) currentProgress = 85;
+            setProgress(currentProgress);
+          }, 200);
+        }
+      } catch (error) {
+        // Ignore invalid URLs
+      }
+    };
 
-    // Simulate progress
-    const timer1 = setTimeout(() => setProgress(60), 100);
-    const timer2 = setTimeout(() => setProgress(90), 200);
+    // Add click listener
+    document.addEventListener('click', handleClick, true);
 
-    // Complete loading
-    const timer3 = setTimeout(() => {
+    return () => {
+      document.removeEventListener('click', handleClick, true);
+      if (progressInterval.current) {
+        clearInterval(progressInterval.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    // Complete loading when route changes
+    if (pathname !== currentPath.current) {
+      currentPath.current = pathname;
+      
+      // Clear the interval
+      if (progressInterval.current) {
+        clearInterval(progressInterval.current);
+      }
+      
+      // Complete the progress bar
       setProgress(100);
       setTimeout(() => {
         setIsLoading(false);
         setProgress(0);
       }, 200);
-    }, 300);
-
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
-    };
+    }
   }, [pathname, searchParams]);
 
   if (!isLoading) return null;

@@ -12,8 +12,6 @@ import { ghlService } from '@/services/gohighlevel';
 import { withAIAgentTracing, withDatabaseTracing } from '@/lib/telemetry/api-middleware';
 import { appointmentBookingHandler } from '@/lib/chat/appointment-booking-handler';
 import { SimpleChatBot } from '@/lib/chat/simple-chat-bot';
-import { MessageClassifier } from '@/lib/chat/message-classifier';
-import { ResponseCache } from '@/lib/chat/response-cache';
 
 export const runtime = 'nodejs';
 // Initialize OpenAI client
@@ -78,88 +76,6 @@ Pautas clave:
 - Derecho Familiar: Divorcio, custodia, manutención infantil`,
 };
 
-// Async function to save messages without blocking response
-async function saveMessageAsync(
-  userMessage: string, 
-  botResponse: string, 
-  sessionId: string | undefined,
-  userId: string | undefined,
-  language: string
-) {
-  try {
-    const prisma = getPrismaClient();
-    
-    // Run in background - don't await
-    Promise.resolve().then(async () => {
-      // Create anonymous user if needed
-      let actualUserId = userId;
-      if (!actualUserId) {
-        const anonymousEmail = `anonymous-${sessionId || Date.now()}@chat.vasquezlaw.com`;
-        const user = await prisma.user.upsert({
-          where: { email: anonymousEmail },
-          create: {
-            email: anonymousEmail,
-            name: 'Anonymous Chat User',
-            role: 'CLIENT',
-            language,
-          },
-          update: {}
-        });
-        actualUserId = user.id;
-      }
-
-      // Create or get conversation
-      const conversation = await prisma.conversation.upsert({
-        where: { 
-          id: sessionId || `temp-${Date.now()}`
-        },
-        create: {
-          userId: actualUserId,
-          channel: ConversationChannel.chat,
-          status: ConversationStatus.active,
-          language,
-          metadata: { source: 'website_chat' }
-        },
-        update: {}
-      });
-
-      // Save messages
-      await prisma.message.createMany({
-        data: [
-          {
-            conversationId: conversation.id,
-            role: MessageRole.user,
-            content: userMessage,
-            metadata: {}
-          },
-          {
-            conversationId: conversation.id,
-            role: MessageRole.assistant,
-            content: botResponse,
-            metadata: { instant: true }
-          }
-        ]
-      });
-
-      // Sync to GHL if configured
-      if (ghlService.isConfigured()) {
-        await ghlChatSync.syncChatMessage({
-          userId: actualUserId,
-          sessionId: conversation.id,
-          message: userMessage,
-          language: language as 'en' | 'es',
-          isUserMessage: true,
-          metadata: {}
-        });
-      }
-    }).catch(error => {
-      logger.error('Background save failed:', errorToLogMeta(error));
-    });
-  } catch (error) {
-    logger.error('Async save setup failed:', errorToLogMeta(error));
-  }
-}
-
 // Pre-defined responses for common questions
 const COMMON_RESPONSES = {
   en: {
@@ -190,59 +106,12 @@ async function handleChatPOST(request: NextRequest) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
     }
 
-    // Classify message for smart routing
-    const messageClass = MessageClassifier.classifyMessage(message);
-    logger.info('Message classified', { type: messageClass.type, confidence: messageClass.confidence });
-
-    // Check cache first for instant response
-    const cacheKey = ResponseCache.generateCacheKey(message, language);
-    const cachedResponse = ResponseCache.get(cacheKey);
-    if (cachedResponse) {
-      logger.info('Cache hit - returning instant response');
-      return NextResponse.json({ 
-        message: cachedResponse, 
-        cached: true,
-        responseTime: 'instant' 
-      });
-    }
-
-    // For simple greetings, return instant response
-    if (messageClass.type === 'greeting') {
-      const instantResponse = ResponseCache.getInstantResponse('greeting', language as 'en' | 'es');
-      if (instantResponse) {
-        // Cache for future use
-        ResponseCache.set(cacheKey, instantResponse);
-        // Async database save (non-blocking)
-        saveMessageAsync(message, instantResponse, sessionId, userId, language);
-        return NextResponse.json({ 
-          message: instantResponse,
-          responseTime: 'instant'
-        });
-      }
-    }
-
     // Check if OpenAI API key is configured
     const hasOpenAI = !!process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY !== 'your-openai-api-key-here';
     const hasGHL = ghlService.isConfigured();
     
     // Initialize simple chatbot as fallback
     const simpleChatBot = new SimpleChatBot(language as 'en' | 'es');
-
-    // For simple questions, use SimpleChatBot for instant response
-    if (messageClass.type === 'simple' && !messageClass.requiresDatabase) {
-      const simpleResponse = await simpleChatBot.generateResponse(message);
-      
-      // Cache the response
-      ResponseCache.set(cacheKey, simpleResponse);
-      
-      // Save async (non-blocking)
-      saveMessageAsync(message, simpleResponse, sessionId, userId, language);
-      
-      return NextResponse.json({ 
-        message: simpleResponse,
-        responseTime: 'fast'
-      });
-    }
 
     const prisma = getPrismaClient();
 
@@ -596,11 +465,6 @@ async function handleChatPOST(request: NextRequest) {
             data: { lastActive: new Date() },
           })
           .catch(err => logger.error('Failed to update user last active:', err));
-      }
-
-      // Cache the response for future use (except for appointments and emergency)
-      if (messageClass.type !== 'appointment' && messageClass.type !== 'emergency') {
-        ResponseCache.set(cacheKey, responseWithDisclaimer);
       }
 
       return NextResponse.json({

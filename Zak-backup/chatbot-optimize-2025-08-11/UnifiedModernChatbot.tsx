@@ -213,7 +213,7 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
       if (!socket?.connected) {
         const botMessage: Message = {
           id: (Date.now() + 1).toString(),
-          content: response.response || response.message, // Handle both response formats
+          content: response.message,
           sender: 'bot',
           timestamp: new Date(),
           type: 'text',
@@ -426,21 +426,12 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
                   <p className="text-xs opacity-80">Vasquez Law Firm</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
-                  className="text-xs px-2 py-1 bg-black/20 rounded-full hover:bg-black/30 transition-colors"
-                >
-                  {language === 'en' ? 'ES' : 'EN'}
-                </button>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="p-1 rounded-full hover:bg-black/20 transition-colors"
-                  aria-label="Close chat"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
+              <button
+                onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
+                className="text-xs px-2 py-1 bg-black/20 rounded-full hover:bg-black/30 transition-colors"
+              >
+                {language === 'en' ? 'ES' : 'EN'}
+              </button>
             </div>
 
             {/* Messages */}
@@ -488,11 +479,7 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
               {isLoading && (
                 <div className="flex justify-start">
                   <div className="bg-gray-800 text-white p-3 rounded-2xl">
-                    <div className="flex gap-1">
-                      <span className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '0ms' }}>●</span>
-                      <span className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '150ms' }}>●</span>
-                      <span className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '300ms' }}>●</span>
-                    </div>
+                    <Loader2 className="w-4 h-4 animate-spin" />
                   </div>
                 </div>
               )}
