@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+// PERFORMANCE: Framer Motion commented out for performance optimization\n// import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 
 // Page transition wrapper

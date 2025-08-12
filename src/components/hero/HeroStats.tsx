@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { gsap } from 'gsap';
+// PERFORMANCE: Animation libraries commented out for performance optimization
+// import { motion, AnimatePresence } from 'framer-motion';
+// import { gsap } from 'gsap';
 
 interface Stat {
   value: string;

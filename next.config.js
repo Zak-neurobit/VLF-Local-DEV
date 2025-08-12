@@ -497,21 +497,21 @@ const nextConfig = {
 
   // SWC minification is now default in Next.js 15
 
-  // Optimize CSS
-  modularizeImports: {
-    '@heroicons/react/24/outline': {
-      transform: '@heroicons/react/24/outline/{{member}}',
-    },
-    '@heroicons/react/24/solid': {
-      transform: '@heroicons/react/24/solid/{{member}}',
-    },
-    'lucide-react': {
-      transform: 'lucide-react/dist/esm/icons/{{member}}',
-    },
-    'react-icons/?(((\\w*)?/?)*)': {
-      transform: 'react-icons/{{ matches.[1] }}/{{ member }}',
-    },
-  },
+  // PERFORMANCE: Modularize imports commented out to reduce build complexity
+  // modularizeImports: {
+  //   '@heroicons/react/24/outline': {
+  //     transform: '@heroicons/react/24/outline/{{member}}',
+  //   },
+  //   '@heroicons/react/24/solid': {
+  //     transform: '@heroicons/react/24/solid/{{member}}',
+  //   },
+  //   'lucide-react': {
+  //     transform: 'lucide-react/dist/esm/icons/{{member}}',
+  //   },
+  //   'react-icons/?(((\\\\w*)?/?)*)': {
+  //     transform: 'react-icons/{{ matches.[1] }}/{{ member }}',
+  //   },
+  // },
 
   // Environment variables to expose to the browser
   env: {

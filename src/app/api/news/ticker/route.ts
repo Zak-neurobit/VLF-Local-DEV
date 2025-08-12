@@ -4,10 +4,6 @@ import { logger } from '@/lib/safe-logger';
 import { errorToLogMeta } from '@/lib/safe-logger';
 import { rssFeedMonitor } from '@/lib/rss/feed-monitor';
 
-// Simple in-memory cache for news ticker
-const newsCache = new Map<string, { data: any; timestamp: number }>();
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
-
 // Dynamic API route for live news using centralized RSS feed configuration
 
 interface NewsItem {
@@ -70,14 +66,6 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category') || 'immigration';
     const limit = parseInt(searchParams.get('limit') || '10');
     const locale = searchParams.get('locale') || 'en';
-    
-    // Check cache first
-    const cacheKey = `${category}-${limit}-${locale}`;
-    const cached = newsCache.get(cacheKey);
-    if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
-      logger.info(`News ticker cache hit for: ${cacheKey}`);
-      return NextResponse.json(cached.data);
-    }
 
     logger.info(`News ticker request: category=${category}, limit=${limit}, locale=${locale}`);
 
@@ -211,16 +199,12 @@ export async function GET(request: NextRequest) {
     const isLive = newsItems.some(item => item.live);
     const source = isLive ? 'live-rss' : 'database';
 
-    // Save to cache
-    const responseData = {
-      posts: newsItems,
-      source: source,
-      total: newsItems.length,
-    };
-    newsCache.set(cacheKey, { data: responseData, timestamp: Date.now() });
-
     return NextResponse.json(
-      responseData,
+      {
+        posts: newsItems,
+        source: source,
+        total: newsItems.length,
+      },
       {
         headers: {
           'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',

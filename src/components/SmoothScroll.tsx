@@ -1,13 +1,15 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// PERFORMANCE: GSAP commented out for performance optimization
+// import { gsap } from 'gsap';
+// import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { isBrowser, safeWindow } from '@/lib/utils/browser';
 
-if (isBrowser) {
-  gsap.registerPlugin(ScrollTrigger);
-}
+// PERFORMANCE: GSAP registration commented out
+// if (isBrowser) {
+//   gsap.registerPlugin(ScrollTrigger);
+// }
 
 interface SmoothScrollProps {
   children: React.ReactNode;

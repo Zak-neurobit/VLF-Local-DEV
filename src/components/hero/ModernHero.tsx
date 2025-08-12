@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+// PERFORMANCE: Framer Motion commented out for performance optimization
+// import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/design-system/Button';
 import { Heading, Text } from '@/components/design-system/Typography';
 import { TRADEMARK } from '@/lib/constants/trademark';
@@ -65,16 +66,16 @@ export default function ModernHero({ language }: ModernHeroProps) {
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-mesh-dark pt-[92px]">
-      {/* Floating gradient orb background - Reduced for performance */}
-      <div className="gradient-orb-mixed w-96 h-96 top-1/4 right-1/4 animate-float-orb opacity-50" />
+      {/* Floating gradient orbs background */}
+      <div className="gradient-orb-burgundy w-96 h-96 top-0 right-0 animate-float-orb opacity-60" />
+      <div className="gradient-orb-gold w-80 h-80 bottom-20 left-10 animate-float-orb-reverse opacity-50" />
+      <div className="gradient-orb-mixed w-72 h-72 top-1/2 right-1/3 opacity-40" />
       
       {/* Animated Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-burgundy-900/10 via-transparent to-gold-900/10" />
-        <motion.div
-          className="absolute inset-0"
-          animate={{ opacity: 1 }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+        <div
+          className="absolute inset-0 animate-pulse"
         />
       </div>
 
@@ -99,20 +100,24 @@ export default function ModernHero({ language }: ModernHeroProps) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             {/* Left Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+            <div
+              className="animate-fade-in-up"
+              // PERFORMANCE: Framer Motion props commented out
+              // initial={{ opacity: 0, x: -50 }}
+              // animate={{ opacity: 1, scale: 1, y: 0 }}
+              // transition={{ duration: 0.8 }}
             >
               {/* Badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="mb-6 inline-flex items-center gap-2 rounded-full bg-secondary/20 px-4 py-2 backdrop-blur-sm"
+              <div
+                className="mb-6 inline-flex items-center gap-2 rounded-full bg-secondary/20 px-4 py-2 backdrop-blur-sm animate-fade-in-up"
+                style={{ animationDelay: '0.2s' }}
+                // PERFORMANCE: Framer Motion props commented out
+                // initial={{ opacity: 0, y: 20 }}
+                // animate={{ opacity: 1, scale: 1, y: 0 }}
+                // transition={{ delay: 0.2 }}
               >
                 <span className="text-sm font-medium text-primary">{t.badge}</span>
-              </motion.div>
+              </div>
 
               {/* Title */}
               <Heading level={1} className="mb-6 text-white">
@@ -122,18 +127,20 @@ export default function ModernHero({ language }: ModernHeroProps) {
               {/* Rotating Text */}
               <div className="mb-8 flex items-baseline gap-3 text-2xl sm:text-3xl">
                 <span className="text-gray-300">{t.intro}</span>
-                <AnimatePresence mode="wait">
-                  <motion.span
+                {/* PERFORMANCE: AnimatePresence commented out */}
+                {/* <AnimatePresence mode="wait"> */}
+                  <span
                     key={currentWordIndex}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
-                    className="font-bold text-primary"
+                    className="font-bold text-primary transition-all duration-300 ease-in-out"
+                    // PERFORMANCE: Framer Motion props commented out
+                    // initial={{ opacity: 0, y: 20 }}
+                    // animate={{ opacity: 1, scale: 1, y: 0 }}
+                    // exit={{ opacity: 0, y: -20 }}
+                    // transition={{ duration: 0.3 }}
                   >
                     {t.rotatingWords[currentWordIndex]}
-                  </motion.span>
-                </AnimatePresence>
+                  </span>
+                {/* </AnimatePresence> */}
               </div>
 
               {/* Description */}
@@ -154,26 +161,30 @@ export default function ModernHero({ language }: ModernHeroProps) {
               {/* Stats */}
               <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
                 {t.stats.map((stat, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ delay: 0.8 + index * 0.1 }}
-                    className="text-center"
+                    className="text-center animate-fade-in-up"
+                    style={{ animationDelay: `${0.8 + index * 0.1}s` }}
+                    // PERFORMANCE: Framer Motion props commented out
+                    // initial={{ opacity: 0, y: 20 }}
+                    // animate={{ opacity: 1, scale: 1, y: 0 }}
+                    // transition={{ delay: 0.8 + index * 0.1 }}
                   >
                     <div className="text-3xl font-black text-primary">{stat.value}</div>
                     <div className="mt-1 text-sm text-gray-400">{stat.label}</div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
             {/* Right Content - Attorney Image */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative hidden lg:block"
+            <div
+              className="relative hidden lg:block animate-fade-in-up"
+              style={{ animationDelay: '0.4s' }}
+              // PERFORMANCE: Framer Motion props commented out
+              // initial={{ opacity: 0, scale: 0.8 }}
+              // animate={{ opacity: 1, scale: 1, y: 0 }}
+              // transition={{ duration: 0.8, delay: 0.4 }}
             >
               <div className="relative">
                 <Image
@@ -189,26 +200,29 @@ export default function ModernHero({ language }: ModernHeroProps) {
                   <div className="h-full w-full bg-gradient-to-t from-primary/20 to-transparent" />
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      <div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in-up"
+        style={{ animationDelay: '1.5s' }}
+        // PERFORMANCE: Framer Motion props commented out
+        // initial={{ opacity: 0 }}
+        // animate={{ opacity: 1, scale: 1, y: 0 }}
+        // transition={{ delay: 1.5 }}
       >
         <div className="flex h-10 w-6 items-start justify-center rounded-full border-2 border-primary/50 p-2">
-          <motion.div
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="h-3 w-1 rounded-full bg-primary"
+          <div
+            className="h-3 w-1 rounded-full bg-primary animate-bounce"
+            // PERFORMANCE: Framer Motion props commented out
+            // animate={{ opacity: 1, scale: 1, y: 0 }}
+            // transition={{ duration: 1.5, repeat: Infinity }}
           />
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

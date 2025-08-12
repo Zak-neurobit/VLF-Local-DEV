@@ -20,6 +20,7 @@ export const Header: React.FC<HeaderProps> = ({ language: propLanguage }) => {
   const navigation = {
     en: [
       { name: 'Home', href: '/' },
+      { name: 'Personal Injury', href: '/personal-injury' },
       { name: 'Practice Areas', href: '/practice-areas' },
       { name: 'Attorneys', href: '/attorneys' },
       { name: 'About', href: '/about' },
@@ -28,6 +29,7 @@ export const Header: React.FC<HeaderProps> = ({ language: propLanguage }) => {
     ],
     es: [
       { name: 'Inicio', href: '/' },
+      { name: 'Lesiones Personales', href: '/personal-injury' },
       { name: 'Áreas de Práctica', href: '/practice-areas' },
       { name: 'Abogados', href: '/attorneys' },
       { name: 'Sobre Nosotros', href: '/about' },

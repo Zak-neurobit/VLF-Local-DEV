@@ -782,20 +782,6 @@
   .animate-float-orb-reverse {
     animation: floatOrbReverse 25s ease-in-out infinite;
   }
-
-  /* Reverse spin animation for loading indicator */
-  @keyframes spin-reverse {
-    from {
-      transform: rotate(360deg);
-    }
-    to {
-      transform: rotate(0deg);
-    }
-  }
-
-  .animate-reverse {
-    animation-direction: reverse;
-  }
   
   /* Mesh gradient backgrounds */
   .bg-mesh-dark {

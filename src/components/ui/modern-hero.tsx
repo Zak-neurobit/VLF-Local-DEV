@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+// PERFORMANCE: Framer Motion commented out for performance optimization\n// import { motion, AnimatePresence } from 'framer-motion';
 import { Phone } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
