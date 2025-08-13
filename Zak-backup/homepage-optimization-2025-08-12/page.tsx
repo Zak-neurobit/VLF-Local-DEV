@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import HomePage from '@/components/HomePage';
-// ResourceHintsLite removed for performance
+import HomePage from '@/components/HomePage/SSRSafeHomePage';
+import ResourceHintsLite from '@/components/ResourceHintsLite';
 
 // Power-packed metadata with urgency and trust signals
 const powerTitle = 'Elite Immigration & Injury Lawyers NC/FL | 24/7 Help';
@@ -52,5 +52,10 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <HomePage />;
+  return (
+    <>
+      <ResourceHintsLite />
+      <HomePage />
+    </>
+  );
 }

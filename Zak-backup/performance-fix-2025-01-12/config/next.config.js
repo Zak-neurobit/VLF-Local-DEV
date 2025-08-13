@@ -37,30 +37,30 @@ const nextConfig = {
 
   // Build optimizations for large projects with limited memory
   experimental: {
-    // Enable turbo for faster builds and navigation
-    turbo: {
-      resolveAlias: {
-        '@': './src',
-      },
-    },
-    // Optimize for speed
-    workerThreads: true,
-    cpus: 4,
-    serverMinification: true,
+    // Reduce memory usage during build
+    workerThreads: false, // Disable worker threads to save memory
+    serverMinification: false, // Reduce build-time memory usage
     serverSourceMaps: false,
-    // Optimize package imports (removed framer-motion)
+    // Optimize package imports
     optimizePackageImports: [
       'lucide-react',
       'date-fns',
       '@radix-ui/react-dropdown-menu',
       '@radix-ui/react-select',
       '@radix-ui/react-tabs',
+      'framer-motion',
       'react-icons',
+      '@heroicons/react',
       'recharts',
       'react-hook-form',
+      '@react-three/fiber',
+      '@react-three/drei',
       'clsx',
       'tailwind-merge',
     ],
+    // For Netlify: Use more resources
+    workerThreads: true,
+    cpus: 4,
   },
 
   // Build optimizations to reduce memory usage

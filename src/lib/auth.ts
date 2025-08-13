@@ -133,8 +133,7 @@ export const authOptions: NextAuthOptions = {
           if (user.password.startsWith('$2')) {
             isPasswordValid = await bcrypt.compare(credentials.password, user.password);
           } else {
-            // Legacy bcrypt password - verify and migrate
-            const bcrypt = await import('bcryptjs');
+            // Try as plain bcrypt (for older hashes)
             isPasswordValid = await bcrypt.compare(credentials.password, user.password);
 
             // Password is valid

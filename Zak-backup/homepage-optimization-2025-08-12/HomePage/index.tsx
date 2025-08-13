@@ -2,17 +2,22 @@
 
 import React, { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
+import { useSafeEffect } from '@/lib/react-fixes/useEffectFix';
+import { withErrorBoundary } from '@/components/ErrorBoundary';
 
 // Removed framer-motion for performance - using CSS transitions instead
 
-// Import all components directly for SSR
+// Import critical components directly for faster loading
 import ModernHero from '../hero/ModernHero';
 import FirmHighlights from './FirmHighlights';
-import OfficeLocations from './OfficeLocations';
-import ResultsShowcase from './ResultsShowcase';
-import { TestimonialsSection } from './TestimonialsSection';
-import PracticeAreasShowcase from './PracticeAreasShowcase';
+
+// Lazy load only non-critical components
+const OfficeLocations = dynamic(() => import('./OfficeLocations'));
+const ResultsShowcase = dynamic(() => import('./ResultsShowcase'));
+const TestimonialsSection = dynamic(
+  () => import('./TestimonialsSection').then(mod => ({ default: mod.TestimonialsSection }))
+);
+const PracticeAreasShowcase = dynamic(() => import('./PracticeAreasShowcase'));
 
 // BACKUP: VirtualParalegal temporarily disabled - component saved in _backup_virtualparalegal/
 // const VirtualParalegal = dynamic(() => import('../VirtualParalegal'), {
@@ -25,33 +30,44 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' }) => {
   const [language, setLanguage] = useState<'en' | 'es'>(initialLanguage);
-  const router = useRouter();
   // BACKUP: VirtualParalegal state disabled
   // const [showVirtualParalegal, setShowVirtualParalegal] = useState(false);
 
-  // Navigate to appropriate language route
+  // Memoize callbacks to prevent unnecessary re-renders
   const handleLanguageChange = useCallback((lang: 'en' | 'es') => {
-    if (lang === 'es') {
-      router.push('/es');
-    } else {
-      router.push('/');
-    }
-  }, [router]);
+    setLanguage(lang);
+  }, []);
 
   // BACKUP: VirtualParalegal toggle disabled
   // const handleVirtualParalegalToggle = useCallback(() => {
   //   setShowVirtualParalegal(prev => !prev);
   // }, []);
 
-  // Simple useEffect for language detection
-  React.useEffect(() => {
-    if (typeof window !== 'undefined' && initialLanguage === 'en') {
-      const browserLang = navigator.language.toLowerCase();
-      if (browserLang.startsWith('es')) {
-        setLanguage('es');
+  useSafeEffect(
+    isMounted => {
+      // Only run client-side checks after hydration
+      if (typeof window !== 'undefined') {
+        // Only check browser language if no initial language provided and we're on English version
+        if (initialLanguage === 'en') {
+          const browserLang = navigator.language.toLowerCase();
+          if (browserLang.startsWith('es') && isMounted()) {
+            setLanguage('es');
+          }
+        }
+
+        // BACKUP: VirtualParalegal auto-show disabled
+        // const timer = setTimeout(() => {
+        //   if (!sessionStorage.getItem('paralegal-shown') && isMounted()) {
+        //     setShowVirtualParalegal(true);
+        //     sessionStorage.setItem('paralegal-shown', 'true');
+        //   }
+        // }, 10000);
+        //
+        // return () => clearTimeout(timer);
       }
-    }
-  }, [initialLanguage]);
+    },
+    [initialLanguage]
+  );
 
   return (
     <div className="min-h-screen bg-mesh-dark relative overflow-hidden">
@@ -141,4 +157,4 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
   );
 };
 
-export default HomePage;
+export default withErrorBoundary(HomePage);

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-// Removed framer-motion for performance
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   MessageCircle,
   X,
@@ -396,24 +396,30 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
   return (
     <>
       {/* Chat Button - Always visible for toggle */}
-      <button
+      <motion.button
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
         onClick={() => {
           console.log('Chat button clicked, toggling chat...');
           setIsOpen(!isOpen);
         }}
-        className="fixed bottom-6 right-6 z-[10000] bg-[#C9974D] text-white p-4 rounded-full shadow-2xl hover:bg-[#E5B568] transition-all duration-300 cursor-pointer animate-fadeInScale"
+        className="fixed bottom-6 right-6 z-[10000] bg-[#C9974D] text-white p-4 rounded-full shadow-2xl hover:bg-[#E5B568] transition-all duration-300 cursor-pointer"
         style={{ zIndex: 10000, pointerEvents: 'auto' }}
         aria-label="Open chat"
       >
         {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
-      </button>
+      </motion.button>
 
       {/* Chat Window - Reduced size by 20% (from 400x600 to 320x480) */}
-      {isOpen && (
-        <div
-          className="fixed bottom-24 right-6 z-[9999] w-[320px] h-[480px] bg-gray-900 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-slideUp"
-          style={{ zIndex: 9999 }}
-        >
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            className="fixed bottom-24 right-6 z-[9999] w-[320px] h-[480px] bg-gray-900 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            style={{ zIndex: 9999 }}
+          >
             {/* Header */}
             <div className="bg-[#C9974D] text-black p-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -434,9 +440,11 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
               {messages.map(message => (
-                <div
+                <motion.div
                   key={message.id}
-                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
                     className={`max-w-[80%] p-3 rounded-2xl ${
@@ -469,7 +477,7 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
                       })}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
               {isLoading && (
                 <div className="flex justify-start">
@@ -538,8 +546,9 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
                 className="hidden"
               />
             </div>
-          </div>
+          </motion.div>
         )}
+      </AnimatePresence>
       
       {/* Voice Assistant Modal - Minimal stable version */}
       <MinimalRetellClient

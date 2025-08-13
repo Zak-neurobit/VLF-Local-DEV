@@ -93,26 +93,14 @@ export const RetellGlassmorphicClient: React.FC<RetellGlassmorphicClientProps> =
     
     return () => {
       mounted = false;
-      // Cleanup on unmount - ensure call is properly ended
+      // Cleanup on unmount
       if (retellClientRef.current) {
-        console.log('⚠️ Component unmounting, ending call...');
         try {
-          // Try to stop the call
           retellClientRef.current.stopCall();
-          
-          // Remove event listeners
-          if (typeof retellClientRef.current.removeAllListeners === 'function') {
-            retellClientRef.current.removeAllListeners();
-          }
         } catch (e) {
           console.error('Error stopping call on unmount:', e);
         }
-        
-        // Clear the reference
         retellClientRef.current = null;
-        
-        // Reset flag
-        isStartingCall.current = false;
       }
     };
   }, [isActive]); // Only depend on isActive to avoid re-renders
@@ -284,69 +272,20 @@ export const RetellGlassmorphicClient: React.FC<RetellGlassmorphicClientProps> =
     }
   };
 
-  const endCall = async () => {
-    console.log('📞 Ending call... Current state:', {
-      isConnected,
-      isConnecting,
-      hasClient: !!retellClientRef.current
-    });
-    
-    // Set a flag to prevent multiple end call attempts
-    if (!retellClientRef.current && !isConnected) {
-      console.log('⚠️ No active call to end');
-      cleanup();
-      return;
-    }
-    
+  const endCall = () => {
+    console.log('📞 Ending call...');
     if (retellClientRef.current) {
       try {
-        console.log('🔌 Attempting to stop Retell call...');
-        
-        // Try to stop the call
-        const stopPromise = retellClientRef.current.stopCall();
-        
-        // If stopCall returns a promise, await it with a timeout
-        if (stopPromise && typeof stopPromise.then === 'function') {
-          await Promise.race([
-            stopPromise,
-            new Promise((_, reject) => 
-              setTimeout(() => reject(new Error('stopCall timeout')), 3000)
-            )
-          ]);
-          console.log('✅ Call stopped successfully');
-        } else {
-          // If it's not a promise, just continue
-          console.log('✅ stopCall executed (non-promise)');
-        }
+        retellClientRef.current.stopCall();
       } catch (error) {
-        console.error('❌ Error stopping call:', error);
-        // Continue with cleanup even if stopCall fails
-      }
-      
-      // Additional cleanup: remove all event listeners
-      try {
-        if (retellClientRef.current) {
-          // Remove all event listeners to ensure clean disconnection
-          retellClientRef.current.removeAllListeners?.();
-          console.log('🧹 Event listeners removed');
-        }
-      } catch (e) {
-        console.warn('Could not remove event listeners:', e);
+        console.error('Error stopping call:', error);
       }
     }
-    
-    // Always cleanup at the end
     cleanup();
-    console.log('📞 Call ended and cleaned up');
   };
 
   const cleanup = () => {
-    console.log('🧹 Running cleanup...');
-    
-    // Clear the client reference
     retellClientRef.current = null;
-    
-    // Reset all state
     setIsConnected(false);
     setIsConnecting(false);
     setTranscript('');
@@ -354,11 +293,6 @@ export const RetellGlassmorphicClient: React.FC<RetellGlassmorphicClientProps> =
     setIsAgentTalking(false);
     setIsUserTalking(false);
     setAudioLevel(0);
-    
-    // Reset the call in progress flag
-    isStartingCall.current = false;
-    
-    console.log('✅ Cleanup complete');
   };
 
   const toggleMute = () => {
@@ -375,10 +309,8 @@ export const RetellGlassmorphicClient: React.FC<RetellGlassmorphicClientProps> =
     }
   };
 
-  const handleEndCall = async () => {
-    console.log('🔴 End call button clicked');
-    setIsConnecting(true); // Show loading state while ending call
-    await endCall();
+  const handleEndCall = () => {
+    endCall();
     onClose();
   };
 

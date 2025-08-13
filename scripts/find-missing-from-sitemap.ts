@@ -2,19 +2,20 @@
 
 import { promises as fs } from 'fs';
 import { glob } from 'glob';
-import * as xml2js from 'xml2js';
+import { XMLParser } from 'fast-xml-parser';
 
 async function getUrlsFromSitemap(sitemapPath: string): Promise<string[]> {
   try {
     const content = await fs.readFile(sitemapPath, 'utf-8');
-    const parser = new xml2js.Parser();
-    const result = await parser.parseStringPromise(content);
+    const parser = new XMLParser();
+    const result = parser.parse(content);
 
     const urls: string[] = [];
     if (result.urlset && result.urlset.url) {
-      for (const url of result.urlset.url) {
-        if (url.loc && url.loc[0]) {
-          const pathname = new URL(url.loc[0]).pathname;
+      const urlArray = Array.isArray(result.urlset.url) ? result.urlset.url : [result.urlset.url];
+      for (const url of urlArray) {
+        if (url.loc) {
+          const pathname = new URL(url.loc).pathname;
           urls.push(pathname);
         }
       }

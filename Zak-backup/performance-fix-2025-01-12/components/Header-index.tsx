@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-// Removed framer-motion for performance
+import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { SimpleLanguageSwitcher } from '../Navigation/SimpleLanguageSwitcher';
 
@@ -93,8 +93,10 @@ export const Header: React.FC<HeaderProps> = ({ language: propLanguage }) => {
                   >
                     {item.name}
                     {pathname === item.href && (
-                      <div
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary transition-all duration-200"
+                      <motion.div
+                        layoutId="navbar-indicator"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
+                        transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
                       />
                     )}
                   </Link>
@@ -138,10 +140,15 @@ export const Header: React.FC<HeaderProps> = ({ language: propLanguage }) => {
         </div>
 
         {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div
-            className="lg:hidden bg-white border-t border-gray-200 animate-slideDown"
-          >
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="lg:hidden bg-white border-t border-gray-200"
+            >
               <div className="px-4 py-4 space-y-1">
                 {/* Mobile Logo */}
                 <div className="pb-4 mb-4 border-b border-gray-200 flex justify-center">
@@ -178,8 +185,9 @@ export const Header: React.FC<HeaderProps> = ({ language: propLanguage }) => {
                   </Link>
                 </div>
               </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/* Tagline Bar */}

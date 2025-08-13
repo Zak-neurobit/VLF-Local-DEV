@@ -38,16 +38,23 @@ const isEdgeRuntime =
   typeof (globalThis as { EdgeRuntime?: unknown }).EdgeRuntime !== 'undefined' ||
   (globalThis as { EdgeRuntime?: unknown }).EdgeRuntime !== undefined;
 
+// Create a simple console-based logger fallback
+function createConsoleFallbackLogger(): Logger {
+  return {
+    debug: (message: string, meta?: LogMeta) => console.debug(`[DEBUG] ${message}`, meta),
+    info: (message: string, meta?: LogMeta) => console.info(`[INFO] ${message}`, meta),
+    warn: (message: string, meta?: LogMeta) => console.warn(`[WARN] ${message}`, meta),
+    error: (message: string, meta?: LogMeta) => console.error(`[ERROR] ${message}`, meta),
+    log: (level: string, message: string, meta?: LogMeta) => console.log(`[${level.toUpperCase()}] ${message}`, meta),
+  };
+}
+
 if (typeof window === 'undefined' && !isEdgeRuntime) {
-  // Server-side (Node.js): Use Winston with safe fallback
-  const { createSafeWinstonLogger, createConsoleFallbackLogger } = require('./winston-safe');
-  
-  // Try to create Winston logger, fall back to console if it fails
-  const winstonLogger = createSafeWinstonLogger();
-  
-  if (winstonLogger) {
-    logger = winstonLogger;
-  } else {
+  // Server-side (Node.js): Use Pino logger
+  try {
+    const { pinoLogger } = require('../pino-logger');
+    logger = pinoLogger;
+  } catch (error) {
     // Use console fallback
     logger = createConsoleFallbackLogger();
   }

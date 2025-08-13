@@ -2,17 +2,40 @@
 
 import React, { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
+import { useSafeEffect } from '@/lib/react-fixes/useEffectFix';
+import { withErrorBoundary } from '@/components/ErrorBoundary';
 
-// Removed framer-motion for performance - using CSS transitions instead
+// Lazy load framer-motion to prevent SSR issues
+const motion = typeof window !== 'undefined' ? require('framer-motion').motion : null;
 
-// Import all components directly for SSR
-import ModernHero from '../hero/ModernHero';
-import FirmHighlights from './FirmHighlights';
-import OfficeLocations from './OfficeLocations';
-import ResultsShowcase from './ResultsShowcase';
-import { TestimonialsSection } from './TestimonialsSection';
-import PracticeAreasShowcase from './PracticeAreasShowcase';
+// Dynamic imports for performance
+const ModernHero = dynamic(() => import('../hero/ModernHero'), {
+  loading: () => <div className="h-screen bg-mesh-dark" />,
+  ssr: false,
+});
+
+const OfficeLocations = dynamic(() => import('./OfficeLocations'), {
+  loading: () => <div className="h-96 bg-gradient-subtle-dark" />,
+});
+
+const ResultsShowcase = dynamic(() => import('./ResultsShowcase'), {
+  loading: () => <div className="h-96 bg-gradient-subtle-dark" />,
+});
+
+const FirmHighlights = dynamic(() => import('./FirmHighlights'), {
+  loading: () => <div className="h-96 bg-gradient-subtle-dark" />,
+});
+
+const TestimonialsSection = dynamic(
+  () => import('./TestimonialsSection').then(mod => ({ default: mod.TestimonialsSection })),
+  {
+    loading: () => <div className="h-96 bg-gradient-subtle-dark" />,
+  }
+);
+
+const PracticeAreasShowcase = dynamic(() => import('./PracticeAreasShowcase'), {
+  loading: () => <div className="h-96 bg-gradient-subtle-dark" />,
+});
 
 // BACKUP: VirtualParalegal temporarily disabled - component saved in _backup_virtualparalegal/
 // const VirtualParalegal = dynamic(() => import('../VirtualParalegal'), {
@@ -25,33 +48,44 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' }) => {
   const [language, setLanguage] = useState<'en' | 'es'>(initialLanguage);
-  const router = useRouter();
   // BACKUP: VirtualParalegal state disabled
   // const [showVirtualParalegal, setShowVirtualParalegal] = useState(false);
 
-  // Navigate to appropriate language route
+  // Memoize callbacks to prevent unnecessary re-renders
   const handleLanguageChange = useCallback((lang: 'en' | 'es') => {
-    if (lang === 'es') {
-      router.push('/es');
-    } else {
-      router.push('/');
-    }
-  }, [router]);
+    setLanguage(lang);
+  }, []);
 
   // BACKUP: VirtualParalegal toggle disabled
   // const handleVirtualParalegalToggle = useCallback(() => {
   //   setShowVirtualParalegal(prev => !prev);
   // }, []);
 
-  // Simple useEffect for language detection
-  React.useEffect(() => {
-    if (typeof window !== 'undefined' && initialLanguage === 'en') {
-      const browserLang = navigator.language.toLowerCase();
-      if (browserLang.startsWith('es')) {
-        setLanguage('es');
+  useSafeEffect(
+    isMounted => {
+      // Only run client-side checks after hydration
+      if (typeof window !== 'undefined') {
+        // Only check browser language if no initial language provided and we're on English version
+        if (initialLanguage === 'en') {
+          const browserLang = navigator.language.toLowerCase();
+          if (browserLang.startsWith('es') && isMounted()) {
+            setLanguage('es');
+          }
+        }
+
+        // BACKUP: VirtualParalegal auto-show disabled
+        // const timer = setTimeout(() => {
+        //   if (!sessionStorage.getItem('paralegal-shown') && isMounted()) {
+        //     setShowVirtualParalegal(true);
+        //     sessionStorage.setItem('paralegal-shown', 'true');
+        //   }
+        // }, 10000);
+        //
+        // return () => clearTimeout(timer);
       }
-    }
-  }, [initialLanguage]);
+    },
+    [initialLanguage]
+  );
 
   return (
     <div className="min-h-screen bg-mesh-dark relative overflow-hidden">
@@ -60,9 +94,11 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
       <div className="gradient-orb-burgundy w-80 h-80 bottom-20 right-10 animate-float-orb-reverse" />
       <div className="gradient-orb-mixed w-64 h-64 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
       {/* Language Toggle - Fixed Position (hide on Spanish pages) */}
-      {initialLanguage === 'en' && (
-        <div
-          className="fixed right-2 sm:right-4 top-24 sm:top-28 z-40 flex gap-1 sm:gap-2 rounded-full bg-black/70 p-1 backdrop-blur-md border border-gold-400/20 animate-fadeIn"
+      {initialLanguage === 'en' && motion && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed right-2 sm:right-4 top-24 sm:top-28 z-40 flex gap-1 sm:gap-2 rounded-full bg-black/70 p-1 backdrop-blur-md border border-gold-400/20"
         >
           <button
             onClick={() => handleLanguageChange('en')}
@@ -84,7 +120,7 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
           >
             ES
           </button>
-        </div>
+        </motion.div>
       )}
 
       {/* Virtual Paralegal Trigger - Removed to prevent duplicate chat widgets */}
@@ -93,7 +129,43 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
       <ModernHero language={language} />
 
       {/* Trust Indicators for Spanish */}
-      {language === 'es' && (
+      {language === 'es' && motion && (
+        <motion.section
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="bg-gradient-to-b from-black/95 via-burgundy-950/10 to-black py-12 relative"
+        >
+          <div className="mx-auto max-w-7xl px-4">
+            <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+              {[
+                {
+                  number: '60+',
+                  label: 'Años de Experiencia',
+                },
+                { number: '30K+', label: 'Clientes Ayudados' },
+                { number: '4', label: 'Ubicaciones' },
+                { number: '24/7', label: 'Disponible' },
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="text-center"
+                >
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-black text-primary">
+                    {stat.number}
+                  </div>
+                  <div className="mt-2 text-xs sm:text-sm text-gray-400">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.section>
+      )}
+      {language === 'es' && !motion && (
         <section className="bg-gradient-to-b from-black/95 via-burgundy-950/10 to-black py-12 relative">
           <div className="mx-auto max-w-7xl px-4">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
@@ -141,4 +213,4 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
   );
 };
 
-export default HomePage;
+export default withErrorBoundary(HomePage);

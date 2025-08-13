@@ -2,7 +2,6 @@
 
 import React, { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
 
 // Removed framer-motion for performance - using CSS transitions instead
 
@@ -25,18 +24,13 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' }) => {
   const [language, setLanguage] = useState<'en' | 'es'>(initialLanguage);
-  const router = useRouter();
   // BACKUP: VirtualParalegal state disabled
   // const [showVirtualParalegal, setShowVirtualParalegal] = useState(false);
 
-  // Navigate to appropriate language route
+  // Memoize callbacks to prevent unnecessary re-renders
   const handleLanguageChange = useCallback((lang: 'en' | 'es') => {
-    if (lang === 'es') {
-      router.push('/es');
-    } else {
-      router.push('/');
-    }
-  }, [router]);
+    setLanguage(lang);
+  }, []);
 
   // BACKUP: VirtualParalegal toggle disabled
   // const handleVirtualParalegalToggle = useCallback(() => {

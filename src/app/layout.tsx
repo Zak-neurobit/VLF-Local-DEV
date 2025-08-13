@@ -1,84 +1,47 @@
-// Stream polyfill import removed - using safe stream operations instead
-import '@/lib/error-handler'; // Initialize global error handler
-import '@/lib/external-script-guardian'; // Handle external script errors
-import { StructuredData } from '@/components/SEO/StructuredData';
-import { generateEnhancedOrganizationSchema } from '@/components/SEO/enhanced-schemas';
 import type { Metadata } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { StreamErrorBoundary } from '@/components/StreamErrorBoundary';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { organizationSchema } from '@/lib/schema';
 import ClientSessionProvider from '@/components/providers/ClientSessionProvider';
-import dynamic from 'next/dynamic';
-import { UnifiedModernChatbot } from '@/components/ChatWidget/UnifiedModernChatbot';
 import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Toaster } from 'react-hot-toast';
+import { Suspense } from 'react';
+// Direct imports for server component
+import { UnifiedModernChatbot } from '@/components/ChatWidget/UnifiedModernChatbot';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
-// Moved DynamicHreflang to HydrationSafeComponents
-import { GlobalReviewSchema } from '@/components/SEO/GlobalReviewSchema';
-import { DynamicBreadcrumbSchema } from '@/components/SEO/DynamicBreadcrumbSchema';
-// Moved SpeedOptimizer to HydrationSafeComponents
-import { DOMSafeWrapper } from '@/components/DOMSafeWrapper';
-import { DOMSafetyInitializer } from '@/components/DOMSafetyInitializer';
-import { HydrationBoundary } from '@/components/HydrationBoundary';
-// Moved NavigationDebugger to HydrationSafeComponents
-import {
-  SafeDynamicHreflang,
-  SafeSpeedOptimizer,
-  SafePerformanceMonitor,
-  SafeNavigationDebugger,
-  SafePartytownPerformanceMonitor,
-} from '@/components/HydrationSafeComponents';
-import { Suspense } from 'react';
-// import { ClientNavigation } from '@/components/ClientNavigation'; // Removed - was intercepting navigation
-import { ExternalScriptGuardian } from '@/components/ExternalScriptGuardian';
-import { ResourceDiagnostics } from '@/components/ResourceDiagnostics';
-import { PartytownScripts } from '@/components/Partytown';
-
-// Removed SiteLayout import - will handle navigation directly
-
-// No dynamic imports needed with ClientOnly wrapper
-
-// Performance Monitor now imported from HydrationSafeComponents
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   preload: true,
   variable: '--font-inter',
-});
-const playfairDisplay = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-playfair',
-  display: 'swap',
-  preload: true,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
 });
 
+const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-playfair',
+  fallback: ['Georgia', 'Times New Roman', 'serif'],
+});
+
+// Basic metadata
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://www.vasquezlawnc.com'),
   title: {
-    default: 'Vasquez Law Firm - YO PELEO POR TI™ | Immigration & Personal Injury Attorneys',
-    template: '%s | Vasquez Law Firm - YO PELEO POR TI™',
+    default: 'Vasquez Law Firm - Immigration & Personal Injury Attorneys | YO PELEO POR TI™',
+    template: '%s | Vasquez Law Firm',
   },
   description:
-    'Honest, reliable legal representation at an affordable price. Over 35 years of experience. Immigration, personal injury, workers compensation, and criminal defense. Available 24/7 with AI assistance.',
+    'Trusted immigration and personal injury attorneys serving North Carolina and Florida. Over 30,000 cases won. Free consultation. Se Habla Español.',
   keywords:
-    'immigration lawyer, personal injury attorney, criminal defense, workers compensation, Raleigh NC, Charlotte NC, Orlando FL, yo peleo por ti, abogado de inmigracion, lesiones personales',
-  authors: [{ name: 'Vasquez Law Firm' }],
-  creator: 'Vasquez Law Firm',
-  publisher: 'Vasquez Law Firm',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL('https://www.vasquezlawnc.com'),
+    'immigration lawyer, personal injury attorney, Charlotte immigration attorney, Raleigh personal injury lawyer, Orlando immigration lawyer',
   openGraph: {
-    title: 'Vasquez Law Firm - YO PELEO POR TI™ | Immigration & Personal Injury Attorneys',
-    description:
-      'Honest, reliable legal representation. Over 30,000 cases won. U.S. Air Force veteran attorney. Available 24/7 with AI assistance in English & Spanish.',
+    type: 'website',
+    locale: 'en_US',
+    alternateLocale: 'es_ES',
     url: 'https://www.vasquezlawnc.com',
     siteName: 'Vasquez Law Firm',
     images: [
@@ -89,9 +52,6 @@ export const metadata: Metadata = {
         alt: 'Vasquez Law Firm - YO PELEO POR TI™',
       },
     ],
-    locale: 'en_US',
-    alternateLocale: ['es_ES', 'es_MX', 'es_US'],
-    type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
@@ -130,96 +90,36 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // Default to English to match middleware defaultLocale
-  const language = 'en';
-
   return (
     <html
-      lang={language}
+      lang="en"
       className={`${inter.className} ${inter.variable} ${playfairDisplay.variable}`}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
-        <link
-          rel="alternate"
-          type="application/rss+xml"
-          title="Vasquez Law Firm Blog RSS"
-          href="/blog/rss.xml"
-        />
-        {/* Basic hreflang tags - enhanced dynamically by DynamicHreflang component */}
-        <link rel="alternate" hrefLang="en" href="https://www.vasquezlawnc.com" />
-        <link rel="alternate" hrefLang="en-US" href="https://www.vasquezlawnc.com" />
-        <link rel="alternate" hrefLang="es" href="https://www.vasquezlawnc.com/es" />
-        <link rel="alternate" hrefLang="es-US" href="https://www.vasquezlawnc.com/es" />
-        <link rel="alternate" hrefLang="es-MX" href="https://www.vasquezlawnc.com/es" />
-        <link rel="alternate" hrefLang="x-default" href="https://www.vasquezlawnc.com" />
-
-        {/* Add hreflang sitemap for search engines */}
-        <link
-          rel="sitemap"
-          type="application/xml"
-          title="Hreflang Sitemap"
-          href="/hreflang-sitemap.xml"
-        />
-        <meta name="geo.region" content="US-NC" />
-        <meta name="geo.placename" content="Smithfield, Charlotte, Raleigh, Orlando" />
-        <meta name="geo.position" content="35.5085;-78.3394" />
-        <meta name="ICBM" content="35.5085, -78.3394" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body className="min-h-screen bg-white">
-        <PartytownScripts />
-        <DOMSafetyInitializer />
-        <SafeSpeedOptimizer />
-        <ExternalScriptGuardian />
-        <ResourceDiagnostics />
-        <StructuredData data={generateEnhancedOrganizationSchema()} />
-        <GlobalReviewSchema />
-        <DynamicBreadcrumbSchema />
-        <HydrationBoundary>
-          <div id="_rht_toaster">
-            <Toaster
-              position="top-right"
-              toastOptions={{
-                duration: 4000,
-                style: {
-                  background: '#333',
-                  color: '#fff',
-                },
-              }}
-            />
-          </div>
-        </HydrationBoundary>
+      <body className={`${inter.className} font-sans antialiased bg-white text-black min-h-screen`}>
         <ClientSessionProvider>
-          <ErrorBoundary>
-            <StreamErrorBoundary>
-              <DOMSafeWrapper>
-                <MasterLayout>
-                  {/* <ClientNavigation /> Removed - was intercepting all navigation */}
-                  <SafeDynamicHreflang />
-                  {children}
-                </MasterLayout>
-                <UnifiedModernChatbot />
-                <SafePerformanceMonitor />
-                <SafePartytownPerformanceMonitor />
-              </DOMSafeWrapper>
-            </StreamErrorBoundary>
-          </ErrorBoundary>
+          <MasterLayout>
+            {children}
+            <Toaster position="bottom-right" />
+            <Suspense fallback={null}>
+              <UnifiedModernChatbot />
+            </Suspense>
+          </MasterLayout>
         </ClientSessionProvider>
-        <Suspense fallback={null}>
-          <SafeNavigationDebugger />
-        </Suspense>
+        
+        {/* Analytics - lazy loaded */}
         <GoogleAnalytics />
-        <SpeedInsights />
-        <Analytics />
+        <Suspense fallback={null}>
+          <SpeedInsights />
+          <Analytics />
+        </Suspense>
       </body>
     </html>
   );
